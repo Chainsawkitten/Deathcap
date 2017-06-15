@@ -10,6 +10,11 @@ C++/OpenGL 3D Engine. See the [wiki](https://github.com/Chainsawkitten/HymnToBea
 3. Use CMake to generate make/project files for Hymn to Beauty.
 4. Build Hymn to Beauty.
 
+### Building with VR support
+1. Download [OpenVR](include_directories(externals/openvr/headers)) and put it in `externals/openvr`.
+2. Enable the VR_SUPPORT CMake option.
+3. Copy the relevant OpenVR binary release fromm externals/openvr/bin to the build directory.
+
 ## License
 Released under the [MIT license](LICENSE).
 
