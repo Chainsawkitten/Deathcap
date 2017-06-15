@@ -34,3 +34,6 @@ DocumentationGame
 *.exe
 *.out
 *.app
+
+# OpenVR
+externals/openvr
