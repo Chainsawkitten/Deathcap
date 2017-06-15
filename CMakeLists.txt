@@ -122,10 +122,15 @@ include_directories(externals/AngelScript/sdk/angelscript/include)
 include_directories(externals/AngelScript/sdk/add_on)
 
 # OpenVR
-include_directories(externals/openvr/headers)
-include_directories(externals/openvr/src/vrcommon)
-add_subdirectory(externals/openvr)
-set(OpenVR_LIBRARY ${LIBNAME})
+option(VR_SUPPORT "Build with VR support" OFF)
+if(VR_SUPPORT)
+    include_directories(externals/openvr/headers)
+    include_directories(externals/openvr/src/vrcommon)
+    add_subdirectory(externals/openvr)
+    set(OpenVR_LIBRARY ${LIBNAME})
+else()
+    set(OpenVR_LIBRARY "")
+endif()
 
 # This function should be passed a list of all files in a target. It will automatically generate
 # file groups following the directory hierarchy, so that the layout of the files in IDEs matches the
