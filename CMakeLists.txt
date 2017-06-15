@@ -121,6 +121,12 @@ add_subdirectory(externals/AngelScript/sdk/angelscript/projects/cmake)
 include_directories(externals/AngelScript/sdk/angelscript/include)
 include_directories(externals/AngelScript/sdk/add_on)
 
+# OpenVR
+include_directories(externals/openvr/headers)
+include_directories(externals/openvr/src/vrcommon)
+add_subdirectory(externals/openvr)
+set(OpenVR_LIBRARY ${LIBNAME})
+
 # This function should be passed a list of all files in a target. It will automatically generate
 # file groups following the directory hierarchy, so that the layout of the files in IDEs matches the
 # one in the filesystem.
@@ -380,7 +386,7 @@ create_directory_groups(${ENGINE_SRCS} ${ENGINE_HEADERS})
 set_property(SOURCE ${ENGINE_SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 add_library(Engine STATIC ${ENGINE_SRCS} ${ENGINE_HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine glew glfw ${GLFW_LIBRARIES} jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
+target_link_libraries(Engine glew glfw ${GLFW_LIBRARIES} jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp ${OpenVR_LIBRARY})
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)
 
