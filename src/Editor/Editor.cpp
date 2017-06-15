@@ -155,18 +155,18 @@ void Editor::Show(float deltaTime) {
     // Control the editor camera.
     if (Input()->Pressed(InputHandler::CAMERA)) {
         if (Input()->Triggered(InputHandler::CAMERA)) {
-            lastX = Input()->CursorX();
-            lastY = Input()->CursorY();
+            lastX = Input()->GetCursorX();
+            lastY = Input()->GetCursorY();
         }
         
         float sensitivity = 0.3f;
-        cameraEntity->rotation.x += sensitivity * (Input()->CursorX() - lastX);
-        cameraEntity->rotation.y += sensitivity * (Input()->CursorY() - lastY);
+        cameraEntity->rotation.x += sensitivity * (Input()->GetCursorX() - lastX);
+        cameraEntity->rotation.y += sensitivity * (Input()->GetCursorY() - lastY);
         
-        lastX = Input()->CursorX();
-        lastY = Input()->CursorY();
+        lastX = Input()->GetCursorX();
+        lastY = Input()->GetCursorY();
         
-        glm::mat4 orientation = cameraEntity->GetOrientation();
+        glm::mat4 orientation = cameraEntity->GetCameraOrientation();
         glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
         glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
         float speed = 3.0f * deltaTime;
