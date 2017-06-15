@@ -37,4 +37,5 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 Optional libraries:
 
 | Library | License |
+| --- | --- |
 | [OpenVR](https://github.com/ValveSoftware/openvr) | BSD |
