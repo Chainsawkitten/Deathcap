@@ -126,6 +126,7 @@ option(VR_SUPPORT "Build with VR support" OFF)
 if(VR_SUPPORT)
     include_directories(externals/openvr/headers)
     include_directories(externals/openvr/src/vrcommon)
+    set(BUILD_SHARED ON CACHE BOOL "Only works when compiled as a shared library" FORCE)
     add_subdirectory(externals/openvr)
     
     set(OpenVR_LIBRARY "openvr_api")
