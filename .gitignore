@@ -36,5 +36,4 @@ DocumentationGame
 *.app
 
 # OpenVR
-externals/openvr
 bin

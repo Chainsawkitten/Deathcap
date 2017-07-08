@@ -33,3 +33,7 @@
 	path = externals/AngelScript
 	url = https://github.com/IngwiePhoenix/AngelScript.git
 	ignore = dirty
+[submodule "externals/openvr"]
+	path = externals/openvr
+	url = https://github.com/Chainsawkitten/openvr.git
+	shallow = true
