@@ -104,3 +104,20 @@ target_include_directories(assimp INTERFACE assimp/include)
 add_subdirectory(AngelScript/sdk/angelscript/projects/cmake)
 target_include_directories(angelscript INTERFACE AngelScript/sdk/angelscript/include)
 target_include_directories(angelscript INTERFACE AngelScript/sdk/add_on)
+
+# Headerize
+add_subdirectory(Headerize)
+macro(ProcessWithHeaderize headervar sourcevar inputfile outdir)
+    get_filename_component(basefile ${inputfile} NAME)
+    set(outputfile ${outdir}/${basefile})
+    set_source_files_properties(${outputfile} PROPERTIES HEADER_ONLY TRUE)
+    add_custom_command(
+        OUTPUT ${outputfile}.hpp ${outputfile}.cpp
+        COMMAND Headerize ${inputfile} ${outputfile}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        DEPENDS ${inputfile}
+        COMMENT "Generating headers for ${inputfile}"
+    )
+    list(APPEND ${headervar} ${outputfile}.hpp)
+    list(APPEND ${sourcevar} ${outputfile}.cpp)
+endmacro()
