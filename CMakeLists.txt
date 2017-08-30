@@ -338,20 +338,4 @@ target_link_libraries(Editor Engine)
 set_property(TARGET Editor PROPERTY CXX_STANDARD 11)
 set_property(TARGET Editor PROPERTY CXX_STANDARD_REQUIRED ON)
 
-
-
-## Game ##
-set(GAME_SRCS
-        src/Game/main.cpp
-    )
-
-set(GAME_HEADERS
-        
-    )
-
-create_directory_groups(${GAME_SRCS} ${GAME_HEADERS})
-
-add_executable(Game ${GAME_SRCS} ${GAME_HEADERS})
-target_link_libraries(Game Engine)
-set_property(TARGET Game PROPERTY CXX_STANDARD 11)
-set_property(TARGET Game PROPERTY CXX_STANDARD_REQUIRED ON)
+add_subdirectory(src)
