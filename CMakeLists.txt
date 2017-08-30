@@ -19,107 +19,8 @@ elseif(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-# GLFW
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "Don't build GLFW docs" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Don't build GLFW examples" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "Don't build GLFW tests" FORCE)
-add_subdirectory(externals/glfw)
-include_directories(externals/glfw/include)
-
-# GLEW
-set(BUILD_UTILS OFF CACHE BOOL "Don't build GLEW utility programs" FORCE)
-add_subdirectory(externals/glew/build/cmake)
-include_directories(externals/glew/include)
-
-# SimpleIni
-include_directories(externals/simpleini)
-
-# GLM
-include_directories(externals/glm)
-
-# STB
-include_directories(externals/stb)
-
-# Imgui
-include_directories(externals/imgui)
-
-# OpenAL Soft
-set(ALSOFT_UTILS OFF CACHE BOOL "Don't build OpenAL Soft utility programs" FORCE)
-set(ALSOFT_EXAMPLES OFF CACHE BOOL "Don't build OpenAL Soft examples" FORCE)
-set(ALSOFT_TESTS OFF CACHE BOOL "Don't build OpenAL Soft tests" FORCE)
-add_subdirectory(externals/openal-soft)
-include_directories(externals/openal-soft/include)
-if(WIN32)
-    set(OPENAL_LIB OpenAL32)
-else()
-    set(OPENAL_LIB openal)
-endif()
-
-# JsonCpp
-set(JSONCPP_WITH_TESTS OFF CACHE BOOL "Don't build JsonCpp tests" FORCE)
-set(JSONCPP_WITH_POST_BUILD_UNITTEST OFF CACHE BOOL "Don't build JsonCpp unit tests" FORCE)
-set(JSONCPP_WITH_PKGCONFIG_SUPPORT OFF CACHE BOOL "Don't build JsonCpp with pkgconfig support" FORCE)
-add_subdirectory(externals/jsoncpp)
-include_directories(externals/jsoncpp/include)
-
-# Assimp
-set(ENABLE_BOOST_WORKAROUND ON CACHE BOOL "Building Assimp without boost" FORCE)
-set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "Don't build Assimp tools" FORCE)
-set(ASSIMP_BUILD_ASSIMP_VIEW OFF CACHE BOOL "Don't build Assimp view" FORCE)
-set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "Don't build Assimp tests" FORCE)
-set(UNUSED_MODEL_FORMATS
-        ASSIMP_BUILD_3DS_IMPORTER
-        ASSIMP_BUILD_3D_IMPORTER
-        ASSIMP_BUILD_3MF_IMPORTER
-        ASSIMP_BUILD_AC_IMPORTER
-        ASSIMP_BUILD_ASE_IMPORTER
-        ASSIMP_BUILD_ASSBIN_IMPORTER
-        ASSIMP_BUILD_ASSXML_IMPORTER
-        ASSIMP_BUILD_B3D_IMPORTER
-        ASSIMP_BUILD_BLEND_IMPORTER
-        ASSIMP_BUILD_BVH_IMPORTER
-        ASSIMP_BUILD_COB_IMPORTER
-        ASSIMP_BUILD_COLLADA_IMPORTER
-        ASSIMP_BUILD_CSM_IMPORTER
-        ASSIMP_BUILD_DXF_IMPORTER
-        ASSIMP_BUILD_GLTF_IMPORTER
-        ASSIMP_BUILD_HMP_IMPORTER
-        ASSIMP_BUILD_IFC_IMPORTER
-        ASSIMP_BUILD_IRRMESH_IMPORTER 
-        ASSIMP_BUILD_IRR_IMPORTER
-        ASSIMP_BUILD_LWO_IMPORTER
-        ASSIMP_BUILD_LWS_IMPORTER
-        ASSIMP_BUILD_MD2_IMPORTER
-        ASSIMP_BUILD_MD3_IMPORTER
-        ASSIMP_BUILD_MDC_IMPORTER
-        ASSIMP_BUILD_MDL_IMPORTER
-        ASSIMP_BUILD_MS3D_IMPORTER
-        ASSIMP_BUILD_NDO_IMPORTER
-        ASSIMP_BUILD_NFF_IMPORTER
-        ASSIMP_BUILD_OFF_IMPORTER
-        ASSIMP_BUILD_OGRE_IMPORTER
-        ASSIMP_BUILD_OPENGEX_IMPORTER
-        ASSIMP_BUILD_PLY_IMPORTER 
-        ASSIMP_BUILD_Q3BSP_IMPORTER
-        ASSIMP_BUILD_Q3D_IMPORTER
-        ASSIMP_BUILD_RAW_IMPORTER
-        ASSIMP_BUILD_SIB_IMPORTER
-        ASSIMP_BUILD_SMD_IMPORTER
-        ASSIMP_BUILD_STL_IMPORTER 
-        ASSIMP_BUILD_TERRAGEN_IMPORTER
-        ASSIMP_BUILD_XGL_IMPORTER
-        ASSIMP_BUILD_X_IMPORTER
-    )
-foreach(model_format ${UNUSED_MODEL_FORMATS})
-    set(${model_format} OFF CACHE BOOL "Don't build unused model formats" FORCE)
-endforeach()
-add_subdirectory(externals/assimp)
-include_directories(externals/assimp/include)
-
-# AngelScript
-add_subdirectory(externals/AngelScript/sdk/angelscript/projects/cmake)
-include_directories(externals/AngelScript/sdk/angelscript/include)
-include_directories(externals/AngelScript/sdk/add_on)
+# Externals
+add_subdirectory(externals)
 
 # This function should be passed a list of all files in a target. It will automatically generate
 # file groups following the directory hierarchy, so that the layout of the files in IDEs matches the
@@ -380,7 +281,7 @@ create_directory_groups(${ENGINE_SRCS} ${ENGINE_HEADERS})
 set_property(SOURCE ${ENGINE_SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 add_library(Engine STATIC ${ENGINE_SRCS} ${ENGINE_HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine glew glfw ${GLFW_LIBRARIES} jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
+target_link_libraries(Engine glew glfw ${GLFW_LIBRARIES} glm imgui stb simpleini jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)
 
