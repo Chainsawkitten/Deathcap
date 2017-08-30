@@ -333,10 +333,10 @@ set(EDITOR_HEADERS
 
 create_directory_groups(${EDITOR_SRCS} ${EDITOR_HEADERS})
 
-add_executable(HymnToBeauty ${EDITOR_SRCS} ${EDITOR_HEADERS})
-target_link_libraries(HymnToBeauty Engine)
-set_property(TARGET HymnToBeauty PROPERTY CXX_STANDARD 11)
-set_property(TARGET HymnToBeauty PROPERTY CXX_STANDARD_REQUIRED ON)
+add_executable(Editor ${EDITOR_SRCS} ${EDITOR_HEADERS})
+target_link_libraries(Editor Engine)
+set_property(TARGET Editor PROPERTY CXX_STANDARD 11)
+set_property(TARGET Editor PROPERTY CXX_STANDARD_REQUIRED ON)
 
 
 
