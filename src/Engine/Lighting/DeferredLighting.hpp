@@ -8,9 +8,6 @@ namespace Video {
     class Renderer;
     class Shader;
     class ShaderProgram;
-    namespace Geometry {
-        class Rectangle;
-    }
 }
 
 /// Holds the frame buffers used for deferred rendering.
@@ -63,8 +60,6 @@ class DeferredLighting {
         
         GLuint frameBufferObject;
         GLuint depthHandle;
-        
-        Video::Geometry::Rectangle* rectangle;
         
         Video::Shader* vertexShader;
         Video::Shader* fragmentShader;

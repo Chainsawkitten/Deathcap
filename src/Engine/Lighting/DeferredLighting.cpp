@@ -4,7 +4,6 @@
 
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include <Video/Geometry/Rectangle.hpp>
 #include <Video/Shader/Shader.hpp>
 #include <Video/Shader/ShaderProgram.hpp>
 #include "Post.vert.hpp"
@@ -20,6 +19,9 @@
 #include <Video/Culling/Frustum.hpp>
 #include "../MainWindow.hpp"
 
+#include <Video/Renderer.hpp>
+#include <Video/Lighting/Light.hpp>
+
 using namespace Video;
 
 DeferredLighting::DeferredLighting(Renderer* renderer) {
@@ -28,8 +30,6 @@ DeferredLighting::DeferredLighting(Renderer* renderer) {
     vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(DEFERRED_FRAG, DEFERRED_FRAG_LENGTH, GL_FRAGMENT_SHADER);
     shaderProgram = Managers().resourceManager->CreateShaderProgram({ vertexShader, fragmentShader });
-    
-    rectangle = Managers().resourceManager->CreateRectangle();
     
     // Create the FBO
     glGenFramebuffers(1, &frameBufferObject);
@@ -106,82 +106,43 @@ void DeferredLighting::ResetTarget() {
 }
 
 void DeferredLighting::Render(World& world, const Entity* camera) {
-    // Disable depth testing
-    GLboolean depthTest = glIsEnabled(GL_DEPTH_TEST);
-    glEnable(GL_DEPTH_TEST);
-    
-    GLint oldDepthFunctionMode;
-    glGetIntegerv(GL_DEPTH_FUNC, &oldDepthFunctionMode);
-    glDepthFunc(GL_ALWAYS);
-    
-    // Blending enabled for handling multiple light sources
-    GLboolean blend = glIsEnabledi(GL_BLEND, 0);
-    glEnablei(GL_BLEND, 0);
-    glBlendEquationi(0, GL_FUNC_ADD);
-    glBlendFunci(0, GL_ONE, GL_ONE);
-    
-    shaderProgram->Use();
-    
-    BindForReading();
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    glBindVertexArray(rectangle->GetVertexArray());
-    
-    // Set uniforms.
-    glUniform1i(shaderProgram->GetUniformLocation("tDiffuse"), DeferredLighting::DIFFUSE);
-    glUniform1i(shaderProgram->GetUniformLocation("tNormals"), DeferredLighting::NORMAL);
-    glUniform1i(shaderProgram->GetUniformLocation("tSpecular"), DeferredLighting::SPECULAR);
-    glUniform1i(shaderProgram->GetUniformLocation("tGlow"), DeferredLighting::GLOW);
-    glUniform1i(shaderProgram->GetUniformLocation("tDepth"), DeferredLighting::NUM_TEXTURES);
-    glUniform1i(shaderProgram->GetUniformLocation("lightCount"), 32);
-    
     // Get the camera matrices.
     glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position));
     glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
     glm::mat4 viewProjectionMat(projectionMat * viewMat);
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &glm::inverse(projectionMat)[0][0]);
-    
     float cutOff;
     AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
     
-    unsigned int lightIndex = 0U;
-    
     // Render all directional lights.
     std::vector<Component::DirectionalLight*>& directionalLights = world.GetComponents<Component::DirectionalLight>();
-    for (Component::DirectionalLight* light : directionalLights) {
-        Entity* lightEntity = light->entity;
+    for (Component::DirectionalLight* directionalLight : directionalLights) {
+        Entity* lightEntity = directionalLight->entity;
         glm::vec4 direction(glm::vec4(lightEntity->GetDirection(), 0.f));
-        glUniform4fv(lightUniforms[lightIndex].position, 1, &(viewMat * -direction)[0]);
-        glUniform3fv(lightUniforms[lightIndex].intensities, 1, &light->color[0]);
-        glUniform1f(lightUniforms[lightIndex].attenuation, 1.f);
-        glUniform1f(lightUniforms[lightIndex].ambientCoefficient, light->ambientCoefficient);
-        glUniform1f(lightUniforms[lightIndex].coneAngle, 0.f);
-        glUniform3fv(lightUniforms[lightIndex].direction, 1, &glm::vec3(0.f, 0.f, 0.f)[0]);
-        
-        if (++lightIndex >= lightCount) {
-            lightIndex = 0U;
-            glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-        }
+        Light light;
+        light.position = viewMat * -direction;
+        light.intensities = directionalLight->color;
+        light.attenuation = 1.f;
+        light.ambientCoefficient = directionalLight->ambientCoefficient;
+        light.coneAngle = 0.f;
+        light.direction = glm::vec3(0.f, 0.f, 0.f);
+        renderer->AddLight(light);
     }
     
     // Render all spot lights.
     std::vector<Component::SpotLight*>& spotLights = world.GetComponents<Component::SpotLight>();
-    for (Component::SpotLight* light : spotLights) {
-        Entity* lightEntity = light->entity;
+    for (Component::SpotLight* spotLight : spotLights) {
+        Entity* lightEntity = spotLight->entity;
         glm::vec4 direction(viewMat * glm::vec4(lightEntity->GetDirection(), 0.f));
         glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
-        glUniform4fv(lightUniforms[lightIndex].position, 1, &(viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0)))[0]);
-        glUniform3fv(lightUniforms[lightIndex].intensities, 1, &(light->color * light->intensity)[0]);
-        glUniform1f(lightUniforms[lightIndex].attenuation, light->attenuation);
-        glUniform1f(lightUniforms[lightIndex].ambientCoefficient, light->ambientCoefficient);
-        glUniform1f(lightUniforms[lightIndex].coneAngle, light->coneAngle);
-        glUniform3fv(lightUniforms[lightIndex].direction, 1, &glm::vec3(direction)[0]);
-        
-        if (++lightIndex >= lightCount) {
-            lightIndex = 0U;
-            glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-        }
+        Light light;
+        light.position = viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
+        light.intensities = spotLight->color * spotLight->intensity;
+        light.attenuation = spotLight->attenuation;
+        light.ambientCoefficient = spotLight->ambientCoefficient;
+        light.coneAngle = spotLight->coneAngle;
+        light.direction = glm::vec3(direction);
+        renderer->AddLight(light);
     }
     
     // At which point lights should be cut off (no longer contribute).
@@ -189,39 +150,27 @@ void DeferredLighting::Render(World& world, const Entity* camera) {
     
     // Render all point lights.
     std::vector<Component::PointLight*>& pointLights = world.GetComponents<Component::PointLight>();
-    for (Component::PointLight* light : pointLights) {
-        Entity* lightEntity = light->entity;
-        float scale = sqrt((1.f / cutOff - 1.f) / light->attenuation);
+    for (Component::PointLight* pointLight : pointLights) {
+        Entity* lightEntity = pointLight->entity;
+        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->position) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
         
         Frustum frustum(viewProjectionMat * modelMat);
         if (frustum.Collide(aabb)) {
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
-            glUniform4fv(lightUniforms[lightIndex].position, 1, &(viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0)))[0]);
-            glUniform3fv(lightUniforms[lightIndex].intensities, 1, &(light->color * light->intensity)[0]);
-            glUniform1f(lightUniforms[lightIndex].attenuation, light->attenuation);
-            glUniform1f(lightUniforms[lightIndex].ambientCoefficient, light->ambientCoefficient);
-            glUniform1f(lightUniforms[lightIndex].coneAngle, 180.f);
-            glUniform3fv(lightUniforms[lightIndex].direction, 1, &glm::vec3(1.f, 0.f, 0.f)[0]);
-            
-            if (++lightIndex >= lightCount) {
-                lightIndex = 0U;
-                glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-            }
+            Light light;
+            light.position = viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
+            light.intensities = pointLight->color * pointLight->intensity;
+            light.attenuation = pointLight->attenuation;
+            light.ambientCoefficient = pointLight->ambientCoefficient;
+            light.coneAngle = 180.f;
+            light.direction = glm::vec3(1.f, 0.f, 0.f);
+            renderer->AddLight(light);
         }
     }
     
-    if (lightIndex != 0U) {
-        glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
-        glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-    }
-    
-    if (!depthTest)
-        glDisable(GL_DEPTH_TEST);
-    if (!blend)
-        glDisablei(GL_BLEND, 0);
-    
-    glDepthFunc(oldDepthFunctionMode);
+    // Render lights.
+    renderer->Light(glm::inverse(projectionMat));
 }
 
 void DeferredLighting::AttachTexture(GLuint texture, unsigned int width, unsigned int height, GLenum attachment, GLint internalFormat) {
