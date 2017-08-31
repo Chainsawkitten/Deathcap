@@ -7,6 +7,9 @@
 
 namespace Video {
     class ShaderProgram;
+    namespace Geometry {
+        class Rectangle;
+    }
     
     /// Holds the frame buffers used for deferred rendering.
     class Lighting {
@@ -55,6 +58,7 @@ namespace Video {
             GLuint frameBufferObject;
             GLuint depthHandle;
             
+            Geometry::Rectangle* rectangle;
             ShaderProgram* shaderProgram;
             
             std::vector<Light> lights;

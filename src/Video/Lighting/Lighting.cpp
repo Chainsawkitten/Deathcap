@@ -1,6 +1,7 @@
 #include "Lighting.hpp"
 
 #include <Common/Log.hpp>
+#include "../Geometry/Rectangle.hpp"
 #include "../Shader/Shader.hpp"
 #include "../Shader/ShaderProgram.hpp"
 #include "Post.vert.hpp"
@@ -15,6 +16,8 @@ Lighting::Lighting(const glm::vec2& screenSize) {
     shaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
     delete fragmentShader;
+    
+    rectangle = new Geometry::Rectangle();
     
     // Create the FBO
     glGenFramebuffers(1, &frameBufferObject);
@@ -76,6 +79,7 @@ Lighting::~Lighting() {
         glDeleteTextures(1, &depthHandle);
     
     delete shaderProgram;
+    delete rectangle;
 }
 
 void Lighting::SetTarget() {
@@ -110,7 +114,7 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix) {
     BindForReading();
     glClear(GL_COLOR_BUFFER_BIT);
     
-    /*glBindVertexArray(rectangle->GetVertexArray());*/
+    glBindVertexArray(rectangle->GetVertexArray());
     
     // Set uniforms.
     glUniform1i(shaderProgram->GetUniformLocation("tDiffuse"), Lighting::DIFFUSE);
@@ -133,13 +137,13 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix) {
         
         if (++lightIndex >= lightCount) {
             lightIndex = 0U;
-            //glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+            glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
         }
     }
     
     if (lightIndex != 0U) {
         glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
-        //glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+        glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
     
     if (!depthTest)
