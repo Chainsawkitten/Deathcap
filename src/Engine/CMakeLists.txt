@@ -197,6 +197,6 @@ endforeach()
 set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine glew glfw ${GLFW_LIBRARIES} glm imgui stb simpleini jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
+target_link_libraries(Engine Renderer glfw ${GLFW_LIBRARIES} imgui stb simpleini jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)
