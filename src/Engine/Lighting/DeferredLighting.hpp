@@ -6,8 +6,6 @@ class World;
 class Entity;
 namespace Video {
     class Renderer;
-    class Shader;
-    class ShaderProgram;
 }
 
 /// Holds the frame buffers used for deferred rendering.
@@ -50,10 +48,6 @@ class DeferredLighting {
         
         GLuint frameBufferObject;
         GLuint depthHandle;
-        
-        Video::Shader* vertexShader;
-        Video::Shader* fragmentShader;
-        Video::ShaderProgram* shaderProgram;
         
         // Store light uniform locations so we don't have to get them every frame.
         static const unsigned int lightCount = 32U;

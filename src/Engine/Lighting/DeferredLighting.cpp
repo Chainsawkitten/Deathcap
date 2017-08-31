@@ -2,13 +2,6 @@
 
 #include <Common/Log.hpp>
 
-#include "../Manager/Managers.hpp"
-#include "../Manager/ResourceManager.hpp"
-#include <Video/Shader/Shader.hpp>
-#include <Video/Shader/ShaderProgram.hpp>
-#include "Post.vert.hpp"
-#include "Deferred.frag.hpp"
-
 #include "../Entity/Entity.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/DirectionalLight.hpp"
@@ -26,10 +19,6 @@ using namespace Video;
 
 DeferredLighting::DeferredLighting(Renderer* renderer) {
     this->renderer = renderer;
-    
-    vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
-    fragmentShader = Managers().resourceManager->CreateShader(DEFERRED_FRAG, DEFERRED_FRAG_LENGTH, GL_FRAGMENT_SHADER);
-    shaderProgram = Managers().resourceManager->CreateShaderProgram({ vertexShader, fragmentShader });
     
     // Create the FBO
     glGenFramebuffers(1, &frameBufferObject);
@@ -68,16 +57,6 @@ DeferredLighting::DeferredLighting(Renderer* renderer) {
     
     // Default framebuffer
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-    
-    // Store light uniform locations.
-    for (unsigned int lightIndex = 0; lightIndex < lightCount; ++lightIndex) {
-        lightUniforms[lightIndex].position = shaderProgram->GetUniformLocation(("lights[" + std::to_string(lightIndex) + "].position").c_str());
-        lightUniforms[lightIndex].intensities = shaderProgram->GetUniformLocation(("lights[" + std::to_string(lightIndex) + "].intensities").c_str());
-        lightUniforms[lightIndex].attenuation = shaderProgram->GetUniformLocation(("lights[" + std::to_string(lightIndex) + "].attenuation").c_str());
-        lightUniforms[lightIndex].ambientCoefficient = shaderProgram->GetUniformLocation(("lights[" + std::to_string(lightIndex) + "].ambientCoefficient").c_str());
-        lightUniforms[lightIndex].coneAngle = shaderProgram->GetUniformLocation(("lights[" + std::to_string(lightIndex) + "].coneAngle").c_str());
-        lightUniforms[lightIndex].direction = shaderProgram->GetUniformLocation(("lights[" + std::to_string(lightIndex) + "].direction").c_str());
-    }
 }
 
 DeferredLighting::~DeferredLighting() {
@@ -89,12 +68,6 @@ DeferredLighting::~DeferredLighting() {
     
     if (depthHandle != 0)
         glDeleteTextures(1, &depthHandle);
-    
-    Managers().resourceManager->FreeShaderProgram(shaderProgram);
-    Managers().resourceManager->FreeShader(vertexShader);
-    Managers().resourceManager->FreeShader(fragmentShader);
-    
-    Managers().resourceManager->FreeRectangle();
 }
 
 void DeferredLighting::Render(World& world, const Entity* camera) {
