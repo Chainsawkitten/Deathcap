@@ -140,53 +140,7 @@ set(HEADERS
 
 create_directory_groups(${SRCS} ${HEADERS})
 
-# Setup embedded source
-set(EMBEDDED_INPUT
-    ../../shaders/Default2D.vert
-    ../../shaders/Default3D.vert
-    ../../shaders/Default3D.frag
-    ../../shaders/Deferred.frag
-    ../../shaders/DebugDrawing.vert
-    ../../shaders/DebugDrawing.frag
-    ../../shaders/EditorEntity.vert
-    ../../shaders/EditorEntity.geom
-    ../../shaders/EditorEntity.frag
-    ../../shaders/Font.vert
-    ../../shaders/Font.frag
-    ../../shaders/SingleColor2D.frag
-    ../../shaders/Skinning.vert
-    ../../shaders/Texture2D.frag
-    ../../shaders/Particle.vert
-    ../../shaders/Particle.geom
-    ../../shaders/Particle.frag
-    ../../shaders/Post.vert
-    ../../shaders/PostColor.frag
-    ../../shaders/PostCopy.frag
-    ../../shaders/PostDither.frag
-    ../../shaders/PostFog.frag
-    ../../shaders/PostFXAA.frag
-    ../../shaders/PostGamma.frag
-    ../../shaders/PostGlow.frag
-    ../../shaders/PostGlowBlur.frag
-    ../../assets/ABeeZee.ttf
-    ../../assets/Camera.png
-    ../../assets/DefaultDiffuse.png
-    ../../assets/DefaultNormal.png
-    ../../assets/DefaultSpecular.png
-    ../../assets/DefaultGlow.png
-    ../../assets/Light.png
-    ../../assets/ParticleAtlas.png
-    ../../assets/ParticleEmitter.png
-    ../../assets/SoundSource.png
-)
-
-foreach(item ${EMBEDDED_INPUT})
-    ProcessWithHeaderize(EMBEDDED_HEADER EMBEDDED_SOURCE ${item} ${CMAKE_CURRENT_BINARY_DIR})
-endforeach()
-
-set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
-
-add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
+add_library(Engine STATIC ${SRCS} ${HEADERS})
 target_link_libraries(Engine Video imgui stb simpleini jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)
