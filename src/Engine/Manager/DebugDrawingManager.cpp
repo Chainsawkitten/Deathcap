@@ -8,7 +8,7 @@
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include <Renderer/Shader/Shader.hpp>
-#include "../Shader/ShaderProgram.hpp"
+#include <Renderer/Shader/ShaderProgram.hpp>
 #include "DebugDrawing.vert.hpp"
 #include "DebugDrawing.frag.hpp"
 

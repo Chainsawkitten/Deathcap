@@ -15,7 +15,7 @@
 #include "ParticleEmitter.png.hpp"
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
-#include "../Shader/ShaderProgram.hpp"
+#include <Renderer/Shader/ShaderProgram.hpp>
 #include "../RenderProgram/SkinRenderProgram.hpp"
 #include "../RenderProgram/StaticRenderProgram.hpp"
 #include "../Entity/Entity.hpp"

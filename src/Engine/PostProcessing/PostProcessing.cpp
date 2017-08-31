@@ -3,7 +3,7 @@
 #include "../RenderTarget.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include "../Shader/ShaderProgram.hpp"
+#include <Renderer/Shader/ShaderProgram.hpp>
 #include "../Geometry/Rectangle.hpp"
 #include "Filter.hpp"
 #include "../MainWindow.hpp"

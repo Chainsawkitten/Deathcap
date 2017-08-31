@@ -1,7 +1,7 @@
 #include "Texture2D.hpp"
 
 #include "../Geometry/Rectangle.hpp"
-#include "../Shader/ShaderProgram.hpp"
+#include <Renderer/Shader/ShaderProgram.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_JPEG

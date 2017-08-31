@@ -1,9 +1,11 @@
 set(SRCS
         Shader/Shader.cpp
+        Shader/ShaderProgram.cpp
     )
 
 set(HEADERS
         Shader/Shader.hpp
+        Shader/ShaderProgram.hpp
     )
 
 create_directory_groups(${SRCS} ${HEADERS})

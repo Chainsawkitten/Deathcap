@@ -10,7 +10,7 @@
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include <Renderer/Shader/Shader.hpp>
-#include "../Shader/ShaderProgram.hpp"
+#include <Renderer/Shader/ShaderProgram.hpp>
 #include "../Texture/Texture2D.hpp"
 #include "Particle.vert.hpp"
 #include "Particle.geom.hpp"

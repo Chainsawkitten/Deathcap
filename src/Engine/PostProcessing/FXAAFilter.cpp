@@ -1,7 +1,7 @@
 #include "FXAAFilter.hpp"
 
 #include <Renderer/Shader/Shader.hpp>
-#include "../Shader/ShaderProgram.hpp"
+#include <Renderer/Shader/ShaderProgram.hpp>
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include "Post.vert.hpp"
