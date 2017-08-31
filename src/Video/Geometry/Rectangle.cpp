@@ -1,9 +1,5 @@
 #include "Rectangle.hpp"
 
-#include <Video/Shader/ShaderProgram.hpp>
-#include "Default2D.vert.hpp"
-#include "SingleColor2D.frag.hpp"
-
 using namespace Video;
 using namespace Geometry;
 
