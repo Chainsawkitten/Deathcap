@@ -9,6 +9,7 @@
 using namespace Video;
 
 Lighting::Lighting(const glm::vec2& screenSize) {
+    // Compile shader program.
     Shader* vertexShader = new Shader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     Shader* fragmentShader = new Shader(DEFERRED_FRAG, DEFERRED_FRAG_LENGTH, GL_FRAGMENT_SHADER);
     shaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
@@ -106,7 +107,7 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix) {
     
     shaderProgram->Use();
     
-    /*BindForReading();*/
+    BindForReading();
     glClear(GL_COLOR_BUFFER_BIT);
     
     /*glBindVertexArray(rectangle->GetVertexArray());*/
@@ -155,4 +156,14 @@ void Lighting::AttachTexture(GLuint texture, unsigned int width, unsigned int he
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture, 0);
+}
+
+void Lighting::BindForReading() const {
+    for (unsigned int i = 0; i < NUM_TEXTURES; i++) {
+        glActiveTexture(GL_TEXTURE0 + i);
+        glBindTexture(GL_TEXTURE_2D, textures[i]);
+    }
+    
+    glActiveTexture(GL_TEXTURE0 + NUM_TEXTURES);
+    glBindTexture(GL_TEXTURE_2D, depthHandle);
 }

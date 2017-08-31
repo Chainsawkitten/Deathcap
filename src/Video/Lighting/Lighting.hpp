@@ -48,6 +48,7 @@ namespace Video {
             };
             
             static void AttachTexture(GLuint texture, unsigned int width, unsigned int height, GLenum attachment, GLint internalFormat);
+            void BindForReading() const;
             
             GLuint textures[NUM_TEXTURES];
             
