@@ -4,7 +4,9 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
-class Shader;
+namespace Video {
+    class Shader;
+}
 
 /// Fast approximate anti-aliasing filter.
 class FXAAFilter : public Filter {
@@ -19,7 +21,7 @@ class FXAAFilter : public Filter {
         /**
          * @return Shader program
          */
-        ShaderProgram* GetShaderProgram() const;
+        Video::ShaderProgram* GetShaderProgram() const;
         
         /// Set uniforms.
         void SetUniforms();
@@ -37,9 +39,9 @@ class FXAAFilter : public Filter {
         void SetBrightness(float brightness);
         
     private:
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
         
         glm::vec2 screenSize;
         GLint screenSizeLocation;

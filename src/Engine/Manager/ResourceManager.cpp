@@ -11,6 +11,7 @@
 #include "../Audio/VorbisFile.hpp"
 
 using namespace std;
+using namespace Video;
 
 ResourceManager::ResourceManager() {
     

@@ -7,6 +7,8 @@
 #include "Post.vert.hpp"
 #include "PostFXAA.frag.hpp"
 
+using namespace Video;
+
 FXAAFilter::FXAAFilter() {
     vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(POSTFXAA_FRAG, POSTFXAA_FRAG_LENGTH, GL_FRAGMENT_SHADER);

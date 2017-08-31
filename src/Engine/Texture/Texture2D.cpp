@@ -18,6 +18,8 @@
 #include "../Util/FileSystem.hpp"
 #include "../MainWindow.hpp"
 
+using namespace Video;
+
 Texture2D::Texture2D() {
     isFromFile = false;
     

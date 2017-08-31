@@ -15,6 +15,8 @@
 #include "Font.frag.hpp"
 #include "../MainWindow.hpp"
 
+using namespace Video;
+
 Font::Font(const char* filename, float height) {
     this->height = height;
     

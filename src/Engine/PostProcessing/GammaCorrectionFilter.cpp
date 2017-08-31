@@ -7,6 +7,8 @@
 #include "Post.vert.hpp"
 #include "PostGamma.frag.hpp"
 
+using namespace Video;
+
 GammaCorrectionFilter::GammaCorrectionFilter() {
     vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(POSTGAMMA_FRAG, POSTGAMMA_FRAG_LENGTH, GL_FRAGMENT_SHADER);

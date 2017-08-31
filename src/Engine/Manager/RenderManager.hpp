@@ -5,11 +5,11 @@
 
 namespace Video {
     class Renderer;
+    class Shader;
+    class ShaderProgram;
 }
 class World;
 class Entity;
-class Shader;
-class ShaderProgram;
 class StaticRenderProgram;
 class SkinRenderProgram;
 class DeferredLighting;
@@ -61,18 +61,18 @@ class RenderManager {
 
         Video::Renderer* renderer;
         
-        Shader* defaultVertexShader;
-        Shader* defaultFragmentShader;
-        Shader* skinningVertexShader;
-        ShaderProgram* staticShaderProgram;
-        ShaderProgram* skinShaderProgram;
+        Video::Shader* defaultVertexShader;
+        Video::Shader* defaultFragmentShader;
+        Video::Shader* skinningVertexShader;
+        Video::ShaderProgram* staticShaderProgram;
+        Video::ShaderProgram* skinShaderProgram;
         StaticRenderProgram* staticRenderProgram;
         SkinRenderProgram* skinRenderProgram;
         
-        Shader* editorEntityVertexShader;
-        Shader* editorEntityGeometryShader;
-        Shader* editorEntityFragmentShader;
-        ShaderProgram* editorEntityShaderProgram;
+        Video::Shader* editorEntityVertexShader;
+        Video::Shader* editorEntityGeometryShader;
+        Video::Shader* editorEntityFragmentShader;
+        Video::ShaderProgram* editorEntityShaderProgram;
         
         DeferredLighting* deferredLighting;
         

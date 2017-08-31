@@ -7,6 +7,8 @@
 #include "Post.vert.hpp"
 #include "PostColor.frag.hpp"
 
+using namespace Video;
+
 ColorFilter::ColorFilter(const glm::vec3& color) {
     vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(POSTCOLOR_FRAG, POSTCOLOR_FRAG_LENGTH, GL_FRAGMENT_SHADER);

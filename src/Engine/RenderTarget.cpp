@@ -12,6 +12,8 @@
 #include "PostCopy.frag.hpp"
 #include "PostDither.frag.hpp"
 
+using namespace Video;
+
 RenderTarget::RenderTarget(const glm::vec2& size) {
     width = static_cast<int>(size.x);
     height = static_cast<int>(size.y);

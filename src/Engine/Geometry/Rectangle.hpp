@@ -2,8 +2,10 @@
 
 #include "Geometry2D.hpp"
 
-class Shader;
-class ShaderProgram;
+namespace Video {
+    class Shader;
+    class ShaderProgram;
+}
 
 namespace Geometry {
     /// A renderable 2D rectangle.
@@ -55,9 +57,9 @@ namespace Geometry {
             unsigned int indexNr = 0;
             
             // Shaders
-            Shader* vertexShader;
-            Shader* fragmentShader;
-            ShaderProgram* shaderProgram;
+            Video::Shader* vertexShader;
+            Video::Shader* fragmentShader;
+            Video::ShaderProgram* shaderProgram;
             
     };
 }

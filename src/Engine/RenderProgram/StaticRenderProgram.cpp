@@ -12,6 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace Component;
+using namespace Video;
 
 StaticRenderProgram::StaticRenderProgram(ShaderProgram* shaderProgram) {
     this->shaderProgram = shaderProgram;

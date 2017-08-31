@@ -7,8 +7,10 @@ namespace Geometry {
 }
 class World;
 class Entity;
-class Shader;
-class ShaderProgram;
+namespace Video {
+    class Shader;
+    class ShaderProgram;
+}
 
 /// Holds the frame buffers used for deferred rendering.
 class DeferredLighting {
@@ -58,9 +60,9 @@ class DeferredLighting {
         
         Geometry::Rectangle* rectangle;
         
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
         
         // Store light uniform locations so we don't have to get them every frame.
         static const unsigned int lightCount = 32U;

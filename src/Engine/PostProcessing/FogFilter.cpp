@@ -9,6 +9,8 @@
 
 #include "../Component/Lens.hpp"
 
+using namespace Video;
+
 FogFilter::FogFilter(const glm::vec3& color) {
     vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(POSTFOG_FRAG, POSTFOG_FRAG_LENGTH, GL_FRAGMENT_SHADER);

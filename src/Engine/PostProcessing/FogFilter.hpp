@@ -4,7 +4,9 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
-class Shader;
+namespace Video {
+    class Shader;
+}
 namespace Component {
     class Lens;
 }
@@ -49,15 +51,15 @@ class FogFilter : public Filter {
         /**
          * @return Shader program
          */
-        ShaderProgram* GetShaderProgram() const;
+        Video::ShaderProgram* GetShaderProgram() const;
         
         /// Set uniforms.
         void SetUniforms();
         
     private:
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
         
         glm::vec3 color;
         GLint colorLocation;

@@ -3,7 +3,9 @@
 #include "Filter.hpp"
 #include <GL/glew.h>
 
-class Shader;
+namespace Video {
+    class Shader;
+}
 
 /// Gamma correction filter.
 class GammaCorrectionFilter : public Filter {
@@ -18,7 +20,7 @@ class GammaCorrectionFilter : public Filter {
         /**
          * @return Shader program
          */
-        ShaderProgram* GetShaderProgram() const;
+        Video::ShaderProgram* GetShaderProgram() const;
         
         /// Set uniforms.
         void SetUniforms();
@@ -30,9 +32,9 @@ class GammaCorrectionFilter : public Filter {
         void SetBrightness(float brightness);
         
     private:
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
         
         float brightness = 2.2f;
         GLint brightnessLocation;

@@ -3,8 +3,10 @@
 #include <map>
 #include <GL/glew.h>
 
-class Shader;
-class ShaderProgram;
+namespace Video {
+    class Shader;
+    class ShaderProgram;
+}
 class Texture2D;
 class Font;
 namespace Geometry {
@@ -28,14 +30,14 @@ class ResourceManager {
          * @param shaderType %Shader type. One of GL_COMPUTE_SHADER, GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
          * @return The shader instance
          */
-        Shader* CreateShader(const char* source, int sourceLength, GLenum shaderType);
+        Video::Shader* CreateShader(const char* source, int sourceLength, GLenum shaderType);
         
         /// Free the reference to the shader.
         /**
          * Deletes the instance if no more references exist.
          * @param shader %Shader to dereference.
          */
-        void FreeShader(Shader* shader);
+        void FreeShader(Video::Shader* shader);
         
         /// Create shader program if it doesn't already exist.
         /**
@@ -52,14 +54,14 @@ class ResourceManager {
          * @param shaders List of shaders to link together.
          * @return The shader program instance
          */
-        ShaderProgram* CreateShaderProgram(std::initializer_list<const Shader*> shaders);
+        Video::ShaderProgram* CreateShaderProgram(std::initializer_list<const Video::Shader*> shaders);
         
         /// Free the reference to a shader program.
         /**
          * Deletes the instance if no more references exist.
          * @param shaderProgram %Shader program to dereference.
          */
-        void FreeShaderProgram(ShaderProgram* shaderProgram);
+        void FreeShaderProgram(Video::ShaderProgram* shaderProgram);
         
         /// Create a rectangle for rendering if it doesn't already exist.
         /**
@@ -168,29 +170,29 @@ class ResourceManager {
         
         // Shaders
         struct ShaderInstance {
-            Shader* shader;
+            Video::Shader* shader;
             int count;
         };
         std::map<const char*, ShaderInstance> shaders;
-        std::map<Shader*, const char*> shadersInverse;
+        std::map<Video::Shader*, const char*> shadersInverse;
         
         // ShaderPrograms
         struct ShaderProgramInstance {
-            ShaderProgram* shaderProgram;
+            Video::ShaderProgram* shaderProgram;
             int count;
         };
         struct ShaderProgramKey {
-            const Shader* computeShader = nullptr;
-            const Shader* vertexShader = nullptr;
-            const Shader* tessControlShader = nullptr;
-            const Shader* tessEvaluationShader = nullptr;
-            const Shader* geometryShader = nullptr;
-            const Shader* fragmentShader = nullptr;
+            const Video::Shader* computeShader = nullptr;
+            const Video::Shader* vertexShader = nullptr;
+            const Video::Shader* tessControlShader = nullptr;
+            const Video::Shader* tessEvaluationShader = nullptr;
+            const Video::Shader* geometryShader = nullptr;
+            const Video::Shader* fragmentShader = nullptr;
             
             bool operator<(const ShaderProgramKey& other) const;
         };
         std::map<ShaderProgramKey, ShaderProgramInstance> shaderPrograms;
-        std::map<ShaderProgram*, ShaderProgramKey> shaderProgramsInverse;
+        std::map<Video::ShaderProgram*, ShaderProgramKey> shaderProgramsInverse;
         
         // Rectangle
         Geometry::Rectangle* rectangle;

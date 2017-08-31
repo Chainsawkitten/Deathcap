@@ -20,6 +20,8 @@
 #include "../Physics/Frustum.hpp"
 #include "../MainWindow.hpp"
 
+using namespace Video;
+
 DeferredLighting::DeferredLighting() {
     vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(DEFERRED_FRAG, DEFERRED_FRAG_LENGTH, GL_FRAGMENT_SHADER);

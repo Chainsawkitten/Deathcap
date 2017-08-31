@@ -3,6 +3,8 @@
 #include <vector>
 #include <Common/Log.hpp>
 
+using namespace Video;
+
 Shader::Shader(const char* source, int sourceLength, GLenum shaderType) {
     this->shaderType = shaderType;
 

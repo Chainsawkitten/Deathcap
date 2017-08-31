@@ -7,6 +7,8 @@
 #include "Post.vert.hpp"
 #include "PostGlow.frag.hpp"
 
+using namespace Video;
+
 GlowFilter::GlowFilter() {
     vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(POSTGLOW_FRAG, POSTGLOW_FRAG_LENGTH, GL_FRAGMENT_SHADER);

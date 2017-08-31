@@ -1,6 +1,8 @@
 #pragma once
 
-class ShaderProgram;
+namespace Video {
+    class ShaderProgram;
+}
 
 /// Post-processing filter.
 class Filter {
@@ -15,7 +17,7 @@ class Filter {
         /**
          * @return Shader program
          */
-        virtual ShaderProgram* GetShaderProgram() const = 0;
+        virtual Video::ShaderProgram* GetShaderProgram() const = 0;
         
         /// Set uniforms.
         virtual void SetUniforms() = 0;

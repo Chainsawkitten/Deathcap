@@ -4,7 +4,9 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
-class Shader;
+namespace Video {
+    class Shader;
+}
 
 /// Glow filter (first pass).
 /**
@@ -22,7 +24,7 @@ class GlowBlurFilter : public Filter {
         /**
          * @return Shader program
          */
-        ShaderProgram* GetShaderProgram() const;
+        Video::ShaderProgram* GetShaderProgram() const;
         
         /// Set uniforms.
         void SetUniforms();
@@ -40,9 +42,9 @@ class GlowBlurFilter : public Filter {
         void SetHorizontal(bool horizontal);
         
     private:
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
         
         glm::vec2 screenSize;
         GLint screenSizeLocation;

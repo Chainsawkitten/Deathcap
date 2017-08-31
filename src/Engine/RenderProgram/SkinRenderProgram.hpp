@@ -1,8 +1,9 @@
 #pragma once
 
 class Entity;
-class ShaderProgram;
-
+namespace Video {
+    class ShaderProgram;
+}
 namespace Component {
     class Mesh;
 }
@@ -16,7 +17,7 @@ class SkinRenderProgram {
         /**
          * @param shaderProgram A GLSL shader program.
          */
-        SkinRenderProgram(ShaderProgram* shaderProgram);
+        SkinRenderProgram(Video::ShaderProgram* shaderProgram);
         
         /// Destructor.
         ~SkinRenderProgram();
@@ -38,7 +39,7 @@ class SkinRenderProgram {
         void PostRender() const;
         
     private:
-        ShaderProgram* shaderProgram;
+        Video::ShaderProgram* shaderProgram;
 
         glm::mat4 viewMat;
         glm::mat4 projectionMat;

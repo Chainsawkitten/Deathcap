@@ -5,8 +5,10 @@
 #include <string>
 #include <json/json.h>
 
-class Shader;
-class ShaderProgram;
+namespace Video {
+    class Shader;
+    class ShaderProgram;
+}
 namespace Geometry {
     class Rectangle;
 }
@@ -119,7 +121,7 @@ class Texture2D : public Texture {
         Geometry::Rectangle* rectangle;
         
         // Shaders
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
 };

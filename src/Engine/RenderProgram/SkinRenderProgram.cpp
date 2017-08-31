@@ -12,6 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace Component;
+using namespace Video;
 
 SkinRenderProgram::SkinRenderProgram(ShaderProgram* shaderProgram) {
     this->shaderProgram = shaderProgram;

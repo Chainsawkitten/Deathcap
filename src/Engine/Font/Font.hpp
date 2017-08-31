@@ -4,8 +4,10 @@
 #include <stb_truetype.h>
 #include <glm/glm.hpp>
 
-class Shader;
-class ShaderProgram;
+namespace Video {
+    class Shader;
+    class ShaderProgram;
+}
 namespace Geometry {
     class Rectangle;
 }
@@ -85,7 +87,7 @@ class Font {
         Geometry::Rectangle* rectangle;
         
         // Shaders
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
 };

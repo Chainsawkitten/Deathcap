@@ -19,6 +19,8 @@
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
+using namespace Video;
+
 ParticleManager::ParticleManager() {
     randomEngine.seed(randomDevice());
     

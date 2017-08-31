@@ -14,6 +14,8 @@
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
+using namespace Video;
+
 DebugDrawingManager::DebugDrawingManager() {
     vertexShader = Managers().resourceManager->CreateShader(DEBUGDRAWING_VERT, DEBUGDRAWING_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(DEBUGDRAWING_FRAG, DEBUGDRAWING_FRAG_LENGTH, GL_FRAGMENT_SHADER);

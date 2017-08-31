@@ -4,8 +4,10 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-class Shader;
-class ShaderProgram;
+namespace Video {
+    class Shader;
+    class ShaderProgram;
+}
 class World;
 class Entity;
 
@@ -65,9 +67,9 @@ class DebugDrawingManager {
         DebugDrawingManager(DebugDrawingManager const&) = delete;
         void operator=(DebugDrawingManager const&) = delete;
         
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
         
         // Points.
         struct Point {

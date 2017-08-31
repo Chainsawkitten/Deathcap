@@ -3,7 +3,9 @@
 #include "Filter.hpp"
 #include <glm/glm.hpp>
 
-class Shader;
+namespace Video {
+    class Shader;
+}
 
 /// Glow filter (second pass).
 /**
@@ -21,13 +23,13 @@ class GlowFilter : public Filter {
         /**
          * @return Shader program
          */
-        ShaderProgram* GetShaderProgram() const;
+        Video::ShaderProgram* GetShaderProgram() const;
         
         /// Set uniforms.
         void SetUniforms();
         
     private:
-        Shader* vertexShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
 };

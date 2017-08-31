@@ -2,6 +2,8 @@
 
 #include "Shader.hpp"
 
+using namespace Video;
+
 ShaderProgram::ShaderProgram(std::initializer_list<const Shader*> shaders) {
     shaderProgram = glCreateProgram();
 
