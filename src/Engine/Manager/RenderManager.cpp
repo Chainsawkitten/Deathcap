@@ -1,7 +1,7 @@
 #include "RenderManager.hpp"
 
 #include <GL/glew.h>
-#include <Renderer/Renderer.hpp>
+#include <Video/Renderer.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
@@ -16,7 +16,7 @@
 #include "ParticleEmitter.png.hpp"
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
-#include <Renderer/Shader/ShaderProgram.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 #include "../RenderProgram/SkinRenderProgram.hpp"
 #include "../RenderProgram/StaticRenderProgram.hpp"
 #include "../Entity/Entity.hpp"

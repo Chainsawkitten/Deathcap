@@ -1,6 +1,6 @@
 #include "Rectangle.hpp"
 
-#include <Renderer/Shader/ShaderProgram.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 #include "Default2D.vert.hpp"
 #include "SingleColor2D.frag.hpp"
 #include "../Manager/Managers.hpp"

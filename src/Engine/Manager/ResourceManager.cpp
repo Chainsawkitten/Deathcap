@@ -1,7 +1,7 @@
 #include "ResourceManager.hpp"
 
-#include <Renderer/Shader/Shader.hpp>
-#include <Renderer/Shader/ShaderProgram.hpp>
+#include <Video/Shader/Shader.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 #include "../Geometry/Rectangle.hpp"
 #include "../Geometry/Cube.hpp"
 #include "../Geometry/StaticModel.hpp"

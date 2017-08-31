@@ -1,7 +1,7 @@
 #include "GammaCorrectionFilter.hpp"
 
-#include <Renderer/Shader/Shader.hpp>
-#include <Renderer/Shader/ShaderProgram.hpp>
+#include <Video/Shader/Shader.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include "Post.vert.hpp"

@@ -5,7 +5,7 @@
 #include "../Component/Mesh.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Geometry/RiggedModel.hpp"
-#include <Renderer/Shader/ShaderProgram.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 #include "../Texture/Texture2D.hpp"
 #include "../Physics/AxisAlignedBoundingBox.hpp"
 #include "../Physics/Frustum.hpp"

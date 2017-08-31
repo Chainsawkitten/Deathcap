@@ -1,6 +1,6 @@
 #include "Font.hpp"
 
-#include <Renderer/Shader/ShaderProgram.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 #include "../Geometry/Rectangle.hpp"
 
 #define STB_TRUETYPE_IMPLEMENTATION
