@@ -9,5 +9,8 @@ namespace Video {
             
             /// Destructor.
             ~Renderer();
+            
+            /// Clear the previous frame's data.
+            void Clear();
     };
 }

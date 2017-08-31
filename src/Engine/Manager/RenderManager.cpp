@@ -136,7 +136,7 @@ RenderManager::~RenderManager() {
 }
 
 void RenderManager::Render(World& world, Entity* camera) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    renderer->Clear();
     
     // Find camera entity.
     if (camera == nullptr) {
