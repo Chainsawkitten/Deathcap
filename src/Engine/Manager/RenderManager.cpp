@@ -69,7 +69,7 @@ RenderManager::RenderManager() {
     soundSourceTexture = Managers().resourceManager->CreateTexture2D(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
     cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
     
-    deferredLighting = new DeferredLighting();
+    deferredLighting = new DeferredLighting(renderer);
     
     // Init filters.
     postProcessing = new PostProcessing();
@@ -292,7 +292,7 @@ void RenderManager::UpdateBufferSize() {
     postProcessing->UpdateBufferSize();
     
     delete deferredLighting;
-    deferredLighting = new DeferredLighting();
+    deferredLighting = new DeferredLighting(renderer);
 }
 
 void RenderManager::RenderEditorEntity(SuperComponent* component) {

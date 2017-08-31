@@ -22,7 +22,9 @@
 
 using namespace Video;
 
-DeferredLighting::DeferredLighting() {
+DeferredLighting::DeferredLighting(Renderer* renderer) {
+    this->renderer = renderer;
+    
     vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = Managers().resourceManager->CreateShader(DEFERRED_FRAG, DEFERRED_FRAG_LENGTH, GL_FRAGMENT_SHADER);
     shaderProgram = Managers().resourceManager->CreateShaderProgram({ vertexShader, fragmentShader });

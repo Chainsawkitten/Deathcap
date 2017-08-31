@@ -5,6 +5,7 @@
 class World;
 class Entity;
 namespace Video {
+    class Renderer;
     class Shader;
     class ShaderProgram;
     namespace Geometry {
@@ -25,7 +26,10 @@ class DeferredLighting {
         };
         
         /// Create new render target.
-        DeferredLighting();
+        /**
+         * @param renderer Renderer to use for rendering.
+         */
+        DeferredLighting(Video::Renderer* renderer);
         
         /// Destructor
         /**
@@ -52,6 +56,8 @@ class DeferredLighting {
     private:
         static void AttachTexture(GLuint texture, unsigned int width, unsigned int height, GLenum attachment, GLint internalFormat);
         void BindForReading() const;
+        
+        Video::Renderer* renderer;
         
         GLuint textures[NUM_TEXTURES];
         
