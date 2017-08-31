@@ -6,10 +6,10 @@ using namespace Video;
 
 ShaderProgram::ShaderProgram(std::initializer_list<const Shader*> shaders) {
     shaderProgram = glCreateProgram();
-
+    
     for (const Shader* shader : shaders)
         glAttachShader(shaderProgram, shader->GetShaderID());
-
+    
     glLinkProgram(shaderProgram);
     
     for (const Shader* shader : shaders)

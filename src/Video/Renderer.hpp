@@ -6,7 +6,7 @@ namespace Video {
         public:
             /// Create new renderer.
             Renderer();
-
+            
             /// Destructor.
             ~Renderer();
     };

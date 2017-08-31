@@ -7,7 +7,7 @@ using namespace Video;
 
 Shader::Shader(const char* source, int sourceLength, GLenum shaderType) {
     this->shaderType = shaderType;
-
+    
     shader = glCreateShader(shaderType);
     GLint length = sourceLength;
     glShaderSource(shader, 1, &source, &length);
@@ -19,7 +19,7 @@ Shader::Shader(const char* source, int sourceLength, GLenum shaderType) {
     if (isCompiled == GL_FALSE) {
         GLint maxLength = 0;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
-    
+        
         // The maxLength includes the NULL character
         std::vector<GLchar> infoLog(maxLength);
         glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
