@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+class Renderer;
 class World;
 class Entity;
 class Shader;
@@ -55,6 +56,8 @@ class RenderManager {
         void operator=(RenderManager const&) = delete;
         
         void RenderEditorEntity(Component::SuperComponent* component);
+
+        Renderer* renderer;
         
         Shader* defaultVertexShader;
         Shader* defaultFragmentShader;

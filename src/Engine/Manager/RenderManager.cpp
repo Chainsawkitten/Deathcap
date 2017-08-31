@@ -1,6 +1,7 @@
 #include "RenderManager.hpp"
 
 #include <GL/glew.h>
+#include <Renderer/Renderer.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
@@ -46,6 +47,8 @@
 using namespace Component;
 
 RenderManager::RenderManager() {
+    renderer = new Renderer();
+
     // Init shaders.
     defaultVertexShader = Managers().resourceManager->CreateShader(DEFAULT3D_VERT, DEFAULT3D_VERT_LENGTH, GL_VERTEX_SHADER);
     skinningVertexShader = Managers().resourceManager->CreateShader(SKINNING_VERT, SKINNING_VERT_LENGTH, GL_VERTEX_SHADER);
@@ -127,6 +130,8 @@ RenderManager::~RenderManager() {
     
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteVertexArrays(1, &vertexArray);
+
+    delete renderer;
 }
 
 void RenderManager::Render(World& world, Entity* camera) {
