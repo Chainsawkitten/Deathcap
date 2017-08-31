@@ -55,7 +55,6 @@ set(SRCS
         Util/Json.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
-        Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         Geometry/Animation.cpp
         Geometry/Cube.cpp
@@ -126,7 +125,6 @@ set(HEADERS
         Util/Json.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
-        Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         Geometry/Animation.hpp
         Geometry/Cube.hpp

@@ -5,7 +5,7 @@
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include "../Geometry/Rectangle.hpp"
-#include "../Shader/Shader.hpp"
+#include <Renderer/Shader/Shader.hpp>
 #include "../Shader/ShaderProgram.hpp"
 #include "Post.vert.hpp"
 #include "Deferred.frag.hpp"

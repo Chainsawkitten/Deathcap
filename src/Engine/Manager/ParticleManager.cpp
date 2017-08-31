@@ -9,7 +9,7 @@
 #include "../MainWindow.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include "../Shader/Shader.hpp"
+#include <Renderer/Shader/Shader.hpp>
 #include "../Shader/ShaderProgram.hpp"
 #include "../Texture/Texture2D.hpp"
 #include "Particle.vert.hpp"

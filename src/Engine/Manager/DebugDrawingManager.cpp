@@ -7,7 +7,7 @@
 #include "../MainWindow.hpp"
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
-#include "../Shader/Shader.hpp"
+#include <Renderer/Shader/Shader.hpp>
 #include "../Shader/ShaderProgram.hpp"
 #include "DebugDrawing.vert.hpp"
 #include "DebugDrawing.frag.hpp"

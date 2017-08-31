@@ -1,6 +1,6 @@
 #include "ResourceManager.hpp"
 
-#include "../Shader/Shader.hpp"
+#include <Renderer/Shader/Shader.hpp>
 #include "../Shader/ShaderProgram.hpp"
 #include "../Geometry/Rectangle.hpp"
 #include "../Geometry/Cube.hpp"

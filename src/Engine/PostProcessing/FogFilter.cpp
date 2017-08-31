@@ -1,6 +1,6 @@
 #include "FogFilter.hpp"
 
-#include "../Shader/Shader.hpp"
+#include <Renderer/Shader/Shader.hpp>
 #include "../Shader/ShaderProgram.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
