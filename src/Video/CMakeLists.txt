@@ -1,11 +1,13 @@
 set(SRCS
         Renderer.cpp
+        Lighting/Lighting.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
     )
 
 set(HEADERS
         Renderer.hpp
+        Lighting/Lighting.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
     )

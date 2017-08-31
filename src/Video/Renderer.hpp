@@ -1,16 +1,30 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 namespace Video {
+    class Lighting;
+    
     /// Handles rendering using OpenGL.
     class Renderer {
         public:
             /// Create new renderer.
-            Renderer();
+            /**
+             * @param screenSize Size of the screen in pixels.
+             */
+            Renderer(const glm::vec2& screenSize);
             
             /// Destructor.
             ~Renderer();
             
             /// Clear the previous frame's data.
             void Clear();
+            
+            /// Start rendering the frame.
+            void StartRendering();
+            
+        private:
+            glm::vec2 screenSize;
+            Lighting* lighting;
     };
 }

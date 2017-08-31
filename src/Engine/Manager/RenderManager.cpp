@@ -48,7 +48,7 @@ using namespace Component;
 using namespace Video;
 
 RenderManager::RenderManager() {
-    renderer = new Renderer();
+    renderer = new Renderer(MainWindow::GetInstance()->GetSize());
 
     // Init shaders.
     defaultVertexShader = Managers().resourceManager->CreateShader(DEFAULT3D_VERT, DEFAULT3D_VERT_LENGTH, GL_VERTEX_SHADER);
@@ -148,11 +148,8 @@ void RenderManager::Render(World& world, Entity* camera) {
     
     // Render from camera.
     if (camera != nullptr) {
-        deferredLighting->SetTarget();
-        
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        glViewport(0, 0, static_cast<GLsizei>(screenSize.x), static_cast<GLsizei>(screenSize.y));
+        glm::vec2 screenSize = MainWindow::GetInstance()->GetSize();
+        renderer->StartRendering();
         
         std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
         // Static render program.
