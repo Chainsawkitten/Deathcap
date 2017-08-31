@@ -34,9 +34,6 @@ class DeferredLighting {
          */
         ~DeferredLighting();
         
-        /// Set as render target.
-        void SetTarget();
-        
         /// Reset render target.
         /**
          * Needs to be called before rendering to the screen.

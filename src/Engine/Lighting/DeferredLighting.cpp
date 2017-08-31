@@ -97,10 +97,6 @@ DeferredLighting::~DeferredLighting() {
     Managers().resourceManager->FreeRectangle();
 }
 
-void DeferredLighting::SetTarget() {
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBufferObject);
-}
-
 void DeferredLighting::ResetTarget() {
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 }
