@@ -23,41 +23,8 @@ set(HEADERS
 
 # Setup embedded source
 set(EMBEDDED_INPUT
-    ../../shaders/Default2D.vert
-    ../../shaders/Default3D.vert
-    ../../shaders/Default3D.frag
     ../../shaders/Deferred.frag
-    ../../shaders/DebugDrawing.vert
-    ../../shaders/DebugDrawing.frag
-    ../../shaders/EditorEntity.vert
-    ../../shaders/EditorEntity.geom
-    ../../shaders/EditorEntity.frag
-    ../../shaders/Font.vert
-    ../../shaders/Font.frag
-    ../../shaders/Skinning.vert
-    ../../shaders/Texture2D.frag
-    ../../shaders/Particle.vert
-    ../../shaders/Particle.geom
-    ../../shaders/Particle.frag
     ../../shaders/Post.vert
-    ../../shaders/PostColor.frag
-    ../../shaders/PostCopy.frag
-    ../../shaders/PostDither.frag
-    ../../shaders/PostFog.frag
-    ../../shaders/PostFXAA.frag
-    ../../shaders/PostGamma.frag
-    ../../shaders/PostGlow.frag
-    ../../shaders/PostGlowBlur.frag
-    ../../assets/ABeeZee.ttf
-    ../../assets/Camera.png
-    ../../assets/DefaultDiffuse.png
-    ../../assets/DefaultNormal.png
-    ../../assets/DefaultSpecular.png
-    ../../assets/DefaultGlow.png
-    ../../assets/Light.png
-    ../../assets/ParticleAtlas.png
-    ../../assets/ParticleEmitter.png
-    ../../assets/SoundSource.png
 )
 
 foreach(item ${EMBEDDED_INPUT})
