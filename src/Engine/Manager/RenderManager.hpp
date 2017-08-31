@@ -3,7 +3,9 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-class Renderer;
+namespace Video {
+    class Renderer;
+}
 class World;
 class Entity;
 class Shader;
@@ -57,7 +59,7 @@ class RenderManager {
         
         void RenderEditorEntity(Component::SuperComponent* component);
 
-        Renderer* renderer;
+        Video::Renderer* renderer;
         
         Shader* defaultVertexShader;
         Shader* defaultFragmentShader;

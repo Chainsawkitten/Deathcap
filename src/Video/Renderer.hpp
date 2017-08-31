@@ -1,11 +1,13 @@
 #pragma once
 
-/// Handles rendering using OpenGL.
-class Renderer {
-    public:
-        /// Create new renderer.
-        Renderer();
+namespace Video {
+    /// Handles rendering using OpenGL.
+    class Renderer {
+        public:
+            /// Create new renderer.
+            Renderer();
 
-        /// Destructor.
-        ~Renderer();
-};
+            /// Destructor.
+            ~Renderer();
+    };
+}

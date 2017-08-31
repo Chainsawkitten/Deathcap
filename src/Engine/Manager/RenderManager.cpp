@@ -45,6 +45,7 @@
 #include "../Hymn.hpp"
 
 using namespace Component;
+using namespace Video;
 
 RenderManager::RenderManager() {
     renderer = new Renderer();
