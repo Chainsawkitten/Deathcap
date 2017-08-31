@@ -6,6 +6,8 @@
 #include <vector>
 
 namespace Video {
+    class ShaderProgram;
+    
     /// Holds the frame buffers used for deferred rendering.
     class Lighting {
         public:
@@ -30,6 +32,12 @@ namespace Video {
              */
             void AddLight(const Light& light);
             
+            /// Light the scene with the added lights.
+            /**
+             * @param inverseProjectionMatrix The camera's inverse projection matrix.
+             */
+            void Render(const glm::mat4& inverseProjectionMatrix);
+            
         private:
             enum TEXTURE_TYPE {
                 DIFFUSE,
@@ -46,6 +54,19 @@ namespace Video {
             GLuint frameBufferObject;
             GLuint depthHandle;
             
+            ShaderProgram* shaderProgram;
+            
             std::vector<Light> lights;
+            
+            // Store light uniform locations so we don't have to get them every frame.
+            static const unsigned int lightCount = 32U;
+            struct {
+                GLint position;
+                GLint intensities;
+                GLint attenuation;
+                GLint ambientCoefficient;
+                GLint coneAngle;
+                GLint direction;
+            } lightUniforms[lightCount];
     };
 }

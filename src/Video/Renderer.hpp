@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 namespace Video {
-    class Light;
+    struct Light;
     class Lighting;
     
     /// Handles rendering using OpenGL.
@@ -25,7 +25,14 @@ namespace Video {
             void StartRendering();
             
             /// Add a light to the scene.
-            void AddLight(const Light& light);
+            void AddLight(const Video::Light& light);
+            
+            /// Light the scene with the added lights.
+            /**
+             * @param inverseProjectionMatrix The camera's inverse projection matrix.
+             */
+            void Light(const glm::mat4& inverseProjectionMatrix);
+            
             
         private:
             glm::vec2 screenSize;

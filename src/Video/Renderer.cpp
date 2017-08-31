@@ -27,6 +27,10 @@ void Renderer::StartRendering() {
     glViewport(0, 0, static_cast<GLsizei>(screenSize.x), static_cast<GLsizei>(screenSize.y));
 }
 
-void Renderer::AddLight(const Light& light) {
+void Renderer::AddLight(const Video::Light& light) {
     lighting->AddLight(light);
+}
+
+void Renderer::Light(const glm::mat4& inverseProjectionMatrix) {
+    lighting->Render(inverseProjectionMatrix);
 }
