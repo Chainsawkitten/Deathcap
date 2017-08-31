@@ -11,15 +11,14 @@
 #include "../Audio/VorbisFile.hpp"
 
 using namespace std;
-using namespace Video;
 
 ResourceManager::ResourceManager() {
     
 }
 
-Shader* ResourceManager::CreateShader(const char* source, int sourceLength, GLenum shaderType) {
+Video::Shader* ResourceManager::CreateShader(const char* source, int sourceLength, GLenum shaderType) {
     if (shaders.find(source) == shaders.end()) {
-        shaders[source].shader = new Shader(source, sourceLength, shaderType);
+        shaders[source].shader = new Video::Shader(source, sourceLength, shaderType);
         shadersInverse[shaders[source].shader] = source;
         shaders[source].count = 1;
     } else {
@@ -29,7 +28,7 @@ Shader* ResourceManager::CreateShader(const char* source, int sourceLength, GLen
     return shaders[source].shader;
 }
 
-void ResourceManager::FreeShader(Shader* shader) {
+void ResourceManager::FreeShader(Video::Shader* shader) {
     const char* source = shadersInverse[shader];
     
     shaders[source].count--;
@@ -62,7 +61,7 @@ bool ResourceManager::ShaderProgramKey::operator<(const ShaderProgramKey& other)
     return false;
 }
 
-ShaderProgram* ResourceManager::CreateShaderProgram(std::initializer_list<const Shader*> shaders) {
+Video::ShaderProgram* ResourceManager::CreateShaderProgram(std::initializer_list<const Video::Shader*> shaders) {
     ShaderProgramKey key;
     
     for (auto shader : shaders) {
@@ -90,7 +89,7 @@ ShaderProgram* ResourceManager::CreateShaderProgram(std::initializer_list<const 
     
     if (shaderPrograms.find(key) == shaderPrograms.end()) {
         ShaderProgramInstance shaderProgram;
-        shaderProgram.shaderProgram = new ShaderProgram(shaders);
+        shaderProgram.shaderProgram = new Video::ShaderProgram(shaders);
         shaderProgram.count = 1;
         shaderPrograms[key] = shaderProgram;
         shaderProgramsInverse[shaderProgram.shaderProgram] = key;
@@ -101,7 +100,7 @@ ShaderProgram* ResourceManager::CreateShaderProgram(std::initializer_list<const 
     return shaderPrograms[key].shaderProgram;
 }
 
-void ResourceManager::FreeShaderProgram(ShaderProgram* shaderProgram) {
+void ResourceManager::FreeShaderProgram(Video::ShaderProgram* shaderProgram) {
     ShaderProgramKey key = shaderProgramsInverse[shaderProgram];
     shaderPrograms[key].count--;
     

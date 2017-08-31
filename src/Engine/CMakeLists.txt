@@ -55,7 +55,6 @@ set(SRCS
         Util/Settings.cpp
         Geometry/Animation.cpp
         Geometry/Cube.cpp
-        Geometry/Geometry2D.cpp
         Geometry/Geometry3D.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
@@ -122,7 +121,6 @@ set(HEADERS
         Util/Settings.hpp
         Geometry/Animation.hpp
         Geometry/Cube.hpp
-        Geometry/Geometry2D.hpp
         Geometry/Geometry3D.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp

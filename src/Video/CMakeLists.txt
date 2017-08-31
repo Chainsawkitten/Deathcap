@@ -2,6 +2,7 @@ set(SRCS
         Renderer.cpp
         Culling/AxisAlignedBoundingBox.cpp
         Culling/Frustum.cpp
+        Geometry/Geometry2D.cpp
         Lighting/Lighting.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
@@ -11,6 +12,7 @@ set(HEADERS
         Renderer.hpp
         Culling/AxisAlignedBoundingBox.hpp
         Culling/Frustum.hpp
+        Geometry/Geometry2D.hpp
         Lighting/Light.hpp
         Lighting/Lighting.hpp
         Shader/Shader.hpp

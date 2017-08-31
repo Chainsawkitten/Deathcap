@@ -59,7 +59,7 @@ Rectangle::~Rectangle() {
     Managers().resourceManager->FreeShaderProgram(shaderProgram);
 }
 
-Geometry2D::Vertex* Rectangle::GetVertices() const {
+Video::Geometry::Geometry2D::Vertex* Rectangle::GetVertices() const {
     return vertexData;
 }
 

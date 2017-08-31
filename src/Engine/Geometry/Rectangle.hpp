@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Geometry2D.hpp"
+#include <Video/Geometry/Geometry2D.hpp>
 
 namespace Video {
     class Shader;
@@ -9,7 +9,7 @@ namespace Video {
 
 namespace Geometry {
     /// A renderable 2D rectangle.
-    class Rectangle : public Geometry2D {
+    class Rectangle : public Video::Geometry::Geometry2D {
         public:
             /// Constructor.
             Rectangle();

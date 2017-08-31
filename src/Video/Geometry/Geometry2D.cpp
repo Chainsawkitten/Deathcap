@@ -2,6 +2,7 @@
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
+using namespace Video;
 using namespace Geometry;
 
 Geometry2D::~Geometry2D() {
