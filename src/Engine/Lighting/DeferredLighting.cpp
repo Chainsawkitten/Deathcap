@@ -28,7 +28,7 @@ void DeferredLighting::Render(World& world, const Entity* camera) {
     float cutOff;
     AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
     
-    // Render all directional lights.
+    // Add all directional lights.
     std::vector<Component::DirectionalLight*>& directionalLights = world.GetComponents<Component::DirectionalLight>();
     for (Component::DirectionalLight* directionalLight : directionalLights) {
         Entity* lightEntity = directionalLight->entity;
@@ -43,7 +43,7 @@ void DeferredLighting::Render(World& world, const Entity* camera) {
         renderer->AddLight(light);
     }
     
-    // Render all spot lights.
+    // Add all spot lights.
     std::vector<Component::SpotLight*>& spotLights = world.GetComponents<Component::SpotLight>();
     for (Component::SpotLight* spotLight : spotLights) {
         Entity* lightEntity = spotLight->entity;
@@ -62,7 +62,7 @@ void DeferredLighting::Render(World& world, const Entity* camera) {
     // At which point lights should be cut off (no longer contribute).
     cutOff = 0.0001f;
     
-    // Render all point lights.
+    // Add all point lights.
     std::vector<Component::PointLight*>& pointLights = world.GetComponents<Component::PointLight>();
     for (Component::PointLight* pointLight : pointLights) {
         Entity* lightEntity = pointLight->entity;
