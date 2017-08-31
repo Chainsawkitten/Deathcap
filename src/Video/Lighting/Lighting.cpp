@@ -59,6 +59,14 @@ void Lighting::SetTarget() {
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBufferObject);
 }
 
+void Lighting::ClearLights() {
+    lights.clear();
+}
+
+void Lighting::AddLight(const Light& light) {
+    lights.push_back(light);
+}
+
 void Lighting::AttachTexture(GLuint texture, unsigned int width, unsigned int height, GLenum attachment, GLint internalFormat) {
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, GL_RGB, GL_FLOAT, nullptr);

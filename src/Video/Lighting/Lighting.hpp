@@ -2,6 +2,8 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "Light.hpp"
+#include <vector>
 
 namespace Video {
     /// Holds the frame buffers used for deferred rendering.
@@ -19,6 +21,15 @@ namespace Video {
             /// Set as render target.
             void SetTarget();
             
+            /// Clear all lights.
+            void ClearLights();
+            
+            /// Add a light.
+            /**
+             * @param light The light to add.
+             */
+            void AddLight(const Light& light);
+            
         private:
             enum TEXTURE_TYPE {
                 DIFFUSE,
@@ -34,5 +45,7 @@ namespace Video {
             
             GLuint frameBufferObject;
             GLuint depthHandle;
+            
+            std::vector<Light> lights;
     };
 }

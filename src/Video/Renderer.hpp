@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 namespace Video {
+    class Light;
     class Lighting;
     
     /// Handles rendering using OpenGL.
@@ -22,6 +23,9 @@ namespace Video {
             
             /// Start rendering the frame.
             void StartRendering();
+            
+            /// Add a light to the scene.
+            void AddLight(const Light& light);
             
         private:
             glm::vec2 screenSize;

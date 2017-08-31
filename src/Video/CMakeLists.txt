@@ -11,6 +11,7 @@ set(HEADERS
         Renderer.hpp
         Culling/AxisAlignedBoundingBox.hpp
         Culling/Frustum.hpp
+        Lighting/Light.hpp
         Lighting/Lighting.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp

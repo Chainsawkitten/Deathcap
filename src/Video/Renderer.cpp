@@ -1,6 +1,7 @@
 #include "Renderer.hpp"
 
 #include <GL/glew.h>
+#include "Lighting/Light.hpp"
 #include "Lighting/Lighting.hpp"
 
 using namespace Video;
@@ -20,7 +21,12 @@ void Renderer::Clear() {
 
 void Renderer::StartRendering() {
     lighting->SetTarget();
+    lighting->ClearLights();
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, static_cast<GLsizei>(screenSize.x), static_cast<GLsizei>(screenSize.y));
+}
+
+void Renderer::AddLight(const Light& light) {
+    lighting->AddLight(light);
 }
