@@ -34,7 +34,6 @@ set(EMBEDDED_INPUT
     ../../shaders/EditorEntity.frag
     ../../shaders/Font.vert
     ../../shaders/Font.frag
-    ../../shaders/SingleColor2D.frag
     ../../shaders/Skinning.vert
     ../../shaders/Texture2D.frag
     ../../shaders/Particle.vert
