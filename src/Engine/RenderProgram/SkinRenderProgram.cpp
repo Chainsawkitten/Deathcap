@@ -7,8 +7,8 @@
 #include "../Geometry/RiggedModel.hpp"
 #include <Video/Shader/ShaderProgram.hpp>
 #include "../Texture/Texture2D.hpp"
-#include "../Physics/AxisAlignedBoundingBox.hpp"
-#include "../Physics/Frustum.hpp"
+#include <Video/Culling/AxisAlignedBoundingBox.hpp>
+#include <Video/Culling/Frustum.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace Component;
@@ -40,7 +40,7 @@ void SkinRenderProgram::Render(Mesh* mesh) const {
     
     glm::mat4 modelMat = entity->GetModelMatrix();
     
-    Physics::Frustum frustum(viewProjectionMat * modelMat);
+    Frustum frustum(viewProjectionMat * modelMat);
     if (frustum.Collide(mesh->geometry->GetAxisAlignedBoundingBox())) {
         Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
         

@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-namespace Physics {
+namespace Video {
     class AxisAlignedBoundingBox;
     
     /// A viewing frustum.

@@ -16,8 +16,8 @@
 #include "../Component/SpotLight.hpp"
 #include "../Component/PointLight.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-#include "../Physics/AxisAlignedBoundingBox.hpp"
-#include "../Physics/Frustum.hpp"
+#include <Video/Culling/AxisAlignedBoundingBox.hpp>
+#include <Video/Culling/Frustum.hpp>
 #include "../MainWindow.hpp"
 
 using namespace Video;
@@ -141,7 +141,7 @@ void DeferredLighting::Render(World& world, const Entity* camera) {
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &glm::inverse(projectionMat)[0][0]);
     
     float cutOff;
-    Physics::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
+    AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
     
     unsigned int lightIndex = 0U;
     
@@ -192,7 +192,7 @@ void DeferredLighting::Render(World& world, const Entity* camera) {
         float scale = sqrt((1.f / cutOff - 1.f) / light->attenuation);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->position) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
         
-        Physics::Frustum frustum(viewProjectionMat * modelMat);
+        Frustum frustum(viewProjectionMat * modelMat);
         if (frustum.Collide(aabb)) {
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             glUniform4fv(lightUniforms[lightIndex].position, 1, &(viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0)))[0]);

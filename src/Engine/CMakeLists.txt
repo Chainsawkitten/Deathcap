@@ -38,8 +38,6 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
-        Physics/AxisAlignedBoundingBox.cpp
-        Physics/Frustum.cpp
         Physics/Rectangle.cpp
         PostProcessing/ColorFilter.cpp
         PostProcessing/FogFilter.cpp
@@ -106,8 +104,6 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
-        Physics/AxisAlignedBoundingBox.hpp
-        Physics/Frustum.hpp
         Physics/Rectangle.hpp
         PostProcessing/ColorFilter.hpp
         PostProcessing/Filter.hpp

@@ -32,7 +32,7 @@
 #include "../Texture/Texture2D.hpp"
 #include "../Lighting/DeferredLighting.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-#include "../Physics/Frustum.hpp"
+#include <Video/Culling/Frustum.hpp>
 #include "../MainWindow.hpp"
 #include "../RenderTarget.hpp"
 #include "../PostProcessing/PostProcessing.hpp"

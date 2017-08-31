@@ -3,7 +3,7 @@
 #include "AxisAlignedBoundingBox.hpp"
 #include <glm/gtc/matrix_access.hpp>
 
-using namespace Physics;
+using namespace Video;
 
 Frustum::Frustum(const glm::mat4& matrix) {
     // Left clipping plane

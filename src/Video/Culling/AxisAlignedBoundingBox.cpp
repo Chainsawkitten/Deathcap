@@ -2,7 +2,7 @@
 
 #include "Frustum.hpp"
 
-using namespace Physics;
+using namespace Video;
 
 AxisAlignedBoundingBox::AxisAlignedBoundingBox(const glm::vec3& dimensions, const glm::vec3& origin, const glm::vec3& minVertex, const glm::vec3& maxVertex) {
     this->dimensions = dimensions;

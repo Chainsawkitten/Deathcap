@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
-#include "../Physics/AxisAlignedBoundingBox.hpp"
+#include <Video/Culling/AxisAlignedBoundingBox.hpp>
 #include <vector>
 
 namespace Geometry {
@@ -33,7 +33,7 @@ namespace Geometry {
             /**
              * @return Local space axis-aligned bounding box around the geometry.
              */
-            const Physics::AxisAlignedBoundingBox& GetAxisAlignedBoundingBox() const;
+            const Video::AxisAlignedBoundingBox& GetAxisAlignedBoundingBox() const;
             
             /// Get geometry type.
             /**
@@ -80,7 +80,7 @@ namespace Geometry {
             GLuint vertexArray;
             
         private:
-            Physics::AxisAlignedBoundingBox axisAlignedBoundingBox;
+            Video::AxisAlignedBoundingBox axisAlignedBoundingBox;
             unsigned int indexCount = 0;
     };
 }

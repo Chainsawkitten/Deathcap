@@ -23,7 +23,7 @@ void Geometry3D::GenerateIndexBuffer(unsigned int* indexData, unsigned int index
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned int), indexData, GL_STATIC_DRAW);
 }
 
-const Physics::AxisAlignedBoundingBox& Geometry3D::GetAxisAlignedBoundingBox() const {
+const Video::AxisAlignedBoundingBox& Geometry3D::GetAxisAlignedBoundingBox() const {
     return axisAlignedBoundingBox;
 }
 
@@ -59,5 +59,5 @@ void Geometry3D::CreateAxisAlignedBoundingBox(const std::vector<glm::vec3*>& pos
     dim.x = maxValues.x - minValues.x;
     dim.y = maxValues.y - minValues.y;
     dim.z = maxValues.z - minValues.z;
-    axisAlignedBoundingBox = Physics::AxisAlignedBoundingBox(dim, origin, minValues, maxValues);
+    axisAlignedBoundingBox = Video::AxisAlignedBoundingBox(dim, origin, minValues, maxValues);
 }
