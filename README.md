@@ -1,8 +1,8 @@
-# Hymn to Beauty
-[![Travis CI Build Status](https://travis-ci.org/Chainsawkitten/HymnToBeauty.svg?branch=master)](https://travis-ci.org/Chainsawkitten/HymnToBeauty)
-[![AppVeyor CI Build Status](https://ci.appveyor.com/api/projects/status/ol462v1vrb3dse2v?svg=true)](https://ci.appveyor.com/project/Chainsawkitten/hymntobeauty)
+# Hymn to Beauty (Large Game Project Engine)
+[![Travis CI Build Status](https://travis-ci.org/Chainsawkitten/LargeGameProjectEngine.svg?branch=master)](https://travis-ci.org/Chainsawkitten/LargeGameProjectEngine)
+[![AppVeyor CI Build Status](https://ci.appveyor.com/api/projects/status/bmewjuam0j9h7qq9?svg=true)](https://ci.appveyor.com/project/Chainsawkitten/largegameprojectengine)
 
-C++/OpenGL 3D Engine. See the [wiki](https://github.com/Chainsawkitten/HymnToBeauty/wiki) for usage.
+C++/OpenGL 3D Engine. See the [wiki](https://github.com/Chainsawkitten/LargeGameProjectEngine/wiki) for usage.
 
 ## Building
 1. Clone the GitHub repository.
