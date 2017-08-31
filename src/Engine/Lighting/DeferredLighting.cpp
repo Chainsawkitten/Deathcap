@@ -97,10 +97,6 @@ DeferredLighting::~DeferredLighting() {
     Managers().resourceManager->FreeRectangle();
 }
 
-void DeferredLighting::ResetTarget() {
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-}
-
 void DeferredLighting::Render(World& world, const Entity* camera) {
     // Get the camera matrices.
     glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position));

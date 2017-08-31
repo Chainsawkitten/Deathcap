@@ -34,12 +34,6 @@ class DeferredLighting {
          */
         ~DeferredLighting();
         
-        /// Reset render target.
-        /**
-         * Needs to be called before rendering to the screen.
-         */
-        void ResetTarget();
-        
         /// Render the lighting in the world.
         /**
          * @param world World to get the lights from.
