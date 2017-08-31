@@ -45,10 +45,9 @@
 #include "../Hymn.hpp"
 
 using namespace Component;
-using namespace Video;
 
 RenderManager::RenderManager() {
-    renderer = new Renderer(MainWindow::GetInstance()->GetSize());
+    renderer = new Video::Renderer(MainWindow::GetInstance()->GetSize());
 
     // Init shaders.
     defaultVertexShader = Managers().resourceManager->CreateShader(DEFAULT3D_VERT, DEFAULT3D_VERT_LENGTH, GL_VERTEX_SHADER);

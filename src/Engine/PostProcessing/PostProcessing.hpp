@@ -2,8 +2,10 @@
 
 class RenderTarget;
 class Filter;
-namespace Geometry {
-    class Rectangle;
+namespace Video {
+    namespace Geometry {
+        class Rectangle;
+    }
 }
 
 /// Applies post-processing effects to the rendered image.
@@ -41,5 +43,5 @@ class PostProcessing {
         
         RenderTarget* buffers[2];
         
-        Geometry::Rectangle* rectangle;
+        Video::Geometry::Rectangle* rectangle;
 };

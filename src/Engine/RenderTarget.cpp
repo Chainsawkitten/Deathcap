@@ -4,7 +4,7 @@
 #include <Video/Shader/Shader.hpp>
 #include <Video/Shader/ShaderProgram.hpp>
 
-#include "Geometry/Rectangle.hpp"
+#include <Video/Geometry/Rectangle.hpp>
 
 #include "Manager/Managers.hpp"
 #include "Manager/ResourceManager.hpp"

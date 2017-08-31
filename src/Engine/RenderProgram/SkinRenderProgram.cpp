@@ -12,9 +12,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace Component;
-using namespace Video;
 
-SkinRenderProgram::SkinRenderProgram(ShaderProgram* shaderProgram) {
+SkinRenderProgram::SkinRenderProgram(Video::ShaderProgram* shaderProgram) {
     this->shaderProgram = shaderProgram;
 }
 
@@ -40,7 +39,7 @@ void SkinRenderProgram::Render(Mesh* mesh) const {
     
     glm::mat4 modelMat = entity->GetModelMatrix();
     
-    Frustum frustum(viewProjectionMat * modelMat);
+    Video::Frustum frustum(viewProjectionMat * modelMat);
     if (frustum.Collide(mesh->geometry->GetAxisAlignedBoundingBox())) {
         Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
         

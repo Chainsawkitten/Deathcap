@@ -2,14 +2,14 @@
 
 #include <GL/glew.h>
 
-namespace Geometry {
-    class Rectangle;
-}
 class World;
 class Entity;
 namespace Video {
     class Shader;
     class ShaderProgram;
+    namespace Geometry {
+        class Rectangle;
+    }
 }
 
 /// Holds the frame buffers used for deferred rendering.
@@ -58,7 +58,7 @@ class DeferredLighting {
         GLuint frameBufferObject;
         GLuint depthHandle;
         
-        Geometry::Rectangle* rectangle;
+        Video::Geometry::Rectangle* rectangle;
         
         Video::Shader* vertexShader;
         Video::Shader* fragmentShader;

@@ -6,11 +6,13 @@
 namespace Video {
     class Shader;
     class ShaderProgram;
+    namespace Geometry {
+        class Rectangle;
+    }
 }
 class Texture2D;
 class Font;
 namespace Geometry {
-    class Rectangle;
     class Cube;
     class Model;
 }
@@ -67,7 +69,7 @@ class ResourceManager {
         /**
          * @return The rectangle instance
          */
-        Geometry::Rectangle* CreateRectangle();
+        Video::Geometry::Rectangle* CreateRectangle();
         
         /// Free the reference to the rectangle.
         /**
@@ -195,7 +197,7 @@ class ResourceManager {
         std::map<Video::ShaderProgram*, ShaderProgramKey> shaderProgramsInverse;
         
         // Rectangle
-        Geometry::Rectangle* rectangle;
+        Video::Geometry::Rectangle* rectangle;
         int rectangleCount = 0;
         
         // Cube

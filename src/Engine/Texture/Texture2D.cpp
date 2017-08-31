@@ -1,6 +1,6 @@
 #include "Texture2D.hpp"
 
-#include "../Geometry/Rectangle.hpp"
+#include <Video/Geometry/Rectangle.hpp>
 #include <Video/Shader/ShaderProgram.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION

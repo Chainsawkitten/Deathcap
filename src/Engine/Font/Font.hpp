@@ -7,9 +7,9 @@
 namespace Video {
     class Shader;
     class ShaderProgram;
-}
-namespace Geometry {
-    class Rectangle;
+    namespace Geometry {
+        class Rectangle;
+    }
 }
 
 /// %Font used for drawing text.
@@ -84,7 +84,7 @@ class Font {
         float height;
         glm::vec3 color = glm::vec3(0.f, 0.f, 0.f);
         
-        Geometry::Rectangle* rectangle;
+        Video::Geometry::Rectangle* rectangle;
         
         // Shaders
         Video::Shader* vertexShader;

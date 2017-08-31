@@ -58,7 +58,6 @@ set(SRCS
         Geometry/Geometry3D.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
-        Geometry/Rectangle.cpp
         Geometry/RiggedModel.cpp
         Geometry/Skeleton.cpp
         Geometry/StaticModel.cpp
@@ -124,7 +123,6 @@ set(HEADERS
         Geometry/Geometry3D.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
-        Geometry/Rectangle.hpp
         Geometry/RiggedModel.hpp
         Geometry/Skeleton.hpp
         Geometry/StaticModel.hpp

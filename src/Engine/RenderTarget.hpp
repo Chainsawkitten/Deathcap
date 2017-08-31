@@ -6,9 +6,9 @@
 namespace Video {
     class Shader;
     class ShaderProgram;
-}
-namespace Geometry {
-    class Rectangle;
+    namespace Geometry {
+        class Rectangle;
+    }
 }
 
 /// Render target containing a color and depth buffer.
@@ -66,7 +66,7 @@ class RenderTarget {
         GLuint extraBuffer;
         GLuint depthBuffer;
         
-        Geometry::Rectangle* rectangle;
+        Video::Geometry::Rectangle* rectangle;
         
         // Shaders
         Video::Shader* vertexShader;

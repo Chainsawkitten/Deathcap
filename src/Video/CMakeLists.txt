@@ -3,6 +3,7 @@ set(SRCS
         Culling/AxisAlignedBoundingBox.cpp
         Culling/Frustum.cpp
         Geometry/Geometry2D.cpp
+        Geometry/Rectangle.cpp
         Lighting/Lighting.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
@@ -13,6 +14,7 @@ set(HEADERS
         Culling/AxisAlignedBoundingBox.hpp
         Culling/Frustum.hpp
         Geometry/Geometry2D.hpp
+        Geometry/Rectangle.hpp
         Lighting/Light.hpp
         Lighting/Lighting.hpp
         Shader/Shader.hpp

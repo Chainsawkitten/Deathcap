@@ -8,9 +8,9 @@
 namespace Video {
     class Shader;
     class ShaderProgram;
-}
-namespace Geometry {
-    class Rectangle;
+    namespace Geometry {
+        class Rectangle;
+    }
 }
 
 /// A two-dimensional texture.
@@ -118,7 +118,7 @@ class Texture2D : public Texture {
         bool isFromFile;
         bool loaded = false;
         
-        Geometry::Rectangle* rectangle;
+        Video::Geometry::Rectangle* rectangle;
         
         // Shaders
         Video::Shader* vertexShader;

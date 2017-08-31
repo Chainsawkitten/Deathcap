@@ -2,7 +2,7 @@
 
 #include <Video/Shader/Shader.hpp>
 #include <Video/Shader/ShaderProgram.hpp>
-#include "../Geometry/Rectangle.hpp"
+#include <Video/Geometry/Rectangle.hpp>
 #include "../Geometry/Cube.hpp"
 #include "../Geometry/StaticModel.hpp"
 #include "../Texture/Texture2D.hpp"
@@ -111,9 +111,9 @@ void ResourceManager::FreeShaderProgram(Video::ShaderProgram* shaderProgram) {
     }
 }
 
-Geometry::Rectangle* ResourceManager::CreateRectangle() {
+Video::Geometry::Rectangle* ResourceManager::CreateRectangle() {
     if (rectangleCount == 0)
-        rectangle = new Geometry::Rectangle();
+        rectangle = new Video::Geometry::Rectangle();
     
     rectangleCount++;
     return rectangle;
