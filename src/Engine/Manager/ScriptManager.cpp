@@ -4,7 +4,7 @@
 #include <scriptbuilder/scriptbuilder.h>
 #include <scriptmath/scriptmath.h>
 #include <scriptstdstring/scriptstdstring.h>
-#include "../Util/Log.hpp"
+#include <Common/Log.hpp>
 #include "../Util/FileSystem.hpp"
 #include "../Hymn.hpp"
 #include "../Entity/World.hpp"

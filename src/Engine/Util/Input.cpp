@@ -1,6 +1,6 @@
 #include "Input.hpp"
 
-#include "Log.hpp"
+#include <Common/Log.hpp>
 #include <map>
 #include <GLFW/glfw3.h>
 

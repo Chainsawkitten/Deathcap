@@ -5,7 +5,7 @@
 #include "Util/EditorSettings.hpp"
 #include <Engine/Util/Input.hpp>
 #include <Engine/Util/FileSystem.hpp>
-#include <Engine/Util/Log.hpp>
+#include <Common/Log.hpp>
 #include <Engine/Input/Input.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>

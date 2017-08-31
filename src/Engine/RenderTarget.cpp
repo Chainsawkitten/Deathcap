@@ -1,5 +1,5 @@
 #include "RenderTarget.hpp"
-#include "Util/Log.hpp"
+#include <Common/Log.hpp>
 
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"

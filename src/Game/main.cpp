@@ -3,7 +3,7 @@
 #include <Engine/MainWindow.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Hymn.hpp>
-#include <Engine/Util/Log.hpp>
+#include <Common/Log.hpp>
 #include <thread>
 
 int main() {

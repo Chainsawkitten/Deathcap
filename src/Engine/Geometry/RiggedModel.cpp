@@ -5,7 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <map>
 #include "MathFunctions.hpp"
-#include "../Util/Log.hpp"
+#include <Common/Log.hpp>
 
 using namespace Geometry;
 

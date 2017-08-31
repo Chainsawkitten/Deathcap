@@ -2,7 +2,7 @@
 
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
-#include <Engine/Util/Log.hpp>
+#include <Common/Log.hpp>
 #include <imgui.h>
 
 using namespace GUI;

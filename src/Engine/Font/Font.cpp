@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <fstream>
-#include "../Util/Log.hpp"
+#include <Common/Log.hpp>
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include "Font.vert.hpp"

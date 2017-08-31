@@ -1,6 +1,6 @@
 #include "DeferredLighting.hpp"
 
-#include "../Util/Log.hpp"
+#include <Common/Log.hpp>
 
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"

@@ -55,7 +55,6 @@ set(SRCS
         Util/Json.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
-        Util/Log.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         Geometry/Animation.cpp
@@ -127,7 +126,6 @@ set(HEADERS
         Util/Json.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
-        Util/Log.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         Geometry/Animation.hpp
@@ -197,6 +195,6 @@ endforeach()
 set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine Renderer glfw ${GLFW_LIBRARIES} imgui stb simpleini jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
+target_link_libraries(Engine Renderer imgui stb simpleini jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)

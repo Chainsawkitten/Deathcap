@@ -9,7 +9,7 @@
 #define STBI_ONLY_TGA
 #include <stb_image.h>
 
-#include "../Util/Log.hpp"
+#include <Common/Log.hpp>
 #include "Default2D.vert.hpp"
 #include "Texture2D.frag.hpp"
 #include "../Manager/Managers.hpp"

@@ -1,6 +1,6 @@
 #include "VorbisFile.hpp"
 
-#include "../Util/Log.hpp"
+#include <Common/Log.hpp>
 #include <stb_vorbis.c>
 
 using namespace Audio;

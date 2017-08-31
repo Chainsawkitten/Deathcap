@@ -6,7 +6,7 @@
 #include <cctype>
 #include <cstring>
 #include <fstream>
-#include "Log.hpp"
+#include <Common/Log.hpp>
 
 // Platform-dependent includes.
 #if defined(_WIN32) || defined(WIN32)
