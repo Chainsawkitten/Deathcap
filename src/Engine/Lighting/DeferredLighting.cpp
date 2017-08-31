@@ -180,13 +180,3 @@ void DeferredLighting::AttachTexture(GLuint texture, unsigned int width, unsigne
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture, 0);
 }
-
-void DeferredLighting::BindForReading() const {
-    for (unsigned int i = 0; i < NUM_TEXTURES; i++) {
-        glActiveTexture(GL_TEXTURE0 + i);
-        glBindTexture(GL_TEXTURE_2D, textures[i]);
-    }
-    
-    glActiveTexture(GL_TEXTURE0 + NUM_TEXTURES);
-    glBindTexture(GL_TEXTURE_2D, depthHandle);
-}
