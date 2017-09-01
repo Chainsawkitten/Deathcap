@@ -10,6 +10,7 @@ namespace Video {
     class SkinRenderProgram;
     class Texture;
     class PostProcessing;
+    class GammaCorrectionFilter;
     namespace Geometry {
         class Geometry3D;
     }
@@ -25,6 +26,12 @@ namespace Video {
             
             /// Destructor.
             ~Renderer();
+            
+            /// Set screen size.
+            /**
+             * @param screenSize Size of the screen in pixels.
+             */
+            void SetScreenSize(const glm::vec2& screenSize);
             
             /// Clear the previous frame's data.
             void Clear();
@@ -79,6 +86,9 @@ namespace Video {
              */
             void Light(const glm::mat4& inverseProjectionMatrix);
             
+            /// Perform gamma correction.
+            void GammaCorrect();
+            
             /// Display the rendered results.
             /**
              * @param dither Whether to use dithering.
@@ -92,5 +102,7 @@ namespace Video {
             Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;
+            
+            GammaCorrectionFilter* gammaCorrectionFilter;
     };
 }

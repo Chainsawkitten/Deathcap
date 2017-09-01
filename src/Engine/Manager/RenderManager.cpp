@@ -37,7 +37,6 @@
 #include <Video/PostProcessing/ColorFilter.hpp>
 #include <Video/PostProcessing/FogFilter.hpp>
 #include <Video/PostProcessing/FXAAFilter.hpp>
-#include <Video/PostProcessing/GammaCorrectionFilter.hpp>
 #include <Video/PostProcessing/GlowFilter.hpp>
 #include <Video/PostProcessing/GlowBlurFilter.hpp>
 #include "../Hymn.hpp"
@@ -63,7 +62,6 @@ RenderManager::RenderManager() {
     colorFilter = new Video::ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new Video::FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new Video::FXAAFilter();
-    gammaCorrectionFilter = new Video::GammaCorrectionFilter();
     glowFilter = new Video::GlowFilter();
     glowBlurFilter = new Video::GlowBlurFilter();
     
@@ -100,7 +98,6 @@ RenderManager::~RenderManager() {
     delete colorFilter;
     delete fogFilter;
     delete fxaaFilter;
-    delete gammaCorrectionFilter;
     delete glowFilter;
     delete glowBlurFilter;
     
@@ -199,7 +196,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         }
         
         // Gamma correction.
-        renderer->postProcessing->ApplyFilter(gammaCorrectionFilter);
+        renderer->GammaCorrect();
         
         // Render to back buffer.
         renderer->DisplayResults(true);

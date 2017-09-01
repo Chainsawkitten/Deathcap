@@ -10,7 +10,6 @@ namespace Video {
     class ColorFilter;
     class FogFilter;
     class FXAAFilter;
-    class GammaCorrectionFilter;
     class GlowFilter;
     class GlowBlurFilter;
 }
@@ -67,7 +66,6 @@ class RenderManager {
         Video::ColorFilter* colorFilter;
         Video::FogFilter* fogFilter;
         Video::FXAAFilter* fxaaFilter;
-        Video::GammaCorrectionFilter* gammaCorrectionFilter;
         Video::GlowFilter* glowFilter;
         Video::GlowBlurFilter* glowBlurFilter;
         
