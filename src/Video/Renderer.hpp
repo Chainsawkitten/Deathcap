@@ -123,7 +123,6 @@ namespace Video {
              */
             void DisplayResults(bool dither);
             
-            PostProcessing* postProcessing;
             
         private:
             glm::vec2 screenSize;
@@ -131,6 +130,7 @@ namespace Video {
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;
             
+            PostProcessing* postProcessing;
             ColorFilter* colorFilter;
             FogFilter* fogFilter;
             FXAAFilter* fxaaFilter;
