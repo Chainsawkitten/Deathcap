@@ -5,14 +5,6 @@
 #include <string>
 #include <json/json.h>
 
-namespace Video {
-    class Shader;
-    class ShaderProgram;
-    namespace Geometry {
-        class Rectangle;
-    }
-}
-
 /// A two-dimensional texture.
 /**
  * Used to load a 2D texture from an image file.
@@ -66,14 +58,6 @@ class Texture2D : public Video::Texture {
          */
         void SetWrapping(GLint wrapMode);
         
-        /// Render the texture to the screen.
-        /**
-         * @param position Position on the screen, in pixels.
-         * @param size Size in pixels.
-         * @param alpha Opacity (0.0 - 1.0).
-         */
-        void Render(const glm::vec2& position, const glm::vec2& size, float alpha = 1.f) const;
-        
         /// Get whether the texture was created from file.
         /**
          * @return true if the texture was loaded from a file, false otherwise.
@@ -117,11 +101,4 @@ class Texture2D : public Video::Texture {
         int height = 0;
         bool isFromFile;
         bool loaded = false;
-        
-        Video::Geometry::Rectangle* rectangle;
-        
-        // Shaders
-        Video::Shader* vertexShader;
-        Video::Shader* fragmentShader;
-        Video::ShaderProgram* shaderProgram;
 };
