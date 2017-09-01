@@ -6,6 +6,7 @@
 #include "RenderProgram/StaticRenderProgram.hpp"
 #include "RenderProgram/SkinRenderProgram.hpp"
 #include "PostProcessing/PostProcessing.hpp"
+#include "RenderTarget.hpp"
 
 using namespace Video;
 
@@ -48,6 +49,7 @@ void Renderer::AddLight(const Video::Light& light) {
 }
 
 void Renderer::Light(const glm::mat4& inverseProjectionMatrix) {
+    postProcessing->GetRenderTarget()->SetTarget();
     lighting->Render(inverseProjectionMatrix);
 }
 

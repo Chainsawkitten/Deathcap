@@ -160,7 +160,6 @@ void RenderManager::Render(World& world, Entity* camera) {
         }
         
         // Light the world.
-        renderer->postProcessing->GetRenderTarget()->SetTarget();
         LightWorld(world, camera);
         
         // Anti-aliasing.
