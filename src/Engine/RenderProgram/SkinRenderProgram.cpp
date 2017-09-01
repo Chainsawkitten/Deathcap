@@ -31,19 +31,10 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void SkinRenderProgram::Render(Mesh* mesh) const {
-    Entity* entity = mesh->entity;
-    Material* material = entity->GetComponent<Material>();
-    if (mesh->geometry == nullptr || material == nullptr)
-        return;
-    
-    glm::mat4 modelMatrix = entity->GetModelMatrix();
-    
+void SkinRenderProgram::Render(const Video::Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const {
     Video::Frustum frustum(viewProjectionMatrix * modelMatrix);
-    if (frustum.Collide(mesh->geometry->GetAxisAlignedBoundingBox())) {
-        Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
-        
-        glBindVertexArray(mesh->geometry->GetVertexArray());
+    if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
+        glBindVertexArray(geometry->GetVertexArray());
         
         // Set texture locations
         glUniform1i(shaderProgram->GetUniformLocation("baseImage"), 0);
@@ -53,25 +44,23 @@ void SkinRenderProgram::Render(Mesh* mesh) const {
         
         // Textures
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, material->diffuse->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, diffuseTexture->GetTextureID());
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, material->normal->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, normalTexture->GetTextureID());
         glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, material->specular->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, specularTexture->GetTextureID());
         glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, material->glow->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, glowTexture->GetTextureID());
         
         // Render model.
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
         glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
-        const std::vector<glm::mat4>& bones = model->skeleton.GetFinalTransformations();
-        const std::vector<glm::mat3>& bonesIT = model->skeleton.GetFinalTransformationsIT();
         assert(bones.size() <= 100 && bonesIT.size() <= 100);
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("bones"), bones.size(), GL_FALSE, &bones[0][0][0]);
         glUniformMatrix3fv(shaderProgram->GetUniformLocation("bonesIT"), bonesIT.size(), GL_FALSE, &bonesIT[0][0][0]);
         
-        glDrawElements(GL_TRIANGLES, mesh->geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+        glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
 }
 

@@ -29,6 +29,8 @@
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
+#include "../Geometry/RiggedModel.hpp"
+#include "../Geometry/Skeleton.hpp"
 #include "../Texture/Texture2D.hpp"
 #include "../Lighting/DeferredLighting.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -155,18 +157,34 @@ void RenderManager::Render(World& world, Entity* camera) {
         glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(screenSize);
         
         std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
-        // Static render program.
+        
+        // Render static meshes.
         staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
-        for (Mesh* mesh : meshes)
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
-                staticRenderProgram->Render(mesh);
+        for (Mesh* mesh : meshes) {
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                Material* material = entity->GetComponent<Material>();
+                if (material != nullptr) {
+                    glm::mat4 modelMatrix = entity->GetModelMatrix();
+                    staticRenderProgram->Render(mesh);
+                }
+            }
+        }
         staticRenderProgram->PostRender();
-
-        // Skin render program.
+        
+        // Render skinned meshes.
         skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
-        for (Mesh* mesh : meshes)
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
-                skinRenderProgram->Render(mesh);
+        for (Mesh* mesh : meshes) {
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                Entity* entity = mesh->entity;
+                Material* material = entity->GetComponent<Material>();
+                if (material != nullptr) {
+                    glm::mat4 modelMatrix = entity->GetModelMatrix();
+                    Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
+                    skinRenderProgram->Render(mesh->geometry, material->diffuse, material->normal, material->specular, material->glow, modelMatrix, model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
+                }
+            }
+        }
         skinRenderProgram->PostRender();
         
         // Light the world.
