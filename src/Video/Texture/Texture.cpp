@@ -1,5 +1,7 @@
 #include "Texture.hpp"
 
+using namespace Video;
+
 GLenum Texture::Format(int components) {
     switch (components) {
     case 1:

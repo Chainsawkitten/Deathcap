@@ -59,7 +59,6 @@ set(SRCS
         Util/Json.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
-        Texture/Texture.cpp
         Texture/Texture2D.cpp
         Script/ScriptFile.cpp
         Input/Input.cpp
@@ -120,7 +119,6 @@ set(HEADERS
         Util/Json.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
-        Texture/Texture.hpp
         Texture/Texture2D.hpp
         Script/ScriptFile.hpp
         Input/Input.hpp

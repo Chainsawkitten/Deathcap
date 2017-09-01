@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Texture.hpp"
+#include <Video/Texture/Texture.hpp>
 #include <glm/glm.hpp>
 #include <string>
 #include <json/json.h>
@@ -17,7 +17,7 @@ namespace Video {
 /**
  * Used to load a 2D texture from an image file.
  */
-class Texture2D : public Texture {
+class Texture2D : public Video::Texture {
     public:
         /// Create new unloaded texture.
         Texture2D();

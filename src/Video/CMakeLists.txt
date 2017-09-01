@@ -10,6 +10,7 @@ set(SRCS
         Lighting/Lighting.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
+        Texture/Texture.cpp
     )
 
 set(HEADERS
@@ -25,6 +26,7 @@ set(HEADERS
         Lighting/Lighting.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
+        Texture/Texture.hpp
     )
 
 # Setup embedded source
