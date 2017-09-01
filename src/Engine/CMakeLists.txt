@@ -123,8 +123,6 @@ set(HEADERS
 # Setup embedded source
 set(EMBEDDED_INPUT
     ../../shaders/Default2D.vert
-    ../../shaders/Default3D.vert
-    ../../shaders/Default3D.frag
     ../../shaders/Deferred.frag
     ../../shaders/DebugDrawing.vert
     ../../shaders/DebugDrawing.frag
@@ -133,7 +131,6 @@ set(EMBEDDED_INPUT
     ../../shaders/EditorEntity.frag
     ../../shaders/Font.vert
     ../../shaders/Font.frag
-    ../../shaders/Skinning.vert
     ../../shaders/Texture2D.frag
     ../../shaders/Particle.vert
     ../../shaders/Particle.geom

@@ -35,8 +35,11 @@ set(HEADERS
 
 # Setup embedded source
 set(EMBEDDED_INPUT
+    ../../shaders/Default3D.vert
+    ../../shaders/Default3D.frag
     ../../shaders/Deferred.frag
     ../../shaders/Post.vert
+    ../../shaders/Skinning.vert
 )
 
 foreach(item ${EMBEDDED_INPUT})

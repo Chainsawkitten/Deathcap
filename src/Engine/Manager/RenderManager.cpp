@@ -6,9 +6,6 @@
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
 #include "DebugDrawingManager.hpp"
-#include "Default3D.vert.hpp"
-#include "Default3D.frag.hpp"
-#include "Skinning.vert.hpp"
 #include "EditorEntity.vert.hpp"
 #include "EditorEntity.geom.hpp"
 #include "EditorEntity.frag.hpp"
@@ -17,8 +14,6 @@
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
 #include <Video/Shader/ShaderProgram.hpp>
-#include <Video/RenderProgram/SkinRenderProgram.hpp>
-#include <Video/RenderProgram/StaticRenderProgram.hpp>
 #include "../Entity/Entity.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
@@ -52,14 +47,6 @@ RenderManager::RenderManager() {
     renderer = new Video::Renderer(MainWindow::GetInstance()->GetSize());
     
     // Init shaders.
-    defaultVertexShader = Managers().resourceManager->CreateShader(DEFAULT3D_VERT, DEFAULT3D_VERT_LENGTH, GL_VERTEX_SHADER);
-    skinningVertexShader = Managers().resourceManager->CreateShader(SKINNING_VERT, SKINNING_VERT_LENGTH, GL_VERTEX_SHADER);
-    defaultFragmentShader = Managers().resourceManager->CreateShader(DEFAULT3D_FRAG, DEFAULT3D_FRAG_LENGTH, GL_FRAGMENT_SHADER);
-    staticShaderProgram = Managers().resourceManager->CreateShaderProgram({ defaultVertexShader, defaultFragmentShader });
-    skinShaderProgram = Managers().resourceManager->CreateShaderProgram({ skinningVertexShader, defaultFragmentShader });
-    staticRenderProgram = new Video::StaticRenderProgram(staticShaderProgram);
-    skinRenderProgram = new Video::SkinRenderProgram(skinShaderProgram);
-    
     editorEntityVertexShader = Managers().resourceManager->CreateShader(EDITORENTITY_VERT, EDITORENTITY_VERT_LENGTH, GL_VERTEX_SHADER);
     editorEntityGeometryShader = Managers().resourceManager->CreateShader(EDITORENTITY_GEOM, EDITORENTITY_GEOM_LENGTH, GL_GEOMETRY_SHADER);
     editorEntityFragmentShader = Managers().resourceManager->CreateShader(EDITORENTITY_FRAG, EDITORENTITY_FRAG_LENGTH, GL_FRAGMENT_SHADER);
@@ -102,14 +89,6 @@ RenderManager::RenderManager() {
 }
 
 RenderManager::~RenderManager() {
-    Managers().resourceManager->FreeShader(defaultVertexShader);
-    Managers().resourceManager->FreeShader(skinningVertexShader);
-    Managers().resourceManager->FreeShader(defaultFragmentShader);
-    Managers().resourceManager->FreeShaderProgram(staticShaderProgram);
-    Managers().resourceManager->FreeShaderProgram(skinShaderProgram);
-    delete staticRenderProgram;
-    delete skinRenderProgram;
-    
     Managers().resourceManager->FreeShader(editorEntityVertexShader);
     Managers().resourceManager->FreeShader(editorEntityGeometryShader);
     Managers().resourceManager->FreeShader(editorEntityFragmentShader);
@@ -159,21 +138,20 @@ void RenderManager::Render(World& world, Entity* camera) {
         std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
         
         // Render static meshes.
-        staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
+        renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
         for (Mesh* mesh : meshes) {
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
                     glm::mat4 modelMatrix = entity->GetModelMatrix();
-                    staticRenderProgram->Render(mesh->geometry, material->diffuse, material->normal, material->specular, material->glow, modelMatrix);
+                    renderer->RenderStaticMesh(mesh->geometry, material->diffuse, material->normal, material->specular, material->glow, modelMatrix);
                 }
             }
         }
-        staticRenderProgram->PostRender();
         
         // Render skinned meshes.
-        skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
+        renderer->PrepareSkinnedMeshRendering(viewMatrix, projectionMatrix);
         for (Mesh* mesh : meshes) {
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
                 Entity* entity = mesh->entity;
@@ -181,11 +159,10 @@ void RenderManager::Render(World& world, Entity* camera) {
                 if (material != nullptr) {
                     glm::mat4 modelMatrix = entity->GetModelMatrix();
                     Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
-                    skinRenderProgram->Render(mesh->geometry, material->diffuse, material->normal, material->specular, material->glow, modelMatrix, model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
+                    renderer->RenderSkinnedMesh(mesh->geometry, material->diffuse, material->normal, material->specular, material->glow, modelMatrix, model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
                 }
             }
         }
-        skinRenderProgram->PostRender();
         
         // Light the world.
         postProcessing->GetRenderTarget()->SetTarget();

@@ -17,7 +17,7 @@ namespace Video {
             /**
              * @param shaderProgram A GLSL shader program.
              */
-            SkinRenderProgram(Video::ShaderProgram* shaderProgram);
+            SkinRenderProgram();
             
             /// Destructor.
             ~SkinRenderProgram();
@@ -41,12 +41,9 @@ namespace Video {
              * @param bonesIT Inverse transpose transformations of skeleton.
              */
             void Render(const Video::Geometry::Geometry3D* geometry, const Video::Texture* diffuseTexture, const Video::Texture* normalTexture, const Video::Texture* specularTexture, const Video::Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const;
-    
-            /// Unbind render program.
-            void PostRender() const;
             
         private:
-            Video::ShaderProgram* shaderProgram;
+            ShaderProgram* shaderProgram;
     
             glm::mat4 viewMatrix;
             glm::mat4 projectionMatrix;

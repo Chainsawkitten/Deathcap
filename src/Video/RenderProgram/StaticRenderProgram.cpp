@@ -1,20 +1,27 @@
 #include "StaticRenderProgram.hpp"
 
 #include "../Geometry/Geometry3D.hpp"
-#include "../Shader/ShaderProgram.hpp"
 #include "../Texture/Texture.hpp"
 #include "../Culling/AxisAlignedBoundingBox.hpp"
 #include "../Culling/Frustum.hpp"
 #include <glm/gtc/matrix_transform.hpp>
+#include "../Shader/Shader.hpp"
+#include "../Shader/ShaderProgram.hpp"
+#include "Default3D.vert.hpp"
+#include "Default3D.frag.hpp"
 
 using namespace Video;
 
-StaticRenderProgram::StaticRenderProgram(ShaderProgram* shaderProgram) {
-    this->shaderProgram = shaderProgram;
+StaticRenderProgram::StaticRenderProgram() {
+    Shader* vertexShader = new Shader(DEFAULT3D_VERT, DEFAULT3D_VERT_LENGTH, GL_VERTEX_SHADER);
+    Shader* fragmentShader = new Shader(DEFAULT3D_FRAG, DEFAULT3D_FRAG_LENGTH, GL_FRAGMENT_SHADER);
+    shaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
+    delete vertexShader;
+    delete fragmentShader;
 }
 
 StaticRenderProgram::~StaticRenderProgram() {
-    this->shaderProgram = nullptr;
+    delete shaderProgram;
 }
 
 void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
@@ -55,8 +62,4 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Texture* 
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
-}
-
-void StaticRenderProgram::PostRender() const {
-    glBindVertexArray(0);
 }

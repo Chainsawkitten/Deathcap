@@ -13,10 +13,7 @@ namespace Video {
     class StaticRenderProgram {
         public:
             /// Create new default render program.
-            /**
-             * @param shaderProgram A GLSL shader program.
-             */
-            StaticRenderProgram(ShaderProgram* shaderProgram);
+            StaticRenderProgram();
             
             /// Destructor.
             ~StaticRenderProgram();
@@ -38,9 +35,6 @@ namespace Video {
              * @param modelMatrix Model matrix.
              */
             void Render(Geometry::Geometry3D* geometry, const Texture* diffuseTexture, const Texture* normalTexture, const Texture* specularTexture, const Texture* glowTexture, const glm::mat4 modelMatrix) const;
-    
-            /// Unbind render program.
-            void PostRender() const;
             
         private:
             ShaderProgram* shaderProgram;

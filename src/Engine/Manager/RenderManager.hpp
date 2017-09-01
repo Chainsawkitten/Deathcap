@@ -7,8 +7,6 @@ namespace Video {
     class Renderer;
     class Shader;
     class ShaderProgram;
-    class StaticRenderProgram;
-    class SkinRenderProgram;
 }
 class World;
 class Entity;
@@ -60,14 +58,6 @@ class RenderManager {
         void RenderEditorEntity(Component::SuperComponent* component);
 
         Video::Renderer* renderer;
-        
-        Video::Shader* defaultVertexShader;
-        Video::Shader* defaultFragmentShader;
-        Video::Shader* skinningVertexShader;
-        Video::ShaderProgram* staticShaderProgram;
-        Video::ShaderProgram* skinShaderProgram;
-        Video::StaticRenderProgram* staticRenderProgram;
-        Video::SkinRenderProgram* skinRenderProgram;
         
         Video::Shader* editorEntityVertexShader;
         Video::Shader* editorEntityGeometryShader;
