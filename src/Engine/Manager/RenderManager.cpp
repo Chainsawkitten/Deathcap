@@ -166,7 +166,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
                     glm::mat4 modelMatrix = entity->GetModelMatrix();
-                    staticRenderProgram->Render(mesh);
+                    staticRenderProgram->Render(mesh->geometry, material->diffuse, material->normal, material->specular, material->glow, modelMatrix);
                 }
             }
         }

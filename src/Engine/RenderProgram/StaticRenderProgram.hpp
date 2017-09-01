@@ -1,11 +1,11 @@
 #pragma once
 
-class Entity;
+class Texture2D;
 namespace Video {
     class ShaderProgram;
-}
-namespace Component {
-    class Mesh;
+    namespace Geometry {
+        class Geometry3D;
+    }
 }
 
 #include <glm/glm.hpp>
@@ -31,9 +31,14 @@ class StaticRenderProgram {
 
         /// Render mesh.
         /**
-         * @param mesh Mesh to render.
+         * @param geometry The geometry to render.
+         * @param diffuseTexture Diffuse texture.
+         * @param normalTexture Normal map.
+         * @param specularTexture Specular map.
+         * @param glowTexture Glow texture.
+         * @param modelMatrix Model matrix.
          */
-        void Render(Component::Mesh* mesh) const;
+        void Render(Video::Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) const;
 
         /// Unbind render program.
         void PostRender() const;
