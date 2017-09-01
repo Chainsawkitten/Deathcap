@@ -285,9 +285,7 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
 
 void RenderManager::UpdateBufferSize() {
     postProcessing->UpdateBufferSize(MainWindow::GetInstance()->GetSize());
-    
-    //delete deferredLighting;
-    //deferredLighting = new DeferredLighting(renderer);
+    renderer->SetScreenSize(MainWindow::GetInstance()->GetSize());
 }
 
 void RenderManager::RenderEditorEntity(SuperComponent* component) {

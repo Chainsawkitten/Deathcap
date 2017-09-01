@@ -21,6 +21,13 @@ Renderer::~Renderer() {
     delete skinRenderProgram;
 }
 
+void Renderer::SetScreenSize(const glm::vec2& screenSize) {
+    this->screenSize = screenSize;
+    
+    delete lighting;
+    lighting = new Lighting(screenSize);
+}
+
 void Renderer::Clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
