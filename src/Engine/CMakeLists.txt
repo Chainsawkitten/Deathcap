@@ -26,7 +26,6 @@ set(SRCS
         Component/SuperComponent.cpp
         Entity/Entity.cpp
         Entity/World.cpp
-        Font/Font.cpp
         Geometry/Animation.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
@@ -74,7 +73,6 @@ set(HEADERS
         Component/SuperComponent.hpp
         Entity/Entity.hpp
         Entity/World.hpp
-        Font/Font.hpp
         Geometry/Animation.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
@@ -110,8 +108,6 @@ set(EMBEDDED_INPUT
     ../../shaders/EditorEntity.vert
     ../../shaders/EditorEntity.geom
     ../../shaders/EditorEntity.frag
-    ../../shaders/Font.vert
-    ../../shaders/Font.frag
     ../../shaders/Texture2D.frag
     ../../shaders/Particle.vert
     ../../shaders/Particle.geom

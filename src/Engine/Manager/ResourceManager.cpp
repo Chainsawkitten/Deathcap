@@ -6,7 +6,6 @@
 #include "../Geometry/Cube.hpp"
 #include "../Geometry/StaticModel.hpp"
 #include "../Texture/Texture2D.hpp"
-#include "../Font/Font.hpp"
 #include "../Audio/SoundBuffer.hpp"
 #include "../Audio/VorbisFile.hpp"
 
@@ -225,81 +224,5 @@ void ResourceManager::FreeSound(Audio::SoundBuffer* soundBuffer) {
         soundsInverse.erase(soundBuffer);
         delete soundBuffer;
         sounds.erase(filename);
-    }
-}
-
-bool ResourceManager::FontKey::operator<(const FontKey& other) const {
-    if (source < other.source) return true;
-    if (source > other.source) return false;
-    
-    if (height < other.height) return true;
-    if (height > other.height) return false;
-    
-    return false;
-}
-
-Font* ResourceManager::CreateFontEmbedded(const char* source, int sourceLength, float height) {
-    FontKey key;
-    key.source = source;
-    key.height = height;
-    
-    if (fonts.find(key) == fonts.end()) {
-        fonts[key].font = new Font(source, sourceLength, height);
-        fontsInverse[fonts[key].font] = key;
-        fonts[key].count = 1;
-    } else {
-        fonts[key].count++;
-    }
-    
-    return fonts[key].font;
-}
-
-ResourceManager::FontFromFileKey::FontFromFileKey() {
-    height = 0.f;
-}
-
-bool ResourceManager::FontFromFileKey::operator<(const FontFromFileKey& other) const {
-    if (filename < other.filename) return true;
-    if (filename > other.filename) return false;
-    
-    if (height < other.height) return true;
-    if (height > other.height) return false;
-    
-    return false;
-}
-
-Font* ResourceManager::CreateFontFromFile(std::string filename, float height) {
-    FontFromFileKey key;
-    key.filename = filename;
-    key.height = height;
-    
-    if (fontsFromFile.find(key) == fontsFromFile.end()) {
-        fontsFromFile[key].font = new Font(filename.c_str(), height);
-        fontsFromFileInverse[fontsFromFile[key].font] = key;
-        fontsFromFile[key].count = 1;
-    } else {
-        fontsFromFile[key].count++;
-    }
-    
-    return fontsFromFile[key].font;
-}
-
-void ResourceManager::FreeFont(Font* font) {
-    if (font->IsFromFile()) {
-        FontFromFileKey key = fontsFromFileInverse[font];
-        
-        if (fontsFromFile[key].count-- <= 1) {
-            fontsFromFileInverse.erase(font);
-            delete font;
-            fontsFromFile.erase(key);
-        }
-    } else {
-        FontKey key = fontsInverse[font];
-        
-        if (fonts[key].count-- <= 1) {
-            fontsInverse.erase(font);
-            delete font;
-            fonts.erase(key);
-        }
     }
 }
