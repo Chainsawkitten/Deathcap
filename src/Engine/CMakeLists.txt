@@ -113,7 +113,6 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.geom
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
-    ../../assets/ABeeZee.ttf
     ../../assets/Camera.png
     ../../assets/DefaultDiffuse.png
     ../../assets/DefaultNormal.png
