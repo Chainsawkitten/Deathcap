@@ -7,6 +7,7 @@
 #include "RenderProgram/SkinRenderProgram.hpp"
 #include "PostProcessing/PostProcessing.hpp"
 #include "PostProcessing/ColorFilter.hpp"
+#include "PostProcessing/FogFilter.hpp"
 #include "PostProcessing/GammaCorrectionFilter.hpp"
 #include "PostProcessing/GlowBlurFilter.hpp"
 #include "PostProcessing/GlowFilter.hpp"
@@ -21,6 +22,7 @@ Renderer::Renderer(const glm::vec2& screenSize) {
     skinRenderProgram = new SkinRenderProgram();
     postProcessing = new PostProcessing(screenSize);
     colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
+    fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
     gammaCorrectionFilter = new GammaCorrectionFilter();
     glowFilter = new GlowFilter();
     glowBlurFilter = new GlowBlurFilter();
@@ -31,7 +33,11 @@ Renderer::~Renderer() {
     delete staticRenderProgram;
     delete skinRenderProgram;
     delete postProcessing;
+    delete colorFilter;
+    delete fogFilter;
     delete gammaCorrectionFilter;
+    delete glowFilter;
+    delete glowBlurFilter;
 }
 
 void Renderer::SetScreenSize(const glm::vec2& screenSize) {
@@ -77,6 +83,13 @@ void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const gl
 
 void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture* diffuseTexture, const Video::Texture* normalTexture, const Video::Texture* specularTexture, const Video::Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
     skinRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix, bones, bonesIT);
+}
+
+void Renderer::RenderFog(const glm::mat4& projectionMatrix, float density, const glm::vec3& color) {
+    fogFilter->SetProjectionMatrix(projectionMatrix);
+    fogFilter->SetDensity(density);
+    fogFilter->SetColor(color);
+    postProcessing->ApplyFilter(fogFilter);
 }
 
 void Renderer::ApplyGlow(int blurAmount) {

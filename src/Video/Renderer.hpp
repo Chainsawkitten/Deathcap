@@ -11,6 +11,7 @@ namespace Video {
     class Texture;
     class PostProcessing;
     class ColorFilter;
+    class FogFilter;
     class GammaCorrectionFilter;
     class GlowBlurFilter;
     class GlowFilter;
@@ -89,6 +90,14 @@ namespace Video {
              */
             void Light(const glm::mat4& inverseProjectionMatrix);
             
+            /// Render fog.
+            /**
+             * @param projectionMatrix The camera's projection matrix.
+             * @param density The density of the fog.
+             * @param color Color.
+             */
+            void RenderFog(const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
+            
             /// Apply glow effect.
             /**
              * @param blurAmount How many times to blur the glow buffer.
@@ -119,6 +128,7 @@ namespace Video {
             SkinRenderProgram* skinRenderProgram;
             
             ColorFilter* colorFilter;
+            FogFilter* fogFilter;
             GammaCorrectionFilter* gammaCorrectionFilter;
             GlowFilter* glowFilter;
             GlowBlurFilter* glowBlurFilter;

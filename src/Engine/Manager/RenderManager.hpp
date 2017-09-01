@@ -7,7 +7,6 @@ namespace Video {
     class Renderer;
     class Shader;
     class ShaderProgram;
-    class FogFilter;
     class FXAAFilter;
 }
 class World;
@@ -60,7 +59,6 @@ class RenderManager {
         Video::ShaderProgram* editorEntityShaderProgram;
         
         // Post-processing.
-        Video::FogFilter* fogFilter;
         Video::FXAAFilter* fxaaFilter;
         
         // Editor entity textures.

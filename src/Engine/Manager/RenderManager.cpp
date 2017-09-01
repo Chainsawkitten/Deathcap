@@ -34,7 +34,6 @@
 #include <Video/Lighting/Light.hpp>
 #include <Video/RenderTarget.hpp>
 #include <Video/PostProcessing/PostProcessing.hpp>
-#include <Video/PostProcessing/FogFilter.hpp>
 #include <Video/PostProcessing/FXAAFilter.hpp>
 #include "../Hymn.hpp"
 
@@ -56,7 +55,6 @@ RenderManager::RenderManager() {
     cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
     
     // Init filters.
-    fogFilter = new Video::FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new Video::FXAAFilter();
     
     // Create editor entity geometry.
@@ -89,7 +87,6 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
     
-    delete fogFilter;
     delete fxaaFilter;
     
     glDeleteBuffers(1, &vertexBuffer);
@@ -157,26 +154,20 @@ void RenderManager::Render(World& world, Entity* camera) {
         }
         
         // Fog.
-        if (Hymn().filterSettings.fog) {
-            fogFilter->SetProjectionMatrix(camera->GetComponent<Component::Lens>()->GetProjection(screenSize));
-            fogFilter->SetDensity(Hymn().filterSettings.fogDensity);
-            fogFilter->SetColor(Hymn().filterSettings.fogColor);
-            renderer->postProcessing->ApplyFilter(fogFilter);
-        }
+        if (Hymn().filterSettings.fog)
+            renderer->RenderFog(camera->GetComponent<Component::Lens>()->GetProjection(screenSize), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
         
         // Render particles.
         Managers().particleManager->UpdateBuffer(world);
         Managers().particleManager->Render(world, camera);
         
         // Glow.
-        if (Hymn().filterSettings.glow) {
+        if (Hymn().filterSettings.glow)
             renderer->ApplyGlow(Hymn().filterSettings.glowBlurAmount);
-        }
         
         // Color.
-        if (Hymn().filterSettings.color) {
+        if (Hymn().filterSettings.color)
             renderer->ApplyColorFilter(Hymn().filterSettings.colorColor);
-        }
         
         // Gamma correction.
         renderer->GammaCorrect();
