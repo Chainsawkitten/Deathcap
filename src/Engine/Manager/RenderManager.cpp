@@ -36,8 +36,6 @@
 #include <Video/PostProcessing/PostProcessing.hpp>
 #include <Video/PostProcessing/FogFilter.hpp>
 #include <Video/PostProcessing/FXAAFilter.hpp>
-#include <Video/PostProcessing/GlowFilter.hpp>
-#include <Video/PostProcessing/GlowBlurFilter.hpp>
 #include "../Hymn.hpp"
 
 using namespace Component;
@@ -60,8 +58,6 @@ RenderManager::RenderManager() {
     // Init filters.
     fogFilter = new Video::FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new Video::FXAAFilter();
-    glowFilter = new Video::GlowFilter();
-    glowBlurFilter = new Video::GlowBlurFilter();
     
     // Create editor entity geometry.
     float vertex;
@@ -95,8 +91,6 @@ RenderManager::~RenderManager() {
     
     delete fogFilter;
     delete fxaaFilter;
-    delete glowFilter;
-    delete glowBlurFilter;
     
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteVertexArrays(1, &vertexArray);
@@ -176,14 +170,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         
         // Glow.
         if (Hymn().filterSettings.glow) {
-            glowBlurFilter->SetScreenSize(screenSize);
-            for (int i = 0; i < Hymn().filterSettings.glowBlurAmount; ++i) {
-                glowBlurFilter->SetHorizontal(true);
-                renderer->postProcessing->ApplyFilter(glowBlurFilter);
-                glowBlurFilter->SetHorizontal(false);
-                renderer->postProcessing->ApplyFilter(glowBlurFilter);
-            }
-            renderer->postProcessing->ApplyFilter(glowFilter);
+            renderer->ApplyGlow(Hymn().filterSettings.glowBlurAmount);
         }
         
         // Color.

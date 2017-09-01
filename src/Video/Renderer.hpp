@@ -12,6 +12,8 @@ namespace Video {
     class PostProcessing;
     class ColorFilter;
     class GammaCorrectionFilter;
+    class GlowBlurFilter;
+    class GlowFilter;
     namespace Geometry {
         class Geometry3D;
     }
@@ -87,6 +89,12 @@ namespace Video {
              */
             void Light(const glm::mat4& inverseProjectionMatrix);
             
+            /// Apply glow effect.
+            /**
+             * @param blurAmount How many times to blur the glow buffer.
+             */
+            void ApplyGlow(int blurAmount);
+            
             /// Apply a color filter.
             /**
              * @param color Color.
@@ -112,5 +120,7 @@ namespace Video {
             
             ColorFilter* colorFilter;
             GammaCorrectionFilter* gammaCorrectionFilter;
+            GlowFilter* glowFilter;
+            GlowBlurFilter* glowBlurFilter;
     };
 }

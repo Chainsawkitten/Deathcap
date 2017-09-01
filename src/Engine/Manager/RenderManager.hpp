@@ -9,8 +9,6 @@ namespace Video {
     class ShaderProgram;
     class FogFilter;
     class FXAAFilter;
-    class GlowFilter;
-    class GlowBlurFilter;
 }
 class World;
 class Entity;
@@ -64,8 +62,6 @@ class RenderManager {
         // Post-processing.
         Video::FogFilter* fogFilter;
         Video::FXAAFilter* fxaaFilter;
-        Video::GlowFilter* glowFilter;
-        Video::GlowBlurFilter* glowBlurFilter;
         
         // Editor entity textures.
         Texture2D* particleEmitterTexture;
