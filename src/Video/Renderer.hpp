@@ -12,6 +12,7 @@ namespace Video {
     class PostProcessing;
     class ColorFilter;
     class FogFilter;
+    class FXAAFilter;
     class GammaCorrectionFilter;
     class GlowBlurFilter;
     class GlowFilter;
@@ -90,6 +91,9 @@ namespace Video {
              */
             void Light(const glm::mat4& inverseProjectionMatrix);
             
+            /// Anti-alias using FXAA.
+            void AntiAlias();
+            
             /// Render fog.
             /**
              * @param projectionMatrix The camera's projection matrix.
@@ -129,6 +133,7 @@ namespace Video {
             
             ColorFilter* colorFilter;
             FogFilter* fogFilter;
+            FXAAFilter* fxaaFilter;
             GammaCorrectionFilter* gammaCorrectionFilter;
             GlowFilter* glowFilter;
             GlowBlurFilter* glowBlurFilter;

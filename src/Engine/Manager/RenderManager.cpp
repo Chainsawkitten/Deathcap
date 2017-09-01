@@ -33,8 +33,6 @@
 #include "../MainWindow.hpp"
 #include <Video/Lighting/Light.hpp>
 #include <Video/RenderTarget.hpp>
-#include <Video/PostProcessing/PostProcessing.hpp>
-#include <Video/PostProcessing/FXAAFilter.hpp>
 #include "../Hymn.hpp"
 
 using namespace Component;
@@ -53,9 +51,6 @@ RenderManager::RenderManager() {
     lightTexture = Managers().resourceManager->CreateTexture2D(LIGHT_PNG, LIGHT_PNG_LENGTH);
     soundSourceTexture = Managers().resourceManager->CreateTexture2D(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
     cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
-    
-    // Init filters.
-    fxaaFilter = new Video::FXAAFilter();
     
     // Create editor entity geometry.
     float vertex;
@@ -86,8 +81,6 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(lightTexture);
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
-    
-    delete fxaaFilter;
     
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteVertexArrays(1, &vertexArray);
@@ -148,10 +141,8 @@ void RenderManager::Render(World& world, Entity* camera) {
         LightWorld(world, camera);
         
         // Anti-aliasing.
-        if (Hymn().filterSettings.fxaa) {
-            fxaaFilter->SetScreenSize(screenSize);
-            renderer->postProcessing->ApplyFilter(fxaaFilter);
-        }
+        if (Hymn().filterSettings.fxaa)
+            renderer->AntiAlias();
         
         // Fog.
         if (Hymn().filterSettings.fog)

@@ -7,7 +7,6 @@ namespace Video {
     class Renderer;
     class Shader;
     class ShaderProgram;
-    class FXAAFilter;
 }
 class World;
 class Entity;
@@ -57,9 +56,6 @@ class RenderManager {
         Video::Shader* editorEntityGeometryShader;
         Video::Shader* editorEntityFragmentShader;
         Video::ShaderProgram* editorEntityShaderProgram;
-        
-        // Post-processing.
-        Video::FXAAFilter* fxaaFilter;
         
         // Editor entity textures.
         Texture2D* particleEmitterTexture;
