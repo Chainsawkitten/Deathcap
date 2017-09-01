@@ -1,6 +1,6 @@
 #include "PostProcessing.hpp"
 
-#include "../RenderTarget.hpp"
+#include <Video/RenderTarget.hpp>
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include <Video/Shader/ShaderProgram.hpp>
@@ -8,6 +8,7 @@
 #include <Video/PostProcessing/Filter.hpp>
 #include "../MainWindow.hpp"
 
+using namespace Video;
 
 PostProcessing::PostProcessing() {
 

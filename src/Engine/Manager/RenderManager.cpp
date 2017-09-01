@@ -31,7 +31,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <Video/Culling/Frustum.hpp>
 #include "../MainWindow.hpp"
-#include "../RenderTarget.hpp"
+#include <Video/RenderTarget.hpp>
 #include "../PostProcessing/PostProcessing.hpp"
 #include <Video/PostProcessing/ColorFilter.hpp>
 #include <Video/PostProcessing/FogFilter.hpp>

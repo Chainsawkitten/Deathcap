@@ -9,7 +9,6 @@ set(SRCS
         ../../externals/imgui/imgui_draw.cpp
         Hymn.cpp
         MainWindow.cpp
-        RenderTarget.cpp
         Audio/SoundBuffer.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
@@ -59,7 +58,6 @@ set(SRCS
 set(HEADERS
         Hymn.hpp
         MainWindow.hpp
-        RenderTarget.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/VorbisFile.hpp
@@ -123,8 +121,6 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.geom
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
-    ../../shaders/PostCopy.frag
-    ../../shaders/PostDither.frag
     ../../assets/ABeeZee.ttf
     ../../assets/Camera.png
     ../../assets/DefaultDiffuse.png

@@ -1,13 +1,9 @@
 #include "RenderTarget.hpp"
-#include <Utility/Log.hpp>
 
+#include <Utility/Log.hpp>
+#include <Video/Geometry/Rectangle.hpp>
 #include <Video/Shader/Shader.hpp>
 #include <Video/Shader/ShaderProgram.hpp>
-
-#include <Video/Geometry/Rectangle.hpp>
-
-#include "Manager/Managers.hpp"
-#include "Manager/ResourceManager.hpp"
 #include "Post.vert.hpp"
 #include "PostCopy.frag.hpp"
 #include "PostDither.frag.hpp"
@@ -70,14 +66,18 @@ RenderTarget::RenderTarget(const glm::vec2& size) {
     // Default framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     
-    vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
-    fragmentShader = Managers().resourceManager->CreateShader(POSTCOPY_FRAG, POSTCOPY_FRAG_LENGTH, GL_FRAGMENT_SHADER);
-    shaderProgram = Managers().resourceManager->CreateShaderProgram({ vertexShader, fragmentShader });
+    Shader* vertexShader = new Shader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
+    Shader* fragmentShader = new Shader(POSTCOPY_FRAG, POSTCOPY_FRAG_LENGTH, GL_FRAGMENT_SHADER);
+    shaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
+    delete fragmentShader;
     
-    ditherFragmentShader = Managers().resourceManager->CreateShader(POSTDITHER_FRAG, POSTDITHER_FRAG_LENGTH, GL_FRAGMENT_SHADER);
-    ditherShaderProgram = Managers().resourceManager->CreateShaderProgram({ vertexShader, ditherFragmentShader });
+    Shader* ditherFragmentShader = new Shader(POSTDITHER_FRAG, POSTDITHER_FRAG_LENGTH, GL_FRAGMENT_SHADER);
+    ditherShaderProgram = new ShaderProgram({ vertexShader, ditherFragmentShader });
     
-    rectangle = Managers().resourceManager->CreateRectangle();
+    delete vertexShader;
+    delete ditherFragmentShader;
+    
+    rectangle = new Geometry::Rectangle();
 }
 
 RenderTarget::~RenderTarget() {
@@ -86,13 +86,9 @@ RenderTarget::~RenderTarget() {
     glDeleteTextures(1, &colorBuffer);
     glDeleteFramebuffers(1, &frameBuffer);
     
-    Managers().resourceManager->FreeShader(vertexShader);
-    Managers().resourceManager->FreeShader(fragmentShader);
-    Managers().resourceManager->FreeShader(ditherFragmentShader);
-    Managers().resourceManager->FreeShaderProgram(shaderProgram);
-    Managers().resourceManager->FreeShaderProgram(ditherShaderProgram);
-    
-    Managers().resourceManager->FreeRectangle();
+    delete shaderProgram;
+    delete ditherShaderProgram;
+    delete rectangle;
 }
 
 void RenderTarget::SetTarget() {

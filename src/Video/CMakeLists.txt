@@ -1,5 +1,6 @@
 set(SRCS
         Renderer.cpp
+        RenderTarget.cpp
         Culling/AxisAlignedBoundingBox.cpp
         Culling/Frustum.cpp
         Geometry/Geometry2D.cpp
@@ -23,6 +24,7 @@ set(SRCS
 
 set(HEADERS
         Renderer.hpp
+        RenderTarget.hpp
         Culling/AxisAlignedBoundingBox.hpp
         Culling/Frustum.hpp
         Geometry/Geometry2D.hpp
@@ -53,6 +55,8 @@ set(EMBEDDED_INPUT
     ../../shaders/Deferred.frag
     ../../shaders/Post.vert
     ../../shaders/PostColor.frag
+    ../../shaders/PostCopy.frag
+    ../../shaders/PostDither.frag
     ../../shaders/PostFog.frag
     ../../shaders/PostFXAA.frag
     ../../shaders/PostGamma.frag
