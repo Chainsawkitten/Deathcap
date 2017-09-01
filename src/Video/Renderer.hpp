@@ -10,6 +10,7 @@ namespace Video {
     class SkinRenderProgram;
     class Texture;
     class PostProcessing;
+    class ColorFilter;
     class GammaCorrectionFilter;
     namespace Geometry {
         class Geometry3D;
@@ -86,6 +87,12 @@ namespace Video {
              */
             void Light(const glm::mat4& inverseProjectionMatrix);
             
+            /// Apply a color filter.
+            /**
+             * @param color Color.
+             */
+            void ApplyColorFilter(const glm::vec3& color);
+            
             /// Perform gamma correction.
             void GammaCorrect();
             
@@ -103,6 +110,7 @@ namespace Video {
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;
             
+            ColorFilter* colorFilter;
             GammaCorrectionFilter* gammaCorrectionFilter;
     };
 }
