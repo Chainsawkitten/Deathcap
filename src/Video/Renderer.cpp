@@ -6,6 +6,7 @@
 #include "RenderProgram/StaticRenderProgram.hpp"
 #include "RenderProgram/SkinRenderProgram.hpp"
 #include "PostProcessing/PostProcessing.hpp"
+#include "PostProcessing/ColorFilter.hpp"
 #include "PostProcessing/GammaCorrectionFilter.hpp"
 #include "RenderTarget.hpp"
 
@@ -17,6 +18,7 @@ Renderer::Renderer(const glm::vec2& screenSize) {
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
     postProcessing = new PostProcessing(screenSize);
+    colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     gammaCorrectionFilter = new GammaCorrectionFilter();
 }
 
@@ -71,6 +73,11 @@ void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const gl
 
 void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture* diffuseTexture, const Video::Texture* normalTexture, const Video::Texture* specularTexture, const Video::Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
     skinRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix, bones, bonesIT);
+}
+
+void Renderer::ApplyColorFilter(const glm::vec3& color) {
+    colorFilter->SetColor(color);
+    postProcessing->ApplyFilter(colorFilter);
 }
 
 void Renderer::GammaCorrect() {

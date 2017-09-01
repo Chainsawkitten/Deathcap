@@ -7,7 +7,6 @@ namespace Video {
     class Renderer;
     class Shader;
     class ShaderProgram;
-    class ColorFilter;
     class FogFilter;
     class FXAAFilter;
     class GlowFilter;
@@ -63,7 +62,6 @@ class RenderManager {
         Video::ShaderProgram* editorEntityShaderProgram;
         
         // Post-processing.
-        Video::ColorFilter* colorFilter;
         Video::FogFilter* fogFilter;
         Video::FXAAFilter* fxaaFilter;
         Video::GlowFilter* glowFilter;

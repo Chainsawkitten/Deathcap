@@ -34,7 +34,6 @@
 #include <Video/Lighting/Light.hpp>
 #include <Video/RenderTarget.hpp>
 #include <Video/PostProcessing/PostProcessing.hpp>
-#include <Video/PostProcessing/ColorFilter.hpp>
 #include <Video/PostProcessing/FogFilter.hpp>
 #include <Video/PostProcessing/FXAAFilter.hpp>
 #include <Video/PostProcessing/GlowFilter.hpp>
@@ -59,7 +58,6 @@ RenderManager::RenderManager() {
     cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
     
     // Init filters.
-    colorFilter = new Video::ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new Video::FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new Video::FXAAFilter();
     glowFilter = new Video::GlowFilter();
@@ -95,7 +93,6 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
     
-    delete colorFilter;
     delete fogFilter;
     delete fxaaFilter;
     delete glowFilter;
@@ -191,8 +188,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         
         // Color.
         if (Hymn().filterSettings.color) {
-            colorFilter->SetColor(Hymn().filterSettings.colorColor);
-            renderer->postProcessing->ApplyFilter(colorFilter);
+            renderer->ApplyColorFilter(Hymn().filterSettings.colorColor);
         }
         
         // Gamma correction.
