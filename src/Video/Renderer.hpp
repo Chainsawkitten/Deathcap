@@ -78,6 +78,7 @@ namespace Video {
              */
             void Light(const glm::mat4& inverseProjectionMatrix);
             
+            PostProcessing* postProcessing;
             
         private:
             glm::vec2 screenSize;

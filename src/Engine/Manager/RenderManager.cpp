@@ -60,7 +60,6 @@ RenderManager::RenderManager() {
     cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
     
     // Init filters.
-    postProcessing = new Video::PostProcessing(MainWindow::GetInstance()->GetSize());
     colorFilter = new Video::ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new Video::FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new Video::FXAAFilter();
@@ -98,7 +97,6 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
     
-    delete postProcessing;
     delete colorFilter;
     delete fogFilter;
     delete fxaaFilter;
@@ -162,13 +160,13 @@ void RenderManager::Render(World& world, Entity* camera) {
         }
         
         // Light the world.
-        postProcessing->GetRenderTarget()->SetTarget();
+        renderer->postProcessing->GetRenderTarget()->SetTarget();
         LightWorld(world, camera);
         
         // Anti-aliasing.
         if (Hymn().filterSettings.fxaa) {
             fxaaFilter->SetScreenSize(screenSize);
-            postProcessing->ApplyFilter(fxaaFilter);
+            renderer->postProcessing->ApplyFilter(fxaaFilter);
         }
         
         // Fog.
@@ -176,7 +174,7 @@ void RenderManager::Render(World& world, Entity* camera) {
             fogFilter->SetProjectionMatrix(camera->GetComponent<Component::Lens>()->GetProjection(screenSize));
             fogFilter->SetDensity(Hymn().filterSettings.fogDensity);
             fogFilter->SetColor(Hymn().filterSettings.fogColor);
-            postProcessing->ApplyFilter(fogFilter);
+            renderer->postProcessing->ApplyFilter(fogFilter);
         }
         
         // Render particles.
@@ -188,24 +186,24 @@ void RenderManager::Render(World& world, Entity* camera) {
             glowBlurFilter->SetScreenSize(screenSize);
             for (int i = 0; i < Hymn().filterSettings.glowBlurAmount; ++i) {
                 glowBlurFilter->SetHorizontal(true);
-                postProcessing->ApplyFilter(glowBlurFilter);
+                renderer->postProcessing->ApplyFilter(glowBlurFilter);
                 glowBlurFilter->SetHorizontal(false);
-                postProcessing->ApplyFilter(glowBlurFilter);
+                renderer->postProcessing->ApplyFilter(glowBlurFilter);
             }
-            postProcessing->ApplyFilter(glowFilter);
+            renderer->postProcessing->ApplyFilter(glowFilter);
         }
         
         // Color.
         if (Hymn().filterSettings.color) {
             colorFilter->SetColor(Hymn().filterSettings.colorColor);
-            postProcessing->ApplyFilter(colorFilter);
+            renderer->postProcessing->ApplyFilter(colorFilter);
         }
         
         // Gamma correction.
-        postProcessing->ApplyFilter(gammaCorrectionFilter);
+        renderer->postProcessing->ApplyFilter(gammaCorrectionFilter);
         
         // Render to back buffer.
-        postProcessing->Render(true);
+        renderer->postProcessing->Render(true);
     }
 }
 
@@ -284,7 +282,7 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
 }
 
 void RenderManager::UpdateBufferSize() {
-    postProcessing->UpdateBufferSize(MainWindow::GetInstance()->GetSize());
+    renderer->postProcessing->UpdateBufferSize(MainWindow::GetInstance()->GetSize());
     renderer->SetScreenSize(MainWindow::GetInstance()->GetSize());
 }
 

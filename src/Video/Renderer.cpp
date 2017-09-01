@@ -5,6 +5,7 @@
 #include "Lighting/Lighting.hpp"
 #include "RenderProgram/StaticRenderProgram.hpp"
 #include "RenderProgram/SkinRenderProgram.hpp"
+#include "PostProcessing/PostProcessing.hpp"
 
 using namespace Video;
 
@@ -13,12 +14,14 @@ Renderer::Renderer(const glm::vec2& screenSize) {
     lighting = new Lighting(screenSize);
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
+    postProcessing = new PostProcessing(screenSize);
 }
 
 Renderer::~Renderer() {
     delete lighting;
     delete staticRenderProgram;
     delete skinRenderProgram;
+    delete postProcessing;
 }
 
 void Renderer::SetScreenSize(const glm::vec2& screenSize) {
