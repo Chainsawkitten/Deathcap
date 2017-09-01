@@ -34,7 +34,6 @@ set(SRCS
         Geometry/RiggedModel.cpp
         Geometry/Skeleton.cpp
         Geometry/StaticModel.cpp
-        Lighting/DeferredLighting.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
@@ -83,7 +82,6 @@ set(HEADERS
         Geometry/RiggedModel.hpp
         Geometry/Skeleton.hpp
         Geometry/StaticModel.hpp
-        Lighting/DeferredLighting.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp

@@ -17,7 +17,6 @@ namespace Video {
 }
 class World;
 class Entity;
-class DeferredLighting;
 class Texture2D;
 namespace Component {
     class SuperComponent;
@@ -56,6 +55,7 @@ class RenderManager {
         void operator=(RenderManager const&) = delete;
         
         void RenderEditorEntity(Component::SuperComponent* component);
+        void LightWorld(World& world, const Entity* camera);
 
         Video::Renderer* renderer;
         
@@ -63,8 +63,6 @@ class RenderManager {
         Video::Shader* editorEntityGeometryShader;
         Video::Shader* editorEntityFragmentShader;
         Video::ShaderProgram* editorEntityShaderProgram;
-        
-        DeferredLighting* deferredLighting;
         
         // Post-processing.
         Video::PostProcessing* postProcessing;
