@@ -24,10 +24,10 @@ class SkinRenderProgram {
         
         /// Bind render program.
         /**
-         * @param camera Camera to render from.
-         * @param screenSize Screen size in pixels (width, height).
+         * @param viewMatrix The camera's view matrix.
+         * @param projectionMatrix The camera's projection matrix.
          */
-        void PreRender(Entity* camera, const glm::vec2& screenSize);
+        void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
         /// Render mesh.
         /**
@@ -41,7 +41,7 @@ class SkinRenderProgram {
     private:
         Video::ShaderProgram* shaderProgram;
 
-        glm::mat4 viewMat;
-        glm::mat4 projectionMat;
-        glm::mat4 viewProjectionMat;
+        glm::mat4 viewMatrix;
+        glm::mat4 projectionMatrix;
+        glm::mat4 viewProjectionMatrix;
 };

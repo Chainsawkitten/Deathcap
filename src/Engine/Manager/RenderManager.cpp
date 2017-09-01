@@ -150,16 +150,20 @@ void RenderManager::Render(World& world, Entity* camera) {
         glm::vec2 screenSize = MainWindow::GetInstance()->GetSize();
         renderer->StartRendering();
         
+        // Camera matrices.
+        glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position);
+        glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(screenSize);
+        
         std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
         // Static render program.
-        staticRenderProgram->PreRender(camera, screenSize);
+        staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
         for (Mesh* mesh : meshes)
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 staticRenderProgram->Render(mesh);
         staticRenderProgram->PostRender();
 
         // Skin render program.
-        skinRenderProgram->PreRender(camera, screenSize);
+        skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
         for (Mesh* mesh : meshes)
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
                 skinRenderProgram->Render(mesh);

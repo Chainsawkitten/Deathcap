@@ -22,14 +22,14 @@ StaticRenderProgram::~StaticRenderProgram() {
     this->shaderProgram = nullptr;
 }
 
-void StaticRenderProgram::PreRender(Entity* camera, const glm::vec2& screenSize) {
+void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     shaderProgram->Use();
     
-    viewMat = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position);
-    projectionMat = camera->GetComponent<Lens>()->GetProjection(screenSize);
-    viewProjectionMat = projectionMat * viewMat;
+    this->viewMatrix = viewMatrix;
+    this->projectionMatrix = projectionMatrix;
+    viewProjectionMatrix = projectionMatrix * viewMatrix;
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMat[0][0]);
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
 void StaticRenderProgram::Render(Mesh* mesh) const {
@@ -38,9 +38,9 @@ void StaticRenderProgram::Render(Mesh* mesh) const {
     if (mesh->geometry == nullptr || material == nullptr)
         return;
     
-    glm::mat4 modelMat = entity->GetModelMatrix();
+    glm::mat4 modelMatrix = entity->GetModelMatrix();
     
-    Frustum frustum(viewProjectionMat * modelMat);
+    Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(mesh->geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(mesh->geometry->GetVertexArray());
         
@@ -61,9 +61,9 @@ void StaticRenderProgram::Render(Mesh* mesh) const {
         glBindTexture(GL_TEXTURE_2D, material->glow->GetTextureID());
         
         // Render model.
-        glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMat[0][0]);
-        glm::mat4 normalMat = glm::transpose(glm::inverse(viewMat * modelMat));
-        glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMat)[0][0]);
+        glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+        glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
+        glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
         
         glDrawElements(GL_TRIANGLES, mesh->geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
