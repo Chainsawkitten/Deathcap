@@ -15,6 +15,7 @@ set(SRCS
         PostProcessing/GammaCorrectionFilter.cpp
         PostProcessing/GlowBlurFilter.cpp
         PostProcessing/GlowFilter.cpp
+        PostProcessing/PostProcessing.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
@@ -41,6 +42,7 @@ set(HEADERS
         PostProcessing/GammaCorrectionFilter.hpp
         PostProcessing/GlowBlurFilter.hpp
         PostProcessing/GlowFilter.hpp
+        PostProcessing/PostProcessing.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp

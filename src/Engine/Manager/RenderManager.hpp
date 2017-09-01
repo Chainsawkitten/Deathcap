@@ -7,6 +7,7 @@ namespace Video {
     class Renderer;
     class Shader;
     class ShaderProgram;
+    class PostProcessing;
     class ColorFilter;
     class FogFilter;
     class FXAAFilter;
@@ -17,7 +18,6 @@ namespace Video {
 class World;
 class Entity;
 class DeferredLighting;
-class PostProcessing;
 class Texture2D;
 namespace Component {
     class SuperComponent;
@@ -67,7 +67,7 @@ class RenderManager {
         DeferredLighting* deferredLighting;
         
         // Post-processing.
-        PostProcessing* postProcessing;
+        Video::PostProcessing* postProcessing;
         Video::ColorFilter* colorFilter;
         Video::FogFilter* fogFilter;
         Video::FXAAFilter* fxaaFilter;

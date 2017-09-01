@@ -44,7 +44,6 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
-        PostProcessing/PostProcessing.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
@@ -94,7 +93,6 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
-        PostProcessing/PostProcessing.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp

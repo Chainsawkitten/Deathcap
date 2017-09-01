@@ -32,7 +32,7 @@
 #include <Video/Culling/Frustum.hpp>
 #include "../MainWindow.hpp"
 #include <Video/RenderTarget.hpp>
-#include "../PostProcessing/PostProcessing.hpp"
+#include <Video/PostProcessing/PostProcessing.hpp>
 #include <Video/PostProcessing/ColorFilter.hpp>
 #include <Video/PostProcessing/FogFilter.hpp>
 #include <Video/PostProcessing/FXAAFilter.hpp>
@@ -61,7 +61,7 @@ RenderManager::RenderManager() {
     deferredLighting = new DeferredLighting(renderer);
     
     // Init filters.
-    postProcessing = new PostProcessing();
+    postProcessing = new Video::PostProcessing(MainWindow::GetInstance()->GetSize());
     colorFilter = new Video::ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new Video::FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new Video::FXAAFilter();
@@ -287,7 +287,7 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
 }
 
 void RenderManager::UpdateBufferSize() {
-    postProcessing->UpdateBufferSize();
+    postProcessing->UpdateBufferSize(MainWindow::GetInstance()->GetSize());
     
     delete deferredLighting;
     deferredLighting = new DeferredLighting(renderer);

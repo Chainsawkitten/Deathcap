@@ -1,45 +1,36 @@
 #include "PostProcessing.hpp"
 
 #include <Video/RenderTarget.hpp>
-#include "../Manager/Managers.hpp"
-#include "../Manager/ResourceManager.hpp"
 #include <Video/Shader/ShaderProgram.hpp>
 #include <Video/Geometry/Rectangle.hpp>
 #include <Video/PostProcessing/Filter.hpp>
-#include "../MainWindow.hpp"
 
 using namespace Video;
 
-PostProcessing::PostProcessing() {
-
-    buffers[0] = new RenderTarget(MainWindow::GetInstance()->GetSize());
-    buffers[1] = new RenderTarget(MainWindow::GetInstance()->GetSize());
+PostProcessing::PostProcessing(const glm::vec2& screenSize) {
+    buffers[0] = new RenderTarget(screenSize);
+    buffers[1] = new RenderTarget(screenSize);
     
-    rectangle = Managers().resourceManager->CreateRectangle();
-
+    rectangle = new Geometry::Rectangle();
 }
 
 PostProcessing::~PostProcessing() {
     delete buffers[0];
     delete buffers[1];
     
-    Managers().resourceManager->FreeRectangle();
+    delete rectangle;
 }
 
 RenderTarget* PostProcessing::GetRenderTarget() const {
     return buffers[which];
 }
 
-void PostProcessing::UpdateBufferSize(){
-
+void PostProcessing::UpdateBufferSize(const glm::vec2& screenSize){
     delete buffers[0];
     delete buffers[1];
-
-    buffers[0] = new RenderTarget(MainWindow::GetInstance()->GetSize());
-    buffers[1] = new RenderTarget(MainWindow::GetInstance()->GetSize());
-
-    rectangle = Managers().resourceManager->CreateRectangle();
-
+    
+    buffers[0] = new RenderTarget(screenSize);
+    buffers[1] = new RenderTarget(screenSize);
 }
 
 void PostProcessing::ApplyFilter(Video::Filter* filter) {
