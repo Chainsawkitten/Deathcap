@@ -72,16 +72,16 @@ void RiggedModel::Load(const char* filename) {
     indices.shrink_to_fit();
 }
 
-Geometry3D::Type RiggedModel::GetType() const {
+Video::Geometry::Geometry3D::Type RiggedModel::GetType() const {
     return SKIN;
 }
 
 void RiggedModel::GenerateVertexBuffer(GLuint& vertexBuffer) {
-    vertexBuffer = VertexType::SkinVertex::GenerateVertexBuffer(vertices.data(), vertices.size());
+    vertexBuffer = Video::Geometry::VertexType::SkinVertex::GenerateVertexBuffer(vertices.data(), vertices.size());
 }
 
 void RiggedModel::GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {
-    vertexArray = VertexType::SkinVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
+    vertexArray = Video::Geometry::VertexType::SkinVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
 }
 
 void RiggedModel::LoadMeshes(const aiScene* aScene) {
@@ -116,7 +116,7 @@ void RiggedModel::LoadMeshes(const aiScene* aScene) {
         
         // Load vertices.
         for (unsigned int i = 0; i < aMesh->mNumVertices; ++i) {
-            VertexType::SkinVertex& vert = vertices[numVertices];
+            Video::Geometry::VertexType::SkinVertex& vert = vertices[numVertices];
             CpyVec(vert.position, aMesh->mVertices[i]);
             CpyVec(vert.textureCoordinate, aMesh->mTextureCoords[0][i]);
             CpyVec(vert.normal, aMesh->mNormals[i]);
@@ -180,7 +180,7 @@ void RiggedModel::MeshTransform(const std::vector<glm::mat4>& transforms) {
         boneTransform += transforms[boneIDs[2]] * boneWeights[2];
         boneTransform += transforms[boneIDs[3]] * boneWeights[3];
         
-        VertexType::SkinVertex& vert = vertices[v];
+        Video::Geometry::VertexType::SkinVertex& vert = vertices[v];
         vert.position = boneTransform * glm::vec4(vert.position, 1.f);
         vert.normal = boneTransform * glm::vec4(vert.normal, 0.f);
     }

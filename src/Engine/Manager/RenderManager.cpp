@@ -28,7 +28,7 @@
 #include "../Component/PointLight.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
-#include "../Geometry/Geometry3D.hpp"
+#include <Video/Geometry/Geometry3D.hpp>
 #include "../Texture/Texture2D.hpp"
 #include "../Lighting/DeferredLighting.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -154,14 +154,14 @@ void RenderManager::Render(World& world, Entity* camera) {
         // Static render program.
         staticRenderProgram->PreRender(camera, screenSize);
         for (Mesh* mesh : meshes)
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Geometry::Geometry3D::STATIC)
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 staticRenderProgram->Render(mesh);
         staticRenderProgram->PostRender();
 
         // Skin render program.
         skinRenderProgram->PreRender(camera, screenSize);
         for (Mesh* mesh : meshes)
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Geometry::Geometry3D::SKIN)
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
                 skinRenderProgram->Render(mesh);
         skinRenderProgram->PostRender();
         

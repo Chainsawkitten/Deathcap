@@ -3,7 +3,7 @@
 #include "Model.hpp"
 #include "Animation.hpp"
 #include "Skeleton.hpp"
-#include "VertexType/SkinVertex.hpp"
+#include <Video/Geometry/VertexType/SkinVertex.hpp>
 
 namespace Geometry {
     /// A rigged model loaded from a file.
@@ -70,7 +70,7 @@ namespace Geometry {
             // Skin vertices on CPU. Used only for debugging purposes.
             void MeshTransform(const std::vector<glm::mat4>& transforms);
             
-            std::vector<VertexType::SkinVertex> vertices;
+            std::vector<Video::Geometry::VertexType::SkinVertex> vertices;
             std::vector<unsigned int> indices;
             std::vector<glm::vec3*> verticesPos;
     };

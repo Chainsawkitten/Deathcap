@@ -28,6 +28,13 @@ set(SRCS
         Entity/Entity.cpp
         Entity/World.cpp
         Font/Font.cpp
+        Geometry/Animation.cpp
+        Geometry/Cube.cpp
+        Geometry/MathFunctions.cpp
+        Geometry/Model.cpp
+        Geometry/RiggedModel.cpp
+        Geometry/Skeleton.cpp
+        Geometry/StaticModel.cpp
         Lighting/DeferredLighting.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
@@ -38,7 +45,6 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
-        Physics/Rectangle.cpp
         PostProcessing/ColorFilter.cpp
         PostProcessing/FogFilter.cpp
         PostProcessing/FXAAFilter.cpp
@@ -53,16 +59,6 @@ set(SRCS
         Util/Json.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
-        Geometry/Animation.cpp
-        Geometry/Cube.cpp
-        Geometry/Geometry3D.cpp
-        Geometry/MathFunctions.cpp
-        Geometry/Model.cpp
-        Geometry/RiggedModel.cpp
-        Geometry/Skeleton.cpp
-        Geometry/StaticModel.cpp
-        Geometry/VertexType/SkinVertex.cpp
-        Geometry/VertexType/StaticVertex.cpp
         Texture/Texture.cpp
         Texture/Texture2D.cpp
         Script/ScriptFile.cpp
@@ -92,6 +88,13 @@ set(HEADERS
         Entity/Entity.hpp
         Entity/World.hpp
         Font/Font.hpp
+        Geometry/Animation.hpp
+        Geometry/Cube.hpp
+        Geometry/MathFunctions.hpp
+        Geometry/Model.hpp
+        Geometry/RiggedModel.hpp
+        Geometry/Skeleton.hpp
+        Geometry/StaticModel.hpp
         Lighting/DeferredLighting.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
@@ -102,7 +105,6 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
-        Physics/Rectangle.hpp
         PostProcessing/ColorFilter.hpp
         PostProcessing/Filter.hpp
         PostProcessing/FogFilter.hpp
@@ -118,16 +120,6 @@ set(HEADERS
         Util/Json.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
-        Geometry/Animation.hpp
-        Geometry/Cube.hpp
-        Geometry/Geometry3D.hpp
-        Geometry/MathFunctions.hpp
-        Geometry/Model.hpp
-        Geometry/RiggedModel.hpp
-        Geometry/Skeleton.hpp
-        Geometry/StaticModel.hpp
-        Geometry/VertexType/SkinVertex.hpp
-        Geometry/VertexType/StaticVertex.hpp
         Texture/Texture.hpp
         Texture/Texture2D.hpp
         Script/ScriptFile.hpp
@@ -182,6 +174,6 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine Video imgui stb simpleini jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
+target_link_libraries(Engine Video imgui stb simpleini ${OPENAL_LIB} angelscript)
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)

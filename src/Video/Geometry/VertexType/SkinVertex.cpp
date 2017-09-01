@@ -2,7 +2,10 @@
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
-const GLuint Geometry::VertexType::SkinVertex::GenerateVertexBuffer(SkinVertex* vertices, unsigned int vertexCount) {
+using namespace Video;
+using namespace Geometry;
+
+const GLuint VertexType::SkinVertex::GenerateVertexBuffer(SkinVertex* vertices, unsigned int vertexCount) {
     GLuint vertexBuffer;
     glBindVertexArray(0);
     glGenBuffers(1, &vertexBuffer);
@@ -11,7 +14,7 @@ const GLuint Geometry::VertexType::SkinVertex::GenerateVertexBuffer(SkinVertex* 
     return vertexBuffer;
 }
 
-const GLuint Geometry::VertexType::SkinVertex::GenerateVertexArray(GLuint vertexBuffer, GLuint indexBuffer) {
+const GLuint VertexType::SkinVertex::GenerateVertexArray(GLuint vertexBuffer, GLuint indexBuffer) {
     GLuint vertexArray;
     glGenVertexArrays(1, &vertexArray);
     glBindVertexArray(vertexArray);

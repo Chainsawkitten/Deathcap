@@ -4,7 +4,7 @@
 #include "../Component/Material.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Entity/Entity.hpp"
-#include "../Geometry/Geometry3D.hpp"
+#include <Video/Geometry/Geometry3D.hpp>
 #include <Video/Shader/ShaderProgram.hpp>
 #include "../Texture/Texture2D.hpp"
 #include <Video/Culling/AxisAlignedBoundingBox.hpp>
