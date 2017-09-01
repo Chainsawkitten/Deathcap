@@ -9,6 +9,7 @@ namespace Video {
     class StaticRenderProgram;
     class SkinRenderProgram;
     class Texture;
+    class PostProcessing;
     namespace Geometry {
         class Geometry3D;
     }
