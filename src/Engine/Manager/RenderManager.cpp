@@ -281,7 +281,6 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
 }
 
 void RenderManager::UpdateBufferSize() {
-    renderer->postProcessing->UpdateBufferSize(MainWindow::GetInstance()->GetSize());
     renderer->SetScreenSize(MainWindow::GetInstance()->GetSize());
 }
 

@@ -28,6 +28,7 @@ Renderer::~Renderer() {
 void Renderer::SetScreenSize(const glm::vec2& screenSize) {
     this->screenSize = screenSize;
     
+    postProcessing->UpdateBufferSize(screenSize);
     delete lighting;
     lighting = new Lighting(screenSize);
 }
