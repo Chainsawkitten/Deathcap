@@ -1,17 +1,11 @@
 #include "SkinRenderProgram.hpp"
 
-#include "../Component/Lens.hpp"
-#include "../Component/Material.hpp"
-#include "../Component/Mesh.hpp"
-#include "../Entity/Entity.hpp"
-#include "../Geometry/RiggedModel.hpp"
 #include <Video/Shader/ShaderProgram.hpp>
+#include <Video/Geometry/Geometry3D.hpp>
 #include "../Texture/Texture2D.hpp"
 #include <Video/Culling/AxisAlignedBoundingBox.hpp>
 #include <Video/Culling/Frustum.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
-using namespace Component;
 
 SkinRenderProgram::SkinRenderProgram(Video::ShaderProgram* shaderProgram) {
     this->shaderProgram = shaderProgram;
