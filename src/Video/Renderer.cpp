@@ -69,3 +69,7 @@ void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const gl
 void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture* diffuseTexture, const Video::Texture* normalTexture, const Video::Texture* specularTexture, const Video::Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
     skinRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix, bones, bonesIT);
 }
+
+void Renderer::DisplayResults(bool dither) {
+    postProcessing->Render(dither);
+}

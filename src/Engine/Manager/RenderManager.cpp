@@ -202,7 +202,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         renderer->postProcessing->ApplyFilter(gammaCorrectionFilter);
         
         // Render to back buffer.
-        renderer->postProcessing->Render(true);
+        renderer->DisplayResults(true);
     }
 }
 

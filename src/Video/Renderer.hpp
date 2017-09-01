@@ -78,6 +78,12 @@ namespace Video {
              */
             void Light(const glm::mat4& inverseProjectionMatrix);
             
+            /// Display the rendered results.
+            /**
+             * @param dither Whether to use dithering.
+             */
+            void DisplayResults(bool dither);
+            
             PostProcessing* postProcessing;
             
         private:
