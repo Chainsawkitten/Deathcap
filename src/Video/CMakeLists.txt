@@ -8,6 +8,12 @@ set(SRCS
         Geometry/VertexType/SkinVertex.cpp
         Geometry/VertexType/StaticVertex.cpp
         Lighting/Lighting.cpp
+        PostProcessing/ColorFilter.cpp
+        PostProcessing/FogFilter.cpp
+        PostProcessing/FXAAFilter.cpp
+        PostProcessing/GammaCorrectionFilter.cpp
+        PostProcessing/GlowBlurFilter.cpp
+        PostProcessing/GlowFilter.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
@@ -26,7 +32,13 @@ set(HEADERS
         Geometry/VertexType/StaticVertex.hpp
         Lighting/Light.hpp
         Lighting/Lighting.hpp
+        PostProcessing/ColorFilter.hpp
         PostProcessing/Filter.hpp
+        PostProcessing/FogFilter.hpp
+        PostProcessing/FXAAFilter.hpp
+        PostProcessing/GammaCorrectionFilter.hpp
+        PostProcessing/GlowBlurFilter.hpp
+        PostProcessing/GlowFilter.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
@@ -40,6 +52,12 @@ set(EMBEDDED_INPUT
     ../../shaders/Default3D.frag
     ../../shaders/Deferred.frag
     ../../shaders/Post.vert
+    ../../shaders/PostColor.frag
+    ../../shaders/PostFog.frag
+    ../../shaders/PostFXAA.frag
+    ../../shaders/PostGamma.frag
+    ../../shaders/PostGlow.frag
+    ../../shaders/PostGlowBlur.frag
     ../../shaders/Skinning.vert
 )
 

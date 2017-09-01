@@ -33,12 +33,12 @@
 #include "../MainWindow.hpp"
 #include "../RenderTarget.hpp"
 #include "../PostProcessing/PostProcessing.hpp"
-#include "../PostProcessing/ColorFilter.hpp"
-#include "../PostProcessing/FogFilter.hpp"
-#include "../PostProcessing/FXAAFilter.hpp"
-#include "../PostProcessing/GammaCorrectionFilter.hpp"
-#include "../PostProcessing/GlowFilter.hpp"
-#include "../PostProcessing/GlowBlurFilter.hpp"
+#include <Video/PostProcessing/ColorFilter.hpp>
+#include <Video/PostProcessing/FogFilter.hpp>
+#include <Video/PostProcessing/FXAAFilter.hpp>
+#include <Video/PostProcessing/GammaCorrectionFilter.hpp>
+#include <Video/PostProcessing/GlowFilter.hpp>
+#include <Video/PostProcessing/GlowBlurFilter.hpp>
 #include "../Hymn.hpp"
 
 using namespace Component;
@@ -62,12 +62,12 @@ RenderManager::RenderManager() {
     
     // Init filters.
     postProcessing = new PostProcessing();
-    colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
-    fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
-    fxaaFilter = new FXAAFilter();
-    gammaCorrectionFilter = new GammaCorrectionFilter();
-    glowFilter = new GlowFilter();
-    glowBlurFilter = new GlowBlurFilter();
+    colorFilter = new Video::ColorFilter(glm::vec3(1.f, 1.f, 1.f));
+    fogFilter = new Video::FogFilter(glm::vec3(1.f, 1.f, 1.f));
+    fxaaFilter = new Video::FXAAFilter();
+    gammaCorrectionFilter = new Video::GammaCorrectionFilter();
+    glowFilter = new Video::GlowFilter();
+    glowBlurFilter = new Video::GlowBlurFilter();
     
     // Create editor entity geometry.
     float vertex;
@@ -176,8 +176,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         
         // Fog.
         if (Hymn().filterSettings.fog) {
-            fogFilter->SetCamera(camera->GetComponent<Component::Lens>());
-            fogFilter->SetScreenSize(screenSize);
+            fogFilter->SetProjectionMatrix(camera->GetComponent<Component::Lens>()->GetProjection(screenSize));
             fogFilter->SetDensity(Hymn().filterSettings.fogDensity);
             fogFilter->SetColor(Hymn().filterSettings.fogColor);
             postProcessing->ApplyFilter(fogFilter);

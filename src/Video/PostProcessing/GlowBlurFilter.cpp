@@ -1,18 +1,18 @@
 #include "GlowBlurFilter.hpp"
 
-#include <Video/Shader/Shader.hpp>
-#include <Video/Shader/ShaderProgram.hpp>
-#include "../Manager/Managers.hpp"
-#include "../Manager/ResourceManager.hpp"
+#include "../Shader/Shader.hpp"
+#include "../Shader/ShaderProgram.hpp"
 #include "Post.vert.hpp"
 #include "PostGlowBlur.frag.hpp"
 
 using namespace Video;
 
 GlowBlurFilter::GlowBlurFilter() {
-    vertexShader = Managers().resourceManager->CreateShader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
-    fragmentShader = Managers().resourceManager->CreateShader(POSTGLOWBLUR_FRAG, POSTGLOWBLUR_FRAG_LENGTH, GL_FRAGMENT_SHADER);
-    shaderProgram = Managers().resourceManager->CreateShaderProgram({ vertexShader, fragmentShader });
+    Shader* vertexShader = new Shader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
+    Shader* fragmentShader = new Shader(POSTGLOWBLUR_FRAG, POSTGLOWBLUR_FRAG_LENGTH, GL_FRAGMENT_SHADER);
+    shaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
+    delete vertexShader;
+    delete fragmentShader;
     
     screenSizeLocation = shaderProgram->GetUniformLocation("screenSize");
     
@@ -21,9 +21,7 @@ GlowBlurFilter::GlowBlurFilter() {
 }
 
 GlowBlurFilter::~GlowBlurFilter() {
-    Managers().resourceManager->FreeShaderProgram(shaderProgram);
-    Managers().resourceManager->FreeShader(vertexShader);
-    Managers().resourceManager->FreeShader(fragmentShader);
+    delete shaderProgram;
 }
 
 ShaderProgram* GlowBlurFilter::GetShaderProgram() const {

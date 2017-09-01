@@ -7,17 +7,17 @@ namespace Video {
     class Renderer;
     class Shader;
     class ShaderProgram;
+    class ColorFilter;
+    class FogFilter;
+    class FXAAFilter;
+    class GammaCorrectionFilter;
+    class GlowFilter;
+    class GlowBlurFilter;
 }
 class World;
 class Entity;
 class DeferredLighting;
 class PostProcessing;
-class ColorFilter;
-class FogFilter;
-class FXAAFilter;
-class GammaCorrectionFilter;
-class GlowFilter;
-class GlowBlurFilter;
 class Texture2D;
 namespace Component {
     class SuperComponent;
@@ -68,12 +68,12 @@ class RenderManager {
         
         // Post-processing.
         PostProcessing* postProcessing;
-        ColorFilter* colorFilter;
-        FogFilter* fogFilter;
-        FXAAFilter* fxaaFilter;
-        GammaCorrectionFilter* gammaCorrectionFilter;
-        GlowFilter* glowFilter;
-        GlowBlurFilter* glowBlurFilter;
+        Video::ColorFilter* colorFilter;
+        Video::FogFilter* fogFilter;
+        Video::FXAAFilter* fxaaFilter;
+        Video::GammaCorrectionFilter* gammaCorrectionFilter;
+        Video::GlowFilter* glowFilter;
+        Video::GlowBlurFilter* glowBlurFilter;
         
         // Editor entity textures.
         Texture2D* particleEmitterTexture;

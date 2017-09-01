@@ -45,12 +45,6 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
-        PostProcessing/ColorFilter.cpp
-        PostProcessing/FogFilter.cpp
-        PostProcessing/FXAAFilter.cpp
-        PostProcessing/GammaCorrectionFilter.cpp
-        PostProcessing/GlowFilter.cpp
-        PostProcessing/GlowBlurFilter.cpp
         PostProcessing/PostProcessing.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
@@ -102,12 +96,6 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
-        PostProcessing/ColorFilter.hpp
-        PostProcessing/FogFilter.hpp
-        PostProcessing/FXAAFilter.hpp
-        PostProcessing/GammaCorrectionFilter.hpp
-        PostProcessing/GlowFilter.hpp
-        PostProcessing/GlowBlurFilter.hpp
         PostProcessing/PostProcessing.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
@@ -135,14 +123,8 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.geom
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
-    ../../shaders/PostColor.frag
     ../../shaders/PostCopy.frag
     ../../shaders/PostDither.frag
-    ../../shaders/PostFog.frag
-    ../../shaders/PostFXAA.frag
-    ../../shaders/PostGamma.frag
-    ../../shaders/PostGlow.frag
-    ../../shaders/PostGlowBlur.frag
     ../../assets/ABeeZee.ttf
     ../../assets/Camera.png
     ../../assets/DefaultDiffuse.png
