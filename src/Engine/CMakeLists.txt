@@ -52,8 +52,6 @@ set(SRCS
         PostProcessing/GlowFilter.cpp
         PostProcessing/GlowBlurFilter.cpp
         PostProcessing/PostProcessing.cpp
-        RenderProgram/SkinRenderProgram.cpp
-        RenderProgram/StaticRenderProgram.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
@@ -112,8 +110,6 @@ set(HEADERS
         PostProcessing/GlowFilter.hpp
         PostProcessing/GlowBlurFilter.hpp
         PostProcessing/PostProcessing.hpp
-        RenderProgram/SkinRenderProgram.hpp
-        RenderProgram/StaticRenderProgram.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp

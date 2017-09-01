@@ -17,8 +17,8 @@
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
 #include <Video/Shader/ShaderProgram.hpp>
-#include "../RenderProgram/SkinRenderProgram.hpp"
-#include "../RenderProgram/StaticRenderProgram.hpp"
+#include <Video/RenderProgram/SkinRenderProgram.hpp>
+#include <Video/RenderProgram/StaticRenderProgram.hpp>
 #include "../Entity/Entity.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
@@ -50,15 +50,15 @@ using namespace Component;
 
 RenderManager::RenderManager() {
     renderer = new Video::Renderer(MainWindow::GetInstance()->GetSize());
-
+    
     // Init shaders.
     defaultVertexShader = Managers().resourceManager->CreateShader(DEFAULT3D_VERT, DEFAULT3D_VERT_LENGTH, GL_VERTEX_SHADER);
     skinningVertexShader = Managers().resourceManager->CreateShader(SKINNING_VERT, SKINNING_VERT_LENGTH, GL_VERTEX_SHADER);
     defaultFragmentShader = Managers().resourceManager->CreateShader(DEFAULT3D_FRAG, DEFAULT3D_FRAG_LENGTH, GL_FRAGMENT_SHADER);
     staticShaderProgram = Managers().resourceManager->CreateShaderProgram({ defaultVertexShader, defaultFragmentShader });
     skinShaderProgram = Managers().resourceManager->CreateShaderProgram({ skinningVertexShader, defaultFragmentShader });
-    staticRenderProgram = new StaticRenderProgram(staticShaderProgram);
-    skinRenderProgram = new SkinRenderProgram(skinShaderProgram);
+    staticRenderProgram = new Video::StaticRenderProgram(staticShaderProgram);
+    skinRenderProgram = new Video::SkinRenderProgram(skinShaderProgram);
     
     editorEntityVertexShader = Managers().resourceManager->CreateShader(EDITORENTITY_VERT, EDITORENTITY_VERT_LENGTH, GL_VERTEX_SHADER);
     editorEntityGeometryShader = Managers().resourceManager->CreateShader(EDITORENTITY_GEOM, EDITORENTITY_GEOM_LENGTH, GL_GEOMETRY_SHADER);

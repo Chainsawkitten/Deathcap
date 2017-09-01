@@ -7,11 +7,11 @@ namespace Video {
     class Renderer;
     class Shader;
     class ShaderProgram;
+    class StaticRenderProgram;
+    class SkinRenderProgram;
 }
 class World;
 class Entity;
-class StaticRenderProgram;
-class SkinRenderProgram;
 class DeferredLighting;
 class PostProcessing;
 class ColorFilter;
@@ -66,8 +66,8 @@ class RenderManager {
         Video::Shader* skinningVertexShader;
         Video::ShaderProgram* staticShaderProgram;
         Video::ShaderProgram* skinShaderProgram;
-        StaticRenderProgram* staticRenderProgram;
-        SkinRenderProgram* skinRenderProgram;
+        Video::StaticRenderProgram* staticRenderProgram;
+        Video::SkinRenderProgram* skinRenderProgram;
         
         Video::Shader* editorEntityVertexShader;
         Video::Shader* editorEntityGeometryShader;

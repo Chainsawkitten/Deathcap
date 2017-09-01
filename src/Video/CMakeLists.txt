@@ -8,6 +8,8 @@ set(SRCS
         Geometry/VertexType/SkinVertex.cpp
         Geometry/VertexType/StaticVertex.cpp
         Lighting/Lighting.cpp
+        RenderProgram/SkinRenderProgram.cpp
+        RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         Texture/Texture.cpp
@@ -24,6 +26,8 @@ set(HEADERS
         Geometry/VertexType/StaticVertex.hpp
         Lighting/Light.hpp
         Lighting/Lighting.hpp
+        RenderProgram/SkinRenderProgram.hpp
+        RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         Texture/Texture.hpp

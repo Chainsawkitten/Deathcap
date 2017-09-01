@@ -1,23 +1,23 @@
-#include "StaticRenderProgram.hpp"
+#include "SkinRenderProgram.hpp"
 
-#include <Video/Geometry/Geometry3D.hpp>
-#include <Video/Shader/ShaderProgram.hpp>
-#include "../Texture/Texture2D.hpp"
-#include <Video/Culling/AxisAlignedBoundingBox.hpp>
-#include <Video/Culling/Frustum.hpp>
+#include "../Shader/ShaderProgram.hpp"
+#include "../Geometry/Geometry3D.hpp"
+#include "../Texture/Texture.hpp"
+#include "../Culling/AxisAlignedBoundingBox.hpp"
+#include "../Culling/Frustum.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace Video;
 
-StaticRenderProgram::StaticRenderProgram(ShaderProgram* shaderProgram) {
+SkinRenderProgram::SkinRenderProgram(Video::ShaderProgram* shaderProgram) {
     this->shaderProgram = shaderProgram;
 }
 
-StaticRenderProgram::~StaticRenderProgram() {
+SkinRenderProgram::~SkinRenderProgram() {
     this->shaderProgram = nullptr;
 }
 
-void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     shaderProgram->Use();
     
     this->viewMatrix = viewMatrix;
@@ -27,7 +27,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void StaticRenderProgram::Render(Video::Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) const {
+void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture* diffuseTexture, const Texture* normalTexture, const Texture* specularTexture, const Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
@@ -52,11 +52,14 @@ void StaticRenderProgram::Render(Video::Geometry::Geometry3D* geometry, const Te
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
         glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
+        assert(bones.size() <= 100 && bonesIT.size() <= 100);
+        glUniformMatrix4fv(shaderProgram->GetUniformLocation("bones"), bones.size(), GL_FALSE, &bones[0][0][0]);
+        glUniformMatrix3fv(shaderProgram->GetUniformLocation("bonesIT"), bonesIT.size(), GL_FALSE, &bonesIT[0][0][0]);
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
 }
 
-void StaticRenderProgram::PostRender() const {
+void SkinRenderProgram::PostRender() const {
     glBindVertexArray(0);
 }
