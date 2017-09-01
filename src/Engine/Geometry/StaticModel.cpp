@@ -2,7 +2,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "MathFunctions.hpp"
-#include <Common/Log.hpp>
+#include <Utility/Log.hpp>
 
 using namespace Geometry;
 

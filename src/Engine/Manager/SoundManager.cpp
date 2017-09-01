@@ -1,6 +1,6 @@
 #include "SoundManager.hpp"
 
-#include <Common/Log.hpp>
+#include <Utility/Log.hpp>
 #include <AL/al.h>
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"

@@ -1,7 +1,7 @@
 #include "Shader.hpp"
 
 #include <vector>
-#include <Common/Log.hpp>
+#include <Utility/Log.hpp>
 
 using namespace Video;
 

@@ -6,7 +6,7 @@
 #define STBI_ONLY_TGA
 #include <stb_image.h>
 
-#include <Common/Log.hpp>
+#include <Utility/Log.hpp>
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
 

@@ -15,7 +15,7 @@
 #include "../Component/ParticleEmitter.hpp"
 #include "../Util/Json.hpp"
 #include "../Util/FileSystem.hpp"
-#include <Common/Log.hpp>
+#include <Utility/Log.hpp>
 #include "../Hymn.hpp"
 #include <fstream>
 

@@ -1,6 +1,6 @@
 #include "Lighting.hpp"
 
-#include <Common/Log.hpp>
+#include <Utility/Log.hpp>
 #include "../Geometry/Rectangle.hpp"
 #include "../Shader/Shader.hpp"
 #include "../Shader/ShaderProgram.hpp"
