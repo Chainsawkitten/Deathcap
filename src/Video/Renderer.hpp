@@ -82,5 +82,7 @@ namespace Video {
         private:
             glm::vec2 screenSize;
             Lighting* lighting;
+            StaticRenderProgram* staticRenderProgram;
+            SkinRenderProgram* skinRenderProgram;
     };
 }
