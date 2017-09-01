@@ -103,7 +103,6 @@ set(HEADERS
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
         PostProcessing/ColorFilter.hpp
-        PostProcessing/Filter.hpp
         PostProcessing/FogFilter.hpp
         PostProcessing/FXAAFilter.hpp
         PostProcessing/GammaCorrectionFilter.hpp

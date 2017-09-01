@@ -1,8 +1,8 @@
 #pragma once
 
 class RenderTarget;
-class Filter;
 namespace Video {
+    class Filter;
     namespace Geometry {
         class Rectangle;
     }
@@ -30,7 +30,7 @@ class PostProcessing {
         /**
          * filter %Filter to apply.
          */
-        void ApplyFilter(Filter* filter);
+        void ApplyFilter(Video::Filter* filter);
         
         /// Render resulting image to screen.
         /**

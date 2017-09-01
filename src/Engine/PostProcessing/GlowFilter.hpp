@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Filter.hpp"
+#include <Video/PostProcessing/Filter.hpp>
 #include <glm/glm.hpp>
 
 namespace Video {
@@ -11,7 +11,7 @@ namespace Video {
 /**
  * Applies the blurred glow map to the screen.
  */
-class GlowFilter : public Filter {
+class GlowFilter : public Video::Filter {
     public:
         /// Create new color filter.
         GlowFilter();

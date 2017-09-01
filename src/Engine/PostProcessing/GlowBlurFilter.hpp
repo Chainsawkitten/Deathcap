@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Filter.hpp"
+#include <Video/PostProcessing/Filter.hpp>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
@@ -12,7 +12,7 @@ namespace Video {
 /**
  * Blurs the glow buffer along a specified axis.
  */
-class GlowBlurFilter : public Filter {
+class GlowBlurFilter : public Video::Filter {
     public:
         /// Create new color filter.
         GlowBlurFilter();

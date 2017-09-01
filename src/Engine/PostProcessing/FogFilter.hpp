@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Filter.hpp"
+#include <Video/PostProcessing/Filter.hpp>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
@@ -12,7 +12,7 @@ namespace Component {
 }
 
 /// Post-process fog filter.
-class FogFilter : public Filter {
+class FogFilter : public Video::Filter {
     public:
         /// Create new fog filter.
         /**

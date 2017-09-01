@@ -5,7 +5,7 @@
 #include "../Manager/ResourceManager.hpp"
 #include <Video/Shader/ShaderProgram.hpp>
 #include <Video/Geometry/Rectangle.hpp>
-#include "Filter.hpp"
+#include <Video/PostProcessing/Filter.hpp>
 #include "../MainWindow.hpp"
 
 
@@ -41,7 +41,7 @@ void PostProcessing::UpdateBufferSize(){
 
 }
 
-void PostProcessing::ApplyFilter(Filter* filter) {
+void PostProcessing::ApplyFilter(Video::Filter* filter) {
     // Always pass depth test.
     glDepthFunc(GL_ALWAYS);
     

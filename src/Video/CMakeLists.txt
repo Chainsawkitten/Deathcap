@@ -26,6 +26,7 @@ set(HEADERS
         Geometry/VertexType/StaticVertex.hpp
         Lighting/Light.hpp
         Lighting/Lighting.hpp
+        PostProcessing/Filter.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp

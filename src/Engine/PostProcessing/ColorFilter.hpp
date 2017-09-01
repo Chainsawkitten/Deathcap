@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Filter.hpp"
+#include <Video/PostProcessing/Filter.hpp>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
@@ -9,7 +9,7 @@ namespace Video {
 }
 
 /// Color adjustment filter.
-class ColorFilter : public Filter {
+class ColorFilter : public Video::Filter {
     public:
         /// Create new color filter.
         /**
