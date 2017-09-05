@@ -181,7 +181,7 @@ void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, cons
 void Renderer::RenderIcon(const glm::vec3& position, const Texture* icon) {
     if (currentIcon != icon) {
         currentIcon = icon;
-        glBindTexture(GL_TEXTURE0, icon->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, icon->GetTextureID());
     }
     
     glUniform3fv(iconShaderProgram->GetUniformLocation("position"), 1, &position[0]);

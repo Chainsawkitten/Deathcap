@@ -153,24 +153,18 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         
         // Render sound sources.
         if (soundSources) {
-            glBindTexture(GL_TEXTURE_2D, soundSourceTexture->GetTextureID());
-            
             for (SoundSource* soundSource : world.GetComponents<SoundSource>())
                 renderer->RenderIcon(soundSource->entity->position, soundSourceTexture);
         }
         
         // Render particle emitters.
         if (particleEmitters) {
-            glBindTexture(GL_TEXTURE_2D, particleEmitterTexture->GetTextureID());
-            
             for (ParticleEmitter* emitter : world.GetComponents<ParticleEmitter>())
                 renderer->RenderIcon(emitter->entity->position, particleEmitterTexture);
         }
         
         // Render light sources.
         if (lightSources) {
-            glBindTexture(GL_TEXTURE_2D, lightTexture->GetTextureID());
-            
             for (DirectionalLight* light : world.GetComponents<DirectionalLight>())
                 renderer->RenderIcon(light->entity->position, lightTexture);
             
@@ -183,8 +177,6 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         
         // Render cameras.
         if (cameras) {
-            glBindTexture(GL_TEXTURE_2D, cameraTexture->GetTextureID());
-            
             for (Lens* lens : world.GetComponents<Lens>())
                 renderer->RenderIcon(lens->entity->position, cameraTexture);
         }
