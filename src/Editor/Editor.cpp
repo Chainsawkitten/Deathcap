@@ -106,16 +106,16 @@ void Editor::Show(float deltaTime) {
             ImGui::EndMenu();
         }
         
-        // Play
-        if (ImGui::BeginMenu("Play")) {
-            if (ImGui::MenuItem("Play", "F5"))
-                play = true;
-            
-            ImGui::EndMenu();
-        }
-        
-        // Hymn
         if(Hymn().GetPath() != "") {
+            // Play
+            if (ImGui::BeginMenu("Play")) {
+                if (ImGui::MenuItem("Play", "F5"))
+                    play = true;
+                
+                ImGui::EndMenu();
+            }
+            
+            // Hymn
             if (ImGui::BeginMenu("Hymn")) {
                 if (ImGui::MenuItem("Input"))
                     inputWindow.SetVisible(true);
