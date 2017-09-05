@@ -2,7 +2,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "MathFunctions.hpp"
-#include "../Util/Log.hpp"
+#include <Utility/Log.hpp>
 
 using namespace Geometry;
 
@@ -60,16 +60,16 @@ void StaticModel::Load(const char* filename) {
     indices.shrink_to_fit();
 }
 
-Geometry3D::Type StaticModel::GetType() const {
+Video::Geometry::Geometry3D::Type StaticModel::GetType() const {
     return STATIC;
 }
 
 void StaticModel::GenerateVertexBuffer(GLuint& vertexBuffer) {
-    vertexBuffer = VertexType::StaticVertex::GenerateVertexBuffer(vertices.data(), vertices.size());
+    vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(vertices.data(), vertices.size());
 }
 
 void StaticModel::GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {
-    vertexArray = VertexType::StaticVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
+    vertexArray = Video::Geometry::VertexType::StaticVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
 }
 
 void StaticModel::LoadMeshes(const aiScene* aScene) {
@@ -103,7 +103,7 @@ void StaticModel::LoadMeshes(const aiScene* aScene) {
         
         // Load vertices.
         for (unsigned int i = 0; i < aMesh->mNumVertices; ++i) {
-            VertexType::StaticVertex& vert = vertices[numVertices];
+            Video::Geometry::VertexType::StaticVertex& vert = vertices[numVertices];
             CpyVec(vert.position, aMesh->mVertices[i]);
             CpyVec(vert.textureCoordinate, aMesh->mTextureCoords[0][i]);
             CpyVec(vert.normal, aMesh->mNormals[i]);

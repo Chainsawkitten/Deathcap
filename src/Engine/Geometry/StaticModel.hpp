@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Model.hpp"
-#include "VertexType/StaticVertex.hpp"
+#include <Video/Geometry/VertexType/StaticVertex.hpp>
 
 namespace Geometry {
     /// A static model loaded from a file.
@@ -58,7 +58,7 @@ namespace Geometry {
             
             void LoadMeshes(const aiScene* aScene);
             
-            std::vector<VertexType::StaticVertex> vertices;
+            std::vector<Video::Geometry::VertexType::StaticVertex> vertices;
             std::vector<unsigned int> indices;
             std::vector<glm::vec3*> verticesPos;
     };

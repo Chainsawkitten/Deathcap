@@ -7,12 +7,14 @@
 #include "../MainWindow.hpp"
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
-#include "../Shader/Shader.hpp"
-#include "../Shader/ShaderProgram.hpp"
+#include <Video/Shader/Shader.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 #include "DebugDrawing.vert.hpp"
 #include "DebugDrawing.frag.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
+
+using namespace Video;
 
 DebugDrawingManager::DebugDrawingManager() {
     vertexShader = Managers().resourceManager->CreateShader(DEBUGDRAWING_VERT, DEBUGDRAWING_VERT_LENGTH, GL_VERTEX_SHADER);

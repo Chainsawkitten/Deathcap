@@ -9,8 +9,8 @@
 #include "../MainWindow.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include "../Shader/Shader.hpp"
-#include "../Shader/ShaderProgram.hpp"
+#include <Video/Shader/Shader.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 #include "../Texture/Texture2D.hpp"
 #include "Particle.vert.hpp"
 #include "Particle.geom.hpp"
@@ -18,6 +18,8 @@
 #include "ParticleAtlas.png.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
+
+using namespace Video;
 
 ParticleManager::ParticleManager() {
     randomEngine.seed(randomDevice());

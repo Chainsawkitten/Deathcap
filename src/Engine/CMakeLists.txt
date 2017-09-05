@@ -9,7 +9,6 @@ set(SRCS
         ../../externals/imgui/imgui_draw.cpp
         Hymn.cpp
         MainWindow.cpp
-        RenderTarget.cpp
         Audio/SoundBuffer.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
@@ -27,8 +26,13 @@ set(SRCS
         Component/SuperComponent.cpp
         Entity/Entity.cpp
         Entity/World.cpp
-        Font/Font.cpp
-        Lighting/DeferredLighting.cpp
+        Geometry/Animation.cpp
+        Geometry/Cube.cpp
+        Geometry/MathFunctions.cpp
+        Geometry/Model.cpp
+        Geometry/RiggedModel.cpp
+        Geometry/Skeleton.cpp
+        Geometry/StaticModel.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
@@ -38,39 +42,11 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
-        Physics/AxisAlignedBoundingBox.cpp
-        Physics/Frustum.cpp
-        Physics/Rectangle.cpp
-        PostProcessing/ColorFilter.cpp
-        PostProcessing/FogFilter.cpp
-        PostProcessing/FXAAFilter.cpp
-        PostProcessing/GammaCorrectionFilter.cpp
-        PostProcessing/GlowFilter.cpp
-        PostProcessing/GlowBlurFilter.cpp
-        PostProcessing/PostProcessing.cpp
-        RenderProgram/SkinRenderProgram.cpp
-        RenderProgram/StaticRenderProgram.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
-        Util/Log.cpp
-        Shader/Shader.cpp
-        Shader/ShaderProgram.cpp
-        Geometry/Animation.cpp
-        Geometry/Cube.cpp
-        Geometry/Geometry2D.cpp
-        Geometry/Geometry3D.cpp
-        Geometry/MathFunctions.cpp
-        Geometry/Model.cpp
-        Geometry/Rectangle.cpp
-        Geometry/RiggedModel.cpp
-        Geometry/Skeleton.cpp
-        Geometry/StaticModel.cpp
-        Geometry/VertexType/SkinVertex.cpp
-        Geometry/VertexType/StaticVertex.cpp
-        Texture/Texture.cpp
         Texture/Texture2D.cpp
         Script/ScriptFile.cpp
         Input/Input.cpp
@@ -79,7 +55,6 @@ set(SRCS
 set(HEADERS
         Hymn.hpp
         MainWindow.hpp
-        RenderTarget.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/VorbisFile.hpp
@@ -98,8 +73,13 @@ set(HEADERS
         Component/SuperComponent.hpp
         Entity/Entity.hpp
         Entity/World.hpp
-        Font/Font.hpp
-        Lighting/DeferredLighting.hpp
+        Geometry/Animation.hpp
+        Geometry/Cube.hpp
+        Geometry/MathFunctions.hpp
+        Geometry/Model.hpp
+        Geometry/RiggedModel.hpp
+        Geometry/Skeleton.hpp
+        Geometry/StaticModel.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
@@ -109,76 +89,30 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
-        Physics/AxisAlignedBoundingBox.hpp
-        Physics/Frustum.hpp
-        Physics/Rectangle.hpp
-        PostProcessing/ColorFilter.hpp
-        PostProcessing/Filter.hpp
-        PostProcessing/FogFilter.hpp
-        PostProcessing/FXAAFilter.hpp
-        PostProcessing/GammaCorrectionFilter.hpp
-        PostProcessing/GlowFilter.hpp
-        PostProcessing/GlowBlurFilter.hpp
-        PostProcessing/PostProcessing.hpp
-        RenderProgram/SkinRenderProgram.hpp
-        RenderProgram/StaticRenderProgram.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
-        Util/Log.hpp
-        Shader/Shader.hpp
-        Shader/ShaderProgram.hpp
-        Geometry/Animation.hpp
-        Geometry/Cube.hpp
-        Geometry/Geometry2D.hpp
-        Geometry/Geometry3D.hpp
-        Geometry/MathFunctions.hpp
-        Geometry/Model.hpp
-        Geometry/Rectangle.hpp
-        Geometry/RiggedModel.hpp
-        Geometry/Skeleton.hpp
-        Geometry/StaticModel.hpp
-        Geometry/VertexType/SkinVertex.hpp
-        Geometry/VertexType/StaticVertex.hpp
-        Texture/Texture.hpp
         Texture/Texture2D.hpp
         Script/ScriptFile.hpp
         Input/Input.hpp
     )
 
-create_directory_groups(${SRCS} ${HEADERS})
-
 # Setup embedded source
 set(EMBEDDED_INPUT
     ../../shaders/Default2D.vert
-    ../../shaders/Default3D.vert
-    ../../shaders/Default3D.frag
     ../../shaders/Deferred.frag
     ../../shaders/DebugDrawing.vert
     ../../shaders/DebugDrawing.frag
     ../../shaders/EditorEntity.vert
     ../../shaders/EditorEntity.geom
     ../../shaders/EditorEntity.frag
-    ../../shaders/Font.vert
-    ../../shaders/Font.frag
-    ../../shaders/SingleColor2D.frag
-    ../../shaders/Skinning.vert
     ../../shaders/Texture2D.frag
     ../../shaders/Particle.vert
     ../../shaders/Particle.geom
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
-    ../../shaders/PostColor.frag
-    ../../shaders/PostCopy.frag
-    ../../shaders/PostDither.frag
-    ../../shaders/PostFog.frag
-    ../../shaders/PostFXAA.frag
-    ../../shaders/PostGamma.frag
-    ../../shaders/PostGlow.frag
-    ../../shaders/PostGlowBlur.frag
-    ../../assets/ABeeZee.ttf
     ../../assets/Camera.png
     ../../assets/DefaultDiffuse.png
     ../../assets/DefaultNormal.png
@@ -196,7 +130,9 @@ endforeach()
 
 set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
+create_directory_groups(${SRCS} ${HEADERS})
+
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine glew glfw ${GLFW_LIBRARIES} glm imgui stb simpleini jsoncpp_lib_static ${OPENAL_LIB} angelscript assimp)
+target_link_libraries(Engine Video imgui stb simpleini ${OPENAL_LIB} angelscript)
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)

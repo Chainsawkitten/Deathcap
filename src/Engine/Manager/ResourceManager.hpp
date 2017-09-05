@@ -3,12 +3,15 @@
 #include <map>
 #include <GL/glew.h>
 
-class Shader;
-class ShaderProgram;
+namespace Video {
+    class Shader;
+    class ShaderProgram;
+    namespace Geometry {
+        class Rectangle;
+    }
+}
 class Texture2D;
-class Font;
 namespace Geometry {
-    class Rectangle;
     class Cube;
     class Model;
 }
@@ -28,14 +31,14 @@ class ResourceManager {
          * @param shaderType %Shader type. One of GL_COMPUTE_SHADER, GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
          * @return The shader instance
          */
-        Shader* CreateShader(const char* source, int sourceLength, GLenum shaderType);
+        Video::Shader* CreateShader(const char* source, int sourceLength, GLenum shaderType);
         
         /// Free the reference to the shader.
         /**
          * Deletes the instance if no more references exist.
          * @param shader %Shader to dereference.
          */
-        void FreeShader(Shader* shader);
+        void FreeShader(Video::Shader* shader);
         
         /// Create shader program if it doesn't already exist.
         /**
@@ -52,20 +55,20 @@ class ResourceManager {
          * @param shaders List of shaders to link together.
          * @return The shader program instance
          */
-        ShaderProgram* CreateShaderProgram(std::initializer_list<const Shader*> shaders);
+        Video::ShaderProgram* CreateShaderProgram(std::initializer_list<const Video::Shader*> shaders);
         
         /// Free the reference to a shader program.
         /**
          * Deletes the instance if no more references exist.
          * @param shaderProgram %Shader program to dereference.
          */
-        void FreeShaderProgram(ShaderProgram* shaderProgram);
+        void FreeShaderProgram(Video::ShaderProgram* shaderProgram);
         
         /// Create a rectangle for rendering if it doesn't already exist.
         /**
          * @return The rectangle instance
          */
-        Geometry::Rectangle* CreateRectangle();
+        Video::Geometry::Rectangle* CreateRectangle();
         
         /// Free the reference to the rectangle.
         /**
@@ -137,30 +140,6 @@ class ResourceManager {
          */
         void FreeSound(Audio::SoundBuffer* soundBuffer);
         
-        /// Create a font if it doesn't already exist.
-        /**
-         * @param source TTF source.
-         * @param sourceLength Length of the source.
-         * @param height Character height.
-         * @return The %Font instance
-         */
-        Font* CreateFontEmbedded(const char* source, int sourceLength, float height);
-        
-        /// Create a font if it doesn't already exist.
-        /**
-         * @param filename Filename of the TTF file.
-         * @param height Character height.
-         * @return The %Font instance
-         */
-        Font* CreateFontFromFile(std::string filename, float height);
-        
-        /// Free the reference to the font.
-        /**
-         * Deletes the instance if no more references exist.
-         * @param font %Font to dereference.
-         */
-        void FreeFont(Font* font);
-        
     private:
         ResourceManager();
         ResourceManager(ResourceManager const&) = delete;
@@ -168,32 +147,32 @@ class ResourceManager {
         
         // Shaders
         struct ShaderInstance {
-            Shader* shader;
+            Video::Shader* shader;
             int count;
         };
         std::map<const char*, ShaderInstance> shaders;
-        std::map<Shader*, const char*> shadersInverse;
+        std::map<Video::Shader*, const char*> shadersInverse;
         
         // ShaderPrograms
         struct ShaderProgramInstance {
-            ShaderProgram* shaderProgram;
+            Video::ShaderProgram* shaderProgram;
             int count;
         };
         struct ShaderProgramKey {
-            const Shader* computeShader = nullptr;
-            const Shader* vertexShader = nullptr;
-            const Shader* tessControlShader = nullptr;
-            const Shader* tessEvaluationShader = nullptr;
-            const Shader* geometryShader = nullptr;
-            const Shader* fragmentShader = nullptr;
+            const Video::Shader* computeShader = nullptr;
+            const Video::Shader* vertexShader = nullptr;
+            const Video::Shader* tessControlShader = nullptr;
+            const Video::Shader* tessEvaluationShader = nullptr;
+            const Video::Shader* geometryShader = nullptr;
+            const Video::Shader* fragmentShader = nullptr;
             
             bool operator<(const ShaderProgramKey& other) const;
         };
         std::map<ShaderProgramKey, ShaderProgramInstance> shaderPrograms;
-        std::map<ShaderProgram*, ShaderProgramKey> shaderProgramsInverse;
+        std::map<Video::ShaderProgram*, ShaderProgramKey> shaderProgramsInverse;
         
         // Rectangle
-        Geometry::Rectangle* rectangle;
+        Video::Geometry::Rectangle* rectangle;
         int rectangleCount = 0;
         
         // Cube
@@ -227,30 +206,4 @@ class ResourceManager {
         };
         std::map<std::string, SoundInstance> sounds;
         std::map<Audio::SoundBuffer*, std::string> soundsInverse;
-        
-        // Font
-        struct FontInstance {
-            Font* font;
-            int count;
-        };
-        struct FontKey {
-            const char* source = nullptr;
-            float height = 0.f;
-            
-            bool operator<(const FontKey& other) const;
-        };
-        std::map<FontKey, FontInstance> fonts;
-        std::map<Font*, FontKey> fontsInverse;
-        
-        // Font from file
-        struct FontFromFileKey {
-            std::string filename = "";
-            float height;
-            
-            FontFromFileKey();
-            
-            bool operator<(const FontFromFileKey& other) const;
-        };
-        std::map<FontFromFileKey, FontInstance> fontsFromFile;
-        std::map<Font*, FontFromFileKey> fontsFromFileInverse;
 };

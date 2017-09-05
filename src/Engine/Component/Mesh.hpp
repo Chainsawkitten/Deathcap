@@ -2,8 +2,10 @@
 
 #include "SuperComponent.hpp"
 
-namespace Geometry {
-    class Geometry3D;
+namespace Video {
+    namespace Geometry {
+        class Geometry3D;
+    }
 }
 
 namespace Component {
@@ -32,6 +34,6 @@ namespace Component {
             /**
              * Default: nullptr
              */
-            Geometry::Geometry3D* geometry = nullptr;
+            Video::Geometry::Geometry3D* geometry = nullptr;
     };
 }

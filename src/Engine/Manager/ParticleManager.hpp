@@ -6,8 +6,10 @@
 
 class Entity;
 class World;
-class Shader;
-class ShaderProgram;
+namespace Video {
+    class Shader;
+    class ShaderProgram;
+}
 class Texture2D;
 namespace Component {
     class ParticleEmitter;
@@ -103,10 +105,10 @@ class ParticleManager {
         std::mt19937 randomEngine;
         
         // Shaders.
-        Shader* vertexShader;
-        Shader* geometryShader;
-        Shader* fragmentShader;
-        ShaderProgram* shaderProgram;
+        Video::Shader* vertexShader;
+        Video::Shader* geometryShader;
+        Video::Shader* fragmentShader;
+        Video::ShaderProgram* shaderProgram;
 
         // The number of rows in the texture atlas.
         int textureAtlasRowNumber = 4;

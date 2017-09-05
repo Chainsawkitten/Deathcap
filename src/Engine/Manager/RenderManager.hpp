@@ -3,20 +3,13 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+namespace Video {
+    class Renderer;
+    class Shader;
+    class ShaderProgram;
+}
 class World;
 class Entity;
-class Shader;
-class ShaderProgram;
-class StaticRenderProgram;
-class SkinRenderProgram;
-class DeferredLighting;
-class PostProcessing;
-class ColorFilter;
-class FogFilter;
-class FXAAFilter;
-class GammaCorrectionFilter;
-class GlowFilter;
-class GlowBlurFilter;
 class Texture2D;
 namespace Component {
     class SuperComponent;
@@ -55,30 +48,14 @@ class RenderManager {
         void operator=(RenderManager const&) = delete;
         
         void RenderEditorEntity(Component::SuperComponent* component);
+        void LightWorld(World& world, const Entity* camera);
+
+        Video::Renderer* renderer;
         
-        Shader* defaultVertexShader;
-        Shader* defaultFragmentShader;
-        Shader* skinningVertexShader;
-        ShaderProgram* staticShaderProgram;
-        ShaderProgram* skinShaderProgram;
-        StaticRenderProgram* staticRenderProgram;
-        SkinRenderProgram* skinRenderProgram;
-        
-        Shader* editorEntityVertexShader;
-        Shader* editorEntityGeometryShader;
-        Shader* editorEntityFragmentShader;
-        ShaderProgram* editorEntityShaderProgram;
-        
-        DeferredLighting* deferredLighting;
-        
-        // Post-processing.
-        PostProcessing* postProcessing;
-        ColorFilter* colorFilter;
-        FogFilter* fogFilter;
-        FXAAFilter* fxaaFilter;
-        GammaCorrectionFilter* gammaCorrectionFilter;
-        GlowFilter* glowFilter;
-        GlowBlurFilter* glowBlurFilter;
+        Video::Shader* editorEntityVertexShader;
+        Video::Shader* editorEntityGeometryShader;
+        Video::Shader* editorEntityFragmentShader;
+        Video::ShaderProgram* editorEntityShaderProgram;
         
         // Editor entity textures.
         Texture2D* particleEmitterTexture;
