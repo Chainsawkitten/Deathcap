@@ -34,3 +34,5 @@ DocumentationGame
 *.exe
 *.out
 *.app
+
+build/
