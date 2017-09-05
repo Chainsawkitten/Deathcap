@@ -1,11 +1,9 @@
 #include "RenderManager.hpp"
 
-#include <GL/glew.h>
 #include <Video/Renderer.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
-#include "DebugDrawingManager.hpp"
 #include "Light.png.hpp"
 #include "ParticleEmitter.png.hpp"
 #include "SoundSource.png.hpp"

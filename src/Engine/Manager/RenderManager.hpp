@@ -1,6 +1,5 @@
 #pragma once
 
-#include <GL/glew.h>
 #include <glm/glm.hpp>
 
 namespace Video {
@@ -9,9 +8,6 @@ namespace Video {
 class World;
 class Entity;
 class Texture2D;
-namespace Component {
-    class SuperComponent;
-}
 
 /// Handles rendering the world.
 class RenderManager {
