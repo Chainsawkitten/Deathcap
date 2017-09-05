@@ -106,16 +106,16 @@ void Editor::Show(float deltaTime) {
             ImGui::EndMenu();
         }
         
-        // Play
-        if (ImGui::BeginMenu("Play")) {
-            if (ImGui::MenuItem("Play", "F5"))
-                play = true;
-            
-            ImGui::EndMenu();
-        }
-        
-        // Hymn
         if(Hymn().GetPath() != "") {
+            // Play
+            if (ImGui::BeginMenu("Play")) {
+                if (ImGui::MenuItem("Play", "F5"))
+                    play = true;
+                
+                ImGui::EndMenu();
+            }
+            
+            // Hymn
             if (ImGui::BeginMenu("Hymn")) {
                 if (ImGui::MenuItem("Input"))
                     inputWindow.SetVisible(true);
@@ -174,7 +174,7 @@ void Editor::Show(float deltaTime) {
         cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
     }
     
-    if (Input()->Triggered(InputHandler::PLAYTEST))
+    if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "")
         play = true;
     
     if (Input()->Triggered(InputHandler::NEW) && Input()->Pressed(InputHandler::CONTROL))
