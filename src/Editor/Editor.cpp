@@ -174,7 +174,7 @@ void Editor::Show(float deltaTime) {
         cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
     }
     
-    if (Input()->Triggered(InputHandler::PLAYTEST))
+    if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "")
         play = true;
     
     if (Input()->Triggered(InputHandler::NEW) && Input()->Pressed(InputHandler::CONTROL))
