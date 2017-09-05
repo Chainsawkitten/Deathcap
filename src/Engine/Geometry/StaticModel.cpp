@@ -36,9 +36,10 @@ void StaticModel::Load(const char* filename) {
         aiProcess_ValidateDataStructure | \
         0);
     
-    Log() << aImporter.GetErrorString() << "\n";
-    
-    assert(aScene != nullptr);
+    if (aScene == nullptr) {
+        Log() << "Error importing mesh: " << filename << "\n";
+        Log() << aImporter.GetErrorString() << "\n";
+    }
     
     // Load meshes.
     LoadMeshes(aScene);
