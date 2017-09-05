@@ -115,7 +115,9 @@ void StaticModel::LoadMeshes(const aiScene* aScene) {
         // Load indices.
         for (unsigned int i = 0; i < aMesh->mNumFaces; ++i) {
             const aiFace& aFace = aMesh->mFaces[i];
-            assert(aFace.mNumIndices == 3);
+            if (aFace.mNumIndices != 3) {
+                Log() << "Error importing mesh. Face that doesn't have 3 indices. Indices: " << aFace.mNumIndices << "\n";
+            }
             indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[0];
             indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[1];
             indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[2];
