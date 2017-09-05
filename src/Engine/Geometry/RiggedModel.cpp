@@ -94,12 +94,14 @@ void RiggedModel::LoadMeshes(const aiScene* aScene) {
     
     // Count the number of vertices and indices.
     for (unsigned int i = 0; i < aScene->mNumMeshes; ++i) {
-        entries[i].numIndices = aScene->mMeshes[i]->mNumFaces * 3;
-        entries[i].baseVertex = numVertices;
-        entries[i].baseIndex = numIndices;
-        
-        numVertices += aScene->mMeshes[i]->mNumVertices;
-        numIndices += entries[i].numIndices;
+        if (aScene->mMeshes[i]->mPrimitiveTypes == aiPrimitiveType_TRIANGLE) {
+            entries[i].numIndices = aScene->mMeshes[i]->mNumFaces * 3;
+            entries[i].baseVertex = numVertices;
+            entries[i].baseIndex = numIndices;
+            
+            numVertices += aScene->mMeshes[i]->mNumVertices;
+            numIndices += entries[i].numIndices;
+        }
     }
     
     // Resize vectors to fit.
@@ -114,43 +116,44 @@ void RiggedModel::LoadMeshes(const aiScene* aScene) {
     // Initialize the meshes in the scene one by one.
     for (unsigned int m = 0; m < aScene->mNumMeshes; ++m) {
         const aiMesh* aMesh = aScene->mMeshes[m];
-        
-        // Load vertices.
-        for (unsigned int i = 0; i < aMesh->mNumVertices; ++i) {
-            Video::Geometry::VertexType::SkinVertex& vert = vertices[numVertices];
-            CpyVec(vert.position, aMesh->mVertices[i]);
-            CpyVec(vert.textureCoordinate, aMesh->mTextureCoords[0][i]);
-            CpyVec(vert.normal, aMesh->mNormals[i]);
-            CpyVec(vert.tangent, aMesh->mTangents[i]);
-            verticesPos[numVertices] = &vertices[numVertices].position;
-            ++numVertices;
-        }
-        
-        // Load indices.
-        for (unsigned int i = 0; i < aMesh->mNumFaces; ++i) {
-            const aiFace& aFace = aMesh->mFaces[i];
-            if (aFace.mNumIndices != 3) {
-                Log() << "Error importing mesh. Face that doesn't have 3 indices. Indices: " << aFace.mNumIndices << "\n";
+        if (aMesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE) {
+            // Load vertices.
+            for (unsigned int i = 0; i < aMesh->mNumVertices; ++i) {
+                Video::Geometry::VertexType::SkinVertex& vert = vertices[numVertices];
+                CpyVec(vert.position, aMesh->mVertices[i]);
+                CpyVec(vert.textureCoordinate, aMesh->mTextureCoords[0][i]);
+                CpyVec(vert.normal, aMesh->mNormals[i]);
+                CpyVec(vert.tangent, aMesh->mTangents[i]);
+                verticesPos[numVertices] = &vertices[numVertices].position;
+                ++numVertices;
             }
-            indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[0];
-            indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[1];
-            indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[2];
-        }
-        
-        // Load Weights.
-        assert(skeleton.GetNumBones() != 0); // Check if skeleton is loaded.
-        for (unsigned int b = 0; b < aMesh->mNumBones; ++b) {
-            const aiBone* aBone = aMesh->mBones[b];
-            const size_t boneIndex = skeleton.FindBoneIndex(aBone->mName.data);
-            assert(boneIndex != -1);
-            for (unsigned int i = 0; i < aBone->mNumWeights; ++i) {
-                unsigned int vertexID = entries[m].baseVertex + aBone->mWeights[i].mVertexId;
-                float weight = aBone->mWeights[i].mWeight;
-                unsigned int& count = weightCounter[vertexID];
-                assert(count + 1 <= 4);
-                vertices[vertexID].boneIDs[count] = boneIndex;
-                vertices[vertexID].weights[count] = weight;
-                ++count;
+            
+            // Load indices.
+            for (unsigned int i = 0; i < aMesh->mNumFaces; ++i) {
+                const aiFace& aFace = aMesh->mFaces[i];
+                if (aFace.mNumIndices != 3) {
+                    Log() << "Error importing mesh. Face that doesn't have 3 indices. Indices: " << aFace.mNumIndices << "\n";
+                }
+                indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[0];
+                indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[1];
+                indices[numIndices++] = entries[m].baseVertex + aFace.mIndices[2];
+            }
+            
+            // Load Weights.
+            assert(skeleton.GetNumBones() != 0); // Check if skeleton is loaded.
+            for (unsigned int b = 0; b < aMesh->mNumBones; ++b) {
+                const aiBone* aBone = aMesh->mBones[b];
+                const size_t boneIndex = skeleton.FindBoneIndex(aBone->mName.data);
+                assert(boneIndex != -1);
+                for (unsigned int i = 0; i < aBone->mNumWeights; ++i) {
+                    unsigned int vertexID = entries[m].baseVertex + aBone->mWeights[i].mVertexId;
+                    float weight = aBone->mWeights[i].mWeight;
+                    unsigned int& count = weightCounter[vertexID];
+                    assert(count + 1 <= 4);
+                    vertices[vertexID].boneIDs[count] = boneIndex;
+                    vertices[vertexID].weights[count] = weight;
+                    ++count;
+                }
             }
         }
     }
