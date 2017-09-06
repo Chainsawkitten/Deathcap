@@ -101,10 +101,6 @@ set(HEADERS
 
 # Setup embedded source
 set(EMBEDDED_INPUT
-    ../../shaders/Default2D.vert
-    ../../shaders/Deferred.frag
-    ../../shaders/Texture2D.frag
-    ../../shaders/Post.vert
     ../../assets/Camera.png
     ../../assets/DefaultDiffuse.png
     ../../assets/DefaultNormal.png
