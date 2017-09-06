@@ -1,4 +1,5 @@
 set(SRCS
+        DebugDrawing.cpp
         Renderer.cpp
         RenderTarget.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -24,6 +25,7 @@ set(SRCS
     )
 
 set(HEADERS
+        DebugDrawing.hpp
         Renderer.hpp
         RenderTarget.hpp
         Culling/AxisAlignedBoundingBox.hpp

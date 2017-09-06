@@ -118,7 +118,7 @@ DebugDrawingManager::~DebugDrawingManager() {
 }
 
 void DebugDrawingManager::AddPoint(const glm::vec3& position, const glm::vec3& color, float size, float duration, bool depthTesting) {
-    Point point;
+    DebugDrawing::Point point;
     point.position = position;
     point.color = color;
     point.size = size;
@@ -128,7 +128,7 @@ void DebugDrawingManager::AddPoint(const glm::vec3& position, const glm::vec3& c
 }
 
 void DebugDrawingManager::AddLine(const glm::vec3& startPosition, const glm::vec3& endPosition, const glm::vec3& color, float width, float duration, bool depthTesting) {
-    Line line;
+    DebugDrawing::Line line;
     line.startPosition = startPosition;
     line.endPosition = endPosition;
     line.color = color;
@@ -139,7 +139,7 @@ void DebugDrawingManager::AddLine(const glm::vec3& startPosition, const glm::vec
 }
 
 void DebugDrawingManager::AddAxisAlignedBoundingBox(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
-    AABB aabb;
+    DebugDrawing::AABB aabb;
     aabb.minCoordinates = minCoordinates;
     aabb.maxCoordinates = maxCoordinates;
     aabb.color = color;
@@ -203,7 +203,7 @@ void DebugDrawingManager::Render(World& world, Entity* camera) {
         
         // Points.
         glBindVertexArray(pointVertexArray);
-        for (const Point& point : points) {
+        for (const DebugDrawing::Point& point : points) {
             glm::mat4 model(glm::translate(glm::mat4(), point.position));
             
             glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
@@ -215,7 +215,7 @@ void DebugDrawingManager::Render(World& world, Entity* camera) {
         
         // Lines.
         glBindVertexArray(lineVertexArray);
-        for (const Line& line : lines) {
+        for (const DebugDrawing::Line& line : lines) {
             glm::mat4 model(glm::translate(glm::mat4(), line.startPosition) * glm::scale(glm::mat4(), line.endPosition - line.startPosition));
             
             glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
@@ -227,7 +227,7 @@ void DebugDrawingManager::Render(World& world, Entity* camera) {
         
         // Axis-aligned bounding boxes.
         glBindVertexArray(aabbVertexArray);
-        for (const AABB& aabb : aabbs) {
+        for (const DebugDrawing::AABB& aabb : aabbs) {
             glm::mat4 model(glm::translate(glm::mat4(), aabb.minCoordinates) * glm::scale(glm::mat4(), aabb.maxCoordinates - aabb.minCoordinates));
             
             glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);

@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include <Video/DebugDrawing.hpp>
 
 namespace Video {
     class Shader;
@@ -72,42 +73,19 @@ class DebugDrawingManager {
         Video::ShaderProgram* shaderProgram;
         
         // Points.
-        struct Point {
-            glm::vec3 position;
-            glm::vec3 color;
-            float size;
-            float duration;
-            bool depthTesting;
-        };
-        std::vector<Point> points;
+        std::vector<Video::DebugDrawing::Point> points;
         
         GLuint pointVertexBuffer;
         GLuint pointVertexArray;
         
         // Lines.
-        struct Line {
-            glm::vec3 startPosition;
-            glm::vec3 endPosition;
-            glm::vec3 color;
-            float width;
-            float duration;
-            bool depthTesting;
-        };
-        std::vector<Line> lines;
+        std::vector<Video::DebugDrawing::Line> lines;
         
         GLuint lineVertexBuffer;
         GLuint lineVertexArray;
         
         // Axis-aligned bounding boxes.
-        struct AABB {
-            glm::vec3 minCoordinates;
-            glm::vec3 maxCoordinates;
-            glm::vec3 color;
-            float lineWidth;
-            float duration;
-            bool depthTesting;
-        };
-        std::vector<AABB> aabbs;
+        std::vector<Video::DebugDrawing::AABB> aabbs;
         
         GLuint aabbVertexBuffer;
         GLuint aabbVertexArray;
