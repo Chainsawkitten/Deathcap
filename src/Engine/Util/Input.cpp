@@ -87,7 +87,7 @@ double InputHandler::GetCursorY() const {
 }
 
 glm::vec2 InputHandler::GetCursorXY() const {
-	return glm::vec2(cursorX, cursorY);
+    return glm::vec2(cursorX, cursorY);
 }
 
 bool InputHandler::GetScrollUp() const {
