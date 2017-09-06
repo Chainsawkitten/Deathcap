@@ -19,15 +19,17 @@
 #include "EditorEntity.vert.hpp"
 #include "EditorEntity.geom.hpp"
 #include "EditorEntity.frag.hpp"
+#include "Geometry/Rectangle.hpp"
 
 using namespace Video;
 
 Renderer::Renderer(const glm::vec2& screenSize) {
     this->screenSize = screenSize;
-    lighting = new Lighting(screenSize);
+    rectangle = new Geometry::Rectangle();
+    lighting = new Lighting(screenSize, rectangle);
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
-    postProcessing = new PostProcessing(screenSize);
+    postProcessing = new PostProcessing(screenSize, rectangle);
     colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new FXAAFilter();
@@ -64,6 +66,7 @@ Renderer::Renderer(const glm::vec2& screenSize) {
 }
 
 Renderer::~Renderer() {
+    delete rectangle;
     delete lighting;
     delete staticRenderProgram;
     delete skinRenderProgram;
@@ -86,7 +89,7 @@ void Renderer::SetScreenSize(const glm::vec2& screenSize) {
     
     postProcessing->UpdateBufferSize(screenSize);
     delete lighting;
-    lighting = new Lighting(screenSize);
+    lighting = new Lighting(screenSize, rectangle);
 }
 
 void Renderer::Clear() {

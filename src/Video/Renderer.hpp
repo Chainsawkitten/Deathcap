@@ -20,6 +20,7 @@ namespace Video {
     class ShaderProgram;
     namespace Geometry {
         class Geometry3D;
+        class Rectangle;
     }
     
     /// Handles rendering using OpenGL.
@@ -167,5 +168,7 @@ namespace Video {
             GLuint vertexBuffer;
             GLuint vertexArray;
             const Texture2D* currentIcon = nullptr;
+            
+            Geometry::Rectangle* rectangle;
     };
 }
