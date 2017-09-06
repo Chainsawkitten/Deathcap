@@ -59,7 +59,7 @@ DebugDrawingManager::DebugDrawingManager() {
     
     glBindVertexArray(0);
     
-    // Create axis-aligned bounding box vertex array.
+    // Create cuboid vertex array.
     glm::vec3 box[24];
     box[0] = glm::vec3(0.f, 0.f, 0.f);
     box[1] = glm::vec3(1.f, 0.f, 0.f);
@@ -86,14 +86,14 @@ DebugDrawingManager::DebugDrawingManager() {
     box[22] = glm::vec3(0.f, 0.f, 1.f);
     box[23] = glm::vec3(1.f, 0.f, 1.f);
     
-    glGenBuffers(1, &aabbVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, aabbVertexBuffer);
+    glGenBuffers(1, &cuboidVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, cuboidVertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(glm::vec3), box, GL_STATIC_DRAW);
     
-    glGenVertexArrays(1, &aabbVertexArray);
-    glBindVertexArray(aabbVertexArray);
+    glGenVertexArrays(1, &cuboidVertexArray);
+    glBindVertexArray(cuboidVertexArray);
     
-    glBindBuffer(GL_ARRAY_BUFFER, aabbVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, cuboidVertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     
     glEnableVertexAttribArray(0);
@@ -103,8 +103,8 @@ DebugDrawingManager::DebugDrawingManager() {
 }
 
 DebugDrawingManager::~DebugDrawingManager() {
-    glDeleteBuffers(1, &aabbVertexBuffer);
-    glDeleteVertexArrays(1, &aabbVertexArray);
+    glDeleteBuffers(1, &cuboidVertexBuffer);
+    glDeleteVertexArrays(1, &cuboidVertexArray);
     
     glDeleteBuffers(1, &pointVertexBuffer);
     glDeleteVertexArrays(1, &pointVertexArray);
@@ -138,15 +138,15 @@ void DebugDrawingManager::AddLine(const glm::vec3& startPosition, const glm::vec
     lines.push_back(line);
 }
 
-void DebugDrawingManager::AddAxisAlignedBoundingBox(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
-    DebugDrawing::AABB aabb;
-    aabb.minCoordinates = minCoordinates;
-    aabb.maxCoordinates = maxCoordinates;
-    aabb.color = color;
-    aabb.lineWidth = lineWidth;
-    aabb.duration = duration;
-    aabb.depthTesting = depthTesting;
-    aabbs.push_back(aabb);
+void DebugDrawingManager::AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Cuboid cuboid;
+    cuboid.minCoordinates = minCoordinates;
+    cuboid.maxCoordinates = maxCoordinates;
+    cuboid.color = color;
+    cuboid.lineWidth = lineWidth;
+    cuboid.duration = duration;
+    cuboid.depthTesting = depthTesting;
+    cuboids.push_back(cuboid);
 }
 
 void DebugDrawingManager::Update(float deltaTime) {
@@ -172,14 +172,14 @@ void DebugDrawingManager::Update(float deltaTime) {
         }
     }
     
-    // Axis-aligned bounding boxes.
-    for (std::size_t i=0; i < aabbs.size(); ++i) {
-        if (aabbs[i].duration < 0.f) {
-            aabbs[i] = aabbs[aabbs.size() - 1];
-            aabbs.pop_back();
+    // Cuboid.
+    for (std::size_t i=0; i < cuboids.size(); ++i) {
+        if (cuboids[i].duration < 0.f) {
+            cuboids[i] = cuboids[cuboids.size() - 1];
+            cuboids.pop_back();
             --i;
         } else {
-            aabbs[i].duration -= deltaTime;
+            cuboids[i].duration -= deltaTime;
         }
     }
 }
@@ -225,16 +225,16 @@ void DebugDrawingManager::Render(World& world, Entity* camera) {
             glDrawArrays(GL_LINES, 0, 2);
         }
         
-        // Axis-aligned bounding boxes.
-        glBindVertexArray(aabbVertexArray);
-        for (const DebugDrawing::AABB& aabb : aabbs) {
-            glm::mat4 model(glm::translate(glm::mat4(), aabb.minCoordinates) * glm::scale(glm::mat4(), aabb.maxCoordinates - aabb.minCoordinates));
+        // Cuboids.
+        glBindVertexArray(cuboidVertexArray);
+        for (const DebugDrawing::Cuboid& cuboid : cuboids) {
+            glm::mat4 model(glm::translate(glm::mat4(), cuboid.minCoordinates) * glm::scale(glm::mat4(), cuboid.maxCoordinates - cuboid.minCoordinates));
             
             glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
-            aabb.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-            glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &aabb.color[0]);
+            cuboid.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+            glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cuboid.color[0]);
             glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
-            glLineWidth(aabb.lineWidth);
+            glLineWidth(cuboid.lineWidth);
             glDrawArrays(GL_LINES, 0, 24);
         }
         

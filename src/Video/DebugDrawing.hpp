@@ -45,8 +45,8 @@ namespace Video {
                 bool depthTesting;
             };
             
-            /// A debug drawing axis-aligned bounding box.
-            struct AABB {
+            /// A debug drawing cuboid.
+            struct Cuboid {
                 /// The minimum coordinates of the box.
                 glm::vec3 minCoordinates;
                 

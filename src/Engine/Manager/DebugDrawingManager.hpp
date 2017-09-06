@@ -38,7 +38,7 @@ class DebugDrawingManager {
          */
         void AddLine(const glm::vec3& startPosition, const glm::vec3& endPosition, const glm::vec3& color, float width = 1.f, float duration = 0.f, bool depthTesting = true);
         
-        /// Add an axis-aligned bounding box to the world.
+        /// Add a cuboid to the world.
         /**
          * @param minCoordinates The minimum coordinates of the box.
          * @param maxCoordinates The maximum coordinates of the box.
@@ -47,7 +47,7 @@ class DebugDrawingManager {
          * @param duration How long the box should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
-        void AddAxisAlignedBoundingBox(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        void AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
         /// Update the debug geometry.
         /**
@@ -84,9 +84,9 @@ class DebugDrawingManager {
         GLuint lineVertexBuffer;
         GLuint lineVertexArray;
         
-        // Axis-aligned bounding boxes.
-        std::vector<Video::DebugDrawing::AABB> aabbs;
+        // Cuboids.
+        std::vector<Video::DebugDrawing::Cuboid> cuboids;
         
-        GLuint aabbVertexBuffer;
-        GLuint aabbVertexArray;
+        GLuint cuboidVertexBuffer;
+        GLuint cuboidVertexArray;
 };
