@@ -16,6 +16,7 @@
 #include "Particle.geom.hpp"
 #include "Particle.frag.hpp"
 #include "ParticleAtlas.png.hpp"
+#include <Video/ParticleRenderer.hpp>
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
@@ -35,7 +36,7 @@ ParticleManager::ParticleManager() {
     // Vertex buffer
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, maxParticleCount * sizeof(Particle), NULL, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, maxParticleCount * sizeof(Video::ParticleRenderer::Particle), NULL, GL_DYNAMIC_DRAW);
     
     // Define vertex data layout.
     glGenVertexArrays(1, &vertexArray);
@@ -49,14 +50,14 @@ ParticleManager::ParticleManager() {
     glEnableVertexAttribArray(6);
     glEnableVertexAttribArray(7);
     
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Particle), BUFFER_OFFSET(0));
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), BUFFER_OFFSET(sizeof(float) * 3));
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(Particle), BUFFER_OFFSET(sizeof(float) * 5));
-    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Particle), BUFFER_OFFSET(sizeof(float) * 6));
-    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Particle), BUFFER_OFFSET(sizeof(float) * 7));
-    glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(Particle), BUFFER_OFFSET(sizeof(float) * 10));
-    glVertexAttribPointer(6, 3, GL_FLOAT, GL_FALSE, sizeof(Particle), BUFFER_OFFSET(sizeof(float) * 13));
-    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, sizeof(Particle), BUFFER_OFFSET(sizeof(float) * 16));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Video::ParticleRenderer::Particle), BUFFER_OFFSET(0));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Video::ParticleRenderer::Particle), BUFFER_OFFSET(sizeof(float) * 3));
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(Video::ParticleRenderer::Particle), BUFFER_OFFSET(sizeof(float) * 5));
+    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Video::ParticleRenderer::Particle), BUFFER_OFFSET(sizeof(float) * 6));
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Video::ParticleRenderer::Particle), BUFFER_OFFSET(sizeof(float) * 7));
+    glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(Video::ParticleRenderer::Particle), BUFFER_OFFSET(sizeof(float) * 10));
+    glVertexAttribPointer(6, 3, GL_FLOAT, GL_FALSE, sizeof(Video::ParticleRenderer::Particle), BUFFER_OFFSET(sizeof(float) * 13));
+    glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, sizeof(Video::ParticleRenderer::Particle), BUFFER_OFFSET(sizeof(float) * 16));
     
     glBindVertexArray(0);
 }
@@ -102,7 +103,7 @@ void ParticleManager::Update(World& world, float time, bool preview) {
 
 void ParticleManager::UpdateBuffer(World& world) {
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, world.GetParticleCount() * sizeof(Particle), world.GetParticles());
+    glBufferSubData(GL_ARRAY_BUFFER, 0, world.GetParticleCount() * sizeof(Video::ParticleRenderer::Particle), world.GetParticles());
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -173,7 +174,7 @@ void ParticleManager::EmitParticle(World& world, Component::ParticleEmitter* emi
 
 void ParticleManager::EmitParticle(World& world, const glm::vec3& position, Component::ParticleEmitter* emitter) {
     if (world.GetParticleCount() < maxParticleCount) {
-        Particle particle;
+        Video::ParticleRenderer::Particle particle;
         std::uniform_real_distribution<float> zeroToOne(0.f, 1.f);
         std::uniform_real_distribution<float> minusOneToOne(-1.f, 1.f);
         particle.worldPos = position;

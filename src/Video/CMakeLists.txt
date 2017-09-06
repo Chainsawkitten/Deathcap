@@ -1,5 +1,6 @@
 set(SRCS
         DebugDrawing.cpp
+        ParticleRenderer.cpp
         Renderer.cpp
         RenderTarget.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -26,6 +27,7 @@ set(SRCS
 
 set(HEADERS
         DebugDrawing.hpp
+        ParticleRenderer.hpp
         Renderer.hpp
         RenderTarget.hpp
         Culling/AxisAlignedBoundingBox.hpp
