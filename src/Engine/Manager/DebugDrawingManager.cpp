@@ -5,10 +5,6 @@
 #include "../Component/Lens.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "../MainWindow.hpp"
-#include "Managers.hpp"
-#include "ResourceManager.hpp"
-#include <Video/Shader/Shader.hpp>
-#include <Video/Shader/ShaderProgram.hpp>
 
 using namespace Video;
 
