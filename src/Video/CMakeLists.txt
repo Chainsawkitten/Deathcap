@@ -1,5 +1,6 @@
 set(SRCS
         DebugDrawing.cpp
+        ParticleRenderer.cpp
         Renderer.cpp
         RenderTarget.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -27,6 +28,7 @@ set(SRCS
 
 set(HEADERS
         DebugDrawing.hpp
+        ParticleRenderer.hpp
         Renderer.hpp
         RenderTarget.hpp
         Culling/AxisAlignedBoundingBox.hpp
@@ -64,6 +66,9 @@ set(EMBEDDED_INPUT
     ../../shaders/EditorEntity.vert
     ../../shaders/EditorEntity.geom
     ../../shaders/EditorEntity.frag
+    ../../shaders/Particle.vert
+    ../../shaders/Particle.geom
+    ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostColor.frag
     ../../shaders/PostCopy.frag
