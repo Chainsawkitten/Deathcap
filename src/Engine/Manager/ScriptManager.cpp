@@ -6,7 +6,6 @@
 #include <scriptstdstring/scriptstdstring.h>
 #include <Utility/Log.hpp>
 #include "../Util/FileSystem.hpp"
-#include "../Util/Input.hpp"
 #include "../Hymn.hpp"
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
@@ -38,12 +37,8 @@ void RegisterUpdate() {
     Managers().scriptManager->RegisterUpdate(GetEntity());
 }
 
-bool ButtonInput(int buttonIndex) {
+bool Input(int buttonIndex) {
     return Input::GetInstance().CheckButton(buttonIndex);
-}
-
-glm::vec2 GetCursorXY() {
-    return Input()->GetCursorXY();
 }
 
 void SendMessage(Entity* recipient, int type) {
@@ -327,11 +322,9 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("Entity@ GetEntity()", asFUNCTION(GetEntity), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
-    engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(Input), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
-    engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
-
 }
 
 ScriptManager::~ScriptManager() {
