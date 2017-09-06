@@ -117,8 +117,7 @@ void DebugDrawing::StartDebugDrawing(const glm::mat4& viewProjectionMatrix) {
 }
 
 void DebugDrawing::DrawPoint(const Point& point) {
-    /// @todo Only bind if necessary.
-    glBindVertexArray(pointVertexArray);
+    BindVertexArray(pointVertexArray);
     
     glm::mat4 model(glm::translate(glm::mat4(), point.position));
     
@@ -130,8 +129,7 @@ void DebugDrawing::DrawPoint(const Point& point) {
 }
 
 void DebugDrawing::DrawLine(const Line& line) {
-    /// @todo Only bind if necessary.
-    glBindVertexArray(lineVertexArray);
+    BindVertexArray(lineVertexArray);
     
     glm::mat4 model(glm::translate(glm::mat4(), line.startPosition) * glm::scale(glm::mat4(), line.endPosition - line.startPosition));
     
@@ -143,8 +141,7 @@ void DebugDrawing::DrawLine(const Line& line) {
 }
 
 void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
-    /// @todo Only bind if necessary.
-    glBindVertexArray(cuboidVertexArray);
+    BindVertexArray(cuboidVertexArray);
     
     glm::mat4 model(glm::translate(glm::mat4(), cuboid.minCoordinates) * glm::scale(glm::mat4(), cuboid.maxCoordinates - cuboid.minCoordinates));
     
@@ -158,5 +155,12 @@ void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
 
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
-    glBindVertexArray(0);
+    BindVertexArray(0);
+}
+
+void DebugDrawing::BindVertexArray(GLuint vertexArray) {
+    if (boundVertexArray != vertexArray) {
+        glBindVertexArray(vertexArray);
+        boundVertexArray = vertexArray;
+    }
 }

@@ -104,6 +104,8 @@ namespace Video {
             void EndDebugDrawing();
             
         private:
+            void BindVertexArray(GLuint vertexArray);
+            
             Video::ShaderProgram* shaderProgram;
             
             GLuint pointVertexBuffer;
@@ -114,5 +116,7 @@ namespace Video {
             
             GLuint cuboidVertexBuffer;
             GLuint cuboidVertexArray;
+            
+            GLuint boundVertexArray = 0;
     };
 }
