@@ -1,8 +1,11 @@
 #pragma once
 
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 
 namespace Video {
+    class ShaderProgram;
+    
     /// Draws debug primitives.
     class DebugDrawing {
         public:
@@ -65,5 +68,51 @@ namespace Video {
                 /// Whether to enable depth testing.
                 bool depthTesting;
             };
+            
+            /// Create new debug primitive renderer.
+            DebugDrawing();
+            
+            /// Destructor.
+            ~DebugDrawing();
+            
+            /// Start rendering debug primitives.
+            /**
+             * Needs to be called before DrawPoint, DrawLine or DrawCuboid.
+             * @param viewProjectionMatrix The camera's view projection matrix.
+             */
+            void StartDebugDrawing(const glm::mat4& viewProjectionMatrix);
+            
+            /// Draw a point.
+            /**
+             * @param point The point to draw.
+             */
+            void DrawPoint(const Point& point);
+            
+            /// Draw a line.
+            /**
+             * @param line The line to draw.
+             */
+            void DrawLine(const Line& line);
+            
+            /// Draw a cuboid.
+            /**
+             * @param cuboid The cuboid to draw.
+             */
+            void DrawCuboid(const Cuboid& cuboid);
+            
+            /// Stop debug drawing.
+            void EndDebugDrawing();
+            
+        private:
+            Video::ShaderProgram* shaderProgram;
+            
+            GLuint pointVertexBuffer;
+            GLuint pointVertexArray;
+            
+            GLuint lineVertexBuffer;
+            GLuint lineVertexArray;
+            
+            GLuint cuboidVertexBuffer;
+            GLuint cuboidVertexArray;
     };
 }

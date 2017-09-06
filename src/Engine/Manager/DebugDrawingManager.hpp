@@ -1,14 +1,9 @@
 #pragma once
 
-#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
 #include <Video/DebugDrawing.hpp>
 
-namespace Video {
-    class Shader;
-    class ShaderProgram;
-}
 class World;
 class Entity;
 
@@ -68,25 +63,9 @@ class DebugDrawingManager {
         DebugDrawingManager(DebugDrawingManager const&) = delete;
         void operator=(DebugDrawingManager const&) = delete;
         
-        Video::Shader* vertexShader;
-        Video::Shader* fragmentShader;
-        Video::ShaderProgram* shaderProgram;
-        
-        // Points.
         std::vector<Video::DebugDrawing::Point> points;
-        
-        GLuint pointVertexBuffer;
-        GLuint pointVertexArray;
-        
-        // Lines.
         std::vector<Video::DebugDrawing::Line> lines;
-        
-        GLuint lineVertexBuffer;
-        GLuint lineVertexArray;
-        
-        // Cuboids.
         std::vector<Video::DebugDrawing::Cuboid> cuboids;
         
-        GLuint cuboidVertexBuffer;
-        GLuint cuboidVertexArray;
+        Video::DebugDrawing* debugDrawing;
 };

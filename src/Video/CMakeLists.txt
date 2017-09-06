@@ -54,6 +54,8 @@ set(HEADERS
 
 # Setup embedded source
 set(EMBEDDED_INPUT
+    ../../shaders/DebugDrawing.vert
+    ../../shaders/DebugDrawing.frag
     ../../shaders/Default3D.vert
     ../../shaders/Default3D.frag
     ../../shaders/Deferred.frag
