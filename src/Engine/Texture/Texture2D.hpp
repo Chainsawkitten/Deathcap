@@ -3,7 +3,6 @@
 #include <Video/Texture/Texture.hpp>
 #include <glm/glm.hpp>
 #include <string>
-#include <json/json.h>
 
 /// A two-dimensional texture.
 /**
@@ -64,18 +63,6 @@ class Texture2D : public Video::Texture {
          */
         bool IsFromFile() const;
         
-        /// Save the texture.
-        /**
-         * @return JSON value to be stored on disk.
-         */
-        Json::Value Save() const;
-        
-        /// Load texture from JSON node.
-        /**
-         * @param node JSON node to load from.
-         */
-        void Load(const Json::Value& node);
-        
         /// Load texture from file.
         /**
          * @param filename Filename (relative or absolute) of the image file.
@@ -83,17 +70,19 @@ class Texture2D : public Video::Texture {
          */
         void Load(const char* filename, bool srgb = false);
         
+        /// Load texture from memory.
+        /**
+         * @param source Source string containing the image file.
+         * @param sourceLength Length of the source string.
+         * @param srgb Whether the image is in SRGB space and should be converted to linear space.
+         */
+        void Load(const char* source, int sourceLength, bool srgb);
+        
         /// Get whether the texture has been loaded yet.
         /**
          * @return Whether the texture has been loaded yet.
          */
         bool IsLoaded() const;
-        
-        /// The name of the texture.
-        std::string name;
-        
-        /// Whether to convert from SRGB space to linear space when loading.
-        bool srgb = false;
         
     private:
         GLuint texID = 0;
