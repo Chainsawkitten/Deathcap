@@ -13,7 +13,7 @@
 #include "PostProcessing/GlowBlurFilter.hpp"
 #include "PostProcessing/GlowFilter.hpp"
 #include "RenderTarget.hpp"
-#include "Texture/Texture.hpp"
+#include "Texture/Texture2D.hpp"
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"
 #include "EditorEntity.vert.hpp"
@@ -114,7 +114,7 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
     staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture* diffuseTexture, const Texture* normalTexture, const Texture* specularTexture, const Texture* glowTexture, const glm::mat4 modelMatrix) {
+void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) {
     staticRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix);
 }
 
@@ -122,7 +122,7 @@ void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const gl
     skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture* diffuseTexture, const Video::Texture* normalTexture, const Video::Texture* specularTexture, const Video::Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
+void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* diffuseTexture, const Video::Texture2D* normalTexture, const Video::Texture2D* specularTexture, const Video::Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
     skinRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix, bones, bonesIT);
 }
 
@@ -178,7 +178,7 @@ void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, cons
     glActiveTexture(GL_TEXTURE0);
 }
 
-void Renderer::RenderIcon(const glm::vec3& position, const Texture* icon) {
+void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
     if (currentIcon != icon) {
         currentIcon = icon;
         glBindTexture(GL_TEXTURE_2D, icon->GetTextureID());
