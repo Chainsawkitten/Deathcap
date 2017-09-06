@@ -3,7 +3,6 @@
 #include "Util/FileSystem.hpp"
 #include "Manager/Managers.hpp"
 #include "Manager/RenderManager.hpp"
-#include "Manager/ResourceManager.hpp"
 #include "Manager/PhysicsManager.hpp"
 #include "Manager/ParticleManager.hpp"
 #include "Manager/ScriptManager.hpp"
@@ -34,11 +33,11 @@ ActiveHymn::ActiveHymn() {
     defaultDiffuse = new TextureAsset();
     defaultDiffuse->GetTexture()->Load(DEFAULTDIFFUSE_PNG, DEFAULTDIFFUSE_PNG_LENGTH, true);
     defaultNormal = new TextureAsset();
-    defaultDiffuse->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH, false);
+    defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH, false);
     defaultSpecular = new TextureAsset();
-    defaultDiffuse->GetTexture()->Load(DEFAULTSPECULAR_PNG, DEFAULTSPECULAR_PNG_LENGTH, false);
+    defaultSpecular->GetTexture()->Load(DEFAULTSPECULAR_PNG, DEFAULTSPECULAR_PNG_LENGTH, false);
     defaultGlow = new TextureAsset();
-    defaultDiffuse->GetTexture()->Load(DEFAULTGLOW_PNG, DEFAULTGLOW_PNG_LENGTH, false);
+    defaultGlow->GetTexture()->Load(DEFAULTGLOW_PNG, DEFAULTGLOW_PNG_LENGTH, false);
     
     Clear();
 }
