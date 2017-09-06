@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <glm/detail/type_vec2.hpp>
 
 struct GLFWwindow;
 
@@ -59,6 +60,12 @@ class InputHandler {
          * @return Y-position of the cursor
          */
         double GetCursorY() const;
+
+		/// Get cursor's coordinates.
+		/**
+		 * @return X- and Y-position of the cursor
+		 */
+		glm::vec2 GetCursorXY() const;
         
         /// Get whether user has moved scroll wheel up.
         /**
