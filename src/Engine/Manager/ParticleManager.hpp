@@ -9,6 +9,7 @@ class World;
 namespace Video {
     class Shader;
     class ShaderProgram;
+    class ParticleRenderer;
 }
 class Texture2D;
 namespace Component {
@@ -77,6 +78,8 @@ class ParticleManager {
         std::random_device randomDevice;
         std::mt19937 randomEngine;
         
+        Video::ParticleRenderer* particleRenderer;
+        
         // Shaders.
         Video::Shader* vertexShader;
         Video::Shader* geometryShader;
@@ -88,9 +91,4 @@ class ParticleManager {
 
         // Texture atlas containing the particle textures.
         Texture2D* textureAtlas;
-
-        // Vertex buffer.
-        GLuint vertexBuffer = 0;
-        GLuint vertexArray = 0;
-        unsigned int vertexCount = 0;
 };

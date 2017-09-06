@@ -64,6 +64,9 @@ set(EMBEDDED_INPUT
     ../../shaders/EditorEntity.vert
     ../../shaders/EditorEntity.geom
     ../../shaders/EditorEntity.frag
+    ../../shaders/Particle.vert
+    ../../shaders/Particle.geom
+    ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostColor.frag
     ../../shaders/PostCopy.frag
