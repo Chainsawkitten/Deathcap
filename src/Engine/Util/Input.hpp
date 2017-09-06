@@ -61,12 +61,12 @@ class InputHandler {
          */
         double GetCursorY() const;
 
-		/// Get cursor's coordinates.
-		/**
-		 * @return X- and Y-position of the cursor
-		 */
+        /// Get cursor's coordinates.
+        /**
+         * @return X- and Y-position of the cursor
+         */
         glm::vec2 GetCursorXY() const;
-        
+ 
         /// Get whether user has moved scroll wheel up.
         /**
          * @return Whether user has scrolled up
