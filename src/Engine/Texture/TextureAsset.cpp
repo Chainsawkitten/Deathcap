@@ -2,7 +2,9 @@
 
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
-#include "Texture2D.hpp"
+#include <Video/Texture/Texture2D.hpp>
+
+using namespace Video;
 
 TextureAsset::TextureAsset() {
     texture = new Texture2D();

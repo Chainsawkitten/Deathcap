@@ -3,7 +3,9 @@
 #include <string>
 #include <json/json.h>
 
-class Texture2D;
+namespace Video {
+    class Texture2D;
+}
 
 /// A texture used in a hymn.
 class TextureAsset {
@@ -30,7 +32,7 @@ class TextureAsset {
         /**
          * @return The texture.
          */
-        Texture2D* GetTexture() const;
+        Video::Texture2D* GetTexture() const;
         
         /// The name of the texture.
         std::string name;
@@ -39,5 +41,5 @@ class TextureAsset {
         bool srgb = false;
         
     private:
-        Texture2D* texture;
+        Video::Texture2D* texture;
 };

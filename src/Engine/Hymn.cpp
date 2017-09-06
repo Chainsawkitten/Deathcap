@@ -14,7 +14,7 @@
 #include "DefaultGlow.png.hpp"
 #include "Geometry/RiggedModel.hpp"
 #include "Geometry/StaticModel.hpp"
-#include "Texture/Texture2D.hpp"
+#include <Video/Texture/Texture2D.hpp>
 #include "Texture/TextureAsset.hpp"
 #include "Audio/SoundBuffer.hpp"
 #include "Input/Input.hpp"

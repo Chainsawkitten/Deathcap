@@ -21,7 +21,7 @@
 #include "../Geometry/RiggedModel.hpp"
 #include "../Geometry/Skeleton.hpp"
 #include "../Texture/TextureAsset.hpp"
-#include "../Texture/Texture2D.hpp"
+#include <Video/Texture/Texture2D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Video/Culling/Frustum.hpp>
 #include <Video/Culling/AxisAlignedBoundingBox.hpp>

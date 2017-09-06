@@ -16,7 +16,7 @@
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Geometry/RiggedModel.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
-#include <Engine/Texture/Texture2D.hpp>
+#include <Video/Texture/Texture2D.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>

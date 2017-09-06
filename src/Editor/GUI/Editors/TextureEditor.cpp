@@ -1,7 +1,7 @@
 #include "TextureEditor.hpp"
 
 #include <Engine/Texture/TextureAsset.hpp>
-#include <Engine/Texture/Texture2D.hpp>
+#include <Video/Texture/Texture2D.hpp>
 #include "../FileSelector.hpp"
 #include <functional>
 #include <Engine/Hymn.hpp>

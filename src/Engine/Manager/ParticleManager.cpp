@@ -11,7 +11,7 @@
 #include "../Manager/ResourceManager.hpp"
 #include <Video/Shader/Shader.hpp>
 #include <Video/Shader/ShaderProgram.hpp>
-#include "../Texture/Texture2D.hpp"
+#include <Video/Texture/Texture2D.hpp>
 #include "Particle.vert.hpp"
 #include "Particle.geom.hpp"
 #include "Particle.frag.hpp"

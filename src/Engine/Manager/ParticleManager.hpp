@@ -9,8 +9,8 @@ class World;
 namespace Video {
     class Shader;
     class ShaderProgram;
+    class Texture2D;
 }
-class Texture2D;
 namespace Component {
     class ParticleEmitter;
 }
@@ -79,7 +79,7 @@ class ParticleManager {
         /**
          * @return The particle texture atlas.
          */
-        const Texture2D* GetTextureAtlas() const;
+        const Video::Texture2D* GetTextureAtlas() const;
         
         /// Get the number of rows in the texture atlas.
         /**
@@ -114,7 +114,7 @@ class ParticleManager {
         int textureAtlasRowNumber = 4;
 
         // Texture atlas containing the particle textures.
-        Texture2D* textureAtlas;
+        Video::Texture2D* textureAtlas;
 
         // Vertex buffer.
         GLuint vertexBuffer = 0;
