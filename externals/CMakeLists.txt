@@ -125,7 +125,5 @@ macro(ProcessWithHeaderize headervar sourcevar inputfile outdir)
 endmacro()
 
 # Catch
-set(NO_SELFTEST ON CACHE BOOL "We trust that the testing library does not need to be tested." FORCE)
-add_subdirectory(Catch)
 add_library(catch INTERFACE)
-target_include_directories(catch INTERFACE Catch/include)
+target_include_directories(catch INTERFACE Catch/single_include)
