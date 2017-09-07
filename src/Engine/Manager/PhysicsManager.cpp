@@ -1,15 +1,16 @@
 #include "PhysicsManager.hpp"
 
+#include <Physics/Simulator.h>
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Component/Physics.hpp"
 
 PhysicsManager::PhysicsManager() {
-    
+    simulator = new Physics::Simulator;
 }
 
 PhysicsManager::~PhysicsManager() {
-    
+    delete simulator;
 }
 
 void PhysicsManager::Update(World& world, float deltaTime) {
