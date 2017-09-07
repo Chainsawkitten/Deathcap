@@ -8,7 +8,7 @@ class Cart{
     }
     
     //Update carts movements and send it's position to Player Script.
-    void Update(float i){
-        self.position.z -= 0.01f;
+    void Update(float deltaTime){
+        self.position.z -= 0.44f*deltaTime;
     }
 }
