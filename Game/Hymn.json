@@ -18,7 +18,7 @@
 		},
 		"fogDensity" : 0.0010000000474974513,
 		"fxaa" : true,
-		"glow" : true,
+		"glow" : false,
 		"glowBlurAmount" : 1
 	},
 	"input" : 
