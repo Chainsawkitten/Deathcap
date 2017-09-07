@@ -47,7 +47,7 @@ set(SRCS
         Util/Json.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
-        Texture/Texture2D.cpp
+        Texture/TextureAsset.cpp
         Script/ScriptFile.cpp
         Input/Input.cpp
     )
@@ -94,17 +94,13 @@ set(HEADERS
         Util/Json.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
-        Texture/Texture2D.hpp
+        Texture/TextureAsset.hpp
         Script/ScriptFile.hpp
         Input/Input.hpp
     )
 
 # Setup embedded source
 set(EMBEDDED_INPUT
-    ../../shaders/Default2D.vert
-    ../../shaders/Deferred.frag
-    ../../shaders/Texture2D.frag
-    ../../shaders/Post.vert
     ../../assets/Camera.png
     ../../assets/DefaultDiffuse.png
     ../../assets/DefaultNormal.png

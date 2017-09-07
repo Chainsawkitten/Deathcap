@@ -9,7 +9,7 @@
 #include "../MainWindow.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include "../Texture/Texture2D.hpp"
+#include <Video/Texture/Texture2D.hpp>
 #include "ParticleAtlas.png.hpp"
 #include <Video/ParticleRenderer.hpp>
 
