@@ -68,7 +68,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         renderer->StartRendering();
         
         // Camera matrices.
-        glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position);
+        glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
         glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(screenSize);
         
         std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
@@ -143,41 +143,41 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
     // Render from camera.
     if (camera != nullptr) {
         glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position));
+        glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
         glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
         glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
         glm::vec3 up(glm::inverse(camera->GetCameraOrientation())* glm::vec4(0, 1, 0, 1));
         
-        renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->position, up);
+        renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
         
         // Render sound sources.
         if (soundSources) {
             for (SoundSource* soundSource : world.GetComponents<SoundSource>())
-                renderer->RenderIcon(soundSource->entity->position, soundSourceTexture);
+                renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
         }
         
         // Render particle emitters.
         if (particleEmitters) {
             for (ParticleEmitter* emitter : world.GetComponents<ParticleEmitter>())
-                renderer->RenderIcon(emitter->entity->position, particleEmitterTexture);
+                renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
         }
         
         // Render light sources.
         if (lightSources) {
             for (DirectionalLight* light : world.GetComponents<DirectionalLight>())
-                renderer->RenderIcon(light->entity->position, lightTexture);
+                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
             
             for (PointLight* light : world.GetComponents<PointLight>())
-                renderer->RenderIcon(light->entity->position, lightTexture);
+                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
             
             for (SpotLight* light : world.GetComponents<SpotLight>())
-                renderer->RenderIcon(light->entity->position, lightTexture);
+                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
         }
         
         // Render cameras.
         if (cameras) {
             for (Lens* lens : world.GetComponents<Lens>())
-                renderer->RenderIcon(lens->entity->position, cameraTexture);
+                renderer->RenderIcon(lens->entity->GetWorldPosition(), cameraTexture);
         }
         
         renderer->StopRenderingIcons();
@@ -190,7 +190,7 @@ void RenderManager::UpdateBufferSize() {
 
 void RenderManager::LightWorld(World& world, const Entity* camera) {
     // Get the camera matrices.
-    glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position));
+    glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
     glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
     glm::mat4 viewProjectionMat(projectionMat * viewMat);
     
@@ -236,7 +236,7 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     for (Component::PointLight* pointLight : pointLights) {
         Entity* lightEntity = pointLight->entity;
         float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
-        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->position) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
+        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
         
         Video::Frustum frustum(viewProjectionMat * modelMat);
         if (frustum.Collide(aabb)) {
