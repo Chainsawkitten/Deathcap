@@ -24,15 +24,6 @@ class Simulator {
         btCollisionDispatcher* dispatcher_ = nullptr;
         btSequentialImpulseConstraintSolver* solver_ = nullptr;
         btDiscreteDynamicsWorld* dynamicsWorld_ = nullptr;
-
-        btCollisionShape* groundShape_ = nullptr;
-        btCollisionShape* sphereShape_ = nullptr;
-
-        btDefaultMotionState* groundMotionState_ = nullptr;
-        btDefaultMotionState* sphereMotionState_ = nullptr;
-
-        btRigidBody* groundRigidBody_ = nullptr;
-        btRigidBody* sphereRigidBody_ = nullptr;
 };
 
 }
