@@ -124,6 +124,10 @@ macro(ProcessWithHeaderize headervar sourcevar inputfile outdir)
     list(APPEND ${sourcevar} ${outputfile}.cpp)
 endmacro()
 
+# Catch
+add_library(catch INTERFACE)
+target_include_directories(catch INTERFACE Catch/single_include)
+
 # Bullet
 set(BUILD_CPU_DEMOS OFF CACHE BOOL "Don't build bullet demos." FORCE)
 set(BUILD_UNIT_TESTS OFF CACHE BOOL "Don't build bullet tests." FORCE)
