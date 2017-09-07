@@ -3,7 +3,7 @@ set(SRCS
 )
 
 set(HEADERS
-    Simulator.h
+    Simulator.hpp
 )
 
 create_directory_groups(${SRCS} ${HEADERS})

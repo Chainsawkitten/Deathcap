@@ -5,7 +5,7 @@ class World;
 #include <glm/glm.hpp>
 
 namespace Physics {
-class Simulator;
+    class Simulator;
 }
 
 /// Updates the physics of the world.
@@ -28,5 +28,5 @@ class PhysicsManager {
         
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
 
-        Physics::Simulator* simulator_ = nullptr;
+        Physics::Simulator* simulator = nullptr;
 };

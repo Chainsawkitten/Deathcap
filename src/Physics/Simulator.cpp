@@ -1,41 +1,41 @@
-#include "Simulator.h"
+#include "Simulator.hpp"
 
 #include <btBulletDynamicsCommon.h>
 
 namespace Physics {
 
-Simulator::Simulator() {
-    // The broadphase is used to quickly cull bodies that will not collide with
-    // each other, normally by leveraging some simpler (and rough) test such as
-    // bounding boxes.
-    broadphase_ = new btDbvtBroadphase;
+    Simulator::Simulator() {
+        // The broadphase is used to quickly cull bodies that will not collide with
+        // each other, normally by leveraging some simpler (and rough) test such as
+        // bounding boxes.
+        broadphase = new btDbvtBroadphase;
 
-    // With the collision configuration one can configure collision detection
-    // algorithms.
-    collisionConfiguration_ = new btDefaultCollisionConfiguration;
-    dispatcher_ = new btCollisionDispatcher(collisionConfiguration_);
+        // With the collision configuration one can configure collision detection
+        // algorithms.
+        collisionConfiguration = new btDefaultCollisionConfiguration;
+        dispatcher = new btCollisionDispatcher(collisionConfiguration);
 
-    // The solver makes objects interact by making use of gravity, collisions,
-    // game logic supplied forces, and constraints.
-    solver_ = new btSequentialImpulseConstraintSolver;
+        // The solver makes objects interact by making use of gravity, collisions,
+        // game logic supplied forces, and constraints.
+        solver = new btSequentialImpulseConstraintSolver;
 
-    // The dynamics world encompasses objects included in the simulation.
-    dynamicsWorld_ = new btDiscreteDynamicsWorld(dispatcher_, broadphase_, solver_, collisionConfiguration_);
+        // The dynamics world encompasses objects included in the simulation.
+        dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 
-    // Y axis up
-    dynamicsWorld_->setGravity(btVector3(0, -9.82, 0));
-}
+        // Y axis up
+        dynamicsWorld->setGravity(btVector3(0, -9.82, 0));
+    }
 
-Simulator::~Simulator() {
-    delete dynamicsWorld_;
-    delete solver_;
-    delete dispatcher_;
-    delete collisionConfiguration_;
-    delete broadphase_;
-}
+    Simulator::~Simulator() {
+        delete dynamicsWorld;
+        delete solver;
+        delete dispatcher;
+        delete collisionConfiguration;
+        delete broadphase;
+    }
 
-void Simulator::Simulate(float dt) {
-    dynamicsWorld_->stepSimulation(dt, 10);
-}
+    void Simulator::Simulate(float dt) {
+        dynamicsWorld->stepSimulation(dt, 10);
+    }
 
 }
