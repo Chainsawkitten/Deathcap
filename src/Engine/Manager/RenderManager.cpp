@@ -20,7 +20,8 @@
 #include <Video/Geometry/Geometry3D.hpp>
 #include "../Geometry/RiggedModel.hpp"
 #include "../Geometry/Skeleton.hpp"
-#include "../Texture/Texture2D.hpp"
+#include "../Texture/TextureAsset.hpp"
+#include <Video/Texture/Texture2D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Video/Culling/Frustum.hpp>
 #include <Video/Culling/AxisAlignedBoundingBox.hpp>
@@ -80,7 +81,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
                     glm::mat4 modelMatrix = entity->GetModelMatrix();
-                    renderer->RenderStaticMesh(mesh->geometry, material->diffuse, material->normal, material->specular, material->glow, modelMatrix);
+                    renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), modelMatrix);
                 }
             }
         }
@@ -94,7 +95,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                 if (material != nullptr) {
                     glm::mat4 modelMatrix = entity->GetModelMatrix();
                     Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
-                    renderer->RenderSkinnedMesh(mesh->geometry, material->diffuse, material->normal, material->specular, material->glow, modelMatrix, model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
+                    renderer->RenderSkinnedMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), modelMatrix, model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
                 }
             }
         }
