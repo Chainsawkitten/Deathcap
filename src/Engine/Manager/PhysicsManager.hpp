@@ -28,5 +28,5 @@ class PhysicsManager {
         
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
 
-        Physics::Simulator* simulator = nullptr;
+        Physics::Simulator* simulator_ = nullptr;
 };

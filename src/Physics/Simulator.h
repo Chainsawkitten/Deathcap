@@ -16,6 +16,8 @@ class Simulator {
         Simulator();
         ~Simulator();
 
+        void Simulate(float dt);
+
     private:
         btBroadphaseInterface* broadphase_ = nullptr;
         btDefaultCollisionConfiguration* collisionConfiguration_ = nullptr;

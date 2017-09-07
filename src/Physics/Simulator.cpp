@@ -77,4 +77,13 @@ Simulator::~Simulator() {
     delete broadphase_;
 }
 
+void Simulator::Simulate(float dt) {
+    dynamicsWorld_->stepSimulation(dt, 10);
+
+    btTransform trans;
+    sphereRigidBody_->getMotionState()->getWorldTransform(trans);
+
+    //printf("\rSphere height: %f", trans.getOrigin().getY());
+}
+
 }
