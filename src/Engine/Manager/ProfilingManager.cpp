@@ -2,7 +2,7 @@
 
 #include <imgui.h>
 #include <GLFW/glfw3.h>
-#ifdef WIN32
+#ifdef MEASURE_RAM
 #include <windows.h>
 #include <psapi.h>
 #endif
@@ -55,9 +55,9 @@ void ProfilingManager::ShowResults() {
         ShowResult(first);
         ImGui::Columns(1);
     }
-
+    
     if (ImGui::CollapsingHeader("Memory")) {
-#ifdef WIN32
+#ifdef MEASURE_RAM
         PROCESS_MEMORY_COUNTERS_EX memoryCounters;
         GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&memoryCounters), sizeof(memoryCounters));
         ImGui::Text("RAM: %u MiB", static_cast<unsigned int>(memoryCounters.PrivateUsage / 1024 / 1024));

@@ -132,7 +132,10 @@ endif()
 # Measure RAM dependencies.
 if(WIN32)
     find_library(PSAPI Psapi)
-    target_link_libraries(Engine ${PSAPI})
+    if(PSAPI)
+        add_definitions(-DMEASURE_RAM)
+        target_link_libraries(Engine ${PSAPI})
+    endif()
 endif()
 
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
