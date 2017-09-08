@@ -152,3 +152,5 @@ endif()
 
 target_include_directories(${OpenVR_LIBRARY} INTERFACE openvr/headers)
 target_include_directories(${OpenVR_LIBRARY} INTERFACE openvr/src/vrcommon)
+
+set(OpenVR_LIBRARY ${OpenVR_LIBRARY} PARENT_SCOPE)
