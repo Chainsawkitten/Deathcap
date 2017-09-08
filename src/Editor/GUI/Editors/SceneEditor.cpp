@@ -2,7 +2,7 @@
 
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
-#include <Engine/Util/Log.hpp>
+#include <Utility/Log.hpp>
 #include <imgui.h>
 
 using namespace GUI;
@@ -21,10 +21,12 @@ void SceneEditor::Show() {
 
 void SceneEditor::SetScene(std::size_t sceneIndex) {
     entityEditor.SetVisible(false);
+    this->sceneIndex = sceneIndex;
     
     if (sceneIndex < Hymn().scenes.size()) {
-        this->sceneIndex = sceneIndex;
         strcpy(name, Hymn().scenes[sceneIndex].c_str());
+    } else {
+        SetVisible(false);
     }
 }
 

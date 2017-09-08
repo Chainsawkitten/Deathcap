@@ -4,8 +4,9 @@
 #include <scriptbuilder/scriptbuilder.h>
 #include <scriptmath/scriptmath.h>
 #include <scriptstdstring/scriptstdstring.h>
-#include "../Util/Log.hpp"
+#include <Utility/Log.hpp>
 #include "../Util/FileSystem.hpp"
+#include "../Util/Input.hpp"
 #include "../Hymn.hpp"
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
@@ -29,16 +30,16 @@ void print(const std::string& message) {
     Log() << message;
 }
 
-Entity* GetEntity() {
-    return Managers().scriptManager->currentEntity;
-}
-
 void RegisterUpdate() {
-    Managers().scriptManager->RegisterUpdate(GetEntity());
+    Managers().scriptManager->RegisterUpdate(Managers().scriptManager->currentEntity);
 }
 
-bool Input(int buttonIndex) {
+bool ButtonInput(int buttonIndex) {
     return Input::GetInstance().CheckButton(buttonIndex);
+}
+
+glm::vec2 GetCursorXY() {
+    return Input()->GetCursorXY();
 }
 
 void SendMessage(Entity* recipient, int type) {
@@ -313,18 +314,18 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectType("DebugDrawingManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPoint(const vec3 &in, const vec3 &in, float, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPoint), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddLine(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddLine), asCALL_THISCALL);
-    engine->RegisterObjectMethod("DebugDrawingManager", "void AddAxisAlignedBoundingBox(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddAxisAlignedBoundingBox), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCuboid(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCuboid), asCALL_THISCALL);
     
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
     
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
-    engine->RegisterGlobalFunction("Entity@ GetEntity()", asFUNCTION(GetEntity), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
-    engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(Input), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
+    engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {
@@ -390,7 +391,7 @@ void ScriptManager::BuildAllScripts() {
     }
 }
 
-void ScriptManager::Update(World& world) {
+void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
     for (Script* script : world.GetComponents<Script>()) {
         if (!script->initialized) {
@@ -401,7 +402,7 @@ void ScriptManager::Update(World& world) {
     
     // Update.
     for (Entity* entity : world.GetUpdateEntities())
-        CallScript(entity->GetComponent<Script>(), "void Update()");
+        CallUpdate(entity, deltaTime);
     
     // Handle messages.
     while (!messages.empty()) {
@@ -489,26 +490,6 @@ void ScriptManager::CreateInstance(Component::Script* script) {
     context->Release();
 }
 
-void ScriptManager::CallScript(Component::Script* script, const std::string& functionName) {
-    currentEntity = script->entity;
-    ScriptFile* scriptFile = script->scriptFile;
-    
-    // Get class.
-    asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
-    
-    // Find method to call.
-    asIScriptFunction* method = type->GetMethodByDecl(functionName.c_str());
-    
-    // Create context, prepare it and execute.
-    asIScriptContext* context = engine->CreateContext();
-    context->Prepare(method);
-    context->SetObject(script->instance);
-    ExecuteCall(context);
-    
-    // Clean up.
-    context->Release();
-}
-
 void ScriptManager::CallMessageReceived(const Message& message) {
     currentEntity = message.recipient;
     Component::Script* script = currentEntity->GetComponent<Component::Script>();
@@ -527,6 +508,29 @@ void ScriptManager::CallMessageReceived(const Message& message) {
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgDWord(0, message.type);
+    ExecuteCall(context);
+    
+    // Clean up.
+    context->Release();
+}
+
+void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
+    Component::Script* script = entity->GetComponent<Component::Script>();
+    ScriptFile* scriptFile = script->scriptFile;
+    
+    // Get class.
+    asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
+    
+    // Find method to call.
+    asIScriptFunction* method = type->GetMethodByDecl("void Update(float)");
+    if (method == nullptr)
+        Log() << "Can't find method void Update(float)\n";
+    
+    // Create context, prepare it and execute.
+    asIScriptContext* context = engine->CreateContext();
+    context->Prepare(method);
+    context->SetObject(script->instance);
+    context->SetArgFloat(0, deltaTime);
     ExecuteCall(context);
     
     // Clean up.

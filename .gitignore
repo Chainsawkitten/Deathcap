@@ -37,3 +37,6 @@ DocumentationGame
 
 # OpenVR
 bin
+
+# In-source build
+build/

@@ -37,3 +37,9 @@
 	path = externals/openvr
 	url = https://github.com/Chainsawkitten/openvr.git
 	shallow = true
+[submodule "externals/Catch"]
+	path = externals/Catch
+	url = https://github.com/philsquared/Catch.git
+[submodule "externals/bullet3"]
+	path = externals/bullet3
+	url = https://github.com/bulletphysics/bullet3.git

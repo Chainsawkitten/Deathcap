@@ -6,7 +6,7 @@ Cube::Cube() {
     // Vertices
     std::size_t vertexCount = 24;
     vertices.resize(vertexCount);
-    VertexType::StaticVertex* vertexData = vertices.data();
+    Video::Geometry::VertexType::StaticVertex* vertexData = vertices.data();
     verticesPos.resize(vertexCount);
     
     // Side 1
@@ -244,14 +244,14 @@ Cube::~Cube() {
     
 }
 
-Geometry3D::Type Cube::GetType() const {
+Video::Geometry::Geometry3D::Type Cube::GetType() const {
     return STATIC;
 }
 
 void Cube::GenerateVertexBuffer(GLuint& vertexBuffer) {
-    vertexBuffer = VertexType::StaticVertex::GenerateVertexBuffer(vertices.data(), vertices.size());
+    vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(vertices.data(), vertices.size());
 }
 
 void Cube::GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {
-    vertexArray = VertexType::StaticVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
+    vertexArray = Video::Geometry::VertexType::StaticVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
 }

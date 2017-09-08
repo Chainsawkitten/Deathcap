@@ -1,6 +1,6 @@
 #include "Input.hpp"
 
-#include "Log.hpp"
+#include <Utility/Log.hpp>
 #include <map>
 #include <GLFW/glfw3.h>
 
@@ -84,6 +84,10 @@ double InputHandler::GetCursorX() const {
 
 double InputHandler::GetCursorY() const {
     return cursorY;
+}
+
+glm::vec2 InputHandler::GetCursorXY() const {
+    return glm::vec2(cursorX, cursorY);
 }
 
 bool InputHandler::GetScrollUp() const {

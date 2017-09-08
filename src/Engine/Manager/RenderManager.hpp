@@ -1,26 +1,13 @@
 #pragma once
 
-#include <GL/glew.h>
 #include <glm/glm.hpp>
 
+namespace Video {
+    class Renderer;
+    class Texture2D;
+}
 class World;
 class Entity;
-class Shader;
-class ShaderProgram;
-class StaticRenderProgram;
-class SkinRenderProgram;
-class DeferredLighting;
-class PostProcessing;
-class ColorFilter;
-class FogFilter;
-class FXAAFilter;
-class GammaCorrectionFilter;
-class GlowFilter;
-class GlowBlurFilter;
-class Texture2D;
-namespace Component {
-    class SuperComponent;
-}
 
 /// Handles rendering the world.
 class RenderManager {
@@ -54,39 +41,13 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
         
-        void RenderEditorEntity(Component::SuperComponent* component);
-        
-        Shader* defaultVertexShader;
-        Shader* defaultFragmentShader;
-        Shader* skinningVertexShader;
-        ShaderProgram* staticShaderProgram;
-        ShaderProgram* skinShaderProgram;
-        StaticRenderProgram* staticRenderProgram;
-        SkinRenderProgram* skinRenderProgram;
-        
-        Shader* editorEntityVertexShader;
-        Shader* editorEntityGeometryShader;
-        Shader* editorEntityFragmentShader;
-        ShaderProgram* editorEntityShaderProgram;
-        
-        DeferredLighting* deferredLighting;
-        
-        // Post-processing.
-        PostProcessing* postProcessing;
-        ColorFilter* colorFilter;
-        FogFilter* fogFilter;
-        FXAAFilter* fxaaFilter;
-        GammaCorrectionFilter* gammaCorrectionFilter;
-        GlowFilter* glowFilter;
-        GlowBlurFilter* glowBlurFilter;
+        void LightWorld(World& world, const Entity* camera);
+
+        Video::Renderer* renderer;
         
         // Editor entity textures.
-        Texture2D* particleEmitterTexture;
-        Texture2D* lightTexture;
-        Texture2D* soundSourceTexture;
-        Texture2D* cameraTexture;
-        
-        // Geometry.
-        GLuint vertexBuffer;
-        GLuint vertexArray;
+        Video::Texture2D* particleEmitterTexture;
+        Video::Texture2D* lightTexture;
+        Video::Texture2D* soundSourceTexture;
+        Video::Texture2D* cameraTexture;
 };

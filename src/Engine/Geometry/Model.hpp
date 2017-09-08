@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Geometry3D.hpp"
+#include <Video/Geometry/Geometry3D.hpp>
 #include <assimp/Importer.hpp>
 #include <json/json.h>
 
 namespace Geometry {
     /// Interface of a model loaded from a file.
-    class Model : public Geometry3D {
+    class Model : public Video::Geometry::Geometry3D {
         public:
             /// Create new empty model.
             /**

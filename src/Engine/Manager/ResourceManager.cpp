@@ -1,12 +1,11 @@
 #include "ResourceManager.hpp"
 
-#include "../Shader/Shader.hpp"
-#include "../Shader/ShaderProgram.hpp"
-#include "../Geometry/Rectangle.hpp"
+#include <Video/Shader/Shader.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
+#include <Video/Geometry/Rectangle.hpp>
 #include "../Geometry/Cube.hpp"
 #include "../Geometry/StaticModel.hpp"
-#include "../Texture/Texture2D.hpp"
-#include "../Font/Font.hpp"
+#include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
 #include "../Audio/VorbisFile.hpp"
 
@@ -16,9 +15,9 @@ ResourceManager::ResourceManager() {
     
 }
 
-Shader* ResourceManager::CreateShader(const char* source, int sourceLength, GLenum shaderType) {
+Video::Shader* ResourceManager::CreateShader(const char* source, int sourceLength, GLenum shaderType) {
     if (shaders.find(source) == shaders.end()) {
-        shaders[source].shader = new Shader(source, sourceLength, shaderType);
+        shaders[source].shader = new Video::Shader(source, sourceLength, shaderType);
         shadersInverse[shaders[source].shader] = source;
         shaders[source].count = 1;
     } else {
@@ -28,7 +27,7 @@ Shader* ResourceManager::CreateShader(const char* source, int sourceLength, GLen
     return shaders[source].shader;
 }
 
-void ResourceManager::FreeShader(Shader* shader) {
+void ResourceManager::FreeShader(Video::Shader* shader) {
     const char* source = shadersInverse[shader];
     
     shaders[source].count--;
@@ -61,7 +60,7 @@ bool ResourceManager::ShaderProgramKey::operator<(const ShaderProgramKey& other)
     return false;
 }
 
-ShaderProgram* ResourceManager::CreateShaderProgram(std::initializer_list<const Shader*> shaders) {
+Video::ShaderProgram* ResourceManager::CreateShaderProgram(std::initializer_list<const Video::Shader*> shaders) {
     ShaderProgramKey key;
     
     for (auto shader : shaders) {
@@ -89,7 +88,7 @@ ShaderProgram* ResourceManager::CreateShaderProgram(std::initializer_list<const 
     
     if (shaderPrograms.find(key) == shaderPrograms.end()) {
         ShaderProgramInstance shaderProgram;
-        shaderProgram.shaderProgram = new ShaderProgram(shaders);
+        shaderProgram.shaderProgram = new Video::ShaderProgram(shaders);
         shaderProgram.count = 1;
         shaderPrograms[key] = shaderProgram;
         shaderProgramsInverse[shaderProgram.shaderProgram] = key;
@@ -100,7 +99,7 @@ ShaderProgram* ResourceManager::CreateShaderProgram(std::initializer_list<const 
     return shaderPrograms[key].shaderProgram;
 }
 
-void ResourceManager::FreeShaderProgram(ShaderProgram* shaderProgram) {
+void ResourceManager::FreeShaderProgram(Video::ShaderProgram* shaderProgram) {
     ShaderProgramKey key = shaderProgramsInverse[shaderProgram];
     shaderPrograms[key].count--;
     
@@ -111,9 +110,9 @@ void ResourceManager::FreeShaderProgram(ShaderProgram* shaderProgram) {
     }
 }
 
-Geometry::Rectangle* ResourceManager::CreateRectangle() {
+Video::Geometry::Rectangle* ResourceManager::CreateRectangle() {
     if (rectangleCount == 0)
-        rectangle = new Geometry::Rectangle();
+        rectangle = new Video::Geometry::Rectangle();
     
     rectangleCount++;
     return rectangle;
@@ -160,9 +159,9 @@ void ResourceManager::FreeModel(Geometry::Model* model) {
     }
 }
 
-Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength, bool srgb) {
+Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength, bool srgb) {
     if (textures.find(data) == textures.end()) {
-        textures[data].texture = new Texture2D(data, dataLength, srgb);
+        textures[data].texture = new Video::Texture2D(data, dataLength, srgb);
         texturesInverse[textures[data].texture] = data;
         textures[data].count = 1;
     } else {
@@ -172,9 +171,9 @@ Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength, bo
     return textures[data].texture;
 }
 
-Texture2D* ResourceManager::CreateTexture2DFromFile(std::string filename, bool srgb) {
+Video::Texture2D* ResourceManager::CreateTexture2DFromFile(std::string filename, bool srgb) {
     if (texturesFromFile.find(filename) == texturesFromFile.end()) {
-        texturesFromFile[filename].texture = new Texture2D(filename.c_str(), srgb);
+        texturesFromFile[filename].texture = new Video::Texture2D(filename.c_str(), srgb);
         texturesFromFileInverse[texturesFromFile[filename].texture] = filename;
         texturesFromFile[filename].count = 1;
     } else {
@@ -184,7 +183,7 @@ Texture2D* ResourceManager::CreateTexture2DFromFile(std::string filename, bool s
     return texturesFromFile[filename].texture;
 }
 
-void ResourceManager::FreeTexture2D(Texture2D* texture) {
+void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
     if (texture->IsFromFile()) {
         string filename = texturesFromFileInverse[texture];
         
@@ -225,81 +224,5 @@ void ResourceManager::FreeSound(Audio::SoundBuffer* soundBuffer) {
         soundsInverse.erase(soundBuffer);
         delete soundBuffer;
         sounds.erase(filename);
-    }
-}
-
-bool ResourceManager::FontKey::operator<(const FontKey& other) const {
-    if (source < other.source) return true;
-    if (source > other.source) return false;
-    
-    if (height < other.height) return true;
-    if (height > other.height) return false;
-    
-    return false;
-}
-
-Font* ResourceManager::CreateFontEmbedded(const char* source, int sourceLength, float height) {
-    FontKey key;
-    key.source = source;
-    key.height = height;
-    
-    if (fonts.find(key) == fonts.end()) {
-        fonts[key].font = new Font(source, sourceLength, height);
-        fontsInverse[fonts[key].font] = key;
-        fonts[key].count = 1;
-    } else {
-        fonts[key].count++;
-    }
-    
-    return fonts[key].font;
-}
-
-ResourceManager::FontFromFileKey::FontFromFileKey() {
-    height = 0.f;
-}
-
-bool ResourceManager::FontFromFileKey::operator<(const FontFromFileKey& other) const {
-    if (filename < other.filename) return true;
-    if (filename > other.filename) return false;
-    
-    if (height < other.height) return true;
-    if (height > other.height) return false;
-    
-    return false;
-}
-
-Font* ResourceManager::CreateFontFromFile(std::string filename, float height) {
-    FontFromFileKey key;
-    key.filename = filename;
-    key.height = height;
-    
-    if (fontsFromFile.find(key) == fontsFromFile.end()) {
-        fontsFromFile[key].font = new Font(filename.c_str(), height);
-        fontsFromFileInverse[fontsFromFile[key].font] = key;
-        fontsFromFile[key].count = 1;
-    } else {
-        fontsFromFile[key].count++;
-    }
-    
-    return fontsFromFile[key].font;
-}
-
-void ResourceManager::FreeFont(Font* font) {
-    if (font->IsFromFile()) {
-        FontFromFileKey key = fontsFromFileInverse[font];
-        
-        if (fontsFromFile[key].count-- <= 1) {
-            fontsFromFileInverse.erase(font);
-            delete font;
-            fontsFromFile.erase(key);
-        }
-    } else {
-        FontKey key = fontsInverse[font];
-        
-        if (fonts[key].count-- <= 1) {
-            fontsInverse.erase(font);
-            delete font;
-            fonts.erase(key);
-        }
     }
 }

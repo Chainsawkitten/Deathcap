@@ -26,12 +26,12 @@ before_deploy:
 - GITDATE="`git show -s --date=short --format='%ad' | sed 's/-//g'`"
 - GITREV="`git show -s --format='%h'`"
 - BUILD_NAME="HymnToBeauty-Linux-${GITDATE}-${GITREV}.tar.gz"
-- tar -czf $BUILD_NAME ./bin/Game ./bin/HymnToBeauty
+- tar -czf $BUILD_NAME ./bin/Game ./bin/Editor
 
 deploy:
   provider: releases
   api_key:
-    secure: oBNKk6DWzndcMT2kJrsDIt482Wdml8Lpnn1OnSbA6JVqtUOj6baWNrVJB9uCbceiQOhYHBfvD/vdBgHoH64OR5SCocJngVg5Qb1uv7wShIjcCHvb30zZvesOBboY0cVBgTXg/TITTNfZKCZxMwF8eq0txOLQc2e3BDpdfWIGlq/nbOHbGEaO4kcofRqfSKN7XAlpdE7X1WhCXSJYjyJlVnb14MRETGE3xT+U7dt0LrqdCR9s8zzF7zpNXj4Vgh9k6MaMdGFACccC93oWfMOWf26pG9DrUL1FHy3TMf6DtufsLg0Huo523zusmRvaJVNYHiVfd3+5voBMa8fY7DzNrZ0SmqlI62BZjNR5JXzNFjh7M4JdRiJOqgL6VaOWuV+DjSsMJ1LzSCyIeMWJkJ1wy5GBxrDlBBxFwB6ym8dYHJS+14N9vumCo2JBnjbd5RpO6/MWWjR9kigpVTKWn1xfMvEtA98wxOV4F3dmfAssWBR2AEZqYORSWE9wgWpDlf05iazUBWD65pND6G5ilyjvhhnqzmoZNq+b0laSG/peUEOkIJXZ43tB7ZZ4gqQ6xUiQmBFaNZBdBZHy+vwJbtsxI7Tgp2x+eor9WDBF73P02YBMHjzwwwewPv9dq2eEanjDhaQ74szAHsf19qv3TmOGT533miqlL8XhIY+VD8fe/dY=
+    secure: ZdeOxt4ttf+FZtG7HeUquxW1ejV69BNOXsxdn6WTOXHuSfeJxLeU0CkAhLoZ4D6yEsLKdQHyYt8ppdtXbUdvt0ZsEL64Ao5kf395WOzRpsiKx/5wOd09wJawLgIi4RoisRKrt0DHCCOt6NnCyZZeQADxhTp5YhZXegd+n5+93WkyCfc8Bi5VLf69RIaDp3zW7OQlbvtAoxyiEJDUzdSGs0IZgEh9mR0P6EDtI5bjZ8KmkQKUWV+872ZRRDiGJxNki91EiB4lKW09qgInRg3tlj6c451OCpdGnxXHGzKyk9X4FMhcUZ2fkZ5zzX64BDgJV42at8vFUY1uKuO4zrDnLXFsHXaJdnpSDEmcxC1FaZaYwz2dWAVLn0F7qhDiPywthFzsAXEocjkJNLod57wNEZGOqFBL+ps9aaVXqEOn5AQ2UBpY943uOVADJi9neg/5eEUMao58g6ZeViwmg5AhMZqpPfCmrkj0IOxzI891FQ+aAG7dNumB6cIH399Mf8afBL2TFpXCz+s7KbvGRQt2o+tWX66wGiXvUZoZ8XUEWVBo2OO9BDN7I3+Sfv300/cFwh9UuczfbKZDLOD8F0A8gnPENh8B3aq3gOkOeP3XXd0/g1QfhkZl8NCGpHzUFgEus1j96fYNywAzOjpWY6SoUnYhl+XvHDJSKtbTHR7+Jog=
   file: $BUILD_NAME
   skip_cleanup: true
   on:
