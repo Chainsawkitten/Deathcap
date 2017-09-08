@@ -40,6 +40,12 @@ namespace GUI {
              */
             void SetEntity(Entity* entity);
 
+            /// Get the entity
+            /**
+             * @return is the Entity object.
+             */
+            Entity* GetEntity();
+
             /// Checks if the editor is showing this entity.
             /**
              * @param entity The entity to check.

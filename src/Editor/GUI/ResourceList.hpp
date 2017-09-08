@@ -36,6 +36,9 @@ namespace GUI {
             
             /// Reset which scene is open.
             void ResetScene();
+
+            /// Return Scene Editor
+            SceneEditor GetScene();
             
         private:
             bool visible = false;

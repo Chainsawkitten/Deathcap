@@ -106,26 +106,34 @@ void Editor::Show(float deltaTime) {
             ImGui::EndMenu();
         }
         
-        if(Hymn().GetPath() != "") {
+        if (Hymn().GetPath() != "") {
             // Play
             if (ImGui::BeginMenu("Play")) {
                 if (ImGui::MenuItem("Play", "F5"))
                     play = true;
-                
+
                 ImGui::EndMenu();
             }
-            
+
             // Hymn
             if (ImGui::BeginMenu("Hymn")) {
                 if (ImGui::MenuItem("Input"))
                     inputWindow.SetVisible(true);
-                
+
                 if (ImGui::MenuItem("Filters"))
                     filtersWindow.SetVisible(true);
-                
+
                 ImGui::EndMenu();
             }
-            
+
+            if (ImGui::Button("Move to current Entity")) {
+                if (resourceList.GetScene().entityEditor.GetEntity() != nullptr) {
+                    const glm::vec3 tempPos = resourceList.GetScene().entityEditor.GetEntity()->GetWorldPosition();
+                    cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
+                    cameraEntity->rotation = glm::vec3(0, 45, 1);
+                }  
+            }
+
             // Editor Camera Coordinates
             ImGui::SameLine(size.x - 280); ImGui::Text("X: %f, Y: %f, Z: %f", cameraEntity->GetWorldPosition().x, cameraEntity->GetWorldPosition().y, cameraEntity->GetWorldPosition().z);
         }
