@@ -40,9 +40,9 @@ namespace GUI {
              */
             void SetEntity(Entity* entity);
 
-            /// Get the entity
+            /// Get the entity being edited
             /**
-             * @return is the Entity object.
+             * @return The Entity object being edited.
              */
             Entity* GetEntity();
 
