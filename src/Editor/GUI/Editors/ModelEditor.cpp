@@ -22,9 +22,14 @@ void ModelEditor::Show() {
         }
 
         if (hasSourceFile) {
+            ImGui::Text("Mesh Data");
             ImGui::Checkbox("Triangulate", &triangulate);
             ImGui::Checkbox("Import Normals", &importNormals);
             ImGui::Checkbox("Import Tangents", &importTangents);
+
+            ImGui::Text("Animations");
+            ImGui::Checkbox("Import Skeletons", &importSkeletons);
+            ImGui::Checkbox("Import Animations", &importAnimations);
 
             if (ImGui::Button("Import")) {
                 AssetConverter asset;

@@ -51,7 +51,11 @@ namespace Geometry {
         private:
             void GenerateVertexBuffer(GLuint& vertexBuffer,
                 Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticies);
-            void GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray);
+            void GenerateVertexBuffer(GLuint& vertexBuffer,
+                Video::Geometry::VertexType::SkinVertex * vertices, unsigned int numVerticies);
+            void GenerateStaticVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray);
+            void GenerateSkinVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray);
+
             
             AssetFileHandler assetFile;
     };

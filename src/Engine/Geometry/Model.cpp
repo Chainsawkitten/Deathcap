@@ -18,7 +18,7 @@ Json::Value Model::Save() const {
     Json::Value model;
     model["name"] = name;
     model["extension"] = extension;
-    model["type"] = GetType() == STATIC ? "Static" : "Skin";
+    model["type"] = "Static"; // GetType() == STATIC ? "Static" : "Skin";
     return model;
 }
 
@@ -32,12 +32,25 @@ void Model::Load(const char* filename) {
     if (assetFile.Open(filename, AssetFileHandler::READ)) {
         assetFile.LoadMeshData(0);
         AssetFileHandler::StaticMeshData * meshData = assetFile.GetStaticMeshData();
-        GenerateVertexBuffer(vertexBuffer, meshData->vertices, meshData->numVertices);
-        GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
-        GenerateVertexArray(vertexBuffer, indexBuffer, vertexArray);
+        
+        if (meshData->isSkinned) {
+            GenerateVertexBuffer(vertexBuffer, meshData->vertices, meshData->numVertices);
+            GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
+            GenerateStaticVertexArray(vertexBuffer, indexBuffer, vertexArray);
+        }
+        else {
+            GenerateVertexBuffer(vertexBuffer, meshData->skinnedVerticies, meshData->numVertices);
+            GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
+            GenerateSkinVertexArray(vertexBuffer, indexBuffer, vertexArray);
+        }
+        
         CreateAxisAlignedBoundingBox(meshData->aabbDim, meshData->aabbOrigin, meshData->aabbMinpos, meshData->aabbMaxpos);
         assetFile.Close();
     }
+}
+
+Model::Type GetType() {
+    return Model::STATIC;
 }
 
 void Model::GenerateVertexBuffer(GLuint& vertexBuffer,
@@ -46,6 +59,16 @@ void Model::GenerateVertexBuffer(GLuint& vertexBuffer,
         vertices, numVerticies);
 }
 
-void Model::GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {
+void Model::GenerateVertexBuffer(GLuint& vertexBuffer,
+    Video::Geometry::VertexType::SkinVertex * vertices, unsigned int numVerticies) {
+    vertexBuffer = Video::Geometry::VertexType::SkinVertex::GenerateVertexBuffer(
+        vertices, numVerticies);
+}
+
+void Model::GenerateStaticVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {
     vertexArray = Video::Geometry::VertexType::StaticVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
+}
+
+void Model::GenerateSkinVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {
+    vertexArray = Video::Geometry::VertexType::SkinVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
 }
