@@ -3,6 +3,7 @@
 #include <Video/Geometry/Geometry3D.hpp>
 #include <assimp/Importer.hpp>
 #include <json/json.h>
+#include "Geometry/AssetFileHandler.hpp"
 
 namespace Geometry {
     /// Interface of a model loaded from a file.
@@ -33,13 +34,13 @@ namespace Geometry {
             /**
              * @param filename Filename (relative or absolute) to the model file.
              */
-            virtual void Load(const char* filename) = 0;
+            void Load(const char* filename);
             
             /// Get geometry type.
             /**
              * @return Type.
              */
-            virtual Type GetType() const = 0;
+            Type GetType();
             
             /// The name of the model.
             std::string name;
@@ -47,22 +48,11 @@ namespace Geometry {
             /// The extension of the model.
             std::string extension;
             
-        protected:
-            /// Generate vertex buffer.
-            /**
-             * @param vertexBuffer Vertex buffer.
-             */
-            virtual void GenerateVertexBuffer(GLuint& vertexBuffer) {}
+        private:
+            void GenerateVertexBuffer(GLuint& vertexBuffer,
+                Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticies);
+            void GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray);
             
-            /// Generate vertex array.
-            /**
-             * @param vertexBuffer Vertex buffer.
-             * @param indexBuffer Index buffer.
-             * @param vertexArray Vertex array.
-             */
-            virtual void GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) = 0;
-            
-            /// Assimp importer.
-            static Assimp::Importer aImporter;
+            AssetFileHandler assetFile;
     };
 }

@@ -35,7 +35,7 @@ Video::Geometry::Geometry3D::Type StaticModel::GetType() const {
     return STATIC;
 }
 
-void StaticModel::GenerateVertexBuffer(GLuint& vertexBuffer, 
+void StaticModel::GenerateVertexBuffer(GLuint& vertexBuffer,
     Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticies) {
     vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(
         vertices, numVerticies);

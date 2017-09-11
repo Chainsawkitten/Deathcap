@@ -6,8 +6,6 @@
 
 using namespace Geometry;
 
-Assimp::Importer Model::aImporter = Assimp::Importer();
-
 Model::Model() {
     
 }
@@ -28,4 +26,26 @@ void Model::Load(const Json::Value& node) {
     name = node.get("name", "").asString();
     extension = node.get("extension", "").asString();
     Load((Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name + "." + extension).c_str());
+}
+
+void Model::Load(const char* filename) {
+    if (assetFile.Open(filename, AssetFileHandler::READ)) {
+        assetFile.LoadMeshData(0);
+        AssetFileHandler::StaticMeshData * meshData = assetFile.GetStaticMeshData();
+        GenerateVertexBuffer(vertexBuffer, meshData->vertices, meshData->numVertices);
+        GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
+        GenerateVertexArray(vertexBuffer, indexBuffer, vertexArray);
+        CreateAxisAlignedBoundingBox(meshData->aabbDim, meshData->aabbOrigin, meshData->aabbMinpos, meshData->aabbMaxpos);
+        assetFile.Close();
+    }
+}
+
+void Model::GenerateVertexBuffer(GLuint& vertexBuffer,
+    Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticies) {
+    vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(
+        vertices, numVerticies);
+}
+
+void Model::GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {
+    vertexArray = Video::Geometry::VertexType::StaticVertex::GenerateVertexArray(vertexBuffer, indexBuffer);
 }
