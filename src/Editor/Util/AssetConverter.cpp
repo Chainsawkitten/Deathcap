@@ -75,10 +75,6 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
 		indices[indexCounter++] = aFace.mIndices[2];
 	}
 
-    Log() << numIndicies << "\n";
-    Log() << indexCounter << "\n";
-
-
     // Fix aabb.
     glm::vec3 minValues, maxValues, origin, dim;
     minValues = maxValues = origin = glm::vec3(0.f, 0.f, 0.f);
