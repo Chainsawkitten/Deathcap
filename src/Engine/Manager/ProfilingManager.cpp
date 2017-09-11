@@ -2,13 +2,29 @@
 
 #include <imgui.h>
 #include <GLFW/glfw3.h>
+#ifdef MEASURE_RAM
+#include <windows.h>
+#include <psapi.h>
+#endif
 
 ProfilingManager::ProfilingManager() {
-    
+#ifdef MEASURE_VRAM
+    dxgiFactory = nullptr;
+    HRESULT error = CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&dxgiFactory));
+
+    if (SUCCEEDED(error)) {
+        IDXGIAdapter* firstAdapter;
+        dxgiFactory->EnumAdapters(0, &firstAdapter);
+        firstAdapter->QueryInterface(__uuidof(IDXGIAdapter3), (void**)&dxgiAdapter3);
+    }
+#endif
 }
 
 ProfilingManager::~ProfilingManager() {
-    
+#ifdef MEASURE_VRAM
+    dxgiAdapter3->Release();
+    dxgiFactory->Release();
+#endif
 }
 
 void ProfilingManager::BeginFrame() {
@@ -38,6 +54,21 @@ void ProfilingManager::ShowResults() {
         ImGui::Columns(2);
         ShowResult(first);
         ImGui::Columns(1);
+    }
+    
+    if (ImGui::CollapsingHeader("Memory")) {
+#ifdef MEASURE_RAM
+        PROCESS_MEMORY_COUNTERS_EX memoryCounters;
+        GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&memoryCounters), sizeof(memoryCounters));
+        ImGui::Text("RAM: %u MiB", static_cast<unsigned int>(memoryCounters.PrivateUsage / 1024 / 1024));
+#endif
+        
+#ifdef MEASURE_VRAM
+        DXGI_QUERY_VIDEO_MEMORY_INFO info;
+        dxgiAdapter3->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &info);
+        unsigned int memoryUsage = info.CurrentUsage;
+        ImGui::Text("VRAM: %u MiB", memoryUsage / 1024 / 1024);
+#endif
     }
     
     ImGui::End();
