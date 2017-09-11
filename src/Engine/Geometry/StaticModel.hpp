@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Model.hpp"
+#include <Engine/Geometry/AssetFileHandler.hpp>
 #include <Video/Geometry/VertexType/StaticVertex.hpp>
 
 namespace Geometry {
@@ -39,7 +40,8 @@ namespace Geometry {
             /**
              * @param vertexBuffer Vertex buffer.
              */
-            void GenerateVertexBuffer(GLuint& vertexBuffer);
+            void GenerateVertexBuffer(GLuint& vertexBuffer, 
+                Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticie);
             
             /// Generate vertex array.
             /**
@@ -58,8 +60,10 @@ namespace Geometry {
             
             void LoadMeshes(const aiScene* aScene);
             
-            std::vector<Video::Geometry::VertexType::StaticVertex> vertices;
-            std::vector<unsigned int> indices;
-            std::vector<glm::vec3*> verticesPos;
+     //      std::vector<Video::Geometry::VertexType::StaticVertex> vertices;
+     //      std::vector<unsigned int> indices;
+     //      std::vector<glm::vec3*> verticesPos;
+    
+            AssetFileHandler wkbf;
     };
 }

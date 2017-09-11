@@ -52,7 +52,7 @@ namespace Geometry {
             /**
              * @param vertexBuffer Vertex buffer.
              */
-            virtual void GenerateVertexBuffer(GLuint& vertexBuffer) = 0;
+            virtual void GenerateVertexBuffer(GLuint& vertexBuffer) {}
             
             /// Generate vertex array.
             /**
