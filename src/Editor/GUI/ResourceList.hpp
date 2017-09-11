@@ -38,7 +38,10 @@ namespace GUI {
             void ResetScene();
 
             /// Return Scene Editor
-            SceneEditor GetScene();
+			/**
+			 * @return The scene editor
+			 */
+            SceneEditor* GetScene();
             
         private:
             bool visible = false;
