@@ -40,7 +40,7 @@ Editor::Editor() {
     Input()->AssignButton(InputHandler::BACKWARD, InputHandler::KEYBOARD, GLFW_KEY_S);
     Input()->AssignButton(InputHandler::LEFT, InputHandler::KEYBOARD, GLFW_KEY_A);
     Input()->AssignButton(InputHandler::RIGHT, InputHandler::KEYBOARD, GLFW_KEY_D);
-	Input()->AssignButton(InputHandler::ZOOM, InputHandler::KEYBOARD, GLFW_KEY_Z);
+    Input()->AssignButton(InputHandler::ZOOM, InputHandler::KEYBOARD, GLFW_KEY_Z);
     
     // Create editor camera.
     cameraEntity = cameraWorld.CreateEntity("Editor Camera");
@@ -126,14 +126,14 @@ void Editor::Show(float deltaTime) {
 
                 ImGui::EndMenu();
             }
-	
-				if (Input()->Triggered(InputHandler::ZOOM)) {
-					if (resourceList.GetScene().entityEditor.GetEntity() != nullptr) {
-						const glm::vec3 tempPos = resourceList.GetScene().entityEditor.GetEntity()->GetWorldPosition();
-						cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
-						cameraEntity->rotation = glm::vec3(0, 45, 1);
-					}  
-				}
+    
+            if (Input()->Triggered(InputHandler::ZOOM)) {
+                if (resourceList.GetScene().entityEditor.GetEntity() != nullptr) {
+                    const glm::vec3 tempPos = resourceList.GetScene().entityEditor.GetEntity()->GetWorldPosition();
+                    cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
+                    cameraEntity->rotation = glm::vec3(0, 45, 1);
+                }  
+            }
 
             // Editor Camera Coordinates
             ImGui::SameLine(size.x - 280); ImGui::Text("X: %f, Y: %f, Z: %f", cameraEntity->GetWorldPosition().x, cameraEntity->GetWorldPosition().y, cameraEntity->GetWorldPosition().z);

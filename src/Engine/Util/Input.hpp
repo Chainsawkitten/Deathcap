@@ -21,7 +21,7 @@ class InputHandler {
             BACKWARD, ///< Move backward.
             LEFT, ///< Move left.
             RIGHT, ///< Move right.
-			ZOOM, ///< Zoom to entity.
+            ZOOM, ///< Zoom to entity.
             BUTTONS, ///< Total number of inputs.
         };
         

@@ -38,9 +38,9 @@ namespace GUI {
             void ResetScene();
 
             /// Return Scene Editor
-			/**
-			 * @return The scene editor
-			 */
+            /**
+             * @return The scene editor
+             */
             SceneEditor& GetScene();
             
         private:
