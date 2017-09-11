@@ -17,10 +17,10 @@ namespace Geometry {
     class AssetFileHandler {
         public:
             /// Mode to use class. READ/WRITE.
-        	enum Mode {
-        		READ = 0,
-        		WRITE = 1
-        	};
+            enum Mode {
+        	    READ = 0,
+        	    WRITE = 1
+            };
         
             /// Mesh data.
             struct MeshData {
@@ -49,40 +49,41 @@ namespace Geometry {
             };
         
             /// The current version of the exporter.
-        	const uint16_t CURRENT_VERSION = 1;
+            const uint16_t CURRENT_VERSION = 1;
         
-            /// Importing is supported from version.
-        	const uint16_t SUPPORTED_FROM = 1;
+            /// The lowest version supportered for importing.
+            const uint16_t SUPPORTED_FROM = 1;
         
-            /// Defualt constructor.
-        	AssetFileHandler();
+            /// Default constructor.
+            AssetFileHandler();
         
             /// Open a .wkbf file.
             /**
              * @param filepath Path of the file.
-             * @param mode Use READ or WRITE.
+             * @param mode WRITE or READ from the file.
              */
-        	AssetFileHandler(const char* filepath, Mode mode = READ);
+            AssetFileHandler(const char* filepath, Mode mode = READ);
         
             /// Destructor.
-        	~AssetFileHandler();
+            ~AssetFileHandler();
         
-        	/// Open a .wkbf file.
-        	/**
-        	 * @param filepath Path of the file.
-        	 */
-        	bool Open(const char* filepath, Mode mode = READ);
+            /// Open a .wkbf file.
+            /**
+             * @param filepath Path of the file.
+             * @param mode WRITE or READ from the file.
+             */
+            bool Open(const char* filepath, Mode mode = READ);
         	
         	/// Close the opened file.
-        	void Close();
+            void Close();
         
             /// Clear current data.
             void Clear();
         
             /// Load a mesh into memory.
             /**
-            * @param Id of the mesh. Use GetNumMeshes() to get the number of meshes.
-            */
+             * @param Id of the mesh. Use GetNumMeshes() to get the number of meshes.
+             */
             void LoadMeshData(int meshID);
             
             /// Get static vertex data of a mesh.
@@ -96,12 +97,17 @@ namespace Geometry {
         	/**
         	 * @param meshData Static mesh data.
         	 */
+<<<<<<< HEAD
         	void SaveStaticMesh(AssetFileHandler::MeshData * meshData);
+=======
+            void SaveStaticMesh(AssetFileHandler::StaticMeshData * meshData);
+>>>>>>> 08a0b9075b8d34629f136fad77d93c1f90432e44
         
         private:
-        	void ReadGlobalHeader();
-        	void WriteGlobalHeader();
+            void ReadGlobalHeader();
+            void WriteGlobalHeader();
             void ClearMesh();
+<<<<<<< HEAD
         
         	Mode mode;
         
@@ -116,5 +122,21 @@ namespace Geometry {
         
         	std::streampos globalHeaderStart;
         	std::vector<std::streampos> staticMeshHeaderStart;
+=======
+            
+            Mode mode;
+            
+            uint16_t uniqueID;
+            uint16_t numStaticMeshes;
+            
+            StaticMeshData * staticMesh = nullptr;
+            
+            std::ifstream rFile;
+            std::ofstream wFile;
+            int fileVersion;
+            
+            std::streampos globalHeaderStart;
+            std::vector<std::streampos> staticMeshHeaderStart;
+>>>>>>> 08a0b9075b8d34629f136fad77d93c1f90432e44
     };
 }

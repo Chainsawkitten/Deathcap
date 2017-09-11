@@ -67,7 +67,7 @@ namespace Video {
                 
                 /// Create local space axis-aligned bounding box around the geometry.
                 /**
-                 * @param position Vector of vertex positions.
+                 * @param positions Vector of vertex positions.
                  */
                 void CreateAxisAlignedBoundingBox(const std::vector<glm::vec3*>& positions);
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -6,6 +7,12 @@
 #include <Video/Geometry/VertexType/StaticVertex.hpp>
 #include <Engine/Geometry/MathFunctions.hpp>
 
+/// Convert 3D file to a .asset file.
+/**
+ * Uses assimp to convert a 3D file to a .asset file.
+ * Following 3D formats are tested:
+ * FBX (.fbx)
+ */
 class AssetConverter
 {
     public:

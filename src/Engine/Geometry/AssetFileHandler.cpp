@@ -3,23 +3,19 @@
 
 using namespace Geometry;
 
-AssetFileHandler::AssetFileHandler()
-{
+AssetFileHandler::AssetFileHandler() {
 
 }
 
-AssetFileHandler::AssetFileHandler(const char* filepath, Mode mode)
-{
+AssetFileHandler::AssetFileHandler(const char* filepath, Mode mode) {
     Open(filepath, mode);
 }
 
-AssetFileHandler::~AssetFileHandler()
-{
+AssetFileHandler::~AssetFileHandler() {
     Close();
 }
 
-bool AssetFileHandler::Open(const char* filepath, Mode mode)
-{
+bool AssetFileHandler::Open(const char* filepath, Mode mode) {
     // Close the file is already open.
     Close();
 
@@ -58,14 +54,13 @@ bool AssetFileHandler::Open(const char* filepath, Mode mode)
     return true;
 }
 
-void AssetFileHandler::Close()
-{
+void AssetFileHandler::Close() {
     if (rFile.is_open())
         rFile.close();
 
     if (wFile.is_open())
         wFile.close();
-    
+
     Clear();
 }
 
