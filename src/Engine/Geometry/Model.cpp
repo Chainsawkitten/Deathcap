@@ -7,11 +7,11 @@
 using namespace Geometry;
 
 Model::Model() {
-    
+
 }
 
 Model::~Model() {
-    
+
 }
 
 Json::Value Model::Save() const {
@@ -32,7 +32,7 @@ void Model::Load(const char* filename) {
     if (assetFile.Open(filename, AssetFileHandler::READ)) {
         assetFile.LoadMeshData(0);
         AssetFileHandler::StaticMeshData * meshData = assetFile.GetStaticMeshData();
-        
+
         if (meshData->isSkinned) {
             GenerateVertexBuffer(vertexBuffer, meshData->staticVertices, meshData->numVertices);
             GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
@@ -43,15 +43,14 @@ void Model::Load(const char* filename) {
             GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
             GenerateSkinVertexArray(vertexBuffer, indexBuffer, vertexArray);
         }
-        
+
         CreateAxisAlignedBoundingBox(meshData->aabbDim, meshData->aabbOrigin, meshData->aabbMinpos, meshData->aabbMaxpos);
         assetFile.Close();
     }
 }
 
-Model::Type Model::GetType() {
-    // TODO tmp
-    return Model::STATIC;
+Model::Type Model::GetType() const {
+    return STATIC;
 }
 
 void Model::GenerateVertexBuffer(GLuint& vertexBuffer,

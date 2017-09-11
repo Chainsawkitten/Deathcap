@@ -33,15 +33,15 @@ namespace Geometry {
                 glm::vec3 aabbMinpos;
                 glm::vec3 aabbMaxpos;
                 bool isSkinned = false;
-                Video::Geometry::VertexType::StaticVertex * vertices = nullptr;
+                Video::Geometry::VertexType::StaticVertex * staticVertices = nullptr;
                 Video::Geometry::VertexType::SkinVertex * skinnedVerticies = nullptr;
                 uint32_t * indices = nullptr;
 
                 ~StaticMeshData() {
-                    if (vertices != nullptr) {
-                        delete[] vertices;
+                    if (staticVertices != nullptr) {
+                        delete[] staticVertices;
                     }
-                    if (skinVerticies != nullptr) {
+                    if (skinnedVerticies != nullptr) {
                         delete[] skinnedVerticies;
                     }
                     if (indices != nullptr) {
@@ -75,7 +75,7 @@ namespace Geometry {
              */
             bool Open(const char* filepath, Mode mode = READ);
 
-            /// Close the opened file.
+            /// Close the opened file and clear data.
             void Close();
 
             /// Clear current data.

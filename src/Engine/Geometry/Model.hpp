@@ -3,7 +3,7 @@
 #include <Video/Geometry/Geometry3D.hpp>
 #include <assimp/Importer.hpp>
 #include <json/json.h>
-#include "Geometry/AssetFileHandler.hpp"
+#include "AssetFileHandler.hpp"
 
 namespace Geometry {
     /// Interface of a model loaded from a file.
@@ -14,6 +14,8 @@ namespace Geometry {
              * The created model has to be loaded later using Load.
              */
             Model();
+
+            Model(const char* filename) {}
             
             /// Destructor.
             virtual ~Model();
@@ -40,7 +42,7 @@ namespace Geometry {
             /**
              * @return Type.
              */
-            Type GetType();
+            Type GetType() const final;
             
             /// The name of the model.
             std::string name;

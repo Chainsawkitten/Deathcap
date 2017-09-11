@@ -4,7 +4,7 @@
 #include <Video/Shader/ShaderProgram.hpp>
 #include <Video/Geometry/Rectangle.hpp>
 #include "../Geometry/Cube.hpp"
-#include "../Geometry/StaticModel.hpp"
+#include "../Geometry/Model.hpp"
 #include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
 #include "../Audio/VorbisFile.hpp"
@@ -139,7 +139,7 @@ void ResourceManager::FreeCube() {
 
 Geometry::Model* ResourceManager::CreateModel(std::string filename) {
     if (models.find(filename) == models.end()) {
-        models[filename].model = new Geometry::StaticModel(filename.c_str());
+        models[filename].model = new Geometry::Model(filename.c_str());
         modelsInverse[models[filename].model] = filename;
         models[filename].count = 1;
     } else {
