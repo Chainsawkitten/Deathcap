@@ -25,8 +25,6 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Triangulate", &triangulate);
             ImGui::Checkbox("Import Normals", &importNormals);
             ImGui::Checkbox("Import Tangents", &importTangents);
-            ImGui::Checkbox("Import Bones", &importTangents);
-            ImGui::Checkbox("Import Animations", &importTangents);
 
             if (ImGui::Button("Import")) {
                 AssetConverter asset;

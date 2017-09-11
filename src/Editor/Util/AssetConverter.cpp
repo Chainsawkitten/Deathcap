@@ -103,7 +103,7 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     dim.y = maxValues.y - minValues.y;
     dim.z = maxValues.z - minValues.z;
 
-    Geometry::AssetFileHandler::MeshData * meshData = new Geometry::AssetFileHandler::MeshData;
+    Geometry::AssetFileHandler::StaticMeshData * meshData = new Geometry::AssetFileHandler::StaticMeshData;
     meshData->parent = 0;
     meshData->numVertices = numVertices;
     meshData->numIndices = indexCounter;

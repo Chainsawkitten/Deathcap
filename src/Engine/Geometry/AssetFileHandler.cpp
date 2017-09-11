@@ -71,7 +71,7 @@ void AssetFileHandler::Clear() {
 void AssetFileHandler::LoadMeshData(int meshID) {
     ClearMesh();
 
-    staticMesh = new MeshData();
+    staticMesh = new StaticMeshData();
 
     rFile.read(reinterpret_cast<char*>(&staticMesh->parent), sizeof(uint32_t));
     rFile.read(reinterpret_cast<char*>(&staticMesh->numVertices), sizeof(uint32_t));
@@ -88,11 +88,11 @@ void AssetFileHandler::LoadMeshData(int meshID) {
     rFile.read(reinterpret_cast<char*>(staticMesh->indices), sizeof(uint32_t) * staticMesh->numIndices);
 }
 
-AssetFileHandler::MeshData * AssetFileHandler::GetStaticMeshData() {
+AssetFileHandler::StaticMeshData * AssetFileHandler::GetStaticMeshData() {
     return staticMesh;
 }
 
-void AssetFileHandler::SaveStaticMesh(AssetFileHandler::MeshData * meshData) {
+void AssetFileHandler::SaveStaticMesh(AssetFileHandler::StaticMeshData * meshData) {
     // Write header.
     wFile.write(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
     wFile.write(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));
