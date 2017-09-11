@@ -13,8 +13,11 @@ C++/OpenGL 3D Engine. See the [wiki](https://github.com/Chainsawkitten/LargeGame
 ## Setting up game project
 On Windows:
 1. Open command line.
-2. Go to %appdata%/Hymn to Beauty/Hymns
+2. Go to `%appdata%/Hymn to Beauty/Hymns`
 3. Type `mklink /J Game <Path to repository folder>/Game`
+
+## Measuring VRAM
+Measuring VRAM requires building with Visual Studio and having the Windows SDK installed. Enable the `MeasureVram` option in CMake.
 
 ## License
 Released under the [MIT license](LICENSE).
@@ -33,5 +36,6 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [dear imgui](https://github.com/ocornut/imgui) | MIT |
 | [JsonCpp](https://github.com/open-source-parsers/jsoncpp) | MIT / Public domain |
 | [OpenAL Soft](https://github.com/kcat/openal-soft) | LGPL |
+| [OpenVR](https://github.com/ValveSoftware/openvr) | BSD |
 | [SimpleIni](https://github.com/brofield/simpleini) | MIT |
 | [stb](https://github.com/nothings/stb) | Public domain |
