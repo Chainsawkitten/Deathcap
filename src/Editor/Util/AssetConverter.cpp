@@ -95,7 +95,8 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     meshData = nullptr;
 }
 
-Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices) {
+Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertices(aiMesh * aMesh, 
+    Geometry::AssetFileHandler * file, unsigned int numVertices) {
     Video::Geometry::VertexType::StaticVertex * vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
 
     // Positions.
@@ -108,7 +109,7 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
         success = false;
         errorString.append("The model has no positions yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
-            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+            vertices[i].position = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
 
@@ -122,7 +123,7 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
         success = false;
         errorString.append("The model has no texture coordinates yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
-            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+            vertices[i].textureCoordinate = glm::vec2(0.0f, 0.0f);
         }
     }
 
@@ -150,14 +151,15 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
         success = false;
         errorString.append("The model has no tangents yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
-            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+            vertices[i].tangent = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
 
     return vertices;
 }
 
-Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices) {
+Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices(aiMesh * aMesh, 
+    Geometry::AssetFileHandler * file, unsigned int numVertices) {
     Video::Geometry::VertexType::SkinVertex * vertices = new Video::Geometry::VertexType::SkinVertex[numVertices];
 
     // Positions.
@@ -170,7 +172,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
         success = false;
         errorString.append("The model has no positions yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
-            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+            vertices[i].position = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
 
@@ -184,7 +186,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
         success = false;
         errorString.append("The model has no texture coordinates yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
-            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+            vertices[i].textureCoordinate = glm::vec2(0.0f, 0.0f);
         }
     }
 
@@ -212,7 +214,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
         success = false;
         errorString.append("The model has no tangents yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
-            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+            vertices[i].tangent = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
 
@@ -251,4 +253,10 @@ void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::StaticMeshData * 
     dim.x = maxValues.x - minValues.x;
     dim.y = maxValues.y - minValues.y;
     dim.z = maxValues.z - minValues.z;
+
+    meshData->aabbDim = dim;
+    meshData->aabbOrigin = origin;
+    meshData->aabbMaxpos = maxValues;
+    meshData->aabbMinpos = minValues;
+
 }

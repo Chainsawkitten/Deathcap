@@ -34,14 +34,14 @@ void Model::Load(const char* filename) {
         AssetFileHandler::StaticMeshData * meshData = assetFile.GetStaticMeshData();
 
         if (meshData->isSkinned) {
-            GenerateVertexBuffer(vertexBuffer, meshData->staticVertices, meshData->numVertices);
-            GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
-            GenerateStaticVertexArray(vertexBuffer, indexBuffer, vertexArray);
-        }
-        else {
             GenerateVertexBuffer(vertexBuffer, meshData->skinnedVerticies, meshData->numVertices);
             GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
             GenerateSkinVertexArray(vertexBuffer, indexBuffer, vertexArray);
+        }
+        else {
+            GenerateVertexBuffer(vertexBuffer, meshData->staticVertices, meshData->numVertices);
+            GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
+            GenerateStaticVertexArray(vertexBuffer, indexBuffer, vertexArray);
         }
 
         CreateAxisAlignedBoundingBox(meshData->aabbDim, meshData->aabbOrigin, meshData->aabbMinpos, meshData->aabbMaxpos);
