@@ -23,7 +23,7 @@ namespace Geometry {
         	};
         
             /// Mesh data.
-            struct StaticMeshData {
+            struct MeshData {
                 uint32_t parent;
                 uint32_t numVertices;
                 uint32_t numIndices;
@@ -32,14 +32,18 @@ namespace Geometry {
                 glm::vec3 aabbMinpos;
                 glm::vec3 aabbMaxpos;
                 Video::Geometry::VertexType::StaticVertex * vertices = nullptr;
+             //   Video::Geometry::VertexType
                 uint32_t * indices = nullptr;
         
-                ~StaticMeshData() {
+                ~MeshData() {
                     if (vertices != nullptr) {
                         delete[] vertices;
                     }
                     if (indices != nullptr) {
                         delete[] indices;
+                    }
+                    if (vertices != nullptr) {
+                        delete[] vertices;
                     }
                 }
             };
@@ -86,13 +90,13 @@ namespace Geometry {
              * First load a mesh into memory by using LoadMeshData().
              * @return Static mesh data.
              */
-            StaticMeshData * GetStaticMeshData();
+            MeshData * GetStaticMeshData();
         
             /// Save the meshdata.
         	/**
         	 * @param meshData Static mesh data.
         	 */
-        	void SaveStaticMesh(AssetFileHandler::StaticMeshData * meshData);
+        	void SaveStaticMesh(AssetFileHandler::MeshData * meshData);
         
         private:
         	void ReadGlobalHeader();
@@ -104,7 +108,7 @@ namespace Geometry {
         	uint16_t uniqueID;
         	uint16_t numStaticMeshes;
         
-            StaticMeshData * staticMesh = nullptr;
+            MeshData * staticMesh = nullptr;
         
         	std::ifstream rFile;
         	std::ofstream wFile;
