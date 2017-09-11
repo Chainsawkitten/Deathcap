@@ -40,6 +40,7 @@ Editor::Editor() {
     Input()->AssignButton(InputHandler::BACKWARD, InputHandler::KEYBOARD, GLFW_KEY_S);
     Input()->AssignButton(InputHandler::LEFT, InputHandler::KEYBOARD, GLFW_KEY_A);
     Input()->AssignButton(InputHandler::RIGHT, InputHandler::KEYBOARD, GLFW_KEY_D);
+	Input()->AssignButton(InputHandler::ZOOM, InputHandler::KEYBOARD, GLFW_KEY_Z);
     
     // Create editor camera.
     cameraEntity = cameraWorld.CreateEntity("Editor Camera");
