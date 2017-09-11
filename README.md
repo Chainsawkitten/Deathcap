@@ -10,10 +10,6 @@ C++/OpenGL 3D Engine. See the [wiki](https://github.com/Chainsawkitten/LargeGame
 3. Use CMake to generate make/project files for Hymn to Beauty.
 4. Build Hymn to Beauty.
 
-### Building with VR support
-1. Enable the VR_SUPPORT CMake option.
-2. Copy the relevant OpenVR binary release from `bin` to the build directory.
-
 ## Setting up game project
 On Windows:
 1. Open command line.
@@ -39,11 +35,6 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [dear imgui](https://github.com/ocornut/imgui) | MIT |
 | [JsonCpp](https://github.com/open-source-parsers/jsoncpp) | MIT / Public domain |
 | [OpenAL Soft](https://github.com/kcat/openal-soft) | LGPL |
+| [OpenVR](https://github.com/ValveSoftware/openvr) | BSD |
 | [SimpleIni](https://github.com/brofield/simpleini) | MIT |
 | [stb](https://github.com/nothings/stb) | Public domain |
-
-Optional libraries:
-
-| Library | License |
-| --- | --- |
-| [OpenVR](https://github.com/ValveSoftware/openvr) | BSD |
