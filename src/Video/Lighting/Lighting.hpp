@@ -25,7 +25,7 @@ namespace Video {
             ~Lighting();
             
             /// Set as render target.
-            void SetTarget();
+            void SetTarget() const;
             
             /// Clear all lights.
             void ClearLights();

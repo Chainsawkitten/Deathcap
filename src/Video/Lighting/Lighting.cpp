@@ -81,7 +81,7 @@ Lighting::~Lighting() {
     delete shaderProgram;
 }
 
-void Lighting::SetTarget() {
+void Lighting::SetTarget() const {
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBufferObject);
 }
 
