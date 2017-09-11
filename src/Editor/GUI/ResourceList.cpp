@@ -268,6 +268,6 @@ void ResourceList::ResetScene() {
     sceneEditor.SetVisible(false);
 }
 
-SceneEditor ResourceList::GetScene() {
+SceneEditor& ResourceList::GetScene() {
     return sceneEditor;
 }

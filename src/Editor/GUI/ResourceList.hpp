@@ -41,7 +41,7 @@ namespace GUI {
 			/**
 			 * @return The scene editor
 			 */
-            SceneEditor* GetScene();
+            SceneEditor& GetScene();
             
         private:
             bool visible = false;
