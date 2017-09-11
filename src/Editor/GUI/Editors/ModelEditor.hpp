@@ -53,8 +53,8 @@ namespace GUI {
             std::string source;
             std::string destination;
 
-			bool triangulate = true;
-			bool importNormals = true;
-			bool importTangents = true;
+            bool triangulate = true;
+            bool importNormals = true;
+            bool importTangents = true;
     };
 }

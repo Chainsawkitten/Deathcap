@@ -3,77 +3,72 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
 
-AssetConverter::AssetConverter()
-{
+AssetConverter::AssetConverter() {
 
 }
 
-AssetConverter::~AssetConverter()
-{
+AssetConverter::~AssetConverter() {
 
 }
 
 bool AssetConverter::Convert(const char * filepath, const char * destination,
-	bool triangulate, bool importNormals, bool importTangents)
-{
+    bool triangulate, bool importNormals, bool importTangents) {
     Geometry::AssetFileHandler file;
 
     // Return if file is not open.
     if (!file.Open(destination, Geometry::AssetFileHandler::WRITE))
         return false;
-	
+
     unsigned int flags = triangulate ? aiProcess_Triangulate : 0;
-	flags = importNormals ? flags : flags | aiProcess_CalcTangentSpace;
-	flags = importNormals ? flags : flags | aiProcess_GenSmoothNormals;
+    flags = importNormals ? flags : flags | aiProcess_CalcTangentSpace;
+    flags = importNormals ? flags : flags | aiProcess_GenSmoothNormals;
 
-	const aiScene* aScene = aImporter.ReadFile(filepath, flags);
+    const aiScene* aScene = aImporter.ReadFile(filepath, flags);
 
-	if (aScene == nullptr) {
-		Log() << "Error importing mesh: " << filepath << "\n";
-		Log() << aImporter.GetErrorString() << "\n";
-	}
+    if (aScene == nullptr) {
+        Log() << "Error importing mesh: " << filepath << "\n";
+        Log() << aImporter.GetErrorString() << "\n";
+    }
 
     ConvertMeshes(aScene, &file);
 
     aImporter.FreeScene();
 
     file.Close();
-	return true;
+    return true;
 }
 
-void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file)
-{
-	for (unsigned int i = 0; i < aScene->mNumMeshes; ++i) {
-		ConvertMesh(aScene->mMeshes[i], file);
-	}
+void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file) {
+    for (unsigned int i = 0; i < aScene->mNumMeshes; ++i) {
+        ConvertMesh(aScene->mMeshes[i], file);
+    }
 }
 
-void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file)
-{
-	// Convert vertices.
-	unsigned int numVertices = aMesh->mNumVertices;
-	Video::Geometry::VertexType::StaticVertex * vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
-	for (int i = 0; i < numVertices; ++i) {
-		Geometry::CpyVec(vertices[i].position, aMesh->mVertices[i]);
-		Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mTextureCoords[0][i]);
-		Geometry::CpyVec(vertices[i].normal, aMesh->mNormals[i]);
-		Geometry::CpyVec(vertices[i].tangent, aMesh->mTangents[i]);
-	}
+void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file) {
+    // Convert vertices.
+    unsigned int numVertices = aMesh->mNumVertices;
+    Video::Geometry::VertexType::StaticVertex * vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
+    for (int i = 0; i < numVertices; ++i) {
+        Geometry::CpyVec(vertices[i].position, aMesh->mVertices[i]);
+        Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mTextureCoords[0][i]);
+        Geometry::CpyVec(vertices[i].normal, aMesh->mNormals[i]);
+        Geometry::CpyVec(vertices[i].tangent, aMesh->mTangents[i]);
+    }
 
-	// Convert indicies. 3 indicies for a face/triangle.
-	unsigned int numIndicies = aMesh->mNumFaces * 3;
+    // Convert indicies. 3 indicies for a face/triangle.
+    unsigned int numIndicies = aMesh->mNumFaces * 3;
     uint32_t * indices = new uint32_t[numIndicies];
-	unsigned int indexCounter = 0;
-	for (int i = 0; i < aMesh->mNumFaces; ++i) {
-		const aiFace& aFace = aMesh->mFaces[i];
-		if (aFace.mNumIndices != 3) {
-			Log() << "Error importing mesh. Face that doesn't have 3 indices. Indices: " << aFace.mNumIndices << "\n";
-		}
+    unsigned int indexCounter = 0;
+    for (int i = 0; i < aMesh->mNumFaces; ++i) {
+        const aiFace& aFace = aMesh->mFaces[i];
+        if (aFace.mNumIndices != 3) {
+            Log() << "Error importing mesh. Face that doesn't have 3 indices. Indices: " << aFace.mNumIndices << "\n";
+        }
 
-		indices[indexCounter++] = aFace.mIndices[0];
-		indices[indexCounter++] = aFace.mIndices[1];
-		indices[indexCounter++] = aFace.mIndices[2];
-	}
+        indices[indexCounter++] = aFace.mIndices[0];
+        indices[indexCounter++] = aFace.mIndices[1];
+        indices[indexCounter++] = aFace.mIndices[2];
+    }
 
     // Fix aabb.
     glm::vec3 minValues, maxValues, origin, dim;
