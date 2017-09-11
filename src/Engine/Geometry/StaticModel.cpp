@@ -20,14 +20,14 @@ StaticModel::~StaticModel() {
 }
 
 void StaticModel::Load(const char* filename) {
-    if (wkbf.Open(filename, AssetFileHandler::READ)) {
-        wkbf.LoadMeshData(0);
-        AssetFileHandler::StaticMeshData * meshData = wkbf.GetStaticMeshData();
+    if (assetFile.Open(filename, AssetFileHandler::READ)) {
+        assetFile.LoadMeshData(0);
+        AssetFileHandler::StaticMeshData * meshData = assetFile.GetStaticMeshData();
         GenerateVertexBuffer(vertexBuffer, meshData->vertices, meshData->numVertices);
         GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
         GenerateVertexArray(vertexBuffer, indexBuffer, vertexArray);
         CreateAxisAlignedBoundingBox(meshData->aabbDim, meshData->aabbOrigin, meshData->aabbMinpos, meshData->aabbMaxpos);
-        wkbf.Close();
+        assetFile.Close();
     }
 }
 
