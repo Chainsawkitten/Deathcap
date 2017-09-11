@@ -30,13 +30,16 @@ class AssetConverter
          * @param importNormals Should normals be imported from the mesh?
          * @param importTangents Should tangents be imported from the mesh?
          */
-    	bool Convert(const char * filepath, const char * destination,
-    		bool triangulate, bool importNormals,
-    		bool importTangents);
+        bool Convert(const char * filepath, const char * destination,
+    	bool triangulate, bool importNormals,
+    	bool importTangents);
     
     private:
     	void ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file);
     	void ConvertMesh(aiMesh * mesh, Geometry::AssetFileHandler * file);
-    
-    	Assimp::Importer aImporter;
+        Video::Geometry::VertexType::StaticVertex * ConvertStaticVerticies(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices);
+        Video::Geometry::VertexType::SkinVertex * ConvertSkinnedVerticies(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices);
+        void CalculateAABB();
+
+        Assimp::Importer aImporter;
 };

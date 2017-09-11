@@ -45,14 +45,20 @@ void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHa
 }
 
 void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file) {
+    Geometry::AssetFileHandler::StaticMeshData * meshData = new Geometry::AssetFileHandler::StaticMeshData;
+    
     // Convert vertices.
     unsigned int numVertices = aMesh->mNumVertices;
-    Video::Geometry::VertexType::StaticVertex * vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
-    for (int i = 0; i < numVertices; ++i) {
-        Geometry::CpyVec(vertices[i].position, aMesh->mVertices[i]);
-        Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mTextureCoords[0][i]);
-        Geometry::CpyVec(vertices[i].normal, aMesh->mNormals[i]);
-        Geometry::CpyVec(vertices[i].tangent, aMesh->mTangents[i]);
+    meshData->numVertices = numVertices;
+
+    // If mesh has no bones the mesh is static.
+    if (aMesh->mNumBones == 0) {
+        meshData->staticVertices = ConvertStaticVertices(aMesh, file, numVertices);
+        meshData->isSkinned = false;
+    }
+    else {
+        meshData->skinnedVerticies = ConvertSkinnedVertices(aMesh, file, numVertices);
+        meshData->isSkinned = true;
     }
 
     // Convert indicies. 3 indicies for a face/triangle.
@@ -70,7 +76,101 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
         indices[indexCounter++] = aFace.mIndices[2];
     }
 
-    // Fix aabb.
+
+    meshData->parent = 0;
+    meshData->numVertices = numVertices;
+    meshData->numIndices = indexCounter;
+    meshData->staticVertices = vertices;
+    meshData->indices = indices;
+    meshData->aabbDim = dim;
+    meshData->aabbOrigin = origin;
+    meshData->aabbMinpos = minValues;
+    meshData->aabbMaxpos = maxValues;
+
+    file->SaveStaticMesh(meshData);
+
+    delete meshData;
+    meshData = nullptr;
+}
+
+Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices) {
+    Video::Geometry::VertexType::StaticVertex * vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
+    for (int i = 0; i < numVertices; ++i) {
+        Geometry::CpyVec(vertices[i].position, aMesh->mVertices[i]);
+        Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mTextureCoords[0][i]);
+        Geometry::CpyVec(vertices[i].normal, aMesh->mNormals[i]);
+        if (aMesh->HasTangentsAndBitangents) {
+            Geometry::CpyVec(vertices[i].tangent, aMesh->mTangents[i]);
+        }
+    }
+
+    // Positions.
+    if (aMesh->HasNormals()) {
+        for (int i = 0; i < numVertices; ++i) {
+            Geometry::CpyVec(vertices[i].position, aMesh->mNormals[i]);
+        }
+    }
+    else {
+        Log() << "Model has no positions yet the user is trying to import them.\n";
+        for (int i = 0; i < numVertices; ++i) {
+            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+        }
+    }
+
+    // Texture coordinates.
+    if (aMesh->HasNormals()) {
+        for (int i = 0; i < numVertices; ++i) {
+            Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mNormals[i]);
+        }
+    }
+    else {
+        Log() << "Model has no texture coordinates yet the user is trying to import them.\n";
+        for (int i = 0; i < numVertices; ++i) {
+            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+        }
+    }
+
+    // Normals.
+    if (aMesh->HasNormals()) {
+        for (int i = 0; i < numVertices; ++i) {
+            Geometry::CpyVec(vertices[i].normal, aMesh->mNormals[i]);
+        }
+    }
+    else {
+        Log() << "Model has no normals yet the user is trying to import them.\n";
+        for (int i = 0; i < numVertices; ++i) {
+            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+        }
+    }
+
+    // Tangents.
+    if (aMesh->HasTangentsAndBitangents()) {
+        for (int i = 0; i < numVertices; ++i) {
+            Geometry::CpyVec(vertices[i].tangent, aMesh->mTangents[i]);
+        }
+    }
+    else {
+        Log() << "Model has no tangents yet the user is trying to import them.\n";
+        for (int i = 0; i < numVertices; ++i) {
+            vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+        }
+    }
+
+    return vertices;
+}
+
+Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices) {
+    Video::Geometry::VertexType::SkinVertex * vertices = new Video::Geometry::VertexType::SkinVertex[numVertices];
+    for (int i = 0; i < numVertices; ++i) {
+        Geometry::CpyVec(vertices[i].position, aMesh->mVertices[i]);
+        Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mTextureCoords[0][i]);
+        Geometry::CpyVec(vertices[i].normal, aMesh->mNormals[i]);
+        Geometry::CpyVec(vertices[i].tangent, aMesh->mTangents[i]);
+    }
+    return vertices;
+}
+
+void AssetConverter::CalculateAABB() {
     glm::vec3 minValues, maxValues, origin, dim;
     minValues = maxValues = origin = glm::vec3(0.f, 0.f, 0.f);
 
@@ -102,20 +202,4 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     dim.x = maxValues.x - minValues.x;
     dim.y = maxValues.y - minValues.y;
     dim.z = maxValues.z - minValues.z;
-
-    Geometry::AssetFileHandler::StaticMeshData * meshData = new Geometry::AssetFileHandler::StaticMeshData;
-    meshData->parent = 0;
-    meshData->numVertices = numVertices;
-    meshData->numIndices = indexCounter;
-    meshData->vertices = vertices;
-    meshData->indices = indices;
-    meshData->aabbDim = dim;
-    meshData->aabbOrigin = origin;
-    meshData->aabbMinpos = minValues;
-    meshData->aabbMaxpos = maxValues;
-
-    file->SaveStaticMesh(meshData);
-
-    delete meshData;
-    meshData = nullptr;
 }
