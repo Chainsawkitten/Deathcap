@@ -1,5 +1,4 @@
 #include "ModelEditor.hpp"
-
 #include <Engine/Geometry/Model.hpp>
 #include "../FileSelector.hpp"
 #include <functional>
@@ -27,10 +26,6 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Triangulate", &triangulate);
             ImGui::Checkbox("Import Normals", &importNormals);
             ImGui::Checkbox("Import Tangents", &importTangents);
-
-            ImGui::Text("Animations");
-            ImGui::Checkbox("Import Skeletons", &importSkeletons);
-            ImGui::Checkbox("Import Animations", &importAnimations);
 
             std::string button = isImported ? "Re-import" : "Import";
 

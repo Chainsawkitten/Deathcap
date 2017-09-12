@@ -31,7 +31,7 @@ void Model::Load(const Json::Value& node) {
 void Model::Load(const char* filename) {
     if (assetFile.Open(filename, AssetFileHandler::READ)) {
         assetFile.LoadMeshData(0);
-        AssetFileHandler::StaticMeshData * meshData = assetFile.GetStaticMeshData();
+        AssetFileHandler::MeshData * meshData = assetFile.GetStaticMeshData();
         type = meshData->isSkinned ? SKIN : STATIC;
 
         if (meshData->isSkinned) {

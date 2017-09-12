@@ -56,7 +56,7 @@ void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHa
 }
 
 void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file) {
-    Geometry::AssetFileHandler::StaticMeshData * meshData = new Geometry::AssetFileHandler::StaticMeshData;
+    Geometry::AssetFileHandler::MeshData * meshData = new Geometry::AssetFileHandler::MeshData;
     
     meshData->parent = 0;
 
@@ -82,6 +82,7 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
         const aiFace& aFace = aMesh->mFaces[i];
         if (aFace.mNumIndices != 3) {
             errorString.append("ERROR: Mesh not triangulated.\n");
+            success = false;
             return;
         }
 
@@ -222,10 +223,25 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
         }
     }
 
+    std::vector<unsigned int> weightCounter(numVertices, 0);
+
+    for (unsigned int b = 0; b < aMesh->mNumBones; ++b) {
+        const aiBone * aBone = aMesh->mBones[b];
+        for (unsigned int i = 0; i < aBone->mNumWeights; ++i) {
+            unsigned int vertexID = aBone->mWeights[i].mVertexId;
+            unsigned int& count = weightCounter[vertexID];
+            vertices[vertexID].weights[count] = aBone->mWeights[i].mWeight;
+            vertices[vertexID].boneIDs[count] = i;
+            ++count;
+        }
+    }
+
+    weightCounter.clear();
+
     return vertices;
 }
 
-void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::StaticMeshData * meshData, unsigned int numVertices) {
+void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData * meshData, unsigned int numVertices) {
     glm::vec3 minValues, maxValues, origin, dim;
     minValues = maxValues = origin = glm::vec3(0.f, 0.f, 0.f);
 
@@ -262,5 +278,4 @@ void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::StaticMeshData * 
     meshData->aabbOrigin = origin;
     meshData->aabbMaxpos = maxValues;
     meshData->aabbMinpos = minValues;
-
 }

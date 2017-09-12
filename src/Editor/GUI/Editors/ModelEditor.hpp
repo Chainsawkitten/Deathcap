@@ -58,7 +58,5 @@ namespace GUI {
             bool triangulate = true;
             bool importNormals = true;
             bool importTangents = true;
-            bool importSkeletons = true;
-            bool importAnimations = true;
     };
 }

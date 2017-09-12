@@ -71,7 +71,7 @@ void AssetFileHandler::Clear() {
 void AssetFileHandler::LoadMeshData(int meshID) {
     ClearMesh();
 
-    meshData = new StaticMeshData();
+    meshData = new MeshData();
 
     rFile.read(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
     rFile.read(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));
@@ -81,28 +81,30 @@ void AssetFileHandler::LoadMeshData(int meshID) {
     rFile.read(reinterpret_cast<char*>(&meshData->aabbMinpos), sizeof(glm::vec3));
     rFile.read(reinterpret_cast<char*>(&meshData->aabbMaxpos), sizeof(glm::vec3));
 
-    rFile.read(reinterpret_cast<char*>(&meshData->isSkinned), sizeof(bool));
+    rFile.read(reinterpret_cast<char*>(&meshData->skinnedVerticies), sizeof(bool));
 
     if (meshData->isSkinned) {
         meshData->skinnedVerticies = new Video::Geometry::VertexType::SkinVertex[meshData->numVertices];
-        rFile.read(reinterpret_cast<char*>(meshData->staticVertices),
+        rFile.read(reinterpret_cast<char*>(meshData->skinnedVerticies),
             sizeof(Video::Geometry::VertexType::SkinVertex) * meshData->numVertices);
+        meshData->staticVertices = nullptr;
     }
     else {
         meshData->staticVertices = new Video::Geometry::VertexType::StaticVertex[meshData->numVertices];
         rFile.read(reinterpret_cast<char*>(meshData->staticVertices),
             sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
+        meshData->skinnedVerticies = nullptr;
     }
 
     meshData->indices = new uint32_t[meshData->numIndices];
     rFile.read(reinterpret_cast<char*>(meshData->indices), sizeof(uint32_t) * meshData->numIndices);
 }
 
-AssetFileHandler::StaticMeshData * AssetFileHandler::GetStaticMeshData() {
+AssetFileHandler::MeshData * AssetFileHandler::GetStaticMeshData() {
     return meshData;
 }
 
-void AssetFileHandler::SaveStaticMesh(AssetFileHandler::StaticMeshData * meshData) {
+void AssetFileHandler::SaveStaticMesh(AssetFileHandler::MeshData * meshData) {
     // Write header.
     wFile.write(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
     wFile.write(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));

@@ -50,7 +50,7 @@ class AssetConverter
     	void ConvertMesh(aiMesh * mesh, Geometry::AssetFileHandler * file);
         Video::Geometry::VertexType::StaticVertex * ConvertStaticVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices);
         Video::Geometry::VertexType::SkinVertex * ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices);
-        void CalculateAABB(Geometry::AssetFileHandler::StaticMeshData * meshData, unsigned int numVertices);
+        void CalculateAABB(Geometry::AssetFileHandler::MeshData * meshData, unsigned int numVertices);
 
         Assimp::Importer aImporter;
 
