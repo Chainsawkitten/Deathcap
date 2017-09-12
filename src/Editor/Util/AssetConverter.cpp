@@ -21,7 +21,7 @@ bool AssetConverter::Convert(const char * filepath, const char * destination,
 
     unsigned int flags = triangulate ? aiProcess_Triangulate : 0;
     flags = importNormals ? flags : flags | aiProcess_CalcTangentSpace;
-    flags = importNormals ? flags : flags | aiProcess_GenSmoothNormals;
+    flags = importTangents ? flags : flags | aiProcess_GenSmoothNormals;
 
     const aiScene* aScene = aImporter.ReadFile(filepath, flags);
 
