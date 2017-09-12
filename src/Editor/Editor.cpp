@@ -172,10 +172,15 @@ void Editor::Show(float deltaTime) {
         glm::mat4 orientation = cameraEntity->GetCameraOrientation();
         glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
         glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
+        //Move speed scaling
+        
         float speed = 3.0f * deltaTime;
-        cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
-        cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD)) * glm::length(cameraEntity->position);
+        cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT)) * glm::length(cameraEntity->position);
+        //cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
+        //cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
     }
+
     
     if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "")
         play = true;
