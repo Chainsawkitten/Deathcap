@@ -85,19 +85,7 @@ void RenderManager::Render(World& world, Entity* camera) {
             }
         }
         
-        // Render skinned meshes.
-     //   renderer->PrepareSkinnedMeshRendering(viewMatrix, projectionMatrix);
-     //   for (Mesh* mesh : meshes) {
-     //       if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
-     //           Entity* entity = mesh->entity;
-     //           Material* material = entity->GetComponent<Material>();
-     //           if (material != nullptr) {
-     //               glm::mat4 modelMatrix = entity->GetModelMatrix();
-     //           //    Geometry::Model* model = static_cast<Geometry::Model*>(mesh->geometry);
-     //               renderer->RenderSkinnedMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), modelMatrix, model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
-     //           }
-     //       }
-     //   }
+        // TODO: Render skinned meshes.
         
         // Light the world.
         LightWorld(world, camera);

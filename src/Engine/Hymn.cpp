@@ -12,8 +12,7 @@
 #include "DefaultNormal.png.hpp"
 #include "DefaultSpecular.png.hpp"
 #include "DefaultGlow.png.hpp"
-#include "Geometry/RiggedModel.hpp"
-#include "Geometry/StaticModel.hpp"
+#include "Geometry/Model.hpp"
 #include <Video/Texture/Texture2D.hpp>
 #include "Texture/TextureAsset.hpp"
 #include "Audio/SoundBuffer.hpp"
@@ -186,12 +185,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     for (unsigned int i = 0; i < modelsNode.size(); ++i) {
         Geometry::Model* model;
         std::string type = modelsNode[i].get("type", "").asString();
-        if (type == "Static") {
-            model = new Geometry::StaticModel();
-        }
-        else {
-            model = new Geometry::RiggedModel();
-        }
+        model = new Geometry::Model();
         model->Load(modelsNode[i]);
         models.push_back(model);
     }
@@ -269,13 +263,8 @@ void ActiveHymn::Update(float deltaTime) {
         for (Entity* entity : world.GetEntities()) {
             Component::Animation* anim = entity->GetComponent<Component::Animation>();
             if (anim != nullptr) {
-                Geometry::RiggedModel* model = anim->riggedModel;
-                if (model != nullptr) {
-                    if (!model->animations.empty()) {
-                        anim->time += deltaTime;
-                        model->skeleton.Animate(&model->animations[0], anim->time);
-                    }
-                }
+                Geometry::Model* model = anim->riggedModel;
+                // TODO: Fix animations.
             }
         }
     }
