@@ -41,7 +41,7 @@ bool AssetConverter::Convert(const char * filepath, const char * destination,
     return true;
 }
 
-bool AssetConverter::Success() {
+bool AssetConverter::Success() const {
     return success;
 }
 

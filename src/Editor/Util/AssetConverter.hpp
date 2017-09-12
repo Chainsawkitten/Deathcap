@@ -37,7 +37,7 @@ class AssetConverter
         /**
          * @return True if successfully converted model.
          */
-        bool Success();
+        bool Success() const;
         
         /// String with errors and warnings.
         /**
