@@ -58,7 +58,7 @@ namespace Geometry {
             void GenerateStaticVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray);
             void GenerateSkinVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray);
 
-            
             AssetFileHandler assetFile;
+            Type type;
     };
 }

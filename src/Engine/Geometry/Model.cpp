@@ -18,7 +18,7 @@ Json::Value Model::Save() const {
     Json::Value model;
     model["name"] = name;
     model["extension"] = extension;
-    model["type"] = "Static";//GetType() == STATIC ? "Static" : "Skin";
+    model["type"] = type == STATIC ? "Static" : "Skin";
     return model;
 }
 
@@ -32,6 +32,7 @@ void Model::Load(const char* filename) {
     if (assetFile.Open(filename, AssetFileHandler::READ)) {
         assetFile.LoadMeshData(0);
         AssetFileHandler::StaticMeshData * meshData = assetFile.GetStaticMeshData();
+        type = meshData->isSkinned ? SKIN : STATIC;
 
         if (meshData->isSkinned) {
             GenerateVertexBuffer(vertexBuffer, meshData->skinnedVerticies, meshData->numVertices);
@@ -50,7 +51,7 @@ void Model::Load(const char* filename) {
 }
 
 Model::Type Model::GetType() const {
-    return STATIC;
+    return type;
 }
 
 void Model::GenerateVertexBuffer(GLuint& vertexBuffer,

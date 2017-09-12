@@ -42,9 +42,8 @@ void ModelEditor::Show() {
                 isImported = true;
             }
 
-            if (isImported) {
+            if (isImported)
                 ImGui::Text(msgString.c_str());
-            }
         }
     }
     ImGui::End();
