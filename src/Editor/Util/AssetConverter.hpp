@@ -33,15 +33,15 @@ class AssetConverter
         bool Convert(const char * filepath, const char * destination,
     	    bool triangulate, bool importNormals, bool importTangents);
 
-        ///
+        /// Check after conversion if everything went well.
         /**
-         *@return R
+         * @return True if successfully converted model.
          */
         bool Success();
         
-        ///
+        /// String with errors and warnings.
         /**
-         *@return R
+         * @return A string with messages of what went wrong durning conversion.
          */
         std::string& GetErrorString();
     

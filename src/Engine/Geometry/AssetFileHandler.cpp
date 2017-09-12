@@ -22,7 +22,7 @@ bool AssetFileHandler::Open(const char* filepath, Mode mode) {
     this->mode = mode;
 
     if (mode == READ) {
-        // Open the .wkbf file
+        // Open the .asset file
         rFile.open(filepath, std::ios::binary);
 
         // Return false if file is not open.
@@ -107,14 +107,25 @@ void AssetFileHandler::SaveStaticMesh(AssetFileHandler::StaticMeshData * meshDat
     wFile.write(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
     wFile.write(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));
     wFile.write(reinterpret_cast<char*>(&meshData->numIndices), sizeof(uint32_t));
+
+    // Write AABB data.
     wFile.write(reinterpret_cast<char*>(&meshData->aabbDim), sizeof(glm::vec3));
     wFile.write(reinterpret_cast<char*>(&meshData->aabbOrigin), sizeof(glm::vec3));
     wFile.write(reinterpret_cast<char*>(&meshData->aabbMinpos), sizeof(glm::vec3));
     wFile.write(reinterpret_cast<char*>(&meshData->aabbMaxpos), sizeof(glm::vec3));
 
+    wFile.write(reinterpret_cast<char*>(&meshData->isSkinned), sizeof(bool));
+
     // Write mesh data.
-    wFile.write(reinterpret_cast<char*>(meshData->staticVertices), 
-        sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
+    if (meshData->isSkinned) {
+        wFile.write(reinterpret_cast<char*>(meshData->skinnedVerticies),
+            sizeof(Video::Geometry::VertexType::SkinVertex) * meshData->numVertices);
+    }
+    else {
+        wFile.write(reinterpret_cast<char*>(meshData->staticVertices),
+            sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
+    }
+
     wFile.write(reinterpret_cast<char*>(meshData->indices), 
         sizeof(uint32_t) * meshData->numIndices);
 }

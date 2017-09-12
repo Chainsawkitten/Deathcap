@@ -110,7 +110,7 @@ namespace Geometry {
             uint16_t uniqueID;
             uint16_t numStaticMeshes;
 
-            StaticMeshData * staticMesh = nullptr;
+            StaticMeshData * meshData = nullptr;
 
             std::ifstream rFile;
             std::ofstream wFile;

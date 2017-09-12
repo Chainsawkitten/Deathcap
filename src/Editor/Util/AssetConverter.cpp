@@ -20,8 +20,7 @@ bool AssetConverter::Convert(const char * filepath, const char * destination,
     Geometry::AssetFileHandler file;
 
     // Return if file is not open.
-    if (!file.Open(destination, Geometry::AssetFileHandler::WRITE))
-        return false;
+    file.Open(destination, Geometry::AssetFileHandler::WRITE);
 
     unsigned int flags = triangulate ? aiProcess_Triangulate : 0;
     flags = importNormals ? flags : flags | aiProcess_CalcTangentSpace;
@@ -82,7 +81,8 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     for (int i = 0; i < aMesh->mNumFaces; ++i) {
         const aiFace& aFace = aMesh->mFaces[i];
         if (aFace.mNumIndices != 3) {
-            Log() << "Error importing mesh. Face that doesn't have 3 indices. Indices: " << aFace.mNumIndices << "\n";
+            errorString.append("ERROR: Mesh not triangulated.\n");
+            return;
         }
 
         indices[indexCounter++] = aFace.mIndices[0];
