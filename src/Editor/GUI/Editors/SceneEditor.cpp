@@ -41,6 +41,11 @@ void SceneEditor::Show() {
             break;
 
         case ACTIVE:
+            ImGui::BeginTooltip();
+            ImGui::PushTextWrapPos(450.0f);
+            ImGui::TextUnformatted(draggedEntity->name.c_str());
+            ImGui::PopTextWrapPos();
+            ImGui::EndTooltip();
             break;
 
         case DEACTIVATE:
