@@ -233,11 +233,16 @@ Entity* Editor::GetCamera() const {
 }
 
 void Editor::Play() {
+    editorState = Hymn().ToJson();
     SetVisible(false);
     resourceList.HideEditors();
     resourceList.ResetScene();
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
+}
+
+void Editor::LoadEditorState() {
+    Hymn().FromJson(editorState);
 }
 
 void Editor::NewHymn() {
