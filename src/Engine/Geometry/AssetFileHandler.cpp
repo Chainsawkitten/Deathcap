@@ -71,25 +71,35 @@ void AssetFileHandler::Clear() {
 void AssetFileHandler::LoadMeshData(int meshID) {
     ClearMesh();
 
-    staticMesh = new StaticMeshData();
+    meshData = new StaticMeshData();
 
-    rFile.read(reinterpret_cast<char*>(&staticMesh->parent), sizeof(uint32_t));
-    rFile.read(reinterpret_cast<char*>(&staticMesh->numVertices), sizeof(uint32_t));
-    rFile.read(reinterpret_cast<char*>(&staticMesh->numIndices), sizeof(uint32_t));
-    rFile.read(reinterpret_cast<char*>(&staticMesh->aabbDim), sizeof(glm::vec3));
-    rFile.read(reinterpret_cast<char*>(&staticMesh->aabbOrigin), sizeof(glm::vec3));
-    rFile.read(reinterpret_cast<char*>(&staticMesh->aabbMinpos), sizeof(glm::vec3));
-    rFile.read(reinterpret_cast<char*>(&staticMesh->aabbMaxpos), sizeof(glm::vec3));
+    rFile.read(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
+    rFile.read(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));
+    rFile.read(reinterpret_cast<char*>(&meshData->numIndices), sizeof(uint32_t));
+    rFile.read(reinterpret_cast<char*>(&meshData->aabbDim), sizeof(glm::vec3));
+    rFile.read(reinterpret_cast<char*>(&meshData->aabbOrigin), sizeof(glm::vec3));
+    rFile.read(reinterpret_cast<char*>(&meshData->aabbMinpos), sizeof(glm::vec3));
+    rFile.read(reinterpret_cast<char*>(&meshData->aabbMaxpos), sizeof(glm::vec3));
 
-    staticMesh->staticVertices = new Video::Geometry::VertexType::StaticVertex[staticMesh->numVertices];
-    rFile.read(reinterpret_cast<char*>(staticMesh->staticVertices), sizeof(Video::Geometry::VertexType::StaticVertex) * staticMesh->numVertices);
+    rFile.read(reinterpret_cast<char*>(&meshData->isSkinned), sizeof(bool));
 
-    staticMesh->indices = new uint32_t[staticMesh->numIndices];
-    rFile.read(reinterpret_cast<char*>(staticMesh->indices), sizeof(uint32_t) * staticMesh->numIndices);
+    if (meshData->isSkinned) {
+        meshData->skinnedVerticies = new Video::Geometry::VertexType::SkinVertex[meshData->numVertices];
+        rFile.read(reinterpret_cast<char*>(meshData->staticVertices),
+            sizeof(Video::Geometry::VertexType::SkinVertex) * meshData->numVertices);
+    }
+    else {
+        meshData->staticVertices = new Video::Geometry::VertexType::StaticVertex[meshData->numVertices];
+        rFile.read(reinterpret_cast<char*>(meshData->staticVertices),
+            sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
+    }
+
+    meshData->indices = new uint32_t[meshData->numIndices];
+    rFile.read(reinterpret_cast<char*>(meshData->indices), sizeof(uint32_t) * meshData->numIndices);
 }
 
 AssetFileHandler::StaticMeshData * AssetFileHandler::GetStaticMeshData() {
-    return staticMesh;
+    return meshData;
 }
 
 void AssetFileHandler::SaveStaticMesh(AssetFileHandler::StaticMeshData * meshData) {
@@ -103,8 +113,10 @@ void AssetFileHandler::SaveStaticMesh(AssetFileHandler::StaticMeshData * meshDat
     wFile.write(reinterpret_cast<char*>(&meshData->aabbMaxpos), sizeof(glm::vec3));
 
     // Write mesh data.
-    wFile.write(reinterpret_cast<char*>(meshData->staticVertices), sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
-    wFile.write(reinterpret_cast<char*>(meshData->indices), sizeof(uint32_t) * meshData->numIndices);
+    wFile.write(reinterpret_cast<char*>(meshData->staticVertices), 
+        sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
+    wFile.write(reinterpret_cast<char*>(meshData->indices), 
+        sizeof(uint32_t) * meshData->numIndices);
 }
 
 void AssetFileHandler::ReadGlobalHeader() {
@@ -118,9 +130,9 @@ void AssetFileHandler::WriteGlobalHeader() {
 }
 
 void AssetFileHandler::ClearMesh() {
-    if (staticMesh != nullptr) {
-        delete staticMesh;
+    if (meshData != nullptr) {
+        delete meshData;
     }
 
-    staticMesh = nullptr;
+    meshData = nullptr;
 }
