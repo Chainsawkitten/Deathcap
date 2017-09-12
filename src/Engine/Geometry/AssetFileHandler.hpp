@@ -7,7 +7,7 @@
 #include <Video/Geometry/VertexType/StaticVertex.hpp>
 
 namespace Geometry {
-    /// Handler for .res format.
+    /// Handler for .asset file format.
     /**
      * Start by using the Open() function. 
      * The Open() function requries a filepath and
@@ -53,7 +53,7 @@ namespace Geometry {
             /// Default constructor.
             AssetFileHandler();
         
-            /// Open a .wkbf file.
+            /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              * @param mode WRITE or READ from the file.
@@ -63,7 +63,7 @@ namespace Geometry {
             /// Destructor.
             ~AssetFileHandler();
         
-            /// Open a .wkbf file.
+            /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              * @param mode WRITE or READ from the file.
