@@ -23,6 +23,12 @@ namespace Video {
              * @return Deferred rendering frame buffer.
              */
             FrameBuffer* GetDeferredFrameBuffer() const;
+
+            /// Get size of the render target.
+            /**
+             * @return The size of the render target in pixels.
+             */
+            glm::vec2 GetSize() const;
             
         private:
             glm::vec2 size;
