@@ -5,6 +5,7 @@
 #include "Lighting/Lighting.hpp"
 #include "RenderProgram/StaticRenderProgram.hpp"
 #include "RenderProgram/SkinRenderProgram.hpp"
+#include "RenderSurface.hpp"
 #include "PostProcessing/PostProcessing.hpp"
 #include "PostProcessing/ColorFilter.hpp"
 #include "PostProcessing/FogFilter.hpp"
@@ -26,7 +27,7 @@ using namespace Video;
 Renderer::Renderer(const glm::vec2& screenSize) {
     this->screenSize = screenSize;
     rectangle = new Geometry::Rectangle();
-    lighting = new Lighting(screenSize, rectangle);
+    lighting = new Lighting(rectangle);
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
     postProcessing = new PostProcessing(screenSize, rectangle);
@@ -89,15 +90,15 @@ void Renderer::SetScreenSize(const glm::vec2& screenSize) {
     
     postProcessing->UpdateBufferSize(screenSize);
     delete lighting;
-    lighting = new Lighting(screenSize, rectangle);
+    lighting = new Lighting(rectangle);
 }
 
 void Renderer::Clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::StartRendering() {
-    lighting->SetTarget();
+void Renderer::StartRendering(RenderSurface* renderSurface) {
+    renderSurface->GetDeferredFrameBuffer()->SetTarget();
     lighting->ClearLights();
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -108,9 +109,9 @@ void Renderer::AddLight(const Video::Light& light) {
     lighting->AddLight(light);
 }
 
-void Renderer::Light(const glm::mat4& inverseProjectionMatrix) {
+void Renderer::Light(const glm::mat4& inverseProjectionMatrix, FrameBuffer* frameBuffer) {
     postProcessing->GetRenderTarget()->SetTarget();
-    lighting->Render(inverseProjectionMatrix);
+    lighting->Render(inverseProjectionMatrix, frameBuffer);
 }
 
 void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {

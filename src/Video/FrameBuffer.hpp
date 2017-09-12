@@ -10,17 +10,22 @@ namespace Video {
         public:
             /// Create new frame buffer.
             /**
-             * @param readWriteTextures Vector of %ReadWriteTexture to create a frame buffer object.
+             * @param textures Vector of %ReadWriteTexture to create a frame buffer object.
              */
-            FrameBuffer(const std::vector<ReadWriteTexture*>& readWriteTextures);
+            FrameBuffer(const std::vector<ReadWriteTexture*>& textures);
             
             /// Destructor.
             ~FrameBuffer();
-            
+
             /// Set as render target.
             void SetTarget() const;
             
-        private:  
+            /// Bind frame buffer for reading.
+            void BindForReading();
+
+        private:
+            std::vector<ReadWriteTexture*> textures;
+
             GLuint frameBufferObject;
     };
 }

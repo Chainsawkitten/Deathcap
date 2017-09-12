@@ -9,8 +9,9 @@ namespace Video {
         public:
             /// Format types for read/write textures.
             enum FORMAT {
-                RGBA8 = 0, ///< Red, Green, Blue, Alpha, 8 bits per channel.
+                RGB8 = 0, ///< Red, Green, Blue, 8 bits per channel.
                 RGB16, ///< Red, Green, Blue, 16 bits per channel.
+                DEPTH32, ///< Depth, 32 bits.
             };
 
             /// Create new read/write texture.
@@ -34,8 +35,15 @@ namespace Video {
              */
             GLuint GetTexture() const;
 
+            /// Get format.
+            /**
+             * @return Format of texture.
+             */
+            FORMAT GetFormat() const;
             
         private:
+            static void CreateTexture(GLuint& texture, unsigned int width, unsigned int height, GLenum format, GLint internalFormat);
+
             GLuint texture;
 
             glm::vec2 size;

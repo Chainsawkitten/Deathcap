@@ -36,6 +36,7 @@ using namespace Component;
 RenderManager::RenderManager() {
     renderer = new Video::Renderer(MainWindow::GetInstance()->GetSize());
     
+    // Render surface for main window.
     renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 
     // Init textures.
@@ -69,7 +70,7 @@ void RenderManager::Render(World& world, Entity* camera) {
     
     // Render from camera.
     if (camera != nullptr) {
-        renderer->StartRendering();
+        renderer->StartRendering(renderSurface);
         
         // Camera matrices.
         const glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
@@ -84,8 +85,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
-                    glm::mat4 modelMatrix = entity->GetModelMatrix();
-                    renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), modelMatrix);
+                    renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), entity->GetModelMatrix());
                 }
             }
         }
@@ -97,15 +97,14 @@ void RenderManager::Render(World& world, Entity* camera) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
-                    glm::mat4 modelMatrix = entity->GetModelMatrix();
                     Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
-                    renderer->RenderSkinnedMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), modelMatrix, model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
+                    renderer->RenderSkinnedMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), entity->GetModelMatrix(), model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
                 }
             }
         }
         
         // Light the world.
-        LightWorld(world, camera);
+        LightWorld(world, camera, renderSurface->GetDeferredFrameBuffer());
         
         // Anti-aliasing.
         if (Hymn().filterSettings.fxaa)
@@ -192,7 +191,7 @@ void RenderManager::UpdateBufferSize() {
     renderer->SetScreenSize(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::LightWorld(World& world, const Entity* camera) {
+void RenderManager::LightWorld(World& world, const Entity* camera, Video::FrameBuffer* frameBuffer) {
     // Get the camera matrices.
     glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
     glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
@@ -257,5 +256,5 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     }
     
     // Render lights.
-    renderer->Light(glm::inverse(projectionMat));
+    renderer->Light(glm::inverse(projectionMat), frameBuffer);
 }

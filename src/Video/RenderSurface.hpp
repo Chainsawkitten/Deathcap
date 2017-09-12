@@ -33,8 +33,14 @@ namespace Video {
         private:
             glm::vec2 size;
             
-            ReadWriteTexture* albedoReadWriteTexture;
+            // Deferred textures.
+            ReadWriteTexture* albedoTexture;
+            ReadWriteTexture* normalTexture;
+            ReadWriteTexture* specTexture;
+            ReadWriteTexture* glowTexture;
+            ReadWriteTexture* depthTexture;
 
+            // Frame buffers.
             FrameBuffer* deferredFrameBuffer;
     };
 }

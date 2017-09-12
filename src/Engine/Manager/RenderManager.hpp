@@ -4,6 +4,7 @@ namespace Video {
     class Renderer;
     class RenderSurface;
     class Texture2D;
+    class FrameBuffer;
 }
 class World;
 class Entity;
@@ -40,7 +41,7 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
         
-        void LightWorld(World& world, const Entity* camera);
+        void LightWorld(World& world, const Entity* camera, Video::FrameBuffer* frameBuffer);
 
         Video::Renderer* renderer;
 

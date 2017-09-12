@@ -18,6 +18,8 @@ namespace Video {
     class GlowBlurFilter;
     class GlowFilter;
     class ShaderProgram;
+    class RenderSurface;
+    class FrameBuffer;
     namespace Geometry {
         class Geometry3D;
         class Rectangle;
@@ -45,7 +47,10 @@ namespace Video {
             void Clear();
             
             /// Start rendering the frame.
-            void StartRendering();
+            /**
+             * @param renderSurface Contains frame buffer object.
+            */
+            void StartRendering(RenderSurface* renderSurface);
             
             /// Prepare for rendering static meshes.
             /**
@@ -91,8 +96,9 @@ namespace Video {
             /// Light the scene with the added lights.
             /**
              * @param inverseProjectionMatrix The camera's inverse projection matrix.
+             * @param frameBuffer %FrameBuffer contaning textures.
              */
-            void Light(const glm::mat4& inverseProjectionMatrix);
+            void Light(const glm::mat4& inverseProjectionMatrix, FrameBuffer* frameBuffer);
             
             /// Anti-alias using FXAA.
             void AntiAlias();
