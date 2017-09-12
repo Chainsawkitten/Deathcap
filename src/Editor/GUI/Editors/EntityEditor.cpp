@@ -89,6 +89,10 @@ void EntityEditor::SetEntity(Entity* entity) {
     strcpy(name, entity->name.c_str());
 }
 
+Entity* EntityEditor::GetEntity() {
+    return entity;
+}
+
 bool EntityEditor::ShowsEntity(Entity* entity) {
     return this->entity == entity;
 }
