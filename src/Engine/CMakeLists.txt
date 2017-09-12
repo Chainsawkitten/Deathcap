@@ -27,6 +27,7 @@ set(SRCS
         Entity/Entity.cpp
         Entity/World.cpp
         Geometry/Animation.cpp
+        Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
@@ -74,6 +75,7 @@ set(HEADERS
         Entity/Entity.hpp
         Entity/World.hpp
         Geometry/Animation.hpp
+        Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
