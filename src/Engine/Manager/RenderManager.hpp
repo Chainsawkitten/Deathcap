@@ -1,9 +1,8 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 namespace Video {
     class Renderer;
+    class RenderSurface;
     class Texture2D;
 }
 class World;
@@ -44,6 +43,8 @@ class RenderManager {
         void LightWorld(World& world, const Entity* camera);
 
         Video::Renderer* renderer;
+
+        Video::RenderSurface* renderSurface;
         
         // Editor entity textures.
         Video::Texture2D* particleEmitterTexture;

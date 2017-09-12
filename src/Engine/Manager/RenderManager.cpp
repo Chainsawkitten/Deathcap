@@ -1,6 +1,7 @@
 #include "RenderManager.hpp"
 
 #include <Video/Renderer.hpp>
+#include <Video/RenderSurface.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
@@ -35,6 +36,8 @@ using namespace Component;
 RenderManager::RenderManager() {
     renderer = new Video::Renderer(MainWindow::GetInstance()->GetSize());
     
+    renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
+
     // Init textures.
     particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
     lightTexture = Managers().resourceManager->CreateTexture2D(LIGHT_PNG, LIGHT_PNG_LENGTH);
@@ -48,6 +51,8 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
     
+    delete renderSurface;
+
     delete renderer;
 }
 
@@ -64,12 +69,11 @@ void RenderManager::Render(World& world, Entity* camera) {
     
     // Render from camera.
     if (camera != nullptr) {
-        glm::vec2 screenSize = MainWindow::GetInstance()->GetSize();
         renderer->StartRendering();
         
         // Camera matrices.
-        glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
-        glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(screenSize);
+        const glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
+        const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(renderSurface->GetSize());
         
         std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
         
@@ -109,7 +113,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         
         // Fog.
         if (Hymn().filterSettings.fog)
-            renderer->RenderFog(camera->GetComponent<Component::Lens>()->GetProjection(screenSize), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+            renderer->RenderFog(camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
         
         // Render particles.
         Managers().particleManager->UpdateBuffer(world);
