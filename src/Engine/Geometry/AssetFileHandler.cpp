@@ -35,7 +35,7 @@ bool AssetFileHandler::Open(const char* filepath, Mode mode) {
         ReadGlobalHeader();
     }
     else {
-        // Create the .wkbf file.
+        // Create the .asset file.
         wFile.open(filepath, std::ios::binary);
         if (!wFile.is_open()) {
             Log() << "Could not create file: " << filepath << "\n";
