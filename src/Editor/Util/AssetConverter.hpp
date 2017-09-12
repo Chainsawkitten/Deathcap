@@ -33,10 +33,16 @@ class AssetConverter
         bool Convert(const char * filepath, const char * destination,
     	    bool triangulate, bool importNormals, bool importTangents);
 
-        /// 
+        ///
+        /**
+         *@return R
+         */
         bool Success();
         
-        /// 
+        ///
+        /**
+         *@return R
+         */
         std::string& GetErrorString();
     
     private:

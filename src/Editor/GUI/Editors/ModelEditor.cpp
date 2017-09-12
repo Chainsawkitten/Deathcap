@@ -19,6 +19,7 @@ void ModelEditor::Show() {
             fileSelector.AddExtensions("md5mesh");
             fileSelector.SetFileSelectedCallback(std::bind(&ModelEditor::FileSelected, this, std::placeholders::_1));
             fileSelector.SetVisible(true);
+            isImported = false;
         }
 
         if (hasSourceFile) {
@@ -31,10 +32,18 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Import Skeletons", &importSkeletons);
             ImGui::Checkbox("Import Animations", &importAnimations);
 
-            if (ImGui::Button("Import")) {
+            std::string button = isImported ? "Re-import" : "Import";
+
+            if (ImGui::Button(button.c_str())) {
                 AssetConverter asset;
                 asset.Convert(source.c_str(), destination.c_str(), triangulate, importNormals, importTangents);
                 model->Load(destination.c_str());
+                msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
+                isImported = true;
+            }
+
+            if (isImported) {
+                ImGui::Text(msgString.c_str());
             }
         }
     }

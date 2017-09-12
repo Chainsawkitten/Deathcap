@@ -42,6 +42,10 @@ bool AssetConverter::Convert(const char * filepath, const char * destination,
     return true;
 }
 
+bool AssetConverter::Success() {
+    return success;
+}
+
 std::string& AssetConverter::GetErrorString() {
     return errorString;
 }
@@ -107,7 +111,7 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
     }
     else {
         success = false;
-        errorString.append("The model has no positions yet the user is trying to import them.\n");
+        errorString.append("WARNING: The model has no positions yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
             vertices[i].position = glm::vec3(1.0f, 0.0f, 0.0f);
         }
@@ -121,7 +125,7 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
     }
     else {
         success = false;
-        errorString.append("The model has no texture coordinates yet the user is trying to import them.\n");
+        errorString.append("WARNING: The model has no texture coordinates yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
             vertices[i].textureCoordinate = glm::vec2(0.0f, 0.0f);
         }
@@ -135,7 +139,7 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
     }
     else {
         success = false;
-        errorString.append("The model has no normals yet the user is trying to import them.\n");
+        errorString.append("WARNING: The model has no normals yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
             vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
         }
@@ -149,7 +153,7 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
     }
     else {
         success = false;
-        errorString.append("The model has no tangents yet the user is trying to import them.\n");
+        errorString.append("WARNING: The model has no tangents yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
             vertices[i].tangent = glm::vec3(1.0f, 0.0f, 0.0f);
         }
@@ -170,7 +174,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
     }
     else {
         success = false;
-        errorString.append("The model has no positions yet the user is trying to import them.\n");
+        errorString.append("WARNING: The model has no positions yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
             vertices[i].position = glm::vec3(1.0f, 0.0f, 0.0f);
         }
@@ -184,7 +188,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
     }
     else {
         success = false;
-        errorString.append("The model has no texture coordinates yet the user is trying to import them.\n");
+        errorString.append("WARNING: The model has no texture coordinates yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
             vertices[i].textureCoordinate = glm::vec2(0.0f, 0.0f);
         }
@@ -198,7 +202,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
     }
     else {
         success = false;
-        errorString.append("The model has no normals yet the user is trying to import them.\n");
+        errorString.append("WARNING: The model has no normals yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
             vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
         }
@@ -212,7 +216,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
     }
     else {
         success = false;
-        errorString.append("The model has no tangents yet the user is trying to import them.\n");
+        errorString.append("WARNING: The model has no tangents yet the user is trying to import them.\n");
         for (int i = 0; i < numVertices; ++i) {
             vertices[i].tangent = glm::vec3(1.0f, 0.0f, 0.0f);
         }
