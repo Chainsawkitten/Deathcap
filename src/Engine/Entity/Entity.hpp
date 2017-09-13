@@ -53,7 +53,7 @@ class Entity {
         * @param deep True if we want to check if it's a grandchild, false if we do not.
         * @return True if it has a child, false if it does not.
         */
-        bool HasChild(Entity* child, bool deep = true) const;
+        bool HasChild(const Entity* child, bool deep = true) const;
 
         /// Instantiate a scene as a child to this entity.
         /**
