@@ -59,6 +59,13 @@ namespace Video {
              * @return The depth texture.
              */
             ReadWriteTexture* GetDepthTexture() const;
+
+            // Post processing textures. TODO
+            ReadWriteTexture* colorTexture[2];
+            ReadWriteTexture* extraTexture[2];
+            ReadWriteTexture* depth2Texture[2];
+
+            FrameBuffer* postProcessingFrameBuffer[2];
             
         private:
             glm::vec2 size;
