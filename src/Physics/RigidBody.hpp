@@ -6,6 +6,8 @@ class btRigidBody;
 
 namespace Physics {
 
+    class Simulator;
+
     class RigidBody {
         friend class Simulator;
 
