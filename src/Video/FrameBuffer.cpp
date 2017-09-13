@@ -14,10 +14,10 @@ FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) {
 
     GLint attachment = GL_COLOR_ATTACHMENT0;
     for (std::size_t i = 0; i < textures.size(); ++i) {
-        if (textures[i]->GetFormat() != ReadWriteTexture::DEPTH32) {
-            glFramebufferTexture2D(GL_FRAMEBUFFER, attachment++, GL_TEXTURE_2D, textures[i]->GetTexture(), 0);
-        } else {
+        if (textures[i]->GetFormat() == GL_DEPTH_COMPONENT) {
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, textures[i]->GetTexture(), 0);
+        } else {
+            glFramebufferTexture2D(GL_FRAMEBUFFER, attachment++, GL_TEXTURE_2D, textures[i]->GetTexture(), 0);
         }
     }
 
@@ -26,7 +26,7 @@ FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) {
     for (std::size_t i = 0; i < textures.size(); i++)
         drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
     glDrawBuffers(drawBuffers.size(), drawBuffers.data());
-    
+
     // Check if framebuffer created correctly
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         Log() << "Framebuffer creation failed\n";
@@ -41,11 +41,4 @@ FrameBuffer::~FrameBuffer() {
 
 void FrameBuffer::SetTarget() const {
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBufferObject);
-}
-
-void FrameBuffer::BindForReading() {
-    for (std::size_t i = 0; i < textures.size(); ++i) {
-        glActiveTexture(GL_TEXTURE0 + i);
-        glBindTexture(GL_TEXTURE_2D, textures[i]->GetTexture());
-    }
 }

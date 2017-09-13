@@ -19,9 +19,6 @@ namespace Video {
 
             /// Set as render target.
             void SetTarget() const;
-            
-            /// Bind frame buffer for reading.
-            void BindForReading();
 
         private:
             std::vector<ReadWriteTexture*> textures;

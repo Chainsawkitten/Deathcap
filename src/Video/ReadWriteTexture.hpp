@@ -7,18 +7,14 @@ namespace Video {
     /// Texture to write and read from.
     class ReadWriteTexture {
         public:
-            /// Format types for read/write textures.
-            enum FORMAT {
-                RGB8 = 0, ///< Red, Green, Blue, 8 bits per channel.
-                RGB16, ///< Red, Green, Blue, 16 bits per channel.
-                DEPTH32, ///< Depth, 32 bits.
-            };
-
             /// Create new read/write texture.
             /**
              * @param size Size of the new read/write texture.
+             * @param format GL format for the texture, numner of channels.
+             * @param internalFormat GL internal format, bits per channel.
+             * @param type Type for pixel data.
              */
-            ReadWriteTexture(const glm::vec2& size, FORMAT format);
+            ReadWriteTexture(const glm::vec2& size, GLenum format, GLint internalFormat, GLenum type);
             
             /// Destructor.
             ~ReadWriteTexture();
@@ -39,14 +35,20 @@ namespace Video {
             /**
              * @return Format of texture.
              */
-            FORMAT GetFormat() const;
-            
+            GLenum GetFormat() const;
+
+            /// Bind texture for reading.
+            /**
+             * @param binding Slot to bind texture to.
+             */
+            void BindForReading(GLenum binding) const;
+
         private:
-            static void CreateTexture(GLuint& texture, unsigned int width, unsigned int height, GLenum format, GLint internalFormat);
+            static void CreateTexture(GLuint& texture, unsigned width, unsigned height, GLenum format, GLint internalFormat, GLenum type);
 
             GLuint texture;
+            GLenum format;
 
             glm::vec2 size;
-            FORMAT format;
     };
 }

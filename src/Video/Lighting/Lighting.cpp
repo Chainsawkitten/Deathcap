@@ -7,6 +7,7 @@
 #include "Post.vert.hpp"
 #include "Deferred.frag.hpp"
 #include "FrameBuffer.hpp"
+#include "RenderSurface.hpp"
 
 using namespace Video;
 
@@ -50,7 +51,7 @@ void Lighting::AddLight(const Light& light) {
     lights.push_back(light);
 }
 
-void Lighting::Render(const glm::mat4& inverseProjectionMatrix, FrameBuffer* framebuffer) {
+void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
     // Disable depth testing
     GLboolean depthTest = glIsEnabled(GL_DEPTH_TEST);
     glEnable(GL_DEPTH_TEST);
@@ -67,7 +68,12 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, FrameBuffer* fra
     
     shaderProgram->Use();
     
-    framebuffer->BindForReading();
+    renderSurface->GetAlbedoTexture()->BindForReading(GL_TEXTURE0 + 0);
+    renderSurface->GetNormalTexture()->BindForReading(GL_TEXTURE0 + 1);
+    renderSurface->GetSpecularTexture()->BindForReading(GL_TEXTURE0 + 2);
+    renderSurface->GetGlowTexture()->BindForReading(GL_TEXTURE0 + 3);
+    renderSurface->GetDepthTexture()->BindForReading(GL_TEXTURE0 + 4);
+
     glClear(GL_COLOR_BUFFER_BIT);
     
     glBindVertexArray(rectangle->GetVertexArray());

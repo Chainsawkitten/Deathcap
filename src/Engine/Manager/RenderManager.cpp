@@ -22,13 +22,11 @@
 #include "../Geometry/RiggedModel.hpp"
 #include "../Geometry/Skeleton.hpp"
 #include "../Texture/TextureAsset.hpp"
-#include <Video/Texture/Texture2D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Video/Culling/Frustum.hpp>
 #include <Video/Culling/AxisAlignedBoundingBox.hpp>
 #include "../MainWindow.hpp"
 #include <Video/Lighting/Light.hpp>
-#include <Video/RenderTarget.hpp>
 #include "../Hymn.hpp"
 
 using namespace Component;
@@ -256,5 +254,5 @@ void RenderManager::LightWorld(World& world, const Entity* camera, Video::FrameB
     }
     
     // Render lights.
-    renderer->Light(glm::inverse(projectionMat), frameBuffer);
+    renderer->Light(glm::inverse(projectionMat), renderSurface);
 }

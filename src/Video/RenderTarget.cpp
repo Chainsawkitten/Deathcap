@@ -119,8 +119,8 @@ void RenderTarget::Render(bool dither) {
     shader->Use();
     
     glUniform1i(shader->GetUniformLocation("tDiffuse"), 0);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, colorBuffer);
+    //glActiveTexture(GL_TEXTURE0);
+    //glBindTexture(GL_TEXTURE_2D, colorBuffer);
     
     glUniform1i(shader->GetUniformLocation("tDepth"), 1);
     glActiveTexture(GL_TEXTURE1);

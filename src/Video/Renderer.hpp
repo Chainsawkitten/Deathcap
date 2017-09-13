@@ -96,9 +96,9 @@ namespace Video {
             /// Light the scene with the added lights.
             /**
              * @param inverseProjectionMatrix The camera's inverse projection matrix.
-             * @param frameBuffer %FrameBuffer contaning textures.
+             * @param renderSurface %RenderSurface contaning textures.
              */
-            void Light(const glm::mat4& inverseProjectionMatrix, FrameBuffer* frameBuffer);
+            void Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
             
             /// Anti-alias using FXAA.
             void AntiAlias();

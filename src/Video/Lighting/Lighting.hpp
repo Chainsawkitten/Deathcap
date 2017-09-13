@@ -6,8 +6,9 @@
 #include <vector>
 
 namespace Video {
-    class ShaderProgram;
     class FrameBuffer;
+    class RenderSurface;
+    class ShaderProgram;
     namespace Geometry {
         class Rectangle;
     }
@@ -36,9 +37,9 @@ namespace Video {
             /// Light the scene with the added lights.
             /**
              * @param inverseProjectionMatrix The camera's inverse projection matrix.
-             * @param framebuffer %FrameBuffer contaning deferred textures.
+             * @param renderSurface %RenderSurface contaning textures.
              */
-            void Render(const glm::mat4& inverseProjectionMatrix, FrameBuffer* framebuffer);
+            void Render(const glm::mat4& inverseProjectionMatrix, Video::RenderSurface* renderSurface);
             
         private:  
             const Geometry::Rectangle* rectangle;

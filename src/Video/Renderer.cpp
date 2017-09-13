@@ -21,6 +21,7 @@
 #include "EditorEntity.geom.hpp"
 #include "EditorEntity.frag.hpp"
 #include "Geometry/Rectangle.hpp"
+#include "FrameBuffer.hpp"
 
 using namespace Video;
 
@@ -109,9 +110,9 @@ void Renderer::AddLight(const Video::Light& light) {
     lighting->AddLight(light);
 }
 
-void Renderer::Light(const glm::mat4& inverseProjectionMatrix, FrameBuffer* frameBuffer) {
+void Renderer::Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
     postProcessing->GetRenderTarget()->SetTarget();
-    lighting->Render(inverseProjectionMatrix, frameBuffer);
+    lighting->Render(inverseProjectionMatrix, renderSurface);
 }
 
 void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
