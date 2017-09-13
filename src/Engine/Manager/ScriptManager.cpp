@@ -26,6 +26,24 @@
 
 using namespace Component;
 
+void AngelScriptMessageCallback(const asSMessageInfo* message, void* param) {
+    Log() << message->section << " (" << message->row << ", " << message->col << " : ";
+    
+    switch (message->type) {
+    case asMSGTYPE_ERROR:
+        Log() << "Error";
+        break;
+    case asMSGTYPE_INFORMATION:
+        Log() << "Information";
+        break;
+    case asMSGTYPE_WARNING:
+        Log() << "Warning";
+        break;
+    }
+    
+    Log() << " : " << message->message << "\n";
+}
+
 void print(const std::string& message) {
     Log() << message;
 }
