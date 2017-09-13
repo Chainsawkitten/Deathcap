@@ -28,6 +28,10 @@ namespace Physics {
              */
             glm::vec3 Position();
 
+            /// Set the position of a rigid body.
+            /**
+             * @param pos The new position.
+             */
             void Position(glm::vec3 const& pos);
 
         private:
