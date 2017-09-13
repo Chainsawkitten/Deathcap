@@ -35,6 +35,7 @@ Editor::Editor() {
     Input()->AssignButton(InputHandler::CONTROL, InputHandler::KEYBOARD, GLFW_KEY_LEFT_CONTROL);
     Input()->AssignButton(InputHandler::NEW, InputHandler::KEYBOARD, GLFW_KEY_N);
     Input()->AssignButton(InputHandler::OPEN, InputHandler::KEYBOARD, GLFW_KEY_O);
+    Input()->AssignButton(InputHandler::SAVE, InputHandler::KEYBOARD, GLFW_KEY_S);
     Input()->AssignButton(InputHandler::CAMERA, InputHandler::MOUSE, GLFW_MOUSE_BUTTON_MIDDLE);
     Input()->AssignButton(InputHandler::FORWARD, InputHandler::KEYBOARD, GLFW_KEY_W);
     Input()->AssignButton(InputHandler::BACKWARD, InputHandler::KEYBOARD, GLFW_KEY_S);
@@ -77,7 +78,14 @@ void Editor::Show(float deltaTime) {
             
             if (ImGui::MenuItem("Open Hymn", "CTRL+O"))
                 OpenHymn();
-            
+
+            if (Hymn().GetPath() != "") {
+
+                if (ImGui::MenuItem("Save Hymn", "CTRL+S"))
+                    Save();
+
+            }
+
             ImGui::Separator();
             
             if (ImGui::MenuItem("Settings"))
@@ -218,7 +226,10 @@ void Editor::Show(float deltaTime) {
     
     if (Input()->Triggered(InputHandler::OPEN) && Input()->Pressed(InputHandler::CONTROL))
         OpenHymn();
-    
+
+    if (Hymn().GetPath() != "" && Input()->Triggered(InputHandler::SAVE) && Input()->Pressed(InputHandler::CONTROL))
+        Save();
+
     if (play)
         Play();
     
@@ -246,12 +257,16 @@ Entity* Editor::GetCamera() const {
 }
 
 void Editor::Play() {
-    Save();
+    editorState = Hymn().ToJson();
     SetVisible(false);
     resourceList.HideEditors();
     resourceList.ResetScene();
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
+}
+
+void Editor::LoadEditorState() {
+    Hymn().FromJson(editorState);
 }
 
 void Editor::NewHymn() {
