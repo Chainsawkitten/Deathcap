@@ -16,12 +16,14 @@ class InputHandler {
             CONTROL, ///< Control key.
             NEW, ///< Create new hymn.
             OPEN, ///< Open existing hymn.
+            SAVE, ///< Save opened hymn.
             CAMERA, ///< Move camera.
             FORWARD, ///< Move forward.
             BACKWARD, ///< Move backward.
             LEFT, ///< Move left.
             RIGHT, ///< Move right.
-            BUTTONS, ///< Total number of inputs
+            ZOOM, ///< Zoom to entity.
+            BUTTONS, ///< Total number of inputs.
         };
         
         /// Input device codes
