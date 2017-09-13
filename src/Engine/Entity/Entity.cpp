@@ -62,7 +62,7 @@ bool Entity::SetParent(Entity* newParent) {
 
 }
 
-bool Entity::HasChild(Entity* check_child, bool deep) {
+const bool Entity::HasChild(Entity* check_child, bool deep) {
 
     for (Entity* child : children) {
         if (child->name == check_child->name)
