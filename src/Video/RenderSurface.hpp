@@ -30,6 +30,12 @@ namespace Video {
              */
             FrameBuffer* GetDeferredFrameBuffer() const;
 
+            /// Get post processing frame buffer.
+            /**
+            * @return Post processing frame buffer.
+            */
+            FrameBuffer* GetPostProcessingFrameBuffer() const;
+
             /// Get texture contaning albedo pixel data.
             /**
              * @return The albedo texture.
@@ -60,24 +66,44 @@ namespace Video {
              */
             ReadWriteTexture* GetDepthTexture() const;
 
-            // Post processing textures. TODO
-            ReadWriteTexture* colorTexture[2];
-            ReadWriteTexture* extraTexture[2];
-            ReadWriteTexture* depth2Texture[2];
+            /// Get texture contaning color pixel data.
+            /**
+             * @return The color texture.
+             */
+            ReadWriteTexture* GetColorTexture() const;
 
-            FrameBuffer* postProcessingFrameBuffer[2];
+            /// Get texture contaning extra color pixel data.
+            /**
+             * @return The extra color texture.
+             */
+            ReadWriteTexture* GetExtraColorTexture() const;
+
+            /// Get texture contaning extra depth pixel data.
+            /**
+             * @return The extra depth texture.
+             */
+            ReadWriteTexture* GetExtraDepthTexture() const;
+
+            /// Swap active texture set.
+            void Swap();
             
         private:
             glm::vec2 size;
 
             // Frame buffers.
             FrameBuffer* deferredFrameBuffer;
+            FrameBuffer* postProcessingFrameBuffer[2];
 
-            // Deferred textures.
+            // Textures.
             ReadWriteTexture* albedoTexture;
             ReadWriteTexture* normalTexture;
             ReadWriteTexture* specTexture;
             ReadWriteTexture* glowTexture;
             ReadWriteTexture* depthTexture;
+            ReadWriteTexture* colorTexture[2];
+            ReadWriteTexture* extraColorTexture[2];
+            ReadWriteTexture* extraDepthTexture[2];
+
+            short int which = 0;
     };
 }

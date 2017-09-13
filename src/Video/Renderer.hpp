@@ -101,36 +101,42 @@ namespace Video {
             void Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
             
             /// Anti-alias using FXAA.
-            void AntiAlias();
+            // TODO
+            void AntiAlias(RenderSurface* renderSurface);
             
             /// Render fog.
             /**
+             * TODO
              * @param projectionMatrix The camera's projection matrix.
              * @param density The density of the fog.
              * @param color Color.
              */
-            void RenderFog(const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
+            void RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
             
             /// Apply glow effect.
             /**
+             * TODO
              * @param blurAmount How many times to blur the glow buffer.
              */
-            void ApplyGlow(int blurAmount);
+            void ApplyGlow(RenderSurface* renderSurface, int blurAmount);
             
             /// Apply a color filter.
             /**
+             * TODO
              * @param color Color.
              */
-            void ApplyColorFilter(const glm::vec3& color);
+            void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
             /// Perform gamma correction.
-            void GammaCorrect();
+            //  TODO
+            void GammaCorrect(RenderSurface* renderSurface);
             
             /// Display the rendered results.
             /**
+             *TODO
              * @param dither Whether to use dithering.
              */
-            void DisplayResults(bool dither);
+            void DisplayResults(RenderSurface* renderSurface, bool dither);
             
             /// Begin rendering icons.
             /**

@@ -102,33 +102,33 @@ void RenderManager::Render(World& world, Entity* camera) {
         }
         
         // Light the world.
-        LightWorld(world, camera, renderSurface->GetDeferredFrameBuffer());
+        LightWorld(world, camera, renderSurface);
         
         // Anti-aliasing.
         if (Hymn().filterSettings.fxaa)
-            renderer->AntiAlias();
-        
-        // Fog.
-        if (Hymn().filterSettings.fog)
-            renderer->RenderFog(camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
-        
-        // Render particles.
-        Managers().particleManager->UpdateBuffer(world);
-        Managers().particleManager->Render(world, camera);
-        
-        // Glow.
-        if (Hymn().filterSettings.glow)
-            renderer->ApplyGlow(Hymn().filterSettings.glowBlurAmount);
-        
-        // Color.
-        if (Hymn().filterSettings.color)
-            renderer->ApplyColorFilter(Hymn().filterSettings.colorColor);
-        
-        // Gamma correction.
-        renderer->GammaCorrect();
+            renderer->AntiAlias(renderSurface);
+        //
+        //// Fog.
+        //if (Hymn().filterSettings.fog)
+        //    renderer->RenderFog(camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+        //
+        //// Render particles.
+        //Managers().particleManager->UpdateBuffer(world);
+        //Managers().particleManager->Render(world, camera);
+        //
+        //// Glow.
+        //if (Hymn().filterSettings.glow)
+        //    renderer->ApplyGlow(Hymn().filterSettings.glowBlurAmount);
+        //
+        //// Color.
+        //if (Hymn().filterSettings.color)
+        //    renderer->ApplyColorFilter(Hymn().filterSettings.colorColor);
+        //
+        //// Gamma correction.
+        //renderer->GammaCorrect();
         
         // Render to back buffer.
-        renderer->DisplayResults(true);
+        renderer->DisplayResults(renderSurface, true);
     }
 }
 
@@ -189,7 +189,7 @@ void RenderManager::UpdateBufferSize() {
     renderer->SetScreenSize(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::LightWorld(World& world, const Entity* camera, Video::FrameBuffer* frameBuffer) {
+void RenderManager::LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface) {
     // Get the camera matrices.
     glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
     glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));

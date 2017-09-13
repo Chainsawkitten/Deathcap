@@ -111,7 +111,8 @@ void Renderer::AddLight(const Video::Light& light) {
 }
 
 void Renderer::Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
-    postProcessing->GetRenderTarget()->SetTarget();
+    //postProcessing->GetRenderTarget()->SetTarget();
+    renderSurface->GetPostProcessingFrameBuffer()->SetTarget(); // TMP
     lighting->Render(inverseProjectionMatrix, renderSurface);
 }
 
@@ -131,40 +132,40 @@ void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, co
     skinRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix, bones, bonesIT);
 }
 
-void Renderer::AntiAlias() {
+void Renderer::AntiAlias(RenderSurface* renderSurface) {
     fxaaFilter->SetScreenSize(screenSize);
-    postProcessing->ApplyFilter(fxaaFilter);
+    postProcessing->ApplyFilter(renderSurface, fxaaFilter);
 }
 
-void Renderer::RenderFog(const glm::mat4& projectionMatrix, float density, const glm::vec3& color) {
+void Renderer::RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color) {
     fogFilter->SetProjectionMatrix(projectionMatrix);
     fogFilter->SetDensity(density);
     fogFilter->SetColor(color);
-    postProcessing->ApplyFilter(fogFilter);
+    postProcessing->ApplyFilter(renderSurface, fogFilter);
 }
 
-void Renderer::ApplyGlow(int blurAmount) {
+void Renderer::ApplyGlow(RenderSurface* renderSurface, int blurAmount) {
     glowBlurFilter->SetScreenSize(screenSize);
     for (int i = 0; i < blurAmount; ++i) {
         glowBlurFilter->SetHorizontal(true);
-        postProcessing->ApplyFilter(glowBlurFilter);
+        postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
         glowBlurFilter->SetHorizontal(false);
-        postProcessing->ApplyFilter(glowBlurFilter);
+        postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
     }
-    postProcessing->ApplyFilter(glowFilter);
+    postProcessing->ApplyFilter(renderSurface, glowFilter);
 }
 
-void Renderer::ApplyColorFilter(const glm::vec3& color) {
+void Renderer::ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color) {
     colorFilter->SetColor(color);
-    postProcessing->ApplyFilter(colorFilter);
+    postProcessing->ApplyFilter(renderSurface, colorFilter);
 }
 
-void Renderer::GammaCorrect() {
-    postProcessing->ApplyFilter(gammaCorrectionFilter);
+void Renderer::GammaCorrect(RenderSurface* renderSurface) {
+    postProcessing->ApplyFilter(renderSurface, gammaCorrectionFilter);
 }
 
-void Renderer::DisplayResults(bool dither) {
-    postProcessing->Render(dither);
+void Renderer::DisplayResults(RenderSurface* renderSurface, bool dither) {
+    postProcessing->Render(renderSurface, dither);
 }
 
 void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp) {

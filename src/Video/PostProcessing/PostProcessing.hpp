@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 
 namespace Video {
+    class ShaderProgram;
+    class RenderSurface;
     class RenderTarget;
     class Filter;
     namespace Geometry {
@@ -36,19 +38,26 @@ namespace Video {
             
             /// Apply a filter to the render image.
             /**
+             * TODO
              * filter %Filter to apply.
              */
-            void ApplyFilter(Filter* filter);
+            void ApplyFilter(Video::RenderSurface* renderSurface, Filter* filter);
             
             /// Render resulting image to screen.
             /**
+             * TODO
              * @param dither Whether to use dithering.
              */
-            void Render(bool dither = false);
+            void Render(Video::RenderSurface* renderSurface, bool dither = false);
             
         private:
             short int which = 0;
             RenderTarget* buffers[2];
             const Geometry::Rectangle* rectangle;
+
+            float ditherTime = 0.f;
+
+            ShaderProgram* shaderProgram;
+            ShaderProgram* ditherShaderProgram;
     };
 }

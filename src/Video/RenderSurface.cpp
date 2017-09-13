@@ -18,15 +18,15 @@ RenderSurface::RenderSurface(const glm::vec2& size) {
     // Post processing textures.
     colorTexture[0] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA16F, GL_UNSIGNED_BYTE);
     colorTexture[1] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA16F, GL_UNSIGNED_BYTE);
-    extraTexture[0] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
-    extraTexture[1] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
-    depth2Texture[0] = new ReadWriteTexture(size, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32, GL_FLOAT);
-    depth2Texture[1] = new ReadWriteTexture(size, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32, GL_FLOAT);
+    extraColorTexture[0] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
+    extraColorTexture[1] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
+    extraDepthTexture[0] = new ReadWriteTexture(size, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32, GL_FLOAT);
+    extraDepthTexture[1] = new ReadWriteTexture(size, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32, GL_FLOAT);
 
     // Frame buffers.
     deferredFrameBuffer = new FrameBuffer({ albedoTexture, normalTexture, specTexture, glowTexture, depthTexture });
-    postProcessingFrameBuffer[0] = new FrameBuffer({ colorTexture[0], extraTexture[0], depth2Texture[0] });
-    postProcessingFrameBuffer[1] = new FrameBuffer({ colorTexture[1], extraTexture[1], depth2Texture[1] });
+    postProcessingFrameBuffer[0] = new FrameBuffer({ colorTexture[0], extraColorTexture[0], extraDepthTexture[0] });
+    postProcessingFrameBuffer[1] = new FrameBuffer({ colorTexture[1], extraColorTexture[1], extraDepthTexture[1] });
 }
 
 RenderSurface::~RenderSurface() {
@@ -42,19 +42,22 @@ RenderSurface::~RenderSurface() {
 
     delete colorTexture[0];
     delete colorTexture[1];
-    delete extraTexture[0];
-    delete extraTexture[1];
-    delete depth2Texture[0];
-    delete depth2Texture[1];
+    delete extraColorTexture[0];
+    delete extraColorTexture[1];
+    delete extraDepthTexture[0];
+    delete extraDepthTexture[1];
 }
 
 glm::vec2 RenderSurface::GetSize() const {
     return size;
 }
 
-
 FrameBuffer* RenderSurface::GetDeferredFrameBuffer() const {
     return deferredFrameBuffer;
+}
+
+FrameBuffer* RenderSurface::GetPostProcessingFrameBuffer() const {
+    return postProcessingFrameBuffer[which];
 }
 
 ReadWriteTexture* RenderSurface::GetAlbedoTexture() const {
@@ -75,4 +78,20 @@ ReadWriteTexture* RenderSurface::GetGlowTexture() const {
 
 ReadWriteTexture* RenderSurface::GetDepthTexture() const {
     return depthTexture;
+}
+
+ReadWriteTexture* RenderSurface::GetColorTexture() const {
+    return colorTexture[which];
+}
+
+ReadWriteTexture* RenderSurface::GetExtraColorTexture() const {
+    return extraColorTexture[which];
+}
+
+ReadWriteTexture* RenderSurface::GetExtraDepthTexture() const {
+    return extraDepthTexture[which];
+}
+
+void RenderSurface::Swap() {
+    which = 1 - which;
 }
