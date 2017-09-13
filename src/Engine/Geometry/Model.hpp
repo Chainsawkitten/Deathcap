@@ -44,9 +44,6 @@ namespace Geometry {
             /// The name of the model.
             std::string name;
             
-            /// The extension of the model.
-            std::string extension;
-            
         protected:
             /// Generate vertex buffer.
             /**
