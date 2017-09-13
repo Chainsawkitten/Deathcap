@@ -50,10 +50,10 @@ class Entity {
         /// Check if entity is a child.
         /**
         * @param child The entity you want to check if it is a child.
-        * @param deep Should we also check if it's a child of a child?.
-        * @return The new entity.
+        * @param deep True if we want to check if it's a grandchild, false if we do not.
+        * @return True if it has a child, false if it does not.
         */
-        bool HasChild(Entity* child, bool deep = true);
+        const bool HasChild(Entity* child, bool deep = true);
 
         /// Instantiate a scene as a child to this entity.
         /**

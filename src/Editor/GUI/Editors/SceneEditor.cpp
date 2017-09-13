@@ -7,7 +7,6 @@
 
 using namespace GUI;
 
-Entity* draggedEntity = nullptr;
 
 enum DraggedItemState {
 
