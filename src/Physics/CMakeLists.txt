@@ -1,12 +1,12 @@
 set(SRCS
-	GlmConversion.cpp
-	RigidBody.cpp
+    GlmConversion.cpp
+    RigidBody.cpp
     Simulator.cpp
 )
 
 set(HEADERS
-	GlmConversion.hpp
-	RigidBody.hpp
+    GlmConversion.hpp
+    RigidBody.hpp
     Simulator.hpp
 )
 
