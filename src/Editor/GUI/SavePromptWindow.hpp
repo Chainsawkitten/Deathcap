@@ -5,11 +5,11 @@
 #include <string>
 
 namespace GUI {
-    /// A window that asks the user if he wants to save before quitting
+    /// A window that asks the user if they want to save before quitting.
     class SavePromptWindow {
         public:
             
-            /// Show the window and lets the user decide if he wants to save
+            /// Show the window and let the user decide if they want to save.
             void Show();
             
             /// Get whether the window is visible.
