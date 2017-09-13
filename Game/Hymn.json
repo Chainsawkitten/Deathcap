@@ -30,17 +30,14 @@
 	"models" : 
 	[
 		{
-			"extension" : "fbx",
 			"name" : "CartSecond",
 			"type" : "Static"
 		},
 		{
-			"extension" : "fbx",
 			"name" : "Hands",
 			"type" : "Static"
 		},
 		{
-			"extension" : "fbx",
 			"name" : "Cave",
 			"type" : "Static"
 		}
