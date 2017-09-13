@@ -5,11 +5,11 @@
 #include <string>
 
 namespace GUI {
-    /// A window where a hymn can be selected.
+    /// A window that asks the user if he wants to save before quitting
     class SavePromptWindow {
         public:
             
-            /// Show the window and let the user select a hymn.
+            /// Show the window and lets the user decide if he wants to save
             void Show();
             
             /// Get whether the window is visible.
