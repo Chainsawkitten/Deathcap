@@ -90,9 +90,8 @@ int main() {
                 }
                 
                 if (Input()->Triggered(InputHandler::PLAYTEST)) {
-                    // Reload hymn.
-                    std::string path = Hymn().GetPath();
-                    Hymn().Load(path);
+                    // Rollback to the editor state.
+                    editor->LoadEditorState();
                     
                     // Turn editor back on.
                     editor->SetVisible(true);

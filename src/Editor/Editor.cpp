@@ -35,6 +35,7 @@ Editor::Editor() {
     Input()->AssignButton(InputHandler::CONTROL, InputHandler::KEYBOARD, GLFW_KEY_LEFT_CONTROL);
     Input()->AssignButton(InputHandler::NEW, InputHandler::KEYBOARD, GLFW_KEY_N);
     Input()->AssignButton(InputHandler::OPEN, InputHandler::KEYBOARD, GLFW_KEY_O);
+    Input()->AssignButton(InputHandler::SAVE, InputHandler::KEYBOARD, GLFW_KEY_S);
     Input()->AssignButton(InputHandler::CAMERA, InputHandler::MOUSE, GLFW_MOUSE_BUTTON_MIDDLE);
     Input()->AssignButton(InputHandler::FORWARD, InputHandler::KEYBOARD, GLFW_KEY_W);
     Input()->AssignButton(InputHandler::BACKWARD, InputHandler::KEYBOARD, GLFW_KEY_S);
@@ -77,7 +78,14 @@ void Editor::Show(float deltaTime) {
             
             if (ImGui::MenuItem("Open Hymn", "CTRL+O"))
                 OpenHymn();
-            
+
+            if (Hymn().GetPath() != "") {
+
+                if (ImGui::MenuItem("Save Hymn", "CTRL+S"))
+                    Save();
+
+            }
+
             ImGui::Separator();
             
             if (ImGui::MenuItem("Settings"))
@@ -181,9 +189,33 @@ void Editor::Show(float deltaTime) {
         glm::mat4 orientation = cameraEntity->GetCameraOrientation();
         glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
         glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
-        float speed = 3.0f * deltaTime;
-        cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
-        cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        
+        //Move speed scaling.
+        float speed = 10.0f * deltaTime * (glm::abs(cameraEntity->position.y) / 10.0f);
+        float constantSpeed = 10.0f * deltaTime;
+        
+        if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
+            cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
+            cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        } else { 
+            cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
+            cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        }
+
+    }
+
+    //Scroll zoom.
+    if (Input()->GetScrollDown()) {
+        glm::mat4 orientation = cameraEntity->GetCameraOrientation();
+        glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+        float speed = 10.0f * deltaTime * (glm::length(cameraEntity->position) / 10.0f);
+        cameraEntity->position += speed * backward * 10.0f;
+    }
+    if (Input()->GetScrollUp()) {
+        glm::mat4 orientation = cameraEntity->GetCameraOrientation();
+        glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+        float speed = 10.0f * deltaTime * (glm::length(cameraEntity->position) / 10.0f);
+        cameraEntity->position += speed * backward * -10.0f;
     }
     
     if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "")
@@ -194,7 +226,10 @@ void Editor::Show(float deltaTime) {
     
     if (Input()->Triggered(InputHandler::OPEN) && Input()->Pressed(InputHandler::CONTROL))
         OpenHymn();
-    
+
+    if (Hymn().GetPath() != "" && Input()->Triggered(InputHandler::SAVE) && Input()->Pressed(InputHandler::CONTROL))
+        Save();
+
     if (play)
         Play();
     
@@ -222,12 +257,16 @@ Entity* Editor::GetCamera() const {
 }
 
 void Editor::Play() {
-    Save();
+    editorState = Hymn().ToJson();
     SetVisible(false);
     resourceList.HideEditors();
     resourceList.ResetScene();
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
+}
+
+void Editor::LoadEditorState() {
+    Hymn().FromJson(editorState);
 }
 
 void Editor::NewHymn() {
