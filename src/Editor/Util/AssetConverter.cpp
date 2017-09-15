@@ -70,7 +70,7 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
         meshData->isSkinned = false;
     }
     else {
-        meshData->skinnedVerticies = ConvertSkinnedVertices(aMesh, file, numVertices);
+        meshData->skinnedVertices = ConvertSkinnedVertices(aMesh, file, numVertices);
         meshData->isSkinned = true;
     }
 
@@ -240,7 +240,7 @@ void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData * meshDa
 
     // Find minimum/maximum bounding points.
     for (std::size_t i = 0; i < numVertices; ++i) {
-        const glm::vec3& pos = meshData->isSkinned ? meshData->skinnedVerticies[i].position : meshData->staticVertices[i].position;
+        const glm::vec3& pos = meshData->isSkinned ? meshData->skinnedVertices[i].position : meshData->staticVertices[i].position;
         if (pos.x > maxValues.x)
             maxValues.x = pos.x;
         else if (pos.x < minValues.x)
