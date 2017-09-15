@@ -30,14 +30,12 @@
 	"models" : 
 	[
 		{
+			"extension" : "",
 			"name" : "CartSecond",
 			"type" : "Static"
 		},
 		{
-			"name" : "Hands",
-			"type" : "Static"
-		},
-		{
+			"extension" : "",
 			"name" : "Cave",
 			"type" : "Static"
 		}
