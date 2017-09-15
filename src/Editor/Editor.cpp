@@ -240,7 +240,12 @@ void Editor::Show(float deltaTime) {
                 cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
             }
 
+
+
+
         }
+
+        glm::vec3 test = glm::vec3();
 
         //Scroll zoom.
         if (Input()->GetScrollDown()) {
