@@ -40,10 +40,10 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Texture* 
         glBindVertexArray(geometry->GetVertexArray());
         
         // Set texture locations
-        glUniform1i(shaderProgram->GetUniformLocation("baseImage"), 0);
-        glUniform1i(shaderProgram->GetUniformLocation("normalMap"), 1);
-        glUniform1i(shaderProgram->GetUniformLocation("specularMap"), 2);
-        glUniform1i(shaderProgram->GetUniformLocation("glowMap"), 3);
+        glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
+        glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
+        glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
+        glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
         
         // Textures
         glActiveTexture(GL_TEXTURE0);
