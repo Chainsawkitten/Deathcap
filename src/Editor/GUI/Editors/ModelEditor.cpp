@@ -66,7 +66,6 @@ void ModelEditor::SetVisible(bool visible) {
 }
 
 void ModelEditor::FileSelected(const std::string& file) {
-    model->extension = file.substr(file.find_last_of(".") + 1);
     destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + model->name + ".asset";
     source = file;
     hasSourceFile = true;

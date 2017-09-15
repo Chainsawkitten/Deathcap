@@ -24,8 +24,7 @@ Json::Value Model::Save() const {
 
 void Model::Load(const Json::Value& node) {
     name = node.get("name", "").asString();
-    extension = node.get("extension", "").asString();
-    Load((Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name + "." + extension).c_str());
+    Load((Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name + ".asset").c_str());
 }
 
 void Model::Load(const char* filename) {
