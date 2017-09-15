@@ -1,9 +1,10 @@
 #pragma once
 
 #include "SuperComponent.hpp"
+#include "../Geometry/Model.hpp"
 
 namespace Geometry {
-	class RiggedModel;
+	class Model;
 }
 
 namespace Component {
@@ -32,7 +33,7 @@ namespace Component {
             /**
              * Default: nullptr
              */
-            Geometry::RiggedModel* riggedModel = nullptr;
+            Geometry::Model* riggedModel = nullptr;
 
             /// Total time of animation.
             /**
