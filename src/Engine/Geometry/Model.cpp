@@ -17,7 +17,6 @@ Model::~Model() {
 Json::Value Model::Save() const {
     Json::Value model;
     model["name"] = name;
-    model["extension"] = extension;
     model["type"] = type == STATIC ? "Static" : "Skin";
     return model;
 }
