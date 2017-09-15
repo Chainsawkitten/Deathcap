@@ -1,7 +1,6 @@
 #include "ResourceList.hpp"
 
-#include <Engine/Geometry/RiggedModel.hpp>
-#include <Engine/Geometry/StaticModel.hpp>
+#include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
@@ -68,14 +67,9 @@ void ResourceList::Show() {
     // Models.
     bool modelPressed = false;
     if (ImGui::TreeNode("Models")) {
-        if (ImGui::Button("Add rigged model")) {
-            Geometry::Model* model = new Geometry::RiggedModel();
-            model->name = "RiggedModel #" + std::to_string(Hymn().modelNumber++);
-            Hymn().models.push_back(model);
-        }
-        if (ImGui::Button("Add static model")) {
-            Geometry::Model* model = new Geometry::StaticModel();
-            model->name = "StaticModel #" + std::to_string(Hymn().modelNumber++);
+        if (ImGui::Button("Add model")) {
+            Geometry::Model* model = new Geometry::Model();
+            model->name = "Model #" + std::to_string(Hymn().modelNumber++);
             Hymn().models.push_back(model);
         }
         
