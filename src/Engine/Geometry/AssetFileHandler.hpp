@@ -59,7 +59,7 @@ namespace Geometry {
             /// Default constructor.
             AssetFileHandler();
 
-            /// Open a .wkbf file.
+            /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              * @param mode Use READ or WRITE.
@@ -69,7 +69,7 @@ namespace Geometry {
             /// Destructor.
             ~AssetFileHandler();
 
-            /// Open a .wkbf file.
+            /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              */

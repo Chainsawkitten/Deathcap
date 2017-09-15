@@ -20,6 +20,6 @@ void Component::Animation::Load(const Json::Value& node) {
     std::string name = node.get("riggedModel", "").asString();
     for (Geometry::Model* model : Hymn().models) {
         if (model->name == name)
-            riggedModel = dynamic_cast<Geometry::Model*>(model);
+            riggedModel = model;
     }
 }
