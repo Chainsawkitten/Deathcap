@@ -33,7 +33,7 @@ void Model::Load(const char* filename) {
         type = meshData->isSkinned ? SKIN : STATIC;
 
         if (meshData->isSkinned) {
-            GenerateVertexBuffer(vertexBuffer, meshData->skinnedVerticies, meshData->numVertices);
+            GenerateVertexBuffer(vertexBuffer, meshData->skinnedVertices, meshData->numVertices);
             GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
             GenerateSkinVertexArray(vertexBuffer, indexBuffer, vertexArray);
         }

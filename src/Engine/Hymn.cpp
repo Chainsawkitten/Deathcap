@@ -264,7 +264,7 @@ void ActiveHymn::Update(float deltaTime) {
             Component::Animation* anim = entity->GetComponent<Component::Animation>();
             if (anim != nullptr) {
                 Geometry::Model* model = anim->riggedModel;
-                // TODO: Fix animations.
+                /// @todo Fix animations.
             }
         }
     }
