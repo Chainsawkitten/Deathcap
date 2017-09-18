@@ -41,7 +41,7 @@ namespace Video {
              * TODO
              * filter %Filter to apply.
              */
-            void ApplyFilter(Video::RenderSurface* renderSurface, Filter* filter);
+            void ApplyFilter(Video::RenderSurface* renderSurface, Filter* filter) const;
             
             /// Render resulting image to screen.
             /**

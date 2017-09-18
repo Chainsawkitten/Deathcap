@@ -55,32 +55,27 @@ void PostProcessing::UpdateBufferSize(const glm::vec2& screenSize) {
     buffers[1] = new RenderTarget(screenSize);
 }
 
-void PostProcessing::ApplyFilter(Video::RenderSurface* renderSurface, Video::Filter* filter) {
+void PostProcessing::ApplyFilter(Video::RenderSurface* renderSurface, Video::Filter* filter) const {
     // Always pass depth test.
     glDepthFunc(GL_ALWAYS);
-    
-    //buffers[1 - which]->SetTarget();
-    
+
+    // Swap render surface read/write buffers.
+    renderSurface->Swap();
+
+    // Set render surface as render target.
+    renderSurface->GetPostProcessingFrameBuffer()->SetTarget();
+
+    // Bind shaders.
     filter->GetShaderProgram()->Use();
     
     glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tDiffuse"), 0);
     renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE0);
-    //glActiveTexture(GL_TEXTURE0);
-    //glBindTexture(GL_TEXTURE_2D, buffers[which]->GetColorTexture());
-    
+
     glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tExtra"), 1);
-    renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE1);
-    //glActiveTexture(GL_TEXTURE1);
-    //glBindTexture(GL_TEXTURE_2D, buffers[which]->GetExtraTexture());
-    
+    renderSurface->GetExtraColorTexture()->BindForReading(GL_TEXTURE1);
+
     glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tDepth"), 2);
-    renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE2);
-    //glActiveTexture(GL_TEXTURE2);
-    //glBindTexture(GL_TEXTURE_2D, buffers[which]->GetDepthTexture());
-
-    renderSurface->Swap();
-
-    renderSurface->GetPostProcessingFrameBuffer()->SetTarget();
+    renderSurface->GetExtraDepthTexture()->BindForReading(GL_TEXTURE2);
     
     glBindVertexArray(rectangle->GetVertexArray());
     
@@ -90,9 +85,6 @@ void PostProcessing::ApplyFilter(Video::RenderSurface* renderSurface, Video::Fil
     
     // Reset depth testing to standard value.
     glDepthFunc(GL_LESS);
-    
-    renderSurface->Swap();
-    //which = 1 - which;
 }
 
 void PostProcessing::Render(RenderSurface* renderSurface, bool dither) {
@@ -105,13 +97,14 @@ void PostProcessing::Render(RenderSurface* renderSurface, bool dither) {
     ShaderProgram* shader = dither ? ditherShaderProgram : shaderProgram;
     shader->Use();
 
+    // Swap render surface read/write buffers.
     renderSurface->Swap();
 
     glUniform1i(shader->GetUniformLocation("tDiffuse"), 0);
     renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE0);
 
     glUniform1i(shader->GetUniformLocation("tDepth"), 1);
-    renderSurface->GetDepthTexture()->BindForReading(GL_TEXTURE1);
+    renderSurface->GetExtraDepthTexture()->BindForReading(GL_TEXTURE1);
 
     if (dither) {
         glUniform1f(shader->GetUniformLocation("time"), ditherTime);

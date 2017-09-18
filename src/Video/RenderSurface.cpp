@@ -57,7 +57,7 @@ FrameBuffer* RenderSurface::GetDeferredFrameBuffer() const {
 }
 
 FrameBuffer* RenderSurface::GetPostProcessingFrameBuffer() const {
-    return postProcessingFrameBuffer[which];
+    return postProcessingFrameBuffer[1 - which];
 }
 
 ReadWriteTexture* RenderSurface::GetAlbedoTexture() const {

@@ -28,6 +28,7 @@
 #include "../MainWindow.hpp"
 #include <Video/Lighting/Light.hpp>
 #include "../Hymn.hpp"
+#include "Util/Profiling.hpp"
 
 using namespace Component;
 
@@ -102,33 +103,54 @@ void RenderManager::Render(World& world, Entity* camera) {
         }
         
         // Light the world.
-        LightWorld(world, camera, renderSurface);
+        {
+            PROFILE("Light the world");
+            LightWorld(world, camera, renderSurface);
+        }
+
         
         // Anti-aliasing.
-        if (Hymn().filterSettings.fxaa)
+        if (Hymn().filterSettings.fxaa) {
+            PROFILE("Anti-aliasing(FXAA)");
             renderer->AntiAlias(renderSurface);
-        //
-        //// Fog.
-        //if (Hymn().filterSettings.fog)
-        //    renderer->RenderFog(camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
-        //
-        //// Render particles.
-        //Managers().particleManager->UpdateBuffer(world);
-        //Managers().particleManager->Render(world, camera);
-        //
-        //// Glow.
-        //if (Hymn().filterSettings.glow)
-        //    renderer->ApplyGlow(Hymn().filterSettings.glowBlurAmount);
-        //
-        //// Color.
-        //if (Hymn().filterSettings.color)
-        //    renderer->ApplyColorFilter(Hymn().filterSettings.colorColor);
-        //
-        //// Gamma correction.
-        //renderer->GammaCorrect();
+        }
+
+        
+        // Fog.
+        if (Hymn().filterSettings.fog) {
+            PROFILE("Fog");
+            renderer->RenderFog(renderSurface, camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+        }
+            
+        // Render particles.
+        {
+            PROFILE("Render particles");
+            Managers().particleManager->UpdateBuffer(world);
+            Managers().particleManager->Render(world, camera);
+        }
+       
+        
+        // Glow.
+        if (Hymn().filterSettings.glow) {
+            PROFILE("Glow");
+            renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
+        }
+        
+        // Color.
+        if (Hymn().filterSettings.color) {
+            PROFILE("Color");
+            renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
+        }  
+        
+        // Gamma correction.
+        { PROFILE("Gamma correction");
+            renderer->GammaCorrect(renderSurface);
+        }
         
         // Render to back buffer.
-        renderer->DisplayResults(renderSurface, true);
+        { PROFILE("Render to back buffer");
+            renderer->DisplayResults(renderSurface, true);
+        }
     }
 }
 
