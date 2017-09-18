@@ -234,14 +234,13 @@ void Editor::Show(float deltaTime) {
             if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
                 cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            }
-            else {
+            } else {
                 cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
             }
         }
 
-        // Move camera position and rotation to fixate on selected object
+        // Move camera position and rotation to fixate on selected object.
         if (Input()->Triggered(InputHandler::FOCUS)) {
 
             // When mousepicking is added, change this vec3 to object pivot.
