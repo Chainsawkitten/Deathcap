@@ -29,26 +29,17 @@ namespace Video {
     class Renderer {
         public:
             /// Create new renderer.
-            /**
-             * @param screenSize Size of the screen in pixels.
-             */
-            Renderer(const glm::vec2& screenSize);
+            Renderer();
             
             /// Destructor.
-            ~Renderer();
-            
-            /// Set screen size.
-            /**
-             * @param screenSize Size of the screen in pixels.
-             */
-            void SetScreenSize(const glm::vec2& screenSize);
+            ~Renderer(); 
             
             /// Clear the previous frame's data.
             void Clear();
             
             /// Start rendering the frame.
             /**
-             * @param renderSurface Contains frame buffer object.
+             * @param renderSurface %RenderSurface to render to.
             */
             void StartRendering(RenderSurface* renderSurface);
             
@@ -101,12 +92,14 @@ namespace Video {
             void Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
             
             /// Anti-alias using FXAA.
-            // TODO
+            /**
+             * @param renderSurface %RenderSurface to apply filter to.
+            */
             void AntiAlias(RenderSurface* renderSurface);
             
             /// Render fog.
             /**
-             * TODO
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param projectionMatrix The camera's projection matrix.
              * @param density The density of the fog.
              * @param color Color.
@@ -115,25 +108,25 @@ namespace Video {
             
             /// Apply glow effect.
             /**
-             * TODO
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param blurAmount How many times to blur the glow buffer.
              */
             void ApplyGlow(RenderSurface* renderSurface, int blurAmount);
             
             /// Apply a color filter.
             /**
-             * TODO
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param color Color.
              */
             void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
             /// Perform gamma correction.
-            //  TODO
+            //  @param renderSurface %RenderSurface to apply gamme correction to.
             void GammaCorrect(RenderSurface* renderSurface);
             
             /// Display the rendered results.
             /**
-             *TODO
+             * @param renderSurface %RenderSurface to render to back buffer.
              * @param dither Whether to use dithering.
              */
             void DisplayResults(RenderSurface* renderSurface, bool dither);
@@ -162,7 +155,6 @@ namespace Video {
             void StopRenderingIcons();
             
         private:
-            glm::vec2 screenSize;
             Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;

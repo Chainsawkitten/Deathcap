@@ -33,7 +33,7 @@
 using namespace Component;
 
 RenderManager::RenderManager() {
-    renderer = new Video::Renderer(MainWindow::GetInstance()->GetSize());
+    renderer = new Video::Renderer();
     
     // Render surface for main window.
     renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
@@ -208,7 +208,9 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
 }
 
 void RenderManager::UpdateBufferSize() {
-    renderer->SetScreenSize(MainWindow::GetInstance()->GetSize());
+    delete renderSurface;
+
+    renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
 void RenderManager::LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface) {

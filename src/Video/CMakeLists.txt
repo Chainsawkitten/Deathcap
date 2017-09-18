@@ -5,7 +5,6 @@ set(SRCS
         ReadWriteTexture.cpp
         Renderer.cpp
         RenderSurface.cpp
-        RenderTarget.cpp
         Culling/AxisAlignedBoundingBox.cpp
         Culling/Frustum.cpp
         Geometry/Geometry2D.cpp
@@ -36,7 +35,6 @@ set(HEADERS
         ReadWriteTexture.hpp
         Renderer.hpp
         RenderSurface.hpp
-        RenderTarget.hpp
         Culling/AxisAlignedBoundingBox.hpp
         Culling/Frustum.hpp
         Geometry/Geometry2D.hpp

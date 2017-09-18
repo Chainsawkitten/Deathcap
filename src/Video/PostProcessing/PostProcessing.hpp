@@ -5,7 +5,6 @@
 namespace Video {
     class ShaderProgram;
     class RenderSurface;
-    class RenderTarget;
     class Filter;
     namespace Geometry {
         class Rectangle;
@@ -16,43 +15,28 @@ namespace Video {
         public:
             /// Create new post-processing handler.
             /**
-             * @param screenSize The size of the screen in pixels.
              * @param rectangle %Rectangle to use for rendering.
              */
-            PostProcessing(const glm::vec2& screenSize, const Geometry::Rectangle* rectangle);
+            PostProcessing(const Geometry::Rectangle* rectangle);
             
             /// Destructor.
             ~PostProcessing();
             
-            /// Get render target.
-            /**
-             * @return Target to render to.
-             */
-            RenderTarget* GetRenderTarget() const;
-    
-            /// Updates the buffer size.
-            /**
-             * @param screenSize The size of the screen in pixels.
-             */
-            void UpdateBufferSize(const glm::vec2& screenSize);
-            
             /// Apply a filter to the render image.
             /**
-             * TODO
-             * filter %Filter to apply.
+             * @param renderSurface %RenderSurface to apply filter to.
+             * @param filter %Filter to apply.
              */
             void ApplyFilter(Video::RenderSurface* renderSurface, Filter* filter) const;
             
-            /// Render resulting image to screen.
+            /// Render %RenderSurface to screen.
             /**
-             * TODO
+             * @param renderSurface %RenderSurface to render to screen.
              * @param dither Whether to use dithering.
              */
             void Render(Video::RenderSurface* renderSurface, bool dither = false);
             
         private:
-            short int which = 0;
-            RenderTarget* buffers[2];
             const Geometry::Rectangle* rectangle;
 
             float ditherTime = 0.f;

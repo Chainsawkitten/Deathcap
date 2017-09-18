@@ -1,6 +1,5 @@
 #include "PostProcessing.hpp"
 
-#include <Video/RenderTarget.hpp>
 #include <Video/Shader/ShaderProgram.hpp>
 #include <Video/Geometry/Rectangle.hpp>
 #include <Video/PostProcessing/Filter.hpp>
@@ -14,9 +13,7 @@
 
 using namespace Video;
 
-PostProcessing::PostProcessing(const glm::vec2& screenSize, const Geometry::Rectangle* rectangle) {
-    buffers[0] = new RenderTarget(screenSize);
-    buffers[1] = new RenderTarget(screenSize);
+PostProcessing::PostProcessing(const Geometry::Rectangle* rectangle) {
     
     this->rectangle = rectangle;
 
@@ -33,26 +30,8 @@ PostProcessing::PostProcessing(const glm::vec2& screenSize, const Geometry::Rect
 }
 
 PostProcessing::~PostProcessing() {
-    delete buffers[0];
-    delete buffers[1];
-
     delete shaderProgram;
     delete ditherShaderProgram;
-}
-
-RenderTarget* PostProcessing::GetRenderTarget() const {
-    return buffers[which];
-}
-
-void PostProcessing::UpdateBufferSize(const glm::vec2& screenSize) {
-    delete shaderProgram;
-    delete ditherShaderProgram;
-
-    delete buffers[0];
-    delete buffers[1];
-    
-    buffers[0] = new RenderTarget(screenSize);
-    buffers[1] = new RenderTarget(screenSize);
 }
 
 void PostProcessing::ApplyFilter(Video::RenderSurface* renderSurface, Video::Filter* filter) const {

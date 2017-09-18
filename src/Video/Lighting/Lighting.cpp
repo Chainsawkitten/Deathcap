@@ -68,6 +68,8 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     
     shaderProgram->Use();
     
+    renderSurface->GetPostProcessingFrameBuffer()->SetTarget();
+
     renderSurface->GetAlbedoTexture()->BindForReading(GL_TEXTURE0 + 0);
     renderSurface->GetNormalTexture()->BindForReading(GL_TEXTURE0 + 1);
     renderSurface->GetSpecularTexture()->BindForReading(GL_TEXTURE0 + 2);

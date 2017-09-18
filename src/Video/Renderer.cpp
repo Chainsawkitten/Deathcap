@@ -13,7 +13,6 @@
 #include "PostProcessing/GammaCorrectionFilter.hpp"
 #include "PostProcessing/GlowBlurFilter.hpp"
 #include "PostProcessing/GlowFilter.hpp"
-#include "RenderTarget.hpp"
 #include "Texture/Texture2D.hpp"
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"
@@ -25,13 +24,12 @@
 
 using namespace Video;
 
-Renderer::Renderer(const glm::vec2& screenSize) {
-    this->screenSize = screenSize;
+Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     lighting = new Lighting(rectangle);
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
-    postProcessing = new PostProcessing(screenSize, rectangle);
+    postProcessing = new PostProcessing(rectangle);
     colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new FXAAFilter();
@@ -86,14 +84,6 @@ Renderer::~Renderer() {
     glDeleteVertexArrays(1, &vertexArray);
 }
 
-void Renderer::SetScreenSize(const glm::vec2& screenSize) {
-    this->screenSize = screenSize;
-    
-    postProcessing->UpdateBufferSize(screenSize);
-    delete lighting;
-    lighting = new Lighting(rectangle);
-}
-
 void Renderer::Clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -103,7 +93,7 @@ void Renderer::StartRendering(RenderSurface* renderSurface) {
     lighting->ClearLights();
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glViewport(0, 0, static_cast<GLsizei>(screenSize.x), static_cast<GLsizei>(screenSize.y));
+    glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
 }
 
 void Renderer::AddLight(const Video::Light& light) {
@@ -111,8 +101,6 @@ void Renderer::AddLight(const Video::Light& light) {
 }
 
 void Renderer::Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
-    //postProcessing->GetRenderTarget()->SetTarget();
-    renderSurface->GetPostProcessingFrameBuffer()->SetTarget(); // TMP
     lighting->Render(inverseProjectionMatrix, renderSurface);
 }
 
@@ -133,7 +121,7 @@ void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, co
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
-    fxaaFilter->SetScreenSize(screenSize);
+    fxaaFilter->SetScreenSize(renderSurface->GetSize());
     postProcessing->ApplyFilter(renderSurface, fxaaFilter);
 }
 
@@ -145,7 +133,7 @@ void Renderer::RenderFog(RenderSurface* renderSurface, const glm::mat4& projecti
 }
 
 void Renderer::ApplyGlow(RenderSurface* renderSurface, int blurAmount) {
-    glowBlurFilter->SetScreenSize(screenSize);
+    glowBlurFilter->SetScreenSize(renderSurface->GetSize());
     for (int i = 0; i < blurAmount; ++i) {
         glowBlurFilter->SetHorizontal(true);
         postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
