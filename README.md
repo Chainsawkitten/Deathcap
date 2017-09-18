@@ -39,3 +39,4 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [OpenVR](https://github.com/ValveSoftware/openvr) | BSD |
 | [SimpleIni](https://github.com/brofield/simpleini) | MIT |
 | [stb](https://github.com/nothings/stb) | Public domain |
+| [Steam Audio](https://valvesoftware.github.io/steam-audio/) | STEAM® AUDIO SDK License |
