@@ -261,7 +261,7 @@ void Editor::Show(float deltaTime) {
             float yaw = std::atan2(camDirection.x, -camDirection.z);
             cameraEntity->rotation.x = glm::degrees(yaw);
 
-            float xz = std::sqrtf(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
+            float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
             float pitch = std::atan2(-camDirection.y, xz);
             cameraEntity->rotation.y = glm::degrees(pitch);
 
