@@ -23,12 +23,10 @@ Editor::Editor() {
 
     // Load theme.
     std::string theme = EditorSettings::GetInstance().GetString("Theme");
-    if (FileSystem::FileExists((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + theme + ".json").c_str())) {
+    if (FileSystem::FileExists((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + theme + ".json").c_str()))
         ImGui::LoadTheme(theme.c_str());
-    }
-    else {
+    else
         ImGui::LoadDefaultTheme();
-    }
 
     // Assign controls.
     Input()->AssignButton(InputHandler::PROFILE, InputHandler::KEYBOARD, GLFW_KEY_F2);
@@ -246,7 +244,8 @@ void Editor::Show(float deltaTime) {
         // Move camera position and rotation to fixate on selected object
         if (Input()->Triggered(InputHandler::FOCUS)) {
 
-            glm::vec3 backward = glm::normalize(cameraEntity->position - glm::vec3(0, 0, 0)); // When mousepicking is added, change this vec3 to object pivot
+            // When mousepicking is added, change this vec3 to object pivot.
+            glm::vec3 backward = glm::normalize(cameraEntity->position - glm::vec3(0, 0, 0));
 
             while (glm::length(glm::vec3(0, 0, 0) - cameraEntity->position) > 10) {
                 cameraEntity->position -= backward;
@@ -255,8 +254,8 @@ void Editor::Show(float deltaTime) {
             while (glm::length(glm::vec3(0, 0, 0) - cameraEntity->position) < 10) {
                 cameraEntity->position += backward;
             }
-
-            glm::vec3 camDirection = glm::vec3(0, 0, 0) - cameraEntity->position; // When mousepicking is added, change this vec3 to object pivot. NOTE Does this do the same as 'backward' ?
+            // When mousepicking is added, change this vec3 to object pivot. NOTE Does this do the same as 'backward' ?
+            glm::vec3 camDirection = glm::vec3(0, 0, 0) - cameraEntity->position;
             glm::normalize(camDirection);
 
             float yaw = std::atan2(camDirection.x, -camDirection.z);
