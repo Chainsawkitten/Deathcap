@@ -234,7 +234,8 @@ void Editor::Show(float deltaTime) {
             if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
                 cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            } else {
+            }
+            else {
                 cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
             }
@@ -243,7 +244,7 @@ void Editor::Show(float deltaTime) {
         // Move camera position and rotation to fixate on selected object.
         if (Input()->Triggered(InputHandler::FOCUS)) {
 
-            // When mousepicking is added, change this vec3 to object pivot.
+            // When mousepicking is added, change this vec3(0,0,0) to object pivot.
             glm::vec3 backward = glm::normalize(cameraEntity->position - glm::vec3(0, 0, 0));
 
             while (glm::length(glm::vec3(0, 0, 0) - cameraEntity->position) > 10) {
@@ -253,7 +254,7 @@ void Editor::Show(float deltaTime) {
             while (glm::length(glm::vec3(0, 0, 0) - cameraEntity->position) < 10) {
                 cameraEntity->position += backward;
             }
-            // When mousepicking is added, change this vec3 to object pivot. NOTE Does this do the same as 'backward' ?
+            // When mousepicking is added, change this vec3(0,0,0) to object pivot. NOTE Does this do the same as 'backward' ?
             glm::vec3 camDirection = glm::vec3(0, 0, 0) - cameraEntity->position;
             glm::normalize(camDirection);
 
@@ -263,7 +264,6 @@ void Editor::Show(float deltaTime) {
             float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
             float pitch = std::atan2(-camDirection.y, xz);
             cameraEntity->rotation.y = glm::degrees(pitch);
-
         }
 
         //Scroll zoom.
