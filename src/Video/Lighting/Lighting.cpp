@@ -7,6 +7,7 @@
 #include "Post.vert.hpp"
 #include "Deferred.frag.hpp"
 #include "FrameBuffer.hpp"
+#include "ReadWriteTexture.hpp"
 #include "RenderSurface.hpp"
 
 using namespace Video;
@@ -70,11 +71,11 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     
     renderSurface->GetPostProcessingFrameBuffer()->SetTarget();
 
-    renderSurface->GetAlbedoTexture()->BindForReading(GL_TEXTURE0 + 0);
-    renderSurface->GetNormalTexture()->BindForReading(GL_TEXTURE0 + 1);
-    renderSurface->GetSpecularTexture()->BindForReading(GL_TEXTURE0 + 2);
-    renderSurface->GetGlowTexture()->BindForReading(GL_TEXTURE0 + 3);
-    renderSurface->GetDepthTexture()->BindForReading(GL_TEXTURE0 + 4);
+    renderSurface->GetAlbedoTexture()->BindForReading(GL_TEXTURE0);
+    renderSurface->GetNormalTexture()->BindForReading(GL_TEXTURE1);
+    renderSurface->GetSpecularTexture()->BindForReading(GL_TEXTURE2);
+    renderSurface->GetGlowTexture()->BindForReading(GL_TEXTURE3);
+    renderSurface->GetDepthTexture()->BindForReading(GL_TEXTURE4);
 
     glClear(GL_COLOR_BUFFER_BIT);
     

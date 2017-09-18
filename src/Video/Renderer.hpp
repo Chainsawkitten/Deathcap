@@ -121,7 +121,7 @@ namespace Video {
             void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
             /// Perform gamma correction.
-            //  @param renderSurface %RenderSurface to apply gamme correction to.
+            //  @param renderSurface %RenderSurface to apply gamma correction to.
             void GammaCorrect(RenderSurface* renderSurface);
             
             /// Display the rendered results.

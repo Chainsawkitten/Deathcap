@@ -2,9 +2,10 @@
 
 #include <GL/glew.h>
 #include <vector>
-#include "ReadWriteTexture.hpp"
 
 namespace Video {
+    class ReadWriteTexture;
+
     /// Frame buffer containing frame buffer object.
     class FrameBuffer {
         public:
