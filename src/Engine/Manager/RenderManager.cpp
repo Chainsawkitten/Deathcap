@@ -19,7 +19,6 @@
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
-#include "../Geometry/RiggedModel.hpp"
 #include "../Geometry/Skeleton.hpp"
 #include "../Texture/TextureAsset.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -88,19 +87,8 @@ void RenderManager::Render(World& world, Entity* camera) {
                 }
             }
         }
-        
-        // Render skinned meshes.
-        renderer->PrepareSkinnedMeshRendering(viewMatrix, projectionMatrix);
-        for (Mesh* mesh : meshes) {
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
-                Entity* entity = mesh->entity;
-                Material* material = entity->GetComponent<Material>();
-                if (material != nullptr) {
-                    Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
-                    renderer->RenderSkinnedMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), entity->GetModelMatrix(), model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
-                }
-            }
-        }
+
+        // TODO: Render skinned meshes.
         
         // Light the world.
         {

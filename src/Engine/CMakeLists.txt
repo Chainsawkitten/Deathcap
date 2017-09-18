@@ -27,12 +27,11 @@ set(SRCS
         Entity/Entity.cpp
         Entity/World.cpp
         Geometry/Animation.cpp
+        Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
-        Geometry/RiggedModel.cpp
         Geometry/Skeleton.cpp
-        Geometry/StaticModel.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
@@ -74,12 +73,11 @@ set(HEADERS
         Entity/Entity.hpp
         Entity/World.hpp
         Geometry/Animation.hpp
+        Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
-        Geometry/RiggedModel.hpp
         Geometry/Skeleton.hpp
-        Geometry/StaticModel.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
@@ -121,7 +119,8 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine Video Physics catch imgui stb simpleini ${OPENAL_LIB} angelscript)
+
+target_link_libraries(Engine Video Physics catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio)
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)

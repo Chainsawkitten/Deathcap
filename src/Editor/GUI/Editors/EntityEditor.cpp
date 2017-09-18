@@ -14,7 +14,6 @@
 #include <Engine/Component/ParticleEmitter.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Geometry/Model.hpp>
-#include <Engine/Geometry/RiggedModel.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
@@ -90,6 +89,10 @@ void EntityEditor::SetEntity(Entity* entity) {
     strcpy(name, entity->name.c_str());
 }
 
+Entity* EntityEditor::GetEntity() {
+    return entity;
+}
+
 bool EntityEditor::ShowsEntity(Entity* entity) {
     return this->entity == entity;
 }
@@ -113,7 +116,7 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
 
         for (Geometry::Model* model : Hymn().models) {
             if (ImGui::Selectable(model->name.c_str()))
-                animation->riggedModel = dynamic_cast<Geometry::RiggedModel*>(model);
+                animation->riggedModel = dynamic_cast<Geometry::Model*>(model);
         }
 
         ImGui::EndPopup();

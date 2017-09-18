@@ -33,9 +33,16 @@
 	path = externals/AngelScript
 	url = https://github.com/IngwiePhoenix/AngelScript.git
 	ignore = dirty
+[submodule "externals/openvr"]
+	path = externals/openvr
+	url = https://github.com/Chainsawkitten/openvr.git
+	shallow = true
 [submodule "externals/Catch"]
 	path = externals/Catch
 	url = https://github.com/philsquared/Catch.git
 [submodule "externals/bullet3"]
 	path = externals/bullet3
 	url = https://github.com/bulletphysics/bullet3.git
+[submodule "externals/SteamAudio"]
+	path = externals/SteamAudio
+	url = https://github.com/Chainsawkitten/SteamAudio-CMake.git
