@@ -213,15 +213,15 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     ImGui::Unindent();
 
     // Specular
-    ImGui::Text("Specular");
+    ImGui::Text("Metallic");
     ImGui::Indent();
     if (material->specular->IsLoaded())
         ImGui::Image((void*) material->specular->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select specular texture"))
-        ImGui::OpenPopup("Select specular texture");
+    if (ImGui::Button("Select metallic texture"))
+        ImGui::OpenPopup("Select metallic texture");
     
-    if (ImGui::BeginPopup("Select specular texture")) {
+    if (ImGui::BeginPopup("Select metallic texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
@@ -235,15 +235,15 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     ImGui::Unindent();
 
     // Glow
-    ImGui::Text("Glow");
+    ImGui::Text("Roughness");
     ImGui::Indent();
     if (material->glow->IsLoaded())
         ImGui::Image((void*) material->glow->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select glow texture"))
-        ImGui::OpenPopup("Select glow texture");
+    if (ImGui::Button("Select roughness texture"))
+        ImGui::OpenPopup("Select roughness texture");
     
-    if (ImGui::BeginPopup("Select glow texture")) {
+    if (ImGui::BeginPopup("Select roughness texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
         

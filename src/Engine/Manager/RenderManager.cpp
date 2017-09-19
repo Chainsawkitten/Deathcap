@@ -285,6 +285,7 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
         Video::Light light;
         light.position = viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
         light.intensities = spotLight->color * spotLight->intensity;
+		//light.intensities = spotLight->intensity;
         light.attenuation = spotLight->attenuation;
         light.ambientCoefficient = spotLight->ambientCoefficient;
         light.coneAngle = spotLight->coneAngle;
