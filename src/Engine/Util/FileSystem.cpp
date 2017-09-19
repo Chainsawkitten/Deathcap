@@ -156,16 +156,24 @@ namespace FileSystem {
     
     std::string GetName(const std::string& filepath) {
         std::size_t start = filepath.find_last_of(DELIMITER);
-        std::size_t end = filepath.find_last_of(".");
-        
-        if (start == std::string::npos || end == std::string::npos)
-            return "";
+        if (start == std::string::npos)
+            start = 0;
 
-        return filepath.substr(start, end);
+        std::size_t length = filepath.find_last_of(".") - start;
+        
+        return filepath.substr(start + 1, length - 1);
     }
 
     std::string Rename(const std::string& filepath, const std::string& name) {
-        return std::string();
+        std::size_t length = filepath.find_last_of(DELIMITER);
+        std::string path = filepath.substr(0, length + 1);
+
+        std::string newPath = path + name;
+
+        if (rename(filepath.c_str(), newPath.c_str()) > 0)
+            Log() << "Error renaming file: " << filepath <<"\n";
+
+        return newPath;
     }
 
     void ExecuteProgram(const std::string& path, const std::string& arguments) {

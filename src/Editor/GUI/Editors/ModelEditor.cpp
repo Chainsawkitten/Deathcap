@@ -12,10 +12,24 @@ using namespace GUI;
 
 void ModelEditor::Show() {
     if (ImGui::Begin(("Model: " + model->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(model))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
-        ImGui::InputText("Name", name, 128);
-        model->name = name;
+        if (ImGui::InputText("Name", name, 128, ImGuiInputTextFlags_EnterReturnsTrue)) {
+            model->name = name;
+
+            // Rename all the files.
+            if (FileSystem::FileExists((destination + ".fbx").c_str())) {
+                FileSystem::Rename(destination + ".fbx", std::string(name) + ".fbx");
+
+                if (FileSystem::FileExists((destination + ".asset").c_str()))
+                    FileSystem::Rename(destination + ".asset", std::string(name) + ".asset");
+                if (FileSystem::FileExists((destination + ".asset.meta").c_str()))
+                    FileSystem::Rename(destination + ".asset.meta", std::string(name) + ".asset.meta");
+
+                destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+            }
+        }
 
         if (ImGui::Button("Open model")) {
+            // Currently only fbx is tested.
             fileSelector.AddExtensions("fbx");
 
             // Set the initial path to the models directory.
@@ -39,17 +53,13 @@ void ModelEditor::Show() {
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
 
+                // Generate meta data.
                 AssetMetaData metaData;
                 AssetMetaData::MeshImportData * importData = new AssetMetaData::MeshImportData;
                 importData->triangulate = triangulate;
                 importData->importNormals = importNormals;
                 importData->importTangents = importTangents;
                 metaData.GenerateMetaData((destination + ".asset.meta").c_str(), importData);
-
-                // Check if file exits, if it doesn't copy the fbx file to the hymn folder.
-                if (!FileSystem::FileExists((destination + "." + FileSystem::GetExtension(source)).c_str())) {
-                    FileSystem::Copy(source.c_str(), (destination + "." + FileSystem::GetExtension(source)).c_str());
-                }
 
                 delete importData;
                 importData = nullptr;
@@ -84,21 +94,31 @@ void ModelEditor::SetVisible(bool visible) {
 }
 
 void ModelEditor::FileSelected(const std::string& file) {
-    destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + model->name;
     source = file;
-    //model->name = FileSystem::GetName(source);
+
+    // Rename the model to the name of the source file.
+    std::string name = FileSystem::GetName(source).c_str();
+    strcpy(this->name, name.c_str());
+    model->name = this->name;
+
+    destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+
+    // Check if source file is in propper directory, otherwise, copy it.
+    if (!FileSystem::FileExists((destination + "." + FileSystem::GetExtension(source)).c_str()))
+        FileSystem::Copy(source.c_str(), (destination + "." + FileSystem::GetExtension(source)).c_str());
+
     hasSourceFile = true;
-    Log() << FileSystem::GetName(source);
+
+    // Check if meta file already exists. If it does import the metadata.
     std::string filePath(destination + ".asset.meta");
     if (FileSystem::FileExists(filePath.c_str())) {
-
         AssetMetaData metaData;
         AssetMetaData::MeshImportData * importData = metaData.GetMetaData(filePath.c_str());
         triangulate = importData->triangulate;
         importNormals = importData->importNormals;
         importTangents = importData->importTangents;
         delete importData;
-        
+
         isImported = true;
     }
 }
