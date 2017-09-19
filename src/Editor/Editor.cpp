@@ -373,16 +373,14 @@ void Editor::OpenHymnClosed(const std::string& hymn) {
         Hymn().Load(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER +  hymn);
         resourceList.SetVisible(true);
 
-        Hymn().activeScene = 0;
-
         if (Hymn().scenes.size() != 0) {
 
             resourceList.GetScene().SetVisible(true);
-            resourceList.GetScene().SetScene(Hymn().activeScene);
-            Hymn().activeScene = Hymn().activeScene;
+            resourceList.GetScene().SetScene(0);
+            Hymn().activeScene = 0;
             resourceList.GetScene().entityEditor.SetVisible(false);
             Hymn().world.Clear();
-            Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Hymn().scenes[Hymn().activeScene] + ".json");
+            Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Hymn().scenes[0] + ".json");
 
         }
 
