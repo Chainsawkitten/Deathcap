@@ -56,6 +56,7 @@ set(UNUSED_MODEL_FORMATS
         ASSIMP_BUILD_3D_IMPORTER
         ASSIMP_BUILD_3MF_IMPORTER
         ASSIMP_BUILD_AC_IMPORTER
+        ASSIMP_BUILD_AMF_IMPORTER
         ASSIMP_BUILD_ASE_IMPORTER
         ASSIMP_BUILD_ASSBIN_IMPORTER
         ASSIMP_BUILD_ASSXML_IMPORTER
@@ -91,6 +92,7 @@ set(UNUSED_MODEL_FORMATS
         ASSIMP_BUILD_SMD_IMPORTER
         ASSIMP_BUILD_STL_IMPORTER 
         ASSIMP_BUILD_TERRAGEN_IMPORTER
+        ASSIMP_BUILD_X3D_IMPORTER
         ASSIMP_BUILD_XGL_IMPORTER
         ASSIMP_BUILD_X_IMPORTER
     )
@@ -121,3 +123,36 @@ macro(ProcessWithHeaderize headervar sourcevar inputfile outdir)
     list(APPEND ${headervar} ${outputfile}.hpp)
     list(APPEND ${sourcevar} ${outputfile}.cpp)
 endmacro()
+
+# Catch
+add_library(catch INTERFACE)
+target_include_directories(catch INTERFACE Catch/single_include)
+
+# Bullet
+set(BUILD_CPU_DEMOS OFF CACHE BOOL "Don't build bullet demos." FORCE)
+set(BUILD_UNIT_TESTS OFF CACHE BOOL "Don't build bullet tests." FORCE)
+set(BUILD_EXTRAS OFF CACHE BOOL "Don't build bullet extras." FORCE)
+set(BUILD_BULLET2_DEMOS OFF CACHE BOOL "Don't build bullet 2 demos." FORCE)
+set(BUILD_BULLET3 OFF CACHE BOOL "Don't build bullet 3." FORCE)
+add_subdirectory(bullet3)
+add_library(bullet INTERFACE)
+target_link_libraries(bullet INTERFACE BulletDynamics BulletCollision LinearMath)
+target_include_directories(bullet INTERFACE bullet3/src)
+
+# OpenVR
+add_subdirectory(openvr)
+
+set(OpenVR_LIBRARY "openvr_api")
+if(WIN32)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set(OpenVR_LIBRARY "openvr_api64")
+    endif()
+endif()
+
+target_include_directories(${OpenVR_LIBRARY} INTERFACE openvr/headers)
+target_include_directories(${OpenVR_LIBRARY} INTERFACE openvr/src/vrcommon)
+
+set(OpenVR_LIBRARY ${OpenVR_LIBRARY} PARENT_SCOPE)
+
+# Steam Audio
+add_subdirectory(SteamAudio)

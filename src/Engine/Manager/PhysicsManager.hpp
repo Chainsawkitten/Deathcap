@@ -3,9 +3,10 @@
 class World;
 
 #include <glm/glm.hpp>
+#include <Physics/Simulator.hpp>
 
 /// Updates the physics of the world.
-class PhysicsManager {
+class PhysicsManager : public Physics::Simulator {
     friend class Hub;
     
     public:

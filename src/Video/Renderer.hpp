@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -8,7 +9,7 @@ namespace Video {
     class Lighting;
     class StaticRenderProgram;
     class SkinRenderProgram;
-    class Texture;
+    class Texture2D;
     class PostProcessing;
     class ColorFilter;
     class FogFilter;
@@ -16,8 +17,10 @@ namespace Video {
     class GammaCorrectionFilter;
     class GlowBlurFilter;
     class GlowFilter;
+    class ShaderProgram;
     namespace Geometry {
         class Geometry3D;
+        class Rectangle;
     }
     
     /// Handles rendering using OpenGL.
@@ -60,7 +63,7 @@ namespace Video {
              * @param glowTexture Glow texture.
              * @param modelMatrix Model matrix.
              */
-            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture* diffuseTexture, const Texture* normalTexture, const Texture* specularTexture, const Texture* glowTexture, const glm::mat4 modelMatrix);
+            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix);
             
             /// Prepare for rendering skinned meshes.
             /**
@@ -80,7 +83,7 @@ namespace Video {
              * @param bones Transformations of skeleton.
              * @param bonesIT Inverse transpose transformations of skeleton.
              */
-            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture* diffuseTexture, const Video::Texture* normalTexture, const Video::Texture* specularTexture, const Video::Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
+            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* diffuseTexture, const Video::Texture2D* normalTexture, const Video::Texture2D* specularTexture, const Video::Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
             
             /// Add a light to the scene.
             void AddLight(const Video::Light& light);
@@ -123,6 +126,28 @@ namespace Video {
              */
             void DisplayResults(bool dither);
             
+            /// Begin rendering icons.
+            /**
+             * Needs to be called before RenderIcon.
+             * @param viewProjectionMatrix The camera's view projection matrix.
+             * @param cameraPosition The camera's position.
+             * @param cameraUp The camera's up vector.
+             */
+            void PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp);
+            
+            /// Render a billboarded icon.
+            /**
+             * PrepareRenderingIcons must be called before.
+             * @param position World position to render at.
+             * @param icon The icon to render.
+             */
+            void RenderIcon(const glm::vec3& position, const Texture2D* icon);
+            
+            /// Stop rendering icons.
+            /**
+             * Should be called after all icons have been rendered.
+             */
+            void StopRenderingIcons();
             
         private:
             glm::vec2 screenSize;
@@ -137,5 +162,13 @@ namespace Video {
             GammaCorrectionFilter* gammaCorrectionFilter;
             GlowFilter* glowFilter;
             GlowBlurFilter* glowBlurFilter;
+            
+            // Icon rendering.
+            ShaderProgram* iconShaderProgram;
+            GLuint vertexBuffer;
+            GLuint vertexArray;
+            const Texture2D* currentIcon = nullptr;
+            
+            Geometry::Rectangle* rectangle;
     };
 }

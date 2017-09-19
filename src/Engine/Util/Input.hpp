@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <glm/detail/type_vec2.hpp>
 
 struct GLFWwindow;
 
@@ -15,12 +16,14 @@ class InputHandler {
             CONTROL, ///< Control key.
             NEW, ///< Create new hymn.
             OPEN, ///< Open existing hymn.
+            SAVE, ///< Save opened hymn.
             CAMERA, ///< Move camera.
             FORWARD, ///< Move forward.
             BACKWARD, ///< Move backward.
             LEFT, ///< Move left.
             RIGHT, ///< Move right.
-            BUTTONS, ///< Total number of inputs
+            ZOOM, ///< Zoom to entity.
+            BUTTONS, ///< Total number of inputs.
         };
         
         /// Input device codes
@@ -59,7 +62,13 @@ class InputHandler {
          * @return Y-position of the cursor
          */
         double GetCursorY() const;
-        
+
+        /// Get cursor's coordinates.
+        /**
+         * @return X- and Y-position of the cursor
+         */
+        glm::vec2 GetCursorXY() const;
+ 
         /// Get whether user has moved scroll wheel up.
         /**
          * @return Whether user has scrolled up

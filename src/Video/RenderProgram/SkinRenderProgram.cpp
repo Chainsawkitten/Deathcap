@@ -1,7 +1,7 @@
 #include "SkinRenderProgram.hpp"
 
 #include "../Geometry/Geometry3D.hpp"
-#include "../Texture/Texture.hpp"
+#include "../Texture/Texture2D.hpp"
 #include "../Culling/AxisAlignedBoundingBox.hpp"
 #include "../Culling/Frustum.hpp"
 #include <glm/gtc/matrix_transform.hpp>

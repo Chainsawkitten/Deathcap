@@ -14,13 +14,14 @@
 #include <Engine/Component/ParticleEmitter.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Geometry/Model.hpp>
-#include <Engine/Geometry/RiggedModel.hpp>
-#include <Engine/Texture/Texture2D.hpp>
+#include <Engine/Texture/TextureAsset.hpp>
+#include <Video/Texture/Texture2D.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
+#include <Engine/Manager/ParticleManager.hpp>
 
 #include "../../Util/EditorSettings.hpp"
 #include "../FileSelector.hpp"
@@ -88,6 +89,10 @@ void EntityEditor::SetEntity(Entity* entity) {
     strcpy(name, entity->name.c_str());
 }
 
+Entity* EntityEditor::GetEntity() {
+    return entity;
+}
+
 bool EntityEditor::ShowsEntity(Entity* entity) {
     return this->entity == entity;
 }
@@ -111,7 +116,7 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
 
         for (Geometry::Model* model : Hymn().models) {
             if (ImGui::Selectable(model->name.c_str()))
-                animation->riggedModel = dynamic_cast<Geometry::RiggedModel*>(model);
+                animation->riggedModel = dynamic_cast<Geometry::Model*>(model);
         }
 
         ImGui::EndPopup();
@@ -170,8 +175,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     // Diffuse
     ImGui::Text("Diffuse");
     ImGui::Indent();
-    if (material->diffuse->IsLoaded())
-        ImGui::Image((void*) material->diffuse->GetTextureID(), ImVec2(128, 128));
+    if (material->diffuse->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->diffuse->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
     if (ImGui::Button("Select diffuse texture"))
         ImGui::OpenPopup("Select diffuse texture");
@@ -180,7 +185,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (Texture2D* texture : Hymn().textures) {
+        for (TextureAsset* texture : Hymn().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
                 material->diffuse = texture;
         }
@@ -193,8 +198,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     // Normal
     ImGui::Text("Normal");
     ImGui::Indent();
-    if (material->normal->IsLoaded())
-        ImGui::Image((void*) material->normal->GetTextureID(), ImVec2(128, 128));
+    if (material->normal->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->normal->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
     if (ImGui::Button("Select normal texture"))
         ImGui::OpenPopup("Select normal texture");
@@ -203,7 +208,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (Texture2D* texture : Hymn().textures) {
+        for (TextureAsset* texture : Hymn().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
                 material->normal = texture;
         }
@@ -215,8 +220,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     // Specular
     ImGui::Text("Metallic");
     ImGui::Indent();
-    if (material->specular->IsLoaded())
-        ImGui::Image((void*) material->specular->GetTextureID(), ImVec2(128, 128));
+    if (material->specular->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->specular->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
     if (ImGui::Button("Select metallic texture"))
         ImGui::OpenPopup("Select metallic texture");
@@ -225,7 +230,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (Texture2D* texture : Hymn().textures) {
+        for (TextureAsset* texture : Hymn().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
                 material->specular = texture;
         }
@@ -237,8 +242,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     // Glow
     ImGui::Text("Roughness");
     ImGui::Indent();
-    if (material->glow->IsLoaded())
-        ImGui::Image((void*) material->glow->GetTextureID(), ImVec2(128, 128));
+    if (material->glow->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->glow->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
     if (ImGui::Button("Select roughness texture"))
         ImGui::OpenPopup("Select roughness texture");
@@ -247,7 +252,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (Texture2D* texture : Hymn().textures) {
+        for (TextureAsset* texture : Hymn().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
                 material->glow = texture;
         }

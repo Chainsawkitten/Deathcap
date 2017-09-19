@@ -27,12 +27,11 @@ set(SRCS
         Entity/Entity.cpp
         Entity/World.cpp
         Geometry/Animation.cpp
+        Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
-        Geometry/RiggedModel.cpp
         Geometry/Skeleton.cpp
-        Geometry/StaticModel.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
@@ -47,7 +46,7 @@ set(SRCS
         Util/Json.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
-        Texture/Texture2D.cpp
+        Texture/TextureAsset.cpp
         Script/ScriptFile.cpp
         Input/Input.cpp
     )
@@ -74,12 +73,11 @@ set(HEADERS
         Entity/Entity.hpp
         Entity/World.hpp
         Geometry/Animation.hpp
+        Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
-        Geometry/RiggedModel.hpp
         Geometry/Skeleton.hpp
-        Geometry/StaticModel.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
@@ -94,25 +92,13 @@ set(HEADERS
         Util/Json.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
-        Texture/Texture2D.hpp
+        Texture/TextureAsset.hpp
         Script/ScriptFile.hpp
         Input/Input.hpp
     )
 
 # Setup embedded source
 set(EMBEDDED_INPUT
-    ../../shaders/Default2D.vert
-    ../../shaders/Deferred.frag
-    ../../shaders/DebugDrawing.vert
-    ../../shaders/DebugDrawing.frag
-    ../../shaders/EditorEntity.vert
-    ../../shaders/EditorEntity.geom
-    ../../shaders/EditorEntity.frag
-    ../../shaders/Texture2D.frag
-    ../../shaders/Particle.vert
-    ../../shaders/Particle.geom
-    ../../shaders/Particle.frag
-    ../../shaders/Post.vert
     ../../assets/Camera.png
     ../../assets/DefaultDiffuse.png
     ../../assets/DefaultNormal.png
@@ -133,6 +119,23 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine Video imgui stb simpleini ${OPENAL_LIB} angelscript)
+
+target_link_libraries(Engine Video Physics catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio)
+
+# Measure VRAM dependencies.
+if(MeasureVRAM)
+    target_link_libraries(Engine ${DirectX11_LIBRARIES})
+    target_include_directories(Engine PRIVATE ${DirectX11_INCLUDE_DIRS})
+endif()
+
+# Measure RAM dependencies.
+if(WIN32)
+    find_library(PSAPI Psapi)
+    if(PSAPI)
+        add_definitions(-DMEASURE_RAM)
+        target_link_libraries(Engine ${PSAPI})
+    endif()
+endif()
+
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)

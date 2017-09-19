@@ -10,11 +10,16 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
+#include <Engine/Manager/ParticleManager.hpp>
 #include <Engine/Util/Profiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>
 #include "ImGui/OpenGLImplementation.hpp"
 #include <imgui.h>
+
+#ifdef VR_SUPPORT
+#include <openvr.h>
+#endif
 
 int main() {
     // Enable logging if requested.
@@ -29,6 +34,13 @@ int main() {
     MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Hymn to Beauty", EditorSettings::GetInstance().GetBool("Debug Context"));
     glewInit();
     window->Init(false);
+    
+    // Init VR.
+#ifdef VR_SUPPORT
+    vr::EVRInitError error;
+    vr::IVRSystem* vrSystem = vr::VR_Init(&error, vr::VRApplication_Scene);
+    Log() << "VR init: " << error << "\n";
+#endif
     
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
     
@@ -45,7 +57,7 @@ int main() {
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
     double lastTimeRender = glfwGetTime();
-    while (!window->ShouldClose()) {
+    while (!window->ShouldClose() || !editor->ReadyToClose()) {
         float deltaTime = static_cast<float>(glfwGetTime() - lastTime);
         lastTime = glfwGetTime();
         
@@ -68,7 +80,11 @@ int main() {
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
                 Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"));
                 
+                if (window->ShouldClose())
+                    editor->Close();
+    
                 editor->Show(deltaTime);
+
             } else {
                 { PROFILE("Update");
                     Hymn().Update(deltaTime);
@@ -78,9 +94,8 @@ int main() {
                 }
                 
                 if (Input()->Triggered(InputHandler::PLAYTEST)) {
-                    // Reload hymn.
-                    std::string path = Hymn().GetPath();
-                    Hymn().Load(path);
+                    // Rollback to the editor state.
+                    editor->LoadEditorState();
                     
                     // Turn editor back on.
                     editor->SetVisible(true);

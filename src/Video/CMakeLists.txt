@@ -1,4 +1,6 @@
 set(SRCS
+        DebugDrawing.cpp
+        ParticleRenderer.cpp
         Renderer.cpp
         RenderTarget.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -21,9 +23,12 @@ set(SRCS
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         Texture/Texture.cpp
+        Texture/Texture2D.cpp
     )
 
 set(HEADERS
+        DebugDrawing.hpp
+        ParticleRenderer.hpp
         Renderer.hpp
         RenderTarget.hpp
         Culling/AxisAlignedBoundingBox.hpp
@@ -48,13 +53,22 @@ set(HEADERS
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         Texture/Texture.hpp
+        Texture/Texture2D.hpp
     )
 
 # Setup embedded source
 set(EMBEDDED_INPUT
+    ../../shaders/DebugDrawing.vert
+    ../../shaders/DebugDrawing.frag
     ../../shaders/Default3D.vert
     ../../shaders/Default3D.frag
     ../../shaders/Deferred.frag
+    ../../shaders/EditorEntity.vert
+    ../../shaders/EditorEntity.geom
+    ../../shaders/EditorEntity.frag
+    ../../shaders/Particle.vert
+    ../../shaders/Particle.geom
+    ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostColor.frag
     ../../shaders/PostCopy.frag
@@ -76,6 +90,6 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Video STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Video Utility glew glm assimp jsoncpp_lib_static)
+target_link_libraries(Video Utility glew glm assimp jsoncpp_lib_static stb ${OpenVR_LIBRARY})
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
 set_property(TARGET Video PROPERTY CXX_STANDARD_REQUIRED ON)

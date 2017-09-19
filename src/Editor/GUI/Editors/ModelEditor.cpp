@@ -1,5 +1,4 @@
 #include "ModelEditor.hpp"
-
 #include <Engine/Geometry/Model.hpp>
 #include "../FileSelector.hpp"
 #include <functional>
@@ -13,16 +12,37 @@ void ModelEditor::Show() {
     if (ImGui::Begin(("Model: " + model->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(model))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
         model->name = name;
-        
-        if (ImGui::Button("Load model")) {
+
+        if (ImGui::Button("Open model")) {
             fileSelector.AddExtensions("fbx");
             fileSelector.AddExtensions("md5mesh");
             fileSelector.SetFileSelectedCallback(std::bind(&ModelEditor::FileSelected, this, std::placeholders::_1));
             fileSelector.SetVisible(true);
+            isImported = false;
+        }
+
+        if (hasSourceFile) {
+            ImGui::Text("Mesh Data");
+            ImGui::Checkbox("Triangulate", &triangulate);
+            ImGui::Checkbox("Import Normals", &importNormals);
+            ImGui::Checkbox("Import Tangents", &importTangents);
+
+            std::string button = isImported ? "Re-import" : "Import";
+
+            if (ImGui::Button(button.c_str())) {
+                AssetConverter asset;
+                asset.Convert(source.c_str(), destination.c_str(), triangulate, importNormals, importTangents);
+                model->Load(destination.c_str());
+                msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
+                isImported = true;
+            }
+
+            if (isImported)
+                ImGui::Text(msgString.c_str());
         }
     }
     ImGui::End();
-    
+
     if (fileSelector.IsVisible())
         fileSelector.Show();
 }
@@ -33,7 +53,7 @@ const Geometry::Model* ModelEditor::GetModel() const {
 
 void ModelEditor::SetModel(Geometry::Model* model) {
     this->model = model;
-    
+
     strcpy(name, model->name.c_str());
 }
 
@@ -46,8 +66,7 @@ void ModelEditor::SetVisible(bool visible) {
 }
 
 void ModelEditor::FileSelected(const std::string& file) {
-    model->extension = file.substr(file.find_last_of(".") + 1);
-    std::string destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + model->name + "." + model->extension;
-    FileSystem::Copy(file.c_str(), destination.c_str());
-    model->Load(file.c_str());
+    destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + model->name + ".asset";
+    source = file;
+    hasSourceFile = true;
 }

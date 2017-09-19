@@ -1,0 +1,74 @@
+{
+	"activeScene" : 0,
+	"filters" : 
+	{
+		"color" : false,
+		"colorColor" : 
+		{
+			"x" : 1.0,
+			"y" : 1.0,
+			"z" : 1.0
+		},
+		"fog" : false,
+		"fogColor" : 
+		{
+			"x" : 1.0,
+			"y" : 1.0,
+			"z" : 1.0
+		},
+		"fogDensity" : 0.00099999993108212948,
+		"fxaa" : true,
+		"glow" : false,
+		"glowBlurAmount" : 1
+	},
+	"input" : 
+	[
+		{
+			"size" : 0
+		}
+	],
+	"models" : 
+	[
+		{
+			"name" : "CartSecond",
+			"type" : "Static"
+		},
+		{
+			"name" : "Cave",
+			"type" : "Static"
+		}
+	],
+	"scenes" : 
+	[
+		"TestScene"
+	],
+	"scripts" : 
+	[
+		{
+			"name" : "Player"
+		},
+		{
+			"name" : "Cart"
+		}
+	],
+	"sounds" : null,
+	"textures" : 
+	[
+		{
+			"name" : "Texture #0",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #1",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #2",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #3",
+			"srgb" : false
+		}
+	]
+}
