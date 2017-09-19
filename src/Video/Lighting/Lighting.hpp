@@ -39,7 +39,7 @@ namespace Video {
              * @param inverseProjectionMatrix The camera's inverse projection matrix.
              * @param renderSurface %RenderSurface contaning textures.
              */
-            void Render(const glm::mat4& inverseProjectionMatrix, Video::RenderSurface* renderSurface);
+            void Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
             
         private:  
             const Geometry::Rectangle* rectangle;

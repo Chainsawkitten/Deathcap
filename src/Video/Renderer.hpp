@@ -40,7 +40,7 @@ namespace Video {
             /// Start rendering the frame.
             /**
              * @param renderSurface %RenderSurface to render to.
-            */
+             */
             void StartRendering(RenderSurface* renderSurface);
             
             /// Prepare for rendering static meshes.
