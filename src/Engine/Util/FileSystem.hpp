@@ -80,6 +80,21 @@ namespace FileSystem {
      * @return The extension part of the filename, converted to lower case.
      */
     std::string GetExtension(const std::string& filename);
+
+    /// Get the name of the file without the extension.
+    /**
+     * @param The datapath to the file.
+     * @return The name of the file without extension.
+     */
+    std::string GetName(const std::string& filepath);
+
+    /// Rename a existing file.
+    /**
+     * @param filepath The path of the original file.
+     * @param name New name of the file.
+     * @return The full par
+     */
+    std::string Rename(const std::string& filepath, const std::string& name);
     
     /// Execute a program asynchronously.
     /**
