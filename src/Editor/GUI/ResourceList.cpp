@@ -34,15 +34,11 @@ void ResourceList::Show() {
             Hymn().scenes.push_back("Scene #" + std::to_string(Hymn().scenes.size()));
         
         for (std::size_t i = 0; i < Hymn().scenes.size(); ++i) {
+            size_t activeScene = Hymn().activeScene;
             if (ImGui::Selectable(Hymn().scenes[i].c_str())) {
-                sceneEditor.Save();
-                sceneEditor.SetVisible(true);
-                sceneEditor.SetScene(i);
-                Hymn().activeScene = i;
-                sceneEditor.entityEditor.SetVisible(false);
-                Hymn().world.Clear();
-                std::string sceneFile = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Hymn().scenes[i] + ".json";
-                Hymn().world.Load(sceneFile);
+                changeScene = true;
+                sceneIndex = i;
+                savePromptWindow.SetTitle("Save before you switch scene?");
             }
             
             if (ImGui::BeginPopupContextItem(Hymn().scenes[i].c_str())) {
@@ -62,6 +58,51 @@ void ResourceList::Show() {
             }
         }
         ImGui::TreePop();
+
+        if (changeScene) {
+
+            if (Hymn().GetPath() != "") {
+
+                savePromptWindow.SetVisible(true);
+                savePromptWindow.Show();
+
+                switch (savePromptWindow.GetDecision())
+                {
+                case 0:
+                    sceneEditor.Save();
+                    sceneEditor.SetVisible(true);
+                    sceneEditor.SetScene(sceneIndex);
+                    Hymn().activeScene = sceneIndex;
+                    sceneEditor.entityEditor.SetVisible(false);
+                    Hymn().world.Clear();
+                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Hymn().scenes[sceneIndex] + ".json");
+                    changeScene = false;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.ResetDecision();
+                    break;
+
+                case 1:
+                    sceneEditor.SetVisible(true);
+                    sceneEditor.SetScene(sceneIndex);
+                    Hymn().activeScene = sceneIndex;
+                    sceneEditor.entityEditor.SetVisible(false);
+                    Hymn().world.Clear();
+                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Hymn().scenes[sceneIndex] + ".json");
+                    changeScene = false;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.ResetDecision();
+                    break;
+
+                default:
+                    break;
+                }
+
+            }
+
+
+
+        }
+
     }
     
     // Models.

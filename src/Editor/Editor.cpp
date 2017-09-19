@@ -56,6 +56,7 @@ Editor::Editor() {
     cursors[4] = glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
 
     savePromptAnswered = false;
+    savePromtWindow.SetTitle("Save before you quit?");
     close = false;
 
 }
@@ -371,6 +372,20 @@ void Editor::OpenHymnClosed(const std::string& hymn) {
         resourceList.ResetScene();
         Hymn().Load(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER +  hymn);
         resourceList.SetVisible(true);
+
+        Hymn().activeScene = 0;
+
+        if (Hymn().scenes.size() != 0) {
+
+            resourceList.GetScene().SetVisible(true);
+            resourceList.GetScene().SetScene(Hymn().activeScene);
+            Hymn().activeScene = Hymn().activeScene;
+            resourceList.GetScene().entityEditor.SetVisible(false);
+            Hymn().world.Clear();
+            Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Hymn().scenes[Hymn().activeScene] + ".json");
+
+        }
+
     }
     
     selectHymnWindow.SetVisible(false);
