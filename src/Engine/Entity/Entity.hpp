@@ -1,5 +1,4 @@
 #pragma once
-
 #include <map>
 #include <vector>
 #include <typeinfo>
@@ -7,6 +6,7 @@
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
 #include <fstream>
+
 
 /// %Entity containing various components.
 class Entity {
