@@ -9,6 +9,7 @@
 #include "FrameBuffer.hpp"
 #include "ReadWriteTexture.hpp"
 #include "RenderSurface.hpp"
+#include "Engine/Util/Profiling.hpp"
 
 using namespace Video;
 
@@ -89,26 +90,37 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     glUniform1i(shaderProgram->GetUniformLocation("tDepth"), 4);
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
-    
-    // Render lights.
-    unsigned int lightIndex = 0U;
-    for (const Light& light : lights) {
-        glUniform4fv(lightUniforms[lightIndex].position, 1, &light.position[0]);
-        glUniform3fv(lightUniforms[lightIndex].intensities, 1, &light.intensities[0]);
-        glUniform1f(lightUniforms[lightIndex].attenuation, light.attenuation);
-        glUniform1f(lightUniforms[lightIndex].ambientCoefficient, light.ambientCoefficient);
-        glUniform1f(lightUniforms[lightIndex].coneAngle, light.coneAngle);
-        glUniform3fv(lightUniforms[lightIndex].direction, 1, &light.direction[0]);
-        
-        if (++lightIndex >= lightCount) {
-            lightIndex = 0U;
-            glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+
+    {
+        PROFILE("Render lights");
+        // Render lights.
+        unsigned int lightIndex = 0U;
+
+        {
+            PROFILE("Update light buffer");
+
+            for (const Light& light : lights) {
+                glUniform4fv(lightUniforms[lightIndex].position, 1, &light.position[0]);
+                glUniform3fv(lightUniforms[lightIndex].intensities, 1, &light.intensities[0]);
+                glUniform1f(lightUniforms[lightIndex].attenuation, light.attenuation);
+                glUniform1f(lightUniforms[lightIndex].ambientCoefficient, light.ambientCoefficient);
+                glUniform1f(lightUniforms[lightIndex].coneAngle, light.coneAngle);
+                glUniform3fv(lightUniforms[lightIndex].direction, 1, &light.direction[0]);
+
+                if (++lightIndex >= lightCount) {
+                    lightIndex = 0U;
+                    glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+                }
+            }
         }
-    }
-    
-    if (lightIndex != 0U) {
-        glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
-        glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+        
+        {
+            PROFILE("Render light");
+            if (lightIndex != 0U) {
+                glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
+                glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+            }
+        }
     }
     
     if (!depthTest)

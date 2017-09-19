@@ -77,13 +77,16 @@ void RenderManager::Render(World& world, Entity* camera) {
         std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
         
         // Render static meshes.
-        renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
-        for (Mesh* mesh : meshes) {
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                Entity* entity = mesh->entity;
-                Material* material = entity->GetComponent<Material>();
-                if (material != nullptr) {
-                    renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), entity->GetModelMatrix());
+        {
+            PROFILE("Render static meshes");
+            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+            for (Mesh* mesh : meshes) {
+                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                    Entity* entity = mesh->entity;
+                    Material* material = entity->GetComponent<Material>();
+                    if (material != nullptr) {
+                        renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), entity->GetModelMatrix());
+                    }
                 }
             }
         }
