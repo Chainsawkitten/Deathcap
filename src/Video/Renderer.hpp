@@ -14,7 +14,6 @@ namespace Video {
     class ColorFilter;
     class FogFilter;
     class FXAAFilter;
-    class GammaCorrectionFilter;
     class GlowBlurFilter;
     class GlowFilter;
     class ShaderProgram;
@@ -120,10 +119,6 @@ namespace Video {
              */
             void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
-            /// Perform gamma correction.
-            //  @param renderSurface %RenderSurface to apply gamma correction to.
-            void GammaCorrect(RenderSurface* renderSurface);
-            
             /// Display the rendered results.
             /**
              * @param renderSurface %RenderSurface to render to back buffer.
@@ -163,7 +158,6 @@ namespace Video {
             ColorFilter* colorFilter;
             FogFilter* fogFilter;
             FXAAFilter* fxaaFilter;
-            GammaCorrectionFilter* gammaCorrectionFilter;
             GlowFilter* glowFilter;
             GlowBlurFilter* glowBlurFilter;
             

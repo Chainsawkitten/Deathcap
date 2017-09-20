@@ -131,12 +131,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (Hymn().filterSettings.color) {
             PROFILE("Color");
             renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
-        }  
-        
-        //// Gamma correction.
-        //{ PROFILE("Gamma correction");
-        //    renderer->GammaCorrect(renderSurface);
-        //}
+        }
         
         // Render to back buffer.
         { PROFILE("Render to back buffer");

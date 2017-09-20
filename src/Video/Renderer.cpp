@@ -33,7 +33,6 @@ Renderer::Renderer() {
     colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new FXAAFilter();
-    gammaCorrectionFilter = new GammaCorrectionFilter();
     glowFilter = new GlowFilter();
     glowBlurFilter = new GlowBlurFilter();
     
@@ -74,7 +73,6 @@ Renderer::~Renderer() {
     delete colorFilter;
     delete fogFilter;
     delete fxaaFilter;
-    delete gammaCorrectionFilter;
     delete glowFilter;
     delete glowBlurFilter;
     
@@ -146,10 +144,6 @@ void Renderer::ApplyGlow(RenderSurface* renderSurface, int blurAmount) {
 void Renderer::ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color) {
     colorFilter->SetColor(color);
     postProcessing->ApplyFilter(renderSurface, colorFilter);
-}
-
-void Renderer::GammaCorrect(RenderSurface* renderSurface) {
-    postProcessing->ApplyFilter(renderSurface, gammaCorrectionFilter);
 }
 
 void Renderer::DisplayResults(RenderSurface* renderSurface, bool dither) {
