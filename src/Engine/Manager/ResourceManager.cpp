@@ -138,25 +138,27 @@ void ResourceManager::FreeCube() {
         delete rectangle;
 }
 
-Geometry::Model* ResourceManager::CreateModel(std::string filename) {
-    if (models.find(filename) == models.end()) {
-        models[filename].model = new Geometry::Model(filename.c_str());
-        modelsInverse[models[filename].model] = filename;
-        models[filename].count = 1;
+Geometry::Model* ResourceManager::CreateModel(std::string name) {
+    if (models.find(name) == models.end()) {
+        Geometry::Model* model = new Geometry::Model();
+        model->Load(name);
+        models[name].model = model;
+        modelsInverse[model] = name;
+        models[name].count = 1;
     } else {
-        models[filename].count++;
+        models[name].count++;
     }
 
-    return models[filename].model;
+    return models[name].model;
 }
 
 void ResourceManager::FreeModel(Geometry::Model* model) {
-    string filename = modelsInverse[model];
+    string name = modelsInverse[model];
     
-    if (models[filename].count-- <= 1) {
+    if (models[name].count-- <= 1) {
         modelsInverse.erase(model);
         delete model;
-        models.erase(filename);
+        models.erase(name);
     }
 }
 

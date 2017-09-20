@@ -91,10 +91,10 @@ class ResourceManager {
         
         /// Create an model for rendering if it doesn't already exist.
         /**
-        * @param filename Filename of model file.
+        * @param name Name of model.
         * @return The model instance
         */
-        Geometry::Model* CreateModel(std::string filename);
+        Geometry::Model* CreateModel(std::string name);
 
         /// Free the reference to the model.
         /**

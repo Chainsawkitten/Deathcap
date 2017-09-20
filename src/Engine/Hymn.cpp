@@ -241,7 +241,7 @@ void ActiveHymn::SaveResources() const {
     // Save models.
     Json::Value modelsNode;
     for (Geometry::Model* model : models) {
-        modelsNode.append(model->Save());
+        modelsNode.append(model->name);
     }
     root["models"] = modelsNode;
     
@@ -288,11 +288,7 @@ void ActiveHymn::LoadResources() {
     // Load models.
     const Json::Value modelsNode = root["models"];
     for (unsigned int i = 0; i < modelsNode.size(); ++i) {
-        Geometry::Model* model;
-        std::string type = modelsNode[i].get("type", "").asString();
-        model = new Geometry::Model();
-        model->Load(modelsNode[i]);
-        models.push_back(model);
+        models.push_back(Managers().resourceManager->CreateModel(modelsNode[i].asString()));
     }
     
     // Load scripts.

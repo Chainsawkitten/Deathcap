@@ -1,14 +1,8 @@
 {
 	"models" : 
 	[
-		{
-			"name" : "CartSecond",
-			"type" : "Static"
-		},
-		{
-			"name" : "Cave",
-			"type" : "Static"
-		}
+		"CartSecond",
+		"Cave"
 	],
 	"scenes" : 
 	[
