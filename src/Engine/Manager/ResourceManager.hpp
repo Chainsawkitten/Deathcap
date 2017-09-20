@@ -18,6 +18,7 @@ namespace Geometry {
 namespace Audio {
     class SoundBuffer;
 }
+class TextureAsset;
 
 /// Handles all resources.
 class ResourceManager {
@@ -117,6 +118,20 @@ class ResourceManager {
          */
         void FreeTexture2D(Video::Texture2D* texture);
         
+        /// Create a texture asset if it doesn't already exist.
+        /**
+         * @param name The name of the texture asset.
+         * @return The %TextureAsset instance
+         */
+        TextureAsset* CreateTextureAsset(std::string name);
+        
+        /// Free the reference to the texture asset.
+        /**
+         * Deletes the instance if no more references exist.
+         * @param textureAsset %TextureAsset to dereference.
+         */
+        void FreeTextureAsset(TextureAsset* textureAsset);
+        
         /// Create a sound if it doesn't already exist.
         /**
          * Supported formats: Ogg Vorbis.
@@ -186,6 +201,14 @@ class ResourceManager {
         };
         std::map<const char*, Texture2DInstance> textures;
         std::map<Video::Texture2D*, const char*> texturesInverse;
+        
+        // Texture asset.
+        struct TextureAssetInstance {
+            TextureAsset* textureAsset;
+            int count;
+        };
+        std::map<std::string, TextureAssetInstance> textureAssets;
+        std::map<TextureAsset*, std::string> textureAssetsInverse;
         
         // Sound
         struct SoundInstance {

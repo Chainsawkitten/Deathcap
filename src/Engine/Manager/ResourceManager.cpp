@@ -8,6 +8,7 @@
 #include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
 #include "../Audio/VorbisFile.hpp"
+#include "../Texture/TextureAsset.hpp"
 
 using namespace std;
 
@@ -178,6 +179,29 @@ void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
         texturesInverse.erase(texture);
         delete texture;
         textures.erase(data);
+    }
+}
+
+TextureAsset* ResourceManager::CreateTextureAsset(std::string name) {
+    if (textureAssets.find(name) == textureAssets.end()) {
+        TextureAsset* textureAsset = new TextureAsset();
+        textureAssets[name].textureAsset = textureAsset;
+        textureAssetsInverse[textureAsset] = name;
+        textureAssets[name].count = 1;
+    } else {
+        textureAssets[name].count++;
+    }
+    
+    return textureAssets[name].textureAsset;
+}
+
+void ResourceManager::FreeTextureAsset(TextureAsset* textureAsset) {
+    std::string name = textureAssetsInverse[textureAsset];
+    
+    if (textureAssets[name].count-- <= 1) {
+        textureAssetsInverse.erase(textureAsset);
+        delete textureAsset;
+        textureAssets.erase(name);
     }
 }
 
