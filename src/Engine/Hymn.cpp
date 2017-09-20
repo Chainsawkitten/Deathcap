@@ -102,51 +102,34 @@ void ActiveHymn::SetPath(const string& path) {
 }
 
 void ActiveHymn::Save() const {
-    
     // Save to file.
     ofstream file(path + FileSystem::DELIMITER + "Hymn.json");
     file << ToJson();
     file.close();
+    
+    // Save resources to file.
+    SaveResources();
+}
+
+void ActiveHymn::Load(const string& path) {
+    Clear();
+    this->path = path;
+    
+    // Load resources from file.
+    LoadResources();
+    
+    // Load Json document from file.
+    Json::Value root;
+    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    file >> root;
+    file.close();
+    
+    FromJson(root);
 }
 
 Json::Value ActiveHymn::ToJson() const {
     Json::Value root;
     
-    // Save textures.
-    Json::Value texturesNode;
-    for (TextureAsset* texture : textures) {
-        texturesNode.append(texture->name);
-        texture->Save();
-    }
-    root["textures"] = texturesNode;
-    
-    // Save models.
-    Json::Value modelsNode;
-    for (Geometry::Model* model : models) {
-        modelsNode.append(model->Save());
-    }
-    root["models"] = modelsNode;
-    
-    // Save scripts.
-    Json::Value scriptNode;
-    for (ScriptFile* script : scripts) {
-        scriptNode.append(script->Save());
-    }
-    root["scripts"] = scriptNode;
-    
-    // Save sounds.
-    Json::Value soundsNode;
-    for (Audio::SoundBuffer* sound : sounds) {
-        soundsNode.append(sound->Save());
-    }
-    root["sounds"] = soundsNode;
-    
-    // Save scenes.
-    Json::Value scenesNode;
-    for (const string& scene : scenes) {
-        scenesNode.append(scene);
-    }
-    root["scenes"] = scenesNode;
     root["activeScene"] = activeScene;
     
     Json::Value inputNode;
@@ -169,44 +152,6 @@ Json::Value ActiveHymn::ToJson() const {
 }
 
 void ActiveHymn::FromJson(Json::Value root) {
-    // Load textures.
-    const Json::Value texturesNode = root["textures"];
-    for (unsigned int i = 0; i < texturesNode.size(); ++i) {
-        textures.push_back(Managers().resourceManager->CreateTextureAsset(texturesNode[i].asString()));
-    }
-    
-    // Load models.
-    const Json::Value modelsNode = root["models"];
-    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
-        Geometry::Model* model;
-        std::string type = modelsNode[i].get("type", "").asString();
-        model = new Geometry::Model();
-        model->Load(modelsNode[i]);
-        models.push_back(model);
-    }
-    
-    // Load scripts.
-    const Json::Value scriptNode = root["scripts"];
-    for (unsigned int i = 0; i < scriptNode.size(); ++i) {
-        ScriptFile* script = new ScriptFile();
-        script->Load(scriptNode[i]);
-        scripts.push_back(script);
-    }
-    
-    // Load sounds.
-    const Json::Value soundsNode = root["sounds"];
-    for (unsigned int i = 0; i < soundsNode.size(); ++i) {
-        Audio::SoundBuffer* sound = new Audio::SoundBuffer();
-        sound->Load(soundsNode[i]);
-        sounds.push_back(sound);
-    }
-    
-    // Load scenes.
-    const Json::Value scenesNode = root["scenes"];
-    for (unsigned int i = 0; i < scenesNode.size(); ++i) {
-        scenes.push_back(scenesNode[i].asString());
-    }
-    
     activeScene = root["activeScene"].asUInt();
     Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + scenes[activeScene] + ".json");
     
@@ -228,19 +173,6 @@ void ActiveHymn::FromJson(Json::Value root) {
     modelNumber = models.size();
     soundNumber = sounds.size();
     scriptNumber = scripts.size();
-}
-
-void ActiveHymn::Load(const string& path) {
-    Clear();
-    this->path = path;
-    
-    // Load Json document from file.
-    Json::Value root;
-    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
-    file >> root;
-    file.close();
-    
-    FromJson(root);
 }
 
 void ActiveHymn::Update(float deltaTime) {
@@ -292,6 +224,97 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     
     { PROFILE("Render debug entities");
         Managers().debugDrawingManager->Render(world, camera);
+    }
+}
+
+void ActiveHymn::SaveResources() const {
+    Json::Value root;
+    
+    // Save textures.
+    Json::Value texturesNode;
+    for (TextureAsset* texture : textures) {
+        texturesNode.append(texture->name);
+        texture->Save();
+    }
+    root["textures"] = texturesNode;
+    
+    // Save models.
+    Json::Value modelsNode;
+    for (Geometry::Model* model : models) {
+        modelsNode.append(model->Save());
+    }
+    root["models"] = modelsNode;
+    
+    // Save scripts.
+    Json::Value scriptNode;
+    for (ScriptFile* script : scripts) {
+        scriptNode.append(script->Save());
+    }
+    root["scripts"] = scriptNode;
+    
+    // Save sounds.
+    Json::Value soundsNode;
+    for (Audio::SoundBuffer* sound : sounds) {
+        soundsNode.append(sound->Save());
+    }
+    root["sounds"] = soundsNode;
+    
+    // Save scenes.
+    Json::Value scenesNode;
+    for (const string& scene : scenes) {
+        scenesNode.append(scene);
+    }
+    root["scenes"] = scenesNode;
+    
+    // Save to file.
+    ofstream file(path + FileSystem::DELIMITER + "Resources.json");
+    file << root;
+    file.close();
+}
+
+void ActiveHymn::LoadResources() {
+    // Load Json document from file.
+    Json::Value root;
+    ifstream file(path + FileSystem::DELIMITER + "Resources.json");
+    file >> root;
+    file.close();
+    
+    // Load textures.
+    const Json::Value texturesNode = root["textures"];
+    for (unsigned int i = 0; i < texturesNode.size(); ++i) {
+        textures.push_back(Managers().resourceManager->CreateTextureAsset(texturesNode[i].asString()));
+    }
+    
+    // Load models.
+    const Json::Value modelsNode = root["models"];
+    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
+        Geometry::Model* model;
+        std::string type = modelsNode[i].get("type", "").asString();
+        model = new Geometry::Model();
+        model->Load(modelsNode[i]);
+        models.push_back(model);
+    }
+    
+    // Load scripts.
+    const Json::Value scriptNode = root["scripts"];
+    for (unsigned int i = 0; i < scriptNode.size(); ++i) {
+        ScriptFile* script = new ScriptFile();
+        script->Load(scriptNode[i]);
+        scripts.push_back(script);
+    }
+    
+    // Load sounds.
+    const Json::Value soundsNode = root["sounds"];
+    for (unsigned int i = 0; i < soundsNode.size(); ++i) {
+        Audio::SoundBuffer* sound = new Audio::SoundBuffer();
+        sound->Load(soundsNode[i]);
+        sounds.push_back(sound);
+    }
+    
+    // Load scenes.
+    const Json::Value scenesNode = root["scenes"];
+    for (unsigned int i = 0; i < scenesNode.size(); ++i) {
+        scenes.push_back(scenesNode[i].asString());
     }
 }
 

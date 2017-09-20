@@ -37,6 +37,12 @@ class ActiveHymn {
         
         /// Save the hymn.
         void Save() const;
+        
+        /// Load a hymn.
+        /**
+         * @param path Path to the saved hymn.
+         */
+        void Load(const std::string& path);
 
         /// Convert the hymn to Json.
         /**
@@ -49,12 +55,6 @@ class ActiveHymn {
          * @param root The Json file to load.
          */
         void FromJson(Json::Value root);
-
-        /// Load a hymn.
-        /**
-         * @param path Path to the saved hymn.
-         */
-        void Load(const std::string& path);
 
         /// Update the world.
         /**
@@ -152,6 +152,9 @@ class ActiveHymn {
         
     private:
         static ActiveHymn& GetInstance();
+        
+        void SaveResources() const;
+        void LoadResources();
         
         ActiveHymn();
         ActiveHymn(ActiveHymn const&) = delete;

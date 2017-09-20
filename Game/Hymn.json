@@ -26,37 +26,5 @@
 		{
 			"size" : 0
 		}
-	],
-	"models" : 
-	[
-		{
-			"name" : "CartSecond",
-			"type" : "Static"
-		},
-		{
-			"name" : "Cave",
-			"type" : "Static"
-		}
-	],
-	"scenes" : 
-	[
-		"TestScene"
-	],
-	"scripts" : 
-	[
-		{
-			"name" : "Player"
-		},
-		{
-			"name" : "Cart"
-		}
-	],
-	"sounds" : null,
-	"textures" : 
-	[
-		"Texture #0",
-		"Texture #1",
-		"Texture #2",
-		"Texture #3"
 	]
 }
