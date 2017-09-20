@@ -110,14 +110,6 @@ class ResourceManager {
          */
         Video::Texture2D* CreateTexture2D(const char* data, int dataLength, bool srgb = false);
         
-        /// Create a 2D texture if it doesn't already exist.
-        /**
-         * @param filename Filename of image file.
-         * @param srgb Whether the image is in SRGB space and should be converted to linear space.
-         * @return The %Texture2D instance
-         */
-        Video::Texture2D* CreateTexture2DFromFile(std::string filename, bool srgb = false);
-        
         /// Free the reference to the 2D texture.
         /**
          * Deletes the instance if no more references exist.
@@ -194,10 +186,6 @@ class ResourceManager {
         };
         std::map<const char*, Texture2DInstance> textures;
         std::map<Video::Texture2D*, const char*> texturesInverse;
-        
-        // Texture2D from file
-        std::map<std::string, Texture2DInstance> texturesFromFile;
-        std::map<Video::Texture2D*, std::string> texturesFromFileInverse;
         
         // Sound
         struct SoundInstance {

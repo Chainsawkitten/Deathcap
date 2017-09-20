@@ -171,35 +171,13 @@ Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLen
     return textures[data].texture;
 }
 
-Video::Texture2D* ResourceManager::CreateTexture2DFromFile(std::string filename, bool srgb) {
-    if (texturesFromFile.find(filename) == texturesFromFile.end()) {
-        texturesFromFile[filename].texture = new Video::Texture2D(filename.c_str(), srgb);
-        texturesFromFileInverse[texturesFromFile[filename].texture] = filename;
-        texturesFromFile[filename].count = 1;
-    } else {
-        texturesFromFile[filename].count++;
-    }
-    
-    return texturesFromFile[filename].texture;
-}
-
 void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
-    if (texture->IsFromFile()) {
-        string filename = texturesFromFileInverse[texture];
-        
-        if (texturesFromFile[filename].count-- <= 1) {
-            texturesFromFileInverse.erase(texture);
-            delete texture;
-            texturesFromFile.erase(filename);
-        }
-    } else {
-        const char* data = texturesInverse[texture];
-        
-        if (textures[data].count-- <= 1) {
-            texturesInverse.erase(texture);
-            delete texture;
-            textures.erase(data);
-        }
+    const char* data = texturesInverse[texture];
+    
+    if (textures[data].count-- <= 1) {
+        texturesInverse.erase(texture);
+        delete texture;
+        textures.erase(data);
     }
 }
 
