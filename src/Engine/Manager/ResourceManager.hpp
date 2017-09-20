@@ -4,8 +4,6 @@
 #include <GL/glew.h>
 
 namespace Video {
-    class Shader;
-    class ShaderProgram;
     class Texture2D;
     namespace Geometry {
         class Rectangle;
@@ -25,46 +23,6 @@ class ResourceManager {
     friend class Hub;
     
     public:
-        /// Create a shader if it doesn't already exist.
-        /**
-         * @param source GLSL code for the shader.
-         * @param sourceLength Length of the GLSL source code.
-         * @param shaderType %Shader type. One of GL_COMPUTE_SHADER, GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
-         * @return The shader instance
-         */
-        Video::Shader* CreateShader(const char* source, int sourceLength, GLenum shaderType);
-        
-        /// Free the reference to the shader.
-        /**
-         * Deletes the instance if no more references exist.
-         * @param shader %Shader to dereference.
-         */
-        void FreeShader(Video::Shader* shader);
-        
-        /// Create shader program if it doesn't already exist.
-        /**
-         * Link together shaders into a shader program that can be run on the GPU.
-         *
-         * Sample:
-         * \code{.cpp}
-         * Shader* vertexShader = new Shader(vertexSource, vertexSourceLength, GL_VERTEX_SHADER);
-         * Shader* geometryShader = new Shader(geometrySource, geometrySourceLength, GL_GEOMETRY_SHADER);
-         * Shader* fragmentShader = new Shader(fragmentSource, fragmentSourceLength, GL_FRAGMENT_SHADER);
-         * ShaderProgram* shaderProgram = new ResourceManager::GetInstance().CreateShaderProgram({ vertexShader, geometryShader, fragmentShader });
-         * \endcode
-         *
-         * @param shaders List of shaders to link together.
-         * @return The shader program instance
-         */
-        Video::ShaderProgram* CreateShaderProgram(std::initializer_list<const Video::Shader*> shaders);
-        
-        /// Free the reference to a shader program.
-        /**
-         * Deletes the instance if no more references exist.
-         * @param shaderProgram %Shader program to dereference.
-         */
-        void FreeShaderProgram(Video::ShaderProgram* shaderProgram);
-        
         /// Create a rectangle for rendering if it doesn't already exist.
         /**
          * @return The rectangle instance
@@ -151,32 +109,6 @@ class ResourceManager {
         ResourceManager();
         ResourceManager(ResourceManager const&) = delete;
         void operator=(ResourceManager const&) = delete;
-        
-        // Shaders
-        struct ShaderInstance {
-            Video::Shader* shader;
-            int count;
-        };
-        std::map<const char*, ShaderInstance> shaders;
-        std::map<Video::Shader*, const char*> shadersInverse;
-        
-        // ShaderPrograms
-        struct ShaderProgramInstance {
-            Video::ShaderProgram* shaderProgram;
-            int count;
-        };
-        struct ShaderProgramKey {
-            const Video::Shader* computeShader = nullptr;
-            const Video::Shader* vertexShader = nullptr;
-            const Video::Shader* tessControlShader = nullptr;
-            const Video::Shader* tessEvaluationShader = nullptr;
-            const Video::Shader* geometryShader = nullptr;
-            const Video::Shader* fragmentShader = nullptr;
-            
-            bool operator<(const ShaderProgramKey& other) const;
-        };
-        std::map<ShaderProgramKey, ShaderProgramInstance> shaderPrograms;
-        std::map<Video::ShaderProgram*, ShaderProgramKey> shaderProgramsInverse;
         
         // Rectangle
         Video::Geometry::Rectangle* rectangle;
