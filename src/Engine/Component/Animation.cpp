@@ -18,8 +18,9 @@ Json::Value Component::Animation::Save() const {
 
 void Component::Animation::Load(const Json::Value& node) {
     std::string name = node.get("riggedModel", "").asString();
-    for (Geometry::Model* model : Hymn().models) {
+    /// @todo Fix animation.
+    /*for (Geometry::Model* model : Hymn().models) {
         if (model->name == name)
             riggedModel = model;
-    }
+    }*/
 }

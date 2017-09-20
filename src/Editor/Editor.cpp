@@ -170,8 +170,8 @@ void Editor::Show(float deltaTime) {
                 }
 
                 if (Input()->Triggered(InputHandler::ZOOM)) {
-                    if (resourceList.GetScene().entityEditor.GetEntity() != nullptr) {
-                        const glm::vec3 tempPos = resourceList.GetScene().entityEditor.GetEntity()->GetWorldPosition();
+                    if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
+                        const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
                         cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
                         cameraEntity->rotation = glm::vec3(0, 45, 1);
                     }
@@ -198,8 +198,8 @@ void Editor::Show(float deltaTime) {
             filtersWindow.Show();
 
         // Show resource list.
-        if (resourceList.IsVisible())
-            resourceList.Show();
+        if (resourceView.IsVisible())
+            resourceView.Show();
 
         // Show settings window.
         if (settingsWindow.IsVisible()) {
@@ -306,7 +306,7 @@ void Editor::Show(float deltaTime) {
 }
 
 void Editor::Save() const {
-    resourceList.SaveScene();
+    resourceView.SaveScene();
     Hymn().Save();
 }
 
@@ -333,8 +333,8 @@ Entity* Editor::GetCamera() const {
 void Editor::Play() {
     editorState = Hymn().ToJson();
     SetVisible(false);
-    resourceList.HideEditors();
-    resourceList.ResetScene();
+    resourceView.HideEditors();
+    resourceView.ResetScene();
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
 }
@@ -354,14 +354,15 @@ void Editor::NewHymn() {
 void Editor::NewHymnClosed(const std::string& hymn) {
     // Create new hymn
     if (!hymn.empty()) {
-        resourceList.ResetScene();
+        resourceView.ResetScene();
         Hymn().Clear();
         Hymn().world.CreateRoot();
         Hymn().SetPath(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
-        resourceList.SetVisible(true);
+        resourceView.SetVisible(true);
 
         // Default scene.
-        Hymn().scenes.push_back("Scene #0");
+        /// @todo Fix creating default scene.
+        //Hymn().scenes.push_back("Scene #0");
 
         Entity* player = Hymn().world.GetRoot()->AddChild("Player");
         player->position.z = 10.f;
@@ -386,9 +387,9 @@ void Editor::OpenHymn() {
 void Editor::OpenHymnClosed(const std::string& hymn) {
     // Open hymn.
     if (!hymn.empty()) {
-        resourceList.ResetScene();
+        resourceView.ResetScene();
         Hymn().Load(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
-        resourceList.SetVisible(true);
+        resourceView.SetVisible(true);
     }
 
     selectHymnWindow.SetVisible(false);

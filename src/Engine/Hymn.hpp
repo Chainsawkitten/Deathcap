@@ -77,33 +77,6 @@ class ActiveHymn {
         
         /// The id of the next entity to create.
         unsigned int entityNumber = 1U;
-        
-        /// Scenes.
-        std::vector<std::string> scenes;
-        
-        /// Models.
-        std::vector<Geometry::Model*> models;
-        
-        /// The id of the next model to create.
-        unsigned int modelNumber = 0U;
-        
-        /// Textures.
-        std::vector<TextureAsset*> textures;
-        
-        /// The id of the next texture to create.
-        unsigned int textureNumber = 0U;
-        
-        /// Sounds.
-        std::vector<Audio::SoundBuffer*> sounds;
-
-        /// The id of the next sound to create.
-        unsigned int soundNumber = 0U;
-
-        /// Scripts.
-        std::vector<ScriptFile*> scripts;
-
-        /// The id of the next script to create.
-        unsigned int scriptNumber = 0U;
 
         ///The index to the activeScene.
         std::size_t activeScene;
@@ -152,9 +125,6 @@ class ActiveHymn {
         
     private:
         static ActiveHymn& GetInstance();
-        
-        void SaveResources() const;
-        void LoadResources();
         
         ActiveHymn();
         ActiveHymn(ActiveHymn const&) = delete;

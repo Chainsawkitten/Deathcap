@@ -2,7 +2,7 @@
 
 #include "GUI/SelectHymnWindow.hpp"
 #include "GUI/InputWindow.hpp"
-#include "GUI/ResourceList.hpp"
+#include "GUI/ResourceView.hpp"
 #include "GUI/SettingsWindow.hpp"
 #include "GUI/FiltersWindow.hpp"
 #include "GUI/SavePromptWindow.hpp"
@@ -69,7 +69,7 @@ class Editor {
         bool visible = true;
         GUI::SelectHymnWindow selectHymnWindow;
         GUI::InputWindow inputWindow;
-        GUI::ResourceList resourceList;
+        GUI::ResourceView resourceView;
         GUI::SettingsWindow settingsWindow;
         GUI::FiltersWindow filtersWindow;
         GUI::SavePromptWindow savePromtWindow;

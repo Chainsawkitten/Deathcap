@@ -40,8 +40,5 @@ void Material::Load(const Json::Value& node) {
 }
 
 void Material::LoadTexture(TextureAsset*& texture, const std::string& name) {
-    for (TextureAsset* t : Hymn().textures) {
-        if (t->name == name)
-            texture = t;
-    }
+    texture = Managers().resourceManager->CreateTextureAsset(name);
 }
