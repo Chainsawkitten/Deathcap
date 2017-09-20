@@ -6,6 +6,7 @@
 
 namespace Video {
     class Renderer;
+    class RenderSurface;
     class Texture2D;
 }
 class World;
@@ -43,9 +44,11 @@ class RenderManager : public SuperManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
         
-        void LightWorld(World& world, const Entity* camera);
+        void LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface);
 
         Video::Renderer* renderer;
+
+        Video::RenderSurface* renderSurface;
         
         // Editor entity textures.
         Video::Texture2D* particleEmitterTexture;

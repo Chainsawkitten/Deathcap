@@ -54,21 +54,9 @@
 	"sounds" : null,
 	"textures" : 
 	[
-		{
-			"name" : "Texture #0",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #1",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #2",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #3",
-			"srgb" : false
-		}
+		"Texture #0",
+		"Texture #1",
+		"Texture #2",
+		"Texture #3"
 	]
 }
