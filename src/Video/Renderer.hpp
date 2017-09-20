@@ -18,6 +18,8 @@ namespace Video {
     class GlowBlurFilter;
     class GlowFilter;
     class ShaderProgram;
+    class RenderSurface;
+    class FrameBuffer;
     namespace Geometry {
         class Geometry3D;
         class Rectangle;
@@ -27,25 +29,19 @@ namespace Video {
     class Renderer {
         public:
             /// Create new renderer.
-            /**
-             * @param screenSize Size of the screen in pixels.
-             */
-            Renderer(const glm::vec2& screenSize);
+            Renderer();
             
             /// Destructor.
-            ~Renderer();
-            
-            /// Set screen size.
-            /**
-             * @param screenSize Size of the screen in pixels.
-             */
-            void SetScreenSize(const glm::vec2& screenSize);
+            ~Renderer(); 
             
             /// Clear the previous frame's data.
             void Clear();
             
             /// Start rendering the frame.
-            void StartRendering();
+            /**
+             * @param renderSurface %RenderSurface to render to.
+             */
+            void StartRendering(RenderSurface* renderSurface);
             
             /// Prepare for rendering static meshes.
             /**
@@ -91,40 +87,49 @@ namespace Video {
             /// Light the scene with the added lights.
             /**
              * @param inverseProjectionMatrix The camera's inverse projection matrix.
+             * @param renderSurface %RenderSurface contaning textures.
              */
-            void Light(const glm::mat4& inverseProjectionMatrix);
+            void Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
             
             /// Anti-alias using FXAA.
-            void AntiAlias();
+            /**
+             * @param renderSurface %RenderSurface to apply filter to.
+            */
+            void AntiAlias(RenderSurface* renderSurface);
             
             /// Render fog.
             /**
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param projectionMatrix The camera's projection matrix.
              * @param density The density of the fog.
              * @param color Color.
              */
-            void RenderFog(const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
+            void RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
             
             /// Apply glow effect.
             /**
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param blurAmount How many times to blur the glow buffer.
              */
-            void ApplyGlow(int blurAmount);
+            void ApplyGlow(RenderSurface* renderSurface, int blurAmount);
             
             /// Apply a color filter.
             /**
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param color Color.
              */
-            void ApplyColorFilter(const glm::vec3& color);
+            void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
             /// Perform gamma correction.
-            void GammaCorrect();
+            //  @param renderSurface %RenderSurface to apply gamma correction to.
+            void GammaCorrect(RenderSurface* renderSurface);
             
             /// Display the rendered results.
             /**
+             * @param renderSurface %RenderSurface to render to back buffer.
              * @param dither Whether to use dithering.
              */
-            void DisplayResults(bool dither);
+            void DisplayResults(RenderSurface* renderSurface, bool dither);
             
             /// Begin rendering icons.
             /**
@@ -150,7 +155,6 @@ namespace Video {
             void StopRenderingIcons();
             
         private:
-            glm::vec2 screenSize;
             Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;

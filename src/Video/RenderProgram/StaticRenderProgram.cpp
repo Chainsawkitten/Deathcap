@@ -9,6 +9,7 @@
 #include "../Shader/ShaderProgram.hpp"
 #include "Default3D.vert.hpp"
 #include "Default3D.frag.hpp"
+#include "Engine/Util/Profiling.hpp"
 
 using namespace Video;
 
@@ -38,7 +39,7 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Texture2D
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
-        
+
         // Set texture locations
         glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
         glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
@@ -54,12 +55,12 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Texture2D
         glBindTexture(GL_TEXTURE_2D, specularTexture->GetTextureID());
         glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, glowTexture->GetTextureID());
-        
+
         // Render model.
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
         glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
-        
+
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
 }

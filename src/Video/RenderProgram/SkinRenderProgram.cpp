@@ -34,13 +34,13 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture* textureAlbedo, const Texture* textureNormal, const Texture* textureMetallic, const Texture* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const {
+void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
         
         // Set texture locations
-        glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);			//Name change ->  FF1039
+        glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
         glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
         glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
         glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
