@@ -58,7 +58,6 @@ namespace Component {
             bool loop = false;
             
         private:
-            MANAGER manager = MANAGER::Sound;
             ALuint source;
             
             bool shouldPlay = false;

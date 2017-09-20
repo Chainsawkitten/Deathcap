@@ -40,8 +40,5 @@ namespace Component {
             /// The instance of the script class.
             asIScriptObject* instance = nullptr;
 
-        private:
-            MANAGER manager = MANAGER::Script;
-
     };
 }

@@ -41,8 +41,5 @@ namespace Component {
              */
             float time = 0.f;
 
-    private:
-        MANAGER manager = MANAGER::Render;
-
     };
 }

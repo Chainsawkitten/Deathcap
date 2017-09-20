@@ -26,8 +26,5 @@ namespace Component {
              */
             void Load(const Json::Value& node) override;
 
-        private:
-            MANAGER manager = MANAGER::Sound;
-
     };
 }

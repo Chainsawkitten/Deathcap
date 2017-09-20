@@ -42,8 +42,5 @@ namespace Component {
             /// Angle of the cone (in degrees).
             float coneAngle = 15.f;
 
-        private:
-            MANAGER manager = MANAGER::Render;
-
     };
 }

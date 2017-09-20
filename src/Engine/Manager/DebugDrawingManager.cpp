@@ -6,6 +6,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "../MainWindow.hpp"
 
+#include "RenderManager.hpp"
+
 using namespace Video;
 
 DebugDrawingManager::DebugDrawingManager() {
@@ -86,7 +88,7 @@ void DebugDrawingManager::Update(float deltaTime) {
 void DebugDrawingManager::Render(World &world, Entity* camera) {
     // Find camera entity.
     if (camera == nullptr) {
-        std::vector<Component::Lens*> lenses = this->GetComponents<Component::Lens>();
+        std::vector<Component::Lens*> lenses = Managers().renderManager->GetComponents<Component::Lens>();
         for (Component::Lens* lens : lenses) {
             camera = lens->entity;
         }

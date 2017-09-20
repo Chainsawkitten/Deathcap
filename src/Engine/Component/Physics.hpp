@@ -61,8 +61,5 @@ namespace Component {
              */
             glm::vec3 momentOfInertia = glm::vec3(1.f, 1.f, 1.f);
 
-        private:
-            MANAGER manager = MANAGER::Physics;
-
     };
 }

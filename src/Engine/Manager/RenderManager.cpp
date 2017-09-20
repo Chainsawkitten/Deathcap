@@ -58,7 +58,7 @@ void RenderManager::Render(World& world, Entity* camera) {
     
     // Find camera entity.
     if (camera == nullptr) {
-        std::vector<Lens*> lenses = GetComponents<Lens>();
+        std::vector<Lens*> lenses = this->GetComponents<Lens>();
         for (Lens* lens : lenses) {
             camera = lens->entity;
         }
@@ -73,7 +73,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
         glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(screenSize);
         
-        std::vector<Mesh*> meshes = GetComponents<Mesh>();
+        std::vector<Mesh*> meshes = this->GetComponents<Mesh>();
         
         // Render static meshes.
         renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);

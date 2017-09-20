@@ -39,8 +39,5 @@ namespace Component {
             /// Intensity.
             float intensity = 1.f;
 
-        private:
-            MANAGER manager = MANAGER::Render;
-
     };
 }
