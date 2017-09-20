@@ -1,8 +1,9 @@
 #include "SoundSource.hpp"
 
 #include "../Entity/Entity.hpp"
-#include "../Hymn.hpp"
 #include "../Audio/SoundBuffer.hpp"
+#include "../Manager/Managers.hpp"
+#include "../Manager/ResourceManager.hpp"
 
 using namespace Component;
 
@@ -28,10 +29,7 @@ Json::Value SoundSource::Save() const {
 
 void SoundSource::Load(const Json::Value& node) {
     std::string name = node.get("sound", "").asString();
-    for (Audio::SoundBuffer* s : Hymn().sounds) {
-        if (s->name == name)
-            soundBuffer = s;
-    }
+    soundBuffer = Managers().resourceManager->CreateSound(name);
     
     pitch = node.get("pitch", 1.f).asFloat();
     gain = node.get("gain", 1.f).asFloat();

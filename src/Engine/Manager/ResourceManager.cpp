@@ -5,7 +5,6 @@
 #include "../Geometry/Model.hpp"
 #include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
-#include "../Audio/VorbisFile.hpp"
 #include "../Texture/TextureAsset.hpp"
 
 using namespace std;
@@ -111,26 +110,26 @@ void ResourceManager::FreeTextureAsset(TextureAsset* textureAsset) {
     }
 }
 
-Audio::SoundBuffer* ResourceManager::CreateSound(string filename) {
-    if (sounds.find(filename) == sounds.end()) {
-        Audio::SoundFile* soundFile = new Audio::VorbisFile(filename.c_str());
-        sounds[filename].soundBuffer = new Audio::SoundBuffer(soundFile);
-        delete soundFile;
-        soundsInverse[sounds[filename].soundBuffer] = filename;
-        sounds[filename].count = 1;
+Audio::SoundBuffer* ResourceManager::CreateSound(string name) {
+    if (sounds.find(name) == sounds.end()) {
+        Audio::SoundBuffer* soundBuffer = new Audio::SoundBuffer();
+        soundBuffer->Load(name);
+        sounds[name].soundBuffer = soundBuffer;
+        soundsInverse[soundBuffer] = name;
+        sounds[name].count = 1;
     } else {
-        sounds[filename].count++;
+        sounds[name].count++;
     }
     
-    return sounds[filename].soundBuffer;
+    return sounds[name].soundBuffer;
 }
 
 void ResourceManager::FreeSound(Audio::SoundBuffer* soundBuffer) {
-    string filename = soundsInverse[soundBuffer];
+    string name = soundsInverse[soundBuffer];
     
-    if (sounds[filename].count-- <= 1) {
+    if (sounds[name].count-- <= 1) {
         soundsInverse.erase(soundBuffer);
         delete soundBuffer;
-        sounds.erase(filename);
+        sounds.erase(name);
     }
 }

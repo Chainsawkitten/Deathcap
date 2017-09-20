@@ -92,11 +92,10 @@ class ResourceManager {
         
         /// Create a sound if it doesn't already exist.
         /**
-         * Supported formats: Ogg Vorbis.
-         * @param filename Path to the sound file.
+         * @param name Name of the sound.
          * @return The %SoundBuffer instance.
          */
-        Audio::SoundBuffer* CreateSound(std::string filename);
+        Audio::SoundBuffer* CreateSound(std::string name);
         
         /// Free the reference to the sound.
         /**

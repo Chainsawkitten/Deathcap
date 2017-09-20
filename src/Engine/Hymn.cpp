@@ -56,19 +56,19 @@ void ActiveHymn::Clear() {
     scenes.clear();
     
     for (Geometry::Model* model : models) {
-        delete model;
+        Managers().resourceManager->FreeModel(model);
     }
     models.clear();
     modelNumber = 0U;
     
     for (TextureAsset* texture : textures) {
-        delete texture;
+        Managers().resourceManager->FreeTextureAsset(texture);
     }
     textures.clear();
     textureNumber = 0U;
     
     for (Audio::SoundBuffer* sound : sounds) {
-        delete sound;
+        Managers().resourceManager->FreeSound(sound);
     }
     sounds.clear();
     soundNumber = 0U;
@@ -255,7 +255,7 @@ void ActiveHymn::SaveResources() const {
     // Save sounds.
     Json::Value soundsNode;
     for (Audio::SoundBuffer* sound : sounds) {
-        soundsNode.append(sound->Save());
+        soundsNode.append(sound->name);
     }
     root["sounds"] = soundsNode;
     
@@ -302,9 +302,7 @@ void ActiveHymn::LoadResources() {
     // Load sounds.
     const Json::Value soundsNode = root["sounds"];
     for (unsigned int i = 0; i < soundsNode.size(); ++i) {
-        Audio::SoundBuffer* sound = new Audio::SoundBuffer();
-        sound->Load(soundsNode[i]);
-        sounds.push_back(sound);
+        sounds.push_back(Managers().resourceManager->CreateSound(soundsNode[i].asString()));
     }
     
     // Load scenes.
