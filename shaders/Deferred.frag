@@ -36,7 +36,8 @@ layout(location = 1) out vec4 extraOut;
 const float PI = 3.14159265359f;
 
 vec3 FresnelSchlick(float cosTheta, vec3 F0) {
-    return F0 + (1.0f - F0) * pow(1.0f - cosTheta, 5.0f);
+    cosTheta = 1.0f - cosTheta;
+    return F0 + (1.0f - F0) * cosTheta * cosTheta * cosTheta * cosTheta * cosTheta;
 }
 
 float DistributionGGX(vec3 N, vec3 H, float roughness) {
