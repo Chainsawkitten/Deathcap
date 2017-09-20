@@ -185,6 +185,7 @@ void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
 TextureAsset* ResourceManager::CreateTextureAsset(std::string name) {
     if (textureAssets.find(name) == textureAssets.end()) {
         TextureAsset* textureAsset = new TextureAsset();
+        textureAsset->Load(name);
         textureAssets[name].textureAsset = textureAsset;
         textureAssetsInverse[textureAsset] = name;
         textureAssets[name].count = 1;
