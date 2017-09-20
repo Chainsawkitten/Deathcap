@@ -34,6 +34,7 @@ layout(location = 0) out vec4 fragmentColor;
 layout(location = 1) out vec4 extraOut;
 
 const float PI = 3.14159265359f;
+const float GAMMA = 2.2f;
 
 vec3 FresnelSchlick(float cosTheta, vec3 F0) {
     cosTheta = 1.0f - cosTheta;
@@ -80,8 +81,8 @@ vec3 ReconstructPos(vec2 texCoord, float depth) {
 }
 
     float depth = texture(tDepth, vertexIn.texCoords).r;
-    vec3 test = texture(textureAlbedo, vertexIn.texCoords).rgb;
-    vec3 albedo = pow(test, vec3(2));
+    vec3 albedo = texture(textureAlbedo, vertexIn.texCoords).rgb;
+    //vec3 albedo = pow(albedoRaw, vec3(GAMMA)); // Apply if texture not in sRGB
     vec3 normal = normalize(texture(textureNormal, vertexIn.texCoords).rgb);
     float metallic = texture(textureMetallic, vertexIn.texCoords).r;
     float roughness = texture(textureRougness, vertexIn.texCoords).r;
@@ -91,6 +92,8 @@ vec3 applyLights() {
     vec3 Lo = vec3(0.0f);
     vec3 N = normalize(normal);
     vec3 V = normalize(-pos);
+    
+    vec3 F0 = mix(vec3(0.04f), albedo, metallic);
     
     for(int i = 0; i < lightCount; i++) {
         vec3 surfaceToLight;
@@ -119,7 +122,6 @@ vec3 applyLights() {
         vec3 radiance = lights[i].intensities * attenuation;
         
         // Cook-torrance brdf
-        vec3 F0 = mix(vec3(0.04f), albedo, metallic);
         float NDF = DistributionGGX(N, H, roughness);
         float G = GeometrySmith(N, V, surfaceToLight, roughness);
         vec3 F = FresnelSchlick(max(dot(H, V), 0.0f), F0);
@@ -128,10 +130,9 @@ vec3 applyLights() {
         float denominator = 4.0f * max(dot(N, V), 0.0f) * max(dot(N, surfaceToLight), 0.0f) + 0.001f;
         vec3 specular = (nominator / denominator);
         
-        vec3 kS = F;
-        vec3 kD = (vec3(1.0f) - kS) * (1.0f - metallic);
+        vec3 kD = (vec3(1.0f) - F) * (1.0f - metallic);
         
-        float NdotL = max(dot(N,surfaceToLight), 0.0f);
+        float NdotL = max(dot(N, surfaceToLight), 0.0f);
         Lo += (kD * albedo / PI + specular) * radiance * NdotL;
         Lo += lights[i].ambientCoefficient * albedo;
     }
@@ -145,6 +146,9 @@ void main() {
     vec3 color = applyLights();
 
     color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
+    
+    // Gamma correction
+    color = pow(color, vec3(1.0f / GAMMA)); 
 
     fragmentColor = vec4(color, 1.0f);
 }
