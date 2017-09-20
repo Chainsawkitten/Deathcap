@@ -10,6 +10,7 @@
 #include "ProfilingManager.hpp"
 
 #include "../Component/SuperComponent.hpp"
+#include "Utility/Log.hpp"
 
 Hub::Hub() {
     
@@ -45,37 +46,34 @@ void Hub::ShutDown() {
 
 void Hub::AddComponent(Component::SuperComponent* component, const std::type_info* componentType) {
 
-    switch (component->GetManager())
-    {
-        
-    case Component::SuperComponent::MANAGER::Profiling:
-        profilingManager->AddComponent(component, componentType);
-        break;
-    case Component::SuperComponent::MANAGER::DebugDrawing:
-        debugDrawingManager->AddComponent(component, componentType);
-        break;
-    case Component::SuperComponent::MANAGER::Script:
-        scriptManager->AddComponent(component, componentType);
-        break;
-    case Component::SuperComponent::MANAGER::Sound:
-        soundManager->AddComponent(component, componentType);
-        break;
-    case Component::SuperComponent::MANAGER::Render:
-        renderManager->AddComponent(component, componentType);
-        break;
-    case Component::SuperComponent::MANAGER::Particle:
-        particleManager->AddComponent(component, componentType);
-        break;
-    case Component::SuperComponent::MANAGER::Physics:
-        physicsManager->AddComponent(component, componentType);
-        break;
-    case Component::SuperComponent::MANAGER::Resource:
-        resourceManager->AddComponent(component, componentType);
-        break;
+    std::string name = componentType->name();
 
-    default:
-        break;
-    }
+    if (name == "class Component::Animation *")
+        renderManager->AddComponent(component, componentType);
+    else if (name == "class Component::DirectionalLight *")
+        renderManager->AddComponent(component, componentType);
+    else if (name == "class Component::Lens *")
+        renderManager->AddComponent(component, componentType);
+    else if (name == "class Component::Listener *")
+        soundManager->AddComponent(component, componentType);
+    else if (name == "class Component::Material *")
+        renderManager->AddComponent(component, componentType);
+    else if (name == "class Component::Mesh *")
+        renderManager->AddComponent(component, componentType);
+    else if (name == "class Component::ParticleEmitter *")
+        particleManager->AddComponent(component, componentType);
+    else if (name == "class Component::Physics *")
+        physicsManager->AddComponent(component, componentType);
+    else if (name == "class Component::PointLight *")
+        renderManager->AddComponent(component, componentType);
+    else if (name == "class Component::Script *")
+        scriptManager->AddComponent(component, componentType);
+    else if (name == "class Component::SoundSource *")
+        soundManager->AddComponent(component, componentType);
+    else if (name == "class Component::SpotLight *")
+        renderManager->AddComponent(component, componentType);
+    else
+        Log() << name << " not assigned to a manager!" << "\n";
 
 }
 
