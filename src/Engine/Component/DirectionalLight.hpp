@@ -32,5 +32,9 @@ namespace Component {
             
             /// Ambient coefficient.
             float ambientCoefficient = 0.f;
+
+            private:
+                MANAGER manager = MANAGER::Render;
+
     };
 }

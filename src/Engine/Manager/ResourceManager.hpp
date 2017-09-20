@@ -3,6 +3,8 @@
 #include <map>
 #include <GL/glew.h>
 
+#include "SuperManager.hpp"
+
 namespace Video {
     class Shader;
     class ShaderProgram;
@@ -20,7 +22,7 @@ namespace Audio {
 }
 
 /// Handles all resources.
-class ResourceManager {
+class ResourceManager : public SuperManager {
     friend class Hub;
     
     public:

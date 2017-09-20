@@ -49,5 +49,9 @@ namespace Component {
              * Default: 100.0
              */
             float zFar = 100.f;
+
+        private:
+            MANAGER manager = MANAGER::Render;
+
     };
 }

@@ -33,6 +33,7 @@ set(SRCS
         Geometry/Model.cpp
         Geometry/Skeleton.cpp
         Manager/Managers.cpp
+        Manager/SuperManager.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
         Manager/ProfilingManager.cpp
@@ -79,6 +80,7 @@ set(HEADERS
         Geometry/Model.hpp
         Geometry/Skeleton.hpp
         Manager/Managers.hpp
+        Manager/SuperManager.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
         Manager/ProfilingManager.hpp

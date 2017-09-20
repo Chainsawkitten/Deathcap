@@ -7,6 +7,8 @@
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
 
+#include "../Manager/Managers.hpp"
+
 /// %Entity containing various components.
 class Entity {
     public:
@@ -190,7 +192,7 @@ template<typename T> T* Entity::AddComponent() {
         return nullptr;
     T* component = new T(this);
     components[componentType] = component;
-    world->AddComponent(component, componentType);
+    Managers().AddComponent(component, componentType);
     return component;
 }
 

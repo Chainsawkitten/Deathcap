@@ -35,5 +35,9 @@ namespace Component {
              * Default: nullptr
              */
             Video::Geometry::Geometry3D* geometry = nullptr;
+
+        private:
+            MANAGER manager = MANAGER::Render;
+
     };
 }

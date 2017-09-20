@@ -92,5 +92,9 @@ namespace Component {
             
             /// Whether to preview the emitter in the editor.
             bool preview = false;
+
+        private:
+            MANAGER manager = MANAGER::Particle;
+
     };
 }

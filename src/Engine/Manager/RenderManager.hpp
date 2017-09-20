@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "SuperManager.hpp"
+
 namespace Video {
     class Renderer;
     class Texture2D;
@@ -10,7 +12,7 @@ class World;
 class Entity;
 
 /// Handles rendering the world.
-class RenderManager {
+class RenderManager : public SuperManager {
     friend class Hub;
     
     public:

@@ -27,3 +27,9 @@ Json::Value SuperComponent::Save() const {
 void SuperComponent::Load(const Json::Value& node) {
     
 }
+
+SuperComponent::MANAGER SuperComponent::GetManager() const{
+
+    return manager;
+
+}

@@ -40,6 +40,7 @@ namespace Component {
             TextureAsset* glow;
             
         private:
+            MANAGER manager = MANAGER::Render;
             void LoadTexture(TextureAsset*& texture, const std::string& name);
     };
 }

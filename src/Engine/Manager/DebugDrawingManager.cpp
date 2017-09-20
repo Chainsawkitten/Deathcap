@@ -83,10 +83,10 @@ void DebugDrawingManager::Update(float deltaTime) {
     }
 }
 
-void DebugDrawingManager::Render(World& world, Entity* camera) {
+void DebugDrawingManager::Render(World &world, Entity* camera) {
     // Find camera entity.
     if (camera == nullptr) {
-        std::vector<Component::Lens*> lenses = world.GetComponents<Component::Lens>();
+        std::vector<Component::Lens*> lenses = this->GetComponents<Component::Lens>();
         for (Component::Lens* lens : lenses) {
             camera = lens->entity;
         }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <typeinfo>
+
 class ResourceManager;
 class RenderManager;
 class ParticleManager;
@@ -9,11 +11,17 @@ class ScriptManager;
 class DebugDrawingManager;
 class ProfilingManager;
 
+namespace Component {
+    class SuperComponent;
+}
+
 /// Singleton class that holds all subsystems.
 class Hub {
+
     friend Hub& Managers();
     
     public:
+
         /// The resource manager instance.
         ResourceManager* resourceManager;
         
@@ -43,6 +51,19 @@ class Hub {
         
         /// Deinitialize all subsystems.
         void ShutDown();
+
+        /// Adds a component to the correct manager.
+        /**
+        * @param component The component to add.
+        * @param componentType The type of the component to add.
+        */
+        void AddComponent(Component::SuperComponent* component, const std::type_info* componentType);
+
+        /// Clears the components of all managers.
+        void ClearComponents();
+
+        /// Clears the killed components of all managers.
+        void ClearKilledComponents();
         
     private:
         Hub();

@@ -53,7 +53,7 @@ void SoundManager::CheckError(const char* message) {
 
 void SoundManager::Update(World& world) {
     // Update sound sources.
-    std::vector<Component::SoundSource*> soundComponents = world.GetComponents<Component::SoundSource>();
+    std::vector<Component::SoundSource*> soundComponents = this->GetComponents<Component::SoundSource>();
     for (Component::SoundSource* sound : soundComponents) {
         if (sound->IsKilled())
             continue;
@@ -104,7 +104,7 @@ void SoundManager::Update(World& world) {
     }
     
     // Update listener.
-    std::vector<Component::Listener*> listeners = world.GetComponents<Component::Listener>();
+    std::vector<Component::Listener*> listeners = this->GetComponents<Component::Listener>();
     for (Component::Listener* listener : listeners) {
         Entity* entity = listener->entity;
         

@@ -9,6 +9,8 @@
 #include "DebugDrawingManager.hpp"
 #include "ProfilingManager.hpp"
 
+#include "../Component/SuperComponent.hpp"
+
 Hub::Hub() {
     
 }
@@ -39,4 +41,66 @@ void Hub::ShutDown() {
     delete particleManager;
     delete physicsManager;
     delete resourceManager;
+}
+
+void Hub::AddComponent(Component::SuperComponent* component, const std::type_info* componentType) {
+
+    switch (component->GetManager())
+    {
+        
+    case Component::SuperComponent::MANAGER::Profiling:
+        profilingManager->AddComponent(component, componentType);
+        break;
+    case Component::SuperComponent::MANAGER::DebugDrawing:
+        debugDrawingManager->AddComponent(component, componentType);
+        break;
+    case Component::SuperComponent::MANAGER::Script:
+        scriptManager->AddComponent(component, componentType);
+        break;
+    case Component::SuperComponent::MANAGER::Sound:
+        soundManager->AddComponent(component, componentType);
+        break;
+    case Component::SuperComponent::MANAGER::Render:
+        renderManager->AddComponent(component, componentType);
+        break;
+    case Component::SuperComponent::MANAGER::Particle:
+        particleManager->AddComponent(component, componentType);
+        break;
+    case Component::SuperComponent::MANAGER::Physics:
+        physicsManager->AddComponent(component, componentType);
+        break;
+    case Component::SuperComponent::MANAGER::Resource:
+        resourceManager->AddComponent(component, componentType);
+        break;
+
+    default:
+        break;
+    }
+
+}
+
+void Hub::ClearComponents() {
+
+    resourceManager->ClearComponents();
+    renderManager->ClearComponents();
+    particleManager->ClearComponents();
+    physicsManager->ClearComponents();
+    soundManager->ClearComponents();
+    scriptManager->ClearComponents();
+    debugDrawingManager->ClearComponents();
+    profilingManager->ClearComponents();
+
+}
+
+void Hub::ClearKilledComponents() {
+
+    resourceManager->ClearKilledComponents();
+    renderManager->ClearKilledComponents();
+    particleManager->ClearKilledComponents();
+    physicsManager->ClearKilledComponents();
+    soundManager->ClearKilledComponents();
+    scriptManager->ClearKilledComponents();
+    debugDrawingManager->ClearKilledComponents();
+    profilingManager->ClearKilledComponents();
+
 }

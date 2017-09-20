@@ -4,6 +4,7 @@
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
+#include "SoundManager.hpp"
 #include "Light.png.hpp"
 #include "ParticleEmitter.png.hpp"
 #include "SoundSource.png.hpp"
@@ -28,6 +29,8 @@
 #include <Video/Lighting/Light.hpp>
 #include <Video/RenderTarget.hpp>
 #include "../Hymn.hpp"
+
+#include "Manager/Managers.hpp"
 
 using namespace Component;
 
@@ -55,7 +58,7 @@ void RenderManager::Render(World& world, Entity* camera) {
     
     // Find camera entity.
     if (camera == nullptr) {
-        std::vector<Lens*> lenses = world.GetComponents<Lens>();
+        std::vector<Lens*> lenses = GetComponents<Lens>();
         for (Lens* lens : lenses) {
             camera = lens->entity;
         }
@@ -70,7 +73,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
         glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(screenSize);
         
-        std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
+        std::vector<Mesh*> meshes = GetComponents<Mesh>();
         
         // Render static meshes.
         renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
@@ -121,7 +124,7 @@ void RenderManager::Render(World& world, Entity* camera) {
 void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras) {
     // Find camera entity.
     if (camera == nullptr) {
-        std::vector<Lens*> lenses = world.GetComponents<Lens>();
+        std::vector<Lens*> lenses = this->GetComponents<Lens>();
         for (Lens* lens : lenses) {
             camera = lens->entity;
         }
@@ -139,31 +142,31 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         
         // Render sound sources.
         if (soundSources) {
-            for (SoundSource* soundSource : world.GetComponents<SoundSource>())
+            for (SoundSource* soundSource : Managers().soundManager->GetComponents<SoundSource>())
                 renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
         }
         
         // Render particle emitters.
         if (particleEmitters) {
-            for (ParticleEmitter* emitter : world.GetComponents<ParticleEmitter>())
+            for (ParticleEmitter* emitter : Managers().particleManager->GetComponents<ParticleEmitter>())
                 renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
         }
         
         // Render light sources.
         if (lightSources) {
-            for (DirectionalLight* light : world.GetComponents<DirectionalLight>())
+            for (DirectionalLight* light : this->GetComponents<DirectionalLight>())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
             
-            for (PointLight* light : world.GetComponents<PointLight>())
+            for (PointLight* light : this->GetComponents<PointLight>())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
             
-            for (SpotLight* light : world.GetComponents<SpotLight>())
+            for (SpotLight* light : this->GetComponents<SpotLight>())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
         }
         
         // Render cameras.
         if (cameras) {
-            for (Lens* lens : world.GetComponents<Lens>())
+            for (Lens* lens : this->GetComponents<Lens>())
                 renderer->RenderIcon(lens->entity->GetWorldPosition(), cameraTexture);
         }
         
@@ -185,7 +188,7 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
     
     // Add all directional lights.
-    std::vector<Component::DirectionalLight*>& directionalLights = world.GetComponents<Component::DirectionalLight>();
+    std::vector<Component::DirectionalLight*>& directionalLights = this->GetComponents<Component::DirectionalLight>();
     for (Component::DirectionalLight* directionalLight : directionalLights) {
         Entity* lightEntity = directionalLight->entity;
         glm::vec4 direction(glm::vec4(lightEntity->GetDirection(), 0.f));
@@ -200,7 +203,7 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     }
     
     // Add all spot lights.
-    std::vector<Component::SpotLight*>& spotLights = world.GetComponents<Component::SpotLight>();
+    std::vector<Component::SpotLight*>& spotLights = this->GetComponents<Component::SpotLight>();
     for (Component::SpotLight* spotLight : spotLights) {
         Entity* lightEntity = spotLight->entity;
         glm::vec4 direction(viewMat * glm::vec4(lightEntity->GetDirection(), 0.f));
@@ -219,7 +222,7 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     cutOff = 0.0001f;
     
     // Add all point lights.
-    std::vector<Component::PointLight*>& pointLights = world.GetComponents<Component::PointLight>();
+    std::vector<Component::PointLight*>& pointLights = this->GetComponents<Component::PointLight>();
     for (Component::PointLight* pointLight : pointLights) {
         Entity* lightEntity = pointLight->entity;
         float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);

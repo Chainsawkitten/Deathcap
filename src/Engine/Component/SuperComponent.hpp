@@ -8,6 +8,20 @@ namespace Component {
     /// %Component which all components inherit.
     class SuperComponent {
         public:
+
+            enum MANAGER {
+
+                Resource = 0,
+                Render,
+                Particle,
+                Physics,
+                Sound,
+                Script,
+                DebugDrawing,
+                Profiling
+
+            };
+
             /// Create new %SuperComponent.
             /**
              * @param entity Pointer to which entity this component corresponds.
@@ -34,14 +48,21 @@ namespace Component {
             
             /// Load component from JSON node.
             /**
-             * @param node JSON node to load from.
-             */
+            * @param node JSON node to load from.
+            */
             virtual void Load(const Json::Value& node);
+
+            /// Load component from JSON node.
+            /**
+             * @return The manager that owns the component type.
+             */
+            virtual MANAGER GetManager() const;
             
             /// Pointer to which entity this component corresponds.
             Entity* entity;
             
         private:
             bool killed = false;
+            MANAGER manager;
     };
 }
