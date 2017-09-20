@@ -17,6 +17,8 @@ Script::Script(Entity* entity) : SuperComponent(entity) {
 Script::~Script() {
     if (instance != nullptr)
         instance->Release();
+    
+    Managers().resourceManager->FreeScriptFile(scriptFile);
 }
 
 Json::Value Script::Save() const {
