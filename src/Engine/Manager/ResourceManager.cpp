@@ -6,6 +6,7 @@
 #include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
 #include "../Texture/TextureAsset.hpp"
+#include "../Script/ScriptFile.hpp"
 
 using namespace std;
 
@@ -131,5 +132,29 @@ void ResourceManager::FreeSound(Audio::SoundBuffer* soundBuffer) {
         soundsInverse.erase(soundBuffer);
         delete soundBuffer;
         sounds.erase(name);
+    }
+}
+
+ScriptFile* ResourceManager::CreateScriptFile(string name) {
+    if (scriptFiles.find(name) == scriptFiles.end()) {
+        ScriptFile* scriptFile = new ScriptFile();
+        scriptFile->Load(name);
+        scriptFiles[name].scriptFile = scriptFile;
+        scriptFilesInverse[scriptFile] = name;
+        scriptFiles[name].count = 1;
+    } else {
+        scriptFiles[name].count++;
+    }
+    
+    return scriptFiles[name].scriptFile;
+}
+
+void ResourceManager::FreeScriptFile(ScriptFile* scriptFile) {
+    string name = scriptFilesInverse[scriptFile];
+    
+    if (scriptFiles[name].count-- <= 1) {
+        scriptFilesInverse.erase(scriptFile);
+        delete scriptFile;
+        scriptFiles.erase(name);
     }
 }

@@ -10,12 +10,8 @@
 	],
 	"scripts" : 
 	[
-		{
-			"name" : "Player"
-		},
-		{
-			"name" : "Cart"
-		}
+		"Player",
+		"Cart"
 	],
 	"sounds" : null,
 	"textures" : 

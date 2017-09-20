@@ -17,6 +17,7 @@ namespace Audio {
     class SoundBuffer;
 }
 class TextureAsset;
+class ScriptFile;
 
 /// Handles all resources.
 class ResourceManager {
@@ -104,6 +105,20 @@ class ResourceManager {
          */
         void FreeSound(Audio::SoundBuffer* soundBuffer);
         
+        /// Create a script file if it doesn't already exist.
+        /**
+         * @param name Name of the script file.
+         * @return The %ScriptFile instance.
+         */
+        ScriptFile* CreateScriptFile(std::string name);
+        
+        /// Free the reference to the script file.
+        /**
+         * Deletes the instance if no more references exist.
+         * @param scriptFile %ScriptFile to dereference.
+         */
+        void FreeScriptFile(ScriptFile* scriptFile);
+        
     private:
         ResourceManager();
         ResourceManager(ResourceManager const&) = delete;
@@ -148,4 +163,12 @@ class ResourceManager {
         };
         std::map<std::string, SoundInstance> sounds;
         std::map<Audio::SoundBuffer*, std::string> soundsInverse;
+        
+        // ScriptFile
+        struct ScriptFileInstance {
+            ScriptFile* scriptFile;
+            int count;
+        };
+        std::map<std::string, ScriptFileInstance> scriptFiles;
+        std::map<ScriptFile*, std::string> scriptFilesInverse;
 };

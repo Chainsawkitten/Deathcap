@@ -74,7 +74,7 @@ void ActiveHymn::Clear() {
     soundNumber = 0U;
     
     for (ScriptFile* script : scripts) {
-        delete script;
+        Managers().resourceManager->FreeScriptFile(script);
     }
     scripts.clear();
     scriptNumber = 0U;
@@ -248,7 +248,7 @@ void ActiveHymn::SaveResources() const {
     // Save scripts.
     Json::Value scriptNode;
     for (ScriptFile* script : scripts) {
-        scriptNode.append(script->Save());
+        scriptNode.append(script->name);
     }
     root["scripts"] = scriptNode;
     
@@ -294,9 +294,7 @@ void ActiveHymn::LoadResources() {
     // Load scripts.
     const Json::Value scriptNode = root["scripts"];
     for (unsigned int i = 0; i < scriptNode.size(); ++i) {
-        ScriptFile* script = new ScriptFile();
-        script->Load(scriptNode[i]);
-        scripts.push_back(script);
+        scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
     }
     
     // Load sounds.

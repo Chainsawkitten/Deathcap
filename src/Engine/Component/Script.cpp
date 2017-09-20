@@ -3,10 +3,10 @@
 #include <string>
 #include <angelscript.h>
 #include "../Manager/Managers.hpp"
+#include "../Manager/ResourceManager.hpp"
 #include "../Manager/ScriptManager.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Script/ScriptFile.hpp"
-#include "../Hymn.hpp"
 
 using namespace Component;
 
@@ -29,8 +29,5 @@ Json::Value Script::Save() const {
 
 void Script::Load(const Json::Value& node) {
     std::string name = node.get("scriptName", "").asString();
-    for (ScriptFile* currentScript : Hymn().scripts) {
-        if (currentScript->name == name)
-            this->scriptFile = currentScript;
-    }
+    scriptFile = Managers().resourceManager->CreateScriptFile(name);
 }
