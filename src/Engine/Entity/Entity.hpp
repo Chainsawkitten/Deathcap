@@ -168,6 +168,12 @@ class Entity {
          * Default: 0.f, 0.f, 0.f
          */
         glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
+
+        /// The entity's UID
+        /**
+         * Default: 0
+         */
+        int uid = 0;
         
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;

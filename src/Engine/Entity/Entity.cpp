@@ -21,6 +21,7 @@
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
+    uid = rand()%1000000;
 }
 
 Entity::~Entity() {
@@ -140,6 +141,7 @@ Json::Value Entity::Save() const {
     entity["scale"] = Json::SaveVec3(scale);
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
+    entity["uid"] = std::to_string(uid);
     
     if (scene) {
         entity["sceneName"] = sceneName;
@@ -209,6 +211,8 @@ void Entity::Load(const Json::Value& node) {
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
+    uid = atoi(node.get("uid", "").asString().c_str());
+    
 }
 
 glm::mat4 Entity::GetModelMatrix() const {

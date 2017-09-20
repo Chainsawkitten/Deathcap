@@ -26,6 +26,7 @@
 #include "../../Util/EditorSettings.hpp"
 #include "../FileSelector.hpp"
 #include "../../ImGui/GuiHelpers.hpp"
+#include <imgui_internal.h>
 
 using namespace GUI;
 
@@ -59,6 +60,7 @@ void EntityEditor::Show() {
         ImGui::DraggableVec3("Position", entity->position);
         ImGui::DraggableVec3("Rotation", entity->rotation);
         ImGui::DraggableVec3("Scale", entity->scale);
+        ImGui::InputInt("UID", &entity->uid);
         ImGui::Unindent();
         if (!entity->IsScene()) {
             if (ImGui::Button("Add component"))
