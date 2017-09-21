@@ -121,9 +121,6 @@ Json::Value ActiveHymn::ToJson() const {
 }
 
 void ActiveHymn::FromJson(Json::Value root) {
-    /// @todo Load active scene.
-    //Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + scenes[activeScene] + ".json");
-    
     const Json::Value inputNode = root["input"];
     Input::GetInstance().Load(inputNode[0]);
     
