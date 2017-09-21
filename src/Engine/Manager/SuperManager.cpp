@@ -3,17 +3,27 @@
 
 SuperManager::~SuperManager() {
 
-    ClearComponents();
-
 }
 
-void SuperManager::AddComponent(Component::SuperComponent* component, const std::type_info* componentType) {
+void SuperManager::AddComponent(World* world, Component::SuperComponent* component, const std::type_info* componentType) {
 
     components[componentType].push_back(component);
 
 }
 
-void SuperManager::ClearComponents() {
+void SuperManager::ClearComponents(World* world) {
+
+    std::map<const std::type_info*, std::vector<Component::SuperComponent*>> componentMap = worldComponents[world];
+
+    for (auto& it : componentMap) {
+        for (Component::SuperComponent* component : it.second)
+            delete component;
+    }
+    componentMap.clear();
+
+}
+
+void SuperManager::ClearAllComponents() {
 
     for (auto& it : components) {
         for (Component::SuperComponent* component : it.second)
@@ -23,11 +33,13 @@ void SuperManager::ClearComponents() {
 
 }
 
-void SuperManager::ClearKilledComponents() {
+void SuperManager::ClearKilledComponents(World* world) {
+
+    std::map<const std::type_info*, std::vector<Component::SuperComponent*>> componentMap = worldComponents[world];
 
     // Clear killed components.
     std::size_t i;
-    for (auto& componentIt : components) {
+    for (auto& componentIt : componentMap) {
         i = 0;
         while (i < componentIt.second.size()) {
             if (componentIt.second[i]->IsKilled()) {

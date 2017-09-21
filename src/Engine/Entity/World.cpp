@@ -49,8 +49,8 @@ void World::Clear() {
     entities.clear();
     root = nullptr;
     
-    Managers().ClearComponents();
-    
+    Managers().ClearComponents(this);
+
     particleCount = 0;
     updateEntities.clear();
 }
@@ -58,7 +58,7 @@ void World::Clear() {
 void World::ClearKilled() {
 
     // Clear killed components.
-    Managers().ClearKilledComponents();
+    Managers().ClearKilledComponents(this);
 
     // Clear killed entities.
     std::size_t i = 0;

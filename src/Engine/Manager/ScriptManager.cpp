@@ -397,7 +397,7 @@ void ScriptManager::BuildAllScripts() {
 
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
-    for (Script* script : this->GetComponents<Script>()) {
+    for (Script* script : this->GetComponents<Script>(&world)) {
         if (!script->initialized) {
             CreateInstance(script);
             script->initialized = true;

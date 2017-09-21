@@ -192,7 +192,7 @@ template<typename T> T* Entity::AddComponent() {
         return nullptr;
     T* component = new T(this);
     components[componentType] = component;
-    Managers().AddComponent(component, componentType);
+    Managers().AddComponent(world, component, componentType);
     return component;
 }
 

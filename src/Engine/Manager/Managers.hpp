@@ -11,6 +11,8 @@ class ScriptManager;
 class DebugDrawingManager;
 class ProfilingManager;
 
+class World;
+
 namespace Component {
     class SuperComponent;
 }
@@ -57,18 +59,24 @@ class Hub {
         * @param component The component to add.
         * @param componentType The type of the component to add.
         */
-        void AddComponent(Component::SuperComponent* component, const std::type_info* componentType);
+        void AddComponent(World* world, Component::SuperComponent* component, const std::type_info* componentType);
 
-        /// Clears the components of all managers.
-        void ClearComponents();
+        /// Clears the components of a certain world in all managers.
+        void ClearComponents(World* world);
+
+        /// Clears all the components of all managers.
+        void ClearAllComponents();
 
         /// Clears the killed components of all managers.
-        void ClearKilledComponents();
+        void ClearKilledComponents(World* world);
         
     private:
         Hub();
         Hub(const Hub&) = delete;
         void operator=(const Hub&) = delete;
+
+        bool shutdown = false;
+
 };
 
 /// Get a hub containing all the subsystems.

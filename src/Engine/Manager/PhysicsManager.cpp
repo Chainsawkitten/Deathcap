@@ -14,7 +14,7 @@ PhysicsManager::~PhysicsManager() {
 }
 
 void PhysicsManager::Update(World &world, float deltaTime) {
-    std::vector<Component::Physics*> physicsObjects = this->GetComponents<Component::Physics>();
+    std::vector<Component::Physics*> physicsObjects = this->GetComponents<Component::Physics>(&world);
     for (Component::Physics* physicsComp : physicsObjects) {
         if (physicsComp->IsKilled())
             continue;
