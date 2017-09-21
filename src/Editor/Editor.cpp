@@ -352,20 +352,19 @@ void Editor::NewHymnClosed(const std::string& hymn) {
         Hymn().world.CreateRoot();
         Hymn().SetPath(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
         resourceView.SetVisible(true);
-
+        
         // Default scene.
-        /// @todo Fix creating default scene.
-        //Hymn().scenes.push_back("Scene #0");
-
+        Resources().scenes.push_back("Scene #0");
+        
         Entity* player = Hymn().world.GetRoot()->AddChild("Player");
         player->position.z = 10.f;
         player->AddComponent<Component::Lens>();
         player->AddComponent<Component::Listener>();
-
+        
         Entity* sun = Hymn().world.GetRoot()->AddChild("Sun");
         sun->AddComponent<Component::DirectionalLight>();
     }
-
+    
     selectHymnWindow.SetVisible(false);
 }
 
