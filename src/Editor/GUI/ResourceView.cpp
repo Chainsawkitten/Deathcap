@@ -40,7 +40,7 @@ void ResourceView::Show() {
                 sceneEditor.Save();
                 sceneEditor.SetVisible(true);
                 sceneEditor.SetScene(i);
-                Hymn().activeScene = i;
+                Resources().activeScene = i;
                 sceneEditor.entityEditor.SetVisible(false);
                 Hymn().world.Clear();
                 std::string sceneFile = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[i] + ".json";
@@ -52,11 +52,11 @@ void ResourceView::Show() {
                     Resources().scenes.erase(Resources().scenes.begin() + i);
                     ImGui::EndPopup();
                     
-                    if (Hymn().activeScene >= i) {
-                        if (Hymn().activeScene > 0)
-                            Hymn().activeScene = Hymn().activeScene - 1;
+                    if (Resources().activeScene >= i) {
+                        if (Resources().activeScene > 0)
+                            Resources().activeScene = Resources().activeScene - 1;
                         
-                        sceneEditor.SetScene(Hymn().activeScene);
+                        sceneEditor.SetScene(Resources().activeScene);
                     }
                     break;
                 }

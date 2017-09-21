@@ -25,6 +25,8 @@ ResourceList& ResourceList::GetInstance() {
 void ResourceList::Save() const {
     Json::Value root;
     
+    root["activeScene"] = activeScene;
+    
     // Save textures.
     Json::Value texturesNode;
     for (TextureAsset* texture : textures) {
@@ -73,6 +75,8 @@ void ResourceList::Load() {
     ifstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
     file >> root;
     file.close();
+    
+    activeScene = root["activeScene"].asUInt();
     
     // Load textures.
     const Json::Value texturesNode = root["textures"];

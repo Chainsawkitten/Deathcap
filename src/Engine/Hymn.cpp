@@ -89,9 +89,6 @@ void ActiveHymn::Load(const string& path) {
     Clear();
     this->path = path;
     
-    // Load resources from file.
-    //LoadResources();
-    
     // Load Json document from file.
     Json::Value root;
     ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
@@ -103,8 +100,6 @@ void ActiveHymn::Load(const string& path) {
 
 Json::Value ActiveHymn::ToJson() const {
     Json::Value root;
-    
-    root["activeScene"] = activeScene;
     
     Json::Value inputNode;
     inputNode.append(Input::GetInstance().Save());
@@ -126,7 +121,6 @@ Json::Value ActiveHymn::ToJson() const {
 }
 
 void ActiveHymn::FromJson(Json::Value root) {
-    activeScene = root["activeScene"].asUInt();
     /// @todo Load active scene.
     //Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + scenes[activeScene] + ".json");
     

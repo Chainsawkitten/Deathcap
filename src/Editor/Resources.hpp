@@ -29,6 +29,9 @@ class ResourceList {
         /// Scenes.
         std::vector<std::string> scenes;
         
+        /// The index to the activeScene.
+        std::size_t activeScene;
+        
         /// Models.
         std::vector<Geometry::Model*> models;
         

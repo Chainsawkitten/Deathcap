@@ -78,9 +78,6 @@ class ActiveHymn {
         /// The id of the next entity to create.
         unsigned int entityNumber = 1U;
 
-        ///The index to the activeScene.
-        std::size_t activeScene;
-
         /// Default diffuse texture.
         TextureAsset* defaultDiffuse;
         
