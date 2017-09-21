@@ -18,7 +18,8 @@ Script::~Script() {
     if (instance != nullptr)
         instance->Release();
     
-    Managers().resourceManager->FreeScriptFile(scriptFile);
+    if (scriptFile != nullptr)
+        Managers().resourceManager->FreeScriptFile(scriptFile);
 }
 
 Json::Value Script::Save() const {
