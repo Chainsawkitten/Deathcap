@@ -13,6 +13,9 @@ SoundSource::SoundSource(Entity* entity) : SuperComponent(entity) {
 
 SoundSource::~SoundSource() {
     alDeleteSources(1, &source);
+    
+    if (soundBuffer != nullptr)
+        Managers().resourceManager->FreeSound(soundBuffer);
 }
 
 Json::Value SoundSource::Save() const {
