@@ -65,6 +65,7 @@ class Editor {
         void NewHymnClosed(const std::string& hymn);
         void OpenHymn();
         void OpenHymnClosed(const std::string& hymn);
+        void LoadActiveScene();
         
         bool visible = true;
         GUI::SelectHymnWindow selectHymnWindow;

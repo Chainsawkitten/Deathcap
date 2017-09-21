@@ -322,6 +322,7 @@ Entity* Editor::GetCamera() const {
 }
 
 void Editor::Play() {
+    Resources().Save();
     editorState = Hymn().ToJson();
     SetVisible(false);
     resourceView.HideEditors();
@@ -331,7 +332,13 @@ void Editor::Play() {
 }
 
 void Editor::LoadEditorState() {
+    std::string path = Hymn().GetPath();
+    Hymn().Clear();
+    Hymn().SetPath(path);
+    Resources().Clear();
     Hymn().FromJson(editorState);
+    Resources().Load();
+    LoadActiveScene();
 }
 
 void Editor::NewHymn() {
@@ -381,12 +388,14 @@ void Editor::OpenHymnClosed(const std::string& hymn) {
         resourceView.ResetScene();
         Hymn().Load(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
         Resources().Load();
-        
-        // Load active scene.
-        Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[Resources().activeScene] + ".json");
-        
+        LoadActiveScene();
         resourceView.SetVisible(true);
     }
 
     selectHymnWindow.SetVisible(false);
+}
+
+void Editor::LoadActiveScene() {
+    // Load active scene.
+    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[Resources().activeScene] + ".json");
 }
