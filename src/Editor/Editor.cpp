@@ -14,7 +14,6 @@
 #include <Engine/Component/Listener.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
-#include <Utility/Log.hpp>
 
 #include <imgui.h>
 #include <GLFW/glfw3.h>
@@ -384,7 +383,6 @@ void Editor::OpenHymnClosed(const std::string& hymn) {
         Resources().Load();
         
         // Load active scene.
-        Log() << "Active scene: " << Resources().scenes[Resources().activeScene] << "\n";
         Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[Resources().activeScene] + ".json");
         
         resourceView.SetVisible(true);
