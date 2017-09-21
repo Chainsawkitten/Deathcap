@@ -80,9 +80,6 @@ void ActiveHymn::Save() const {
     ofstream file(path + FileSystem::DELIMITER + "Hymn.json");
     file << ToJson();
     file.close();
-    
-    // Save resources to file.
-    //SaveResources();
 }
 
 void ActiveHymn::Load(const string& path) {
