@@ -21,6 +21,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Hymn.hpp>
 
 #include "../../Util/EditorSettings.hpp"
 #include "../FileSelector.hpp"
@@ -306,7 +307,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         ImGui::Text("Scripts");
         ImGui::Separator();
 
-        for (ScriptFile* scriptFile : Resources().scripts) {
+        for (ScriptFile* scriptFile : Hymn().scripts) {
             if (ImGui::Selectable(scriptFile->name.c_str()))
                 script->scriptFile = scriptFile;
         }

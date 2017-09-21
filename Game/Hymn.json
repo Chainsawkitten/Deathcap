@@ -25,5 +25,10 @@
 		{
 			"size" : 0
 		}
+	],
+	"scripts" : 
+	[
+		"Player",
+		"Cart"
 	]
 }

@@ -59,6 +59,12 @@ void ActiveHymn::Clear() {
     filterSettings.fxaa = true;
     filterSettings.glow = true;
     filterSettings.glowBlurAmount = 1;
+    
+    for (ScriptFile* script : scripts) {
+        Managers().resourceManager->FreeScriptFile(script);
+    }
+    scripts.clear();
+    scriptNumber = 0U;
 }
 
 const string& ActiveHymn::GetPath() const {
@@ -114,6 +120,13 @@ Json::Value ActiveHymn::ToJson() const {
     filtersNode["glowBlurAmount"] = filterSettings.glowBlurAmount;
     root["filters"] = filtersNode;
     
+    // Save scripts.
+    Json::Value scriptNode;
+    for (ScriptFile* script : scripts) {
+        scriptNode.append(script->name);
+    }
+    root["scripts"] = scriptNode;
+    
     return root;
 }
 
@@ -131,6 +144,13 @@ void ActiveHymn::FromJson(Json::Value root) {
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
     filterSettings.glow = filtersNode["glow"].asBool();
     filterSettings.glowBlurAmount = filtersNode["glowBlurAmount"].asInt();
+    
+    // Load scripts.
+    const Json::Value scriptNode = root["scripts"];
+    for (unsigned int i = 0; i < scriptNode.size(); ++i) {
+        scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
+    }
+    scriptNumber = scripts.size();
 }
 
 void ActiveHymn::Update(float deltaTime) {

@@ -77,6 +77,12 @@ class ActiveHymn {
         
         /// The id of the next entity to create.
         unsigned int entityNumber = 1U;
+        
+        /// Scripts.
+        std::vector<ScriptFile*> scripts;
+    
+        /// The id of the next script to create.
+        unsigned int scriptNumber = 0U;
 
         /// Default diffuse texture.
         TextureAsset* defaultDiffuse;

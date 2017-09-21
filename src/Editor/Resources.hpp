@@ -49,12 +49,6 @@ class ResourceList {
     
         /// The id of the next sound to create.
         unsigned int soundNumber = 0U;
-    
-        /// Scripts.
-        std::vector<ScriptFile*> scripts;
-    
-        /// The id of the next script to create.
-        unsigned int scriptNumber = 0U;
         
     private:
         static ResourceList& GetInstance();

@@ -9,11 +9,6 @@
 	[
 		"TestScene"
 	],
-	"scripts" : 
-	[
-		"Player",
-		"Cart"
-	],
 	"sounds" : null,
 	"textures" : 
 	[

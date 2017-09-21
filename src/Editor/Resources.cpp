@@ -3,7 +3,6 @@
 #include <json/value.h>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Geometry/Model.hpp>
-#include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Manager/Managers.hpp>
@@ -41,13 +40,6 @@ void ResourceList::Save() const {
         modelsNode.append(model->name);
     }
     root["models"] = modelsNode;
-    
-    // Save scripts.
-    Json::Value scriptNode;
-    for (ScriptFile* script : scripts) {
-        scriptNode.append(script->name);
-    }
-    root["scripts"] = scriptNode;
     
     // Save sounds.
     Json::Value soundsNode;
@@ -90,12 +82,6 @@ void ResourceList::Load() {
         models.push_back(Managers().resourceManager->CreateModel(modelsNode[i].asString()));
     }
     
-    // Load scripts.
-    const Json::Value scriptNode = root["scripts"];
-    for (unsigned int i = 0; i < scriptNode.size(); ++i) {
-        scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
-    }
-    
     // Load sounds.
     const Json::Value soundsNode = root["sounds"];
     for (unsigned int i = 0; i < soundsNode.size(); ++i) {
@@ -111,7 +97,6 @@ void ResourceList::Load() {
     textureNumber = textures.size();
     modelNumber = models.size();
     soundNumber = sounds.size();
-    scriptNumber = scripts.size();
 }
 
 void ResourceList::Clear() {
@@ -134,12 +119,6 @@ void ResourceList::Clear() {
     }
     sounds.clear();
     soundNumber = 0U;
-    
-    for (ScriptFile* script : scripts) {
-        Managers().resourceManager->FreeScriptFile(script);
-    }
-    scripts.clear();
-    scriptNumber = 0U;
 }
 
 ResourceList& Resources() {

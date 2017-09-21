@@ -136,11 +136,11 @@ void ResourceView::Show() {
     if (ImGui::TreeNode("Scripts")) {
         if (ImGui::Button("Add script")) {
             ScriptFile* scriptFile = new ScriptFile();
-            scriptFile->name = "Script #" + std::to_string(Resources().scriptNumber++);
-            Resources().scripts.push_back(scriptFile);
+            scriptFile->name = "Script #" + std::to_string(Hymn().scriptNumber++);
+            Hymn().scripts.push_back(scriptFile);
         }
         
-        for (auto it = Resources().scripts.begin(); it != Resources().scripts.end(); ++it) {
+        for (auto it = Hymn().scripts.begin(); it != Hymn().scripts.end(); ++it) {
             ScriptFile* script = *it;
             std::string name = script->name;
             
@@ -155,7 +155,7 @@ void ResourceView::Show() {
                         scriptEditor.SetVisible(false);
                     
                     delete script;
-                    Resources().scripts.erase(it);
+                    Hymn().scripts.erase(it);
                     ImGui::EndPopup();
                     break;
                 }
