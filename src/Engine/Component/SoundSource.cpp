@@ -32,7 +32,8 @@ Json::Value SoundSource::Save() const {
 
 void SoundSource::Load(const Json::Value& node) {
     std::string name = node.get("sound", "").asString();
-    soundBuffer = Managers().resourceManager->CreateSound(name);
+    if (!name.empty())
+        soundBuffer = Managers().resourceManager->CreateSound(name);
     
     pitch = node.get("pitch", 1.f).asFloat();
     gain = node.get("gain", 1.f).asFloat();
