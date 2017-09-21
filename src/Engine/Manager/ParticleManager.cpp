@@ -47,7 +47,7 @@ void ParticleManager::Update(World& world, float time, bool preview) {
     std::uniform_real_distribution<float> minusOneToOne(-1.f, 1.f);
     std::vector<Component::ParticleEmitter*> particleEmitters = world.GetComponents<Component::ParticleEmitter>();
     for (Component::ParticleEmitter* emitter : particleEmitters) {
-        if (emitter->IsKilled() || (preview && !emitter->preview))
+        if (emitter->IsKilled() || (preview && !emitter->preview) || !emitter->entity->enabled)
             continue;
         
         emitter->timeToNext -= time;
