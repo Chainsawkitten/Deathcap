@@ -6,13 +6,6 @@
 #include "Entity/World.hpp"
 
 class TextureAsset;
-namespace Geometry {
-    class Model;
-}
-namespace Audio {
-    class SoundBuffer;
-}
-
 class ScriptFile;
 
 /// A hymn to beauty.
