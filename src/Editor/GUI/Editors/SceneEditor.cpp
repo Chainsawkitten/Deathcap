@@ -111,8 +111,10 @@ void SceneEditor::ShowEntity(Entity* entity) {
         }
 		
         if (!entity->IsScene()) {
-            if (ImGui::Selectable("Add child"))
+            if (ImGui::Selectable("Add child")) {
+                Hymn().SetEntityID(1);
                 entity->AddChild("Entity #" + std::to_string(Hymn().entityNumber++));
+            }
             
             if (ImGui::Selectable("Instantiate scene"))
                 instantiate = true;

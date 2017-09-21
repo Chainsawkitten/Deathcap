@@ -5,6 +5,7 @@
 #include "../Manager/Managers.hpp"
 #include "../Manager/ParticleManager.hpp"
 #include "../Util/FileSystem.hpp"
+#include "Hymn.hpp"
 #include <fstream>
 
 World::World() {
@@ -20,6 +21,7 @@ World::~World() {
 Entity* World::CreateEntity(const std::string& name) {
     Entity* entity = new Entity(this, name);
     entities.push_back(entity);
+    entity->uid = Hymn().GetEntityID();
     return entity;
 }
 
@@ -110,7 +112,8 @@ void World::Save(const std::string& filename) const {
 
 void World::Load(const std::string& filename) {
     Clear();
-    
+
+    Hymn().SetEntityID(1);
     CreateRoot();
     
     // Load Json document from file.

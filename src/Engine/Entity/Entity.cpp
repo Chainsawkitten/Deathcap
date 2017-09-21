@@ -21,7 +21,6 @@
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
-    uid = rand()%1000000;
 }
 
 Entity::~Entity() {
