@@ -13,6 +13,8 @@
 #include <limits>
 #include "../ImGui/Splitter.hpp"
 #include "../Resources.hpp"
+#include <Engine/Manager/Managers.hpp>
+#include <Engine/Manager/ResourceManager.hpp>
 
 using namespace GUI;
 using namespace std;
@@ -119,7 +121,10 @@ void ResourceView::Show() {
                     if (textureEditor.GetTexture() == texture)
                         textureEditor.SetVisible(false);
                     
-                    delete texture;
+                    /// @todo Remove files.
+                    
+                    texture->name = "";
+                    Managers().resourceManager->FreeTextureAsset(texture);
                     Resources().textures.erase(it);
                     ImGui::EndPopup();
                     break;
