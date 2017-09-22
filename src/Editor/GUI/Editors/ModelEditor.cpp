@@ -48,6 +48,7 @@ void ModelEditor::Show() {
             std::string button = isImported ? "Re-import" : "Import";
 
             if (ImGui::Button(button.c_str())) {
+                // Convert to .asset format.
                 AssetConverter asset;
                 asset.Convert(source.c_str(), (destination + ".asset").c_str(), triangulate, importNormals, importTangents);
                 model->Load(destination.c_str());
@@ -55,12 +56,11 @@ void ModelEditor::Show() {
                 isImported = true;
 
                 // Generate meta data.
-                AssetMetaData metaData;
                 AssetMetaData::MeshImportData * importData = new AssetMetaData::MeshImportData;
                 importData->triangulate = triangulate;
                 importData->importNormals = importNormals;
                 importData->importTangents = importTangents;
-                metaData.GenerateMetaData((destination + ".asset.meta").c_str(), importData);
+                AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
 
                 delete importData;
                 importData = nullptr;
@@ -84,6 +84,10 @@ void ModelEditor::SetModel(Geometry::Model* model) {
     this->model = model;
 
     strcpy(name, model->name.c_str());
+
+    destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+
+    RefreshImportSettings();
 }
 
 bool ModelEditor::IsVisible() const {
@@ -101,7 +105,9 @@ void ModelEditor::FileSelected(const std::string& file) {
     // @todo Overwrite option?
     for (int i = 0; i < Hymn().models.size(); ++i) {
         if (Hymn().models[i]->name == name) {
-            Log() << "File " << file << " is already added to project.\n";
+            Log() << "File " << name << " is already added to project.\n";
+            isImported = false;
+            hasSourceFile = false;
             return;
         }
     }
@@ -120,16 +126,28 @@ void ModelEditor::FileSelected(const std::string& file) {
 
     hasSourceFile = true;
 
+    RefreshImportSettings();
+}
+
+void GUI::ModelEditor::RefreshImportSettings() {
+    // Check if the source file exist, currently only .fbx is supported.
+    if (!FileSystem::FileExists((destination + ".fbx").c_str())) {
+        hasSourceFile = false;
+        isImported = false;
+        return;
+    }
+
     // Check if meta file already exists. If it does import the metadata.
     std::string filePath(destination + ".asset.meta");
     if (FileSystem::FileExists(filePath.c_str())) {
-        AssetMetaData metaData;
-        AssetMetaData::MeshImportData * importData = metaData.GetMetaData(filePath.c_str());
+        AssetMetaData::MeshImportData * importData = AssetMetaData::GetMetaData(filePath.c_str());
         triangulate = importData->triangulate;
         importNormals = importData->importNormals;
         importTangents = importData->importTangents;
-        delete importData;
 
+        delete importData;
         isImported = true;
+    } else {
+        isImported = false;
     }
 }

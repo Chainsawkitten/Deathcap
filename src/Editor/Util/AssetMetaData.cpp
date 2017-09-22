@@ -1,11 +1,5 @@
 #include "AssetMetaData.hpp"
 
-AssetMetaData::AssetMetaData() {
-}
-
-AssetMetaData::~AssetMetaData() {
-}
-
 bool AssetMetaData::GenerateMetaData(const char * filepath, MeshImportData * meshImportData) {
     // Open file for writing.
     std::ofstream file(filepath);
