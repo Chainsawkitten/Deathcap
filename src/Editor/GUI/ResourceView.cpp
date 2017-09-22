@@ -15,6 +15,7 @@
 #include "../Resources.hpp"
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
+#include <cstdio>
 
 using namespace GUI;
 using namespace std;
@@ -121,7 +122,9 @@ void ResourceView::Show() {
                     if (textureEditor.GetTexture() == texture)
                         textureEditor.SetVisible(false);
                     
-                    /// @todo Remove files.
+                    // Remove files.
+                    remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png").c_str());
+                    remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".json").c_str());
                     
                     texture->name = "";
                     Managers().resourceManager->FreeTextureAsset(texture);
