@@ -54,10 +54,30 @@
 	"sounds" : null,
 	"textures" : 
 	[
+<<<<<<< HEAD
+		{
+			"name" : "Texture #0",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #1",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #2",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #3",
+			"srgb" : false
+		}
+	],
+	"uid" : "5"
+=======
 		"Texture #0",
 		"Texture #1",
 		"Texture #2",
 		"Texture #3"
-	],
-	"uid" : "5"
+	]
+>>>>>>> master
 }

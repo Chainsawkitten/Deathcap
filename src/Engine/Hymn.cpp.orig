@@ -152,10 +152,14 @@ Json::Value ActiveHymn::ToJson() const {
     Json::Value inputNode;
     inputNode.append(Input::GetInstance().Save());
     root["input"] = inputNode;
+<<<<<<< HEAD
 
     // Save Entity Identifier
     root["uid"] = to_string(uid);
 
+=======
+    
+>>>>>>> master
     // Filter settings.
     Json::Value filtersNode;
     filtersNode["color"] = filterSettings.color;
@@ -209,10 +213,14 @@ void ActiveHymn::FromJson(Json::Value root) {
     for (unsigned int i = 0; i < scenesNode.size(); ++i) {
         scenes.push_back(scenesNode[i].asString());
     }
+<<<<<<< HEAD
 
     // Load Entity Identifier
     uid = atoi(root.get("uid", "").asString().c_str()) - 2;
 
+=======
+    
+>>>>>>> master
     activeScene = root["activeScene"].asUInt();
     Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + scenes[activeScene] + ".json");
     
