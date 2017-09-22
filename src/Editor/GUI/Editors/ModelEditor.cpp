@@ -21,6 +21,7 @@ void ModelEditor::Show() {
 
                 if (FileSystem::FileExists((destination + ".asset").c_str()))
                     FileSystem::Rename(destination + ".asset", std::string(name) + ".asset");
+
                 if (FileSystem::FileExists((destination + ".asset.meta").c_str()))
                     FileSystem::Rename(destination + ".asset.meta", std::string(name) + ".asset.meta");
 
@@ -94,10 +95,20 @@ void ModelEditor::SetVisible(bool visible) {
 }
 
 void ModelEditor::FileSelected(const std::string& file) {
+    std::string name = FileSystem::GetName(file).c_str();
+
+    // Checking so that the file isn't imported twice.
+    // @todo Overwrite option?
+    for (int i = 0; i < Hymn().models.size(); ++i) {
+        if (Hymn().models[i]->name == name) {
+            Log() << "File " << file << " is already added to project.\n";
+            return;
+        }
+    }
+
     source = file;
 
     // Rename the model to the name of the source file.
-    std::string name = FileSystem::GetName(source).c_str();
     strcpy(this->name, name.c_str());
     model->name = this->name;
 
