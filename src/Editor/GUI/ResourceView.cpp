@@ -16,6 +16,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <cstdio>
+#include <Utility/Log.hpp>
 
 using namespace GUI;
 using namespace std;
@@ -119,16 +120,19 @@ void ResourceView::Show() {
             
             if (ImGui::BeginPopupContextItem(texture->name.c_str())) {
                 if (ImGui::Selectable("Delete")) {
-                    if (textureEditor.GetTexture() == texture)
-                        textureEditor.SetVisible(false);
-                    
-                    // Remove files.
-                    remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png").c_str());
-                    remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".json").c_str());
-                    
-                    texture->name = "";
-                    Managers().resourceManager->FreeTextureAsset(texture);
-                    Resources().textures.erase(it);
+                    if (Managers().resourceManager->GetTextureAssetInstanceCount(texture) > 1) {
+                        Log() << "This texture is in use. Remove all references to the texture first.\n";
+                    } else {
+                        if (textureEditor.GetTexture() == texture)
+                            textureEditor.SetVisible(false);
+                        
+                        // Remove files.
+                        remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png").c_str());
+                        remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".json").c_str());
+                        
+                        Managers().resourceManager->FreeTextureAsset(texture);
+                        Resources().textures.erase(it);
+                    }
                     ImGui::EndPopup();
                     break;
                 }
