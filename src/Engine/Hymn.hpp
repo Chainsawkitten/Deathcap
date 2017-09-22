@@ -72,18 +72,6 @@ class ActiveHymn {
          */
         void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false);
 
-        /// Sets the entity identifier.
-        /**
-         * @param increment the amount of which the entity identifier will increase with.
-         */
-        void SetEntityID(int increment);
-
-        /// Gets the entity identifier
-        /**
-         * @return entity identifer to keep track of which ID to start at.
-         */
-        const int& GetEntityID() const;
-        
         /// The game world.
         World world;
         
@@ -170,8 +158,6 @@ class ActiveHymn {
         void operator=(ActiveHymn const&) = delete;
         
         std::string path = "";
-
-        int uid = 0;
 };
 
 /// Get the active hymn.

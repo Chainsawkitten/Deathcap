@@ -153,9 +153,6 @@ Json::Value ActiveHymn::ToJson() const {
     inputNode.append(Input::GetInstance().Save());
     root["input"] = inputNode;
 
-    // Save Entity Identifier
-    root["uid"] = to_string(uid);
-
     // Filter settings.
     Json::Value filtersNode;
     filtersNode["color"] = filterSettings.color;
@@ -209,9 +206,6 @@ void ActiveHymn::FromJson(Json::Value root) {
     for (unsigned int i = 0; i < scenesNode.size(); ++i) {
         scenes.push_back(scenesNode[i].asString());
     }
-
-    // Load Entity Identifier
-    uid = atoi(root.get("uid", "").asString().c_str()) - 2;
 
     activeScene = root["activeScene"].asUInt();
     Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + scenes[activeScene] + ".json");
@@ -302,14 +296,6 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     { PROFILE("Render debug entities");
         Managers().debugDrawingManager->Render(world, camera);
     }
-}
-
-void ActiveHymn::SetEntityID(int increment) {
-    uid += increment;
-}
-
-const int& ActiveHymn::GetEntityID() const {
-    return uid;
 }
 
 ActiveHymn& Hymn() {

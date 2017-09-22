@@ -7,6 +7,7 @@
 #include "../Util/FileSystem.hpp"
 #include "Hymn.hpp"
 #include <fstream>
+#include <ctime>
 
 World::World() {
     particles = new Video::ParticleRenderer::Particle[Managers().particleManager->GetMaxParticleCount()];
@@ -21,7 +22,7 @@ World::~World() {
 Entity* World::CreateEntity(const std::string& name) {
     Entity* entity = new Entity(this, name);
     entities.push_back(entity);
-    entity->uid = Hymn().GetEntityID();
+    entity->uid = std::time(NULL);
     return entity;
 }
 
@@ -113,7 +114,6 @@ void World::Save(const std::string& filename) const {
 void World::Load(const std::string& filename) {
     Clear();
 
-    Hymn().SetEntityID(1);
     CreateRoot();
     
     // Load Json document from file.
