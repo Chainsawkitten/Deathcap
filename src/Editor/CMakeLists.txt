@@ -1,6 +1,7 @@
 set(SRCS
         main.cpp
         Editor.cpp
+        Resources.cpp
         ImGui/OpenGLImplementation.cpp
         ImGui/Splitter.cpp
         ImGui/Theme.cpp
@@ -10,7 +11,7 @@ set(SRCS
         GUI/SavePromptWindow.cpp
         GUI/InputWindow.cpp
         GUI/FileSelector.cpp
-        GUI/ResourceList.cpp
+        GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
@@ -25,6 +26,7 @@ set(SRCS
 
 set(HEADERS
         Editor.hpp
+        Resources.hpp
         ImGui/OpenGLImplementation.hpp
         ImGui/Splitter.hpp
         ImGui/Theme.hpp
@@ -34,7 +36,7 @@ set(HEADERS
         GUI/SavePromptWindow.hpp
         GUI/InputWindow.hpp
         GUI/FileSelector.hpp
-        GUI/ResourceList.hpp
+        GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/ModelEditor.hpp
