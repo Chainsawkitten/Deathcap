@@ -14,6 +14,20 @@ Material::Material(Entity* entity) : SuperComponent(entity) {
     roughness = Hymn().defaultRoughness;
 }
 
+Material::~Material() {
+    if (albedo != nullptr && albedo != Hymn().defaultAlbedo)
+        Managers().resourceManager->FreeTextureAsset(albedo);
+    
+    if (normal != nullptr && normal != Hymn().defaultNormal)
+        Managers().resourceManager->FreeTextureAsset(normal);
+    
+    if (metallic != nullptr && metallic != Hymn().defaultMetallic)
+        Managers().resourceManager->FreeTextureAsset(metallic);
+    
+    if (roughness != nullptr && roughness != Hymn().defaultRoughness)
+        Managers().resourceManager->FreeTextureAsset(roughness);
+}
+
 Json::Value Material::Save() const {
     Json::Value component;
     

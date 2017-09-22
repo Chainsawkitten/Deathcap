@@ -91,6 +91,13 @@ class ResourceManager {
          */
         void FreeTextureAsset(TextureAsset* textureAsset);
         
+        /// Get the number of instances of a texture asset.
+        /**
+         * @param textureAsset The texture asset to check.
+         * @return How many instances of the texture asset currently exist.
+         */
+        int GetTextureAssetInstanceCount(TextureAsset* textureAsset);
+        
         /// Create a sound if it doesn't already exist.
         /**
          * @param name Name of the sound.

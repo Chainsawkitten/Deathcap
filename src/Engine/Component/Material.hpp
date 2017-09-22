@@ -15,6 +15,9 @@ namespace Component {
              */
             Material(Entity* entity);
             
+            /// Destructor.
+            ~Material() override;
+            
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
