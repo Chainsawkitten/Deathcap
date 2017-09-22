@@ -332,8 +332,12 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         ImGui::Separator();
 
         for (ScriptFile* scriptFile : Hymn().scripts) {
-            if (ImGui::Selectable(scriptFile->name.c_str()))
-                script->scriptFile = scriptFile;
+            if (ImGui::Selectable(scriptFile->name.c_str())) {
+                if (script->scriptFile != nullptr)
+                    Managers().resourceManager->FreeScriptFile(script->scriptFile);
+                
+                script->scriptFile = Managers().resourceManager->CreateScriptFile(scriptFile->name);
+            }
         }
 
         ImGui::EndPopup();
