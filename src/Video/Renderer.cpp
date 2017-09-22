@@ -106,16 +106,16 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
     staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) {
-    staticRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix);
+void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix) {
+    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix);
 }
 
 void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* diffuseTexture, const Video::Texture2D* normalTexture, const Video::Texture2D* specularTexture, const Video::Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
-    skinRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix, bones, bonesIT);
+void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
+    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones, bonesIT);
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {

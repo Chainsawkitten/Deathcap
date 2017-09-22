@@ -173,7 +173,7 @@ void EntityEditor::LensEditor(Component::Lens* lens) {
 }
 
 void EntityEditor::MaterialEditor(Component::Material* material) {
-    // Diffuse
+    // Albedo
     ImGui::Text("Albedo");
     ImGui::Indent();
     if (material->albedo->GetTexture()->IsLoaded())
