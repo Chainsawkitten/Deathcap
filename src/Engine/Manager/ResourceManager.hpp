@@ -53,7 +53,7 @@ class ResourceManager {
         * @param name Name of model.
         * @return The model instance
         */
-        Geometry::Model* CreateModel(std::string name);
+        Geometry::Model* CreateModel(const std::string& name);
 
         /// Free the reference to the model.
         /**
@@ -82,7 +82,7 @@ class ResourceManager {
          * @param name The name of the texture asset.
          * @return The %TextureAsset instance
          */
-        TextureAsset* CreateTextureAsset(std::string name);
+        TextureAsset* CreateTextureAsset(const std::string& name);
         
         /// Free the reference to the texture asset.
         /**
@@ -96,7 +96,7 @@ class ResourceManager {
          * @param name Name of the sound.
          * @return The %SoundBuffer instance.
          */
-        Audio::SoundBuffer* CreateSound(std::string name);
+        Audio::SoundBuffer* CreateSound(const std::string& name);
         
         /// Free the reference to the sound.
         /**
@@ -110,7 +110,7 @@ class ResourceManager {
          * @param name Name of the script file.
          * @return The %ScriptFile instance.
          */
-        ScriptFile* CreateScriptFile(std::string name);
+        ScriptFile* CreateScriptFile(const std::string& name);
         
         /// Free the reference to the script file.
         /**

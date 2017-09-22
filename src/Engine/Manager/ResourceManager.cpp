@@ -41,7 +41,7 @@ void ResourceManager::FreeCube() {
         delete rectangle;
 }
 
-Geometry::Model* ResourceManager::CreateModel(std::string name) {
+Geometry::Model* ResourceManager::CreateModel(const std::string& name) {
     if (models.find(name) == models.end()) {
         Geometry::Model* model = new Geometry::Model();
         model->Load(name);
@@ -87,7 +87,7 @@ void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
     }
 }
 
-TextureAsset* ResourceManager::CreateTextureAsset(std::string name) {
+TextureAsset* ResourceManager::CreateTextureAsset(const std::string& name) {
     if (textureAssets.find(name) == textureAssets.end()) {
         TextureAsset* textureAsset = new TextureAsset();
         textureAsset->Load(name);
@@ -111,7 +111,7 @@ void ResourceManager::FreeTextureAsset(TextureAsset* textureAsset) {
     }
 }
 
-Audio::SoundBuffer* ResourceManager::CreateSound(string name) {
+Audio::SoundBuffer* ResourceManager::CreateSound(const string& name) {
     if (sounds.find(name) == sounds.end()) {
         Audio::SoundBuffer* soundBuffer = new Audio::SoundBuffer();
         soundBuffer->Load(name);
@@ -135,7 +135,7 @@ void ResourceManager::FreeSound(Audio::SoundBuffer* soundBuffer) {
     }
 }
 
-ScriptFile* ResourceManager::CreateScriptFile(string name) {
+ScriptFile* ResourceManager::CreateScriptFile(const string& name) {
     if (scriptFiles.find(name) == scriptFiles.end()) {
         ScriptFile* scriptFile = new ScriptFile();
         scriptFile->Load(name);
