@@ -117,8 +117,12 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
         ImGui::Separator();
 
         for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str()))
-                animation->riggedModel = dynamic_cast<Geometry::Model*>(model);
+            if (ImGui::Selectable(model->name.c_str())) {
+                if (animation->riggedModel != nullptr)
+                    Managers().resourceManager->FreeModel(animation->riggedModel);
+                
+                animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
+            }
         }
 
         ImGui::EndPopup();
