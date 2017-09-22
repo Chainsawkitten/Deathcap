@@ -163,6 +163,9 @@ void ActiveHymn::Update(float deltaTime) {
     
     { PROFILE("Update animations");
         for (Entity* entity : world.GetEntities()) {
+            if (entity->IsKilled() || !entity->enabled)
+                continue;
+            
             Component::Animation* anim = entity->GetComponent<Component::Animation>();
             if (anim != nullptr) {
                 Geometry::Model* model = anim->riggedModel;
