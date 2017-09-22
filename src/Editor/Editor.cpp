@@ -387,6 +387,7 @@ void Editor::OpenHymnClosed(const std::string& hymn) {
     if (!hymn.empty()) {
         resourceView.ResetScene();
         Hymn().Load(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
+        Resources().Clear();
         Resources().Load();
         LoadActiveScene();
         resourceView.SetVisible(true);
