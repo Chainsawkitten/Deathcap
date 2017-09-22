@@ -21,6 +21,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Hymn.hpp>
 
 #include "../../Util/EditorSettings.hpp"
@@ -187,15 +188,18 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->diffuse = texture;
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->diffuse != Hymn().defaultDiffuse)
+                    Managers().resourceManager->FreeTextureAsset(material->diffuse);
+                
+                material->diffuse = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-
-
+    
     // Normal
     ImGui::Text("Normal");
     ImGui::Indent();
@@ -210,14 +214,18 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->normal = texture;
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->normal != Hymn().defaultNormal)
+                    Managers().resourceManager->FreeTextureAsset(material->normal);
+                
+                material->normal = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-
+    
     // Specular
     ImGui::Text("Specular");
     ImGui::Indent();
@@ -232,14 +240,18 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->specular = texture;
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->specular != Hymn().defaultSpecular)
+                    Managers().resourceManager->FreeTextureAsset(material->specular);
+                
+                material->specular = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-
+    
     // Glow
     ImGui::Text("Glow");
     ImGui::Indent();
@@ -254,8 +266,12 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->glow = texture;
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->glow != Hymn().defaultGlow)
+                    Managers().resourceManager->FreeTextureAsset(material->glow);
+                
+                material->glow = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
