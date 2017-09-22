@@ -156,8 +156,12 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         ImGui::Separator();
         
         for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str()))
-                mesh->geometry = model;
+            if (ImGui::Selectable(model->name.c_str())) {
+                if (mesh->geometry != nullptr)
+                    Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
+                
+                mesh->geometry = Managers().resourceManager->CreateModel(model->name);
+            }
         }
         
         ImGui::EndPopup();
