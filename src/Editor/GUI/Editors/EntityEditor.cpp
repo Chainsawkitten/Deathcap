@@ -12,7 +12,6 @@
 #include <Engine/Component/Script.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
-#include <Engine/Hymn.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
@@ -22,10 +21,12 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Hymn.hpp>
 
 #include "../../Util/EditorSettings.hpp"
 #include "../FileSelector.hpp"
 #include "../../ImGui/GuiHelpers.hpp"
+#include "../../Resources.hpp"
 
 using namespace GUI;
 
@@ -114,7 +115,7 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
         ImGui::Text("Models");
         ImGui::Separator();
 
-        for (Geometry::Model* model : Hymn().models) {
+        for (Geometry::Model* model : Resources().models) {
             if (ImGui::Selectable(model->name.c_str()))
                 animation->riggedModel = dynamic_cast<Geometry::Model*>(model);
         }
@@ -153,7 +154,7 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         ImGui::Text("Models");
         ImGui::Separator();
         
-        for (Geometry::Model* model : Hymn().models) {
+        for (Geometry::Model* model : Resources().models) {
             if (ImGui::Selectable(model->name.c_str()))
                 mesh->geometry = model;
         }
@@ -185,7 +186,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
+        for (TextureAsset* texture : Resources().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
                 material->diffuse = texture;
         }
@@ -208,7 +209,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
+        for (TextureAsset* texture : Resources().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
                 material->normal = texture;
         }
@@ -230,7 +231,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
+        for (TextureAsset* texture : Resources().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
                 material->specular = texture;
         }
@@ -252,7 +253,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
+        for (TextureAsset* texture : Resources().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
                 material->glow = texture;
         }
@@ -326,7 +327,7 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Text("Sounds");
         ImGui::Separator();
         
-        for (Audio::SoundBuffer* sound : Hymn().sounds) {
+        for (Audio::SoundBuffer* sound : Resources().sounds) {
             if (ImGui::Selectable(sound->name.c_str()))
                 soundSource->soundBuffer = sound;
         }
