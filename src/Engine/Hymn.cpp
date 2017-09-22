@@ -216,7 +216,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     }
 
     // Load Entity Identifier
-    uid = atoi(root.get("uid", "").asString().c_str());
+    uid = atoi(root.get("uid", "").asString().c_str()) - 2;
 
     activeScene = root["activeScene"].asUInt();
     Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + scenes[activeScene] + ".json");
