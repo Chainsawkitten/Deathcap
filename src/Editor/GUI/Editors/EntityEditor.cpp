@@ -12,7 +12,6 @@
 #include <Engine/Component/Script.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
-#include <Engine/Hymn.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
@@ -22,10 +21,13 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/ResourceManager.hpp>
+#include <Engine/Hymn.hpp>
 
 #include "../../Util/EditorSettings.hpp"
 #include "../FileSelector.hpp"
 #include "../../ImGui/GuiHelpers.hpp"
+#include "../../Resources.hpp"
 
 using namespace GUI;
 
@@ -114,9 +116,13 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
         ImGui::Text("Models");
         ImGui::Separator();
 
-        for (Geometry::Model* model : Hymn().models) {
-            if (ImGui::Selectable(model->name.c_str()))
-                animation->riggedModel = dynamic_cast<Geometry::Model*>(model);
+        for (Geometry::Model* model : Resources().models) {
+            if (ImGui::Selectable(model->name.c_str())) {
+                if (animation->riggedModel != nullptr)
+                    Managers().resourceManager->FreeModel(animation->riggedModel);
+                
+                animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
+            }
         }
 
         ImGui::EndPopup();
@@ -153,9 +159,13 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         ImGui::Text("Models");
         ImGui::Separator();
         
-        for (Geometry::Model* model : Hymn().models) {
-            if (ImGui::Selectable(model->name.c_str()))
-                mesh->geometry = model;
+        for (Geometry::Model* model : Resources().models) {
+            if (ImGui::Selectable(model->name.c_str())) {
+                if (mesh->geometry != nullptr)
+                    Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
+                
+                mesh->geometry = Managers().resourceManager->CreateModel(model->name);
+            }
         }
         
         ImGui::EndPopup();
@@ -185,16 +195,19 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->diffuse = texture;
+        for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->diffuse != Hymn().defaultDiffuse)
+                    Managers().resourceManager->FreeTextureAsset(material->diffuse);
+                
+                material->diffuse = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-
-
+    
     // Normal
     ImGui::Text("Normal");
     ImGui::Indent();
@@ -208,15 +221,19 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->normal = texture;
+        for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->normal != Hymn().defaultNormal)
+                    Managers().resourceManager->FreeTextureAsset(material->normal);
+                
+                material->normal = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-
+    
     // Specular
     ImGui::Text("Specular");
     ImGui::Indent();
@@ -230,15 +247,19 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->specular = texture;
+        for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->specular != Hymn().defaultSpecular)
+                    Managers().resourceManager->FreeTextureAsset(material->specular);
+                
+                material->specular = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-
+    
     // Glow
     ImGui::Text("Glow");
     ImGui::Indent();
@@ -252,9 +273,13 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->glow = texture;
+        for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->glow != Hymn().defaultGlow)
+                    Managers().resourceManager->FreeTextureAsset(material->glow);
+                
+                material->glow = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
@@ -307,8 +332,12 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         ImGui::Separator();
 
         for (ScriptFile* scriptFile : Hymn().scripts) {
-            if (ImGui::Selectable(scriptFile->name.c_str()))
-                script->scriptFile = scriptFile;
+            if (ImGui::Selectable(scriptFile->name.c_str())) {
+                if (script->scriptFile != nullptr)
+                    Managers().resourceManager->FreeScriptFile(script->scriptFile);
+                
+                script->scriptFile = Managers().resourceManager->CreateScriptFile(scriptFile->name);
+            }
         }
 
         ImGui::EndPopup();
@@ -326,9 +355,13 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Text("Sounds");
         ImGui::Separator();
         
-        for (Audio::SoundBuffer* sound : Hymn().sounds) {
-            if (ImGui::Selectable(sound->name.c_str()))
-                soundSource->soundBuffer = sound;
+        for (Audio::SoundBuffer* sound : Resources().sounds) {
+            if (ImGui::Selectable(sound->name.c_str())) {
+                if (soundSource->soundBuffer != nullptr)
+                    Managers().resourceManager->FreeSound(soundSource->soundBuffer);
+                
+                soundSource->soundBuffer = Managers().resourceManager->CreateSound(sound->name);
+            }
         }
         
         ImGui::EndPopup();

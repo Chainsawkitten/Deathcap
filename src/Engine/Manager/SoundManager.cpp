@@ -55,7 +55,7 @@ void SoundManager::Update(World& world) {
     // Update sound sources.
     std::vector<Component::SoundSource*> soundComponents = this->GetComponents<Component::SoundSource>(&world);
     for (Component::SoundSource* sound : soundComponents) {
-        if (sound->IsKilled())
+        if (sound->IsKilled() || !sound->entity->enabled)
             continue;
         
         Entity* entity = sound->entity;

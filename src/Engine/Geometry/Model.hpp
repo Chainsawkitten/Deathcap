@@ -14,8 +14,6 @@ namespace Geometry {
              * The created model has to be loaded later using Load.
              */
             Model();
-
-            Model(const char* filename) {}
             
             /// Destructor.
             virtual ~Model();
@@ -26,11 +24,11 @@ namespace Geometry {
              */
             Json::Value Save() const;
             
-            /// Load model from JSON node.
+            /// Load model from file.
             /**
-             * @param node JSON node to load from.
+             * @param name Name of the model.
              */
-            void Load(const Json::Value& node);
+            void Load(const std::string& name);
             
             /// Load model from file.
             /**

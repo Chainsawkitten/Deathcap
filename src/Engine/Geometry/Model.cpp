@@ -21,8 +21,8 @@ Json::Value Model::Save() const {
     return model;
 }
 
-void Model::Load(const Json::Value& node) {
-    name = node.get("name", "").asString();
+void Model::Load(const std::string& name) {
+    this->name = name;
     Load((Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name + ".asset").c_str());
 }
 
@@ -36,8 +36,7 @@ void Model::Load(const char* filename) {
             GenerateVertexBuffer(vertexBuffer, meshData->skinnedVertices, meshData->numVertices);
             GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
             GenerateSkinVertexArray(vertexBuffer, indexBuffer, vertexArray);
-        }
-        else {
+        } else {
             GenerateVertexBuffer(vertexBuffer, meshData->staticVertices, meshData->numVertices);
             GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
             GenerateStaticVertexArray(vertexBuffer, indexBuffer, vertexArray);
@@ -54,14 +53,12 @@ Model::Type Model::GetType() const {
 
 void Model::GenerateVertexBuffer(GLuint& vertexBuffer,
     Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticies) {
-    vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(
-        vertices, numVerticies);
+    vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(vertices, numVerticies);
 }
 
 void Model::GenerateVertexBuffer(GLuint& vertexBuffer,
     Video::Geometry::VertexType::SkinVertex * vertices, unsigned int numVerticies) {
-    vertexBuffer = Video::Geometry::VertexType::SkinVertex::GenerateVertexBuffer(
-        vertices, numVerticies);
+    vertexBuffer = Video::Geometry::VertexType::SkinVertex::GenerateVertexBuffer(vertices, numVerticies);
 }
 
 void Model::GenerateStaticVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {
