@@ -356,8 +356,12 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Separator();
         
         for (Audio::SoundBuffer* sound : Resources().sounds) {
-            if (ImGui::Selectable(sound->name.c_str()))
-                soundSource->soundBuffer = sound;
+            if (ImGui::Selectable(sound->name.c_str())) {
+                if (soundSource->soundBuffer != nullptr)
+                    Managers().resourceManager->FreeSound(soundSource->soundBuffer);
+                
+                soundSource->soundBuffer = Managers().resourceManager->CreateSound(sound->name);
+            }
         }
         
         ImGui::EndPopup();
