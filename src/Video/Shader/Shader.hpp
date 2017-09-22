@@ -39,6 +39,3 @@ namespace Video {
             GLenum shaderType;
     };
 }
-
-
-
