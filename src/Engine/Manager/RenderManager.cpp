@@ -88,7 +88,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                     Entity* entity = mesh->entity;
                     Material* material = entity->GetComponent<Material>();
                     if (material != nullptr) {
-                        renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), entity->GetModelMatrix());
+                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
                     }
                 }
             }
