@@ -119,21 +119,32 @@ vec3 applyLights() {
 
         vec3 H = normalize(V + surfaceToLight);
 
+        // Calculate radiance of the light.
         vec3 radiance = lights[i].intensities * attenuation;
         
-        // Cook-torrance brdf
+        // Cook-torrance brdf.
         float NDF = DistributionGGX(N, H, roughness);
         float G = GeometrySmith(N, V, surfaceToLight, roughness);
         vec3 F = FresnelSchlick(max(dot(H, V), 0.0f), F0);
         
+        // Calculate specular.
         vec3 nominator = NDF * G * F;
         float denominator = 4.0f * max(dot(N, V), 0.0f) * max(dot(N, surfaceToLight), 0.0f) + 0.001f;
         vec3 specular = (nominator / denominator);
         
-        vec3 kD = (vec3(1.0f) - F) * (1.0f - metallic);
+        // Energy of light that gets reflected.
+        vec3 kS = F;
         
+        // Energy of light that gets refracted (no refraction occurs when metallic).
+        vec3 kD = (vec3(1.0f) - kS) * (1.0f - metallic);
+        
+        // Calculate light contribution.
         float NdotL = max(dot(N, surfaceToLight), 0.0f);
+        
+        // Add refraction.
         Lo += (kD * albedo / PI + specular) * radiance * NdotL;
+        
+        // Add ambient.
         Lo += lights[i].ambientCoefficient * albedo;
     }
 
@@ -145,6 +156,7 @@ void main() {
 
     vec3 color = applyLights();
 
+    // Reinhard tone mapping
     color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
     
     // Gamma correction
