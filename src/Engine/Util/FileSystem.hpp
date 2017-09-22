@@ -88,11 +88,11 @@ namespace FileSystem {
      */
     std::string GetName(const std::string& filepath);
 
-    /// Rename a existing file.
+    /// Rename an existing file.
     /**
      * @param filepath The path of the original file.
      * @param name New name of the file.
-     * @return The full par
+     * @return Path to the renamed file.
      */
     std::string Rename(const std::string& filepath, const std::string& name);
     
