@@ -10,41 +10,49 @@ namespace Component {
 
 class World;
 
-/// %Component which all components inherit.
+/// %A super class to all managers
 class SuperManager {
-public:
+    public:
 
-    /// Destructor.
-    virtual ~SuperManager();
+        /// Destructor.
+        virtual ~SuperManager();
 
-    /// Add a component to the managers component list.
-    /**
-     * @param component The component to add.
-     * @param componentType The type of the component to add.
-     */
-    void AddComponent(World* world, Component::SuperComponent* component, const std::type_info* componentType);
+        /// Add a component to the managers component list.
+        /**
+         * @param component The component to add.
+         * @param componentType The type of the component to add.
+         * @param world The world the component belong to.
+         */
+        void AddComponent(World* world, Component::SuperComponent* component, const std::type_info* componentType);
 
-    /// Gets a list of the requested component type.
-    /**
-     * @return A list of pointers to all components of the world.
-     */
-    template<typename T> std::vector<T*>& GetComponents(World* world);
+        /// Gets a list of the requested component type.
+        /**
+         * @param world The world the component we want to get belongs to.
+         * @return A list of pointers to all components of the world.
+         */
+        template<typename T> std::vector<T*>& GetComponents(World* world);
 
-    /// Clears the components of a certain world.
-    void ClearComponents(World* world);
+        /// Clears the components of a certain world.
+        /**
+         * @param world The world the component we want to clear belongs to.
+         */
+        void ClearComponents(World* world);
 
-    /// Clears the entire component list.
-    void ClearAllComponents();
+        /// Clears the entire component list.
+        void ClearAllComponents();
 
-    /// Clears the killed components from the list.
-    void ClearKilledComponents(World* world);
+        /// Clears the killed components from the list.
+        /**
+         * @param world The world the component we want to clear belongs to.
+         */
+        void ClearKilledComponents(World* world);
 
-protected:
-    // Map containing list of components.
-    std::map<const std::type_info*, std::vector<Component::SuperComponent*>> components;
+    protected:
+        /// Map containing list of components.
+        std::map<const std::type_info*, std::vector<Component::SuperComponent*>> components;
 
-    // Map containing list of components.
-    std::map<World*, std::map<const std::type_info*, std::vector<Component::SuperComponent*>>> worldComponents;
+        /// Map containing list of components.
+        std::map<World*, std::map<const std::type_info*, std::vector<Component::SuperComponent*>>> worldComponents;
 
 };
 
