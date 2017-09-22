@@ -65,35 +65,21 @@ bool Entity::HasChild(const Entity* check_child, bool deep) const {
     return false;
 }
 
-Entity* Entity::InstantiateScene(const std::string& name, bool isSameScene) {
+Entity* Entity::InstantiateScene(const std::string& name, bool isSameScene, const std::string& originScene) {
     Entity* child = AddChild();
     // Load scene.
+    bool error = false;
     std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + ".json";
     std::string filenameCopy = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + "_copy" + ".json";
     if (FileSystem::FileExists(filename.c_str())) {
         //If it needs to be a copy.
-        if (isSameScene) {
-            Json::Value rootOriginal;
-            Json::Value rootCopy;
-            //Reads from original.
-            std::ifstream file(filename);
-            file >> rootOriginal;
-            file.close();
-            //Writes from original to copy.
-            std::ofstream copyOfFile;
-            copyOfFile.open(filenameCopy);
-            copyOfFile << rootOriginal;
-            copyOfFile.close();
-            //Reads from copy.
-            std::ifstream readFromCopyFile;
-            readFromCopyFile.open(filenameCopy);
-            readFromCopyFile >> rootCopy;
-            readFromCopyFile.close();
-            //Loads copy of scene.
-            child->Load(rootCopy);
-            child->scene = true;
-            child->sceneName = name + "_copy";
-        } else { //dont need to be a copy
+        Json::Value root1;
+        std::ifstream file1(filename);
+        file1 >> root1;
+
+        CheckIfSceneExists(filename, error, originScene, root1);
+
+        if(error == false) { //dont need to be a copy
             Json::Value root;
             std::ifstream file(filename);
             file >> root;
@@ -107,7 +93,39 @@ Entity* Entity::InstantiateScene(const std::string& name, bool isSameScene) {
         Log() << "Couldn't find scene to load.";
     }
     
+    if (error == true)
+    {
+        child->name = "Error loading scene";
+        Log() << "Couldn't find scene to load.";
+    }
+
     return child;
+}
+
+void Entity::CheckIfSceneExists(std::string filename, bool & error, std::string originScene, Json::Value root)
+{
+    Json::Value children = root["children"];
+
+
+    for (unsigned int i = 0; i < root["children"].size(); ++i) {
+        if (root["children"][i]["scene"].asBool()) {
+            printf("%s", root["children"][i]["sceneName"].asString().c_str());
+
+            if (originScene == root["children"][i]["sceneName"].asString())
+            {
+                error = true;
+            }
+            if (error)
+            {
+                break;
+            }
+        }
+
+        if (!error)
+        {
+            CheckIfSceneExists(filename, error, originScene, root["children"][i]);
+        }
+    }
 }
 
 const std::vector<Entity*>& Entity::GetChildren() const {
