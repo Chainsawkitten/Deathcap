@@ -96,13 +96,8 @@ void ResourceList::Show() {
                 default:
                     break;
                 }
-
             }
-
-
-
         }
-
     }
     
     // Models.
