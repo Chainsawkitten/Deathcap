@@ -21,7 +21,7 @@ enum DraggedItemState {
 DraggedItemState draggedItemState = DraggedItemState::NOT_ACTIVE;
 
 SceneEditor::SceneEditor() {
-
+    name[0] = '\0';
 }
 
 void SceneEditor::Show() {

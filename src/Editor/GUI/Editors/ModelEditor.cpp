@@ -9,7 +9,7 @@
 using namespace GUI;
 
 ModelEditor::ModelEditor() {
-
+    name[0] = '\0';
 }
 
 void ModelEditor::Show() {
