@@ -12,6 +12,9 @@ namespace GUI {
     /// Used to edit a model.
     class ModelEditor {
         public:
+            /// Constructor.
+            ModelEditor();
+
             /// Show the editor.
             void Show();
             
@@ -48,7 +51,7 @@ namespace GUI {
             
             FileSelector fileSelector;
             
-            char name[128] = "";
+            char name[128];
 
             std::string source;
             std::string destination;
