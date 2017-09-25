@@ -3,6 +3,10 @@
 #include <btBulletDynamicsCommon.h>
 #include "../Component/Physics.hpp"
 #include "../Entity/Entity.hpp"
+#include "../Physics/ITrigger.hpp"
+#include "../Physics/RigidBody.hpp"
+#include "../Physics/Shape.hpp"
+#include "../Physics/Trigger.hpp"
 
 #include "../Hymn.hpp"
 
@@ -79,4 +83,19 @@ void PhysicsManager::Update(World& world, float deltaTime) {
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
+
+    for (auto trigger : triggers) {
+        trigger->Process(*dynamicsWorld);
+    }
+}
+
+Physics::Trigger* PhysicsManager::MakeTrigger(Physics::Shape* shape) {
+    btTransform trans(btQuaternion(0, 0, 0, 1), btVector3(0, 10, 0));
+
+    Physics::Trigger* trigger = new Physics::Trigger(shape);
+    trigger->GetCollisionObject()->setWorldTransform(trans);
+
+    triggers.push_back(trigger);
+
+    return trigger;
 }

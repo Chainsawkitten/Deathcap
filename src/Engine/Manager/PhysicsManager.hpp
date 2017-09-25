@@ -9,6 +9,12 @@ namespace Component {
     class Physics;
 }
 
+namespace Physics {
+    class RigidBody;
+    class Shape;
+    class Trigger;
+}
+
 class btBroadphaseInterface;
 class btDefaultCollisionConfiguration;
 class btCollisionDispatcher;
@@ -32,6 +38,8 @@ class PhysicsManager {
         ~PhysicsManager();
         PhysicsManager(PhysicsManager const&) = delete;
         void operator=(PhysicsManager const&) = delete;
+
+        Physics::Trigger* MakeTrigger(Physics::Shape* shape);
         
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
 
@@ -42,4 +50,5 @@ class PhysicsManager {
         btDiscreteDynamicsWorld* dynamicsWorld = nullptr;
 
         std::vector<Component::Physics*> components;
+        std::vector<Physics::Trigger*> triggers;
 };

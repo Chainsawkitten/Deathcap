@@ -14,6 +14,7 @@ namespace Physics {
         // Bullet treats zero mass as infinite, resulting in immovable objects.
         btRigidBody::btRigidBodyConstructionInfo constructionInfo(0, motionState, shape->GetShape(), btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
+        rigidBody->setUserPointer(this);
     }
 
     RigidBody::~RigidBody() {
