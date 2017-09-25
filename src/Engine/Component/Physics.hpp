@@ -2,20 +2,15 @@
 
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
-#include <Physics/RigidBody.hpp>
 
 class Entity;
 
 namespace Component {
     /// %Component allows interacting with other physics components.
-    class Physics : public SuperComponent, public ::Physics::RigidBody {
-        public:
-            /// Create new physics component.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Physics(Entity* entity);
+    class Physics : public SuperComponent {
+        friend class PhysicsManager;
 
+        public:
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
@@ -60,5 +55,12 @@ namespace Component {
              * https://en.wikipedia.org/wiki/List_of_moments_of_inertia
              */
             glm::vec3 momentOfInertia = glm::vec3(1.f, 1.f, 1.f);
+
+        public:
+            /// Create new physics component.
+            /**
+            * @param entity Pointer to which entity this component corresponds.
+            */
+            Physics(Entity* entity);
     };
 }

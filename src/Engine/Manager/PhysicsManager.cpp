@@ -1,21 +1,45 @@
 #include "PhysicsManager.hpp"
 
-#include <Physics/Simulator.hpp>
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Component/Physics.hpp"
 
+#include "Hymn.hpp"
+#include <btBulletDynamicsCommon.h>
+
 PhysicsManager::PhysicsManager() {
+    // The broadphase is used to quickly cull bodies that will not collide with
+    // each other, normally by leveraging some simpler (and rough) test such as
+    // bounding boxes.
+    broadphase = new btDbvtBroadphase;
+
+    // With the collision configuration one can configure collision detection
+    // algorithms.
+    collisionConfiguration = new btDefaultCollisionConfiguration;
+    dispatcher = new btCollisionDispatcher(collisionConfiguration);
+
+    // The solver makes objects interact by making use of gravity, collisions,
+    // game logic supplied forces, and constraints.
+    solver = new btSequentialImpulseConstraintSolver;
+
+    // The dynamics world encompasses objects included in the simulation.
+    dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+
+    // Y axis up
+    dynamicsWorld->setGravity(btVector3(0, -9.82, 0));
 
 }
 
 PhysicsManager::~PhysicsManager() {
-
+    delete dynamicsWorld;
+    delete solver;
+    delete dispatcher;
+    delete collisionConfiguration;
+    delete broadphase;
 }
 
 void PhysicsManager::Update(World& world, float deltaTime) {
-    std::vector<Component::Physics*> physicsObjects = world.GetComponents<Component::Physics>();
-    for (Component::Physics* physicsComp : physicsObjects) {
+    for (Component::Physics* physicsComp : components) {
         if (physicsComp->IsKilled())
             continue;
         
@@ -55,5 +79,5 @@ void PhysicsManager::Update(World& world, float deltaTime) {
         entity->rotation += physicsComp->angularVelocity * 360.f * deltaTime;
     }
 
-    Simulate(deltaTime);
+    dynamicsWorld->stepSimulation(deltaTime, 10);
 }

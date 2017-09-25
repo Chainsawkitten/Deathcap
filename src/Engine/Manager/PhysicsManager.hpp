@@ -3,10 +3,20 @@
 class World;
 
 #include <glm/glm.hpp>
-#include <Physics/Simulator.hpp>
+#include <vector>
+
+namespace Component {
+    class Physics;
+}
+
+class btBroadphaseInterface;
+class btDefaultCollisionConfiguration;
+class btCollisionDispatcher;
+class btSequentialImpulseConstraintSolver;
+class btDiscreteDynamicsWorld;
 
 /// Updates the physics of the world.
-class PhysicsManager : public Physics::Simulator {
+class PhysicsManager {
     friend class Hub;
     
     public:
@@ -24,4 +34,12 @@ class PhysicsManager : public Physics::Simulator {
         void operator=(PhysicsManager const&) = delete;
         
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
+
+        btBroadphaseInterface* broadphase = nullptr;
+        btDefaultCollisionConfiguration* collisionConfiguration = nullptr;
+        btCollisionDispatcher* dispatcher = nullptr;
+        btSequentialImpulseConstraintSolver* solver = nullptr;
+        btDiscreteDynamicsWorld* dynamicsWorld = nullptr;
+
+        std::vector<Component::Physics*> components;
 };
