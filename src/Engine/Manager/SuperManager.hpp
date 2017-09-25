@@ -49,18 +49,11 @@ class SuperManager {
 
     protected:
         /// Map containing list of components.
-        std::map<const std::type_info*, std::vector<Component::SuperComponent*>> components;
-
-        /// Map containing list of components.
         std::map<World*, std::map<const std::type_info*, std::vector<Component::SuperComponent*>>> worldComponents;
 
 };
 
 template<typename T> inline std::vector<T*>& SuperManager::GetComponents(World* world) {
-
-    // The only reason we have two worlds is because we want a editor camera, and that camera is supposed to get components from another world. This is wierd.
-    //std::map<const std::type_info*, std::vector<Component::SuperComponent*>> componentMap = worldComponents[world];
-    
-    return reinterpret_cast<std::vector<T*>&>(components[&typeid(T*)]);
-
+    // The only reason we have two worlds is because we want a editor camera, and that camera is supposed to get components from another world. This is weird.
+    return reinterpret_cast<std::vector<T*>&>(worldComponents[world][&typeid(T*)]);
 }
