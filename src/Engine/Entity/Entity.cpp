@@ -246,6 +246,6 @@ void Entity::KillHelper() {
         it.second->Kill();
     
     for (Entity* child : children) {
-        child->Kill();
+        child->KillHelper();
     }
 }
