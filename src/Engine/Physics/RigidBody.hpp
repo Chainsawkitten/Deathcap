@@ -11,7 +11,7 @@ namespace Physics {
     class RigidBody : public IRigidBody {
         public:
             /// Constructor.
-            RigidBody(Physics::Shape* shape);
+            RigidBody(Physics::Shape* shape, float mass);
 
             /// Destructor.
             ~RigidBody();
