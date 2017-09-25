@@ -125,8 +125,8 @@ void Entity::Kill() {
         child->Kill();
     
     // Remove this entity from the parent's list of children.
-    parent->RemoveChild(this);
-
+    if (parent != nullptr)
+        parent->RemoveChild(this);
 }
 
 bool Entity::IsKilled() const {
