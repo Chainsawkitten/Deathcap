@@ -7,8 +7,8 @@
 using namespace GUI;
 using namespace std;
 
-FileSelector::FileSelector() {
-    path = FileSystem::DataPath("Hymn to Beauty");
+FileSelector::FileSelector() : path("Hymn to Beauty") {
+
 }
 
 void FileSelector::Show() {
