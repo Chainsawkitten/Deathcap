@@ -82,6 +82,8 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
         if (aFace.mNumIndices != 3) {
             errorString.append("ERROR: Mesh not triangulated.\n");
             success = false;
+            delete[] indices;
+            delete meshData;
             return;
         }
 
