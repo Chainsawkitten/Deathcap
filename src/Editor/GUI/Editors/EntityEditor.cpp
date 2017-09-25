@@ -61,8 +61,7 @@ void EntityEditor::Show() {
         ImGui::DraggableVec3("Position", entity->position);
         ImGui::DraggableVec3("Rotation", entity->rotation);
         ImGui::DraggableVec3("Scale", entity->scale);
-        ImGui::Text("Unique Identifier: "); 
-        ImGui::Text(std::to_string(entity->uid).c_str());
+        ImGui::Text("Unique Identifier: %u", entity->uid);
         ImGui::Unindent();
         if (!entity->IsScene()) {
             if (ImGui::Button("Add component"))
