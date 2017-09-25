@@ -8,8 +8,6 @@
 #include "../Physics/Shape.hpp"
 #include "../Physics/Trigger.hpp"
 
-#include "../Hymn.hpp"
-
 PhysicsManager::PhysicsManager() {
     // The broadphase is used to quickly cull bodies that will not collide with
     // each other, normally by leveraging some simpler (and rough) test such as
@@ -30,7 +28,6 @@ PhysicsManager::PhysicsManager() {
 
     // Y axis up
     dynamicsWorld->setGravity(btVector3(0, -9.82, 0));
-
 }
 
 PhysicsManager::~PhysicsManager() {
