@@ -46,18 +46,9 @@ void FileSelector::Show() {
     ImGui::End();
 }
 
-void FileSelector::SetFileSelectedCallback(std::function<void(const std::string&)> callback) {
+void FileSelector::SetFileSelectedCallback(const std::function<void(const std::string&)>& callback) {
     fileSelectedCallback = callback;
     hasFileSelectedCallback = true;
-}
-
-void FileSelector::SetExtensions(const std::vector<string>& extensions) {
-    this->extensions.clear();
-
-    this->extensions.reserve(extensions.size());
-    for (std::size_t i = 0; i < extensions.size(); ++i)
-        this->extensions.push_back(extensions[i]);
-    pathChanged = true;
 }
 
 void FileSelector::AddExtensions(const std::string& extension) {
