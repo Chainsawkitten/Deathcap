@@ -5,6 +5,7 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <imgui.h>
+#include "Util/AssetConverterSkeleton.hpp"
 
 using namespace GUI;
 
@@ -35,6 +36,11 @@ void ModelEditor::Show() {
                 model->Load(destination.c_str());
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
+            }
+
+            if (ImGui::Button("Import anim")) {
+                AssetConverterSkeleton asset;
+                asset.Convert(source.c_str(), destination.c_str(), triangulate, importNormals, importTangents);
             }
 
             if (isImported)

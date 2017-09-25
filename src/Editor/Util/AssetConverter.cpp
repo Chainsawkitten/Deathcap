@@ -4,11 +4,9 @@
 #include <Engine/Util/FileSystem.hpp>
 
 AssetConverter::AssetConverter() {
-
 }
 
 AssetConverter::~AssetConverter() {
-
 }
 
 bool AssetConverter::Convert(const char * filepath, const char * destination,

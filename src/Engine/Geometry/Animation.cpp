@@ -13,8 +13,7 @@ Animation::Animation(const aiAnimation* aAnimation) {
     Load(aAnimation);
 }
 
-Animation::~Animation() {
-    
+Animation::~Animation() { 
 }
 
 void Animation::Load(const aiAnimation* aAnimation) {
