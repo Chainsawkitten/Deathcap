@@ -397,7 +397,7 @@ void ScriptManager::BuildAllScripts() {
 
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
-    for (Script* script : world.GetComponents<Script>()) {
+    for (Script* script : GetComponents<Script>(&world)) {
         if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
             CreateInstance(script);
             script->initialized = true;
