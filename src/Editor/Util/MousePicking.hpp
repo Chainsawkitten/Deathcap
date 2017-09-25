@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Engine\Entity\Entity.hpp"
-/// Use mouse cursor to select objects in editor.
 
+/// Use mouse cursor to select objects in editor.
 class MousePicking {
 
 public:
@@ -21,9 +21,6 @@ public:
     * @return A vec3 with values from current ray in world space. Normalized.
     */
     glm::vec3 GetCurrentRay();
-
-
-    bool RayIntersectionOBB();
 
     /// Update the view matrix and recalculates the ray.
     void Update();

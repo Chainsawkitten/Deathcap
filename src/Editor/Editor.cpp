@@ -12,7 +12,10 @@
 #include <Engine/Component/DirectionalLight.hpp>
 #include <Engine/Component/Lens.hpp>
 #include <Engine/Component/Listener.hpp>
+#include <Engine/Component/Mesh.hpp>
+#include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
+
 
 #include <imgui.h>
 #include <GLFW/glfw3.h>
@@ -60,8 +63,10 @@ Editor::Editor() {
     savePromptAnswered = false;
     close = false;
 
-    //Ray mouse
+    // Ray mouse.
     mousePicker.CreateMousePicker(cameraEntity, cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y)));
+
+
 
 }
 
@@ -293,11 +298,18 @@ void Editor::Show(float deltaTime) {
     // Mouse ray.
     if (Input()->Pressed(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
         mousePicker.Update();
-        // printf("%f - %f - %f\n\n", cameraEntity->GetDirection().x, cameraEntity->GetDirection().y, cameraEntity->GetDirection().z);
-        printf("getCurrentRay: %.3f - %.3f - %.3f\n",
-            mousePicker.GetCurrentRay().x,
-            mousePicker.GetCurrentRay().y,
-            mousePicker.GetCurrentRay().z);
+
+        // Entity
+        Entity* selectedEntity = resourceList.GetScene().entityEditor.GetEntity();
+
+        if (selectedEntity != NULL)
+            if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(),
+                mousePicker.GetCurrentRay(),
+                selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
+                selectedEntity->GetModelMatrix())) {
+
+            }
+
     }
 }
 

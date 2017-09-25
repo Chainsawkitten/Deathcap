@@ -9,6 +9,7 @@
 #include <string>
 #include <json/json.h>
 #include "Util\MousePicking.hpp"
+#include "Util\RayIntersection.hpp"
 
 struct GLFWcursor;
 
@@ -83,6 +84,7 @@ class Editor {
         World cameraWorld;
         Entity* cameraEntity;
         MousePicking mousePicker;
+        RayIntersection rayIntersector;
         
         double lastX = 0.0;
         double lastY = 0.0;

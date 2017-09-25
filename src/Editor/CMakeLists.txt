@@ -20,7 +20,8 @@ set(SRCS
         GUI/Editors/TextureEditor.cpp
         Util/AssetConverter.cpp
         Util/EditorSettings.cpp
-		Util/MousePicking.cpp
+	Util/MousePicking.cpp
+	Util/RayIntersection.cpp
     )
 
 set(HEADERS
@@ -44,7 +45,8 @@ set(HEADERS
         GUI/Editors/TextureEditor.hpp
         Util/AssetConverter.hpp
         Util/EditorSettings.hpp
-		Util/MousePicking.hpp
+	Util/MousePicking.hpp
+	Util/RayIntersection.hpp
     )
 
 create_directory_groups(${SRCS} ${HEADERS})
