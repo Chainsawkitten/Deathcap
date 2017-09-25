@@ -15,8 +15,6 @@ addons:
       - libglu1-mesa-dev
 
 script:
-- cd src
-- cd ..
 - cmake .
 - make -j4
 
