@@ -40,5 +40,6 @@ namespace Component {
              * Default: 0
              */
             float time = 0.f;
+
     };
 }
