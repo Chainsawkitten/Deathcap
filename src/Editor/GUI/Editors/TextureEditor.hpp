@@ -9,6 +9,9 @@ namespace GUI {
     /// Used to edit a texture.
     class TextureEditor {
         public:
+            /// Constructor.
+            TextureEditor();
+
             /// Show the editor.
             void Show();
             

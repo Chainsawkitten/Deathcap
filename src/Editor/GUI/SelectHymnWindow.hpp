@@ -8,6 +8,9 @@ namespace GUI {
     /// A window where a hymn can be selected.
     class SelectHymnWindow {
         public:
+            /// Constructor.
+            SelectHymnWindow();
+
             /// Scan the save directory for hymns.
             void Scan();
             

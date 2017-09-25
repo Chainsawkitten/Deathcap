@@ -11,6 +11,9 @@ namespace GUI {
     /// Used to edit a sound.
     class SoundEditor {
         public:
+            /// Constructor.
+            SoundEditor();
+
             /// Show the editor.
             void Show();
             

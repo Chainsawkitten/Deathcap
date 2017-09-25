@@ -9,6 +9,9 @@ namespace GUI {
     /// Used to edit a scene.
     class SceneEditor {
         public:
+            /// Constructor.
+            SceneEditor();
+
             /// Show the editor.
             void Show();
             

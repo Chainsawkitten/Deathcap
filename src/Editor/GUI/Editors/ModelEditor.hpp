@@ -12,6 +12,9 @@ namespace GUI {
     /// Used to edit a model.
     class ModelEditor {
         public:
+            /// Constructor.
+            ModelEditor();
+
             /// Show the editor.
             void Show();
             
