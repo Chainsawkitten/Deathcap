@@ -71,6 +71,7 @@ set(HEADERS
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
+        Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
         Geometry/Animation.hpp

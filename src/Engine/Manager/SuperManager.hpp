@@ -3,6 +3,7 @@
 #include <vector>
 #include <map>
 #include <typeinfo>
+#include "../Entity/ComponentContainer.hpp"
 
 namespace Component {
     class SuperComponent;
