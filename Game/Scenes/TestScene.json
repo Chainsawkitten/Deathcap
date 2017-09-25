@@ -38,10 +38,10 @@
 		{
 			"Material" : 
 			{
-				"diffuse" : "Texture #1",
-				"glow" : "",
+				"albedo" : "Texture #1",
+				"metallic" : "",
 				"normal" : "Texture #1",
-				"specular" : ""
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{
@@ -149,10 +149,10 @@
 		{
 			"Material" : 
 			{
-				"diffuse" : "Texture #2",
-				"glow" : "",
+				"albedo" : "Texture #2",
+				"metallic" : "",
 				"normal" : "Texture #3",
-				"specular" : ""
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{

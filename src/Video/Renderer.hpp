@@ -14,7 +14,6 @@ namespace Video {
     class ColorFilter;
     class FogFilter;
     class FXAAFilter;
-    class GammaCorrectionFilter;
     class GlowBlurFilter;
     class GlowFilter;
     class ShaderProgram;
@@ -53,13 +52,13 @@ namespace Video {
             /// Render a static mesh.
             /**
              * @param geometry The geometry to render.
-             * @param diffuseTexture Diffuse texture.
-             * @param normalTexture Normal map.
-             * @param specularTexture Specular map.
-             * @param glowTexture Glow texture.
+             * @param albedo Albedo texture.
+             * @param normal Normal map.
+             * @param metallic Metallic map.
+             * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              */
-            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix);
+            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix);
             
             /// Prepare for rendering skinned meshes.
             /**
@@ -71,15 +70,15 @@ namespace Video {
             /// Render a skinned mesh.
             /**
              * @param geometry The geometry to render.
-             * @param diffuseTexture Diffuse texture.
-             * @param normalTexture Normal map.
-             * @param specularTexture Specular map.
-             * @param glowTexture Glow texture.
+             * @param albedo Albedo texture.
+             * @param normal Normal map.
+             * @param metallic Metallic map.
+             * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              * @param bones Transformations of skeleton.
              * @param bonesIT Inverse transpose transformations of skeleton.
              */
-            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* diffuseTexture, const Video::Texture2D* normalTexture, const Video::Texture2D* specularTexture, const Video::Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
+            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
             
             /// Add a light to the scene.
             void AddLight(const Video::Light& light);
@@ -120,10 +119,6 @@ namespace Video {
              */
             void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
-            /// Perform gamma correction.
-            //  @param renderSurface %RenderSurface to apply gamma correction to.
-            void GammaCorrect(RenderSurface* renderSurface);
-            
             /// Display the rendered results.
             /**
              * @param renderSurface %RenderSurface to render to back buffer.
@@ -163,7 +158,6 @@ namespace Video {
             ColorFilter* colorFilter;
             FogFilter* fogFilter;
             FXAAFilter* fxaaFilter;
-            GammaCorrectionFilter* gammaCorrectionFilter;
             GlowFilter* glowFilter;
             GlowBlurFilter* glowBlurFilter;
             

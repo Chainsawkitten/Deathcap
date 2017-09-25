@@ -30,17 +30,17 @@ namespace Component {
              */
             void Load(const Json::Value& node) override;
             
-            /// Diffuse texture.
-            TextureAsset* diffuse;
+            /// Albedo texture.
+            TextureAsset* albedo;
             
             /// Normal texture.
             TextureAsset* normal;
             
-            /// Specular texture.
-            TextureAsset* specular;
+            /// Metallic texture.
+            TextureAsset* metallic;
             
-            /// Glow texture.
-            TextureAsset* glow;
+            /// Roughness texture.
+            TextureAsset* roughness;
             
         private:
             void LoadTexture(TextureAsset*& texture, const std::string& name);
