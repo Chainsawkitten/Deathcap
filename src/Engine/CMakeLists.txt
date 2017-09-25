@@ -102,10 +102,10 @@ set(HEADERS
 # Setup embedded source
 set(EMBEDDED_INPUT
     ../../assets/Camera.png
-    ../../assets/DefaultDiffuse.png
+    ../../assets/DefaultAlbedo.png
     ../../assets/DefaultNormal.png
-    ../../assets/DefaultSpecular.png
-    ../../assets/DefaultGlow.png
+    ../../assets/DefaultMetallic.png
+    ../../assets/DefaultRoughness.png
     ../../assets/Light.png
     ../../assets/ParticleAtlas.png
     ../../assets/ParticleEmitter.png

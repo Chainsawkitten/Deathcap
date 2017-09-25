@@ -56,6 +56,7 @@ namespace Video {
                 GLint ambientCoefficient;
                 GLint coneAngle;
                 GLint direction;
+                GLint color;
             } lightUniforms[lightCount];
     };
 }
