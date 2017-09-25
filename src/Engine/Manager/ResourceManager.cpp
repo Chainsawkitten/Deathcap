@@ -111,6 +111,11 @@ void ResourceManager::FreeTextureAsset(TextureAsset* textureAsset) {
     }
 }
 
+int ResourceManager::GetTextureAssetInstanceCount(TextureAsset* textureAsset) {
+    std::string name = textureAssetsInverse[textureAsset];
+    return textureAssets[name].count;
+}
+
 Audio::SoundBuffer* ResourceManager::CreateSound(const string& name) {
     if (sounds.find(name) == sounds.end()) {
         Audio::SoundBuffer* soundBuffer = new Audio::SoundBuffer();
