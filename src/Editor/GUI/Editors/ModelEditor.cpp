@@ -7,6 +7,7 @@
 #include <imgui.h>
 #include "Util/AssetMetaData.hpp"
 #include <Utility/Log.hpp>
+#include "../../Resources.hpp"
 
 using namespace GUI;
 
@@ -103,8 +104,8 @@ void ModelEditor::FileSelected(const std::string& file) {
 
     // Checking so that the file isn't imported twice.
     // @todo Overwrite option?
-    for (int i = 0; i < Hymn().models.size(); ++i) {
-        if (Hymn().models[i]->name == name) {
+    for (int i = 0; i < Resources().models.size(); ++i) {
+        if (Resources().models[i]->name == name) {
             Log() << "File " << name << " is already added to project.\n";
             isImported = false;
             hasSourceFile = false;
