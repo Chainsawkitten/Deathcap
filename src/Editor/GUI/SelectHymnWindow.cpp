@@ -6,7 +6,7 @@
 using namespace GUI;
 using namespace std;
 
-SelectHymnWindow::SelectHymnWindow() {
+SelectHymnWindow::SelectHymnWindow(): title(nullptr), openButtonName(nullptr) {
 
 }
 
