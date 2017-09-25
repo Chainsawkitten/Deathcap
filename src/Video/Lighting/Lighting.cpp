@@ -83,11 +83,12 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     glBindVertexArray(rectangle->GetVertexArray());
     
     // Set uniforms.
-    glUniform1i(shaderProgram->GetUniformLocation("tDiffuse"), 0);
-    glUniform1i(shaderProgram->GetUniformLocation("tNormals"), 1);
-    glUniform1i(shaderProgram->GetUniformLocation("tSpecular"), 2);
-    glUniform1i(shaderProgram->GetUniformLocation("tGlow"), 3);
+    glUniform1i(shaderProgram->GetUniformLocation("textureAlbedo"), 0);
+    glUniform1i(shaderProgram->GetUniformLocation("textureNormal"), 1);
+    glUniform1i(shaderProgram->GetUniformLocation("textureMetallic"), 2);
+    glUniform1i(shaderProgram->GetUniformLocation("textureRougness"), 3);
     glUniform1i(shaderProgram->GetUniformLocation("tDepth"), 4);
+
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
 

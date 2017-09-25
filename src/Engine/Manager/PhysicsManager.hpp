@@ -15,6 +15,7 @@ namespace Physics {
     class Trigger;
 }
 
+#include "SuperManager.hpp"
 class btBroadphaseInterface;
 class btDefaultCollisionConfiguration;
 class btCollisionDispatcher;
@@ -22,7 +23,7 @@ class btSequentialImpulseConstraintSolver;
 class btDiscreteDynamicsWorld;
 
 /// Updates the physics of the world.
-class PhysicsManager {
+class PhysicsManager : public SuperManager {
     friend class Hub;
     
     public:

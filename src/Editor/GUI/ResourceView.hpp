@@ -8,7 +8,7 @@
 
 namespace GUI {
     /// Displays all the hymn's resources.
-    class ResourceList {
+    class ResourceView {
         public:
             /// Show the resource list.
             void Show();

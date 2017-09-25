@@ -38,15 +38,16 @@ PhysicsManager::~PhysicsManager() {
     delete broadphase;
 }
 
-void PhysicsManager::Update(World& world, float deltaTime) {
-    for (Component::Physics* physicsComp : components) {
-        if (physicsComp->IsKilled())
+void PhysicsManager::Update(World &world, float deltaTime) {
+    std::vector<Component::Physics*> physicsObjects = this->GetComponents<Component::Physics>(&world);
+    for (Component::Physics* physicsComp : physicsObjects) {
+        if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
             continue;
         
         Entity* entity = physicsComp->entity;
         // --- Velocity ---
         // Add acceleration.
-        physicsComp->velocity += (physicsComp->acceleration + gravity * physicsComp->gravityFactor) * deltaTime;
+        physicsComp->velocity += (physicsComp->acceleration + this->gravity * physicsComp->gravityFactor) * deltaTime;
         
         // Add retardation.
         physicsComp->velocity -= physicsComp->velocity * physicsComp->velocityDragFactor * deltaTime;
