@@ -6,17 +6,17 @@
 #include "../Component/Physics.hpp"
 
 PhysicsManager::PhysicsManager() {
-    simulator = new Physics::Simulator;
+
 }
 
 PhysicsManager::~PhysicsManager() {
-    delete simulator;
+
 }
 
 void PhysicsManager::Update(World& world, float deltaTime) {
     std::vector<Component::Physics*> physicsObjects = world.GetComponents<Component::Physics>();
     for (Component::Physics* physicsComp : physicsObjects) {
-        if (physicsComp->IsKilled())
+        if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
             continue;
         
         Entity* entity = physicsComp->entity;
@@ -55,5 +55,5 @@ void PhysicsManager::Update(World& world, float deltaTime) {
         entity->rotation += physicsComp->angularVelocity * 360.f * deltaTime;
     }
 
-    simulator->Simulate(deltaTime);
+    Simulate(deltaTime);
 }

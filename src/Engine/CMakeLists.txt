@@ -32,9 +32,7 @@ set(SRCS
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
-        Geometry/RiggedModel.cpp
         Geometry/Skeleton.cpp
-        Geometry/StaticModel.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
@@ -81,9 +79,7 @@ set(HEADERS
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
-        Geometry/RiggedModel.hpp
         Geometry/Skeleton.hpp
-        Geometry/StaticModel.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp

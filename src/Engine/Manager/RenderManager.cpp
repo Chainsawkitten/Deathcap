@@ -1,6 +1,7 @@
 #include "RenderManager.hpp"
 
 #include <Video/Renderer.hpp>
+#include <Video/RenderSurface.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
@@ -18,23 +19,24 @@
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
-#include "../Geometry/RiggedModel.hpp"
 #include "../Geometry/Skeleton.hpp"
 #include "../Texture/TextureAsset.hpp"
-#include <Video/Texture/Texture2D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Video/Culling/Frustum.hpp>
 #include <Video/Culling/AxisAlignedBoundingBox.hpp>
 #include "../MainWindow.hpp"
 #include <Video/Lighting/Light.hpp>
-#include <Video/RenderTarget.hpp>
 #include "../Hymn.hpp"
+#include "Util/Profiling.hpp"
 
 using namespace Component;
 
 RenderManager::RenderManager() {
-    renderer = new Video::Renderer(MainWindow::GetInstance()->GetSize());
+    renderer = new Video::Renderer();
     
+    // Render surface for main window.
+    renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
+
     // Init textures.
     particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
     lightTexture = Managers().resourceManager->CreateTexture2D(LIGHT_PNG, LIGHT_PNG_LENGTH);
@@ -48,6 +50,8 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
     
+    delete renderSurface;
+
     delete renderer;
 }
 
@@ -64,70 +68,83 @@ void RenderManager::Render(World& world, Entity* camera) {
     
     // Render from camera.
     if (camera != nullptr) {
-        glm::vec2 screenSize = MainWindow::GetInstance()->GetSize();
-        renderer->StartRendering();
+        renderer->StartRendering(renderSurface);
         
         // Camera matrices.
-        glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
-        glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(screenSize);
+        const glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
+        const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(renderSurface->GetSize());
         
         std::vector<Mesh*> meshes = world.GetComponents<Mesh>();
         
         // Render static meshes.
-        renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
-        for (Mesh* mesh : meshes) {
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                Entity* entity = mesh->entity;
-                Material* material = entity->GetComponent<Material>();
-                if (material != nullptr) {
-                    glm::mat4 modelMatrix = entity->GetModelMatrix();
-                    renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), modelMatrix);
+        {
+            PROFILE("Render static meshes");
+            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+            for (Mesh* mesh : meshes) {
+                if (mesh->IsKilled() || !mesh->entity->enabled)
+                    continue;
+                
+                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                    Entity* entity = mesh->entity;
+                    Material* material = entity->GetComponent<Material>();
+                    if (material != nullptr) {
+                        renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), entity->GetModelMatrix());
+                    }
                 }
             }
         }
-        
-        // Render skinned meshes.
-        renderer->PrepareSkinnedMeshRendering(viewMatrix, projectionMatrix);
-        for (Mesh* mesh : meshes) {
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
-                Entity* entity = mesh->entity;
-                Material* material = entity->GetComponent<Material>();
-                if (material != nullptr) {
-                    glm::mat4 modelMatrix = entity->GetModelMatrix();
-                    Geometry::RiggedModel* model = static_cast<Geometry::RiggedModel*>(mesh->geometry);
-                    renderer->RenderSkinnedMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), modelMatrix, model->skeleton.GetFinalTransformations(), model->skeleton.GetFinalTransformationsIT());
-                }
-            }
-        }
+
+        /// @todo Render skinned meshes.
         
         // Light the world.
-        LightWorld(world, camera);
+        {
+            PROFILE("Light the world");
+            LightWorld(world, camera, renderSurface);
+        }
+
         
         // Anti-aliasing.
-        if (Hymn().filterSettings.fxaa)
-            renderer->AntiAlias();
+        if (Hymn().filterSettings.fxaa) {
+            PROFILE("Anti-aliasing(FXAA)");
+            renderer->AntiAlias(renderSurface);
+        }
+
         
         // Fog.
-        if (Hymn().filterSettings.fog)
-            renderer->RenderFog(camera->GetComponent<Component::Lens>()->GetProjection(screenSize), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
-        
+        if (Hymn().filterSettings.fog) {
+            PROFILE("Fog");
+            renderer->RenderFog(renderSurface, camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+        }
+            
         // Render particles.
-        Managers().particleManager->UpdateBuffer(world);
-        Managers().particleManager->Render(world, camera);
+        {
+            PROFILE("Render particles");
+            Managers().particleManager->UpdateBuffer(world);
+            Managers().particleManager->Render(world, camera);
+        }
+       
         
         // Glow.
-        if (Hymn().filterSettings.glow)
-            renderer->ApplyGlow(Hymn().filterSettings.glowBlurAmount);
+        if (Hymn().filterSettings.glow) {
+            PROFILE("Glow");
+            renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
+        }
         
         // Color.
-        if (Hymn().filterSettings.color)
-            renderer->ApplyColorFilter(Hymn().filterSettings.colorColor);
+        if (Hymn().filterSettings.color) {
+            PROFILE("Color");
+            renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
+        }  
         
         // Gamma correction.
-        renderer->GammaCorrect();
+        { PROFILE("Gamma correction");
+            renderer->GammaCorrect(renderSurface);
+        }
         
         // Render to back buffer.
-        renderer->DisplayResults(true);
+        { PROFILE("Render to back buffer");
+            renderer->DisplayResults(renderSurface, true);
+        }
     }
 }
 
@@ -185,10 +202,12 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
 }
 
 void RenderManager::UpdateBufferSize() {
-    renderer->SetScreenSize(MainWindow::GetInstance()->GetSize());
+    delete renderSurface;
+
+    renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::LightWorld(World& world, const Entity* camera) {
+void RenderManager::LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface) {
     // Get the camera matrices.
     glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
     glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
@@ -200,6 +219,9 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     // Add all directional lights.
     std::vector<Component::DirectionalLight*>& directionalLights = world.GetComponents<Component::DirectionalLight>();
     for (Component::DirectionalLight* directionalLight : directionalLights) {
+        if (directionalLight->IsKilled() || !directionalLight->entity->enabled)
+            continue;
+        
         Entity* lightEntity = directionalLight->entity;
         glm::vec4 direction(glm::vec4(lightEntity->GetDirection(), 0.f));
         Video::Light light;
@@ -215,6 +237,9 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     // Add all spot lights.
     std::vector<Component::SpotLight*>& spotLights = world.GetComponents<Component::SpotLight>();
     for (Component::SpotLight* spotLight : spotLights) {
+        if (spotLight->IsKilled() || !spotLight->entity->enabled)
+            continue;
+        
         Entity* lightEntity = spotLight->entity;
         glm::vec4 direction(viewMat * glm::vec4(lightEntity->GetDirection(), 0.f));
         glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
@@ -234,6 +259,9 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     // Add all point lights.
     std::vector<Component::PointLight*>& pointLights = world.GetComponents<Component::PointLight>();
     for (Component::PointLight* pointLight : pointLights) {
+        if (pointLight->IsKilled() || !pointLight->entity->enabled)
+            continue;
+        
         Entity* lightEntity = pointLight->entity;
         float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
@@ -253,5 +281,5 @@ void RenderManager::LightWorld(World& world, const Entity* camera) {
     }
     
     // Render lights.
-    renderer->Light(glm::inverse(projectionMat));
+    renderer->Light(glm::inverse(projectionMat), renderSurface);
 }

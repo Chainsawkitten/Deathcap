@@ -57,7 +57,7 @@ int main() {
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
     double lastTimeRender = glfwGetTime();
-    while (!window->ShouldClose()) {
+    while (!window->ShouldClose() || !editor->ReadyToClose()) {
         float deltaTime = static_cast<float>(glfwGetTime() - lastTime);
         lastTime = glfwGetTime();
         
@@ -80,7 +80,11 @@ int main() {
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
                 Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"));
                 
+                if (window->ShouldClose())
+                    editor->Close();
+    
                 editor->Show(deltaTime);
+
             } else {
                 { PROFILE("Update");
                     Hymn().Update(deltaTime);
@@ -121,6 +125,7 @@ int main() {
     // Shut down and cleanup.
     ImGuiImplementation::Shutdown();
     delete editor;
+    Hymn().world.Clear();
     
     Managers().ShutDown();
     

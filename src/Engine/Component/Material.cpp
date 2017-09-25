@@ -14,6 +14,20 @@ Material::Material(Entity* entity) : SuperComponent(entity) {
     glow = Hymn().defaultGlow;
 }
 
+Material::~Material() {
+    if (diffuse != nullptr && diffuse != Hymn().defaultDiffuse)
+        Managers().resourceManager->FreeTextureAsset(diffuse);
+    
+    if (normal != nullptr && normal != Hymn().defaultNormal)
+        Managers().resourceManager->FreeTextureAsset(normal);
+    
+    if (specular != nullptr && specular != Hymn().defaultSpecular)
+        Managers().resourceManager->FreeTextureAsset(diffuse);
+    
+    if (glow != nullptr && glow != Hymn().defaultGlow)
+        Managers().resourceManager->FreeTextureAsset(glow);
+}
+
 Json::Value Material::Save() const {
     Json::Value component;
     
@@ -40,8 +54,6 @@ void Material::Load(const Json::Value& node) {
 }
 
 void Material::LoadTexture(TextureAsset*& texture, const std::string& name) {
-    for (TextureAsset* t : Hymn().textures) {
-        if (t->name == name)
-            texture = t;
-    }
+    if (!name.empty())
+        texture = Managers().resourceManager->CreateTextureAsset(name);
 }

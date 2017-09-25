@@ -44,7 +44,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "cartsecond"
+				"model" : "CartSecond"
 			},
 			"Script" : 
 			{
@@ -63,43 +63,7 @@
 					{
 						"scriptName" : "Player"
 					},
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"diffuse" : "Texture #0",
-								"glow" : "",
-								"normal" : "",
-								"specular" : ""
-							},
-							"Mesh" : 
-							{
-								"model" : "hands"
-							},
-							"children" : null,
-							"name" : "hands",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : -50.0
-							},
-							"rotation" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false
-						}
-					],
+					"children" : null,
 					"name" : "Player",
 					"position" : 
 					{
@@ -124,15 +88,15 @@
 				{
 					"PointLight" : 
 					{
-						"ambientCoefficient" : 0.13700000941753387,
-						"attenuation" : 0.87800002098083496,
+						"ambientCoefficient" : 0.13699997961521149,
+						"attenuation" : 0.87799996137619019,
 						"color" : 
 						{
 							"x" : 1.0,
 							"y" : 1.0,
 							"z" : 1.0
 						},
-						"intensity" : 0.35200002789497375
+						"intensity" : 0.35199999809265137
 					},
 					"children" : null,
 					"name" : "light",
@@ -188,7 +152,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "cave3"
+				"model" : "Cave"
 			},
 			"children" : null,
 			"name" : "cave",

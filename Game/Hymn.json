@@ -1,5 +1,4 @@
 {
-	"activeScene" : 0,
 	"filters" : 
 	{
 		"color" : false,
@@ -16,7 +15,7 @@
 			"y" : 1.0,
 			"z" : 1.0
 		},
-		"fogDensity" : 0.0010000000474974513,
+		"fogDensity" : 0.00099999993108212948,
 		"fxaa" : true,
 		"glow" : false,
 		"glowBlurAmount" : 1
@@ -27,70 +26,9 @@
 			"size" : 0
 		}
 	],
-	"models" : 
-	[
-		{
-			"extension" : "fbx",
-			"name" : "Minecart",
-			"type" : "Static"
-		},
-		{
-			"extension" : "fbx",
-			"name" : "cave",
-			"type" : "Static"
-		},
-		{
-			"extension" : "fbx",
-			"name" : "minecart2",
-			"type" : "Static"
-		},
-		{
-			"extension" : "fbx",
-			"name" : "cartsecond",
-			"type" : "Static"
-		},
-		{
-			"extension" : "fbx",
-			"name" : "hands",
-			"type" : "Static"
-		},
-		{
-			"extension" : "fbx",
-			"name" : "cave3",
-			"type" : "Static"
-		}
-	],
-	"scenes" : 
-	[
-		"TestScene"
-	],
 	"scripts" : 
 	[
-		{
-			"name" : "Player"
-		},
-		{
-			"name" : "Cart"
-		}
-	],
-	"sounds" : null,
-	"textures" : 
-	[
-		{
-			"name" : "Texture #0",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #1",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #2",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #3",
-			"srgb" : false
-		}
+		"Player",
+		"Cart"
 	]
 }

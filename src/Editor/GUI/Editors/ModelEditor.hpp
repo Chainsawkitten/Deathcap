@@ -49,10 +49,12 @@ namespace GUI {
             
             char name[128] = "";
 
-            bool hasSourceFile = false;
             std::string source;
             std::string destination;
+            std::string msgString;
 
+            bool hasSourceFile = false;
+            bool isImported = false;
             bool triangulate = true;
             bool importNormals = true;
             bool importTangents = true;

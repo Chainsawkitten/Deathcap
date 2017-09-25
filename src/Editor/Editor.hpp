@@ -2,9 +2,10 @@
 
 #include "GUI/SelectHymnWindow.hpp"
 #include "GUI/InputWindow.hpp"
-#include "GUI/ResourceList.hpp"
+#include "GUI/ResourceView.hpp"
 #include "GUI/SettingsWindow.hpp"
 #include "GUI/FiltersWindow.hpp"
+#include "GUI/SavePromptWindow.hpp"
 #include <string>
 #include <json/json.h>
 
@@ -31,6 +32,15 @@ class Editor {
         /// Loads the save editor state.
         void LoadEditorState();
 
+        /// Is the editor ready to be closed, have we saved everything?
+        /**
+        * @return Are we ready to close the editor?
+        */
+        bool ReadyToClose() const;
+
+        /// Close the editor.
+        void Close();
+
         /// Get whether the resource list is visible.
         /**
          * @return Whether the resource list is visible.
@@ -55,13 +65,18 @@ class Editor {
         void NewHymnClosed(const std::string& hymn);
         void OpenHymn();
         void OpenHymnClosed(const std::string& hymn);
+        void LoadActiveScene();
         
         bool visible = true;
         GUI::SelectHymnWindow selectHymnWindow;
         GUI::InputWindow inputWindow;
-        GUI::ResourceList resourceList;
+        GUI::ResourceView resourceView;
         GUI::SettingsWindow settingsWindow;
         GUI::FiltersWindow filtersWindow;
+        GUI::SavePromptWindow savePromtWindow;
+
+        bool close;
+        bool savePromptAnswered;
 
         Json::Value editorState;
         
