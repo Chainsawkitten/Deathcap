@@ -10,6 +10,9 @@ namespace GUI {
     /// Displays all the hymn's resources.
     class ResourceView {
         public:
+            /// Constructor.
+            ResourceView();
+
             /// Show the resource list.
             void Show();
             

@@ -21,6 +21,10 @@
 using namespace GUI;
 using namespace std;
 
+ResourceView::ResourceView() {
+
+}
+
 void ResourceView::Show() {
     ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
     
