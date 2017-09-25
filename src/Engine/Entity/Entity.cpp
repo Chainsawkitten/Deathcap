@@ -140,7 +140,7 @@ Json::Value Entity::Save() const {
     entity["scale"] = Json::SaveVec3(scale);
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
-    entity["uid"] = std::to_string(uid);
+    entity["uid"] = uid;
     
     if (scene) {
         entity["sceneName"] = sceneName;
@@ -210,7 +210,7 @@ void Entity::Load(const Json::Value& node) {
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
-    uid = atoi(node.get("uid", "").asString().c_str());
+    uid = node.get("uid", 0).asUInt();
     
 }
 

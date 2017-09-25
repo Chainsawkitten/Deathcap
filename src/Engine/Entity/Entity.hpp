@@ -173,7 +173,7 @@ class Entity {
         /**
          * Default: 0
          */
-        int uid = 0;
+        unsigned int uid = 0;
         
         /// Whether the entity is active.
         bool enabled = true;

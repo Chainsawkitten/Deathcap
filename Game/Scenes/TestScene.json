@@ -33,7 +33,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
-			"uid" : "1"
+			"uid" : 1
 		},
 		{
 			"Material" : 
@@ -85,7 +85,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
-					"uid" : "4"
+					"uid" : 4
 				},
 				{
 					"PointLight" : 
@@ -121,7 +121,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
-					"uid" : "5"
+					"uid" : 5
 				}
 			],
 			"name" : "Minecart",
@@ -144,7 +144,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
-			"uid" : "2"
+			"uid" : 2
 		},
 		{
 			"Material" : 
@@ -179,7 +179,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
-			"uid" : "3"
+			"uid" : 3
 		}
 	],
 	"name" : "Root",
@@ -202,5 +202,5 @@
 		"z" : 1.0
 	},
 	"scene" : false,
-	"uid" : "0"
+	"uid" : 0
 }
