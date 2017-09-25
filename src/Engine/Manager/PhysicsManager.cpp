@@ -1,11 +1,10 @@
 #include "PhysicsManager.hpp"
 
-#include "../Entity/World.hpp"
-#include "../Entity/Entity.hpp"
-#include "../Component/Physics.hpp"
-
-#include "Hymn.hpp"
 #include <btBulletDynamicsCommon.h>
+#include "../Component/Physics.hpp"
+#include "../Entity/Entity.hpp"
+
+#include "../Hymn.hpp"
 
 PhysicsManager::PhysicsManager() {
     // The broadphase is used to quickly cull bodies that will not collide with

@@ -41,6 +41,9 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
+        Physics/GlmConversion.cpp
+        Physics/RigidBody.cpp
+        Physics/Shape.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
@@ -87,6 +90,10 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
+        Physics/GlmConversion.hpp
+        Physics/IRigidBody.hpp
+        Physics/RigidBody.hpp
+        Physics/Shape.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp
