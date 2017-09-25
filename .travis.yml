@@ -7,7 +7,7 @@ addons:
   apt:
     sources:
       - george-edison55-precise-backports
-      - sourceline: 'ppa:jonathonf/gcc-7.1'
+      - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
       - cmake
       - cmake-data
@@ -15,8 +15,8 @@ addons:
       - cppcheck
       - libgl1-mesa-dev
       - libglu1-mesa-dev
-      - gcc-7
-      - g++-7
+      - gcc-5
+      - g++-5
 
 script:
 - cd src
