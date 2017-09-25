@@ -16,7 +16,6 @@ addons:
       - libgl1-mesa-dev
       - libglu1-mesa-dev
       - gcc-7
-      - g++
 
 script:
 - cd src
