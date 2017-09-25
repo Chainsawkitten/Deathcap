@@ -34,15 +34,15 @@ namespace Geometry {
                 glm::vec3 aabbMaxpos;
                 bool isSkinned = false;
                 Video::Geometry::VertexType::StaticVertex * staticVertices = nullptr;
-                Video::Geometry::VertexType::SkinVertex * skinnedVerticies = nullptr;
+                Video::Geometry::VertexType::SkinVertex * skinnedVertices = nullptr;
                 uint32_t * indices = nullptr;
 
                 ~MeshData() {
                     if (staticVertices != nullptr) {
                         delete[] staticVertices;
                     }
-                    if (skinnedVerticies != nullptr) {
-                        delete[] skinnedVerticies;
+                    if (skinnedVertices != nullptr) {
+                        delete[] skinnedVertices;
                     }
                     if (indices != nullptr) {
                         delete[] indices;

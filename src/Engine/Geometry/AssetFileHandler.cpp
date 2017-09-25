@@ -81,11 +81,11 @@ void AssetFileHandler::LoadMeshData(int meshID) {
     rFile.read(reinterpret_cast<char*>(&meshData->aabbMinpos), sizeof(glm::vec3));
     rFile.read(reinterpret_cast<char*>(&meshData->aabbMaxpos), sizeof(glm::vec3));
 
-    rFile.read(reinterpret_cast<char*>(&meshData->skinnedVerticies), sizeof(bool));
+    rFile.read(reinterpret_cast<char*>(&meshData->skinnedVertices), sizeof(bool));
 
     if (meshData->isSkinned) {
-        meshData->skinnedVerticies = new Video::Geometry::VertexType::SkinVertex[meshData->numVertices];
-        rFile.read(reinterpret_cast<char*>(meshData->skinnedVerticies),
+        meshData->skinnedVertices = new Video::Geometry::VertexType::SkinVertex[meshData->numVertices];
+        rFile.read(reinterpret_cast<char*>(meshData->skinnedVertices),
             sizeof(Video::Geometry::VertexType::SkinVertex) * meshData->numVertices);
         meshData->staticVertices = nullptr;
     }
@@ -93,7 +93,7 @@ void AssetFileHandler::LoadMeshData(int meshID) {
         meshData->staticVertices = new Video::Geometry::VertexType::StaticVertex[meshData->numVertices];
         rFile.read(reinterpret_cast<char*>(meshData->staticVertices),
             sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
-        meshData->skinnedVerticies = nullptr;
+        meshData->skinnedVertices = nullptr;
     }
 
     meshData->indices = new uint32_t[meshData->numIndices];
@@ -120,7 +120,7 @@ void AssetFileHandler::SaveStaticMesh(AssetFileHandler::MeshData * meshData) {
 
     // Write mesh data.
     if (meshData->isSkinned) {
-        wFile.write(reinterpret_cast<char*>(meshData->skinnedVerticies),
+        wFile.write(reinterpret_cast<char*>(meshData->skinnedVertices),
             sizeof(Video::Geometry::VertexType::SkinVertex) * meshData->numVertices);
     }
     else {

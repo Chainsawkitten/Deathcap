@@ -70,7 +70,7 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
         meshData->isSkinned = false;
     }
     else {
-        meshData->skinnedVerticies = ConvertSkinnedVertices(aMesh, file, numVertices);
+        meshData->skinnedVertices = ConvertSkinnedVertices(aMesh, file, numVertices);
         meshData->isSkinned = true;
     }
 
@@ -78,7 +78,7 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     unsigned int numIndicies = aMesh->mNumFaces * 3;
     uint32_t * indices = new uint32_t[numIndicies];
     unsigned int indexCounter = 0;
-    for (int i = 0; i < aMesh->mNumFaces; ++i) {
+    for (unsigned int i = 0; i < aMesh->mNumFaces; ++i) {
         const aiFace& aFace = aMesh->mFaces[i];
         if (aFace.mNumIndices != 3) {
             errorString.append("ERROR: Mesh not triangulated.\n");
@@ -102,62 +102,57 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     meshData = nullptr;
 }
 
-Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertices(aiMesh * aMesh, 
-    Geometry::AssetFileHandler * file, unsigned int numVertices) {
+Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertices(aiMesh* aMesh, Geometry::AssetFileHandler* file, unsigned int numVertices) {
     Video::Geometry::VertexType::StaticVertex * vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
 
     // Positions.
     if (aMesh->HasNormals()) {
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].position, aMesh->mVertices[i]);
         }
-    }
-    else {
+    } else {
         success = false;
         errorString.append("WARNING: The model has no positions yet the user is trying to import them.\n");
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             vertices[i].position = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
 
     // Texture coordinates.
     if (aMesh->HasTextureCoords(0)) {
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mTextureCoords[0][i]);
         }
-    }
-    else {
+    } else {
         success = false;
         errorString.append("WARNING: The model has no texture coordinates yet the user is trying to import them.\n");
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             vertices[i].textureCoordinate = glm::vec2(0.0f, 0.0f);
         }
     }
 
     // Normals.
     if (aMesh->HasNormals()) {
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].normal, aMesh->mNormals[i]);
         }
-    }
-    else {
+    } else {
         success = false;
         errorString.append("WARNING: The model has no normals yet the user is trying to import them.\n");
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
 
     // Tangents.
     if (aMesh->HasTangentsAndBitangents()) {
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].tangent, aMesh->mTangents[i]);
         }
-    }
-    else {
+    } else {
         success = false;
         errorString.append("WARNING: The model has no tangents yet the user is trying to import them.\n");
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             vertices[i].tangent = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
@@ -171,56 +166,52 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
 
     // Positions.
     if (aMesh->HasNormals()) {
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].position, aMesh->mVertices[i]);
         }
-    }
-    else {
+    } else {
         success = false;
         errorString.append("WARNING: The model has no positions yet the user is trying to import them.\n");
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             vertices[i].position = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
 
     // Texture coordinates.
     if (aMesh->HasTextureCoords(0)) {
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mTextureCoords[0][i]);
         }
-    }
-    else {
+    } else {
         success = false;
         errorString.append("WARNING: The model has no texture coordinates yet the user is trying to import them.\n");
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             vertices[i].textureCoordinate = glm::vec2(0.0f, 0.0f);
         }
     }
 
     // Normals.
     if (aMesh->HasNormals()) {
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].normal, aMesh->mNormals[i]);
         }
-    }
-    else {
+    } else {
         success = false;
         errorString.append("WARNING: The model has no normals yet the user is trying to import them.\n");
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
 
     // Tangents.
     if (aMesh->HasTangentsAndBitangents()) {
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].tangent, aMesh->mTangents[i]);
         }
-    }
-    else {
+    } else {
         success = false;
         errorString.append("WARNING: The model has no tangents yet the user is trying to import them.\n");
-        for (int i = 0; i < numVertices; ++i) {
+        for (unsigned int i = 0; i < numVertices; ++i) {
             vertices[i].tangent = glm::vec3(1.0f, 0.0f, 0.0f);
         }
     }
@@ -249,7 +240,7 @@ void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData * meshDa
 
     // Find minimum/maximum bounding points.
     for (std::size_t i = 0; i < numVertices; ++i) {
-        const glm::vec3& pos = meshData->isSkinned ? meshData->skinnedVerticies[i].position : meshData->staticVertices[i].position;
+        const glm::vec3& pos = meshData->isSkinned ? meshData->skinnedVertices[i].position : meshData->staticVertices[i].position;
         if (pos.x > maxValues.x)
             maxValues.x = pos.x;
         else if (pos.x < minValues.x)

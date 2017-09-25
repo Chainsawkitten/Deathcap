@@ -7,6 +7,8 @@
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
 
+#include "../Manager/Managers.hpp"
+
 /// %Entity containing various components.
 class Entity {
     public:
@@ -169,6 +171,9 @@ class Entity {
          */
         glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
         
+        /// Whether the entity is active.
+        bool enabled = true;
+        
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
         template<typename T> void Load(const Json::Value& node, const std::string& name);
@@ -190,7 +195,7 @@ template<typename T> T* Entity::AddComponent() {
         return nullptr;
     T* component = new T(this);
     components[componentType] = component;
-    world->AddComponent(component, componentType);
+    Managers().AddComponent(world, component, componentType);
     return component;
 }
 

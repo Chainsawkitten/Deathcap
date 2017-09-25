@@ -37,10 +37,10 @@
 		{
 			"Material" : 
 			{
-				"diffuse" : "Texture #1",
-				"glow" : "",
+				"albedo" : "Texture #1",
+				"metallic" : "",
 				"normal" : "Texture #1",
-				"specular" : ""
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{
@@ -52,39 +52,6 @@
 			},
 			"children" : 
 			[
-				{
-					"Lens" : 
-					{
-						"fieldOfView" : 45.0,
-						"zFar" : 1000.0,
-						"zNear" : 0.5
-					},
-					"Script" : 
-					{
-						"scriptName" : "Player"
-					},
-					"children" : null,
-					"name" : "Player",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 25.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false
-				},
 				{
 					"PointLight" : 
 					{
@@ -98,7 +65,42 @@
 						},
 						"intensity" : 0.35199999809265137
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Lens" : 
+							{
+								"fieldOfView" : 45.0,
+								"zFar" : 1000.0,
+								"zNear" : 0.5
+							},
+							"Script" : 
+							{
+								"scriptName" : "Player"
+							},
+							"children" : null,
+							"name" : "Player",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 25.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false
+						}
+					],
 					"name" : "light",
 					"position" : 
 					{
@@ -145,10 +147,10 @@
 		{
 			"Material" : 
 			{
-				"diffuse" : "Texture #2",
-				"glow" : "",
+				"albedo" : "Texture #2",
+				"metallic" : "",
 				"normal" : "Texture #3",
-				"specular" : ""
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{

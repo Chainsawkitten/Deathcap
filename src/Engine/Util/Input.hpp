@@ -23,7 +23,11 @@ class InputHandler {
             LEFT, ///< Move left.
             RIGHT, ///< Move right.
             ZOOM, ///< Zoom to entity.
+<<<<<<< HEAD
             SELECT, ///< Select object.
+=======
+            FOCUS, ///< Focus on selected object.
+>>>>>>> 41d3adde16427c37f47da2a0efb08b8aa0263bdb
             BUTTONS, ///< Total number of inputs.
         };
         
