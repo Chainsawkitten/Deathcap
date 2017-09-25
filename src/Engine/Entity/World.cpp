@@ -22,7 +22,7 @@ World::~World() {
 Entity* World::CreateEntity(const std::string& name) {
     Entity* entity = new Entity(this, name);
     entities.push_back(entity);
-    entity->uid = std::time(NULL);
+    entity->SetUniqueIdentifier(std::time(NULL));
     return entity;
 }
 

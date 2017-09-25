@@ -140,7 +140,7 @@ Json::Value Entity::Save() const {
     entity["scale"] = Json::SaveVec3(scale);
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
-    entity["uid"] = uid;
+    entity["uid"] = uniqueIdentifier;
     
     if (scene) {
         entity["sceneName"] = sceneName;
@@ -210,7 +210,7 @@ void Entity::Load(const Json::Value& node) {
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
-    uid = node.get("uid", 0).asUInt();
+    uniqueIdentifier = node.get("uid", 0).asUInt();
     
 }
 
@@ -250,4 +250,8 @@ glm::vec3 Entity::GetWorldPosition() const {
 
 unsigned int Entity::GetUniqueIdentifier() const {
     return uniqueIdentifier;
+}
+
+void Entity::SetUniqueIdentifier(unsigned int UID) {
+    uniqueIdentifier = UID;
 }

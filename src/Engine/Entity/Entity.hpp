@@ -176,6 +176,12 @@ class Entity {
          * @return The entity's UID
          */
         unsigned int GetUniqueIdentifier() const;
+           
+        /// Set the entity's UID
+        /**
+         * @param UID the entity's unique identifier to be set
+         */
+        void SetUniqueIdentifier(unsigned int UID);
 
         /// Whether the entity is active.
         bool enabled = true;
