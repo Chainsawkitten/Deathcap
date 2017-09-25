@@ -7,7 +7,7 @@ addons:
   apt:
     sources:
       - george-edison55-precise-backports
-      - jonathonf-gcc-7.1
+      - sourceline: 'ppa:jonathonf/gcc-7.1'
     packages:
       - cmake
       - cmake-data
