@@ -81,17 +81,20 @@ void RenderManager::Render(World& world, Entity* camera) {
             PROFILE("Render static meshes");
             renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
             for (Mesh* mesh : meshes) {
+                if (mesh->IsKilled() || !mesh->entity->enabled)
+                    continue;
+                
                 if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                     Entity* entity = mesh->entity;
                     Material* material = entity->GetComponent<Material>();
                     if (material != nullptr) {
-                        renderer->RenderStaticMesh(mesh->geometry, material->diffuse->GetTexture(), material->normal->GetTexture(), material->specular->GetTexture(), material->glow->GetTexture(), entity->GetModelMatrix());
+                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
                     }
                 }
             }
         }
 
-        // TODO: Render skinned meshes.
+        /// @todo Render skinned meshes.
         
         // Light the world.
         {
@@ -131,11 +134,6 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (Hymn().filterSettings.color) {
             PROFILE("Color");
             renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
-        }  
-        
-        // Gamma correction.
-        { PROFILE("Gamma correction");
-            renderer->GammaCorrect(renderSurface);
         }
         
         // Render to back buffer.
@@ -216,6 +214,9 @@ void RenderManager::LightWorld(World& world, const Entity* camera, Video::Render
     // Add all directional lights.
     std::vector<Component::DirectionalLight*>& directionalLights = world.GetComponents<Component::DirectionalLight>();
     for (Component::DirectionalLight* directionalLight : directionalLights) {
+        if (directionalLight->IsKilled() || !directionalLight->entity->enabled)
+            continue;
+        
         Entity* lightEntity = directionalLight->entity;
         glm::vec4 direction(glm::vec4(lightEntity->GetDirection(), 0.f));
         Video::Light light;
@@ -231,6 +232,9 @@ void RenderManager::LightWorld(World& world, const Entity* camera, Video::Render
     // Add all spot lights.
     std::vector<Component::SpotLight*>& spotLights = world.GetComponents<Component::SpotLight>();
     for (Component::SpotLight* spotLight : spotLights) {
+        if (spotLight->IsKilled() || !spotLight->entity->enabled)
+            continue;
+        
         Entity* lightEntity = spotLight->entity;
         glm::vec4 direction(viewMat * glm::vec4(lightEntity->GetDirection(), 0.f));
         glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
@@ -250,6 +254,9 @@ void RenderManager::LightWorld(World& world, const Entity* camera, Video::Render
     // Add all point lights.
     std::vector<Component::PointLight*>& pointLights = world.GetComponents<Component::PointLight>();
     for (Component::PointLight* pointLight : pointLights) {
+        if (pointLight->IsKilled() || !pointLight->entity->enabled)
+            continue;
+        
         Entity* lightEntity = pointLight->entity;
         float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);

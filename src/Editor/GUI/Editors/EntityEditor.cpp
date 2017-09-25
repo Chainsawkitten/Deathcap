@@ -12,7 +12,6 @@
 #include <Engine/Component/Script.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
-#include <Engine/Hymn.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
@@ -22,10 +21,13 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/ResourceManager.hpp>
+#include <Engine/Hymn.hpp>
 
 #include "../../Util/EditorSettings.hpp"
 #include "../FileSelector.hpp"
 #include "../../ImGui/GuiHelpers.hpp"
+#include "../../Resources.hpp"
 
 using namespace GUI;
 
@@ -114,9 +116,13 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
         ImGui::Text("Models");
         ImGui::Separator();
 
-        for (Geometry::Model* model : Hymn().models) {
-            if (ImGui::Selectable(model->name.c_str()))
-                animation->riggedModel = dynamic_cast<Geometry::Model*>(model);
+        for (Geometry::Model* model : Resources().models) {
+            if (ImGui::Selectable(model->name.c_str())) {
+                if (animation->riggedModel != nullptr)
+                    Managers().resourceManager->FreeModel(animation->riggedModel);
+                
+                animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
+            }
         }
 
         ImGui::EndPopup();
@@ -153,9 +159,13 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         ImGui::Text("Models");
         ImGui::Separator();
         
-        for (Geometry::Model* model : Hymn().models) {
-            if (ImGui::Selectable(model->name.c_str()))
-                mesh->geometry = model;
+        for (Geometry::Model* model : Resources().models) {
+            if (ImGui::Selectable(model->name.c_str())) {
+                if (mesh->geometry != nullptr)
+                    Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
+                
+                mesh->geometry = Managers().resourceManager->CreateModel(model->name);
+            }
         }
         
         ImGui::EndPopup();
@@ -172,29 +182,32 @@ void EntityEditor::LensEditor(Component::Lens* lens) {
 }
 
 void EntityEditor::MaterialEditor(Component::Material* material) {
-    // Diffuse
-    ImGui::Text("Diffuse");
+    // Albedo
+    ImGui::Text("Albedo");
     ImGui::Indent();
-    if (material->diffuse->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->diffuse->GetTexture()->GetTextureID(), ImVec2(128, 128));
+    if (material->albedo->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->albedo->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select diffuse texture"))
-        ImGui::OpenPopup("Select diffuse texture");
+    if (ImGui::Button("Select albedo texture"))
+        ImGui::OpenPopup("Select albedo texture");
     
-    if (ImGui::BeginPopup("Select diffuse texture")) {
+    if (ImGui::BeginPopup("Select albedo texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->diffuse = texture;
+        for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->albedo != Hymn().defaultAlbedo)
+                    Managers().resourceManager->FreeTextureAsset(material->albedo);
+                
+                material->albedo = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-
-
+    
     // Normal
     ImGui::Text("Normal");
     ImGui::Indent();
@@ -208,53 +221,71 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->normal = texture;
+        for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->normal != Hymn().defaultNormal)
+                    Managers().resourceManager->FreeTextureAsset(material->normal);
+                
+                material->normal = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
 
-    // Specular
-    ImGui::Text("Specular");
+    // Metallic
+    ImGui::Text("Metallic");
     ImGui::Indent();
-    if (material->specular->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->specular->GetTexture()->GetTextureID(), ImVec2(128, 128));
+    if (material->metallic->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->metallic->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select specular texture"))
-        ImGui::OpenPopup("Select specular texture");
+    if (ImGui::Button("Select metallic texture"))
+        ImGui::OpenPopup("Select metallic texture");
     
-    if (ImGui::BeginPopup("Select specular texture")) {
+    if (ImGui::BeginPopup("Select metallic texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
+        for (TextureAsset* texture : Resources().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
-                material->specular = texture;
+                material->metallic = texture;
+
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->metallic != Hymn().defaultMetallic)
+                    Managers().resourceManager->FreeTextureAsset(material->metallic);
+                
+                material->metallic = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
 
-    // Glow
-    ImGui::Text("Glow");
+    // Roughness
+    ImGui::Text("Roughness");
     ImGui::Indent();
-    if (material->glow->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->glow->GetTexture()->GetTextureID(), ImVec2(128, 128));
+    if (material->roughness->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->roughness->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select glow texture"))
-        ImGui::OpenPopup("Select glow texture");
+    if (ImGui::Button("Select roughness texture"))
+        ImGui::OpenPopup("Select roughness texture");
     
-    if (ImGui::BeginPopup("Select glow texture")) {
+    if (ImGui::BeginPopup("Select roughness texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Hymn().textures) {
+        for (TextureAsset* texture : Resources().textures) {
             if (ImGui::Selectable(texture->name.c_str()))
-                material->glow = texture;
+                material->roughness = texture;
+
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->roughness != Hymn().defaultRoughness)
+                    Managers().resourceManager->FreeTextureAsset(material->roughness);
+                
+                material->roughness = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
         
         ImGui::EndPopup();
@@ -365,9 +396,13 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Text("Sounds");
         ImGui::Separator();
         
-        for (Audio::SoundBuffer* sound : Hymn().sounds) {
-            if (ImGui::Selectable(sound->name.c_str()))
-                soundSource->soundBuffer = sound;
+        for (Audio::SoundBuffer* sound : Resources().sounds) {
+            if (ImGui::Selectable(sound->name.c_str())) {
+                if (soundSource->soundBuffer != nullptr)
+                    Managers().resourceManager->FreeSound(soundSource->soundBuffer);
+                
+                soundSource->soundBuffer = Managers().resourceManager->CreateSound(sound->name);
+            }
         }
         
         ImGui::EndPopup();
