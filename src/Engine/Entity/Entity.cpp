@@ -116,13 +116,7 @@ bool Entity::IsScene() const {
 }
 
 void Entity::Kill() {
-    killed = true;
-    
-    for (auto& it : components)
-        it.second->Kill();
-    
-    for (Entity* child : children)
-        child->Kill();
+    KillHelper();
     
     // Remove this entity from the parent's list of children.
     if (parent != nullptr)
@@ -243,4 +237,15 @@ glm::vec3 Entity::GetWorldPosition() const {
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
     
     return position;
+}
+
+void Entity::KillHelper() {
+    killed = true;
+    
+    for (auto& it : components)
+        it.second->Kill();
+    
+    for (Entity* child : children) {
+        child->Kill();
+    }
 }

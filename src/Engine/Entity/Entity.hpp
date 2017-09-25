@@ -177,6 +177,7 @@ class Entity {
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
         template<typename T> void Load(const Json::Value& node, const std::string& name);
+        void KillHelper();
         
         World* world;
         Entity* parent = nullptr;
