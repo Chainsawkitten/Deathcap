@@ -11,7 +11,7 @@
 using namespace GUI;
 
 TextureEditor::TextureEditor() {
-
+    name[0] = '\0';
 }
 
 void TextureEditor::Show() {

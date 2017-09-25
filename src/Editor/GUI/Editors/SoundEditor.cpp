@@ -11,7 +11,7 @@
 using namespace GUI;
 
 SoundEditor::SoundEditor() {
-
+    name[0] = '\0';
 }
 
 void SoundEditor::Show() {

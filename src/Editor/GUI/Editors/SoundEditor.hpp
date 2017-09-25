@@ -50,6 +50,6 @@ namespace GUI {
             
             FileSelector fileSelector;
             
-            char name[128] = "";
+            char name[128];
     };
 }
