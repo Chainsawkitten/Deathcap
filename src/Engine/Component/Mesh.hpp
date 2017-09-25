@@ -18,6 +18,9 @@ namespace Component {
              */
             Mesh(Entity* entity);
             
+            /// Destructor.
+            ~Mesh() override;
+            
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
