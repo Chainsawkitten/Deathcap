@@ -8,6 +8,7 @@
 #include "GUI/SavePromptWindow.hpp"
 #include <string>
 #include <json/json.h>
+#include "Util\MousePicking.hpp"
 
 struct GLFWcursor;
 
@@ -81,6 +82,7 @@ class Editor {
         
         World cameraWorld;
         Entity* cameraEntity;
+        MousePicking mousePicker;
         
         double lastX = 0.0;
         double lastY = 0.0;
