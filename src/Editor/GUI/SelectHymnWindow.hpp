@@ -53,7 +53,7 @@ namespace GUI {
             std::function<void(const std::string&)> closedCallback;
             
             std::vector<std::string> files;
-            char name[128] = "";
+            char name[128] = {'\0'};
             
             bool visible = false;
             
