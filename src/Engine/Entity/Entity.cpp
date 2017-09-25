@@ -247,3 +247,7 @@ glm::vec3 Entity::GetWorldPosition() const {
     
     return position;
 }
+
+unsigned int Entity::GetUniqueIdentifier() const {
+    return uniqueIdentifier;
+}
