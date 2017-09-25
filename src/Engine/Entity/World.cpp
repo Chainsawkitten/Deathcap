@@ -48,7 +48,7 @@ void World::Clear() {
         root->Kill();
         
         // Clear killed components.
-        Managers().ClearKilledComponents(this);
+        Managers().ClearKilledComponents();
     }
     
     // Remove all entities.
@@ -63,7 +63,7 @@ void World::Clear() {
 
 void World::ClearKilled() {
     // Clear killed components.
-    Managers().ClearKilledComponents(this);
+    Managers().ClearKilledComponents();
 
     // Clear killed entities.
     std::size_t i = 0;

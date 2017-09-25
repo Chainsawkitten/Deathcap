@@ -1,7 +1,5 @@
 #pragma once
 
-class World;
-
 #include <glm/glm.hpp>
 #include <Physics/Simulator.hpp>
 
@@ -14,10 +12,9 @@ class PhysicsManager : public Physics::Simulator, public SuperManager {
     public:
         /// Update world containing entities. Moves entities and updates the physics component.
         /**
-         * @param world The world to update.
          * @param deltaTime Time since last frame (in seconds).
          */
-        void Update(World& world, float deltaTime);
+        void Update(float deltaTime);
         
     private:
         PhysicsManager();

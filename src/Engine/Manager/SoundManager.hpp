@@ -4,8 +4,6 @@
 
 #include "SuperManager.hpp"
 
-class World;
-
 /// Handles OpenAL sound.
 class SoundManager : public SuperManager{
     friend class Hub;
@@ -29,11 +27,8 @@ class SoundManager : public SuperManager{
          */
         static void CheckError(const char* message);
         
-        /// Update world containing entities. Moves sound sources and plays sounds.
-        /**
-         * @param world The world to update.
-         */
-        void Update(World& world);
+        /// Moves sound sources and plays sounds.
+        void Update();
         
     private:
         SoundManager();

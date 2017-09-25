@@ -44,7 +44,7 @@ class RenderManager : public SuperManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
         
-        void LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface);
+        void LightWorld(const Entity* camera, Video::RenderSurface* renderSurface);
 
         Video::Renderer* renderer;
 
