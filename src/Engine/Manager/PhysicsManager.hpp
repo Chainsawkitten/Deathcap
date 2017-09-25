@@ -25,7 +25,7 @@ class btDiscreteDynamicsWorld;
 /// Updates the physics of the world.
 class PhysicsManager : public SuperManager {
     friend class Hub;
-    
+
     public:
         /// Update world containing entities. Moves entities and updates the physics component.
         /**
@@ -33,7 +33,7 @@ class PhysicsManager : public SuperManager {
          * @param deltaTime Time since last frame (in seconds).
          */
         void Update(World& world, float deltaTime);
-        
+
     private:
         PhysicsManager();
         ~PhysicsManager();
@@ -42,7 +42,7 @@ class PhysicsManager : public SuperManager {
 
         Physics::RigidBody* MakeRigidBody(Physics::Shape* shape, float mass);
         Physics::Trigger* MakeTrigger(Physics::Shape* shape);
-        
+
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
 
         btBroadphaseInterface* broadphase = nullptr;
@@ -51,6 +51,5 @@ class PhysicsManager : public SuperManager {
         btSequentialImpulseConstraintSolver* solver = nullptr;
         btDiscreteDynamicsWorld* dynamicsWorld = nullptr;
 
-        std::vector<Component::Physics*> components;
         std::vector<Physics::Trigger*> triggers;
 };
