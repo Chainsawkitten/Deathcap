@@ -8,6 +8,7 @@
 #include "ScriptManager.hpp"
 #include "DebugDrawingManager.hpp"
 #include "ProfilingManager.hpp"
+#include "VRManager.hpp"
 
 #include "../Component/SuperComponent.hpp"
 #include "Utility/Log.hpp"
@@ -42,11 +43,13 @@ void Hub::StartUp() {
     scriptManager = new ScriptManager();
     debugDrawingManager = new DebugDrawingManager();
     profilingManager = new ProfilingManager();
+    vrManager = new VRManager();
 }
 
 void Hub::ShutDown() {
     ClearAllComponents();
 
+    delete vrManager;
     delete profilingManager;
     delete debugDrawingManager;
     delete scriptManager;
