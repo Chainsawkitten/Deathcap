@@ -11,6 +11,8 @@ namespace Physics {
         trigger->setCollisionShape(shape->GetShape());
     }
 
+    // Called with each contact for our own processing. This is where we can
+    // test whether the given listeners are intersecting the trigger volume.
     btScalar Trigger::addSingleResult(btManifoldPoint& cp,
         const btCollisionObjectWrapper* colObj0, int partId0, int index0,
         const btCollisionObjectWrapper* colObj1, int partId1, int index1) {

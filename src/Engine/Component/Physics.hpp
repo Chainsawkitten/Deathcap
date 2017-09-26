@@ -63,8 +63,8 @@ namespace Component {
         public:
             /// Create new physics component.
             /**
-            * @param entity Pointer to which entity this component corresponds.
-            */
+             * @param entity Pointer to which entity this component corresponds.
+             */
             Physics(Entity* entity);
             
         private:
