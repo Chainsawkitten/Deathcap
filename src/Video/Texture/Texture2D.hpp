@@ -13,6 +13,12 @@ namespace Video {
         public:
             /// Create new unloaded texture.
             Texture2D();
+
+            /// Copy constructor
+            /**
+             * @param other The texture2D that we are copying.
+             */
+            Texture2D(const Texture2D & other);
             
             /// Create new texture from the given image file.
             /**

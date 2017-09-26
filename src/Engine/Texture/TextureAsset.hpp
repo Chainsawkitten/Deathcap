@@ -13,6 +13,8 @@ class TextureAsset {
         /// Create new texture asset.
         TextureAsset();
         
+        TextureAsset(const TextureAsset & other);
+
         /// Destructor.
         ~TextureAsset();
         
