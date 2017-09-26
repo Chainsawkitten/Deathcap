@@ -106,8 +106,10 @@ void EntityEditor::SetEntity(Entity* entity) {
     auto physics = this->entity->GetComponent<Component::Physics>();
     if (physics) {
         Physics::Shape& shape = physics->GetShape();
-        for (auto editor : shapeEditors) {
-            shapeEditors[selectedShape]->SetFromShape(shape);
+        for (uint32_t i = 0; i < shapeEditors.size(); ++i) {
+            if (shapeEditors[i]->SetFromShape(shape)) {
+                selectedShape = i;
+            }
         }
     }
 }

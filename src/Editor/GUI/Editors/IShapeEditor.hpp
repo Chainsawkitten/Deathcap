@@ -39,8 +39,9 @@ namespace GUI {
             /// does not correspond to the actual editor, nothing happens.
             /**
              * @param shape The %Shape from which to initialize data.
+             * @return True if shape matched editor type, false otherwise.
              */
-            virtual void SetFromShape(const Physics::Shape& shape) = 0;
+            virtual bool SetFromShape(const Physics::Shape& shape) = 0;
     };
 
 }

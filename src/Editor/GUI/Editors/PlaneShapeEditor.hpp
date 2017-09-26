@@ -33,8 +33,9 @@ namespace GUI {
             /// is a plane.
             /**
              * @param shape The %Shape from which to initialize data.
+             * @return True if shape type is plane, false otherwise.
              */
-            virtual void SetFromShape(const Physics::Shape& shape) override;
+            virtual bool SetFromShape(const Physics::Shape& shape) override;
 
         private:
             float normal[3] = { 0.0f, 1.0f, 0.0f };

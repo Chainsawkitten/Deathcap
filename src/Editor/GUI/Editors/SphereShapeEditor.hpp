@@ -33,8 +33,12 @@ namespace GUI {
             /// is a sphere.
             /**
              * @param shape The %Shape from which to initialize data.
+             * @return True if shape type is sphere, false otherwise.
              */
-            virtual void SetFromShape(const Physics::Shape& shape) override;
+            virtual bool SetFromShape(const Physics::Shape& shape) override;
+
+        private:
+            float radius = 1.0f;
     };
 
 }

@@ -14,7 +14,7 @@ namespace GUI {
 
     }
 
-    void SphereShapeEditor::SetFromShape(const Physics::Shape& shape) {
-
+    bool SphereShapeEditor::SetFromShape(const Physics::Shape& shape) {
+        return false;
     }
 }
