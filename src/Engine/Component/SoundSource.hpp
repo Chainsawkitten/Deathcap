@@ -3,7 +3,6 @@
 #include "SuperComponent.hpp"
 #include <AL/al.h>
 
-class Entity;
 class SoundManager;
 namespace Audio {
     class SoundBuffer;
@@ -16,10 +15,7 @@ namespace Component {
         
         public:
             /// Create new sound source.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            SoundSource(Entity* entity);
+            SoundSource();
             
             /// Destructor.
             ~SoundSource();

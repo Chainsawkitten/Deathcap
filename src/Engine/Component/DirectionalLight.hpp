@@ -3,17 +3,12 @@
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
 
-class Entity;
-
 namespace Component {
     /// %Component describing a directional light source (like the sun).
     class DirectionalLight : public SuperComponent {
         public:
             /// Create new directional light.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            DirectionalLight(Entity* entity);
+            DirectionalLight();
             
             /// Save the component.
             /**

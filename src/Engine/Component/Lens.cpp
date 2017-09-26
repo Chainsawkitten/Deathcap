@@ -5,7 +5,7 @@
 
 using namespace Component;
 
-Lens::Lens(Entity* entity) : SuperComponent(entity) {
+Lens::Lens() {
     
 }
 

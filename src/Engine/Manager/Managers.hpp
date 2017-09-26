@@ -52,16 +52,6 @@ class Hub {
         /// Deinitialize all subsystems.
         void ShutDown();
         
-        /// Adds a component to the correct manager.
-        /**
-         * @param component The component to add.
-         * @param componentType The type of the component to add.
-         */
-        void AddComponent(Component::SuperComponent* component, const std::type_info* componentType);
-        
-        /// Clears all the components of all managers.
-        void ClearComponents();
-        
         /// Clears the killed components of all managers.
         void ClearKilledComponents();
         

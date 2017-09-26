@@ -15,7 +15,7 @@ template<class C> class ComponentContainer {
         /**
          * @return The created component.
          */
-        C* Add();
+        C* Create();
         
         /// Clear all killed components.
         void ClearKilled();
@@ -39,7 +39,7 @@ template<class C> ComponentContainer<C>::~ComponentContainer() {
         delete component;
 }
 
-template<class C> C* ComponentContainer<C>::Add() {
+template<class C> C* ComponentContainer<C>::Create() {
     C* component = new C();
     components.push_back(component);
     return component;

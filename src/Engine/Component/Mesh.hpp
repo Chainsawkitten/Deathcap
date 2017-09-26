@@ -13,10 +13,7 @@ namespace Component {
     class Mesh : public SuperComponent {
         public:
             /// Create new mesh.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Mesh(Entity* entity);
+            Mesh();
             
             /// Destructor.
             ~Mesh() override;

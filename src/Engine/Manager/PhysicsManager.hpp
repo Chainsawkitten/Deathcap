@@ -2,11 +2,14 @@
 
 #include <glm/glm.hpp>
 #include <Physics/Simulator.hpp>
+#include "../Entity/ComponentContainer.hpp"
 
-#include "SuperManager.hpp"
+namespace Component {
+    class Physics;
+}
 
 /// Updates the physics of the world.
-class PhysicsManager : public Physics::Simulator, public SuperManager {
+class PhysicsManager : public Physics::Simulator {
     friend class Hub;
     
     public:
@@ -16,6 +19,21 @@ class PhysicsManager : public Physics::Simulator, public SuperManager {
          */
         void Update(float deltaTime);
         
+        /// Create physics component.
+        /**
+         * @return The created component.
+         */
+        Component::Physics* CreatePhysics();
+        
+        /// Get all physics components.
+        /**
+         * @return All physics components.
+         */
+        const std::vector<Component::Physics*>& GetPhysicses() const;
+        
+        /// Remove all killed components.
+        void ClearKilledComponents();
+        
     private:
         PhysicsManager();
         ~PhysicsManager();
@@ -23,4 +41,6 @@ class PhysicsManager : public Physics::Simulator, public SuperManager {
         void operator=(PhysicsManager const&) = delete;
         
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
+        
+        ComponentContainer<Component::Physics> physicses;
 };

@@ -7,7 +7,7 @@
 
 using namespace Component;
 
-SoundSource::SoundSource(Entity* entity) : SuperComponent(entity) {
+SoundSource::SoundSource() {
     alGenSources(1, &source);
 }
 

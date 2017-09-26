@@ -1,8 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-
-#include "SuperManager.hpp"
+#include "../Entity/ComponentContainer.hpp"
 
 namespace Video {
     class Renderer;
@@ -11,9 +10,18 @@ namespace Video {
 }
 class World;
 class Entity;
+namespace Component {
+    class Animation;
+    class DirectionalLight;
+    class Lens;
+    class Material;
+    class Mesh;
+    class PointLight;
+    class SpotLight;
+}
 
 /// Handles rendering the world.
-class RenderManager : public SuperManager {
+class RenderManager {
     friend class Hub;
     
     public:
@@ -38,6 +46,93 @@ class RenderManager : public SuperManager {
         /// Updates the buffers to fit the current screen size.
         void UpdateBufferSize();
         
+        /// Create animation component.
+        /**
+         * @return The created component.
+         */
+        Component::Animation* CreateAnimation();
+        
+        /// Get all animation components.
+        /**
+         * @return All animation components.
+         */
+        const std::vector<Component::Animation*>& GetAnimations() const;
+        
+        /// Create directional light component.
+        /**
+         * @return The created component.
+         */
+        Component::DirectionalLight* CreateDirectionalLight();
+        
+        /// Get all directional light components.
+        /**
+         * @return All directional light components.
+         */
+        const std::vector<Component::DirectionalLight*>& GetDirectionalLights() const;
+        
+        /// Create lens component.
+        /**
+         * @return The created component.
+         */
+        Component::Lens* CreateLens();
+        
+        /// Get all lens components.
+        /**
+         * @return All lens components.
+         */
+        const std::vector<Component::Lens*>& GetLenses() const;
+        
+        /// Create material component.
+        /**
+         * @return The created component.
+         */
+        Component::Material* CreateMaterial();
+        
+        /// Get all material components.
+        /**
+         * @return All material components.
+         */
+        const std::vector<Component::Material*>& GetMaterials() const;
+        
+        /// Create mesh component.
+        /**
+         * @return The created component.
+         */
+        Component::Mesh* CreateMesh();
+        
+        /// Get all mesh components.
+        /**
+         * @return All mesh components.
+         */
+        const std::vector<Component::Mesh*>& GetMeshes() const;
+        
+        /// Create point light component.
+        /**
+         * @return The created component.
+         */
+        Component::PointLight* CreatePointLight();
+        
+        /// Get all point light components.
+        /**
+         * @return All point light components.
+         */
+        const std::vector<Component::PointLight*>& GetPointLights() const;
+        
+        /// Create spot light component.
+        /**
+         * @return The created component.
+         */
+        Component::SpotLight* CreateSpotLight();
+        
+        /// Get all spot light components.
+        /**
+         * @return All spot light components.
+         */
+        const std::vector<Component::SpotLight*>& GetSpotLights() const;
+        
+        /// Remove all killed components.
+        void ClearKilledComponents();
+        
     private:
         RenderManager();
         ~RenderManager();
@@ -55,4 +150,13 @@ class RenderManager : public SuperManager {
         Video::Texture2D* lightTexture;
         Video::Texture2D* soundSourceTexture;
         Video::Texture2D* cameraTexture;
+        
+        // Components.
+        ComponentContainer<Component::Animation> animations;
+        ComponentContainer<Component::DirectionalLight> directionalLights;
+        ComponentContainer<Component::Lens> lenses;
+        ComponentContainer<Component::Material> materials;
+        ComponentContainer<Component::Mesh> meshes;
+        ComponentContainer<Component::PointLight> pointLights;
+        ComponentContainer<Component::SpotLight> spotLights;
 };

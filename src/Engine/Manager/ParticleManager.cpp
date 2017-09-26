@@ -45,8 +45,7 @@ void ParticleManager::Update(World& world, float time, bool preview) {
     
     // Spawn new particles from emitters.
     std::uniform_real_distribution<float> minusOneToOne(-1.f, 1.f);
-    std::vector<Component::ParticleEmitter*> particleEmitters = this->GetComponents<Component::ParticleEmitter>();
-    for (Component::ParticleEmitter* emitter : particleEmitters) {
+    for (Component::ParticleEmitter* emitter : particleEmitters.GetAll()) {
         if (emitter->IsKilled() || (preview && !emitter->preview) || !emitter->entity->enabled)
             continue;
         
@@ -79,6 +78,18 @@ const Texture2D* ParticleManager::GetTextureAtlas() const {
 
 int ParticleManager::GetTextureAtlasRows() const {
     return textureAtlasRowNumber;
+}
+
+Component::ParticleEmitter* ParticleManager::CreateParticleEmitter() {
+    return particleEmitters.Create();
+}
+
+const std::vector<Component::ParticleEmitter*>& ParticleManager::GetParticleEmitters() const {
+    return particleEmitters.GetAll();
+}
+
+void ParticleManager::ClearKilledComponents() {
+    particleEmitters.ClearKilled();
 }
 
 void ParticleManager::EmitParticle(World& world, Component::ParticleEmitter* emitter) {

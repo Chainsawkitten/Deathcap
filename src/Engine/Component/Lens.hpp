@@ -8,10 +8,7 @@ namespace Component {
     class Lens : public SuperComponent {
         public:
             /// Create new lens.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Lens(Entity* entity);
+            Lens();
             
             /// Save the component.
             /**

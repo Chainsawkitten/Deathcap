@@ -7,7 +7,7 @@
 
 using namespace Component;
 
-Material::Material(Entity* entity) : SuperComponent(entity) {
+Material::Material() {
     albedo = Hymn().defaultAlbedo;
     normal = Hymn().defaultNormal;
     metallic = Hymn().defaultMetallic;

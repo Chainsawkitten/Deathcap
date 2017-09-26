@@ -3,17 +3,12 @@
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
 
-class Entity;
-
 namespace Component {
     /// %Component describing a spot light.
     class SpotLight : public SuperComponent {
         public:
             /// Create new spot light.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            SpotLight(Entity* entity);
+            SpotLight();
             
             /// Save the component.
             /**

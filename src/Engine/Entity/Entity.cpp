@@ -18,6 +18,12 @@
 #include <Utility/Log.hpp>
 #include "../Hymn.hpp"
 #include <fstream>
+#include "../Manager/Managers.hpp"
+#include "../Manager/ParticleManager.hpp"
+#include "../Manager/PhysicsManager.hpp"
+#include "../Manager/RenderManager.hpp"
+#include "../Manager/ScriptManager.hpp"
+#include "../Manager/SoundManager.hpp"
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
@@ -237,6 +243,46 @@ glm::vec3 Entity::GetWorldPosition() const {
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
     
     return position;
+}
+
+Component::SuperComponent* Entity::AddComponent(const std::type_info* componentType) {
+    Component::SuperComponent* component;
+    
+    // Create a component in the correct manager.
+    if (*componentType == typeid(Component::Animation*))
+        component = Managers().renderManager->CreateAnimation();
+    else if (*componentType == typeid(Component::DirectionalLight*))
+        component = Managers().renderManager->CreateDirectionalLight();
+    else if (*componentType == typeid(Component::Lens*))
+        component = Managers().renderManager->CreateLens();
+    else if (*componentType == typeid(Component::Listener*))
+        component = Managers().soundManager->CreateListener();
+    else if (*componentType == typeid(Component::Material*))
+        component = Managers().renderManager->CreateMaterial();
+    else if (*componentType == typeid(Component::Mesh*))
+        component = Managers().renderManager->CreateMesh();
+    else if (*componentType == typeid(Component::ParticleEmitter*))
+        component = Managers().particleManager->CreateParticleEmitter();
+    else if (*componentType == typeid(Component::Physics*))
+        component = Managers().physicsManager->CreatePhysics();
+    else if (*componentType == typeid(Component::PointLight*))
+        component = Managers().renderManager->CreatePointLight();
+    else if (*componentType == typeid(Component::Script*))
+        component = Managers().scriptManager->CreateScript();
+    else if (*componentType == typeid(Component::SoundSource*))
+        component = Managers().soundManager->CreateSoundSource();
+    else if (*componentType == typeid(Component::SpotLight*))
+        component = Managers().renderManager->CreateSpotLight();
+    else
+        Log() << componentType->name() << " not assigned to a manager!" << "\n";
+    
+    // Add component to our map.
+    components[componentType] = component;
+    
+    // Set ourselves as the owner.
+    component->entity = this;
+    
+    return component;
 }
 
 void Entity::KillHelper() {

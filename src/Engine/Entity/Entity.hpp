@@ -177,6 +177,7 @@ class Entity {
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
         template<typename T> void Load(const Json::Value& node, const std::string& name);
+        Component::SuperComponent* AddComponent(const std::type_info* componentType);
         void KillHelper();
         
         World* world;
@@ -194,10 +195,11 @@ template<typename T> T* Entity::AddComponent() {
     const std::type_info* componentType = &typeid(T*);
     if (components.find(componentType) != components.end())
         return nullptr;
-    T* component = new T(this);
-    components[componentType] = component;
-    Managers().AddComponent(component, componentType);
-    return component;
+    
+    //Managers().AddComponent(component, componentType);
+    //components[componentType] = component;
+    //component->entity = this;
+    return static_cast<T*>(AddComponent(componentType));
 }
 
 template<typename T> T* Entity::GetComponent() const {

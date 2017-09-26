@@ -6,7 +6,7 @@
 
 namespace Component {
 
-    Physics::Physics(Entity* entity) : SuperComponent(entity) {
+    Physics::Physics() {
     
     }
 

@@ -12,10 +12,7 @@ namespace Component {
     class Animation : public SuperComponent {
         public:
             /// Create new %Animation component.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Animation(Entity* entity);
+            Animation();
             
             /// Save the component.
             /**

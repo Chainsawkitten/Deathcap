@@ -2,7 +2,6 @@
 
 #include "SuperComponent.hpp"
 
-class Entity;
 class TextureAsset;
 
 namespace Component {
@@ -10,10 +9,7 @@ namespace Component {
     class Material : public SuperComponent {
         public:
             /// Create new material.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Material(Entity* entity);
+            Material();
             
             /// Destructor.
             ~Material() override;

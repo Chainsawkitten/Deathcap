@@ -3,8 +3,6 @@
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
 
-class Entity;
-
 namespace Component {
     /// Emitter that emits particles.
     class ParticleEmitter : public SuperComponent {
@@ -55,10 +53,7 @@ namespace Component {
             };
             
             /// Create new particle emitter.
-            /**
-             * @param entity to which we attatch the emitter
-             */
-            ParticleEmitter(Entity* entity);
+            ParticleEmitter();
             
             /// Save the component.
             /**

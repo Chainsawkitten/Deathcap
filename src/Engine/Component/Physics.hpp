@@ -4,17 +4,12 @@
 #include <glm/glm.hpp>
 #include <Physics/RigidBody.hpp>
 
-class Entity;
-
 namespace Component {
     /// %Component allows interacting with other physics components.
     class Physics : public SuperComponent, public ::Physics::RigidBody {
         public:
             /// Create new physics component.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Physics(Entity* entity);
+            Physics();
 
             /// Save the component.
             /**

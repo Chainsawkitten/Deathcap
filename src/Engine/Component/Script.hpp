@@ -2,7 +2,6 @@
 
 #include "SuperComponent.hpp"
 
-class Entity;
 class ScriptFile;
 class asIScriptObject;
 
@@ -11,10 +10,7 @@ namespace Component {
     class Script : public SuperComponent {
         public:
             /// Create new script.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Script(Entity* entity);
+            Script();
             
             /// Destructor.
             ~Script() final;

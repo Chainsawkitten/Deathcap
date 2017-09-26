@@ -3,7 +3,7 @@
 #include "../Hymn.hpp"
 #include "../Geometry/Model.hpp"
 
-Component::Animation::Animation(Entity* entity) : SuperComponent(entity) {
+Component::Animation::Animation() {
     
 }
 

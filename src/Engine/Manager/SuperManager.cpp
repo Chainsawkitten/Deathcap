@@ -2,7 +2,7 @@
 #include "../Component/SuperComponent.hpp"
 
 SuperManager::~SuperManager() {
-
+    ClearComponents();
 }
 
 void SuperManager::AddComponent(Component::SuperComponent* component, const std::type_info* componentType) {

@@ -53,8 +53,7 @@ void SoundManager::CheckError(const char* message) {
 
 void SoundManager::Update() {
     // Update sound sources.
-    std::vector<Component::SoundSource*> soundComponents = GetComponents<Component::SoundSource>();
-    for (Component::SoundSource* sound : soundComponents) {
+    for (Component::SoundSource* sound : soundSources.GetAll()) {
         if (sound->IsKilled() || !sound->entity->enabled)
             continue;
         
@@ -104,8 +103,7 @@ void SoundManager::Update() {
     }
     
     // Update listener.
-    std::vector<Component::Listener*> listeners = GetComponents<Component::Listener>();
-    for (Component::Listener* listener : listeners) {
+    for (Component::Listener* listener : listeners.GetAll()) {
         Entity* entity = listener->entity;
         
         // Set position
@@ -122,4 +120,25 @@ void SoundManager::Update() {
         
         break;
     }
+}
+
+Component::SoundSource* SoundManager::CreateSoundSource() {
+    return soundSources.Create();
+}
+
+const std::vector<Component::SoundSource*>& SoundManager::GetSoundSources() const {
+    return soundSources.GetAll();
+}
+
+Component::Listener* SoundManager::CreateListener() {
+    return listeners.Create();
+}
+
+const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
+    return listeners.GetAll();
+}
+
+void SoundManager::ClearKilledComponents() {
+    soundSources.ClearKilled();
+    listeners.ClearKilled();
 }

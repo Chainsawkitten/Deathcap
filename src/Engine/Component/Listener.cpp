@@ -2,7 +2,7 @@
 
 using namespace Component;
 
-Listener::Listener(Entity* entity) : SuperComponent(entity) {
+Listener::Listener() {
     
 }
 

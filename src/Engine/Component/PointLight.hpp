@@ -3,17 +3,12 @@
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
 
-class Entity;
-
 namespace Component {
     /// %Component describing a point light.
     class PointLight : public SuperComponent {
         public:
             /// Create new point light.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            PointLight(Entity* entity);
+            PointLight();
             
             /// Save the component.
             /**

@@ -1,11 +1,15 @@
 #pragma once
 
 #include <AL/alc.h>
+#include "../Entity/ComponentContainer.hpp"
 
-#include "SuperManager.hpp"
+namespace Component {
+    class SoundSource;
+    class Listener;
+}
 
 /// Handles OpenAL sound.
-class SoundManager : public SuperManager{
+class SoundManager {
     friend class Hub;
     
     public:
@@ -30,6 +34,33 @@ class SoundManager : public SuperManager{
         /// Moves sound sources and plays sounds.
         void Update();
         
+        /// Create sound source component.
+        /**
+         * @return The created component.
+         */
+        Component::SoundSource* CreateSoundSource();
+        
+        /// Get all sound source components.
+        /**
+         * @return All sound source components.
+         */
+        const std::vector<Component::SoundSource*>& GetSoundSources() const;
+        
+        /// Create listener component.
+        /**
+         * @return The created component.
+         */
+        Component::Listener* CreateListener();
+        
+        /// Get all listener components.
+        /**
+         * @return All listener components.
+         */
+        const std::vector<Component::Listener*>& GetListeners() const;
+        
+        /// Remove all killed components.
+        void ClearKilledComponents();
+        
     private:
         SoundManager();
         ~SoundManager();
@@ -40,4 +71,7 @@ class SoundManager : public SuperManager{
         ALCcontext* context;
         
         float volume = 1.f;
+        
+        ComponentContainer<Component::SoundSource> soundSources;
+        ComponentContainer<Component::Listener> listeners;
 };

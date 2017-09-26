@@ -14,8 +14,7 @@ PhysicsManager::~PhysicsManager() {
 }
 
 void PhysicsManager::Update(float deltaTime) {
-    std::vector<Component::Physics*> physicsObjects = GetComponents<Component::Physics>();
-    for (Component::Physics* physicsComp : physicsObjects) {
+    for (Component::Physics* physicsComp : physicses.GetAll()) {
         if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
             continue;
         
@@ -56,4 +55,16 @@ void PhysicsManager::Update(float deltaTime) {
     }
 
     this->Simulate(deltaTime);
+}
+
+Component::Physics* PhysicsManager::CreatePhysics() {
+    return physicses.Create();
+}
+
+const std::vector<Component::Physics*>& PhysicsManager::GetPhysicses() const {
+    return physicses.GetAll();
+}
+
+void PhysicsManager::ClearKilledComponents() {
+    physicses.ClearKilled();
 }

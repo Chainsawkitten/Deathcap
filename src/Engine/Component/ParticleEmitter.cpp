@@ -4,7 +4,7 @@
 
 using namespace Component;
 
-ParticleEmitter::ParticleEmitter(Entity* entity) : SuperComponent(entity) {
+ParticleEmitter::ParticleEmitter() {
     
 }
 
