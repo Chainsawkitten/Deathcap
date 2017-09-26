@@ -21,6 +21,7 @@ set(SRCS
         Component/Physics.cpp
         Component/PointLight.cpp
         Component/Script.cpp
+        Component/Shape.cpp
         Component/SoundSource.cpp
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
@@ -72,6 +73,7 @@ set(HEADERS
         Component/Physics.hpp
         Component/PointLight.hpp
         Component/Script.hpp
+        Component/Shape.hpp
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
