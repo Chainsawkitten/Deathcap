@@ -44,6 +44,7 @@ namespace GUI {
             
         private:
             void FileSelected(const std::string& file);
+            void RefreshImportSettings();
             
             Geometry::Model* model = nullptr;
             bool visible = false;
