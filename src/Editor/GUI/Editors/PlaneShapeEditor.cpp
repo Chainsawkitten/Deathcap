@@ -22,7 +22,8 @@ namespace GUI {
     }
 
     void PlaneShapeEditor::Apply(Component::Physics* comp) {
-
+        Physics::Shape* shape = new Physics::Shape(Physics::Shape::Plane(glm::vec3(normal[0], normal[1], normal[2]), planeCoeff));
+        comp->SetShape(shape);
     }
 
     bool PlaneShapeEditor::SetFromShape(const Physics::Shape& shape) {

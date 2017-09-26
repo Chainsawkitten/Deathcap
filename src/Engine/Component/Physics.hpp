@@ -34,6 +34,12 @@ namespace Component {
              */
             ::Physics::Shape& GetShape();
 
+            /// Set the shape of the physics component.
+            /**
+             * @param shape The new shape.
+             */
+            void SetShape(::Physics::Shape* shape);
+
             /// Velocity (in meter/second).
             glm::vec3 velocity = glm::vec3(0.f, 0.f, 0.f);
 

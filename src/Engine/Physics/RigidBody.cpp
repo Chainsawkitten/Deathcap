@@ -51,4 +51,10 @@ namespace Physics {
         return *shape;
     }
 
+    void RigidBody::SetShape(Physics::Shape* shape) {
+        delete this->shape;
+        this->shape = shape;
+        this->rigidBody->setCollisionShape(shape->GetShape());
+    }
+
 }

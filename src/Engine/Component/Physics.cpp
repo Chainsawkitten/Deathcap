@@ -38,8 +38,14 @@ namespace Component {
         return rigidBody->GetShape();
     }
 
-    Physics::Physics(Entity* entity) : SuperComponent(entity) {
+    void Physics::SetShape(::Physics::Shape* shape) {
+        rigidBody->SetShape(shape);
+    }
 
+    Physics::Physics(Entity* entity) : SuperComponent(entity) {
+        // Temporary until creation works properly
+        auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(2.0f));
+        rigidBody = new ::Physics::RigidBody(shape, 1.0f);
     }
 
 }
