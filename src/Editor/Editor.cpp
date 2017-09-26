@@ -58,6 +58,7 @@ Editor::Editor() {
     cursors[4] = glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
     
     savePromptAnswered = false;
+    savePromtWindow.SetTitle("Save before you quit?");
     close = false;
 }
 

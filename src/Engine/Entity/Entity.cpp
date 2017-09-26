@@ -140,6 +140,7 @@ Json::Value Entity::Save() const {
     entity["scale"] = Json::SaveVec3(scale);
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
+    entity["uid"] = uniqueIdentifier;
     
     if (scene) {
         entity["sceneName"] = sceneName;
@@ -209,6 +210,8 @@ void Entity::Load(const Json::Value& node) {
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
+    uniqueIdentifier = node.get("uid", 0).asUInt();
+    
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
@@ -243,6 +246,14 @@ glm::vec3 Entity::GetWorldPosition() const {
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
     
     return position;
+}
+
+unsigned int Entity::GetUniqueIdentifier() const {
+    return uniqueIdentifier;
+}
+
+void Entity::SetUniqueIdentifier(unsigned int UID) {
+    uniqueIdentifier = UID;
 }
 
 Component::SuperComponent* Entity::AddComponent(const std::type_info* componentType) {

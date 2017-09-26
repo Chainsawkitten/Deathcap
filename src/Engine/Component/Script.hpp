@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "SuperComponent.hpp"
 
 class ScriptFile;
@@ -35,6 +36,8 @@ namespace Component {
             
             /// The instance of the script class.
             asIScriptObject* instance = nullptr;
-
+      
+			      /// Entities referenced by this script.
+			      std::vector<Entity*> refList;
     };
 }
