@@ -14,12 +14,6 @@ namespace Video {
             /// Create new unloaded texture.
             Texture2D();
 
-            /// Copy constructor
-            /**
-             * @param other The texture2D we are copying.
-             */
-            Texture2D(const Texture2D & other);
-            
             /// Create new texture from the given image file.
             /**
              * @param filename Filename (relative or absolute) of the image file.
@@ -86,7 +80,7 @@ namespace Video {
             bool IsLoaded() const;
             
         private:
-            TextureAsset(const TextureAsset & other) = delete;
+            Texture2D(const Texture2D & other) = delete;
 
             GLuint texID = 0;
             int width = 0;

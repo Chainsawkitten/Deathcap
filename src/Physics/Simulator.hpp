@@ -61,6 +61,7 @@ namespace Physics {
             void Simulate(float dt);
 
         private:
+            Simulator(const Simulator & other) = delete;
             btBroadphaseInterface* broadphase = nullptr;
             btDefaultCollisionConfiguration* collisionConfiguration = nullptr;
             btCollisionDispatcher* dispatcher = nullptr;
