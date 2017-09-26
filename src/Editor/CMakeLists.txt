@@ -22,6 +22,7 @@ set(SRCS
         GUI/Editors/SphereShapeEditor.cpp
         GUI/Editors/TextureEditor.cpp
         Util/AssetConverter.cpp
+        Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
     )
 
@@ -49,6 +50,7 @@ set(HEADERS
         GUI/Editors/SphereShapeEditor.hpp
         GUI/Editors/TextureEditor.hpp
         Util/AssetConverter.hpp
+        Util/AssetMetaData.hpp
         Util/EditorSettings.hpp
     )
 

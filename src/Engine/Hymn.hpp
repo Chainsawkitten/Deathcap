@@ -64,7 +64,7 @@ class ActiveHymn {
          * @param cameras Whether to show cameras.
          */
         void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false);
-        
+
         /// The game world.
         World world;
         

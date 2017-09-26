@@ -29,6 +29,7 @@
 #include "../FileSelector.hpp"
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
+#include <imgui_internal.h>
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
@@ -74,6 +75,7 @@ void EntityEditor::Show() {
         ImGui::DraggableVec3("Position", entity->position);
         ImGui::DraggableVec3("Rotation", entity->rotation);
         ImGui::DraggableVec3("Scale", entity->scale);
+        ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
         ImGui::Unindent();
         if (!entity->IsScene()) {
             if (ImGui::Button("Add component"))
@@ -358,31 +360,66 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
 }
 
 void EntityEditor::ScriptEditor(Component::Script* script) {
-    ImGui::Indent();
-    if(script->scriptFile != nullptr)
-        ImGui::Text(script->scriptFile->name.c_str());
-    else
-        ImGui::Text("No script loaded");
-    
-    if (ImGui::Button("Select script"))
-        ImGui::OpenPopup("Select script");
 
-    if (ImGui::BeginPopup("Select script")) {
-        ImGui::Text("Scripts");
-        ImGui::Separator();
+	ImGui::Indent();
 
-        for (ScriptFile* scriptFile : Hymn().scripts) {
-            if (ImGui::Selectable(scriptFile->name.c_str())) {
-                if (script->scriptFile != nullptr)
-                    Managers().resourceManager->FreeScriptFile(script->scriptFile);
-                
-                script->scriptFile = Managers().resourceManager->CreateScriptFile(scriptFile->name);
-            }
-        }
+	if (ImGui::Button("Select script"))
+		ImGui::OpenPopup("Select script");
 
-        ImGui::EndPopup();
-    }
-    ImGui::Unindent();
+	if (ImGui::BeginPopup("Select script")) {
+		ImGui::Text("Scripts");
+		ImGui::Separator();
+
+		for (ScriptFile* scriptFile : Hymn().scripts) {
+			if (ImGui::Selectable(scriptFile->name.c_str()))
+				script->scriptFile = scriptFile;
+		}
+
+		ImGui::EndPopup();
+	}
+
+	if (script->scriptFile != nullptr)
+	{
+		ImGui::Text(script->scriptFile->name.c_str());
+		ImGui::Separator();
+
+		ImGui::Text("Entity References");
+		// Display current entity references
+		for (size_t i = 0; i != script->refList.size(); ++i) {
+			ImGui::Text(script->refList[i]->name.c_str());
+			ImGui::SameLine(ImGui::GetWindowWidth() - 30);
+			if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
+				script->refList.erase(script->refList.begin() + i);
+				break;
+			}
+		}
+		
+
+		// Choosing other entity references
+		if (ImGui::Button("Add entity reference")) {
+			ImGui::OpenPopup("Add entity reference");
+		}
+
+		if (ImGui::BeginPopup("Add entity reference"))
+		{
+			ImGui::Text("Entities");
+			ImGui::Separator();
+			for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
+			{
+				if (ImGui::Selectable(entity->name.c_str()))
+				{
+					script->refList.push_back(entity);
+				}
+			}
+
+			ImGui::EndPopup();
+		}
+	}
+	else
+		ImGui::Text("No script loaded");
+
+
+	ImGui::Unindent();
 }
 
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {

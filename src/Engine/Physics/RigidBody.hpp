@@ -8,6 +8,7 @@ class btRigidBody;
 namespace Physics {
     class Shape;
 
+    /// A rigid body that wraps Bullet type and accompanying shape.
     class RigidBody : public IRigidBody {
         public:
             /// Constructor.
@@ -18,22 +19,26 @@ namespace Physics {
 
             /// Set the mass of a rigid body.
             /**
-            * @param mass Mass in kilograms.
-            */
+             * @param mass Mass in kilograms.
+             */
             virtual void Mass(float mass) override;
 
             /// Get the position of a rigid body.
             /**
-            * @return Position of the rigid body.
-            */
+             * @return Position of the rigid body.
+             */
             virtual glm::vec3 Position() override;
 
             /// Set the position of a rigid body.
             /**
-            * @param pos The new position.
-            */
+             * @param pos The new position.
+             */
             virtual void Position(glm::vec3 const& pos) override;
 
+            /// Get the underlying Bullet rigid body.
+            /**
+             * @return The Bullet rigid body.
+             */
             btRigidBody* GetRigidBody();
 
             /// Get the shape associated with the rigid body.
