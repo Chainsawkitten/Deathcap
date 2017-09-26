@@ -36,6 +36,7 @@ Hub& Managers() {
 
 void Hub::StartUp() {
     resourceManager = new ResourceManager();
+    vrManager = new VRManager();
     renderManager = new RenderManager();
     particleManager = new ParticleManager();
     physicsManager = new PhysicsManager();
@@ -43,18 +44,17 @@ void Hub::StartUp() {
     scriptManager = new ScriptManager();
     debugDrawingManager = new DebugDrawingManager();
     profilingManager = new ProfilingManager();
-    vrManager = new VRManager();
 }
 
 void Hub::ShutDown() {
     ClearAllComponents();
 
-    delete vrManager;
     delete profilingManager;
     delete debugDrawingManager;
     delete scriptManager;
     delete soundManager;
     delete renderManager;
+    delete vrManager;
     delete particleManager;
     delete physicsManager;
     delete resourceManager;

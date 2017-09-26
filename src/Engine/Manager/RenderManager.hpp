@@ -1,8 +1,8 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "SuperManager.hpp"
+
+#include <glm/glm.hpp>
 
 namespace Video {
     class Renderer;
@@ -43,13 +43,16 @@ class RenderManager : public SuperManager {
         ~RenderManager();
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
+
+        void Render(World& world, const Entity* camera, Video::RenderSurface* renderSurface);
         
         void LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface);
 
         Video::Renderer* renderer;
 
-        Video::RenderSurface* renderSurface;
-        
+        Video::RenderSurface* mainWindowRenderSurface;
+        Video::RenderSurface* hmdRenderSurface;
+
         // Editor entity textures.
         Video::Texture2D* particleEmitterTexture;
         Video::Texture2D* lightTexture;
