@@ -22,6 +22,7 @@ DraggedItemState draggedItemState = DraggedItemState::NOT_ACTIVE;
 
 SceneEditor::SceneEditor() {
     name[0] = '\0';
+    sceneIndex = 0;
 }
 
 void SceneEditor::Show() {
@@ -116,7 +117,7 @@ void SceneEditor::ShowEntity(Entity* entity) {
         }
 		
         if (!entity->IsScene()) {
-            if (ImGui::Selectable("Add child"))
+            if (ImGui::Selectable("Add child")) 
                 entity->AddChild("Entity #" + std::to_string(Hymn().entityNumber++));
             
             if (ImGui::Selectable("Instantiate scene"))

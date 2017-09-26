@@ -106,7 +106,7 @@ Json::Value ActiveHymn::ToJson() const {
     Json::Value inputNode;
     inputNode.append(Input::GetInstance().Save());
     root["input"] = inputNode;
-    
+
     // Filter settings.
     Json::Value filtersNode;
     filtersNode["color"] = filterSettings.color;

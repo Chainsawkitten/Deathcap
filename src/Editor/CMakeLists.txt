@@ -20,6 +20,7 @@ set(SRCS
         GUI/Editors/ScriptEditor.cpp
         GUI/Editors/TextureEditor.cpp
         Util/AssetConverter.cpp
+        Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
     )
 
@@ -44,6 +45,7 @@ set(HEADERS
         GUI/Editors/ScriptEditor.hpp
         GUI/Editors/TextureEditor.hpp
         Util/AssetConverter.hpp
+        Util/AssetMetaData.hpp
         Util/EditorSettings.hpp
     )
 
