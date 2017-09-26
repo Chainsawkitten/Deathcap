@@ -6,7 +6,17 @@
 namespace GUI {
 
     void PlaneShapeEditor::Show(Component::Physics* comp) {
-        ImGui::Text("I am a plane shape editor.");
+        ImGui::Indent();
+
+        if (ImGui::InputFloat3("Normal", normal)) {
+            Apply(comp);
+        }
+
+        if (ImGui::InputFloat("Plane coeff.", &planeCoeff)) {
+            Apply(comp);
+        }
+
+        ImGui::Unindent();
     }
 
     void PlaneShapeEditor::Apply(Component::Physics* comp) {

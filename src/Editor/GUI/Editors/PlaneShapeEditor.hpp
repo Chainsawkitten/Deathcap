@@ -28,6 +28,10 @@ namespace GUI {
              * @param comp The physics component on which to set shape.
              */
             virtual void Apply(Component::Physics* comp) override;
+
+        private:
+            float normal[3] = { 0.0f, 1.0f, 0.0f };
+            float planeCoeff = 0.0f;
     };
 
 }
