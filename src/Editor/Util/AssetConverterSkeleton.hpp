@@ -3,7 +3,6 @@
 #include <assimp/scene.h>
 #include <assimp/anim.h>
 #include <Engine/Geometry/AssetFileAnimation.hpp>
-#include <map>
 
 class AssetConverterSkeleton {
     public:

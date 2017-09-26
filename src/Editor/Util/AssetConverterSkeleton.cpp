@@ -52,7 +52,6 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
                     glm::quat rot;
                     Geometry::CpyQuat(rot, node->mRotationKeys->mValue);
                     bones[i].rotation[r] = glm::mat4(rot);
-
                 }
 
                 Log() << nodes[i]->mName.C_Str() << "   " << aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() << "   " << bones[i].numRotationKeys << "\n";
