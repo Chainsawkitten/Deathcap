@@ -33,7 +33,6 @@ Renderer::Renderer() {
     colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new FXAAFilter();
-    gammaCorrectionFilter = new GammaCorrectionFilter();
     glowFilter = new GlowFilter();
     glowBlurFilter = new GlowBlurFilter();
     
@@ -74,7 +73,6 @@ Renderer::~Renderer() {
     delete colorFilter;
     delete fogFilter;
     delete fxaaFilter;
-    delete gammaCorrectionFilter;
     delete glowFilter;
     delete glowBlurFilter;
     
@@ -108,16 +106,16 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
     staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) {
-    staticRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix);
+void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix) {
+    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix);
 }
 
 void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* diffuseTexture, const Video::Texture2D* normalTexture, const Video::Texture2D* specularTexture, const Video::Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
-    skinRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix, bones, bonesIT);
+void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
+    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones, bonesIT);
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
@@ -146,10 +144,6 @@ void Renderer::ApplyGlow(RenderSurface* renderSurface, int blurAmount) {
 void Renderer::ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color) {
     colorFilter->SetColor(color);
     postProcessing->ApplyFilter(renderSurface, colorFilter);
-}
-
-void Renderer::GammaCorrect(RenderSurface* renderSurface) {
-    postProcessing->ApplyFilter(renderSurface, gammaCorrectionFilter);
 }
 
 void Renderer::DisplayResults(RenderSurface* renderSurface, bool dither) {

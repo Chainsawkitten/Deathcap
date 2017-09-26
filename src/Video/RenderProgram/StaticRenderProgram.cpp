@@ -2,7 +2,6 @@
 
 #include "../Geometry/Geometry3D.hpp"
 #include "../Texture/Texture2D.hpp"
-#include "../Culling/AxisAlignedBoundingBox.hpp"
 #include "../Culling/Frustum.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "../Shader/Shader.hpp"
@@ -35,26 +34,26 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) const {
+void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
 
         // Set texture locations
-        glUniform1i(shaderProgram->GetUniformLocation("baseImage"), 0);
-        glUniform1i(shaderProgram->GetUniformLocation("normalMap"), 1);
-        glUniform1i(shaderProgram->GetUniformLocation("specularMap"), 2);
-        glUniform1i(shaderProgram->GetUniformLocation("glowMap"), 3);
-
+        glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
+        glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
+        glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
+        glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
+        
         // Textures
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, diffuseTexture->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, textureAlbedo->GetTextureID());
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, normalTexture->GetTextureID());
         glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, specularTexture->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, textureMetallic->GetTextureID());
         glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, glowTexture->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, textureRoughness->GetTextureID());
 
         // Render model.
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);

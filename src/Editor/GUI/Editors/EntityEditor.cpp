@@ -182,25 +182,25 @@ void EntityEditor::LensEditor(Component::Lens* lens) {
 }
 
 void EntityEditor::MaterialEditor(Component::Material* material) {
-    // Diffuse
-    ImGui::Text("Diffuse");
+    // Albedo
+    ImGui::Text("Albedo");
     ImGui::Indent();
-    if (material->diffuse->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->diffuse->GetTexture()->GetTextureID(), ImVec2(128, 128));
+    if (material->albedo->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->albedo->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select diffuse texture"))
-        ImGui::OpenPopup("Select diffuse texture");
+    if (ImGui::Button("Select albedo texture"))
+        ImGui::OpenPopup("Select albedo texture");
     
-    if (ImGui::BeginPopup("Select diffuse texture")) {
+    if (ImGui::BeginPopup("Select albedo texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
             if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->diffuse != Hymn().defaultDiffuse)
-                    Managers().resourceManager->FreeTextureAsset(material->diffuse);
+                if (material->albedo != Hymn().defaultAlbedo)
+                    Managers().resourceManager->FreeTextureAsset(material->albedo);
                 
-                material->diffuse = Managers().resourceManager->CreateTextureAsset(texture->name);
+                material->albedo = Managers().resourceManager->CreateTextureAsset(texture->name);
             }
         }
         
@@ -233,52 +233,58 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-    
-    // Specular
-    ImGui::Text("Specular");
+
+    // Metallic
+    ImGui::Text("Metallic");
     ImGui::Indent();
-    if (material->specular->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->specular->GetTexture()->GetTextureID(), ImVec2(128, 128));
+    if (material->metallic->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->metallic->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select specular texture"))
-        ImGui::OpenPopup("Select specular texture");
+    if (ImGui::Button("Select metallic texture"))
+        ImGui::OpenPopup("Select metallic texture");
     
-    if (ImGui::BeginPopup("Select specular texture")) {
+    if (ImGui::BeginPopup("Select metallic texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str()))
+                material->metallic = texture;
+
             if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->specular != Hymn().defaultSpecular)
-                    Managers().resourceManager->FreeTextureAsset(material->specular);
+                if (material->metallic != Hymn().defaultMetallic)
+                    Managers().resourceManager->FreeTextureAsset(material->metallic);
                 
-                material->specular = Managers().resourceManager->CreateTextureAsset(texture->name);
+                material->metallic = Managers().resourceManager->CreateTextureAsset(texture->name);
             }
         }
         
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-    
-    // Glow
-    ImGui::Text("Glow");
+
+    // Roughness
+    ImGui::Text("Roughness");
     ImGui::Indent();
-    if (material->glow->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->glow->GetTexture()->GetTextureID(), ImVec2(128, 128));
+    if (material->roughness->GetTexture()->IsLoaded())
+        ImGui::Image((void*) material->roughness->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select glow texture"))
-        ImGui::OpenPopup("Select glow texture");
+    if (ImGui::Button("Select roughness texture"))
+        ImGui::OpenPopup("Select roughness texture");
     
-    if (ImGui::BeginPopup("Select glow texture")) {
+    if (ImGui::BeginPopup("Select roughness texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str()))
+                material->roughness = texture;
+
             if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->glow != Hymn().defaultGlow)
-                    Managers().resourceManager->FreeTextureAsset(material->glow);
+                if (material->roughness != Hymn().defaultRoughness)
+                    Managers().resourceManager->FreeTextureAsset(material->roughness);
                 
-                material->glow = Managers().resourceManager->CreateTextureAsset(texture->name);
+                material->roughness = Managers().resourceManager->CreateTextureAsset(texture->name);
             }
         }
         
@@ -318,31 +324,66 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
 }
 
 void EntityEditor::ScriptEditor(Component::Script* script) {
-    ImGui::Indent();
-    if(script->scriptFile != nullptr)
-        ImGui::Text(script->scriptFile->name.c_str());
-    else
-        ImGui::Text("No script loaded");
-    
-    if (ImGui::Button("Select script"))
-        ImGui::OpenPopup("Select script");
 
-    if (ImGui::BeginPopup("Select script")) {
-        ImGui::Text("Scripts");
-        ImGui::Separator();
+	ImGui::Indent();
 
-        for (ScriptFile* scriptFile : Hymn().scripts) {
-            if (ImGui::Selectable(scriptFile->name.c_str())) {
-                if (script->scriptFile != nullptr)
-                    Managers().resourceManager->FreeScriptFile(script->scriptFile);
-                
-                script->scriptFile = Managers().resourceManager->CreateScriptFile(scriptFile->name);
-            }
-        }
+	if (ImGui::Button("Select script"))
+		ImGui::OpenPopup("Select script");
 
-        ImGui::EndPopup();
-    }
-    ImGui::Unindent();
+	if (ImGui::BeginPopup("Select script")) {
+		ImGui::Text("Scripts");
+		ImGui::Separator();
+
+		for (ScriptFile* scriptFile : Hymn().scripts) {
+			if (ImGui::Selectable(scriptFile->name.c_str()))
+				script->scriptFile = scriptFile;
+		}
+
+		ImGui::EndPopup();
+	}
+
+	if (script->scriptFile != nullptr)
+	{
+		ImGui::Text(script->scriptFile->name.c_str());
+		ImGui::Separator();
+
+		ImGui::Text("Entity References");
+		// Display current entity references
+		for (size_t i = 0; i != script->refList.size(); ++i) {
+			ImGui::Text(script->refList[i]->name.c_str());
+			ImGui::SameLine(ImGui::GetWindowWidth() - 30);
+			if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
+				script->refList.erase(script->refList.begin() + i);
+				break;
+			}
+		}
+		
+
+		// Choosing other entity references
+		if (ImGui::Button("Add entity reference")) {
+			ImGui::OpenPopup("Add entity reference");
+		}
+
+		if (ImGui::BeginPopup("Add entity reference"))
+		{
+			ImGui::Text("Entities");
+			ImGui::Separator();
+			for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
+			{
+				if (ImGui::Selectable(entity->name.c_str()))
+				{
+					script->refList.push_back(entity);
+				}
+			}
+
+			ImGui::EndPopup();
+		}
+	}
+	else
+		ImGui::Text("No script loaded");
+
+
+	ImGui::Unindent();
 }
 
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
