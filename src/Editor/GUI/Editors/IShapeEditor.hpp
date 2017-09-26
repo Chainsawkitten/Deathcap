@@ -1,5 +1,9 @@
 #pragma once
 
+namespace Component {
+    class Physics;
+}
+
 namespace GUI {
 
     /// Interface to editors of physics shapes.
@@ -16,7 +20,16 @@ namespace GUI {
             virtual const char* Label() const = 0;
 
             /// Displays the editor.
-            virtual void Show() = 0;
+            /**
+             * @param comp The physics component to edit.
+             */
+            virtual void Show(Component::Physics* comp) = 0;
+
+            /// Set the shape of a physics component.
+            /**
+             * @param comp The physics component on which to set shape.
+             */
+            virtual void Apply(Component::Physics* comp) = 0;
     };
 
 }

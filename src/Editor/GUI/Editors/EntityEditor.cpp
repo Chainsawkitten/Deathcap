@@ -98,6 +98,11 @@ void EntityEditor::Show() {
 void EntityEditor::SetEntity(Entity* entity) {
     this->entity = entity;
     strcpy(name, entity->name.c_str());
+
+    auto physics = this->entity->GetComponent<Component::Physics>();
+    if (physics) {
+        shapeEditors[selectedShape]->Apply(physics);
+    }
 }
 
 Entity* EntityEditor::GetEntity() {
@@ -157,14 +162,16 @@ void EntityEditor::PhysicsEditor(Component::Physics* physics) {
     //ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
     //ImGui::Unindent();
 
-    ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
+    if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
         IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
         *outText = editor->Label();
         return true;
-    }, shapeEditors.data(), shapeEditors.size());
+    }, shapeEditors.data(), shapeEditors.size())) {
+        shapeEditors[selectedShape]->Apply(physics);
+    }
 
     if (selectedShape != -1) {
-        shapeEditors[selectedShape]->Show();
+        shapeEditors[selectedShape]->Show(physics);
     }
 }
 
