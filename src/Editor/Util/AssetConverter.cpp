@@ -11,7 +11,7 @@ AssetConverter::~AssetConverter() {
 
 }
 
-bool AssetConverter::Convert(const char * filepath, const char * destination,
+void AssetConverter::Convert(const char * filepath, const char * destination,
     bool triangulate, bool importNormals, bool importTangents) {
     
     success = true;
@@ -38,7 +38,6 @@ bool AssetConverter::Convert(const char * filepath, const char * destination,
     aImporter.FreeScene();
 
     file.Close();
-    return true;
 }
 
 bool AssetConverter::Success() const {

@@ -30,7 +30,7 @@ class AssetConverter
          * @param importNormals Should normals be imported from the mesh?
          * @param importTangents Should tangents be imported from the mesh?
          */
-        bool Convert(const char * filepath, const char * destination,
+        void Convert(const char * filepath, const char * destination,
     	    bool triangulate, bool importNormals, bool importTangents);
 
         /// Check after conversion if everything went well.
