@@ -60,7 +60,6 @@ namespace Component {
              */
             glm::vec3 momentOfInertia = glm::vec3(1.f, 1.f, 1.f);
 
-        public:
             /// Create new physics component.
             /**
              * @param entity Pointer to which entity this component corresponds.

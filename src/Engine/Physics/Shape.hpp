@@ -24,7 +24,6 @@ namespace Physics {
                 float planeCoeff;
             };
 
-        public:
             /// Construct a sphere shape.
             /**
              * @param params Sphere specific parameters.
