@@ -467,6 +467,12 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
     messages.push_back(message);
 }
 
+void ScriptManager::GetEntity(unsigned int GUID) {
+
+    
+
+}
+
 void ScriptManager::CreateInstance(Component::Script* script) {
     currentEntity = script->entity;
     ScriptFile* scriptFile = script->scriptFile;

@@ -48,10 +48,16 @@ class ScriptManager : public SuperManager {
         
         /// Send a message to an entity.
         /**
-         * @param recipient The entity to receive the message.
-         * @param type The type of message to send.
-         */
+        * @param recipient The entity to receive the message.
+        * @param type The type of message to send.
+        */
         void SendMessage(Entity* recipient, int type);
+
+        /// Fetches an entity using its GUID.
+        /**
+         * @param GUID The entity to receive the message.
+         */
+        void GetEntity(unsigned int GUID);
         
         /// The entity currently being executed.
         Entity* currentEntity;
