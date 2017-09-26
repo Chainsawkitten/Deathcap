@@ -11,14 +11,30 @@ namespace Physics {
         // concept of physical quantities such as mass or inertia. Note that a
         // shape may be reused for multiple bodies.
         shape = new btSphereShape(static_cast<btScalar>(params.radius));
+        kind = Kind::Sphere;
+        sphere = params;
     }
 
     Shape::Shape(const Shape::Plane& params) {
         shape = new btStaticPlaneShape(glmToBt(params.normal), static_cast<btScalar>(params.planeCoeff));
+        kind = Kind::Plane;
+        plane = params;
     }
 
     btCollisionShape* Shape::GetShape() {
         return shape;
+    }
+
+    Shape::Kind Shape::GetKind() const {
+        return kind;
+    }
+
+    const Shape::Sphere* Shape::GetSphereData() const {
+        return kind == Kind::Sphere ? &sphere : nullptr;
+    }
+
+    const Shape::Plane* Shape::GetPlaneData() const {
+        return kind == Kind::Plane ? &plane : nullptr;
     }
 
 }

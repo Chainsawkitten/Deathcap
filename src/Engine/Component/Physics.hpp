@@ -7,6 +7,7 @@ class Entity;
 
 namespace Physics {
     class RigidBody;
+    class Shape;
 }
 
 namespace Component {
@@ -26,6 +27,12 @@ namespace Component {
              * @param node JSON node to load from.
              */
             void Load(const Json::Value& node) override;
+
+            /// Get the shape of the physics component.
+            /**
+             * @return The %Shape of the component.
+             */
+            ::Physics::Shape& GetShape();
 
             /// Velocity (in meter/second).
             glm::vec3 velocity = glm::vec3(0.f, 0.f, 0.f);

@@ -47,4 +47,8 @@ namespace Physics {
         return rigidBody;
     }
 
+    Physics::Shape& RigidBody::GetShape() {
+        return *shape;
+    }
+
 }

@@ -1,5 +1,7 @@
 #include "Physics.hpp"
 
+#include "../Physics/RigidBody.hpp"
+#include "../Physics/Shape.hpp"
 #include "../Util/Json.hpp"
 
 namespace Component {
@@ -30,6 +32,10 @@ namespace Component {
         angularDragFactor = node.get("angularDragFactor", 1.f).asFloat();
         gravityFactor = node.get("gravityFactor", 0.f).asFloat();
         momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
+    }
+
+    ::Physics::Shape& Physics::GetShape() {
+        return rigidBody->GetShape();
     }
 
     Physics::Physics(Entity* entity) : SuperComponent(entity) {
