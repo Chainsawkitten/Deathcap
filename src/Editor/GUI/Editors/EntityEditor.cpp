@@ -28,6 +28,7 @@
 #include "../FileSelector.hpp"
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
+#include <imgui_internal.h>
 
 using namespace GUI;
 
@@ -61,6 +62,7 @@ void EntityEditor::Show() {
         ImGui::DraggableVec3("Position", entity->position);
         ImGui::DraggableVec3("Rotation", entity->rotation);
         ImGui::DraggableVec3("Scale", entity->scale);
+        ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
         ImGui::Unindent();
         if (!entity->IsScene()) {
             if (ImGui::Button("Add component"))
