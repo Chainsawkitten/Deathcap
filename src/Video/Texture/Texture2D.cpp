@@ -14,13 +14,6 @@ Texture2D::Texture2D() {
     
 }
 
-Texture2D::Texture2D(const Texture2D& other) {
-    this->height = other.GetHeight();
-    this->width = other.GetWidth();
-    this->loaded = other.IsLoaded();
-    this->texID = other.GetTextureID();
-}
-
 Texture2D::Texture2D(const char* filename, bool srgb) {
     Load(filename, srgb);
 }

@@ -11,10 +11,6 @@ TextureAsset::TextureAsset() {
     texture = new Texture2D();
 }
 
-TextureAsset::TextureAsset(const TextureAsset& other) {
-    texture = new Texture2D(*other.GetTexture());
-}
-
 TextureAsset::~TextureAsset() {
     delete texture;
 }

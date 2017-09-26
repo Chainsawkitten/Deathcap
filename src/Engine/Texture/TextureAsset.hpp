@@ -12,8 +12,6 @@ class TextureAsset {
     public:
         /// Create new texture asset.
         TextureAsset();
-        
-        TextureAsset(const TextureAsset & other);
 
         /// Destructor.
         ~TextureAsset();
@@ -40,5 +38,6 @@ class TextureAsset {
         bool srgb = false;
         
     private:
+        TextureAsset(const TextureAsset & other) = delete;
         Video::Texture2D* texture;
 };

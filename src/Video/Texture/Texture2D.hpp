@@ -16,7 +16,7 @@ namespace Video {
 
             /// Copy constructor
             /**
-             * @param other The texture2D that we are copying.
+             * @param other The texture2D we are copying.
              */
             Texture2D(const Texture2D & other);
             
@@ -86,6 +86,8 @@ namespace Video {
             bool IsLoaded() const;
             
         private:
+            TextureAsset(const TextureAsset & other) = delete;
+
             GLuint texID = 0;
             int width = 0;
             int height = 0;
