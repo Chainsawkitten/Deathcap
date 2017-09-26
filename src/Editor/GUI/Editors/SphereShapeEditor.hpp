@@ -28,6 +28,13 @@ namespace GUI {
              * @param comp The physics component on which to set shape.
              */
             virtual void Apply(Component::Physics* comp) override;
+
+            /// Set internal data according the given %Shape, provided that it
+            /// is a sphere.
+            /**
+             * @param shape The %Shape from which to initialize data.
+             */
+            virtual void SetFromShape(const Physics::Shape& shape) override;
     };
 
 }

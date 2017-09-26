@@ -1,6 +1,7 @@
 #include "SphereShapeEditor.hpp"
 
 #include <Engine/Component/Physics.hpp>
+#include <Engine/Physics/Shape.hpp>
 #include <imgui.h>
 
 namespace GUI {
@@ -10,6 +11,10 @@ namespace GUI {
     }
 
     void SphereShapeEditor::Apply(Component::Physics* comp) {
+
+    }
+
+    void SphereShapeEditor::SetFromShape(const Physics::Shape& shape) {
 
     }
 }

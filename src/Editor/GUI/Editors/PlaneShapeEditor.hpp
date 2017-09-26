@@ -29,6 +29,13 @@ namespace GUI {
              */
             virtual void Apply(Component::Physics* comp) override;
 
+            /// Set internal data according the given %Shape, provided that it
+            /// is a plane.
+            /**
+             * @param shape The %Shape from which to initialize data.
+             */
+            virtual void SetFromShape(const Physics::Shape& shape) override;
+
         private:
             float normal[3] = { 0.0f, 1.0f, 0.0f };
             float planeCoeff = 0.0f;

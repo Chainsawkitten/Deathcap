@@ -1,6 +1,7 @@
 #include "PlaneShapeEditor.hpp"
 
 #include <Engine/Component/Physics.hpp>
+#include <Engine/Physics/Shape.hpp>
 #include <imgui.h>
 
 namespace GUI {
@@ -21,5 +22,15 @@ namespace GUI {
 
     void PlaneShapeEditor::Apply(Component::Physics* comp) {
 
+    }
+
+    void PlaneShapeEditor::SetFromShape(const Physics::Shape& shape) {
+        if (shape.GetKind() == Physics::Shape::Kind::Plane) {
+            auto planeData = shape.GetPlaneData();
+            normal[0] = planeData->normal.x;
+            normal[1] = planeData->normal.y;
+            normal[2] = planeData->normal.z;
+            planeCoeff = planeData->planeCoeff;
+        }
     }
 }

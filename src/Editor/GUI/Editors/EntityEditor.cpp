@@ -32,6 +32,10 @@
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
+namespace Physics {
+    class Shape;
+}
+
 using namespace GUI;
 
 EntityEditor::EntityEditor() {
@@ -101,7 +105,10 @@ void EntityEditor::SetEntity(Entity* entity) {
 
     auto physics = this->entity->GetComponent<Component::Physics>();
     if (physics) {
-        shapeEditors[selectedShape]->Apply(physics);
+        Physics::Shape& shape = physics->GetShape();
+        for (auto editor : shapeEditors) {
+            shapeEditors[selectedShape]->SetFromShape(shape);
+        }
     }
 }
 
