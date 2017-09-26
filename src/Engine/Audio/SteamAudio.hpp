@@ -9,21 +9,25 @@ class SteamAudio {
 
         SteamAudio();
 
+        /**
+        * @param context The Steam Audio context.
+        * @param environment Handle to the Environment object to use.
+        */
         SteamAudio(IPLContext* context, IPLhandle* environment);
 
         ~SteamAudio();
 
-    /// Processes the audio with both indirect and direct methods and mixes them together.
-    /**
-    * @param IPLAudioBuffer The audiobuffer to be processed.
-    * @param IPLVector3* The position of the player in world space.
-    * @param IPLVector3* The forward direction of the player.
-    * @param IPLVector3* The up direction of the player.
-    * @param IPLVector3* The position of the audio source.
-    * @param float The radius of the source, for calculating occlusion.
-    * @return IPLAudioBuffer The processed buffer.
-    */
-    IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* PlayerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
+        /// Processes the audio with both indirect and direct methods and mixes them together.
+        /**
+        * @param input The audiobuffer to be processed.
+        * @param playerPos The position of the player in world space.
+        * @param playerDir The forward direction of the player.
+        * @param playerUp The up direction of the player.
+        * @param sourcePos The position of the audio source.
+        * @param sourceRadius The radius of the source, for calculating occlusion.
+        * @return The processed buffer.
+        */
+        IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
 
     private:
 
