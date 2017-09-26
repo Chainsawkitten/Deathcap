@@ -62,14 +62,9 @@ void ParticleManager::UpdateBuffer(World& world) {
     particleRenderer->SetBufferContents(world.GetParticleCount(), world.GetParticles());
 }
 
-void ParticleManager::Render(World& world, const Entity* camera) {
+void ParticleManager::Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix) {
     if (world.GetParticleCount() > 0) {
-        glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
-        glm::mat4 projectionMatrix = camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize());
-        glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
-        glm::vec3 up(glm::inverse(camera->GetCameraOrientation())* glm::vec4(0, 1, 0, 1));
-        
-        particleRenderer->Render(textureAtlas, textureAtlasRowNumber, camera->GetWorldPosition(), up, viewProjectionMatrix);
+        particleRenderer->Render(textureAtlas, textureAtlasRowNumber, position, up, viewProjectionMatrix);
     }
 }
 

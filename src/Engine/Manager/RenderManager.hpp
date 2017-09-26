@@ -44,9 +44,9 @@ class RenderManager : public SuperManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
 
-        void Render(World& world, const Entity* camera, Video::RenderSurface* renderSurface);
+        void Render(World& world, const glm::vec3& position, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
         
-        void LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface);
+        void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, Video::RenderSurface* renderSurface);
 
         Video::Renderer* renderer;
 

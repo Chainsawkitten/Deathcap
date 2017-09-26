@@ -78,12 +78,11 @@ void RenderManager::Render(World& world, Entity* camera) {
     if (camera != nullptr) {
         // Render main window.
         if (mainWindowRenderSurface != nullptr) {
-            glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
-            glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize()));
-            glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-            glm::vec3 up(glm::inverse(camera->GetCameraOrientation())* glm::vec4(0, 1, 0, 1));
+            const glm::vec3 position = camera->GetWorldPosition();
+            const glm::mat4 orientationMat = camera->GetCameraOrientation();
+            const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize()));
 
-            Render(world, camera, mainWindowRenderSurface);
+            Render(world, position, orientationMat, projectionMat, mainWindowRenderSurface);
         }
 
         //// Render hmd.
@@ -109,11 +108,11 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
     
     // Render from camera.
     if (camera != nullptr) {
-        glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
-        glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
-        glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        glm::vec3 up(glm::inverse(camera->GetCameraOrientation())* glm::vec4(0, 1, 0, 1));
+        const glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
+        const glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
+        const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
+        const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
+        const glm::vec3 up(glm::inverse(camera->GetCameraOrientation()) * glm::vec4(0, 1, 0, 1));
         
         renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
         
@@ -157,15 +156,14 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::Render(World& world, const Entity* camera, Video::RenderSurface* renderSurface) {
-    assert(camera != nullptr);
-
+void RenderManager::Render(World& world, const glm::vec3& position, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
     // Render from camera.
     renderer->StartRendering(renderSurface);
 
     // Camera matrices.
-    const glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
-    const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(renderSurface->GetSize());
+    const glm::vec3 up = glm::vec3(glm::inverse(orientationMatrix) * glm::vec4(0, 1, 0, 1));
+    const glm::mat4 viewMatrix = glm::mat4(orientationMatrix * glm::translate(glm::mat4(), -position));
+    const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     std::vector<Mesh*> meshes = this->GetComponents<Mesh>(&world);
 
@@ -192,7 +190,7 @@ void RenderManager::Render(World& world, const Entity* camera, Video::RenderSurf
     // Light the world.
     {
         PROFILE("Light the world");
-        LightWorld(world, camera, renderSurface);
+        LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, renderSurface);
     }
 
 
@@ -213,7 +211,7 @@ void RenderManager::Render(World& world, const Entity* camera, Video::RenderSurf
     {
         PROFILE("Render particles");
         Managers().particleManager->UpdateBuffer(world);
-        Managers().particleManager->Render(world, camera);
+        Managers().particleManager->Render(world, position, up, viewProjectionMatrix);
     }
 
 
@@ -235,12 +233,8 @@ void RenderManager::Render(World& world, const Entity* camera, Video::RenderSurf
     }
 }
 
-void RenderManager::LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface) {
-    // Get the camera matrices.
-    glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
-    glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
-    glm::mat4 viewProjectionMat(projectionMat * viewMat);
-    
+void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, Video::RenderSurface* renderSurface) {
+
     float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
     
@@ -253,7 +247,7 @@ void RenderManager::LightWorld(World& world, const Entity* camera, Video::Render
         Entity* lightEntity = directionalLight->entity;
         glm::vec4 direction(glm::vec4(lightEntity->GetDirection(), 0.f));
         Video::Light light;
-        light.position = viewMat * -direction;
+        light.position = viewMatrix * -direction;
         light.intensities = directionalLight->color;
         light.attenuation = 1.f;
         light.ambientCoefficient = directionalLight->ambientCoefficient;
@@ -269,10 +263,10 @@ void RenderManager::LightWorld(World& world, const Entity* camera, Video::Render
             continue;
         
         Entity* lightEntity = spotLight->entity;
-        glm::vec4 direction(viewMat * glm::vec4(lightEntity->GetDirection(), 0.f));
+        glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
         glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
         Video::Light light;
-        light.position = viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
+        light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
         light.intensities = spotLight->color * spotLight->intensity;
         light.attenuation = spotLight->attenuation;
         light.ambientCoefficient = spotLight->ambientCoefficient;
@@ -294,11 +288,11 @@ void RenderManager::LightWorld(World& world, const Entity* camera, Video::Render
         float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
         
-        Video::Frustum frustum(viewProjectionMat * modelMat);
+        Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             Video::Light light;
-            light.position = viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
+            light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
             light.intensities = pointLight->color * pointLight->intensity;
             light.attenuation = pointLight->attenuation;
             light.ambientCoefficient = pointLight->ambientCoefficient;
@@ -309,5 +303,5 @@ void RenderManager::LightWorld(World& world, const Entity* camera, Video::Render
     }
     
     // Render lights.
-    renderer->Light(glm::inverse(projectionMat), renderSurface);
+    renderer->Light(glm::inverse(projectionMatrix), renderSurface);
 }
