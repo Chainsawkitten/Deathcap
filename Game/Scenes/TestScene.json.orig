@@ -54,6 +54,7 @@
 			"children" : 
 			[
 				{
+<<<<<<< HEAD
 					"Lens" : 
 					{
 						"fieldOfView" : 45.0,
@@ -88,6 +89,8 @@
 					"uid" : 4
 				},
 				{
+=======
+>>>>>>> master
 					"PointLight" : 
 					{
 						"ambientCoefficient" : 0.13699997961521149,
