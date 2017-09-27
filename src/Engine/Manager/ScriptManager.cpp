@@ -23,6 +23,7 @@
 
 #include "Managers.hpp"
 #include "DebugDrawingManager.hpp"
+#include "ResourceManager.hpp"
 
 using namespace Component;
 
@@ -469,6 +470,16 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
 
 Component::Script* ScriptManager::CreateScript() {
     return scripts.Create();
+}
+
+Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
+    Component::Script* script = scripts.Create();
+    
+    // Load values from Json node.
+    std::string name = node.get("scriptName", "").asString();
+    script->scriptFile = Managers().resourceManager->CreateScriptFile(name);
+    
+    return script;
 }
 
 const std::vector<Component::Script*>& ScriptManager::GetScripts() const {
