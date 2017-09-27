@@ -1,14 +1,8 @@
 #include "Physics.hpp"
 
-#include <Physics/RigidBody.hpp>
-#include <Physics/Simulator.hpp>
 #include "../Util/Json.hpp"
 
 namespace Component {
-
-    Physics::Physics(Entity* entity) : SuperComponent(entity) {
-    
-    }
 
     Json::Value Physics::Save() const {
         Json::Value component;
@@ -36,6 +30,10 @@ namespace Component {
         angularDragFactor = node.get("angularDragFactor", 1.f).asFloat();
         gravityFactor = node.get("gravityFactor", 0.f).asFloat();
         momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
+    }
+
+    Physics::Physics(Entity* entity) : SuperComponent(entity) {
+
     }
 
 }
