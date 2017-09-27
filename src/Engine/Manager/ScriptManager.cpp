@@ -427,6 +427,8 @@ void ScriptManager::Update(World& world, float deltaTime) {
     for (Entity* entity : updateEntities)
         world.RegisterUpdate(entity);
     updateEntities.clear();
+    
+    /// @todo Handle physics triggers.
 }
 
 void ScriptManager::RegisterUpdate(Entity* entity) {
@@ -603,5 +605,5 @@ asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::s
 }
 
 void ScriptManager::HandleTrigger(TriggerEvent triggerEvent) {
-    /// @todo Handle triggers.
+    triggerEvents.push_back(triggerEvent);
 }

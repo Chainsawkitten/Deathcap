@@ -96,4 +96,5 @@ class ScriptManager : public SuperManager {
         
         std::vector<Entity*> updateEntities;
         std::vector<Message> messages;
+        std::vector<TriggerEvent> triggerEvents;
 };
