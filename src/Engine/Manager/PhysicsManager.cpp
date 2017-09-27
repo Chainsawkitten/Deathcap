@@ -7,6 +7,7 @@
 #include "../Physics/RigidBody.hpp"
 #include "../Physics/Shape.hpp"
 #include "../Physics/Trigger.hpp"
+#include "../Util/Json.hpp"
 
 PhysicsManager::PhysicsManager() {
     // The broadphase is used to quickly cull bodies that will not collide with
@@ -105,6 +106,24 @@ Physics::Trigger* PhysicsManager::MakeTrigger(Physics::Shape* shape) {
 
 Component::Physics* PhysicsManager::CreatePhysics() {
     return physicses.Create();
+}
+
+Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
+    Component::Physics* physics = physicses.Create();
+    
+    // Load values from Json node.
+    physics->velocity = Json::LoadVec3(node["velocity"]);
+    physics->maxVelocity = node.get("maxVelocity", 20.f).asFloat();
+    physics->angularVelocity = Json::LoadVec3(node["angularVelocity"]);
+    physics->maxAngularVelocity = node.get("maxAngularVelocity", 2.f).asFloat();
+    physics->acceleration = Json::LoadVec3(node["acceleration"]);
+    physics->angularAcceleration = Json::LoadVec3(node["angularAcceleration"]);
+    physics->velocityDragFactor = node.get("velocityDragFactor", 1.f).asFloat();
+    physics->angularDragFactor = node.get("angularDragFactor", 1.f).asFloat();
+    physics->gravityFactor = node.get("gravityFactor", 0.f).asFloat();
+    physics->momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
+    
+    return physics;
 }
 
 const std::vector<Component::Physics*>& PhysicsManager::GetPhysicses() const {

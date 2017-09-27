@@ -14,6 +14,10 @@ namespace Physics {
     class Trigger;
 }
 
+namespace Json {
+    class Value;
+}
+
 class btBroadphaseInterface;
 class btDefaultCollisionConfiguration;
 class btCollisionDispatcher;
@@ -36,6 +40,13 @@ class PhysicsManager {
          * @return The created component.
          */
         Component::Physics* CreatePhysics();
+        
+        /// Create physics component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::Physics* CreatePhysics(const Json::Value& node);
         
         /// Get all physics components.
         /**
