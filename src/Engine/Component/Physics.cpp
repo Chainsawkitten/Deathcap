@@ -41,6 +41,7 @@ namespace Component {
 
     void Physics::Load(const Json::Value& node) {
         delete rigidBody;
+        rigidBody = nullptr;
 
         velocity = Json::LoadVec3(node["velocity"]);
         maxVelocity = node.get("maxVelocity", 20.f).asFloat();
@@ -67,6 +68,8 @@ namespace Component {
             auto shape = new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff));
             rigidBody = new ::Physics::RigidBody(shape, 1.0f);
         }
+
+        assert(rigidBody);
     }
 
     ::Physics::Shape& Physics::GetShape() {
@@ -78,7 +81,8 @@ namespace Component {
     }
 
     Physics::Physics(Entity* entity) : SuperComponent(entity) {
-        // Temporary until creation works properly
+        // Temporary until creation via managers works properly (this is just
+        // to have some default resources).
         auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(2.0f));
         rigidBody = new ::Physics::RigidBody(shape, 1.0f);
     }
