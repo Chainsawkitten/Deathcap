@@ -40,7 +40,7 @@ PhysicsManager::~PhysicsManager() {
 }
 
 void PhysicsManager::Update(float deltaTime) {
-    for (Component::Physics* physicsComp : physicses.GetAll()) {
+    for (Component::Physics* physicsComp : physicsComponents.GetAll()) {
         if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
             continue;
         
@@ -105,11 +105,11 @@ Physics::Trigger* PhysicsManager::MakeTrigger(Physics::Shape* shape) {
 }
 
 Component::Physics* PhysicsManager::CreatePhysics() {
-    return physicses.Create();
+    return physicsComponents.Create();
 }
 
 Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
-    Component::Physics* physics = physicses.Create();
+    Component::Physics* physics = physicsComponents.Create();
     
     // Load values from Json node.
     physics->velocity = Json::LoadVec3(node["velocity"]);
@@ -126,10 +126,10 @@ Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
     return physics;
 }
 
-const std::vector<Component::Physics*>& PhysicsManager::GetPhysicses() const {
-    return physicses.GetAll();
+const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() const {
+    return physicsComponents.GetAll();
 }
 
 void PhysicsManager::ClearKilledComponents() {
-    physicses.ClearKilled();
+    physicsComponents.ClearKilled();
 }

@@ -52,7 +52,7 @@ class PhysicsManager {
         /**
          * @return All physics components.
          */
-        const std::vector<Component::Physics*>& GetPhysicses() const;
+        const std::vector<Component::Physics*>& GetPhysicsComponents() const;
         
         /// Remove all killed components.
         void ClearKilledComponents();
@@ -68,7 +68,7 @@ class PhysicsManager {
 
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
         
-        ComponentContainer<Component::Physics> physicses;
+        ComponentContainer<Component::Physics> physicsComponents;
         
         btBroadphaseInterface* broadphase = nullptr;
         btDefaultCollisionConfiguration* collisionConfiguration = nullptr;
