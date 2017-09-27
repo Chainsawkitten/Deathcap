@@ -87,6 +87,7 @@ class ScriptManager : public SuperManager {
         void CreateInstance(Component::Script* script);
         void CallMessageReceived(const Message& message);
         void CallUpdate(Entity* entity, float deltaTime);
+        void CallTrigger(const TriggerEvent& triggerEvent);
         void LoadScriptFile(const char* fileName, std::string& script);
         void ExecuteCall(asIScriptContext* context);
         asITypeInfo* GetClass(const std::string& moduleName, const std::string& className);

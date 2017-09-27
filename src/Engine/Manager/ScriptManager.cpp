@@ -428,7 +428,11 @@ void ScriptManager::Update(World& world, float deltaTime) {
         world.RegisterUpdate(entity);
     updateEntities.clear();
     
-    /// @todo Handle physics triggers.
+    // Handle physics triggers.
+    for (const TriggerEvent& triggerEvent : triggerEvents) {
+        CallTrigger(triggerEvent);
+    }
+    triggerEvents.clear();
 }
 
 void ScriptManager::RegisterUpdate(Entity* entity) {
@@ -553,6 +557,31 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgFloat(0, deltaTime);
+    ExecuteCall(context);
+    
+    // Clean up.
+    context->Release();
+}
+
+void ScriptManager::CallTrigger(const TriggerEvent& triggerEvent) {
+    Component::Script* script = triggerEvent.scriptEntity->GetComponent<Component::Script>();
+    ScriptFile* scriptFile = script->scriptFile;
+    
+    // Get class.
+    asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
+    
+    // Find method to call.
+    std::string methodDeclaration = "void " + triggerEvent.methodName + "(Component::Physics@, Component::Physics@)";
+    asIScriptFunction* method = type->GetMethodByDecl(methodDeclaration.c_str());
+    if (method == nullptr)
+        Log() << "Can't find method " << methodDeclaration << "\n";
+    
+    // Create context, prepare it and execute.
+    asIScriptContext* context = engine->CreateContext();
+    context->Prepare(method);
+    context->SetObject(script->instance);
+    context->SetArgAddress(0, triggerEvent.trigger);
+    context->SetArgAddress(1, triggerEvent.object);
     ExecuteCall(context);
     
     // Clean up.
