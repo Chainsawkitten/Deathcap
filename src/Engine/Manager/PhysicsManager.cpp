@@ -87,19 +87,19 @@ void PhysicsManager::Update(World &world, float deltaTime) {
     }
 }
 
+void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback) {
+    auto trigger = MakeTrigger(triggerBody);
+    trigger->OnEnter(object, callback);
+}
+
 Physics::RigidBody* PhysicsManager::MakeRigidBody(Physics::Shape* shape, float mass) {
     auto body = new Physics::RigidBody(shape, mass);
     dynamicsWorld->addRigidBody(body->GetRigidBody());
     return body;
 }
 
-Physics::Trigger* PhysicsManager::MakeTrigger(Physics::Shape* shape) {
-    btTransform trans(btQuaternion(0, 0, 0, 1), btVector3(0, 10, 0));
-
-    Physics::Trigger* trigger = new Physics::Trigger(shape);
-    trigger->GetCollisionObject()->setWorldTransform(trans);
-
+Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
+    Physics::Trigger* trigger = new Physics::Trigger(comp);
     triggers.push_back(trigger);
-
     return trigger;
 }

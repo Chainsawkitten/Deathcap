@@ -2,6 +2,7 @@
 
 class World;
 
+#include <functional>
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -34,6 +35,8 @@ class PhysicsManager : public SuperManager {
          */
         void Update(World& world, float deltaTime);
 
+        void OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+
     private:
         PhysicsManager();
         ~PhysicsManager();
@@ -41,7 +44,7 @@ class PhysicsManager : public SuperManager {
         void operator=(PhysicsManager const&) = delete;
 
         Physics::RigidBody* MakeRigidBody(Physics::Shape* shape, float mass);
-        Physics::Trigger* MakeTrigger(Physics::Shape* shape);
+        Physics::Trigger* MakeTrigger(Component::Physics* comp);
 
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
 

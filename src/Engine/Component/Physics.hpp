@@ -40,6 +40,8 @@ namespace Component {
              */
             void SetShape(::Physics::Shape* shape);
 
+            ::Physics::RigidBody& GetRigidBody();
+
             /// Velocity (in meter/second).
             glm::vec3 velocity = glm::vec3(0.f, 0.f, 0.f);
 

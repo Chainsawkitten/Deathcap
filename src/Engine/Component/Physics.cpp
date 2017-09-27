@@ -80,6 +80,10 @@ namespace Component {
         rigidBody->SetShape(shape);
     }
 
+    ::Physics::RigidBody& Physics::GetRigidBody() {
+        return *rigidBody;
+    }
+
     Physics::Physics(Entity* entity) : SuperComponent(entity) {
         // Temporary until creation via managers works properly (this is just
         // to have some default resources).
