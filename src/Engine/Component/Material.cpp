@@ -46,13 +46,6 @@ Json::Value Material::Save() const {
     return component;
 }
 
-void Material::Load(const Json::Value& node) {
-    LoadTexture(albedo, node.get("albedo", "").asString());
-    LoadTexture(normal, node.get("normal", "").asString());
-    LoadTexture(metallic, node.get("metallic", "").asString());
-    LoadTexture(roughness, node.get("roughness", "").asString());
-}
-
 void Material::LoadTexture(TextureAsset*& texture, const std::string& name) {
     if (!name.empty())
         texture = Managers().resourceManager->CreateTextureAsset(name);

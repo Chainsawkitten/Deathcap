@@ -23,12 +23,6 @@ namespace Component {
              * @return JSON value to be stored on disk.
              */
             Json::Value Save() const override;
-            
-            /// Load component from JSON node.
-            /**
-             * @param node JSON node to load from.
-             */
-            void Load(const Json::Value& node) override;
 
             /// Geometry data.
             /**

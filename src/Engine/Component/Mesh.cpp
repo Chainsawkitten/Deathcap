@@ -26,8 +26,3 @@ Json::Value Mesh::Save() const {
     
     return component;
 }
-
-void Mesh::Load(const Json::Value& node) {
-    std::string meshName = node.get("model", "").asString();
-    geometry = Managers().resourceManager->CreateModel(meshName);
-}

@@ -14,8 +14,3 @@ Json::Value DirectionalLight::Save() const {
     component["ambientCoefficient"] = ambientCoefficient;
     return component;
 }
-
-void DirectionalLight::Load(const Json::Value& node) {
-    color = Json::LoadVec3(node["color"]);
-    ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
-}

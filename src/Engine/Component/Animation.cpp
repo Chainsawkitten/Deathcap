@@ -15,12 +15,3 @@ Json::Value Component::Animation::Save() const {
         component["riggedModel"] = "null";
     return component;
 }
-
-void Component::Animation::Load(const Json::Value& node) {
-    std::string name = node.get("riggedModel", "").asString();
-    /// @todo Fix animation.
-    /*for (Geometry::Model* model : Hymn().models) {
-        if (model->name == name)
-            riggedModel = model;
-    }*/
-}

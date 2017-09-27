@@ -21,17 +21,4 @@ namespace Component {
         component["momentOfInertia"] = Json::SaveVec3(momentOfInertia);
         return component;
     }
-
-    void Physics::Load(const Json::Value& node) {
-        velocity = Json::LoadVec3(node["velocity"]);
-        maxVelocity = node.get("maxVelocity", 20.f).asFloat();
-        angularVelocity = Json::LoadVec3(node["angularVelocity"]);
-        maxAngularVelocity = node.get("maxAngularVelocity", 2.f).asFloat();
-        acceleration = Json::LoadVec3(node["acceleration"]);
-        angularAcceleration = Json::LoadVec3(node["angularAcceleration"]);
-        velocityDragFactor = node.get("velocityDragFactor", 1.f).asFloat();
-        angularDragFactor = node.get("angularDragFactor", 1.f).asFloat();
-        gravityFactor = node.get("gravityFactor", 0.f).asFloat();
-        momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
-    }
 }

@@ -22,12 +22,6 @@ namespace Component {
              */
             Json::Value Save() const override;
             
-            /// Load component from JSON node.
-            /**
-             * @param node JSON node to load from.
-             */
-            void Load(const Json::Value& node) override;
-            
             /// Whether the script component has been initialized.
             bool initialized = false;
             

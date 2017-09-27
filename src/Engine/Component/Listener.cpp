@@ -11,7 +11,3 @@ Json::Value Listener::Save() const {
     component["placeholderValue"] = "";
     return component;
 }
-
-void Listener::Load(const Json::Value& node) {
-    
-}

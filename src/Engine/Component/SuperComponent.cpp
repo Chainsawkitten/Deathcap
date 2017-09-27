@@ -21,7 +21,3 @@ bool SuperComponent::IsKilled() const {
 Json::Value SuperComponent::Save() const {
     return Json::Value();
 }
-
-void SuperComponent::Load(const Json::Value& node) {
-    
-}

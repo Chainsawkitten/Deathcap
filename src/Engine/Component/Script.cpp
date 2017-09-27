@@ -29,8 +29,3 @@ Json::Value Script::Save() const {
     
     return component;
 }
-
-void Script::Load(const Json::Value& node) {
-    std::string name = node.get("scriptName", "").asString();
-    scriptFile = Managers().resourceManager->CreateScriptFile(name);
-}
