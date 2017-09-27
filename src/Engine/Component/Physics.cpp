@@ -1,15 +1,12 @@
 #include "Physics.hpp"
 
-#include <Physics/RigidBody.hpp>
-#include <Physics/Simulator.hpp>
 #include "../Util/Json.hpp"
 
 namespace Component {
-
     Physics::Physics() {
     
     }
-
+    
     Json::Value Physics::Save() const {
         Json::Value component;
         component["velocity"] = Json::SaveVec3(velocity);
@@ -37,5 +34,4 @@ namespace Component {
         gravityFactor = node.get("gravityFactor", 0.f).asFloat();
         momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
     }
-
 }

@@ -13,7 +13,7 @@ namespace Video {
         public:
             /// Create new unloaded texture.
             Texture2D();
-            
+
             /// Create new texture from the given image file.
             /**
              * @param filename Filename (relative or absolute) of the image file.
@@ -80,6 +80,8 @@ namespace Video {
             bool IsLoaded() const;
             
         private:
+            Texture2D(const Texture2D & other) = delete;
+
             GLuint texID = 0;
             int width = 0;
             int height = 0;

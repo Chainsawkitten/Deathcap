@@ -1,19 +1,31 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include <Physics/Simulator.hpp>
+#include <vector>
 #include "../Entity/ComponentContainer.hpp"
 
 namespace Component {
     class Physics;
 }
 
+namespace Physics {
+    class RigidBody;
+    class Shape;
+    class Trigger;
+}
+
+class btBroadphaseInterface;
+class btDefaultCollisionConfiguration;
+class btCollisionDispatcher;
+class btSequentialImpulseConstraintSolver;
+class btDiscreteDynamicsWorld;
+
 /// Updates the physics of the world.
-class PhysicsManager : public Physics::Simulator {
+class PhysicsManager {
     friend class Hub;
-    
+
     public:
-        /// Update world containing entities. Moves entities and updates the physics component.
+        /// Moves entities and updates the physics component.
         /**
          * @param deltaTime Time since last frame (in seconds).
          */
@@ -39,8 +51,19 @@ class PhysicsManager : public Physics::Simulator {
         ~PhysicsManager();
         PhysicsManager(PhysicsManager const&) = delete;
         void operator=(PhysicsManager const&) = delete;
-        
+
+        Physics::RigidBody* MakeRigidBody(Physics::Shape* shape, float mass);
+        Physics::Trigger* MakeTrigger(Physics::Shape* shape);
+
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
         
         ComponentContainer<Component::Physics> physicses;
+        
+        btBroadphaseInterface* broadphase = nullptr;
+        btDefaultCollisionConfiguration* collisionConfiguration = nullptr;
+        btCollisionDispatcher* dispatcher = nullptr;
+        btSequentialImpulseConstraintSolver* solver = nullptr;
+        btDiscreteDynamicsWorld* dynamicsWorld = nullptr;
+
+        std::vector<Physics::Trigger*> triggers;
 };

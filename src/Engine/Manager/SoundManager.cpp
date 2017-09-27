@@ -1,5 +1,5 @@
 #include "SoundManager.hpp"
-
+#include <phonon.h>
 #include <Utility/Log.hpp>
 #include <AL/al.h>
 #include "../Entity/World.hpp"
@@ -83,7 +83,7 @@ void SoundManager::Update() {
             alSourcei(sound->source, AL_BUFFER, sound->soundBuffer->GetBuffer());
             sound->soundBufferSet = true;
         }
-        
+
         // Play it.
         if (sound->shouldPlay) {
             alSourcePlay(sound->source);

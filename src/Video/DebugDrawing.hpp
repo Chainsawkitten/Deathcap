@@ -104,6 +104,8 @@ namespace Video {
             void EndDebugDrawing();
             
         private:
+            DebugDrawing(const DebugDrawing & other) = delete;
+
             void BindVertexArray(GLuint vertexArray);
             
             Video::ShaderProgram* shaderProgram;
