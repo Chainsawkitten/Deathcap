@@ -42,6 +42,10 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
+        Physics/GlmConversion.cpp
+        Physics/RigidBody.cpp
+        Physics/Shape.cpp
+        Physics/Trigger.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
@@ -89,6 +93,12 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
+        Physics/GlmConversion.hpp
+        Physics/IRigidBody.hpp
+        Physics/ITrigger.hpp
+        Physics/RigidBody.hpp
+        Physics/Shape.hpp
+        Physics/Trigger.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp
@@ -122,7 +132,7 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video Physics catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio glm bullet)
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)
