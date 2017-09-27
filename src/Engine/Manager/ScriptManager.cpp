@@ -23,6 +23,7 @@
 
 #include "Managers.hpp"
 #include "DebugDrawingManager.hpp"
+#include "PhysicsManager.hpp"
 
 using namespace Component;
 
@@ -50,6 +51,10 @@ void print(const std::string& message) {
 
 void RegisterUpdate() {
     Managers().scriptManager->RegisterUpdate(Managers().scriptManager->currentEntity);
+}
+
+void RegisterTrigger(Component::Physics* triggerBody, Component::Physics* object, const std::string& methodName) {
+    /// @todo Call physics manager to register callback.
 }
 
 bool ButtonInput(int buttonIndex) {
@@ -326,6 +331,7 @@ ScriptManager::ScriptManager() {
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RegisterTrigger(Component::Physics@, Component::Physics@, const string &in)", asFUNCTION(::RegisterTrigger), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
