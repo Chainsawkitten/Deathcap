@@ -21,6 +21,7 @@ public:
     * @return A vec3 with values from current ray in world space. Normalized.
     */
     glm::vec3 GetCurrentRay();
+    void UpdateProjectionMatrix(glm::mat4 projection);
 
     /// Update the view matrix and recalculates the ray.
     void Update();

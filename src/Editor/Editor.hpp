@@ -84,6 +84,7 @@ class Editor {
         
         World cameraWorld;
         Entity* cameraEntity;
+        Entity* selectedEntity;
         MousePicking mousePicker;
         RayIntersection rayIntersector;
         

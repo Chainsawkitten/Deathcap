@@ -28,6 +28,10 @@ glm::vec3 MousePicking::GetCurrentRay() {
     return this->currentRay;
 }
 
+void MousePicking::UpdateProjectionMatrix(glm::mat4 projection) {
+    this->pMatrix = projection;
+}
+
 void MousePicking::Update() {
 
     glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
