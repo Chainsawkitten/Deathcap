@@ -24,6 +24,8 @@ namespace Component {
         ::Physics::Shape& shape = rigidBody->GetShape();
         switch (shape.GetKind()) {
             case ::Physics::Shape::Kind::Sphere: {
+                auto sphereData = shape.GetSphereData();
+                concreteShape["radius"] = sphereData->radius;
                 componentShape["sphere"] = concreteShape;
                 break;
             }
