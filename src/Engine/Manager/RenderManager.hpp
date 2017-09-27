@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include "../Entity/ComponentContainer.hpp"
+#include <string>
 
 namespace Video {
     class Renderer;
@@ -19,6 +20,10 @@ namespace Component {
     class PointLight;
     class SpotLight;
 }
+namespace Json {
+    class Value;
+}
+class TextureAsset;
 
 /// Handles rendering the world.
 class RenderManager {
@@ -52,6 +57,13 @@ class RenderManager {
          */
         Component::Animation* CreateAnimation();
         
+        /// Create animation component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::Animation* CreateAnimation(const Json::Value& node);
+        
         /// Get all animation components.
         /**
          * @return All animation components.
@@ -60,12 +72,20 @@ class RenderManager {
         
         /// Create directional light component.
         /**
+         * @param node Json node to load the component from.
          * @return The created component.
          */
         Component::DirectionalLight* CreateDirectionalLight();
         
+        /// Create directional light component.
+        /**
+         * @return The created component.
+         */
+        Component::DirectionalLight* CreateDirectionalLight(const Json::Value& node);
+        
         /// Get all directional light components.
         /**
+         * @param node Json node to load the component from.
          * @return All directional light components.
          */
         const std::vector<Component::DirectionalLight*>& GetDirectionalLights() const;
@@ -75,6 +95,13 @@ class RenderManager {
          * @return The created component.
          */
         Component::Lens* CreateLens();
+        
+        /// Create lens component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::Lens* CreateLens(const Json::Value& node);
         
         /// Get all lens components.
         /**
@@ -88,6 +115,13 @@ class RenderManager {
          */
         Component::Material* CreateMaterial();
         
+        /// Create material component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::Material* CreateMaterial(const Json::Value& node);
+        
         /// Get all material components.
         /**
          * @return All material components.
@@ -99,6 +133,13 @@ class RenderManager {
          * @return The created component.
          */
         Component::Mesh* CreateMesh();
+        
+        /// Create mesh component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::Mesh* CreateMesh(const Json::Value& node);
         
         /// Get all mesh components.
         /**
@@ -112,6 +153,13 @@ class RenderManager {
          */
         Component::PointLight* CreatePointLight();
         
+        /// Create point light component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::PointLight* CreatePointLight(const Json::Value& node);
+        
         /// Get all point light components.
         /**
          * @return All point light components.
@@ -123,6 +171,13 @@ class RenderManager {
          * @return The created component.
          */
         Component::SpotLight* CreateSpotLight();
+        
+        /// Create spot light component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::SpotLight* CreateSpotLight(const Json::Value& node);
         
         /// Get all spot light components.
         /**
@@ -140,6 +195,7 @@ class RenderManager {
         void operator=(RenderManager const&) = delete;
         
         void LightWorld(const Entity* camera, Video::RenderSurface* renderSurface);
+        void LoadTexture(TextureAsset*& texture, const std::string& name);
 
         Video::Renderer* renderer;
 
