@@ -2,25 +2,22 @@
 
 #include <btBulletDynamicsCommon.h>
 #include "GlmConversion.hpp"
-#include "Simulator.hpp"
+#include "Shape.hpp"
 
 namespace Physics {
 
-    RigidBody::RigidBody() {
+    RigidBody::RigidBody(Physics::Shape* shape, float mass) : shape(shape) {
         // Motion states inform us of movement caused by physics so that we can
         // deal with those changes as needed.
         btDefaultMotionState* motionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
 
         // Bullet treats zero mass as infinite, resulting in immovable objects.
-        btRigidBody::btRigidBodyConstructionInfo constructionInfo(0, motionState, nullptr, btVector3(0, 0, 0));
+        btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, shape->GetShape(), btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
+        rigidBody->setUserPointer(this);
     }
 
     RigidBody::~RigidBody() {
-        if (simulator) {
-            simulator->Disable(*this);
-        }
-
         delete rigidBody->getMotionState();
         delete rigidBody;
     }
@@ -36,14 +33,18 @@ namespace Physics {
     glm::vec3 RigidBody::Position() {
         btTransform trans;
         rigidBody->getMotionState()->getWorldTransform(trans);
-        return btToGlm(trans.getOrigin());
+        return Physics::btToGlm(trans.getOrigin());
     }
 
     void RigidBody::Position(glm::vec3 const& pos) {
         btTransform trans;
         rigidBody->getMotionState()->getWorldTransform(trans);
-        trans.setOrigin(glmToBt(pos));
+        trans.setOrigin(Physics::glmToBt(pos));
         rigidBody->setWorldTransform(trans);
+    }
+
+    btRigidBody* RigidBody::GetRigidBody() {
+        return rigidBody;
     }
 
 }

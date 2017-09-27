@@ -1,19 +1,18 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "IRigidBody.hpp"
 
 class btRigidBody;
 
 namespace Physics {
+    class Shape;
 
-    class Simulator;
-
-    class RigidBody {
-        friend class Simulator;
-
+    /// A rigid body that wraps Bullet type and accompanying shape.
+    class RigidBody : public IRigidBody {
         public:
             /// Constructor.
-            RigidBody();
+            RigidBody(Physics::Shape* shape, float mass);
 
             /// Destructor.
             ~RigidBody();
@@ -22,19 +21,25 @@ namespace Physics {
             /**
              * @param mass Mass in kilograms.
              */
-            void Mass(float mass);
+            virtual void Mass(float mass) override;
 
             /// Get the position of a rigid body.
             /**
              * @return Position of the rigid body.
              */
-            glm::vec3 Position();
+            virtual glm::vec3 Position() override;
 
             /// Set the position of a rigid body.
             /**
              * @param pos The new position.
              */
-            void Position(glm::vec3 const& pos);
+            virtual void Position(glm::vec3 const& pos) override;
+
+            /// Get the underlying Bullet rigid body.
+            /**
+             * @return The Bullet rigid body.
+             */
+            btRigidBody* GetRigidBody();
 
         private:
             RigidBody(RigidBody& other) = delete;
@@ -42,7 +47,7 @@ namespace Physics {
 
         private:
             btRigidBody* rigidBody = nullptr;
-            Simulator* simulator = nullptr;
+            Physics::Shape* shape = nullptr;
     };
 
 }
