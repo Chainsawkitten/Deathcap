@@ -284,8 +284,10 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
         component = Managers().soundManager->CreateSoundSource();
     else if (*componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight();
-    else
+    else {
         Log() << componentType->name() << " not assigned to a manager!" << "\n";
+        return nullptr;
+    }
     
     // Add component to our map.
     components[componentType] = component;
@@ -324,8 +326,10 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
         component = Managers().soundManager->CreateSoundSource(node);
     else if (*componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight(node);
-    else
+    else {
         Log() << componentType->name() << " not assigned to a manager!" << "\n";
+        return;
+    }
     
     // Add component to our map.
     components[componentType] = component;
