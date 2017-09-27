@@ -5,6 +5,7 @@
 #include <random>
 
 #include "../Entity/ComponentContainer.hpp"
+#include "../Util/Json.hpp"
 
 class Entity;
 class World;
@@ -14,6 +15,9 @@ namespace Video {
 }
 namespace Component {
     class ParticleEmitter;
+}
+namespace Json {
+    class Value;
 }
 
 /// Handles particles.
@@ -66,6 +70,13 @@ class ParticleManager {
          * @return The created component.
          */
         Component::ParticleEmitter* CreateParticleEmitter();
+        
+        /// Create particle emitter component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::ParticleEmitter* CreateParticleEmitter(const Json::Value& node);
         
         /// Get all particle emitter components.
         /**
