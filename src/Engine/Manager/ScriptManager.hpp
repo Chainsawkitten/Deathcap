@@ -13,6 +13,7 @@ class Entity;
 class ScriptFile;
 namespace Component {
     class Script;
+    class Physics;
 }
 
 /// Handles scripting.
@@ -43,6 +44,15 @@ class ScriptManager : public SuperManager {
          */
         void RegisterUpdate(Entity* entity);
         
+        /// Register an entity to receive a trigger event.
+        /**
+         * @param entity %Entity to register.
+         * @param trigger Trigger body to check for.
+         * @param object Object to check if it enters the trigger.
+         * @param methodName The name of the method to call when triggered.
+         */
+        void RegisterTrigger(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName);
+        
         /// Register the input enum.
         void RegisterInput();
         
@@ -62,6 +72,13 @@ class ScriptManager : public SuperManager {
             int type;
         };
         
+        struct TriggerEvent {
+            Entity* scriptEntity;
+            std::string methodName;
+            Component::Physics* trigger;
+            Component::Physics* object;
+        };
+        
         ScriptManager();
         ~ScriptManager();
         ScriptManager(ScriptManager const&) = delete;
@@ -73,6 +90,7 @@ class ScriptManager : public SuperManager {
         void LoadScriptFile(const char* fileName, std::string& script);
         void ExecuteCall(asIScriptContext* context);
         asITypeInfo* GetClass(const std::string& moduleName, const std::string& className);
+        void HandleTrigger(TriggerEvent triggerEvent);
         
         asIScriptEngine* engine;
         
