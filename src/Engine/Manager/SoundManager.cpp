@@ -8,6 +8,7 @@
 #include "../Component/SoundSource.hpp"
 #include "../Component/Physics.hpp"
 #include "../Audio/SoundBuffer.hpp"
+#include "ResourceManager.hpp"
 
 // Scaling constant. Used to convert from our units to sound system units.
 const float soundScale = 0.2f;
@@ -117,11 +118,30 @@ Component::SoundSource* SoundManager::CreateSoundSource() {
     return soundSources.Create();
 }
 
+Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node) {
+    Component::SoundSource* soundSource = soundSources.Create();
+    
+    // Load values from Json node.
+    std::string name = node.get("sound", "").asString();
+    if (!name.empty())
+        soundSource->soundBuffer = Managers().resourceManager->CreateSound(name);
+    
+    soundSource->pitch = node.get("pitch", 1.f).asFloat();
+    soundSource->gain = node.get("gain", 1.f).asFloat();
+    soundSource->loop = node.get("loop", false).asBool();
+    
+    return soundSource;
+}
+
 const std::vector<Component::SoundSource*>& SoundManager::GetSoundSources() const {
     return soundSources.GetAll();
 }
 
 Component::Listener* SoundManager::CreateListener() {
+    return listeners.Create();
+}
+
+Component::Listener* SoundManager::CreateListener(const Json::Value& node) {
     return listeners.Create();
 }
 

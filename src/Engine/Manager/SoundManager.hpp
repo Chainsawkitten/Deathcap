@@ -7,6 +7,9 @@ namespace Component {
     class SoundSource;
     class Listener;
 }
+namespace Json {
+    class Value;
+}
 
 /// Handles OpenAL sound.
 class SoundManager {
@@ -40,6 +43,13 @@ class SoundManager {
          */
         Component::SoundSource* CreateSoundSource();
         
+        /// Create sound source component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::SoundSource* CreateSoundSource(const Json::Value& node);
+        
         /// Get all sound source components.
         /**
          * @return All sound source components.
@@ -51,6 +61,13 @@ class SoundManager {
          * @return The created component.
          */
         Component::Listener* CreateListener();
+        
+        /// Create listener component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::Listener* CreateListener(const Json::Value& node);
         
         /// Get all listener components.
         /**
