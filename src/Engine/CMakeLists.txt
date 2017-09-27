@@ -10,6 +10,10 @@ set(SRCS
         Hymn.cpp
         MainWindow.cpp
         Audio/SoundBuffer.cpp
+	Audio/SteamAudio.cpp
+	Audio/SteamAudioDirectRenderer.cpp
+	Audio/SteamAudioIndirectRenderer.cpp
+	Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
         Component/DirectionalLight.cpp
@@ -42,6 +46,10 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
+        Physics/GlmConversion.cpp
+        Physics/RigidBody.cpp
+        Physics/Shape.cpp
+        Physics/Trigger.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
@@ -57,6 +65,10 @@ set(HEADERS
         MainWindow.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
+	Audio/SteamAudio.hpp
+	Audio/SteamAudioDirectRenderer.hpp
+	Audio/SteamAudioIndirectRenderer.hpp
+	Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/Animation.hpp
         Component/DirectionalLight.hpp
@@ -89,6 +101,12 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
+        Physics/GlmConversion.hpp
+        Physics/IRigidBody.hpp
+        Physics/ITrigger.hpp
+        Physics/RigidBody.hpp
+        Physics/Shape.hpp
+        Physics/Trigger.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp
@@ -122,7 +140,7 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video Physics catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio glm bullet)
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)

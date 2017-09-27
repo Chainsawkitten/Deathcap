@@ -23,12 +23,20 @@
 	"input" : 
 	[
 		{
-			"size" : 0
+			"0" : 
+			{
+				"action" : "OpenGate",
+				"key" : 69,
+				"state" : 1
+			},
+			"size" : 1
 		}
 	],
 	"scripts" : 
 	[
 		"Player",
-		"Cart"
+		"Cart",
+		"Lever",
+		"Gates"
 	]
 }

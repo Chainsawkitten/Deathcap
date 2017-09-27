@@ -20,6 +20,11 @@ enum DraggedItemState {
 };
 DraggedItemState draggedItemState = DraggedItemState::NOT_ACTIVE;
 
+SceneEditor::SceneEditor() {
+    name[0] = '\0';
+    sceneIndex = 0;
+}
+
 void SceneEditor::Show() {
     if (ImGui::Begin(("Scene: " + Resources().scenes[sceneIndex] + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
@@ -112,7 +117,7 @@ void SceneEditor::ShowEntity(Entity* entity) {
         }
 		
         if (!entity->IsScene()) {
-            if (ImGui::Selectable("Add child"))
+            if (ImGui::Selectable("Add child")) 
                 entity->AddChild("Entity #" + std::to_string(Hymn().entityNumber++));
             
             if (ImGui::Selectable("Instantiate scene"))

@@ -1,5 +1,5 @@
 #include "SoundManager.hpp"
-
+#include <phonon.h>
 #include <Utility/Log.hpp>
 #include <AL/al.h>
 #include "../Entity/World.hpp"
@@ -28,15 +28,6 @@ SoundManager::~SoundManager() {
     alcMakeContextCurrent(nullptr);
     alcDestroyContext(context);
     alcCloseDevice(device);
-}
-
-void SoundManager::SetVolume(float volume) {
-    alListenerf(AL_GAIN, volume);
-    this->volume = volume;
-}
-
-float SoundManager::GetVolume() const {
-    return volume;
 }
 
 void SoundManager::CheckError(const char* message) {
@@ -93,7 +84,7 @@ void SoundManager::Update(World& world) {
             alSourcei(sound->source, AL_BUFFER, sound->soundBuffer->GetBuffer());
             sound->soundBufferSet = true;
         }
-        
+
         // Play it.
         if (sound->shouldPlay) {
             alSourcePlay(sound->source);
