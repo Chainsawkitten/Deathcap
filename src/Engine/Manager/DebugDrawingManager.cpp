@@ -86,7 +86,7 @@ void DebugDrawingManager::Update(float deltaTime) {
         }
     }
     
-    // Cuboid.
+    // Cuboids.
     for (std::size_t i=0; i < cuboids.size(); ++i) {
         if (cuboids[i].duration < 0.f) {
             cuboids[i] = cuboids[cuboids.size() - 1];
@@ -94,6 +94,17 @@ void DebugDrawingManager::Update(float deltaTime) {
             --i;
         } else {
             cuboids[i].duration -= deltaTime;
+        }
+    }
+    
+    // Planes.
+    for (std::size_t i=0; i < planes.size(); ++i) {
+        if (planes[i].duration < 0.f) {
+            planes[i] = planes[planes.size() - 1];
+            planes.pop_back();
+            --i;
+        } else {
+            planes[i].duration -= deltaTime;
         }
     }
 }
