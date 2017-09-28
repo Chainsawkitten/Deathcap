@@ -1,8 +1,10 @@
 #include "PhysicsManager.hpp"
 
 #include <btBulletDynamicsCommon.h>
+#include <glm/gtx/quaternion.hpp>
 #include "../Component/Physics.hpp"
 #include "../Entity/Entity.hpp"
+#include "../Physics/GlmConversion.hpp"
 #include "../Physics/ITrigger.hpp"
 #include "../Physics/RigidBody.hpp"
 #include "../Physics/Shape.hpp"
@@ -84,6 +86,20 @@ void PhysicsManager::Update(World &world, float deltaTime) {
 
     for (auto trigger : triggers) {
         trigger->Process(*dynamicsWorld);
+    }
+}
+
+void PhysicsManager::UpdateEntityTransforms(World& world) {
+    std::vector<Component::Physics*> physicsObjects = this->GetComponents<Component::Physics>(&world);
+    for (Component::Physics* physicsComp : physicsObjects) {
+        if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
+            continue;
+
+        Entity* entity = physicsComp->entity;
+
+        auto trans = physicsComp->GetRigidBody().GetRigidBody()->getWorldTransform();
+        entity->position = Physics::btToGlm(trans.getOrigin());
+        entity->rotation = glm::eulerAngles(Physics::btToGlm(trans.getRotation()));
     }
 }
 
