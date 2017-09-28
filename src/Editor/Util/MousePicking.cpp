@@ -1,7 +1,7 @@
 #include "MousePicking.hpp"
 #include <Engine/Util/Input.hpp>
 #include <Engine/MainWindow.hpp>
-#include <glm\gtx\transform.hpp>
+#include <glm/gtx/transform.hpp>
 
 MousePicking::MousePicking(Entity * cam,  const glm::mat4& projection) {
     this->camera = cam;

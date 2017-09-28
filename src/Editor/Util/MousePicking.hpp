@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine\Entity\Entity.hpp"
+#include "Engine/Entity/Entity.hpp"
 
 /// Use mouse cursor to select objects in editor.
 class MousePicking {

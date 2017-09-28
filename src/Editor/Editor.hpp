@@ -8,8 +8,8 @@
 #include "GUI/SavePromptWindow.hpp"
 #include <string>
 #include <json/json.h>
-#include "Util\MousePicking.hpp"
-#include "Util\RayIntersection.hpp"
+#include "Util/MousePicking.hpp"
+#include "Util/RayIntersection.hpp"
 
 struct GLFWcursor;
 
