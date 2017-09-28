@@ -63,6 +63,17 @@ void DebugDrawingManager::AddPlane(const glm::vec3& position, const glm::vec3& n
     planes.push_back(plane);
 }
 
+void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Sphere sphere;
+    sphere.position = position;
+    sphere.radius = radius;
+    sphere.color = color;
+    sphere.lineWidth = lineWidth;
+    sphere.duration = duration;
+    sphere.depthTesting = depthTesting;
+    spheres.push_back(sphere);
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
