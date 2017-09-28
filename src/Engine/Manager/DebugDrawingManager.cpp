@@ -137,6 +137,10 @@ void DebugDrawingManager::Render(Entity* camera) {
         // Cuboids.
         for (const DebugDrawing::Cuboid& cuboid : cuboids)
             debugDrawing->DrawCuboid(cuboid);
+       
+        // Planes.
+        for (const DebugDrawing::Plane& plane : planes)
+            debugDrawing->DrawPlane(plane);
         
         debugDrawing->EndDebugDrawing();
     }

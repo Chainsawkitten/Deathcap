@@ -124,6 +124,12 @@ namespace Video {
              */
             void DrawCuboid(const Cuboid& cuboid);
             
+            /// Draw a plane.
+            /**
+             * @param plane The plane to draw.
+             */
+            void DrawPlane(const Plane& plane);
+            
             /// Stop debug drawing.
             void EndDebugDrawing();
             

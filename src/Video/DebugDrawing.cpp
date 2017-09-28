@@ -131,6 +131,18 @@ void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
     glDrawArrays(GL_LINES, 0, 24);
 }
 
+void DebugDrawing::DrawPlane(const Plane& plane) {
+    BindVertexArray(planeVertexArray);
+    
+    glm::mat4 model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    plane.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &plane.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(plane.lineWidth);
+    glDrawArrays(GL_LINES, 0, 8);
+}
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
     BindVertexArray(0);
