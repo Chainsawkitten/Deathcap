@@ -11,6 +11,9 @@ namespace GUI {
     /// Plane shape editor for physics components.
     class PlaneShapeEditor : public IShapeEditor {
         public:
+            /// Constructor
+            PlaneShapeEditor() = default;
+
             /// Plane type label.
             /**
              * @return "Plane" string.
