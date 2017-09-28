@@ -9,6 +9,7 @@
 #include "../Physics/RigidBody.hpp"
 #include "../Physics/Shape.hpp"
 #include "../Physics/Trigger.hpp"
+#include "../Util/Json.hpp"
 
 PhysicsManager::PhysicsManager() {
     // The broadphase is used to quickly cull bodies that will not collide with
@@ -40,9 +41,8 @@ PhysicsManager::~PhysicsManager() {
     delete broadphase;
 }
 
-void PhysicsManager::Update(World &world, float deltaTime) {
-    std::vector<Component::Physics*> physicsObjects = this->GetComponents<Component::Physics>(&world);
-    for (Component::Physics* physicsComp : physicsObjects) {
+void PhysicsManager::Update(float deltaTime) {
+    for (Component::Physics* physicsComp : physicsComponents.GetAll()) {
         if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
             continue;
         
@@ -89,8 +89,8 @@ void PhysicsManager::Update(World &world, float deltaTime) {
     }
 }
 
-void PhysicsManager::UpdateEntityTransforms(World& world) {
-    std::vector<Component::Physics*> physicsObjects = this->GetComponents<Component::Physics>(&world);
+void PhysicsManager::UpdateEntityTransforms() {
+    std::vector<Component::Physics*> physicsObjects = physicsComponents.GetAll();
     for (Component::Physics* physicsComp : physicsObjects) {
         if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
             continue;
@@ -118,4 +118,34 @@ Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     Physics::Trigger* trigger = new Physics::Trigger(comp);
     triggers.push_back(trigger);
     return trigger;
+}
+
+Component::Physics* PhysicsManager::CreatePhysics() {
+    return physicsComponents.Create();
+}
+
+Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
+    Component::Physics* physics = physicsComponents.Create();
+    
+    // Load values from Json node.
+    physics->velocity = Json::LoadVec3(node["velocity"]);
+    physics->maxVelocity = node.get("maxVelocity", 20.f).asFloat();
+    physics->angularVelocity = Json::LoadVec3(node["angularVelocity"]);
+    physics->maxAngularVelocity = node.get("maxAngularVelocity", 2.f).asFloat();
+    physics->acceleration = Json::LoadVec3(node["acceleration"]);
+    physics->angularAcceleration = Json::LoadVec3(node["angularAcceleration"]);
+    physics->velocityDragFactor = node.get("velocityDragFactor", 1.f).asFloat();
+    physics->angularDragFactor = node.get("angularDragFactor", 1.f).asFloat();
+    physics->gravityFactor = node.get("gravityFactor", 0.f).asFloat();
+    physics->momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
+    
+    return physics;
+}
+
+const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() const {
+    return physicsComponents.GetAll();
+}
+
+void PhysicsManager::ClearKilledComponents() {
+    physicsComponents.ClearKilled();
 }
