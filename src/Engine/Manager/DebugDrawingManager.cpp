@@ -118,6 +118,17 @@ void DebugDrawingManager::Update(float deltaTime) {
             planes[i].duration -= deltaTime;
         }
     }
+    
+    // Spheres.
+    for (std::size_t i=0; i < spheres.size(); ++i) {
+        if (spheres[i].duration < 0.f) {
+            spheres[i] = spheres[spheres.size() - 1];
+            spheres.pop_back();
+            --i;
+        } else {
+            spheres[i].duration -= deltaTime;
+        }
+    }
 }
 
 void DebugDrawingManager::Render(Entity* camera) {
