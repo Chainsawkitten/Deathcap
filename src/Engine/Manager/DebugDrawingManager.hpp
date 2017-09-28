@@ -4,13 +4,10 @@
 #include <vector>
 #include <Video/DebugDrawing.hpp>
 
-#include "SuperManager.hpp"
-
-class World;
 class Entity;
 
 /// Debug drawing facilities.
-class DebugDrawingManager : public SuperManager{
+class DebugDrawingManager {
     friend class Hub;
     
     public:
@@ -54,10 +51,9 @@ class DebugDrawingManager : public SuperManager{
         
         /// Render the debug primitives.
         /**
-         * @param world Contains a camera through which to render.
          * @param camera Camera through which to render (or first camera in world if nullptr).
          */
-        void Render(World& world, Entity* camera);
+        void Render(Entity* camera);
         
     private:
         DebugDrawingManager();

@@ -19,11 +19,9 @@ namespace Component {
 
 /// Singleton class that holds all subsystems.
 class Hub {
-
     friend Hub& Managers();
     
     public:
-
         /// The resource manager instance.
         ResourceManager* resourceManager;
         
@@ -53,30 +51,16 @@ class Hub {
         
         /// Deinitialize all subsystems.
         void ShutDown();
-
-        /// Adds a component to the correct manager.
-        /**
-        * @param component The component to add.
-        * @param componentType The type of the component to add.
-        */
-        void AddComponent(World* world, Component::SuperComponent* component, const std::type_info* componentType);
-
-        /// Clears the components of a certain world in all managers.
-        void ClearComponents(World* world);
-
-        /// Clears all the components of all managers.
-        void ClearAllComponents();
-
+        
         /// Clears the killed components of all managers.
-        void ClearKilledComponents(World* world);
+        void ClearKilledComponents();
         
     private:
         Hub();
         Hub(const Hub&) = delete;
         void operator=(const Hub&) = delete;
-
+        
         bool shutdown = false;
-
 };
 
 /// Get a hub containing all the subsystems.
