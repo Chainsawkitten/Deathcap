@@ -51,6 +51,18 @@ void DebugDrawingManager::AddCuboid(const glm::vec3& minCoordinates, const glm::
     cuboids.push_back(cuboid);
 }
 
+void DebugDrawingManager::AddPlane(const glm::vec3& position, const glm::vec3& normal, const glm::vec2& size, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Plane plane;
+    plane.position = position;
+    plane.normal = normal;
+    plane.size = size;
+    plane.color = color;
+    plane.lineWidth = lineWidth;
+    plane.duration = duration;
+    plane.depthTesting = depthTesting;
+    planes.push_back(plane);
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
