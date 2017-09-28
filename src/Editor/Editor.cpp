@@ -31,6 +31,7 @@ Editor::Editor() {
     else
         ImGui::LoadDefaultTheme();
 
+    selectedEntity = nullptr;
 
     // Assign controls.
     Input()->AssignButton(InputHandler::PROFILE, InputHandler::KEYBOARD, GLFW_KEY_F2);
