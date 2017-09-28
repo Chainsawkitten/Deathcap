@@ -20,40 +20,15 @@ DebugDrawing::DebugDrawing() {
     // Create point vertex array.
     glBindVertexArray(0);
     
-    glGenBuffers(1, &pointVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, pointVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 1 * sizeof(glm::vec3), &glm::vec3(0.f, 0.f, 0.f)[0], GL_STATIC_DRAW);
-    
-    glGenVertexArrays(1, &pointVertexArray);
-    glBindVertexArray(pointVertexArray);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, pointVertexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
-    
-    glBindVertexArray(0);
+    glm::vec3 point(0.f, 0.f, 0.f);
+    CreateVertexArray(&point, 1, pointVertexBuffer, pointVertexArray);
     
     // Create line vertex array.
     glm::vec3 line[2];
     line[0] = glm::vec3(0.f, 0.f, 0.f);
     line[1] = glm::vec3(1.f, 1.f, 1.f);
     
-    glGenBuffers(1, &lineVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, lineVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(glm::vec3), line, GL_STATIC_DRAW);
-    
-    glGenVertexArrays(1, &lineVertexArray);
-    glBindVertexArray(lineVertexArray);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, lineVertexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
-    
-    glBindVertexArray(0);
+    CreateVertexArray(line, 2, lineVertexBuffer, lineVertexArray);
     
     // Create cuboid vertex array.
     glm::vec3 box[24];
@@ -82,18 +57,7 @@ DebugDrawing::DebugDrawing() {
     box[22] = glm::vec3(0.f, 0.f, 1.f);
     box[23] = glm::vec3(1.f, 0.f, 1.f);
     
-    glGenBuffers(1, &cuboidVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, cuboidVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(glm::vec3), box, GL_STATIC_DRAW);
-    
-    glGenVertexArrays(1, &cuboidVertexArray);
-    glBindVertexArray(cuboidVertexArray);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, cuboidVertexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
+    CreateVertexArray(box, 24, cuboidVertexBuffer, cuboidVertexArray);
     
     // Create plane vertex array.
     glm::vec3 plane[8];
@@ -106,20 +70,7 @@ DebugDrawing::DebugDrawing() {
     plane[6] = glm::vec3(-1.f, 1.f, 0.f);
     plane[7] = glm::vec3(-1.f, -1.f, 0.f);
     
-    glGenBuffers(1, &planeVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, planeVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(glm::vec3), plane, GL_STATIC_DRAW);
-    
-    glGenVertexArrays(1, &planeVertexArray);
-    glBindVertexArray(planeVertexArray);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, planeVertexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
-    
-    glBindVertexArray(0);
+    CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -190,4 +141,21 @@ void DebugDrawing::BindVertexArray(GLuint vertexArray) {
         glBindVertexArray(vertexArray);
         boundVertexArray = vertexArray;
     }
+}
+
+void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray) {
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, positionCount * sizeof(glm::vec3), positions, GL_STATIC_DRAW);
+    
+    glGenVertexArrays(1, &vertexArray);
+    glBindVertexArray(vertexArray);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
+    
+    glBindVertexArray(0);
 }

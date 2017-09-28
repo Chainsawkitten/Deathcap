@@ -129,7 +129,8 @@ namespace Video {
             
         private:
             DebugDrawing(const DebugDrawing & other) = delete;
-
+            
+            static void CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray);
             void BindVertexArray(GLuint vertexArray);
             
             Video::ShaderProgram* shaderProgram;
