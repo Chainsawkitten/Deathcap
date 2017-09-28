@@ -134,7 +134,12 @@ void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
 void DebugDrawing::DrawPlane(const Plane& plane) {
     BindVertexArray(planeVertexArray);
     
-    glm::mat4 model;
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(plane.size, 1.f)));
+    float yaw = atan2(plane.normal.x, plane.normal.z);
+    float pitch = atan2(plane.normal.y, sqrt(plane.normal.x * plane.normal.x + plane.normal.z * plane.normal.z));
+    model = glm::rotate(glm::mat4(), yaw, glm::vec3(0.f, 1.f, 0.f)) * model;
+    model = glm::rotate(glm::mat4(), pitch, glm::vec3(1.f, 0.f, 0.f)) * model;
+    model = glm::translate(glm::mat4(), plane.position) * model;
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
     plane.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
