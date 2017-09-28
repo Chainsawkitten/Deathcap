@@ -143,6 +143,9 @@ namespace Video {
             GLuint cuboidVertexBuffer;
             GLuint cuboidVertexArray;
             
+            GLuint planeVertexBuffer;
+            GLuint planeVertexArray;
+            
             GLuint boundVertexArray = 0;
     };
 }

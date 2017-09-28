@@ -95,6 +95,30 @@ DebugDrawing::DebugDrawing() {
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
     
+    // Create plane vertex array.
+    glm::vec3 plane[8];
+    plane[0] = glm::vec3(-1.f, -1.f, 0.f);
+    plane[1] = glm::vec3(1.f, -1.f, 0.f);
+    plane[2] = glm::vec3(1.f, -1.f, 0.f);
+    plane[3] = glm::vec3(1.f, 1.f, 0.f);
+    plane[4] = glm::vec3(1.f, 1.f, 0.f);
+    plane[5] = glm::vec3(-1.f, 1.f, 0.f);
+    plane[6] = glm::vec3(-1.f, 1.f, 0.f);
+    plane[7] = glm::vec3(-1.f, -1.f, 0.f);
+    
+    glGenBuffers(1, &planeVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, planeVertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(glm::vec3), plane, GL_STATIC_DRAW);
+    
+    glGenVertexArrays(1, &planeVertexArray);
+    glBindVertexArray(planeVertexArray);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, planeVertexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
+    
     glBindVertexArray(0);
 }
 
@@ -107,6 +131,9 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &lineVertexBuffer);
     glDeleteVertexArrays(1, &lineVertexArray);
+    
+    glDeleteBuffers(1, &planeVertexBuffer);
+    glDeleteVertexArrays(1, &planeVertexArray);
     
     delete shaderProgram;
 }
