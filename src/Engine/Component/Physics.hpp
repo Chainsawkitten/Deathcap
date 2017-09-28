@@ -7,11 +7,12 @@ namespace Physics {
     class RigidBody;
     class Shape;
 }
+class PhysicsManager;
 
 namespace Component {
     /// %Component allows interacting with other physics components.
     class Physics : public SuperComponent {
-        friend class PhysicsManager;
+        friend class ::PhysicsManager;
         
         public:
             /// Create new physics component.

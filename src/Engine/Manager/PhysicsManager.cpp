@@ -139,6 +139,22 @@ Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
     physics->gravityFactor = node.get("gravityFactor", 0.f).asFloat();
     physics->momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
     
+    auto shape = node.get("shape", {});
+    if (shape.isMember("sphere")) {
+        auto sphere = shape.get("sphere", {});
+        auto radius = sphere.get("radius", 1.0f).asFloat();
+        auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(radius));
+        physics->rigidBody = new ::Physics::RigidBody(shape, 1.0f);
+    } else if (shape.isMember("plane")) {
+        auto plane = shape.get("plane", {});
+        auto normal = Json::LoadVec3(plane.get("normal", {}));
+        auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
+        auto shape = new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff));
+        physics->rigidBody = new ::Physics::RigidBody(shape, 1.0f);
+    }
+    
+    assert(physics->rigidBody);
+    
     return physics;
 }
 
