@@ -20,7 +20,6 @@ namespace Physics {
         const btCollisionObjectWrapper* colObj0, int partId0, int index0,
         const btCollisionObjectWrapper* colObj1, int partId1, int index1) {
         
-        // The user pointer of the btRigidBody is our wrapping RigidBody instance.
         auto body = static_cast<btRigidBody*>(const_cast<btCollisionObject*>(colObj1->getCollisionObject()));
         
         // Call the corresponding callback
