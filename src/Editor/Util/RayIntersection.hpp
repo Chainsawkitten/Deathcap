@@ -19,7 +19,7 @@ class RayIntersection {
          * @param meshData The bounding box belonging to the mesh that is tested against.
          * @param modelMatrix The model matrix belonging to the mesh that is tested against.
          * @param outputDistance The distance to the entity that is tested to be used as a return value check.
-         * @return bool Whether or not the ray intersects with the entity that is tested against.
+         * @return Whether or not the ray intersects with the entity that is tested against.
          */
         bool RayOBBIntersect(glm::vec3 rayOrigin,
             glm::vec3 rayDirection,
