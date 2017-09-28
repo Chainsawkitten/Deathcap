@@ -31,12 +31,12 @@ GLuint Texture2D::GetTextureID() const {
     return texID;
 }
 
-int Texture2D::GetWidth() const {		
-    return width;		
-}		
- 		
-int Texture2D::GetHeight() const {		
-    return height;		
+int Texture2D::GetWidth() const {
+    return width;
+}
+        
+int Texture2D::GetHeight() const {
+    return height;
 }
 
 void Texture2D::Load(const char* filename, bool srgb) {
