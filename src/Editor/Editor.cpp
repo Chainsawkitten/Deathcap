@@ -245,19 +245,19 @@ void Editor::Show(float deltaTime) {
             mousePicker.Update();
 
             for (int i = 0; i < Hymn().world.GetEntities().size(); ++i) {
+                float intersectDistance;
                 selectedEntity = Hymn().world.GetEntities().at(i);
-
                 if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
 
                     if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
                         selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
-                        selectedEntity->GetModelMatrix())) {
+                        selectedEntity->GetModelMatrix(), intersectDistance)) {
 
-                        resourceView.GetScene().entityEditor.SetEntity(selectedEntity);
-                        resourceView.GetScene().entityEditor.SetVisible(true);
-                        
-                        printf("INTERSECT!: %s\n", selectedEntity->name.c_str());
-                        break;
+                        if (intersectDistance > 0.0f) {
+                            resourceView.GetScene().entityEditor.SetEntity(selectedEntity);
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            break;
+                        }
                     }
                 }
             }

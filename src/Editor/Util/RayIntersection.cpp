@@ -10,7 +10,7 @@ RayIntersection::~RayIntersection() {
     /// Deconstruct something.
 }
 
-bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix) {
+bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix, float &outputDistance) {
 
     float tMin = -INFINITY;
     float tMax = INFINITY;
@@ -56,5 +56,9 @@ bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirectio
         }
     }
 
+    if (tMin > 0)
+        outputDistance = tMin;
+    else
+        outputDistance = tMax;
     return true;
 }

@@ -15,7 +15,8 @@ public:
     bool RayOBBIntersect(glm::vec3 rayOrigin,
         glm::vec3 rayDirection,
         Video::AxisAlignedBoundingBox meshData,
-        glm::mat4 modelMatrix);
+        glm::mat4 modelMatrix,
+        float &outputDistance);
 
 private:
 
