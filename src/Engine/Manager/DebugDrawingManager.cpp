@@ -5,6 +5,7 @@
 #include "../Component/Lens.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "../MainWindow.hpp"
+#include "Managers.hpp"
 
 #include "RenderManager.hpp"
 

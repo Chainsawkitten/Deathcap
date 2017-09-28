@@ -7,7 +7,6 @@
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
 
-#include "../Manager/Managers.hpp"
 
 /// %Entity containing various components.
 class Entity {
