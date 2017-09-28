@@ -20,7 +20,7 @@ class SteamAudioInterface {
          * @param freeCallback Callback for freeing memory. Can be NULL. Default uses free.
          */
         void SetContext(IPLLogFunction logCallback, IPLAllocateFunction allocCallback, IPLFreeFunction freeCallback);
-	
+    
         /// Creates a scene object, to be populated with meshes.
         /**
          * @param settings The settings to use for simulation.
@@ -41,7 +41,7 @@ class SteamAudioInterface {
          * @param progressCallback Callback to check the progress of the finalization. Can be NULL.
          */
         void FinalizeScene(IPLhandle* scene, IPLFinalizeSceneProgressCallback progressCallback);	//Can also create Environment (until we start using multiple scenes)
-	
+    
         /// Everything needed to load a previously finalized scene stored in a byte array.
         struct SaveData {
             IPLSimulationSettings settings;
@@ -101,7 +101,7 @@ class SteamAudioInterface {
          * @param input The audio buffer to be processed.
          * @param sourcePosition The position of the sound source.
          * @param sourceRadius The radius of the source. To determine how much of the source is occluded rather than have it be on/off.
-	     **/
+         **/
         void Process(IPLAudioBuffer input, IPLVector3* sourcePosition, float sourceRadius); // Needs to be called in a way so that there's always at least one processed audio frame ready to go.
 
     private:
