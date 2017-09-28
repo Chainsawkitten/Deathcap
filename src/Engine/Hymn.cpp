@@ -185,6 +185,10 @@ void ActiveHymn::Update(float deltaTime) {
     { PROFILE("Update debug drawing");
         Managers().debugDrawingManager->Update(deltaTime);
     }
+
+    { PROFILE("Synchronize transforms");
+        Managers().physicsManager->UpdateEntityTransforms(world);
+    }
     
     { PROFILE("Clear killed entities/components");
         world.ClearKilled();

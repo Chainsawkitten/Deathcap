@@ -35,6 +35,13 @@ class PhysicsManager : public SuperManager {
          */
         void Update(World& world, float deltaTime);
 
+        /// Update transforms of entities according to positions of physics
+        /// components.
+        /**
+         * @param world The world in which components reside? Wat?
+         */
+        void UpdateEntityTransforms(World& world);
+
         void OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
 
     private:
