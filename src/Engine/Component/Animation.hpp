@@ -4,7 +4,7 @@
 #include "../Geometry/Model.hpp"
 
 namespace Geometry {
-	class Model;
+    class Model;
 }
 
 namespace Component {
