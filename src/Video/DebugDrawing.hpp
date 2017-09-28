@@ -93,6 +93,27 @@ namespace Video {
                 bool depthTesting;
             };
             
+            /// A debug drawing sphere.
+            struct Sphere {
+                /// The center position of the sphere.
+                glm::vec3 position;
+                
+                /// Radius.
+                float radius;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
             /// Create new debug primitive renderer.
             DebugDrawing();
             

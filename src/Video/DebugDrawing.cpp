@@ -148,6 +148,7 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
     glLineWidth(plane.lineWidth);
     glDrawArrays(GL_LINES, 0, 8);
 }
+
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
     BindVertexArray(0);
