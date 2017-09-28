@@ -23,6 +23,7 @@
 
 #include "Managers.hpp"
 #include "DebugDrawingManager.hpp"
+#include "ResourceManager.hpp"
 
 using namespace Component;
 
@@ -397,7 +398,7 @@ void ScriptManager::BuildAllScripts() {
 
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
-    for (Script* script : GetComponents<Script>(&world)) {
+    for (Script* script : scripts.GetAll()) {
         if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
             CreateInstance(script);
             script->initialized = true;
@@ -465,6 +466,28 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
     message.recipient = recipient;
     message.type = type;
     messages.push_back(message);
+}
+
+Component::Script* ScriptManager::CreateScript() {
+    return scripts.Create();
+}
+
+Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
+    Component::Script* script = scripts.Create();
+    
+    // Load values from Json node.
+    std::string name = node.get("scriptName", "").asString();
+    script->scriptFile = Managers().resourceManager->CreateScriptFile(name);
+    
+    return script;
+}
+
+const std::vector<Component::Script*>& ScriptManager::GetScripts() const {
+    return scripts.GetAll();
+}
+
+void ScriptManager::ClearKilledComponents() {
+    scripts.ClearKilled();
 }
 
 void ScriptManager::CreateInstance(Component::Script* script) {
