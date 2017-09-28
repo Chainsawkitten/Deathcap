@@ -19,12 +19,12 @@
 #include "../Hymn.hpp"
 #include <fstream>
 
-Entity::Entity(World* world, const std::string& name) : name ( name ) {
+Entity::Entity(World* world, const std::string& name) : name(name) {
     this->world = world;
 }
 
 Entity::~Entity() {
-    
+
 }
 
 Entity* Entity::GetParent() const {
@@ -46,11 +46,11 @@ bool Entity::SetParent(Entity* newParent) {
             parent->RemoveChild(this);
             parent = newParent;
             newParent->children.push_back(this);
-            
+
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -67,7 +67,7 @@ bool Entity::HasChild(const Entity* check_child, bool deep) const {
 
 Entity* Entity::InstantiateScene(const std::string& name) {
     Entity* child = AddChild();
-    
+
     // Load scene.
     std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + ".json";
     if (FileSystem::FileExists(filename.c_str())) {
@@ -76,14 +76,15 @@ Entity* Entity::InstantiateScene(const std::string& name) {
         file >> root;
         file.close();
         child->Load(root);
-        
+
         child->scene = true;
         child->sceneName = name;
-    } else {
+    }
+    else {
         child->name = "Error loading scene";
         Log() << "Couldn't find scene to load.";
     }
-    
+
     return child;
 }
 
@@ -96,7 +97,7 @@ Entity* Entity::GetChild(const std::string& name) const {
         if (child->name == name)
             return child;
     }
-    
+
     return nullptr;
 }
 
@@ -107,7 +108,7 @@ bool Entity::RemoveChild(Entity* child) {
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -117,13 +118,13 @@ bool Entity::IsScene() const {
 
 void Entity::Kill() {
     killed = true;
-    
+
     for (auto& it : components)
         it.second->Kill();
-    
+
     for (Entity* child : children)
         child->Kill();
-    
+
     // Remove this entity from the parent's list of children.
     parent->RemoveChild(this);
 
@@ -141,10 +142,11 @@ Json::Value Entity::Save() const {
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
     entity["uid"] = uniqueIdentifier;
-    
+
     if (scene) {
         entity["sceneName"] = sceneName;
-    } else {
+    }
+    else {
         // Save components.
         Save<Component::Animation>(entity, "Animation");
         Save<Component::Lens>(entity, "Lens");
@@ -158,23 +160,23 @@ Json::Value Entity::Save() const {
         Save<Component::Script>(entity, "Script");
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
-        
+
         // Save children.
         Json::Value childNodes;
         for (Entity* child : children)
             childNodes.append(child->Save());
         entity["children"] = childNodes;
     }
-    
+
     return entity;
 }
 
 void Entity::Load(const Json::Value& node) {
     scene = node["scene"].asBool();
-    
+
     if (scene) {
         sceneName = node["sceneName"].asString();
-        
+
         // Load scene.
         std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + sceneName + ".json";
         Json::Value root;
@@ -182,9 +184,10 @@ void Entity::Load(const Json::Value& node) {
         file >> root;
         file.close();
         Load(root);
-        
+
         scene = true;
-    } else {
+    }
+    else {
         // Load components.
         Load<Component::Animation>(node, "Animation");
         Load<Component::Lens>(node, "Lens");
@@ -198,31 +201,37 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::Script>(node, "Script");
         Load<Component::SoundSource>(node, "SoundSource");
         Load<Component::ParticleEmitter>(node, "ParticleEmitter");
-        
+
         // Load children.
-        for (unsigned int i=0; i < node["children"].size(); ++i) {
+        for (unsigned int i = 0; i < node["children"].size(); ++i) {
             Entity* entity = AddChild("");
             entity->Load(node["children"][i]);
         }
     }
-    
+
     name = node.get("name", "").asString();
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
     uniqueIdentifier = node.get("uid", 0).asUInt();
-    
+
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
-    glm::mat4 matrix = glm::translate(glm::mat4(), position) * GetOrientation() * glm::scale(glm::mat4(), scale);
-    
+    glm::mat4 matrix = GetLocalMatrix();
+
     if (parent != nullptr)
         matrix = parent->GetModelMatrix() * matrix;
-    
+
     return matrix;
 }
 
+glm::mat4 Entity::GetLocalMatrix() const {
+
+    return glm::translate(glm::mat4(), position) * GetOrientation() * glm::scale(glm::mat4(), scale);
+
+
+}
 glm::mat4 Entity::GetOrientation() const {
     glm::mat4 orientation;
     orientation = glm::rotate(orientation, glm::radians(rotation.x), glm::vec3(0.f, 1.f, 0.f));
@@ -244,7 +253,7 @@ glm::vec3 Entity::GetDirection() const {
 glm::vec3 Entity::GetWorldPosition() const {
     if (parent != nullptr)
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
-    
+
     return position;
 }
 
