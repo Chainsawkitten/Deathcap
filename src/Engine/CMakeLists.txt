@@ -25,6 +25,7 @@ set(SRCS
         Component/Physics.cpp
         Component/PointLight.cpp
         Component/Script.cpp
+        Component/Shape.cpp
         Component/SoundSource.cpp
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
@@ -37,7 +38,6 @@ set(SRCS
         Geometry/Model.cpp
         Geometry/Skeleton.cpp
         Manager/Managers.cpp
-        Manager/SuperManager.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
         Manager/ProfilingManager.cpp
@@ -80,9 +80,11 @@ set(HEADERS
         Component/Physics.hpp
         Component/PointLight.hpp
         Component/Script.hpp
+        Component/Shape.hpp
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
+        Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
         Geometry/Animation.hpp
@@ -92,7 +94,6 @@ set(HEADERS
         Geometry/Model.hpp
         Geometry/Skeleton.hpp
         Manager/Managers.hpp
-        Manager/SuperManager.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
         Manager/ProfilingManager.hpp

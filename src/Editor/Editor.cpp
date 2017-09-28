@@ -50,6 +50,7 @@ Editor::Editor() {
 
     // Create editor camera.
     cameraEntity = cameraWorld.CreateEntity("Editor Camera");
+    cameraEntity->enabled = false;
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
 

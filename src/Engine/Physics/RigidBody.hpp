@@ -41,6 +41,18 @@ namespace Physics {
              */
             btRigidBody* GetRigidBody();
 
+            /// Get the shape associated with the rigid body.
+            /**
+             * @return The %Shape of the rigid body.
+             */
+            Physics::Shape& GetShape();
+
+            /// Set the shape of a rigid body.
+            /**
+             * @param shape The new shape (takes ownership).
+             */
+            void SetShape(Physics::Shape* shape);
+
         private:
             RigidBody(RigidBody& other) = delete;
             void operator=(RigidBody& rhs) = delete;
