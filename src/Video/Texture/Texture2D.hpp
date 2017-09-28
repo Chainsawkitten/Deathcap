@@ -39,18 +39,6 @@ namespace Video {
              */
             GLuint GetTextureID() const override;
             
-            /// Get the width of the texture.
-            /**
-             * @return The width of the texture in texels
-             */
-            int GetWidth() const override;
-            
-            /// Get the height of the texture.
-            /**
-             * @return The height of the texture in texels
-             */
-            int GetHeight() const override;
-            
             /// Set how coordinates outside 0..1 are handled.
             /**
              * Default: GL_REPEAT
