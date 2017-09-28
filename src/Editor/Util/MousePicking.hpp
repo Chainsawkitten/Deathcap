@@ -27,7 +27,7 @@ class MousePicking {
 
         /// Updates the mouse picker's projection matrix
         /**
-         * @projection The projection matrix to update with.
+         * @param projection The projection matrix to update with.
          */
         void UpdateProjectionMatrix(const glm::mat4& projection);
 
