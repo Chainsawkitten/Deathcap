@@ -100,13 +100,13 @@ void SceneEditor::ShowEntity(Entity* entity) {
     bool opened = ImGui::TreeNodeEx(entity->name.c_str(), leaf ? ImGuiTreeNodeFlags_Leaf : 0);
     bool instantiate = false;
 
-	//If we pressed down on and started dragging on the entity.
-	if (draggedEntity == nullptr && ImGui::IsItemActive())
-		draggedEntity = entity;
+    //If we pressed down on and started dragging on the entity.
+    if (draggedEntity == nullptr && ImGui::IsItemActive())
+        draggedEntity = entity;
 
     if (draggedItemState == DraggedItemState::ACTIVE && draggedEntity == entity && !ImGui::IsItemActive())
         draggedItemState = DraggedItemState::DEACTIVATE;
-	
+    
     if (draggedItemState == DraggedItemState::DEACTIVATED_THIS_FRAME && ImGui::IsItemHovered() && draggedEntity != entity)
         draggedEntity->SetParent(entity);
 
@@ -115,7 +115,7 @@ void SceneEditor::ShowEntity(Entity* entity) {
             entityPressed = true;
             entityEditor.SetEntity(entity);
         }
-		
+        
         if (!entity->IsScene()) {
             if (ImGui::Selectable("Add child")) 
                 entity->AddChild("Entity #" + std::to_string(Hymn().entityNumber++));
