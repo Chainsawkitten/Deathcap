@@ -66,7 +66,7 @@ Editor::Editor() {
     close = false;
 
     // Ray mouse.
-    mousePicker.CreateMousePicker(cameraEntity, cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+    mousePicker = MousePicking(cameraEntity, cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
 }
 
 Editor::~Editor() {
@@ -246,7 +246,7 @@ void Editor::Show(float deltaTime) {
             mousePicker.Update();
 
             for (int i = 0; i < Hymn().world.GetEntities().size(); ++i) {
-                float intersectDistance;
+                float intersectDistance = 0.0f;
                 selectedEntity = Hymn().world.GetEntities().at(i);
                 if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
 

@@ -1,13 +1,11 @@
 #include "RayIntersection.hpp"
 
-#include <iostream>
-
 RayIntersection::RayIntersection() {
-    /// Construct something.
+    
 }
 
 RayIntersection::~RayIntersection() {
-    /// Deconstruct something.
+    
 }
 
 bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix, float &outputDistance) {
@@ -48,6 +46,9 @@ bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirectio
                 tMin = t1;
 
             if (tMax < tMin)
+                return false;
+
+            if (tMax < 0)
                 return false;
 
         } else {

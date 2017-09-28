@@ -8,6 +8,7 @@
 #include "../Component/SoundSource.hpp"
 #include "../Component/Physics.hpp"
 #include "../Audio/SoundBuffer.hpp"
+#include "Managers.hpp"
 #include "ResourceManager.hpp"
 
 // Scaling constant. Used to convert from our units to sound system units.
