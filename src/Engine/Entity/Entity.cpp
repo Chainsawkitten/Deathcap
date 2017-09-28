@@ -225,16 +225,17 @@ glm::mat4 Entity::GetModelMatrix() const {
 
 glm::mat4 Entity::GetOrientation() const {
     glm::mat4 orientation;
-    orientation = glm::rotate(orientation, glm::radians(rotation.x), glm::vec3(0.f, 1.f, 0.f));
-    orientation = glm::rotate(orientation, glm::radians(rotation.y), glm::vec3(1.f, 0.f, 0.f));
+    orientation = glm::rotate(orientation, glm::radians(rotation.x), glm::vec3(1.f, 0.f, 0.f));
+    orientation = glm::rotate(orientation, glm::radians(rotation.y), glm::vec3(0.f, 1.f, 0.f));
     return glm::rotate(orientation, glm::radians(rotation.z), glm::vec3(0.f, 0.f, 1.f));
 }
 
 glm::mat4 Entity::GetCameraOrientation() const {
-    glm::mat4 orientation;
-    orientation = glm::rotate(orientation, glm::radians(rotation.z), glm::vec3(0.f, 0.f, 1.f));
-    orientation = glm::rotate(orientation, glm::radians(rotation.y), glm::vec3(1.f, 0.f, 0.f));
-    return glm::rotate(orientation, glm::radians(rotation.x), glm::vec3(0.f, 1.f, 0.f));
+    //glm::mat4 orientation;
+    //orientation = glm::rotate(orientation, glm::radians(rotation.z), glm::vec3(0.f, 0.f, 1.f));
+    //orientation = glm::rotate(orientation, glm::radians(rotation.y), glm::vec3(0.f, 1.f, 0.f));
+    //return glm::rotate(orientation, glm::radians(rotation.x), glm::vec3(1.f, 0.f, 0.f));
+    //return glm::inverse(GetOrientation());
 }
 
 glm::vec3 Entity::GetDirection() const {

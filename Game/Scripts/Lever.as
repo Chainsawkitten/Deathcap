@@ -13,11 +13,11 @@ class Lever {
     
     void Update(float deltaTime){
         if (Input(OpenGate)){
-            if(self.rotation.y <= -45.0f){
+            if(self.rotation.x <= -45.0f){
                 SendMessage(sibling, 1);
             }
             else
-                self.rotation.y -= 0.3;
+                self.rotation.x -= 0.3;
             
         }
     }
