@@ -97,6 +97,8 @@ void RenderManager::Render(World& world, Entity* camera) {
 
             vr::Texture_t texture = { hmdRenderSurface->GetColorTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
             Managers().vrManager->Submit(eye, &texture);
+
+            Managers().vrManager->Sync();
         }
     }
 }
