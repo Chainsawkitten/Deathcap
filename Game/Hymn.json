@@ -32,25 +32,6 @@
 			"size" : 1
 		}
 	],
-<<<<<<< HEAD
-	"models" : 
-	[
-		{
-			"name" : "CartSecond",
-			"type" : "Static"
-		},
-		{
-			"name" : "Cave",
-			"type" : "Static"
-		}
-	],
-	"scenes" : 
-	[
-		"TestScene",
-		"Scene #1"
-	],
-=======
->>>>>>> 51e3ed2a85ae1bd8df930654a14137ef8a72a404
 	"scripts" : 
 	[
 		"Player",
