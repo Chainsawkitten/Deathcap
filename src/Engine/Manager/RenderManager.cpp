@@ -80,20 +80,24 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (mainWindowRenderSurface != nullptr) {
             const glm::vec3 position = camera->GetWorldPosition();
             const glm::mat4 orientationMat = camera->GetCameraOrientation();
-            const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize()));
+            const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
 
             Render(world, position, orientationMat, projectionMat, mainWindowRenderSurface);
         }
 
-        //// Render hmd.
-        //if (hmdRenderSurface != nullptr) {
-        //    glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
-        //    glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(hmdRenderSurface->GetSize()));
-        //    glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        //    glm::vec3 up(glm::inverse(camera->GetCameraOrientation())* glm::vec4(0, 1, 0, 1));
+        // Render hmd.
+        if (hmdRenderSurface != nullptr) {
+            const vr::EVREye eye = vr::Eye_Left;
+            const glm::vec3 position = camera->GetWorldPosition();
+            const glm::mat4 orientationMat = glm::mat4(); // TODO
+            Lens* lens = camera->GetComponent<Lens>();
+            const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(eye, lens->zNear, lens->zFar);
 
-        //    Render(world, camera, hmdRenderSurface);
-        //}
+            Render(world, position, orientationMat, projectionMat, hmdRenderSurface);
+
+            vr::Texture_t texture = { hmdRenderSurface->GetColorTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+            Managers().vrManager->Submit(eye, &texture);
+        }
     }
 }
 

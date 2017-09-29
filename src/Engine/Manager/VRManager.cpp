@@ -83,6 +83,17 @@ glm::mat4 VRManager::GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float 
     return ConvertMatrix(vrSystem->GetProjectionMatrix(eye, zNear, zFar));
 }
 
+void VRManager::Submit(vr::Hmd_Eye eye, vr::Texture_t* texture) const {
+    if (vrSystem == nullptr) {
+        Log() << "No initialized VR device.\n";
+        return;
+    }
+
+    const vr::EVRCompositorError eError = vr::VRCompositor()->Submit(eye, texture);
+    if (eError != vr::VRCompositorError_None)
+        Log() << "Unable to submit texture to hmd: " << eError << "\n";
+}
+
 glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix34_t& mat)
 {
     glm::mat4 glmMat(

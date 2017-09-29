@@ -45,6 +45,9 @@ class VRManager : public SuperManager {
          * @return The projection matrix.
          */
         glm::mat4 GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float zFar) const;
+
+        // todo
+        void Submit(vr::Hmd_Eye eye, vr::Texture_t* texture) const;
         
     private:
         VRManager();
