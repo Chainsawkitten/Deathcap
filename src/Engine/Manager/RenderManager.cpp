@@ -2,6 +2,7 @@
 
 #include <Video/Renderer.hpp>
 #include <Video/RenderSurface.hpp>
+#include <Video/ReadWriteTexture.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
@@ -95,7 +96,7 @@ void RenderManager::Render(World& world, Entity* camera) {
 
             Render(world, position, orientationMat, projectionMat, hmdRenderSurface);
 
-            vr::Texture_t texture = { hmdRenderSurface->GetColorTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+            vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
             Managers().vrManager->Submit(eye, &texture);
 
             Managers().vrManager->Sync();
