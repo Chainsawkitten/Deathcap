@@ -74,17 +74,10 @@ DebugDrawing::DebugDrawing() {
     CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
     
     // Create sphere vertex array.
-    glm::vec3 sphere[8];
-    sphere[0] = glm::vec3(-1.f, -1.f, 0.f);
-    sphere[1] = glm::vec3(1.f, -1.f, 0.f);
-    sphere[2] = glm::vec3(1.f, -1.f, 0.f);
-    sphere[3] = glm::vec3(1.f, 1.f, 0.f);
-    sphere[4] = glm::vec3(1.f, 1.f, 0.f);
-    sphere[5] = glm::vec3(-1.f, 1.f, 0.f);
-    sphere[6] = glm::vec3(-1.f, 1.f, 0.f);
-    sphere[7] = glm::vec3(-1.f, -1.f, 0.f);
-    
-    CreateVertexArray(sphere, 8, sphereVertexBuffer, sphereVertexArray);
+    glm::vec3* sphere;
+    CreateSphere(sphere, sphereVertexCount, 5);
+    CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
+    delete[] sphere;
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -173,7 +166,7 @@ void DebugDrawing::DrawSphere(const Sphere& sphere) {
     glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &sphere.color[0]);
     glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
     glLineWidth(sphere.lineWidth);
-    glDrawArrays(GL_LINES, 0, 8);
+    glDrawArrays(GL_LINES, 0, sphereVertexCount);
 }
 
 void DebugDrawing::EndDebugDrawing() {
@@ -205,8 +198,22 @@ void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int po
     glBindVertexArray(0);
 }
 
-void DebugDrawing::CreateSphere(glm::vec3** positions, unsigned int parallels, unsigned int meridians) {
-    for (unsigned int parallel = 0; parallel < parallels; ++parallel) {
-        /// @todo
+// Create UV-sphere with given number of parallel and meridian lines.
+void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = (detail - 1) * detail * 2;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int m = 1; m < detail; ++m) {
+        float meridian = glm::pi<float>() * m / detail;
+        for (unsigned int p = 0; p <= detail; ++p) {
+            float parallel = 2.0f * glm::pi<float>() * p / detail;
+            float angle = glm::pi<float>() * 0.5f - meridian;
+            float y = sin(angle);
+            float x = cos(angle);
+            positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+            if (p > 0 && p < detail)
+                positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+        }
     }
 }
