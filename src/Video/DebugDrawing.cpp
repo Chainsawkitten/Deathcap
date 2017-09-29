@@ -75,7 +75,7 @@ DebugDrawing::DebugDrawing() {
     
     // Create sphere vertex array.
     glm::vec3* sphere;
-    CreateSphere(sphere, sphereVertexCount, 5);
+    CreateSphere(sphere, sphereVertexCount, 14);
     CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
     delete[] sphere;
 }
@@ -200,9 +200,10 @@ void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int po
 
 // Create UV-sphere with given number of parallel and meridian lines.
 void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
-    vertexCount = (detail - 1) * detail * 2;
+    vertexCount = detail * (4 * detail - 2);
     positions = new glm::vec3[vertexCount];
     
+    // Horizontal lines (meridians).
     unsigned int i = 0;
     for (unsigned int m = 1; m < detail; ++m) {
         float meridian = glm::pi<float>() * m / detail;
@@ -213,6 +214,20 @@ void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount
             float x = cos(angle);
             positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
             if (p > 0 && p < detail)
+                positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+        }
+    }
+    
+    // Vertical lines (parallels).
+    for (unsigned int p = 0; p < detail; ++p) {
+        float parallel = 2.0f * glm::pi<float>() * p / detail;
+        for (unsigned int m = 0; m <= detail; ++m) {
+            float meridian = glm::pi<float>() * m / detail;
+            float angle = glm::pi<float>() * 0.5f - meridian;
+            float y = sin(angle);
+            float x = cos(angle);
+            positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+            if (m > 0 && m < detail)
                 positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
         }
     }
