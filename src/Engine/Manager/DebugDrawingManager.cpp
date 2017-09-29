@@ -51,6 +51,18 @@ void DebugDrawingManager::AddCuboid(const glm::vec3& minCoordinates, const glm::
     cuboids.push_back(cuboid);
 }
 
+void DebugDrawingManager::AddPlane(const glm::vec3& position, const glm::vec3& normal, const glm::vec2& size, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Plane plane;
+    plane.position = position;
+    plane.normal = normal;
+    plane.size = size;
+    plane.color = color;
+    plane.lineWidth = lineWidth;
+    plane.duration = duration;
+    plane.depthTesting = depthTesting;
+    planes.push_back(plane);
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
@@ -74,7 +86,7 @@ void DebugDrawingManager::Update(float deltaTime) {
         }
     }
     
-    // Cuboid.
+    // Cuboids.
     for (std::size_t i=0; i < cuboids.size(); ++i) {
         if (cuboids[i].duration < 0.f) {
             cuboids[i] = cuboids[cuboids.size() - 1];
@@ -82,6 +94,17 @@ void DebugDrawingManager::Update(float deltaTime) {
             --i;
         } else {
             cuboids[i].duration -= deltaTime;
+        }
+    }
+    
+    // Planes.
+    for (std::size_t i=0; i < planes.size(); ++i) {
+        if (planes[i].duration < 0.f) {
+            planes[i] = planes[planes.size() - 1];
+            planes.pop_back();
+            --i;
+        } else {
+            planes[i].duration -= deltaTime;
         }
     }
 }
@@ -114,6 +137,10 @@ void DebugDrawingManager::Render(Entity* camera) {
         // Cuboids.
         for (const DebugDrawing::Cuboid& cuboid : cuboids)
             debugDrawing->DrawCuboid(cuboid);
+       
+        // Planes.
+        for (const DebugDrawing::Plane& plane : planes)
+            debugDrawing->DrawPlane(plane);
         
         debugDrawing->EndDebugDrawing();
     }
