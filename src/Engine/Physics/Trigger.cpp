@@ -19,8 +19,9 @@ namespace Physics {
     btScalar Trigger::addSingleResult(btManifoldPoint& cp,
         const btCollisionObjectWrapper* colObj0, int partId0, int index0,
         const btCollisionObjectWrapper* colObj1, int partId1, int index1) {
-        
-        auto body = static_cast<btRigidBody*>(const_cast<btCollisionObject*>(colObj1->getCollisionObject()));
+
+        auto otherCollisionObject = (colObj0->getCollisionObject() == trigger) ? colObj1 : colObj0;
+        auto body = static_cast<btRigidBody*>(const_cast<btCollisionObject*>(otherCollisionObject->getCollisionObject()));
         
         // Call the corresponding callback
         observers[body]();
