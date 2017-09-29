@@ -7,6 +7,8 @@
 #include <Utility/Log.hpp>
 #include "../Util/FileSystem.hpp"
 #include "../Util/Input.hpp"
+#include "../Util/RayIntersection.hpp"
+#include "../Util/MousePicking.hpp"
 #include "../Hymn.hpp"
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
@@ -20,10 +22,12 @@
 #include "../Component/SpotLight.hpp"
 #include "../Input/Input.hpp"
 #include "../Script/ScriptFile.hpp"
+#include "MainWindow.hpp"
 
 #include "Managers.hpp"
 #include "DebugDrawingManager.hpp"
 #include "ResourceManager.hpp"
+#include "Component/Mesh.hpp"
 
 using namespace Component;
 
@@ -63,6 +67,21 @@ glm::vec2 GetCursorXY() {
 
 void SendMessage(Entity* recipient, int type) {
     Managers().scriptManager->SendMessage(recipient, type);
+}
+
+bool IsIntersect(Entity* checker, Entity* camera) {
+    MousePicking mousePicker = MousePicking(camera, camera->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+    mousePicker.Update();
+    RayIntersection rayIntersector;
+    float intersectDistance;
+    if (rayIntersector.RayOBBIntersect(camera->GetWorldPosition(), mousePicker.GetCurrentRay(),
+        checker->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
+        checker->GetModelMatrix(), intersectDistance)) {
+        if (intersectDistance < 10.0f)
+            return true;
+        return false;
+    }
+    return false;
 }
 
 void vec2Constructor(float x, float y, void* memory) {
@@ -332,6 +351,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {
