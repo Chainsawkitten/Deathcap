@@ -16,13 +16,8 @@ bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirectio
     glm::vec3 worldPos = glm::vec3(modelMatrix[3].x, modelMatrix[3].y, modelMatrix[3].z);
     glm::vec3 delta = worldPos - rayOrigin;
 
-    glm::vec3 xyzAxis[3];
     float minValue[3] = { meshData.minVertex.x, meshData.minVertex.y, meshData.minVertex.z };
     float maxValue[3] = { meshData.maxVertex.x, meshData.maxVertex.y, meshData.maxVertex.z };
-
-    for (int i = 0; i < 3; i++) {
-        xyzAxis[i] = glm::vec3(modelMatrix[i].x, modelMatrix[i].y, modelMatrix[i].z);
-    }
 
     for (int i = 0; i < 3; i++) {
 

@@ -388,7 +388,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         for (size_t i = 0; i != script->refList.size(); ++i) {
             ImGui::Text(script->refList[i]->name.c_str());
             ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-            if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
+            if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())) {
                 script->refList.erase(script->refList.begin() + i);
                 break;
             }
