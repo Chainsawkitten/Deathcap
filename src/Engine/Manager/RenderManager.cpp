@@ -88,17 +88,20 @@ void RenderManager::Render(World& world, Entity* camera) {
 
         // Render hmd.
         if (hmdRenderSurface != nullptr) {
-            const vr::EVREye eye = vr::Eye_Left;
-            const glm::vec3 position = camera->GetWorldPosition();
-            const glm::mat4 orientationMat = glm::mat4(); // TODO
-            Lens* lens = camera->GetComponent<Lens>();
-            const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(eye, lens->zNear, lens->zFar);
+			for (int i = 0; i < 2; ++i)
+			{
+				const vr::Hmd_Eye eye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
+				const glm::vec3 position = camera->GetWorldPosition();
+				const glm::mat4 orientationMat = glm::mat4(); // TODO
+				Lens* lens = camera->GetComponent<Lens>();
+				const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(eye, lens->zNear, lens->zFar);
 
-            Render(world, position, orientationMat, projectionMat, hmdRenderSurface);
+				Render(world, position, orientationMat, projectionMat, hmdRenderSurface);
 
-            vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
-            Managers().vrManager->Submit(eye, &texture);
-
+				vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+				Managers().vrManager->Submit(eye, &texture);
+			}
+            
             Managers().vrManager->Sync();
         }
     }
