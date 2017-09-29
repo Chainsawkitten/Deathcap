@@ -347,7 +347,6 @@ void Editor::Show(float deltaTime) {
         glfwSetCursor(MainWindow::GetInstance()->GetGLFWWindow(), cursors[ImGui::GetMouseCursor()]);
     }
 
-
     // Widget Controller for translation, rotation  and scale.
     ImGuizmo::BeginFrame();
     ImGuizmo::Enable(true);
