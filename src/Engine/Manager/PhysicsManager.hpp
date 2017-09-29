@@ -40,6 +40,12 @@ class PhysicsManager {
         /// components.
         void UpdateEntityTransforms();
         
+        /// Set up listener for when |object| has entered |triggerBody|.
+        /**
+         * @param triggerBody Physics component of the trigger volume.
+         * @param object Physics component of the body that is to enter the trigger.
+         * @param callback Function to call when resolving event.
+         */
         void OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
         
         /// Create physics component.

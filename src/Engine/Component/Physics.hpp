@@ -36,6 +36,10 @@ namespace Component {
              */
             void SetShape(::Physics::Shape* shape);
             
+            /// Get the rigid body of a physics component.
+            /**
+             * @return The rigid body.
+             */
             ::Physics::RigidBody& GetRigidBody();
             
             /// Velocity (in meter/second).

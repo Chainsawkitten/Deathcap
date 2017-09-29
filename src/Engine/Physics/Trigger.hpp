@@ -21,7 +21,7 @@ namespace Physics {
         public:
             /// Constructor.
             /**
-             * @param shape The shape of the trigger volume.
+             * @param comp The physics component that represents the trigger volume.
              */
             Trigger(Component::Physics* comp);
 
@@ -43,6 +43,10 @@ namespace Physics {
             void Process(btCollisionWorld& world);
 
             /// Implementation of ITrigger::OnEnter.
+            /**
+             * @param body The physics component representing the body that is to enter the trigger volume.
+             * @param observer Function that is called when event is fired.
+             */
             virtual void OnEnter(Component::Physics* body, std::function<void()> observer) override;
 
         private:
