@@ -87,7 +87,7 @@ void Renderer::Clear() {
 }
 
 void Renderer::StartRendering(RenderSurface* renderSurface) {
-    renderSurface->GetDeferredFrameBuffer()->SetTarget();
+    //renderSurface->GetDeferredFrameBuffer()->SetTarget();
     lighting->ClearLights();
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -99,7 +99,7 @@ void Renderer::AddLight(const Video::Light& light) {
 }
 
 void Renderer::Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
-    lighting->Render(inverseProjectionMatrix, renderSurface);
+    //lighting->Render(inverseProjectionMatrix, renderSurface);
 }
 
 void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
@@ -119,35 +119,35 @@ void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, co
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
-    fxaaFilter->SetScreenSize(renderSurface->GetSize());
-    postProcessing->ApplyFilter(renderSurface, fxaaFilter);
+    //fxaaFilter->SetScreenSize(renderSurface->GetSize());
+    //postProcessing->ApplyFilter(renderSurface, fxaaFilter);
 }
 
 void Renderer::RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color) {
-    fogFilter->SetProjectionMatrix(projectionMatrix);
+    /*fogFilter->SetProjectionMatrix(projectionMatrix);
     fogFilter->SetDensity(density);
     fogFilter->SetColor(color);
-    postProcessing->ApplyFilter(renderSurface, fogFilter);
+    postProcessing->ApplyFilter(renderSurface, fogFilter);*/
 }
 
 void Renderer::ApplyGlow(RenderSurface* renderSurface, int blurAmount) {
-    glowBlurFilter->SetScreenSize(renderSurface->GetSize());
+    /*glowBlurFilter->SetScreenSize(renderSurface->GetSize());
     for (int i = 0; i < blurAmount; ++i) {
         glowBlurFilter->SetHorizontal(true);
         postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
         glowBlurFilter->SetHorizontal(false);
         postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
     }
-    postProcessing->ApplyFilter(renderSurface, glowFilter);
+    postProcessing->ApplyFilter(renderSurface, glowFilter);*/
 }
 
 void Renderer::ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color) {
-    colorFilter->SetColor(color);
-    postProcessing->ApplyFilter(renderSurface, colorFilter);
+    /*colorFilter->SetColor(color);
+    postProcessing->ApplyFilter(renderSurface, colorFilter);*/
 }
 
 void Renderer::DisplayResults(RenderSurface* renderSurface, bool dither) {
-    postProcessing->Render(renderSurface, dither);
+    //postProcessing->Render(renderSurface, dither);
 }
 
 void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp) {

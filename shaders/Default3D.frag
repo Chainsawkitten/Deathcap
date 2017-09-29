@@ -14,10 +14,8 @@ uniform sampler2D mapNormal;
 uniform sampler2D mapMetallic;
 uniform sampler2D mapRoughness;
 
-layout(location = 0) out vec3 diffuseOut;
-layout(location = 1) out vec3 normalsOut;
-layout(location = 2) out vec3 specularOut;
-layout(location = 3) out vec3 glowOut;
+layout(location = 0) out vec4 fragmentColor;
+
 
 // Calculate normal based on interpolated vertex normal, sampled normal (from normal map) and vertex tangent.
 vec3 calculateNormal(in vec3 normal, in vec3 tangent, in vec3 normalFromMap) {
@@ -34,8 +32,7 @@ vec3 calculateNormal(in vec3 normal, in vec3 tangent, in vec3 normalFromMap) {
 }
 
 void main() {
-    diffuseOut = texture(mapAlbedo, vertexIn.texCoords).rgb;
-    normalsOut = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
-    specularOut = texture(mapMetallic, vertexIn.texCoords).rgb;
-    glowOut = texture(mapRoughness, vertexIn.texCoords).rgb * diffuseOut;
+
+    vec3 color = texture(mapAlbedo, vertexIn.texCoords).rgb;
+    fragmentColor = vec4(color,0);
 }
