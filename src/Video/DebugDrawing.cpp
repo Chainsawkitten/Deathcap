@@ -5,6 +5,7 @@
 #include "Shader/ShaderProgram.hpp"
 #include "DebugDrawing.vert.hpp"
 #include "DebugDrawing.frag.hpp"
+#include "glm/gtc/constants.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
@@ -71,6 +72,12 @@ DebugDrawing::DebugDrawing() {
     plane[7] = glm::vec3(-1.f, -1.f, 0.f);
     
     CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
+    
+    // Create sphere vertex array.
+    glm::vec3* sphere;
+    CreateSphere(sphere, sphereVertexCount, 14);
+    CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
+    delete[] sphere;
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -148,6 +155,21 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
     glLineWidth(plane.lineWidth);
     glDrawArrays(GL_LINES, 0, 8);
 }
+
+void DebugDrawing::DrawSphere(const Sphere& sphere) {
+    BindVertexArray(sphereVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(sphere.radius, sphere.radius, sphere.radius)));
+    model = glm::translate(glm::mat4(), sphere.position) * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    sphere.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &sphere.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(sphere.lineWidth);
+    glDrawArrays(GL_LINES, 0, sphereVertexCount);
+}
+
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
     BindVertexArray(0);
@@ -175,4 +197,39 @@ void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int po
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
     
     glBindVertexArray(0);
+}
+
+// Create UV-sphere with given number of parallel and meridian lines.
+void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * (4 * detail - 2);
+    positions = new glm::vec3[vertexCount];
+    
+    // Horizontal lines (meridians).
+    unsigned int i = 0;
+    for (unsigned int m = 1; m < detail; ++m) {
+        float meridian = glm::pi<float>() * m / detail;
+        for (unsigned int p = 0; p <= detail; ++p) {
+            float parallel = 2.0f * glm::pi<float>() * p / detail;
+            float angle = glm::pi<float>() * 0.5f - meridian;
+            float y = sin(angle);
+            float x = cos(angle);
+            positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+            if (p > 0 && p < detail)
+                positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+        }
+    }
+    
+    // Vertical lines (parallels).
+    for (unsigned int p = 0; p < detail; ++p) {
+        float parallel = 2.0f * glm::pi<float>() * p / detail;
+        for (unsigned int m = 0; m <= detail; ++m) {
+            float meridian = glm::pi<float>() * m / detail;
+            float angle = glm::pi<float>() * 0.5f - meridian;
+            float y = sin(angle);
+            float x = cos(angle);
+            positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+            if (m > 0 && m < detail)
+                positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+        }
+    }
 }
