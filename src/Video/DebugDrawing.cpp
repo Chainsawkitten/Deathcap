@@ -159,7 +159,8 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
 void DebugDrawing::DrawSphere(const Sphere& sphere) {
     BindVertexArray(sphereVertexArray);
     
-    glm::mat4 model;
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(sphere.radius, sphere.radius, sphere.radius)));
+    model = glm::translate(glm::mat4(), sphere.position) * model;
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
     sphere.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);

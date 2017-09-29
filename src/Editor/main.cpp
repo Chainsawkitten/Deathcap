@@ -11,7 +11,6 @@
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
-#include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/Profiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>
@@ -53,8 +52,6 @@ int main() {
     ImGuiImplementation::Init(window->GetGLFWWindow());
     
     bool profiling = false;
-    
-    Managers().debugDrawingManager->AddSphere(glm::vec3(0.f, 0.f, 0.f), 1.f, glm::vec3(1.f, 1.f, 1.f), 2.f, 20.f, false);
     
     // Main loop.
     double targetFPS = 60.0;
