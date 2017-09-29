@@ -24,6 +24,8 @@ set(SRCS
         Util/AssetConverter.cpp
         Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
+	Util/MousePicking.cpp
+	Util/RayIntersection.cpp
     )
 
 set(HEADERS
@@ -52,6 +54,8 @@ set(HEADERS
         Util/AssetConverter.hpp
         Util/AssetMetaData.hpp
         Util/EditorSettings.hpp
+	Util/MousePicking.hpp
+	Util/RayIntersection.hpp
     )
 
 create_directory_groups(${SRCS} ${HEADERS})

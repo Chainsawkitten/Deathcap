@@ -361,65 +361,65 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
 
 void EntityEditor::ScriptEditor(Component::Script* script) {
 
-	ImGui::Indent();
+    ImGui::Indent();
 
-	if (ImGui::Button("Select script"))
-		ImGui::OpenPopup("Select script");
+    if (ImGui::Button("Select script"))
+        ImGui::OpenPopup("Select script");
 
-	if (ImGui::BeginPopup("Select script")) {
-		ImGui::Text("Scripts");
-		ImGui::Separator();
+    if (ImGui::BeginPopup("Select script")) {
+        ImGui::Text("Scripts");
+        ImGui::Separator();
 
-		for (ScriptFile* scriptFile : Hymn().scripts) {
-			if (ImGui::Selectable(scriptFile->name.c_str()))
-				script->scriptFile = scriptFile;
-		}
+        for (ScriptFile* scriptFile : Hymn().scripts) {
+            if (ImGui::Selectable(scriptFile->name.c_str()))
+                script->scriptFile = scriptFile;
+        }
 
-		ImGui::EndPopup();
-	}
+        ImGui::EndPopup();
+    }
 
-	if (script->scriptFile != nullptr)
-	{
-		ImGui::Text(script->scriptFile->name.c_str());
-		ImGui::Separator();
+    if (script->scriptFile != nullptr)
+    {
+        ImGui::Text(script->scriptFile->name.c_str());
+        ImGui::Separator();
 
-		ImGui::Text("Entity References");
-		// Display current entity references
-		for (size_t i = 0; i != script->refList.size(); ++i) {
-			ImGui::Text(script->refList[i]->name.c_str());
-			ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-			if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
-				script->refList.erase(script->refList.begin() + i);
-				break;
-			}
-		}
-		
+        ImGui::Text("Entity References");
+        // Display current entity references
+        for (size_t i = 0; i != script->refList.size(); ++i) {
+            ImGui::Text(script->refList[i]->name.c_str());
+            ImGui::SameLine(ImGui::GetWindowWidth() - 30);
+            if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())) {
+                script->refList.erase(script->refList.begin() + i);
+                break;
+            }
+        }
+        
 
-		// Choosing other entity references
-		if (ImGui::Button("Add entity reference")) {
-			ImGui::OpenPopup("Add entity reference");
-		}
+        // Choosing other entity references
+        if (ImGui::Button("Add entity reference")) {
+            ImGui::OpenPopup("Add entity reference");
+        }
 
-		if (ImGui::BeginPopup("Add entity reference"))
-		{
-			ImGui::Text("Entities");
-			ImGui::Separator();
-			for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
-			{
-				if (ImGui::Selectable(entity->name.c_str()))
-				{
-					script->refList.push_back(entity);
-				}
-			}
+        if (ImGui::BeginPopup("Add entity reference"))
+        {
+            ImGui::Text("Entities");
+            ImGui::Separator();
+            for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
+            {
+                if (ImGui::Selectable(entity->name.c_str()))
+                {
+                    script->refList.push_back(entity);
+                }
+            }
 
-			ImGui::EndPopup();
-		}
-	}
-	else
-		ImGui::Text("No script loaded");
+            ImGui::EndPopup();
+        }
+    }
+    else
+        ImGui::Text("No script loaded");
 
 
-	ImGui::Unindent();
+    ImGui::Unindent();
 }
 
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {

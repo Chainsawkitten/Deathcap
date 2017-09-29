@@ -192,41 +192,6 @@
 			"uid" : 2
 		},
 		{
-			"Material" : 
-			{
-				"albedo" : "Texture #2",
-				"metallic" : "",
-				"normal" : "Texture #3",
-				"roughness" : ""
-			},
-			"Mesh" : 
-			{
-				"model" : "Cave"
-			},
-			"children" : null,
-			"name" : "cave",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.25,
-				"y" : 0.25,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"uid" : 3
-		},
-		{
 			"children" : 
 			[
 				{
@@ -404,6 +369,41 @@
 			},
 			"scene" : false,
 			"uid" : 1506431025
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Texture #2",
+				"metallic" : "",
+				"normal" : "Texture #3",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Cave"
+			},
+			"children" : null,
+			"name" : "cave",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.25,
+				"y" : 0.25,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"uid" : 3
 		}
 	],
 	"name" : "Root",

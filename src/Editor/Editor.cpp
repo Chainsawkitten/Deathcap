@@ -12,6 +12,8 @@
 #include <Engine/Component/DirectionalLight.hpp>
 #include <Engine/Component/Lens.hpp>
 #include <Engine/Component/Listener.hpp>
+#include <Engine/Component/Mesh.hpp>
+#include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
 
@@ -21,14 +23,16 @@
 Editor::Editor() {
     // Create Hymns directory.
     FileSystem::CreateDirectory((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns").c_str());
-    
+
     // Load theme.
     std::string theme = EditorSettings::GetInstance().GetString("Theme");
     if (FileSystem::FileExists((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + theme + ".json").c_str()))
         ImGui::LoadTheme(theme.c_str());
     else
         ImGui::LoadDefaultTheme();
-    
+
+    selectedEntity = nullptr;
+
     // Assign controls.
     Input()->AssignButton(InputHandler::PROFILE, InputHandler::KEYBOARD, GLFW_KEY_F2);
     Input()->AssignButton(InputHandler::PLAYTEST, InputHandler::KEYBOARD, GLFW_KEY_F5);
@@ -42,24 +46,28 @@ Editor::Editor() {
     Input()->AssignButton(InputHandler::LEFT, InputHandler::KEYBOARD, GLFW_KEY_A);
     Input()->AssignButton(InputHandler::RIGHT, InputHandler::KEYBOARD, GLFW_KEY_D);
     Input()->AssignButton(InputHandler::ZOOM, InputHandler::KEYBOARD, GLFW_KEY_Z);
+    Input()->AssignButton(InputHandler::SELECT, InputHandler::MOUSE, GLFW_MOUSE_BUTTON_LEFT);
     Input()->AssignButton(InputHandler::FOCUS, InputHandler::KEYBOARD, GLFW_KEY_F);
-    
+
     // Create editor camera.
     cameraEntity = cameraWorld.CreateEntity("Editor Camera");
     cameraEntity->enabled = false;
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
-    
+
     // Create cursors.
     cursors[0] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
     cursors[1] = glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
     cursors[2] = glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
     cursors[3] = glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
     cursors[4] = glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
-    
+
     savePromptAnswered = false;
     savePromtWindow.SetTitle("Save before you quit?");
     close = false;
+
+    // Ray mouse.
+    mousePicker = MousePicking(cameraEntity, cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
 }
 
 Editor::~Editor() {
@@ -75,7 +83,7 @@ void Editor::Show(float deltaTime) {
         if (Hymn().GetPath() != "") {
             savePromtWindow.SetVisible(true);
             savePromtWindow.Show();
-            
+
             switch (savePromtWindow.GetDecision()) {
             case 0:
                 Save();
@@ -89,14 +97,16 @@ void Editor::Show(float deltaTime) {
             default:
                 break;
             }
-        } else {
+        }
+        else {
             savePromptAnswered = true;
         }
-    } else {
+    }
+    else {
         bool play = false;
-        
+
         ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
-        
+
         // Main menu bar.
         if (ImGui::BeginMainMenuBar()) {
 
@@ -104,23 +114,23 @@ void Editor::Show(float deltaTime) {
             if (ImGui::BeginMenu("File")) {
                 if (ImGui::MenuItem("New Hymn", "CTRL+N"))
                     NewHymn();
-                
+
                 if (ImGui::MenuItem("Open Hymn", "CTRL+O"))
                     OpenHymn();
-                
+
                 if (Hymn().GetPath() != "") {
                     if (ImGui::MenuItem("Save Hymn", "CTRL+S"))
                         Save();
                 }
-                
+
                 ImGui::Separator();
-                
+
                 if (ImGui::MenuItem("Settings"))
                     settingsWindow.SetVisible(true);
-                
+
                 ImGui::EndMenu();
             }
-            
+
             // View menu.
             if (ImGui::BeginMenu("View")) {
                 static bool soundSources = EditorSettings::GetInstance().GetBool("Sound Source Icons");
@@ -224,35 +234,62 @@ void Editor::Show(float deltaTime) {
             if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
                 cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            } else {
+            }
+            else {
                 cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+            }
+        }
+
+        // Mouse ray.
+        if (Input()->Pressed(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+            mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+            mousePicker.Update();
+
+            for (int i = 0; i < Hymn().world.GetEntities().size(); ++i) {
+                float intersectDistance = 0.0f;
+                selectedEntity = Hymn().world.GetEntities().at(i);
+                if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
+
+                    if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
+                        selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
+                        selectedEntity->GetModelMatrix(), intersectDistance)) {
+
+                        if (intersectDistance > 0.0f) {
+                            resourceView.GetScene().entityEditor.SetEntity(selectedEntity);
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            break;
+                        }
+                    }
+                }
             }
         }
 
         // Move camera position and rotation to fixate on selected object.
         if (Input()->Triggered(InputHandler::FOCUS)) {
 
-            // When mousepicking is added, change this vec3(0,0,0) to object pivot.
-            glm::vec3 backward = glm::normalize(cameraEntity->position - glm::vec3(0, 0, 0));
+            if (selectedEntity != NULL) {
 
-            while (glm::length(glm::vec3(0, 0, 0) - cameraEntity->position) > 10) {
-                cameraEntity->position -= backward;
+                glm::vec3 backward = glm::normalize(cameraEntity->position - selectedEntity->position);
+
+                while (glm::length(selectedEntity->position - cameraEntity->position) > 10) {
+                    cameraEntity->position -= backward;
+                }
+
+                while (glm::length(selectedEntity->position - cameraEntity->position) < 10) {
+                    cameraEntity->position += backward;
+                }
+
+                glm::vec3 camDirection = selectedEntity->position - cameraEntity->position;
+                glm::normalize(camDirection);
+
+                float yaw = std::atan2(camDirection.x, -camDirection.z);
+                cameraEntity->rotation.x = glm::degrees(yaw);
+
+                float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
+                float pitch = std::atan2(-camDirection.y, xz);
+                cameraEntity->rotation.y = glm::degrees(pitch);
             }
-
-            while (glm::length(glm::vec3(0, 0, 0) - cameraEntity->position) < 10) {
-                cameraEntity->position += backward;
-            }
-            // When mousepicking is added, change this vec3(0,0,0) to object pivot. NOTE Does this do the same as 'backward' ?
-            glm::vec3 camDirection = glm::vec3(0, 0, 0) - cameraEntity->position;
-            glm::normalize(camDirection);
-
-            float yaw = std::atan2(camDirection.x, -camDirection.z);
-            cameraEntity->rotation.x = glm::degrees(yaw);
-
-            float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
-            float pitch = std::atan2(-camDirection.y, xz);
-            cameraEntity->rotation.y = glm::degrees(pitch);
         }
 
         // Scroll zoom.
@@ -272,7 +309,7 @@ void Editor::Show(float deltaTime) {
                 cameraEntity->position += speed * backward * -10.0f;
             }
         }
-        
+
         if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "")
             play = true;
 
@@ -294,7 +331,6 @@ void Editor::Show(float deltaTime) {
     if (ImGui::GetMouseCursor() < 5) {
         glfwSetCursor(MainWindow::GetInstance()->GetGLFWWindow(), cursors[ImGui::GetMouseCursor()]);
     }
-
 }
 
 void Editor::Save() const {
@@ -360,20 +396,21 @@ void Editor::NewHymnClosed(const std::string& hymn) {
         Hymn().world.CreateRoot();
         Hymn().SetPath(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
         resourceView.SetVisible(true);
-        
+
         // Default scene.
         Resources().scenes.push_back("Scene #0");
-        
+
         Entity* player = Hymn().world.GetRoot()->AddChild("Player");
         player->position.z = 10.f;
         player->AddComponent<Component::Lens>();
         player->AddComponent<Component::Listener>();
-        
+
         Entity* sun = Hymn().world.GetRoot()->AddChild("Sun");
         sun->AddComponent<Component::DirectionalLight>();
     }
-    
+
     selectHymnWindow.SetVisible(false);
+
 }
 
 void Editor::OpenHymn() {
