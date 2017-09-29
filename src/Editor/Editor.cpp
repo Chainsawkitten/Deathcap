@@ -249,10 +249,10 @@ void Editor::Show(float deltaTime) {
             int entityIndex = 0;
             int entityAmount = Hymn().world.GetEntities().size();
             for (int i = 0; i < entityAmount; ++i) {
-                float intersectDistance = 0.0f;
                 selectedEntity = Hymn().world.GetEntities().at(i);
                 if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
 
+                    float intersectDistance = 0.0f;
                     if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
                         selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
                         selectedEntity->GetModelMatrix(), intersectDistance)) {
