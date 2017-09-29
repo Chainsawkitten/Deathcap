@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <glm/glm.hpp>
 #include <vector>
 #include "../Entity/ComponentContainer.hpp"
@@ -35,6 +36,18 @@ class PhysicsManager {
          */
         void Update(float deltaTime);
         
+        /// Update transforms of entities according to positions of physics
+        /// components.
+        void UpdateEntityTransforms();
+        
+        /// Set up listener for when |object| has entered |triggerBody|.
+        /**
+         * @param triggerBody Physics component of the trigger volume.
+         * @param object Physics component of the body that is to enter the trigger.
+         * @param callback Function to call when resolving event.
+         */
+        void OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+        
         /// Create physics component.
         /**
          * @return The created component.
@@ -64,7 +77,7 @@ class PhysicsManager {
         void operator=(PhysicsManager const&) = delete;
 
         Physics::RigidBody* MakeRigidBody(Physics::Shape* shape, float mass);
-        Physics::Trigger* MakeTrigger(Physics::Shape* shape);
+        Physics::Trigger* MakeTrigger(Component::Physics* comp);
 
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
         
