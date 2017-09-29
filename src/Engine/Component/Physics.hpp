@@ -7,11 +7,12 @@ namespace Physics {
     class RigidBody;
     class Shape;
 }
+class PhysicsManager;
 
 namespace Component {
     /// %Component allows interacting with other physics components.
     class Physics : public SuperComponent {
-        friend class PhysicsManager;
+        friend class ::PhysicsManager;
         
         public:
             /// Create new physics component.
@@ -34,6 +35,12 @@ namespace Component {
              * @param shape The new shape.
              */
             void SetShape(::Physics::Shape* shape);
+            
+            /// Get the rigid body of a physics component.
+            /**
+             * @return The rigid body.
+             */
+            ::Physics::RigidBody& GetRigidBody();
             
             /// Velocity (in meter/second).
             glm::vec3 velocity = glm::vec3(0.f, 0.f, 0.f);

@@ -2,9 +2,11 @@
 
 #include <functional>
 
-namespace Physics {
+namespace Component {
+    class Physics;
+}
 
-    class RigidBody;
+namespace Physics {
 
     /// Interface for triggers that can set up an observer for enter event.
     class ITrigger {
@@ -14,7 +16,7 @@ namespace Physics {
              * @param body The body that is to enter the volume.
              * @param observer Event handler.
              */
-            virtual void OnEnter(RigidBody& body, std::function<void(RigidBody& body)> observer) = 0;
+            virtual void OnEnter(Component::Physics* body, std::function<void()> observer) = 0;
     };
 
 }
