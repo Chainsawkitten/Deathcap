@@ -71,6 +71,19 @@ DebugDrawing::DebugDrawing() {
     plane[7] = glm::vec3(-1.f, -1.f, 0.f);
     
     CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
+    
+    // Create sphere vertex array.
+    glm::vec3 sphere[8];
+    sphere[0] = glm::vec3(-1.f, -1.f, 0.f);
+    sphere[1] = glm::vec3(1.f, -1.f, 0.f);
+    sphere[2] = glm::vec3(1.f, -1.f, 0.f);
+    sphere[3] = glm::vec3(1.f, 1.f, 0.f);
+    sphere[4] = glm::vec3(1.f, 1.f, 0.f);
+    sphere[5] = glm::vec3(-1.f, 1.f, 0.f);
+    sphere[6] = glm::vec3(-1.f, 1.f, 0.f);
+    sphere[7] = glm::vec3(-1.f, -1.f, 0.f);
+    
+    CreateVertexArray(sphere, 8, sphereVertexBuffer, sphereVertexArray);
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -176,4 +189,10 @@ void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int po
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
     
     glBindVertexArray(0);
+}
+
+void DebugDrawing::CreateSphere(glm::vec3** positions, unsigned int parallels, unsigned int meridians) {
+    for (unsigned int parallel = 0; parallel < parallels; ++parallel) {
+        /// @todo
+    }
 }

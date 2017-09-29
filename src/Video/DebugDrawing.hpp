@@ -159,6 +159,7 @@ namespace Video {
             
             static void CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray);
             void BindVertexArray(GLuint vertexArray);
+            void CreateSphere(glm::vec3** positions, unsigned int parallels, unsigned int meridians);
             
             Video::ShaderProgram* shaderProgram;
             
@@ -173,6 +174,9 @@ namespace Video {
             
             GLuint planeVertexBuffer;
             GLuint planeVertexArray;
+            
+            GLuint sphereVertexBuffer;
+            GLuint sphereVertexArray;
             
             GLuint boundVertexArray = 0;
     };
