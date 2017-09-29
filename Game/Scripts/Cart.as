@@ -1,6 +1,7 @@
 class Cart{
     Hub @hub;
     Entity @self;
+	float speed = 0;
     Cart(Entity @entity){
         @hub = Managers();
         @self = @entity;
@@ -9,6 +10,6 @@ class Cart{
     
     //Update carts movements and send it's position to Player Script.
     void Update(float deltaTime){
-        self.position.z -= 20.0f*deltaTime;
+        self.position.z -= speed*deltaTime;
     }
 }

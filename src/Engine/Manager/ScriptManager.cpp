@@ -5,6 +5,8 @@
 #include <scriptmath/scriptmath.h>
 #include <scriptstdstring/scriptstdstring.h>
 #include <Utility/Log.hpp>
+#include <map>
+#include <typeindex>
 #include "../Util/FileSystem.hpp"
 #include "../Util/Input.hpp"
 #include "../Hymn.hpp"
@@ -379,12 +381,14 @@ void ScriptManager::BuildAllScripts() {
             r = builder.AddSectionFromFile(filename.c_str());
             if (r < 0)
                 Log() << "File section could not be added: " << filename << ".\n";
-            
+
             r = builder.BuildModule();
             if (r < 0)
                 Log() << "Compile errors.\n";
+
         } else {
             std::string script;
+
             LoadScriptFile(filename.c_str(), script);
             module->AddScriptSection(filename.c_str(), script.c_str());
             
@@ -393,6 +397,28 @@ void ScriptManager::BuildAllScripts() {
                 Log() << file->name.c_str() << "Compile errors.\n";
         }
     }
+}
+
+void ScriptManager::FillPropertyMap(Script* script) {
+
+    BuildScript(script->scriptFile->name);
+    CreateInstance(script);
+
+    for (auto &propertyMap : script->propertyMap) 
+        propertyMap.second.clear();
+
+    script->propertyMap.clear();
+    int propertyCount = script->instance->GetPropertyCount();
+
+    for (int n = 0; n < propertyCount; n++) {
+
+        int typeId = script->instance->GetPropertyTypeId(n);
+        void *varPointer = script->instance->GetAddressOfProperty(n);
+
+        script->propertyMap[script->instance->GetPropertyName(n)][typeId] = varPointer;
+
+    }
+
 }
 
 void ScriptManager::Update(World& world, float deltaTime) {
@@ -467,9 +493,18 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
     messages.push_back(message);
 }
 
-void ScriptManager::GetEntity(unsigned int GUID) {
+Entity* ScriptManager::GetEntity(unsigned int GUID) const {
 
-    
+    const std::vector<Entity*> entities = Hymn().world.GetEntities();
+    for (int i = 0; i < entities.size(); i++) {
+
+        if (entities[i]->GetUniqueIdentifier() == GUID) {
+
+            return entities[i];
+
+        }
+
+    }
 
 }
 
@@ -495,7 +530,7 @@ void ScriptManager::CreateInstance(Component::Script* script) {
     // Get the newly created object.
     script->instance = *(static_cast<asIScriptObject**>(context->GetAddressOfReturnValue()));
     script->instance->AddRef();
-    
+
     // Clean up.
     context->Release();
 }

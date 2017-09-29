@@ -29,6 +29,9 @@ class ScriptManager : public SuperManager {
         /// Build all scripts in the script folder.
         void BuildAllScripts();
         
+        ///Build and create context.
+        void FillPropertyMap(Component::Script* script);
+
         /// Update all script entities in the game world.
         /**
          * @param world The world to update.
@@ -57,7 +60,7 @@ class ScriptManager : public SuperManager {
         /**
          * @param GUID The entity to receive the message.
          */
-        void GetEntity(unsigned int GUID);
+        Entity* GetEntity(unsigned int GUID) const;
         
         /// The entity currently being executed.
         Entity* currentEntity;

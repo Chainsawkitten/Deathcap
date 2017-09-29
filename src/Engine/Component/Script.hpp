@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include "SuperComponent.hpp"
 
 class Entity;
@@ -41,7 +42,11 @@ namespace Component {
             /// The instance of the script class.
             asIScriptObject* instance = nullptr;
       
-			      /// Entities referenced by this script.
-			      std::vector<Entity*> refList;
+			/// Entities referenced by this script.
+			std::vector<Entity*> refList;
+
+            ///Map containing the properties, map<nameOfProperty, map<typeOfProperty, valueOfProperty>>
+            std::map<std::string, std::map<int, void*>> propertyMap;
+
     };
 }
