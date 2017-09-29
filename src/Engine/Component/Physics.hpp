@@ -3,45 +3,41 @@
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
 
-class Entity;
-
 namespace Physics {
     class RigidBody;
     class Shape;
 }
+class PhysicsManager;
 
 namespace Component {
     /// %Component allows interacting with other physics components.
     class Physics : public SuperComponent {
-        friend class PhysicsManager;
-
+        friend class ::PhysicsManager;
+        
         public:
+            /// Create new physics component.
+            Physics();
+            
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
             Json::Value Save() const override;
-
-            /// Load component from JSON node.
-            /**
-             * @param node JSON node to load from.
-             */
-            void Load(const Json::Value& node) override;
-
+            
             /// Get the shape of the physics component.
             /**
              * @return The %Shape of the component.
              */
             ::Physics::Shape& GetShape();
-
+            
             /// Set the shape of the physics component.
             /**
              * @param shape The new shape.
              */
             void SetShape(::Physics::Shape* shape);
-
+            
             ::Physics::RigidBody& GetRigidBody();
-
+            
             /// Velocity (in meter/second).
             glm::vec3 velocity = glm::vec3(0.f, 0.f, 0.f);
 
@@ -74,12 +70,6 @@ namespace Component {
              * https://en.wikipedia.org/wiki/List_of_moments_of_inertia
              */
             glm::vec3 momentOfInertia = glm::vec3(1.f, 1.f, 1.f);
-
-            /// Create new physics component.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Physics(Entity* entity);
             
         private:
             ::Physics::RigidBody* rigidBody = nullptr;

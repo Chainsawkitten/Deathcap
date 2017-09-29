@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <random>
 
-#include "SuperManager.hpp"
+#include "../Entity/ComponentContainer.hpp"
 
 class Entity;
 class World;
@@ -15,9 +15,12 @@ namespace Video {
 namespace Component {
     class ParticleEmitter;
 }
+namespace Json {
+    class Value;
+}
 
 /// Handles particles.
-class ParticleManager : public SuperManager {
+class ParticleManager {
     friend class Hub;
     
     public:
@@ -61,6 +64,28 @@ class ParticleManager : public SuperManager {
          */
         int GetTextureAtlasRows() const;
         
+        /// Create particle emitter component.
+        /**
+         * @return The created component.
+         */
+        Component::ParticleEmitter* CreateParticleEmitter();
+        
+        /// Create particle emitter component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::ParticleEmitter* CreateParticleEmitter(const Json::Value& node);
+        
+        /// Get all particle emitter components.
+        /**
+         * @return All particle emitter components.
+         */
+        const std::vector<Component::ParticleEmitter*>& GetParticleEmitters() const;
+        
+        /// Remove all killed components.
+        void ClearKilledComponents();
+        
     private:
         ParticleManager();
         ~ParticleManager();
@@ -85,4 +110,6 @@ class ParticleManager : public SuperManager {
 
         // Texture atlas containing the particle textures.
         Video::Texture2D* textureAtlas;
+        
+        ComponentContainer<Component::ParticleEmitter> particleEmitters;
 };

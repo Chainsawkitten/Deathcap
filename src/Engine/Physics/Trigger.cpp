@@ -9,6 +9,7 @@ namespace Physics {
 
     Trigger::Trigger(Component::Physics* comp) : btCollisionWorld::ContactResultCallback() {
         trigger = new btCollisionObject();
+        
         trigger->setCollisionShape(comp->GetShape().GetShape());
         trigger->setWorldTransform(comp->GetRigidBody().GetRigidBody()->getWorldTransform());
     }
@@ -18,9 +19,9 @@ namespace Physics {
     btScalar Trigger::addSingleResult(btManifoldPoint& cp,
         const btCollisionObjectWrapper* colObj0, int partId0, int index0,
         const btCollisionObjectWrapper* colObj1, int partId1, int index1) {
-        assert(colObj0->getCollisionObject() != trigger);
-        // The user pointer of the btRigidBody is our wrapping RigidBody instance.
-        auto body = static_cast<btRigidBody*>(const_cast<btCollisionObject*>(colObj0->getCollisionObject()));
+        
+        auto body = static_cast<btRigidBody*>(const_cast<btCollisionObject*>(colObj1->getCollisionObject()));
+        
         // Call the corresponding callback
         observers[body]();
         return 0; // Was a planned purpose, but is not used.

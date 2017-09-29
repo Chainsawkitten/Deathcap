@@ -158,7 +158,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update physics");
-        Managers().physicsManager->Update(world, deltaTime);
+        Managers().physicsManager->Update(deltaTime);
     }
     
     { PROFILE("Update animations");
@@ -179,7 +179,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update sounds");
-        Managers().soundManager->Update(world);
+        Managers().soundManager->Update();
     }
     
     { PROFILE("Update debug drawing");
@@ -187,7 +187,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
 
     { PROFILE("Synchronize transforms");
-        Managers().physicsManager->UpdateEntityTransforms(world);
+        Managers().physicsManager->UpdateEntityTransforms();
     }
     
     { PROFILE("Clear killed entities/components");
@@ -207,7 +207,7 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     }
     
     { PROFILE("Render debug entities");
-        Managers().debugDrawingManager->Render(world, camera);
+        Managers().debugDrawingManager->Render(camera);
     }
 }
 
