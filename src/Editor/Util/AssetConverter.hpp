@@ -31,7 +31,7 @@ class AssetConverter
          * @param importTangents Should tangents be imported from the mesh?
          */
         void Convert(const char * filepath, const char * destination,
-    	    bool triangulate, bool importNormals, bool importTangents);
+            bool triangulate, bool importNormals, bool importTangents);
 
         /// Check after conversion if everything went well.
         /**
@@ -46,8 +46,8 @@ class AssetConverter
         std::string& GetErrorString();
     
     private:
-    	void ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file);
-    	void ConvertMesh(aiMesh * mesh, Geometry::AssetFileHandler * file);
+        void ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file);
+        void ConvertMesh(aiMesh * mesh, Geometry::AssetFileHandler * file);
         Video::Geometry::VertexType::StaticVertex * ConvertStaticVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices);
         Video::Geometry::VertexType::SkinVertex * ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices);
         void CalculateAABB(Geometry::AssetFileHandler::MeshData * meshData, unsigned int numVertices);

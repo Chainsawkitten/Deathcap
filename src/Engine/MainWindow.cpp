@@ -103,10 +103,10 @@ GLFWwindow* MainWindow::GetGLFWWindow() const {
 }
 
 void WindowSizeCallback(GLFWwindow* window, int width, int height) {
-	if (width != 0 && height != 0) {
-		MainWindow::GetInstance()->SetSize(width, height);
-		Managers().renderManager->UpdateBufferSize();
-	}
+    if (width != 0 && height != 0) {
+        MainWindow::GetInstance()->SetSize(width, height);
+        Managers().renderManager->UpdateBufferSize();
+    }
 }
 
 void ErrorCallback(int error, const char* description) {

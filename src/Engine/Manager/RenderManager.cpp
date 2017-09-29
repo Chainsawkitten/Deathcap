@@ -11,6 +11,7 @@
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
 #include "../Entity/Entity.hpp"
+#include "../Component/Animation.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/Material.hpp"
@@ -70,8 +71,7 @@ void RenderManager::Render(World& world, Entity* camera) {
 
     // Find camera entity.
     if (camera == nullptr) {
-        std::vector<Lens*> lenses = this->GetComponents<Lens>(&world);
-        for (Lens* lens : lenses)
+        for (Lens* lens : lenses.GetAll())
             camera = lens->entity;
     }
 
@@ -106,8 +106,7 @@ void RenderManager::Render(World& world, Entity* camera) {
 void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras) {
     // Find camera entity.
     if (camera == nullptr) {
-        std::vector<Lens*> lenses = this->GetComponents<Lens>(&world);
-        for (Lens* lens : lenses) {
+        for (Lens* lens : lenses.GetAll()) {
             camera = lens->entity;
         }
     }
@@ -124,31 +123,31 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         
         // Render sound sources.
         if (soundSources) {
-            for (SoundSource* soundSource : Managers().soundManager->GetComponents<SoundSource>(&world))
+            for (SoundSource* soundSource : Managers().soundManager->GetSoundSources())
                 renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
         }
         
         // Render particle emitters.
         if (particleEmitters) {
-            for (ParticleEmitter* emitter : Managers().particleManager->GetComponents<ParticleEmitter>(&world))
+            for (ParticleEmitter* emitter : Managers().particleManager->GetParticleEmitters())
                 renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
         }
         
         // Render light sources.
         if (lightSources) {
-            for (DirectionalLight* light : this->GetComponents<DirectionalLight>(&world))
+            for (DirectionalLight* light : directionalLights.GetAll())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
             
-            for (PointLight* light : this->GetComponents<PointLight>(&world))
+            for (PointLight* light : pointLights.GetAll())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
             
-            for (SpotLight* light : this->GetComponents<SpotLight>(&world))
+            for (SpotLight* light : spotLights.GetAll())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
         }
         
         // Render cameras.
         if (cameras) {
-            for (Lens* lens : this->GetComponents<Lens>(&world))
+            for (Lens* lens : lenses.GetAll())
                 renderer->RenderIcon(lens->entity->GetWorldPosition(), cameraTexture);
         }
         
@@ -171,13 +170,13 @@ void RenderManager::Render(World& world, const glm::vec3& position, const glm::m
     const glm::mat4 viewMatrix = glm::mat4(orientationMatrix * glm::translate(glm::mat4(), -position));
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
-    std::vector<Mesh*> meshes = this->GetComponents<Mesh>(&world);
+    const std::vector<Mesh*>& meshComponents = meshes.GetAll();
 
     // Render static meshes.
     {
         PROFILE("Render static meshes");
         renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
-        for (Mesh* mesh : meshes) {
+        for (Mesh* mesh : meshComponents) {
             if (mesh->IsKilled() || !mesh->entity->enabled)
                 continue;
 
@@ -239,14 +238,161 @@ void RenderManager::Render(World& world, const glm::vec3& position, const glm::m
     }
 }
 
+Component::Animation* RenderManager::CreateAnimation() {
+    return animations.Create();
+}
+
+Component::Animation* RenderManager::CreateAnimation(const Json::Value& node) {
+    Component::Animation* animation = animations.Create();
+    
+    // Load values from Json node.
+    std::string name = node.get("riggedModel", "").asString();
+    /// @todo Fix animation.
+    /*for (Geometry::Model* model : Hymn().models) {
+        if (model->name == name)
+            riggedModel = model;
+    }*/
+    
+    return animation;
+}
+
+const std::vector<Component::Animation*>& RenderManager::GetAnimations() const {
+    return animations.GetAll();
+}
+
+Component::DirectionalLight* RenderManager::CreateDirectionalLight() {
+    return directionalLights.Create();
+}
+
+Component::DirectionalLight* RenderManager::CreateDirectionalLight(const Json::Value& node) {
+    Component::DirectionalLight* directionalLight = directionalLights.Create();
+    
+    // Load values from Json node.
+    directionalLight->color = Json::LoadVec3(node["color"]);
+    directionalLight->ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
+    
+    return directionalLight;
+}
+
+const std::vector<Component::DirectionalLight*>& RenderManager::GetDirectionalLights() const {
+    return directionalLights.GetAll();
+}
+
+Component::Lens* RenderManager::CreateLens() {
+    return lenses.Create();
+}
+
+Component::Lens* RenderManager::CreateLens(const Json::Value& node) {
+    Component::Lens* lens = lenses.Create();
+    
+    // Load values from Json node.
+    lens->fieldOfView = node.get("fieldOfView", 45.f).asFloat();
+    lens->zNear = node.get("zNear", 0.5f).asFloat();
+    lens->zFar = node.get("zFar", 100.f).asFloat();
+    
+    return lens;
+}
+
+const std::vector<Component::Lens*>& RenderManager::GetLenses() const {
+    return lenses.GetAll();
+}
+
+Component::Material* RenderManager::CreateMaterial() {
+    return materials.Create();
+}
+
+Component::Material* RenderManager::CreateMaterial(const Json::Value& node) {
+    Component::Material* material = materials.Create();
+    
+    // Load values from Json node.
+    LoadTexture(material->albedo, node.get("albedo", "").asString());
+    LoadTexture(material->normal, node.get("normal", "").asString());
+    LoadTexture(material->metallic, node.get("metallic", "").asString());
+    LoadTexture(material->roughness, node.get("roughness", "").asString());
+    
+    return material;
+}
+
+const std::vector<Component::Material*>& RenderManager::GetMaterials() const {
+    return materials.GetAll();
+}
+
+Component::Mesh* RenderManager::CreateMesh() {
+    return meshes.Create();
+}
+
+Component::Mesh* RenderManager::CreateMesh(const Json::Value& node) {
+    Component::Mesh* mesh = meshes.Create();
+    
+    // Load values from Json node.
+    std::string meshName = node.get("model", "").asString();
+    mesh->geometry = Managers().resourceManager->CreateModel(meshName);
+    
+    return mesh;
+}
+
+const std::vector<Component::Mesh*>& RenderManager::GetMeshes() const {
+    return meshes.GetAll();
+}
+
+Component::PointLight* RenderManager::CreatePointLight() {
+    return pointLights.Create();
+}
+
+Component::PointLight* RenderManager::CreatePointLight(const Json::Value& node) {
+    Component::PointLight* pointLight = pointLights.Create();
+    
+    // Load values from Json node.
+    pointLight->color = Json::LoadVec3(node["color"]);
+    pointLight->ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
+    pointLight->attenuation = node.get("attenuation", 1.f).asFloat();
+    pointLight->intensity = node.get("intensity", 1.f).asFloat();
+    
+    return pointLight;
+}
+
+const std::vector<Component::PointLight*>& RenderManager::GetPointLights() const {
+    return pointLights.GetAll();
+}
+
+Component::SpotLight* RenderManager::CreateSpotLight() {
+    return spotLights.Create();
+}
+
+Component::SpotLight* RenderManager::CreateSpotLight(const Json::Value& node) {
+    Component::SpotLight* spotLight = spotLights.Create();
+    
+    // Load values from Json node.
+    spotLight->color = Json::LoadVec3(node["color"]);
+    spotLight->ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
+    spotLight->attenuation = node.get("attenuation", 1.f).asFloat();
+    spotLight->intensity = node.get("intensity", 1.f).asFloat();
+    spotLight->coneAngle = node.get("coneAngle", 15.f).asFloat();
+    
+    return spotLight;
+}
+
+const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
+    return spotLights.GetAll();
+}
+
+void RenderManager::ClearKilledComponents() {
+    animations.ClearKilled();
+    directionalLights.ClearKilled();
+    lenses.ClearKilled();
+    materials.ClearKilled();
+    meshes.ClearKilled();
+    pointLights.ClearKilled();
+    spotLights.ClearKilled();
+}
+
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, Video::RenderSurface* renderSurface) {
 
     float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
     
     // Add all directional lights.
-    std::vector<Component::DirectionalLight*>& directionalLights = this->GetComponents<Component::DirectionalLight>(&world);
-    for (Component::DirectionalLight* directionalLight : directionalLights) {
+    for (Component::DirectionalLight* directionalLight : directionalLights.GetAll()) {
         if (directionalLight->IsKilled() || !directionalLight->entity->enabled)
             continue;
         
@@ -263,8 +409,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
     }
     
     // Add all spot lights.
-    std::vector<Component::SpotLight*>& spotLights = this->GetComponents<Component::SpotLight>(&world);
-    for (Component::SpotLight* spotLight : spotLights) {
+    for (Component::SpotLight* spotLight : spotLights.GetAll()) {
         if (spotLight->IsKilled() || !spotLight->entity->enabled)
             continue;
         
@@ -285,8 +430,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
     cutOff = 0.0001f;
     
     // Add all point lights.
-    std::vector<Component::PointLight*>& pointLights = this->GetComponents<Component::PointLight>(&world);
-    for (Component::PointLight* pointLight : pointLights) {
+    for (Component::PointLight* pointLight : pointLights.GetAll()) {
         if (pointLight->IsKilled() || !pointLight->entity->enabled)
             continue;
         
@@ -310,4 +454,9 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
     
     // Render lights.
     renderer->Light(glm::inverse(projectionMatrix), renderSurface);
+}
+
+void RenderManager::LoadTexture(TextureAsset*& texture, const std::string& name) {
+    if (!name.empty())
+        texture = Managers().resourceManager->CreateTextureAsset(name);
 }

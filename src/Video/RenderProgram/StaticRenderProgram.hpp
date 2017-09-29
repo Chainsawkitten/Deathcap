@@ -37,6 +37,7 @@ namespace Video {
             void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const;
             
         private:
+            StaticRenderProgram(const StaticRenderProgram & other) = delete;
             ShaderProgram* shaderProgram;
     
             glm::mat4 viewMatrix;

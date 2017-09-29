@@ -1,11 +1,10 @@
 #pragma once
 
-#include "SuperManager.hpp"
 #include <glm/glm.hpp>
 #include <openvr.h>
 
 /// Handles communication with VR devices using OpenVR.
-class VRManager : public SuperManager {
+class VRManager {
     friend class Hub;
     
     public:

@@ -32,6 +32,7 @@ int main() {
         return 1;
     
     MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Hymn to Beauty", EditorSettings::GetInstance().GetBool("Debug Context"));
+
     glewInit();
     window->Init(false);
     
@@ -47,7 +48,6 @@ int main() {
     Managers().StartUp();
     
     Editor* editor = new Editor();
-    
     // Setup imgui implementation.
     ImGuiImplementation::Init(window->GetGLFWWindow());
     

@@ -10,6 +10,10 @@ set(SRCS
         Hymn.cpp
         MainWindow.cpp
         Audio/SoundBuffer.cpp
+	Audio/SteamAudio.cpp
+	Audio/SteamAudioDirectRenderer.cpp
+	Audio/SteamAudioIndirectRenderer.cpp
+	Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
         Component/DirectionalLight.cpp
@@ -21,6 +25,7 @@ set(SRCS
         Component/Physics.cpp
         Component/PointLight.cpp
         Component/Script.cpp
+        Component/Shape.cpp
         Component/SoundSource.cpp
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
@@ -33,7 +38,6 @@ set(SRCS
         Geometry/Model.cpp
         Geometry/Skeleton.cpp
         Manager/Managers.cpp
-        Manager/SuperManager.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
         Manager/ProfilingManager.cpp
@@ -43,6 +47,10 @@ set(SRCS
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
         Manager/VRManager.cpp
+        Physics/GlmConversion.cpp
+        Physics/RigidBody.cpp
+        Physics/Shape.cpp
+        Physics/Trigger.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
@@ -58,6 +66,10 @@ set(HEADERS
         MainWindow.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
+	Audio/SteamAudio.hpp
+	Audio/SteamAudioDirectRenderer.hpp
+	Audio/SteamAudioIndirectRenderer.hpp
+	Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/Animation.hpp
         Component/DirectionalLight.hpp
@@ -69,9 +81,11 @@ set(HEADERS
         Component/Physics.hpp
         Component/PointLight.hpp
         Component/Script.hpp
+        Component/Shape.hpp
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
+        Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
         Geometry/Animation.hpp
@@ -81,7 +95,6 @@ set(HEADERS
         Geometry/Model.hpp
         Geometry/Skeleton.hpp
         Manager/Managers.hpp
-        Manager/SuperManager.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
         Manager/ProfilingManager.hpp
@@ -91,6 +104,12 @@ set(HEADERS
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
         Manager/VRManager.hpp
+        Physics/GlmConversion.hpp
+        Physics/IRigidBody.hpp
+        Physics/ITrigger.hpp
+        Physics/RigidBody.hpp
+        Physics/Shape.hpp
+        Physics/Trigger.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp
@@ -124,7 +143,7 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video Physics catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio glm bullet)
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)
