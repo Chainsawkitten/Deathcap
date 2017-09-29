@@ -10,7 +10,7 @@ AssetConverterSkeleton::~AssetConverterSkeleton() {
 }
 
 bool AssetConverterSkeleton::Convert(const char * filepath, const char * destination,
-    bool triangulate, bool importNormals, bool importTangents) {
+    bool bindpose) {
 
     success = true;
     errorString = "";
@@ -23,51 +23,15 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
         return false;
     }
 
-    Recursive(aScene->mRootNode);
+    bones.clear();
+    bones.shrink_to_fit();
+    BoneRecursive(aScene->mRootNode, 0, aScene->mAnimations[0]);
 
-    Geometry::AssetFileAnimation::Bone * bones = new Geometry::AssetFileAnimation::Bone[nodes.size()];
-
-    // Find parent.
-    // @todo Optimize? If time. It's offline so not very important.
-    for (unsigned int i = 0; i < nodes.size(); ++i) {
-        Log() << nodes[i]->mName.C_Str() << "\n";
-        for (unsigned int j = 0; j < nodes.size(); ++j) {
-            if (nodes[i] == nodes[j]->mParent) {
-                bones[i].parent = j;
-                break;
-            }
-        }
+    for (int i = 0; i < bones.size(); ++i) {
+        Log() << i << "\t\t" << bones[i]->parent << "\n";
     }
 
-    for (unsigned int i = 0; i < nodes.size(); ++i) {
-        for (unsigned int j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j) {
-            if (strcmp(nodes[i]->mName.C_Str(), aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str()) == 0) {
-                aiNodeAnim * node = aScene->mAnimations[0]->mChannels[j];
-                bones[i].numRotationKeys = node->mNumRotationKeys;
-                bones[i].rotationKeys = new uint32_t[bones[i].numRotationKeys];
-                bones[i].rotation = new glm::mat4[bones[i].numRotationKeys];
-
-                for (unsigned int r = 0; r < bones[i].numRotationKeys; ++r) {
-                    bones[i].rotationKeys[r] = (uint32_t)node->mRotationKeys->mTime;
-                    glm::quat rot;
-                    Geometry::CpyQuat(rot, node->mRotationKeys->mValue);
-                    bones[i].rotation[r] = glm::mat4(rot);
-                }
-
-                Log() << nodes[i]->mName.C_Str() << "   " << aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() << "   " << bones[i].numRotationKeys << "\n";
-            }
-        }
-    }
-
-    Geometry::AssetFileAnimation::Animation * anim = new Geometry::AssetFileAnimation::Animation;
-
-    anim->bones = bones;
-    anim->playbackSpeed = (uint32_t)aScene->mAnimations[0]->mTicksPerSecond;
-    anim->numBones = nodes.size();
-
-
-    //aScene->mAnimations
-    aScene->mRootNode;
+    aImporter.FreeScene();
 
     return false;
 }
@@ -80,10 +44,36 @@ std::string & AssetConverterSkeleton::GetErrorString() {
     return errorString;
 }
 
-void AssetConverterSkeleton::Recursive(aiNode * node) {
-    nodes.push_back(node);
+void AssetConverterSkeleton::BoneRecursive(aiNode * node, uint32_t parent, aiAnimation * anim) {
+    bool foundAnimNode = false;
+
+    for (unsigned int i = 0; i < anim->mNumChannels && !foundAnimNode; ++i) {
+        if (anim->mChannels[i]->mNodeName == node->mName) {
+            Geometry::AssetFileAnimation::Bone bone;
+
+            bone.numRotationKeys = (uint32_t)anim->mChannels[i]->mNumRotationKeys;
+
+            bone.rotationKeys = new uint32_t[anim->mChannels[i]->mNumRotationKeys];
+            bone.rotation = new glm::mat4[anim->mChannels[i]->mNumRotationKeys];
+
+            for (unsigned int j = 0; j < bone.numRotationKeys; ++j) {
+                // Copy the keyframe from the timeline.
+                bone.rotationKeys[j] = (uint32_t)anim->mChannels[i]->mRotationKeys[j].mTime;
+
+                // Copy the rotation.
+                glm::quat rot;
+                Geometry::CpyQuat(rot, anim->mChannels[i]->mRotationKeys[j].mValue);
+                bone.rotation[j] = glm::mat4(rot);
+            }
+
+            bone.parent = parent;
+          // FIX THIS
+            bones.push_back(&bone);
+            foundAnimNode = true;
+        }
+    }
 
     for (unsigned int i = 0; i < node->mNumChildren; ++i) {
-        Recursive(node->mChildren[i]);
+        BoneRecursive(node->mChildren[i], bones.size() - 1, anim);
     }
 }

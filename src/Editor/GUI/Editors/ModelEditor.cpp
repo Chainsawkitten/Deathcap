@@ -40,7 +40,7 @@ void ModelEditor::Show() {
 
             if (ImGui::Button("Import anim")) {
                 AssetConverterSkeleton asset;
-                asset.Convert(source.c_str(), destination.c_str(), triangulate, importNormals, importTangents);
+                asset.Convert(source.c_str(), destination.c_str(), false);
             }
 
             if (isImported)
