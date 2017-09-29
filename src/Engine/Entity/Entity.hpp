@@ -8,6 +8,7 @@
 #include <fstream>
 
 
+
 /// %Entity containing various components.
 class Entity {
     public:
@@ -178,10 +179,28 @@ class Entity {
          * Default: 0.f, 0.f, 0.f
          */
         glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
+
+        /// Get the entity's UID
+        /**
+         * @return The entity's UID
+         */
+        unsigned int GetUniqueIdentifier() const;
+           
+        /// Set the entity's UID
+        /**
+         * @param UID the entity's unique identifier to be set
+         */
+        void SetUniqueIdentifier(unsigned int UID);
+
+        /// Whether the entity is active.
+        bool enabled = true;
         
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
         template<typename T> void Load(const Json::Value& node, const std::string& name);
+        Component::SuperComponent* AddComponent(const std::type_info* componentType);
+        void LoadComponent(const std::type_info* componentType, const Json::Value& node);
+        void KillHelper();
         
         World* world;
         Entity* parent = nullptr;
@@ -192,16 +211,15 @@ class Entity {
         std::map<const std::type_info*, Component::SuperComponent*> components;
         
         bool killed = false;
+        unsigned int uniqueIdentifier = 0;
 };
 
 template<typename T> T* Entity::AddComponent() {
     const std::type_info* componentType = &typeid(T*);
     if (components.find(componentType) != components.end())
         return nullptr;
-    T* component = new T(this);
-    components[componentType] = component;
-    world->AddComponent(component, componentType);
-    return component;
+    
+    return static_cast<T*>(AddComponent(componentType));
 }
 
 template<typename T> T* Entity::GetComponent() const {
@@ -229,7 +247,7 @@ template<typename T> void Entity::Save(Json::Value& node, const std::string& nam
 template<typename T> void Entity::Load(const Json::Value& node, const std::string& name) {
     Json::Value componentNode = node[name];
     if (!componentNode.isNull()) {
-        T* component = AddComponent<T>();
-        component->Load(componentNode);
+        const std::type_info* componentType = &typeid(T*);
+        LoadComponent(componentType, componentNode);
     }
 }

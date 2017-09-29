@@ -1,5 +1,4 @@
 {
-	"activeScene" : 0,
 	"filters" : 
 	{
 		"color" : false,
@@ -24,51 +23,20 @@
 	"input" : 
 	[
 		{
-			"size" : 0
+			"0" : 
+			{
+				"action" : "OpenGate",
+				"key" : 69,
+				"state" : 1
+			},
+			"size" : 1
 		}
-	],
-	"models" : 
-	[
-		{
-			"name" : "CartSecond",
-			"type" : "Static"
-		},
-		{
-			"name" : "Cave",
-			"type" : "Static"
-		}
-	],
-	"scenes" : 
-	[
-		"TestScene"
 	],
 	"scripts" : 
 	[
-		{
-			"name" : "Player"
-		},
-		{
-			"name" : "Cart"
-		}
-	],
-	"sounds" : null,
-	"textures" : 
-	[
-		{
-			"name" : "Texture #0",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #1",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #2",
-			"srgb" : false
-		},
-		{
-			"name" : "Texture #3",
-			"srgb" : false
-		}
+		"Player",
+		"Cart",
+		"Lever",
+		"Gates"
 	]
 }

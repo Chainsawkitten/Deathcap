@@ -18,6 +18,12 @@
 #include <Utility/Log.hpp>
 #include "../Hymn.hpp"
 #include <fstream>
+#include "../Manager/Managers.hpp"
+#include "../Manager/ParticleManager.hpp"
+#include "../Manager/PhysicsManager.hpp"
+#include "../Manager/RenderManager.hpp"
+#include "../Manager/ScriptManager.hpp"
+#include "../Manager/SoundManager.hpp"
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
@@ -158,17 +164,11 @@ bool Entity::IsScene() const {
 }
 
 void Entity::Kill() {
-    killed = true;
-    
-    for (auto& it : components)
-        it.second->Kill();
-    
-    for (Entity* child : children)
-        child->Kill();
+    KillHelper();
     
     // Remove this entity from the parent's list of children.
-    parent->RemoveChild(this);
-
+    if (parent != nullptr)
+        parent->RemoveChild(this);
 }
 
 bool Entity::IsKilled() const {
@@ -182,6 +182,7 @@ Json::Value Entity::Save() const {
     entity["scale"] = Json::SaveVec3(scale);
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
+    entity["uid"] = uniqueIdentifier;
     
     if (scene) {
         entity["sceneName"] = sceneName;
@@ -251,6 +252,8 @@ void Entity::Load(const Json::Value& node) {
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
+    uniqueIdentifier = node.get("uid", 0).asUInt();
+    
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
@@ -285,4 +288,105 @@ glm::vec3 Entity::GetWorldPosition() const {
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
     
     return position;
+}
+
+unsigned int Entity::GetUniqueIdentifier() const {
+    return uniqueIdentifier;
+}
+
+void Entity::SetUniqueIdentifier(unsigned int UID) {
+    uniqueIdentifier = UID;
+}
+
+Component::SuperComponent* Entity::AddComponent(const std::type_info* componentType) {
+    Component::SuperComponent* component;
+    
+    // Create a component in the correct manager.
+    if (*componentType == typeid(Component::Animation*))
+        component = Managers().renderManager->CreateAnimation();
+    else if (*componentType == typeid(Component::DirectionalLight*))
+        component = Managers().renderManager->CreateDirectionalLight();
+    else if (*componentType == typeid(Component::Lens*))
+        component = Managers().renderManager->CreateLens();
+    else if (*componentType == typeid(Component::Listener*))
+        component = Managers().soundManager->CreateListener();
+    else if (*componentType == typeid(Component::Material*))
+        component = Managers().renderManager->CreateMaterial();
+    else if (*componentType == typeid(Component::Mesh*))
+        component = Managers().renderManager->CreateMesh();
+    else if (*componentType == typeid(Component::ParticleEmitter*))
+        component = Managers().particleManager->CreateParticleEmitter();
+    else if (*componentType == typeid(Component::Physics*))
+        component = Managers().physicsManager->CreatePhysics();
+    else if (*componentType == typeid(Component::PointLight*))
+        component = Managers().renderManager->CreatePointLight();
+    else if (*componentType == typeid(Component::Script*))
+        component = Managers().scriptManager->CreateScript();
+    else if (*componentType == typeid(Component::SoundSource*))
+        component = Managers().soundManager->CreateSoundSource();
+    else if (*componentType == typeid(Component::SpotLight*))
+        component = Managers().renderManager->CreateSpotLight();
+    else {
+        Log() << componentType->name() << " not assigned to a manager!" << "\n";
+        return nullptr;
+    }
+    
+    // Add component to our map.
+    components[componentType] = component;
+    
+    // Set ourselves as the owner.
+    component->entity = this;
+    
+    return component;
+}
+
+void Entity::LoadComponent(const std::type_info* componentType, const Json::Value& node) {
+    Component::SuperComponent* component;
+    
+    // Create a component in the correct manager.
+    if (*componentType == typeid(Component::Animation*))
+        component = Managers().renderManager->CreateAnimation(node);
+    else if (*componentType == typeid(Component::DirectionalLight*))
+        component = Managers().renderManager->CreateDirectionalLight(node);
+    else if (*componentType == typeid(Component::Lens*))
+        component = Managers().renderManager->CreateLens(node);
+    else if (*componentType == typeid(Component::Listener*))
+        component = Managers().soundManager->CreateListener(node);
+    else if (*componentType == typeid(Component::Material*))
+        component = Managers().renderManager->CreateMaterial(node);
+    else if (*componentType == typeid(Component::Mesh*))
+        component = Managers().renderManager->CreateMesh(node);
+    else if (*componentType == typeid(Component::ParticleEmitter*))
+        component = Managers().particleManager->CreateParticleEmitter(node);
+    else if (*componentType == typeid(Component::Physics*))
+        component = Managers().physicsManager->CreatePhysics(node);
+    else if (*componentType == typeid(Component::PointLight*))
+        component = Managers().renderManager->CreatePointLight(node);
+    else if (*componentType == typeid(Component::Script*))
+        component = Managers().scriptManager->CreateScript(node);
+    else if (*componentType == typeid(Component::SoundSource*))
+        component = Managers().soundManager->CreateSoundSource(node);
+    else if (*componentType == typeid(Component::SpotLight*))
+        component = Managers().renderManager->CreateSpotLight(node);
+    else {
+        Log() << componentType->name() << " not assigned to a manager!" << "\n";
+        return;
+    }
+    
+    // Add component to our map.
+    components[componentType] = component;
+    
+    // Set ourselves as the owner.
+    component->entity = this;
+}
+
+void Entity::KillHelper() {
+    killed = true;
+    
+    for (auto& it : components)
+        it.second->Kill();
+    
+    for (Entity* child : children) {
+        child->KillHelper();
+    }
 }

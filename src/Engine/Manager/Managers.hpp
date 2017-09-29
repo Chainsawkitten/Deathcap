@@ -1,5 +1,7 @@
 #pragma once
 
+#include <typeinfo>
+
 class ResourceManager;
 class RenderManager;
 class ParticleManager;
@@ -8,6 +10,12 @@ class SoundManager;
 class ScriptManager;
 class DebugDrawingManager;
 class ProfilingManager;
+
+class World;
+
+namespace Component {
+    class SuperComponent;
+}
 
 /// Singleton class that holds all subsystems.
 class Hub {
@@ -44,10 +52,15 @@ class Hub {
         /// Deinitialize all subsystems.
         void ShutDown();
         
+        /// Clears the killed components of all managers.
+        void ClearKilledComponents();
+        
     private:
         Hub();
         Hub(const Hub&) = delete;
         void operator=(const Hub&) = delete;
+        
+        bool shutdown = false;
 };
 
 /// Get a hub containing all the subsystems.

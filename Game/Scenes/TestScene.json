@@ -32,15 +32,16 @@
 				"y" : 1.0,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"uid" : 1
 		},
 		{
 			"Material" : 
 			{
-				"diffuse" : "Texture #1",
-				"glow" : "",
+				"albedo" : "Texture #1",
+				"metallic" : "",
 				"normal" : "Texture #1",
-				"specular" : ""
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{
@@ -68,8 +69,8 @@
 					"position" : 
 					{
 						"x" : 0.0,
-						"y" : 25.0,
-						"z" : 0.0
+						"y" : 4.0,
+						"z" : 2.0
 					},
 					"rotation" : 
 					{
@@ -83,7 +84,8 @@
 						"y" : 1.0,
 						"z" : 1.0
 					},
-					"scene" : false
+					"scene" : false,
+					"uid" : 4
 				},
 				{
 					"PointLight" : 
@@ -118,14 +120,15 @@
 						"y" : 1.0,
 						"z" : 1.0
 					},
-					"scene" : false
+					"scene" : false,
+					"uid" : 5
 				}
 			],
 			"name" : "Minecart",
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -4.8320002555847168,
 				"z" : 500.0
 			},
 			"rotation" : 
@@ -140,15 +143,120 @@
 				"y" : 1.0,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"uid" : 2
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "spak"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Lever"
+					},
+					"children" : null,
+					"name" : "Lever",
+					"position" : 
+					{
+						"x" : -5.0,
+						"y" : -6.5,
+						"z" : 400.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 45.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5,
+						"z" : 0.5
+					},
+					"scene" : false,
+					"uid" : 1506428286
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Texture #1",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Galler"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Gates"
+					},
+					"children" : null,
+					"name" : "Gates",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 380.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"uid" : 1506428288
+				}
+			],
+			"name" : "GateAndLever",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"uid" : 1506431025
 		},
 		{
 			"Material" : 
 			{
-				"diffuse" : "Texture #2",
-				"glow" : "",
+				"albedo" : "Texture #2",
+				"metallic" : "",
 				"normal" : "Texture #3",
-				"specular" : ""
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{
@@ -170,11 +278,12 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
-				"y" : 1.0,
+				"x" : 0.25,
+				"y" : 0.25,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"uid" : 3
 		}
 	],
 	"name" : "Root",
@@ -196,5 +305,6 @@
 		"y" : 1.0,
 		"z" : 1.0
 	},
-	"scene" : false
+	"scene" : false,
+	"uid" : 0
 }
