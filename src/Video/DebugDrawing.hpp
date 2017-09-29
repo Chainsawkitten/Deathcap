@@ -93,6 +93,27 @@ namespace Video {
                 bool depthTesting;
             };
             
+            /// A debug drawing sphere.
+            struct Sphere {
+                /// The center position of the sphere.
+                glm::vec3 position;
+                
+                /// Radius.
+                float radius;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
             /// Create new debug primitive renderer.
             DebugDrawing();
             
@@ -130,6 +151,12 @@ namespace Video {
              */
             void DrawPlane(const Plane& plane);
             
+            /// Draw a sphere.
+            /**
+             * @param sphere The sphere to draw.
+             */
+            void DrawSphere(const Sphere& sphere);
+            
             /// Stop debug drawing.
             void EndDebugDrawing();
             
@@ -138,6 +165,7 @@ namespace Video {
             
             static void CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray);
             void BindVertexArray(GLuint vertexArray);
+            void CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             
             Video::ShaderProgram* shaderProgram;
             
@@ -152,6 +180,10 @@ namespace Video {
             
             GLuint planeVertexBuffer;
             GLuint planeVertexArray;
+            
+            GLuint sphereVertexBuffer;
+            GLuint sphereVertexArray;
+            unsigned int sphereVertexCount;
             
             GLuint boundVertexArray = 0;
     };

@@ -30,6 +30,7 @@
 #include <Video/Lighting/Light.hpp>
 #include "../Hymn.hpp"
 #include "Util/Profiling.hpp"
+#include "Util/Json.hpp"
 
 #include "Manager/Managers.hpp"
 
