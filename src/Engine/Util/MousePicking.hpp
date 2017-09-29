@@ -2,7 +2,7 @@
 
 #include "Engine/Entity/Entity.hpp"
 
-/// Use mouse cursor to select objects in editor.
+/// Use mouse cursor to select objects in editor and in game.
 class MousePicking {
     public:
 
