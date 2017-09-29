@@ -7,11 +7,20 @@
 /// Hold information about the hymn's inputs.
 class Input {
     public:
+        /// Input device codes
+        enum Device {
+            KEYBOARD = 0, ///< Keyboard input
+            MOUSE, ///< Mouse buttons
+            INPUT_DEVICES, ///< Number of input devices
+        };
+
         /// The information needed to identify a button.
         struct Button {
             /// A string describing the action, e.g "Fire".
             char action[255];
             
+            Device mouseDev;
+
             /// The GLFW key to press.
             int key;
             

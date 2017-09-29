@@ -244,8 +244,10 @@ void Editor::Show(float deltaTime) {
         if (Input()->Pressed(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
             mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
             mousePicker.Update();
-
-            for (int i = 0; i < Hymn().world.GetEntities().size(); ++i) {
+            float lastDistance = INFINITY;
+            int entityIndex = 0;
+            int entityAmount = Hymn().world.GetEntities().size();
+            for (int i = 0; i < entityAmount; ++i) {
                 float intersectDistance = 0.0f;
                 selectedEntity = Hymn().world.GetEntities().at(i);
                 if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
@@ -253,11 +255,19 @@ void Editor::Show(float deltaTime) {
                     if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
                         selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
                         selectedEntity->GetModelMatrix(), intersectDistance)) {
-
-                        if (intersectDistance > 0.0f) {
-                            resourceView.GetScene().entityEditor.SetEntity(selectedEntity);
-                            resourceView.GetScene().entityEditor.SetVisible(true);
-                            break;
+                        if (intersectDistance < lastDistance) {
+                            lastDistance = intersectDistance;
+                            entityIndex = i;
+                            if (entityAmount - i == 1) {
+                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                                resourceView.GetScene().entityEditor.SetVisible(true);
+                                break;
+                            }
+                        }
+                        else if (intersectDistance > 0.0f) {
+                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                                resourceView.GetScene().entityEditor.SetVisible(true);
+                                break;
                         }
                     }
                 }
