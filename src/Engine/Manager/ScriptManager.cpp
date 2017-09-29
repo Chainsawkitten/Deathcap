@@ -26,6 +26,7 @@
 
 #include "Managers.hpp"
 #include "DebugDrawingManager.hpp"
+#include "PhysicsManager.hpp"
 #include "ResourceManager.hpp"
 #include "Component/Mesh.hpp"
 
@@ -55,6 +56,10 @@ void print(const std::string& message) {
 
 void RegisterUpdate() {
     Managers().scriptManager->RegisterUpdate(Managers().scriptManager->currentEntity);
+}
+
+void RegisterTriggerHelper(Component::Physics* triggerBody, Component::Physics* object, const std::string& methodName) {
+    Managers().scriptManager->RegisterTrigger(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
 }
 
 bool ButtonInput(int buttonIndex) {
@@ -347,6 +352,7 @@ ScriptManager::ScriptManager() {
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RegisterTrigger(Component::Physics@, Component::Physics@, const string &in)", asFUNCTION(RegisterTriggerHelper), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
@@ -443,10 +449,26 @@ void ScriptManager::Update(World& world, float deltaTime) {
     for (Entity* entity : updateEntities)
         world.RegisterUpdate(entity);
     updateEntities.clear();
+    
+    // Handle physics triggers.
+    for (const TriggerEvent& triggerEvent : triggerEvents) {
+        CallTrigger(triggerEvent);
+    }
+    triggerEvents.clear();
 }
 
 void ScriptManager::RegisterUpdate(Entity* entity) {
     updateEntities.push_back(entity);
+}
+
+void ScriptManager::RegisterTrigger(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName) {
+    TriggerEvent triggerEvent;
+    triggerEvent.trigger = trigger;
+    triggerEvent.object = object;
+    triggerEvent.scriptEntity = entity;
+    triggerEvent.methodName = methodName;
+    
+    Managers().physicsManager->OnTriggerEnter(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
 }
 
 void ScriptManager::RegisterInput() {
@@ -585,6 +607,31 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
     context->Release();
 }
 
+void ScriptManager::CallTrigger(const TriggerEvent& triggerEvent) {
+    Component::Script* script = triggerEvent.scriptEntity->GetComponent<Component::Script>();
+    ScriptFile* scriptFile = script->scriptFile;
+    
+    // Get class.
+    asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
+    
+    // Find method to call.
+    std::string methodDeclaration = "void " + triggerEvent.methodName + "(Component::Physics@, Component::Physics@)";
+    asIScriptFunction* method = type->GetMethodByDecl(methodDeclaration.c_str());
+    if (method == nullptr)
+        Log() << "Can't find method " << methodDeclaration << "\n";
+    
+    // Create context, prepare it and execute.
+    asIScriptContext* context = engine->CreateContext();
+    context->Prepare(method);
+    context->SetObject(script->instance);
+    context->SetArgAddress(0, triggerEvent.trigger);
+    context->SetArgAddress(1, triggerEvent.object);
+    ExecuteCall(context);
+    
+    // Clean up.
+    context->Release();
+}
+
 void ScriptManager::LoadScriptFile(const char* fileName, std::string& script){
     // Open the file in binary mode
     FILE* f = fopen(fileName, "rb");
@@ -628,4 +675,8 @@ asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::s
     
     Log() << "Couldn't find class \"" << className << "\".\n";
     return nullptr;
+}
+
+void ScriptManager::HandleTrigger(TriggerEvent triggerEvent) {
+    triggerEvents.push_back(triggerEvent);
 }
