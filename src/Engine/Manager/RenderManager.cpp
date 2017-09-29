@@ -1,5 +1,6 @@
 #include "RenderManager.hpp"
 
+#include <Video/FrameBuffer.hpp>
 #include <Video/Renderer.hpp>
 #include <Video/RenderSurface.hpp>
 #include <Video/ReadWriteTexture.hpp>
@@ -88,21 +89,48 @@ void RenderManager::Render(World& world, Entity* camera) {
 
         // Render hmd.
         if (hmdRenderSurface != nullptr) {
-			for (int i = 0; i < 2; ++i)
-			{
-				const vr::Hmd_Eye eye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
-				const glm::vec3 position = camera->GetWorldPosition();
-				const glm::mat4 orientationMat = glm::mat4(); // TODO
-				Lens* lens = camera->GetComponent<Lens>();
-				const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(eye, lens->zNear, lens->zFar);
+            for (int i = 0; i < 2; ++i)
+            {
+                vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
-				Render(world, position, orientationMat, projectionMat, hmdRenderSurface);
+                glm::vec3 position = camera->GetWorldPosition();
+                Lens* lens = camera->GetComponent<Lens>();
+                const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
-				vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
-				Managers().vrManager->Submit(eye, &texture);
-			}
+                glm::mat4 hmdTranslate = Managers().vrManager->GetHMDPoseMatrix();
+                glm::mat4 eyeTranslate = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
+                //glm::mat4 mvp = projectionMat * eyeTranslate * hmdTranslate;
+
+                glm::vec3 right = glm::vec3(hmdTranslate[0][0], hmdTranslate[1][0], hmdTranslate[2][0]);
+                glm::vec3 up = glm::vec3(hmdTranslate[0][1], hmdTranslate[1][1], hmdTranslate[2][1]);
+                glm::vec3 forward = glm::vec3(hmdTranslate[0][2], hmdTranslate[1][2], hmdTranslate[2][2]);
+                glm::mat4 translation = glm::translate(glm::mat4(), glm::vec3(position.x, position.y, position.z));
+
+                glm::mat4 orientationMat = glm::transpose(glm::mat4(
+                    glm::vec4(right, 0.f),
+                    glm::vec4(up, 0.f),
+                    glm::vec4(forward, 0.f),
+                    glm::vec4(0.f, 0.f, 0.f, 1.f)
+                ));
+                
+                //position = eyeTranslate * glm::vec4(position, 1.f);
+
+                Render(world, camera->GetWorldPosition(), orientationMat, projectionMat, hmdRenderSurface);
+
+                hmdRenderSurface->Swap();
+                vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+
+                // Submit texture to HMD.
+                Managers().vrManager->Submit(nEye, &texture);
+            }
             
+            //TMP
             Managers().vrManager->Sync();
+        }
+
+        // Render to back buffer.
+        { PROFILE("Render to back buffer");
+            renderer->DisplayResults(mainWindowRenderSurface, true);
         }
     }
 }
@@ -202,44 +230,43 @@ void RenderManager::Render(World& world, const glm::vec3& position, const glm::m
         LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, renderSurface);
     }
 
+    //// Anti-aliasing.
+    //if (Hymn().filterSettings.fxaa) {
+    //    PROFILE("Anti-aliasing(FXAA)");
+    //    renderer->AntiAlias(renderSurface);
+    //}
 
-    // Anti-aliasing.
-    if (Hymn().filterSettings.fxaa) {
-        PROFILE("Anti-aliasing(FXAA)");
-        renderer->AntiAlias(renderSurface);
-    }
+    //// Fog.
+    //if (Hymn().filterSettings.fog) {
+    //    PROFILE("Fog");
+    //    renderer->RenderFog(renderSurface, projectionMatrix, Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+    //}
 
+    //// Render particles.
+    //{
+    //    PROFILE("Render particles");
+    //    Managers().particleManager->UpdateBuffer(world);
+    //    Managers().particleManager->Render(world, position, up, viewProjectionMatrix);
+    //}
 
-    // Fog.
-    if (Hymn().filterSettings.fog) {
-        PROFILE("Fog");
-        renderer->RenderFog(renderSurface, projectionMatrix, Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
-    }
+    //// Glow.
+    //if (Hymn().filterSettings.glow) {
+    //    PROFILE("Glow");
+    //    renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
+    //}
 
-    // Render particles.
-    {
-        PROFILE("Render particles");
-        Managers().particleManager->UpdateBuffer(world);
-        Managers().particleManager->Render(world, position, up, viewProjectionMatrix);
-    }
+    //// Color.
+    //if (Hymn().filterSettings.color) {
+    //    PROFILE("Color");
+    //    renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
+    //}
 
+    //// Render to back buffer.
+    //{ PROFILE("Render to back buffer");
+    //    renderer->DisplayResults(renderSurface, true);
+    //}
 
-    // Glow.
-    if (Hymn().filterSettings.glow) {
-        PROFILE("Glow");
-        renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
-    }
-
-    // Color.
-    if (Hymn().filterSettings.color) {
-        PROFILE("Color");
-        renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
-    }
-
-    // Render to back buffer.
-    { PROFILE("Render to back buffer");
-        renderer->DisplayResults(renderSurface, true);
-    }
+    renderSurface->GetPostProcessingFrameBuffer()->Unbind();
 }
 
 Component::Animation* RenderManager::CreateAnimation() {
