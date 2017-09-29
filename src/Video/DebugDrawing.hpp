@@ -151,6 +151,12 @@ namespace Video {
              */
             void DrawPlane(const Plane& plane);
             
+            /// Draw a sphere.
+            /**
+             * @param sphere The sphere to draw.
+             */
+            void DrawSphere(const Sphere& sphere);
+            
             /// Stop debug drawing.
             void EndDebugDrawing();
             

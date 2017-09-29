@@ -5,6 +5,7 @@
 #include "Shader/ShaderProgram.hpp"
 #include "DebugDrawing.vert.hpp"
 #include "DebugDrawing.frag.hpp"
+#include "glm/gtc/constants.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
@@ -159,6 +160,19 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
     glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &plane.color[0]);
     glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
     glLineWidth(plane.lineWidth);
+    glDrawArrays(GL_LINES, 0, 8);
+}
+
+void DebugDrawing::DrawSphere(const Sphere& sphere) {
+    BindVertexArray(sphereVertexArray);
+    
+    glm::mat4 model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    sphere.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &sphere.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(sphere.lineWidth);
     glDrawArrays(GL_LINES, 0, 8);
 }
 
