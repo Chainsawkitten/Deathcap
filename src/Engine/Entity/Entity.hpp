@@ -62,8 +62,14 @@ class Entity {
          * @param isSameScene set to true if it is the same scene you want to istantiate.
          * @return The created root entity of the scene.
          */
-        Entity* InstantiateScene(const std::string& name, bool isSameScene, const std::string& originScene);
+        Entity* InstantiateScene(const std::string& name, const std::string& originScene);
         
+        /// Check if scene already exists in any of json files.
+        /**
+        * @param filename The name of the scene to check.
+        * @param error Set to true inside the function if it allready exists.
+        * @param root The json value of root scene.
+        */
         void CheckIfSceneExists(std::string filename, bool & error, std::string originScene, Json::Value root);
 
         /// Get all of the entity's children.

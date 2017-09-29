@@ -141,7 +141,7 @@ void SceneEditor::ShowEntity(Entity* entity) {
             if (Hymn().scenes[sceneIndex] != scene)
             {
                 if (ImGui::Selectable(scene.c_str()))
-                    entity->InstantiateScene(scene, isSameScene, Hymn().scenes[sceneIndex]);
+                    entity->InstantiateScene(scene, Hymn().scenes[sceneIndex]);
             }
         }
         

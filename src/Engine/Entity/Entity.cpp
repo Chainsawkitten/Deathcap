@@ -65,22 +65,23 @@ bool Entity::HasChild(const Entity* check_child, bool deep) const {
     return false;
 }
 
-Entity* Entity::InstantiateScene(const std::string& name, bool isSameScene, const std::string& originScene) {
+Entity* Entity::InstantiateScene(const std::string& name, const std::string& originScene) {
+
+    Json::Value root;
     Entity* child = AddChild();
-    // Load scene.
     bool error = false;
     std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + ".json";
-    std::string filenameCopy = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + "_copy" + ".json";
+
+    // Checks if file exists.
     if (FileSystem::FileExists(filename.c_str())) {
-        //If it needs to be a copy.
-        Json::Value root1;
+        root;
         std::ifstream file1(filename);
-        file1 >> root1;
+        file1 >> root;
 
-        CheckIfSceneExists(filename, error, originScene, root1);
+        CheckIfSceneExists(filename, error, originScene, root);
 
-        if(error == false) { //dont need to be a copy
-            Json::Value root;
+        if(error == false) {
+            root;
             std::ifstream file(filename);
             file >> root;
             file.close();
@@ -92,11 +93,11 @@ Entity* Entity::InstantiateScene(const std::string& name, bool isSameScene, cons
         child->name = "Error loading scene";
         Log() << "Couldn't find scene to load.";
     }
-    
-    if (error == true)
+
+    if (error)
     {
         child->name = "Error loading scene";
-        Log() << "Couldn't find scene to load.";
+        Log() << "Scene is added in continous loop.";
     }
 
     return child;
@@ -106,7 +107,7 @@ void Entity::CheckIfSceneExists(std::string filename, bool & error, std::string 
 {
     Json::Value children = root["children"];
 
-
+    // Loops through all the scene names.
     for (unsigned int i = 0; i < root["children"].size(); ++i) {
         if (root["children"][i]["scene"].asBool()) {
             printf("%s", root["children"][i]["sceneName"].asString().c_str());
