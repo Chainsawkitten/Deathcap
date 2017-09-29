@@ -247,9 +247,9 @@ void Editor::Show(float deltaTime) {
             mousePicker.Update();
 
             for (int i = 0; i < Hymn().world.GetEntities().size(); ++i) {
-                float intersectDistance = 0.0f;
                 selectedEntity = Hymn().world.GetEntities().at(i);
                 if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
+                    float intersectDistance = 0.0f;
 
                     if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
                         selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
