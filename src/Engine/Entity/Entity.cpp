@@ -225,8 +225,6 @@ glm::mat4 Entity::GetModelMatrix() const {
 
 glm::mat4 Entity::GetLocalMatrix() const {
     glm::mat4 matrix = glm::translate(glm::mat4(), position) * GetOrientation() * glm::scale(glm::mat4(), scale);
-
-
     return matrix;
 }
 

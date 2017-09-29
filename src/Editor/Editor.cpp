@@ -16,7 +16,7 @@
 #include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
-#include <ImGui\ImGuizmo.hpp>
+#include "ImGui/ImGuizmo.hpp"
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtx/transform.hpp>
@@ -271,9 +271,9 @@ void Editor::Show(float deltaTime) {
                             }
                         }
                         else if (intersectDistance > 0.0f) {
-                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                                resourceView.GetScene().entityEditor.SetVisible(true);
-                                break;
+                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            break;
                         }
                     }
                 }
@@ -348,16 +348,16 @@ void Editor::Show(float deltaTime) {
     }
 
 
-    //Widget Controller for translation, rotation  and scale
+    // Widget Controller for translation, rotation  and scale.
     ImGuizmo::BeginFrame();
     ImGuizmo::Enable(true);
     //Widget operation is in local mode
     ImGuizmo::MODE currentGizmoMode(ImGuizmo::LOCAL);
     ImGuiIO& io = ImGui::GetIO();
 
-    //Check that there is an active Entity
+    // Check that there is an active Entity.
 
-    //Get current active Entity
+    // Get current active Entity.
     glm::mat4 currentEntityMatrix = glm::mat4();
 
     Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
@@ -365,7 +365,7 @@ void Editor::Show(float deltaTime) {
     if (resourceView.GetScene().entityEditor.GetEntity() != NULL) {
         currentEntityMatrix = resourceView.GetScene().entityEditor.GetEntity()->GetLocalMatrix();
 
-        //Change operation based on key input
+        // Change operation based on key input.
         if (Input()->Triggered(InputHandler::W))
             currentOperation = ImGuizmo::TRANSLATE;
 
@@ -376,20 +376,19 @@ void Editor::Show(float deltaTime) {
             currentOperation = ImGuizmo::SCALE;
 
 
-        //Projection matrix
+        // Projection matrix.
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
 
-        //View matrix
+        // View matrix.
         glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
 
-        //Identity matrix
+        // Identity matrix.
         glm::mat4 identity = glm::mat4();
-        float *deltaMatrix = 0;
         float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
         float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
         float rotationValue[3] = { currentEntity->rotation.x, currentEntity->rotation.y, currentEntity->rotation.z };
 
-        //draw the actual widget
+        // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
         ImGuizmo::RecomposeMatrixFromComponents(translationValue, rotationValue, scaleValue, &currentEntityMatrix[0][0]);
         ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, currentGizmoMode, &currentEntityMatrix[0][0]);
@@ -399,14 +398,14 @@ void Editor::Show(float deltaTime) {
 
         if (ImGuizmo::IsUsing()) {
 
-            //Translate
+            // Translate.
             if (currentOperation == ImGuizmo::TRANSLATE) {
                 currentEntity->position.x = translationValue[0];
                 currentEntity->position.y = translationValue[1];
                 currentEntity->position.z = translationValue[2];
             }
 
-            //Rotate
+            // Rotate.
             if (currentOperation == ImGuizmo::ROTATE) {
                 currentEntity->rotation.x = rotationValue[0];
                 currentEntity->rotation.y = rotationValue[1];
@@ -414,7 +413,7 @@ void Editor::Show(float deltaTime) {
                 currentEntity->rotation.z = rotationValue[2];
             }
 
-            //Scale
+            // Scale.
             if (currentOperation == ImGuizmo::SCALE) {
                 currentEntity->scale.x = scaleValue[0];
                 currentEntity->scale.y = scaleValue[1];
@@ -479,7 +478,7 @@ void Editor::NewHymn() {
 }
 
 void Editor::NewHymnClosed(const std::string& hymn) {
-    // Create new hymn
+    // Create new hymn.
     if (!hymn.empty()) {
         resourceView.ResetScene();
         Hymn().Clear();
