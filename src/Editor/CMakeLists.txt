@@ -6,6 +6,7 @@ set(SRCS
         ImGui/Splitter.cpp
         ImGui/Theme.cpp
         ImGui/GuiHelpers.cpp
+	ImGui/ImGuizmo.cpp
         GUI/FiltersWindow.cpp
         GUI/SelectHymnWindow.cpp
         GUI/SavePromptWindow.cpp
@@ -33,6 +34,7 @@ set(HEADERS
         ImGui/Splitter.hpp
         ImGui/Theme.hpp
         ImGui/GuiHelpers.hpp
+	ImGui/ImGuizmo.hpp
         GUI/FiltersWindow.hpp
         GUI/SelectHymnWindow.hpp
         GUI/SavePromptWindow.hpp

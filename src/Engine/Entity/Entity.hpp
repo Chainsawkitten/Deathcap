@@ -123,6 +123,12 @@ class Entity {
          * @return The model matrix.
          */
         glm::mat4 GetModelMatrix() const;
+
+        /// Get the local model matrix.
+        /**
+        * @return The local model matrix.
+        */
+        glm::mat4 GetLocalMatrix() const;
         
         /// Get orientation matrix.
         /**
