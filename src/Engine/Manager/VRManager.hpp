@@ -51,6 +51,18 @@ class VRManager {
          * @param texture Texture to submit.
          */
         void Submit(vr::Hmd_Eye eye, vr::Texture_t* texture) const;
+
+        /// Get scale of player.
+        /**
+         * @return Scale to get.
+         */
+        float GetScale() const;
+
+        /// Set scale of player.
+        /**
+         * @param scale Scale to set.
+         */
+        void SetScale(float scale);
         
     private:
         VRManager();
@@ -61,6 +73,7 @@ class VRManager {
         static glm::mat4 ConvertMatrix(const vr::HmdMatrix34_t& mat);
         static glm::mat4 ConvertMatrix(const vr::HmdMatrix44_t& mat);
 
+        float scale;
         vr::IVRSystem* vrSystem;
         vr::TrackedDevicePose_t tracedDevicePoseArray[vr::k_unMaxTrackedDeviceCount];
         glm::mat4 deviceTransforms[vr::k_unMaxTrackedDeviceCount];

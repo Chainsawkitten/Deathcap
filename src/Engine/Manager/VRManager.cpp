@@ -1,7 +1,7 @@
 #include "VRManager.hpp"
 #include "Utility/Log.hpp"
 
-VRManager::VRManager() {
+VRManager::VRManager() : scale(1.f) {
 
     // Load VR Runtime.
     vr::EVRInitError eError = vr::VRInitError_None;
@@ -38,7 +38,7 @@ void VRManager::Sync() {
     // Get VR device pose(s).
     vr::VRCompositor()->WaitGetPoses(tracedDevicePoseArray, vr::k_unMaxTrackedDeviceCount, NULL, 0);
 
-    // Cache pose(s) and convert to glm format.
+    // Convert to glm format.
     for (int nDevice = 0; nDevice < vr::k_unMaxTrackedDeviceCount; ++nDevice)
         if (tracedDevicePoseArray[nDevice].bPoseIsValid)
             deviceTransforms[nDevice] = ConvertMatrix(tracedDevicePoseArray[nDevice].mDeviceToAbsoluteTracking);
@@ -114,4 +114,12 @@ glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix44_t& mat)
         mat.m[0][3], mat.m[1][3], mat.m[2][3], mat.m[3][3]
     );
     return glmMat;
+}
+
+float VRManager::GetScale() const {
+    return scale;
+}
+
+void VRManager::SetScale(float scale) {
+    this->scale = scale;
 }
