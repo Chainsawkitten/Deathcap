@@ -53,6 +53,8 @@ set(SRCS
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
+        Util/MousePicking.cpp
+        Util/RayIntersection.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
         Texture/TextureAsset.cpp
@@ -111,6 +113,8 @@ set(HEADERS
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp
+        Util/MousePicking.hpp
+        Util/RayIntersection.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
         Texture/TextureAsset.hpp

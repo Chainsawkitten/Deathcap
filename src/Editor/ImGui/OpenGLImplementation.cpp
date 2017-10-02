@@ -106,7 +106,7 @@ namespace ImGuiImplementation {
             glfwGetCursorPos(g_Window, &mouse_x, &mouse_y);
             io.MousePos = ImVec2((float)mouse_x, (float)mouse_y);   // Mouse position in screen coordinates (set to -1,-1 if no mouse / on another screen, etc.)
         } else {
-            io.MousePos = ImVec2(-1,-1);
+            io.MousePos = ImVec2(-1, -1);
         }
         
         for (int i = 0; i < 3; i++) {
