@@ -107,7 +107,7 @@ Entity* Entity::InstantiateScene(const std::string& name, const std::string& ori
     return child;
 }
 
-void Entity::CheckIfSceneExists(std::string& filename, bool & error, std::string& originScene, Json::Value root)
+void Entity::CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root)
 {
     Json::Value children = root["children"];
 
