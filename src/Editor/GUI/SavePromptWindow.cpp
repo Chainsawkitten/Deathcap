@@ -42,7 +42,7 @@ void SavePromptWindow::ResetDecision() {
     
 }
 
-void SavePromptWindow::SetTitle(std::string newTitle) {
+void SavePromptWindow::SetTitle(const std::string& newTitle) {
 
     title = newTitle;
 
