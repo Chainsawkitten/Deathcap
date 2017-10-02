@@ -55,3 +55,16 @@ bool SavePromptWindow::IsVisible() const {
 void SavePromptWindow::SetVisible(bool visible) {
     this->visible = visible;
 }
+
+void GUI::SavePromptWindow::SetDecision(int option)
+{
+    if (option == 0) {
+        decision = 0;
+    }
+    if (option == 1) {
+        decision = 1;
+    }
+    if (option == 2) {
+        decision = 2;
+    }
+}
