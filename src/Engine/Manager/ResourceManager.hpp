@@ -18,8 +18,9 @@ namespace Audio {
 }
 
 namespace Animation {
-    class Skeleton;
     class AnimationClip;
+    class AnimationController;
+    class Skeleton;
 }
 class TextureAsset;
 class ScriptFile;
@@ -66,6 +67,32 @@ class ResourceManager {
          */
         void FreeModel(Geometry::Model* model);
 
+        /// Create an animation clip.
+        /**
+         * @param name Name of animation clip.
+         * @return The animation clip instance.
+         */
+        Animation::AnimationClip* CreateAnimationClip(const std::string& name);
+
+        /// Free the reference to the animation clip.
+        /**
+         * @param animationClip %Animation clip to dereference.
+         */
+        void FreeAnimationClip(Animation::AnimationClip * animationClip);
+
+        /// Create an animation clip.
+        /**
+         * @param name Name of animation controller.
+         * @return The animation clip instance.
+         */
+        Animation::AnimationController* CreateAnimationController(const std::string& name);
+
+        /// Free the reference to the animation clip.
+        /**
+         * @param animationClip %Animation clip to dereference.
+         */
+        void FreeAnimationController(Animation::AnimationController * animationController);
+
         /// Create a skeleton.
         /**
          * @param name Name of skeleton.
@@ -78,19 +105,6 @@ class ResourceManager {
          * @param skeleton %Skeleton to dereference.
          */
         void FreeSkeleton(Animation::Skeleton * skeleton);
-
-        /// Create an animation clip.
-        /**
-         * @param name The of animation clip.
-         * @return The animation clip instance.
-         */
-        Animation::Skeleton* CreateAnimationClip(const std::string& name);
-
-        /// Free the reference to the animation clip.
-        /**
-         * @param animationClip %Animation clip to dereference.
-         */
-        void FreeAnimationClip(Animation::AnimationClip * animationClip);
 
         /// Create a 2D texture if it doesn't already exist.
         /**
@@ -178,21 +192,29 @@ class ResourceManager {
         std::map<std::string, ModelInstance> models;
         std::map<Geometry::Model*, std::string> modelsInverse;
 
-        // Skeleton.
-        struct SkeletonInstance {
-            Animation::Skeleton * skeleton;
-            int count;
-        };
-        std::map<std::string, SkeletonInstance> skeletons;
-        std::map<Animation::Skeleton*, std::string> skeletonsInverse;
-
         // Animation clip.
         struct AnimationClipInstance {
-            Animation::AnimationClip * animationClip;
+            Animation::AnimationClip* animationClip;
             int count;
         };
         std::map<std::string, AnimationClipInstance> animationClips;
         std::map<Animation::AnimationClip*, std::string> animationClipsInverse;
+
+        // Animation controller.
+        struct AnimationControllerInstance {
+            Animation::AnimationController* animationController;
+            int count;
+        };
+        std::map<std::string, AnimationControllerInstance> animationControllers;
+        std::map<Animation::AnimationController*, std::string> animationControllersInverse;
+
+        // Skeleton.
+        struct SkeletonInstance {
+            Animation::Skeleton* skeleton;
+            int count;
+        };
+        std::map<std::string, SkeletonInstance> skeletons;
+        std::map<Animation::Skeleton*, std::string> skeletonsInverse;
 
         // Texture2D.
         struct Texture2DInstance {
