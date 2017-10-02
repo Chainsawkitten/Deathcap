@@ -151,7 +151,7 @@ void RenderManager::Render(World& world, Entity* camera) {
     }
 }
 
-void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras) {
+void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
     // Find camera entity.
     if (camera == nullptr) {
         for (Lens* lens : lenses.GetAll()) {
@@ -202,12 +202,14 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         renderer->StopRenderingIcons();
         
         // Render physics.
-        for (Component::Physics* physics : Managers().physicsManager->GetPhysicsComponents()) {
-            const Physics::Shape& shape = physics->GetShape();
-            if (shape.GetKind() == Physics::Shape::Kind::Sphere) {
-                Managers().debugDrawingManager->AddSphere(physics->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
-            } else if (shape.GetKind() == Physics::Shape::Kind::Plane) {
-                Managers().debugDrawingManager->AddPlane(physics->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+        if (physics) {
+            for (Component::Physics* physics : Managers().physicsManager->GetPhysicsComponents()) {
+                const Physics::Shape& shape = physics->GetShape();
+                if (shape.GetKind() == Physics::Shape::Kind::Sphere) {
+                    Managers().debugDrawingManager->AddSphere(physics->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
+                } else if (shape.GetKind() == Physics::Shape::Kind::Plane) {
+                    Managers().debugDrawingManager->AddPlane(physics->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+                }
             }
         }
     }
