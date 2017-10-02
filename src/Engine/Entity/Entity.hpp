@@ -184,6 +184,9 @@ class Entity {
 
         /// Whether the entity is active.
         bool enabled = true;
+
+        /// Whether the entity is static.
+        bool isStatic = false;
         
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
