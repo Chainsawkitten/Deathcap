@@ -9,9 +9,12 @@ set(SRCS
         ../../externals/imgui/imgui_draw.cpp
         Hymn.cpp
         MainWindow.cpp
+	Animation/AnimationClip.cpp
+	Animation/Skeleton.cpp
         Audio/SoundBuffer.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
+	Component/AnimationController.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -55,10 +58,13 @@ set(SRCS
 set(HEADERS
         Hymn.hpp
         MainWindow.hpp
+	Animation/AnimationClip.hpp
+	Animation/Skeleton.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/VorbisFile.hpp
         Component/Animation.hpp
+	Component/AnimationController.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp

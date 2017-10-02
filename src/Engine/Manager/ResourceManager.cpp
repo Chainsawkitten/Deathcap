@@ -65,6 +65,23 @@ void ResourceManager::FreeModel(Geometry::Model* model) {
     }
 }
 
+Animation::Skeleton * ResourceManager::CreateSkeleton(const std::string & name) {
+
+    return nullptr;
+}
+
+void ResourceManager::FreeSkeleton(Animation::Skeleton * skeleton) {
+
+}
+
+Animation::Skeleton * ResourceManager::CreateAnimationClip(const std::string & name) {
+    return nullptr;
+}
+
+void ResourceManager::FreeAnimationClip(Animation::AnimationClip * animationClip) {
+
+}
+
 Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength, bool srgb) {
     if (textures.find(data) == textures.end()) {
         textures[data].texture = new Video::Texture2D(data, dataLength, srgb);

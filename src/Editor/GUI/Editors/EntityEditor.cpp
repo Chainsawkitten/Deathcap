@@ -1,6 +1,7 @@
 #include "EntityEditor.hpp"
 
 #include <Engine/Component/Animation.hpp>
+#include <Engine/Component/AnimationController.hpp>
 #include <Engine/Component/Physics.hpp>
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Lens.hpp>
@@ -34,6 +35,7 @@ using namespace GUI;
 EntityEditor::EntityEditor() {
     name[0] = '\0';
     AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
+    AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
     AddEditor<Component::Physics>("Physics", std::bind(&EntityEditor::PhysicsEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
@@ -128,6 +130,11 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
         ImGui::EndPopup();
     }
     ImGui::Unindent();
+}
+
+void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
+    ImGui::Text("Positional");
+
 }
 
 void EntityEditor::PhysicsEditor(Component::Physics* physics) {

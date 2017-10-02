@@ -23,22 +23,22 @@ using namespace std;
 
 void ResourceView::Show() {
     ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
-    
+
     // Splitter.
     ImGui::VerticalSplitter(ImVec2(sceneWidth, size.y - resourceHeight), size.x - sceneWidth - editorWidth, splitterSize, resourceHeight, resourceResize, 20, size.y - 20);
     if (resourceResize)
         resourceHeight = size.y - resourceHeight;
-    
+
     ImGui::SetNextWindowPos(ImVec2(sceneWidth, size.y - resourceHeight));
     ImGui::SetNextWindowSize(ImVec2(size.x - sceneWidth - editorWidth, resourceHeight));
-    
+
     ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
-    
+
     // Scenes.
     if (ImGui::TreeNode("Scenes")) {
         if (ImGui::Button("Add scene"))
             Resources().scenes.push_back("Scene #" + std::to_string(Resources().scenes.size()));
-        
+
         for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
             if (ImGui::Selectable(Resources().scenes[i].c_str())) {
                 sceneEditor.Save();
@@ -50,16 +50,16 @@ void ResourceView::Show() {
                 std::string sceneFile = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[i] + ".json";
                 Hymn().world.Load(sceneFile);
             }
-            
+
             if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
                 if (ImGui::Selectable("Delete")) {
                     Resources().scenes.erase(Resources().scenes.begin() + i);
                     ImGui::EndPopup();
-                    
+
                     if (Resources().activeScene >= i) {
                         if (Resources().activeScene > 0)
                             Resources().activeScene = Resources().activeScene - 1;
-                        
+
                         sceneEditor.SetScene(Resources().activeScene);
                     }
                     break;
@@ -69,7 +69,7 @@ void ResourceView::Show() {
         }
         ImGui::TreePop();
     }
-    
+
     // Models.
     bool modelPressed = false;
     if (ImGui::TreeNode("Models")) {
@@ -78,19 +78,19 @@ void ResourceView::Show() {
             model->name = "Model #" + std::to_string(Resources().modelNumber++);
             Resources().models.push_back(model);
         }
-        
+
         for (auto it = Resources().models.begin(); it != Resources().models.end(); ++it) {
             Geometry::Model* model = *it;
             if (ImGui::Selectable(model->name.c_str())) {
                 modelPressed = true;
                 modelEditor.SetModel(model);
             }
-            
+
             if (ImGui::BeginPopupContextItem(model->name.c_str())) {
                 if (ImGui::Selectable("Delete")) {
                     if (modelEditor.GetModel() == model)
                         modelEditor.SetVisible(false);
-                    
+
                     delete model;
                     Resources().models.erase(it);
                     ImGui::EndPopup();
@@ -101,7 +101,19 @@ void ResourceView::Show() {
         }
         ImGui::TreePop();
     }
-    
+
+    bool animation = false;
+    if (ImGui::TreeNode("Animations")) {
+        bool skeleton = false;
+        if (ImGui::TreeNode("Skeletons")) {
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("Animation Clips")) {
+            ImGui::TreePop();
+        }
+        ImGui::TreePop();
+    }
+
     // Textures.
     bool texturePressed = false;
     if (ImGui::TreeNode("Textures")) {
@@ -110,14 +122,14 @@ void ResourceView::Show() {
             texture->name = "Texture #" + std::to_string(Resources().textureNumber++);
             Resources().textures.push_back(texture);
         }
-        
+
         for (auto it = Resources().textures.begin(); it != Resources().textures.end(); ++it) {
             TextureAsset* texture = *it;
             if (ImGui::Selectable(texture->name.c_str())) {
                 texturePressed = true;
                 textureEditor.SetTexture(texture);
             }
-            
+
             if (ImGui::BeginPopupContextItem(texture->name.c_str())) {
                 if (ImGui::Selectable("Delete")) {
                     if (Managers().resourceManager->GetTextureAssetInstanceCount(texture) > 1) {
@@ -125,11 +137,11 @@ void ResourceView::Show() {
                     } else {
                         if (textureEditor.GetTexture() == texture)
                             textureEditor.SetVisible(false);
-                        
+
                         // Remove files.
                         remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png").c_str());
                         remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".json").c_str());
-                        
+
                         Managers().resourceManager->FreeTextureAsset(texture);
                         Resources().textures.erase(it);
                     }
@@ -139,10 +151,10 @@ void ResourceView::Show() {
                 ImGui::EndPopup();
             }
         }
-        
+
         ImGui::TreePop();
     }
-    
+
     // Scripts.
     bool scriptPressed = false;
     if (ImGui::TreeNode("Scripts")) {
@@ -151,21 +163,21 @@ void ResourceView::Show() {
             scriptFile->name = "Script #" + std::to_string(Hymn().scriptNumber++);
             Hymn().scripts.push_back(scriptFile);
         }
-        
+
         for (auto it = Hymn().scripts.begin(); it != Hymn().scripts.end(); ++it) {
             ScriptFile* script = *it;
             std::string name = script->name;
-            
+
             if (ImGui::Selectable(name.c_str())) {
                 scriptPressed = true;
                 scriptEditor.SetScript(script);
             }
-            
+
             if (ImGui::BeginPopupContextItem(name.c_str())) {
                 if (ImGui::Selectable("Delete")) {
                     if (scriptEditor.GetScript() == script)
                         scriptEditor.SetVisible(false);
-                    
+
                     delete script;
                     Hymn().scripts.erase(it);
                     ImGui::EndPopup();
@@ -174,10 +186,10 @@ void ResourceView::Show() {
                 ImGui::EndPopup();
             }
         }
-        
+
         ImGui::TreePop();
     }
-    
+
     // Sounds.
     bool soundPressed = false;
     if (ImGui::TreeNode("Sounds")) {
@@ -186,19 +198,19 @@ void ResourceView::Show() {
             sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
             Resources().sounds.push_back(sound);
         }
-        
+
         for (auto it = Resources().sounds.begin(); it != Resources().sounds.end(); ++it) {
             Audio::SoundBuffer* sound = *it;
             if (ImGui::Selectable(sound->name.c_str())) {
                 soundPressed = true;
                 soundEditor.SetSound(sound);
             }
-            
+
             if (ImGui::BeginPopupContextItem(sound->name.c_str())) {
                 if (ImGui::Selectable("Delete")) {
                     if (soundEditor.GetSound() == sound)
                         soundEditor.SetVisible(false);
-                    
+
                     delete sound;
                     Resources().sounds.erase(it);
                     ImGui::EndPopup();
@@ -207,10 +219,10 @@ void ResourceView::Show() {
                 ImGui::EndPopup();
             }
         }
-        
+
         ImGui::TreePop();
     }
-    
+
     if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
         scriptEditor.SetVisible(scriptPressed);
@@ -218,23 +230,23 @@ void ResourceView::Show() {
         modelEditor.SetVisible(modelPressed);
         soundEditor.SetVisible(soundPressed);
     }
-    
+
     if (sceneEditor.IsVisible()) {
         ImGui::HorizontalSplitter(ImVec2(sceneWidth, 20), size.y - 20, splitterSize, sceneWidth, sceneResize, 20, size.x - editorWidth - 20);
         ImGui::SetNextWindowPos(ImVec2(0, 20));
         ImGui::SetNextWindowSize(ImVec2(sceneWidth, size.y - 20));
         sceneEditor.Show();
     }
-    
+
     if (sceneEditor.entityEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible()) {
         editorWidth = size.x - editorWidth;
         ImGui::HorizontalSplitter(ImVec2(editorWidth, 20), size.y - 20, splitterSize, editorWidth, editorResize, sceneWidth + 20, size.x - 20);
         editorWidth = size.x - editorWidth;
-        
+
         ImGui::SetNextWindowPos(ImVec2(size.x - editorWidth, 20));
         ImGui::SetNextWindowSize(ImVec2(editorWidth, size.y - 20));
     }
-    
+
     if (sceneEditor.entityEditor.IsVisible())
         sceneEditor.entityEditor.Show();
     if (scriptEditor.IsVisible())
@@ -245,7 +257,7 @@ void ResourceView::Show() {
         modelEditor.Show();
     if (soundEditor.IsVisible())
         soundEditor.Show();
-    
+
     ImGui::End();
 }
 

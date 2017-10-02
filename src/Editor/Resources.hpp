@@ -11,6 +11,10 @@ namespace Geometry {
 namespace Audio {
     class SoundBuffer;
 }
+namespace Animation {
+    class Skeleton;
+    class AnimationClip;
+}
 
 /// A list of all the resources in a hymn.
 class ResourceList {
@@ -37,6 +41,18 @@ class ResourceList {
         
         /// The id of the next model to create.
         unsigned int modelNumber = 0U;
+
+        /// Skeletons.
+        std::vector<Animation::Skeleton*> skeletons;
+
+        /// The id of the next skeleton to create.
+        unsigned int skeletonNumber = 0U;
+
+        /// Animation clips.
+        std::vector<Animation::AnimationClip*> animationClips;
+
+        /// The id of the next animation clip to create.
+        unsigned int animationClipNumber = 0U;
         
         /// Textures.
         std::vector<TextureAsset*> textures;
