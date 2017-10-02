@@ -135,6 +135,14 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
 void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
     ImGui::Text("Positional");
 
+//    for (Animation::AnimationController* animationController : Resources().animationControllers) {
+//        if (ImGui::Selectable(model->name.c_str())) {
+//            if (animation->riggedModel != nullptr)
+//                Managers().resourceManager->FreeModel(animation->riggedModel);
+//
+//            animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
+//        }
+//    }
 }
 
 void EntityEditor::PhysicsEditor(Component::Physics* physics) {

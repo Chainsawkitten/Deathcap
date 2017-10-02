@@ -6,6 +6,7 @@ namespace Animation {
         public:
             void Load(const std::string& name);
 
+            std::string name;
         private:
 
     };

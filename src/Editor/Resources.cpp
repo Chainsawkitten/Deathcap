@@ -2,8 +2,9 @@
 
 #include <json/value.h>
 #include <Engine/Texture/TextureAsset.hpp>
-#include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Animation/AnimationClip.hpp>
+#include <Engine/Animation/AnimationController.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Hymn.hpp>
@@ -43,6 +44,20 @@ void ResourceList::Save() const {
     }
     root["models"] = modelsNode;
 
+    // Save animation clips.
+    Json::Value animationClipsNode;
+    for (Animation::AnimationClip* animationClip : animationClips) {
+        animationClipsNode.append(animationClip->name);
+    }
+    root["animationClips"] = modelsNode;
+
+    // Save animation controller.
+    Json::Value animationControllersNode;
+    for (Animation::AnimationController* animationController : animationControllers) {
+        animationControllersNode.append(animationController->name);
+    }
+    root["animationControllers"] = modelsNode;
+
     // Save skeletons.
     Json::Value skeletonsNode;
     for (Animation::Skeleton* skeleton : skeletons) {
@@ -50,13 +65,6 @@ void ResourceList::Save() const {
     }
     root["skeletons"] = modelsNode;
 
-    // Save animationClips.
-    Json::Value animationClipsNode;
-    for (Animation::AnimationClip* animationClip : animationClips) {
-        skeletonsNode.append(animationClip->name);
-    }
-    root["animationClips"] = modelsNode;
-    
     // Save sounds.
     Json::Value soundsNode;
     for (Audio::SoundBuffer* sound : sounds) {
@@ -98,16 +106,22 @@ void ResourceList::Load() {
         models.push_back(Managers().resourceManager->CreateModel(modelsNode[i].asString()));
     }
 
-    // Load skeletons.
-    const Json::Value skeltonNode = root["skeletons"];
-    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
-//        skeletons.push_back(Managers().resourceManager->CreateModel(modelsNode[i].asString()));
-    }
-    
     // Load animation clips.
     const Json::Value animationClipsNode = root["animationClips"];
     for (unsigned int i = 0; i < modelsNode.size(); ++i) {
-        //        skeletons.push_back(Managers().resourceManager->CreateModel(modelsNode[i].asString()));
+        animationClips.push_back(Managers().resourceManager->CreateAnimationClip(modelsNode[i].asString()));
+    }
+
+    // Load animation clips.
+    const Json::Value animationClipsNode = root["animationController"];
+    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
+        animationControllers.push_back(Managers().resourceManager->CreateAnimationController(modelsNode[i].asString()));
+    }
+
+    // Load skeletons.
+    const Json::Value skeltonNode = root["skeletons"];
+    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
+        skeletons.push_back(Managers().resourceManager->CreateSkeleton(modelsNode[i].asString()));
     }
 
     // Load sounds.
