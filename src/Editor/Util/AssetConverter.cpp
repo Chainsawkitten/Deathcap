@@ -9,7 +9,7 @@ AssetConverter::AssetConverter() {
 AssetConverter::~AssetConverter() {
 }
 
-bool AssetConverter::Convert(const char * filepath, const char * destination,
+void AssetConverter::Convert(const char * filepath, const char * destination,
     bool triangulate, bool importNormals, bool importTangents) {
     
     success = true;
@@ -36,7 +36,6 @@ bool AssetConverter::Convert(const char * filepath, const char * destination,
     aImporter.FreeScene();
 
     file.Close();
-    return true;
 }
 
 bool AssetConverter::Success() const {
@@ -81,6 +80,8 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
         if (aFace.mNumIndices != 3) {
             errorString.append("ERROR: Mesh not triangulated.\n");
             success = false;
+            delete[] indices;
+            delete meshData;
             return;
         }
 

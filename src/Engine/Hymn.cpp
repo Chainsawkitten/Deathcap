@@ -9,10 +9,10 @@
 #include "Manager/SoundManager.hpp"
 #include "Manager/DebugDrawingManager.hpp"
 #include "Manager/ResourceManager.hpp"
-#include "DefaultDiffuse.png.hpp"
+#include "DefaultAlbedo.png.hpp"
 #include "DefaultNormal.png.hpp"
-#include "DefaultSpecular.png.hpp"
-#include "DefaultGlow.png.hpp"
+#include "DefaultMetallic.png.hpp"
+#include "DefaultRoughness.png.hpp"
 #include "Geometry/Model.hpp"
 #include <Video/Texture/Texture2D.hpp>
 #include "Texture/TextureAsset.hpp"
@@ -28,14 +28,14 @@
 using namespace std;
 
 ActiveHymn::ActiveHymn() {
-    defaultDiffuse = new TextureAsset();
-    defaultDiffuse->GetTexture()->Load(DEFAULTDIFFUSE_PNG, DEFAULTDIFFUSE_PNG_LENGTH, true);
+    defaultAlbedo = new TextureAsset();
+    defaultAlbedo->GetTexture()->Load(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH, true);
     defaultNormal = new TextureAsset();
     defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH, false);
-    defaultSpecular = new TextureAsset();
-    defaultSpecular->GetTexture()->Load(DEFAULTSPECULAR_PNG, DEFAULTSPECULAR_PNG_LENGTH, false);
-    defaultGlow = new TextureAsset();
-    defaultGlow->GetTexture()->Load(DEFAULTGLOW_PNG, DEFAULTGLOW_PNG_LENGTH, false);
+    defaultMetallic= new TextureAsset();
+    defaultMetallic->GetTexture()->Load(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH, false);
+    defaultRoughness = new TextureAsset();
+    defaultRoughness->GetTexture()->Load(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH, false);
     
     Clear();
 }
@@ -106,7 +106,7 @@ Json::Value ActiveHymn::ToJson() const {
     Json::Value inputNode;
     inputNode.append(Input::GetInstance().Save());
     root["input"] = inputNode;
-    
+
     // Filter settings.
     Json::Value filtersNode;
     filtersNode["color"] = filterSettings.color;
@@ -158,7 +158,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update physics");
-        Managers().physicsManager->Update(world, deltaTime);
+        Managers().physicsManager->Update(deltaTime);
     }
     
     { PROFILE("Update animations");
@@ -179,11 +179,15 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update sounds");
-        Managers().soundManager->Update(world);
+        Managers().soundManager->Update();
     }
     
     { PROFILE("Update debug drawing");
         Managers().debugDrawingManager->Update(deltaTime);
+    }
+
+    { PROFILE("Synchronize transforms");
+        Managers().physicsManager->UpdateEntityTransforms();
     }
     
     { PROFILE("Clear killed entities/components");
@@ -203,7 +207,7 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     }
     
     { PROFILE("Render debug entities");
-        Managers().debugDrawingManager->Render(world, camera);
+        Managers().debugDrawingManager->Render(camera);
     }
 }
 

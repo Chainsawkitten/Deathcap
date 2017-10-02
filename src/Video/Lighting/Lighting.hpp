@@ -41,7 +41,8 @@ namespace Video {
              */
             void Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
             
-        private:  
+        private:
+            Lighting(const Lighting & other) = delete;
             const Geometry::Rectangle* rectangle;
             ShaderProgram* shaderProgram;
             
@@ -56,6 +57,7 @@ namespace Video {
                 GLint ambientCoefficient;
                 GLint coneAngle;
                 GLint direction;
+                GLint color;
             } lightUniforms[lightCount];
     };
 }

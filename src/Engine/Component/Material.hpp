@@ -2,7 +2,6 @@
 
 #include "SuperComponent.hpp"
 
-class Entity;
 class TextureAsset;
 
 namespace Component {
@@ -10,10 +9,7 @@ namespace Component {
     class Material : public SuperComponent {
         public:
             /// Create new material.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Material(Entity* entity);
+            Material();
             
             /// Destructor.
             ~Material() override;
@@ -24,23 +20,17 @@ namespace Component {
              */
             Json::Value Save() const override;
             
-            /// Load component from JSON node.
-            /**
-             * @param node JSON node to load from.
-             */
-            void Load(const Json::Value& node) override;
-            
-            /// Diffuse texture.
-            TextureAsset* diffuse;
+            /// Albedo texture.
+            TextureAsset* albedo;
             
             /// Normal texture.
             TextureAsset* normal;
             
-            /// Specular texture.
-            TextureAsset* specular;
+            /// Metallic texture.
+            TextureAsset* metallic;
             
-            /// Glow texture.
-            TextureAsset* glow;
+            /// Roughness texture.
+            TextureAsset* roughness;
             
         private:
             void LoadTexture(TextureAsset*& texture, const std::string& name);

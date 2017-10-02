@@ -24,6 +24,10 @@
 using namespace GUI;
 using namespace std;
 
+ResourceView::ResourceView() {
+
+}
+
 void ResourceView::Show() {
     ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
 
@@ -44,14 +48,21 @@ void ResourceView::Show() {
 
         for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
             if (ImGui::Selectable(Resources().scenes[i].c_str())) {
-                sceneEditor.Save();
-                sceneEditor.SetVisible(true);
-                sceneEditor.SetScene(i);
-                Resources().activeScene = i;
-                sceneEditor.entityEditor.SetVisible(false);
-                Hymn().world.Clear();
-                std::string sceneFile = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[i] + ".json";
-                Hymn().world.Load(sceneFile);
+                // Sets to dont save when opening first scene.
+                if (Resources().activeScene == -1) {
+                    changeScene = true;
+                    sceneIndex = i;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.SetDecision(1);
+                } else {
+                    // Does so that the prompt window wont show if you select active scene.
+                    if (Resources().scenes[i] != Resources().scenes[Resources().activeScene]) {
+                        changeScene = true;
+                        sceneIndex = i;
+                        savePromptWindow.SetTitle("Save before you switch scene?");
+                    }
+                }
+
             }
 
             if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
@@ -71,6 +82,45 @@ void ResourceView::Show() {
             }
         }
         ImGui::TreePop();
+        if (changeScene) {
+
+            if (Hymn().GetPath() != "") {
+
+                savePromptWindow.SetVisible(true);
+                savePromptWindow.Show();
+
+                switch (savePromptWindow.GetDecision())
+                {
+                case 0:
+                    sceneEditor.Save();
+                    sceneEditor.SetVisible(true);
+                    sceneEditor.SetScene(sceneIndex);
+                    Resources().activeScene = sceneIndex;
+                    sceneEditor.entityEditor.SetVisible(false);
+                    Hymn().world.Clear();
+                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
+                    changeScene = false;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.ResetDecision();
+                    break;
+
+                case 1:
+                    sceneEditor.SetVisible(true);
+                    sceneEditor.SetScene(sceneIndex);
+                    Resources().activeScene = sceneIndex;
+                    sceneEditor.entityEditor.SetVisible(false);
+                    Hymn().world.Clear();
+                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
+                    changeScene = false;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.ResetDecision();
+                    break;
+
+                default:
+                    break;
+                }
+            }
+        }
     }
 
     // Models.

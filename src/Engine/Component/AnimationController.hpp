@@ -28,7 +28,6 @@ namespace Component {
 
             Animation::AnimationController* controller = nullptr;
 
-
         private:
 
     };

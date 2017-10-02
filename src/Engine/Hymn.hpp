@@ -64,7 +64,7 @@ class ActiveHymn {
          * @param cameras Whether to show cameras.
          */
         void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false);
-        
+
         /// The game world.
         World world;
         
@@ -77,17 +77,17 @@ class ActiveHymn {
         /// The id of the next script to create.
         unsigned int scriptNumber = 0U;
 
-        /// Default diffuse texture.
-        TextureAsset* defaultDiffuse;
+        /// Default albedo texture.
+        TextureAsset* defaultAlbedo;
         
         /// Default normal texture.
         TextureAsset* defaultNormal;
         
-        /// Default specular texture.
-        TextureAsset* defaultSpecular;
+        /// Default metallic texture.
+        TextureAsset* defaultMetallic;
         
-        /// Default glow texture.
-        TextureAsset* defaultGlow;
+        /// Default roughness texture.
+        TextureAsset* defaultRoughness;
         
         /// Filter settings.
         struct FilterSettings {
