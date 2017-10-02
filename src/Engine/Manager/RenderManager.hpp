@@ -73,20 +73,19 @@ class RenderManager {
         
         /// Create directional light component.
         /**
-         * @param node Json node to load the component from.
          * @return The created component.
          */
         Component::DirectionalLight* CreateDirectionalLight();
         
         /// Create directional light component.
         /**
+         * @param node Json node to load the component from.
          * @return The created component.
          */
         Component::DirectionalLight* CreateDirectionalLight(const Json::Value& node);
         
         /// Get all directional light components.
         /**
-         * @param node Json node to load the component from.
          * @return All directional light components.
          */
         const std::vector<Component::DirectionalLight*>& GetDirectionalLights() const;

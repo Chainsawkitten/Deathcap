@@ -12,6 +12,7 @@
 #include <Video/Texture/Texture2D.hpp>
 #include "ParticleAtlas.png.hpp"
 #include <Video/ParticleRenderer.hpp>
+#include "../Util/Json.hpp"
 
 using namespace Video;
 

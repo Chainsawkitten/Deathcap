@@ -5,9 +5,12 @@
 #include <map>
 #include "ITrigger.hpp"
 
+namespace Component {
+    class Physics;
+};
+
 namespace Physics {
 
-    class RigidBody;
     class Shape;
 
     /// Represent a trigger that checks intersections of specific rigid bodies
@@ -18,9 +21,9 @@ namespace Physics {
         public:
             /// Constructor.
             /**
-             * @param shape The shape of the trigger volume.
+             * @param comp The physics component that represents the trigger volume.
              */
-            Trigger(Shape* shape);
+            Trigger(Component::Physics* comp);
 
             /// Overridden from btCollisionWorld::ContactResultCallback.
             virtual btScalar addSingleResult(btManifoldPoint& cp,
@@ -40,11 +43,15 @@ namespace Physics {
             void Process(btCollisionWorld& world);
 
             /// Implementation of ITrigger::OnEnter.
-            virtual void OnEnter(RigidBody& body, std::function<void(RigidBody& body)> observer) override;
+            /**
+             * @param body The physics component representing the body that is to enter the trigger volume.
+             * @param observer Function that is called when event is fired.
+             */
+            virtual void OnEnter(Component::Physics* body, std::function<void()> observer) override;
 
         private:
             btCollisionObject* trigger = nullptr;
-            std::map<RigidBody*, std::function<void(RigidBody&)>> observers;
+            std::map<btRigidBody*, std::function<void()>> observers;
     };
 
 }

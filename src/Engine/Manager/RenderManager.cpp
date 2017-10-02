@@ -31,7 +31,7 @@
 #include <Video/Lighting/Light.hpp>
 #include "../Hymn.hpp"
 #include "Util/Profiling.hpp"
-#include "Utility/Log.hpp"
+#include "Util/Json.hpp"
 
 #include "Manager/VRManager.hpp"
 

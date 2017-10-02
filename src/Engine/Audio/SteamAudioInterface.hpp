@@ -40,7 +40,7 @@ class SteamAudioInterface {
          * @param scene Handle to the scene to be finalized.
          * @param progressCallback Callback to check the progress of the finalization. Can be NULL.
          */
-        void FinalizeScene(IPLhandle* scene, IPLFinalizeSceneProgressCallback progressCallback);	//Can also create Environment (until we start using multiple scenes)
+        void FinalizeScene(IPLhandle* scene, IPLFinalizeSceneProgressCallback progressCallback); //Can also create Environment (until we start using multiple scenes)
     
         /// Everything needed to load a previously finalized scene stored in a byte array.
         struct SaveData {

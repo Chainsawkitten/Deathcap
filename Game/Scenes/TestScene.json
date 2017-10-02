@@ -47,6 +47,51 @@
 			{
 				"model" : "CartSecond"
 			},
+			"Physics" : 
+			{
+				"acceleration" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"angularAcceleration" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"angularDragFactor" : 1.0,
+				"angularVelocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"gravityFactor" : 0.0,
+				"maxAngularVelocity" : 2.0,
+				"maxVelocity" : 20.0,
+				"momentOfInertia" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"shape" : 
+				{
+					"sphere" : 
+					{
+						"radius" : 1.0
+					}
+				},
+				"velocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"velocityDragFactor" : 1.0
+			},
 			"Script" : 
 			{
 				"scriptName" : "Cart"
@@ -226,6 +271,81 @@
 					},
 					"scene" : false,
 					"uid" : 1506428288
+				},
+				{
+					"Physics" : 
+					{
+						"acceleration" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"angularAcceleration" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"angularDragFactor" : 1.0,
+						"angularVelocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"gravityFactor" : 0.0,
+						"maxAngularVelocity" : 2.0,
+						"maxVelocity" : 20.0,
+						"momentOfInertia" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"shape" : 
+						{
+							"plane" : 
+							{
+								"normal" : 
+								{
+									"x" : 0.0,
+									"y" : 0.0,
+									"z" : 1.0
+								},
+								"planeCoeff" : 450.0
+							}
+						},
+						"velocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"velocityDragFactor" : 1.0
+					},
+					"children" : null,
+					"name" : "StopTrigger",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 450.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"uid" : 1506510737
 				}
 			],
 			"name" : "GateAndLever",
