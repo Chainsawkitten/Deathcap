@@ -113,7 +113,7 @@ void ResourceList::Load() {
     }
 
     // Load animation clips.
-    const Json::Value animationClipsNode = root["animationController"];
+    const Json::Value animationControllerNode = root["animationController"];
     for (unsigned int i = 0; i < modelsNode.size(); ++i) {
         animationControllers.push_back(Managers().resourceManager->CreateAnimationController(modelsNode[i].asString()));
     }
