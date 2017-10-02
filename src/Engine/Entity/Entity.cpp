@@ -80,14 +80,12 @@ Entity* Entity::InstantiateScene(const std::string& name, const std::string& ori
 
     // Checks if file exists.
     if (FileSystem::FileExists(filename.c_str())) {
-        root;
         std::ifstream file1(filename);
         file1 >> root;
 
         CheckIfSceneExists(filename, error, originScene, root);
 
         if(error == false) {
-            root;
             std::ifstream file(filename);
             file >> root;
             file.close();
