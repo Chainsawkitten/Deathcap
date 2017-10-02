@@ -30,6 +30,8 @@ namespace Component {
         ::Physics::Shape& shape = rigidBody->GetShape();
         switch (shape.GetKind()) {
             case ::Physics::Shape::Kind::Sphere: {
+                auto sphereData = shape.GetSphereData();
+                concreteShape["radius"] = sphereData->radius;
                 componentShape["sphere"] = concreteShape;
                 break;
             }
@@ -51,5 +53,9 @@ namespace Component {
     
     void Physics::SetShape(::Physics::Shape* shape) {
         rigidBody->SetShape(shape);
+    }
+
+    ::Physics::RigidBody& Physics::GetRigidBody() {
+        return *rigidBody;
     }
 }
