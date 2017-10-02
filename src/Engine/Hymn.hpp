@@ -65,6 +65,12 @@ class ActiveHymn {
          */
         void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false);
 
+        /// Create static grid.
+        /**
+        * @param gridWidthDepth Width is x value and y is depth value.
+        */
+        void CreateGrid(glm::vec2 gridWidthDepth);
+
         /// The game world.
         World world;
         
