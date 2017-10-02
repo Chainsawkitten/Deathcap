@@ -104,7 +104,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                 glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
                 glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
                 glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
-                Log() << "HMD POSITION: " << hmdTransform[3][0] << ", " << hmdTransform[3][1] << ", " << hmdTransform[3][2] << "\n";
+                //Log() << "HMD POSITION(A): " << hmdTransform[3][0] << ", " << hmdTransform[3][1] << ", " << hmdTransform[3][2] << "\n";
                 glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
 
                 glm::mat4 orientationMat = glm::transpose(glm::mat4(
@@ -116,7 +116,9 @@ void RenderManager::Render(World& world, Entity* camera) {
                 
                 glm::mat4 hmdTranslation = glm::inverse(orientationMat) * hmdTransform;
 
-                glm::mat4 translationMat = lensTranslation;// eyeTranslation * hmdTranslation * lensTranslation;
+                Log() << "HMD POSITION(B): " << hmdTranslation[3][0] << ", " << hmdTranslation[3][1] << ", " << hmdTranslation[3][2] << "\n";
+
+                glm::mat4 translationMat = eyeTranslation * lensTranslation;
 
                 Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
 
