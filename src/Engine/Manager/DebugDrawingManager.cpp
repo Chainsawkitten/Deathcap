@@ -63,6 +63,17 @@ void DebugDrawingManager::AddPlane(const glm::vec3& position, const glm::vec3& n
     planes.push_back(plane);
 }
 
+void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Sphere sphere;
+    sphere.position = position;
+    sphere.radius = radius;
+    sphere.color = color;
+    sphere.lineWidth = lineWidth;
+    sphere.duration = duration;
+    sphere.depthTesting = depthTesting;
+    spheres.push_back(sphere);
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
@@ -107,6 +118,17 @@ void DebugDrawingManager::Update(float deltaTime) {
             planes[i].duration -= deltaTime;
         }
     }
+    
+    // Spheres.
+    for (std::size_t i=0; i < spheres.size(); ++i) {
+        if (spheres[i].duration < 0.f) {
+            spheres[i] = spheres[spheres.size() - 1];
+            spheres.pop_back();
+            --i;
+        } else {
+            spheres[i].duration -= deltaTime;
+        }
+    }
 }
 
 void DebugDrawingManager::Render(Entity* camera) {
@@ -141,6 +163,10 @@ void DebugDrawingManager::Render(Entity* camera) {
         // Planes.
         for (const DebugDrawing::Plane& plane : planes)
             debugDrawing->DrawPlane(plane);
+        
+        // Spheres.
+        for (const DebugDrawing::Sphere& sphere : spheres)
+            debugDrawing->DrawSphere(sphere);
         
         debugDrawing->EndDebugDrawing();
     }
