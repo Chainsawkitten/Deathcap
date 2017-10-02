@@ -10,6 +10,7 @@
 #include "ReadWriteTexture.hpp"
 #include "RenderSurface.hpp"
 #include "Engine/Util/Profiling.hpp"
+#include <vector> //TMP TODO
 
 using namespace Video;
 
@@ -93,35 +94,55 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
 
     {
-        PROFILE("Render lights");
+        PROFILE("Render light");
+
+        // TMP TODO
+        std::vector<GLuint> queryPool(2);
+        glGenQueries(queryPool.size(), queryPool.data());
+
+        glQueryCounter(queryPool[0], GL_TIMESTAMP);
+
+
         // Render lights.
         unsigned int lightIndex = 0U;
 
-        {
-            PROFILE("Update light buffer");
+        for (const Light& light : lights) {
+            glUniform4fv(lightUniforms[lightIndex].position, 1, &light.position[0]);
+            glUniform3fv(lightUniforms[lightIndex].intensities, 1, &light.intensities[0]);
+            glUniform1f(lightUniforms[lightIndex].attenuation, light.attenuation);
+            glUniform1f(lightUniforms[lightIndex].ambientCoefficient, light.ambientCoefficient);
+            glUniform1f(lightUniforms[lightIndex].coneAngle, light.coneAngle);
+            glUniform3fv(lightUniforms[lightIndex].direction, 1, &light.direction[0]);
 
-            for (const Light& light : lights) {
-                glUniform4fv(lightUniforms[lightIndex].position, 1, &light.position[0]);
-                glUniform3fv(lightUniforms[lightIndex].intensities, 1, &light.intensities[0]);
-                glUniform1f(lightUniforms[lightIndex].attenuation, light.attenuation);
-                glUniform1f(lightUniforms[lightIndex].ambientCoefficient, light.ambientCoefficient);
-                glUniform1f(lightUniforms[lightIndex].coneAngle, light.coneAngle);
-                glUniform3fv(lightUniforms[lightIndex].direction, 1, &light.direction[0]);
-
-                if (++lightIndex >= lightCount) {
-                    lightIndex = 0U;
-                    glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-                }
-            }
-        }
-        
-        {
-            PROFILE("Render light");
-            if (lightIndex != 0U) {
-                glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
+            if (++lightIndex >= lightCount) {
+                lightIndex = 0U;
                 glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
             }
         }
+        
+        if (lightIndex != 0U) {
+            glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
+            glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+        }
+
+        // TMP TODO
+        glQueryCounter(queryPool[1], GL_TIMESTAMP);
+           
+        GLuint64 a = GL_FALSE; 
+        GLuint64 b = GL_FALSE;
+
+        while (a == GL_FALSE)
+            glGetQueryObjectui64v(queryPool[0], GL_QUERY_RESULT_AVAILABLE, &a);
+        glGetQueryObjectui64v(queryPool[0], GL_QUERY_RESULT, &a);
+        while (b == GL_FALSE)
+            glGetQueryObjectui64v(queryPool[1], GL_QUERY_RESULT_AVAILABLE, &b);
+        glGetQueryObjectui64v(queryPool[1], GL_QUERY_RESULT, &b);
+
+        GLuint64 result = b - a;
+
+        Log() << "B: " << result / 1000000.0 << " ms\n";
+
+        glDeleteQueries(queryPool.size(), queryPool.data());
     }
     
     if (!depthTest)
