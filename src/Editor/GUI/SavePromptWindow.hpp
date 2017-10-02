@@ -43,7 +43,7 @@ namespace GUI {
             /**
              * @param newTitle The new title of the window.
              */
-            void SetTitle(std::string newTitle);
+            void SetTitle(const std::string& newTitle);
 
         private:
 
