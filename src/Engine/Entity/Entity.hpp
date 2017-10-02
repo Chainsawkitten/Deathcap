@@ -70,7 +70,7 @@ class Entity {
         * @param originScene Name of scene you want to check.
         * @param root The json value of root scene.
         */
-        void CheckIfSceneExists(std::string filename, bool & error, std::string originScene, Json::Value root);
+        void CheckIfSceneExists(std::string& filename, bool & error, std::string& originScene, Json::Value root);
 
         /// Get all of the entity's children.
         /**
