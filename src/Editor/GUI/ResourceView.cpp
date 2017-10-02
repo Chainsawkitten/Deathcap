@@ -1,5 +1,7 @@
 #include "ResourceView.hpp"
 
+#include <Engine/Animation/AnimationClip.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
@@ -102,15 +104,27 @@ void ResourceView::Show() {
         ImGui::TreePop();
     }
 
+    // Animations.
     bool animation = false;
     if (ImGui::TreeNode("Animations")) {
         bool skeleton = false;
-        if (ImGui::TreeNode("Skeletons")) {
+
+        if (ImGui::TreeNode("Animation controllers")) {
+            if (ImGui::Button("Add animation controller")) {
+                Geometry::Model* model = new Geometry::Model();
+                model->name = "Model #" + std::to_string(Resources().modelNumber++);
+                Resources().models.push_back(model);
+            }
+
             ImGui::TreePop();
         }
-        if (ImGui::TreeNode("Animation Clips")) {
+
+        if (ImGui::TreeNode("Animation clips"))
             ImGui::TreePop();
-        }
+
+        if (ImGui::TreeNode("Skeletons"))
+            ImGui::TreePop();
+
         ImGui::TreePop();
     }
 

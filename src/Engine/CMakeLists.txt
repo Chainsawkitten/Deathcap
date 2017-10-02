@@ -10,6 +10,7 @@ set(SRCS
         Hymn.cpp
         MainWindow.cpp
 	Animation/AnimationClip.cpp
+	Animation/AnimationController.cpp
 	Animation/Skeleton.cpp
         Audio/SoundBuffer.cpp
         Audio/VorbisFile.cpp
@@ -59,6 +60,7 @@ set(HEADERS
         Hymn.hpp
         MainWindow.hpp
 	Animation/AnimationClip.hpp
+	Animation/AnimationController.hpp
 	Animation/Skeleton.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
