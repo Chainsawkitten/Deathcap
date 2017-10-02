@@ -8,7 +8,6 @@
 #include <fstream>
 
 
-
 /// %Entity containing various components.
 class Entity {
     public:
