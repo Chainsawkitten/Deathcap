@@ -20,7 +20,7 @@ namespace Video {
             /**
              * @param rectangle %Rectangle to use for rendering.
              */
-            Lighting(const Geometry::Rectangle* rectangle);
+            Lighting(ShaderProgram* shaderProgram, const Geometry::Rectangle* rectangle);
             
             /// Destructor.
             ~Lighting();

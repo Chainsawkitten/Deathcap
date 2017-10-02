@@ -63,3 +63,8 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
 }
+
+ShaderProgram*  Video::StaticRenderProgram::getShaderProgram()
+{
+    return shaderProgram;
+}

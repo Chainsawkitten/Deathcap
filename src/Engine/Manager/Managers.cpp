@@ -51,7 +51,7 @@ void Hub::ShutDown() {
     delete debugDrawingManager;
     delete scriptManager;
     delete soundManager;
-    delete renderManager;
+    //delete renderManager;
     delete particleManager;
     delete physicsManager;
     delete resourceManager;

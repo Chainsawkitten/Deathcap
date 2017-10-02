@@ -90,6 +90,11 @@ void RenderManager::Render(World& world, Entity* camera) {
                 if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                     Entity* entity = mesh->entity;
                     Material* material = entity->GetComponent<Material>();
+                     // Light the world.
+                     {
+                         PROFILE("Light the world");
+                         LightWorld(world, camera, renderSurface);
+                     }
                     if (material != nullptr) {
                         renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
                     }
@@ -99,11 +104,6 @@ void RenderManager::Render(World& world, Entity* camera) {
 
         /// @todo Render skinned meshes.
         
-        // Light the world.
-        {
-            PROFILE("Light the world");
-            LightWorld(world, camera, renderSurface);
-        }
 
         
         // Anti-aliasing.

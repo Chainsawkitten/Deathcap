@@ -26,8 +26,8 @@ using namespace Video;
 
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
-    lighting = new Lighting(rectangle);
     staticRenderProgram = new StaticRenderProgram();
+    lighting = new Lighting(staticRenderProgram->getShaderProgram(),rectangle);
     skinRenderProgram = new SkinRenderProgram();
     postProcessing = new PostProcessing(rectangle);
     colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
@@ -99,7 +99,7 @@ void Renderer::AddLight(const Video::Light& light) {
 }
 
 void Renderer::Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
-    //lighting->Render(inverseProjectionMatrix, renderSurface);
+    lighting->Render(inverseProjectionMatrix, renderSurface);
 }
 
 void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
