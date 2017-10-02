@@ -16,7 +16,8 @@
 #include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
-#include "ImGui/ImGuizmo.hpp"
+#include <ImGuizmo.hpp>
+
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtx/transform.hpp>
@@ -346,6 +347,7 @@ void Editor::Show(float deltaTime) {
     if (ImGui::GetMouseCursor() < 5) {
         glfwSetCursor(MainWindow::GetInstance()->GetGLFWWindow(), cursors[ImGui::GetMouseCursor()]);
     }
+
 
     // Widget Controller for translation, rotation  and scale.
     ImGuizmo::BeginFrame();
