@@ -45,7 +45,11 @@ class VRManager {
          */
         glm::mat4 GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float zFar) const;
 
-        // todo
+        /// Submit a texture to an eye.
+        /**
+         * @param eye Which eye to submit texture.
+         * @param texture Texture to submit.
+         */
         void Submit(vr::Hmd_Eye eye, vr::Texture_t* texture) const;
         
     private:
@@ -54,9 +58,8 @@ class VRManager {
         VRManager(VRManager const&) = delete;
         void operator=(VRManager const&) = delete;
 
-        // Covert from OpenVR matrix format to glm matrix. todo copy?
-        static glm::mat4 ConvertMatrix(const vr::HmdMatrix34_t& matPose);
-        static glm::mat4 ConvertMatrix(const vr::HmdMatrix44_t& matPose);
+        static glm::mat4 ConvertMatrix(const vr::HmdMatrix34_t& mat);
+        static glm::mat4 ConvertMatrix(const vr::HmdMatrix44_t& mat);
 
         vr::IVRSystem* vrSystem;
         vr::TrackedDevicePose_t tracedDevicePoseArray[vr::k_unMaxTrackedDeviceCount];
