@@ -10,6 +10,7 @@ class SoundManager;
 class ScriptManager;
 class DebugDrawingManager;
 class ProfilingManager;
+class VRManager;
 
 class World;
 
@@ -45,6 +46,9 @@ class Hub {
         
         /// The profiling manager instance.
         ProfilingManager* profilingManager;
+
+        /// The VR manager instance.
+        VRManager* vrManager;
         
         /// Initialize all subsystems.
         void StartUp();

@@ -70,7 +70,7 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     
     shaderProgram->Use();
     
-    renderSurface->GetPostProcessingFrameBuffer()->SetTarget();
+    renderSurface->GetPostProcessingFrameBuffer()->Bind();
 
     renderSurface->GetAlbedoTexture()->BindForReading(GL_TEXTURE0);
     renderSurface->GetNormalTexture()->BindForReading(GL_TEXTURE1);
