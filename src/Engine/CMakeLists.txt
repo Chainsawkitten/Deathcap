@@ -14,7 +14,6 @@ set(SRCS
 	Animation/Skeleton.cpp
         Audio/SoundBuffer.cpp
         Audio/VorbisFile.cpp
-        Component/Animation.cpp
 	Component/AnimationController.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
@@ -30,7 +29,6 @@ set(SRCS
         Component/SuperComponent.cpp
         Entity/Entity.cpp
         Entity/World.cpp
-        Geometry/Animation.cpp
 	Geometry/AssetFileAnimation.cpp
         Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
@@ -65,7 +63,6 @@ set(HEADERS
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/VorbisFile.hpp
-        Component/Animation.hpp
 	Component/AnimationController.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
@@ -81,7 +78,6 @@ set(HEADERS
         Component/SuperComponent.hpp
         Entity/Entity.hpp
         Entity/World.hpp
-        Geometry/Animation.hpp
         Geometry/AssetFileAnimation.hpp
         Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp

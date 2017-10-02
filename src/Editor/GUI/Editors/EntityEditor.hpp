@@ -7,7 +7,6 @@
 #include <imgui.h>
 
 namespace Component {
-    class Animation;
     class AnimationController;
     class Physics;
     class Mesh;
@@ -72,7 +71,6 @@ namespace GUI {
             template<typename type> void EditComponent(const std::string& name, std::function<void(type*)> editorFunction);
             
             // Editors
-            void AnimationEditor(Component::Animation* animation);
             void AnimationControllerEditor(Component::AnimationController * animationController);
             void PhysicsEditor(Component::Physics* physics);
             void MeshEditor(Component::Mesh* mesh);

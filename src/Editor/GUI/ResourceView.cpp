@@ -1,6 +1,7 @@
 #include "ResourceView.hpp"
 
 #include <Engine/Animation/AnimationClip.hpp>
+#include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
@@ -111,9 +112,30 @@ void ResourceView::Show() {
 
         if (ImGui::TreeNode("Animation controllers")) {
             if (ImGui::Button("Add animation controller")) {
-                Geometry::Model* model = new Geometry::Model();
-                model->name = "Model #" + std::to_string(Resources().modelNumber++);
-                Resources().models.push_back(model);
+                Animation::AnimationController* animationController = new Animation::AnimationController();
+                animationController->name = "Animation Controller #" + std::to_string(Resources().animationControllerNumber++);
+                Resources().animationControllers.push_back(animationController);
+            }
+
+            for (auto it = Resources().animationControllers.begin(); it != Resources().animationControllers.end(); ++it) {
+                Animation::AnimationController* animationController = *it;
+                if (ImGui::Selectable(animationController->name.c_str())) {
+                //   modelPressed = true;
+                //   modelEditor.SetModel(animationController);
+                }
+
+                if (ImGui::BeginPopupContextItem(animationController->name.c_str())) {
+                    if (ImGui::Selectable("Delete")) {
+                        //if (modelEditor.GetModel() == animationController)
+                        //    modelEditor.SetVisible(false);
+
+                        delete animationController;
+                        Resources().animationControllers.erase(it);
+                        ImGui::EndPopup();
+                        break;
+                    }
+                    ImGui::EndPopup();
+                }
             }
 
             ImGui::TreePop();

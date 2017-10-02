@@ -1,6 +1,5 @@
 #include "EntityEditor.hpp"
 
-#include <Engine/Component/Animation.hpp>
 #include <Engine/Component/AnimationController.hpp>
 #include <Engine/Component/Physics.hpp>
 #include <Engine/Component/Mesh.hpp>
@@ -13,6 +12,7 @@
 #include <Engine/Component/Script.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
+#include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
@@ -34,7 +34,6 @@ using namespace GUI;
 
 EntityEditor::EntityEditor() {
     name[0] = '\0';
-    AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
     AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
     AddEditor<Component::Physics>("Physics", std::bind(&EntityEditor::PhysicsEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
@@ -109,40 +108,27 @@ void EntityEditor::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void EntityEditor::AnimationEditor(Component::Animation* animation) {
-    ImGui::Indent();
-    if (ImGui::Button("Select model##Animation"))
-        ImGui::OpenPopup("Select model##Animation");
+void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
+    ImGui::Indent(); 
+    if (ImGui::Button("Select animation controller##Animation"))
+        ImGui::OpenPopup("Select animation Controller##Animation");
 
-    if (ImGui::BeginPopup("Select model##Animation")) {
-        ImGui::Text("Models");
+    if (ImGui::BeginPopup("Select animation controller##Animation")) {
+        ImGui::Text("Animation controller");
         ImGui::Separator();
 
-        for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str())) {
-                if (animation->riggedModel != nullptr)
-                    Managers().resourceManager->FreeModel(animation->riggedModel);
-                
-                animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
+        for (Animation::AnimationController* controller : Resources().animationControllers) {
+            if (ImGui::Selectable(controller->name.c_str())) {
+                if (animationController->controller != nullptr)
+                    Managers().resourceManager->FreeAnimationController(animationController->controller);
+
+                animationController->controller = Managers().resourceManager->CreateAnimationController(controller->name);
             }
         }
 
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-}
-
-void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
-    ImGui::Text("Positional");
-
-//    for (Animation::AnimationController* animationController : Resources().animationControllers) {
-//        if (ImGui::Selectable(model->name.c_str())) {
-//            if (animation->riggedModel != nullptr)
-//                Managers().resourceManager->FreeModel(animation->riggedModel);
-//
-//            animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
-//        }
-//    }
 }
 
 void EntityEditor::PhysicsEditor(Component::Physics* physics) {

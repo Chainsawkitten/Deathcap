@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SuperComponent.hpp"
-
+#include "../Animation/AnimationController.hpp"
 #include <string>
 
 namespace Component {
@@ -26,7 +26,8 @@ namespace Component {
             */
             void Load(const Json::Value& node) override;
 
-            void PlayAnimation(std::string animation);
+            Animation::AnimationController* controller = nullptr;
+
 
         private:
 
