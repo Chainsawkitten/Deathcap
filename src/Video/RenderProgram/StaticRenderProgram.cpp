@@ -57,6 +57,7 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
 
         // Render model.
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewMatrix"), 1, GL_FALSE, &viewMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
         glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
 

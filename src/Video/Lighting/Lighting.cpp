@@ -108,10 +108,10 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
                 glUniform1f(lightUniforms[lightIndex].coneAngle, light.coneAngle);
                 glUniform3fv(lightUniforms[lightIndex].direction, 1, &light.direction[0]);
    
-               //if (++lightIndex >= lightCount) {
-               //    lightIndex = 0U;
-               //    glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-               //}
+               if (++lightIndex >= lightCount) {
+                   lightIndex = 0U;
+                   glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+               }
             }
         }
         

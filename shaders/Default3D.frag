@@ -102,6 +102,7 @@ float metallic = texture(mapMetallic, vertexIn.texCoords).r;
 float roughness = texture(mapRoughness, vertexIn.texCoords).r;
 //vec3 pos = ReconstructPos(vertexIn.texCoords, depth); // no need to sample g-buffer
 vec3 pos = vertexIn.pos;
+//vec3 pos = vec3(0,0,0);
 
 
 vec3 applyLights() {
