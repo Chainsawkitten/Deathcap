@@ -45,9 +45,21 @@ void ResourceView::Show() {
         
         for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
             if (ImGui::Selectable(Resources().scenes[i].c_str())) {
-                changeScene = true;
-                sceneIndex = i;
-                savePromptWindow.SetTitle("Save before you switch scene?");
+                // Sets to dont save when opening first scene.
+                if (sceneIndex == -1) {
+                    changeScene = true;
+                    sceneIndex = i;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.SetDecision(1);
+                } else {
+                    // Does so that the prompt window wont show if you select active scene.
+                    if (Resources().scenes[i] != Resources().scenes[Resources().activeScene]) {
+                        changeScene = true;
+                        sceneIndex = i;
+                        savePromptWindow.SetTitle("Save before you switch scene?");
+                    }
+                }
+
             }
             
             if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
@@ -67,7 +79,6 @@ void ResourceView::Show() {
             }
         }
         ImGui::TreePop();
-
         if (changeScene) {
 
             if (Hymn().GetPath() != "") {

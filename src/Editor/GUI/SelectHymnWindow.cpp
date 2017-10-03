@@ -39,7 +39,7 @@ void SelectHymnWindow::Show() {
     }
 }
 
-void SelectHymnWindow::SetClosedCallback(std::function<void(const std::string&)> callback) {
+void SelectHymnWindow::SetClosedCallback(const std::function<void(const std::string&)>& callback) {
     closedCallback = callback;
     hasClosedCallback = true;
 }

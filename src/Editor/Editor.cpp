@@ -146,6 +146,10 @@ void Editor::Show(float deltaTime) {
                 static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
                 ImGui::MenuItem("Cameras", "", &cameras);
                 EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
+                
+                static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
+                ImGui::MenuItem("Physics", "", &physics);
+                EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
 
                 ImGui::EndMenu();
             }
@@ -404,7 +408,7 @@ void Editor::NewHymnClosed(const std::string& hymn) {
         resourceView.SetVisible(true);
 
         // Default scene.
-        Resources().scenes.push_back("Scene #0");
+        //Resources().scenes.push_back("Scene #0");
 
         Entity* player = Hymn().world.GetRoot()->AddChild("Player");
         player->position.z = 10.f;

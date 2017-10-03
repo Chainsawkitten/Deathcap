@@ -5,7 +5,6 @@
 #include <random>
 
 #include "../Entity/ComponentContainer.hpp"
-#include "../Util/Json.hpp"
 
 class Entity;
 class World;
@@ -49,9 +48,11 @@ class ParticleManager {
         /// Render the particles in a world.
         /**
          * @param world %World containing particles to render.
-         * @param camera Camera through which to render.
+         * @param position World position of the camera.
+         * @param up Up direction of the camera.
+         * @param viewProjectionMatrix View projection matrix of the camera.
          */
-        void Render(World& world, const Entity* camera);
+        void Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix);
         
         /// Get the texture atlas.
         /**

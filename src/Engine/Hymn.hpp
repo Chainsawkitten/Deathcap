@@ -62,8 +62,9 @@ class ActiveHymn {
          * @param particleEmitters Whether to show particle emitters.
          * @param lightSources Whether to show light sources.
          * @param cameras Whether to show cameras.
+         * @param physics Whether to show physics volumes.
          */
-        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false);
+        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
 
         /// The game world.
         World world;
