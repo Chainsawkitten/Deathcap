@@ -225,7 +225,6 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     {
         PROFILE("Render z-pass meshes");
