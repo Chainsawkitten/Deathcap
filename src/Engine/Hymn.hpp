@@ -64,7 +64,13 @@ class ActiveHymn {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          */
-        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
+        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false, bool gridSettings = false);
+
+        /// Create static grid.
+        /**
+        * @param scale Scales the grid, scale can be a maximum of 100.
+        */
+        void CreateGrid(int scale);
 
         /// The game world.
         World world;
@@ -90,6 +96,16 @@ class ActiveHymn {
         /// Default roughness texture.
         TextureAsset* defaultRoughness;
         
+        /// Grid settings.
+        struct GridSettings
+        {
+            int gridScale = 0;
+            bool gridSettingsOpen = true;
+
+        };
+
+        GridSettings gridSettings;
+
         /// Filter settings.
         struct FilterSettings {
             /// Whether to enable color.
