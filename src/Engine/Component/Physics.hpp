@@ -10,7 +10,7 @@ namespace Physics {
 class PhysicsManager;
 
 namespace Component {
-    /// %Component allows interacting with other physics components.
+    /// Will be removed soon™.
     class Physics : public SuperComponent {
         friend class ::PhysicsManager;
         
