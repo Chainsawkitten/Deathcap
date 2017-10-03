@@ -9,8 +9,6 @@ namespace Physics {
 
     Trigger::Trigger(Component::Physics* comp) : btCollisionWorld::ContactResultCallback() {
         trigger = new btCollisionObject();
-        
-        trigger->setCollisionShape(comp->GetShape().GetShape());
         trigger->setWorldTransform(comp->GetRigidBody().GetRigidBody()->getWorldTransform());
     }
 
@@ -40,6 +38,10 @@ namespace Physics {
 
     void Trigger::OnEnter(Component::Physics* body, std::function<void()> observer) {
         observers[body->GetRigidBody().GetRigidBody()] = observer;
+    }
+
+    void Trigger::SetCollisionShape(btCollisionShape* shape) {
+        trigger->setCollisionShape(shape);
     }
 
 }

@@ -4,11 +4,19 @@
 
 class btCollisionShape;
 
+// @todo: Remove when physics component is gone
+namespace Component {
+    class Physics;
+}
+
 namespace Physics {
 
     /// Represents a shape for physics objects and facilitates creation of
     /// underlying types.
     class Shape {
+        friend class PhysicsManager;
+        friend class ::Component::Physics; // @todo: remove when physics component is gone
+
         public:
             /// Parameters used to create a sphere shape.
             struct Sphere {
@@ -30,7 +38,7 @@ namespace Physics {
                 Plane,
             };
 
-            /// Construct a sphere shape.:
+            /// Construct a sphere shape.
             /**
              * @param params Sphere specific parameters.
              */
@@ -41,12 +49,6 @@ namespace Physics {
              * @param params Plane specific parameters.
              */
             Shape(const Plane& params);
-
-            /// Get the wrapped Bullet shape.
-            /**
-             * @return The Bullet shape.
-             */
-            btCollisionShape* GetShape();
 
             /// Get the type of wrapped shape.
             /**
@@ -65,6 +67,13 @@ namespace Physics {
              * @return Plane data, or nullptr if the shape is not a plane.
              */
             const Plane* GetPlaneData() const;
+
+        private:
+            /// Get the wrapped Bullet shape.
+            /**
+             * @return The Bullet shape.
+             */
+            btCollisionShape* GetShape();
 
         private:
             btCollisionShape* shape;

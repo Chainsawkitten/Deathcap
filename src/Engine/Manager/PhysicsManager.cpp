@@ -121,6 +121,7 @@ void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::
 
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     Physics::Trigger* trigger = new Physics::Trigger(comp);
+    trigger->SetCollisionShape(comp->GetShape().GetShape());
     triggers.push_back(trigger);
     return trigger;
 }

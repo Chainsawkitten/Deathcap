@@ -10,13 +10,12 @@ namespace Component {
 };
 
 namespace Physics {
-
     class Shape;
 
     /// Represent a trigger that checks intersections of specific rigid bodies
     /// against itself.
     class Trigger : public btCollisionWorld::ContactResultCallback, public ITrigger {
-        friend class Simulator;
+        friend class PhysicsManager;
 
         public:
             /// Constructor.
@@ -50,8 +49,10 @@ namespace Physics {
             virtual void OnEnter(Component::Physics* body, std::function<void()> observer) override;
 
         private:
+            void SetCollisionShape(btCollisionShape* shape);
+
+        private:
             btCollisionObject* trigger = nullptr;
             std::map<btRigidBody*, std::function<void()>> observers;
     };
-
 }
