@@ -225,7 +225,24 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    {
+        PROFILE("Render z-pass meshes");
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
+
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                Material* material = entity->GetComponent<Material>();
+                if (material != nullptr) {
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix,  entity->GetModelMatrix());
+                }
+            }
+        }
+    }
+     
     // Render static meshes.
     {
         PROFILE("Render static meshes");
@@ -242,7 +259,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 }
             }
         }
-    }
+    }  
 
     /// @todo Render skinned meshes.
     
