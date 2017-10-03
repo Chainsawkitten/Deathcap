@@ -127,12 +127,15 @@ Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     return trigger;
 }
 
-Component::Physics* PhysicsManager::CreatePhysics() {
-    return physicsComponents.Create();
+Component::Physics* PhysicsManager::CreatePhysics(Entity* owner) {
+    auto comp = physicsComponents.Create();
+    comp->entity = owner;
+    return comp;
 }
 
-Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
+Component::Physics* PhysicsManager::CreatePhysics(Entity* owner, const Json::Value& node) {
     Component::Physics* physics = physicsComponents.Create();
+    physics->entity = owner;
     
     // Load values from Json node.
     physics->velocity = Json::LoadVec3(node["velocity"]);
@@ -167,16 +170,19 @@ Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
     return physics;
 }
 
-Component::Shape* PhysicsManager::CreateShape() {
-    return shapeComponents.Create();
+Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
+    auto comp = shapeComponents.Create();
+    comp->entity = owner;
+    return comp;
 }
 
-Component::Shape* PhysicsManager::CreateShape(const Json::Value& node) {
-    Component::Shape* shape = shapeComponents.Create();
+Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& node) {
+    Component::Shape* comp = shapeComponents.Create();
+    comp->entity = owner;
 
     // TODO: Use JSON data here.
 
-    return shape;
+    return comp;
 }
 
 const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() const {

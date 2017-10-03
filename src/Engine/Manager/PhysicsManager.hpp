@@ -25,6 +25,7 @@ class btDefaultCollisionConfiguration;
 class btCollisionDispatcher;
 class btSequentialImpulseConstraintSolver;
 class btDiscreteDynamicsWorld;
+class Entity;
 
 /// Updates the physics of the world.
 class PhysicsManager {
@@ -51,29 +52,33 @@ class PhysicsManager {
         
         /// Create physics component.
         /**
+         * @param owner The %Entity that will own the component.
          * @return The created component.
          */
-        Component::Physics* CreatePhysics();
+        Component::Physics* CreatePhysics(Entity* owner);
         
         /// Create physics component.
         /**
+         * @param owner The %Entity that will own the component.
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Physics* CreatePhysics(const Json::Value& node);
+        Component::Physics* CreatePhysics(Entity* owner, const Json::Value& node);
 
         /// Create a component that represents a physical shape.
         /**
+         * @param owner The %Entity that will own the component.
          * @return The created component.
          */
-        Component::Shape* CreateShape();
+        Component::Shape* CreateShape(Entity* owner);
 
         /// Create a component that represents a physical shape.
         /**
+         * @param owner The %Entity that will own the component.
          * @param node Json node from which to load component definition.
          * @return The created component.
          */
-        Component::Shape* CreateShape(const Json::Value& node);
+        Component::Shape* CreateShape(Entity* owner, const Json::Value& node);
         
         /// Get all physics components.
         /**
