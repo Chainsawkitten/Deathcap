@@ -7,6 +7,7 @@
 
 namespace Component {
     class Physics;
+    class RigidBody;
     class Shape;
 }
 
@@ -65,6 +66,21 @@ class PhysicsManager {
          */
         Component::Physics* CreatePhysics(Entity* owner, const Json::Value& node);
 
+        /// Create rigid body component.
+        /**
+         * @param owner The %Entity that will own the component.
+         * @return The created component.
+         */
+        Component::RigidBody* CreateRigidBody(Entity* owner);
+
+        /// Create rigid body component.
+        /**
+         * @param owner The %Entity that will own the component.
+         * @param node Json node from which to load component definition.
+         * @return The created component.
+         */
+        Component::RigidBody* CreateRigidBody(Entity* owner, const Json::Value& node);
+
         /// Create a component that represents a physical shape.
         /**
          * @param owner The %Entity that will own the component.
@@ -101,6 +117,7 @@ class PhysicsManager {
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
         
         ComponentContainer<Component::Physics> physicsComponents;
+        ComponentContainer<Component::RigidBody> rigidBodyComponents;
         ComponentContainer<Component::Shape> shapeComponents;
         
         btBroadphaseInterface* broadphase = nullptr;
