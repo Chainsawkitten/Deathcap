@@ -113,11 +113,11 @@ void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::
     trigger->OnEnter(object, callback);
 }
 
-Physics::RigidBody* PhysicsManager::MakeRigidBody(Physics::Shape* shape, float mass) {
-    auto body = new Physics::RigidBody(shape, mass);
-    dynamicsWorld->addRigidBody(body->GetRigidBody());
-    return body;
-}
+//Physics::RigidBody* PhysicsManager::MakeRigidBody(Physics::Shape* shape, float mass) {
+//    auto body = new Physics::RigidBody(shape, mass);
+//    dynamicsWorld->addRigidBody(body->GetRigidBody());
+//    return body;
+//}
 
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     Physics::Trigger* trigger = new Physics::Trigger(comp);
@@ -149,13 +149,15 @@ Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
         auto sphere = shape.get("sphere", {});
         auto radius = sphere.get("radius", 1.0f).asFloat();
         auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(radius));
-        physics->rigidBody = new ::Physics::RigidBody(shape, 1.0f);
+        physics->rigidBody = new ::Physics::RigidBody(1.0f);
+        physics->SetShape(shape);
     } else if (shape.isMember("plane")) {
         auto plane = shape.get("plane", {});
         auto normal = Json::LoadVec3(plane.get("normal", {}));
         auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
         auto shape = new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff));
-        physics->rigidBody = new ::Physics::RigidBody(shape, 1.0f);
+        physics->rigidBody = new ::Physics::RigidBody(1.0f);
+        physics->SetShape(shape);
     }
     
     assert(physics->rigidBody);

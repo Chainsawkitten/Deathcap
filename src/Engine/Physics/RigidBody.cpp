@@ -6,13 +6,13 @@
 
 namespace Physics {
 
-    RigidBody::RigidBody(Physics::Shape* shape, float mass) : shape(shape) {
+    RigidBody::RigidBody(float mass) {
         // Motion states inform us of movement caused by physics so that we can
         // deal with those changes as needed.
         btDefaultMotionState* motionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
 
         // Bullet treats zero mass as infinite, resulting in immovable objects.
-        btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, shape->GetShape(), btVector3(0, 0, 0));
+        btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, nullptr, btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
         rigidBody->setUserPointer(this);
         rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
@@ -46,16 +46,6 @@ namespace Physics {
 
     btRigidBody* RigidBody::GetRigidBody() {
         return rigidBody;
-    }
-
-    Physics::Shape& RigidBody::GetShape() {
-        return *shape;
-    }
-
-    void RigidBody::SetShape(Physics::Shape* shape) {
-        delete this->shape;
-        this->shape = shape;
-        this->rigidBody->setCollisionShape(shape->GetShape());
     }
 
 }

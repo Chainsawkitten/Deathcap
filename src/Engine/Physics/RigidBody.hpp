@@ -6,13 +6,11 @@
 class btRigidBody;
 
 namespace Physics {
-    class Shape;
-
     /// A rigid body that wraps Bullet type and accompanying shape.
     class RigidBody : public IRigidBody {
         public:
             /// Constructor.
-            RigidBody(Physics::Shape* shape, float mass);
+            RigidBody(float mass);
 
             /// Destructor.
             ~RigidBody();
@@ -41,25 +39,12 @@ namespace Physics {
              */
             btRigidBody* GetRigidBody();
 
-            /// Get the shape associated with the rigid body.
-            /**
-             * @return The %Shape of the rigid body.
-             */
-            Physics::Shape& GetShape();
-
-            /// Set the shape of a rigid body.
-            /**
-             * @param shape The new shape (takes ownership).
-             */
-            void SetShape(Physics::Shape* shape);
-
         private:
             RigidBody(RigidBody& other) = delete;
             void operator=(RigidBody& rhs) = delete;
 
         private:
             btRigidBody* rigidBody = nullptr;
-            Physics::Shape* shape = nullptr;
     };
 
 }

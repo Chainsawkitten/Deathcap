@@ -1,5 +1,6 @@
 #include "Physics.hpp"
 
+#include <btBulletDynamicsCommon.h>
 #include "../Physics/RigidBody.hpp"
 #include "../Physics/Shape.hpp"
 #include "../Util/Json.hpp"
@@ -8,8 +9,9 @@ namespace Component {
     Physics::Physics() {
         // Temporary until creation via managers works properly (this is just
         // to have some default resources).
-        auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(2.0f));
-        rigidBody = new ::Physics::RigidBody(shape, 1.0f);
+        shape = new ::Physics::Shape(::Physics::Shape::Sphere(2.0f));
+        rigidBody = new ::Physics::RigidBody(1.0f);
+        rigidBody->GetRigidBody()->setCollisionShape(shape->GetShape());
     }
     
     Json::Value Physics::Save() const {
@@ -27,16 +29,15 @@ namespace Component {
 
         Json::Value componentShape;
         Json::Value concreteShape;
-        ::Physics::Shape& shape = rigidBody->GetShape();
-        switch (shape.GetKind()) {
+        switch (shape->GetKind()) {
             case ::Physics::Shape::Kind::Sphere: {
-                auto sphereData = shape.GetSphereData();
+                auto sphereData = shape->GetSphereData();
                 concreteShape["radius"] = sphereData->radius;
                 componentShape["sphere"] = concreteShape;
                 break;
             }
             case ::Physics::Shape::Kind::Plane: {
-                auto planeData = shape.GetPlaneData();
+                auto planeData = shape->GetPlaneData();
                 concreteShape["normal"] = Json::SaveVec3(planeData->normal);
                 concreteShape["planeCoeff"] = planeData->planeCoeff;
                 componentShape["plane"] = concreteShape;
@@ -48,11 +49,13 @@ namespace Component {
     }
     
     ::Physics::Shape& Physics::GetShape() {
-        return rigidBody->GetShape();
+        return *shape;
     }
     
     void Physics::SetShape(::Physics::Shape* shape) {
-        rigidBody->SetShape(shape);
+        delete this->shape;
+        this->shape = shape;
+        this->rigidBody->GetRigidBody()->setCollisionShape(shape->GetShape());
     }
 
     ::Physics::RigidBody& Physics::GetRigidBody() {

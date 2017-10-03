@@ -77,5 +77,6 @@ namespace Component {
             
         private:
             ::Physics::RigidBody* rigidBody = nullptr;
+            ::Physics::Shape* shape = nullptr;
     };
 }
