@@ -27,22 +27,40 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
     }
 
     // Push back the bones.
-    for (int i = 0; i < aScene->mMeshes[0]->mNumBones; ++i) {
-        bones.push_back(aScene->mMeshes[0]->mBones[i]->mName.C_Str());
+    for (int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
+        bones.push_back(aScene->mAnimations[0]->mChannels[i]->mNodeName.C_Str());
     }
 
     currentId = -1;
     BoneRecursive(aScene->mRootNode, -1);
 
-    for (int i = 0; i < bones.size(); ++i) {
-        Log() << "IDS: " << ids[i] << "\tPARENTS: " << parents[i] << "\n";
+    Animation::AnimationClip::Animation anim;
+
+    anim.numBones = aScene->mAnimations[0]->mNumChannels;
+    anim.bones = new Animation::AnimationClip::Bone[aScene->mAnimations[0]->mNumChannels];
+
+    for (int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
+        aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
+        anim.bones[i].parent = (uint32_t)parents[i];
+        anim.bones[i].numRotationKeys = channel->mNumRotationKeys;
+        anim.bones[i].rotationKeys = new int32_t[anim.bones[i].numRotationKeys];
+        anim.bones[i].rotations = new glm::mat4[anim.bones[i].numRotationKeys];
+        
+        for (int j = 0; j < channel->mNumRotationKeys; ++j) {
+            anim.bones[i].rotationKeys[j] = channel->mRotationKeys->mTime;
+            glm::quat rot;
+            rot.x = channel->mRotationKeys->mValue.x;
+            rot.y = channel->mRotationKeys->mValue.y;
+            rot.z = channel->mRotationKeys->mValue.z;
+            rot.w = channel->mRotationKeys->mValue.w;
+
+            anim.bones[i].rotations[j] = glm::mat4(rot);
+        }
     }
 
-    for (int i = 1; i < bones.size(); ++i) {
-        Log() << "CHILD: " << children[i] << "\tCHILD ID: " << ids[i] << "\tPARENT ID: " << parents[i] << "\n";
-    }
-
-
+    std::ofstream file((std::string(destination) + ".asset").c_str(), std::ios::binary);
+    anim.Save(&file);
+    file.close();
     return false;
 }
 
