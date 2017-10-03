@@ -11,6 +11,7 @@ class AssetConverterSkeleton {
 
         /// Destructor.
         ~AssetConverterSkeleton();
+
         /// Convert a mesh from fbx to .asset format.
         /**
          * @param filepath Filepath of the fbxfile.
@@ -35,12 +36,16 @@ class AssetConverterSkeleton {
         std::string& GetErrorString();
     
     private:
-        void BoneRecursive(aiNode * node, uint32_t, aiAnimation * anim);
+        void BoneRecursive(aiNode * node, int parent);
 
         Assimp::Importer aImporter;
-        
-        std::vector<Geometry::AssetFileAnimation::Bone *> bones;
 
+        std::vector<std::string> bones;
+        std::vector<std::string> children;
+        std::vector<int> parents;
+        std::vector<int> ids;
+        unsigned int currentId = 0;
+        
         bool success = true;
         std::string errorString;
 };

@@ -223,6 +223,13 @@ void RenderManager::UpdateBufferSize() {
 }
 
 void RenderManager::UpdateAnimations(float deltaTime) {
+    // Update all enabled animation controllers.
+    for (Component::AnimationController* animationController : animationControllers.GetAll()) {
+        if (animationController->IsKilled() || !animationController->entity->enabled)
+            continue;
+    
+        animationController->UpdateAnimation(deltaTime);
+    }
 }
 
 Component::AnimationController* RenderManager::CreateAnimation() {

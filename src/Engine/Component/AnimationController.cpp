@@ -12,3 +12,6 @@ Json::Value AnimationController::Save() const {
 std::vector<glm::mat4>& Component::AnimationController::GetBones() {
     return std::vector<glm::mat4>();
 }
+
+void Component::AnimationController::UpdateAnimation(float deltaTime) {
+}
