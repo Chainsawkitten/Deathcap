@@ -17,6 +17,7 @@ EditorSettings::EditorSettings() {
     AddBoolSetting("Particle Emitter Icons", "View", "Particle Emitter Icons", true);
     AddBoolSetting("Light Source Icons", "View", "Light Source Icons", true);
     AddBoolSetting("Camera Icons", "View", "Camera Icons", true);
+    AddBoolSetting("Physics Volumes", "View", "Physics Volumes", true);
     
     AddStringSetting("Text Editor", "Script", "Text Editor", "");
 }

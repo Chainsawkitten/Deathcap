@@ -148,6 +148,10 @@ void Editor::Show(float deltaTime) {
                 static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
                 ImGui::MenuItem("Cameras", "", &cameras);
                 EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
+                
+                static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
+                ImGui::MenuItem("Physics", "", &physics);
+                EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
 
                 ImGui::EndMenu();
             }

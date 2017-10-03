@@ -46,6 +46,7 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
+        Manager/VRManager.cpp
         Physics/GlmConversion.cpp
         Physics/RigidBody.cpp
         Physics/Shape.cpp
@@ -104,6 +105,7 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
+        Manager/VRManager.hpp
         Physics/GlmConversion.hpp
         Physics/IRigidBody.hpp
         Physics/ITrigger.hpp

@@ -195,14 +195,14 @@ void ActiveHymn::Update(float deltaTime) {
     }
 }
 
-void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras) {
+void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
     { PROFILE("Render world");
         Managers().renderManager->Render(world, camera);
     }
     
-    if (soundSources || particleEmitters || lightSources || cameras) {
+    if (soundSources || particleEmitters || lightSources || cameras || physics) {
         { PROFILE("Render editor entities");
-            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras);
+            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras, physics);
         }
     }
     
