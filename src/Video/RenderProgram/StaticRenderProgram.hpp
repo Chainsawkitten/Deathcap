@@ -44,13 +44,11 @@ namespace Video {
              * @param modelMatrix Model matrix.
              */
             void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const;
-            
 
-            /// Returns shaderprogram
+             /// Returns shaderprogram
             /**
             */
             ShaderProgram* GetShaderProgram();
-
 
         private:
             StaticRenderProgram(const StaticRenderProgram & other) = delete;
