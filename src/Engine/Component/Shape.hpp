@@ -2,8 +2,9 @@
 
 #include "SuperComponent.hpp"
 
-class btCollisionShape;
-class Entity;
+namespace Physics {
+    class Shape;
+}
 
 namespace Component {
     /// Physical shape that can be used in conjunction with rigid bodies or to
@@ -13,15 +14,28 @@ namespace Component {
 
         public:
             /// Create new shape.
-            Shape();
+            Shape() = default;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
             Json::Value Save() const override;
-            
+
+            /// Get the shape this component represents.
+            /**
+             * @return The %Shape.
+             */
+            const ::Physics::Shape& GetShape() const;
+
         private:
-            btCollisionShape* shape = nullptr;
+            /// Set the shape that this component will represent.
+            /**
+             * @param shape The new shape.
+             */
+            void SetShape(::Physics::Shape* shape);
+
+        private:
+            ::Physics::Shape* shape = nullptr;
     };
 }

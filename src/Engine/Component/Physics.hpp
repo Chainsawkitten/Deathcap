@@ -7,6 +7,7 @@ namespace Physics {
     class RigidBody;
     class Shape;
 }
+
 class PhysicsManager;
 
 namespace Component {
