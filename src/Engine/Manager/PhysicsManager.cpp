@@ -179,7 +179,7 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
 }
 
 Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& node) {
-    Component::Shape* comp = shapeComponents.Create();
+    auto comp = shapeComponents.Create();
     comp->entity = owner;
 
     if (node.isMember("sphere")) {

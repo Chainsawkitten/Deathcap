@@ -198,6 +198,7 @@ Json::Value Entity::Save() const {
         Save<Component::Physics>(entity, "Physics");
         Save<Component::Listener>(entity, "Listener");
         Save<Component::Script>(entity, "Script");
+        Save<Component::Shape>(entity, "Shape");
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
         
