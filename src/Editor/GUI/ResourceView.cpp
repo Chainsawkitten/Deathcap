@@ -46,7 +46,7 @@ void ResourceView::Show() {
         for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
             if (ImGui::Selectable(Resources().scenes[i].c_str())) {
                 // Sets to dont save when opening first scene.
-                if (Resources().activeScene == -1) {
+                if (sceneIndex == -1) {
                     changeScene = true;
                     sceneIndex = i;
                     savePromptWindow.SetVisible(false);

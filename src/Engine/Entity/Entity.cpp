@@ -181,7 +181,8 @@ Json::Value Entity::Save() const {
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
     entity["uid"] = uniqueIdentifier;
-    
+    entity["static"] = isStatic;
+
     if (scene) {
         entity["sceneName"] = sceneName;
     } else {
@@ -251,6 +252,7 @@ void Entity::Load(const Json::Value& node) {
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
     uniqueIdentifier = node.get("uid", 0).asUInt();
+    isStatic = node["static"].asBool();
     
 }
 
