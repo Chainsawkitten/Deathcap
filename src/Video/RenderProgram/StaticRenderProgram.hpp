@@ -38,7 +38,7 @@ namespace Video {
              /// Returns shaderprogram
             /**
             */
-            ShaderProgram* getShaderProgram();
+            ShaderProgram* GetShaderProgram();
 
         private:
             StaticRenderProgram(const StaticRenderProgram & other) = delete;
