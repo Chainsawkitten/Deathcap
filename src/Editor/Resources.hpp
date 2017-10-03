@@ -17,6 +17,29 @@ class ResourceList {
     friend ResourceList& Resources();
     
     public:
+        /// A resource.
+        struct Resource {
+            /// The type of resource.
+            enum Type {
+                SCENE = 0,
+                MODEL,
+                TEXTURE,
+                SOUND
+            } type;
+            
+            /// Scene name.
+            std::string scene;
+            
+            /// Model.
+            Geometry::Model* model;
+            
+            /// Texture.
+            TextureAsset* texture;
+            
+            /// Sound.
+            Audio::SoundBuffer* sound;
+        };
+        
         /// Save all resources to file.
         void Save() const;
         
@@ -25,6 +48,9 @@ class ResourceList {
         
         /// Clear resources.
         void Clear();
+        
+        /// Resources.
+        std::vector<Resource> resources;
         
         /// Scenes.
         std::vector<std::string> scenes;
