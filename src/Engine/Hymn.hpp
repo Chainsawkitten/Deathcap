@@ -99,7 +99,7 @@ class ActiveHymn {
         /// Grid settings.
         struct GridSettings
         {
-            int gridScale = 10;
+            int gridScale = 0;
             bool gridSettingsOpen = true;
 
         };
