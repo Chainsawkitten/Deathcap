@@ -97,12 +97,10 @@ void Editor::Show(float deltaTime) {
             default:
                 break;
             }
-        }
-        else {
+        } else {
             savePromptAnswered = true;
         }
-    }
-    else {
+    } else {
         bool play = false;
 
         ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
@@ -234,8 +232,7 @@ void Editor::Show(float deltaTime) {
             if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
                 cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            }
-            else {
+            } else {
                 cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
             }
@@ -264,11 +261,10 @@ void Editor::Show(float deltaTime) {
                                 resourceView.GetScene().entityEditor.SetVisible(true);
                                 break;
                             }
-                        }
-                        else if (intersectDistance > 0.0f) {
-                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                                resourceView.GetScene().entityEditor.SetVisible(true);
-                                break;
+                        } else if (intersectDistance > 0.0f) {
+                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            break;
                         }
                     }
                 }
