@@ -26,6 +26,7 @@ namespace Component {
             /**
              * @return The %Shape.
              */
+            ::Physics::Shape& GetShape();
             const ::Physics::Shape& GetShape() const;
 
         private:

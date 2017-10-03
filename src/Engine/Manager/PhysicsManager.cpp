@@ -122,7 +122,8 @@ void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::
 
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     Physics::Trigger* trigger = new Physics::Trigger(comp);
-    trigger->SetCollisionShape(comp->GetShape().GetShape());
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape().GetShape() : nullptr);
     triggers.push_back(trigger);
     return trigger;
 }
@@ -130,6 +131,12 @@ Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
 Component::Physics* PhysicsManager::CreatePhysics(Entity* owner) {
     auto comp = physicsComponents.Create();
     comp->entity = owner;
+
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        comp->rigidBody->GetRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+    }
+
     return comp;
 }
 
@@ -148,31 +155,26 @@ Component::Physics* PhysicsManager::CreatePhysics(Entity* owner, const Json::Val
     physics->angularDragFactor = node.get("angularDragFactor", 1.f).asFloat();
     physics->gravityFactor = node.get("gravityFactor", 0.f).asFloat();
     physics->momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
-    
-    auto shape = node.get("shape", {});
-    if (shape.isMember("sphere")) {
-        auto sphere = shape.get("sphere", {});
-        auto radius = sphere.get("radius", 1.0f).asFloat();
-        auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(radius));
-        physics->rigidBody = new ::Physics::RigidBody(1.0f);
-        physics->SetShape(shape);
-    } else if (shape.isMember("plane")) {
-        auto plane = shape.get("plane", {});
-        auto normal = Json::LoadVec3(plane.get("normal", {}));
-        auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
-        auto shape = new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff));
-        physics->rigidBody = new ::Physics::RigidBody(1.0f);
-        physics->SetShape(shape);
+
+    physics->rigidBody = new ::Physics::RigidBody(1.0f);
+
+    auto shapeComp = physics->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        physics->rigidBody->GetRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
     }
-    
-    assert(physics->rigidBody);
-    
+
     return physics;
 }
 
 Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
     auto comp = shapeComponents.Create();
     comp->entity = owner;
+
+    auto physicsComp = comp->entity->GetComponent<Component::Physics>();
+    if (physicsComp) {
+        physicsComp->GetRigidBody().GetRigidBody()->setCollisionShape(comp->GetShape().GetShape());
+    }
+
     return comp;
 }
 
@@ -180,7 +182,24 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     Component::Shape* comp = shapeComponents.Create();
     comp->entity = owner;
 
-    // TODO: Use JSON data here.
+    if (node.isMember("sphere")) {
+        auto sphere = node.get("sphere", {});
+        auto radius = sphere.get("radius", 1.0f).asFloat();
+        auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(radius));
+        comp->SetShape(shape);
+    }
+    else if (node.isMember("plane")) {
+        auto plane = node.get("plane", {});
+        auto normal = Json::LoadVec3(plane.get("normal", {}));
+        auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
+        auto shape = new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff));
+        comp->SetShape(shape);
+    }
+
+    auto physicsComp = comp->entity->GetComponent<Component::Physics>();
+    if (physicsComp) {
+        physicsComp->GetRigidBody().GetRigidBody()->setCollisionShape(comp->GetShape().GetShape());
+    }
 
     return comp;
 }

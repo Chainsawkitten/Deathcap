@@ -4,18 +4,12 @@
 
 class btCollisionShape;
 
-// @todo: Remove when physics component is gone
-namespace Component {
-    class Physics;
-}
-
 namespace Physics {
 
     /// Represents a shape for physics objects and facilitates creation of
     /// underlying types.
     class Shape {
         friend class PhysicsManager;
-        friend class ::Component::Physics; // @todo: remove when physics component is gone
 
         public:
             /// Parameters used to create a sphere shape.

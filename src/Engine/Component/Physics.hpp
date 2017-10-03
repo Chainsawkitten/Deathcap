@@ -5,7 +5,6 @@
 
 namespace Physics {
     class RigidBody;
-    class Shape;
 }
 
 class PhysicsManager;
@@ -24,18 +23,6 @@ namespace Component {
              * @return JSON value to be stored on disk.
              */
             Json::Value Save() const override;
-            
-            /// Get the shape of the physics component.
-            /**
-             * @return The %Shape of the component.
-             */
-            ::Physics::Shape& GetShape();
-            
-            /// Set the shape of the physics component.
-            /**
-             * @param shape The new shape.
-             */
-            void SetShape(::Physics::Shape* shape);
             
             /// Get the rigid body of a physics component.
             /**
@@ -78,6 +65,5 @@ namespace Component {
             
         private:
             ::Physics::RigidBody* rigidBody = nullptr;
-            ::Physics::Shape* shape = nullptr;
     };
 }
