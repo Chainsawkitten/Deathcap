@@ -7,6 +7,7 @@
 
 namespace Component {
     class Physics;
+    class Shape;
 }
 
 namespace Physics {
@@ -60,6 +61,19 @@ class PhysicsManager {
          * @return The created component.
          */
         Component::Physics* CreatePhysics(const Json::Value& node);
+
+        /// Create a component that represents a physical shape.
+        /**
+         * @return The created component.
+         */
+        Component::Shape* CreateShape();
+
+        /// Create a component that represents a physical shape.
+        /**
+         * @param node Json node from which to load component definition.
+         * @return The created component.
+         */
+        Component::Shape* CreateShape(const Json::Value& node);
         
         /// Get all physics components.
         /**
@@ -82,6 +96,7 @@ class PhysicsManager {
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
         
         ComponentContainer<Component::Physics> physicsComponents;
+        ComponentContainer<Component::Shape> shapeComponents;
         
         btBroadphaseInterface* broadphase = nullptr;
         btDefaultCollisionConfiguration* collisionConfiguration = nullptr;

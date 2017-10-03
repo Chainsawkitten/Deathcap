@@ -11,6 +11,7 @@
 #include "../Component/Physics.hpp"
 #include "../Component/Listener.hpp"
 #include "../Component/Script.hpp"
+#include "../Component/Shape.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/ParticleEmitter.hpp"
 #include "../Util/Json.hpp"
@@ -322,6 +323,8 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
         component = Managers().renderManager->CreatePointLight();
     else if (*componentType == typeid(Component::Script*))
         component = Managers().scriptManager->CreateScript();
+    else if (*componentType == typeid(Component::Shape*))
+        component = Managers().physicsManager->CreateShape();
     else if (*componentType == typeid(Component::SoundSource*))
         component = Managers().soundManager->CreateSoundSource();
     else if (*componentType == typeid(Component::SpotLight*))
@@ -364,6 +367,8 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
         component = Managers().renderManager->CreatePointLight(node);
     else if (*componentType == typeid(Component::Script*))
         component = Managers().scriptManager->CreateScript(node);
+    else if (*componentType == typeid(Component::Shape*))
+        component = Managers().physicsManager->CreateShape(node);
     else if (*componentType == typeid(Component::SoundSource*))
         component = Managers().soundManager->CreateSoundSource(node);
     else if (*componentType == typeid(Component::SpotLight*))

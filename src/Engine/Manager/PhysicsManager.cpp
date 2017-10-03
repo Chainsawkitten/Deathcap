@@ -3,6 +3,7 @@
 #include <btBulletDynamicsCommon.h>
 #include <glm/gtx/quaternion.hpp>
 #include "../Component/Physics.hpp"
+#include "../Component/Shape.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Physics/GlmConversion.hpp"
 #include "../Physics/ITrigger.hpp"
@@ -166,10 +167,23 @@ Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
     return physics;
 }
 
+Component::Shape* PhysicsManager::CreateShape() {
+    return shapeComponents.Create();
+}
+
+Component::Shape* PhysicsManager::CreateShape(const Json::Value& node) {
+    Component::Shape* shape = shapeComponents.Create();
+
+    // TODO: Use JSON data here.
+
+    return shape;
+}
+
 const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() const {
     return physicsComponents.GetAll();
 }
 
 void PhysicsManager::ClearKilledComponents() {
     physicsComponents.ClearKilled();
+    shapeComponents.ClearKilled();
 }
