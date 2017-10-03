@@ -207,7 +207,7 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     }
     
     { PROFILE("Render debug entities");
-        CreateGrid(glm::vec2(20.0f, 20.0f));
+        CreateGrid(glm::vec2(70.0f, 70.0f));
         Managers().debugDrawingManager->Render(camera);
     }
 }
@@ -221,8 +221,8 @@ void ActiveHymn::CreateGrid(glm::vec2 gridWidthDepth)
 
     for (int i = 0; i < 21; i++)
     {
-        Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y/2), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.4f, 0.1f, 0.5f), 3.0f);
-        Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x/2, 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.2f, 0.1f, 0.7f), 3.0f);
+        Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y/2), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), 3.0f);
+        Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x/2, 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), 3.0f);
         xStart += (gridWidthDepth.x / 2) / 10;
         zStart += (gridWidthDepth.y / 2) / 10;
     }
