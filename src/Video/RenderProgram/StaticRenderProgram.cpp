@@ -65,7 +65,7 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
     }
 }
 
-ShaderProgram*  Video::StaticRenderProgram::getShaderProgram()
+ShaderProgram*  Video::StaticRenderProgram::GetShaderProgram()
 {
     return shaderProgram;
 }
