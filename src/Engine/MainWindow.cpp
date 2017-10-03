@@ -65,10 +65,6 @@ void MainWindow::Init(bool showNotifications) {
         glDebugMessageCallback(showNotifications ? DebugMessageCallback : DebugMessageCallbackIgnoreNotifications, nullptr);
 }
 
-void MainWindow::SetVsync(bool vsync) {
-    glfwSwapInterval(vsync ? 1 : 0);
-}
-
 void MainWindow::Update() {
     input->Update();
     input->SetActive();
@@ -107,10 +103,10 @@ GLFWwindow* MainWindow::GetGLFWWindow() const {
 }
 
 void WindowSizeCallback(GLFWwindow* window, int width, int height) {
-	if (width != 0 && height != 0) {
-		MainWindow::GetInstance()->SetSize(width, height);
-		Managers().renderManager->UpdateBufferSize();
-	}
+    if (width != 0 && height != 0) {
+        MainWindow::GetInstance()->SetSize(width, height);
+        Managers().renderManager->UpdateBufferSize();
+    }
 }
 
 void ErrorCallback(int error, const char* description) {

@@ -106,7 +106,7 @@ Json::Value ActiveHymn::ToJson() const {
     Json::Value inputNode;
     inputNode.append(Input::GetInstance().Save());
     root["input"] = inputNode;
-    
+
     // Filter settings.
     Json::Value filtersNode;
     filtersNode["color"] = filterSettings.color;
@@ -158,7 +158,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update physics");
-        Managers().physicsManager->Update(world, deltaTime);
+        Managers().physicsManager->Update(deltaTime);
     }
     
     { PROFILE("Update animations");
@@ -179,11 +179,15 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update sounds");
-        Managers().soundManager->Update(world);
+        Managers().soundManager->Update();
     }
     
     { PROFILE("Update debug drawing");
         Managers().debugDrawingManager->Update(deltaTime);
+    }
+
+    { PROFILE("Synchronize transforms");
+        Managers().physicsManager->UpdateEntityTransforms();
     }
     
     { PROFILE("Clear killed entities/components");
@@ -191,19 +195,19 @@ void ActiveHymn::Update(float deltaTime) {
     }
 }
 
-void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras) {
+void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
     { PROFILE("Render world");
         Managers().renderManager->Render(world, camera);
     }
     
-    if (soundSources || particleEmitters || lightSources || cameras) {
+    if (soundSources || particleEmitters || lightSources || cameras || physics) {
         { PROFILE("Render editor entities");
-            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras);
+            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras, physics);
         }
     }
     
     { PROFILE("Render debug entities");
-        Managers().debugDrawingManager->Render(world, camera);
+        Managers().debugDrawingManager->Render(camera);
     }
 }
 

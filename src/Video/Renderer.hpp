@@ -93,7 +93,7 @@ namespace Video {
             /// Anti-alias using FXAA.
             /**
              * @param renderSurface %RenderSurface to apply filter to.
-            */
+             */
             void AntiAlias(RenderSurface* renderSurface);
             
             /// Render fog.
@@ -150,6 +150,7 @@ namespace Video {
             void StopRenderingIcons();
             
         private:
+            Renderer(const Renderer & other) = delete;
             Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;

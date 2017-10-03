@@ -39,6 +39,7 @@ namespace Video {
             ShaderProgram* getShaderProgram();
 
         private:
+            StaticRenderProgram(const StaticRenderProgram & other) = delete;
             ShaderProgram* shaderProgram;
     
             glm::mat4 viewMatrix;

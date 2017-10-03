@@ -11,6 +11,7 @@
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/Profiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>
@@ -32,6 +33,7 @@ int main() {
         return 1;
     
     MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Hymn to Beauty", EditorSettings::GetInstance().GetBool("Debug Context"));
+
     glewInit();
     window->Init(false);
     
@@ -47,7 +49,6 @@ int main() {
     Managers().StartUp();
     
     Editor* editor = new Editor();
-    
     // Setup imgui implementation.
     ImGuiImplementation::Init(window->GetGLFWWindow());
     
@@ -78,7 +79,8 @@ int main() {
             if (editor->IsVisible()) {
                 Hymn().world.ClearKilled();
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
-                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"));
+                Managers().debugDrawingManager->Update(deltaTime);
+                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"));
                 
                 if (window->ShouldClose())
                     editor->Close();

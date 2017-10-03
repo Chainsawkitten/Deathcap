@@ -3,8 +3,6 @@
 #include <map>
 #include <GL/glew.h>
 
-#include "SuperManager.hpp"
-
 namespace Video {
     class Texture2D;
     namespace Geometry {
@@ -22,7 +20,7 @@ class TextureAsset;
 class ScriptFile;
 
 /// Handles all resources.
-class ResourceManager : public SuperManager {
+class ResourceManager {
     friend class Hub;
     
     public:
