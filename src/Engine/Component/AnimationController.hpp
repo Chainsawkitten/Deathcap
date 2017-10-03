@@ -3,16 +3,14 @@
 #include "SuperComponent.hpp"
 #include "../Animation/AnimationController.hpp"
 #include <string>
+#include <glm/glm.hpp>
 
 namespace Component {
     /// Animation controller.
     class AnimationController : public SuperComponent {
         public:
             /// Create new animation controller component.
-            /**
-            * @param entity Pointer to which entity this component corresponds.
-            */
-            AnimationController(Entity * entity);
+            AnimationController();
 
             /// Save the component.
             /**
@@ -20,13 +18,9 @@ namespace Component {
             */
             Json::Value Save() const override;
 
-            /// Load component from JSON node.
-            /**
-            * @param node JSON node to load from.
-            */
-            void Load(const Json::Value& node) override;
-
             Animation::AnimationController* controller = nullptr;
+
+            std::vector<glm::mat4>& GetBones();
 
         private:
 

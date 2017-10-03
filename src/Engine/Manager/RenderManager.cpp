@@ -11,7 +11,7 @@
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
 #include "../Entity/Entity.hpp"
-#include "../Component/Animation.hpp"
+#include "../Component/AnimationController.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/Material.hpp"
@@ -20,7 +20,7 @@
 #include "../Component/PointLight.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
-#include <Video/Geometry/Geometry3D.hpp>
+#include "../Geometry/Model.hpp"
 #include "../Geometry/Skeleton.hpp"
 #include "../Texture/TextureAsset.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -29,8 +29,8 @@
 #include "../MainWindow.hpp"
 #include <Video/Lighting/Light.hpp>
 #include "../Hymn.hpp"
-#include "Util/Profiling.hpp"
-#include "Util/Json.hpp"
+#include "../Util/Profiling.hpp"
+#include "../Util/Json.hpp"
 
 #include "Manager/Managers.hpp"
 
@@ -98,7 +98,24 @@ void RenderManager::Render(World& world, Entity* camera) {
             }
         }
 
-        /// @todo Render skinned meshes.
+        // Render skinned meshes.
+        {
+            PROFILE("Render skinned meshes");
+            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+            for (Mesh* mesh : meshComponents) {
+                if (mesh->IsKilled() || !mesh->entity->enabled)
+                    continue;
+
+                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                    Entity* entity = mesh->entity;
+                    Material* material = entity->GetComponent<Material>();
+                    Component::AnimationController* controller = entity->GetComponent<AnimationController>();
+                    if (material != nullptr && controller != nullptr) {
+                        renderer->RenderSkinnedMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->GetBones());
+                    }
+                }
+            }
+        }
         
         // Light the world.
         {
@@ -205,12 +222,15 @@ void RenderManager::UpdateBufferSize() {
     renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-Component::Animation* RenderManager::CreateAnimation() {
-    return animations.Create();
+void RenderManager::UpdateAnimations(float deltaTime) {
 }
 
-Component::Animation* RenderManager::CreateAnimation(const Json::Value& node) {
-    Component::Animation* animation = animations.Create();
+Component::AnimationController* RenderManager::CreateAnimation() {
+    return animationControllers.Create();
+}
+
+Component::AnimationController* RenderManager::CreateAnimation(const Json::Value& node) {
+    Component::AnimationController* animationController = animationControllers.Create();
     
     // Load values from Json node.
     std::string name = node.get("riggedModel", "").asString();
@@ -220,11 +240,11 @@ Component::Animation* RenderManager::CreateAnimation(const Json::Value& node) {
             riggedModel = model;
     }*/
     
-    return animation;
+    return animationController;
 }
 
-const std::vector<Component::Animation*>& RenderManager::GetAnimations() const {
-    return animations.GetAll();
+const std::vector<Component::AnimationController*>& RenderManager::GetAnimations() const {
+    return animationControllers.GetAll();
 }
 
 Component::DirectionalLight* RenderManager::CreateDirectionalLight() {
@@ -344,7 +364,7 @@ const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
 }
 
 void RenderManager::ClearKilledComponents() {
-    animations.ClearKilled();
+    animationControllers.ClearKilled();
     directionalLights.ClearKilled();
     lenses.ClearKilled();
     materials.ClearKilled();

@@ -2,12 +2,13 @@
 
 using namespace Component;
 
-AnimationController::AnimationController(Entity * entity) : SuperComponent(entity) {
+AnimationController::AnimationController() {
 }
 
 Json::Value AnimationController::Save() const {
     return Json::Value();
 }
 
-void AnimationController::Load(const Json::Value & node) {
+std::vector<glm::mat4>& Component::AnimationController::GetBones() {
+    return std::vector<glm::mat4>();
 }

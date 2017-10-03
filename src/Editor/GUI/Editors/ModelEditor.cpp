@@ -5,13 +5,10 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <imgui.h>
-<<<<<<< HEAD
 #include "Util/AssetConverterSkeleton.hpp"
-=======
 #include "Util/AssetMetaData.hpp"
 #include <Utility/Log.hpp>
 #include "../../Resources.hpp"
->>>>>>> 70b3b3f4da997adad7e1d5d41a54b4fbdf8d5b40
 
 using namespace GUI;
 

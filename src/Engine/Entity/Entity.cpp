@@ -300,7 +300,7 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
     Component::SuperComponent* component;
     
     // Create a component in the correct manager.
-    if (*componentType == typeid(Component::Animation*))
+    if (*componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation();
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight();
@@ -342,7 +342,7 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
     Component::SuperComponent* component;
     
     // Create a component in the correct manager.
-    if (*componentType == typeid(Component::Animation*))
+    if (*componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation(node);
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight(node);

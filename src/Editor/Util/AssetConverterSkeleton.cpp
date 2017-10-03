@@ -47,33 +47,33 @@ std::string & AssetConverterSkeleton::GetErrorString() {
 void AssetConverterSkeleton::BoneRecursive(aiNode * node, uint32_t parent, aiAnimation * anim) {
     bool foundAnimNode = false;
 
-    for (unsigned int i = 0; i < anim->mNumChannels && !foundAnimNode; ++i) {
-        if (anim->mChannels[i]->mNodeName == node->mName) {
-            Geometry::AssetFileAnimation::Bone bone;
+//    for (unsigned int i = 0; i < anim->mNumChannels && !foundAnimNode; ++i) {
+//        if (anim->mChannels[i]->mNodeName == node->mName) {
+//            Geometry::AssetFileAnimation::Bone bone;
+//
+//            bone.numRotationKeys = (uint32_t)anim->mChannels[i]->mNumRotationKeys;
+//
+//            bone.rotationKeys = new uint32_t[anim->mChannels[i]->mNumRotationKeys];
+//            bone.rotation = new glm::mat4[anim->mChannels[i]->mNumRotationKeys];
+//
+//            for (unsigned int j = 0; j < bone.numRotationKeys; ++j) {
+//                // Copy the keyframe from the timeline.
+//                bone.rotationKeys[j] = (uint32_t)anim->mChannels[i]->mRotationKeys[j].mTime;
+//
+//                // Copy the rotation.
+//                glm::quat rot;
+//           //     Geometry::CpyQuat(rot, anim->mChannels[i]->mRotationKeys[j].mValue);
+//                bone.rotation[j] = glm::mat4(rot);
+//            }
+//
+//            bone.parent = parent;
+//          // FIX THIS
+//            bones.push_back(&bone);
+//            foundAnimNode = true;
+//        }
+//    }
 
-            bone.numRotationKeys = (uint32_t)anim->mChannels[i]->mNumRotationKeys;
-
-            bone.rotationKeys = new uint32_t[anim->mChannels[i]->mNumRotationKeys];
-            bone.rotation = new glm::mat4[anim->mChannels[i]->mNumRotationKeys];
-
-            for (unsigned int j = 0; j < bone.numRotationKeys; ++j) {
-                // Copy the keyframe from the timeline.
-                bone.rotationKeys[j] = (uint32_t)anim->mChannels[i]->mRotationKeys[j].mTime;
-
-                // Copy the rotation.
-                glm::quat rot;
-                Geometry::CpyQuat(rot, anim->mChannels[i]->mRotationKeys[j].mValue);
-                bone.rotation[j] = glm::mat4(rot);
-            }
-
-            bone.parent = parent;
-          // FIX THIS
-            bones.push_back(&bone);
-            foundAnimNode = true;
-        }
-    }
-
-    for (unsigned int i = 0; i < node->mNumChildren; ++i) {
-        BoneRecursive(node->mChildren[i], bones.size() - 1, anim);
-    }
+//   for (unsigned int i = 0; i < node->mNumChildren; ++i) {
+//       BoneRecursive(node->mChildren[i], bones.size() - 1, anim);
+//   }
 }

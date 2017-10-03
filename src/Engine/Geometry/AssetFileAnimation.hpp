@@ -8,7 +8,7 @@
 #include <Video/Geometry/VertexType/SkinVertex.hpp>
 
 namespace Geometry {
-    /// Handler for .asset format.
+    /// Handler for .asset format for animation.
     /**
      * Start by using the Open() function.
      * The Open() function requries a filepath and
@@ -26,6 +26,8 @@ namespace Geometry {
             /// Dock
             struct Bone {
                 uint32_t parent;
+                uint32_t numChildren;
+                Bone * children;
                 uint32_t numRotationKeys;
                 uint32_t * rotationKeys = nullptr;
                 glm::mat4 * rotation = nullptr;

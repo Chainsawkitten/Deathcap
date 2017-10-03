@@ -76,9 +76,8 @@ namespace Video {
              * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              * @param bones Transformations of skeleton.
-             * @param bonesIT Inverse transpose transformations of skeleton.
              */
-            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
+            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones);
             
             /// Add a light to the scene.
             void AddLight(const Video::Light& light);
