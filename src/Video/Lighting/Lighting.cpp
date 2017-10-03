@@ -55,18 +55,18 @@ void Lighting::AddLight(const Light& light) {
 
 void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
     // Disable depth testing
-    GLboolean depthTest = glIsEnabled(GL_DEPTH_TEST);
-    glEnable(GL_DEPTH_TEST);
-    
-    GLint oldDepthFunctionMode;
-    glGetIntegerv(GL_DEPTH_FUNC, &oldDepthFunctionMode);
-    glDepthFunc(GL_ALWAYS);
+   // GLboolean depthTest = glIsEnabled(GL_DEPTH_TEST);
+   // glEnable(GL_DEPTH_TEST);
+   // 
+   // GLint oldDepthFunctionMode;
+   // glGetIntegerv(GL_DEPTH_FUNC, &oldDepthFunctionMode);
+   // glDepthFunc(GL_ALWAYS);
     
     // Blending enabled for handling multiple light sources
-    GLboolean blend = glIsEnabledi(GL_BLEND, 0);
-    glEnablei(GL_BLEND, 0);
-    glBlendEquationi(0, GL_FUNC_ADD);
-    glBlendFunci(0, GL_ONE, GL_ONE);
+   // GLboolean blend = glIsEnabledi(GL_BLEND, 0);
+   // glEnablei(GL_BLEND, 0);
+   // glBlendEquationi(0, GL_FUNC_ADD);
+   // glBlendFunci(0, GL_ONE, GL_ONE);
     
   //  shaderProgram->Use();
     
@@ -91,11 +91,8 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     //
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
-   
-    {
-        PROFILE("Render lights");
-        // Render lights.
-        unsigned int lightIndex = 0U;
+    // Render lights.
+    unsigned int lightIndex = 0U;
    
         {
             PROFILE("Update light buffer");
@@ -113,21 +110,10 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
                    glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
                }
             }
-        }
         
-        {
-            PROFILE("Render light");
             if (lightIndex != 0U) {
                 glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
                 //glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-            }
         }
     }
-    
-   // if (!depthTest)
-   //     glDisable(GL_DEPTH_TEST);
-   // if (!blend)
-   //     glDisablei(GL_BLEND, 0);
-   // 
-   // glDepthFunc(oldDepthFunctionMode);
 }

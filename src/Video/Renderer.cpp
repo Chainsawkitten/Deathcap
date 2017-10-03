@@ -28,13 +28,13 @@ Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
     lighting = new Lighting(staticRenderProgram->getShaderProgram(),rectangle);
-    skinRenderProgram = new SkinRenderProgram();
-    postProcessing = new PostProcessing(rectangle);
-    colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
-    fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
-    fxaaFilter = new FXAAFilter();
-    glowFilter = new GlowFilter();
-    glowBlurFilter = new GlowBlurFilter();
+   // skinRenderProgram = new SkinRenderProgram();
+   // postProcessing = new PostProcessing(rectangle);
+   // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
+   // fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
+   // fxaaFilter = new FXAAFilter();
+   // glowFilter = new GlowFilter();
+   // glowBlurFilter = new GlowBlurFilter();
     
     // Icon rendering.
     Shader* iconVertexShader = new Shader(EDITORENTITY_VERT, EDITORENTITY_VERT_LENGTH, GL_VERTEX_SHADER);
@@ -68,13 +68,13 @@ Renderer::~Renderer() {
     delete rectangle;
     delete lighting;
     delete staticRenderProgram;
-    delete skinRenderProgram;
-    delete postProcessing;
-    delete colorFilter;
-    delete fogFilter;
-    delete fxaaFilter;
-    delete glowFilter;
-    delete glowBlurFilter;
+    //delete skinRenderProgram;
+    //delete postProcessing;
+    //delete colorFilter;
+    //delete fogFilter;
+    //delete fxaaFilter;
+    //delete glowFilter;
+    //delete glowBlurFilter;
     
     // Icon rendering.
     delete iconShaderProgram;
