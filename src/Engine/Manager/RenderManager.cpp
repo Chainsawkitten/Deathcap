@@ -245,13 +245,13 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     }
 
     /// @todo Render skinned meshes.
-    /*
+    
     // Light the world.
     {
         PROFILE("Light the world");
         LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, renderSurface);
     }
-
+    /*
     // Anti-aliasing.
     if (Hymn().filterSettings.fxaa) {
         PROFILE("Anti-aliasing(FXAA)");
