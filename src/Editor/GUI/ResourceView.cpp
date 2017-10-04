@@ -314,12 +314,12 @@ void ResourceView::ShowResource(size_t i) {
                 savePromptWindow.SetVisible(false);
                 savePromptWindow.SetDecision(1);
             } else {
-                /// @todo Does so that the prompt window wont show if you select active scene.
-                /*if (resource.scene != Resources().scenes[Resources().activeScene]) {
+                // Does so that the prompt window wont show if you select active scene.
+                if (resource.scene != Resources().activeScene) {
                     changeScene = true;
-                    sceneIndex = i;
+                    scene = &resource.scene;
                     savePromptWindow.SetTitle("Save before you switch scene?");
-                }*/
+                }
             }
         }
         
