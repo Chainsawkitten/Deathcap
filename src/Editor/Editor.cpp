@@ -133,6 +133,10 @@ void Editor::Show(float deltaTime) {
 
             // View menu.
             if (ImGui::BeginMenu("View")) {
+                static bool showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
+                ImGui::MenuItem("Grid Settings", "", &showGridSettings);
+                EditorSettings::GetInstance().SetBool("Grid Settings", showGridSettings);
+
                 static bool soundSources = EditorSettings::GetInstance().GetBool("Sound Source Icons");
                 ImGui::MenuItem("Sound Sources", "", &soundSources);
                 EditorSettings::GetInstance().SetBool("Sound Source Icons", soundSources);
