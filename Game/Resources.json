@@ -1,5 +1,6 @@
 {
 	"activeScene" : "Resources/TestScene",
+	"modelNumber" : 4,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -43,5 +44,8 @@
 			}
 		],
 		"subfolders" : null
-	}
+	},
+	"sceneNumber" : 1,
+	"soundNumber" : 0,
+	"textureNumber" : 4
 }

@@ -68,6 +68,9 @@ class ResourceList {
         /// The name of the activeScene.
         std::string activeScene;
         
+        /// The id of the next scene to create.
+        unsigned int sceneNumber = 0U;
+        
         /// The id of the next model to create.
         unsigned int modelNumber = 0U;
         

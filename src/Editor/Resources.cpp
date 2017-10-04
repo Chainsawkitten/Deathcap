@@ -27,6 +27,11 @@ void ResourceList::Save() const {
     root["activeScene"] = activeScene;
     root["resourceFolder"] = SaveFolder(resourceFolder);
     
+    root["sceneNumber"] = sceneNumber;
+    root["textureNumber"] = textureNumber;
+    root["modelNumber"] = modelNumber;
+    root["soundNumber"] = soundNumber;
+    
     // Save to file.
     ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
     file << root;
@@ -43,15 +48,17 @@ void ResourceList::Load() {
     activeScene = root["activeScene"].asString();
     resourceFolder = LoadFolder(root["resourceFolder"]);
     
-    /*textureNumber = textures.size();
-    modelNumber = models.size();
-    soundNumber = sounds.size();*/
+    sceneNumber = root["sceneNumber"].asUInt();
+    textureNumber = root["textureNumber"].asUInt();
+    modelNumber = root["modelNumber"].asUInt();
+    soundNumber = root["soundNumber"].asUInt();
 }
 
 void ResourceList::Clear() {
     ClearFolder(resourceFolder);
     resourceFolder.name = "Resources";
     
+    sceneNumber = 0U;
     modelNumber = 0U;
     textureNumber = 0U;
     soundNumber = 0U;
