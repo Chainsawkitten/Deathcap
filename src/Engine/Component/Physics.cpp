@@ -1,16 +1,8 @@
 #include "Physics.hpp"
 
-#include <btBulletDynamicsCommon.h>
-#include "../Physics/RigidBody.hpp"
 #include "../Util/Json.hpp"
 
 namespace Component {
-    Physics::Physics() {
-        // Temporary until creation via managers works properly (this is just
-        // to have some default resources).
-        rigidBody = new ::Physics::RigidBody(1.0f);
-    }
-    
     Json::Value Physics::Save() const {
         Json::Value component;
         component["velocity"] = Json::SaveVec3(velocity);
@@ -24,9 +16,5 @@ namespace Component {
         component["gravityFactor"] = gravityFactor;
         component["momentOfInertia"] = Json::SaveVec3(momentOfInertia);
         return component;
-    }
-
-    ::Physics::RigidBody& Physics::GetRigidBody() {
-        return *rigidBody;
     }
 }

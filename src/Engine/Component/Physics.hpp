@@ -3,10 +3,6 @@
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
 
-namespace Physics {
-    class RigidBody;
-}
-
 class PhysicsManager;
 
 namespace Component {
@@ -16,19 +12,13 @@ namespace Component {
         
         public:
             /// Create new physics component.
-            Physics();
+            Physics() = default;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
             Json::Value Save() const override;
-            
-            /// Get the rigid body of a physics component.
-            /**
-             * @return The rigid body.
-             */
-            ::Physics::RigidBody& GetRigidBody();
             
             /// Velocity (in meter/second).
             glm::vec3 velocity = glm::vec3(0.f, 0.f, 0.f);
@@ -62,8 +52,5 @@ namespace Component {
              * https://en.wikipedia.org/wiki/List_of_moments_of_inertia
              */
             glm::vec3 momentOfInertia = glm::vec3(1.f, 1.f, 1.f);
-            
-        private:
-            ::Physics::RigidBody* rigidBody = nullptr;
     };
 }

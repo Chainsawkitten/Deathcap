@@ -111,7 +111,6 @@ class PhysicsManager {
         PhysicsManager(PhysicsManager const&) = delete;
         void operator=(PhysicsManager const&) = delete;
 
-        //Physics::RigidBody* MakeRigidBody(Physics::Shape* shape, float mass);
         ::Physics::Trigger* MakeTrigger(Component::Physics* comp);
 
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);

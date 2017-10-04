@@ -122,12 +122,6 @@ void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::
     trigger->OnEnter(rigidBodyComp, callback);
 }
 
-//Physics::RigidBody* PhysicsManager::MakeRigidBody(Physics::Shape* shape, float mass) {
-//    auto body = new Physics::RigidBody(shape, mass);
-//    dynamicsWorld->addRigidBody(body->GetRigidBody());
-//    return body;
-//}
-
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     assert(rigidBodyComp); // for now
