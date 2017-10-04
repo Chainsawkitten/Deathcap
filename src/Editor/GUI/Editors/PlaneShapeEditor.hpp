@@ -26,7 +26,7 @@ namespace GUI {
              */
             virtual void Show(Component::Shape* comp) override;
 
-            /// Set a sphere shape on the given physics component.
+            /// Set a sphere shape on the given shape component.
             /**
              * @param comp The shape component on which to set shape.
              */
