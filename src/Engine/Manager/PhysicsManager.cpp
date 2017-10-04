@@ -236,6 +236,10 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     return comp;
 }
 
+void PhysicsManager::SetShape(Component::Shape* comp, ::Physics::Shape* shape) {
+    comp->SetShape(shape);
+}
+
 const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() const {
     return physicsComponents.GetAll();
 }

@@ -1,12 +1,14 @@
 #include "SphereShapeEditor.hpp"
 
-#include <Engine/Component/Physics.hpp>
+#include <Engine/Component/Shape.hpp>
+#include <Engine/Manager/Managers.hpp>
+#include <Engine/Manager/PhysicsManager.hpp>
 #include <Engine/Physics/Shape.hpp>
 #include <imgui.h>
 
 namespace GUI {
 
-    void SphereShapeEditor::Show(Component::Physics* comp) {
+    void SphereShapeEditor::Show(Component::Shape* comp) {
         ImGui::Indent();
 
         if (ImGui::DragFloat("Radius", &radius, 1.0f, 0.0f)) {
@@ -16,9 +18,8 @@ namespace GUI {
         ImGui::Unindent();
     }
 
-    void SphereShapeEditor::Apply(Component::Physics* comp) {
-        Physics::Shape* shape = new Physics::Shape(Physics::Shape::Sphere(radius));
-        //comp->SetShape(shape);
+    void SphereShapeEditor::Apply(Component::Shape* comp) {
+        Managers().physicsManager->SetShape(comp, new Physics::Shape(Physics::Shape::Sphere(radius)));
     }
 
     bool SphereShapeEditor::SetFromShape(const Physics::Shape& shape) {

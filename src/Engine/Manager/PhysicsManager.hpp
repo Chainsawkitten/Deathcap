@@ -95,6 +95,13 @@ class PhysicsManager {
          * @return The created component.
          */
         Component::Shape* CreateShape(Entity* owner, const Json::Value& node);
+
+        /// Set the shape of a given Component::Shape component.
+        /**
+         * @param comp The component on which to set the shape.
+         * @param A Physics::Shape object that holds the shape definition.
+         */
+        void SetShape(Component::Shape* comp, ::Physics::Shape* shape);
         
         /// Get all physics components.
         /**
