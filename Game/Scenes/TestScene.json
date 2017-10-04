@@ -117,6 +117,17 @@
 							{
 								"controllerID" : 1
 							},
+							"Material" : 
+							{
+								"albedo" : "",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "controller"
+							},
 							"children" : null,
 							"name" : "LeftCtrl",
 							"position" : 
@@ -145,6 +156,17 @@
 							"Controller" : 
 							{
 								"controllerID" : 2
+							},
+							"Material" : 
+							{
+								"albedo" : "",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "controller"
 							},
 							"children" : null,
 							"name" : "RightCtrl",
