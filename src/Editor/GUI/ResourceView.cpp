@@ -155,25 +155,25 @@ SceneEditor& ResourceView::GetScene() {
 }
 
 void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder) {
-    // Show subfolders.
-    for (ResourceList::ResourceFolder& subfolder : folder.subfolders) {
-        bool opened = ImGui::TreeNode(subfolder.name.c_str());
-        
-        /// @todo Remove subfolder.
-        
-        if (opened) {
-            ShowResourceFolder(subfolder);
-            
-            ImGui::TreePop();
-        }
-    }
+    bool opened = ImGui::TreeNode(folder.name.c_str());
     
-    // Show resources.
-    for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
-        if (ShowResource(*it)) {
-            folder.resources.erase(it);
-            return;
+    /// @todo Remove folder.
+    
+    if (opened) {
+        // Show subfolders.
+        for (ResourceList::ResourceFolder& subfolder : folder.subfolders) {
+            ShowResourceFolder(subfolder);
         }
+        
+        // Show resources.
+        for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
+            if (ShowResource(*it)) {
+                folder.resources.erase(it);
+                return;
+            }
+        }
+        
+        ImGui::TreePop();
     }
 }
 
