@@ -1,22 +1,42 @@
 {
 	"activeScene" : "TestScene",
-	"models" : 
+	"resources" : 
 	[
-		"CartSecond",
-		"Cave",
-		"spak",
-		"Galler"
-	],
-	"scenes" : 
-	[
-		"TestScene"
-	],
-	"sounds" : null,
-	"textures" : 
-	[
-		"Texture #0",
-		"Texture #1",
-		"Texture #2",
-		"Texture #3"
+		{
+			"scene" : "TestScene",
+			"type" : 0
+		},
+		{
+			"model" : "CartSecond",
+			"type" : 1
+		},
+		{
+			"model" : "Cave",
+			"type" : 1
+		},
+		{
+			"model" : "spak",
+			"type" : 1
+		},
+		{
+			"model" : "Galler",
+			"type" : 1
+		},
+		{
+			"texture" : "Texture #0",
+			"type" : 2
+		},
+		{
+			"texture" : "Texture #1",
+			"type" : 2
+		},
+		{
+			"texture" : "Texture #2",
+			"type" : 2
+		},
+		{
+			"texture" : "Texture #3",
+			"type" : 2
+		}
 	]
 }

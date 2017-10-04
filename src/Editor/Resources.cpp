@@ -32,61 +32,27 @@ void ResourceList::Save() const {
         Json::Value resourceNode;
         resourceNode["type"] = resource.type;
         
-        // Save texture.
-        if (resource.type == Resource::TEXTURE) {
+        switch (resource.type) {
+        case Resource::TEXTURE:
             resourceNode["texture"] = resource.texture->name;
             resource.texture->Save();
-        }
-        
-        // Save model.
-        if (resource.type == Resource::MODEL) {
+            break;
+        case Resource::MODEL:
             resourceNode["model"] = resource.model->name;
             resource.model->Save();
-        }
-        
-        // Save sound.
-        if (resource.type == Resource::SOUND) {
+            break;
+        case Resource::SOUND:
             resourceNode["sound"] = resource.sound->name;
             resource.sound->Save();
-        }
-        
-        // Save scenes.
-        if (resource.type == Resource::SCENE) {
+            break;
+        case Resource::SCENE:
             resourceNode["scene"] = resource.scene;
+            break;
         }
         
         resourcesNode.append(resourceNode);
     }
     root["resources"] = resourcesNode;
-    
-    /*// Save textures.
-    Json::Value texturesNode;
-    for (TextureAsset* texture : textures) {
-        texturesNode.append(texture->name);
-        texture->Save();
-    }
-    root["textures"] = texturesNode;
-    
-    // Save models.
-    Json::Value modelsNode;
-    for (Geometry::Model* model : models) {
-        modelsNode.append(model->name);
-    }
-    root["models"] = modelsNode;
-    
-    // Save sounds.
-    Json::Value soundsNode;
-    for (Audio::SoundBuffer* sound : sounds) {
-        soundsNode.append(sound->name);
-    }
-    root["sounds"] = soundsNode;
-    
-    // Save scenes.
-    Json::Value scenesNode;
-    for (const string& scene : scenes) {
-        scenesNode.append(scene);
-    }
-    root["scenes"] = scenesNode;*/
     
     // Save to file.
     ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
@@ -103,33 +69,33 @@ void ResourceList::Load() {
     
     activeScene = root["activeScene"].asString();
     
-    /// @todo Load resources.
+    // Load resources.
+    Json::Value resourcesNode = root["resources"];
     
-    /*// Load textures.
-    const Json::Value texturesNode = root["textures"];
-    for (unsigned int i = 0; i < texturesNode.size(); ++i) {
-        textures.push_back(Managers().resourceManager->CreateTextureAsset(texturesNode[i].asString()));
+    for (unsigned int i = 0; i < resourcesNode.size(); ++i) {
+        Json::Value resourceNode = resourcesNode[i];
+        Resource resource;
+        resource.type = static_cast<Resource::Type>(resourceNode["type"].asInt());
+        
+        switch (resource.type) {
+        case Resource::TEXTURE:
+            resource.texture = Managers().resourceManager->CreateTextureAsset(resourceNode["texture"].asString());
+            break;
+        case Resource::MODEL:
+            resource.model = Managers().resourceManager->CreateModel(resourceNode["model"].asString());
+            break;
+        case Resource::SOUND:
+            resource.sound = Managers().resourceManager->CreateSound(resourceNode["sound"].asString());
+            break;
+        case Resource::SCENE:
+            resource.scene = resourceNode["scene"].asString();
+            break;
+        }
+        
+        resources.push_back(resource);
     }
     
-    // Load models.
-    const Json::Value modelsNode = root["models"];
-    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
-        models.push_back(Managers().resourceManager->CreateModel(modelsNode[i].asString()));
-    }
-    
-    // Load sounds.
-    const Json::Value soundsNode = root["sounds"];
-    for (unsigned int i = 0; i < soundsNode.size(); ++i) {
-        sounds.push_back(Managers().resourceManager->CreateSound(soundsNode[i].asString()));
-    }
-    
-    // Load scenes.
-    const Json::Value scenesNode = root["scenes"];
-    for (unsigned int i = 0; i < scenesNode.size(); ++i) {
-        scenes.push_back(scenesNode[i].asString());
-    }
-    
-    textureNumber = textures.size();
+    /*textureNumber = textures.size();
     modelNumber = models.size();
     soundNumber = sounds.size();*/
 }
