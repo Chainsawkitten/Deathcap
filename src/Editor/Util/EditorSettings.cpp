@@ -9,6 +9,8 @@ EditorSettings::EditorSettings() {
     AddBoolSetting("Logging", "Debug", "Logging", false);
     AddBoolSetting("Debug Context", "Debug", "Debug Context", false);
     
+    AddBoolSetting("Grid Settings", "View", "Grid Settings", false);
+
     AddLongSetting("Width", "Graphics", "Width", 800);
     AddLongSetting("Height", "Graphics", "Height", 600);
     AddStringSetting("Theme", "Graphics", "Theme", "Default");
