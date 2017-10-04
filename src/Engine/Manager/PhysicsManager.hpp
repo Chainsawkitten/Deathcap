@@ -115,6 +115,12 @@ class PhysicsManager {
          * @return All physics components.
          */
         const std::vector<Component::Physics*>& GetPhysicsComponents() const;
+
+        /// Get all shape components.
+        /**
+         * @return All shape components.
+         */
+        const std::vector<Component::Shape*>& GetShapeComponents() const;
         
         /// Remove all killed components.
         void ClearKilledComponents();

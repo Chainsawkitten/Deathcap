@@ -86,17 +86,20 @@
 				},
 				"velocityDragFactor" : 1.0
 			},
-			"RigidBody": {
-				"mass": 1.0
-			},
-			"Shape": {
-				"sphere": {
-					"radius":  1.0
-				}
+			"RigidBody" : 
+			{
+				"mass" : 1.0
 			},
 			"Script" : 
 			{
 				"scriptName" : "Cart"
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
 			},
 			"children" : 
 			[
@@ -318,17 +321,21 @@
 						},
 						"velocityDragFactor" : 1.0
 					},
-					"RigidBody": {
-						"mass": 1.0
+					"RigidBody" : 
+					{
+						"mass" : 1.0
 					},
-					"Shape": {
-						"plane": {
-							"normal": {
-								"x": 0.0,
-								"y": 0.0,
-								"z": 1.0
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 1.0
 							},
-							"planeCoeff": 450.0
+							"planeCoeff" : 450.0
 						}
 					},
 					"children" : null,

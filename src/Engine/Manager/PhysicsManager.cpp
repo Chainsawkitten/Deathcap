@@ -248,6 +248,10 @@ const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() c
     return physicsComponents.GetAll();
 }
 
+const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {
+    return shapeComponents.GetAll();
+}
+
 void PhysicsManager::ClearKilledComponents() {
     physicsComponents.ClearKilled();
     rigidBodyComponents.ClearKilled(
