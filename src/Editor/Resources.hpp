@@ -52,8 +52,8 @@ class ResourceList {
         /// Resources.
         std::vector<Resource> resources;
         
-        /// The index to the activeScene.
-        int activeScene;
+        /// The name of the activeScene.
+        std::string activeScene;
         
         /// The id of the next model to create.
         unsigned int modelNumber = 0U;

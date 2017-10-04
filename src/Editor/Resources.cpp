@@ -12,7 +12,7 @@
 using namespace std;
 
 ResourceList::ResourceList() {
-    activeScene = -1;
+    activeScene = "";
 }
 
 ResourceList& ResourceList::GetInstance() {
@@ -70,7 +70,7 @@ void ResourceList::Load() {
     file >> root;
     file.close();
     
-    activeScene = root["activeScene"].asUInt();
+    activeScene = root["activeScene"].asString();
     
     /// @todo Load resources.
     

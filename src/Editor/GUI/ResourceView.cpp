@@ -91,45 +91,6 @@ void ResourceView::Show() {
             }
         }
         ImGui::TreePop();
-        if (changeScene) {
-
-            if (Hymn().GetPath() != "") {
-
-                savePromptWindow.SetVisible(true);
-                savePromptWindow.Show();
-
-                switch (savePromptWindow.GetDecision())
-                {
-                case 0:
-                    sceneEditor.Save();
-                    sceneEditor.SetVisible(true);
-                    sceneEditor.SetScene(sceneIndex);
-                    Resources().activeScene = sceneIndex;
-                    sceneEditor.entityEditor.SetVisible(false);
-                    Hymn().world.Clear();
-                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
-                    changeScene = false;
-                    savePromptWindow.SetVisible(false);
-                    savePromptWindow.ResetDecision();
-                    break;
-
-                case 1:
-                    sceneEditor.SetVisible(true);
-                    sceneEditor.SetScene(sceneIndex);
-                    Resources().activeScene = sceneIndex;
-                    sceneEditor.entityEditor.SetVisible(false);
-                    Hymn().world.Clear();
-                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
-                    changeScene = false;
-                    savePromptWindow.SetVisible(false);
-                    savePromptWindow.ResetDecision();
-                    break;
-
-                default:
-                    break;
-                }
-            }
-        }
     }
     
     // Models.
@@ -381,6 +342,43 @@ void ResourceView::ShowResource(size_t i) {
                 break;
             }
             ImGui::EndPopup();
+        }*/
+        
+        /*if (changeScene) {
+            if (Hymn().GetPath() != "") {
+                savePromptWindow.SetVisible(true);
+                savePromptWindow.Show();
+                
+                switch (savePromptWindow.GetDecision()) {
+                case 0:
+                    sceneEditor.Save();
+                    sceneEditor.SetVisible(true);
+                    sceneEditor.SetScene(sceneIndex);
+                    Resources().activeScene = sceneIndex;
+                    sceneEditor.entityEditor.SetVisible(false);
+                    Hymn().world.Clear();
+                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
+                    changeScene = false;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.ResetDecision();
+                    break;
+                    
+                case 1:
+                    sceneEditor.SetVisible(true);
+                    sceneEditor.SetScene(sceneIndex);
+                    Resources().activeScene = sceneIndex;
+                    sceneEditor.entityEditor.SetVisible(false);
+                    Hymn().world.Clear();
+                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
+                    changeScene = false;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.ResetDecision();
+                    break;
+                    
+                default:
+                    break;
+                }
+            }
         }*/
     }
 }

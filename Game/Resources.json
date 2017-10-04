@@ -1,5 +1,5 @@
 {
-	"activeScene" : 0,
+	"activeScene" : "TestScene",
 	"models" : 
 	[
 		"CartSecond",
