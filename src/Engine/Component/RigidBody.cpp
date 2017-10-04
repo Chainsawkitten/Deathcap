@@ -9,6 +9,7 @@ namespace Component {
 
     Json::Value RigidBody::Save() const {
         Json::Value component;
+        component["mass"] = mass;
         return component;
     }
 
