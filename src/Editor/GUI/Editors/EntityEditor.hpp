@@ -16,6 +16,7 @@ namespace Component {
     class PointLight;
     class SpotLight;
     class Listener;
+    class RigidBody;
     class Script;
     class Shape;
     class SoundSource;
@@ -75,6 +76,7 @@ namespace GUI {
             
             // Editors
             void AnimationEditor(Component::Animation* animation);
+            // @todo: remove when physics component is gone
             void PhysicsEditor(Component::Physics* physics);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
@@ -83,6 +85,7 @@ namespace GUI {
             void PointLightEditor(Component::PointLight* pointLight);
             void SpotLightEditor(Component::SpotLight* spotLight);
             void ListenerEditor(Component::Listener* listener);
+            void RigidBodyEditor(Component::RigidBody* rigidBody);
             void ScriptEditor(Component::Script* script);
             void ShapeEditor(Component::Shape* shape);
             void SoundSourceEditor(Component::SoundSource* soundSource);
@@ -99,6 +102,8 @@ namespace GUI {
             std::vector<Editor> editors;
             std::vector<IShapeEditor*> shapeEditors;
             int selectedShape = -1;
+
+            float rigidBodyMass = 1.0f;
     };
 }
 

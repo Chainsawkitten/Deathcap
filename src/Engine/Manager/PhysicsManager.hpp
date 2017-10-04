@@ -102,6 +102,13 @@ class PhysicsManager {
          * @param A Physics::Shape object that holds the shape definition.
          */
         void SetShape(Component::Shape* comp, ::Physics::Shape* shape);
+
+        /// Set the mass of a Component::RigidBody component.
+        /**
+         * @param comp The component on which to set mass.
+         * @param mass Mass in kilograms.
+         */
+        void SetMass(Component::RigidBody* comp, float mass);
         
         /// Get all physics components.
         /**

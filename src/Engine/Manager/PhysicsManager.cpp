@@ -240,6 +240,10 @@ void PhysicsManager::SetShape(Component::Shape* comp, ::Physics::Shape* shape) {
     comp->SetShape(shape);
 }
 
+void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
+    comp->Mass(mass);
+}
+
 const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() const {
     return physicsComponents.GetAll();
 }
