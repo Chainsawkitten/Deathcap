@@ -37,8 +37,6 @@ void ResourceView::Show() {
     
     ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
     
-    /// @todo Add resources.
-    
     // Show resources.
     scriptPressed = false;
     texturePressed = false;
@@ -157,7 +155,41 @@ SceneEditor& ResourceView::GetScene() {
 void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path) {
     bool opened = ImGui::TreeNode(folder.name.c_str());
     
-    /// @todo Remove folder.
+    if (ImGui::BeginPopupContextItem(folder.name.c_str())) {
+        /// @todo Add subfolder.
+        if (ImGui::Selectable("Add folder")) {
+            
+        }
+        
+        /// @todo Add scene.
+        if (ImGui::Selectable("Add scene")) {
+            
+        }
+        
+        /// @todo Add model.
+        if (ImGui::Selectable("Add model")) {
+            
+        }
+        
+        /// @todo Add texture.
+        if (ImGui::Selectable("Add texture")) {
+            
+        }
+        
+        /// @todo Add script.
+        if (ImGui::Selectable("Add script")) {
+            
+        }
+        
+        /// @todo Add sound.
+        if (ImGui::Selectable("Add sound")) {
+            
+        }
+        
+        /// @todo Remove folder.
+        
+        ImGui::EndPopup();
+    }
     
     if (opened) {
         // Show subfolders.
