@@ -48,6 +48,8 @@ namespace GUI {
             SceneEditor& GetScene();
             
         private:
+            void ShowResource(std::size_t i);
+            
             bool visible = false;
             
             ScriptEditor scriptEditor;
@@ -70,5 +72,10 @@ namespace GUI {
             
             int editorWidth = 250;
             bool editorResize = false;
+            
+            bool scriptPressed;
+            bool texturePressed;
+            bool modelPressed;
+            bool soundPressed;
     };
 }

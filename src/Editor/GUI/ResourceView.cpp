@@ -38,8 +38,20 @@ void ResourceView::Show() {
     
     ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
     
+    /// @todo Add resources.
+    
+    // Show resources.
+    scriptPressed = false;
+    texturePressed = false;
+    modelPressed = false;
+    soundPressed = false;
+    
+    for (std::size_t i = 0; i < Resources().resources.size(); ++i) {
+        ShowResource(i);
+    }
+    
     // Scenes.
-    if (ImGui::TreeNode("Scenes")) {
+    /*if (ImGui::TreeNode("Scenes")) {
         if (ImGui::Button("Add scene"))
             Resources().scenes.push_back("Scene #" + std::to_string(Resources().scenes.size()));
         
@@ -259,7 +271,7 @@ void ResourceView::Show() {
         }
         
         ImGui::TreePop();
-    }
+    }*/
     
     if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
@@ -322,10 +334,53 @@ void ResourceView::SaveScene() const {
 
 #undef max
 void ResourceView::ResetScene() {
-    sceneEditor.SetScene(std::numeric_limits<std::size_t>::max());
+    sceneEditor.SetScene(nullptr);
     sceneEditor.SetVisible(false);
 }
 
 SceneEditor& ResourceView::GetScene() {
     return sceneEditor;
+}
+
+void ResourceView::ShowResource(size_t i) {
+    ResourceList::Resource& resource = Resources().resources[i];
+    
+    /// @todo Subfolders.
+    
+    // Scene.
+    if (resource.type == ResourceList::Resource::SCENE) {
+        if (ImGui::Selectable(resource.scene.c_str())) {
+            // Sets to dont save when opening first scene.
+            if (sceneIndex == -1) {
+                changeScene = true;
+                sceneIndex = i;
+                savePromptWindow.SetVisible(false);
+                savePromptWindow.SetDecision(1);
+            } else {
+                /// @todo Does so that the prompt window wont show if you select active scene.
+                /*if (resource.scene != Resources().scenes[Resources().activeScene]) {
+                    changeScene = true;
+                    sceneIndex = i;
+                    savePromptWindow.SetTitle("Save before you switch scene?");
+                }*/
+            }
+        }
+        
+        /// @todo Delete scene.
+        /*if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                Resources().scenes.erase(Resources().scenes.begin() + i);
+                ImGui::EndPopup();
+                
+                if (Resources().activeScene >= i) {
+                    if (Resources().activeScene > 0)
+                        Resources().activeScene = Resources().activeScene - 1;
+                    
+                    sceneEditor.SetScene(Resources().activeScene);
+                }
+                break;
+            }
+            ImGui::EndPopup();
+        }*/
+    }
 }

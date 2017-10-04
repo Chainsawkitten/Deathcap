@@ -52,26 +52,14 @@ class ResourceList {
         /// Resources.
         std::vector<Resource> resources;
         
-        /// Scenes.
-        std::vector<std::string> scenes;
-        
         /// The index to the activeScene.
         int activeScene;
-        
-        /// Models.
-        std::vector<Geometry::Model*> models;
         
         /// The id of the next model to create.
         unsigned int modelNumber = 0U;
         
-        /// Textures.
-        std::vector<TextureAsset*> textures;
-        
         /// The id of the next texture to create.
         unsigned int textureNumber = 0U;
-        
-        /// Sounds.
-        std::vector<Audio::SoundBuffer*> sounds;
     
         /// The id of the next sound to create.
         unsigned int soundNumber = 0U;

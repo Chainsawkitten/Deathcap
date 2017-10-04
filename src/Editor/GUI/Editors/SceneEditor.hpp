@@ -19,7 +19,7 @@ namespace GUI {
             /**
              * @param scene Scene to edit.
              */
-            void SetScene(std::size_t scene);
+            void SetScene(std::string* scene);
             
             /// Get whether the window is visible.
             /**
@@ -48,7 +48,7 @@ namespace GUI {
             
             bool visible = false;
             
-            std::size_t sceneIndex;
+            std::string* scene = nullptr;
             char name[128];
     };
 }

@@ -26,7 +26,9 @@ void ResourceList::Save() const {
     
     root["activeScene"] = activeScene;
     
-    // Save textures.
+    /// @todo Save resources.
+    
+    /*// Save textures.
     Json::Value texturesNode;
     for (TextureAsset* texture : textures) {
         texturesNode.append(texture->name);
@@ -53,7 +55,7 @@ void ResourceList::Save() const {
     for (const string& scene : scenes) {
         scenesNode.append(scene);
     }
-    root["scenes"] = scenesNode;
+    root["scenes"] = scenesNode;*/
     
     // Save to file.
     ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
@@ -70,7 +72,9 @@ void ResourceList::Load() {
     
     activeScene = root["activeScene"].asUInt();
     
-    // Load textures.
+    /// @todo Load resources.
+    
+    /*// Load textures.
     const Json::Value texturesNode = root["textures"];
     for (unsigned int i = 0; i < texturesNode.size(); ++i) {
         textures.push_back(Managers().resourceManager->CreateTextureAsset(texturesNode[i].asString()));
@@ -96,28 +100,30 @@ void ResourceList::Load() {
     
     textureNumber = textures.size();
     modelNumber = models.size();
-    soundNumber = sounds.size();
+    soundNumber = sounds.size();*/
 }
 
 void ResourceList::Clear() {
-    scenes.clear();
-    
-    for (Geometry::Model* model : models) {
-        Managers().resourceManager->FreeModel(model);
+    // Clear resources.
+    for (const Resource& resource : resources) {
+        switch (resource.type) {
+        case Resource::Type::MODEL:
+            Managers().resourceManager->FreeModel(resource.model);
+            break;
+        case Resource::Type::TEXTURE:
+            Managers().resourceManager->FreeTextureAsset(resource.texture);
+            break;
+        case Resource::Type::SOUND:
+            Managers().resourceManager->FreeSound(resource.sound);
+            break;
+        default:
+            break;
+        }
     }
-    models.clear();
+    resources.clear();
+    
     modelNumber = 0U;
-    
-    for (TextureAsset* texture : textures) {
-        Managers().resourceManager->FreeTextureAsset(texture);
-    }
-    textures.clear();
     textureNumber = 0U;
-    
-    for (Audio::SoundBuffer* sound : sounds) {
-        Managers().resourceManager->FreeSound(sound);
-    }
-    sounds.clear();
     soundNumber = 0U;
 }
 
