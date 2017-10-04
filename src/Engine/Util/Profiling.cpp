@@ -6,10 +6,11 @@
 using namespace std;
 
 Profiling::Profiling(const std::string& name) {
-    result = Managers().profilingManager->StartResult(name);
+    result = Managers().profilingManager->StartResult(name, ProfilingManager::Type::CPU);
     start = glfwGetTime();
 }
 
 Profiling::~Profiling() {
-    Managers().profilingManager->FinishResult(result, start);
+    result->duration = glfwGetTime() - start;
+    Managers().profilingManager->FinishResult(result, ProfilingManager::Type::CPU);
 }

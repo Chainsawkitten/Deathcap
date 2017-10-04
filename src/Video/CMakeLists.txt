@@ -20,7 +20,8 @@ set(SRCS
         PostProcessing/GlowBlurFilter.cpp
         PostProcessing/GlowFilter.cpp
         PostProcessing/PostProcessing.cpp
-        Query/Query.cpp
+        Profiling/GPUProfiling.cpp
+        Profiling/Query.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
@@ -53,7 +54,8 @@ set(HEADERS
         PostProcessing/GlowBlurFilter.hpp
         PostProcessing/GlowFilter.hpp
         PostProcessing/PostProcessing.hpp
-        Query/Query.hpp
+        Profiling/GPUProfiling.hpp
+        Profiling/Query.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp

@@ -11,7 +11,7 @@ namespace Video {
             /// Query types.
             enum Type
             {
-                TIME_ELAPSED ///< TIME_ELAPSED Record the time that it takes for the GPU to execute all of the scoped commands between Begin() and End().
+                TIME_ELAPSED ///< TIME_ELAPSED Record the time in nanoseconds(ns) that it takes for the GPU to execute all of the scoped commands between Begin() and End().
             };
 
             /// Create new query.

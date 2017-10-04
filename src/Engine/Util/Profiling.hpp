@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "../Manager/Managers.hpp"
 #include "../Manager/ProfilingManager.hpp"
 
 /// Run profiling.
@@ -20,4 +21,5 @@ class Profiling {
         double start;
 };
 
+//#define PROFILE(name) if (Managers().profilingManager->Active()) Profiling __profileInstance(name)
 #define PROFILE(name) Profiling __profileInstance(name)

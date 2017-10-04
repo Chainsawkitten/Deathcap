@@ -10,7 +10,7 @@
 #include "ReadWriteTexture.hpp"
 #include "RenderSurface.hpp"
 #include "Engine/Util/Profiling.hpp"
-#include "Query/Query.hpp"
+#include "Profiling/GPUProfiling.hpp"
 
 using namespace Video;
 
@@ -97,8 +97,11 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
         PROFILE("Render light");
 
         // TMP TODO
-        Query query(Query::Type::TIME_ELAPSED);
-        query.Begin();
+        GPUPROFILE("GPU: Render light");
+
+        //// TMP TODO
+        //Query query(Query::Type::TIME_ELAPSED);
+        //query.Begin();
 
         // Render lights.
         unsigned int lightIndex = 0U;
@@ -122,10 +125,10 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
             glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
         }
 
-        // TMP TODO
-        query.End();
+        //// TMP TODO
+        //query.End();
 
-        Log() << "B: " << query.Resolve() / 1000000.0 << " ms\n";
+        //Log() << "B: " << query.Resolve() / 1000000.0 << " ms\n";
     }
     
     if (!depthTest)
