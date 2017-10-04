@@ -5,9 +5,11 @@
 using namespace std;
 
 GPUProfiling::GPUProfiling(const std::string& name) {
-    result = Managers().profilingManager->StartResult(name, ProfilingManager::Type::GPU);
+    if (Managers().profilingManager->Active())
+        result = Managers().profilingManager->StartResult(name, ProfilingManager::Type::GPU);
 }
 
 GPUProfiling::~GPUProfiling() {
-    Managers().profilingManager->FinishResult(result, ProfilingManager::Type::GPU);
+    if (Managers().profilingManager->Active())
+        Managers().profilingManager->FinishResult(result, ProfilingManager::Type::GPU);
 }

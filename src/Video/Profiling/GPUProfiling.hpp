@@ -20,6 +20,4 @@ class GPUProfiling {
         ProfilingManager::Result* result;
 };
 
-//#define GPUPROFILE(name) if (Managers().profilingManager->Active()) GPUProfiling __gpuProfileInstance(name)
 #define GPUPROFILE(name) GPUProfiling __gpuProfileInstance(name)
-

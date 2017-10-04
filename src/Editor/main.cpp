@@ -12,6 +12,7 @@
 #include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
 #include <Engine/Util/Profiling.hpp>
+#include <Video/Profiling/GPUProfiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>
 #include "ImGui/OpenGLImplementation.hpp"
@@ -67,7 +68,7 @@ int main() {
         if (Managers().profilingManager->Active())
             Managers().profilingManager->BeginFrame();
         
-        { PROFILE("Frame");
+        { PROFILE("Frame"); GPUPROFILE("Frame_");
             glfwPollEvents();
             
             if (Input()->Triggered(InputHandler::PROFILE))

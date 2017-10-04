@@ -21,5 +21,4 @@ class Profiling {
         double start;
 };
 
-//#define PROFILE(name) if (Managers().profilingManager->Active()) Profiling __profileInstance(name)
 #define PROFILE(name) Profiling __profileInstance(name)

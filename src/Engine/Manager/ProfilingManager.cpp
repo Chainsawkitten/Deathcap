@@ -40,10 +40,10 @@ ProfilingManager::~ProfilingManager() {
 }
 
 void ProfilingManager::BeginFrame() {
-    //if (!active) {
-    //    Log() << "ProfilingManager::BeginFrame warning: Not active.\n";
-    //    return;
-    //}
+    if (!active) {
+        Log() << "ProfilingManager::BeginFrame warning: Not active.\n";
+        return;
+    }
 
     // Clear previous results.
     for (int i = 0; i < Type::COUNT; ++i) {
@@ -56,16 +56,17 @@ void ProfilingManager::BeginFrame() {
 }
 
 void ProfilingManager::ShowResults() {
-    //if (!active) {
-    //    Log() << "ProfilingManager::ShowResults warning: Not active.\n";
-    //    return;
-    //}
+    if (!active) {
+        Log() << "ProfilingManager::ShowResults warning: Not active.\n";
+        return;
+    }
     
     // Calculate the time of this frame.
     frameTimes[frame++] = static_cast<float>((glfwGetTime() - frameStart) * 1000.0);
     if (frame >= frames)
         frame = 0;
 
+    // Resolve and reset queries.
     ResolveQueries();
     
     // Show the results.
@@ -115,7 +116,7 @@ void ProfilingManager::SetActive(bool active) {
 }
 
 ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name, Type type) {
-    //assert(active);
+    assert(active);
 
     // Sync GPU and CPU.
     if (syncGPU && type == Type::CPU) {
@@ -150,7 +151,7 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
 }
 
 void ProfilingManager::FinishResult(Result* result, Type type) {
-    //assert(active);
+    assert(active);
 
     // Sync GPU and CPU.
     if (syncGPU && type == Type::CPU) {
@@ -170,13 +171,13 @@ void ProfilingManager::FinishResult(Result* result, Type type) {
 }
 
 void ProfilingManager::ShowFrametimes() {
-    //assert(active);
+    assert(active);
 
     ImGui::PlotLines("Frametimes", frameTimes, frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
 }
 
 void ProfilingManager::ShowResult(Result* result) {
-    //assert(active);
+    assert(active);
 
     ImGui::AlignFirstTextHeightToWidgets();
     int flags = result->children.empty() ? ImGuiTreeNodeFlags_Leaf : 0;
@@ -208,9 +209,8 @@ void ProfilingManager::ShowResult(Result* result) {
 }
 
 void ProfilingManager::ResolveQueries() {
-    //assert(active);
+    assert(active);
 
-    // Resolve & reset GPU queries.
     for (auto& it : queryMap) {
         it.first->duration = it.second->Resolve() / 1000000000.0;
         queryPool.push_back(it.second);

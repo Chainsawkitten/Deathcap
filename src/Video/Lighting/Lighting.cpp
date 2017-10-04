@@ -1,6 +1,8 @@
 #include "Lighting.hpp"
 
 #include <Utility/Log.hpp>
+#include <Engine/Util/Profiling.hpp>
+
 #include "../Geometry/Rectangle.hpp"
 #include "../Shader/Shader.hpp"
 #include "../Shader/ShaderProgram.hpp"
@@ -9,7 +11,6 @@
 #include "FrameBuffer.hpp"
 #include "ReadWriteTexture.hpp"
 #include "RenderSurface.hpp"
-#include "Engine/Util/Profiling.hpp"
 #include "Profiling/GPUProfiling.hpp"
 
 using namespace Video;
@@ -93,15 +94,7 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
 
-    {
-        PROFILE("Render light");
-
-        // TMP TODO
-        GPUPROFILE("GPU: Render light");
-
-        //// TMP TODO
-        //Query query(Query::Type::TIME_ELAPSED);
-        //query.Begin();
+    { PROFILE("Render light"); GPUPROFILE("Render light_");
 
         // Render lights.
         unsigned int lightIndex = 0U;
@@ -124,11 +117,6 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
             glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
             glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
         }
-
-        //// TMP TODO
-        //query.End();
-
-        //Log() << "B: " << query.Resolve() / 1000000.0 << " ms\n";
     }
     
     if (!depthTest)
