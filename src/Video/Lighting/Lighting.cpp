@@ -10,7 +10,7 @@
 #include "ReadWriteTexture.hpp"
 #include "RenderSurface.hpp"
 #include "Engine/Util/Profiling.hpp"
-#include <vector> //TMP TODO
+#include "Query/Query.hpp"
 
 using namespace Video;
 
@@ -97,11 +97,8 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
         PROFILE("Render light");
 
         // TMP TODO
-        std::vector<GLuint> queryPool(2);
-        glGenQueries(queryPool.size(), queryPool.data());
-
-        glQueryCounter(queryPool[0], GL_TIMESTAMP);
-
+        Query query(Query::Type::TIME_ELAPSED);
+        query.Begin();
 
         // Render lights.
         unsigned int lightIndex = 0U;
@@ -126,23 +123,9 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
         }
 
         // TMP TODO
-        glQueryCounter(queryPool[1], GL_TIMESTAMP);
-           
-        GLuint64 a = GL_FALSE; 
-        GLuint64 b = GL_FALSE;
+        query.End();
 
-        while (a == GL_FALSE)
-            glGetQueryObjectui64v(queryPool[0], GL_QUERY_RESULT_AVAILABLE, &a);
-        glGetQueryObjectui64v(queryPool[0], GL_QUERY_RESULT, &a);
-        while (b == GL_FALSE)
-            glGetQueryObjectui64v(queryPool[1], GL_QUERY_RESULT_AVAILABLE, &b);
-        glGetQueryObjectui64v(queryPool[1], GL_QUERY_RESULT, &b);
-
-        GLuint64 result = b - a;
-
-        Log() << "B: " << result / 1000000.0 << " ms\n";
-
-        glDeleteQueries(queryPool.size(), queryPool.data());
+        Log() << "B: " << query.Resolve() / 1000000.0 << " ms\n";
     }
     
     if (!depthTest)
