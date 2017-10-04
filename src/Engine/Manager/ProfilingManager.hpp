@@ -63,7 +63,7 @@ class ProfilingManager {
         Result* StartResult(const std::string& name, Type type);
         void FinishResult(Result* result, Type type);
         
-        void ShowFrametimes();
+        void ShowFrametimes(Type type);
         void ShowResult(Result* result);
 
         void ResolveQueries();
@@ -76,10 +76,11 @@ class ProfilingManager {
         std::list<Video::Query*> queryPool;
         std::map<Result*, Video::Query*> queryMap;
         
+        Video::Query* frameQuery;
         double frameStart;
         static const unsigned int frames = 100;
         unsigned int frame = 0;
-        float frameTimes[frames] = {};
+        float frameTimes[Type::COUNT][frames];
 
 #ifdef MEASURE_VRAM
         IDXGIFactory* dxgiFactory = nullptr;

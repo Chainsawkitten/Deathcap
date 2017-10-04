@@ -17,6 +17,8 @@ ProfilingManager::ProfilingManager() : active(false) {
         current[i] = nullptr;
     }
 
+    frameQuery = new Video::Query(Video::Query::TIME_ELAPSED);
+
 #ifdef MEASURE_VRAM
     dxgiFactory = nullptr;
     HRESULT error = CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&dxgiFactory));
@@ -33,6 +35,8 @@ ProfilingManager::~ProfilingManager() {
     for (int i = 0; i < Type::COUNT; ++i) {
         delete first[i];
     }
+
+    delete frameQuery;
 
 #ifdef MEASURE_VRAM
     dxgiAdapter3->Release();
@@ -54,6 +58,7 @@ void ProfilingManager::BeginFrame() {
         current[i] = nullptr;
     }
     frameStart = glfwGetTime();
+    frameQuery->Begin();
 }
 
 void ProfilingManager::ShowResults() {
@@ -62,9 +67,14 @@ void ProfilingManager::ShowResults() {
         return;
     }
     
-    // Calculate the time of this frame.
-    frameTimes[frame++] = static_cast<float>((glfwGetTime() - frameStart) * 1000.0);
-    if (frame >= frames)
+    // Calculate the CPU time of this frame.
+    frameTimes[Type::CPU][frame] = static_cast<float>((glfwGetTime() - frameStart) * 1000.0);
+
+    // Calculate the CPU time of this frame.
+    frameQuery->End();
+    frameTimes[Type::GPU][frame] = static_cast<float>(frameQuery->Resolve() / 1000000.0);
+
+    if (++frame >= frames)
         frame = 0;
 
     // Resolve and reset queries.
@@ -73,19 +83,31 @@ void ProfilingManager::ShowResults() {
     // Show the results.
     ImGui::Begin("Profiling", nullptr, ImGuiWindowFlags_ShowBorders);
     
-    if (ImGui::CollapsingHeader("Frametimes"))
-        ShowFrametimes();
-    
-    if (ImGui::CollapsingHeader("CPU Breakdown")) {
-        ImGui::Columns(2);
-        ShowResult(first[Type::CPU]);
-        ImGui::Columns(1);
+    if (ImGui::CollapsingHeader("Frametimes")) {
+        if (ImGui::TreeNode("CPU Frametimes")) {
+            ShowFrametimes(Type::CPU);
+            ImGui::TreePop();
+        }
+
+        if (ImGui::TreeNode("GPU Frametimes")) {
+            ShowFrametimes(Type::GPU);
+            ImGui::TreePop();
+        }
     }
 
-    if (ImGui::CollapsingHeader("GPU Breakdown")) {
-        ImGui::Columns(2);
-        ShowResult(first[Type::GPU]);
-        ImGui::Columns(1);
+    if (ImGui::CollapsingHeader("Breakdown")) {
+        if (ImGui::TreeNode("CPU Breakdown")) {
+            ImGui::Columns(2);
+            ShowResult(first[Type::CPU]);
+            ImGui::Columns(1);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("GPU Breakdown")) {
+            ImGui::Columns(2);
+            ShowResult(first[Type::GPU]);
+            ImGui::Columns(1);
+            ImGui::TreePop();
+        }
     }
     
     if (ImGui::CollapsingHeader("Memory")) {
@@ -148,17 +170,16 @@ void ProfilingManager::FinishResult(Result* result, Type type) {
     assert(active);
 
     // End query if type is GPU.
-    if (type == Type::GPU) {
+    if (type == Type::GPU)
         queryMap[current[type]]->End();
-    }
 
     current[type] = result->parent;
 }
 
-void ProfilingManager::ShowFrametimes() {
+void ProfilingManager::ShowFrametimes(Type type) {
     assert(active);
 
-    ImGui::PlotLines("Frametimes", frameTimes, frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
+    ImGui::PlotLines("Frametimes", frameTimes[type], frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
 }
 
 void ProfilingManager::ShowResult(Result* result) {

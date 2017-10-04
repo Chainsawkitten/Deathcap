@@ -68,7 +68,7 @@ int main() {
         if (Managers().profilingManager->Active())
             Managers().profilingManager->BeginFrame();
         
-        { PROFILE("Frame"); GPUPROFILE("Frame_");
+        { PROFILE("CPU Frame"); GPUPROFILE("GPU Frame");
             glfwPollEvents();
             
             if (Input()->Triggered(InputHandler::PROFILE))
