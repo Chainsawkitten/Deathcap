@@ -161,9 +161,13 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             
         }
         
-        /// @todo Add scene.
+        // Add scene.
         if (ImGui::Selectable("Add scene")) {
-            
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SCENE;
+            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
+            folder.resources.push_back(resource);
+            return;
         }
         
         /// @todo Add model.
