@@ -65,12 +65,50 @@ glm::mat4 VRManager::GetHMDPoseMatrix() const {
     return glm::inverse(deviceTransforms[vr::k_unTrackedDeviceIndex_Hmd]);
 }
 
-glm::mat4 VRManager::GetHMDEyeToHeadMatrix(vr::Hmd_Eye eye) const {
+glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
     if (vrSystem == nullptr) {
         Log() << "No initialized VR device.\n";
         return glm::mat4();
     }
 
+    for (vr::TrackedDeviceIndex_t untrackedDevice = vr::k_unTrackedDeviceIndex_Hmd + 1; untrackedDevice < vr::k_unMaxTrackedDeviceCount; untrackedDevice++) {
+        // Skip current VR device if it's not connected
+        if (!vrSystem->IsTrackedDeviceConnected(untrackedDevice))
+            continue;
+        // Skip current device if it's not a controller
+        if (vrSystem->GetTrackedDeviceClass(untrackedDevice) != vr::TrackedDeviceClass_Controller)
+            continue;
+        // Skip current controller if it's not in a valid position
+        if (!tracedDevicePoseArray[untrackedDevice].bPoseIsValid)
+            continue;
+
+        // Find out if current controller is the left or right one.
+        vr::ETrackedControllerRole role = vrSystem->GetControllerRoleForTrackedDeviceIndex(untrackedDevice);
+
+
+        // If we want to differentiate between left and right controller.
+        if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
+            continue;
+        if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 1) {
+            glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);
+            return returnMatrix;
+        }
+        if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 2) {
+            glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);
+            return returnMatrix;
+        }
+
+        /* Alternatively
+        if (role != vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
+            return glm::inverse(deviceTransforms[untrackedDevice]);*/
+    }
+}
+
+glm::mat4 VRManager::GetHMDEyeToHeadMatrix(vr::Hmd_Eye eye) const {
+    if (vrSystem == nullptr) {
+        Log() << "No initialized VR device.\n";
+        return glm::mat4();
+    }
     return glm::inverse(ConvertMatrix(vrSystem->GetEyeToHeadTransform(eye)));
 }
 

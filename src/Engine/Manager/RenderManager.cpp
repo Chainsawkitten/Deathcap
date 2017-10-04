@@ -38,6 +38,7 @@
 #include "Util/Json.hpp"
 
 #include "Manager/VRManager.hpp"
+#include "Component/Controller.hpp"
 
 using namespace Component;
 
@@ -237,7 +238,27 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
+                Controller* controller = entity->GetComponent<Controller>();
                 if (material != nullptr) {
+
+                    if (controller != nullptr) {
+                        glm::mat4 ctrlTransform = Managers().vrManager->GetControllerPoseMatrix(controller->controllerID);
+                        glm::vec3 right = glm::vec3(ctrlTransform[0][0], ctrlTransform[1][0], ctrlTransform[2][0]);
+                        glm::vec3 up = glm::vec3(ctrlTransform[0][1], ctrlTransform[1][1], ctrlTransform[2][1]);
+                        glm::vec3 forward = glm::vec3(ctrlTransform[0][2], ctrlTransform[1][2], ctrlTransform[2][2]);
+
+                        glm::mat4 ctrlOrientation = glm::transpose(glm::mat4(
+                            glm::vec4(right, 0.f),
+                            glm::vec4(up, 0.f),
+                            glm::vec4(forward, 0.f),
+                            glm::vec4(0.f, 0.f, 0.f, 1.f)
+                        ));
+
+                        glm::mat4 ctrlTranslationLocal = glm::inverse(ctrlOrientation)*ctrlTransform;
+                        glm::vec3 ctrlPositionLocal = glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
+                        glm::mat4 ctrlModelMatrix = glm::translate(glm::mat4(), ctrlPositionLocal) * ctrlOrientation * glm::scale(glm::mat4(), glm::vec3()*Managers().vrManager->GetScale());
+                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), ctrlModelMatrix);
+                    }
                     renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
                 }
             }
@@ -422,6 +443,23 @@ Component::SpotLight* RenderManager::CreateSpotLight(const Json::Value& node) {
 
 const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
     return spotLights.GetAll();
+}
+
+Component::Controller* RenderManager::CreateController() {
+    return controllers.Create();
+}
+
+Component::Controller* RenderManager::CreateController(const Json::Value& node) {
+    Component::Controller* controller = controllers.Create();
+
+    //Load values from Json node.
+    controller->controllerID = node.get("controllerID", "").asInt();
+
+    return controller;
+}
+
+const std::vector<Component::Controller*>& RenderManager::GetControllers() const {
+    return controllers.GetAll();
 }
 
 void RenderManager::ClearKilledComponents() {

@@ -19,6 +19,7 @@ namespace Component {
     class Script;
     class SoundSource;
     class ParticleEmitter;
+    class Controller;
 }
 
 namespace GUI {
@@ -85,6 +86,7 @@ namespace GUI {
             void ScriptEditor(Component::Script* script);
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
+            void ControllerEditor(Component::Controller* controller);
             
             Entity* entity = nullptr;
             bool visible = false;

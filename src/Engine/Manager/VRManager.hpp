@@ -29,6 +29,12 @@ class VRManager {
          */
         glm::mat4 GetHMDPoseMatrix() const;
 
+        /// Returns the transform for the controllers
+        /**
+         * @return The Controllers translation matrix.
+         */
+        glm::mat4 GetControllerPoseMatrix(int controlID) const;
+
         /// Returns the transform between the view space and eye space.
         /**
          * @param eye Which eye the function should return the eye matrix for.
