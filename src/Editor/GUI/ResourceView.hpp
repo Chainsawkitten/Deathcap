@@ -6,6 +6,7 @@
 #include "Editors/ScriptEditor.hpp"
 #include "Editors/TextureEditor.hpp"
 #include "GUI/SavePromptWindow.hpp"
+#include "../Resources.hpp"
 
 namespace GUI {
     /// Displays all the hymn's resources.
@@ -48,7 +49,8 @@ namespace GUI {
             SceneEditor& GetScene();
             
         private:
-            void ShowResource(std::size_t i);
+            void ShowResourceFolder(ResourceList::ResourceFolder& folder);
+            void ShowResource(ResourceList::Resource& resource);
             
             bool visible = false;
             

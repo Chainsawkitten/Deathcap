@@ -1,6 +1,5 @@
 #include "Resources.hpp"
 
-#include <json/value.h>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
@@ -13,6 +12,7 @@ using namespace std;
 
 ResourceList::ResourceList() {
     activeScene = "";
+    resourceFolder.name = "Resources";
 }
 
 ResourceList& ResourceList::GetInstance() {
@@ -25,10 +25,52 @@ void ResourceList::Save() const {
     Json::Value root;
     
     root["activeScene"] = activeScene;
+    root["resourceFolder"] = SaveFolder(resourceFolder);
+    
+    // Save to file.
+    ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
+    file << root;
+    file.close();
+}
+
+void ResourceList::Load() {
+    // Load Json document from file.
+    Json::Value root;
+    ifstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
+    file >> root;
+    file.close();
+    
+    activeScene = root["activeScene"].asString();
+    resourceFolder = LoadFolder(root["resourceFolder"]);
+    
+    /*textureNumber = textures.size();
+    modelNumber = models.size();
+    soundNumber = sounds.size();*/
+}
+
+void ResourceList::Clear() {
+    ClearFolder(resourceFolder);
+    resourceFolder.name = "Resources";
+    
+    modelNumber = 0U;
+    textureNumber = 0U;
+    soundNumber = 0U;
+}
+
+Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
+    Json::Value node;
+    node["name"] = folder.name;
+    
+    // Save subfolders.
+    Json::Value subfolders;
+    for (const ResourceFolder& subfolder : folder.subfolders) {
+        subfolders.append(SaveFolder(subfolder));
+    }
+    node["subfolders"] = subfolders;
     
     // Save resources.
     Json::Value resourcesNode;
-    for (const Resource& resource : resources) {
+    for (const Resource& resource : folder.resources) {
         Json::Value resourceNode;
         resourceNode["type"] = resource.type;
         
@@ -52,26 +94,22 @@ void ResourceList::Save() const {
         
         resourcesNode.append(resourceNode);
     }
-    root["resources"] = resourcesNode;
+    node["resources"] = resourcesNode;
     
-    // Save to file.
-    ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
-    file << root;
-    file.close();
+    return node;
 }
 
-void ResourceList::Load() {
-    // Load Json document from file.
-    Json::Value root;
-    ifstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
-    file >> root;
-    file.close();
+ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node) {
+    ResourceFolder folder;
+    folder.name = node["name"].asString();
     
-    activeScene = root["activeScene"].asString();
+    // Load subfolders.
+    Json::Value subfoldersNode = node["subfolders"];
+    for (unsigned int i = 0; i < subfoldersNode.size(); ++i)
+        folder.subfolders.push_back(LoadFolder(subfoldersNode[i]));
     
     // Load resources.
-    Json::Value resourcesNode = root["resources"];
-    
+    Json::Value resourcesNode = node["resources"];
     for (unsigned int i = 0; i < resourcesNode.size(); ++i) {
         Json::Value resourceNode = resourcesNode[i];
         Resource resource;
@@ -92,17 +130,21 @@ void ResourceList::Load() {
             break;
         }
         
-        resources.push_back(resource);
+        folder.resources.push_back(resource);
     }
     
-    /*textureNumber = textures.size();
-    modelNumber = models.size();
-    soundNumber = sounds.size();*/
+    return folder;
 }
 
-void ResourceList::Clear() {
+void ResourceList::ClearFolder(ResourceFolder& folder) {
+    // Clear subfolders.
+    for (ResourceFolder& subfolder : folder.subfolders) {
+        ClearFolder(subfolder);
+    }
+    folder.subfolders.clear();
+    
     // Clear resources.
-    for (const Resource& resource : resources) {
+    for (const Resource& resource : folder.resources) {
         switch (resource.type) {
         case Resource::Type::MODEL:
             Managers().resourceManager->FreeModel(resource.model);
@@ -117,11 +159,7 @@ void ResourceList::Clear() {
             break;
         }
     }
-    resources.clear();
-    
-    modelNumber = 0U;
-    textureNumber = 0U;
-    soundNumber = 0U;
+    folder.resources.clear();
 }
 
 ResourceList& Resources() {

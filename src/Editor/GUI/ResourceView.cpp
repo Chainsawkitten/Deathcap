@@ -12,7 +12,6 @@
 #include <imgui.h>
 #include <limits>
 #include "../ImGui/Splitter.hpp"
-#include "../Resources.hpp"
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <cstdio>
@@ -46,9 +45,7 @@ void ResourceView::Show() {
     modelPressed = false;
     soundPressed = false;
     
-    for (std::size_t i = 0; i < Resources().resources.size(); ++i) {
-        ShowResource(i);
-    }
+    ShowResourceFolder(Resources().resourceFolder);
     
     // Change scene.
     if (changeScene) {
@@ -86,6 +83,122 @@ void ResourceView::Show() {
                 break;
             }
         }
+    }
+    
+    if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
+        sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
+        scriptEditor.SetVisible(scriptPressed);
+        textureEditor.SetVisible(texturePressed);
+        modelEditor.SetVisible(modelPressed);
+        soundEditor.SetVisible(soundPressed);
+    }
+    
+    if (sceneEditor.IsVisible()) {
+        ImGui::HorizontalSplitter(ImVec2(sceneWidth, 20), size.y - 20, splitterSize, sceneWidth, sceneResize, 20, size.x - editorWidth - 20);
+        ImGui::SetNextWindowPos(ImVec2(0, 20));
+        ImGui::SetNextWindowSize(ImVec2(sceneWidth, size.y - 20));
+        sceneEditor.Show();
+    }
+    
+    if (sceneEditor.entityEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible()) {
+        editorWidth = size.x - editorWidth;
+        ImGui::HorizontalSplitter(ImVec2(editorWidth, 20), size.y - 20, splitterSize, editorWidth, editorResize, sceneWidth + 20, size.x - 20);
+        editorWidth = size.x - editorWidth;
+        
+        ImGui::SetNextWindowPos(ImVec2(size.x - editorWidth, 20));
+        ImGui::SetNextWindowSize(ImVec2(editorWidth, size.y - 20));
+    }
+    
+    if (sceneEditor.entityEditor.IsVisible())
+        sceneEditor.entityEditor.Show();
+    if (scriptEditor.IsVisible())
+        scriptEditor.Show();
+    if (textureEditor.IsVisible())
+        textureEditor.Show();
+    if (modelEditor.IsVisible())
+        modelEditor.Show();
+    if (soundEditor.IsVisible())
+        soundEditor.Show();
+    
+    ImGui::End();
+}
+
+bool ResourceView::IsVisible() const {
+    return visible;
+}
+
+void ResourceView::SetVisible(bool visible) {
+    this->visible = visible;
+}
+
+void ResourceView::HideEditors() {
+    sceneEditor.SetVisible(false);
+    sceneEditor.entityEditor.SetVisible(false);
+    scriptEditor.SetVisible(false);
+    modelEditor.SetVisible(false);
+    textureEditor.SetVisible(false);
+    soundEditor.SetVisible(false);
+}
+
+void ResourceView::SaveScene() const {
+    sceneEditor.Save();
+}
+
+#undef max
+void ResourceView::ResetScene() {
+    sceneEditor.SetScene(nullptr);
+    sceneEditor.SetVisible(false);
+}
+
+SceneEditor& ResourceView::GetScene() {
+    return sceneEditor;
+}
+
+void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder) {
+    /// @todo Show subfolders.
+    
+    // Show resources.
+    for (ResourceList::Resource& resource : folder.resources) {
+        ShowResource(resource);
+    }
+}
+
+void ResourceView::ShowResource(ResourceList::Resource& resource) {
+    // Scene.
+    if (resource.type == ResourceList::Resource::SCENE) {
+        if (ImGui::Selectable(resource.scene.c_str())) {
+            // Sets to dont save when opening first scene.
+            if (scene == nullptr) {
+                changeScene = true;
+                scene = &resource.scene;
+                savePromptWindow.SetVisible(false);
+                savePromptWindow.SetDecision(1);
+            } else {
+                // Does so that the prompt window wont show if you select active scene.
+                if (resource.scene != Resources().activeScene) {
+                    changeScene = true;
+                    scene = &resource.scene;
+                    savePromptWindow.SetTitle("Save before you switch scene?");
+                }
+            }
+        }
+        
+        /// @todo Delete scene.
+        /*if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                Resources().scenes.erase(Resources().scenes.begin() + i);
+                ImGui::EndPopup();
+                
+                if (Resources().activeScene >= i) {
+                    if (Resources().activeScene > 0)
+                        Resources().activeScene = Resources().activeScene - 1;
+                    
+                    sceneEditor.SetScene(Resources().activeScene);
+                }
+                break;
+            }
+            ImGui::EndPopup();
+        }*/
     }
     
     /*
@@ -229,115 +342,4 @@ void ResourceView::Show() {
         
         ImGui::TreePop();
     }*/
-    
-    if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
-        sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
-        scriptEditor.SetVisible(scriptPressed);
-        textureEditor.SetVisible(texturePressed);
-        modelEditor.SetVisible(modelPressed);
-        soundEditor.SetVisible(soundPressed);
-    }
-    
-    if (sceneEditor.IsVisible()) {
-        ImGui::HorizontalSplitter(ImVec2(sceneWidth, 20), size.y - 20, splitterSize, sceneWidth, sceneResize, 20, size.x - editorWidth - 20);
-        ImGui::SetNextWindowPos(ImVec2(0, 20));
-        ImGui::SetNextWindowSize(ImVec2(sceneWidth, size.y - 20));
-        sceneEditor.Show();
-    }
-    
-    if (sceneEditor.entityEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible()) {
-        editorWidth = size.x - editorWidth;
-        ImGui::HorizontalSplitter(ImVec2(editorWidth, 20), size.y - 20, splitterSize, editorWidth, editorResize, sceneWidth + 20, size.x - 20);
-        editorWidth = size.x - editorWidth;
-        
-        ImGui::SetNextWindowPos(ImVec2(size.x - editorWidth, 20));
-        ImGui::SetNextWindowSize(ImVec2(editorWidth, size.y - 20));
-    }
-    
-    if (sceneEditor.entityEditor.IsVisible())
-        sceneEditor.entityEditor.Show();
-    if (scriptEditor.IsVisible())
-        scriptEditor.Show();
-    if (textureEditor.IsVisible())
-        textureEditor.Show();
-    if (modelEditor.IsVisible())
-        modelEditor.Show();
-    if (soundEditor.IsVisible())
-        soundEditor.Show();
-    
-    ImGui::End();
-}
-
-bool ResourceView::IsVisible() const {
-    return visible;
-}
-
-void ResourceView::SetVisible(bool visible) {
-    this->visible = visible;
-}
-
-void ResourceView::HideEditors() {
-    sceneEditor.SetVisible(false);
-    sceneEditor.entityEditor.SetVisible(false);
-    scriptEditor.SetVisible(false);
-    modelEditor.SetVisible(false);
-    textureEditor.SetVisible(false);
-    soundEditor.SetVisible(false);
-}
-
-void ResourceView::SaveScene() const {
-    sceneEditor.Save();
-}
-
-#undef max
-void ResourceView::ResetScene() {
-    sceneEditor.SetScene(nullptr);
-    sceneEditor.SetVisible(false);
-}
-
-SceneEditor& ResourceView::GetScene() {
-    return sceneEditor;
-}
-
-void ResourceView::ShowResource(size_t i) {
-    ResourceList::Resource& resource = Resources().resources[i];
-    
-    /// @todo Subfolders.
-    
-    // Scene.
-    if (resource.type == ResourceList::Resource::SCENE) {
-        if (ImGui::Selectable(resource.scene.c_str())) {
-            // Sets to dont save when opening first scene.
-            if (scene == nullptr) {
-                changeScene = true;
-                scene = &resource.scene;
-                savePromptWindow.SetVisible(false);
-                savePromptWindow.SetDecision(1);
-            } else {
-                // Does so that the prompt window wont show if you select active scene.
-                if (resource.scene != Resources().activeScene) {
-                    changeScene = true;
-                    scene = &resource.scene;
-                    savePromptWindow.SetTitle("Save before you switch scene?");
-                }
-            }
-        }
-        
-        /// @todo Delete scene.
-        /*if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
-            if (ImGui::Selectable("Delete")) {
-                Resources().scenes.erase(Resources().scenes.begin() + i);
-                ImGui::EndPopup();
-                
-                if (Resources().activeScene >= i) {
-                    if (Resources().activeScene > 0)
-                        Resources().activeScene = Resources().activeScene - 1;
-                    
-                    sceneEditor.SetScene(Resources().activeScene);
-                }
-                break;
-            }
-            ImGui::EndPopup();
-        }*/
-    }
 }

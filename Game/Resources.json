@@ -1,42 +1,47 @@
 {
 	"activeScene" : "TestScene",
-	"resources" : 
-	[
-		{
-			"scene" : "TestScene",
-			"type" : 0
-		},
-		{
-			"model" : "CartSecond",
-			"type" : 1
-		},
-		{
-			"model" : "Cave",
-			"type" : 1
-		},
-		{
-			"model" : "spak",
-			"type" : 1
-		},
-		{
-			"model" : "Galler",
-			"type" : 1
-		},
-		{
-			"texture" : "Texture #0",
-			"type" : 2
-		},
-		{
-			"texture" : "Texture #1",
-			"type" : 2
-		},
-		{
-			"texture" : "Texture #2",
-			"type" : 2
-		},
-		{
-			"texture" : "Texture #3",
-			"type" : 2
-		}
-	]
+	"resourceFolder" : 
+	{
+		"name" : "Resources",
+		"resources" : 
+		[
+			{
+				"scene" : "TestScene",
+				"type" : 0
+			},
+			{
+				"model" : "CartSecond",
+				"type" : 1
+			},
+			{
+				"model" : "Cave",
+				"type" : 1
+			},
+			{
+				"model" : "spak",
+				"type" : 1
+			},
+			{
+				"model" : "Galler",
+				"type" : 1
+			},
+			{
+				"texture" : "Texture #0",
+				"type" : 2
+			},
+			{
+				"texture" : "Texture #1",
+				"type" : 2
+			},
+			{
+				"texture" : "Texture #2",
+				"type" : 2
+			},
+			{
+				"texture" : "Texture #3",
+				"type" : 2
+			}
+		],
+		"subfolders" : null
+	}
 }

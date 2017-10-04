@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <json/value.h>
 
 class TextureAsset;
 class ScriptFile;
@@ -40,6 +41,18 @@ class ResourceList {
             Audio::SoundBuffer* sound;
         };
         
+        /// A folder containing resources.
+        struct ResourceFolder {
+            /// The name of the folder.
+            std::string name;
+            
+            /// Subfolders.
+            std::vector<ResourceFolder> subfolders;
+            
+            /// The contained resources.
+            std::vector<Resource> resources;
+        };
+        
         /// Save all resources to file.
         void Save() const;
         
@@ -50,7 +63,7 @@ class ResourceList {
         void Clear();
         
         /// Resources.
-        std::vector<Resource> resources;
+        ResourceFolder resourceFolder;
         
         /// The name of the activeScene.
         std::string activeScene;
@@ -66,6 +79,10 @@ class ResourceList {
         
     private:
         static ResourceList& GetInstance();
+        
+        Json::Value SaveFolder(const ResourceFolder& folder) const;
+        ResourceFolder LoadFolder(const Json::Value& node);
+        void ClearFolder(ResourceFolder& folder);
         
         ResourceList();
         ResourceList(ResourceList const&) = delete;
