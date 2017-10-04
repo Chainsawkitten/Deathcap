@@ -61,8 +61,11 @@ int main() {
         float deltaTime = static_cast<float>(glfwGetTime() - lastTime);
         lastTime = glfwGetTime();
         
+        Managers().profilingManager->SetActive(profiling);
+
         // Begin new profiling frame.
-        Managers().profilingManager->BeginFrame();
+        if (Managers().profilingManager->Active())
+            Managers().profilingManager->BeginFrame();
         
         { PROFILE("Frame");
             glfwPollEvents();
@@ -103,7 +106,7 @@ int main() {
             }
         }
         
-        if (profiling)
+        if (Managers().profilingManager->Active())
             Managers().profilingManager->ShowResults();
         
         ImGui::Render();
