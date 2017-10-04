@@ -8,7 +8,6 @@
 #include "../Entity/Entity.hpp"
 #include "../Physics/GlmConversion.hpp"
 #include "../Physics/ITrigger.hpp"
-#include "../Physics/RigidBody.hpp"
 #include "../Physics/Shape.hpp"
 #include "../Physics/Trigger.hpp"
 #include "../Util/Json.hpp"
