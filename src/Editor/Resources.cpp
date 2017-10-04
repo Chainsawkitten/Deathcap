@@ -26,7 +26,38 @@ void ResourceList::Save() const {
     
     root["activeScene"] = activeScene;
     
-    /// @todo Save resources.
+    // Save resources.
+    Json::Value resourcesNode;
+    for (const Resource& resource : resources) {
+        Json::Value resourceNode;
+        resourceNode["type"] = resource.type;
+        
+        // Save texture.
+        if (resource.type == Resource::TEXTURE) {
+            resourceNode["texture"] = resource.texture->name;
+            resource.texture->Save();
+        }
+        
+        // Save model.
+        if (resource.type == Resource::MODEL) {
+            resourceNode["model"] = resource.model->name;
+            resource.model->Save();
+        }
+        
+        // Save sound.
+        if (resource.type == Resource::SOUND) {
+            resourceNode["sound"] = resource.sound->name;
+            resource.sound->Save();
+        }
+        
+        // Save scenes.
+        if (resource.type == Resource::SCENE) {
+            resourceNode["scene"] = resource.scene;
+        }
+        
+        resourcesNode.append(resourceNode);
+    }
+    root["resources"] = resourcesNode;
     
     /*// Save textures.
     Json::Value texturesNode;
