@@ -22,21 +22,17 @@ VorbisFile::VorbisFile(const char *filename) {
 }
 
 VorbisFile::~VorbisFile() {
-    free(data);
+
 }
 
-const char* VorbisFile::GetData() const {
+char* VorbisFile::GetData() const {
     return data;
 }
 
-ALsizei VorbisFile::GetSize() const {
+size_t VorbisFile::GetSize() const {
     return dataSize;
 }
 
-ALenum VorbisFile::GetFormat() const {
-    return format;
-}
-
-ALsizei VorbisFile::GetSampleRate() const {
+size_t VorbisFile::GetSampleRate() const {
     return sampleRate;
 }

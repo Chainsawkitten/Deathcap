@@ -16,25 +16,18 @@ namespace Audio {
             /**
              * @return Raw audio data.
              */
-            virtual const char* GetData() const = 0;
+            virtual char* GetData() const = 0;
             
             /// Get data size.
             /**
              * @return The length of the raw audio data.
              */
-            virtual ALsizei GetSize() const = 0;
-            
-            /// Get AL format.
-            /**
-             * 32-bit sound is not supported in OpenAL.
-             * @return One of AL_FORMAT_MONO8, AL_FORMAT_MONO16, AL_FORMAT_STEREO8 or AL_FORMAT_STEREO16.
-             */
-            virtual ALenum GetFormat() const = 0;
+            virtual size_t GetSize() const = 0;
             
             /// Get sample rate.
             /**
              * @return The sound file's sample rate (Hz).
              */
-            virtual ALsizei GetSampleRate() const = 0;
+            virtual size_t GetSampleRate() const = 0;
     };
 }
