@@ -86,6 +86,9 @@
 				},
 				"velocityDragFactor" : 1.0
 			},
+			"RigidBody": {
+				"mass": 1.0
+			},
 			"Shape": {
 				"sphere": {
 					"radius":  1.0
@@ -314,6 +317,9 @@
 							"z" : 0.0
 						},
 						"velocityDragFactor" : 1.0
+					},
+					"RigidBody": {
+						"mass": 1.0
 					},
 					"Shape": {
 						"plane": {

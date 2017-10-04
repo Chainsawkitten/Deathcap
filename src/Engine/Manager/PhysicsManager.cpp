@@ -142,12 +142,9 @@ Component::Physics* PhysicsManager::CreatePhysics(Entity* owner) {
     auto comp = physicsComponents.Create();
     comp->entity = owner;
 
-    // @todo: Move logic when rigid body component is up and running
-    owner->AddComponent<Component::RigidBody>();
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
-
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
-    if (shapeComp) {
+    if (rigidBodyComp && shapeComp) {
         rigidBodyComp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
     }
 
@@ -170,12 +167,9 @@ Component::Physics* PhysicsManager::CreatePhysics(Entity* owner, const Json::Val
     physics->gravityFactor = node.get("gravityFactor", 0.f).asFloat();
     physics->momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
 
-    // @todo: Move logic when rigid body component is up and running
-    owner->AddComponent<Component::RigidBody>();
     auto rigidBodyComp = physics->entity->GetComponent<Component::RigidBody>();
-
     auto shapeComp = physics->entity->GetComponent<Component::Shape>();
-    if (shapeComp) {
+    if (rigidBodyComp && shapeComp) {
         rigidBodyComp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
     }
 
@@ -188,6 +182,11 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner) {
 
     comp->NewBulletRigidBody(1.0f);
 
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+    }
+
     return comp;
 }
 
@@ -195,7 +194,13 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto comp = rigidBodyComponents.Create();
     comp->entity = owner;
 
-    // @todo: Use JSON data.
+    auto mass = node.get("mass", 1.0f).asFloat();
+    comp->NewBulletRigidBody(mass);
+
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+    }
 
     return comp;
 }
