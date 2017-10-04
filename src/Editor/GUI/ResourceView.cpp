@@ -45,7 +45,7 @@ void ResourceView::Show() {
     modelPressed = false;
     soundPressed = false;
     
-    ShowResourceFolder(Resources().resourceFolder);
+    ShowResourceFolder(Resources().resourceFolder, Resources().resourceFolder.name);
     
     // Change scene.
     if (changeScene) {
@@ -58,10 +58,10 @@ void ResourceView::Show() {
                 sceneEditor.Save();
                 sceneEditor.SetVisible(true);
                 sceneEditor.SetScene(scene);
-                Resources().activeScene = *scene;
+                Resources().activeScene = resourcePath + "/" + *scene;
                 sceneEditor.entityEditor.SetVisible(false);
                 Hymn().world.Clear();
-                Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + *scene + ".json");
+                Hymn().world.Load(Hymn().GetPath() + "/" + Resources().activeScene + ".json");
                 changeScene = false;
                 savePromptWindow.SetVisible(false);
                 savePromptWindow.ResetDecision();
@@ -70,10 +70,10 @@ void ResourceView::Show() {
             case 1:
                 sceneEditor.SetVisible(true);
                 sceneEditor.SetScene(scene);
-                Resources().activeScene = *scene;
+                Resources().activeScene = resourcePath + "/" + *scene;
                 sceneEditor.entityEditor.SetVisible(false);
                 Hymn().world.Clear();
-                Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + *scene + ".json");
+                Hymn().world.Load(Hymn().GetPath() + "/" + Resources().activeScene + ".json");
                 changeScene = false;
                 savePromptWindow.SetVisible(false);
                 savePromptWindow.ResetDecision();
@@ -154,7 +154,7 @@ SceneEditor& ResourceView::GetScene() {
     return sceneEditor;
 }
 
-void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder) {
+void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path) {
     bool opened = ImGui::TreeNode(folder.name.c_str());
     
     /// @todo Remove folder.
@@ -162,12 +162,12 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder) {
     if (opened) {
         // Show subfolders.
         for (ResourceList::ResourceFolder& subfolder : folder.subfolders) {
-            ShowResourceFolder(subfolder);
+            ShowResourceFolder(subfolder, path + "/" + subfolder.name);
         }
         
         // Show resources.
         for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
-            if (ShowResource(*it)) {
+            if (ShowResource(*it, path)) {
                 folder.resources.erase(it);
                 return;
             }
@@ -177,13 +177,14 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder) {
     }
 }
 
-bool ResourceView::ShowResource(ResourceList::Resource& resource) {
+bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::string& path) {
     // Scene.
     if (resource.type == ResourceList::Resource::SCENE) {
         if (ImGui::Selectable(resource.scene.c_str())) {
             // Sets to don't save when opening first scene.
             if (scene == nullptr) {
                 changeScene = true;
+                resourcePath = path;
                 scene = &resource.scene;
                 savePromptWindow.SetVisible(false);
                 savePromptWindow.SetDecision(1);
@@ -191,6 +192,7 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource) {
                 // Does so that the prompt window won't show if you select active scene.
                 if (resource.scene != Resources().activeScene) {
                     changeScene = true;
+                    resourcePath = path;
                     scene = &resource.scene;
                     savePromptWindow.SetTitle("Save before you switch scene?");
                 }

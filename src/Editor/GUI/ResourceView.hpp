@@ -49,8 +49,8 @@ namespace GUI {
             SceneEditor& GetScene();
             
         private:
-            void ShowResourceFolder(ResourceList::ResourceFolder& folder);
-            bool ShowResource(ResourceList::Resource& resource);
+            void ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path);
+            bool ShowResource(ResourceList::Resource& resource, const std::string& path);
             
             bool visible = false;
             
@@ -63,6 +63,7 @@ namespace GUI {
             GUI::SavePromptWindow savePromptWindow;
 
             bool changeScene = false;
+            std::string resourcePath = "";
             std::string* scene = nullptr;
 
             static const int splitterSize = 2;
