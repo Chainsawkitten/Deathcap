@@ -1,5 +1,7 @@
 #include "ProfilingManager.hpp"
 
+#include <Video/Profiling/Query.hpp>
+
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 #ifdef MEASURE_RAM
@@ -7,7 +9,6 @@
 #include <psapi.h>
 #endif
 
-#include <Video/Profiling/Query.hpp>
 #include "../Utility/Log.hpp"
 
 ProfilingManager::ProfilingManager() : active(false) {
@@ -72,8 +73,6 @@ void ProfilingManager::ShowResults() {
     // Show the results.
     ImGui::Begin("Profiling", nullptr, ImGuiWindowFlags_ShowBorders);
     
-    ImGui::Checkbox("Sync GPU and CPU", &syncGPU);
-    
     if (ImGui::CollapsingHeader("Frametimes"))
         ShowFrametimes();
     
@@ -118,11 +117,6 @@ void ProfilingManager::SetActive(bool active) {
 ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name, Type type) {
     assert(active);
 
-    // Sync GPU and CPU.
-    if (syncGPU && type == Type::CPU) {
-        glFinish();
-    }
-
     if (current[type] == nullptr) {
         first[type]->name = name;
         first[type]->parent = nullptr;
@@ -152,15 +146,6 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
 
 void ProfilingManager::FinishResult(Result* result, Type type) {
     assert(active);
-
-    // Sync GPU and CPU.
-    if (syncGPU && type == Type::CPU) {
-        ProfilingManager::Result gpuFinish("GPU Finish", current[type]);
-        double gpuFinishStart = glfwGetTime();
-        glFinish();
-        gpuFinish.duration = glfwGetTime() - gpuFinishStart;
-        result->children.push_back(gpuFinish);
-    }
 
     // End query if type is GPU.
     if (type == Type::GPU) {

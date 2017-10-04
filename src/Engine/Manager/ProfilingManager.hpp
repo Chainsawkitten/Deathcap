@@ -4,7 +4,9 @@
 #include <list>
 #include <map>
 
-#include <Video/Profiling/Query.hpp>
+namespace Video {
+    class Query;
+}
 
 #ifdef MEASURE_VRAM
 #include <d3d11_3.h>
@@ -78,8 +80,6 @@ class ProfilingManager {
         static const unsigned int frames = 100;
         unsigned int frame = 0;
         float frameTimes[frames] = {};
-        
-        bool syncGPU = false;
 
 #ifdef MEASURE_VRAM
         IDXGIFactory* dxgiFactory = nullptr;
