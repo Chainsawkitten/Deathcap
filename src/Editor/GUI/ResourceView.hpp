@@ -61,7 +61,7 @@ namespace GUI {
             GUI::SavePromptWindow savePromptWindow;
 
             bool changeScene = false;
-            int sceneIndex = -1;
+            std::string* scene = nullptr;
 
             static const int splitterSize = 2;
             int resourceHeight = 250;

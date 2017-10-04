@@ -50,49 +50,45 @@ void ResourceView::Show() {
         ShowResource(i);
     }
     
-    // Scenes.
-    /*if (ImGui::TreeNode("Scenes")) {
-        if (ImGui::Button("Add scene"))
-            Resources().scenes.push_back("Scene #" + std::to_string(Resources().scenes.size()));
-        
-        for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
-            if (ImGui::Selectable(Resources().scenes[i].c_str())) {
-                // Sets to dont save when opening first scene.
-                if (sceneIndex == -1) {
-                    changeScene = true;
-                    sceneIndex = i;
-                    savePromptWindow.SetVisible(false);
-                    savePromptWindow.SetDecision(1);
-                } else {
-                    // Does so that the prompt window wont show if you select active scene.
-                    if (Resources().scenes[i] != Resources().scenes[Resources().activeScene]) {
-                        changeScene = true;
-                        sceneIndex = i;
-                        savePromptWindow.SetTitle("Save before you switch scene?");
-                    }
-                }
-
-            }
+    // Change scene.
+    if (changeScene) {
+        if (Hymn().GetPath() != "") {
+            savePromptWindow.SetVisible(true);
+            savePromptWindow.Show();
             
-            if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    Resources().scenes.erase(Resources().scenes.begin() + i);
-                    ImGui::EndPopup();
-                    
-                    if (Resources().activeScene >= i) {
-                        if (Resources().activeScene > 0)
-                            Resources().activeScene = Resources().activeScene - 1;
-                        
-                        sceneEditor.SetScene(Resources().activeScene);
-                    }
-                    break;
-                }
-                ImGui::EndPopup();
+            switch (savePromptWindow.GetDecision()) {
+            case 0:
+                sceneEditor.Save();
+                sceneEditor.SetVisible(true);
+                sceneEditor.SetScene(scene);
+                Resources().activeScene = *scene;
+                sceneEditor.entityEditor.SetVisible(false);
+                Hymn().world.Clear();
+                Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + *scene + ".json");
+                changeScene = false;
+                savePromptWindow.SetVisible(false);
+                savePromptWindow.ResetDecision();
+                break;
+                
+            case 1:
+                sceneEditor.SetVisible(true);
+                sceneEditor.SetScene(scene);
+                Resources().activeScene = *scene;
+                sceneEditor.entityEditor.SetVisible(false);
+                Hymn().world.Clear();
+                Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + *scene + ".json");
+                changeScene = false;
+                savePromptWindow.SetVisible(false);
+                savePromptWindow.ResetDecision();
+                break;
+                
+            default:
+                break;
             }
         }
-        ImGui::TreePop();
     }
     
+    /*
     // Models.
     bool modelPressed = false;
     if (ImGui::TreeNode("Models")) {
@@ -312,9 +308,9 @@ void ResourceView::ShowResource(size_t i) {
     if (resource.type == ResourceList::Resource::SCENE) {
         if (ImGui::Selectable(resource.scene.c_str())) {
             // Sets to dont save when opening first scene.
-            if (sceneIndex == -1) {
+            if (scene == nullptr) {
                 changeScene = true;
-                sceneIndex = i;
+                scene = &resource.scene;
                 savePromptWindow.SetVisible(false);
                 savePromptWindow.SetDecision(1);
             } else {
@@ -342,43 +338,6 @@ void ResourceView::ShowResource(size_t i) {
                 break;
             }
             ImGui::EndPopup();
-        }*/
-        
-        /*if (changeScene) {
-            if (Hymn().GetPath() != "") {
-                savePromptWindow.SetVisible(true);
-                savePromptWindow.Show();
-                
-                switch (savePromptWindow.GetDecision()) {
-                case 0:
-                    sceneEditor.Save();
-                    sceneEditor.SetVisible(true);
-                    sceneEditor.SetScene(sceneIndex);
-                    Resources().activeScene = sceneIndex;
-                    sceneEditor.entityEditor.SetVisible(false);
-                    Hymn().world.Clear();
-                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
-                    changeScene = false;
-                    savePromptWindow.SetVisible(false);
-                    savePromptWindow.ResetDecision();
-                    break;
-                    
-                case 1:
-                    sceneEditor.SetVisible(true);
-                    sceneEditor.SetScene(sceneIndex);
-                    Resources().activeScene = sceneIndex;
-                    sceneEditor.entityEditor.SetVisible(false);
-                    Hymn().world.Clear();
-                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
-                    changeScene = false;
-                    savePromptWindow.SetVisible(false);
-                    savePromptWindow.ResetDecision();
-                    break;
-                    
-                default:
-                    break;
-                }
-            }
         }*/
     }
 }
