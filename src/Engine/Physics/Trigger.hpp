@@ -5,6 +5,8 @@
 #include <map>
 #include "ITrigger.hpp"
 
+class PhysicsManager;
+
 namespace Component {
     class RigidBody;
 };
@@ -15,7 +17,7 @@ namespace Physics {
     /// Represent a trigger that checks intersections of specific rigid bodies
     /// against itself.
     class Trigger : public btCollisionWorld::ContactResultCallback, public ITrigger {
-        friend class PhysicsManager;
+        friend class ::PhysicsManager;
 
         public:
             /// Constructor.

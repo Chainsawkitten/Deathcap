@@ -3,13 +3,13 @@
 #include <glm/vec3.hpp>
 
 class btCollisionShape;
+class PhysicsManager;
 
 namespace Physics {
-
     /// Represents a shape for physics objects and facilitates creation of
     /// underlying types.
     class Shape {
-        friend class PhysicsManager;
+        friend class ::PhysicsManager;
 
         public:
             /// Parameters used to create a sphere shape.
@@ -77,5 +77,4 @@ namespace Physics {
                 Plane plane;
             };
     };
-
 }

@@ -2,6 +2,8 @@
 
 #include "SuperComponent.hpp"
 
+class PhysicsManager;
+
 namespace Physics {
     class Shape;
 }
@@ -10,7 +12,7 @@ namespace Component {
     /// Physical shape that can be used in conjunction with rigid bodies or to
     /// act as a trigger volume.
     class Shape : public SuperComponent {
-        friend class PhysicsManager;
+        friend class ::PhysicsManager;
 
         public:
             /// Create new shape.
