@@ -158,23 +158,26 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder) {
     /// @todo Show subfolders.
     
     // Show resources.
-    for (ResourceList::Resource& resource : folder.resources) {
-        ShowResource(resource);
+    for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
+        if (ShowResource(*it)) {
+            folder.resources.erase(it);
+            return;
+        }
     }
 }
 
-void ResourceView::ShowResource(ResourceList::Resource& resource) {
+bool ResourceView::ShowResource(ResourceList::Resource& resource) {
     // Scene.
     if (resource.type == ResourceList::Resource::SCENE) {
         if (ImGui::Selectable(resource.scene.c_str())) {
-            // Sets to dont save when opening first scene.
+            // Sets to don't save when opening first scene.
             if (scene == nullptr) {
                 changeScene = true;
                 scene = &resource.scene;
                 savePromptWindow.SetVisible(false);
                 savePromptWindow.SetDecision(1);
             } else {
-                // Does so that the prompt window wont show if you select active scene.
+                // Does so that the prompt window won't show if you select active scene.
                 if (resource.scene != Resources().activeScene) {
                     changeScene = true;
                     scene = &resource.scene;
@@ -183,22 +186,20 @@ void ResourceView::ShowResource(ResourceList::Resource& resource) {
             }
         }
         
-        /// @todo Delete scene.
-        /*if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
+        // Delete scene.
+        if (ImGui::BeginPopupContextItem(resource.scene.c_str())) {
             if (ImGui::Selectable("Delete")) {
-                Resources().scenes.erase(Resources().scenes.begin() + i);
+                if (Resources().activeScene == resource.scene) {
+                    Resources().activeScene = "";
+                    sceneEditor.SetScene(nullptr);
+                }
+                
                 ImGui::EndPopup();
                 
-                if (Resources().activeScene >= i) {
-                    if (Resources().activeScene > 0)
-                        Resources().activeScene = Resources().activeScene - 1;
-                    
-                    sceneEditor.SetScene(Resources().activeScene);
-                }
-                break;
+                return true;
             }
             ImGui::EndPopup();
-        }*/
+        }
     }
     
     /*
@@ -342,4 +343,6 @@ void ResourceView::ShowResource(ResourceList::Resource& resource) {
         
         ImGui::TreePop();
     }*/
+    
+    return false;
 }

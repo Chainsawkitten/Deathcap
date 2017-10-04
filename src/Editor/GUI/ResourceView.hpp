@@ -50,7 +50,7 @@ namespace GUI {
             
         private:
             void ShowResourceFolder(ResourceList::ResourceFolder& folder);
-            void ShowResource(ResourceList::Resource& resource);
+            bool ShowResource(ResourceList::Resource& resource);
             
             bool visible = false;
             
