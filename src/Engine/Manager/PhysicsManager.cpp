@@ -82,11 +82,17 @@ void PhysicsManager::Update(float deltaTime) {
         
         // Update rotation.
         entity->rotation += physicsComp->angularVelocity * 360.f * deltaTime;
+    }
 
-        physicsComp->GetRigidBody().Position(entity->position);
-        dynamicsWorld->removeRigidBody(physicsComp->GetRigidBody().GetRigidBody());
-        dynamicsWorld->addRigidBody(physicsComp->GetRigidBody().GetRigidBody());
-        physicsComp->GetRigidBody().GetRigidBody()->setGravity(btVector3(0, 0, 0));
+    for (auto rigidBodyComp : rigidBodyComponents.GetAll()) {
+        if (rigidBodyComp->IsKilled() || !rigidBodyComp->entity->enabled) {
+            continue;
+        }
+
+        rigidBodyComp->Position(rigidBodyComp->entity->position);
+        dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
+        dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
+        rigidBodyComp->GetBulletRigidBody()->setGravity(btVector3(0, 0, 0));
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
@@ -97,14 +103,13 @@ void PhysicsManager::Update(float deltaTime) {
 }
 
 void PhysicsManager::UpdateEntityTransforms() {
-    std::vector<Component::Physics*> physicsObjects = physicsComponents.GetAll();
-    for (Component::Physics* physicsComp : physicsObjects) {
-        if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
+    for (auto rigidBodyComp : rigidBodyComponents.GetAll()) {
+        if (rigidBodyComp->IsKilled() || !rigidBodyComp->entity->enabled)
             continue;
 
-        Entity* entity = physicsComp->entity;
+        Entity* entity = rigidBodyComp->entity;
 
-        auto trans = physicsComp->GetRigidBody().GetRigidBody()->getWorldTransform();
+        auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
         entity->position = Physics::btToGlm(trans.getOrigin());
         entity->rotation = glm::eulerAngles(Physics::btToGlm(trans.getRotation()));
     }
@@ -112,7 +117,9 @@ void PhysicsManager::UpdateEntityTransforms() {
 
 void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback) {
     auto trigger = MakeTrigger(triggerBody);
-    trigger->OnEnter(object, callback);
+    auto rigidBodyComp = object->entity->GetComponent<Component::RigidBody>();
+    assert(rigidBodyComp); // For now
+    trigger->OnEnter(rigidBodyComp, callback);
 }
 
 //Physics::RigidBody* PhysicsManager::MakeRigidBody(Physics::Shape* shape, float mass) {
@@ -122,7 +129,9 @@ void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::
 //}
 
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
-    Physics::Trigger* trigger = new Physics::Trigger(comp);
+    auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
+    assert(rigidBodyComp); // for now
+    Physics::Trigger* trigger = new Physics::Trigger(rigidBodyComp->GetBulletRigidBody()->getWorldTransform());
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape().GetShape() : nullptr);
     triggers.push_back(trigger);
@@ -133,9 +142,13 @@ Component::Physics* PhysicsManager::CreatePhysics(Entity* owner) {
     auto comp = physicsComponents.Create();
     comp->entity = owner;
 
+    // @todo: Move logic when rigid body component is up and running
+    owner->AddComponent<Component::RigidBody>();
+    auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
+
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
-        comp->rigidBody->GetRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
     }
 
     return comp;
@@ -157,11 +170,13 @@ Component::Physics* PhysicsManager::CreatePhysics(Entity* owner, const Json::Val
     physics->gravityFactor = node.get("gravityFactor", 0.f).asFloat();
     physics->momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
 
-    physics->rigidBody = new ::Physics::RigidBody(1.0f);
+    // @todo: Move logic when rigid body component is up and running
+    owner->AddComponent<Component::RigidBody>();
+    auto rigidBodyComp = physics->entity->GetComponent<Component::RigidBody>();
 
     auto shapeComp = physics->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
-        physics->rigidBody->GetRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
     }
 
     return physics;
@@ -170,6 +185,8 @@ Component::Physics* PhysicsManager::CreatePhysics(Entity* owner, const Json::Val
 Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner) {
     auto comp = rigidBodyComponents.Create();
     comp->entity = owner;
+
+    comp->NewBulletRigidBody(1.0f);
 
     return comp;
 }
@@ -187,9 +204,9 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
     auto comp = shapeComponents.Create();
     comp->entity = owner;
 
-    auto physicsComp = comp->entity->GetComponent<Component::Physics>();
-    if (physicsComp) {
-        physicsComp->GetRigidBody().GetRigidBody()->setCollisionShape(comp->GetShape().GetShape());
+    auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
+    if (rigidBodyComp) {
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape().GetShape());
     }
 
     return comp;
@@ -213,9 +230,9 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
         comp->SetShape(shape);
     }
 
-    auto physicsComp = comp->entity->GetComponent<Component::Physics>();
-    if (physicsComp) {
-        physicsComp->GetRigidBody().GetRigidBody()->setCollisionShape(comp->GetShape().GetShape());
+    auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
+    if (rigidBodyComp) {
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape().GetShape());
     }
 
     return comp;
@@ -227,6 +244,9 @@ const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() c
 
 void PhysicsManager::ClearKilledComponents() {
     physicsComponents.ClearKilled();
-    rigidBodyComponents.ClearKilled();
+    rigidBodyComponents.ClearKilled(
+        [this](Component::RigidBody* body) {
+            dynamicsWorld->removeRigidBody(body->GetBulletRigidBody());
+        });
     shapeComponents.ClearKilled();
 }

@@ -112,7 +112,7 @@ class PhysicsManager {
         void operator=(PhysicsManager const&) = delete;
 
         //Physics::RigidBody* MakeRigidBody(Physics::Shape* shape, float mass);
-        Physics::Trigger* MakeTrigger(Component::Physics* comp);
+        ::Physics::Trigger* MakeTrigger(Component::Physics* comp);
 
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
         
@@ -126,5 +126,5 @@ class PhysicsManager {
         btSequentialImpulseConstraintSolver* solver = nullptr;
         btDiscreteDynamicsWorld* dynamicsWorld = nullptr;
 
-        std::vector<Physics::Trigger*> triggers;
+        std::vector<::Physics::Trigger*> triggers;
 };
