@@ -26,12 +26,12 @@ void SelectHymnWindow::Show() {
         
         ImGui::InputText("Name", name, 128);
         
-        if (ImGui::Button(openButtonName, ImVec2(120,0))) {
+        if (ImGui::Button(openButtonName, ImVec2(120, 0))) {
             closedCallback(name);
             ImGui::CloseCurrentPopup();
         }
         ImGui::SameLine();
-        if (ImGui::Button("Cancel", ImVec2(120,0))) {
+        if (ImGui::Button("Cancel", ImVec2(120, 0))) {
             closedCallback("");
             ImGui::CloseCurrentPopup();
         }

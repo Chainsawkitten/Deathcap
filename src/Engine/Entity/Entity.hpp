@@ -7,7 +7,6 @@
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
 
-#include "../Manager/Managers.hpp"
 
 /// %Entity containing various components.
 class Entity {
@@ -189,6 +188,9 @@ class Entity {
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
         template<typename T> void Load(const Json::Value& node, const std::string& name);
+        Component::SuperComponent* AddComponent(const std::type_info* componentType);
+        void LoadComponent(const std::type_info* componentType, const Json::Value& node);
+        void KillHelper();
         
         World* world;
         Entity* parent = nullptr;
@@ -206,10 +208,8 @@ template<typename T> T* Entity::AddComponent() {
     const std::type_info* componentType = &typeid(T*);
     if (components.find(componentType) != components.end())
         return nullptr;
-    T* component = new T(this);
-    components[componentType] = component;
-    Managers().AddComponent(world, component, componentType);
-    return component;
+    
+    return static_cast<T*>(AddComponent(componentType));
 }
 
 template<typename T> T* Entity::GetComponent() const {
@@ -237,7 +237,7 @@ template<typename T> void Entity::Save(Json::Value& node, const std::string& nam
 template<typename T> void Entity::Load(const Json::Value& node, const std::string& name) {
     Json::Value componentNode = node[name];
     if (!componentNode.isNull()) {
-        T* component = AddComponent<T>();
-        component->Load(componentNode);
+        const std::type_info* componentType = &typeid(T*);
+        LoadComponent(componentType, componentNode);
     }
 }

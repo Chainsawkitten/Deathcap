@@ -21,6 +21,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/PhysicsManager.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Hymn.hpp>
 #include <angelscript.h>
@@ -30,6 +31,12 @@
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
 #include <imgui_internal.h>
+#include "PlaneShapeEditor.hpp"
+#include "SphereShapeEditor.hpp"
+
+namespace Physics {
+    class Shape;
+}
 
 using namespace GUI;
 
@@ -47,10 +54,16 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::Script>("Script", std::bind(&EntityEditor::ScriptEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
+
+    shapeEditors.push_back(new SphereShapeEditor());
+    shapeEditors.push_back(new PlaneShapeEditor());
+    selectedShape = 0;
 }
 
 EntityEditor::~EntityEditor() {
-    
+    for (auto shapeEditor : shapeEditors) {
+        delete shapeEditor;
+    }
 }
 
 void EntityEditor::Show() {
@@ -92,6 +105,16 @@ void EntityEditor::Show() {
 void EntityEditor::SetEntity(Entity* entity) {
     this->entity = entity;
     strcpy(name, entity->name.c_str());
+
+    auto physics = this->entity->GetComponent<Component::Physics>();
+    if (physics) {
+        Physics::Shape& shape = physics->GetShape();
+        for (uint32_t i = 0; i < shapeEditors.size(); ++i) {
+            if (shapeEditors[i]->SetFromShape(shape)) {
+                selectedShape = i;
+            }
+        }
+    }
 }
 
 Entity* EntityEditor::GetEntity() {
@@ -134,23 +157,34 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
 }
 
 void EntityEditor::PhysicsEditor(Component::Physics* physics) {
-    ImGui::Text("Positional");
-    ImGui::Indent();
-    ImGui::DraggableVec3("Velocity", physics->velocity);
-    ImGui::DraggableFloat("Max velocity", physics->maxVelocity, 0.0f);
-    ImGui::DraggableVec3("Acceleration", physics->acceleration);
-    ImGui::DraggableFloat("Velocity drag factor", physics->velocityDragFactor);
-    ImGui::DraggableFloat("Gravity factor", physics->gravityFactor);
-    ImGui::Unindent();
-    ImGui::Text("Angular");
-    ImGui::Indent();
-    ImGui::DraggableVec3("Angular velocity", physics->angularVelocity);
-    ImGui::DraggableFloat("Max angular velocity", physics->maxAngularVelocity, 0.0f);
-    ImGui::DraggableVec3("Angular acceleration", physics->angularAcceleration);
-    ImGui::DraggableFloat("Angular drag factor", physics->angularDragFactor);
-    ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
-    ImGui::Unindent();
+    //ImGui::Text("Positional");
+    //ImGui::Indent();
+    //ImGui::DraggableVec3("Velocity", physics->velocity);
+    //ImGui::DraggableFloat("Max velocity", physics->maxVelocity, 0.0f);
+    //ImGui::DraggableVec3("Acceleration", physics->acceleration);
+    //ImGui::DraggableFloat("Velocity drag factor", physics->velocityDragFactor);
+    //ImGui::DraggableFloat("Gravity factor", physics->gravityFactor);
+    //ImGui::Unindent();
+    //ImGui::Text("Angular");
+    //ImGui::Indent();
+    //ImGui::DraggableVec3("Angular velocity", physics->angularVelocity);
+    //ImGui::DraggableFloat("Max angular velocity", physics->maxAngularVelocity, 0.0f);
+    //ImGui::DraggableVec3("Angular acceleration", physics->angularAcceleration);
+    //ImGui::DraggableFloat("Angular drag factor", physics->angularDragFactor);
+    //ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
+    //ImGui::Unindent();
 
+    if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
+        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
+        *outText = editor->Label();
+        return true;
+    }, shapeEditors.data(), shapeEditors.size())) {
+        shapeEditors[selectedShape]->Apply(physics);
+    }
+
+    if (selectedShape != -1) {
+        shapeEditors[selectedShape]->Show(physics);
+    }
 }
 
 void EntityEditor::MeshEditor(Component::Mesh* mesh) {
@@ -368,9 +402,9 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
             }
             else if (typeId == asTYPEID_FLOAT)
             {
-                //float* value = static_cast<float*>(script->propertyMap[script->instance->GetPropertyName(n)][typeId]);
-                ImGui::Text("%s = %d\n", script->instance->GetPropertyName(n), *(float*)varPointer);
-                ImGui::DraggableFloat("", *(float*)varPointer, 0.0f);
+                
+                ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)][typeId], 0.0f);
+
             }
             else if (typeId & asTYPEID_SCRIPTOBJECT)
             {
@@ -444,6 +478,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
 
 	ImGui::Unindent();
+
 }
 
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {

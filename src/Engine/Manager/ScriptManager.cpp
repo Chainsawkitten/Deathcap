@@ -9,6 +9,8 @@
 #include <typeindex>
 #include "../Util/FileSystem.hpp"
 #include "../Util/Input.hpp"
+#include "../Util/RayIntersection.hpp"
+#include "../Util/MousePicking.hpp"
 #include "../Hymn.hpp"
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
@@ -22,9 +24,12 @@
 #include "../Component/SpotLight.hpp"
 #include "../Input/Input.hpp"
 #include "../Script/ScriptFile.hpp"
+#include "MainWindow.hpp"
 
 #include "Managers.hpp"
 #include "DebugDrawingManager.hpp"
+#include "ResourceManager.hpp"
+#include "Component/Mesh.hpp"
 
 using namespace Component;
 
@@ -64,6 +69,21 @@ glm::vec2 GetCursorXY() {
 
 void SendMessage(Entity* recipient, int type) {
     Managers().scriptManager->SendMessage(recipient, type);
+}
+
+bool IsIntersect(Entity* checker, Entity* camera) {
+    MousePicking mousePicker = MousePicking(camera, camera->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+    mousePicker.Update();
+    RayIntersection rayIntersector;
+    float intersectDistance;
+    if (rayIntersector.RayOBBIntersect(camera->GetWorldPosition(), mousePicker.GetCurrentRay(),
+        checker->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
+        checker->GetModelMatrix(), intersectDistance)) {
+        if (intersectDistance < 10.0f)
+            return true;
+        return false;
+    }
+    return false;
 }
 
 void vec2Constructor(float x, float y, void* memory) {
@@ -321,6 +341,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPoint(const vec3 &in, const vec3 &in, float, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPoint), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddLine(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddLine), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddCuboid(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCuboid), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddPlane(const vec3 &in, const vec3 &in, const vec2 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPlane), asCALL_THISCALL);
     
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
@@ -332,6 +353,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {
@@ -361,6 +383,16 @@ void ScriptManager::BuildScript(const std::string& name) {
 }
 
 void ScriptManager::BuildAllScripts() {
+
+    const std::vector<Component::Script*> scriptComponents = scripts.GetAll();
+
+    for (int i = 0; i < scriptComponents.size(); i++) {
+
+        if(scriptComponents[i]->instance != nullptr)
+            scriptComponents[i]->instance->Release();
+
+    }
+
     std::string path = Hymn().GetPath() + FileSystem::DELIMITER + "Scripts" + FileSystem::DELIMITER;
     
     for (ScriptFile* file : Hymn().scripts) {
@@ -415,7 +447,30 @@ void ScriptManager::FillPropertyMap(Script* script) {
         int typeId = script->instance->GetPropertyTypeId(n);
         void *varPointer = script->instance->GetAddressOfProperty(n);
 
-        script->propertyMap[script->instance->GetPropertyName(n)][typeId] = varPointer;
+        if (typeId == asTYPEID_INT32)
+        {
+            int* mapValue = new int();
+            *mapValue = *(int*)varPointer;
+            script->propertyMap[script->instance->GetPropertyName(n)][typeId] = mapValue;
+        }
+        else if (typeId == asTYPEID_FLOAT)
+        {
+            float* mapValue = new float();
+            *mapValue = *(float*)varPointer;
+            script->propertyMap[script->instance->GetPropertyName(n)][typeId] = mapValue;
+        }
+        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string"))
+        {
+            std::string *str = (std::string*)varPointer;
+            if (str) {
+
+                std::string* mapValue = new std::string();
+                *mapValue = *(std::string*)varPointer;
+                script->propertyMap[script->instance->GetPropertyName(n)][typeId] = mapValue;
+
+            }
+
+        }
 
     }
 
@@ -423,10 +478,52 @@ void ScriptManager::FillPropertyMap(Script* script) {
 
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
-    for (Script* script : GetComponents<Script>(&world)) {
+    for (Script* script : scripts.GetAll()) {
         if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
             CreateInstance(script);
             script->initialized = true;
+
+            int propertyCount = script->instance->GetPropertyCount();
+
+            for (int n = 0; n < propertyCount; n++) {
+
+                int typeId = script->instance->GetPropertyTypeId(n);
+                void *varPointer = script->instance->GetAddressOfProperty(n);
+
+                std::map<std::string, std::map<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
+
+                if (it != script->propertyMap.end())
+                {
+
+                    std::map<int, void*>::iterator it2 = script->propertyMap[script->instance->GetPropertyName(n)].find(typeId);
+
+                    if (it2 != script->propertyMap[script->instance->GetPropertyName(n)].end()) {
+
+                        if (typeId == asTYPEID_INT32)
+                        {
+                            int* propertyPointer = static_cast<int*>(varPointer);
+                            *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)][typeId];
+                        }
+                        else if (typeId == asTYPEID_FLOAT)
+                        {
+                            float* propertyPointer = static_cast<float*>(varPointer);
+                            *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)][typeId];
+                        }
+                        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string"))
+                        {
+
+                            std::string *str = (std::string*)varPointer;
+                            if (str) {
+
+
+
+                            }
+
+                        }
+
+                    }
+                }
+            }
         }
     }
     
@@ -506,6 +603,28 @@ Entity* ScriptManager::GetEntity(unsigned int GUID) const {
 
     }
 
+}
+
+Component::Script* ScriptManager::CreateScript() {
+    return scripts.Create();
+}
+
+Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
+    Component::Script* script = scripts.Create();
+    
+    // Load values from Json node.
+    std::string name = node.get("scriptName", "").asString();
+    script->scriptFile = Managers().resourceManager->CreateScriptFile(name);
+    
+    return script;
+}
+
+const std::vector<Component::Script*>& ScriptManager::GetScripts() const {
+    return scripts.GetAll();
+}
+
+void ScriptManager::ClearKilledComponents() {
+    scripts.ClearKilled();
 }
 
 void ScriptManager::CreateInstance(Component::Script* script) {

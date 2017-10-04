@@ -2,8 +2,7 @@
 
 #include <string>
 #include <vector>
-
-#include "SuperManager.hpp"
+#include "../Entity/ComponentContainer.hpp"
 
 class asIScriptEngine;
 class asIScriptContext;
@@ -14,9 +13,12 @@ class ScriptFile;
 namespace Component {
     class Script;
 }
+namespace Json {
+    class Value;
+}
 
 /// Handles scripting.
-class ScriptManager : public SuperManager {
+class ScriptManager {
     friend class Hub;
         
     public:
@@ -62,6 +64,28 @@ class ScriptManager : public SuperManager {
          */
         Entity* GetEntity(unsigned int GUID) const;
         
+        /// Create script component.
+        /**
+         * @return The created component.
+         */
+        Component::Script* CreateScript();
+        
+        /// Create script component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::Script* CreateScript(const Json::Value& node);
+        
+        /// Get all script components.
+        /**
+         * @return All script components.
+         */
+        const std::vector<Component::Script*>& GetScripts() const;
+        
+        /// Remove all killed components.
+        void ClearKilledComponents();
+        
         /// The entity currently being executed.
         Entity* currentEntity;
         
@@ -87,4 +111,6 @@ class ScriptManager : public SuperManager {
         
         std::vector<Entity*> updateEntities;
         std::vector<Message> messages;
+        
+        ComponentContainer<Component::Script> scripts;
 };

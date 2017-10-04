@@ -150,6 +150,7 @@ namespace Video {
             void StopRenderingIcons();
             
         private:
+            Renderer(const Renderer & other) = delete;
             Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;

@@ -22,6 +22,8 @@ namespace Component {
 }
 
 namespace GUI {
+    class IShapeEditor;
+
     /// Used to edit an entity.
     class EntityEditor {
         public:
@@ -93,6 +95,8 @@ namespace GUI {
                 std::function<void()> editFunction;
             };
             std::vector<Editor> editors;
+            std::vector<IShapeEditor*> shapeEditors;
+            int selectedShape = -1;
     };
 }
 
