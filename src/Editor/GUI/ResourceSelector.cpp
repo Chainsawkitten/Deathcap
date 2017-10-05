@@ -21,10 +21,12 @@ bool ResourceSelector::ShowHelper(ResourceList::Resource::Type type, const Resou
     
     // Show resources.
     for (const ResourceList::Resource& resource : folder.resources) {
-        if (ImGui::Selectable("Resource name TODO!Ewrf 12rr ")) {
-            /// @todo Set selected resource.
-            
-            return true;
+        if (resource.type == type) {
+            if (ImGui::Selectable("Resource name TODO!Ewrf 12rr ")) {
+                /// @todo Set selected resource.
+                
+                return true;
+            }
         }
     }
     
