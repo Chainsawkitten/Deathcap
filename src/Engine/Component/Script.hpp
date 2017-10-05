@@ -33,6 +33,5 @@ namespace Component {
       
             /// Entities referenced by this script.
             std::vector<Entity*> refList;
-
     };
 }
