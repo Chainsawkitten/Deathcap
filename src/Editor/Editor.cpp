@@ -54,6 +54,7 @@ Editor::Editor() {
     cameraEntity->enabled = false;
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
+    cameraEntity->GetComponent<Component::Lens>()->zFar = 1000.f;
 
     // Create cursors.
     cursors[0] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
