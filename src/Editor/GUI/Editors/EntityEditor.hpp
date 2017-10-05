@@ -76,7 +76,7 @@ namespace GUI {
             
             // Editors
             void AnimationEditor(Component::Animation* animation);
-            // @todo: remove when physics component is gone
+            /// @todo: remove when physics component is gone
             void PhysicsEditor(Component::Physics* physics);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);

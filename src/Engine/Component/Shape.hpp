@@ -29,6 +29,11 @@ namespace Component {
              * @return The %Shape.
              */
             ::Physics::Shape& GetShape();
+
+            /// Get the shape this component represents.
+            /**
+             * @return The %Shape.
+             */
             const ::Physics::Shape& GetShape() const;
 
         private:
