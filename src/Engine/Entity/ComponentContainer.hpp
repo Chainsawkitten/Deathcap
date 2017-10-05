@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <vector>
 
 /// Stores components.
@@ -19,6 +20,14 @@ template<class C> class ComponentContainer {
         
         /// Clear all killed components.
         void ClearKilled();
+
+        /// Clear all killed components, allowing the caller to do work with
+        /// the component before it is removed.
+        /**
+         * @param preRemove A function that will be called for each killed
+                component before it is removed, passing the component itself.
+         */
+        void ClearKilled(const std::function<void(C*)>& preRemove);
         
         /// Get all components.
         /**
@@ -46,10 +55,15 @@ template<class C> C* ComponentContainer<C>::Create() {
 }
 
 template<class C> void ComponentContainer<C>::ClearKilled() {
+    ClearKilled([](C*){});
+}
+
+template<class C> void ComponentContainer<C>::ClearKilled(const std::function<void(C*)>& preRemove) {
     // Clear killed components.
     std::size_t i = 0;
     while (i < components.size()) {
         if (components[i]->IsKilled()) {
+            preRemove(components[i]);
             delete components[i];
             components[i] = components[components.size() - 1];
             components.pop_back();

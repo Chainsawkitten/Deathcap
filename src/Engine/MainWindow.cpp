@@ -94,6 +94,11 @@ void MainWindow::Close() {
     shouldClose = true;
 }
 
+void MainWindow::CancelClose() {
+    shouldClose = false;
+    glfwSetWindowShouldClose(window, GLFW_FALSE);
+}
+
 void MainWindow::SwapBuffers() {
     glfwSwapBuffers(window);
 }
