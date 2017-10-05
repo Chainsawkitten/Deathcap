@@ -42,7 +42,7 @@ Lighting::Lighting(ShaderProgram* shaderProgram, const Geometry::Rectangle* rect
 }
 
 Lighting::~Lighting() {
-    delete shaderProgram;
+   
 }
 
 void Lighting::ClearLights() {
