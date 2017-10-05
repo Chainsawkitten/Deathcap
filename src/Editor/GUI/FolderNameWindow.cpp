@@ -9,14 +9,18 @@ void FolderNameWindow::Show() {
     ImGui::OpenPopup(title);
 
     if (ImGui::BeginPopupModal(title, nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_ShowBorders)) {
-        ImGui::InputText("Name", name, 100);
+        ImGui::InputText("Name", name, 128);
         
         if (ImGui::Button("Create", ImVec2(120, 0))) {
             visible = false;
+            closedCallback(name);
+            name[0] = '\0';
         }
         ImGui::SameLine();
         if (ImGui::Button("Cancel", ImVec2(120, 0))) {
+            name[0] = '\0';
             visible = false;
+            closedCallback(name);
         }
         ImGui::EndPopup();
     }
@@ -30,10 +34,6 @@ bool FolderNameWindow::IsVisible() const {
     return visible;
 }
 
-void FolderNameWindow::ResetName() {
-    name[0] = '\0';
-}
-
-const char* FolderNameWindow::GetName() const {
-    return name;
+void FolderNameWindow::SetClosedCallback(const std::function<void(const std::string&)>& callback) {
+    closedCallback = callback;
 }

@@ -5,7 +5,6 @@
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>
-#include <Editor/Util/EditorSettings.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/MainWindow.hpp>
@@ -21,7 +20,7 @@ using namespace GUI;
 using namespace std;
 
 ResourceView::ResourceView() {
-
+    folderNameWindow.SetClosedCallback(std::bind(&ResourceView::FileNameWindowClosed, this, placeholders::_1));
 }
 
 void ResourceView::Show() {
@@ -84,9 +83,8 @@ void ResourceView::Show() {
     }
     
     // Create folder.
-    if (folderNameWindow.IsVisible()) {
+    if (folderNameWindow.IsVisible())
         folderNameWindow.Show();
-    }
     
     if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
@@ -164,6 +162,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         // Add subfolder.
         if (ImGui::Selectable("Add folder")) {
             resourcePath = path;
+            parentFolder = &folder;
             folderNameWindow.SetVisible(true);
             return;
         }
@@ -401,4 +400,14 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
     }*/
     
     return false;
+}
+
+void ResourceView::FileNameWindowClosed(const std::string& name) {
+    if (!name.empty()) {
+        ResourceList::ResourceFolder folder;
+        folder.name = name;
+        parentFolder->subfolders.push_back(folder);
+        
+        FileSystem::CreateDirectory((Hymn().GetPath() + "/" + resourcePath + "/" + name).c_str());
+    }
 }

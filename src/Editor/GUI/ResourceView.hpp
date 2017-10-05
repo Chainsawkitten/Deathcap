@@ -52,6 +52,7 @@ namespace GUI {
         private:
             void ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path);
             bool ShowResource(ResourceList::Resource& resource, const std::string& path);
+            void FileNameWindowClosed(const std::string& name);
             
             bool visible = false;
             
@@ -60,14 +61,15 @@ namespace GUI {
             ModelEditor modelEditor;
             TextureEditor textureEditor;
             SoundEditor soundEditor;
-
+            
             SavePromptWindow savePromptWindow;
             FolderNameWindow folderNameWindow;
-
+            
             bool changeScene = false;
             std::string resourcePath = "";
             std::string* scene = nullptr;
-
+            ResourceList::ResourceFolder* parentFolder;
+            
             static const int splitterSize = 2;
             int resourceHeight = 250;
             bool resourceResize = false;

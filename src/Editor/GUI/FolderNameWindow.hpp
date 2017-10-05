@@ -1,5 +1,8 @@
 #pragma once
 
+#include <functional>
+#include <string>
+
 namespace GUI {
     /// A window that asks the user for the name of the folder to create.
     class FolderNameWindow {
@@ -19,17 +22,16 @@ namespace GUI {
              */
             void SetVisible(bool visible);
             
-            /// Reset the entered name.
-            void ResetName();
-            
-            /// Get the entered name.
+            /// Set function to call when closed.
             /**
-             * @return The name the user entered.
+             * @param callback Function to call when window is closed.
              */
-            const char* GetName() const;
+            void SetClosedCallback(const std::function<void(const std::string&)>& callback);
             
         private:
+            std::function<void(const std::string&)> closedCallback;
+            
             bool visible = false;
-            char name[100] = { '\0' };
+            char name[128] = { '\0' };
     };
 }
