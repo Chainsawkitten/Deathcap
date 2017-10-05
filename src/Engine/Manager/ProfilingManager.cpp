@@ -11,8 +11,8 @@
 
 ProfilingManager::ProfilingManager() : active(false) {
     for (int i = 0; i < Type::COUNT; ++i) {
-        first[i] = new Result("", nullptr);
-        current[i] = nullptr;
+        root[i] = new Result("Root: " + TypeToString((Type)i), nullptr);
+        root[i]->parent = nullptr;
     }
 
     frameQuery = new Video::Query(Video::Query::TIME_ELAPSED);
@@ -31,7 +31,7 @@ ProfilingManager::ProfilingManager() : active(false) {
 
 ProfilingManager::~ProfilingManager() {
     for (int i = 0; i < Type::COUNT; ++i) {
-        delete first[i];
+        delete root[i];
     }
 
     delete frameQuery;
@@ -50,10 +50,8 @@ void ProfilingManager::BeginFrame() {
 
     // Clear previous results.
     for (int i = 0; i < Type::COUNT; ++i) {
-        first[i]->children.clear();
-        first[i]->name = "";
-        first[i]->result = 0.0;
-        current[i] = nullptr;
+        root[i]->children.clear();
+        current[i] = root[i];
     }
     frameStart = glfwGetTime();
     frameQuery->Begin();
@@ -79,10 +77,10 @@ void ProfilingManager::ShowResults() {
     for (auto& it : queryMap) {
         switch (it.second->GetType()) {
             case Video::Query::Type::TIME_ELAPSED:
-                it.first->result = it.second->Resolve() / 1000000.0;
+                it.first->value = it.second->Resolve() / 1000000.0;
                 break;
             case Video::Query::Type::SAMPLES_PASSED:
-                it.first->result = it.second->Resolve();
+                it.first->value = it.second->Resolve();
                 break;
             default:
                 assert(false);
@@ -111,9 +109,11 @@ void ProfilingManager::ShowResults() {
     // Breakdown.
     if (ImGui::CollapsingHeader("Breakdown")) {
         for (int i = 0; i < COUNT; ++i) {
-            if (ImGui::TreeNode(TypeToString((Type)i).c_str())) {
+            int flags = root[i]->children.empty() ? ImGuiTreeNodeFlags_Leaf : 0;
+            if (ImGui::TreeNodeEx(TypeToString((Type)i).c_str(), flags)) {
                 ImGui::Columns(2);
-                ShowResult(first[i]);
+                for (Result& child : root[i]->children)
+                    ShowResult(&child);
                 ImGui::Columns(1);
                 ImGui::TreePop();
             }
@@ -150,15 +150,9 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
     assert(active);
     assert(type != COUNT);
 
-    if (current[type] == nullptr) {
-        first[type]->name = name;
-        first[type]->parent = nullptr;
-        current[type] = first[type];
-    } else {
-        current[type]->children.push_back(ProfilingManager::Result(name, current[type]));
-        Result* result = &current[type]->children.back();
-        current[type] = result;
-    }
+    current[type]->children.push_back(ProfilingManager::Result(name, current[type]));
+    Result* result = &current[type]->children.back();
+    current[type] = result;
 
     // Begin query if type is not CPU.
     if (type != Type::CPU_TIME) {
@@ -208,25 +202,26 @@ void ProfilingManager::ShowResult(Result* result) {
     ImGui::AlignFirstTextHeightToWidgets();
     int flags = result->children.empty() ? ImGuiTreeNodeFlags_Leaf : 0;
     bool expanded = ImGui::TreeNodeEx(result->name.c_str(), flags);
-    
+        
     ImGui::NextColumn();
-    if (result->parent != nullptr) {
-        ImGui::ProgressBar(result->result / result->parent->result, ImVec2(0.0f, 0.0f));
+    if (result->parent->parent != nullptr) {
+        ImGui::ProgressBar(result->value / result->parent->value, ImVec2(0.0f, 0.0f));
         ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
     }
-    ImGui::Text(std::to_string(result->result).c_str());
+
+    ImGui::Text(std::to_string(result->value).c_str());
     ImGui::NextColumn();
-    
+
     if (expanded) {
-        double otherTime = result->result;
+        double otherTime = result->value;
         for (Result& child : result->children) {
             ShowResult(&child);
-            otherTime -= child.result;
+            otherTime -= child.value;
         }
         
         if (!result->children.empty()) {
             Result other("Other", result);
-            other.result = otherTime;
+            other.value = otherTime;
             ShowResult(&other);
         }
         
@@ -244,7 +239,7 @@ std::string ProfilingManager::TypeToString(Type type) const {
             return "GPU time (ms)";
             break;
         case ProfilingManager::GPU_SAMPLES_PASSED:
-            return "GPU samples passed";
+            return "GPU samples passed (number of fragments)";
             break;
         default:
             assert(false);

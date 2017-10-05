@@ -23,9 +23,11 @@ GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) : a
         }
 
         // Check if nested.
-        if (this->type != ProfilingManager::Type::GPU_TIME_ELAPSED && Managers().profilingManager->current[this->type] != nullptr) {
-            Log() << "Warning creating GPUProfling: GPU_SAMPLES_PASSED can not be nested!\n";
-            active = false;
+        if (this->type == ProfilingManager::Type::GPU_SAMPLES_PASSED) {
+            if (!Managers().profilingManager->root[this->type]->children.empty()) {
+                Log() << "Warning creating GPUProfling: GPU_SAMPLES_PASSED can not be nested!\n";
+                active = false;
+            }
         }
     }
     // Start profling if active.

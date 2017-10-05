@@ -59,7 +59,7 @@ int main() {
         
         { PROFILE("Frame");
         { GPUPROFILE("Frame", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Frame", Video::Query::Type::SAMPLES_PASSED);
+        { //GPUPROFILE("Frame", Video::Query::Type::SAMPLES_PASSED);
 
             glfwPollEvents();
 
@@ -84,10 +84,10 @@ int main() {
             }
             else {
                 { PROFILE("Update");
-                Hymn().Update(deltaTime);
+                    Hymn().Update(deltaTime);
                 }
                 { PROFILE("Render");
-                Hymn().Render();
+                    Hymn().Render();
                 }
 
                 if (Input()->Triggered(InputHandler::PLAYTEST)) {
@@ -103,7 +103,7 @@ int main() {
         }
 
         { PROFILE("Frame_2"); }
-        { GPUPROFILE("Frame_2", Video::Query::Type::SAMPLES_PASSED); }
+        //{ GPUPROFILE("Frame_2", Video::Query::Type::SAMPLES_PASSED); }
 
         if (Managers().profilingManager->Active())
             Managers().profilingManager->ShowResults();

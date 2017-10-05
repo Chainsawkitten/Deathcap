@@ -4,10 +4,6 @@
 #include <list>
 #include <map>
 
-//namespace Video {
-//    class Query;
-//}
-
 #include <Video/Profiling/Query.hpp>
 
 #ifdef MEASURE_VRAM
@@ -56,7 +52,7 @@ class ProfilingManager {
 
         struct Result {
             std::string name;
-            double result = 0.0;
+            double value = 0.0;
             std::list<Result> children;
             Result* parent;
             
@@ -72,7 +68,7 @@ class ProfilingManager {
 
         bool active;
         
-        Result* first[Type::COUNT];
+        Result* root[Type::COUNT];
         Result* current[Type::COUNT];
 
         std::map<Video::Query::Type, std::list<Video::Query*>> queryPool;
