@@ -113,6 +113,12 @@ void ResourceView::Show() {
                     savePromptWindow.ResetDecision();
                     break;
 
+                case 2:
+                    changeScene = false;
+                    savePromptWindow.ResetDecision();
+                    savePromptWindow.SetVisible(false);
+                    break;
+
                 default:
                     break;
                 }
