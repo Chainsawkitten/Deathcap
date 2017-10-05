@@ -1,5 +1,5 @@
 /*
-Fragment shader used for debug drawing.
+Fragment shader used for early Z forward rendering.
 */
 #version 400
 

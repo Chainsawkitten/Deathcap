@@ -43,7 +43,6 @@ namespace Video {
             * @param projectionMatrix The camera's projection matrix.
             * @param modelMatrix Model matrix.
             */
-
             void DepthRenderStaticMesh(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix);
             
             /// Start rendering the frame.

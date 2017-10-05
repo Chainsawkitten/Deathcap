@@ -1,5 +1,5 @@
 /*
-Vertex shader used for debug drawing.
+Vertex shader used for Early Z forward rendering.
 */
 #version 400
 layout(location = 0) in vec3 vertexPosition;

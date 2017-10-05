@@ -234,8 +234,8 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
-                Material* material = entity->GetComponent<Material>();
-                if (material != nullptr) {
+                // If entity does not have material, it won't be rendered.
+                if (entity->GetComponent<Material>() != nullptr) {
                     renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix,  entity->GetModelMatrix());
                 }
             }
