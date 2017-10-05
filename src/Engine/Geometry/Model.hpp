@@ -55,5 +55,7 @@ namespace Geometry {
 
             AssetFileHandler assetFile;
             Type type;
+            
+            std::string path;
     };
 }

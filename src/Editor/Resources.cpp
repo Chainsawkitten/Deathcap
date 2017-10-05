@@ -61,7 +61,7 @@ void ResourceList::Load() {
     file.close();
     
     activeScene = root["activeScene"].asString();
-    resourceFolder = LoadFolder(root["resourceFolder"]);
+    resourceFolder = LoadFolder(root["resourceFolder"], "");
     
     sceneNumber = root["sceneNumber"].asUInt();
     textureNumber = root["textureNumber"].asUInt();
@@ -121,14 +121,15 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
     return node;
 }
 
-ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node) {
+ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, std::string path) {
     ResourceFolder folder;
     folder.name = node["name"].asString();
+    path += folder.name + "/";
     
     // Load subfolders.
     Json::Value subfoldersNode = node["subfolders"];
     for (unsigned int i = 0; i < subfoldersNode.size(); ++i)
-        folder.subfolders.push_back(LoadFolder(subfoldersNode[i]));
+        folder.subfolders.push_back(LoadFolder(subfoldersNode[i], path));
     
     // Load resources.
     Json::Value resourcesNode = node["resources"];
@@ -142,7 +143,7 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node) {
             resource.texture = Managers().resourceManager->CreateTextureAsset(resourceNode["texture"].asString());
             break;
         case Resource::MODEL:
-            resource.model = Managers().resourceManager->CreateModel(resourceNode["model"].asString());
+            resource.model = Managers().resourceManager->CreateModel(path + resourceNode["model"].asString());
             break;
         case Resource::SOUND:
             resource.sound = Managers().resourceManager->CreateSound(resourceNode["sound"].asString());

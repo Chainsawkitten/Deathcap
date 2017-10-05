@@ -90,7 +90,7 @@ class ResourceList {
         static ResourceList& GetInstance();
         
         Json::Value SaveFolder(const ResourceFolder& folder) const;
-        ResourceFolder LoadFolder(const Json::Value& node);
+        ResourceFolder LoadFolder(const Json::Value& node, std::string path);
         void ClearFolder(ResourceFolder& folder);
         
         ResourceList();

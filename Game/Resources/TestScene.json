@@ -46,7 +46,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "CartSecond"
+				"model" : "Resources/CartSecond"
 			},
 			"Physics" : 
 			{
@@ -208,7 +208,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "spak"
+						"model" : "Resources/spak"
 					},
 					"Script" : 
 					{
@@ -248,7 +248,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Galler"
+						"model" : "Resources/Galler"
 					},
 					"Script" : 
 					{
@@ -388,7 +388,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Cave"
+				"model" : "Resources/Cave"
 			},
 			"children" : null,
 			"name" : "cave",

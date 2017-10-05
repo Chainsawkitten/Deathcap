@@ -194,15 +194,12 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         ImGui::Text("Models");
         ImGui::Separator();
         
-        /// @todo Select model
-        /*for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str())) {
-                if (mesh->geometry != nullptr)
-                    Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
-                
-                mesh->geometry = Managers().resourceManager->CreateModel(model->name);
-            }
-        }*/
+        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
+            if (mesh->geometry != nullptr)
+                Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
+            
+            mesh->geometry = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
+        }
         
         ImGui::EndPopup();
     }
