@@ -108,7 +108,6 @@ set(HEADERS
         Manager/SoundManager.hpp
         Manager/VRManager.hpp
         Physics/GlmConversion.hpp
-        Physics/ITrigger.hpp
         Physics/Shape.hpp
         Physics/Trigger.hpp
         Util/FileSystem.hpp

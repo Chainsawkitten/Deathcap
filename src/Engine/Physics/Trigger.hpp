@@ -3,7 +3,6 @@
 #include <btBulletCollisionCommon.h>
 #include <functional>
 #include <map>
-#include "ITrigger.hpp"
 
 class PhysicsManager;
 
@@ -16,7 +15,7 @@ namespace Physics {
 
     /// Represent a trigger that checks intersections of specific rigid bodies
     /// against itself.
-    class Trigger : public btCollisionWorld::ContactResultCallback, public ITrigger {
+    class Trigger : public btCollisionWorld::ContactResultCallback {
         friend class ::PhysicsManager;
 
         public:
@@ -43,12 +42,12 @@ namespace Physics {
              */
             void Process(btCollisionWorld& world);
 
-            /// Implementation of ITrigger::OnEnter.
+            /// Attach a listener for when |body| enters the trigger volume.
             /**
-             * @param body The physics component representing the body that is to enter the trigger volume.
-             * @param observer Function that is called when event is fired.
+             * @param body Body that is to enter the trigger volume.
+             * @param observer Function to call when event is fired.
              */
-            virtual void OnEnter(Component::RigidBody* body, std::function<void()> observer) override;
+            void OnEnter(Component::RigidBody* body, std::function<void()> observer);
 
         private:
             void SetCollisionShape(btCollisionShape* shape);
