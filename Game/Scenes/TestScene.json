@@ -78,13 +78,6 @@
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"shape" : 
-				{
-					"sphere" : 
-					{
-						"radius" : 1.0
-					}
-				},
 				"velocity" : 
 				{
 					"x" : 0.0,
@@ -93,9 +86,20 @@
 				},
 				"velocityDragFactor" : 1.0
 			},
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
 			"Script" : 
 			{
 				"scriptName" : "Cart"
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
 			},
 			"children" : 
 			[
@@ -391,19 +395,6 @@
 							"y" : 1.0,
 							"z" : 1.0
 						},
-						"shape" : 
-						{
-							"plane" : 
-							{
-								"normal" : 
-								{
-									"x" : 0.0,
-									"y" : 0.0,
-									"z" : 1.0
-								},
-								"planeCoeff" : 450.0
-							}
-						},
 						"velocity" : 
 						{
 							"x" : 0.0,
@@ -411,6 +402,23 @@
 							"z" : 0.0
 						},
 						"velocityDragFactor" : 1.0
+					},
+					"RigidBody" : 
+					{
+						"mass" : 1.0
+					},
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 1.0
+							},
+							"planeCoeff" : 450.0
+						}
 					},
 					"children" : null,
 					"name" : "StopTrigger",
