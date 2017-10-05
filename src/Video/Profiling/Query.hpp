@@ -29,6 +29,12 @@ namespace Video {
             /// Stop query.
             void End();
 
+            /// Get query type.
+            /**
+             * @return The type of query.
+             */
+            Type GetType() const;
+
             /// Resolve query result.
             /**
              * @return The result of query.
@@ -37,8 +43,11 @@ namespace Video {
             
         private:
 
+            Type type;
+
             bool active;
 
             GLuint queries[2];
+            GLenum target;
     };
 }

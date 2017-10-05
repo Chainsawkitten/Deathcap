@@ -7,7 +7,7 @@ using namespace std;
 
 Profiling::Profiling(const std::string& name) {
     if (Managers().profilingManager->Active()) {
-        result = Managers().profilingManager->StartResult(name, ProfilingManager::Type::CPU);
+        result = Managers().profilingManager->StartResult(name, ProfilingManager::Type::CPU_TIME);
         start = glfwGetTime();
     }
 }
@@ -15,6 +15,6 @@ Profiling::Profiling(const std::string& name) {
 Profiling::~Profiling() {
     if (Managers().profilingManager->Active()) {
         result->duration = glfwGetTime() - start;
-        Managers().profilingManager->FinishResult(result, ProfilingManager::Type::CPU);
+        Managers().profilingManager->FinishResult(result, ProfilingManager::Type::CPU_TIME);
     }
 }

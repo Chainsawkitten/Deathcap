@@ -1,15 +1,23 @@
 #include "GPUProfiling.hpp"
 
+#include <assert.h>
 #include <Engine/Manager/Managers.hpp>
 
-using namespace std;
-
-GPUProfiling::GPUProfiling(const std::string& name) {
-    if (Managers().profilingManager->Active())
-        result = Managers().profilingManager->StartResult(name, ProfilingManager::Type::GPU);
+GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) {
+    switch (type) {
+        case Video::Query::TIME_ELAPSED:
+            this->type = ProfilingManager::Type::GPU_TIME_ELAPSED;
+            break;
+        default:
+            assert(false);
+            break;
+    }
+    if (Managers().profilingManager->Active()) {
+        result = Managers().profilingManager->StartResult(name, this->type);
+    }
 }
 
 GPUProfiling::~GPUProfiling() {
     if (Managers().profilingManager->Active())
-        Managers().profilingManager->FinishResult(result, ProfilingManager::Type::GPU);
+        Managers().profilingManager->FinishResult(result, type);
 }

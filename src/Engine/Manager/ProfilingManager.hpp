@@ -4,9 +4,11 @@
 #include <list>
 #include <map>
 
-namespace Video {
-    class Query;
-}
+//namespace Video {
+//    class Query;
+//}
+
+#include <Video/Profiling/Query.hpp>
 
 #ifdef MEASURE_VRAM
 #include <d3d11_3.h>
@@ -46,8 +48,8 @@ class ProfilingManager {
         void operator=(ProfilingManager const&) = delete;
         
         enum Type {
-            CPU = 0,
-            GPU,
+            CPU_TIME = 0,
+            GPU_TIME_ELAPSED,
             COUNT
         };
 
@@ -63,7 +65,6 @@ class ProfilingManager {
         Result* StartResult(const std::string& name, Type type);
         void FinishResult(Result* result, Type type);
         
-        void ShowFrametimes(Type type);
         void ShowResult(Result* result);
 
         bool active;
@@ -71,14 +72,14 @@ class ProfilingManager {
         Result* first[Type::COUNT];
         Result* current[Type::COUNT];
 
-        std::list<Video::Query*> queryPool;
+        std::map<Video::Query::Type, std::list<Video::Query*>> queryPool;
         std::map<Result*, Video::Query*> queryMap;
         
         Video::Query* frameQuery;
         double frameStart;
         static const unsigned int frames = 100;
         unsigned int frame = 0;
-        float frameTimes[Type::COUNT][frames];
+        float frameTimes[2][frames];
 
 #ifdef MEASURE_VRAM
         IDXGIFactory* dxgiFactory = nullptr;

@@ -7,6 +7,15 @@ using namespace Video;
 
 Query::Query(Type type) : active(false) {
     glGenQueries(2, queries);
+
+    this->type = type;
+    switch (type) {
+        case TIME_ELAPSED:
+            target = GL_TIMESTAMP;
+            break;
+        default:
+            assert(false);
+    }
 }
 
 Query::~Query() {
@@ -19,7 +28,11 @@ void Query::Begin() {
         return;
     }
 
-    glQueryCounter(queries[0], GL_TIMESTAMP);
+    if (type == TIME_ELAPSED)
+        glQueryCounter(queries[0], target);
+    else {
+        //glBegin();
+    }
 
     active = true;
 }
@@ -30,9 +43,13 @@ void Query::End() {
         return;
     }
 
-    glQueryCounter(queries[1], GL_TIMESTAMP);
+    glQueryCounter(queries[1], target);
 
     active = false;
+}
+
+Query::Type Query::GetType() const {
+    return type;
 }
 
 std::uint64_t Query::Resolve() const {

@@ -1,7 +1,5 @@
 #include "ProfilingManager.hpp"
 
-#include <Video/Profiling/Query.hpp>
-
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 #ifdef MEASURE_RAM
@@ -68,11 +66,11 @@ void ProfilingManager::ShowResults() {
     }
     
     // Calculate the CPU time of this frame.
-    frameTimes[Type::CPU][frame] = static_cast<float>((glfwGetTime() - frameStart) * 1000.0);
+    frameTimes[0][frame] = static_cast<float>((glfwGetTime() - frameStart) * 1000.0);
 
-    // Calculate the CPU time of this frame.
+    // Calculate the GPU time of this frame.
     frameQuery->End();
-    frameTimes[Type::GPU][frame] = static_cast<float>(frameQuery->Resolve() / 1000000.0);
+    frameTimes[1][frame] = static_cast<float>(frameQuery->Resolve() / 1000000.0);
 
     if (++frame >= frames)
         frame = 0;
@@ -80,7 +78,7 @@ void ProfilingManager::ShowResults() {
     // Resolve and reset queries.
     for (auto& it : queryMap) {
         it.first->duration = it.second->Resolve() / 1000000000.0;
-        queryPool.push_back(it.second);
+        queryPool[it.second->GetType()].push_back(it.second);
     }
     queryMap.clear();
     
@@ -89,12 +87,12 @@ void ProfilingManager::ShowResults() {
     
     if (ImGui::CollapsingHeader("Frametimes")) {
         if (ImGui::TreeNode("CPU Frametimes")) {
-            ShowFrametimes(Type::CPU);
+            ImGui::PlotLines("Frametimes", frameTimes[0], frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
             ImGui::TreePop();
         }
 
         if (ImGui::TreeNode("GPU Frametimes")) {
-            ShowFrametimes(Type::GPU);
+            ImGui::PlotLines("Frametimes", frameTimes[1], frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
             ImGui::TreePop();
         }
     }
@@ -102,13 +100,13 @@ void ProfilingManager::ShowResults() {
     if (ImGui::CollapsingHeader("Breakdown")) {
         if (ImGui::TreeNode("CPU Breakdown")) {
             ImGui::Columns(2);
-            ShowResult(first[Type::CPU]);
+            ShowResult(first[Type::CPU_TIME]);
             ImGui::Columns(1);
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("GPU Breakdown")) {
             ImGui::Columns(2);
-            ShowResult(first[Type::GPU]);
+            ShowResult(first[Type::GPU_TIME_ELAPSED]);
             ImGui::Columns(1);
             ImGui::TreePop();
         }
@@ -142,6 +140,7 @@ void ProfilingManager::SetActive(bool active) {
 
 ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name, Type type) {
     assert(active);
+    assert(type != COUNT);
 
     if (current[type] == nullptr) {
         first[type]->name = name;
@@ -153,15 +152,32 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
         current[type] = result;
     }
 
-    // Begin query if type is GPU.
-    if (type == Type::GPU) {
+    // Begin query if type is not CPU.
+    if (type != Type::CPU_TIME) {
+        Video::Query::Type queryType;
+        switch (type)
+        {
+            case ProfilingManager::CPU_TIME:
+                assert(false);
+                break;
+            case ProfilingManager::GPU_TIME_ELAPSED:
+                queryType = Video::Query::TIME_ELAPSED;
+                break;
+            case ProfilingManager::COUNT:
+                assert(false);
+                break;
+            default:
+                assert(false);
+                break;
+        }
         // Find available query.
         Video::Query* query;
-        if (queryPool.empty())
-            query = new Video::Query(Video::Query::TIME_ELAPSED);
+        auto& it = queryPool.find(queryType);
+        if (it == queryPool.end())
+            query = new Video::Query(queryType);
         else {
-            query = queryPool.back();
-            queryPool.pop_back();
+            query = it->second.back();
+            it->second.pop_back();
         }
         queryMap[current[type]] = query;
         query->Begin();
@@ -172,18 +188,13 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
 
 void ProfilingManager::FinishResult(Result* result, Type type) {
     assert(active);
+    assert(type != COUNT);
 
     // End query if type is GPU.
-    if (type == Type::GPU)
+    if (type != Type::CPU_TIME)
         queryMap[current[type]]->End();
 
     current[type] = result->parent;
-}
-
-void ProfilingManager::ShowFrametimes(Type type) {
-    assert(active);
-
-    ImGui::PlotLines("Frametimes", frameTimes[type], frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
 }
 
 void ProfilingManager::ShowResult(Result* result) {
