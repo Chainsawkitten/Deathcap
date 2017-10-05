@@ -5,7 +5,8 @@
 #include "Editors/SoundEditor.hpp"
 #include "Editors/ScriptEditor.hpp"
 #include "Editors/TextureEditor.hpp"
-#include "GUI/SavePromptWindow.hpp"
+#include "SavePromptWindow.hpp"
+#include "FolderNameWindow.hpp"
 #include "../Resources.hpp"
 
 namespace GUI {
@@ -60,7 +61,8 @@ namespace GUI {
             TextureEditor textureEditor;
             SoundEditor soundEditor;
 
-            GUI::SavePromptWindow savePromptWindow;
+            SavePromptWindow savePromptWindow;
+            FolderNameWindow folderNameWindow;
 
             bool changeScene = false;
             std::string resourcePath = "";

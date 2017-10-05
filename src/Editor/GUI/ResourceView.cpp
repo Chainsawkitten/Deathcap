@@ -83,6 +83,11 @@ void ResourceView::Show() {
         }
     }
     
+    // Create folder.
+    if (folderNameWindow.IsVisible()) {
+        folderNameWindow.Show();
+    }
+    
     if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
         scriptEditor.SetVisible(scriptPressed);
@@ -156,9 +161,11 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
     bool opened = ImGui::TreeNode(folder.name.c_str());
     
     if (ImGui::BeginPopupContextItem(folder.name.c_str())) {
-        /// @todo Add subfolder.
+        // Add subfolder.
         if (ImGui::Selectable("Add folder")) {
-            
+            resourcePath = path;
+            folderNameWindow.SetVisible(true);
+            return;
         }
         
         // Add scene.
