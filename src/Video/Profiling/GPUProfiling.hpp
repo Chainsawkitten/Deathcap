@@ -22,6 +22,8 @@ class GPUProfiling {
         ProfilingManager::Result* result;
 
         ProfilingManager::Type type;
+
+        bool active;
 };
 
 #define GPUPROFILE(name, type) GPUProfiling __gpuProfileInstance(name, type)

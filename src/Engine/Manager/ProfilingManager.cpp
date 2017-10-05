@@ -177,12 +177,12 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
         }
         // Find available query.
         Video::Query* query;
-        auto& it = queryPool.find(queryType);
-        if (it == queryPool.end())
+        std::list<Video::Query*>& queries = queryPool[queryType];
+        if (queries.empty())
             query = new Video::Query(queryType);
         else {
-            query = it->second.back();
-            it->second.pop_back();
+            query = queries.back();
+            queries.pop_back();
         }
         queryMap[current[type]] = query;
         query->Begin();

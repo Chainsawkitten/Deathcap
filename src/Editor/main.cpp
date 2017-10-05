@@ -18,10 +18,6 @@
 #include "ImGui/OpenGLImplementation.hpp"
 #include <imgui.h>
 
-#ifdef VR_SUPPORT
-#include <openvr.h>
-#endif
-
 int main() {
     // Enable logging if requested.
     if (EditorSettings::GetInstance().GetBool("Logging"))
@@ -36,13 +32,6 @@ int main() {
 
     glewInit();
     window->Init(false);
-    
-    // Init VR.
-#ifdef VR_SUPPORT
-    vr::EVRInitError error;
-    vr::IVRSystem* vrSystem = vr::VR_Init(&error, vr::VRApplication_Scene);
-    Log() << "VR init: " << error << "\n";
-#endif
     
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
     
@@ -112,6 +101,9 @@ int main() {
         }
         }
         }
+
+        { PROFILE("Frame_2"); }
+        { GPUPROFILE("Frame_2", Video::Query::Type::SAMPLES_PASSED); }
 
         if (Managers().profilingManager->Active())
             Managers().profilingManager->ShowResults();

@@ -2,9 +2,15 @@
 
 #include <assert.h>
 #include <Engine/Manager/Managers.hpp>
+#include <Utility/Log.hpp>
 
-GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) {
-    switch (type) {
+GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) : active(false) {
+    // Check if profiling.
+    if (Managers().profilingManager->Active()) {
+        active = true;
+
+        // Get type.
+        switch (type) {
         case Video::Query::TIME_ELAPSED:
             this->type = ProfilingManager::Type::GPU_TIME_ELAPSED;
             break;
@@ -14,13 +20,20 @@ GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) {
         default:
             assert(false);
             break;
+        }
+
+        // Check if nested.
+        if (this->type != ProfilingManager::Type::GPU_TIME_ELAPSED && Managers().profilingManager->current[this->type] != nullptr) {
+            Log() << "Warning creating GPUProfling: GPU_SAMPLES_PASSED can not be nested!\n";
+            active = false;
+        }
     }
-    if (Managers().profilingManager->Active()) {
+    // Start profling if active.
+    if (active)
         result = Managers().profilingManager->StartResult(name, this->type);
-    }
 }
 
 GPUProfiling::~GPUProfiling() {
-    if (Managers().profilingManager->Active())
+    if (active)
         Managers().profilingManager->FinishResult(result, type);
 }
