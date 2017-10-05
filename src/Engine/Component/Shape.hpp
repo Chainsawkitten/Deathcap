@@ -16,7 +16,7 @@ namespace Component {
 
         public:
             /// Create new shape.
-            Shape() = default;
+            Shape();
             
             /// Save the component.
             /**

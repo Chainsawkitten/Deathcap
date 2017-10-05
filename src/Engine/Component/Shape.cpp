@@ -3,6 +3,10 @@
 #include "Shape.hpp"
 
 namespace Component {
+    Shape::Shape() {
+        shape = new Physics::Shape(Physics::Shape::Sphere(1.0f));
+    }
+
     Json::Value Shape::Save() const {
         Json::Value component;
 
