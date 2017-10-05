@@ -3,7 +3,7 @@
 #include "IShapeEditor.hpp"
 
 namespace Component {
-    class Physics;
+    class Shape;
 }
 
 namespace GUI {
@@ -19,15 +19,15 @@ namespace GUI {
 
             /// Show controls for editing a sphere shape.
             /**
-             * @param comp The physics component to edit.
+             * @param comp The shape component to edit.
              */
-            virtual void Show(Component::Physics* comp) override;
+            virtual void Show(Component::Shape* comp) override;
 
-            /// Set a plane shape on the given physics component.
+            /// Set a plane shape on the given shape component.
             /**
-             * @param comp The physics component on which to set shape.
+             * @param comp The shape component on which to set shape.
              */
-            virtual void Apply(Component::Physics* comp) override;
+            virtual void Apply(Component::Shape* comp) override;
 
             /// Set internal data according the given %Shape, provided that it
             /// is a sphere.

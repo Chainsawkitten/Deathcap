@@ -54,6 +54,7 @@ Editor::Editor() {
     cameraEntity->enabled = false;
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
+    cameraEntity->GetComponent<Component::Lens>()->zFar = 1000.f;
 
     // Create cursors.
     cursors[0] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
@@ -321,16 +322,16 @@ void Editor::Show(float deltaTime) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
                 glm::mat4 orientation = cameraEntity->GetCameraOrientation();
                 glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-                float speed = 10.0f * deltaTime * (glm::length(cameraEntity->position) / 10.0f);
-                cameraEntity->position += speed * backward * 10.0f;
+                float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
+                cameraEntity->position += speed * backward;
             }
         }
         if (Input()->GetScrollUp()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
                 glm::mat4 orientation = cameraEntity->GetCameraOrientation();
                 glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-                float speed = 10.0f * deltaTime * (glm::length(cameraEntity->position) / 10.0f);
-                cameraEntity->position += speed * backward * -10.0f;
+                float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
+                cameraEntity->position += speed * -backward;
             }
         }
 

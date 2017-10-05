@@ -3,7 +3,7 @@
 #include <functional>
 
 namespace Component {
-    class Physics;
+    class RigidBody;
 }
 
 namespace Physics {
@@ -16,7 +16,7 @@ namespace Physics {
              * @param body The body that is to enter the volume.
              * @param observer Event handler.
              */
-            virtual void OnEnter(Component::Physics* body, std::function<void()> observer) = 0;
+            virtual void OnEnter(Component::RigidBody* body, std::function<void()> observer) = 0;
     };
 
 }
