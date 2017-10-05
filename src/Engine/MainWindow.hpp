@@ -71,8 +71,8 @@ class MainWindow {
         /// Close the window.
         void Close();
 
-		/// Cancel the closing of the window.
-		void CancelClose();
+        /// Cancel the closing of the window.
+        void CancelClose();
         
         /// Swap front- and backbuffers.
         void SwapBuffers();

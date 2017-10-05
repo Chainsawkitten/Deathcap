@@ -87,8 +87,8 @@ int main() {
     
                 editor->Show(deltaTime);
 
-				if (window->ShouldClose() && !editor->isClosing())
-					window->CancelClose();
+                if (window->ShouldClose() && !editor->isClosing())
+                    window->CancelClose();
 
             } else {
                 { PROFILE("Update");

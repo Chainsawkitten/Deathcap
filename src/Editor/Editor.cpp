@@ -90,15 +90,15 @@ void Editor::Show(float deltaTime) {
                 savePromptAnswered = true;
                 break;
 
-			case 1:
-				savePromptAnswered = true;
-				break;
+            case 1:
+                savePromptAnswered = true;
+                break;
 
-			case 2:
-				savePromptAnswered = false;
-				close = false;
-				savePromtWindow.ResetDecision();
-				break;
+            case 2:
+                savePromptAnswered = false;
+                close = false;
+                savePromtWindow.ResetDecision();
+                break;
 
             default:
                 break;
@@ -364,11 +364,11 @@ void Editor::Save() const {
 }
 
 bool Editor::ReadyToClose() const {
-	return savePromptAnswered;
+    return savePromptAnswered;
 }
 
 bool Editor::isClosing() const {
-	return close;
+    return close;
 }
 
 void Editor::Close() {

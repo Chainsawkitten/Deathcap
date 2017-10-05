@@ -34,17 +34,17 @@ class Editor {
         /// Loads the save editor state.
         void LoadEditorState();
 
-		/// Is the editor ready to be closed, have we saved everything?
+        /// Is the editor ready to be closed, have we saved everything?
 		/**
-		 * @return Are we ready to close the editor?
-		 */
-		bool ReadyToClose() const;
+         * @return Are we ready to close the editor?
+         */
+        bool ReadyToClose() const;
 
-		/// Is the editor preparing for closing down?
+        /// Is the editor preparing for closing down?
 		/**
-		 * @return Are we closing the editor?
-		 */
-		bool isClosing() const;
+         * @return Are we closing the editor?
+         */
+        bool isClosing() const;
 
         /// Close the editor.
         void Close();
