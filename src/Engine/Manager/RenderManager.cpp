@@ -242,7 +242,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
             }
         }
     }
-     
+
     // Render static meshes.
     {
         PROFILE("Render static meshes");
@@ -259,7 +259,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 }
             }
         }
-    }  
+    }
 
     /// @todo Render skinned meshes.
     
