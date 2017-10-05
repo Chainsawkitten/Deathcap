@@ -8,6 +8,9 @@ GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) {
         case Video::Query::TIME_ELAPSED:
             this->type = ProfilingManager::Type::GPU_TIME_ELAPSED;
             break;
+        case Video::Query::SAMPLES_PASSED:
+            this->type = ProfilingManager::Type::GPU_SAMPLES_PASSED;
+            break;
         default:
             assert(false);
             break;

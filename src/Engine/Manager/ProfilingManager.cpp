@@ -52,7 +52,7 @@ void ProfilingManager::BeginFrame() {
     for (int i = 0; i < Type::COUNT; ++i) {
         first[i]->children.clear();
         first[i]->name = "";
-        first[i]->duration = 0.0;
+        first[i]->result = 0.0;
         current[i] = nullptr;
     }
     frameStart = glfwGetTime();
@@ -77,7 +77,17 @@ void ProfilingManager::ShowResults() {
 
     // Resolve and reset queries.
     for (auto& it : queryMap) {
-        it.first->duration = it.second->Resolve() / 1000000000.0;
+        switch (it.second->GetType()) {
+            case Video::Query::Type::TIME_ELAPSED:
+                it.first->result = it.second->Resolve() / 1000000.0;
+                break;
+            case Video::Query::Type::SAMPLES_PASSED:
+                it.first->result = it.second->Resolve();
+                break;
+            default:
+                assert(false);
+                break;
+        }
         queryPool[it.second->GetType()].push_back(it.second);
     }
     queryMap.clear();
@@ -85,30 +95,28 @@ void ProfilingManager::ShowResults() {
     // Show the results.
     ImGui::Begin("Profiling", nullptr, ImGuiWindowFlags_ShowBorders);
     
+    // Frametimes.
     if (ImGui::CollapsingHeader("Frametimes")) {
         if (ImGui::TreeNode("CPU Frametimes")) {
-            ImGui::PlotLines("Frametimes", frameTimes[0], frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
+            ImGui::PlotLines("Frametimes in ms", frameTimes[0], frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
             ImGui::TreePop();
         }
 
         if (ImGui::TreeNode("GPU Frametimes")) {
-            ImGui::PlotLines("Frametimes", frameTimes[1], frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
+            ImGui::PlotLines("Frametimes in ms", frameTimes[1], frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
             ImGui::TreePop();
         }
     }
 
+    // Breakdown.
     if (ImGui::CollapsingHeader("Breakdown")) {
-        if (ImGui::TreeNode("CPU Breakdown")) {
-            ImGui::Columns(2);
-            ShowResult(first[Type::CPU_TIME]);
-            ImGui::Columns(1);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("GPU Breakdown")) {
-            ImGui::Columns(2);
-            ShowResult(first[Type::GPU_TIME_ELAPSED]);
-            ImGui::Columns(1);
-            ImGui::TreePop();
+        for (int i = 0; i < COUNT; ++i) {
+            if (ImGui::TreeNode(TypeToString((Type)i).c_str())) {
+                ImGui::Columns(2);
+                ShowResult(first[i]);
+                ImGui::Columns(1);
+                ImGui::TreePop();
+            }
         }
     }
     
@@ -157,8 +165,11 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
         Video::Query::Type queryType;
         switch (type)
         {
-            case ProfilingManager::GPU_TIME_ELAPSED:
+            case ProfilingManager::Type::GPU_TIME_ELAPSED:
                 queryType = Video::Query::TIME_ELAPSED;
+                break;
+            case ProfilingManager::Type::GPU_SAMPLES_PASSED:
+                queryType = Video::Query::SAMPLES_PASSED;
                 break;
             default:
                 assert(false);
@@ -200,26 +211,45 @@ void ProfilingManager::ShowResult(Result* result) {
     
     ImGui::NextColumn();
     if (result->parent != nullptr) {
-        ImGui::ProgressBar(result->duration / result->parent->duration, ImVec2(0.0f, 0.0f));
+        ImGui::ProgressBar(result->result / result->parent->result, ImVec2(0.0f, 0.0f));
         ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
     }
-    ImGui::Text((std::to_string(result->duration * 1000.0) + " ms").c_str());
+    ImGui::Text(std::to_string(result->result).c_str());
     ImGui::NextColumn();
     
     if (expanded) {
-        double otherTime = result->duration;
+        double otherTime = result->result;
         for (Result& child : result->children) {
             ShowResult(&child);
-            otherTime -= child.duration;
+            otherTime -= child.result;
         }
         
         if (!result->children.empty()) {
             Result other("Other", result);
-            other.duration = otherTime;
+            other.result = otherTime;
             ShowResult(&other);
         }
         
         ImGui::TreePop();
+    }
+}
+
+std::string ProfilingManager::TypeToString(Type type) const {
+    switch (type)
+    {
+        case ProfilingManager::CPU_TIME:
+            return "CPU time (ms)";
+            break;
+        case ProfilingManager::GPU_TIME_ELAPSED:
+            return "GPU time (ms)";
+            break;
+        case ProfilingManager::GPU_SAMPLES_PASSED:
+            return "GPU samples passed";
+            break;
+        default:
+            assert(false);
+            return "ProfilingManager::TypeToString warning: No valid type to string";
+            break;
     }
 }
 

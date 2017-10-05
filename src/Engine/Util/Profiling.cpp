@@ -14,7 +14,7 @@ Profiling::Profiling(const std::string& name) {
 
 Profiling::~Profiling() {
     if (Managers().profilingManager->Active()) {
-        result->duration = glfwGetTime() - start;
+        result->result = (glfwGetTime() - start) * 1000.0;
         Managers().profilingManager->FinishResult(result, ProfilingManager::Type::CPU_TIME);
     }
 }

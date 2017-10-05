@@ -50,12 +50,13 @@ class ProfilingManager {
         enum Type {
             CPU_TIME = 0,
             GPU_TIME_ELAPSED,
+            GPU_SAMPLES_PASSED,
             COUNT
         };
 
         struct Result {
             std::string name;
-            double duration = 0.0;
+            double result = 0.0;
             std::list<Result> children;
             Result* parent;
             
@@ -66,6 +67,8 @@ class ProfilingManager {
         void FinishResult(Result* result, Type type);
         
         void ShowResult(Result* result);
+
+        std::string TypeToString(Type type) const;
 
         bool active;
         

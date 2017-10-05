@@ -68,45 +68,51 @@ int main() {
         if (Managers().profilingManager->Active())
             Managers().profilingManager->BeginFrame();
         
-        { PROFILE("CPU Frame"); GPUPROFILE("GPU Frame", Video::Query::Type::TIME_ELAPSED);
+        { PROFILE("Frame");
+        { GPUPROFILE("Frame", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Frame", Video::Query::Type::SAMPLES_PASSED);
+
             glfwPollEvents();
-            
+
             if (Input()->Triggered(InputHandler::PROFILE))
                 profiling = !profiling;
-            
+
             // Start new frame.
             ImGuiImplementation::NewFrame();
-            
+
             window->Update();
-            
+
             if (editor->IsVisible()) {
                 Hymn().world.ClearKilled();
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
                 Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"));
-                
+
                 if (window->ShouldClose())
                     editor->Close();
-    
+
                 editor->Show(deltaTime);
 
-            } else {
+            }
+            else {
                 { PROFILE("Update");
-                    Hymn().Update(deltaTime);
+                Hymn().Update(deltaTime);
                 }
                 { PROFILE("Render");
-                    Hymn().Render();
+                Hymn().Render();
                 }
-                
+
                 if (Input()->Triggered(InputHandler::PLAYTEST)) {
                     // Rollback to the editor state.
                     editor->LoadEditorState();
-                    
+
                     // Turn editor back on.
                     editor->SetVisible(true);
                 }
             }
         }
-        
+        }
+        }
+
         if (Managers().profilingManager->Active())
             Managers().profilingManager->ShowResults();
         
