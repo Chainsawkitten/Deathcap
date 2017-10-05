@@ -48,4 +48,6 @@ class TextureAsset {
     private:
         TextureAsset(const TextureAsset & other) = delete;
         Video::Texture2D* texture;
+        
+        std::string path;
 };

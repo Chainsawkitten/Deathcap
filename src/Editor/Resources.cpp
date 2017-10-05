@@ -140,7 +140,7 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
         
         switch (resource.type) {
         case Resource::TEXTURE:
-            resource.texture = Managers().resourceManager->CreateTextureAsset(resourceNode["texture"].asString());
+            resource.texture = Managers().resourceManager->CreateTextureAsset(path + resourceNode["texture"].asString());
             break;
         case Resource::MODEL:
             resource.model = Managers().resourceManager->CreateModel(path + resourceNode["model"].asString());

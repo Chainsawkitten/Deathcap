@@ -39,9 +39,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Texture #1",
+				"albedo" : "Resources/Texture #1",
 				"metallic" : "",
-				"normal" : "Texture #1",
+				"normal" : "Resources/Texture #1",
 				"roughness" : ""
 			},
 			"Mesh" : 
@@ -245,7 +245,7 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "Texture #1",
+						"albedo" : "Resources/Texture #1",
 						"metallic" : "",
 						"normal" : "",
 						"roughness" : ""
@@ -389,9 +389,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Texture #2",
+				"albedo" : "Resources/Texture #2",
 				"metallic" : "",
-				"normal" : "Texture #3",
+				"normal" : "Resources/Texture #3",
 				"roughness" : ""
 			},
 			"Mesh" : 

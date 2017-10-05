@@ -221,15 +221,12 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        /// @todo Select texture.
-        /*for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->albedo != Hymn().defaultAlbedo)
-                    Managers().resourceManager->FreeTextureAsset(material->albedo);
-                
-                material->albedo = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
-        }*/
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->albedo != Hymn().defaultAlbedo)
+                Managers().resourceManager->FreeTextureAsset(material->albedo);
+            
+            material->albedo = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
+        }
         
         ImGui::EndPopup();
     }

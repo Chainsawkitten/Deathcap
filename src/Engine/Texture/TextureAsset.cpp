@@ -27,8 +27,10 @@ void TextureAsset::Save() const {
 }
 
 void TextureAsset::Load(const std::string& name) {
-    this->name = name;
-    std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + name;
+    std::size_t pos = name.find_last_of('/');
+    this->name = name.substr(pos + 1);
+    this->path = name.substr(0, pos + 1);
+    std::string filename = Hymn().GetPath() + "/" + name;
     
     // Get properties from meta file.
     Json::Value root;
