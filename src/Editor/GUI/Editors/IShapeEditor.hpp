@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Component {
-    class Physics;
+    class Shape;
 }
 
 namespace Physics {
@@ -25,15 +25,15 @@ namespace GUI {
 
             /// Displays the editor.
             /**
-             * @param comp The physics component to edit.
+             * @param comp The shape component to edit.
              */
-            virtual void Show(Component::Physics* comp) = 0;
+            virtual void Show(Component::Shape* comp) = 0;
 
-            /// Set the shape of a physics component.
+            /// Set the shape of a shape component.
             /**
-             * @param comp The physics component on which to set shape.
+             * @param comp The shape component on which to set shape.
              */
-            virtual void Apply(Component::Physics* comp) = 0;
+            virtual void Apply(Component::Shape* comp) = 0;
 
             /// Set internal data according to an existing shape. If the shape
             /// does not correspond to the actual editor, nothing happens.

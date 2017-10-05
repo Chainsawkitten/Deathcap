@@ -24,6 +24,7 @@ set(SRCS
         Component/ParticleEmitter.cpp
         Component/Physics.cpp
         Component/PointLight.cpp
+        Component/RigidBody.cpp
         Component/Script.cpp
         Component/Shape.cpp
         Component/SoundSource.cpp
@@ -48,7 +49,6 @@ set(SRCS
         Manager/SoundManager.cpp
         Manager/VRManager.cpp
         Physics/GlmConversion.cpp
-        Physics/RigidBody.cpp
         Physics/Shape.cpp
         Physics/Trigger.cpp
         Util/FileSystem.cpp
@@ -82,6 +82,7 @@ set(HEADERS
         Component/ParticleEmitter.hpp
         Component/Physics.hpp
         Component/PointLight.hpp
+        Component/RigidBody.hpp
         Component/Script.hpp
         Component/Shape.hpp
         Component/SoundSource.hpp
@@ -107,9 +108,7 @@ set(HEADERS
         Manager/SoundManager.hpp
         Manager/VRManager.hpp
         Physics/GlmConversion.hpp
-        Physics/IRigidBody.hpp
         Physics/ITrigger.hpp
-        Physics/RigidBody.hpp
         Physics/Shape.hpp
         Physics/Trigger.hpp
         Util/FileSystem.hpp
