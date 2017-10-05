@@ -8,15 +8,12 @@
 
 using namespace GUI;
 
-
 enum DraggedItemState {
-
     NOT_ACTIVE = 0,
     ACTIVATED_THIS_FRAME,
     ACTIVE,
     DEACTIVATE,
     DEACTIVATED_THIS_FRAME
-
 };
 DraggedItemState draggedItemState = DraggedItemState::NOT_ACTIVE;
 
@@ -142,16 +139,9 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::Separator();
         
         if (sceneSelector.Show(ResourceList::Resource::SCENE)) {
-            /// @todo Instantiate scene
+            std::string name = sceneSelector.GetSelectedResource().resource->scene;
+            entity->InstantiateScene(sceneSelector.GetSelectedResource().path + "/" + name, Resources().activeScene);
         }
-        
-        /// @todo Select scene.
-        /*for (const std::string& scene : Resources().scenes) {
-            if (Resources().scenes[sceneIndex] != scene) {
-                if (ImGui::Selectable(scene.c_str()))
-                    entity->InstantiateScene(scene, Resources().scenes[sceneIndex]);
-            }
-        }*/
         
         ImGui::EndPopup();
     }

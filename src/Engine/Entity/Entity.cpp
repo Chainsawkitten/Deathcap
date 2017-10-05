@@ -72,11 +72,10 @@ bool Entity::HasChild(const Entity* check_child, bool deep) const {
 }
 
 Entity* Entity::InstantiateScene(const std::string& name, const std::string& originScene) {
-
     Json::Value root;
     Entity* child = AddChild();
     bool error = false;
-    std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + ".json";
+    std::string filename = Hymn().GetPath() + "/" + name + ".json";
 
     // Checks if file exists.
     if (FileSystem::FileExists(filename.c_str())) {
@@ -98,8 +97,7 @@ Entity* Entity::InstantiateScene(const std::string& name, const std::string& ori
         Log() << "Couldn't find scene to load.";
     }
 
-    if (error)
-    {
+    if (error) {
         child->name = "Error loading scene";
         Log() << "Scene is added in continous loop.";
     }
@@ -107,8 +105,7 @@ Entity* Entity::InstantiateScene(const std::string& name, const std::string& ori
     return child;
 }
 
-void Entity::CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root)
-{
+void Entity::CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root) {
     Json::Value children = root["children"];
 
     // Loops through all the scene names.
@@ -116,18 +113,15 @@ void Entity::CheckIfSceneExists(const std::string& filename, bool & error, const
         if (root["children"][i]["scene"].asBool()) {
             printf("%s", root["children"][i]["sceneName"].asString().c_str());
 
-            if (originScene == root["children"][i]["sceneName"].asString())
-            {
+            if (originScene == root["children"][i]["sceneName"].asString()) {
                 error = true;
             }
-            if (error)
-            {
+            if (error) {
                 break;
             }
         }
 
-        if (!error)
-        {
+        if (!error) {
             CheckIfSceneExists(filename, error, originScene, root["children"][i]);
         }
     }
