@@ -21,6 +21,9 @@ class ResourceList {
         /// A resource.
         struct Resource {
             /// Get the name of the resource.
+            /**
+             * @return The name of the resource.
+             */
             std::string GetName() const;
             
             /// The type of resource.

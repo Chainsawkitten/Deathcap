@@ -8,6 +8,12 @@ namespace GUI {
         public:
             /// Information about the selected resource.
             struct SelectedResource {
+                /// Get path (including name).
+                /**
+                 * @return The path to the resource.
+                 */
+                std::string GetPath() const;
+                
                 /// The selected resource.
                 const ResourceList::Resource* resource;
                 

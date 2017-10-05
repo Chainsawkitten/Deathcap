@@ -146,8 +146,7 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
             if (animation->riggedModel != nullptr)
                 Managers().resourceManager->FreeModel(animation->riggedModel);
             
-            ResourceSelector::SelectedResource selectedResource = resourceSelector.GetSelectedResource();
-            animation->riggedModel = Managers().resourceManager->CreateModel(selectedResource.path + "/" + selectedResource.resource->model->name);
+            animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
 
         ImGui::EndPopup();

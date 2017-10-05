@@ -4,6 +4,10 @@
 
 using namespace GUI;
 
+std::string ResourceSelector::SelectedResource::GetPath() const {
+    return path + "/" + resource->GetName();
+}
+
 bool ResourceSelector::Show(ResourceList::Resource::Type type) {
     return ShowHelper(type, Resources().resourceFolder, Resources().resourceFolder.name);
 }

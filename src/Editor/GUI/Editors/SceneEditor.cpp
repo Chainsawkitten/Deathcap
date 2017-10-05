@@ -138,10 +138,8 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::Text("Scenes");
         ImGui::Separator();
         
-        if (sceneSelector.Show(ResourceList::Resource::SCENE)) {
-            std::string name = sceneSelector.GetSelectedResource().resource->scene;
-            entity->InstantiateScene(sceneSelector.GetSelectedResource().path + "/" + name, Resources().activeScene);
-        }
+        if (sceneSelector.Show(ResourceList::Resource::SCENE))
+            entity->InstantiateScene(sceneSelector.GetSelectedResource().GetPath(), Resources().activeScene);
         
         ImGui::EndPopup();
     }
