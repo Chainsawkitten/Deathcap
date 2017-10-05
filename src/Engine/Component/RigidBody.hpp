@@ -30,37 +30,24 @@ namespace Component {
             Json::Value Save() const override;
 
         private:
-            /// Get the underlying Bullet rigid body.
-            /**
-             * @return The Bullet type, or nullptr of none has been set.
-             */
+            // Get the underlying Bullet rigid body. If none has been set,
+            // nullptr is returned.
             btRigidBody* GetBulletRigidBody();
 
-            /// Set the underlying Bullet rigid body.
-            /**
-             * @param mass Mass in kilograms of the new rigid body.
-             */
+            // Creates the underlying Bullet rigid body. Mass is provided in
+            // units of kilograms.
             void NewBulletRigidBody(float mass);
 
-            /// Destroy resources completely.
+            // Destroy resources completely.
             void Destroy();
 
-            /// Get the position of a rigid body.
-            /**
-             * @return Position of the rigid body.
-             */
+            // Get the position of a rigid body.
             glm::vec3 Position() const;
 
-            /// Set the position of a rigid body.
-            /**
-             * @param pos The new position.
-             */
+            // Set the position of a rigid body.
             void Position(const glm::vec3& pos);
 
-            /// Set the mass of a rigid body.
-            /**
-             * @param mass Mass in kilograms.
-             */
+            // Set the mass in kilograms of a rigid body.
             void Mass(float mass);
 
         private:

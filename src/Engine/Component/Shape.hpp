@@ -37,10 +37,7 @@ namespace Component {
             const ::Physics::Shape& GetShape() const;
 
         private:
-            /// Set the shape that this component will represent.
-            /**
-             * @param shape The new shape.
-             */
+            // Set the shape that this component will represent.
             void SetShape(::Physics::Shape* shape);
 
         private:
