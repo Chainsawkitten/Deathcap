@@ -142,15 +142,13 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
         ImGui::Text("Models");
         ImGui::Separator();
         
-        /// @todo Select model.
-        /*for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str())) {
-                if (animation->riggedModel != nullptr)
-                    Managers().resourceManager->FreeModel(animation->riggedModel);
-                
-                animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
-            }
-        }*/
+        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
+            if (animation->riggedModel != nullptr)
+                Managers().resourceManager->FreeModel(animation->riggedModel);
+            
+            ResourceSelector::SelectedResource selectedResource = resourceSelector.GetSelectedResource();
+            animation->riggedModel = Managers().resourceManager->CreateModel(selectedResource.path + "/" + selectedResource.resource->model->name);
+        }
 
         ImGui::EndPopup();
     }
