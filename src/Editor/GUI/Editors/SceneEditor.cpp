@@ -141,6 +141,10 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::Text("Scenes");
         ImGui::Separator();
         
+        if (sceneSelector.Show(ResourceList::Resource::SCENE)) {
+            /// @todo Instantiate scene
+        }
+        
         /// @todo Select scene.
         /*for (const std::string& scene : Resources().scenes) {
             if (Resources().scenes[sceneIndex] != scene) {

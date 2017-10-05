@@ -2,6 +2,7 @@
 
 #include <string>
 #include "EntityEditor.hpp"
+#include "../ResourceSelector.hpp"
 
 class Entity;
 
@@ -50,5 +51,7 @@ namespace GUI {
             
             std::string* scene = nullptr;
             char name[128];
+            
+            ResourceSelector sceneSelector;
     };
 }
