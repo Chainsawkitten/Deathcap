@@ -22,7 +22,7 @@ bool ResourceSelector::ShowHelper(ResourceList::Resource::Type type, const Resou
     // Show resources.
     for (const ResourceList::Resource& resource : folder.resources) {
         if (resource.type == type) {
-            if (ImGui::Selectable("Resource name TODO!Ewrf 12rr ")) {
+            if (ImGui::Selectable(resource.GetName().c_str())) {
                 /// @todo Set selected resource.
                 
                 return true;

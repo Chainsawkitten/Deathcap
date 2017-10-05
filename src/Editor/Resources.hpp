@@ -20,6 +20,9 @@ class ResourceList {
     public:
         /// A resource.
         struct Resource {
+            /// Get the name of the resource.
+            std::string GetName() const;
+            
             /// The type of resource.
             enum Type {
                 SCENE = 0,

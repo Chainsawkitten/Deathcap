@@ -10,6 +10,21 @@
 
 using namespace std;
 
+string ResourceList::Resource::GetName() const {
+    switch (type) {
+    case Type::SCENE:
+        return scene;
+    case Type::MODEL:
+        return model->name;
+    case Type::TEXTURE:
+        return texture->name;
+    case Type::SOUND:
+        return sound->name;
+    default:
+        return "";
+    }
+}
+
 ResourceList::ResourceList() {
     activeScene = "";
     resourceFolder.name = "Resources";
