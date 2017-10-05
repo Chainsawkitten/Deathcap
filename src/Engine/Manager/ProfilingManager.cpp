@@ -78,7 +78,11 @@ void ProfilingManager::ShowResults() {
         frame = 0;
 
     // Resolve and reset queries.
-    ResolveQueries();
+    for (auto& it : queryMap) {
+        it.first->duration = it.second->Resolve() / 1000000000.0;
+        queryPool.push_back(it.second);
+    }
+    queryMap.clear();
     
     // Show the results.
     ImGui::Begin("Profiling", nullptr, ImGuiWindowFlags_ShowBorders);
@@ -212,16 +216,6 @@ void ProfilingManager::ShowResult(Result* result) {
         
         ImGui::TreePop();
     }
-}
-
-void ProfilingManager::ResolveQueries() {
-    assert(active);
-
-    for (auto& it : queryMap) {
-        it.first->duration = it.second->Resolve() / 1000000000.0;
-        queryPool.push_back(it.second);
-    }
-    queryMap.clear();
 }
 
 ProfilingManager::Result::Result(const std::string& name, Result* parent) : name (name) {

@@ -66,8 +66,6 @@ class ProfilingManager {
         void ShowFrametimes(Type type);
         void ShowResult(Result* result);
 
-        void ResolveQueries();
-
         bool active;
         
         Result* first[Type::COUNT];
