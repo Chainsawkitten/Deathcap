@@ -6,20 +6,32 @@
 using namespace Video;
 
 Query::Query(Type type) : active(false) {
-    glGenQueries(2, queries);
-
     this->type = type;
     switch (type) {
         case TIME_ELAPSED:
             target = GL_TIMESTAMP;
             break;
+        case SAMPLES_PASSED:
+            target = GL_SAMPLES_PASSED;
+            break;
         default:
             assert(false);
     }
+
+    if (type == TIME_ELAPSED)
+        queryCount = 2;
+    else
+        queryCount = 1;
+
+    queries = new GLuint[queryCount];
+    results = new GLuint64[queryCount];
+    glGenQueries(queryCount, queries);
 }
 
 Query::~Query() {
-    glDeleteQueries(2, queries);
+    glDeleteQueries(queryCount, queries);
+    delete queries;
+    delete results;
 }
 
 void Query::Begin() {
@@ -30,9 +42,8 @@ void Query::Begin() {
 
     if (type == TIME_ELAPSED)
         glQueryCounter(queries[0], target);
-    else {
-        //glBegin();
-    }
+    else
+        glBeginQuery(target, queries[0]);
 
     active = true;
 }
@@ -43,7 +54,10 @@ void Query::End() {
         return;
     }
 
-    glQueryCounter(queries[1], target);
+    if (type == TIME_ELAPSED)
+        glQueryCounter(queries[1], target);
+    else
+        glEndQuery(target);
 
     active = false;
 }
@@ -58,13 +72,16 @@ std::uint64_t Query::Resolve() const {
         return 0;
     }
 
-    GLuint64 result[2];
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < queryCount; ++i) {
         GLuint64 available = GL_FALSE;
         while (available == GL_FALSE)
             glGetQueryObjectui64v(queries[i], GL_QUERY_RESULT_AVAILABLE, &available);
-        glGetQueryObjectui64v(queries[i], GL_QUERY_RESULT, &result[i]);
+        glGetQueryObjectui64v(queries[i], GL_QUERY_RESULT, &results[i]);
     }
 
-    return result[1] - result[0];
+    if (type == TIME_ELAPSED)
+        return results[1] - results[0];
+    else
+        return results[0];
+
 }

@@ -157,14 +157,8 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
         Video::Query::Type queryType;
         switch (type)
         {
-            case ProfilingManager::CPU_TIME:
-                assert(false);
-                break;
             case ProfilingManager::GPU_TIME_ELAPSED:
                 queryType = Video::Query::TIME_ELAPSED;
-                break;
-            case ProfilingManager::COUNT:
-                assert(false);
                 break;
             default:
                 assert(false);
