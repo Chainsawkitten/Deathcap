@@ -87,6 +87,9 @@ int main() {
     
                 editor->Show(deltaTime);
 
+                if (window->ShouldClose() && !editor->isClosing())
+                    window->CancelClose();
+
             } else {
                 { PROFILE("Update");
                     Hymn().Update(deltaTime);
