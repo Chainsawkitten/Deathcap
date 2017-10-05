@@ -91,7 +91,12 @@ bool MainWindow::ShouldClose() const {
 }
 
 void MainWindow::Close() {
-    shouldClose = true;
+	shouldClose = true;
+}
+
+void MainWindow::CancelClose() {
+	shouldClose = false;
+	glfwSetWindowShouldClose(window, GLFW_FALSE);
 }
 
 void MainWindow::SwapBuffers() {
