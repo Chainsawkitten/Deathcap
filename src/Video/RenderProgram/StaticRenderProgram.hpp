@@ -17,6 +17,14 @@ namespace Video {
             
             /// Destructor.
             ~StaticRenderProgram();
+
+            /// Bind depth render program.
+            /**
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             */
+            void PreDepthRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+
             /// Render depth pass.
             /**
             * @param geometry The geometry to render.
@@ -26,7 +34,6 @@ namespace Video {
             */
             void DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix);
 
-            
             /// Bind render program.
             /**
              * @param viewMatrix The camera's view matrix.

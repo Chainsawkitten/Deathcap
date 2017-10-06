@@ -32,32 +32,32 @@ StaticRenderProgram::~StaticRenderProgram() {
     delete zShaderProgram;
 }
 
-void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix)
-{
-    zShaderProgram->Use();
+void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+    this->zShaderProgram->Use();
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
-    viewProjectionMatrix = projectionMatrix * viewMatrix;
+    this->viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     glUniformMatrix4fv(zShaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+}
 
+void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix) {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
+
         glBindVertexArray(geometry->GetVertexArray());
 
         glUniformMatrix4fv(zShaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
-
 }
 
 void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    shaderProgram->Use();
-
+    this->shaderProgram->Use();
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
-    viewProjectionMatrix = projectionMatrix * viewMatrix;
+    this->viewProjectionMatrix = projectionMatrix * viewMatrix;
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
@@ -66,6 +66,7 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glDepthFunc(GL_LEQUAL);
+        glDepthMask(GL_FALSE);
 
         glBindVertexArray(geometry->GetVertexArray());
 
@@ -94,10 +95,10 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
 
         glDepthFunc(GL_LESS);
+        glDepthMask(GL_TRUE);
     }
 }
 
-ShaderProgram*  Video::StaticRenderProgram::GetShaderProgram()
-{
+ShaderProgram* Video::StaticRenderProgram::GetShaderProgram() {
     return shaderProgram;
 }

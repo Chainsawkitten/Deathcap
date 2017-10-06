@@ -247,6 +247,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     { PROFILE("Render z-pass meshes");
     { GPUPROFILE("Render z-pass meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render z-pass meshes", Video::Query::Type::SAMPLES_PASSED);
+        renderer->PrepareStaticMeshDepthRendering(viewMatrix, projectionMatrix);
         for (Mesh* mesh : meshComponents) {
             if (mesh->IsKilled() || !mesh->entity->enabled)
                 continue;
