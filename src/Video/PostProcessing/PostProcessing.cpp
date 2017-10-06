@@ -35,35 +35,35 @@ PostProcessing::~PostProcessing() {
 }
 
 void PostProcessing::ApplyFilter(Video::RenderSurface* renderSurface, Video::Filter* filter) const {
-    // Always pass depth test.
-    glDepthFunc(GL_ALWAYS);
+    //// Always pass depth test.
+    //glDepthFunc(GL_ALWAYS);
 
-    // Swap render surface read/write buffers.
-    renderSurface->Swap();
+    //// Swap render surface read/write buffers.
+    //renderSurface->Swap();
 
-    // Set render surface as render target.
-    renderSurface->GetPostProcessingFrameBuffer()->Bind();
+    //// Set render surface as render target.
+    //renderSurface->GetPostProcessingFrameBuffer()->Bind();
 
-    // Bind shaders.
-    filter->GetShaderProgram()->Use();
-    
-    glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tDiffuse"), 0);
-    renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE0);
+    //// Bind shaders.
+    //filter->GetShaderProgram()->Use();
+    //
+    //glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tDiffuse"), 0);
+    //renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE0);
 
-    glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tExtra"), 1);
-    renderSurface->GetExtraColorTexture()->BindForReading(GL_TEXTURE1);
+    //glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tExtra"), 1);
+    //renderSurface->GetExtraColorTexture()->BindForReading(GL_TEXTURE1);
 
-    glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tDepth"), 2);
-    renderSurface->GetExtraDepthTexture()->BindForReading(GL_TEXTURE2);
-    
-    glBindVertexArray(rectangle->GetVertexArray());
-    
-    filter->SetUniforms();
-    
-    glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-    
-    // Reset depth testing to standard value.
-    glDepthFunc(GL_LESS);
+    //glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tDepth"), 2);
+    //renderSurface->GetExtraDepthTexture()->BindForReading(GL_TEXTURE2);
+    //
+    //glBindVertexArray(rectangle->GetVertexArray());
+    //
+    //filter->SetUniforms();
+    //
+    //glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+    //
+    //// Reset depth testing to standard value.
+    //glDepthFunc(GL_LESS);
 }
 
 void PostProcessing::Render(RenderSurface* renderSurface, bool dither) {
@@ -83,7 +83,7 @@ void PostProcessing::Render(RenderSurface* renderSurface, bool dither) {
     renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE0);
 
     glUniform1i(shader->GetUniformLocation("tDepth"), 1);
-    renderSurface->GetExtraDepthTexture()->BindForReading(GL_TEXTURE1);
+    renderSurface->GetDepthTexture()->BindForReading(GL_TEXTURE1);
 
     if (dither) {
         glUniform1f(shader->GetUniformLocation("time"), ditherTime);

@@ -244,6 +244,8 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
 
+    // Render z-pass meshes.
+    renderSurface->GetDepthFrameBuffer()->Bind();
     { PROFILE("Render z-pass meshes");
     { GPUPROFILE("Render z-pass meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render z-pass meshes", Video::Query::Type::SAMPLES_PASSED);
@@ -263,8 +265,10 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     }
     }
     }
+    renderSurface->GetDepthFrameBuffer()->Unbind();
 
     // Render static meshes.
+    renderSurface->GetColorFrameBuffer()->Bind();
     { PROFILE("Render static meshes");
     { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
@@ -284,6 +288,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     }
     }
     }
+    renderSurface->GetColorFrameBuffer()->Unbind();
 
     /// @todo Render skinned meshes.
     
@@ -354,7 +359,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     }
     */
 
-    renderSurface->GetPostProcessingFrameBuffer()->Unbind();
+    //renderSurface->GetDepthFrameBuffer()->Unbind();
 }
 
 Component::Animation* RenderManager::CreateAnimation() {

@@ -24,41 +24,17 @@ namespace Video {
             */
             glm::vec2 GetSize() const;
 
-            /// Get deferred rendering frame buffer.
+            /// Get depth frame buffer.
             /**
-             * @return Deferred rendering frame buffer.
+             * @return Depth frame buffer.
              */
-            FrameBuffer* GetDeferredFrameBuffer() const;
+            FrameBuffer* GetDepthFrameBuffer() const;
 
-            /// Get post processing frame buffer.
+            /// Get color frame buffer.
             /**
-            * @return Post processing frame buffer.
-            */
-            FrameBuffer* GetPostProcessingFrameBuffer() const;
-
-            /// Get texture contaning albedo pixel data.
-            /**
-             * @return The albedo texture.
+             * @return Color rendering frame buffer.
              */
-            ReadWriteTexture* GetAlbedoTexture() const;
-
-            /// Get texture contaning normal pixel data.
-            /**
-             * @return The normal texture.
-             */
-            ReadWriteTexture* GetNormalTexture() const;
-
-            /// Get texture contaning specular pixel data.
-            /**
-             * @return The specular texture.
-             */
-            ReadWriteTexture* GetSpecularTexture() const;
-
-            /// Get texture contaning glow pixel data.
-            /**
-             * @return The glow texture.
-             */
-            ReadWriteTexture* GetGlowTexture() const;
+            FrameBuffer* GetColorFrameBuffer() const;
 
             /// Get texture contaning depth pixel data.
             /**
@@ -72,18 +48,6 @@ namespace Video {
              */
             ReadWriteTexture* GetColorTexture() const;
 
-            /// Get texture contaning extra color pixel data.
-            /**
-             * @return The extra color texture.
-             */
-            ReadWriteTexture* GetExtraColorTexture() const;
-
-            /// Get texture contaning extra depth pixel data.
-            /**
-             * @return The extra depth texture.
-             */
-            ReadWriteTexture* GetExtraDepthTexture() const;
-
             /// Swap active texture set.
             void Swap();
             
@@ -92,18 +56,12 @@ namespace Video {
             glm::vec2 size;
 
             // Frame buffers.
-            FrameBuffer* deferredFrameBuffer;
-            FrameBuffer* postProcessingFrameBuffer[2];
+            FrameBuffer* depthFrameBuffer;
+            FrameBuffer* colorFrameBuffer[2];
 
             // Textures.
-            ReadWriteTexture* albedoTexture;
-            ReadWriteTexture* normalTexture;
-            ReadWriteTexture* specTexture;
-            ReadWriteTexture* glowTexture;
             ReadWriteTexture* depthTexture;
             ReadWriteTexture* colorTexture[2];
-            ReadWriteTexture* extraColorTexture[2];
-            ReadWriteTexture* extraDepthTexture[2];
 
             short int which = 0;
     };

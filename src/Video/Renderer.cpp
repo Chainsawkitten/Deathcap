@@ -27,9 +27,9 @@ using namespace Video;
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
-    lighting = new Lighting(staticRenderProgram->GetShaderProgram(), rectangle);
+    lighting = new Lighting(staticRenderProgram->GetShaderProgram());
    // skinRenderProgram = new SkinRenderProgram();
-   // postProcessing = new PostProcessing(rectangle);
+   postProcessing = new PostProcessing(rectangle);
    // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
    // fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
    // fxaaFilter = new FXAAFilter();
@@ -69,7 +69,7 @@ Renderer::~Renderer() {
     delete lighting;
     delete staticRenderProgram;
     //delete skinRenderProgram;
-    //delete postProcessing;
+    delete postProcessing;
     //delete colorFilter;
     //delete fogFilter;
     //delete fxaaFilter;
@@ -146,7 +146,7 @@ void Renderer::ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& c
 }
 
 void Renderer::DisplayResults(RenderSurface* renderSurface, bool dither) {
-    //postProcessing->Render(renderSurface, dither);
+    postProcessing->Render(renderSurface, dither);
 }
 
 void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp) {

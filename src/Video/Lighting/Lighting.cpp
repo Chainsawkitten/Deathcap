@@ -13,7 +13,7 @@
 
 using namespace Video;
 
-Lighting::Lighting(ShaderProgram* shaderProgram, const Geometry::Rectangle* rectangle) {
+Lighting::Lighting(ShaderProgram* shaderProgram) {
     // Compile shader program.
     //Shader* vertexShader = new Shader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     //Shader* fragmentShader = new Shader(DEFERRED_FRAG, DEFERRED_FRAG_LENGTH, GL_FRAGMENT_SHADER);
@@ -22,14 +22,12 @@ Lighting::Lighting(ShaderProgram* shaderProgram, const Geometry::Rectangle* rect
     //delete fragmentShader;
     this->shaderProgram = shaderProgram;
     
-    this->rectangle = rectangle;
-    
-    // Check if framebuffer created correctly
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        Log() << "Frame buffer creation failed\n";
-    
-    // Default framebuffer
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+    //// Check if framebuffer created correctly
+    //if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    //    Log() << "Frame buffer creation failed\n";
+    //
+    //// Default framebuffer
+    //glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
     
     // Store light uniform locations.
     for (unsigned int lightIndex = 0; lightIndex < lightCount; ++lightIndex) {
