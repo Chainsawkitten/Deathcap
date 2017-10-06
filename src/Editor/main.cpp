@@ -98,7 +98,8 @@ int main() {
                     Hymn().Render();
                 }
                 }
-                    if (Input()->Triggered(InputHandler::PLAYTEST)) {
+                
+                if (Input()->Triggered(InputHandler::PLAYTEST)) {
                     // Rollback to the editor state.
                     editor->LoadEditorState();
 
