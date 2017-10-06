@@ -143,8 +143,12 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::Separator();
         
         for (const std::string& scene : Resources().scenes) {
-            if (ImGui::Selectable(scene.c_str()))
-                entity->InstantiateScene(scene);
+
+            if (Resources().scenes[sceneIndex] != scene)
+            {
+                if (ImGui::Selectable(scene.c_str()))
+                    entity->InstantiateScene(scene, Resources().scenes[sceneIndex]);
+            }
         }
         
         ImGui::EndPopup();

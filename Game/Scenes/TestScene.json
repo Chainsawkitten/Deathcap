@@ -33,6 +33,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
+			"static" : false,
 			"uid" : 1
 		},
 		{
@@ -77,13 +78,6 @@
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"shape" : 
-				{
-					"sphere" : 
-					{
-						"radius" : 1.0
-					}
-				},
 				"velocity" : 
 				{
 					"x" : 0.0,
@@ -92,9 +86,20 @@
 				},
 				"velocityDragFactor" : 1.0
 			},
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
 			"Script" : 
 			{
 				"scriptName" : "Cart"
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
 			},
 			"children" : 
 			[
@@ -130,6 +135,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 4
 				},
 				{
@@ -166,6 +172,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 5
 				}
 			],
@@ -189,6 +196,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
+			"static" : false,
 			"uid" : 2
 		},
 		{
@@ -231,6 +239,7 @@
 						"z" : 0.5
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 1506428286
 				},
 				{
@@ -270,6 +279,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 1506428288
 				},
 				{
@@ -303,19 +313,6 @@
 							"y" : 1.0,
 							"z" : 1.0
 						},
-						"shape" : 
-						{
-							"plane" : 
-							{
-								"normal" : 
-								{
-									"x" : 0.0,
-									"y" : 0.0,
-									"z" : 1.0
-								},
-								"planeCoeff" : 450.0
-							}
-						},
 						"velocity" : 
 						{
 							"x" : 0.0,
@@ -323,6 +320,23 @@
 							"z" : 0.0
 						},
 						"velocityDragFactor" : 1.0
+					},
+					"RigidBody" : 
+					{
+						"mass" : 1.0
+					},
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 1.0
+							},
+							"planeCoeff" : 450.0
+						}
 					},
 					"children" : null,
 					"name" : "StopTrigger",
@@ -345,6 +359,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 1506510737
 				}
 			],
@@ -368,6 +383,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
+			"static" : false,
 			"uid" : 1506431025
 		},
 		{
@@ -403,6 +419,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
+			"static" : false,
 			"uid" : 3
 		}
 	],
@@ -426,5 +443,6 @@
 		"z" : 1.0
 	},
 	"scene" : false,
+	"static" : false,
 	"uid" : 0
 }
