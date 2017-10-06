@@ -20,7 +20,7 @@ void TextureAsset::Save() const {
     texture["srgb"] = srgb;
     
     // Save properties to meta file.
-    std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + name + ".json";
+    std::string filename = Hymn().GetPath() + "/" + path + name + ".json";
     std::ofstream file(filename);
     file << texture;
     file.close();
