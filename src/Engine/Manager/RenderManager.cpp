@@ -22,6 +22,7 @@
 #include "../Component/ParticleEmitter.hpp"
 #include "../Component/DirectionalLight.hpp"
 #include "../Component/PointLight.hpp"
+#include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/Physics.hpp"
@@ -196,12 +197,12 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         
         // Render physics.
         if (physics) {
-            for (Component::Physics* physics : Managers().physicsManager->GetPhysicsComponents()) {
-                const ::Physics::Shape& shape = physics->GetShape();
+            for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
+                const ::Physics::Shape& shape = shapeComp->GetShape();
                 if (shape.GetKind() == ::Physics::Shape::Kind::Sphere) {
-                    Managers().debugDrawingManager->AddSphere(physics->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
+                    Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
                 } else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
-                    Managers().debugDrawingManager->AddPlane(physics->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+                    Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
                 }
             }
         }
@@ -226,6 +227,22 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
 
+    {
+        PROFILE("Render z-pass meshes");
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
+
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                // If entity does not have material, it won't be rendered.
+                if (entity->GetComponent<Material>() != nullptr) {
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix,  entity->GetModelMatrix());
+                }
+            }
+        }
+    }
+
     // Render static meshes.
     {
         PROFILE("Render static meshes");
@@ -245,13 +262,13 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     }
 
     /// @todo Render skinned meshes.
-
+    
     // Light the world.
     {
         PROFILE("Light the world");
         LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, renderSurface);
     }
-
+    /*
     // Anti-aliasing.
     if (Hymn().filterSettings.fxaa) {
         PROFILE("Anti-aliasing(FXAA)");
@@ -281,7 +298,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     if (Hymn().filterSettings.color) {
         PROFILE("Color");
         renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
-    }
+    }*/
 
     renderSurface->GetPostProcessingFrameBuffer()->Unbind();
 }

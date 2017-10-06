@@ -1,17 +1,14 @@
 #include "Trigger.hpp"
 
 #include <btBulletDynamicsCommon.h>
-#include "../Component/Physics.hpp"
-#include "RigidBody.hpp"
+#include "../Component/RigidBody.hpp"
 #include "Shape.hpp"
 
 namespace Physics {
 
-    Trigger::Trigger(Component::Physics* comp) : btCollisionWorld::ContactResultCallback() {
+    Trigger::Trigger(const btTransform& transform) : btCollisionWorld::ContactResultCallback() {
         trigger = new btCollisionObject();
-        
-        trigger->setCollisionShape(comp->GetShape().GetShape());
-        trigger->setWorldTransform(comp->GetRigidBody().GetRigidBody()->getWorldTransform());
+        trigger->setWorldTransform(transform);
     }
 
     // Called with each contact for our own processing. This is where we can
@@ -38,8 +35,12 @@ namespace Physics {
         }
     }
 
-    void Trigger::OnEnter(Component::Physics* body, std::function<void()> observer) {
-        observers[body->GetRigidBody().GetRigidBody()] = observer;
+    void Trigger::OnEnter(Component::RigidBody* body, std::function<void()> observer) {
+        observers[body->GetBulletRigidBody()] = observer;
+    }
+
+    void Trigger::SetCollisionShape(btCollisionShape* shape) {
+        trigger->setCollisionShape(shape);
     }
 
 }
