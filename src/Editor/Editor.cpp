@@ -54,6 +54,7 @@ Editor::Editor() {
     cameraEntity->enabled = false;
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
+    cameraEntity->GetComponent<Component::Lens>()->zFar = 1000.f;
 
     // Create cursors.
     cursors[0] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
@@ -92,6 +93,12 @@ void Editor::Show(float deltaTime) {
 
             case 1:
                 savePromptAnswered = true;
+                break;
+
+            case 2:
+                savePromptAnswered = false;
+                close = false;
+                savePromtWindow.ResetDecision();
                 break;
 
             default:
@@ -133,6 +140,10 @@ void Editor::Show(float deltaTime) {
 
             // View menu.
             if (ImGui::BeginMenu("View")) {
+                static bool showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
+                ImGui::MenuItem("Grid Settings", "", &showGridSettings);
+                EditorSettings::GetInstance().SetBool("Grid Settings", showGridSettings);
+
                 static bool soundSources = EditorSettings::GetInstance().GetBool("Sound Source Icons");
                 ImGui::MenuItem("Sound Sources", "", &soundSources);
                 EditorSettings::GetInstance().SetBool("Sound Source Icons", soundSources);
@@ -148,6 +159,10 @@ void Editor::Show(float deltaTime) {
                 static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
                 ImGui::MenuItem("Cameras", "", &cameras);
                 EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
+                
+                static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
+                ImGui::MenuItem("Physics", "", &physics);
+                EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
 
                 ImGui::EndMenu();
             }
@@ -307,16 +322,16 @@ void Editor::Show(float deltaTime) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
                 glm::mat4 orientation = cameraEntity->GetCameraOrientation();
                 glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-                float speed = 10.0f * deltaTime * (glm::length(cameraEntity->position) / 10.0f);
-                cameraEntity->position += speed * backward * 10.0f;
+                float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
+                cameraEntity->position += speed * backward;
             }
         }
         if (Input()->GetScrollUp()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
                 glm::mat4 orientation = cameraEntity->GetCameraOrientation();
                 glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-                float speed = 10.0f * deltaTime * (glm::length(cameraEntity->position) / 10.0f);
-                cameraEntity->position += speed * backward * -10.0f;
+                float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
+                cameraEntity->position += speed * -backward;
             }
         }
 
@@ -351,6 +366,10 @@ void Editor::Save() const {
 
 bool Editor::ReadyToClose() const {
     return savePromptAnswered;
+}
+
+bool Editor::isClosing() const {
+    return close;
 }
 
 void Editor::Close() {

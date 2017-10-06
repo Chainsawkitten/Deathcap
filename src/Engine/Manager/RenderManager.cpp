@@ -1,11 +1,15 @@
 #include "RenderManager.hpp"
 
+#include <Video/FrameBuffer.hpp>
 #include <Video/Renderer.hpp>
 #include <Video/RenderSurface.hpp>
+#include <Video/ReadWriteTexture.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
 #include "SoundManager.hpp"
+#include "PhysicsManager.hpp"
+#include "DebugDrawingManager.hpp"
 #include "Light.png.hpp"
 #include "ParticleEmitter.png.hpp"
 #include "SoundSource.png.hpp"
@@ -18,10 +22,12 @@
 #include "../Component/ParticleEmitter.hpp"
 #include "../Component/DirectionalLight.hpp"
 #include "../Component/PointLight.hpp"
+#include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
+#include "../Component/Physics.hpp"
+#include "../Physics/Shape.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
-#include "../Geometry/Skeleton.hpp"
 #include "../Texture/TextureAsset.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <Video/Culling/Frustum.hpp>
@@ -33,7 +39,7 @@
 #include "Util/Json.hpp"
 #include <Video/Profiling/GPUProfiling.hpp>
 
-#include "Manager/Managers.hpp"
+#include "Manager/VRManager.hpp"
 
 using namespace Component;
 
@@ -41,7 +47,12 @@ RenderManager::RenderManager() {
     renderer = new Video::Renderer();
     
     // Render surface for main window.
-    renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
+    mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
+
+    // Render surface for hmd.
+    hmdRenderSurface = nullptr;
+    if (Managers().vrManager->Active())
+        hmdRenderSurface = new Video::RenderSurface(Managers().vrManager->GetRecommendedRenderTargetSize());
 
     // Init textures.
     particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
@@ -56,132 +67,90 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
     
-    delete renderSurface;
+    delete mainWindowRenderSurface;
+
+    if (hmdRenderSurface != nullptr)
+        delete hmdRenderSurface;
 
     delete renderer;
 }
 
 void RenderManager::Render(World& world, Entity* camera) {
     renderer->Clear();
-    
+
     // Find camera entity.
     if (camera == nullptr) {
-        for (Lens* lens : lenses.GetAll()) {
+        for (Lens* lens : lenses.GetAll())
             camera = lens->entity;
-        }
     }
-    
-    // Render from camera.
+
     if (camera != nullptr) {
-        renderer->StartRendering(renderSurface);
+        // Render main window.
+        if (mainWindowRenderSurface != nullptr) {
+            const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
+            const glm::mat4 orientationMat = camera->GetCameraOrientation();
+            const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
 
-        // Camera matrices.
-        const glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
-        const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(renderSurface->GetSize());
-
-        const std::vector<Mesh*>& meshComponents = meshes.GetAll();
-
-        // Render static meshes.
-        { PROFILE("Render static meshes");
-        { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
-            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
-            for (Mesh* mesh : meshComponents) {
-                if (mesh->IsKilled() || !mesh->entity->enabled)
-                    continue;
-
-                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                    Entity* entity = mesh->entity;
-                    Material* material = entity->GetComponent<Material>();
-                    if (material != nullptr) {
-                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
-                    }
-                }
-            }
-        }
-        }
+            Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
         }
 
-        /// @todo Render skinned meshes.
-        
-        // Light the world.
-        { PROFILE("Light the world");
-        { GPUPROFILE("Light the world", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Light the world", Video::Query::Type::SAMPLES_PASSED);
-            LightWorld(camera, renderSurface);
-        }
-        }
-        }
+        // Render hmd.
+        if (hmdRenderSurface != nullptr) {
+            for (int i = 0; i < 2; ++i)
+            {
+                vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
-        
-        // Anti-aliasing.
-        if (Hymn().filterSettings.fxaa) {
-            { PROFILE("Anti-aliasing(FXAA)");
-            { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-            { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-                renderer->AntiAlias(renderSurface);
-            }
-            }
-            }
-        }
+                glm::vec3 position = camera->GetWorldPosition();
+                Lens* lens = camera->GetComponent<Lens>();
+                const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
-        
-        // Fog.
-        if (Hymn().filterSettings.fog) {
-            { PROFILE("Fog");
-            { GPUPROFILE("Fog", Video::Query::Type::TIME_ELAPSED);
-            { GPUPROFILE("Fog", Video::Query::Type::SAMPLES_PASSED);
-                renderer->RenderFog(renderSurface, camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+                glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
+                glm::mat4 eyeTranslation = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
+
+                glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
+                glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
+                glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
+                glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
+
+                glm::mat4 orientationMat = glm::transpose(glm::mat4(
+                    glm::vec4(right, 0.f),
+                    glm::vec4(up, 0.f),
+                    glm::vec4(forward, 0.f),
+                    glm::vec4(0.f, 0.f, 0.f, 1.f)
+                ));
+                
+                glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
+                glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
+                glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
+                glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
+
+                glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
+
+                Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
+
+                hmdRenderSurface->Swap();
+                vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+
+                // Submit texture to HMD.
+                Managers().vrManager->Submit(nEye, &texture);
             }
-            }
-            }
-        }
             
-        // Render particles.
-        { PROFILE("Render particles");
-        { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Render particles", Video::Query::Type::SAMPLES_PASSED);
-            Managers().particleManager->UpdateBuffer(world);
-            Managers().particleManager->Render(world, camera);
+            //TMP
+            Managers().vrManager->Sync();
         }
-        }
-        }
-       
-        
-        // Glow.
-        if (Hymn().filterSettings.glow) {
-            { PROFILE("Glow");
-            { GPUPROFILE("Glow", Video::Query::Type::TIME_ELAPSED);
-            { GPUPROFILE("Glow", Video::Query::Type::SAMPLES_PASSED);
-                renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
-            }
-            }
-            }
-        }
-        
-        // Color.
-        if (Hymn().filterSettings.color) {
-            { PROFILE("Color");
-            { GPUPROFILE("Color", Video::Query::Type::TIME_ELAPSED);
-            { GPUPROFILE("Color", Video::Query::Type::SAMPLES_PASSED);
-                renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
-            }
-            }
-            }
-        }
-        
+
         // Render to back buffer.
         { PROFILE("Render to back buffer");
         { GPUPROFILE("Render to back buffer", Video::Query::Type::TIME_ELAPSED);
         { GPUPROFILE("Render to back buffer", Video::Query::Type::SAMPLES_PASSED);
-            renderer->DisplayResults(renderSurface, true);
+            renderer->DisplayResults(mainWindowRenderSurface, true);
         }
         }
         }
     }
 }
 
-void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras) {
+void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
     // Find camera entity.
     if (camera == nullptr) {
         for (Lens* lens : lenses.GetAll()) {
@@ -191,11 +160,11 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
     
     // Render from camera.
     if (camera != nullptr) {
-        glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
-        glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
-        glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        glm::vec3 up(glm::inverse(camera->GetCameraOrientation())* glm::vec4(0, 1, 0, 1));
+        const glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
+        const glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
+        const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
+        const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
+        const glm::vec3 up(glm::inverse(camera->GetCameraOrientation()) * glm::vec4(0, 1, 0, 1));
         
         renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
         
@@ -230,13 +199,149 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         }
         
         renderer->StopRenderingIcons();
+        
+        // Render physics.
+        if (physics) {
+            for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
+                const ::Physics::Shape& shape = shapeComp->GetShape();
+                if (shape.GetKind() == ::Physics::Shape::Kind::Sphere) {
+                    Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
+                } else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
+                    Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+                }
+            }
+        }
     }
 }
 
 void RenderManager::UpdateBufferSize() {
-    delete renderSurface;
+    delete mainWindowRenderSurface;
 
-    renderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
+    mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
+}
+
+void RenderManager::Render(World& world, const glm::mat4& translationMatrix, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
+    // Render from camera.
+    renderer->StartRendering(renderSurface);
+
+    // Camera matrices.
+    const glm::vec3 position = glm::vec3(translationMatrix[3][0], translationMatrix[3][1], translationMatrix[3][2]);
+    const glm::vec3 up = glm::vec3(glm::inverse(orientationMatrix) * glm::vec4(0, 1, 0, 1));
+    const glm::mat4 viewMatrix = orientationMatrix * translationMatrix;
+    const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
+
+    const std::vector<Mesh*>& meshComponents = meshes.GetAll();
+
+    { PROFILE("Render z-pass meshes");
+    { GPUPROFILE("Render z-pass meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render z-pass meshes", Video::Query::Type::SAMPLES_PASSED);
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
+
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                // If entity does not have material, it won't be rendered.
+                if (entity->GetComponent<Material>() != nullptr) {
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
+                }
+            }
+        }
+    }
+    }
+    }
+
+    // Render static meshes.
+    { PROFILE("Render static meshes");
+    { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
+        renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
+
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                Material* material = entity->GetComponent<Material>();
+                if (material != nullptr) {
+                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
+                }
+            }
+        }
+    }
+    }
+    }
+
+    /// @todo Render skinned meshes.
+    
+    // Light the world.
+    { PROFILE("Light the world");
+    { //GPUPROFILE("Light the world", Video::Query::Type::TIME_ELAPSED);
+    { //GPUPROFILE("Light the world", Video::Query::Type::SAMPLES_PASSED);
+        LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, renderSurface);
+    }
+    }
+    }
+
+    /*
+    // Anti-aliasing.
+    if (Hymn().filterSettings.fxaa) {
+        { PROFILE("Anti-aliasing(FXAA)");
+        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+            renderer->AntiAlias(renderSurface);
+        }
+        }
+        }
+    }
+    
+    
+    // Fog.
+    if (Hymn().filterSettings.fog) {
+        { PROFILE("Fog");
+        { GPUPROFILE("Fog", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Fog", Video::Query::Type::SAMPLES_PASSED);
+            renderer->RenderFog(renderSurface, projectionMatrix, Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+        }
+        }
+        }
+    }
+    
+    // Render particles.
+    { PROFILE("Render particles");
+    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render particles", Video::Query::Type::SAMPLES_PASSED);
+        Managers().particleManager->UpdateBuffer(world);
+        Managers().particleManager->Render(world, position, up, viewProjectionMatrix);
+    }
+    }
+    }
+    
+    
+    // Glow.
+    if (Hymn().filterSettings.glow) {
+        { PROFILE("Glow");
+        { GPUPROFILE("Glow", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Glow", Video::Query::Type::SAMPLES_PASSED);
+            renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
+        }
+        }
+        }
+    }
+    
+    // Color.
+    if (Hymn().filterSettings.color) {
+        { PROFILE("Color");
+        { GPUPROFILE("Color", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Color", Video::Query::Type::SAMPLES_PASSED);
+            renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
+        }
+        }
+        }
+    }
+    */
+
+    renderSurface->GetPostProcessingFrameBuffer()->Unbind();
 }
 
 Component::Animation* RenderManager::CreateAnimation() {
@@ -387,12 +492,8 @@ void RenderManager::ClearKilledComponents() {
     spotLights.ClearKilled();
 }
 
-void RenderManager::LightWorld(const Entity* camera, Video::RenderSurface* renderSurface) {
-    // Get the camera matrices.
-    glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
-    glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
-    glm::mat4 viewProjectionMat(projectionMat * viewMat);
-    
+void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, Video::RenderSurface* renderSurface) {
+
     float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
     
@@ -404,7 +505,7 @@ void RenderManager::LightWorld(const Entity* camera, Video::RenderSurface* rende
         Entity* lightEntity = directionalLight->entity;
         glm::vec4 direction(glm::vec4(lightEntity->GetDirection(), 0.f));
         Video::Light light;
-        light.position = viewMat * -direction;
+        light.position = viewMatrix * -direction;
         light.intensities = directionalLight->color;
         light.attenuation = 1.f;
         light.ambientCoefficient = directionalLight->ambientCoefficient;
@@ -419,10 +520,10 @@ void RenderManager::LightWorld(const Entity* camera, Video::RenderSurface* rende
             continue;
         
         Entity* lightEntity = spotLight->entity;
-        glm::vec4 direction(viewMat * glm::vec4(lightEntity->GetDirection(), 0.f));
+        glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
         glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
         Video::Light light;
-        light.position = viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
+        light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
         light.intensities = spotLight->color * spotLight->intensity;
         light.attenuation = spotLight->attenuation;
         light.ambientCoefficient = spotLight->ambientCoefficient;
@@ -443,11 +544,11 @@ void RenderManager::LightWorld(const Entity* camera, Video::RenderSurface* rende
         float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
         
-        Video::Frustum frustum(viewProjectionMat * modelMat);
+        Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             Video::Light light;
-            light.position = viewMat * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
+            light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
             light.intensities = pointLight->color * pointLight->intensity;
             light.attenuation = pointLight->attenuation;
             light.ambientCoefficient = pointLight->ambientCoefficient;
@@ -458,7 +559,7 @@ void RenderManager::LightWorld(const Entity* camera, Video::RenderSurface* rende
     }
     
     // Render lights.
-    renderer->Light(glm::inverse(projectionMat), renderSurface);
+    renderer->Light(glm::inverse(projectionMatrix), renderSurface);
 }
 
 void RenderManager::LoadTexture(TextureAsset*& texture, const std::string& name) {

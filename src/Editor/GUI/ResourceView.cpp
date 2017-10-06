@@ -7,7 +7,7 @@
 #include <Engine/Util/FileSystem.hpp>
 #include <Editor/Util/EditorSettings.hpp>
 #include <Engine/Hymn.hpp>
-#include <Engine/Entity/Entity.hpp>
+#include <DefaultAlbedo.png.hpp>
 #include <Engine/MainWindow.hpp>
 #include <imgui.h>
 #include <limits>
@@ -46,7 +46,7 @@ void ResourceView::Show() {
         for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
             if (ImGui::Selectable(Resources().scenes[i].c_str())) {
                 // Sets to dont save when opening first scene.
-                if (Resources().activeScene == -1) {
+                if (sceneIndex == -1) {
                     changeScene = true;
                     sceneIndex = i;
                     savePromptWindow.SetVisible(false);
@@ -113,6 +113,12 @@ void ResourceView::Show() {
                     savePromptWindow.ResetDecision();
                     break;
 
+                case 2:
+                    changeScene = false;
+                    savePromptWindow.ResetDecision();
+                    savePromptWindow.SetVisible(false);
+                    break;
+
                 default:
                     break;
                 }
@@ -156,8 +162,8 @@ void ResourceView::Show() {
     bool texturePressed = false;
     if (ImGui::TreeNode("Textures")) {
         if (ImGui::Button("Add texture")) {
-            TextureAsset* texture = new TextureAsset();
-            texture->name = "Texture #" + std::to_string(Resources().textureNumber++);
+            string name = "Texture #" + std::to_string(Resources().textureNumber++);
+            TextureAsset* texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
             Resources().textures.push_back(texture);
         }
         
