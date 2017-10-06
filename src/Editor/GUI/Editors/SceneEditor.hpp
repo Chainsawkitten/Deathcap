@@ -18,9 +18,10 @@ namespace GUI {
             
             /// Set the scene to edit.
             /**
+             * @param path Path to the folder containing the scene.
              * @param scene Scene to edit.
              */
-            void SetScene(std::string* scene);
+            void SetScene(const std::string& path, std::string* scene);
             
             /// Get whether the window is visible.
             /**
@@ -49,6 +50,7 @@ namespace GUI {
             
             bool visible = false;
             
+            std::string path;
             std::string* scene = nullptr;
             char name[128];
             

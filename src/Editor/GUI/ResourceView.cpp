@@ -54,7 +54,7 @@ void ResourceView::Show() {
             case 0:
                 sceneEditor.Save();
                 sceneEditor.SetVisible(true);
-                sceneEditor.SetScene(scene);
+                sceneEditor.SetScene(resourcePath, scene);
                 Resources().activeScene = resourcePath + "/" + *scene;
                 sceneEditor.entityEditor.SetVisible(false);
                 Hymn().world.Clear();
@@ -66,7 +66,7 @@ void ResourceView::Show() {
                 
             case 1:
                 sceneEditor.SetVisible(true);
-                sceneEditor.SetScene(scene);
+                sceneEditor.SetScene(resourcePath, scene);
                 Resources().activeScene = resourcePath + "/" + *scene;
                 sceneEditor.entityEditor.SetVisible(false);
                 Hymn().world.Clear();
@@ -153,7 +153,7 @@ void ResourceView::SaveScene() const {
 
 #undef max
 void ResourceView::ResetScene() {
-    sceneEditor.SetScene(nullptr);
+    sceneEditor.SetScene("", nullptr);
     sceneEditor.SetVisible(false);
 }
 
@@ -252,7 +252,7 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
             if (ImGui::Selectable("Delete")) {
                 if (Resources().activeScene == resource.scene) {
                     Resources().activeScene = "";
-                    sceneEditor.SetScene(nullptr);
+                    sceneEditor.SetScene("", nullptr);
                 }
                 
                 ImGui::EndPopup();

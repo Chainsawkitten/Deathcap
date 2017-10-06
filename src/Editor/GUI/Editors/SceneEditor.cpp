@@ -67,8 +67,9 @@ void SceneEditor::Show() {
     ImGui::End();
 }
 
-void SceneEditor::SetScene(std::string* scene) {
+void SceneEditor::SetScene(const std::string& path, std::string* scene) {
     entityEditor.SetVisible(false);
+    this->path = path;
     this->scene = scene;
     
     if (scene != nullptr) {
@@ -88,7 +89,7 @@ void SceneEditor::SetVisible(bool visible) {
 
 void SceneEditor::Save() const {
     if (scene != nullptr)
-        Hymn().world.Save(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + *scene + ".json");
+        Hymn().world.Save(Hymn().GetPath() + "/" + path + "/" + *scene + ".json");
 }
 
 void SceneEditor::ShowEntity(Entity* entity) {
