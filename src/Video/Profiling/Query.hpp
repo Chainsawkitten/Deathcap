@@ -5,7 +5,7 @@
 
 namespace Video {
 
-    /// Render surface containing framebuffers.
+    /// Queries information from the GPU.
     class Query {
         public:
             /// Query types.
@@ -42,6 +42,7 @@ namespace Video {
             std::uint64_t Resolve() const;
             
         private:
+            Query(const Query & other) = delete;
 
             Type type;
 

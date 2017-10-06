@@ -52,6 +52,7 @@ set(SRCS
         Physics/Shape.cpp
         Physics/Trigger.cpp
         Util/FileSystem.cpp
+        Util/GPUProfiling.cpp
         Util/Input.cpp
         Util/Json.cpp
         Util/MousePicking.cpp
@@ -112,6 +113,7 @@ set(HEADERS
         Physics/Shape.hpp
         Physics/Trigger.hpp
         Util/FileSystem.hpp
+        Util/GPUProfiling.hpp
         Util/Input.hpp
         Util/Json.hpp
         Util/MousePicking.hpp

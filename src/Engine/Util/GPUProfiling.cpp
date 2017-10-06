@@ -1,7 +1,7 @@
 #include "GPUProfiling.hpp"
 
 #include <assert.h>
-#include <Engine/Manager/Managers.hpp>
+#include "Engine/Manager/Managers.hpp"
 #include <Utility/Log.hpp>
 
 GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) : active(false) {
