@@ -424,7 +424,6 @@ void Editor::Show(float deltaTime) {
             if (currentOperation == ImGuizmo::ROTATE) {
                 currentEntity->rotation.x = rotationValue[0];
                 currentEntity->rotation.y = rotationValue[1];
-
                 currentEntity->rotation.z = rotationValue[2];
             }
 
