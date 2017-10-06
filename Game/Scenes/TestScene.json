@@ -78,13 +78,6 @@
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"shape" : 
-				{
-					"sphere" : 
-					{
-						"radius" : 1.0
-					}
-				},
 				"velocity" : 
 				{
 					"x" : 0.0,
@@ -93,9 +86,20 @@
 				},
 				"velocityDragFactor" : 1.0
 			},
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
 			"Script" : 
 			{
 				"scriptName" : "Cart"
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
 			},
 			"children" : 
 			[
@@ -115,60 +119,47 @@
 						{
 							"Controller" : 
 							{
-								"controllerID" : 1
-							},
-							"Material" : 
-							{
-								"albedo" : "",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : ""
-							},
-							"Mesh" : 
-							{
-								"model" : "controller"
-							},
-							"children" : null,
-							"name" : "LeftCtrl",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 0.25,
-								"y" : 0.25,
-								"z" : 0.25
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1507122300
-						},
-						{
-							"Controller" : 
-							{
 								"controllerID" : 2
 							},
-							"Material" : 
-							{
-								"albedo" : "",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : ""
-							},
-							"Mesh" : 
-							{
-								"model" : "controller"
-							},
-							"children" : null,
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
+									"Mesh" : 
+									{
+										"model" : "controller"
+									},
+									"children" : null,
+									"name" : "RightCtrlModel",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"x" : -90.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 0.25,
+										"y" : 0.25,
+										"z" : 0.25
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1507278061
+								}
+							],
 							"name" : "RightCtrl",
 							"position" : 
 							{
@@ -184,13 +175,80 @@
 							},
 							"scale" : 
 							{
-								"x" : 0.25,
-								"y" : 0.25,
-								"z" : 0.25
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
 							},
 							"scene" : false,
 							"static" : false,
 							"uid" : 1507122304
+						},
+						{
+							"Controller" : 
+							{
+								"controllerID" : 1
+							},
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
+									"Mesh" : 
+									{
+										"model" : "controller"
+									},
+									"children" : null,
+									"name" : "LeftCtrlModel",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"x" : -90.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 0.25,
+										"y" : 0.25,
+										"z" : 0.25
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1507122300
+								}
+							],
+							"name" : "LeftCtrl",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1507277881
 						}
 					],
 					"name" : "Player",
@@ -391,19 +449,6 @@
 							"y" : 1.0,
 							"z" : 1.0
 						},
-						"shape" : 
-						{
-							"plane" : 
-							{
-								"normal" : 
-								{
-									"x" : 0.0,
-									"y" : 0.0,
-									"z" : 1.0
-								},
-								"planeCoeff" : 450.0
-							}
-						},
 						"velocity" : 
 						{
 							"x" : 0.0,
@@ -411,6 +456,23 @@
 							"z" : 0.0
 						},
 						"velocityDragFactor" : 1.0
+					},
+					"RigidBody" : 
+					{
+						"mass" : 1.0
+					},
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 1.0
+							},
+							"planeCoeff" : 450.0
+						}
 					},
 					"children" : null,
 					"name" : "StopTrigger",

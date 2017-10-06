@@ -20,10 +20,11 @@ void SavePromptWindow::Show() {
             decision = 1;
             ImGui::CloseCurrentPopup();
         }
-        //if (ImGui::Button("cancel", ImVec2(120, 0))) {
-        //    decision = 2;
-        //    ImGui::CloseCurrentPopup();
-        //}
+        ImGui::SameLine();
+        if (ImGui::Button("cancel", ImVec2(120, 0))) {
+            decision = 2;
+            ImGui::CloseCurrentPopup();
+        }
         ImGui::EndPopup();
         
     }

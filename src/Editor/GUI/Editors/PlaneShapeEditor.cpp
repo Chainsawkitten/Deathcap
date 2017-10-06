@@ -1,13 +1,15 @@
 #include "PlaneShapeEditor.hpp"
 
-#include <Engine/Component/Physics.hpp>
+#include <Engine/Component/Shape.hpp>
+#include <Engine/Manager/Managers.hpp>
+#include <Engine/Manager/PhysicsManager.hpp>
 #include <Engine/Physics/Shape.hpp>
 #include <glm/glm.hpp>
 #include <imgui.h>
 
 namespace GUI {
 
-    void PlaneShapeEditor::Show(Component::Physics* comp) {
+    void PlaneShapeEditor::Show(Component::Shape* comp) {
         ImGui::Indent();
 
         if (ImGui::InputFloat3("Normal", normal)) {
@@ -21,9 +23,8 @@ namespace GUI {
         ImGui::Unindent();
     }
 
-    void PlaneShapeEditor::Apply(Component::Physics* comp) {
-        Physics::Shape* shape = new Physics::Shape(Physics::Shape::Plane(glm::vec3(normal[0], normal[1], normal[2]), planeCoeff));
-        comp->SetShape(shape);
+    void PlaneShapeEditor::Apply(Component::Shape* comp) {
+        Managers().physicsManager->SetShape(comp, new Physics::Shape(Physics::Shape::Plane(glm::vec3(normal[0], normal[1], normal[2]), planeCoeff)));
     }
 
     bool PlaneShapeEditor::SetFromShape(const Physics::Shape& shape) {
