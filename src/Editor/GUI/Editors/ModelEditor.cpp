@@ -9,6 +9,8 @@
 #include "Util/AssetMetaData.hpp"
 #include <Utility/Log.hpp>
 #include "../../Resources.hpp"
+#include <Engine/Animation/AnimationClip.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 
 using namespace GUI;
 
@@ -46,10 +48,10 @@ void ModelEditor::Show() {
         }
 
         if (hasSourceFile) {
-            ImGui::Text("Mesh Data");
+            ImGui::Text("Mesh");
             ImGui::Checkbox("Triangulate", &triangulate);
-            ImGui::Checkbox("Import Normals", &importNormals);
-            ImGui::Checkbox("Import Tangents", &importTangents);
+            ImGui::Checkbox("Import normals", &importNormals);
+            ImGui::Checkbox("Import tangents", &importTangents);
 
             std::string button = isImported ? "Re-import" : "Import";
 
@@ -72,9 +74,15 @@ void ModelEditor::Show() {
                 importData = nullptr;
             }
 
-            if (ImGui::Button("Import anim")) {
+            bool bindPose = false; 
+            ImGui::Text("Animation");
+            ImGui::Checkbox("Bindpose", &bindPose);
+
+            if (ImGui::Button("Import animation")) {
+
                 AssetConverterSkeleton asset;
                 asset.Convert(source.c_str(), destination.c_str(), false);
+                Resources().animationClips.push_back(new Animation::AnimationClip);
             }
 
             if (isImported)

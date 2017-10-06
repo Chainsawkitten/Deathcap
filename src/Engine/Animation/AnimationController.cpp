@@ -1,4 +1,6 @@
 #include "AnimationController.hpp"
+#include "Skeleton.hpp"
+#include "AnimationClip.hpp"
 
 using namespace Animation;
 

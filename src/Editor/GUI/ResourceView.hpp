@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Editors/AnimationControllerEditor.hpp"
 #include "Editors/ModelEditor.hpp"
 #include "Editors/SceneEditor.hpp"
 #include "Editors/SoundEditor.hpp"
@@ -50,6 +51,7 @@ namespace GUI {
         private:
             bool visible = false;
             
+            AnimationControllerEditor animationControllerEditor;
             ScriptEditor scriptEditor;
             SceneEditor sceneEditor;
             ModelEditor modelEditor;

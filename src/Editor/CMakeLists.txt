@@ -13,6 +13,7 @@ set(SRCS
         GUI/FileSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
+	GUI/Editors/AnimationControllerEditor.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
         GUI/Editors/PlaneShapeEditor.cpp
@@ -41,6 +42,7 @@ set(HEADERS
         GUI/FileSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
+	GUI/Editors/AnimationControllerEditor.hpp
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/IShapeEditor.hpp
         GUI/Editors/ModelEditor.hpp

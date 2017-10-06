@@ -89,8 +89,7 @@ void ResourceView::Show() {
                 savePromptWindow.SetVisible(true);
                 savePromptWindow.Show();
 
-                switch (savePromptWindow.GetDecision())
-                {
+                switch (savePromptWindow.GetDecision()) {
                 case 0:
                     sceneEditor.Save();
                     sceneEditor.SetVisible(true);
@@ -156,10 +155,9 @@ void ResourceView::Show() {
     }
 
     // Animations.
-    bool animation = false;
+    bool animationPressed = false;
     if (ImGui::TreeNode("Animations")) {
-        bool skeleton = false;
-
+        // Animation controllers.
         if (ImGui::TreeNode("Animation controllers")) {
             if (ImGui::Button("Add animation controller")) {
                 Animation::AnimationController* animationController = new Animation::AnimationController();
@@ -169,16 +167,14 @@ void ResourceView::Show() {
 
             for (auto it = Resources().animationControllers.begin(); it != Resources().animationControllers.end(); ++it) {
                 Animation::AnimationController* animationController = *it;
+
                 if (ImGui::Selectable(animationController->name.c_str())) {
-                //   modelPressed = true;
-                //   modelEditor.SetModel(animationController);
+                    animationPressed = true;
+                    animationControllerEditor.SetAnimationController(animationController);
                 }
 
                 if (ImGui::BeginPopupContextItem(animationController->name.c_str())) {
                     if (ImGui::Selectable("Delete")) {
-                        //if (modelEditor.GetModel() == animationController)
-                        //    modelEditor.SetVisible(false);
-
                         delete animationController;
                         Resources().animationControllers.erase(it);
                         ImGui::EndPopup();
@@ -191,8 +187,25 @@ void ResourceView::Show() {
             ImGui::TreePop();
         }
 
-        if (ImGui::TreeNode("Animation clips"))
+        if (ImGui::TreeNode("Animation clips")) {
+            for (auto it = Resources().animationClips.begin(); it != Resources().animationClips.end(); ++it) {
+                Animation::AnimationClip* clip = *it;
+
+                ImGui::Selectable(clip->name.c_str());
+
+                if (ImGui::BeginPopupContextItem(clip->name.c_str())) {
+                    if (ImGui::Selectable("Delete")) {
+                        delete clip;
+                        Resources().animationClips.erase(it);
+                        ImGui::EndPopup();
+                        break;
+                    }
+                    ImGui::EndPopup();
+                }
+            }
+
             ImGui::TreePop();
+        }
 
         if (ImGui::TreeNode("Skeletons"))
             ImGui::TreePop();
@@ -309,11 +322,12 @@ void ResourceView::Show() {
         ImGui::TreePop();
     }
 
-    if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
+    if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || animationPressed || soundPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
         scriptEditor.SetVisible(scriptPressed);
         textureEditor.SetVisible(texturePressed);
         modelEditor.SetVisible(modelPressed);
+        animationControllerEditor.SetVisible(animationPressed);
         soundEditor.SetVisible(soundPressed);
     }
 
@@ -332,7 +346,9 @@ void ResourceView::Show() {
         ImGui::SetNextWindowPos(ImVec2(size.x - editorWidth, 20));
         ImGui::SetNextWindowSize(ImVec2(editorWidth, size.y - 20));
     }
-
+    
+    if (animationControllerEditor.IsVisible())
+        animationControllerEditor.Show();
     if (sceneEditor.entityEditor.IsVisible())
         sceneEditor.entityEditor.Show();
     if (scriptEditor.IsVisible())
@@ -356,6 +372,7 @@ void ResourceView::SetVisible(bool visible) {
 }
 
 void ResourceView::HideEditors() {
+    animationControllerEditor.SetVisible(false);
     sceneEditor.SetVisible(false);
     sceneEditor.entityEditor.SetVisible(false);
     scriptEditor.SetVisible(false);

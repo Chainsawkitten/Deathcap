@@ -91,7 +91,7 @@ void ResourceManager::FreeAnimationController(Animation::AnimationController * a
 
 Animation::Skeleton* ResourceManager::CreateSkeleton(const std::string& name) {
     if (skeletons.find(name) == skeletons.end()) {
-        Animation::Skeleton* skeleton = new Animation::Skeleton();
+        Animation::Skeleton* skeleton = new Animation::Skeleton;
         skeleton->Load(name);
         skeletons[name].skeleton = skeleton;
         skeletonsInverse[skeleton] = name;

@@ -1,3 +1,6 @@
+#pragma once
+
+#include "Skeleton.hpp"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -8,7 +11,7 @@ namespace Animation {
     /// An animation loaded from a file.
     class AnimationClip {
         public:
-            /// Dock
+            /// Bone data.
             struct Bone {
                 uint32_t parent;
                 uint32_t numRotationKeys;
@@ -16,6 +19,11 @@ namespace Animation {
                 glm::mat4* rotations = nullptr;
 
                 ~Bone() {
+                    if (rotationKeys != nullptr)
+                        delete[] rotationKeys;
+
+                    if (rotations != nullptr)
+                        delete[] rotations;
                 }
 
                 void Save(std::ofstream * file) {
@@ -44,6 +52,7 @@ namespace Animation {
                 }
             };
 
+            /// Animation data.
             struct Animation {
                 uint32_t numBones;
                 Bone* bones = nullptr;
@@ -58,16 +67,29 @@ namespace Animation {
 
                     if (bones != nullptr)
                         delete[] bones;
+
                     bones = new Bone[numBones];
                     file->read(reinterpret_cast<char*>(bones), sizeof(Bone) * numBones);
                 }
             };
 
-
+            /// Load.
+            /**
+             * @param name Name of animation.
+             */
             void Load(const std::string& name);
 
-            std::string name;
-        private:
+            /// Play animation.
+            /**
+             * @param deltaTime Time of last frame.
+             * @param playbackSpeed Modifier of playback speed.
+             */
+            void Play(float deltaTime, const Skeleton& skeleton, float playbackSpeed = 1.0f);
 
+            /// Name of animation clip.
+            std::string name;
+
+        private:
+            Animation * animation = nullptr;
     };
 }
