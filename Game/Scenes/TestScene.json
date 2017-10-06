@@ -119,60 +119,47 @@
 						{
 							"Controller" : 
 							{
-								"controllerID" : 1
-							},
-							"Material" : 
-							{
-								"albedo" : "",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : ""
-							},
-							"Mesh" : 
-							{
-								"model" : "controller"
-							},
-							"children" : null,
-							"name" : "LeftCtrl",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 0.25,
-								"y" : 0.25,
-								"z" : 0.25
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1507122300
-						},
-						{
-							"Controller" : 
-							{
 								"controllerID" : 2
 							},
-							"Material" : 
-							{
-								"albedo" : "",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : ""
-							},
-							"Mesh" : 
-							{
-								"model" : "controller"
-							},
-							"children" : null,
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
+									"Mesh" : 
+									{
+										"model" : "controller"
+									},
+									"children" : null,
+									"name" : "RightCtrlModel",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"x" : -90.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 0.25,
+										"y" : 0.25,
+										"z" : 0.25
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1507278061
+								}
+							],
 							"name" : "RightCtrl",
 							"position" : 
 							{
@@ -188,13 +175,80 @@
 							},
 							"scale" : 
 							{
-								"x" : 0.25,
-								"y" : 0.25,
-								"z" : 0.25
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
 							},
 							"scene" : false,
 							"static" : false,
 							"uid" : 1507122304
+						},
+						{
+							"Controller" : 
+							{
+								"controllerID" : 1
+							},
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
+									"Mesh" : 
+									{
+										"model" : "controller"
+									},
+									"children" : null,
+									"name" : "LeftCtrlModel",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"x" : -90.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 0.25,
+										"y" : 0.25,
+										"z" : 0.25
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1507122300
+								}
+							],
+							"name" : "LeftCtrl",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1507277881
 						}
 					],
 					"name" : "Player",
