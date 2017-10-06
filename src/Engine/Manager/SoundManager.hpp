@@ -2,6 +2,8 @@
 
 #include <AL/alc.h>
 #include "../Entity/ComponentContainer.hpp"
+#include "portaudio.h"
+#include <queue>
 
 namespace Component {
     class SoundSource;
@@ -83,9 +85,12 @@ class SoundManager {
         ~SoundManager();
         SoundManager(SoundManager const&) = delete;
         void operator=(SoundManager const&) = delete;
+        static int fillOutputBufferCallback(const void* inputBuffer, void* outputBuffer,
+            unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo,
+            PaStreamCallbackFlags statusFlags, void* userData);
         
-        ALCdevice* device;
-        ALCcontext* context;
+        PaStream* stream;
+        static char* processedFrameSamples[2];
         
         float volume = 1.f;
         

@@ -46,6 +46,9 @@ namespace Component {
             
             /// Whether the sound should loop.
             bool loop = false;
+
+            /// Place in buffer
+            size_t place = 0;
             
         private:
             ALuint source;

@@ -45,7 +45,13 @@ namespace Audio {
              * @param soundFile The sound file containing the sound.
              */
             void Load(SoundFile* soundFile);
-            
+
+            /// Get size of buffer.
+            /**
+             * @return size_t The size of the buffer.
+             */
+            size_t GetSize();
+
             /// The name of the sound.
             std::string name;
             
