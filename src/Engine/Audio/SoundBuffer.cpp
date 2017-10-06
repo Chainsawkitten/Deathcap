@@ -33,7 +33,7 @@ Json::Value SoundBuffer::Save() const {
 void SoundBuffer::Load(const std::string& name) {
     std::size_t pos = name.find_last_of('/');
     this->name = name.substr(pos + 1);
-    this->path = name.substr(0, pos + 1);
+    path = name.substr(0, pos + 1);
     SoundFile* soundFile = new VorbisFile((Hymn().GetPath() + "/" + name + ".ogg").c_str());
     Load(soundFile);
     delete soundFile;

@@ -3,6 +3,7 @@
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
+#include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
@@ -20,6 +21,8 @@ string ResourceList::Resource::GetName() const {
         return texture->name;
     case Type::SOUND:
         return sound->name;
+    case Type::SCRIPT:
+        return script->name;
     default:
         return "";
     }
@@ -46,6 +49,7 @@ void ResourceList::Save() const {
     root["textureNumber"] = textureNumber;
     root["modelNumber"] = modelNumber;
     root["soundNumber"] = soundNumber;
+    root["scriptNumber"] = scriptNumber;
     
     // Save to file.
     ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
@@ -67,6 +71,7 @@ void ResourceList::Load() {
     textureNumber = root["textureNumber"].asUInt();
     modelNumber = root["modelNumber"].asUInt();
     soundNumber = root["soundNumber"].asUInt();
+    scriptNumber = root["scriptNumber"].asUInt();
 }
 
 void ResourceList::Clear() {
@@ -77,6 +82,7 @@ void ResourceList::Clear() {
     modelNumber = 0U;
     textureNumber = 0U;
     soundNumber = 0U;
+    scriptNumber = 0U;
 }
 
 Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
@@ -97,6 +103,9 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
         resourceNode["type"] = resource.type;
         
         switch (resource.type) {
+        case Resource::SCENE:
+            resourceNode["scene"] = resource.scene;
+            break;
         case Resource::TEXTURE:
             resourceNode["texture"] = resource.texture->name;
             resource.texture->Save();
@@ -109,8 +118,9 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
             resourceNode["sound"] = resource.sound->name;
             resource.sound->Save();
             break;
-        case Resource::SCENE:
-            resourceNode["scene"] = resource.scene;
+        case Resource::SCRIPT:
+            resourceNode["script"] = resource.script->name;
+            resource.script->Save();
             break;
         }
         
@@ -139,6 +149,9 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
         resource.type = static_cast<Resource::Type>(resourceNode["type"].asInt());
         
         switch (resource.type) {
+        case Resource::SCENE:
+            resource.scene = resourceNode["scene"].asString();
+            break;
         case Resource::TEXTURE:
             resource.texture = Managers().resourceManager->CreateTextureAsset(path + resourceNode["texture"].asString());
             break;
@@ -146,10 +159,10 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
             resource.model = Managers().resourceManager->CreateModel(path + resourceNode["model"].asString());
             break;
         case Resource::SOUND:
-            resource.sound = Managers().resourceManager->CreateSound(resourceNode["sound"].asString());
+            resource.sound = Managers().resourceManager->CreateSound(path + resourceNode["sound"].asString());
             break;
-        case Resource::SCENE:
-            resource.scene = resourceNode["scene"].asString();
+        case Resource::SCRIPT:
+            resource.script = Managers().resourceManager->CreateScriptFile(path + resourceNode["script"].asString());
             break;
         }
         

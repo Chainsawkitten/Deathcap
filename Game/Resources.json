@@ -41,11 +41,28 @@
 			{
 				"texture" : "Texture #3",
 				"type" : 2
+			},
+			{
+				"script" : "Player",
+				"type" : 4
+			},
+			{
+				"script" : "Cart",
+				"type" : 4
+			},
+			{
+				"script" : "Lever",
+				"type" : 4
+			},
+			{
+				"script" : "Gates",
+				"type" : 4
 			}
 		],
 		"subfolders" : null
 	},
 	"sceneNumber" : 1,
+	"scriptNumber" : 0,
 	"soundNumber" : 0,
 	"textureNumber" : 4
 }

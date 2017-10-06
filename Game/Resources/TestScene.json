@@ -92,7 +92,7 @@
 			},
 			"Script" : 
 			{
-				"scriptName" : "Cart"
+				"scriptName" : "Resources/Cart"
 			},
 			"Shape" : 
 			{
@@ -112,7 +112,7 @@
 					},
 					"Script" : 
 					{
-						"scriptName" : "Player"
+						"scriptName" : "Resources/Player"
 					},
 					"children" : null,
 					"name" : "Player",
@@ -216,7 +216,7 @@
 					},
 					"Script" : 
 					{
-						"scriptName" : "Lever"
+						"scriptName" : "Resources/Lever"
 					},
 					"children" : null,
 					"name" : "Lever",
@@ -256,7 +256,7 @@
 					},
 					"Script" : 
 					{
-						"scriptName" : "Gates"
+						"scriptName" : "Resources/Gates"
 					},
 					"children" : null,
 					"name" : "Gates",

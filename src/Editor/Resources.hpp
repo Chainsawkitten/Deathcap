@@ -31,7 +31,8 @@ class ResourceList {
                 SCENE = 0,
                 MODEL,
                 TEXTURE,
-                SOUND
+                SOUND,
+                SCRIPT
             } type;
             
             /// Scene name.
@@ -45,6 +46,9 @@ class ResourceList {
             
             /// Sound.
             Audio::SoundBuffer* sound;
+            
+            /// Script.
+            ScriptFile* script;
         };
         
         /// A folder containing resources.
@@ -85,6 +89,9 @@ class ResourceList {
     
         /// The id of the next sound to create.
         unsigned int soundNumber = 0U;
+        
+        /// The id of the next script to create.
+        unsigned int scriptNumber = 0U;
         
     private:
         static ResourceList& GetInstance();

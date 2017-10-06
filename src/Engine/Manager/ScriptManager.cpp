@@ -366,7 +366,7 @@ ScriptManager::~ScriptManager() {
 }
 
 void ScriptManager::BuildScript(const std::string& name) {
-    std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scripts" + FileSystem::DELIMITER + name + ".as";
+    std::string filename = Hymn().GetPath() + "/" + name + ".as";
     if (!FileSystem::FileExists(filename.c_str())) {
         Log() << "Script file does not exist: " << filename << "\n";
         return;
@@ -388,7 +388,7 @@ void ScriptManager::BuildScript(const std::string& name) {
 }
 
 void ScriptManager::BuildAllScripts() {
-    std::string path = Hymn().GetPath() + FileSystem::DELIMITER + "Scripts" + FileSystem::DELIMITER;
+    std::string path = Hymn().GetPath() + "/";
     
     for (ScriptFile* file : Hymn().scripts) {
         std::string filename = path + file->name + ".as";
