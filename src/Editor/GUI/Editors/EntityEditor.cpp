@@ -245,15 +245,12 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        /// @todo Select texture.
-        /*for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->normal != Hymn().defaultNormal)
-                    Managers().resourceManager->FreeTextureAsset(material->normal);
-                
-                material->normal = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
-        }*/
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->normal != Hymn().defaultNormal)
+                Managers().resourceManager->FreeTextureAsset(material->normal);
+            
+            material->normal = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
+        }
         
         ImGui::EndPopup();
     }
@@ -272,18 +269,12 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        /// @todo Select texture.
-        /*for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->metallic = texture;
-
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->metallic != Hymn().defaultMetallic)
-                    Managers().resourceManager->FreeTextureAsset(material->metallic);
-                
-                material->metallic = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
-        }*/
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->metallic != Hymn().defaultMetallic)
+                Managers().resourceManager->FreeTextureAsset(material->metallic);
+            
+            material->metallic = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
+        }
         
         ImGui::EndPopup();
     }
@@ -302,18 +293,12 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        /// @todo Select texture.
-        /*for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->roughness = texture;
-
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->roughness != Hymn().defaultRoughness)
-                    Managers().resourceManager->FreeTextureAsset(material->roughness);
-                
-                material->roughness = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
-        }*/
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->roughness != Hymn().defaultRoughness)
+                Managers().resourceManager->FreeTextureAsset(material->roughness);
+            
+            material->roughness = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
+        }
         
         ImGui::EndPopup();
     }
