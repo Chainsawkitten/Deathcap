@@ -1,8 +1,8 @@
 #pragma once
 
-#include <btBulletCollisionCommon.h>
 #include <functional>
 #include <map>
+#include <memory>
 
 class PhysicsManager;
 
@@ -11,11 +11,11 @@ namespace Component {
 };
 
 namespace Physics {
-    class Shape;
+    class TriggerObserver;
 
     /// Represent a trigger that checks intersections of specific rigid bodies
     /// against itself.
-    class Trigger : public btCollisionWorld::ContactResultCallback {
+    class Trigger {
         friend class ::PhysicsManager;
 
         public:
@@ -24,11 +24,6 @@ namespace Physics {
              * @param transform The world transform of the trigger volume.
              */
             Trigger(const btTransform& transform);
-
-            /// Overridden from btCollisionWorld::ContactResultCallback.
-            virtual btScalar addSingleResult(btManifoldPoint& cp,
-                const btCollisionObjectWrapper* colObj0, int partId0, int index0,
-                const btCollisionObjectWrapper* colObj1, int partId1, int index1) override;
 
             /// Get the wrapped Bullet collision object.
             /**
@@ -54,6 +49,7 @@ namespace Physics {
 
         private:
             btCollisionObject* trigger = nullptr;
-            std::map<btRigidBody*, std::function<void()>> observers;
+            std::map<btRigidBody*, std::function<void()>> callbacks;
+            std::vector<std::unique_ptr<TriggerObserver>> observers;
     };
 }

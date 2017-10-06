@@ -51,6 +51,7 @@ set(SRCS
         Physics/GlmConversion.cpp
         Physics/Shape.cpp
         Physics/Trigger.cpp
+        Physics/TriggerObserver.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
@@ -110,6 +111,7 @@ set(HEADERS
         Physics/GlmConversion.hpp
         Physics/Shape.hpp
         Physics/Trigger.hpp
+        Physics/TriggerObserver.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp
