@@ -1,6 +1,7 @@
 #pragma once
 
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <functional>
 
 class btRigidBody;
 
@@ -49,6 +50,27 @@ namespace Physics {
             /// applied.
             void PostIntersectionTest();
 
+            /// Set up a handler for when the observer begins intersecting its
+            /// associated trigger volume.
+            /**
+             * @param handler Handler function to call.
+             */
+            void OnEnter(const std::function<void()>& handler);
+
+            /// Set up a handler for when the observer continues intersecting
+            /// its associated trigger volume.
+            /**
+             * @param handler Handler function to call.
+             */
+            void OnRetain(const std::function<void()>& handler);
+
+            /// Set up a handler for when the observer stops intersecting its
+            /// associated trigger volume.
+            /**
+             * @param handler Handler function to call.
+             */
+            void OnLeave(const std::function<void()>& handler);
+
         private:
             /// Overridden from btCollisionWorld::ContactResultCallback for
             /// custom intersection handling.
@@ -62,5 +84,9 @@ namespace Physics {
             // Control value to determine whether an intersection happened
             // during this frame. This is used to determine the new phase.
             bool didCallback = false;
+
+            std::function<void()> enterHandler;
+            std::function<void()> retainHandler;
+            std::function<void()> leaveHandler;
     };
 }

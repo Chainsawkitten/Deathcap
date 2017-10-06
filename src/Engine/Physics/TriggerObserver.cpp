@@ -58,8 +58,38 @@ namespace Physics {
             }
         }
 
+        switch (phase) {
+            case IntersectionPhase::Enter: {
+                if (enterHandler) enterHandler();
+                break;
+            }
+            case IntersectionPhase::Retained: {
+                if (retainHandler) retainHandler();
+                break;
+            }
+            case IntersectionPhase::Leave: {
+                if (leaveHandler) leaveHandler();
+                break;
+            }
+            default: {
+                assert(phase == IntersectionPhase::None);
+            }
+        }
+
         // Prepare for next invocation.
         didCallback = false;
+    }
+
+    void TriggerObserver::OnEnter(const std::function<void()>& handler) {
+        enterHandler = handler;
+    }
+
+    void TriggerObserver::OnRetain(const std::function<void()>& handler) {
+        retainHandler = handler;
+    }
+
+    void TriggerObserver::OnLeave(const std::function<void()>& handler) {
+        leaveHandler = handler;
     }
 
     // Called with each contact for our own processing. This is where we can
