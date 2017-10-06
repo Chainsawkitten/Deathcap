@@ -6,10 +6,6 @@
 
 class PhysicsManager;
 
-namespace Component {
-    class RigidBody;
-};
-
 namespace Physics {
     class TriggerObserver;
 
@@ -31,25 +27,27 @@ namespace Physics {
              */
             btCollisionObject* GetCollisionObject();
 
-            /// Process given rigid bodies against the trigger volume.
+            /// Process observers against the trigger volume.
             /**
              * @param world The world in which rigid bodies reside.
              */
             void Process(btCollisionWorld& world);
 
-            /// Attach a listener for when |body| enters the trigger volume.
+            /// Get access to a particular observer of the trigger to work with
+            /// it in a user-defined way. If the observer is not present, one
+            /// will be created.
             /**
-             * @param body Body that is to enter the trigger volume.
-             * @param observer Function to call when event is fired.
+             * @param body Observer to access.
+             * @param fun Function that is called, passing the TriggerObserver
+             * accompanying the observer.
              */
-            void OnEnter(Component::RigidBody* body, std::function<void()> observer);
+            void ForObserver(btRigidBody* body, const std::function<void(TriggerObserver&)>& fun);
 
         private:
             void SetCollisionShape(btCollisionShape* shape);
 
         private:
             btCollisionObject* trigger = nullptr;
-            std::map<btRigidBody*, std::function<void()>> callbacks;
             std::vector<std::unique_ptr<TriggerObserver>> observers;
     };
 }

@@ -9,6 +9,7 @@
 #include "../Physics/GlmConversion.hpp"
 #include "../Physics/Shape.hpp"
 #include "../Physics/Trigger.hpp"
+#include "../Physics/TriggerObserver.hpp"
 #include "../Util/Json.hpp"
 
 PhysicsManager::PhysicsManager() {
@@ -117,7 +118,10 @@ void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::
     auto trigger = MakeTrigger(triggerBody);
     auto rigidBodyComp = object->entity->GetComponent<Component::RigidBody>();
     assert(rigidBodyComp); // For now
-    trigger->OnEnter(rigidBodyComp, callback);
+    // Add the callback to the trigger observer
+    trigger->ForObserver(rigidBodyComp->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnEnter(callback);
+    });
 }
 
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
