@@ -119,7 +119,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                     glm::vec4(0.f, 0.f, 0.f, 1.f)
                 ));
                 
-                glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
+                glm::mat4 hmdTranslationLocal = hmdTransform;
                 glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
                 glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
                 glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
@@ -239,7 +239,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
-                Controller* controller = entity->GetComponent<Controller>();
+                Controller* controller = entity->GetParent()->GetComponent<Controller>();
                 if (material != nullptr) {
 
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
@@ -248,18 +248,20 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                         glm::vec3 ctrlUp = glm::vec3(ctrlTransform[0][1], ctrlTransform[1][1], ctrlTransform[2][1]);
                         glm::vec3 ctrlForward = glm::vec3(ctrlTransform[0][2], ctrlTransform[1][2], ctrlTransform[2][2]);
 
-                        glm::mat4 ctrlRotation = glm::transpose(glm::mat4(
-                            glm::vec4(ctrlRight, 0.f),
+                        glm::mat4 ctrlOrientation = glm::transpose(glm::mat4(
+                            glm::vec4(-ctrlRight, 0.f),
                             glm::vec4(ctrlUp, 0.f),
-                            glm::vec4(ctrlForward, 0.f),
+                            glm::vec4(-ctrlForward, 0.f),
                             glm::vec4(0.f, 0.f, 0.f, 1.f)
                         ));
 
-                        glm::mat4 ctrlTranslationLocal = glm::inverse(ctrlRotation)*ctrlTransform;
+                        ctrlOrientation = ctrlOrientation * entity->GetOrientation();
+
+                        glm::mat4 ctrlTranslationLocal = ctrlOrientation * glm::inverse(ctrlTransform);
                         glm::vec3 ctrlPositionLocal = glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
-                        glm::vec3 hmdPositionScaled = ctrlPositionLocal * Managers().vrManager->GetScale();
+                        glm::vec3 hmdPositionScaled = ctrlPositionLocal * 1.0f;
                         glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
-                        glm::mat4 ctrlModelMatrix = hmdTranslationScaled * glm::inverse(ctrlRotation) * glm::scale(glm::mat4(), entity->scale);
+                        glm::mat4 ctrlModelMatrix = hmdTranslationScaled * ctrlOrientation * glm::scale(glm::mat4(), entity->scale);
 
                         ctrlModelMatrix = entity->GetParent()->GetModelMatrix() * ctrlModelMatrix;
                         renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), ctrlModelMatrix);

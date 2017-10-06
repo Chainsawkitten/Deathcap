@@ -89,11 +89,11 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
         // If we want to differentiate between left and right controller.
         if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
             continue;
-        if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 1) {
+        if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
             glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);
             return returnMatrix;
         }
-        if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 2) {
+        if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
             glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);
             return returnMatrix;
         }
