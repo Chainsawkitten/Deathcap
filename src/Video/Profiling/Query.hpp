@@ -9,10 +9,9 @@ namespace Video {
     class Query {
         public:
             /// Query types.
-            enum Type
-            {
-                TIME_ELAPSED, ///< TIME_ELAPSED Record the time in nanoseconds(ns) that it takes for the GPU to execute all of the scoped commands between Begin() and End().
-                SAMPLES_PASSED ///< SAMPLES_PASSED Record the number of samples that pass the depth test for all drawing commands between Begin() and End().
+            enum Type {
+                TIME_ELAPSED, ///< Record the time in nanoseconds(ns) that it takes for the GPU to execute all of the scoped commands between Begin() and End().
+                SAMPLES_PASSED ///< Record the number of samples that pass the depth test for all drawing commands between Begin() and End().
             };
 
             /// Create new query.

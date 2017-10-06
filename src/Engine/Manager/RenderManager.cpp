@@ -31,6 +31,7 @@
 #include "../Hymn.hpp"
 #include "Util/Profiling.hpp"
 #include "Util/Json.hpp"
+#include <Video/Profiling/GPUProfiling.hpp>
 
 #include "Manager/Managers.hpp"
 
@@ -73,21 +74,22 @@ void RenderManager::Render(World& world, Entity* camera) {
     // Render from camera.
     if (camera != nullptr) {
         renderer->StartRendering(renderSurface);
-        
+
         // Camera matrices.
         const glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
         const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(renderSurface->GetSize());
-        
+
         const std::vector<Mesh*>& meshComponents = meshes.GetAll();
-        
+
         // Render static meshes.
-        {
-            PROFILE("Render static meshes");
+        { PROFILE("Render static meshes");
+        { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
             renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
             for (Mesh* mesh : meshComponents) {
                 if (mesh->IsKilled() || !mesh->entity->enabled)
                     continue;
-                
+
                 if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                     Entity* entity = mesh->entity;
                     Material* material = entity->GetComponent<Material>();
@@ -97,52 +99,84 @@ void RenderManager::Render(World& world, Entity* camera) {
                 }
             }
         }
+        }
+        }
 
         /// @todo Render skinned meshes.
         
         // Light the world.
-        {
-            PROFILE("Light the world");
+        { PROFILE("Light the world");
+        { GPUPROFILE("Light the world", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Light the world", Video::Query::Type::SAMPLES_PASSED);
             LightWorld(camera, renderSurface);
+        }
+        }
         }
 
         
         // Anti-aliasing.
         if (Hymn().filterSettings.fxaa) {
-            PROFILE("Anti-aliasing(FXAA)");
-            renderer->AntiAlias(renderSurface);
+            { PROFILE("Anti-aliasing(FXAA)");
+            { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+            { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+                renderer->AntiAlias(renderSurface);
+            }
+            }
+            }
         }
 
         
         // Fog.
         if (Hymn().filterSettings.fog) {
-            PROFILE("Fog");
-            renderer->RenderFog(renderSurface, camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+            { PROFILE("Fog");
+            { GPUPROFILE("Fog", Video::Query::Type::TIME_ELAPSED);
+            { GPUPROFILE("Fog", Video::Query::Type::SAMPLES_PASSED);
+                renderer->RenderFog(renderSurface, camera->GetComponent<Component::Lens>()->GetProjection(renderSurface->GetSize()), Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+            }
+            }
+            }
         }
             
         // Render particles.
-        {
-            PROFILE("Render particles");
+        { PROFILE("Render particles");
+        { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Render particles", Video::Query::Type::SAMPLES_PASSED);
             Managers().particleManager->UpdateBuffer(world);
             Managers().particleManager->Render(world, camera);
+        }
+        }
         }
        
         
         // Glow.
         if (Hymn().filterSettings.glow) {
-            PROFILE("Glow");
-            renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
+            { PROFILE("Glow");
+            { GPUPROFILE("Glow", Video::Query::Type::TIME_ELAPSED);
+            { GPUPROFILE("Glow", Video::Query::Type::SAMPLES_PASSED);
+                renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
+            }
+            }
+            }
         }
         
         // Color.
         if (Hymn().filterSettings.color) {
-            PROFILE("Color");
-            renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
+            { PROFILE("Color");
+            { GPUPROFILE("Color", Video::Query::Type::TIME_ELAPSED);
+            { GPUPROFILE("Color", Video::Query::Type::SAMPLES_PASSED);
+                renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
+            }
+            }
+            }
         }
         
         // Render to back buffer.
         { PROFILE("Render to back buffer");
+        { GPUPROFILE("Render to back buffer", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Render to back buffer", Video::Query::Type::SAMPLES_PASSED);
             renderer->DisplayResults(renderSurface, true);
+        }
+        }
         }
     }
 }

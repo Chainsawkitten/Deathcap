@@ -94,7 +94,8 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
 
-    { PROFILE("Render light"); GPUPROFILE("Render light_", Video::Query::Type::TIME_ELAPSED);
+    { PROFILE("Render light");
+    { //GPUPROFILE("Render light_", Video::Query::Type::TIME_ELAPSED);
 
         // Render lights.
         unsigned int lightIndex = 0U;
@@ -112,11 +113,12 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
                 glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
             }
         }
-        
+
         if (lightIndex != 0U) {
             glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightIndex);
             glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
         }
+    }
     }
     
     if (!depthTest)
