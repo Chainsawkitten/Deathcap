@@ -7,7 +7,7 @@
 #include <Engine/Util/FileSystem.hpp>
 #include <Editor/Util/EditorSettings.hpp>
 #include <Engine/Hymn.hpp>
-#include <Engine/Entity/Entity.hpp>
+#include <DefaultAlbedo.png.hpp>
 #include <Engine/MainWindow.hpp>
 #include <imgui.h>
 #include <limits>
@@ -45,9 +45,21 @@ void ResourceView::Show() {
         
         for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
             if (ImGui::Selectable(Resources().scenes[i].c_str())) {
-                changeScene = true;
-                sceneIndex = i;
-                savePromptWindow.SetTitle("Save before you switch scene?");
+                // Sets to dont save when opening first scene.
+                if (sceneIndex == -1) {
+                    changeScene = true;
+                    sceneIndex = i;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.SetDecision(1);
+                } else {
+                    // Does so that the prompt window wont show if you select active scene.
+                    if (Resources().scenes[i] != Resources().scenes[Resources().activeScene]) {
+                        changeScene = true;
+                        sceneIndex = i;
+                        savePromptWindow.SetTitle("Save before you switch scene?");
+                    }
+                }
+
             }
             
             if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
@@ -67,7 +79,6 @@ void ResourceView::Show() {
             }
         }
         ImGui::TreePop();
-
         if (changeScene) {
 
             if (Hymn().GetPath() != "") {
@@ -100,6 +111,12 @@ void ResourceView::Show() {
                     changeScene = false;
                     savePromptWindow.SetVisible(false);
                     savePromptWindow.ResetDecision();
+                    break;
+
+                case 2:
+                    changeScene = false;
+                    savePromptWindow.ResetDecision();
+                    savePromptWindow.SetVisible(false);
                     break;
 
                 default:
@@ -145,8 +162,8 @@ void ResourceView::Show() {
     bool texturePressed = false;
     if (ImGui::TreeNode("Textures")) {
         if (ImGui::Button("Add texture")) {
-            TextureAsset* texture = new TextureAsset();
-            texture->name = "Texture #" + std::to_string(Resources().textureNumber++);
+            string name = "Texture #" + std::to_string(Resources().textureNumber++);
+            TextureAsset* texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
             Resources().textures.push_back(texture);
         }
         

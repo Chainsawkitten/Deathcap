@@ -9,7 +9,9 @@
 #include <Engine/Component/PointLight.hpp>
 #include <Engine/Component/SpotLight.hpp>
 #include <Engine/Component/Listener.hpp>
+#include <Engine/Component/RigidBody.hpp>
 #include <Engine/Component/Script.hpp>
+#include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
 #include <Engine/Geometry/Model.hpp>
@@ -50,7 +52,9 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::PointLight>("Point light", std::bind(&EntityEditor::PointLightEditor, this, std::placeholders::_1));
     AddEditor<Component::SpotLight>("Spot light", std::bind(&EntityEditor::SpotLightEditor, this, std::placeholders::_1));
     AddEditor<Component::Listener>("Listener", std::bind(&EntityEditor::ListenerEditor, this, std::placeholders::_1));
+    AddEditor<Component::RigidBody>("Rigid body", std::bind(&EntityEditor::RigidBodyEditor, this, std::placeholders::_1));
     AddEditor<Component::Script>("Script", std::bind(&EntityEditor::ScriptEditor, this, std::placeholders::_1));
+    AddEditor<Component::Shape>("Shape", std::bind(&EntityEditor::ShapeEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
 
@@ -76,6 +80,7 @@ void EntityEditor::Show() {
         ImGui::DraggableVec3("Rotation", entity->rotation);
         ImGui::DraggableVec3("Scale", entity->scale);
         ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
+        ImGui::Checkbox("Is entity static", &entity->isStatic);
         ImGui::Unindent();
         if (!entity->IsScene()) {
             if (ImGui::Button("Add component"))
@@ -105,9 +110,9 @@ void EntityEditor::SetEntity(Entity* entity) {
     this->entity = entity;
     strcpy(name, entity->name.c_str());
 
-    auto physics = this->entity->GetComponent<Component::Physics>();
-    if (physics) {
-        Physics::Shape& shape = physics->GetShape();
+    auto shapeComp = this->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        Physics::Shape& shape = shapeComp->GetShape();
         for (uint32_t i = 0; i < shapeEditors.size(); ++i) {
             if (shapeEditors[i]->SetFromShape(shape)) {
                 selectedShape = i;
@@ -172,18 +177,7 @@ void EntityEditor::PhysicsEditor(Component::Physics* physics) {
     //ImGui::DraggableFloat("Angular drag factor", physics->angularDragFactor);
     //ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
     //ImGui::Unindent();
-
-    if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
-        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
-        *outText = editor->Label();
-        return true;
-    }, shapeEditors.data(), shapeEditors.size())) {
-        shapeEditors[selectedShape]->Apply(physics);
-    }
-
-    if (selectedShape != -1) {
-        shapeEditors[selectedShape]->Show(physics);
-    }
+    ImGui::Text("Will be removed soon.");
 }
 
 void EntityEditor::MeshEditor(Component::Mesh* mesh) {
@@ -359,6 +353,14 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
     
 }
 
+void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
+    ImGui::Indent();
+    if (ImGui::InputFloat("Mass", &rigidBodyMass)) {
+        Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
+    }
+    ImGui::Unindent();
+}
+
 void EntityEditor::ScriptEditor(Component::Script* script) {
 
     ImGui::Indent();
@@ -420,6 +422,20 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
 
     ImGui::Unindent();
+}
+
+void EntityEditor::ShapeEditor(Component::Shape* shape) {
+    if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
+        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
+        *outText = editor->Label();
+        return true;
+    }, shapeEditors.data(), shapeEditors.size())) {
+        shapeEditors[selectedShape]->Apply(shape);
+    }
+
+    if (selectedShape != -1) {
+        shapeEditors[selectedShape]->Show(shape);
+    }
 }
 
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {

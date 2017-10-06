@@ -5,25 +5,26 @@
 #include <map>
 #include "ITrigger.hpp"
 
+class PhysicsManager;
+
 namespace Component {
-    class Physics;
+    class RigidBody;
 };
 
 namespace Physics {
-
     class Shape;
 
     /// Represent a trigger that checks intersections of specific rigid bodies
     /// against itself.
     class Trigger : public btCollisionWorld::ContactResultCallback, public ITrigger {
-        friend class Simulator;
+        friend class ::PhysicsManager;
 
         public:
             /// Constructor.
             /**
-             * @param comp The physics component that represents the trigger volume.
+             * @param transform The world transform of the trigger volume.
              */
-            Trigger(Component::Physics* comp);
+            Trigger(const btTransform& transform);
 
             /// Overridden from btCollisionWorld::ContactResultCallback.
             virtual btScalar addSingleResult(btManifoldPoint& cp,
@@ -47,11 +48,13 @@ namespace Physics {
              * @param body The physics component representing the body that is to enter the trigger volume.
              * @param observer Function that is called when event is fired.
              */
-            virtual void OnEnter(Component::Physics* body, std::function<void()> observer) override;
+            virtual void OnEnter(Component::RigidBody* body, std::function<void()> observer) override;
+
+        private:
+            void SetCollisionShape(btCollisionShape* shape);
 
         private:
             btCollisionObject* trigger = nullptr;
             std::map<btRigidBody*, std::function<void()>> observers;
     };
-
 }
