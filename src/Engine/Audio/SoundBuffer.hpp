@@ -51,5 +51,6 @@ namespace Audio {
             
         private:
             ALuint buffer;
+            std::string path;
     };
 }
