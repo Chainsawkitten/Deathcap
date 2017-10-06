@@ -227,6 +227,22 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
 
+    {
+        PROFILE("Render z-pass meshes");
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
+
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                // If entity does not have material, it won't be rendered.
+                if (entity->GetComponent<Material>() != nullptr) {
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix,  entity->GetModelMatrix());
+                }
+            }
+        }
+    }
+
     // Render static meshes.
     {
         PROFILE("Render static meshes");
