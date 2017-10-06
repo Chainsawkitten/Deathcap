@@ -122,7 +122,7 @@ Json::Value ActiveHymn::ToJson() const {
     // Save scripts.
     Json::Value scriptNode;
     for (ScriptFile* script : scripts) {
-        scriptNode.append(script->name);
+        scriptNode.append(script->path + script->name);
     }
     root["scripts"] = scriptNode;
     
