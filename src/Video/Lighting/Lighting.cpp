@@ -89,7 +89,7 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     // Render lights.
     unsigned int lightIndex = 0U;
     { PROFILE("Update light buffer");
-    { //GPUPROFILE("Update light buffer", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Update light buffer", Video::Query::Type::TIME_ELAPSED);
         for (const Light& light : lights) {
             glUniform4fv(lightUniforms[lightIndex].position, 1, &light.position[0]);
             glUniform3fv(lightUniforms[lightIndex].intensities, 1, &light.intensities[0]);
@@ -100,7 +100,7 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
 
             if (++lightIndex >= lightCount) {
                 lightIndex = 0U;
-                glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+                //glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
             }
         }
 

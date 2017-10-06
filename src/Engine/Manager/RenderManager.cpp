@@ -87,56 +87,68 @@ void RenderManager::Render(World& world, Entity* camera) {
     if (camera != nullptr) {
         // Render main window.
         if (mainWindowRenderSurface != nullptr) {
-            const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
-            const glm::mat4 orientationMat = camera->GetCameraOrientation();
-            const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+            { PROFILE("Render main window");
+            { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
+            
+                const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
+                const glm::mat4 orientationMat = camera->GetCameraOrientation();
+                const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
 
-            Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
+                Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
+            }
+            }
         }
 
         // Render hmd.
         if (hmdRenderSurface != nullptr) {
-            for (int i = 0; i < 2; ++i)
-            {
-                vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
+            { PROFILE("Render main hmd");
+            { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
+                for (int i = 0; i < 2; ++i)
+                {
+                    vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
-                glm::vec3 position = camera->GetWorldPosition();
-                Lens* lens = camera->GetComponent<Lens>();
-                const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
+                    glm::vec3 position = camera->GetWorldPosition();
+                    Lens* lens = camera->GetComponent<Lens>();
+                    const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
-                glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
-                glm::mat4 eyeTranslation = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
+                    glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
+                    glm::mat4 eyeTranslation = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
 
-                glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
-                glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
-                glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
-                glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
+                    glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
+                    glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
+                    glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
+                    glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
 
-                glm::mat4 orientationMat = glm::transpose(glm::mat4(
-                    glm::vec4(right, 0.f),
-                    glm::vec4(up, 0.f),
-                    glm::vec4(forward, 0.f),
-                    glm::vec4(0.f, 0.f, 0.f, 1.f)
-                ));
-                
-                glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
-                glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
-                glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
-                glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
+                    glm::mat4 orientationMat = glm::transpose(glm::mat4(
+                        glm::vec4(right, 0.f),
+                        glm::vec4(up, 0.f),
+                        glm::vec4(forward, 0.f),
+                        glm::vec4(0.f, 0.f, 0.f, 1.f)
+                    ));
 
-                glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
+                    glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
+                    glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
+                    glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
+                    glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
 
-                Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
+                    glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
 
-                hmdRenderSurface->Swap();
-                vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+                    Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
 
-                // Submit texture to HMD.
-                Managers().vrManager->Submit(nEye, &texture);
+                    hmdRenderSurface->Swap();
+                    vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+
+                    // Submit texture to HMD.
+                    Managers().vrManager->Submit(nEye, &texture);
+                }
             }
-            
-            //TMP
-            Managers().vrManager->Sync();
+            }
+
+            { PROFILE("Sync hmd");
+            { GPUPROFILE("Sync hmd", Video::Query::Type::TIME_ELAPSED);
+                Managers().vrManager->Sync();
+            }
+            }
         }
 
         // Render to back buffer.
@@ -276,7 +288,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     
     // Light the world.
     { PROFILE("Light the world");
-    { //GPUPROFILE("Light the world", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Light the world", Video::Query::Type::TIME_ELAPSED);
     { //GPUPROFILE("Light the world", Video::Query::Type::SAMPLES_PASSED);
         LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, renderSurface);
     }

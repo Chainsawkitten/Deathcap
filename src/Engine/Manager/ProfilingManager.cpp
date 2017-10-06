@@ -178,20 +178,21 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
             query = queries.back();
             queries.pop_back();
         }
-        queryMap[current[type]] = query;
+        queryMap[result] = query;
         query->Begin();
     }
     
-    return current[type];
+    return result;
 }
 
 void ProfilingManager::FinishResult(Result* result, Type type) {
     assert(active);
     assert(type != COUNT);
+    assert(result == current[type]);
 
     // End query if type is GPU.
     if (type != Type::CPU_TIME)
-        queryMap[current[type]]->End();
+        queryMap[result]->End();
 
     current[type] = result->parent;
 }
