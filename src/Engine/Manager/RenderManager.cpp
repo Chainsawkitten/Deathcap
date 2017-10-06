@@ -242,21 +242,25 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 if (material != nullptr) {
 
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlTransform = *controller->HandleTransformation();
+                        glm::mat4 ctrlTransform = Managers().vrManager->GetControllerPoseMatrix(controller->controllerID);
                         glm::vec3 ctrlRight = glm::vec3(ctrlTransform[0][0], ctrlTransform[1][0], ctrlTransform[2][0]);
                         glm::vec3 ctrlUp = glm::vec3(ctrlTransform[0][1], ctrlTransform[1][1], ctrlTransform[2][1]);
                         glm::vec3 ctrlForward = glm::vec3(ctrlTransform[0][2], ctrlTransform[1][2], ctrlTransform[2][2]);
 
-                        glm::mat4 ctrlOrientation = glm::transpose(glm::mat4(
+                        glm::mat4 ctrlRotation = glm::transpose(glm::mat4(
                             glm::vec4(ctrlRight, 0.f),
                             glm::vec4(ctrlUp, 0.f),
                             glm::vec4(ctrlForward, 0.f),
                             glm::vec4(0.f, 0.f, 0.f, 1.f)
                         ));
 
-                        glm::mat4 ctrlTranslationLocal = glm::inverse(ctrlOrientation)*ctrlTransform;
+                        glm::mat4 ctrlTranslationLocal = glm::inverse(ctrlRotation)*ctrlTransform;
                         glm::vec3 ctrlPositionLocal = glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
-                        glm::mat4 ctrlModelMatrix = glm::translate(glm::mat4(), ctrlPositionLocal) * ctrlOrientation * glm::scale(glm::mat4(), glm::vec3()*Managers().vrManager->GetScale());
+                        glm::vec3 hmdPositionScaled = ctrlPositionLocal * Managers().vrManager->GetScale();
+                        glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
+                        glm::mat4 ctrlModelMatrix = hmdTranslationScaled * glm::inverse(ctrlRotation) * glm::scale(glm::mat4(), entity->scale);
+
+                        ctrlModelMatrix = entity->GetParent()->GetModelMatrix() * ctrlModelMatrix;
                         renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), ctrlModelMatrix);
                     }
                     else
