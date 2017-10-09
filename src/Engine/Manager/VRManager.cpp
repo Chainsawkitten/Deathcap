@@ -90,11 +90,11 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
         if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
             continue;
         if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
-            glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);
+            glm::mat4 returnMatrix = deviceTransforms[untrackedDevice];// glm::inverse(deviceTransforms[untrackedDevice]);
             return returnMatrix;
         }
         if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
-            glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);
+            glm::mat4 returnMatrix = deviceTransforms[untrackedDevice];// glm::inverse(deviceTransforms[untrackedDevice]);
             return returnMatrix;
         }
 

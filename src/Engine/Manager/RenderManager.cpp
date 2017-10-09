@@ -241,6 +241,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 Material* material = entity->GetComponent<Material>();
                 Controller* controller = entity->GetParent()->GetComponent<Controller>();
                 if (material != nullptr) {
+                    //entity = entity->GetParent();
 
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
                         glm::mat4 ctrlTransform = Managers().vrManager->GetControllerPoseMatrix(controller->controllerID);
@@ -249,17 +250,17 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                         glm::vec3 ctrlForward = glm::vec3(ctrlTransform[0][2], ctrlTransform[1][2], ctrlTransform[2][2]);
 
                         glm::mat4 ctrlOrientation = glm::transpose(glm::mat4(
-                            glm::vec4(-ctrlRight, 0.f),
+                            glm::vec4(ctrlRight, 0.f),
                             glm::vec4(ctrlUp, 0.f),
-                            glm::vec4(-ctrlForward, 0.f),
+                            glm::vec4(ctrlForward, 0.f),
                             glm::vec4(0.f, 0.f, 0.f, 1.f)
                         ));
 
                         ctrlOrientation = ctrlOrientation * entity->GetOrientation();
 
-                        glm::mat4 ctrlTranslationLocal = ctrlOrientation * glm::inverse(ctrlTransform);
-                        glm::vec3 ctrlPositionLocal = glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
-                        glm::vec3 hmdPositionScaled = ctrlPositionLocal * 1.0f;
+                        glm::mat4 ctrlTranslationLocal = ctrlTransform;
+                        glm::vec3 ctrlPositionLocal = -glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
+                        glm::vec3 hmdPositionScaled = ctrlPositionLocal * 4.0f;
                         glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
                         glm::mat4 ctrlModelMatrix = hmdTranslationScaled * ctrlOrientation * glm::scale(glm::mat4(), entity->scale);
 
