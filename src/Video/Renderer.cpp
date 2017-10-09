@@ -84,10 +84,6 @@ Renderer::~Renderer() {
     glDeleteVertexArrays(1, &vertexArray);
 }
 
-void Renderer::Clear() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
 void Renderer::PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     staticRenderProgram->PreDepthRender(viewMatrix, projectionMatrix);
 }
@@ -97,7 +93,7 @@ void Renderer::DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::
 }
 
 void Renderer::StartRendering(RenderSurface* renderSurface) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    renderSurface->Clear();
     glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
 }
 

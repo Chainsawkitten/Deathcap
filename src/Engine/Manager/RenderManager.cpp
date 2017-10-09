@@ -76,8 +76,6 @@ RenderManager::~RenderManager() {
 }
 
 void RenderManager::Render(World& world, Entity* camera) {
-    renderer->Clear();
-
     // Find camera entity.
     if (camera == nullptr) {
         for (Lens* lens : lenses.GetAll())

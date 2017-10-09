@@ -5,7 +5,7 @@
 
 using namespace Video;
 
-FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) {
+FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) : bound(false) {
     this->textures = textures;
 
     // Frame buffer object.
@@ -39,10 +39,30 @@ FrameBuffer::~FrameBuffer() {
     glDeleteFramebuffers(1, &frameBufferObject);
 }
 
-void FrameBuffer::Bind() const {
+void FrameBuffer::Bind() {
+    if (bound) {
+        Log() << "StorageBuffer::Bind Warning: Already bound.\n";
+        return;
+    }
+
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBufferObject);
+
+    bound = true;
 }
 
-void FrameBuffer::Unbind() const {
+void FrameBuffer::Unbind() {
+    if (!bound) {
+        Log() << "StorageBuffer::Bind Warning: Not bound.\n";
+        return;
+    }
+
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+
+    bound = false;
+}
+
+void FrameBuffer::Clear() const {
+    assert(bound);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

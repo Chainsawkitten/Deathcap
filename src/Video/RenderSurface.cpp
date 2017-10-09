@@ -52,3 +52,15 @@ ReadWriteTexture* RenderSurface::GetColorTexture() const {
 void RenderSurface::Swap() {
     which = 1 - which;
 }
+
+void RenderSurface::Clear() const {
+    depthFrameBuffer->Bind();
+    depthFrameBuffer->Clear();
+    depthFrameBuffer->Unbind();
+
+    for (int i = 0; i < 2; ++i) {
+        colorFrameBuffer[i]->Bind();
+        colorFrameBuffer[i]->Clear();
+        colorFrameBuffer[i]->Unbind();
+    }
+}

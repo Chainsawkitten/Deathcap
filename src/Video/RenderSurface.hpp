@@ -50,6 +50,9 @@ namespace Video {
 
             /// Swap active texture set.
             void Swap();
+
+            /// Clear all textures in RenderSurface.
+            void Clear() const;
             
         private:
             RenderSurface(const RenderSurface & other) = delete;
