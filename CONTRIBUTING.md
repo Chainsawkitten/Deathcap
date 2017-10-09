@@ -7,6 +7,9 @@
 ### Indentation
 Use 4 spaces for indentation, not tabs.
 
+### Access specifiers
+A class should only declare one specifier per specifier type.
+
 ### Documentation
 All non-private members need to be documented using Doxygen-style comments.
 For functions and methods, parameters are documented first and return type next.
