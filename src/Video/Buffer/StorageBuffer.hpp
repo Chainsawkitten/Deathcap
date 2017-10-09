@@ -7,25 +7,39 @@ namespace Video {
     class StorageBuffer {
         public:
             /// Create new storage buffer.
-            // TMP TODO
+            /**
+             * @param size Size of buffer in bytes.
+             * @param usage How the buffers data will be accessed.
+             */
             StorageBuffer(unsigned int size, GLenum usage);
             
             /// Destructor.
             ~StorageBuffer();
 
-            // TMP TODO
+            /// Write data to buffer.
+            /**
+             * @param data Pointer to data.
+             * @param offset Offset in bytes from the start of the buffer to writing data.
+             * @param length Length in bytes of the data to write.
+             */
             void Write(void* data, unsigned int offset, unsigned int length);
 
-            // TMP TODO
+            /// Bind this buffer.
             void Bind();
 
-            // TMP TODO
+            /// Unbind this buffer.
             void Unbind();
 
-            // TMP TODO
+            /// Bind this buffer to a binding the the shader.
+            /**
+             * @param binding Binding to set.
+             */
             void BindBase(unsigned int binding);
 
-            // TMP TODO
+            /// Get size of this buffer.
+            /**
+             * @return Size of the buffer in bytes.
+             */
             unsigned int GetSize() const;
 
         private:

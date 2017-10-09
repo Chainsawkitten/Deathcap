@@ -62,6 +62,28 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
+
+    {
+        float gamma = 2.2f;
+        glUniform1fv(shaderProgram->GetUniformLocation("gamma"), 1, &gamma);
+    }
+    
+    {
+        int fogApply = false;
+        float fogDensity = 0.002f;
+        glm::vec3 fogColor = glm::vec3(1, 0, 0);
+        glUniform1iv(shaderProgram->GetUniformLocation("fogApply"), 1, &fogApply);
+        glUniform1fv(shaderProgram->GetUniformLocation("fogDensity"), 1, &fogDensity);
+        glUniform3fv(shaderProgram->GetUniformLocation("fogColor"), 1, &fogColor[0]);
+    }
+
+    {
+        int colorFilterApply = false;
+        glm::vec3 colorFilterColor = glm::vec3(0, 1, 0);
+        glUniform1iv(shaderProgram->GetUniformLocation("colorFilterApply"), 1, &colorFilterApply);
+        glUniform3fv(shaderProgram->GetUniformLocation("colorFilterColor"), 1, &colorFilterColor[0]);
+    }
+
 }
 
 void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const {

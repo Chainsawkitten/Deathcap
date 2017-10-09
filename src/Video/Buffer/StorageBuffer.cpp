@@ -27,13 +27,7 @@ void StorageBuffer::Write(void* data, unsigned int offset, unsigned int length) 
     assert(bound);
     assert(this->size >= offset + length);
 
-    //GLvoid* p = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, length, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT); ERROR_CHECK_VIDEO
-    //GLvoid* p = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY); ERROR_CHECK_VIDEO
-    //std::memcpy(p, &data, length);
-    //glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-
-    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, length, data); ERROR_CHECK_VIDEO //TODO MAP?
-
+    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, length, data); ERROR_CHECK_VIDEO
 }
 
 void StorageBuffer::Bind() {
@@ -43,7 +37,6 @@ void StorageBuffer::Bind() {
     }
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
-    // TODO glBindBufferRange
     bound = true;
 }
 

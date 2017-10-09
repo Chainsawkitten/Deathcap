@@ -28,6 +28,7 @@ struct Light {
 layout(std430, binding = 5) buffer bBuffer { Light lights[]; };
 
 // UNIFORMS
+// Shading uniforms.
 uniform int lightCount;
 uniform sampler2D mapAlbedo;
 uniform sampler2D mapNormal;
@@ -35,10 +36,16 @@ uniform sampler2D mapMetallic;
 uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
 uniform mat4 inverseProjectionMatrix;
+// Post processing uniforms.
+uniform float gamma;
+uniform bool fogApply;
+uniform float fogDensity;
+uniform vec3 fogColor;
+uniform bool colorFilterApply;
+uniform vec3 colorFilterColor;
 
 // --- CONSTANTS ---
 const float PI = 3.14159265359f;
-const float GAMMA = 2.2f;
 const float M_E = 2.718f;
 
 // --- SHADING FUNCTIONS ---
@@ -159,36 +166,42 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
 
 
 // --- POSTPROCESSING FUNCTIONS ---
-// Reconstruct position.
-vec3 reconstructPos(vec2 texCoord, float depth){
-    vec4 sPos = vec4(texCoord * 2.0 - 1.0, depth * 2.0 - 1.0, 1.0);
-    sPos = inverseProjectionMatrix * sPos;
-
-    return (sPos.xyz / sPos.w);
+vec3 ApplyFog(vec3 pos, vec3 color) {
+    float z = length(pos);
+    float f = pow(M_E, -fogDensity * z);
+    
+    return f * color + (1.0f - f) * fogColor;
 }
-
-
 
 // --- MAIN ---
 void main() {
 
     float depth = texture(tDepth, vertexIn.texCoords).r;
     vec3 albedo = texture(mapAlbedo, vertexIn.texCoords).rgb;
-    //vec3 albedo = pow(albedoRaw, vec3(GAMMA)); // Apply if texture not in sRGB
+    //vec3 albedo = pow(albedoRaw, vec3(gamma)); // Apply if texture not in sRGB
     //vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
     vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
     float metallic = texture(mapMetallic, vertexIn.texCoords).r;
     float roughness = texture(mapRoughness, vertexIn.texCoords).r;
-    //vec3 pos = ReconstructPos(vertexIn.texCoords, depth); // no need to sample g-buffer
     vec3 pos = vertexIn.pos;
 
+    // Shade fragment.
     vec3 color = ApplyLights(albedo, normal, metallic, roughness, pos);
 
-    // Reinhard tone mapping
+    // Fog.
+    if (fogApply)
+        color = ApplyFog(pos, color);
+        
+    // Color Filter.
+    if (colorFilterApply)
+        color = color * colorFilterColor;
+    
+    // Reinhard tone mapping.
     color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
     
-    // Gamma correction
-    color = pow(color, vec3(1.0f / GAMMA)); 
+    // Gamma correction.
+    color = pow(color, vec3(1.0f / gamma));
 
+    // Final color.
     fragmentColor = vec4(color, 1.0f);
 }
