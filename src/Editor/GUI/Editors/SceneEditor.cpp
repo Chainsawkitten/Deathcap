@@ -22,13 +22,12 @@ DraggedItemState draggedItemState = DraggedItemState::NOT_ACTIVE;
 
 SceneEditor::SceneEditor() {
     name[0] = '\0';
-    sceneIndex = 0;
 }
 
 void SceneEditor::Show() {
-    if (ImGui::Begin(("Scene: " + Resources().scenes[sceneIndex] + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
+    if (ImGui::Begin(("Scene: " + Resources().scenes[Resources().activeScene] + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
-        Resources().scenes[sceneIndex] = name;
+        Resources().scenes[Resources().activeScene] = name;
         
         // Entities.
         entityPressed = false;
@@ -73,10 +72,10 @@ void SceneEditor::Show() {
 
 void SceneEditor::SetScene(std::size_t sceneIndex) {
     entityEditor.SetVisible(false);
-    this->sceneIndex = sceneIndex;
+    Resources().activeScene = sceneIndex;
     
-    if (sceneIndex < Resources().scenes.size()) {
-        strcpy(name, Resources().scenes[sceneIndex].c_str());
+    if (Resources().activeScene < Resources().scenes.size()) {
+        strcpy(name, Resources().scenes[Resources().activeScene].c_str());
     } else {
         SetVisible(false);
     }
@@ -91,14 +90,14 @@ void SceneEditor::SetVisible(bool visible) {
 }
 
 void SceneEditor::Save() const {
-    if (sceneIndex < Resources().scenes.size())
-        Hymn().world.Save(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
+    if (Resources().activeScene < Resources().scenes.size())
+        Hymn().world.Save(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[Resources().activeScene] + ".json");
 }
 
 Json::Value SceneEditor::GetSaveFileJson(std::string* filename) const {
-    if (sceneIndex < Resources().scenes.size()) {
+    if (Resources().activeScene < Resources().scenes.size()) {
 
-        *filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json";
+        *filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[Resources().activeScene] + ".json";
         return Hymn().world.GetSaveJson();
 
     }
@@ -156,10 +155,10 @@ void SceneEditor::ShowEntity(Entity* entity) {
         
         for (const std::string& scene : Resources().scenes) {
 
-            if (Resources().scenes[sceneIndex] != scene)
+            if (Resources().scenes[Resources().activeScene] != scene)
             {
                 if (ImGui::Selectable(scene.c_str()))
-                    entity->InstantiateScene(scene, Resources().scenes[sceneIndex]);
+                    entity->InstantiateScene(scene, Resources().scenes[Resources().activeScene]);
             }
         }
         
