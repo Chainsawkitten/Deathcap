@@ -208,9 +208,11 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     if (showGridSettings)
     {
         ImGui::SetNextWindowPos(ImVec2(1275, 25));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(250, 50), ImVec2(250, 50));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
         ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
         ImGui::DragInt("Grid Scale", &gridSettings.gridScale, 1.0f, 0, 100);
+        ImGui::Checkbox("Grid Snap", &gridSettings.gridSnap);
+        ImGui::DragInt("Snap Option", &gridSettings.snapOption, (float)gridSettings.snapOption * 10, 1, 100);
         ImGui::End();
     }
 
