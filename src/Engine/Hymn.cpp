@@ -21,7 +21,7 @@
 #include "Util/Json.hpp"
 #include <fstream>
 #include "Util/Profiling.hpp"
-#include <Video/Profiling/GPUProfiling.hpp>
+#include "Util/GPUProfiling.hpp"
 
 #include "Entity/Entity.hpp"
 #include "Component/Animation.hpp"

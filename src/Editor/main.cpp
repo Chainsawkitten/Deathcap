@@ -13,7 +13,7 @@
 #include <Engine/Manager/ParticleManager.hpp>
 #include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/Profiling.hpp>
-#include <Video/Profiling/GPUProfiling.hpp>
+#include <Engine/Util/GPUProfiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>
 #include "ImGui/OpenGLImplementation.hpp"

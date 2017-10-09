@@ -37,7 +37,7 @@
 #include "../Hymn.hpp"
 #include "Util/Profiling.hpp"
 #include "Util/Json.hpp"
-#include <Video/Profiling/GPUProfiling.hpp>
+#include "Util/GPUProfiling.hpp"
 
 #include "Manager/VRManager.hpp"
 
