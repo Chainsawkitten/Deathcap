@@ -8,7 +8,8 @@ RayIntersection::~RayIntersection() {
     
 }
 
-bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix, float &outputDistance) {
+bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix, float &outputDistance) const
+{
 
     float tMin = -INFINITY;
     float tMax = INFINITY;
