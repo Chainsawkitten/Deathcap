@@ -49,13 +49,14 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Triangulate", &triangulate);
             ImGui::Checkbox("Import Normals", &importNormals);
             ImGui::Checkbox("Import Tangents", &importTangents);
+            ImGui::Checkbox("Import Textures", &importTextures);
 
             std::string button = isImported ? "Re-import" : "Import";
 
             if (ImGui::Button(button.c_str())) {
                 // Convert to .asset format.
                 AssetConverter asset;
-                asset.Convert(source.c_str(), (destination + ".asset").c_str(), triangulate, importNormals, importTangents);
+                asset.Convert(source.c_str(), (destination + ".asset").c_str(), triangulate, importNormals, importTangents, importTextures);
                 model->Load(destination.c_str());
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
@@ -69,6 +70,11 @@ void ModelEditor::Show() {
 
                 delete importData;
                 importData = nullptr;
+            }
+
+            ImGui::Text("Material Data");
+            if (ImGui::Button("Import material")) {
+                
             }
 
             if (isImported)
