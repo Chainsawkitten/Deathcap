@@ -124,6 +124,26 @@ void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::
     });
 }
 
+void PhysicsManager::OnTriggerRetain(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback) {
+    auto trigger = MakeTrigger(triggerBody);
+    auto rigidBodyComp = object->entity->GetComponent<Component::RigidBody>();
+    assert(rigidBodyComp); // For now
+    // Add the callback to the trigger observer
+    trigger->ForObserver(rigidBodyComp->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnRetain(callback);
+    });
+}
+
+void PhysicsManager::OnTriggerLeave(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback) {
+    auto trigger = MakeTrigger(triggerBody);
+    auto rigidBodyComp = object->entity->GetComponent<Component::RigidBody>();
+    assert(rigidBodyComp); // For now
+    // Add the callback to the trigger observer
+    trigger->ForObserver(rigidBodyComp->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnLeave(callback);
+    });
+}
+
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     assert(rigidBodyComp); // for now
