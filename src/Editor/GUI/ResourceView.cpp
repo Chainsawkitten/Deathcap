@@ -22,7 +22,8 @@ using namespace GUI;
 using namespace std;
 
 ResourceView::ResourceView() {
-
+    savePromptWindow.SetTitle("Save before you switch scene?");
+    savePromptWindow.ResetDecision();
 }
 
 void ResourceView::Show() {
@@ -56,10 +57,8 @@ void ResourceView::Show() {
                     if (Resources().scenes[i] != Resources().scenes[Resources().activeScene]) {
                         changeScene = true;
                         sceneIndex = i;
-                        savePromptWindow.SetTitle("Save before you switch scene?");
                     }
                 }
-
             }
             
             if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
@@ -83,44 +82,38 @@ void ResourceView::Show() {
 
             if (Hymn().GetPath() != "") {
 
-                savePromptWindow.SetVisible(true);
-                savePromptWindow.Show();
+                if (!HasMadeChanges()) {
 
-                switch (savePromptWindow.GetDecision())
-                {
-                case 0:
-                    sceneEditor.Save();
-                    sceneEditor.SetVisible(true);
-                    sceneEditor.SetScene(sceneIndex);
-                    Resources().activeScene = sceneIndex;
-                    sceneEditor.entityEditor.SetVisible(false);
-                    Hymn().world.Clear();
-                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
-                    changeScene = false;
-                    savePromptWindow.SetVisible(false);
+                    SwitchScene(sceneIndex);
+
+                }
+                else {
+
+                    savePromptWindow.SetVisible(true);
                     savePromptWindow.ResetDecision();
-                    break;
+                    savePromptWindow.Show();
 
-                case 1:
-                    sceneEditor.SetVisible(true);
-                    sceneEditor.SetScene(sceneIndex);
-                    Resources().activeScene = sceneIndex;
-                    sceneEditor.entityEditor.SetVisible(false);
-                    Hymn().world.Clear();
-                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
-                    changeScene = false;
-                    savePromptWindow.SetVisible(false);
-                    savePromptWindow.ResetDecision();
-                    break;
+                    switch (savePromptWindow.GetDecision())
+                    {
+                    case 0:
+                        sceneEditor.Save();
+                        SwitchScene(sceneIndex);
+                        break;
 
-                case 2:
-                    changeScene = false;
-                    savePromptWindow.ResetDecision();
-                    savePromptWindow.SetVisible(false);
-                    break;
+                    case 1:
+                        SwitchScene(sceneIndex);
+                        break;
 
-                default:
-                    break;
+                    case 2:
+                        changeScene = false;
+                        savePromptWindow.ResetDecision();
+                        savePromptWindow.SetVisible(false);
+                        break;
+
+                    default:
+                        break;
+
+                    }
                 }
             }
         }
@@ -305,6 +298,32 @@ void ResourceView::Show() {
     ImGui::End();
 }
 
+bool ResourceView::HasMadeChanges() const{
+
+    std::string* sceneFilename = new std::string();
+    Json::Value sceneJson = sceneEditor.GetSaveFileJson(sceneFilename);
+
+    // Load Json document from file.
+    Json::Value reference;
+    std::ifstream file(*sceneFilename);
+
+    if (!file.good())
+        return true;
+
+    file >> reference;
+    file.close();
+
+    std::string hymnJsonString = sceneJson.toStyledString();
+    std::string referenceString = reference.toStyledString();
+
+    int response = referenceString.compare(hymnJsonString);
+    if (response != 0)
+        return true;
+
+    return false;
+
+}
+
 bool ResourceView::IsVisible() const {
     return visible;
 }
@@ -324,6 +343,24 @@ void ResourceView::HideEditors() {
 
 void ResourceView::SaveScene() const {
     sceneEditor.Save();
+}
+
+Json::Value ResourceView::GetSceneJson(std::string* filename) const {
+    return sceneEditor.GetSaveFileJson(filename);
+}
+
+void ResourceView::SwitchScene(int index) {
+
+    sceneEditor.SetVisible(true);
+    sceneEditor.SetScene(index);
+    Resources().activeScene = index;
+    sceneEditor.entityEditor.SetVisible(false);
+    Hymn().world.Clear();
+    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[index] + ".json");
+    changeScene = false;
+    savePromptWindow.SetVisible(false);
+    savePromptWindow.ResetDecision();
+
 }
 
 #undef max

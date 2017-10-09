@@ -128,8 +128,9 @@ vec3 applyLights() {
 
             // Spot light.
             float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(lights[i].direction)), -1.0f, 1.0f)));
-            if (lightToSurfaceAngle > lights[i].coneAngle) {
-                attenuation = 0.0f;
+            float fadeLength = 10.0;
+            if (lightToSurfaceAngle > lights[i].coneAngle - fadeLength) {
+                attenuation *= 1.0 - clamp(lightToSurfaceAngle - lights[i].coneAngle, 0.0, fadeLength) / fadeLength;
             }
         }
 
