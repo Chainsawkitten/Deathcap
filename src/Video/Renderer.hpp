@@ -69,6 +69,14 @@ namespace Video {
              */
             void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix);
             
+
+            /// Render selection highlight
+            /**
+            * @param geometry The geometry to render.
+            * @param modelMatrix Model matrix.
+            */
+            void RenderSelectedMesh(Geometry::Geometry3D* geometry, const glm::mat4& modelMatrix);
+
             /// Prepare for rendering skinned meshes.
             /**
              * @param viewMatrix The camera's view matrix.

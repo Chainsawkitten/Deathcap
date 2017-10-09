@@ -26,3 +26,11 @@ Json::Value Mesh::Save() const {
     
     return component;
 }
+
+bool Mesh::GetSelected() const {
+    return isSelected;
+}
+
+void Mesh::SetSelected(bool value) {
+    isSelected = value;
+}

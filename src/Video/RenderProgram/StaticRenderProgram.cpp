@@ -33,8 +33,7 @@ StaticRenderProgram::~StaticRenderProgram() {
     delete zShaderProgram;
 }
 
-void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix)
-{
+void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix) {
     zShaderProgram->Use();
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
@@ -59,7 +58,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
     viewProjectionMatrix = projectionMatrix * viewMatrix;
-    
+
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
@@ -71,11 +70,12 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glBindVertexArray(geometry->GetVertexArray());
 
         // Set texture locations
+        glUniform1i(shaderProgram->GetUniformLocation("isSelected"), false);
         glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
         glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
         glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
         glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
-        
+
         // Textures
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureAlbedo->GetTextureID());
@@ -98,7 +98,28 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
     }
 }
 
-ShaderProgram*  Video::StaticRenderProgram::GetShaderProgram()
-{
+void StaticRenderProgram::RenderSelection(Geometry::Geometry3D* geometry, const glm::mat4 modelMatrix) {
+    Frustum frustum(viewProjectionMatrix * modelMatrix);
+    if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
+        glDepthFunc(GL_LEQUAL);
+
+        // Render selection.
+        glUniform1i(shaderProgram->GetUniformLocation("isSelected"), true);
+        glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewMatrix"), 1, GL_FALSE, &viewMatrix[0][0]);
+        glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
+        glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
+
+        glBindVertexArray(geometry->GetVertexArray());
+
+        glLineWidth(2.0f);
+        for (int i = 0; i < geometry->GetIndexCount(); i += 3)
+            glDrawArrays(GL_LINE_LOOP, i, 3);
+
+        glDepthFunc(GL_LESS);
+    }
+}
+
+ShaderProgram*  Video::StaticRenderProgram::GetShaderProgram() {
     return shaderProgram;
 }

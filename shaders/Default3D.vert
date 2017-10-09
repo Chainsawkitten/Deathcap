@@ -11,6 +11,7 @@ uniform mat4 viewProjection;
 uniform mat4 model;
 uniform mat3 normalMatrix;
 uniform mat4 viewMatrix;
+uniform bool isSelected;
 
 out VertexData {
     vec3 pos;
@@ -24,5 +25,5 @@ void main () {
     vertexOut.pos = vec3(viewMatrix * (model * vec4(vertexPosition,1.0)));
     vertexOut.normal = normalize(normalMatrix * vertexNormal);
     vertexOut.tangent = vertexTangent;
-    vertexOut.texCoords = vertexTexture;
+    vertexOut.texCoords = vertexTexture;	
 }

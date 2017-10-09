@@ -45,6 +45,13 @@ namespace Video {
              */
             void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const;
 
+            /// Render a selection box.
+            /**
+            * @param geometry The geometry to render.
+            * @param modelMatrix Model matrix.
+            */
+            void RenderSelection(Geometry::Geometry3D* geometry, const glm::mat4 modelMatrix);
+
              /// Returns shaderprogram
             /**
             */

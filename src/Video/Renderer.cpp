@@ -114,6 +114,10 @@ void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D*
     staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix);
 }
 
+void Renderer::RenderSelectedMesh(Geometry::Geometry3D* geometry, const glm::mat4& modelMatrix) {
+    staticRenderProgram->RenderSelection(geometry, modelMatrix);
+}
+
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
     //fxaaFilter->SetScreenSize(renderSurface->GetSize());
     //postProcessing->ApplyFilter(renderSurface, fxaaFilter);

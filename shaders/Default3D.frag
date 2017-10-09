@@ -25,6 +25,7 @@ uniform sampler2D mapNormal;
 uniform sampler2D mapMetallic;
 uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
+uniform bool isSelected;
 uniform mat4 inverseProjectionMatrix;
 
 layout(location = 0) out vec4 fragmentColor;
@@ -170,15 +171,24 @@ vec3 applyLights() {
 
 void main() {
     
-    
-    vec3 color = applyLights();
+    if(isSelected)
+	{		
+		fragmentColor = vec4(0.0f, 0.7f, 0.0f, 1.0f);		
+	}
+	else
+	{
+		vec3 color = applyLights();
 
-    // Reinhard tone mapping
-    color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
-    
-    // Gamma correction
-    color = pow(color, vec3(1.0f / GAMMA)); 
+		// Reinhard tone mapping
+		color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
+		
+		// Gamma correction
+		color = pow(color, vec3(1.0f / GAMMA)); 
 
-    fragmentColor = vec4(color, 1.0f);
-    //fragmentColor = vec4(1,0,1,1);
+		fragmentColor = vec4(color, 1.0f);
+
+		//fragmentColor = vec4(1,0,1,1);
+
+	}
+	
 }

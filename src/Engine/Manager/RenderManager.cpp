@@ -44,7 +44,7 @@ using namespace Component;
 
 RenderManager::RenderManager() {
     renderer = new Video::Renderer();
-    
+
     // Render surface for main window.
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 
@@ -65,7 +65,7 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(lightTexture);
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
-    
+
     delete mainWindowRenderSurface;
 
     if (hmdRenderSurface != nullptr)
@@ -95,8 +95,7 @@ void RenderManager::Render(World& world, Entity* camera) {
 
         // Render hmd.
         if (hmdRenderSurface != nullptr) {
-            for (int i = 0; i < 2; ++i)
-            {
+            for (int i = 0; i < 2; ++i) {
                 vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
                 glm::vec3 position = camera->GetWorldPosition();
@@ -117,7 +116,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                     glm::vec4(forward, 0.f),
                     glm::vec4(0.f, 0.f, 0.f, 1.f)
                 ));
-                
+
                 glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
                 glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
                 glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
@@ -133,14 +132,14 @@ void RenderManager::Render(World& world, Entity* camera) {
                 // Submit texture to HMD.
                 Managers().vrManager->Submit(nEye, &texture);
             }
-            
+
             //TMP
             Managers().vrManager->Sync();
         }
 
         // Render to back buffer.
         { PROFILE("Render to back buffer");
-            renderer->DisplayResults(mainWindowRenderSurface, true);
+        renderer->DisplayResults(mainWindowRenderSurface, true);
         }
     }
 }
@@ -152,7 +151,7 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
             camera = lens->entity;
         }
     }
-    
+
     // Render from camera.
     if (camera != nullptr) {
         const glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
@@ -160,41 +159,41 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
         const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
         const glm::vec3 up(glm::inverse(camera->GetCameraOrientation()) * glm::vec4(0, 1, 0, 1));
-        
+
         renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
-        
+
         // Render sound sources.
         if (soundSources) {
             for (SoundSource* soundSource : Managers().soundManager->GetSoundSources())
                 renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
         }
-        
+
         // Render particle emitters.
         if (particleEmitters) {
             for (ParticleEmitter* emitter : Managers().particleManager->GetParticleEmitters())
                 renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
         }
-        
+
         // Render light sources.
         if (lightSources) {
             for (DirectionalLight* light : directionalLights.GetAll())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
-            
+
             for (PointLight* light : pointLights.GetAll())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
-            
+
             for (SpotLight* light : spotLights.GetAll())
                 renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
         }
-        
+
         // Render cameras.
         if (cameras) {
             for (Lens* lens : lenses.GetAll())
                 renderer->RenderIcon(lens->entity->GetWorldPosition(), cameraTexture);
         }
-        
+
         renderer->StopRenderingIcons();
-        
+
         // Render physics.
         if (physics) {
             for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
@@ -237,7 +236,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 Entity* entity = mesh->entity;
                 // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr) {
-                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix,  entity->GetModelMatrix());
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
                 }
             }
         }
@@ -255,14 +254,19 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
+
+                    if (mesh->GetSelected())
+                        renderer->RenderSelectedMesh(mesh->geometry, entity->GetModelMatrix());
+
                     renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
+
                 }
             }
         }
     }
 
     /// @todo Render skinned meshes.
-    
+
     // Light the world.
     {
         PROFILE("Light the world");
@@ -309,7 +313,7 @@ Component::Animation* RenderManager::CreateAnimation() {
 
 Component::Animation* RenderManager::CreateAnimation(const Json::Value& node) {
     Component::Animation* animation = animations.Create();
-    
+
     // Load values from Json node.
     std::string name = node.get("riggedModel", "").asString();
     /// @todo Fix animation.
@@ -317,7 +321,7 @@ Component::Animation* RenderManager::CreateAnimation(const Json::Value& node) {
         if (model->name == name)
             riggedModel = model;
     }*/
-    
+
     return animation;
 }
 
@@ -331,11 +335,11 @@ Component::DirectionalLight* RenderManager::CreateDirectionalLight() {
 
 Component::DirectionalLight* RenderManager::CreateDirectionalLight(const Json::Value& node) {
     Component::DirectionalLight* directionalLight = directionalLights.Create();
-    
+
     // Load values from Json node.
     directionalLight->color = Json::LoadVec3(node["color"]);
     directionalLight->ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
-    
+
     return directionalLight;
 }
 
@@ -349,12 +353,12 @@ Component::Lens* RenderManager::CreateLens() {
 
 Component::Lens* RenderManager::CreateLens(const Json::Value& node) {
     Component::Lens* lens = lenses.Create();
-    
+
     // Load values from Json node.
     lens->fieldOfView = node.get("fieldOfView", 45.f).asFloat();
     lens->zNear = node.get("zNear", 0.5f).asFloat();
     lens->zFar = node.get("zFar", 100.f).asFloat();
-    
+
     return lens;
 }
 
@@ -368,13 +372,13 @@ Component::Material* RenderManager::CreateMaterial() {
 
 Component::Material* RenderManager::CreateMaterial(const Json::Value& node) {
     Component::Material* material = materials.Create();
-    
+
     // Load values from Json node.
     LoadTexture(material->albedo, node.get("albedo", "").asString());
     LoadTexture(material->normal, node.get("normal", "").asString());
     LoadTexture(material->metallic, node.get("metallic", "").asString());
     LoadTexture(material->roughness, node.get("roughness", "").asString());
-    
+
     return material;
 }
 
@@ -388,11 +392,11 @@ Component::Mesh* RenderManager::CreateMesh() {
 
 Component::Mesh* RenderManager::CreateMesh(const Json::Value& node) {
     Component::Mesh* mesh = meshes.Create();
-    
+
     // Load values from Json node.
     std::string meshName = node.get("model", "").asString();
     mesh->geometry = Managers().resourceManager->CreateModel(meshName);
-    
+
     return mesh;
 }
 
@@ -406,13 +410,13 @@ Component::PointLight* RenderManager::CreatePointLight() {
 
 Component::PointLight* RenderManager::CreatePointLight(const Json::Value& node) {
     Component::PointLight* pointLight = pointLights.Create();
-    
+
     // Load values from Json node.
     pointLight->color = Json::LoadVec3(node["color"]);
     pointLight->ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
     pointLight->attenuation = node.get("attenuation", 1.f).asFloat();
     pointLight->intensity = node.get("intensity", 1.f).asFloat();
-    
+
     return pointLight;
 }
 
@@ -426,14 +430,14 @@ Component::SpotLight* RenderManager::CreateSpotLight() {
 
 Component::SpotLight* RenderManager::CreateSpotLight(const Json::Value& node) {
     Component::SpotLight* spotLight = spotLights.Create();
-    
+
     // Load values from Json node.
     spotLight->color = Json::LoadVec3(node["color"]);
     spotLight->ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
     spotLight->attenuation = node.get("attenuation", 1.f).asFloat();
     spotLight->intensity = node.get("intensity", 1.f).asFloat();
     spotLight->coneAngle = node.get("coneAngle", 15.f).asFloat();
-    
+
     return spotLight;
 }
 
@@ -455,12 +459,12 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
 
     float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
-    
+
     // Add all directional lights.
     for (Component::DirectionalLight* directionalLight : directionalLights.GetAll()) {
         if (directionalLight->IsKilled() || !directionalLight->entity->enabled)
             continue;
-        
+
         Entity* lightEntity = directionalLight->entity;
         glm::vec4 direction(glm::vec4(lightEntity->GetDirection(), 0.f));
         Video::Light light;
@@ -472,12 +476,12 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.direction = glm::vec3(0.f, 0.f, 0.f);
         renderer->AddLight(light);
     }
-    
+
     // Add all spot lights.
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
         if (spotLight->IsKilled() || !spotLight->entity->enabled)
             continue;
-        
+
         Entity* lightEntity = spotLight->entity;
         glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
         glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
@@ -490,19 +494,19 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.direction = glm::vec3(direction);
         renderer->AddLight(light);
     }
-    
+
     // At which point lights should be cut off (no longer contribute).
     cutOff = 0.0001f;
-    
+
     // Add all point lights.
     for (Component::PointLight* pointLight : pointLights.GetAll()) {
         if (pointLight->IsKilled() || !pointLight->entity->enabled)
             continue;
-        
+
         Entity* lightEntity = pointLight->entity;
         float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
-        
+
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
@@ -516,7 +520,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             renderer->AddLight(light);
         }
     }
-    
+
     // Render lights.
     renderer->Light(glm::inverse(projectionMatrix), renderSurface);
 }
