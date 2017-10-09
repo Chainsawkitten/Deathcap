@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Video/Geometry/Geometry3D.hpp>
-#include <assimp/Importer.hpp>
 #include <json/json.h>
 #include "AssetFileHandler.hpp"
 

@@ -77,9 +77,7 @@ void ActiveHymn::SetPath(const string& path) {
 }
 
 std::string ActiveHymn::GetSavePath() const {
-
     return path + FileSystem::DELIMITER + "Hymn.json";
-
 }
 
 void ActiveHymn::Save() const {
@@ -222,8 +220,7 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     }
 }
 
-void ActiveHymn::CreateGrid(int scale)
-{
+void ActiveHymn::CreateGrid(int scale) {
     glm::vec2 gridWidthDepth(10.0f, 10.0f);
     gridWidthDepth.x = (gridWidthDepth.x * scale);
     gridWidthDepth.y = (gridWidthDepth.y * scale);

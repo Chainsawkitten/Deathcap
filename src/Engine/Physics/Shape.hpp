@@ -67,9 +67,10 @@ namespace Physics {
             /**
              * @return The Bullet shape.
              */
-            btCollisionShape* GetShape();
+            btCollisionShape* GetShape() const;
 
-        private:
+            Shape(const Shape& other) = delete;
+
             btCollisionShape* shape;
             Kind kind;
             union {
