@@ -79,7 +79,6 @@ void EntityEditor::Show() {
         ImGui::Indent();
 
         if (Hymn().gridSettings.gridSnap) {
-
             int toNearest = Hymn().gridSettings.snapOption;
 
             int value = entity->position.x;
@@ -100,13 +99,12 @@ void EntityEditor::Show() {
                 entity->position.y = (value - rest);
             }
 
-            value = entity->position.y;
+            value = entity->position.z;
             rest = value % toNearest;
 
             if (rest > (toNearest / 2)) {
                 entity->position.z = (value - rest) + toNearest;
-            }
-            else {
+            } else {
                 entity->position.z = (value - rest);
             }
         }
