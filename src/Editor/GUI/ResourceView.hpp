@@ -19,6 +19,12 @@ namespace GUI {
             /// Show the resource list.
             void Show();
             
+            /// Checks if any changes has been made to the current scene.
+            /**
+             * @return Has any changes been made.
+             */
+            bool HasMadeChanges() const;
+
             /// Get whether the resource list is visible.
             /**
              * @return Whether the resource list is visible.
@@ -40,6 +46,12 @@ namespace GUI {
             /// Save the currently active scene.
             void SaveScene() const;
             
+            /// Get a json representing the scene.
+            /**
+             * @param filename The json file representing the scene.
+             */
+            Json::Value GetSceneJson(std::string* filename) const;
+
             /// Reset which scene is open.
             void ResetScene();
 

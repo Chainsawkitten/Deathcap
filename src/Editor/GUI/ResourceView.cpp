@@ -21,6 +21,8 @@ using namespace std;
 
 ResourceView::ResourceView() {
     folderNameWindow.SetClosedCallback(std::bind(&ResourceView::FileNameWindowClosed, this, placeholders::_1));
+    savePromptWindow.SetTitle("Save before you switch scene?");
+    savePromptWindow.ResetDecision();
 }
 
 void ResourceView::Show() {
@@ -130,6 +132,32 @@ void ResourceView::Show() {
     ImGui::End();
 }
 
+bool ResourceView::HasMadeChanges() const{
+
+    std::string* sceneFilename = new std::string();
+    Json::Value sceneJson = sceneEditor.GetSaveFileJson(sceneFilename);
+
+    // Load Json document from file.
+    Json::Value reference;
+    std::ifstream file(*sceneFilename);
+
+    if (!file.good())
+        return true;
+
+    file >> reference;
+    file.close();
+
+    std::string hymnJsonString = sceneJson.toStyledString();
+    std::string referenceString = reference.toStyledString();
+
+    int response = referenceString.compare(hymnJsonString);
+    if (response != 0)
+        return true;
+
+    return false;
+
+}
+
 bool ResourceView::IsVisible() const {
     return visible;
 }
@@ -149,6 +177,10 @@ void ResourceView::HideEditors() {
 
 void ResourceView::SaveScene() const {
     sceneEditor.Save();
+}
+
+Json::Value ResourceView::GetSceneJson(std::string* filename) const {
+    return sceneEditor.GetSaveFileJson(filename);
 }
 
 #undef max

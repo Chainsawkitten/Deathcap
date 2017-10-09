@@ -40,6 +40,13 @@ ResourceList& ResourceList::GetInstance() {
 }
 
 void ResourceList::Save() const {
+    // Save to file.
+    ofstream file(GetSavePath());
+    file << ToJson();
+    file.close();
+}
+
+Json::Value ResourceList::ToJson() const {
     Json::Value root;
     
     root["activeScene"] = activeScene;
@@ -51,16 +58,13 @@ void ResourceList::Save() const {
     root["soundNumber"] = soundNumber;
     root["scriptNumber"] = scriptNumber;
     
-    // Save to file.
-    ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
-    file << root;
-    file.close();
+    return root;
 }
 
 void ResourceList::Load() {
     // Load Json document from file.
     Json::Value root;
-    ifstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
+    ifstream file(GetSavePath());
     file >> root;
     file.close();
     
@@ -196,6 +200,10 @@ void ResourceList::ClearFolder(ResourceFolder& folder) {
         }
     }
     folder.resources.clear();
+}
+
+std::string ResourceList::GetSavePath() const{
+    return Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json";
 }
 
 ResourceList& Resources() {

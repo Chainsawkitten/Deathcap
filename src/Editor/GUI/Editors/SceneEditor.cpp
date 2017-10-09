@@ -25,6 +25,7 @@ void SceneEditor::Show() {
     if (ImGui::Begin(("Scene: " + *scene + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
         *scene = name;
+        Resources().activeScene = name;
         
         // Entities.
         entityPressed = false;
@@ -90,6 +91,15 @@ void SceneEditor::SetVisible(bool visible) {
 void SceneEditor::Save() const {
     if (scene != nullptr)
         Hymn().world.Save(Hymn().GetPath() + "/" + path + "/" + *scene + ".json");
+}
+
+Json::Value SceneEditor::GetSaveFileJson(std::string* filename) const {
+    if (scene != nullptr) {
+        *filename = Hymn().GetPath() + "/" + path + "/" + *scene + ".json";
+        return Hymn().world.GetSaveJson();
+    }
+    
+    return Json::Value();
 }
 
 void SceneEditor::ShowEntity(Entity* entity) {
