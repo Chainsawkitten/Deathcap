@@ -23,7 +23,7 @@ class MousePicking {
         /**
         * @return A vec3 with values from current ray in world space. Normalized.
         */
-        glm::vec3 GetCurrentRay();
+        glm::vec3 GetCurrentRay() const;
 
         /// Updates the mouse picker's projection matrix
         /**
@@ -48,14 +48,14 @@ class MousePicking {
         Entity* camera;
 
         // Return a vector
-        glm::vec3 CalculateRay();
+        glm::vec3 CalculateRay() const;
 
         // Return a vector with mouse coordinates in Normalized Device Coordinates.
-        glm::vec2 GetNDC(double mouseX, double mouseY);
+    static glm::vec2 GetNDC(double mouseX, double mouseY);
 
         // Convert clip space coordinates to eye coordinates.
-        glm::vec4 ConvertEyeCoords(const glm::vec4& clipSpaceCoordinates);
+        glm::vec4 ConvertEyeCoords(const glm::vec4& clipSpaceCoordinates) const;
 
         // Convert eye coordinates to world coordinates.
-        glm::vec3 ConvertWorldCoords(const glm::vec4& eyeCoords);
+        glm::vec3 ConvertWorldCoords(const glm::vec4& eyeCoords) const;
 };
