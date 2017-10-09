@@ -147,7 +147,8 @@ void PhysicsManager::OnTriggerLeave(Component::Physics* triggerBody, Component::
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     assert(rigidBodyComp); // for now
-    Physics::Trigger* trigger = new Physics::Trigger(rigidBodyComp->GetBulletRigidBody()->getWorldTransform());
+    btTransform trans(btQuaternion(0, 0, 0, 1), ::Physics::glmToBt(comp->entity->position));
+    Physics::Trigger* trigger = new Physics::Trigger(trans);
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape().GetShape() : nullptr);
     triggers.push_back(trigger);
