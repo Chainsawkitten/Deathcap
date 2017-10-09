@@ -26,9 +26,11 @@ class AssetConverter
         /**
          * @param filepath Filepath of the fbxfile.
          * @param destination Filepath of the destination inculding name and extension.
+         * @param scale Rescale the model.
          * @param triangulate Should the mesh be triangulated?
          * @param importNormals Should normals be imported from the mesh?
          * @param importTangents Should tangents be imported from the mesh?
+         * @param flipsUVs Flip UV/texture coordinates in y axis.
          */
         void Convert(const char * filepath, const char * destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipsUVs);
 
