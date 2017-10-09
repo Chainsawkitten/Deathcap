@@ -54,7 +54,6 @@ namespace GUI {
             
             bool visible = false;
             
-            std::size_t sceneIndex;
             char name[128];
     };
 }

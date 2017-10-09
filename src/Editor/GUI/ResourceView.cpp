@@ -22,7 +22,8 @@ using namespace GUI;
 using namespace std;
 
 ResourceView::ResourceView() {
-
+    savePromptWindow.SetTitle("Save before you switch scene?");
+    savePromptWindow.ResetDecision();
 }
 
 void ResourceView::Show() {
@@ -56,10 +57,8 @@ void ResourceView::Show() {
                     if (Resources().scenes[i] != Resources().scenes[Resources().activeScene]) {
                         changeScene = true;
                         sceneIndex = i;
-                        savePromptWindow.SetTitle("Save before you switch scene?");
                     }
                 }
-
             }
             
             if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
@@ -91,6 +90,7 @@ void ResourceView::Show() {
                 else {
 
                     savePromptWindow.SetVisible(true);
+                    savePromptWindow.ResetDecision();
                     savePromptWindow.Show();
 
                     switch (savePromptWindow.GetDecision())
