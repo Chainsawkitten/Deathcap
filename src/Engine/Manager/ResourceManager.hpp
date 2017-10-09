@@ -24,6 +24,9 @@ class ResourceManager {
     friend class Hub;
     
     public:
+        /// Constructor
+        ResourceManager() {}
+
         /// Create an model for rendering if it doesn't already exist.
         /**
         * @param name Name of model.
@@ -111,7 +114,6 @@ class ResourceManager {
         void FreeScriptFile(ScriptFile* scriptFile);
         
     private:
-        ResourceManager() = delete;
         ResourceManager(ResourceManager const&) = delete;
         void operator=(ResourceManager const&) = delete;
         
