@@ -34,10 +34,10 @@ class SoundManager {
         /**
          * @param message Message to print to standard error if an error was encountered.
          */
-        static void CheckError(const char* message);
+        static void CheckError(PaError err);
         
         /// Moves sound sources and plays sounds.
-        void Update();
+        void Update(float deltaTime);
         
         /// Create sound source component.
         /**
@@ -90,7 +90,7 @@ class SoundManager {
             PaStreamCallbackFlags statusFlags, void* userData);
         
         PaStream* stream;
-        static char* processedFrameSamples[2];
+        short* processedFrameSamples;
         
         float volume = 1.f;
         

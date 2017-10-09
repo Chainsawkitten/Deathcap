@@ -22,7 +22,7 @@ namespace Audio {
             /**
              * @return Raw audio data.
              */
-            char* GetData() const final;
+            short* GetData() const final;
             
             /// Get data size.
             /**
@@ -37,7 +37,7 @@ namespace Audio {
             size_t GetSampleRate() const final;
             
         private:
-            char* data;
+            short* data;
             int dataSize;
             int sampleRate;
             ALenum format;

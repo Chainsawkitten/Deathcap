@@ -13,39 +13,41 @@
 #include "portaudio.h"
 
 #define SAMPLE_RATE (44100)
-#define FRAMES_PER_BUFFER (735)
-#define PA_SAMPLE_TYPE  paFloat32
-
-// Scaling constant. Used to convert from our units to sound system units.
-const float soundScale = 0.2f;
-char* SoundManager::processedFrameSamples[2];
+#define PA_SAMPLE_TYPE  paInt16
 
 SoundManager::SoundManager() {
+    PaError err;
+
+    // Initialize PortAudio
+    err = Pa_Initialize();
+    CheckError(err);
     
-    // 
     PaStreamParameters outputParams;
     outputParams.device = Pa_GetDefaultOutputDevice();
-    outputParams.channelCount = 2;
+    outputParams.channelCount = 1;
     outputParams.sampleFormat = PA_SAMPLE_TYPE;
     outputParams.hostApiSpecificStreamInfo = NULL;
-
-    int sampleRate = SAMPLE_RATE;
+    outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultHighOutputLatency;
 
     // Open Stream
-    Pa_OpenStream(
+    err = Pa_OpenStream(
         &stream,
         NULL,
         &outputParams,
-        sampleRate,
-        FRAMES_PER_BUFFER,
-        0,
-        fillOutputBufferCallback,
+        SAMPLE_RATE,
+        paFramesPerBufferUnspecified,
+        paClipOff,
+        NULL,
         NULL
     );
+    CheckError(err);
 
-    processedFrameSamples[0] = new char[FRAMES_PER_BUFFER] { 0 };
-    processedFrameSamples[1] = new char[FRAMES_PER_BUFFER] { 0 };
+    processedFrameSamples = new short[735] { 0 };
+
+    err = Pa_StartStream(stream);
+    CheckError(err);
 }
+
 
 SoundManager::~SoundManager() {
     delete processedFrameSamples;
@@ -53,39 +55,39 @@ SoundManager::~SoundManager() {
     Pa_Terminate();
 }
 
-void SoundManager::CheckError(const char* message) {
-    ALenum error = alGetError();
-    if (error != AL_NO_ERROR) {
-        Log() << message << "\n";
-        if (error == AL_INVALID_NAME) Log() << "Invalid name\n";
-        if (error == AL_INVALID_ENUM) Log() << "Invalid enum\n";
-        if (error == AL_INVALID_VALUE) Log() << "Invalid value\n";
-        if (error == AL_INVALID_OPERATION) Log() << "Invalid operation\n";
-        if (error == AL_OUT_OF_MEMORY) Log() << "Out of memory like!\n";
+void SoundManager::CheckError(PaError err) {
+    if (err != paNoError) {
+        Pa_Terminate();
+        Log() << "An error occured while using the portaudio stream\n";
+        Log() << "Error number:" << err << "\n";
+        Log() << "Error message: " << Pa_GetErrorText(err) << "\n";
     }
 }
+bool firstframe = true;
+void SoundManager::Update(float deltaTime) {
+    
+    // Number of samples to process dependant on deltaTime
+    int numSamples = SAMPLE_RATE * deltaTime;
 
-void SoundManager::Update() {
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
-
         // Obviously send all buffers into steam audio and use the mix from there to fill processedFrameSamples. The solution below only works properly with one soundsource.
         if (sound->shouldPlay) {
-            delete processedFrameSamples[0];
-            processedFrameSamples[0] = processedFrameSamples[1];
-            processedFrameSamples[1] = new char[FRAMES_PER_BUFFER];
-            if (sound->soundBuffer->GetSize() > sound->place + sizeof(char)*FRAMES_PER_BUFFER) {
-                memcpy(processedFrameSamples[1],(sound->soundBuffer->GetBuffer() + sound->place), sizeof(char)*FRAMES_PER_BUFFER);
-                sound->place += sizeof(char)*FRAMES_PER_BUFFER;
+            delete processedFrameSamples;
+            processedFrameSamples = new short[numSamples];
+            if (sound->soundBuffer->GetSize() > sound->place + sizeof(char)*numSamples) {
+                short* audioBuffer = sound->soundBuffer->GetBuffer();
+                memcpy(processedFrameSamples,(sound->soundBuffer->GetBuffer() + sound->place), sizeof(short)*numSamples);
+                sound->place += numSamples;
             } else {
                 // Only copy the end samples of the buffer
-                size_t numToCpy = FRAMES_PER_BUFFER - (sound->soundBuffer->GetSize() - sound->place)/sizeof(char);
-                memcpy(processedFrameSamples[1], (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
+                size_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place)/sizeof(short);
+                memcpy(processedFrameSamples, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
                 if (sound->loop) {
-                    memcpy(processedFrameSamples[1] + numToCpy*sizeof(char), sound->soundBuffer->GetBuffer(), sizeof(char)*FRAMES_PER_BUFFER-numToCpy);
-                    sound->place = sizeof(char) * (FRAMES_PER_BUFFER - numToCpy);
+                    memcpy(processedFrameSamples + numToCpy*sizeof(short), sound->soundBuffer->GetBuffer(), sizeof(short)*numSamples -numToCpy);
+                    sound->place = numSamples - numToCpy;
                 } else {
-                    memset(processedFrameSamples[1] + numToCpy * sizeof(char), 0, sizeof(char)*(FRAMES_PER_BUFFER - numToCpy));
+                    memset(processedFrameSamples + numToCpy * sizeof(short), 0, sizeof(short)*(numSamples - numToCpy));
                     sound->shouldPlay = false;
                 }
             }
@@ -145,36 +147,19 @@ void SoundManager::Update() {
         Entity* entity = listener->entity;
         
         // Set position
-        glm::vec3 position = soundScale * entity->position;
-        alListener3f(AL_POSITION, position.x, position.y, position.z);
-        CheckError("Couldn't set listener position.");
+        //glm::vec3 position = soundScale * entity->position;
+        //alListener3f(AL_POSITION, position.x, position.y, position.z);
         
         // Set orientation.
         glm::vec4 forward = glm::inverse(entity->GetOrientation()) * glm::vec4(0.f, 0.f, -1.f, 1.f);
         glm::vec4 up = glm::inverse(entity->GetOrientation()) * glm::vec4(0.f, 1.f, 0.f, 1.f);
         ALfloat listenerOri[] = { forward.x, forward.y, forward.z, up.x, up.y, up.z };
         alListenerfv(AL_ORIENTATION, listenerOri);
-        CheckError("Couldn't set listener orientation.");
         
         break;
     }
-}
 
-int SoundManager::fillOutputBufferCallback(const void* inputBuffer, void* outputBuffer,
-                                    unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo,
-                                    PaStreamCallbackFlags statusFlags, void* userData) {
-    // Take samples from processed queue
-    (void)inputBuffer;
-    (void)timeInfo;
-    (void)statusFlags;
-    (void)userData;
-
-    float* out = (float*)outputBuffer;
-    for (int i = 0; i < FRAMES_PER_BUFFER; i++)
-    {
-        *out++ = processedFrameSamples[0][i];
-    }
-    return paContinue;
+    Pa_WriteStream(stream, processedFrameSamples, numSamples);
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {

@@ -7,7 +7,7 @@ using namespace Audio;
 
 VorbisFile::VorbisFile(const char *filename) {
     int channels;
-    dataSize = stb_vorbis_decode_filename(filename, &channels, &sampleRate, reinterpret_cast<short**>(&data));
+    dataSize = stb_vorbis_decode_filename(filename, &channels, &sampleRate, &data);
     
     if (dataSize == -1)
         Log() << "Couldn't load OGG Vorbis file: " << filename << "\n";
@@ -25,7 +25,7 @@ VorbisFile::~VorbisFile() {
 
 }
 
-char* VorbisFile::GetData() const {
+short* VorbisFile::GetData() const {
     return data;
 }
 

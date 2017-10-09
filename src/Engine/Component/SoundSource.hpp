@@ -53,7 +53,7 @@ namespace Component {
         private:
             ALuint source;
             
-            bool shouldPlay = false;
+            bool shouldPlay = true;
             bool shouldPause = false;
             bool shouldStop = false;
             

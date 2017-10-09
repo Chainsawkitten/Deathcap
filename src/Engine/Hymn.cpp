@@ -179,7 +179,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update sounds");
-        Managers().soundManager->Update();
+        Managers().soundManager->Update(deltaTime);
     }
     
     { PROFILE("Update debug drawing");

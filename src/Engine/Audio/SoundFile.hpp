@@ -16,7 +16,7 @@ namespace Audio {
             /**
              * @return Raw audio data.
              */
-            virtual char* GetData() const = 0;
+            virtual short* GetData() const = 0;
             
             /// Get data size.
             /**

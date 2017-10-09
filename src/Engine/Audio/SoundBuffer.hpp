@@ -26,7 +26,7 @@ namespace Audio {
             /**
              * @return The OpenAL buffer ID.
              */
-            char* GetBuffer() const;
+            short* GetBuffer() const;
             
             /// Save the sound.
             /**
@@ -56,7 +56,7 @@ namespace Audio {
             std::string name;
             
         private:
-            char* buffer;
+            short* buffer;
             size_t size;
             size_t sampleRate;
     };
