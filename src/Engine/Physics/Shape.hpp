@@ -69,7 +69,8 @@ namespace Physics {
              */
             btCollisionShape* GetShape();
 
-        private:
+            Shape(const Shape& other) = delete;
+
             btCollisionShape* shape;
             Kind kind;
             union {
