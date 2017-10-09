@@ -24,9 +24,12 @@
 
 int main() {
     // Enable logging if requested.
-    if (EditorSettings::GetInstance().GetBool("Logging"))
-        freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
-    
+    if (EditorSettings::GetInstance().GetBool("Logging")){
+        FILE* file = freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
+        if (file == nullptr)
+            Log() << "Could not open logging file!";
+    }
+
     Log() << "Editor started - " << time(nullptr) << "\n";
     
     if (!glfwInit())
