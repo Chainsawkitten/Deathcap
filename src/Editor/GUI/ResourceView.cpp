@@ -307,42 +307,35 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
             ImGui::EndPopup();
         }
     }
-    /*
+    
     // Textures.
-    bool texturePressed = false;
-    if (ImGui::TreeNode("Textures")) {
-        for (auto it = Resources().textures.begin(); it != Resources().textures.end(); ++it) {
-            TextureAsset* texture = *it;
-            if (ImGui::Selectable(texture->name.c_str())) {
-                texturePressed = true;
-                textureEditor.SetTexture(texture);
-            }
-            
-            if (ImGui::BeginPopupContextItem(texture->name.c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    if (Managers().resourceManager->GetTextureAssetInstanceCount(texture) > 1) {
-                        Log() << "This texture is in use. Remove all references to the texture first.\n";
-                    } else {
-                        if (textureEditor.GetTexture() == texture)
-                            textureEditor.SetVisible(false);
-                        
-                        // Remove files.
-                        remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png").c_str());
-                        remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".json").c_str());
-                        
-                        Managers().resourceManager->FreeTextureAsset(texture);
-                        Resources().textures.erase(it);
-                    }
-                    ImGui::EndPopup();
-                    break;
-                }
-                ImGui::EndPopup();
-            }
+    if (resource.type == ResourceList::Resource::TEXTURE) {
+        if (ImGui::Selectable(resource.texture->name.c_str())) {
+            texturePressed = true;
+            textureEditor.SetTexture(resource.texture);
         }
         
-        ImGui::TreePop();
+        if (ImGui::BeginPopupContextItem(resource.texture->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (Managers().resourceManager->GetTextureAssetInstanceCount(resource.texture) > 1) {
+                    Log() << "This texture is in use. Remove all references to the texture first.\n";
+                } else {
+                    if (textureEditor.GetTexture() == resource.texture)
+                        textureEditor.SetVisible(false);
+                    
+                    // Remove files.
+                    remove((Hymn().GetPath() + "/" + path + "/" + resource.texture->name + ".png").c_str());
+                    remove((Hymn().GetPath() + "/" + path + "/" + resource.texture->name + ".json").c_str());
+                    
+                    Managers().resourceManager->FreeTextureAsset(resource.texture);
+                    ImGui::EndPopup();
+                    return true;
+                }
+            }
+            ImGui::EndPopup();
+        }
     }
-    
+    /*
     // Scripts.
     bool scriptPressed = false;
     if (ImGui::TreeNode("Scripts")) {
