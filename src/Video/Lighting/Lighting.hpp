@@ -9,6 +9,7 @@ namespace Video {
     class FrameBuffer;
     class RenderSurface;
     class ShaderProgram;
+    class StorageBuffer;
     namespace Geometry {
         class Rectangle;
     }
@@ -47,6 +48,7 @@ namespace Video {
             ShaderProgram* shaderProgram;
             
             std::vector<Light> lights;
+            StorageBuffer* lightBuffer;
             
             // Store light uniform locations so we don't have to get them every frame.
             static const unsigned int lightCount = 32U;

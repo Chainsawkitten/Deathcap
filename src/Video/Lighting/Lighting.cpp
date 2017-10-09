@@ -1,4 +1,4 @@
-#include "Lighting.hpp"
+﻿#include "Lighting.hpp"
 
 #include <Utility/Log.hpp>
 
@@ -10,24 +10,12 @@
 #include "FrameBuffer.hpp"
 #include "ReadWriteTexture.hpp"
 #include "RenderSurface.hpp"
+#include "Buffer/StorageBuffer.hpp"
 
 using namespace Video;
 
 Lighting::Lighting(ShaderProgram* shaderProgram) {
-    // Compile shader program.
-    //Shader* vertexShader = new Shader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
-    //Shader* fragmentShader = new Shader(DEFERRED_FRAG, DEFERRED_FRAG_LENGTH, GL_FRAGMENT_SHADER);
-    //shaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
-    //delete vertexShader;
-    //delete fragmentShader;
     this->shaderProgram = shaderProgram;
-    
-    //// Check if framebuffer created correctly
-    //if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    //    Log() << "Frame buffer creation failed\n";
-    //
-    //// Default framebuffer
-    //glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
     
     // Store light uniform locations.
     for (unsigned int lightIndex = 0; lightIndex < lightCount; ++lightIndex) {
@@ -38,10 +26,13 @@ Lighting::Lighting(ShaderProgram* shaderProgram) {
         lightUniforms[lightIndex].coneAngle = shaderProgram->GetUniformLocation(("lights[" + std::to_string(lightIndex) + "].coneAngle").c_str());
         lightUniforms[lightIndex].direction = shaderProgram->GetUniformLocation(("lights[" + std::to_string(lightIndex) + "].direction").c_str());
     }
+
+    lightBuffer = new StorageBuffer(sizeof(glm::vec4), GL_STATIC_DRAW); //GL_STATIC_DRAW
+
 }
 
 Lighting::~Lighting() {
-   
+    delete lightBuffer;
 }
 
 void Lighting::ClearLights() {
@@ -78,7 +69,22 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     //glUniform1i(shaderProgram->GetUniformLocation("textureMetallic"), 2);
     //glUniform1i(shaderProgram->GetUniformLocation("textureRougness"), 3);
     //glUniform1i(shaderProgram->GetUniformLocation("tDepth"), 4);
-    
+
+    assert(lights.size() <= lightCount);
+
+    //lightBuffer->Bind();
+    //if (lights.size() > 0)
+    //    lightBuffer->Write(lights.data(), 0, sizeof(Light) * lights.size());
+    //lightBuffer->BindBase(2); // bind/unbind
+    //lightBuffer->Unbind();
+
+    lightBuffer->Bind();
+    glm::vec4 data(1,1,1,1);
+    lightBuffer->Write(&data, 0, sizeof(glm::vec4));
+    lightBuffer->Unbind();
+    lightBuffer->BindBase(5);
+    //
+
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
     

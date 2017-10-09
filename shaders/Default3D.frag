@@ -1,7 +1,7 @@
 /*
 Geometry pass fragment shader (first pass).
 */
-#version 400
+#version 430
 
 in VertexData {
     vec3 pos;
@@ -18,6 +18,11 @@ struct Light {
     float ambientCoefficient;
     float coneAngle;
     vec3 direction;
+};
+
+layout(std430, binding = 5) buffer bBuffer
+{
+    vec4 data[]; 
 };
 
 uniform sampler2D mapAlbedo;
@@ -168,8 +173,7 @@ vec3 applyLights() {
 }
 
 void main() {
-    
-    
+
     vec3 color = applyLights();
 
     // Reinhard tone mapping
@@ -178,6 +182,8 @@ void main() {
     // Gamma correction
     color = pow(color, vec3(1.0f / GAMMA)); 
 
-    fragmentColor = vec4(color, 1.0f);
-    //fragmentColor = vec4(1,0,1,1);
+    //fragmentColor = vec4(color, 1.0f); // TMP!!!!!!!!!!
+    //fragmentColor = vec4(lightBuffer[0].position.xyz, 1);
+    //fragmentColor = vec4(1,1,0,1);
+    fragmentColor = data[0];
 }

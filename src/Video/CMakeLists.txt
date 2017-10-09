@@ -1,4 +1,5 @@
 set(SRCS
+        Buffer/StorageBuffer.cpp
         DebugDrawing.cpp
         FrameBuffer.cpp
         ParticleRenderer.cpp
@@ -30,6 +31,7 @@ set(SRCS
     )
 
 set(HEADERS
+        Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
         FrameBuffer.hpp
         ParticleRenderer.hpp
