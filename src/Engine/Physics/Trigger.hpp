@@ -25,7 +25,7 @@ namespace Physics {
             /**
              * @return The Bullet collision object.
              */
-            btCollisionObject* GetCollisionObject();
+            btCollisionObject* GetCollisionObject() const;
 
             /// Process observers against the trigger volume.
             /**
@@ -44,7 +44,7 @@ namespace Physics {
             void ForObserver(btRigidBody* body, const std::function<void(TriggerObserver&)>& fun);
 
         private:
-            void SetCollisionShape(btCollisionShape* shape);
+            void SetCollisionShape(btCollisionShape* shape) const;
 
         private:
             btCollisionObject* trigger = nullptr;

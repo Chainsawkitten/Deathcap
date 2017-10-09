@@ -10,7 +10,7 @@ namespace Physics {
         trigger->setWorldTransform(transform);
     }
 
-    btCollisionObject* Trigger::GetCollisionObject() {
+    btCollisionObject* Trigger::GetCollisionObject() const {
         return trigger;
     }
 
@@ -33,7 +33,7 @@ namespace Physics {
         fun(**obs);
     }
 
-    void Trigger::SetCollisionShape(btCollisionShape* shape) {
+    void Trigger::SetCollisionShape(btCollisionShape* shape) const {
         trigger->setCollisionShape(shape);
     }
 }

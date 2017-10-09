@@ -1,5 +1,4 @@
 #include "SoundManager.hpp"
-#include <phonon.h>
 #include <Utility/Log.hpp>
 #include <AL/al.h>
 #include "../Entity/World.hpp"
