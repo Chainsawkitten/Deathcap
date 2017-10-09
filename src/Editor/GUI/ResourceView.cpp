@@ -335,36 +335,35 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
             ImGui::EndPopup();
         }
     }
-    /*
+    
     // Scripts.
-    bool scriptPressed = false;
-    if (ImGui::TreeNode("Scripts")) {
-        for (auto it = Hymn().scripts.begin(); it != Hymn().scripts.end(); ++it) {
-            ScriptFile* script = *it;
-            std::string name = script->name;
-            
-            if (ImGui::Selectable(name.c_str())) {
-                scriptPressed = true;
-                scriptEditor.SetScript(script);
-            }
-            
-            if (ImGui::BeginPopupContextItem(name.c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    if (scriptEditor.GetScript() == script)
-                        scriptEditor.SetVisible(false);
-                    
-                    delete script;
-                    Hymn().scripts.erase(it);
-                    ImGui::EndPopup();
-                    break;
-                }
-                ImGui::EndPopup();
-            }
+    if (resource.type == ResourceList::Resource::SCRIPT) {
+        std::string name = resource.script->name;
+        
+        if (ImGui::Selectable(name.c_str())) {
+            scriptPressed = true;
+            scriptEditor.SetScript(resource.script);
         }
         
-        ImGui::TreePop();
+        if (ImGui::BeginPopupContextItem(name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (scriptEditor.GetScript() == resource.script)
+                    scriptEditor.SetVisible(false);
+                
+                Managers().resourceManager->FreeScriptFile(resource.script);
+                for (auto it = Hymn().scripts.begin(); it != Hymn().scripts.end(); ++it) {
+                    if (*it == resource.script) {
+                        Hymn().scripts.erase(it);
+                        break;
+                    }
+                }
+                ImGui::EndPopup();
+                return true;
+            }
+            ImGui::EndPopup();
+        }
     }
-    
+    /*
     // Sounds.
     bool soundPressed = false;
     if (ImGui::TreeNode("Sounds")) {
