@@ -67,7 +67,7 @@ namespace Physics {
             /**
              * @return The Bullet shape.
              */
-            btCollisionShape* GetShape();
+            btCollisionShape* GetShape() const;
 
             Shape(const Shape& other) = delete;
 
