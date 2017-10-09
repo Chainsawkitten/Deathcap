@@ -182,9 +182,14 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             return;
         }
         
-        /// @todo Add model.
+        // Add model.
         if (ImGui::Selectable("Add model")) {
-            
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::MODEL;
+            resource.model = new Geometry::Model();
+            resource.model->name = "Model #" + std::to_string(Resources().modelNumber++);
+            folder.resources.push_back(resource);
+            return;
         }
         
         /// @todo Add texture.
@@ -267,12 +272,6 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
     // Models.
     bool modelPressed = false;
     if (ImGui::TreeNode("Models")) {
-        if (ImGui::Button("Add model")) {
-            Geometry::Model* model = new Geometry::Model();
-            model->name = "Model #" + std::to_string(Resources().modelNumber++);
-            Resources().models.push_back(model);
-        }
-        
         for (auto it = Resources().models.begin(); it != Resources().models.end(); ++it) {
             Geometry::Model* model = *it;
             if (ImGui::Selectable(model->name.c_str())) {
