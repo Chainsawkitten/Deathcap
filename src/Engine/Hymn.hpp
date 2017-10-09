@@ -105,7 +105,7 @@ class ActiveHymn {
         /// Grid settings.
         struct GridSettings
         {
-            int gridScale = 0;
+            int gridSize = 0;
             bool gridSettingsOpen = true;
             bool gridSnap = true;
             int snapOption = 100;
