@@ -32,7 +32,6 @@
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
 #include <imgui_internal.h>
-#include <math.h>
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
