@@ -28,7 +28,7 @@ target_include_directories(imgui INTERFACE imgui)
 
 
 # Imguizmo
-add_library(imguizmo imguizmo/imguizmo.cpp)
+add_library(imguizmo imguizmo/imguizmo.hpp)
 target_include_directories(imguizmo INTERFACE imguizmo)
 target_link_libraries(imguizmo imgui)
 
