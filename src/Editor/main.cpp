@@ -27,8 +27,7 @@ int main() {
     if (EditorSettings::GetInstance().GetBool("Logging")){
         FILE* file = freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
         if (file == nullptr)
-            Log() << "Could not open logging file!";
-        
+            Log() << "Could not open logging file!\n";
     }
 
     Log() << "Editor started - " << time(nullptr) << "\n";
