@@ -91,8 +91,6 @@ void EntityEditor::Show() {
                 entity->position.x = (value - rest);
             }
 
-            toNearest = Hymn().gridSettings.snapOption;
-
             value = entity->position.y;
             rest = value % toNearest;
 
@@ -101,8 +99,6 @@ void EntityEditor::Show() {
             } else {
                 entity->position.y = (value - rest);
             }
-
-            toNearest = Hymn().gridSettings.snapOption;
 
             value = entity->position.y;
             rest = value % toNearest;
