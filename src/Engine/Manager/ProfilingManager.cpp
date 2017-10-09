@@ -157,8 +157,7 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
     // Begin query if type is not CPU.
     if (type != Type::CPU_TIME) {
         Video::Query::Type queryType;
-        switch (type)
-        {
+        switch (type) {
             case ProfilingManager::Type::GPU_TIME_ELAPSED:
                 queryType = Video::Query::TIME_ELAPSED;
                 break;
@@ -231,8 +230,7 @@ void ProfilingManager::ShowResult(Result* result) {
 }
 
 std::string ProfilingManager::TypeToString(Type type) const {
-    switch (type)
-    {
+    switch (type) {
         case ProfilingManager::CPU_TIME:
             return "CPU time (ms)";
             break;

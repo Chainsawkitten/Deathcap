@@ -89,7 +89,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (mainWindowRenderSurface != nullptr) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-            
+
                 const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
                 const glm::mat4 orientationMat = camera->GetCameraOrientation();
                 const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
@@ -103,8 +103,8 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (hmdRenderSurface != nullptr) {
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
-                for (int i = 0; i < 2; ++i)
-                {
+
+                for (int i = 0; i < 2; ++i) {
                     vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
                     glm::vec3 position = camera->GetWorldPosition();
