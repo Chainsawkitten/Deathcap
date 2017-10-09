@@ -24,30 +24,6 @@ class ResourceManager {
     friend class Hub;
     
     public:
-        /// Create a rectangle for rendering if it doesn't already exist.
-        /**
-         * @return The rectangle instance
-         */
-        Video::Geometry::Rectangle* CreateRectangle();
-        
-        /// Free the reference to the rectangle.
-        /**
-         * Deletes the instance if no more references exist.
-         */
-        void FreeRectangle();
-        
-        /// Create a cube for rendering if it doesn't already exist.
-        /**
-         * @return The cube instance
-         */
-        Geometry::Cube* CreateCube();
-        
-        /// Free the reference to the cube.
-        /**
-         * Deletes the instance if no more references exist.
-         */
-        void FreeCube();
-        
         /// Create an model for rendering if it doesn't already exist.
         /**
         * @param name Name of model.
@@ -135,7 +111,7 @@ class ResourceManager {
         void FreeScriptFile(ScriptFile* scriptFile);
         
     private:
-        ResourceManager();
+        ResourceManager() = delete;
         ResourceManager(ResourceManager const&) = delete;
         void operator=(ResourceManager const&) = delete;
         
