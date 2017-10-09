@@ -363,33 +363,26 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
             ImGui::EndPopup();
         }
     }
-    /*
+    
     // Sounds.
-    bool soundPressed = false;
-    if (ImGui::TreeNode("Sounds")) {
-        for (auto it = Resources().sounds.begin(); it != Resources().sounds.end(); ++it) {
-            Audio::SoundBuffer* sound = *it;
-            if (ImGui::Selectable(sound->name.c_str())) {
-                soundPressed = true;
-                soundEditor.SetSound(sound);
-            }
-            
-            if (ImGui::BeginPopupContextItem(sound->name.c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    if (soundEditor.GetSound() == sound)
-                        soundEditor.SetVisible(false);
-                    
-                    delete sound;
-                    Resources().sounds.erase(it);
-                    ImGui::EndPopup();
-                    break;
-                }
-                ImGui::EndPopup();
-            }
+    if (resource.type == ResourceList::Resource::SOUND) {
+        if (ImGui::Selectable(resource.sound->name.c_str())) {
+            soundPressed = true;
+            soundEditor.SetSound(resource.sound);
         }
         
-        ImGui::TreePop();
-    }*/
+        if (ImGui::BeginPopupContextItem(resource.sound->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (soundEditor.GetSound() == resource.sound)
+                    soundEditor.SetVisible(false);
+                
+                Managers().resourceManager->FreeSound(resource.sound);
+                ImGui::EndPopup();
+                return true;
+            }
+            ImGui::EndPopup();
+        }
+    }
     
     return false;
 }
