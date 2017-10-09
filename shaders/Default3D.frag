@@ -1,8 +1,9 @@
 /*
-Geometry pass fragment shader (first pass).
+Forward shader shading lights and applying effects
 */
 #version 430
 
+// --- IN ---
 in VertexData {
     vec3 pos;
     vec3 normal;
@@ -10,7 +11,10 @@ in VertexData {
     vec2 texCoords;
 } vertexIn;
 
-// Needs Support
+// --- OUT ---
+layout(location = 0) out vec4 fragmentColor;
+
+// --- STRUCTS ---
 struct Light {
     vec4 position;
     vec3 intensities;
@@ -20,11 +24,11 @@ struct Light {
     vec3 direction;
 };
 
-layout(std430, binding = 5) buffer bBuffer
-{
-    Light lights[]; 
-};
+// --- BINDINGS ---
+layout(std430, binding = 5) buffer bBuffer { Light lights[]; };
 
+// UNIFORMS
+uniform int lightCount;
 uniform sampler2D mapAlbedo;
 uniform sampler2D mapNormal;
 uniform sampler2D mapMetallic;
@@ -32,11 +36,12 @@ uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
 uniform mat4 inverseProjectionMatrix;
 
-layout(location = 0) out vec4 fragmentColor;
-uniform int lightCount;
+// --- CONSTANTS ---
 const float PI = 3.14159265359f;
 const float GAMMA = 2.2f;
+const float M_E = 2.718f;
 
+// --- SHADING FUNCTIONS ---
 // Calculate normal based on interpolated vertex normal, sampled normal (from normal map) and vertex tangent.
 vec3 calculateNormal(in vec3 normal, in vec3 tangent, in vec3 normalFromMap) {
     vec3 n = normalize(normal);
@@ -89,25 +94,7 @@ float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
     return clamp((ggx1 * ggx2), 0.f, 1.0f);
 }
 
-vec3 ReconstructPos(vec2 texCoord, float depth) {
-    vec4 sPos = vec4(texCoord * 2.0f - 1.0f, depth * 2.0f - 1.0f, 1.0f);
-    sPos = inverseProjectionMatrix * sPos;
-
-    return (sPos.xyz / sPos.w);
-}
-
-float depth = texture(tDepth, vertexIn.texCoords).r;
-vec3 albedo = texture(mapAlbedo, vertexIn.texCoords).rgb;
-//vec3 albedo = pow(albedoRaw, vec3(GAMMA)); // Apply if texture not in sRGB
-//vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
-vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
-float metallic = texture(mapMetallic, vertexIn.texCoords).r;
-float roughness = texture(mapRoughness, vertexIn.texCoords).r;
-//vec3 pos = ReconstructPos(vertexIn.texCoords, depth); // no need to sample g-buffer
-vec3 pos = vertexIn.pos;
-
-
-vec3 applyLights() {
+vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3 pos) {
     vec3 Lo = vec3(0.0f);
     vec3 N = normalize(normal);
     vec3 V = normalize(-pos);
@@ -170,9 +157,32 @@ vec3 applyLights() {
     return Lo;
 }
 
+
+// --- POSTPROCESSING FUNCTIONS ---
+// Reconstruct position.
+vec3 reconstructPos(vec2 texCoord, float depth){
+    vec4 sPos = vec4(texCoord * 2.0 - 1.0, depth * 2.0 - 1.0, 1.0);
+    sPos = inverseProjectionMatrix * sPos;
+
+    return (sPos.xyz / sPos.w);
+}
+
+
+
+// --- MAIN ---
 void main() {
 
-    vec3 color = applyLights();
+    float depth = texture(tDepth, vertexIn.texCoords).r;
+    vec3 albedo = texture(mapAlbedo, vertexIn.texCoords).rgb;
+    //vec3 albedo = pow(albedoRaw, vec3(GAMMA)); // Apply if texture not in sRGB
+    //vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
+    vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
+    float metallic = texture(mapMetallic, vertexIn.texCoords).r;
+    float roughness = texture(mapRoughness, vertexIn.texCoords).r;
+    //vec3 pos = ReconstructPos(vertexIn.texCoords, depth); // no need to sample g-buffer
+    vec3 pos = vertexIn.pos;
+
+    vec3 color = ApplyLights(albedo, normal, metallic, roughness, pos);
 
     // Reinhard tone mapping
     color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
