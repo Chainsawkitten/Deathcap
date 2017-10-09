@@ -192,9 +192,14 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             return;
         }
         
-        /// @todo Add texture.
+        // Add texture.
         if (ImGui::Selectable("Add texture")) {
-            
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::TEXTURE;
+            string name = path + "/Texture #" + std::to_string(Resources().textureNumber++);
+            resource.texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
+            folder.resources.push_back(resource);
+            return;
         }
         
         /// @todo Add script.
@@ -298,12 +303,6 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
     // Textures.
     bool texturePressed = false;
     if (ImGui::TreeNode("Textures")) {
-        if (ImGui::Button("Add texture")) {
-            string name = "Texture #" + std::to_string(Resources().textureNumber++);
-            TextureAsset* texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
-            Resources().textures.push_back(texture);
-        }
-        
         for (auto it = Resources().textures.begin(); it != Resources().textures.end(); ++it) {
             TextureAsset* texture = *it;
             if (ImGui::Selectable(texture->name.c_str())) {

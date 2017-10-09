@@ -45,7 +45,9 @@ void TextureAsset::Load(const std::string& name) {
 }
 
 void TextureAsset::Load(const std::string& name, Video::Texture2D* texture, bool srgb) {
-    this->name = name;
+    std::size_t pos = name.find_last_of('/');
+    this->name = name.substr(pos + 1);
+    path = name.substr(0, pos + 1);
     this->srgb = srgb;
 
     this->texture = texture;
