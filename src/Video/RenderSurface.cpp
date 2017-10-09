@@ -1,7 +1,7 @@
 #include "RenderSurface.hpp"
 
-#include "FrameBuffer.hpp"
-#include "ReadWriteTexture.hpp"
+#include "Buffer/FrameBuffer.hpp"
+#include "Buffer/ReadWriteTexture.hpp"
 
 using namespace Video;
 

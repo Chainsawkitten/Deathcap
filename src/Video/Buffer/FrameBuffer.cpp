@@ -1,7 +1,6 @@
 #include "FrameBuffer.hpp"
 
 #include <Utility/Log.hpp>
-#include "Lighting/Lighting.hpp"
 #include "ReadWriteTexture.hpp"
 
 using namespace Video;

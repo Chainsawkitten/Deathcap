@@ -1,9 +1,9 @@
 #include "RenderManager.hpp"
 
-#include <Video/FrameBuffer.hpp>
+#include <Video/Buffer/FrameBuffer.hpp>
 #include <Video/Renderer.hpp>
 #include <Video/RenderSurface.hpp>
-#include <Video/ReadWriteTexture.hpp>
+#include <Video/Buffer/ReadWriteTexture.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"

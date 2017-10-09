@@ -18,7 +18,7 @@
 #include "EditorEntity.geom.hpp"
 #include "EditorEntity.frag.hpp"
 #include "Geometry/Rectangle.hpp"
-#include "FrameBuffer.hpp"
+#include "Buffer/FrameBuffer.hpp"
 #include "Buffer/StorageBuffer.hpp"
 
 using namespace Video;
@@ -27,8 +27,8 @@ Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
 
-    // skinRenderProgram = new SkinRenderProgram();
     postProcessing = new PostProcessing(rectangle);
+
     // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     // fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
     // fxaaFilter = new FXAAFilter();
@@ -116,12 +116,16 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
 
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lights.size());
 
+    // Update light buffer.
     if (lights.size() > 0) {
+        // Resize light buffer if necessary.
         unsigned int byteSize = sizeof(Video::Light) * lights.size();
         if (lightBuffer->GetSize() < byteSize) {
             delete lightBuffer;
             lightBuffer = new StorageBuffer(byteSize, GL_DYNAMIC_DRAW);
         }
+
+        // Push light data to GPU.
         lightBuffer->Bind();
         lightBuffer->Write(lights.data(), 0, byteSize);
         lightBuffer->Unbind();

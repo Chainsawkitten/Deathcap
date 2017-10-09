@@ -1,9 +1,9 @@
 set(SRCS
+        Buffer/FrameBuffer.cpp
+        Buffer/ReadWriteTexture.cpp
         Buffer/StorageBuffer.cpp
-        DebugDrawing.cpp
-        FrameBuffer.cpp
+        DebugDrawing.cpp  
         ParticleRenderer.cpp
-        ReadWriteTexture.cpp
         Renderer.cpp
         RenderSurface.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -30,11 +30,11 @@ set(SRCS
     )
 
 set(HEADERS
+        Buffer/FrameBuffer.hpp
+        Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
-        FrameBuffer.hpp
         ParticleRenderer.hpp
-        ReadWriteTexture.hpp
         Renderer.hpp
         RenderSurface.hpp
         Culling/AxisAlignedBoundingBox.hpp

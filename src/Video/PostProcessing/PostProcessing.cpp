@@ -8,8 +8,8 @@
 #include <Post.vert.hpp>
 #include <PostDither.frag.hpp>
 #include "RenderSurface.hpp"
-#include "ReadWriteTexture.hpp"
-#include "FrameBuffer.hpp"
+#include "Buffer/ReadWriteTexture.hpp"
+#include "Buffer/FrameBuffer.hpp"
 
 using namespace Video;
 

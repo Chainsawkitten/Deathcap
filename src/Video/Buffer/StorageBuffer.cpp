@@ -25,7 +25,7 @@ StorageBuffer::~StorageBuffer() {
 
 void StorageBuffer::Write(void* data, unsigned int offset, unsigned int length) {
     assert(bound);
-    assert(this->size <= offset + length);
+    assert(this->size >= offset + length);
 
     //GLvoid* p = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, length, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT); ERROR_CHECK_VIDEO
     //GLvoid* p = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY); ERROR_CHECK_VIDEO
