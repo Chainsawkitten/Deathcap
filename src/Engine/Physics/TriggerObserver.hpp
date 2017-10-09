@@ -11,6 +11,7 @@ namespace Physics {
     /**
      * \attention Assumes an object of this type is passed to a trigger that is
      * always the same. If not, intersection phases may be erroneous.
+     * \note Intended to be used only within the physics related engine classes.
      */
     class TriggerObserver : public btCollisionWorld::ContactResultCallback {
         public:

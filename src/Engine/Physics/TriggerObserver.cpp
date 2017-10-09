@@ -58,6 +58,7 @@ namespace Physics {
             }
         }
 
+        // Call event handler accordingly.
         switch (phase) {
             case IntersectionPhase::Enter: {
                 if (enterHandler) enterHandler();
