@@ -17,10 +17,11 @@
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
 #include "imguizmo.hpp"
-
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtx/transform.hpp>
+#include <fstream>
+
 
 ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
 Editor::Editor() {
@@ -86,33 +87,41 @@ Editor::~Editor() {
 
 void Editor::Show(float deltaTime) {
     if (close) {
-        // Ask the user whether they wish to save.
-        if (Hymn().GetPath() != "") {
-            savePromtWindow.SetVisible(true);
-            savePromtWindow.Show();
 
-            switch (savePromtWindow.GetDecision()) {
-            case 0:
-                Save();
-                savePromptAnswered = true;
-                break;
-
-            case 1:
-                savePromptAnswered = true;
-                break;
-
-            case 2:
-                savePromptAnswered = false;
-                close = false;
-                savePromtWindow.ResetDecision();
-                break;
-
-            default:
-                break;
-            }
+        if (!HasMadeChanges()) {
+            savePromptAnswered = true;
         }
         else {
-            savePromptAnswered = true;
+
+            // Ask the user whether they wish to save.
+            if (Hymn().GetPath() != "") {
+                savePromtWindow.SetVisible(true);
+                savePromtWindow.Show();
+
+                switch (savePromtWindow.GetDecision()) {
+                case 0:
+                    Save();
+                    savePromptAnswered = true;
+                    break;
+
+                case 1:
+                    savePromptAnswered = true;
+                    break;
+
+                case 2:
+                    savePromptAnswered = false;
+                    close = false;
+                    savePromtWindow.ResetDecision();
+                    break;
+
+                default:
+                    break;
+                }
+            }
+            else {
+                savePromptAnswered = true;
+            }
+
         }
     }
     else {
@@ -441,6 +450,76 @@ void Editor::Save() const {
     resourceView.SaveScene();
     Hymn().Save();
     Resources().Save();
+}
+
+bool Editor::HasMadeChanges() const {
+    
+    {
+        std::string* sceneFilename = new std::string();
+        Json::Value sceneJson = resourceView.GetSceneJson(sceneFilename);
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(*sceneFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string sceneJsonString = sceneJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(sceneJsonString);
+        if (response != 0)
+            return true;
+    }
+    {
+        std::string hymnFilename = Hymn().GetSavePath();
+        Json::Value hymnJson = Hymn().ToJson();
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(hymnFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string hymnJsonString = hymnJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(hymnJsonString);
+        if (response != 0)
+            return true;
+    }
+    {
+        std::string resourcesFilename = Resources().GetSavePath();
+        Json::Value resourcesJson = Resources().ToJson();
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(resourcesFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string resourcesJsonString = resourcesJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(resourcesJsonString);
+        if (response != 0)
+            return true;
+    }
+
+    return false;
+
 }
 
 bool Editor::ReadyToClose() const {
