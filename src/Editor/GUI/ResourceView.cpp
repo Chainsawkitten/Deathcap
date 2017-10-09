@@ -187,6 +187,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::MODEL;
             resource.model = new Geometry::Model();
+            resource.model->path = path + "/";
             resource.model->name = "Model #" + std::to_string(Resources().modelNumber++);
             folder.resources.push_back(resource);
             return;
@@ -214,9 +215,15 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             return;
         }
         
-        /// @todo Add sound.
+        // Add sound.
         if (ImGui::Selectable("Add sound")) {
-            
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SOUND;
+            resource.sound = new Audio::SoundBuffer();
+            resource.sound->path = path + "/";
+            resource.sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
+            folder.resources.push_back(resource);
+            return;
         }
         
         /// @todo Remove folder.
@@ -374,12 +381,6 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
     // Sounds.
     bool soundPressed = false;
     if (ImGui::TreeNode("Sounds")) {
-        if (ImGui::Button("Add sound")) {
-            Audio::SoundBuffer* sound = new Audio::SoundBuffer();
-            sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
-            Resources().sounds.push_back(sound);
-        }
-        
         for (auto it = Resources().sounds.begin(); it != Resources().sounds.end(); ++it) {
             Audio::SoundBuffer* sound = *it;
             if (ImGui::Selectable(sound->name.c_str())) {
