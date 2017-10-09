@@ -2,7 +2,6 @@
 
 #include <btBulletDynamicsCommon.h>
 #include "../Component/RigidBody.hpp"
-#include "Shape.hpp"
 
 namespace Physics {
 
