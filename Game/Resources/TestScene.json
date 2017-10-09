@@ -39,14 +39,14 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Texture #1",
+				"albedo" : "Resources/Minecart/Texture #1",
 				"metallic" : "",
-				"normal" : "Resources/Texture #1",
+				"normal" : "Resources/Minecart/Texture #1",
 				"roughness" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/CartSecond"
+				"model" : "Resources/Minecart/CartSecond"
 			},
 			"Physics" : 
 			{
@@ -92,7 +92,7 @@
 			},
 			"Script" : 
 			{
-				"scriptName" : "Resources/Cart"
+				"scriptName" : "Resources/Minecart/Cart"
 			},
 			"Shape" : 
 			{
@@ -245,18 +245,18 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "Resources/Texture #1",
+						"albedo" : "Resources/Minecart/Texture #1",
 						"metallic" : "",
 						"normal" : "",
 						"roughness" : ""
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/Galler"
+						"model" : "Resources/Gate/Galler"
 					},
 					"Script" : 
 					{
-						"scriptName" : "Resources/Gates"
+						"scriptName" : "Resources/Gate/Gates"
 					},
 					"children" : null,
 					"name" : "Gates",
@@ -389,14 +389,14 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Texture #2",
+				"albedo" : "Resources/Cave/Texture #2",
 				"metallic" : "",
-				"normal" : "Resources/Texture #3",
+				"normal" : "Resources/Cave/Texture #3",
 				"roughness" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Cave"
+				"model" : "Resources/Cave/Cave"
 			},
 			"children" : null,
 			"name" : "cave",

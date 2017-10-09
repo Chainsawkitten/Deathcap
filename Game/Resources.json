@@ -11,19 +11,7 @@
 				"type" : 0
 			},
 			{
-				"model" : "CartSecond",
-				"type" : 1
-			},
-			{
-				"model" : "Cave",
-				"type" : 1
-			},
-			{
 				"model" : "spak",
-				"type" : 1
-			},
-			{
-				"model" : "Galler",
 				"type" : 1
 			},
 			{
@@ -31,35 +19,70 @@
 				"type" : 2
 			},
 			{
-				"texture" : "Texture #1",
-				"type" : 2
-			},
-			{
-				"texture" : "Texture #2",
-				"type" : 2
-			},
-			{
-				"texture" : "Texture #3",
-				"type" : 2
-			},
-			{
 				"script" : "Player",
-				"type" : 4
-			},
-			{
-				"script" : "Cart",
 				"type" : 4
 			},
 			{
 				"script" : "Lever",
 				"type" : 4
-			},
-			{
-				"script" : "Gates",
-				"type" : 4
 			}
 		],
-		"subfolders" : null
+		"subfolders" : 
+		[
+			{
+				"name" : "Cave",
+				"resources" : 
+				[
+					{
+						"model" : "Cave",
+						"type" : 1
+					},
+					{
+						"texture" : "Texture #2",
+						"type" : 2
+					},
+					{
+						"texture" : "Texture #3",
+						"type" : 2
+					}
+				],
+				"subfolders" : null
+			},
+			{
+				"name" : "Minecart",
+				"resources" : 
+				[
+					{
+						"script" : "Cart",
+						"type" : 4
+					},
+					{
+						"model" : "CartSecond",
+						"type" : 1
+					},
+					{
+						"texture" : "Texture #1",
+						"type" : 2
+					}
+				],
+				"subfolders" : null
+			},
+			{
+				"name" : "Gate",
+				"resources" : 
+				[
+					{
+						"model" : "Galler",
+						"type" : 1
+					},
+					{
+						"script" : "Gates",
+						"type" : 4
+					}
+				],
+				"subfolders" : null
+			}
+		]
 	},
 	"sceneNumber" : 1,
 	"scriptNumber" : 0,
