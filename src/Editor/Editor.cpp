@@ -16,7 +16,7 @@
 #include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
-#include "imguizmo.hpp"
+#include <imguizmo.hpp>
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtx/transform.hpp>
