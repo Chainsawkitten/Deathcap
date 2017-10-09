@@ -61,6 +61,6 @@ class Input {
         
         Input() {}
         
-        Input(Input const&);
-        void operator=(Input const&);
+        Input(Input const&) = delete;
+        void operator=(Input const&) = delete;
 };
