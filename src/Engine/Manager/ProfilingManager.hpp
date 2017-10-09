@@ -39,7 +39,7 @@ class ProfilingManager {
         Result* StartResult(const std::string& name);
         void FinishResult(Result* result, double start);
         
-        void ShowFrametimes();
+        void ShowFrametimes() const;
         void ShowResult(Result& result);
         
         Result first = Result("", nullptr);
