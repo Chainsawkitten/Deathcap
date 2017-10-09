@@ -25,7 +25,7 @@ namespace Physics {
         return 0; // Was a planned purpose, but is not used.
     }
 
-    btCollisionObject* Trigger::GetCollisionObject() {
+    btCollisionObject* Trigger::GetCollisionObject() const {
         return trigger;
     }
 
@@ -39,7 +39,7 @@ namespace Physics {
         observers[body->GetBulletRigidBody()] = observer;
     }
 
-    void Trigger::SetCollisionShape(btCollisionShape* shape) {
+    void Trigger::SetCollisionShape(btCollisionShape* shape) const {
         trigger->setCollisionShape(shape);
     }
 
