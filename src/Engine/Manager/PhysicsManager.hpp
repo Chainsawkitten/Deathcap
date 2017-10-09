@@ -50,6 +50,22 @@ class PhysicsManager {
          * @param callback Function to call when resolving event.
          */
         void OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+
+        /// Set up listener for when |object| is intersecting |triggerBody|.
+        /**
+         * @param triggerBody Physics component of the trigger volume.
+         * @param object Body that is to cause trigger to fire.
+         * @param callback Function to call when resolving event.
+         */
+        void OnTriggerRetain(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+
+        /// Set up listener for when |object| has left |triggerBody|.
+        /**
+         * @param triggerBody Physics component of the trigger volume.
+         * @param object Body that is to cause trigger to fire.
+         * @param callback Function to call when resolving event.
+         */
+        void OnTriggerLeave(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
         
         /// Create physics component.
         /**
