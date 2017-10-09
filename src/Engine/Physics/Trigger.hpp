@@ -38,7 +38,7 @@ namespace Physics {
             /// will be created.
             /**
              * @param body Observer to access.
-             * @param fun Function that is called, passing the TriggerObserver
+             * @param fun Function that is called, passing the TriggerObserver.
              * accompanying the observer.
              */
             void ForObserver(btRigidBody* body, const std::function<void(TriggerObserver&)>& fun);

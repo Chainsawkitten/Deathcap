@@ -17,8 +17,8 @@ namespace Physics {
     }
 
     void TriggerObserver::PostIntersectionTest() {
-        // Intersection happened; update phase accordingly.
         if (didCallback) {
+            // Intersection happened; update phase accordingly.
             switch (phase) {
                 case IntersectionPhase::Enter: {
                     phase = IntersectionPhase::Retained;
@@ -36,9 +36,8 @@ namespace Physics {
                     assert(phase == IntersectionPhase::Retained);
                 }
             }
-        }
-        // No intersection happened; update phase accordingly.
-        else {
+        } else {
+            // No intersection happened; update phase accordingly.
             switch (phase) {
                 case IntersectionPhase::Enter: {
                     phase = IntersectionPhase::Leave;
@@ -61,15 +60,21 @@ namespace Physics {
         // Call event handler accordingly.
         switch (phase) {
             case IntersectionPhase::Enter: {
-                if (enterHandler) enterHandler();
+                if (enterHandler) {
+                    enterHandler();
+                }
                 break;
             }
             case IntersectionPhase::Retained: {
-                if (retainHandler) retainHandler();
+                if (retainHandler) {
+                    retainHandler();
+                }
                 break;
             }
             case IntersectionPhase::Leave: {
-                if (leaveHandler) leaveHandler();
+                if (leaveHandler) {
+                    leaveHandler();
+                }
                 break;
             }
             default: {

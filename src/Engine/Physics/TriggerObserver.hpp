@@ -79,7 +79,6 @@ namespace Physics {
                 const btCollisionObjectWrapper* colObj0, int partId0, int index0,
                 const btCollisionObjectWrapper* colObj1, int partId1, int index1) override;
 
-        private:
             IntersectionPhase phase = IntersectionPhase::None;
             btRigidBody& rigidBody;
             // Control value to determine whether an intersection happened
