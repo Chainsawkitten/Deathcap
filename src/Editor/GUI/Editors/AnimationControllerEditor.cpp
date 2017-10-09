@@ -56,14 +56,14 @@ void AnimationControllerEditor::Show() {
         if (ImGui::BeginPopupContextWindow()) {
             if (ImGui::MenuItem("Add animation action")) {
                 Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
-                std::string name = "Animation Action: " + std::to_string(animationController->animationAction.size());
+                std::string name = "Animation action: " + std::to_string(animationController->animationAction.size());
                 memcpy(newAction->nodeName, name.c_str(), name.size() + 1);
                 animationController->animationAction.push_back(newAction);
             }
 
             if (ImGui::MenuItem("Add animation transition")) {
                 Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
-                std::string name = "Animation Action: " + std::to_string(animationController->animationAction.size());
+                std::string name = "Animation transition: " + std::to_string(animationController->animationAction.size());
                 memcpy(newAction->nodeName, name.c_str(), name.size() + 1);
                 animationController->animationAction.push_back(newAction);
             }
