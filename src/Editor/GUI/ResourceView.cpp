@@ -287,33 +287,27 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
         }
     }
     
-    /*
-    // Models.
-    bool modelPressed = false;
-    if (ImGui::TreeNode("Models")) {
-        for (auto it = Resources().models.begin(); it != Resources().models.end(); ++it) {
-            Geometry::Model* model = *it;
-            if (ImGui::Selectable(model->name.c_str())) {
-                modelPressed = true;
-                modelEditor.SetModel(model);
-            }
-            
-            if (ImGui::BeginPopupContextItem(model->name.c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    if (modelEditor.GetModel() == model)
-                        modelEditor.SetVisible(false);
-                    
-                    delete model;
-                    Resources().models.erase(it);
-                    ImGui::EndPopup();
-                    break;
-                }
-                ImGui::EndPopup();
-            }
+    // Model.
+    if (resource.type == ResourceList::Resource::MODEL) {
+        if (ImGui::Selectable(resource.model->name.c_str())) {
+            modelPressed = true;
+            modelEditor.SetModel(resource.model);
         }
-        ImGui::TreePop();
+        
+        if (ImGui::BeginPopupContextItem(resource.model->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (modelEditor.GetModel() == resource.model)
+                    modelEditor.SetVisible(false);
+                
+                Managers().resourceManager->FreeModel(resource.model);
+                ImGui::EndPopup();
+                
+                return true;
+            }
+            ImGui::EndPopup();
+        }
     }
-    
+    /*
     // Textures.
     bool texturePressed = false;
     if (ImGui::TreeNode("Textures")) {
