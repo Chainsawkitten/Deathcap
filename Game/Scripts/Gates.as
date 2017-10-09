@@ -31,7 +31,6 @@ class Gates{
         if (lastSpeed - self.position.y > 0.0f)
             speed = 0;
         lastSpeed = self.position.y;
-        print("Position: " + formatFloat(self.position.y, "l", 6) + "\n");
     }
     
     void ReceiveMessage(int signal){

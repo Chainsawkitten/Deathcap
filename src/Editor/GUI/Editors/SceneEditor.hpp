@@ -35,7 +35,13 @@ namespace GUI {
             
             /// Save currently open scene to file.
             void Save() const;
-            
+
+            /// Gets a Json file representing the save file.
+            /**
+             * @param filename This is where the filename will be stored.
+             */
+            Json::Value GetSaveFileJson(std::string* filename) const;
+
             /// Did we press on an entity this frame.
             bool entityPressed = false;
             
@@ -48,7 +54,6 @@ namespace GUI {
             
             bool visible = false;
             
-            std::size_t sceneIndex;
             char name[128];
     };
 }

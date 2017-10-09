@@ -11,6 +11,9 @@ namespace Geometry {
 namespace Audio {
     class SoundBuffer;
 }
+namespace Json {
+    class Value;
+}
 
 /// A list of all the resources in a hymn.
 class ResourceList {
@@ -19,7 +22,13 @@ class ResourceList {
     public:
         /// Save all resources to file.
         void Save() const;
-        
+
+        /// Creates a Json file for the resources.
+        /**
+         * @return A json file representing the resources.
+         */
+        Json::Value ToJson() const;
+
         /// Load all resources from file.
         void Load();
         
@@ -30,7 +39,7 @@ class ResourceList {
         std::vector<std::string> scenes;
         
         /// The index to the activeScene.
-        std::size_t activeScene;
+        int activeScene;
         
         /// Models.
         std::vector<Geometry::Model*> models;
@@ -49,6 +58,12 @@ class ResourceList {
     
         /// The id of the next sound to create.
         unsigned int soundNumber = 0U;
+
+        /// Gets the path where it's saved.
+        /**
+         * @return The full path.
+         */
+        std::string GetSavePath() const;
         
     private:
         static ResourceList& GetInstance();

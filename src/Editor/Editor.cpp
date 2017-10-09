@@ -19,6 +19,7 @@
 
 #include <imgui.h>
 #include <GLFW/glfw3.h>
+#include <fstream>
 
 Editor::Editor() {
     // Create Hymns directory.
@@ -54,6 +55,7 @@ Editor::Editor() {
     cameraEntity->enabled = false;
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
+    cameraEntity->GetComponent<Component::Lens>()->zFar = 1000.f;
 
     // Create cursors.
     cursors[0] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
@@ -79,27 +81,41 @@ Editor::~Editor() {
 
 void Editor::Show(float deltaTime) {
     if (close) {
-        // Ask the user whether they wish to save.
-        if (Hymn().GetPath() != "") {
-            savePromtWindow.SetVisible(true);
-            savePromtWindow.Show();
 
-            switch (savePromtWindow.GetDecision()) {
-            case 0:
-                Save();
-                savePromptAnswered = true;
-                break;
-
-            case 1:
-                savePromptAnswered = true;
-                break;
-
-            default:
-                break;
-            }
+        if (!HasMadeChanges()) {
+            savePromptAnswered = true;
         }
         else {
-            savePromptAnswered = true;
+
+            // Ask the user whether they wish to save.
+            if (Hymn().GetPath() != "") {
+                savePromtWindow.SetVisible(true);
+                savePromtWindow.Show();
+
+                switch (savePromtWindow.GetDecision()) {
+                case 0:
+                    Save();
+                    savePromptAnswered = true;
+                    break;
+
+                case 1:
+                    savePromptAnswered = true;
+                    break;
+
+                case 2:
+                    savePromptAnswered = false;
+                    close = false;
+                    savePromtWindow.ResetDecision();
+                    break;
+
+                default:
+                    break;
+                }
+            }
+            else {
+                savePromptAnswered = true;
+            }
+
         }
     }
     else {
@@ -133,6 +149,10 @@ void Editor::Show(float deltaTime) {
 
             // View menu.
             if (ImGui::BeginMenu("View")) {
+                static bool showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
+                ImGui::MenuItem("Grid Settings", "", &showGridSettings);
+                EditorSettings::GetInstance().SetBool("Grid Settings", showGridSettings);
+
                 static bool soundSources = EditorSettings::GetInstance().GetBool("Sound Source Icons");
                 ImGui::MenuItem("Sound Sources", "", &soundSources);
                 EditorSettings::GetInstance().SetBool("Sound Source Icons", soundSources);
@@ -148,6 +168,10 @@ void Editor::Show(float deltaTime) {
                 static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
                 ImGui::MenuItem("Cameras", "", &cameras);
                 EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
+                
+                static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
+                ImGui::MenuItem("Physics", "", &physics);
+                EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
 
                 ImGui::EndMenu();
             }
@@ -307,16 +331,16 @@ void Editor::Show(float deltaTime) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
                 glm::mat4 orientation = cameraEntity->GetCameraOrientation();
                 glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-                float speed = 10.0f * deltaTime * (glm::length(cameraEntity->position) / 10.0f);
-                cameraEntity->position += speed * backward * 10.0f;
+                float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
+                cameraEntity->position += speed * backward;
             }
         }
         if (Input()->GetScrollUp()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
                 glm::mat4 orientation = cameraEntity->GetCameraOrientation();
                 glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-                float speed = 10.0f * deltaTime * (glm::length(cameraEntity->position) / 10.0f);
-                cameraEntity->position += speed * backward * -10.0f;
+                float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
+                cameraEntity->position += speed * -backward;
             }
         }
 
@@ -349,8 +373,82 @@ void Editor::Save() const {
     Resources().Save();
 }
 
+bool Editor::HasMadeChanges() const {
+    
+    {
+        std::string* sceneFilename = new std::string();
+        Json::Value sceneJson = resourceView.GetSceneJson(sceneFilename);
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(*sceneFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string sceneJsonString = sceneJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(sceneJsonString);
+        if (response != 0)
+            return true;
+    }
+    {
+        std::string hymnFilename = Hymn().GetSavePath();
+        Json::Value hymnJson = Hymn().ToJson();
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(hymnFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string hymnJsonString = hymnJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(hymnJsonString);
+        if (response != 0)
+            return true;
+    }
+    {
+        std::string resourcesFilename = Resources().GetSavePath();
+        Json::Value resourcesJson = Resources().ToJson();
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(resourcesFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string resourcesJsonString = resourcesJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(resourcesJsonString);
+        if (response != 0)
+            return true;
+    }
+
+    return false;
+
+}
+
 bool Editor::ReadyToClose() const {
     return savePromptAnswered;
+}
+
+bool Editor::isClosing() const {
+    return close;
 }
 
 void Editor::Close() {
@@ -408,7 +506,7 @@ void Editor::NewHymnClosed(const std::string& hymn) {
         resourceView.SetVisible(true);
 
         // Default scene.
-        Resources().scenes.push_back("Scene #0");
+        //Resources().scenes.push_back("Scene #0");
 
         Entity* player = Hymn().world.GetRoot()->AddChild("Player");
         player->position.z = 10.f;

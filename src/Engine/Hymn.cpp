@@ -80,9 +80,15 @@ void ActiveHymn::SetPath(const string& path) {
     FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Textures").c_str());
 }
 
+std::string ActiveHymn::GetSavePath() const {
+
+    return path + FileSystem::DELIMITER + "Hymn.json";
+
+}
+
 void ActiveHymn::Save() const {
     // Save to file.
-    ofstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    ofstream file(GetSavePath());
     file << ToJson();
     file.close();
 }
@@ -93,7 +99,7 @@ void ActiveHymn::Load(const string& path) {
     
     // Load Json document from file.
     Json::Value root;
-    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    ifstream file(GetSavePath());
     file >> root;
     file.close();
     
@@ -185,25 +191,60 @@ void ActiveHymn::Update(float deltaTime) {
     { PROFILE("Update debug drawing");
         Managers().debugDrawingManager->Update(deltaTime);
     }
+
+    { PROFILE("Synchronize transforms");
+        Managers().physicsManager->UpdateEntityTransforms();
+    }
     
     { PROFILE("Clear killed entities/components");
         world.ClearKilled();
     }
 }
 
-void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras) {
+void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, bool showGridSettings) {
     { PROFILE("Render world");
         Managers().renderManager->Render(world, camera);
     }
     
-    if (soundSources || particleEmitters || lightSources || cameras) {
+    if (soundSources || particleEmitters || lightSources || cameras || physics) {
         { PROFILE("Render editor entities");
-            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras);
+            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras, physics);
         }
     }
-    
+    if (showGridSettings)
+    {
+        ImGui::SetNextWindowPos(ImVec2(1275, 25));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(250, 50), ImVec2(250, 50));
+        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
+        ImGui::DragInt("Grid Scale", &gridSettings.gridScale, 1.0f, 0, 100);
+        ImGui::End();
+    }
+
     { PROFILE("Render debug entities");
+        CreateGrid(gridSettings.gridScale);
         Managers().debugDrawingManager->Render(camera);
+    }
+}
+
+void ActiveHymn::CreateGrid(int scale)
+{
+    glm::vec2 gridWidthDepth(10.0f, 10.0f);
+    gridWidthDepth.x = (gridWidthDepth.x * scale);
+    gridWidthDepth.y = (gridWidthDepth.y * scale);
+
+    float xStart = (-gridWidthDepth.x / 2);
+    float xEnd = (gridWidthDepth.x / 2);
+    float zStart = (-gridWidthDepth.y / 2);
+    float zEnd = (gridWidthDepth.y / 2);
+
+    if (scale <= 100 && scale > 0) {
+        for (int i = 0; i < (scale + scale + 1); i++)
+        {
+            Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), 3.0f);
+            Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x / (2), 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), 3.0f);
+            xStart += (gridWidthDepth.x / 2) / scale;
+            zStart += (gridWidthDepth.y / 2) / scale;
+        }
     }
 }
 

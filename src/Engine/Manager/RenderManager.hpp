@@ -45,8 +45,9 @@ class RenderManager {
          * @param particleEmitters Whether to show particle emitters.
          * @param lightSources Whether to show light sources.
          * @param cameras Whether to show cameras.
+         * @param physics Whether to show physics volumes.
          */
-        void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true);
+        void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
         
         /// Updates the buffers to fit the current screen size.
         void UpdateBufferSize();
@@ -72,20 +73,19 @@ class RenderManager {
         
         /// Create directional light component.
         /**
-         * @param node Json node to load the component from.
          * @return The created component.
          */
         Component::DirectionalLight* CreateDirectionalLight();
         
         /// Create directional light component.
         /**
+         * @param node Json node to load the component from.
          * @return The created component.
          */
         Component::DirectionalLight* CreateDirectionalLight(const Json::Value& node);
         
         /// Get all directional light components.
         /**
-         * @param node Json node to load the component from.
          * @return All directional light components.
          */
         const std::vector<Component::DirectionalLight*>& GetDirectionalLights() const;
@@ -193,14 +193,18 @@ class RenderManager {
         ~RenderManager();
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
+
+        void Render(World& world, const glm::mat4& translationMatrix, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
         
-        void LightWorld(const Entity* camera, Video::RenderSurface* renderSurface);
+        void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, Video::RenderSurface* renderSurface);
+
         void LoadTexture(TextureAsset*& texture, const std::string& name);
 
         Video::Renderer* renderer;
 
-        Video::RenderSurface* renderSurface;
-        
+        Video::RenderSurface* mainWindowRenderSurface;
+        Video::RenderSurface* hmdRenderSurface;
+
         // Editor entity textures.
         Video::Texture2D* particleEmitterTexture;
         Video::Texture2D* lightTexture;

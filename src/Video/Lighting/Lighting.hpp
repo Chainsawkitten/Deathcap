@@ -16,11 +16,12 @@ namespace Video {
     /// Holds the frame buffers used for deferred rendering.
     class Lighting {
         public:
-            /// Create new deferred lighting.
+            /// Create new Forward lighting.
             /**
              * @param rectangle %Rectangle to use for rendering.
+             * @param shaderProgram %Shader used for rendering. 
              */
-            Lighting(const Geometry::Rectangle* rectangle);
+            Lighting(ShaderProgram* shaderProgram, const Geometry::Rectangle* rectangle);
             
             /// Destructor.
             ~Lighting();
