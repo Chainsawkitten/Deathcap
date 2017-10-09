@@ -202,9 +202,16 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             return;
         }
         
-        /// @todo Add script.
+        // Add script.
         if (ImGui::Selectable("Add script")) {
-            
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SCRIPT;
+            resource.script = new ScriptFile();
+            resource.script->path = path + "/";
+            resource.script->name = "Script #" + std::to_string(Hymn().scriptNumber++);
+            Hymn().scripts.push_back(resource.script);
+            folder.resources.push_back(resource);
+            return;
         }
         
         /// @todo Add sound.
@@ -338,12 +345,6 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
     // Scripts.
     bool scriptPressed = false;
     if (ImGui::TreeNode("Scripts")) {
-        if (ImGui::Button("Add script")) {
-            ScriptFile* scriptFile = new ScriptFile();
-            scriptFile->name = "Script #" + std::to_string(Hymn().scriptNumber++);
-            Hymn().scripts.push_back(scriptFile);
-        }
-        
         for (auto it = Hymn().scripts.begin(); it != Hymn().scripts.end(); ++it) {
             ScriptFile* script = *it;
             std::string name = script->name;
