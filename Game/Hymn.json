@@ -41,8 +41,8 @@
 	"scripts" : 
 	[
 		"Resources/Player",
-		"Resources/Cart",
+		"Resources/Minecart/Cart",
 		"Resources/Lever",
-		"Resources/Gates"
+		"Resources/Gate/Gates"
 	]
 }
