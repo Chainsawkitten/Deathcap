@@ -51,7 +51,7 @@ class MousePicking {
         glm::vec3 CalculateRay() const;
 
         // Return a vector with mouse coordinates in Normalized Device Coordinates.
-    static glm::vec2 GetNDC(double mouseX, double mouseY);
+        static glm::vec2 GetNDC(double mouseX, double mouseY);
 
         // Convert clip space coordinates to eye coordinates.
         glm::vec4 ConvertEyeCoords(const glm::vec4& clipSpaceCoordinates) const;
