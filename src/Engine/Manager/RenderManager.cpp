@@ -272,7 +272,14 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     { PROFILE("Render static meshes");
     { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
+
+        // Cull lights and update light list.
+        LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+
+        // Push matricies and light buffer to the GPU.
         renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+
+        // Render meshes.
         for (Mesh* mesh : meshComponents) {
             if (mesh->IsKilled() || !mesh->entity->enabled)
                 continue;
@@ -291,15 +298,6 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     renderSurface->GetColorFrameBuffer()->Unbind();
 
     /// @todo Render skinned meshes.
-    
-    // Light the world.
-    { PROFILE("Light the world");
-    { GPUPROFILE("Light the world", Video::Query::Type::TIME_ELAPSED);
-    { //GPUPROFILE("Light the world", Video::Query::Type::SAMPLES_PASSED);
-        LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, renderSurface);
-    }
-    }
-    }
 
     /*
     // Anti-aliasing.
@@ -510,7 +508,10 @@ void RenderManager::ClearKilledComponents() {
     spotLights.ClearKilled();
 }
 
-void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, Video::RenderSurface* renderSurface) {
+void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
+
+    // Clear lights from previous frame.
+    renderer->ClearLights();
 
     float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
@@ -577,7 +578,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
     }
     
     // Render lights.
-    renderer->Light(glm::inverse(projectionMatrix), renderSurface);
+    // renderer->Light(glm::inverse(projectionMatrix), renderSurface);
 }
 
 void RenderManager::LoadTexture(TextureAsset*& texture, const std::string& name) {

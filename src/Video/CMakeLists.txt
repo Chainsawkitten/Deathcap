@@ -13,7 +13,6 @@ set(SRCS
         Geometry/Rectangle.cpp
         Geometry/VertexType/SkinVertex.cpp
         Geometry/VertexType/StaticVertex.cpp
-        Lighting/Lighting.cpp
         PostProcessing/ColorFilter.cpp
         PostProcessing/FogFilter.cpp
         PostProcessing/FXAAFilter.cpp
@@ -46,7 +45,6 @@ set(HEADERS
         Geometry/VertexType/SkinVertex.hpp
         Geometry/VertexType/StaticVertex.hpp
         Lighting/Light.hpp
-        Lighting/Lighting.hpp
         PostProcessing/ColorFilter.hpp
         PostProcessing/Filter.hpp
         PostProcessing/FogFilter.hpp

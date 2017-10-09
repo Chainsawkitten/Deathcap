@@ -8,13 +8,13 @@ namespace Video {
         public:
             /// Create new storage buffer.
             // TMP TODO
-            StorageBuffer(int size, GLenum usage);
+            StorageBuffer(unsigned int size, GLenum usage);
             
             /// Destructor.
             ~StorageBuffer();
 
             // TMP TODO
-            void Write(void* data, int offset, int length);
+            void Write(void* data, unsigned int offset, unsigned int length);
 
             // TMP TODO
             void Bind();
@@ -26,7 +26,7 @@ namespace Video {
             void BindBase(unsigned int binding);
 
             // TMP TODO
-            int GetSize() const;
+            unsigned int GetSize() const;
 
         private:
             StorageBuffer(const StorageBuffer & other) = delete;

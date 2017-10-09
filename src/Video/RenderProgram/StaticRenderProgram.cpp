@@ -58,8 +58,10 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
+    glm::mat4 inverseProjectionMatrix = glm::inverse(projectionMatrix);
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
 }
 
 void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const {

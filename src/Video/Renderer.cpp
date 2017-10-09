@@ -1,8 +1,6 @@
 #include "Renderer.hpp"
 
 #include <GL/glew.h>
-#include "Lighting/Light.hpp"
-#include "Lighting/Lighting.hpp"
 #include "RenderProgram/StaticRenderProgram.hpp"
 #include "RenderProgram/SkinRenderProgram.hpp"
 #include "RenderSurface.hpp"
@@ -21,21 +19,24 @@
 #include "EditorEntity.frag.hpp"
 #include "Geometry/Rectangle.hpp"
 #include "FrameBuffer.hpp"
+#include "Buffer/StorageBuffer.hpp"
 
 using namespace Video;
 
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
-    lighting = new Lighting(staticRenderProgram->GetShaderProgram());
-   // skinRenderProgram = new SkinRenderProgram();
-   postProcessing = new PostProcessing(rectangle);
-   // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
-   // fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
-   // fxaaFilter = new FXAAFilter();
-   // glowFilter = new GlowFilter();
-   // glowBlurFilter = new GlowBlurFilter();
+
+    // skinRenderProgram = new SkinRenderProgram();
+    postProcessing = new PostProcessing(rectangle);
+    // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
+    // fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
+    // fxaaFilter = new FXAAFilter();
+    // glowFilter = new GlowFilter();
+    // glowBlurFilter = new GlowBlurFilter();
     
+    lightBuffer = new StorageBuffer(sizeof(Video::Light), GL_DYNAMIC_DRAW);
+
     // Icon rendering.
     Shader* iconVertexShader = new Shader(EDITORENTITY_VERT, EDITORENTITY_VERT_LENGTH, GL_VERTEX_SHADER);
     Shader* iconGeometryShader = new Shader(EDITORENTITY_GEOM, EDITORENTITY_GEOM_LENGTH, GL_GEOMETRY_SHADER);
@@ -66,9 +67,8 @@ Renderer::Renderer() {
 
 Renderer::~Renderer() {
     delete rectangle;
-    delete lighting;
     delete staticRenderProgram;
-    //delete skinRenderProgram;
+
     delete postProcessing;
     //delete colorFilter;
     //delete fogFilter;
@@ -76,6 +76,8 @@ Renderer::~Renderer() {
     //delete glowFilter;
     //delete glowBlurFilter;
     
+    delete lightBuffer;
+
     // Icon rendering.
     delete iconShaderProgram;
     glDeleteBuffers(1, &vertexBuffer);
@@ -95,22 +97,36 @@ void Renderer::DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::
 }
 
 void Renderer::StartRendering(RenderSurface* renderSurface) {
-    lighting->ClearLights();
-    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
 }
 
 void Renderer::AddLight(const Video::Light& light) {
-    lighting->AddLight(light);
+    lights.push_back(light);
 }
 
-void Renderer::Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
-    lighting->Render(inverseProjectionMatrix, renderSurface);
+void Renderer::ClearLights() {
+    lights.clear();
 }
 
 void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
+
+    ShaderProgram* shaderProgram = staticRenderProgram->GetShaderProgram();
+
+    glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lights.size());
+
+    if (lights.size() > 0) {
+        unsigned int byteSize = sizeof(Video::Light) * lights.size();
+        if (lightBuffer->GetSize() < byteSize) {
+            delete lightBuffer;
+            lightBuffer = new StorageBuffer(byteSize, GL_DYNAMIC_DRAW);
+        }
+        lightBuffer->Bind();
+        lightBuffer->Write(lights.data(), 0, byteSize);
+        lightBuffer->Unbind();
+        lightBuffer->BindBase(5);
+    }
 }
 
 void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix) {

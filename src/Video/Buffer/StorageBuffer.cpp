@@ -9,19 +9,21 @@
 
 using namespace Video;
 
-StorageBuffer::StorageBuffer(int size, GLenum usage) : bound(false) {
+StorageBuffer::StorageBuffer(unsigned int size, GLenum usage) : bound(false) {
     glGenBuffers(1, &ssbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
     glBufferData(GL_SHADER_STORAGE_BUFFER, (GLsizeiptr)size, NULL, usage);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
+    this->size = size;
 }
 
 StorageBuffer::~StorageBuffer() {
     glDeleteBuffers(1, &ssbo);
 }
 
-void StorageBuffer::Write(void* data, int offset, int length) {
+void StorageBuffer::Write(void* data, unsigned int offset, unsigned int length) {
     assert(bound);
     assert(this->size <= offset + length);
 
@@ -59,6 +61,6 @@ void StorageBuffer::BindBase(unsigned int binding) {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, (GLuint)binding, ssbo); ERROR_CHECK_VIDEO
 }
 
-int StorageBuffer::GetSize() const {
+unsigned int StorageBuffer::GetSize() const {
     return size;
 }

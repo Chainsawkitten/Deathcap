@@ -22,7 +22,7 @@ struct Light {
 
 layout(std430, binding = 5) buffer bBuffer
 {
-    vec4 data[]; 
+    Light lights[]; 
 };
 
 uniform sampler2D mapAlbedo;
@@ -33,9 +33,7 @@ uniform sampler2D tDepth;
 uniform mat4 inverseProjectionMatrix;
 
 layout(location = 0) out vec4 fragmentColor;
-const int maxLights = 32;
 uniform int lightCount;
-uniform Light lights[maxLights];
 const float PI = 3.14159265359f;
 const float GAMMA = 2.2f;
 
@@ -182,8 +180,5 @@ void main() {
     // Gamma correction
     color = pow(color, vec3(1.0f / GAMMA)); 
 
-    //fragmentColor = vec4(color, 1.0f); // TMP!!!!!!!!!!
-    //fragmentColor = vec4(lightBuffer[0].position.xyz, 1);
-    //fragmentColor = vec4(1,1,0,1);
-    fragmentColor = data[0];
+    fragmentColor = vec4(color, 1.0f);
 }

@@ -3,10 +3,9 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include "Lighting/Light.hpp"
 
 namespace Video {
-    struct Light;
-    class Lighting;
     class StaticRenderProgram;
     class SkinRenderProgram;
     class Texture2D;
@@ -19,6 +18,7 @@ namespace Video {
     class ShaderProgram;
     class RenderSurface;
     class FrameBuffer;
+    class StorageBuffer;
     namespace Geometry {
         class Geometry3D;
         class Rectangle;
@@ -76,35 +76,14 @@ namespace Video {
              */
             void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix);
             
-            /// Prepare for rendering skinned meshes.
-            /**
-             * @param viewMatrix The camera's view matrix.
-             * @param projectionMatrix The camera's projection matrix.
-             */
-            void PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
-            
-            /// Render a skinned mesh.
-            /**
-             * @param geometry The geometry to render.
-             * @param albedo Albedo texture.
-             * @param normal Normal map.
-             * @param metallic Metallic map.
-             * @param roughness Roughness texture.
-             * @param modelMatrix Model matrix.
-             * @param bones Transformations of skeleton.
-             * @param bonesIT Inverse transpose transformations of skeleton.
-             */
-            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
-            
             /// Add a light to the scene.
-            void AddLight(const Video::Light& light);
-            
-            /// Light the scene with the added lights.
             /**
-             * @param inverseProjectionMatrix The camera's inverse projection matrix.
-             * @param renderSurface %RenderSurface contaning textures.
+             * @param light The light to add.
              */
-            void Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
+            void AddLight(const Video::Light& light);
+
+            /// Clear lights in the scene.
+            void ClearLights();
             
             /// Anti-alias using FXAA.
             /**
@@ -167,9 +146,10 @@ namespace Video {
             
         private:
             Renderer(const Renderer & other) = delete;
-            Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
-            SkinRenderProgram* skinRenderProgram;
+
+            std::vector<Video::Light> lights;
+            StorageBuffer* lightBuffer;
             
             PostProcessing* postProcessing;
             ColorFilter* colorFilter;
