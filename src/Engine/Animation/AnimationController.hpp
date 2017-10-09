@@ -17,7 +17,11 @@ namespace Animation {
             struct AnimationNode {
                 uint32_t index;
                 char nodeName[128];
-                
+                uint32_t numInputSlots;
+                uint32_t inputIndex[8];
+                uint32_t numOutputSlots;
+                uint32_t outputIndex[8];
+
                 virtual void Save(std::ofstream* file) = 0;
                 virtual void Load(std::ifstream* file) = 0;
             };
@@ -29,6 +33,7 @@ namespace Animation {
                 float playbackModifier = 1.0f;
                 bool repeat = true;
                 glm::vec2 pos;
+                glm::vec2 size = glm::vec2(250, 100);
 
                 virtual void Save(std::ofstream* file) override {
                     file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));

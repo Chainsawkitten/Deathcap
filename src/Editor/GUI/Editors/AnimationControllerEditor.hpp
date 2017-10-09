@@ -1,5 +1,7 @@
 #pragma once
 
+#include <imgui.h>
+
 namespace Animation {
     class AnimationClip;
     class AnimationController;
@@ -37,7 +39,23 @@ class AnimationControllerEditor {
 
     private:
         void Save();
+        void DrawActions();
+        void DrawTransitions();
+        void DrawConnections();
 
         bool visible = false;
         Animation::AnimationController* animationController;
+
+        bool isDragingConnection = false;
+        
+        bool inited = false;
+        ImVec2 scrolling = ImVec2(0.0f, 0.0f);
+        bool show_grid = true;
+        int node_selected = -1;
+        bool open_context_menu = false;
+        int node_hovered_in_list = -1;
+        int node_hovered_in_scene = -1;
+
+        float NODE_SLOT_RADIUS = 6.0f;
+        ImVec2 NODE_WINDOW_PADDING = ImVec2(8.0f, 8.0f);
 };
