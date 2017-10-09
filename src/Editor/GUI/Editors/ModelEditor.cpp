@@ -52,8 +52,7 @@ void ModelEditor::Show() {
                 float uniScale = scale.x;
                 ImGui::DragFloat("Scale", &uniScale, 0.01f);
                 scale = glm::vec3(uniScale);
-            }
-            else
+            } else
                 ImGui::DragFloat3("Scale", &scale[0], 0.01f);
             
             ImGui::Checkbox("Triangulate", &triangulate);

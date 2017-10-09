@@ -59,7 +59,6 @@ void ResourceView::Show() {
                         savePromptWindow.SetTitle("Save before you switch scene?");
                     }
                 }
-
             }
             
             if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
@@ -84,11 +83,8 @@ void ResourceView::Show() {
             if (Hymn().GetPath() != "") {
 
                 if (!HasMadeChanges()) {
-
                     SwitchScene(sceneIndex);
-
-                }
-                else {
+                } else {
 
                     savePromptWindow.SetVisible(true);
                     savePromptWindow.Show();
