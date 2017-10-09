@@ -35,7 +35,7 @@ namespace Physics {
             /**
              * @return The Bullet collision object.
              */
-            btCollisionObject* GetCollisionObject();
+            btCollisionObject* GetCollisionObject() const;
 
             /// Process given rigid bodies against the trigger volume.
             /**
@@ -51,7 +51,7 @@ namespace Physics {
             virtual void OnEnter(Component::RigidBody* body, std::function<void()> observer) override;
 
         private:
-            void SetCollisionShape(btCollisionShape* shape);
+            void SetCollisionShape(btCollisionShape* shape) const;
 
         private:
             btCollisionObject* trigger = nullptr;

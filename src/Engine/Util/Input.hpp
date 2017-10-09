@@ -101,7 +101,7 @@ class InputHandler {
          * @param button The button to check.
          * @return Whether the button is down
          */
-        bool Pressed(Button button);
+        bool Pressed(Button button) const;
         
         /// Gets whether a button was just pressed.
         /**
@@ -109,21 +109,7 @@ class InputHandler {
          * @param button The button to check.
          * @return Whether the button was pressed
          */
-        bool Triggered(Button button);
-        
-        /// Gets whether a button was just released.
-        /**
-         * Checks whether a button was released between the last two calls to update().
-         * @param button The button to check.
-         * @return Whether the button was released
-         */
-        bool Released(Button button);
-        
-        /// Get text input since last frame.
-        /**
-         * @return Text input since last frame.
-         */
-        const std::string& GetText() const;
+        bool Triggered(Button button) const;
         
         /// GLFW character callback.
         /**
