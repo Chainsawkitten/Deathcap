@@ -121,7 +121,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                 
                 glm::mat4 hmdTranslationLocal = hmdTransform;
                 glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
-                glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
+                glm::vec3 hmdPositionScaled = hmdPositionLocal * 1.0f;
                 glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
 
                 glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
@@ -258,9 +258,9 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
                         ctrlOrientation = ctrlOrientation * entity->GetOrientation();
 
-                        glm::mat4 ctrlTranslationLocal = ctrlTransform;
-                        glm::vec3 ctrlPositionLocal = -glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
-                        glm::vec3 hmdPositionScaled = ctrlPositionLocal * 4.0f;
+                        glm::mat4 ctrlTranslationLocal = ctrlTransform + glm::translate(glm::mat4(), entity->GetParent()->position);
+                        glm::vec3 ctrlPositionLocal = glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
+                        glm::vec3 hmdPositionScaled = ctrlPositionLocal * 8.5f;
                         glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
                         glm::mat4 ctrlModelMatrix = hmdTranslationScaled * ctrlOrientation * glm::scale(glm::mat4(), entity->scale);
 

@@ -95,7 +95,7 @@ int main() {
                     Hymn().Update(deltaTime);
                 }
                 { PROFILE("Render");
-                    Hymn().Render();
+                    Hymn().Render(nullptr, false, false, false, false, true, false);
                 }
                 
                 if (Input()->Triggered(InputHandler::PLAYTEST)) {
