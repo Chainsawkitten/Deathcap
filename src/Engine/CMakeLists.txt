@@ -52,6 +52,7 @@ set(SRCS
         Physics/GlmConversion.cpp
         Physics/Shape.cpp
         Physics/Trigger.cpp
+        Physics/TriggerObserver.cpp
         Util/FileSystem.cpp
         Util/Input.cpp
         Util/Json.cpp
@@ -110,9 +111,9 @@ set(HEADERS
         Manager/SoundManager.hpp
         Manager/VRManager.hpp
         Physics/GlmConversion.hpp
-        Physics/ITrigger.hpp
         Physics/Shape.hpp
         Physics/Trigger.hpp
+        Physics/TriggerObserver.hpp
         Util/FileSystem.hpp
         Util/Input.hpp
         Util/Json.hpp

@@ -42,7 +42,7 @@ Lighting::Lighting(ShaderProgram* shaderProgram, const Geometry::Rectangle* rect
 }
 
 Lighting::~Lighting() {
-    delete shaderProgram;
+   
 }
 
 void Lighting::ClearLights() {
@@ -79,15 +79,14 @@ void Lighting::Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* r
     //glUniform1i(shaderProgram->GetUniformLocation("textureMetallic"), 2);
     //glUniform1i(shaderProgram->GetUniformLocation("textureRougness"), 3);
     //glUniform1i(shaderProgram->GetUniformLocation("tDepth"), 4);
-    //
+
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
-    // Render lights.
-    unsigned int lightIndex = 0U;
-   
+ 
         {
             PROFILE("Update light buffer");
-   
+            // Render lights.
+            unsigned int lightIndex = 0U;
             for (const Light& light : lights) {
                 glUniform4fv(lightUniforms[lightIndex].position, 1, &light.position[0]);
                 glUniform3fv(lightUniforms[lightIndex].intensities, 1, &light.intensities[0]);

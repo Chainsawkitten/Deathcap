@@ -33,7 +33,7 @@ class Cart{
         
         trigger = false;
         RegisterUpdate();
-        RegisterTrigger(stopPhysics, minecartPhysics, "OnTrigger");
+        RegisterTriggerEnter(stopPhysics, minecartPhysics, "OnTrigger");
     }
     
     //Update carts movements and send it's position to Player Script.

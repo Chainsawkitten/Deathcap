@@ -27,7 +27,7 @@ using namespace Video;
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
-    lighting = new Lighting(staticRenderProgram->GetShaderProgram(),rectangle);
+    lighting = new Lighting(staticRenderProgram->GetShaderProgram(), rectangle);
    // skinRenderProgram = new SkinRenderProgram();
    // postProcessing = new PostProcessing(rectangle);
    // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
@@ -84,6 +84,11 @@ Renderer::~Renderer() {
 
 void Renderer::Clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Video::Renderer::DepthRenderStaticMesh(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix)
+{
+    staticRenderProgram->DepthRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
 }
 
 void Renderer::StartRendering(RenderSurface* renderSurface) {

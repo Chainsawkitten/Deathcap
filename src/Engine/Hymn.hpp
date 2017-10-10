@@ -27,7 +27,13 @@ class ActiveHymn {
          * @param path New path.
          */
         void SetPath(const std::string& path);
-        
+
+        /// Gets the path to the hymn file.
+        /**
+         * @return The full path.
+         */
+        std::string GetSavePath() const;
+
         /// Save the hymn.
         void Save() const;
         
@@ -97,11 +103,11 @@ class ActiveHymn {
         TextureAsset* defaultRoughness;
         
         /// Grid settings.
-        struct GridSettings
-        {
-            int gridScale = 0;
+        struct GridSettings {
+            int gridSize = 0;
             bool gridSettingsOpen = true;
-
+            bool gridSnap = true;
+            int snapOption = 100;
         };
 
         GridSettings gridSettings;
