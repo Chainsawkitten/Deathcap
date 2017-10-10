@@ -10,6 +10,7 @@
 #include "Default3D.frag.hpp"
 #include "Zrejection.vert.hpp"
 #include "Zrejection.frag.hpp"
+#include <chrono>
 
 using namespace Video;
 
@@ -84,6 +85,12 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
         glUniform3fv(shaderProgram->GetUniformLocation("colorFilterColor"), 1, &colorFilterColor[0]);
     }
 
+    {
+        int ditherApply = true;
+        float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() / 1000000000.0;
+        glUniform1iv(shaderProgram->GetUniformLocation("ditherApply"), 1, &ditherApply);
+        glUniform1fv(shaderProgram->GetUniformLocation("time"), 1, &time);
+    }
 }
 
 void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const {

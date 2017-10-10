@@ -43,6 +43,8 @@ uniform float fogDensity;
 uniform vec3 fogColor;
 uniform bool colorFilterApply;
 uniform vec3 colorFilterColor;
+uniform bool ditherApply;
+uniform float time;
 
 // --- CONSTANTS ---
 const float PI = 3.14159265359f;
@@ -173,6 +175,16 @@ vec3 ApplyFog(vec3 pos, vec3 color) {
     return f * color + (1.0f - f) * fogColor;
 }
 
+highp float rand(vec2 co) {
+    highp float a = 12.9898f;
+    highp float b = 78.233f;
+    highp float c = 43758.5453f;
+    highp float dt = dot(co.xy, vec2(a,b));
+    highp float sn = mod(dt, PI);
+    return fract(sin(sn) * c);
+}
+
+
 // --- MAIN ---
 void main() {
 
@@ -202,6 +214,12 @@ void main() {
     // Gamma correction.
     color = pow(color, vec3(1.0f / gamma));
 
+    // Dither.
+    if (ditherApply) {
+        float dither = rand(vertexIn.texCoords + vec2(time, 0.0f)) / 255.0f;
+        color = color + vec3(dither);
+    }
+    
     // Final color.
     fragmentColor = vec4(color, 1.0f);
 }
