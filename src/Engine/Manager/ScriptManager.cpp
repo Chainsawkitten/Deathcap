@@ -60,8 +60,16 @@ void RegisterUpdate() {
     Managers().scriptManager->RegisterUpdate(Managers().scriptManager->currentEntity);
 }
 
-void RegisterTriggerHelper(Component::Physics* triggerBody, Component::Physics* object, const std::string& methodName) {
-    Managers().scriptManager->RegisterTrigger(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
+void RegisterTriggerEnterHelper(Component::Physics* triggerBody, Component::Physics* object, const std::string& methodName) {
+    Managers().scriptManager->RegisterTriggerEnter(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
+}
+
+void RegisterTriggerRetainHelper(Component::Physics* triggerBody, Component::Physics* object, const std::string& methodName) {
+    Managers().scriptManager->RegisterTriggerRetain(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
+}
+
+void RegisterTriggerLeaveHelper(Component::Physics* triggerBody, Component::Physics* object, const std::string& methodName) {
+    Managers().scriptManager->RegisterTriggerLeave(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
 }
 
 bool ButtonInput(int buttonIndex) {
@@ -355,7 +363,9 @@ ScriptManager::ScriptManager() {
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
-    engine->RegisterGlobalFunction("void RegisterTrigger(Component::Physics@, Component::Physics@, const string &in)", asFUNCTION(RegisterTriggerHelper), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RegisterTriggerEnter(Component::Physics@, Component::Physics@, const string &in)", asFUNCTION(RegisterTriggerEnterHelper), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RegisterTriggerRetain(Component::Physics@, Component::Physics@, const string &in)", asFUNCTION(RegisterTriggerRetainHelper), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RegisterTriggerLeave(Component::Physics@, Component::Physics@, const string &in)", asFUNCTION(RegisterTriggerLeaveHelper), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
@@ -367,8 +377,8 @@ ScriptManager::~ScriptManager() {
     engine->ShutDownAndRelease();
 }
 
-void ScriptManager::BuildScript(const std::string& name) {
-    std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scripts" + FileSystem::DELIMITER + name + ".as";
+void ScriptManager::BuildScript(const ScriptFile* script) {
+    std::string filename = Hymn().GetPath() + "/" + script->path + script->name + ".as";
     if (!FileSystem::FileExists(filename.c_str())) {
         Log() << "Script file does not exist: " << filename << "\n";
         return;
@@ -376,9 +386,9 @@ void ScriptManager::BuildScript(const std::string& name) {
     
     // Create and build script module.
     CScriptBuilder builder;
-    int r = builder.StartNewModule(engine, name.c_str());
+    int r = builder.StartNewModule(engine, script->name.c_str());
     if (r < 0)
-        Log() << "Couldn't start new module: " << name << ".\n";
+        Log() << "Couldn't start new module: " << script->name << ".\n";
     
     r = builder.AddSectionFromFile(filename.c_str());
     if (r < 0)
@@ -391,19 +401,10 @@ void ScriptManager::BuildScript(const std::string& name) {
 
 void ScriptManager::BuildAllScripts() {
 
-    const std::vector<Component::Script*> scriptComponents = scripts.GetAll();
-
-    for (int i = 0; i < scriptComponents.size(); i++) {
-
-        if(scriptComponents[i]->instance != nullptr)
-            scriptComponents[i]->instance->Release();
-
-    }
-
-    std::string path = Hymn().GetPath() + FileSystem::DELIMITER + "Scripts" + FileSystem::DELIMITER;
+    std::string path = Hymn().GetPath() + "/";
     
     for (ScriptFile* file : Hymn().scripts) {
-        std::string filename = path + file->name + ".as";
+        std::string filename = path + file->path + file->name + ".as";
         if (!FileSystem::FileExists(filename.c_str())) {
             Log() << "Script file does not exist: " << filename << "\n";
             return;
@@ -440,7 +441,7 @@ void ScriptManager::BuildAllScripts() {
 
 void ScriptManager::FillPropertyMap(Script* script) {
 
-    BuildScript(script->scriptFile->name);
+    BuildScript(script->scriptFile);
     CreateInstance(script);
 
     for (auto &propertyMap : script->propertyMap) 
@@ -563,7 +564,7 @@ void ScriptManager::RegisterUpdate(Entity* entity) {
     updateEntities.push_back(entity);
 }
 
-void ScriptManager::RegisterTrigger(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName) {
+void ScriptManager::RegisterTriggerEnter(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName) {
     TriggerEvent triggerEvent;
     triggerEvent.trigger = trigger;
     triggerEvent.object = object;
@@ -571,6 +572,26 @@ void ScriptManager::RegisterTrigger(Entity* entity, Component::Physics* trigger,
     triggerEvent.methodName = methodName;
     
     Managers().physicsManager->OnTriggerEnter(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
+}
+
+void ScriptManager::RegisterTriggerRetain(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName) {
+    TriggerEvent triggerEvent;
+    triggerEvent.trigger = trigger;
+    triggerEvent.object = object;
+    triggerEvent.scriptEntity = entity;
+    triggerEvent.methodName = methodName;
+
+    Managers().physicsManager->OnTriggerRetain(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
+}
+
+void ScriptManager::RegisterTriggerLeave(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName) {
+    TriggerEvent triggerEvent;
+    triggerEvent.trigger = trigger;
+    triggerEvent.object = object;
+    triggerEvent.scriptEntity = entity;
+    triggerEvent.methodName = methodName;
+
+    Managers().physicsManager->OnTriggerLeave(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
 }
 
 void ScriptManager::RegisterInput() {

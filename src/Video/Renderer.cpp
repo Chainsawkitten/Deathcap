@@ -27,7 +27,7 @@ using namespace Video;
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
-    lighting = new Lighting(staticRenderProgram->GetShaderProgram(),rectangle);
+    lighting = new Lighting(staticRenderProgram->GetShaderProgram(), rectangle);
    // skinRenderProgram = new SkinRenderProgram();
    // postProcessing = new PostProcessing(rectangle);
    // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
@@ -110,8 +110,8 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
     staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix) {
-    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix);
+void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {
+    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, isSelected);
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {

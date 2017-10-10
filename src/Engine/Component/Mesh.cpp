@@ -1,7 +1,6 @@
 #include "Mesh.hpp"
 
 #include "../Geometry/Model.hpp"
-#include "../Hymn.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 
@@ -22,7 +21,15 @@ Json::Value Mesh::Save() const {
     
     Geometry::Model* model = dynamic_cast<Geometry::Model*>(geometry);
     if (model != nullptr)
-        component["model"] = model->name;
+        component["model"] = model->path + model->name;
     
     return component;
+}
+
+bool Mesh::GetSelected() const {
+    return isSelected;
+}
+
+void Mesh::SetSelected(bool value) {
+    isSelected = value;
 }

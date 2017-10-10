@@ -32,7 +32,7 @@ namespace Physics {
         return kind == Kind::Plane ? &plane : nullptr;
     }
 
-    btCollisionShape* Shape::GetShape() {
+    btCollisionShape* Shape::GetShape() const {
         return shape;
     }
 }

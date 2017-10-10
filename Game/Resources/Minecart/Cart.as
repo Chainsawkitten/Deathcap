@@ -33,7 +33,7 @@ class Cart{
         
         trigger = false;
         RegisterUpdate();
-        RegisterTrigger(stopPhysics, minecartPhysics, "OnTrigger");
+        RegisterTriggerEnter(stopPhysics, minecartPhysics, "OnTrigger");
     }
     
     //Update carts movements and send it's position to Player Script.
@@ -65,7 +65,6 @@ class Cart{
     }
     
     void OnTrigger(Component::Physics @trigger, Component::Physics @enterer) {
-        print("WOW! WHAT A COLLISION!");
         hasHitPlane = true;
     }
 }

@@ -1,10 +1,8 @@
 #include "Script.hpp"
 
-#include <string>
 #include <angelscript.h>
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include "../Manager/ScriptManager.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Script/ScriptFile.hpp"
 
@@ -25,7 +23,7 @@ Script::~Script() {
 Json::Value Script::Save() const {
     Json::Value component;
     if (scriptFile != nullptr)
-        component["scriptName"] = scriptFile->name;
+        component["scriptName"] = scriptFile->path + scriptFile->name;
     
     for (auto &name_map : propertyMap) {
 
