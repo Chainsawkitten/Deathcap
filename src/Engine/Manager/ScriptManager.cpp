@@ -638,6 +638,20 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
     // Load values from Json node.
     std::string name = node.get("scriptName", "").asString();
     script->scriptFile = Managers().resourceManager->CreateScriptFile(name);
+
+    Json::Value propertyMapJson = node.get("propertyMap", "");
+
+    if (propertyMapJson.asString() != "") {
+
+        std::vector<std::string> names = propertyMapJson.getMemberNames();
+
+        for (auto name : names) {
+
+            Log() << name << "\n";
+
+        }
+
+    }
     
     return script;
 }

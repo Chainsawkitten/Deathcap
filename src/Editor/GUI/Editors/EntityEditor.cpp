@@ -389,7 +389,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         if (script->instance == nullptr) {
 
             Managers().scriptManager->FillPropertyMap(script);
-
+                
         }
 
         int propertyCount = script->instance->GetPropertyCount();

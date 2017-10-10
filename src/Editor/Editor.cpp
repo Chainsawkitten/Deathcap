@@ -469,22 +469,23 @@ Entity* Editor::GetCamera() const {
 
 void Editor::Play() {
     Resources().Save();
-    editorState = Hymn().ToJson();
+
+    sceneState = Hymn().world.GetSaveJson();
+
     SetVisible(false);
     resourceView.HideEditors();
-    resourceView.ResetScene();
+
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
 }
 
-void Editor::LoadEditorState() {
+void Editor::LoadSceneState() {
+
     std::string path = Hymn().GetPath();
-    Hymn().Clear();
-    Hymn().SetPath(path);
     Resources().Clear();
-    Hymn().FromJson(editorState);
     Resources().Load();
-    LoadActiveScene();
+
+    Hymn().world.Load(sceneState);
 }
 
 void Editor::NewHymn() {

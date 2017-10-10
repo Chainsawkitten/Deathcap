@@ -109,14 +109,23 @@ void World::Load(const std::string& filename) {
     Clear();
 
     CreateRoot();
-    
+
     // Load Json document from file.
     if (FileSystem::FileExists(filename.c_str())) {
         Json::Value rootNode;
         std::ifstream file(filename);
         file >> rootNode;
         file.close();
-        
+
         root->Load(rootNode);
     }
+}
+
+void World::Load(Json::Value node) {
+    Clear();
+
+    CreateRoot();
+
+    root->Load(node);
+
 }
