@@ -253,16 +253,11 @@ void Entity::Load(const Json::Value& node) {
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
-    glm::mat4 matrix = GetLocalMatrix();
+    glm::mat4 matrix = glm::translate(glm::mat4(), position) * GetOrientation() * glm::scale(glm::mat4(), scale);
     
     if (parent != nullptr)
         matrix = parent->GetModelMatrix() * matrix;
     
-    return matrix;
-}
-
-glm::mat4 Entity::GetLocalMatrix() const {
-    glm::mat4 matrix = glm::translate(glm::mat4(), position) * GetOrientation() * glm::scale(glm::mat4(), scale);
     return matrix;
 }
 
