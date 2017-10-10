@@ -21,6 +21,7 @@
 #include "Util/Json.hpp"
 #include <fstream>
 #include "Util/Profiling.hpp"
+#include "Util/GPUProfiling.hpp"
 
 #include "Entity/Entity.hpp"
 #include "Component/Animation.hpp"
@@ -197,12 +198,16 @@ void ActiveHymn::Update(float deltaTime) {
 
 void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, bool showGridSettings) {
     { PROFILE("Render world");
+    { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
         Managers().renderManager->Render(world, camera);
+    }
     }
     
     if (soundSources || particleEmitters || lightSources || cameras || physics) {
         { PROFILE("Render editor entities");
+        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
             Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras, physics);
+        }
         }
     }
     if (showGridSettings)
@@ -217,8 +222,10 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     }
 
     { PROFILE("Render debug entities");
+    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
         CreateGrid(gridSettings.gridSize);
         Managers().debugDrawingManager->Render(camera);
+    }
     }
 }
 
