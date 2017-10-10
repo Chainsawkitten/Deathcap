@@ -7,7 +7,6 @@
 #include <Engine/Util/FileSystem.hpp>
 #include <Editor/Util/EditorSettings.hpp>
 #include <Engine/Hymn.hpp>
-#include <DefaultAlbedo.png.hpp>
 #include <Engine/MainWindow.hpp>
 #include <imgui.h>
 #include <limits>
