@@ -2,13 +2,14 @@
 
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
+#include <DefaultAlbedo.png.hpp>
 #include <Video/Texture/Texture2D.hpp>
 #include <fstream>
 
 using namespace Video;
 
 TextureAsset::TextureAsset() {
-    texture = new Texture2D();
+    texture = new Texture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH, false);
 }
 
 TextureAsset::~TextureAsset() {
@@ -32,6 +33,9 @@ void TextureAsset::Load(const std::string& name) {
     
     // Get properties from meta file.
     Json::Value root;
+    if(!FileSystem::FileExists(std::string(filename + ".json").c_str())) {
+        Save();
+    }
     std::ifstream file(filename + ".json");
     file >> root;
     file.close();
