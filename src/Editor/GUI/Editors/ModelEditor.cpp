@@ -72,14 +72,13 @@ void ModelEditor::Show() {
                 isImported = true;
 
                 // Generate meta data.
-                AssetMetaData::MeshImportData * importData = new AssetMetaData::MeshImportData;
+                AssetMetaData::MeshImportData* importData = new AssetMetaData::MeshImportData;
                 importData->triangulate = triangulate;
                 importData->importNormals = importNormals;
                 importData->importTangents = importTangents;
                 AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
 
                 delete importData;
-                importData = nullptr;
             }
 
             ImGui::Text("Material Data");
