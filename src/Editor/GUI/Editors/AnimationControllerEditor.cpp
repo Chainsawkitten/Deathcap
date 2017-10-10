@@ -14,6 +14,8 @@ void AnimationControllerEditor::Show() {
         if (animationController->animationAction.size() == 0) {
             Animation::AnimationController::AnimationAction* action = new Animation::AnimationController::AnimationAction;
             memcpy(action->nodeName, "Entry\0", 6);
+            action->numOutputSlots = 0;
+            action->numInputSlots = 0;
             animationController->animationAction.push_back(action);
         }
 
@@ -38,15 +40,8 @@ void AnimationControllerEditor::Show() {
 
         ImGui::BeginGroup();
 
-        // Create our child canvas
-        ImGui::Text("Graph editor");
-        ImGui::SameLine(ImGui::GetWindowWidth() - 100);
-        ImGui::Checkbox("Show grid", &show_grid);
-        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(1, 1));
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-        ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, ImColor(60, 60, 70, 200));
-        ImGui::BeginChild("scrolling_region", ImVec2(0, 0), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove);
-        ImGui::PushItemWidth(120.0f);
+        // Grid.
+        DrawGrid();
 
         ImVec2 offset = ImVec2(ImGui::GetCursorScreenPos().x - scrolling.x, ImGui::GetCursorScreenPos().y - scrolling.y);
         ImDrawList* drawList = ImGui::GetWindowDrawList();
@@ -65,11 +60,24 @@ void AnimationControllerEditor::Show() {
 
         // Draw connection.
         if (isDragingConnection) {
-            Animation::AnimationController::AnimationAction * action = animationController->animationAction[0];
+            Animation::AnimationController::AnimationAction * action = animationController->animationAction[dragNodeIndex];
             ImVec2 outPos = ImVec2(action->pos.x + offset.x + action->size.x, action->pos.y + offset.y + (action->size.y / 2));
             ImVec2 p2 = ImGui::GetIO().MousePos;
-            ImVec2 p2Offset = ImVec2(p2.x - 50, p2.y);
-            drawList->AddBezierCurve(outPos, ImVec2(outPos.x + 50, outPos.y), p2Offset, p2, ImColor(0, 0, 256), 4.0f);
+            ImVec2 p2Offset = ImVec2(p2.x - 100.0f, p2.y);
+            drawList->AddBezierCurve(outPos, ImVec2(outPos.x + 100.0f, outPos.y), p2Offset, p2, ImColor(40, 40, 40), 2.0f);
+        }
+
+        for (unsigned int id = 0; id < animationController->animationAction.size(); ++id) {
+            Animation::AnimationController::AnimationAction * action = animationController->animationAction[id];
+
+            for (unsigned int connections = 0; connections < action->numOutputSlots; ++connections) {
+                ImVec2 p1 = ImVec2(action->pos.x + offset.x + action->size.x, action->pos.y + offset.y + (action->size.y / 2));
+                ImVec2 p1Offset = ImVec2(p1.x + 100.0f, p1.y);
+                Animation::AnimationController::AnimationAction * connectionNode = animationController->animationAction[action->outputIndex[connections]];
+                ImVec2 p2 = ImVec2(connectionNode->pos.x + offset.x, connectionNode->pos.y + offset.y + (connectionNode->size.y / 2));
+                ImVec2 p2Offset = ImVec2(p2.x - 100.0f, p2.y);
+                drawList->AddBezierCurve(p1, p1Offset, p2Offset, p2, ImColor(80, 80, 80), 2.0f);
+            }
         }
 
         for (unsigned int id = 0; id < animationController->animationAction.size(); ++id) {
@@ -78,6 +86,8 @@ void AnimationControllerEditor::Show() {
 
             ImGui::PopID();
         }
+
+        hoveredNodeIndex = -1;
 
         // Draw animation actions.
         for (unsigned int id = 0; id < animationController->animationAction.size(); ++id) {
@@ -122,51 +132,68 @@ void AnimationControllerEditor::Show() {
 
             //  for (unsigned int in = 0; in < action->numInputSlots; ++in)
             ImVec2 outPos = ImVec2(action->pos.x + offset.x + action->size.x, action->pos.y + offset.y + (action->size.y / 2));
-            if (ImGui::GetIO().MouseClicked[0]) {
-                if (ImGui::GetIO().MousePos.x < outPos.x + NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.x > outPos.x - NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.y < outPos.y + NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.y > outPos.y - NODE_SLOT_RADIUS) {
-                    isDragingConnection = true;
-                }
-            }
-            drawList->AddCircleFilled(outPos, NODE_SLOT_RADIUS, ImColor(70, 70, 256, 256), 24);
-
-            //  for (unsigned int out = 0; out < action->numOutputSlots; ++out)
             ImVec2 inPos = ImVec2(action->pos.x + offset.x, action->pos.y + offset.y + (action->size.y / 2));
-            if (ImGui::GetIO().MouseClicked[0]) {
-                if (ImGui::GetIO().MousePos.x < inPos.x + NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.x > inPos.x - NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.y < inPos.y + NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.y > inPos.y - NODE_SLOT_RADIUS) {
-                    isDragingConnection = true;
-                }
+            ImColor inColor = ImColor(70, 70, 256, 256);
+            ImColor outColor = ImColor(70, 256, 70, 256);
+
+            if (ImGui::GetIO().MousePos.x < outPos.x + NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.x > outPos.x - NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.y < outPos.y + NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.y > outPos.y - NODE_SLOT_RADIUS) {
+                hoveredNodeIndex = id;
+                outColor = ImColor(100, 256, 100, 256);
+            } else if (ImGui::GetIO().MousePos.x < inPos.x + NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.x > inPos.x - NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.y < inPos.y + NODE_SLOT_RADIUS && ImGui::GetIO().MousePos.y > inPos.y - NODE_SLOT_RADIUS) {
+                hoveredNodeIndex = id;
+                inColor = ImColor(100, 100, 256, 256);
             }
-            drawList->AddCircleFilled(inPos, NODE_SLOT_RADIUS, ImColor(256, 256, 70, 256), 24);
+
+            drawList->AddCircleFilled(outPos, NODE_SLOT_RADIUS, outColor, 24);
+            drawList->AddCircleFilled(inPos, NODE_SLOT_RADIUS, inColor, 24);
 
             ImGui::PopID();
         }
+
         drawList->ChannelsMerge();
 
-        if (ImGui::BeginPopupContextWindow()) {
-
-            Animation::AnimationController::AnimationAction * action = node_selected != -1 ? animationController->animationAction[0] : nullptr;
-            ImVec2 scene_pos = ImVec2(ImGui::GetMousePosOnOpeningCurrentPopup().x - offset.x, ImGui::GetMousePosOnOpeningCurrentPopup().y - offset.y);
-            if (action != nullptr) {
-                if (ImGui::MenuItem("Delete")) {
-
-                }
-            } else {
-                if (ImGui::MenuItem("Add animation action")) {
-                    Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
-                    std::string name = "Action #" + std::to_string(animationController->animationAction.size());
-                    memcpy(newAction->nodeName, name.c_str(), name.size() + 1);
-                    newAction->index = animationController->animationAction.size();
-                    animationController->animationAction.push_back(newAction);
-                }
-
-                if (ImGui::MenuItem("Add animation transition")) {
-                    Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
-                    std::string name = "Animation transition: " + std::to_string(animationController->animationAction.size());
-                    memcpy(newAction->nodeName, name.c_str(), name.size() + 1);
-                    animationController->animationAction.push_back(newAction);
+        if (ImGui::GetIO().MouseClicked[0]) {
+            if (hoveredNodeIndex == -1)
+                isDragingConnection = false;
+            else {
+                if (isDragingConnection) {
+                    if (animationController->animationAction[dragNodeIndex]->numOutputSlots < 8) {
+                        animationController->animationAction[dragNodeIndex]->outputIndex[animationController->animationAction[dragNodeIndex]->numOutputSlots] = hoveredNodeIndex;
+                        animationController->animationAction[dragNodeIndex]->numOutputSlots += 1;
+                    }
+                    isDragingConnection = false;
+                } else {
+                    dragNodeIndex = hoveredNodeIndex;
+                    isDragingConnection = true;
                 }
             }
+        }
 
+        if (ImGui::BeginPopupContextWindow("AnimCtrlContextPopup")) {
+            if (ImGui::MenuItem("Add animation action")) {
+                Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
+                std::string name = "Action #" + std::to_string(animationController->animationAction.size() + 1);
+                memcpy(newAction->nodeName, name.c_str(), name.size() + 1);
+                newAction->index = animationController->animationAction.size();
+                newAction->pos = glm::vec2(ImGui::GetCursorScreenPos().x - offset.x, ImGui::GetCursorScreenPos().y - offset.y);
+                animationController->animationAction.push_back(newAction);
+            }
+
+            if (ImGui::MenuItem("Add animation transition")) {
+                Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
+                std::string name = "Animation transition: " + std::to_string(animationController->animationAction.size());
+                memcpy(newAction->nodeName, name.c_str(), name.size() + 1);
+                animationController->animationAction.push_back(newAction);
+            }
+
+            //   Animation::AnimationController::AnimationAction * action = node_selected != -1 ? animationController->animationAction[0] : nullptr;
+            //   ImVec2 scene_pos = ImVec2(ImGui::GetMousePosOnOpeningCurrentPopup().x - offset.x, ImGui::GetMousePosOnOpeningCurrentPopup().y - offset.y);
+            //   if (action != nullptr) {
+            //       ImGui::Separator();
+            //       if (ImGui::MenuItem("Delete")) {
+            //
+            //       }
+            //   }
             ImGui::EndPopup();
         }
 
@@ -194,4 +221,15 @@ bool AnimationControllerEditor::IsVisible() const {
 
 void AnimationControllerEditor::SetVisible(bool visible) {
     this->visible = visible;
+}
+
+void AnimationControllerEditor::DrawGrid() {
+    ImGui::Text("Graph editor");
+    ImGui::SameLine(ImGui::GetWindowWidth() - 100);
+    ImGui::Checkbox("Show grid", &show_grid);
+    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(1, 1));
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+    ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, ImColor(60, 60, 70, 200));
+    ImGui::BeginChild("scrolling_region", ImVec2(0, 0), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove);
+    ImGui::PushItemWidth(120.0f);
 }

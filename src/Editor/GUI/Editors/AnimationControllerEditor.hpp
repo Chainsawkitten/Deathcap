@@ -39,6 +39,7 @@ class AnimationControllerEditor {
 
     private:
         void Save();
+        void DrawGrid();
         void DrawActions();
         void DrawTransitions();
         void DrawConnections();
@@ -47,6 +48,8 @@ class AnimationControllerEditor {
         Animation::AnimationController* animationController;
 
         bool isDragingConnection = false;
+        int hoveredNodeIndex = -1;
+        int dragNodeIndex = -1;
         
         bool inited = false;
         ImVec2 scrolling = ImVec2(0.0f, 0.0f);

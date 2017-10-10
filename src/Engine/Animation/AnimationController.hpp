@@ -14,37 +14,44 @@ namespace Animation {
     /// An animation loaded from a file.
     class AnimationController {
         public:
-            struct AnimationNode {
+            struct Node {
                 uint32_t index;
-                char nodeName[128];
-                uint32_t numInputSlots;
+                char name[128];
+                uint32_t numInputSlots = 0;
                 uint32_t inputIndex[8];
-                uint32_t numOutputSlots;
+                uint32_t numOutputSlots = 0;
                 uint32_t outputIndex[8];
+                glm::vec2 pos = glm::vec2(0.0f);
+                glm::vec2 size = glm::vec2(250, 100);
 
-                virtual void Save(std::ofstream* file) = 0;
-                virtual void Load(std::ifstream* file) = 0;
+                virtual void Save(std::ofstream* file) {
+                    file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));
+                    file->write(reinterpret_cast<char*>(name), 128);
+                    file->write(reinterpret_cast<char*>(&numInputSlots), sizeof(uint32_t));
+                }
+
+                virtual void Load(std::ifstream* file) {
+
+                }
             };
 
-            struct AnimationAction : public AnimationNode {
-                uint32_t index;
-                char nodeName[128];
+            struct AnimationAction : public Node {
                 char animationClip[128];
                 float playbackModifier = 1.0f;
                 bool repeat = true;
-                glm::vec2 pos;
-                glm::vec2 size = glm::vec2(250, 100);
 
                 virtual void Save(std::ofstream* file) override {
+                    Node::Save(file);
                     file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));
                 }
 
                 virtual void Load(std::ifstream* file) override {
+                    Node::Load(file);
                     file->read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
                 }
             };
 
-            struct AnimationTransition : public AnimationNode {
+            struct AnimationTransition : public Node {
                 uint32_t in;
                 float inTransitionValue;
                 uint32_t out;
@@ -74,6 +81,7 @@ namespace Animation {
             std::string name;
 
             std::vector<AnimationAction*> animationAction;
+
             std::vector<AnimationTransition*> animationTransitions;
 
         private:
