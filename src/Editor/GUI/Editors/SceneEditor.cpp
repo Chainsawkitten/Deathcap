@@ -73,11 +73,10 @@ void SceneEditor::SetScene(const std::string& path, std::string* scene) {
     this->path = path;
     this->scene = scene;
     
-    if (scene != nullptr) {
+    if (scene != nullptr)
         strcpy(name, scene->c_str());
-    } else {
+    else
         SetVisible(false);
-    }
 }
 
 bool SceneEditor::IsVisible() const {

@@ -95,9 +95,9 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
     
     // Save subfolders.
     Json::Value subfolders;
-    for (const ResourceFolder& subfolder : folder.subfolders) {
+    for (const ResourceFolder& subfolder : folder.subfolders)
         subfolders.append(SaveFolder(subfolder));
-    }
+    
     node["subfolders"] = subfolders;
     
     // Save resources.
@@ -178,9 +178,9 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
 
 void ResourceList::ClearFolder(ResourceFolder& folder) {
     // Clear subfolders.
-    for (ResourceFolder& subfolder : folder.subfolders) {
+    for (ResourceFolder& subfolder : folder.subfolders)
         ClearFolder(subfolder);
-    }
+    
     folder.subfolders.clear();
     
     // Clear resources.

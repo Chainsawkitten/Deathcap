@@ -107,25 +107,21 @@ Entity* Entity::InstantiateScene(const std::string& name, const std::string& ori
     return child;
 }
 
-void Entity::CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root) {
-    Json::Value children = root["children"];
-
+void Entity::CheckIfSceneExists(const std::string& filename, bool& error, const std::string& originScene, Json::Value root) {
     // Loops through all the scene names.
     for (unsigned int i = 0; i < root["children"].size(); ++i) {
         if (root["children"][i]["scene"].asBool()) {
             printf("%s", root["children"][i]["sceneName"].asString().c_str());
 
-            if (originScene == root["children"][i]["sceneName"].asString()) {
+            if (originScene == root["children"][i]["sceneName"].asString())
                 error = true;
-            }
-            if (error) {
+                
+            if (error)
                 break;
-            }
         }
 
-        if (!error) {
+        if (!error)
             CheckIfSceneExists(filename, error, originScene, root["children"][i]);
-        }
     }
 }
 
