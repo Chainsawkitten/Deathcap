@@ -7,6 +7,9 @@ namespace GUI {
     /// A window that asks the user for the name of the folder to create.
     class FolderNameWindow {
         public:
+            /// Default constructor.
+            FolderNameWindow() = default;
+            
             /// Show the window and let the user enter a name.
             void Show();
             

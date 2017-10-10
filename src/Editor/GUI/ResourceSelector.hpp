@@ -21,6 +21,9 @@ namespace GUI {
                 std::string path;
             };
             
+            /// Default constructor.
+            ResourceSelector() = default;
+            
             /// Show the resource selector and let the user select a resource.
             /**
              * @param type The type of resource to select.
