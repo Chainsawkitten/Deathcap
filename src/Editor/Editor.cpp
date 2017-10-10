@@ -545,5 +545,5 @@ void Editor::OpenHymnClosed(const std::string& hymn) {
 
 void Editor::LoadActiveScene() {
     // Load active scene.
-    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[Resources().activeScene] + ".json");
+    Hymn().world.Load(Hymn().GetPath() + "/" + Resources().activeScene + ".json");
 }
