@@ -177,14 +177,12 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
     if (ImGui::BeginPopup("Select model##Animation")) {
         ImGui::Text("Models");
         ImGui::Separator();
-
-        for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str())) {
-                if (animation->riggedModel != nullptr)
-                    Managers().resourceManager->FreeModel(animation->riggedModel);
-                
-                animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
-            }
+        
+        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
+            if (animation->riggedModel != nullptr)
+                Managers().resourceManager->FreeModel(animation->riggedModel);
+            
+            animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
 
         ImGui::EndPopup();
@@ -221,13 +219,11 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         ImGui::Text("Models");
         ImGui::Separator();
         
-        for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str())) {
-                if (mesh->geometry != nullptr)
-                    Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
-                
-                mesh->geometry = Managers().resourceManager->CreateModel(model->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
+            if (mesh->geometry != nullptr)
+                Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
+            
+            mesh->geometry = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -257,13 +253,11 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->albedo != Hymn().defaultAlbedo)
-                    Managers().resourceManager->FreeTextureAsset(material->albedo);
-                
-                material->albedo = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->albedo != Hymn().defaultAlbedo)
+                Managers().resourceManager->FreeTextureAsset(material->albedo);
+            
+            material->albedo = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -283,13 +277,11 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->normal != Hymn().defaultNormal)
-                    Managers().resourceManager->FreeTextureAsset(material->normal);
-                
-                material->normal = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->normal != Hymn().defaultNormal)
+                Managers().resourceManager->FreeTextureAsset(material->normal);
+            
+            material->normal = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -309,16 +301,11 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->metallic = texture;
-
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->metallic != Hymn().defaultMetallic)
-                    Managers().resourceManager->FreeTextureAsset(material->metallic);
-                
-                material->metallic = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->metallic != Hymn().defaultMetallic)
+                Managers().resourceManager->FreeTextureAsset(material->metallic);
+            
+            material->metallic = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -338,16 +325,11 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->roughness = texture;
-
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->roughness != Hymn().defaultRoughness)
-                    Managers().resourceManager->FreeTextureAsset(material->roughness);
-                
-                material->roughness = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->roughness != Hymn().defaultRoughness)
+                Managers().resourceManager->FreeTextureAsset(material->roughness);
+            
+            material->roughness = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -480,13 +462,11 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Text("Sounds");
         ImGui::Separator();
         
-        for (Audio::SoundBuffer* sound : Resources().sounds) {
-            if (ImGui::Selectable(sound->name.c_str())) {
-                if (soundSource->soundBuffer != nullptr)
-                    Managers().resourceManager->FreeSound(soundSource->soundBuffer);
-                
-                soundSource->soundBuffer = Managers().resourceManager->CreateSound(sound->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::SOUND)) {
+            if (soundSource->soundBuffer != nullptr)
+                Managers().resourceManager->FreeSound(soundSource->soundBuffer);
+            
+            soundSource->soundBuffer = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
