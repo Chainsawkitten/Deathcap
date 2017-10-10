@@ -35,6 +35,15 @@ namespace Video {
             
             /// Clear the previous frame's data.
             void Clear();
+
+            /// Render a static mesh.
+            /**
+            * @param geometry The geometry to render.
+            * @param viewMatrix The camera's view matrix.
+            * @param projectionMatrix The camera's projection matrix.
+            * @param modelMatrix Model matrix.
+            */
+            void DepthRenderStaticMesh(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix);
             
             /// Start rendering the frame.
             /**

@@ -16,7 +16,7 @@ class Cart{
     Cart(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        speed = 0.0f;
+        speed = 20.0f;
         stopTime = 0.0f;
         endTime = 7.5f;
         hasHitPlane = false;
@@ -33,7 +33,7 @@ class Cart{
         
         trigger = false;
         RegisterUpdate();
-        RegisterTrigger(stopPhysics, minecartPhysics, "OnTrigger");
+        RegisterTriggerEnter(stopPhysics, minecartPhysics, "OnTrigger");
     }
     
     //Update carts movements and send it's position to Player Script.
@@ -41,7 +41,7 @@ class Cart{
         self.position.z -= speed*deltaTime;
         
         // Braking phase
-        /*if (hasHitPlane && stopTime < endTime){
+        if (hasHitPlane && stopTime < endTime){
             stopTime += deltaTime;
             float t = stopTime;
             float zPos = a * t * t * t / 3.0f + b * t * t / 2.0f + c * t;
@@ -53,7 +53,7 @@ class Cart{
             speed = 0.0f;
         }
         // Start again after lever has been pulled
-        else */if (trigger){
+        else if (trigger){
             if (speed < 20.0f)
                 speed += 0.0664f;
         }
@@ -64,8 +64,8 @@ class Cart{
             trigger = true;
     }
     
-    /*void OnTrigger(Component::Physics @trigger, Component::Physics @enterer) {
+    void OnTrigger(Component::Physics @trigger, Component::Physics @enterer) {
         print("WOW! WHAT A COLLISION!");
         hasHitPlane = true;
-    }*/
+    }
 }

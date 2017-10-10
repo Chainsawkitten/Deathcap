@@ -5,8 +5,6 @@
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Component/ParticleEmitter.hpp"
-#include "../Component/Lens.hpp"
-#include "../MainWindow.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include <Video/Texture/Texture2D.hpp>

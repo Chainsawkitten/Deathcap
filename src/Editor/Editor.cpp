@@ -16,10 +16,14 @@
 #include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
-
+#include <ImGuizmo.hpp>
 #include <imgui.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtx/transform.hpp>
+#include <fstream>
 
+
+ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
 Editor::Editor() {
     // Create Hymns directory.
     FileSystem::CreateDirectory((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns").c_str());
@@ -48,6 +52,9 @@ Editor::Editor() {
     Input()->AssignButton(InputHandler::ZOOM, InputHandler::KEYBOARD, GLFW_KEY_Z);
     Input()->AssignButton(InputHandler::SELECT, InputHandler::MOUSE, GLFW_MOUSE_BUTTON_LEFT);
     Input()->AssignButton(InputHandler::FOCUS, InputHandler::KEYBOARD, GLFW_KEY_F);
+    Input()->AssignButton(InputHandler::W, InputHandler::KEYBOARD, GLFW_KEY_W);
+    Input()->AssignButton(InputHandler::E, InputHandler::KEYBOARD, GLFW_KEY_E);
+    Input()->AssignButton(InputHandler::R, InputHandler::KEYBOARD, GLFW_KEY_R);
 
     // Create editor camera.
     cameraEntity = cameraWorld.CreateEntity("Editor Camera");
@@ -80,33 +87,41 @@ Editor::~Editor() {
 
 void Editor::Show(float deltaTime) {
     if (close) {
-        // Ask the user whether they wish to save.
-        if (Hymn().GetPath() != "") {
-            savePromtWindow.SetVisible(true);
-            savePromtWindow.Show();
 
-            switch (savePromtWindow.GetDecision()) {
-            case 0:
-                Save();
-                savePromptAnswered = true;
-                break;
-
-            case 1:
-                savePromptAnswered = true;
-                break;
-
-            case 2:
-                savePromptAnswered = false;
-                close = false;
-                savePromtWindow.ResetDecision();
-                break;
-
-            default:
-                break;
-            }
+        if (!HasMadeChanges()) {
+            savePromptAnswered = true;
         }
         else {
-            savePromptAnswered = true;
+
+            // Ask the user whether they wish to save.
+            if (Hymn().GetPath() != "") {
+                savePromtWindow.SetVisible(true);
+                savePromtWindow.Show();
+
+                switch (savePromtWindow.GetDecision()) {
+                case 0:
+                    Save();
+                    savePromptAnswered = true;
+                    break;
+
+                case 1:
+                    savePromptAnswered = true;
+                    break;
+
+                case 2:
+                    savePromptAnswered = false;
+                    close = false;
+                    savePromtWindow.ResetDecision();
+                    break;
+
+                default:
+                    break;
+                }
+            }
+            else {
+                savePromptAnswered = true;
+            }
+
         }
     }
     else {
@@ -281,9 +296,9 @@ void Editor::Show(float deltaTime) {
                             }
                         }
                         else if (intersectDistance > 0.0f) {
-                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                                resourceView.GetScene().entityEditor.SetVisible(true);
-                                break;
+                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            break;
                         }
                     }
                 }
@@ -356,12 +371,155 @@ void Editor::Show(float deltaTime) {
     if (ImGui::GetMouseCursor() < 5) {
         glfwSetCursor(MainWindow::GetInstance()->GetGLFWWindow(), cursors[ImGui::GetMouseCursor()]);
     }
+
+    // Widget Controller for translation, rotation  and scale.
+    ImGuizmo::BeginFrame();
+    ImGuizmo::Enable(true);
+    //Widget operation is in local mode
+    ImGuizmo::MODE currentGizmoMode(ImGuizmo::LOCAL);
+    ImGuiIO& io = ImGui::GetIO();
+
+    // Check that there is an active Entity.
+
+    // Get current active Entity.
+    glm::mat4 currentEntityMatrix = glm::mat4();
+
+    Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
+
+    if (resourceView.GetScene().entityEditor.GetEntity() != NULL) {
+        currentEntityMatrix = resourceView.GetScene().entityEditor.GetEntity()->GetLocalMatrix();
+
+        // Change operation based on key input.
+        if (Input()->Triggered(InputHandler::W))
+            currentOperation = ImGuizmo::TRANSLATE;
+
+        else if (Input()->Triggered(InputHandler::E))
+            currentOperation = ImGuizmo::ROTATE;
+
+        else if (Input()->Triggered(InputHandler::R))
+            currentOperation = ImGuizmo::SCALE;
+
+
+        // Projection matrix.
+        glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
+
+        // View matrix.
+        glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
+
+        // Identity matrix.
+        glm::mat4 identity = glm::mat4();
+        float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
+        float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
+        float rotationValue[3] = { currentEntity->rotation.x, currentEntity->rotation.y, currentEntity->rotation.z };
+
+        // Draw the actual widget.
+        ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
+        ImGuizmo::RecomposeMatrixFromComponents(translationValue, rotationValue, scaleValue, &currentEntityMatrix[0][0]);
+        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, currentGizmoMode, &currentEntityMatrix[0][0]);
+        ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translationValue, rotationValue, scaleValue);
+
+        glm::rotate(-90.0f, glm::vec3(rotationValue[0], rotationValue[1], rotationValue[2]));
+
+        if (ImGuizmo::IsUsing()) {
+
+            // Translate.
+            if (currentOperation == ImGuizmo::TRANSLATE) {
+                currentEntity->position.x = translationValue[0];
+                currentEntity->position.y = translationValue[1];
+                currentEntity->position.z = translationValue[2];
+            }
+
+            // Rotate.
+            if (currentOperation == ImGuizmo::ROTATE) {
+                currentEntity->rotation.x = rotationValue[0];
+                currentEntity->rotation.y = rotationValue[1];
+                currentEntity->rotation.z = rotationValue[2];
+            }
+
+            // Scale.
+            if (currentOperation == ImGuizmo::SCALE) {
+                currentEntity->scale.x = scaleValue[0];
+                currentEntity->scale.y = scaleValue[1];
+                currentEntity->scale.z = scaleValue[2];
+            }
+        }
+    }
 }
 
 void Editor::Save() const {
     resourceView.SaveScene();
     Hymn().Save();
     Resources().Save();
+}
+
+bool Editor::HasMadeChanges() const {
+    
+    {
+        std::string* sceneFilename = new std::string();
+        Json::Value sceneJson = resourceView.GetSceneJson(sceneFilename);
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(*sceneFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string sceneJsonString = sceneJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(sceneJsonString);
+        if (response != 0)
+            return true;
+    }
+    {
+        std::string hymnFilename = Hymn().GetSavePath();
+        Json::Value hymnJson = Hymn().ToJson();
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(hymnFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string hymnJsonString = hymnJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(hymnJsonString);
+        if (response != 0)
+            return true;
+    }
+    {
+        std::string resourcesFilename = Resources().GetSavePath();
+        Json::Value resourcesJson = Resources().ToJson();
+
+        // Load Json document from file.
+        Json::Value reference;
+        std::ifstream file(resourcesFilename);
+
+        if (!file.good())
+            return true;
+
+        file >> reference;
+        file.close();
+
+        std::string resourcesJsonString = resourcesJson.toStyledString();
+        std::string referenceString = reference.toStyledString();
+
+        int response = referenceString.compare(resourcesJsonString);
+        if (response != 0)
+            return true;
+    }
+
+    return false;
+
 }
 
 bool Editor::ReadyToClose() const {
@@ -417,7 +575,7 @@ void Editor::NewHymn() {
 }
 
 void Editor::NewHymnClosed(const std::string& hymn) {
-    // Create new hymn
+    // Create new hymn.
     if (!hymn.empty()) {
         resourceView.ResetScene();
         Hymn().Clear();
