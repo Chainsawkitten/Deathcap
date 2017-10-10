@@ -8,7 +8,6 @@
 #include "../Shader/ShaderProgram.hpp"
 #include "Default3D.vert.hpp"
 #include "Default3D.frag.hpp"
-#include "Engine/Util/Profiling.hpp"
 #include "Zrejection.vert.hpp"
 #include "Zrejection.frag.hpp"
 
