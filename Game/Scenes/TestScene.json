@@ -335,7 +335,7 @@
 								"y" : 0.0,
 								"z" : 1.0
 							},
-							"planeCoeff" : 450.0
+							"planeCoeff" : 0.0
 						}
 					},
 					"children" : null,

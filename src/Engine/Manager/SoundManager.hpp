@@ -15,19 +15,7 @@ namespace Json {
 class SoundManager {
     friend class Hub;
     
-    public:
-        /// Set main volume.
-        /**
-         * @param volume New volume.
-         */
-        void SetVolume(float volume);
-        
-        /// Get main volume.
-        /**
-         * @return The main volume.
-         */
-        float GetVolume() const;
-        
+    public:     
         /// Check for OpenAL errors.
         /**
          * @param message Message to print to standard error if an error was encountered.
