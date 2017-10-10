@@ -30,20 +30,19 @@ namespace Component {
              */
             Video::Geometry::Geometry3D* geometry = nullptr;
 
-            /// Highlight selection.
+            /// Get mesh selection.
             /**
-            * @return True if selected else false.
+            * @return Bool Is this selected or not.
             */
             bool GetSelected() const;
 
-            /// Highlight selection.
+            /// Set mesh selection.
             /**
-            * @param Set true if mesh is selected, else false.
+            * @param Value If selected or not.
             */
             void SetSelected(bool value);
 
-    private:
-        /// If mesh is selected in the editor.
+    private:        
         bool isSelected;
 
     };
