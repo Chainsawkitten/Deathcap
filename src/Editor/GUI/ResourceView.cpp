@@ -83,11 +83,8 @@ void ResourceView::Show() {
             if (Hymn().GetPath() != "") {
 
                 if (!HasMadeChanges()) {
-
                     SwitchScene(sceneIndex);
-
-                }
-                else {
+                } else {
 
                     savePromptWindow.SetVisible(true);
                     savePromptWindow.ResetDecision();

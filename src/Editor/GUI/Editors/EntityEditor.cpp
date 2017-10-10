@@ -76,6 +76,38 @@ void EntityEditor::Show() {
         ImGui::Text("Transform");
         ImGui::ShowHelpMarker("The entity's position, rotation and scale.", 75.f);
         ImGui::Indent();
+
+        if (Hymn().gridSettings.gridSnap) {
+            int toNearest = Hymn().gridSettings.snapOption;
+
+            int value = entity->position.x;
+            int rest = value % toNearest;
+
+            if (rest > (toNearest / 2)) {
+                entity->position.x = (value - rest) + toNearest;
+            } else {
+                entity->position.x = (value - rest);
+            }
+
+            value = entity->position.y;
+            rest = value % toNearest;
+
+            if (rest > (toNearest / 2)) {
+                entity->position.y = (value - rest) + toNearest;
+            } else {
+                entity->position.y = (value - rest);
+            }
+
+            value = entity->position.z;
+            rest = value % toNearest;
+
+            if (rest > (toNearest / 2)) {
+                entity->position.z = (value - rest) + toNearest;
+            } else {
+                entity->position.z = (value - rest);
+            }
+        }
+
         ImGui::DraggableVec3("Position", entity->position);
         ImGui::DraggableVec3("Rotation", entity->rotation);
         ImGui::DraggableVec3("Scale", entity->scale);

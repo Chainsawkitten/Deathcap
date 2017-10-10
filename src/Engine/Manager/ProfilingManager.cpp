@@ -107,7 +107,7 @@ void ProfilingManager::FinishResult(Result* result, double start) {
     current = result->parent;
 }
 
-void ProfilingManager::ShowFrametimes() {
+void ProfilingManager::ShowFrametimes() const {
     ImGui::PlotLines("Frametimes", frameTimes, frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
 }
 

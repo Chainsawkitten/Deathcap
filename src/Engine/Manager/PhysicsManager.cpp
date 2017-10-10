@@ -7,9 +7,9 @@
 #include "../Component/Shape.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Physics/GlmConversion.hpp"
-#include "../Physics/ITrigger.hpp"
 #include "../Physics/Shape.hpp"
 #include "../Physics/Trigger.hpp"
+#include "../Physics/TriggerObserver.hpp"
 #include "../Util/Json.hpp"
 
 PhysicsManager::PhysicsManager() {
@@ -118,13 +118,37 @@ void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::
     auto trigger = MakeTrigger(triggerBody);
     auto rigidBodyComp = object->entity->GetComponent<Component::RigidBody>();
     assert(rigidBodyComp); // For now
-    trigger->OnEnter(rigidBodyComp, callback);
+    // Add the callback to the trigger observer
+    trigger->ForObserver(rigidBodyComp->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnEnter(callback);
+    });
+}
+
+void PhysicsManager::OnTriggerRetain(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback) {
+    auto trigger = MakeTrigger(triggerBody);
+    auto rigidBodyComp = object->entity->GetComponent<Component::RigidBody>();
+    assert(rigidBodyComp); // For now
+    // Add the callback to the trigger observer
+    trigger->ForObserver(rigidBodyComp->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnRetain(callback);
+    });
+}
+
+void PhysicsManager::OnTriggerLeave(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback) {
+    auto trigger = MakeTrigger(triggerBody);
+    auto rigidBodyComp = object->entity->GetComponent<Component::RigidBody>();
+    assert(rigidBodyComp); // For now
+    // Add the callback to the trigger observer
+    trigger->ForObserver(rigidBodyComp->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnLeave(callback);
+    });
 }
 
 Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     assert(rigidBodyComp); // for now
-    Physics::Trigger* trigger = new Physics::Trigger(rigidBodyComp->GetBulletRigidBody()->getWorldTransform());
+    btTransform trans(btQuaternion(0, 0, 0, 1), ::Physics::glmToBt(comp->entity->position));
+    Physics::Trigger* trigger = new Physics::Trigger(trans);
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape().GetShape() : nullptr);
     triggers.push_back(trigger);
