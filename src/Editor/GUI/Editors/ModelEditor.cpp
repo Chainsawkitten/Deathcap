@@ -101,7 +101,8 @@ const Geometry::Model* ModelEditor::GetModel() const {
     return model;
 }
 
-void ModelEditor::SetModel(Geometry::Model* model) {
+void ModelEditor::SetModel(ResourceList::ResourceFolder* folder, Geometry::Model* model) {
+    this->folder = folder;
     this->model = model;
 
     strcpy(name, model->name.c_str());

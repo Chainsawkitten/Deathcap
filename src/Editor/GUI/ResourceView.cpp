@@ -265,7 +265,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         
         // Show resources.
         for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
-            if (ShowResource(*it, path)) {
+            if (ShowResource(folder, *it, path)) {
                 folder.resources.erase(it);
                 return;
             }
@@ -275,7 +275,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
     }
 }
 
-bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::string& path) {
+bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path) {
     // Scene.
     if (resource.type == ResourceList::Resource::SCENE) {
         if (ImGui::Selectable(resource.scene.c_str())) {
@@ -317,7 +317,7 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
     if (resource.type == ResourceList::Resource::MODEL) {
         if (ImGui::Selectable(resource.model->name.c_str())) {
             modelPressed = true;
-            modelEditor.SetModel(resource.model);
+            modelEditor.SetModel(&folder, resource.model);
         }
         
         if (ImGui::BeginPopupContextItem(resource.model->name.c_str())) {

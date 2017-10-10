@@ -3,6 +3,7 @@
 #include <string>
 #include "../FileSelector.hpp"
 #include "Util/AssetConverter.hpp"
+#include "../../Resources.hpp"
 
 namespace Geometry {
     class Model;
@@ -28,7 +29,7 @@ namespace GUI {
             /**
              * @param model Model to edit.
              */
-            void SetModel(Geometry::Model* model);
+            void SetModel(ResourceList::ResourceFolder* folder, Geometry::Model* model);
             
             /// Get whether the window is visible.
             /**
@@ -46,6 +47,7 @@ namespace GUI {
             void FileSelected(const std::string& file);
             void RefreshImportSettings();
             
+            ResourceList::ResourceFolder* folder;
             Geometry::Model* model = nullptr;
             bool visible = false;
             
