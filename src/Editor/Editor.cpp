@@ -81,24 +81,9 @@ Editor::~Editor() {
 
 void Editor::Show(float deltaTime) {
     if (close) {
-
-<<<<<<< HEAD
-            case 2:
-                savePromptAnswered = false;
-                close = false;
-                savePromtWindow.ResetDecision();
-                break;
-
-            default:
-                break;
-            }
-        } else {
-            savePromptAnswered = true;
-=======
         if (!HasMadeChanges()) {
             savePromptAnswered = true;
-        }
-        else {
+        } else {
 
             // Ask the user whether they wish to save.
             if (Hymn().GetPath() != "") {
@@ -124,12 +109,9 @@ void Editor::Show(float deltaTime) {
                 default:
                     break;
                 }
-            }
-            else {
+            } else {
                 savePromptAnswered = true;
             }
-
->>>>>>> 3fbdf2ab4b9047d6617e8239d5ae7168cb8da7a5
         }
     } else {
         bool play = false;
@@ -181,7 +163,7 @@ void Editor::Show(float deltaTime) {
                 static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
                 ImGui::MenuItem("Cameras", "", &cameras);
                 EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
-                
+
                 static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
                 ImGui::MenuItem("Physics", "", &physics);
                 EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
@@ -278,7 +260,7 @@ void Editor::Show(float deltaTime) {
         }
 
         // Mouse ray.
-        if (Input()->Pressed(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+        if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
             mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
             mousePicker.Update();
             float lastDistance = INFINITY;
@@ -287,7 +269,7 @@ void Editor::Show(float deltaTime) {
             for (int i = 0; i < entityAmount; ++i) {
                 selectedEntity = Hymn().world.GetEntities().at(i);
                 if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
-
+                    selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
                     float intersectDistance = 0.0f;
                     if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
                         selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
@@ -298,23 +280,14 @@ void Editor::Show(float deltaTime) {
                             if (entityAmount - i == 1) {
                                 resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
                                 resourceView.GetScene().entityEditor.SetVisible(true);
+                                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
                                 break;
                             }
-<<<<<<< HEAD
                         } else if (intersectDistance > 0.0f) {
-=======
-                        }
-                        else if (intersectDistance > 0.0f) {
-<<<<<<< HEAD
->>>>>>> 6588fc84eb15df7d3998b71271970655543663e7
                             resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
                             resourceView.GetScene().entityEditor.SetVisible(true);
+                            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
                             break;
-=======
-                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                                resourceView.GetScene().entityEditor.SetVisible(true);
-                                break;
->>>>>>> 6201faa4ed88a8026170b622a4d31c8e8c1b376f
                         }
                     }
                 }
@@ -396,7 +369,7 @@ void Editor::Save() const {
 }
 
 bool Editor::HasMadeChanges() const {
-    
+
     {
         std::string* sceneFilename = new std::string();
         Json::Value sceneJson = resourceView.GetSceneJson(sceneFilename);
