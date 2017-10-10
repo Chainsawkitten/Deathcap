@@ -78,11 +78,16 @@ namespace Animation {
             void Save(const std::string& name);
             void Load(const std::string& name);
 
-            std::string name;
 
             std::vector<AnimationAction*> animationAction;
 
             std::vector<AnimationTransition*> animationTransitions;
+
+            /// 
+            std::string name;
+
+            /// The folder containing the model file.
+            std::string path;
 
         private:
 

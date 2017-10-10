@@ -39,7 +39,7 @@ class ResourceList {
             /// The type of resource.
             enum Type {
                 SCENE = 0,
-                ANIMATION,
+                ANIMATION_CLIP,
                 ANIMATION_CONTROLLER,
                 SKELETON,
                 MODEL,
@@ -53,7 +53,16 @@ class ResourceList {
             
             /// Model.
             Geometry::Model* model;
+
+            /// Animation clip.
+            Animation::AnimationClip* animationClip;
             
+            /// Animation controller.
+            Animation::AnimationController* animationController;
+
+            /// Skeleton.
+            Animation::Skeleton* skeleton;
+
             /// Texture.
             TextureAsset* texture;
             

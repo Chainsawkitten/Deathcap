@@ -1,5 +1,6 @@
 #include "ResourceView.hpp"
 
+#include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
@@ -211,6 +212,16 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
             folder.resources.push_back(resource);
         }
+
+        // Add model.
+        if (ImGui::Selectable("Add animation controller")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::ANIMATION_CONTROLLER;
+            resource.animationController = new Animation::AnimationController();
+            resource.animationController->path = path + "/";
+            resource.animationController->name = "Animation controller #" + std::to_string(Resources().animationControllerNumber++);
+            folder.resources.push_back(resource);
+        }
         
         // Add model.
         if (ImGui::Selectable("Add model")) {
@@ -307,6 +318,27 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
                 
                 ImGui::EndPopup();
                 
+                return true;
+            }
+            ImGui::EndPopup();
+        }
+    }
+
+    // Model.
+    if (resource.type == ResourceList::Resource::ANIMATION_CONTROLLER) {
+        if (ImGui::Selectable(resource.animationController->name.c_str())) {
+        //    animationControllerPressed = true;
+        //    modelEditor.SetModel(resource.animationController);
+        }
+
+        if (ImGui::BeginPopupContextItem(resource.animationController->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+            //    if (animationControllerEditor.Get() == resource.model)
+            //        animationControllerEditor.SetVisible(false);
+            //
+            //    Managers().resourceManager->FreeModel(resource.model);
+            //    ImGui::EndPopup();
+            //
                 return true;
             }
             ImGui::EndPopup();
