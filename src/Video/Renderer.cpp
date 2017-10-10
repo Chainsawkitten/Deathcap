@@ -27,7 +27,7 @@ using namespace Video;
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
-    lighting = new Lighting(staticRenderProgram->GetShaderProgram(),rectangle);
+    lighting = new Lighting(staticRenderProgram->GetShaderProgram(), rectangle);
    // skinRenderProgram = new SkinRenderProgram();
    // postProcessing = new PostProcessing(rectangle);
    // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));

@@ -1,7 +1,6 @@
 #include "Mesh.hpp"
 
 #include "../Geometry/Model.hpp"
-#include "../Hymn.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 
