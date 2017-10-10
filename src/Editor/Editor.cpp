@@ -81,11 +81,9 @@ Editor::~Editor() {
 
 void Editor::Show(float deltaTime) {
     if (close) {
-
         if (!HasMadeChanges()) {
             savePromptAnswered = true;
-        }
-        else {
+        } else {
 
             // Ask the user whether they wish to save.
             if (Hymn().GetPath() != "") {
@@ -111,14 +109,11 @@ void Editor::Show(float deltaTime) {
                 default:
                     break;
                 }
-            }
-            else {
+            } else {
                 savePromptAnswered = true;
             }
-
         }
-    }
-    else {
+    } else {
         bool play = false;
 
         ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
@@ -168,7 +163,7 @@ void Editor::Show(float deltaTime) {
                 static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
                 ImGui::MenuItem("Cameras", "", &cameras);
                 EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
-                
+
                 static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
                 ImGui::MenuItem("Physics", "", &physics);
                 EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
@@ -258,15 +253,14 @@ void Editor::Show(float deltaTime) {
             if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
                 cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            }
-            else {
+            } else {
                 cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
                 cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
             }
         }
 
         // Mouse ray.
-        if (Input()->Pressed(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+        if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
             mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
             mousePicker.Update();
             float lastDistance = INFINITY;
@@ -275,7 +269,7 @@ void Editor::Show(float deltaTime) {
             for (int i = 0; i < entityAmount; ++i) {
                 selectedEntity = Hymn().world.GetEntities().at(i);
                 if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
-
+                    selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
                     float intersectDistance = 0.0f;
                     if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
                         selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
@@ -286,13 +280,14 @@ void Editor::Show(float deltaTime) {
                             if (entityAmount - i == 1) {
                                 resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
                                 resourceView.GetScene().entityEditor.SetVisible(true);
+                                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
                                 break;
                             }
-                        }
-                        else if (intersectDistance > 0.0f) {
-                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                                resourceView.GetScene().entityEditor.SetVisible(true);
-                                break;
+                        } else if (intersectDistance > 0.0f) {
+                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
+                            break;
                         }
                     }
                 }
@@ -374,7 +369,7 @@ void Editor::Save() const {
 }
 
 bool Editor::HasMadeChanges() const {
-    
+
     {
         std::string* sceneFilename = new std::string();
         Json::Value sceneJson = resourceView.GetSceneJson(sceneFilename);
