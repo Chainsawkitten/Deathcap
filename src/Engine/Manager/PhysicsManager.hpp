@@ -46,10 +46,10 @@ class PhysicsManager {
         /// Set up listener for when |object| has entered |triggerBody|.
         /**
          * @param triggerBody Physics component of the trigger volume.
-         * @param object Physics component of the body that is to enter the trigger.
+         * @param object Body that is to enter the trigger volume.
          * @param callback Function to call when resolving event.
          */
-        void OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+        void OnTriggerEnter(Component::Physics* triggerBody, Component::RigidBody* object, std::function<void()> callback);
 
         /// Set up listener for when |object| is intersecting |triggerBody|.
         /**
@@ -57,7 +57,7 @@ class PhysicsManager {
          * @param object Body that is to cause trigger to fire.
          * @param callback Function to call when resolving event.
          */
-        void OnTriggerRetain(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+        void OnTriggerRetain(Component::Physics* triggerBody, Component::RigidBody* object, std::function<void()> callback);
 
         /// Set up listener for when |object| has left |triggerBody|.
         /**
@@ -65,7 +65,7 @@ class PhysicsManager {
          * @param object Body that is to cause trigger to fire.
          * @param callback Function to call when resolving event.
          */
-        void OnTriggerLeave(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+        void OnTriggerLeave(Component::Physics* triggerBody, Component::RigidBody* object, std::function<void()> callback);
         
         /// Create physics component.
         /**

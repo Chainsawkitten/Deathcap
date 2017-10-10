@@ -11,6 +11,7 @@ class World;
 class Entity;
 class ScriptFile;
 namespace Component {
+    class RigidBody;
     class Script;
     class Physics;
 }
@@ -53,7 +54,7 @@ class ScriptManager {
          * @param object Object to check if it enters the trigger.
          * @param methodName The name of the method to call when triggered.
          */
-        void RegisterTriggerEnter(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName);
+        void RegisterTriggerEnter(Entity* entity, Component::Physics* trigger, Component::RigidBody* object, const std::string& methodName);
 
         /// Register an entity to receive an event when |object| is intersecting |trigger|.
         /**
@@ -62,7 +63,7 @@ class ScriptManager {
          * @param object Object to check if it intersects the trigger.
          * @param methodName The name of the method to call when triggered.
          */
-        void RegisterTriggerRetain(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName);
+        void RegisterTriggerRetain(Entity* entity, Component::Physics* trigger, Component::RigidBody* object, const std::string& methodName);
 
         /// Register an entity to receive an event when |object| leaves |trigger|.
         /**
@@ -71,7 +72,7 @@ class ScriptManager {
          * @param object Object to check if it leaves the trigger.
          * @param methodName The name of the method to call when triggered.
          */
-        void RegisterTriggerLeave(Entity* entity, Component::Physics* trigger, Component::Physics* object, const std::string& methodName);
+        void RegisterTriggerLeave(Entity* entity, Component::Physics* trigger, Component::RigidBody* object, const std::string& methodName);
         
         /// Register the input enum.
         void RegisterInput();
@@ -118,7 +119,7 @@ class ScriptManager {
             Entity* scriptEntity;
             std::string methodName;
             Component::Physics* trigger;
-            Component::Physics* object;
+            Component::RigidBody* object;
         };
         
         ScriptManager();
