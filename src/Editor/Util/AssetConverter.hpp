@@ -58,11 +58,18 @@ class AssetConverter
 
         /// look for specifik textures connected to mesh
         /**
-        * @ current material from scene
-        * @ assimp holds different textertypes - _DIFFUSE, _NORMAL
-        * @ type as string
+        * @param current material from scene
+        * @param assimp holds different textertypes - _DIFFUSE, _NORMAL
+        * @param type as string
+        * @param filepath Filepath of the fbxfile. 
+        * @param destination Filepath of the destination inculding name and extension.
+        * Put material in maya to phong use the following channels
+        * Color - albedo
+        * Bump Mapping - normal
+        * Specular color - Roughness
+        * Reflected Color - Metallic
         */
-        std::vector<MaterialData> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+        std::vector<MaterialData> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, std::string filepath, std::string destination);
     
     private:
         void ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file);
