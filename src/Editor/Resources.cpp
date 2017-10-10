@@ -29,7 +29,6 @@ string ResourceList::Resource::GetName() const {
 }
 
 ResourceList::ResourceList() {
-    activeScene = "";
     resourceFolder.name = "Resources";
 }
 
