@@ -5,6 +5,7 @@
 #include <functional>
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
+#include "../ResourceSelector.hpp"
 
 namespace Component {
     class Animation;
@@ -104,7 +105,9 @@ namespace GUI {
             std::vector<Editor> editors;
             std::vector<IShapeEditor*> shapeEditors;
             int selectedShape = -1;
-
+            
+            ResourceSelector resourceSelector;
+            
             float rigidBodyMass = 1.0f;
     };
 }
