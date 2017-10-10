@@ -251,7 +251,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 continue;
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                Entity* entity = mesh->entity;
+                Entity* entity = mesh->entity; 
                 // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr) {
                     renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
@@ -275,7 +275,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
-                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
+                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), mesh->GetSelected());
                 }
             }
         }
