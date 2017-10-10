@@ -25,7 +25,6 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
-#include "../Component/Physics.hpp"
 #include "../Physics/Shape.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
 #include "../Texture/TextureAsset.hpp"
