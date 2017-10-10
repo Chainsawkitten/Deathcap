@@ -59,7 +59,6 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Import Normals", &importNormals);
             ImGui::Checkbox("Import Tangents", &importTangents);
             ImGui::Checkbox("Import Textures", &importTextures);
-            ImGui::Checkbox("Import Tangents", &importTangents);
             ImGui::Checkbox("Flip UVs", &flipUVs);
 
             std::string button = isImported ? "Re-import" : "Import";
