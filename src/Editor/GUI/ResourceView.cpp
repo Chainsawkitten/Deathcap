@@ -155,8 +155,8 @@ void ResourceView::Show() {
     bool texturePressed = false;
     if (ImGui::TreeNode("Textures")) {
         if (ImGui::Button("Add texture")) {
-            string name = "Texture #" + std::to_string(Resources().textureNumber++);
-            TextureAsset* texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
+            TextureAsset* texture = new TextureAsset();
+            texture->name = "Texture #" + std::to_string(Resources().textureNumber++);
             Resources().textures.push_back(texture);
         }
         
