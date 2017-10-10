@@ -13,10 +13,6 @@
 
 using namespace std;
 
-ResourceManager::ResourceManager() {
-    
-}
-
 Geometry::Model* ResourceManager::CreateModel(const std::string& name) {
     if (models.find(name) == models.end()) {
         Geometry::Model* model = new Geometry::Model();
@@ -146,6 +142,21 @@ TextureAsset* ResourceManager::CreateTextureAsset(const std::string& name) {
         textureAssets[name].count++;
     }
     
+    return textureAssets[name].textureAsset;
+}
+
+TextureAsset* ResourceManager::CreateTextureAsset(const std::string& name, Video::Texture2D* texture) {
+    if (textureAssets.find(name) == textureAssets.end()) {
+        TextureAsset* textureAsset = new TextureAsset();
+        textureAsset->Load(name, texture);
+        textureAssets[name].textureAsset = textureAsset;
+        textureAssetsInverse[textureAsset] = name;
+        textureAssets[name].count = 1;
+    }
+    else {
+        textureAssets[name].count++;
+    }
+
     return textureAssets[name].textureAsset;
 }
 

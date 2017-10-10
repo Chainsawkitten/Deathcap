@@ -25,5 +25,5 @@ class RayIntersection {
             glm::vec3 rayDirection,
             Video::AxisAlignedBoundingBox meshData,
             glm::mat4 modelMatrix,
-            float &outputDistance);
+            float &outputDistance) const;
 };

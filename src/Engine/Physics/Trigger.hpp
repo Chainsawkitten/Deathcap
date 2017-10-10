@@ -1,57 +1,53 @@
 #pragma once
 
-#include <btBulletCollisionCommon.h>
 #include <functional>
 #include <map>
-#include "ITrigger.hpp"
+#include <memory>
 
-namespace Component {
-    class Physics;
-};
+class PhysicsManager;
 
 namespace Physics {
-
-    class Shape;
+    class TriggerObserver;
 
     /// Represent a trigger that checks intersections of specific rigid bodies
     /// against itself.
-    class Trigger : public btCollisionWorld::ContactResultCallback, public ITrigger {
-        friend class Simulator;
+    class Trigger {
+        friend class ::PhysicsManager;
 
         public:
             /// Constructor.
             /**
-             * @param comp The physics component that represents the trigger volume.
+             * @param transform The world transform of the trigger volume.
              */
-            Trigger(Component::Physics* comp);
-
-            /// Overridden from btCollisionWorld::ContactResultCallback.
-            virtual btScalar addSingleResult(btManifoldPoint& cp,
-                const btCollisionObjectWrapper* colObj0, int partId0, int index0,
-                const btCollisionObjectWrapper* colObj1, int partId1, int index1) override;
+            Trigger(const btTransform& transform);
 
             /// Get the wrapped Bullet collision object.
             /**
              * @return The Bullet collision object.
              */
-            btCollisionObject* GetCollisionObject();
+            btCollisionObject* GetCollisionObject() const;
 
-            /// Process given rigid bodies against the trigger volume.
+            /// Process observers against the trigger volume.
             /**
              * @param world The world in which rigid bodies reside.
              */
             void Process(btCollisionWorld& world);
 
-            /// Implementation of ITrigger::OnEnter.
+            /// Get access to a particular observer of the trigger to work with
+            /// it in a user-defined way. If the observer is not present, one
+            /// will be created.
             /**
-             * @param body The physics component representing the body that is to enter the trigger volume.
-             * @param observer Function that is called when event is fired.
+             * @param body Observer to access.
+             * @param fun Function that is called, passing the TriggerObserver.
+             * accompanying the observer.
              */
-            virtual void OnEnter(Component::Physics* body, std::function<void()> observer) override;
+            void ForObserver(btRigidBody* body, const std::function<void(TriggerObserver&)>& fun);
+
+        private:
+            void SetCollisionShape(btCollisionShape* shape) const;
 
         private:
             btCollisionObject* trigger = nullptr;
-            std::map<btRigidBody*, std::function<void()>> observers;
+            std::vector<std::unique_ptr<TriggerObserver>> observers;
     };
-
 }

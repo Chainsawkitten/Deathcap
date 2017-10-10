@@ -13,7 +13,7 @@ void AnimationControllerEditor::Show() {
 
         if (animationController->animationAction.size() == 0) {
             Animation::AnimationController::AnimationAction* action = new Animation::AnimationController::AnimationAction;
-            memcpy(action->nodeName, "Entry\0", 6);
+            memcpy(action->name, "Entry\0", 6);
             action->numOutputSlots = 0;
             action->numInputSlots = 0;
             animationController->animationAction.push_back(action);
@@ -26,7 +26,7 @@ void AnimationControllerEditor::Show() {
         for (int node_idx = 0; node_idx < animationController->animationAction.size(); node_idx++) {
             Animation::AnimationController::AnimationAction* action = animationController->animationAction[node_idx];
             ImGui::PushID(action->index);
-            if (ImGui::Selectable(action->nodeName, action->index == node_selected))
+            if (ImGui::Selectable(action->name, action->index == node_selected))
                 node_selected = action->index;
             if (ImGui::IsItemHovered()) {
                 node_hovered_in_list = action->index;
@@ -99,8 +99,8 @@ void AnimationControllerEditor::Show() {
             bool old_any_active = ImGui::IsAnyItemActive();
             ImGui::SetCursorScreenPos(ImVec2(node_rect_min.x + NODE_WINDOW_PADDING.x, node_rect_min.y + NODE_WINDOW_PADDING.y));
             ImGui::BeginGroup(); // Lock horizontal position
-            ImGui::Text("Action: %s", action->nodeName);
-            ImGui::InputText("Name", action->nodeName, 128);
+            ImGui::Text("Action: %s", action->name);
+            ImGui::InputText("Name", action->name, 128);
             ImGui::DragFloat("Playback speed", &action->playbackModifier, 0.01f);
             ImGui::EndGroup();
 
@@ -173,7 +173,7 @@ void AnimationControllerEditor::Show() {
             if (ImGui::MenuItem("Add animation action")) {
                 Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
                 std::string name = "Action #" + std::to_string(animationController->animationAction.size() + 1);
-                memcpy(newAction->nodeName, name.c_str(), name.size() + 1);
+                memcpy(newAction->name, name.c_str(), name.size() + 1);
                 newAction->index = animationController->animationAction.size();
                 newAction->pos = glm::vec2(ImGui::GetCursorScreenPos().x - offset.x, ImGui::GetCursorScreenPos().y - offset.y);
                 animationController->animationAction.push_back(newAction);
@@ -182,7 +182,7 @@ void AnimationControllerEditor::Show() {
             if (ImGui::MenuItem("Add animation transition")) {
                 Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
                 std::string name = "Animation transition: " + std::to_string(animationController->animationAction.size());
-                memcpy(newAction->nodeName, name.c_str(), name.size() + 1);
+                memcpy(newAction->name, name.c_str(), name.size() + 1);
                 animationController->animationAction.push_back(newAction);
             }
 

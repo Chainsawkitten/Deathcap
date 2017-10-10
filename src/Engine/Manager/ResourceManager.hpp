@@ -30,30 +30,9 @@ class ResourceManager {
     friend class Hub;
     
     public:
-        /// Create a rectangle for rendering if it doesn't already exist.
-        /**
-         * @return The rectangle instance
-         */
-        Video::Geometry::Rectangle* CreateRectangle();
-        
-        /// Free the reference to the rectangle.
-        /**
-         * Deletes the instance if no more references exist.
-         */
-        void FreeRectangle();
-        
-        /// Create a cube for rendering if it doesn't already exist.
-        /**
-         * @return The cube instance
-         */
-        Geometry::Cube* CreateCube();
-        
-        /// Free the reference to the cube.
-        /**
-         * Deletes the instance if no more references exist.
-         */
-        void FreeCube();
-        
+        /// Constructor
+        ResourceManager() {}
+
         /// Create an model for rendering if it doesn't already exist.
         /**
          * @param name Name of model.
@@ -129,6 +108,14 @@ class ResourceManager {
          */
         TextureAsset* CreateTextureAsset(const std::string& name);
         
+        /// Create a texture asset from a texture2D.
+        /**
+         * @param name The name of the texture asset.
+         * @param texture The Texture2D to create TextureAsset from.
+         * @return The %TextureAsset instance 
+         */
+        TextureAsset* CreateTextureAsset(const std::string& name, Video::Texture2D* texture);
+
         /// Free the reference to the texture asset.
         /**
          * Deletes the instance if no more references exist.
@@ -172,7 +159,6 @@ class ResourceManager {
         void FreeScriptFile(ScriptFile* scriptFile);
         
     private:
-        ResourceManager();
         ResourceManager(ResourceManager const&) = delete;
         void operator=(ResourceManager const&) = delete;
         

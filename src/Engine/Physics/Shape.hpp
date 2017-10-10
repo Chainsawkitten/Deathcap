@@ -3,12 +3,14 @@
 #include <glm/vec3.hpp>
 
 class btCollisionShape;
+class PhysicsManager;
 
 namespace Physics {
-
     /// Represents a shape for physics objects and facilitates creation of
     /// underlying types.
     class Shape {
+        friend class ::PhysicsManager;
+
         public:
             /// Parameters used to create a sphere shape.
             struct Sphere {
@@ -30,7 +32,7 @@ namespace Physics {
                 Plane,
             };
 
-            /// Construct a sphere shape.:
+            /// Construct a sphere shape.
             /**
              * @param params Sphere specific parameters.
              */
@@ -41,12 +43,6 @@ namespace Physics {
              * @param params Plane specific parameters.
              */
             Shape(const Plane& params);
-
-            /// Get the wrapped Bullet shape.
-            /**
-             * @return The Bullet shape.
-             */
-            btCollisionShape* GetShape();
 
             /// Get the type of wrapped shape.
             /**
@@ -67,6 +63,14 @@ namespace Physics {
             const Plane* GetPlaneData() const;
 
         private:
+            /// Get the wrapped Bullet shape.
+            /**
+             * @return The Bullet shape.
+             */
+            btCollisionShape* GetShape() const;
+
+            Shape(const Shape& other) = delete;
+
             btCollisionShape* shape;
             Kind kind;
             union {
@@ -74,5 +78,4 @@ namespace Physics {
                 Plane plane;
             };
     };
-
 }

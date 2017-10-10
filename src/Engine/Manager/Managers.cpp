@@ -8,20 +8,11 @@
 #include "ScriptManager.hpp"
 #include "DebugDrawingManager.hpp"
 #include "ProfilingManager.hpp"
+#include "VRManager.hpp"
 
-#include "../Component/SuperComponent.hpp"
 #include "Utility/Log.hpp"
 
 #include "../Component/Animation.hpp"
-#include "../Component/DirectionalLight.hpp"
-#include "../Component/Lens.hpp"
-#include "../Component/Listener.hpp"
-#include "../Component/Material.hpp"
-#include "../Component/Mesh.hpp"
-#include "../Component/Physics.hpp"
-#include "../Component/PointLight.hpp"
-#include "../Component/SoundSource.hpp"
-#include "../Component/SpotLight.hpp"
 
 Hub::Hub() {
     
@@ -35,6 +26,7 @@ Hub& Managers() {
 
 void Hub::StartUp() {
     resourceManager = new ResourceManager();
+    vrManager = new VRManager();
     renderManager = new RenderManager();
     particleManager = new ParticleManager();
     physicsManager = new PhysicsManager();
@@ -50,6 +42,7 @@ void Hub::ShutDown() {
     delete scriptManager;
     delete soundManager;
     delete renderManager;
+    delete vrManager;
     delete particleManager;
     delete physicsManager;
     delete resourceManager;
