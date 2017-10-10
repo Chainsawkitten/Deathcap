@@ -11,6 +11,7 @@ NodeEditor::~NodeEditor() {
 
 void NodeEditor::Show() {
     if (ImGui::Begin("Animation controller", &visible)) {
+        DisplayNode(0);
 
 //        if (animationController->animationAction.size() == 0) {
 //            Animation::AnimationController::AnimationAction* action = new Animation::AnimationController::AnimationAction;

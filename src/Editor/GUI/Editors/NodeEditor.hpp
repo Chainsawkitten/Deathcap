@@ -26,9 +26,8 @@ class NodeEditor {
         */
         void SetVisible(bool visible);
     
-        void BeginGraph();
-    
     protected:
+        virtual void DisplayNode(unsigned int index) = 0;
 
     private:
         void Save();
