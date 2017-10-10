@@ -10,11 +10,7 @@ namespace Video {
     class SkinRenderProgram;
     class Texture2D;
     class PostProcessing;
-    class ColorFilter;
-    class FogFilter;
     class FXAAFilter;
-    class GlowBlurFilter;
-    class GlowFilter;
     class ShaderProgram;
     class RenderSurface;
     class FrameBuffer;
@@ -32,9 +28,6 @@ namespace Video {
             
             /// Destructor.
             ~Renderer(); 
-            
-            /// Clear the previous frame's data.
-            void Clear();
 
             /// Prepare for depth rendering static meshes.
             /**
@@ -114,12 +107,11 @@ namespace Video {
              */
             void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
-            /// Display the rendered results.
+            /// Display the rendered results to back buffer.
             /**
-             * @param renderSurface %RenderSurface to render to back buffer.
-             * @param dither Whether to use dithering.
+             * @param renderSurface %RenderSurface to present to back buffer.
              */
-            void DisplayResults(RenderSurface* renderSurface, bool dither);
+            void Present(RenderSurface* renderSurface);
             
             /// Begin rendering icons.
             /**
@@ -152,11 +144,7 @@ namespace Video {
             StorageBuffer* lightBuffer;
             
             PostProcessing* postProcessing;
-            ColorFilter* colorFilter;
-            FogFilter* fogFilter;
             FXAAFilter* fxaaFilter;
-            GlowFilter* glowFilter;
-            GlowBlurFilter* glowBlurFilter;
             
             // Icon rendering.
             ShaderProgram* iconShaderProgram;

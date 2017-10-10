@@ -25,7 +25,6 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
-#include "../Component/Physics.hpp"
 #include "../Physics/Shape.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
 #include "../Texture/TextureAsset.hpp"
@@ -95,6 +94,15 @@ void RenderManager::Render(World& world, Entity* camera) {
                 Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
             }
             }
+
+            // Present to back buffer.
+            { PROFILE("Present to back buffer");
+            { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
+            { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
+                renderer->Present(mainWindowRenderSurface);
+            }
+            }
+            }
         }
 
         // Render hmd.
@@ -147,15 +155,6 @@ void RenderManager::Render(World& world, Entity* camera) {
                 Managers().vrManager->Sync();
             }
             }
-        }
-
-        // Render to back buffer.
-        { PROFILE("Render to back buffer");
-        { GPUPROFILE("Render to back buffer", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Render to back buffer", Video::Query::Type::SAMPLES_PASSED);
-            renderer->DisplayResults(mainWindowRenderSurface, true);
-        }
-        }
         }
     }
 }
@@ -226,7 +225,6 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
 
 void RenderManager::UpdateBufferSize() {
     delete mainWindowRenderSurface;
-
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
@@ -266,7 +264,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     renderSurface->GetDepthFrameBuffer()->Unbind();
 
     // Render static meshes.
-    renderSurface->GetColorFrameBuffer()->Bind();
+    renderSurface->GetShadingFrameBuffer()->Bind();
     { PROFILE("Render static meshes");
     { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
@@ -293,11 +291,10 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     }
     }
     }
-    renderSurface->GetColorFrameBuffer()->Unbind();
+    renderSurface->GetShadingFrameBuffer()->Unbind();
 
     /// @todo Render skinned meshes.
-
-    /*
+    
     // Anti-aliasing.
     if (Hymn().filterSettings.fxaa) {
         { PROFILE("Anti-aliasing(FXAA)");
@@ -308,54 +305,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
         }
         }
     }
-    
-    
-    // Fog.
-    if (Hymn().filterSettings.fog) {
-        { PROFILE("Fog");
-        { GPUPROFILE("Fog", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Fog", Video::Query::Type::SAMPLES_PASSED);
-            renderer->RenderFog(renderSurface, projectionMatrix, Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
-        }
-        }
-        }
-    }
-    
-    // Render particles.
-    { PROFILE("Render particles");
-    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-    { GPUPROFILE("Render particles", Video::Query::Type::SAMPLES_PASSED);
-        Managers().particleManager->UpdateBuffer(world);
-        Managers().particleManager->Render(world, position, up, viewProjectionMatrix);
-    }
-    }
-    }
-    
-    
-    // Glow.
-    if (Hymn().filterSettings.glow) {
-        { PROFILE("Glow");
-        { GPUPROFILE("Glow", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Glow", Video::Query::Type::SAMPLES_PASSED);
-            renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
-        }
-        }
-        }
-    }
-    
-    // Color.
-    if (Hymn().filterSettings.color) {
-        { PROFILE("Color");
-        { GPUPROFILE("Color", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Color", Video::Query::Type::SAMPLES_PASSED);
-            renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
-        }
-        }
-        }
-    }
-    */
 
-    //renderSurface->GetDepthFrameBuffer()->Unbind();
 }
 
 Component::Animation* RenderManager::CreateAnimation() {

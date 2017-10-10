@@ -21,6 +21,9 @@ namespace Video {
             /// Bind this framebuffer as render target.
             void Bind();
 
+            /// Bind this framebuffer as render source.
+            void BindRead();
+
             /// Unbind this framebuffer as render target.
             void Unbind();
 
@@ -31,6 +34,7 @@ namespace Video {
             std::vector<ReadWriteTexture*> textures;
 
             GLuint frameBufferObject;
+            GLenum target;
 
             bool bound;
     };

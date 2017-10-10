@@ -29,11 +29,11 @@ namespace Video {
              */
             void SetScreenSize(const glm::vec2& screenSize);
             
-            /// Set brightness.
+            /// Set gamma.
             /**
-             * @param brightness Brightness.
+             * @param gamma Gamma.
              */
-            void SetBrightness(float brightness);
+            void SetGamma(float gamma);
             
         private:
             ShaderProgram* shaderProgram;
@@ -41,7 +41,7 @@ namespace Video {
             glm::vec2 screenSize;
             GLint screenSizeLocation;
             
-            float brightness = 2.2f;
-            GLint brightnessLocation;
+            float gamma = 2.2f;
+            GLint gammaLocation;
     };
 }

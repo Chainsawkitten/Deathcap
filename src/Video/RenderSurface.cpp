@@ -17,6 +17,8 @@ RenderSurface::RenderSurface(const glm::vec2& size) {
     depthFrameBuffer = new FrameBuffer({ depthTexture });
     colorFrameBuffer[0] = new FrameBuffer({ colorTexture[0] });
     colorFrameBuffer[1] = new FrameBuffer({ colorTexture[1] });
+    shadingFrameBuffer[0] = new FrameBuffer({ depthTexture, colorTexture[0] });
+    shadingFrameBuffer[1] = new FrameBuffer({ depthTexture, colorTexture[1] });
 }
 
 RenderSurface::~RenderSurface() {
@@ -27,6 +29,8 @@ RenderSurface::~RenderSurface() {
     delete depthTexture;
     delete colorTexture[0];
     delete colorTexture[1];
+    delete shadingFrameBuffer[0];
+    delete shadingFrameBuffer[1];
 }
 
 glm::vec2 RenderSurface::GetSize() const {
@@ -35,6 +39,10 @@ glm::vec2 RenderSurface::GetSize() const {
 
 FrameBuffer* RenderSurface::GetDepthFrameBuffer() const {
     return depthFrameBuffer;
+}
+
+FrameBuffer* RenderSurface::GetShadingFrameBuffer() const {
+    return shadingFrameBuffer[1 - which];
 }
 
 FrameBuffer* RenderSurface::GetColorFrameBuffer() const {

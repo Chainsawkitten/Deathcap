@@ -30,6 +30,12 @@ namespace Video {
              */
             FrameBuffer* GetDepthFrameBuffer() const;
 
+            /// Get shading frame buffer.
+            /**
+             * @return Shading frame buffer.
+             */
+            FrameBuffer* GetShadingFrameBuffer() const;
+
             /// Get color frame buffer.
             /**
              * @return Color rendering frame buffer.
@@ -61,6 +67,7 @@ namespace Video {
             // Frame buffers.
             FrameBuffer* depthFrameBuffer;
             FrameBuffer* colorFrameBuffer[2];
+            FrameBuffer* shadingFrameBuffer[2];
 
             // Textures.
             ReadWriteTexture* depthTexture;

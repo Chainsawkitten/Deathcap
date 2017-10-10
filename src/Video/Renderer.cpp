@@ -5,12 +5,7 @@
 #include "RenderProgram/SkinRenderProgram.hpp"
 #include "RenderSurface.hpp"
 #include "PostProcessing/PostProcessing.hpp"
-#include "PostProcessing/ColorFilter.hpp"
-#include "PostProcessing/FogFilter.hpp"
 #include "PostProcessing/FXAAFilter.hpp"
-#include "PostProcessing/GammaCorrectionFilter.hpp"
-#include "PostProcessing/GlowBlurFilter.hpp"
-#include "PostProcessing/GlowFilter.hpp"
 #include "Texture/Texture2D.hpp"
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"
@@ -29,11 +24,7 @@ Renderer::Renderer() {
 
     postProcessing = new PostProcessing(rectangle);
 
-    // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
-    // fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
-    // fxaaFilter = new FXAAFilter();
-    // glowFilter = new GlowFilter();
-    // glowBlurFilter = new GlowBlurFilter();
+    fxaaFilter = new FXAAFilter();
     
     lightBuffer = new StorageBuffer(sizeof(Video::Light), GL_DYNAMIC_DRAW);
 
@@ -70,11 +61,7 @@ Renderer::~Renderer() {
     delete staticRenderProgram;
 
     delete postProcessing;
-    //delete colorFilter;
-    //delete fogFilter;
-    //delete fxaaFilter;
-    //delete glowFilter;
-    //delete glowBlurFilter;
+    delete fxaaFilter;
     
     delete lightBuffer;
 
@@ -134,35 +121,17 @@ void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D*
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
-    //fxaaFilter->SetScreenSize(renderSurface->GetSize());
-    //postProcessing->ApplyFilter(renderSurface, fxaaFilter);
+    fxaaFilter->SetScreenSize(renderSurface->GetSize());
+    postProcessing->ApplyFilter(renderSurface, fxaaFilter);
 }
 
-void Renderer::RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color) {
-    /*fogFilter->SetProjectionMatrix(projectionMatrix);
-    fogFilter->SetDensity(density);
-    fogFilter->SetColor(color);
-    postProcessing->ApplyFilter(renderSurface, fogFilter);*/
-}
-
-void Renderer::ApplyGlow(RenderSurface* renderSurface, int blurAmount) {
-    /*glowBlurFilter->SetScreenSize(renderSurface->GetSize());
-    for (int i = 0; i < blurAmount; ++i) {
-        glowBlurFilter->SetHorizontal(true);
-        postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
-        glowBlurFilter->SetHorizontal(false);
-        postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
-    }
-    postProcessing->ApplyFilter(renderSurface, glowFilter);*/
-}
-
-void Renderer::ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color) {
-    /*colorFilter->SetColor(color);
-    postProcessing->ApplyFilter(renderSurface, colorFilter);*/
-}
-
-void Renderer::DisplayResults(RenderSurface* renderSurface, bool dither) {
-    postProcessing->Render(renderSurface, dither);
+void Renderer::Present(RenderSurface* renderSurface) {
+    renderSurface->GetColorFrameBuffer()->BindRead();
+    glReadBuffer(GL_COLOR_ATTACHMENT0);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+    const glm::vec2 size = renderSurface->GetSize();
+    glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    renderSurface->GetColorFrameBuffer()->Unbind();
 }
 
 void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp) {

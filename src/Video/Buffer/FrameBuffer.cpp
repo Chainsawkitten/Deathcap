@@ -32,7 +32,7 @@ FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) : bound
         Log() << "Framebuffer creation failed\n";
 
     // Default framebuffer
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 FrameBuffer::~FrameBuffer() {
@@ -45,9 +45,20 @@ void FrameBuffer::Bind() {
         return;
     }
 
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBufferObject);
-
+    target = GL_DRAW_FRAMEBUFFER;
+    glBindFramebuffer(target, frameBufferObject);
     bound = true;
+}
+
+void FrameBuffer::BindRead() {
+    if (bound) {
+        Log() << "StorageBuffer::Bind Warning: Already bound.\n";
+        return;
+    }
+
+    target = GL_READ_FRAMEBUFFER;
+    glBindFramebuffer(target, frameBufferObject);
+    bound = true; 
 }
 
 void FrameBuffer::Unbind() {
@@ -56,8 +67,7 @@ void FrameBuffer::Unbind() {
         return;
     }
 
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-
+    glBindFramebuffer(target, 0);
     bound = false;
 }
 
