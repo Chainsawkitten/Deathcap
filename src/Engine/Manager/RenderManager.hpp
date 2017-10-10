@@ -48,7 +48,9 @@ class RenderManager {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          */
-        void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
+        void 
+            
+            RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
         
         /// Updates the buffers to fit the current screen size.
         void UpdateBufferSize();
