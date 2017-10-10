@@ -210,6 +210,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resourcePath = path;
             parentFolder = &folder;
             folderNameWindow.SetVisible(true);
+            ImGui::EndPopup();
             return;
         }
         
@@ -219,9 +220,38 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.type = ResourceList::Resource::SCENE;
             resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
             folder.resources.push_back(resource);
+            ImGui::EndPopup();
             return;
         }
         
+        // Add animation.
+        if (ImGui::Selectable("Add animation")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SCENE;
+            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
+            folder.resources.push_back(resource);
+            ImGui::EndPopup();
+            return;
+        }
+
+        if (ImGui::Selectable("Add scene")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SCENE;
+            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
+            folder.resources.push_back(resource);
+            ImGui::EndPopup();
+            return;
+        }
+
+        if (ImGui::Selectable("Add scene")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SCENE;
+            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
+            folder.resources.push_back(resource);
+            ImGui::EndPopup();
+            return;
+        }
+
         // Add model.
         if (ImGui::Selectable("Add model")) {
             ResourceList::Resource resource;
@@ -230,6 +260,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.model->path = path + "/";
             resource.model->name = "Model #" + std::to_string(Resources().modelNumber++);
             folder.resources.push_back(resource);
+            ImGui::EndPopup();
             return;
         }
         
@@ -240,6 +271,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             string name = path + "/Texture #" + std::to_string(Resources().textureNumber++);
             resource.texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
             folder.resources.push_back(resource);
+            ImGui::EndPopup();
             return;
         }
         
@@ -252,6 +284,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.script->name = "Script #" + std::to_string(Hymn().scriptNumber++);
             Hymn().scripts.push_back(resource.script);
             folder.resources.push_back(resource);
+            ImGui::EndPopup();
             return;
         }
         
@@ -263,6 +296,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.sound->path = path + "/";
             resource.sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
             folder.resources.push_back(resource);
+            ImGui::EndPopup();
             return;
         }
         
