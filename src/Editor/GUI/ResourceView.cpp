@@ -1,8 +1,5 @@
 #include "ResourceView.hpp"
 
-#include <Engine/Animation/AnimationClip.hpp>
-#include <Engine/Animation/AnimationController.hpp>
-#include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
@@ -30,17 +27,17 @@ ResourceView::ResourceView() {
 
 void ResourceView::Show() {
     ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
-
+    
     // Splitter.
     ImGui::VerticalSplitter(ImVec2(sceneWidth, size.y - resourceHeight), size.x - sceneWidth - editorWidth, splitterSize, resourceHeight, resourceResize, 20, size.y - 20);
     if (resourceResize)
         resourceHeight = size.y - resourceHeight;
-
+    
     ImGui::SetNextWindowPos(ImVec2(sceneWidth, size.y - resourceHeight));
     ImGui::SetNextWindowSize(ImVec2(size.x - sceneWidth - editorWidth, resourceHeight));
-
+    
     ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
-
+    
     // Show resources.
     scriptPressed = false;
     texturePressed = false;
@@ -102,29 +99,25 @@ void ResourceView::Show() {
         scriptEditor.SetVisible(scriptPressed);
         textureEditor.SetVisible(texturePressed);
         modelEditor.SetVisible(modelPressed);
-        // TO DO: Ludvig
-        animationControllerEditor.SetVisible(false);
         soundEditor.SetVisible(soundPressed);
     }
-
+    
     if (sceneEditor.IsVisible()) {
         ImGui::HorizontalSplitter(ImVec2(sceneWidth, 20), size.y - 20, splitterSize, sceneWidth, sceneResize, 20, size.x - editorWidth - 20);
         ImGui::SetNextWindowPos(ImVec2(0, 20));
         ImGui::SetNextWindowSize(ImVec2(sceneWidth, size.y - 20));
         sceneEditor.Show();
     }
-
+    
     if (sceneEditor.entityEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible()) {
         editorWidth = size.x - editorWidth;
         ImGui::HorizontalSplitter(ImVec2(editorWidth, 20), size.y - 20, splitterSize, editorWidth, editorResize, sceneWidth + 20, size.x - 20);
         editorWidth = size.x - editorWidth;
-
+        
         ImGui::SetNextWindowPos(ImVec2(size.x - editorWidth, 20));
         ImGui::SetNextWindowSize(ImVec2(editorWidth, size.y - 20));
     }
     
-    if (animationControllerEditor.IsVisible())
-        animationControllerEditor.Show();
     if (sceneEditor.entityEditor.IsVisible())
         sceneEditor.entityEditor.Show();
     if (scriptEditor.IsVisible())
@@ -135,7 +128,7 @@ void ResourceView::Show() {
         modelEditor.Show();
     if (soundEditor.IsVisible())
         soundEditor.Show();
-
+    
     ImGui::End();
 }
 
@@ -174,7 +167,6 @@ void ResourceView::SetVisible(bool visible) {
 }
 
 void ResourceView::HideEditors() {
-    animationControllerEditor.SetVisible(false);
     sceneEditor.SetVisible(false);
     sceneEditor.entityEditor.SetVisible(false);
     scriptEditor.SetVisible(false);
@@ -210,8 +202,6 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resourcePath = path;
             parentFolder = &folder;
             folderNameWindow.SetVisible(true);
-            ImGui::EndPopup();
-            return;
         }
         
         // Add scene.
@@ -220,38 +210,8 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.type = ResourceList::Resource::SCENE;
             resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
             folder.resources.push_back(resource);
-            ImGui::EndPopup();
-            return;
         }
         
-        // Add animation.
-        if (ImGui::Selectable("Add animation")) {
-            ResourceList::Resource resource;
-            resource.type = ResourceList::Resource::SCENE;
-            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
-            folder.resources.push_back(resource);
-            ImGui::EndPopup();
-            return;
-        }
-
-        if (ImGui::Selectable("Add scene")) {
-            ResourceList::Resource resource;
-            resource.type = ResourceList::Resource::SCENE;
-            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
-            folder.resources.push_back(resource);
-            ImGui::EndPopup();
-            return;
-        }
-
-        if (ImGui::Selectable("Add scene")) {
-            ResourceList::Resource resource;
-            resource.type = ResourceList::Resource::SCENE;
-            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
-            folder.resources.push_back(resource);
-            ImGui::EndPopup();
-            return;
-        }
-
         // Add model.
         if (ImGui::Selectable("Add model")) {
             ResourceList::Resource resource;
@@ -260,8 +220,6 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.model->path = path + "/";
             resource.model->name = "Model #" + std::to_string(Resources().modelNumber++);
             folder.resources.push_back(resource);
-            ImGui::EndPopup();
-            return;
         }
         
         // Add texture.
@@ -271,8 +229,6 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             string name = path + "/Texture #" + std::to_string(Resources().textureNumber++);
             resource.texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
             folder.resources.push_back(resource);
-            ImGui::EndPopup();
-            return;
         }
         
         // Add script.
@@ -284,8 +240,6 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.script->name = "Script #" + std::to_string(Hymn().scriptNumber++);
             Hymn().scripts.push_back(resource.script);
             folder.resources.push_back(resource);
-            ImGui::EndPopup();
-            return;
         }
         
         // Add sound.
@@ -296,8 +250,6 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.sound->path = path + "/";
             resource.sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
             folder.resources.push_back(resource);
-            ImGui::EndPopup();
-            return;
         }
         
         /// @todo Remove folder.
