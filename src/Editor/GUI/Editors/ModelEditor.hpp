@@ -59,9 +59,12 @@ namespace GUI {
 
             bool hasSourceFile = false;
             bool isImported = false;
+            bool uniformScaling = false;
+            glm::vec3 scale = glm::vec3(1.0f);
             bool triangulate = true;
             bool importNormals = true;
             bool importTangents = true;
             bool importTextures = false;
+            bool flipUVs = false;
     };
 }
