@@ -177,6 +177,8 @@ void ResourceView::Show() {
                         
                         // Remove files.
                         remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png").c_str());
+                        
+                        // Remove meta file
                         remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".json").c_str());
                         
                         Managers().resourceManager->FreeTextureAsset(texture);
