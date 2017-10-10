@@ -107,7 +107,7 @@ void ModelEditor::SetModel(Geometry::Model* model) {
 
     strcpy(name, model->name.c_str());
 
-    destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+    destination = Hymn().GetPath() + "/" + model->path + name;
 
     RefreshImportSettings();
 }
@@ -141,9 +141,9 @@ void ModelEditor::FileSelected(const std::string& file) {
     strcpy(this->name, name.c_str());
     model->name = this->name;
 
-    destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+    destination = Hymn().GetPath() + "/" + model->path + name;
 
-    // Check if source file is in propper directory, otherwise, copy it.
+    // Check if source file is in proper directory, otherwise, copy it.
     if (!FileSystem::FileExists((destination + "." + FileSystem::GetExtension(source)).c_str()))
         FileSystem::Copy(source.c_str(), (destination + "." + FileSystem::GetExtension(source)).c_str());
 
