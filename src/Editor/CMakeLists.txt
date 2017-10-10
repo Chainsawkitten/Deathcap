@@ -18,6 +18,7 @@ set(SRCS
 	GUI/Editors/AnimationControllerEditor.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
+        GUI/Editors/NodeEditor.cpp
         GUI/Editors/PlaneShapeEditor.cpp
         GUI/Editors/SceneEditor.cpp
         GUI/Editors/ScriptEditor.cpp
@@ -50,6 +51,7 @@ set(HEADERS
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/IShapeEditor.hpp
         GUI/Editors/ModelEditor.hpp
+        GUI/Editors/NodeEditor.hpp
         GUI/Editors/PlaneShapeEditor.hpp
         GUI/Editors/SceneEditor.hpp
         GUI/Editors/ScriptEditor.hpp
