@@ -86,7 +86,7 @@ void RenderManager::Render(World& world, Entity* camera) {
 
     if (camera != nullptr) {
         // Render main window.
-        if (mainWindowRenderSurface != nullptr) {
+        if (mainWindowRenderSurface != nullptr  && camera->name == "Editor Camera") {
             const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
             const glm::mat4 orientationMat = camera->GetCameraOrientation();
             const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
@@ -95,7 +95,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         }
 
         // Render hmd.
-        if (hmdRenderSurface != nullptr) {
+        else if (hmdRenderSurface != nullptr) {
             for (int i = 0; i < 2; ++i)
             {
                 vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
