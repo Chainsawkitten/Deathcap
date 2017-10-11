@@ -49,7 +49,7 @@ namespace GUI {
             void RefreshImportSettings();
             void LoadTexture(const std::string& path, const std::string& name);
             
-            ResourceList::ResourceFolder* folder;
+            ResourceList::ResourceFolder* folder = nullptr;
             Geometry::Model* model = nullptr;
             bool visible = false;
             
