@@ -11,6 +11,7 @@
 #include "../../Resources.hpp"
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
+#include <Engine/Entity/Entity.hpp>
 
 using namespace GUI;
 
@@ -96,10 +97,21 @@ void ModelEditor::Show() {
                 
                 // Create scene containing an entity with the model and textures.
                 if (createScene) {
+                    // Create resource.
                     ResourceList::Resource resource;
                     resource.type = ResourceList::Resource::SCENE;
                     resource.scene = model->name + "Scene";
                     folder->resources.push_back(resource);
+                    
+                    // Create and save scene.
+                    World* world = new World();
+                    world->CreateRoot();
+                    Entity* entity = world->GetRoot()->AddChild(model->name);
+                    
+                    world->Save(Hymn().GetPath() + "/" + model->path + model->name + "Scene.json");
+                    
+                    // Cleanup.
+                    delete world;
                 }
             }
 
