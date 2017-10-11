@@ -30,14 +30,6 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
     }
 
     if (importMaterial) {
-        /// @todo Fix Windows-specific code.
-        std::string tempMaterialFilePath = filepath;
-        std::string materialFilePath = tempMaterialFilePath.substr(0, tempMaterialFilePath.find_last_of('\\'));
-        materialFilePath += "\\";
-
-        std::string tempMaterialDestinationFilePath = destination;
-        std::string materialDestinationFilePath = tempMaterialDestinationFilePath.substr(0, tempMaterialDestinationFilePath.find_last_of('.'));
-        materialDestinationFilePath += "_";
         if (aScene->mMeshes[0]->mMaterialIndex >= 0) {
             aiMaterial* material = aScene->mMaterials[aScene->mMeshes[0]->mMaterialIndex];
             
