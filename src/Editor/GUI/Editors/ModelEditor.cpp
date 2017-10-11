@@ -12,6 +12,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Component/Mesh.hpp>
 
 using namespace GUI;
 
@@ -108,9 +109,14 @@ void ModelEditor::Show() {
                     world->CreateRoot();
                     Entity* entity = world->GetRoot()->AddChild(model->name);
                     
+                    Component::Mesh* mesh = entity->AddComponent<Component::Mesh>();
+                    mesh->geometry = model;
+                    
                     world->Save(Hymn().GetPath() + "/" + model->path + model->name + "Scene.json");
                     
                     // Cleanup.
+                    mesh->geometry = nullptr;
+                    mesh->Kill();
                     delete world;
                 }
             }
