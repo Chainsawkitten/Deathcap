@@ -2,12 +2,18 @@
 #include "Utility/Log.hpp"
 
 VRManager::VRManager() : scale(1.f) {
-
+    // Check if VR runtime is installed.
+    vr::VR_IsRuntimeInstalled();
+    if (!vr::VR_IsRuntimeInstalled()) {
+        vrSystem = nullptr;
+        Log() << "VR runtime not installed. Playing without VR.\n";
+        return;
+    }
+    
     // Load VR Runtime.
     vr::EVRInitError eError = vr::VRInitError_None;
     vrSystem = vr::VR_Init(&eError, vr::VRApplication_Scene);
-    if (eError != vr::VRInitError_None)
-    {
+    if (eError != vr::VRInitError_None) {
         vrSystem = nullptr;
         Log() << "Unable to init VR runtime: " << vr::VR_GetVRInitErrorAsEnglishDescription(eError) << "\n";
         return;
