@@ -33,12 +33,14 @@ void TextureAsset::Load(const std::string& name) {
     std::string filename = Hymn().GetPath() + "/" + name;
     
     // Get properties from meta file.
-    Json::Value root;
-    std::ifstream file(filename + ".json");
-    file >> root;
-    file.close();
-    
-    srgb = root.get("srgb", false).asBool();
+    if (FileSystem::FileExists((filename + ".json").c_str())) {
+        Json::Value root;
+        std::ifstream file(filename + ".json");
+        file >> root;
+        file.close();
+        
+        srgb = root.get("srgb", false).asBool();
+    }
     
     // Load texture from disk.
     texture->Load((filename + ".png").c_str(), srgb);
