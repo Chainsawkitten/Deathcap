@@ -13,7 +13,6 @@ class ScriptFile;
 namespace Component {
     class RigidBody;
     class Script;
-    class Physics;
 }
 namespace Json {
     class Value;

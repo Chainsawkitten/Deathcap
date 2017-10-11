@@ -7,7 +7,6 @@
 #include "../Entity/ComponentContainer.hpp"
 
 namespace Component {
-    class Physics;
     class RigidBody;
     class Shape;
 }
@@ -67,21 +66,6 @@ class PhysicsManager {
          * @param callback Function to call when resolving event.
          */
         void OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
-        
-        /// Create physics component.
-        /**
-         * @param owner The %Entity that will own the component.
-         * @return The created component.
-         */
-        Component::Physics* CreatePhysics(Entity* owner);
-        
-        /// Create physics component.
-        /**
-         * @param owner The %Entity that will own the component.
-         * @param node Json node to load the component from.
-         * @return The created component.
-         */
-        Component::Physics* CreatePhysics(Entity* owner, const Json::Value& node);
 
         /// Create rigid body component.
         /**
@@ -126,12 +110,6 @@ class PhysicsManager {
          * @param mass Mass in kilograms.
          */
         void SetMass(Component::RigidBody* comp, float mass);
-        
-        /// Get all physics components.
-        /**
-         * @return All physics components.
-         */
-        const std::vector<Component::Physics*>& GetPhysicsComponents() const;
 
         /// Get all shape components.
         /**
@@ -151,8 +129,7 @@ class PhysicsManager {
         ::Physics::Trigger* MakeTrigger(Component::RigidBody* comp);
 
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
-        
-        ComponentContainer<Component::Physics> physicsComponents;
+
         ComponentContainer<Component::RigidBody> rigidBodyComponents;
         ComponentContainer<Component::Shape> shapeComponents;
         
