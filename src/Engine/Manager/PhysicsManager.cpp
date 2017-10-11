@@ -114,32 +114,26 @@ void PhysicsManager::UpdateEntityTransforms() {
     }
 }
 
-void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::RigidBody* object, std::function<void()> callback) {
-    auto rigidBody = triggerBody->entity->GetComponent<Component::RigidBody>();
-    assert(rigidBody); // for now
-    auto trigger = MakeTrigger(rigidBody);
+void PhysicsManager::OnTriggerEnter(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
+    auto t = MakeTrigger(trigger);
     // Add the callback to the trigger observer
-    trigger->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
         observer.OnEnter(callback);
     });
 }
 
-void PhysicsManager::OnTriggerRetain(Component::Physics* triggerBody, Component::RigidBody* object, std::function<void()> callback) {
-    auto rigidBody = triggerBody->entity->GetComponent<Component::RigidBody>();
-    assert(rigidBody); // for now
-    auto trigger = MakeTrigger(rigidBody);
+void PhysicsManager::OnTriggerRetain(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
+    auto t = MakeTrigger(trigger);
     // Add the callback to the trigger observer
-    trigger->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
         observer.OnRetain(callback);
     });
 }
 
-void PhysicsManager::OnTriggerLeave(Component::Physics* triggerBody, Component::RigidBody* object, std::function<void()> callback) {
-    auto rigidBody = triggerBody->entity->GetComponent<Component::RigidBody>();
-    assert(rigidBody); // for now
-    auto trigger = MakeTrigger(rigidBody);
+void PhysicsManager::OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
+    auto t = MakeTrigger(trigger);
     // Add the callback to the trigger observer
-    trigger->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
         observer.OnLeave(callback);
     });
 }

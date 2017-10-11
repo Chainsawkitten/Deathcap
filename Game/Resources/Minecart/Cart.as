@@ -11,7 +11,7 @@ class Cart{
     bool hasHitPlane;
     
     Component::RigidBody @minecartPhysics;
-    Component::Physics @stopPhysics;
+    Component::RigidBody @stopPhysics;
     
     Cart(Entity @entity){
         @hub = Managers();
@@ -29,7 +29,7 @@ class Cart{
         
         Entity @stopTrigger = self.GetParent().GetChild("GateAndLever").GetChild("StopTrigger");
         @minecartPhysics = self.GetRigidBody();
-        @stopPhysics = stopTrigger.GetPhysics();
+        @stopPhysics = stopTrigger.GetRigidBody();
         
         trigger = false;
         RegisterUpdate();
@@ -64,7 +64,7 @@ class Cart{
             trigger = true;
     }
     
-    void OnTrigger(Component::Physics @trigger, Component::RigidBody @enterer) {
+    void OnTrigger(Component::RigidBody @trigger, Component::RigidBody @enterer) {
         hasHitPlane = true;
     }
 }

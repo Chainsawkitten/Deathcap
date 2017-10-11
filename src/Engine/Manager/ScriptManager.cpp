@@ -59,15 +59,15 @@ void RegisterUpdate() {
     Managers().scriptManager->RegisterUpdate(Managers().scriptManager->currentEntity);
 }
 
-void RegisterTriggerEnterHelper(Component::Physics* triggerBody, Component::RigidBody* object, const std::string& methodName) {
+void RegisterTriggerEnterHelper(Component::RigidBody* triggerBody, Component::RigidBody* object, const std::string& methodName) {
     Managers().scriptManager->RegisterTriggerEnter(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
 }
 
-void RegisterTriggerRetainHelper(Component::Physics* triggerBody, Component::RigidBody* object, const std::string& methodName) {
+void RegisterTriggerRetainHelper(Component::RigidBody* triggerBody, Component::RigidBody* object, const std::string& methodName) {
     Managers().scriptManager->RegisterTriggerRetain(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
 }
 
-void RegisterTriggerLeaveHelper(Component::Physics* triggerBody, Component::RigidBody* object, const std::string& methodName) {
+void RegisterTriggerLeaveHelper(Component::RigidBody* triggerBody, Component::RigidBody* object, const std::string& methodName) {
     Managers().scriptManager->RegisterTriggerLeave(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
 }
 
@@ -365,9 +365,9 @@ ScriptManager::ScriptManager() {
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
-    engine->RegisterGlobalFunction("void RegisterTriggerEnter(Component::Physics@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerEnterHelper), asCALL_CDECL);
-    engine->RegisterGlobalFunction("void RegisterTriggerRetain(Component::Physics@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerRetainHelper), asCALL_CDECL);
-    engine->RegisterGlobalFunction("void RegisterTriggerLeave(Component::Physics@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerLeaveHelper), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RegisterTriggerEnter(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerEnterHelper), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RegisterTriggerRetain(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerRetainHelper), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RegisterTriggerLeave(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerLeaveHelper), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
@@ -476,7 +476,7 @@ void ScriptManager::RegisterUpdate(Entity* entity) {
     updateEntities.push_back(entity);
 }
 
-void ScriptManager::RegisterTriggerEnter(Entity* entity, Component::Physics* trigger, Component::RigidBody* object, const std::string& methodName) {
+void ScriptManager::RegisterTriggerEnter(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName) {
     TriggerEvent triggerEvent;
     triggerEvent.trigger = trigger;
     triggerEvent.object = object;
@@ -486,7 +486,7 @@ void ScriptManager::RegisterTriggerEnter(Entity* entity, Component::Physics* tri
     Managers().physicsManager->OnTriggerEnter(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
 }
 
-void ScriptManager::RegisterTriggerRetain(Entity* entity, Component::Physics* trigger, Component::RigidBody* object, const std::string& methodName) {
+void ScriptManager::RegisterTriggerRetain(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName) {
     TriggerEvent triggerEvent;
     triggerEvent.trigger = trigger;
     triggerEvent.object = object;
@@ -496,7 +496,7 @@ void ScriptManager::RegisterTriggerRetain(Entity* entity, Component::Physics* tr
     Managers().physicsManager->OnTriggerRetain(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
 }
 
-void ScriptManager::RegisterTriggerLeave(Entity* entity, Component::Physics* trigger, Component::RigidBody* object, const std::string& methodName) {
+void ScriptManager::RegisterTriggerLeave(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName) {
     TriggerEvent triggerEvent;
     triggerEvent.trigger = trigger;
     triggerEvent.object = object;
@@ -650,7 +650,7 @@ void ScriptManager::CallTrigger(const TriggerEvent& triggerEvent) {
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
     
     // Find method to call.
-    std::string methodDeclaration = "void " + triggerEvent.methodName + "(Component::Physics@, Component::RigidBody@)";
+    std::string methodDeclaration = "void " + triggerEvent.methodName + "(Component::RigidBody@, Component::RigidBody@)";
     asIScriptFunction* method = type->GetMethodByDecl(methodDeclaration.c_str());
     if (method == nullptr)
         Log() << "Can't find method " << methodDeclaration << "\n";
