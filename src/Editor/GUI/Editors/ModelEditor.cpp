@@ -191,17 +191,15 @@ void ModelEditor::LoadTexture(const std::string& path, const std::string& name) 
     if (!path.empty()) {
         std::string textureName = model->name + name;
         std::string src = FileSystem::GetDirectory(source) + path;
-        std::string dest = Hymn().GetPath() + "/" + model->path + textureName;
+        std::string dest = model->path + textureName;
         
         // Copy file.
-        FileSystem::Copy(src.c_str(), (dest + ".png").c_str());
+        FileSystem::Copy(src.c_str(), (Hymn().GetPath() + "/" + dest + ".png").c_str());
         
         // Add texture asset.
         ResourceList::Resource resource;
         resource.type = ResourceList::Resource::TEXTURE;
         resource.texture = Managers().resourceManager->CreateTextureAsset(dest);
         folder->resources.push_back(resource);
-        
-        /// @todo Load texture.
     }
 }
