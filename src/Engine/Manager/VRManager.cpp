@@ -3,7 +3,6 @@
 
 VRManager::VRManager() : scale(1.f) {
     // Check if VR runtime is installed.
-    vr::VR_IsRuntimeInstalled();
     if (!vr::VR_IsRuntimeInstalled()) {
         vrSystem = nullptr;
         Log() << "VR runtime not installed. Playing without VR.\n";
