@@ -1,4 +1,6 @@
 {
+	"activeScene" : "TestScene",
+	"modelNumber" : 4,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",

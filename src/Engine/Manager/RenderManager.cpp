@@ -129,7 +129,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                     glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
                     glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
                     glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
-                    glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionLocal);
+                    glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
 
                     glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
 
@@ -252,10 +252,16 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 continue;
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                Entity* entity = mesh->entity; 
+                Entity* entity = mesh->entity;
+                Controller* controller = entity->GetParent()->GetComponent<Controller>();
                 // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr) {
-                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
+                    if (controller != nullptr && hmdRenderSurface != nullptr) {
+                        glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
+                        renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, ctrlModelMatrix);
+                    }
+                    else
+                        renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
                 }
             }
         }
@@ -277,30 +283,8 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 Material* material = entity->GetComponent<Material>();
                 Controller* controller = entity->GetParent()->GetComponent<Controller>();
                 if (material != nullptr) {
-                    //entity = entity->GetParent();
-
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlTransform = *controller->HandleTransformation(); //Managers().vrManager->GetControllerPoseMatrix(controller->controllerID);
-                        glm::vec3 ctrlRight = glm::vec3(ctrlTransform[0][0], ctrlTransform[1][0], ctrlTransform[2][0]);
-                        glm::vec3 ctrlUp = glm::vec3(ctrlTransform[0][1], ctrlTransform[1][1], ctrlTransform[2][1]);
-                        glm::vec3 ctrlForward = glm::vec3(ctrlTransform[0][2], ctrlTransform[1][2], ctrlTransform[2][2]);
-
-                        glm::mat4 ctrlOrientation = glm::transpose(glm::mat4(
-                            glm::vec4(ctrlRight, 0.f),
-                            glm::vec4(ctrlUp, 0.f),
-                            glm::vec4(ctrlForward, 0.f),
-                            glm::vec4(0.f, 0.f, 0.f, 1.f)
-                        ));
-
-                        ctrlOrientation = ctrlOrientation * entity->GetOrientation();
-
-                        glm::mat4 ctrlTranslationLocal = ctrlTransform + glm::translate(glm::mat4(), entity->GetParent()->position);
-                        glm::vec3 ctrlPositionLocal = glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
-                        glm::vec3 hmdPositionScaled = ctrlPositionLocal * 8.5f;
-                        glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
-                        glm::mat4 ctrlModelMatrix = hmdTranslationScaled * ctrlOrientation * glm::scale(glm::mat4(), entity->scale);
-
-                        ctrlModelMatrix = entity->GetParent()->GetModelMatrix() * ctrlModelMatrix;
+                        glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
                         renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), ctrlModelMatrix, false);
                     }
                     else
@@ -541,6 +525,7 @@ const std::vector<Component::Controller*>& RenderManager::GetControllers() const
 
 void RenderManager::ClearKilledComponents() {
     animations.ClearKilled();
+    controllers.ClearKilled();
     directionalLights.ClearKilled();
     lenses.ClearKilled();
     materials.ClearKilled();
