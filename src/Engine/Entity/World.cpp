@@ -121,7 +121,7 @@ void World::Load(const std::string& filename) {
     }
 }
 
-void World::Load(Json::Value node) {
+void World::Load(const Json::Value& node) {
 
     Clear();
     CreateRoot();

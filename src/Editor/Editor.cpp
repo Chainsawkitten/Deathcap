@@ -532,7 +532,6 @@ Entity* Editor::GetCamera() const {
 }
 
 void Editor::Play() {
-    Resources().Save();
     sceneState = Hymn().world.GetSaveJson();
     SetVisible(false);
     resourceView.HideEditors();
