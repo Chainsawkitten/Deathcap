@@ -56,9 +56,8 @@ std::string& AssetConverter::GetErrorString() {
 }
 
 void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
-    for (unsigned int i = 0; i < aScene->mNumMeshes; ++i) {
+    for (unsigned int i = 0; i < aScene->mNumMeshes; ++i)
         ConvertMesh(aScene->mMeshes[i], file, scale, flipUVs);
-    }
 }
 
 void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
