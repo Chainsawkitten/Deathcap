@@ -88,13 +88,17 @@ void ModelEditor::Show() {
                 AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
                 
                 // Import textures.
+                TextureAsset* albedo = nullptr;
+                TextureAsset* normal = nullptr;
+                TextureAsset* roughness = nullptr;
+                TextureAsset* metallic = nullptr;
                 if (importTextures) {
-                    LoadTexture(materials.albedo, "Albedo");
-                    LoadTexture(materials.normal, "Normal");
-                    LoadTexture(materials.roughness, "Roughness");
-                    LoadTexture(materials.metallic, "Metallic");
+                    albedo = LoadTexture(materials.albedo, "Albedo");
+                    normal = LoadTexture(materials.normal, "Normal");
+                    roughness = LoadTexture(materials.roughness, "Roughness");
+                    metallic = LoadTexture(materials.metallic, "Metallic");
                 }
-
+                
                 delete importData;
                 
                 // Create scene containing an entity with the model and textures.
@@ -114,12 +118,24 @@ void ModelEditor::Show() {
                     mesh->geometry = model;
                     
                     Component::Material* material = entity->AddComponent<Component::Material>();
+                    if (albedo != nullptr)
+                        material->albedo = albedo;
+                    if (normal != nullptr)
+                        material->normal = normal;
+                    if (roughness != nullptr)
+                        material->roughness = roughness;
+                    if (metallic != nullptr)
+                        material->metallic = metallic;
                     
                     world->Save(Hymn().GetPath() + "/" + model->path + model->name + "Scene.json");
                     
                     // Cleanup.
                     mesh->geometry = nullptr;
                     mesh->Kill();
+                    material->albedo = nullptr;
+                    material->normal = nullptr;
+                    material->roughness = nullptr;
+                    material->metallic = nullptr;
                     material->Kill();
                     delete world;
                 }
@@ -213,7 +229,7 @@ void ModelEditor::RefreshImportSettings() {
     }
 }
 
-void ModelEditor::LoadTexture(const std::string& path, const std::string& name) {
+TextureAsset* ModelEditor::LoadTexture(const std::string& path, const std::string& name) {
     if (!path.empty()) {
         std::string textureName = model->name + name;
         std::string src = FileSystem::GetDirectory(source) + path;
@@ -227,5 +243,9 @@ void ModelEditor::LoadTexture(const std::string& path, const std::string& name) 
         resource.type = ResourceList::Resource::TEXTURE;
         resource.texture = Managers().resourceManager->CreateTextureAsset(dest);
         folder->resources.push_back(resource);
+        
+        return resource.texture;
     }
+    
+    return nullptr;
 }
