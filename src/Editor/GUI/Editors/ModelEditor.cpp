@@ -94,11 +94,6 @@ void ModelEditor::Show() {
                 delete importData;
             }
 
-            ImGui::Text("Material Data");
-            if (ImGui::Button("Import material")) {
-                
-            }
-
             if (isImported)
                 ImGui::Text(msgString.c_str());
         }
