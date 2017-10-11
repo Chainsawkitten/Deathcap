@@ -400,62 +400,55 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 		ImGui::Text(script->scriptFile->name.c_str());
         ImGui::Separator();
 
-        if (script->instance == nullptr) {
+        if (ImGui::Button("Fetch properties")) {
 
             Managers().scriptManager->FillPropertyMap(script);
                 
         }
 
-        int propertyCount = script->instance->GetPropertyCount();
+        if (script->instance != nullptr) {
 
-        for (int n = 0; n < propertyCount; n++) {
+            int propertyCount = script->instance->GetPropertyCount();
 
-            int typeId = script->instance->GetPropertyTypeId(n);
-            void *varPointer = script->instance->GetAddressOfProperty(n);
-            if (typeId == asTYPEID_INT32)
-            {
-                ImGui::Text("%s = %d\n", script->instance->GetPropertyName(n), *(int*)varPointer);
-            }
-            else if (typeId == asTYPEID_FLOAT)
-            {
-                
-                ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)][typeId], 0.0f);
+            for (int n = 0; n < propertyCount; n++) {
 
-            }
-            else if (typeId & asTYPEID_SCRIPTOBJECT)
-            {
-                asIScriptObject *obj = (asIScriptObject*)varPointer;
-                if (obj)
+                int typeId = script->instance->GetPropertyTypeId(n);
+                void *varPointer = script->instance->GetAddressOfProperty(n);
+                if (typeId == asTYPEID_INT32)
+                {
+                    ImGui::Text("%s = %d\n", script->instance->GetPropertyName(n), *(int*)varPointer);
+                }
+                else if (typeId == asTYPEID_FLOAT)
+                {
+
+                    ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)][typeId], 0.0f);
+
+                }
+                else if (typeId & asTYPEID_SCRIPTOBJECT)
+                {
+                    asIScriptObject *obj = (asIScriptObject*)varPointer;
+                    if (obj)
+                        ImGui::Text("%s = {...}\n", script->instance->GetPropertyName(n));
+                    else
+                        ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
+                }
+                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string"))
+                {
+                    std::string *str = (std::string*)varPointer;
+                    if (str)
+                        ImGui::Text("%s = '%s'\n", script->instance->GetPropertyName(n), str->c_str());
+                    else
+                        ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
+                }
+                else
+                {
                     ImGui::Text("%s = {...}\n", script->instance->GetPropertyName(n));
-                else
-                    ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
+                }
+
             }
-            else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string"))
-            {
-                std::string *str = (std::string*)varPointer;
-                if (str)
-                    ImGui::Text("%s = '%s'\n", script->instance->GetPropertyName(n), str->c_str());
-                else
-                    ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
-            }
-            else
-            {
-                ImGui::Text("%s = {...}\n", script->instance->GetPropertyName(n));
-            }
-
-            //Log() << "Property: " << script->instance->GetPropertyName(i) << "\n";
-            //std::string test = script->instance->GetPropertyName(i);
-            //if (test == "Testing") {
-
-            //    const std::type_info* componentType = &typeid(int);
-            //    Log() << "String hash code: " << std::type_index(*componentType).hash_code() << "\n";
-
-            //    //std::string* Testing = static_cast<std::string*>(script->instance->GetAddressOfProperty(i));
-            //    //*Testing = "asdas";
-
-            //}
 
         }
+        ImGui::Separator();
 
 		//ImGui::Text("Entity References");
 		//// Display current entity references
