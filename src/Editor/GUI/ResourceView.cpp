@@ -6,10 +6,8 @@
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/Hymn.hpp>
-#include <DefaultAlbedo.png.hpp>
 #include <Engine/MainWindow.hpp>
 #include <imgui.h>
-#include <limits>
 #include "../ImGui/Splitter.hpp"
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
@@ -45,7 +43,7 @@ void ResourceView::Show() {
     soundPressed = false;
     
     ShowResourceFolder(Resources().resourceFolder, Resources().resourceFolder.name);
-    
+
     // Change scene.
     if (changeScene) {
         if (Hymn().GetPath() != "") {
@@ -227,7 +225,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::TEXTURE;
             string name = path + "/Texture #" + std::to_string(Resources().textureNumber++);
-            resource.texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
+            resource.texture = Managers().resourceManager->CreateTextureAsset(name);
             folder.resources.push_back(resource);
         }
         
@@ -265,7 +263,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         
         // Show resources.
         for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
-            if (ShowResource(*it, path)) {
+            if (ShowResource(folder, *it, path)) {
                 folder.resources.erase(it);
                 return;
             }
@@ -275,7 +273,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
     }
 }
 
-bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::string& path) {
+bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path) {
     // Scene.
     if (resource.type == ResourceList::Resource::SCENE) {
         if (ImGui::Selectable(resource.scene.c_str())) {
@@ -317,7 +315,7 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
     if (resource.type == ResourceList::Resource::MODEL) {
         if (ImGui::Selectable(resource.model->name.c_str())) {
             modelPressed = true;
-            modelEditor.SetModel(resource.model);
+            modelEditor.SetModel(&folder, resource.model);
         }
         
         if (ImGui::BeginPopupContextItem(resource.model->name.c_str())) {

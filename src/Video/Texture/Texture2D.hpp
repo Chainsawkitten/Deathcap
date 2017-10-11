@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Texture.hpp"
-#include <glm/glm.hpp>
-#include <string>
 
 namespace Video {
     /// A two-dimensional texture.
