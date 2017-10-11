@@ -9,7 +9,7 @@ AssetConverter::AssetConverter() {
 AssetConverter::~AssetConverter() {
 }
 
-void AssetConverter::Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool importMaterial, bool flipUVs) {
+void AssetConverter::Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs, bool importMaterial, Materials& materials) {
     success = true;
     errorString.clear();
 
@@ -30,6 +30,7 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
     }
 
     if (importMaterial) {
+        /// @todo Fix Windows-specific code.
         std::string tempMaterialFilePath = filepath;
         std::string materialFilePath = tempMaterialFilePath.substr(0, tempMaterialFilePath.find_last_of('\\'));
         materialFilePath += "\\";
@@ -38,19 +39,12 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
         std::string materialDestinationFilePath = tempMaterialDestinationFilePath.substr(0, tempMaterialDestinationFilePath.find_last_of('.'));
         materialDestinationFilePath += "_";
         if (aScene->mMeshes[0]->mMaterialIndex >= 0) {
-            aiMaterial *material = aScene->mMaterials[aScene->mMeshes[0]->mMaterialIndex];
-            std::vector<MaterialData> diffuseMaps = loadMaterialTextures(material,
-                aiTextureType_DIFFUSE, "texture_diffuse.png", materialFilePath, materialDestinationFilePath);
-            textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-            std::vector<MaterialData> normalMaps = loadMaterialTextures(material,
-                aiTextureType_NORMALS, "texture_normal.png", materialFilePath, materialDestinationFilePath);
-            textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-            std::vector<MaterialData> roughnessMap = loadMaterialTextures(material,
-                aiTextureType_SPECULAR, "texture_roughness.png", materialFilePath, materialDestinationFilePath);
-            textures.insert(textures.end(), roughnessMap.begin(), roughnessMap.end());
-            std::vector<MaterialData> metallicMap = loadMaterialTextures(material,
-                aiTextureType_REFLECTION, "texture_metallic.png", materialFilePath, materialDestinationFilePath);
-            textures.insert(textures.end(), metallicMap.begin(), metallicMap.end());
+            aiMaterial* material = aScene->mMaterials[aScene->mMeshes[0]->mMaterialIndex];
+            
+            LoadMaterial(material, aiTextureType_DIFFUSE, materials.albedo);
+            LoadMaterial(material, aiTextureType_NORMALS, materials.normal);
+            LoadMaterial(material, aiTextureType_SPECULAR, materials.roughness);
+            LoadMaterial(material, aiTextureType_REFLECTION, materials.metallic);
         }
     }
 
@@ -303,4 +297,12 @@ void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData * meshDa
     meshData->aabbOrigin = origin;
     meshData->aabbMaxpos = maxValues;
     meshData->aabbMinpos = minValues;
+}
+
+void AssetConverter::LoadMaterial(aiMaterial* material, aiTextureType type, std::string& path) {
+    if (material->GetTextureCount(type) > 0) {
+        aiString p;
+        material->GetTexture(type, 0, &p);
+        path = p.C_Str();
+    }
 }

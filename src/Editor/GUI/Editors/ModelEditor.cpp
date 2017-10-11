@@ -64,9 +64,11 @@ void ModelEditor::Show() {
             std::string button = isImported ? "Re-import" : "Import";
 
             if (ImGui::Button(button.c_str())) {
+                AssetConverter::Materials materials;
+                
                 // Convert to .asset format.
                 AssetConverter asset;
-                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, importTextures, flipUVs);
+                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs, importTextures, materials);
                 model->Load(destination.c_str());
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
@@ -77,6 +79,11 @@ void ModelEditor::Show() {
                 importData->importNormals = importNormals;
                 importData->importTangents = importTangents;
                 AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
+                
+                // Import textures.
+                if (importTextures) {
+                    
+                }
 
                 delete importData;
             }
