@@ -63,22 +63,6 @@ std::string& AssetConverter::GetErrorString() {
     return errorString;
 }
 
-std::vector<MaterialData> AssetConverter::loadMaterialTextures(aiMaterial * mat, aiTextureType type, std::string typeName, std::string filepath, std::string destination) {
-    std::vector<MaterialData> textures;
-    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
-        aiString str;
-
-        mat->GetTexture(type, i, &str);
-        MaterialData textur;
-        textur.type = typeName;
-        textur.path = str.C_Str();
-        FileSystem::Copy((filepath + textur.path).c_str(), (destination + textur.type).c_str());
-
-    }
-
-    return textures;
-}
-
 void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
     for (unsigned int i = 0; i < aScene->mNumMeshes; ++i) {
         ConvertMesh(aScene->mMeshes[i], file, scale, flipUVs);

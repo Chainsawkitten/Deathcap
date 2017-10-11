@@ -7,17 +7,6 @@
 #include <Video/Geometry/VertexType/StaticVertex.hpp>
 #include <Engine/Geometry/MathFunctions.hpp>
 
-
-/// Struct to hold Material
-/**
-*
-*/
-struct MaterialData
-{
-    std::string type;
-    std::string path;
-};
-
 /// Convert 3D file to a .asset file.
 /**
  * Uses assimp to convert a 3D file to a .asset file.
@@ -72,21 +61,6 @@ class AssetConverter {
          * @return A string with messages of what went wrong durning conversion.
          */
         std::string& GetErrorString();
-
-        /// look for specifik textures connected to mesh
-        /**
-        * @param current material from scene
-        * @param assimp holds different textertypes - _DIFFUSE, _NORMAL
-        * @param type as string
-        * @param filepath Filepath of the fbxfile. 
-        * @param destination Filepath of the destination inculding name and extension.
-        * Put material in maya to phong use the following channels
-        * Color - albedo
-        * Bump Mapping - normal
-        * Specular color - Roughness
-        * Reflected Color - Metallic
-        */
-        std::vector<MaterialData> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, std::string filepath, std::string destination);
     
     private:
         void ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs);
@@ -95,8 +69,6 @@ class AssetConverter {
         Video::Geometry::VertexType::SkinVertex * ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, glm::vec3 scale, bool flipUVs);
         void CalculateAABB(Geometry::AssetFileHandler::MeshData * meshData, unsigned int numVertices);
         void LoadMaterial(aiMaterial* material, aiTextureType type, std::string& path);
-
-        std::vector<MaterialData> textures;
 
         Assimp::Importer aImporter;
 
