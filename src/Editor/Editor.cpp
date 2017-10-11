@@ -541,9 +541,6 @@ void Editor::Play() {
 }
 
 void Editor::LoadSceneState() {
-    Resources().Clear();
-    Resources().Load();
-
     Hymn().world.Load(sceneState);
 }
 
