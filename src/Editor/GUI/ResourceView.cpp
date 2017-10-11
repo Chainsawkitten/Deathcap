@@ -6,10 +6,8 @@
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/Hymn.hpp>
-#include <DefaultAlbedo.png.hpp>
 #include <Engine/MainWindow.hpp>
 #include <imgui.h>
-#include <limits>
 #include "../ImGui/Splitter.hpp"
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
@@ -45,7 +43,7 @@ void ResourceView::Show() {
     soundPressed = false;
     
     ShowResourceFolder(Resources().resourceFolder, Resources().resourceFolder.name);
-    
+
     // Change scene.
     if (changeScene) {
         if (Hymn().GetPath() != "") {
@@ -227,7 +225,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::TEXTURE;
             string name = path + "/Texture #" + std::to_string(Resources().textureNumber++);
-            resource.texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
+            resource.texture = Managers().resourceManager->CreateTextureAsset(name);
             folder.resources.push_back(resource);
         }
         
