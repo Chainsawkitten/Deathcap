@@ -7,7 +7,7 @@ namespace Component {
     }
 
     Controller::~Controller() {
-        
+
     }
 
     Json::Value Controller::Save() const {
@@ -23,7 +23,9 @@ namespace Component {
         return &transform;
     }
 
-    void Controller::HandleInput() {
-        
+    bool Controller::HandleInput(int buttonID) {
+        vr::EVRButtonId vrButton = static_cast<vr::EVRButtonId>(buttonID);
+
+        return Managers().vrManager->GetInput(vrButton);
     }
 }

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../Manager/Managers.hpp"
+#include "../Manager/VRManager.hpp"
+#include "../Component/Controller.hpp"
 #include <GLFW/glfw3.h>
 #include <json/json.h>
 #include <vector>
@@ -43,6 +46,13 @@ class Input {
          * @return Whether the button was activated this frame.
          */
         bool CheckButton(int index) const;
+
+        /// Check if a button was activated this frame
+        /**
+         * @param controller The controller to check.
+         * @retirm Whether the button was activated this frame.
+         */
+        bool CheckVRButton(int index, Component::Controller *controller) const;
         
         /// Save the buttons to a JSON value.
         /**

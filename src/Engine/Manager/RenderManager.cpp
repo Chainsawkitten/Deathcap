@@ -280,7 +280,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                     //entity = entity->GetParent();
 
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlTransform = Managers().vrManager->GetControllerPoseMatrix(controller->controllerID);
+                        glm::mat4 ctrlTransform = *controller->HandleTransformation(); //Managers().vrManager->GetControllerPoseMatrix(controller->controllerID);
                         glm::vec3 ctrlRight = glm::vec3(ctrlTransform[0][0], ctrlTransform[1][0], ctrlTransform[2][0]);
                         glm::vec3 ctrlUp = glm::vec3(ctrlTransform[0][1], ctrlTransform[1][1], ctrlTransform[2][1]);
                         glm::vec3 ctrlForward = glm::vec3(ctrlTransform[0][2], ctrlTransform[1][2], ctrlTransform[2][2]);

@@ -2,6 +2,7 @@
 #include "SuperComponent.hpp"
 #include "../Manager/VRManager.hpp"
 #include <glm/glm.hpp>
+#include <openvr.h>
 
 namespace Component {
     /// Component giving VR controller functions to an Entity
@@ -27,7 +28,7 @@ namespace Component {
         glm::mat4 *HandleTransformation();
 
         /// Handles all VR controller inputs (class for future implementations)
-        void HandleInput();
+        bool HandleInput(int buttonID);
 
         /// The controller's ID. 1 = left, 2 = right
         int controllerID;

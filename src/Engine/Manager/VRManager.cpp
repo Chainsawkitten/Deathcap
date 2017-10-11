@@ -161,3 +161,15 @@ float VRManager::GetScale() const {
 void VRManager::SetScale(float scale) {
     this->scale = scale;
 }
+
+bool VRManager::GetInput(vr::EVRButtonId buttonID) {
+    for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++) {
+        vr::VRControllerState_t controllerState;
+        if (vrSystem->GetControllerState(unDevice, &controllerState, sizeof(controllerState))) {
+            pressedTrackedDevice[unDevice] = controllerState.ulButtonPressed == 0;
+            if (controllerState.ulButtonPressed & vr::ButtonMaskFromId(buttonID))
+                return true;
+        }
+    }
+    return false;
+}

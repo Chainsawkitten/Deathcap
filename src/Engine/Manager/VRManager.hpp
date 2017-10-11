@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <openvr.h>
+#include <openvr_capi.h>
 
 /// Handles communication with VR devices using OpenVR.
 class VRManager {
@@ -69,6 +70,13 @@ class VRManager {
          * @param scale Scale to set.
          */
         void SetScale(float scale);
+
+        /// Gets if certain button is pressed (Only trigger for now)
+        /**
+         * @param buttonID the button we want to check is pressed.
+         * @return whether certain button is pressed or not. 
+         */
+        bool GetInput(vr::EVRButtonId buttonID);
         
     private:
         VRManager();
@@ -83,4 +91,6 @@ class VRManager {
         vr::IVRSystem* vrSystem;
         vr::TrackedDevicePose_t tracedDevicePoseArray[vr::k_unMaxTrackedDeviceCount];
         glm::mat4 deviceTransforms[vr::k_unMaxTrackedDeviceCount];
+
+        bool pressedTrackedDevice[vr::k_unMaxTrackedDeviceCount];
 };

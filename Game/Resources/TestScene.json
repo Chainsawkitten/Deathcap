@@ -124,9 +124,16 @@
 							"children" : 
 							[
 								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
 									"Mesh" : 
 									{
-										"model" : "controller"
+										"model" : "Resources/Controller/controller"
 									},
 									"children" : null,
 									"name" : "RightCtrlModel",
@@ -184,9 +191,16 @@
 							"children" : 
 							[
 								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
 									"Mesh" : 
 									{
-										"model" : "controller"
+										"model" : "Resources/Controller/controller"
 									},
 									"children" : null,
 									"name" : "LeftCtrlModel",
