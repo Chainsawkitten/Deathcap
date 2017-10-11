@@ -63,6 +63,7 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Import Tangents", &importTangents);
             ImGui::Checkbox("Import Textures", &importTextures);
             ImGui::Checkbox("Flip UVs", &flipUVs);
+            ImGui::Checkbox("Create scene", &createScene);
 
             std::string button = isImported ? "Re-import" : "Import";
 
@@ -92,6 +93,14 @@ void ModelEditor::Show() {
                 }
 
                 delete importData;
+                
+                // Create scene containing an entity with the model and textures.
+                if (createScene) {
+                    ResourceList::Resource resource;
+                    resource.type = ResourceList::Resource::SCENE;
+                    resource.scene = model->name + "Scene";
+                    folder->resources.push_back(resource);
+                }
             }
 
             if (isImported)

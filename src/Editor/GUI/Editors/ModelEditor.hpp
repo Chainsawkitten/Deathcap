@@ -70,5 +70,6 @@ namespace GUI {
             bool importTangents = true;
             bool importTextures = false;
             bool flipUVs = false;
+            bool createScene = false;
     };
 }
