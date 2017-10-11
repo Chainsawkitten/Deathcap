@@ -13,6 +13,7 @@
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Component/Mesh.hpp>
+#include <Engine/Component/Material.hpp>
 
 using namespace GUI;
 
@@ -112,11 +113,14 @@ void ModelEditor::Show() {
                     Component::Mesh* mesh = entity->AddComponent<Component::Mesh>();
                     mesh->geometry = model;
                     
+                    Component::Material* material = entity->AddComponent<Component::Material>();
+                    
                     world->Save(Hymn().GetPath() + "/" + model->path + model->name + "Scene.json");
                     
                     // Cleanup.
                     mesh->geometry = nullptr;
                     mesh->Kill();
+                    material->Kill();
                     delete world;
                 }
             }
