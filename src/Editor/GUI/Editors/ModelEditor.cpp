@@ -1,4 +1,5 @@
 #include "ModelEditor.hpp"
+
 #include <Engine/Geometry/Model.hpp>
 #include "../FileSelector.hpp"
 #include <functional>
@@ -8,6 +9,8 @@
 #include "Util/AssetMetaData.hpp"
 #include <Utility/Log.hpp>
 #include "../../Resources.hpp"
+#include <Engine/Manager/Managers.hpp>
+#include <Engine/Manager/ResourceManager.hpp>
 
 using namespace GUI;
 
@@ -188,12 +191,16 @@ void ModelEditor::LoadTexture(const std::string& path, const std::string& name) 
     if (!path.empty()) {
         std::string textureName = model->name + name;
         std::string src = FileSystem::GetDirectory(source) + path;
-        std::string dest = Hymn().GetPath() + "/" + model->path + textureName + ".png";
+        std::string dest = Hymn().GetPath() + "/" + model->path + textureName;
         
         // Copy file.
-        FileSystem::Copy(src.c_str(), dest.c_str());
+        FileSystem::Copy(src.c_str(), (dest + ".png").c_str());
         
-        /// @todo Add texture asset.
+        // Add texture asset.
+        ResourceList::Resource resource;
+        resource.type = ResourceList::Resource::TEXTURE;
+        resource.texture = Managers().resourceManager->CreateTextureAsset(dest);
+        folder->resources.push_back(resource);
         
         /// @todo Load texture.
     }
