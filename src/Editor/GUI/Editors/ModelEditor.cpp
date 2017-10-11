@@ -189,9 +189,9 @@ void ModelEditor::LoadTexture(const std::string& path, const std::string& name) 
         std::string textureName = model->name + name;
         std::string src = FileSystem::GetDirectory(source) + path;
         std::string dest = Hymn().GetPath() + "/" + model->path + textureName + ".png";
-        Log() << textureName << " : " << src << " -> " << dest << "\n";
         
-        /// @todo Copy file.
+        // Copy file.
+        FileSystem::Copy(src.c_str(), dest.c_str());
         
         /// @todo Add texture asset.
         
