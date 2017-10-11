@@ -27,6 +27,7 @@ namespace GUI {
             
             /// Set the model to edit.
             /**
+             * @param folder Resource folder containing the model.
              * @param model Model to edit.
              */
             void SetModel(ResourceList::ResourceFolder* folder, Geometry::Model* model);
