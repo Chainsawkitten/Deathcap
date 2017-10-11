@@ -144,7 +144,7 @@ void EntityEditor::SetEntity(Entity* entity) {
 
     auto shapeComp = this->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
-        Physics::Shape& shape = shapeComp->GetShape();
+        Physics::Shape& shape = *shapeComp->GetShape();
         for (uint32_t i = 0; i < shapeEditors.size(); ++i) {
             if (shapeEditors[i]->SetFromShape(shape)) {
                 selectedShape = i;

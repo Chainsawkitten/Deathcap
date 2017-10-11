@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <glm/glm.hpp>
+#include <memory>
 #include <vector>
 #include "../Entity/ComponentContainer.hpp"
 
@@ -117,7 +118,7 @@ class PhysicsManager {
          * @param comp The component on which to set the shape.
          * @param A Physics::Shape object that holds the shape definition.
          */
-        void SetShape(Component::Shape* comp, ::Physics::Shape* shape);
+        void SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape);
 
         /// Set the mass of a Component::RigidBody component.
         /**

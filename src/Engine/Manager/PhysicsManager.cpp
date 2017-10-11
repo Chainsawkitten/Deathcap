@@ -144,7 +144,7 @@ Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
     btTransform trans(btQuaternion(0, 0, 0, 1), ::Physics::glmToBt(comp->entity->position));
     Physics::Trigger* trigger = new Physics::Trigger(trans);
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
-    trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape().GetShape() : nullptr);
+    trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape() : nullptr);
     triggers.push_back(trigger);
     return trigger;
 }
@@ -156,7 +156,7 @@ Component::Physics* PhysicsManager::CreatePhysics(Entity* owner) {
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (rigidBodyComp && shapeComp) {
-        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
     }
 
     return comp;
@@ -181,7 +181,7 @@ Component::Physics* PhysicsManager::CreatePhysics(Entity* owner, const Json::Val
     auto rigidBodyComp = physics->entity->GetComponent<Component::RigidBody>();
     auto shapeComp = physics->entity->GetComponent<Component::Shape>();
     if (rigidBodyComp && shapeComp) {
-        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
     }
 
     return physics;
@@ -195,7 +195,7 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner) {
 
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
-        comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+        comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
     }
 
     return comp;
@@ -210,7 +210,7 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
 
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
-        comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape().GetShape());
+        comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
     }
 
     return comp;
@@ -222,7 +222,7 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
 
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     if (rigidBodyComp) {
-        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape().GetShape());
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
     }
 
     return comp;
@@ -235,26 +235,26 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     if (node.isMember("sphere")) {
         auto sphere = node.get("sphere", {});
         auto radius = sphere.get("radius", 1.0f).asFloat();
-        auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(radius));
+        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Sphere(radius)));
         comp->SetShape(shape);
     }
     else if (node.isMember("plane")) {
         auto plane = node.get("plane", {});
         auto normal = Json::LoadVec3(plane.get("normal", {}));
         auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
-        auto shape = new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff));
+        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff)));
         comp->SetShape(shape);
     }
 
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     if (rigidBodyComp) {
-        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape().GetShape());
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
     }
 
     return comp;
 }
 
-void PhysicsManager::SetShape(Component::Shape* comp, ::Physics::Shape* shape) {
+void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape) {
     comp->SetShape(shape);
 }
 
