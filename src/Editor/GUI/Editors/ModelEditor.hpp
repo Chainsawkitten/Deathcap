@@ -46,6 +46,7 @@ namespace GUI {
         private:
             void FileSelected(const std::string& file);
             void RefreshImportSettings();
+            void LoadTexture(const std::string& path, const std::string& name);
             
             ResourceList::ResourceFolder* folder;
             Geometry::Model* model = nullptr;

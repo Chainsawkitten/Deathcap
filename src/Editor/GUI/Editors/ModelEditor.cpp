@@ -82,7 +82,10 @@ void ModelEditor::Show() {
                 
                 // Import textures.
                 if (importTextures) {
-                    
+                    LoadTexture(materials.albedo, "Albedo");
+                    LoadTexture(materials.normal, "Normal");
+                    LoadTexture(materials.roughness, "Roughness");
+                    LoadTexture(materials.metallic, "Metallic");
                 }
 
                 delete importData;
@@ -158,7 +161,7 @@ void ModelEditor::FileSelected(const std::string& file) {
     RefreshImportSettings();
 }
 
-void GUI::ModelEditor::RefreshImportSettings() {
+void ModelEditor::RefreshImportSettings() {
     // Check if the source file exist, currently only .fbx is supported.
     if (!FileSystem::FileExists((destination + ".fbx").c_str())) {
         hasSourceFile = false;
@@ -178,5 +181,20 @@ void GUI::ModelEditor::RefreshImportSettings() {
         isImported = true;
     } else {
         isImported = false;
+    }
+}
+
+void ModelEditor::LoadTexture(const std::string& path, const std::string& name) {
+    if (!path.empty()) {
+        std::string textureName = model->name + name;
+        std::string src = FileSystem::GetDirectory(source) + path;
+        std::string dest = Hymn().GetPath() + "/" + model->path + textureName + ".png";
+        Log() << textureName << " : " << src << " -> " << dest << "\n";
+        
+        /// @todo Copy file.
+        
+        /// @todo Add texture asset.
+        
+        /// @todo Load texture.
     }
 }
