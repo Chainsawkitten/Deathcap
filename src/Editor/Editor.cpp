@@ -124,95 +124,9 @@ void Editor::Show(float deltaTime) {
         }
     } else {
         bool play = false;
-
-        ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
-
+        
         // Main menu bar.
-        if (ImGui::BeginMainMenuBar()) {
-
-            // File menu.
-            if (ImGui::BeginMenu("File")) {
-                if (ImGui::MenuItem("New Hymn", "CTRL+N"))
-                    NewHymn();
-
-                if (ImGui::MenuItem("Open Hymn", "CTRL+O"))
-                    OpenHymn();
-
-                if (Hymn().GetPath() != "") {
-                    if (ImGui::MenuItem("Save Hymn", "CTRL+S"))
-                        Save();
-                }
-
-                ImGui::Separator();
-
-                if (ImGui::MenuItem("Settings"))
-                    settingsWindow.SetVisible(true);
-
-                ImGui::EndMenu();
-            }
-
-            // View menu.
-            if (ImGui::BeginMenu("View")) {
-                ImGui::MenuItem("Grid Settings", "", &showGridSettings);
-                EditorSettings::GetInstance().SetBool("Grid Settings", showGridSettings);
-
-                static bool soundSources = EditorSettings::GetInstance().GetBool("Sound Source Icons");
-                ImGui::MenuItem("Sound Sources", "", &soundSources);
-                EditorSettings::GetInstance().SetBool("Sound Source Icons", soundSources);
-
-                static bool particleEmitters = EditorSettings::GetInstance().GetBool("Particle Emitter Icons");
-                ImGui::MenuItem("Particle Emitters", "", &particleEmitters);
-                EditorSettings::GetInstance().SetBool("Particle Emitter Icons", particleEmitters);
-
-                static bool lightSources = EditorSettings::GetInstance().GetBool("Light Source Icons");
-                ImGui::MenuItem("Light Sources", "", &lightSources);
-                EditorSettings::GetInstance().SetBool("Light Source Icons", lightSources);
-
-                static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
-                ImGui::MenuItem("Cameras", "", &cameras);
-                EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
-
-                static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
-                ImGui::MenuItem("Physics", "", &physics);
-                EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
-
-                ImGui::EndMenu();
-            }
-
-            if (Hymn().GetPath() != "") {
-                // Play
-                if (ImGui::BeginMenu("Play")) {
-                    if (ImGui::MenuItem("Play", "F5"))
-                        play = true;
-
-                    ImGui::EndMenu();
-                }
-
-                // Hymn
-                if (ImGui::BeginMenu("Hymn")) {
-                    if (ImGui::MenuItem("Input"))
-                        inputWindow.SetVisible(true);
-
-                    if (ImGui::MenuItem("Filters"))
-                        filtersWindow.SetVisible(true);
-
-                    ImGui::EndMenu();
-                }
-
-                if (Input()->Triggered(InputHandler::ZOOM)) {
-                    if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
-                        const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
-                        cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
-                        cameraEntity->rotation = glm::vec3(0, 45, 1);
-                    }
-                }
-
-                // Editor Camera Coordinates
-                ImGui::SameLine(size.x - 280); ImGui::Text("X: %f, Y: %f, Z: %f", cameraEntity->GetWorldPosition().x, cameraEntity->GetWorldPosition().y, cameraEntity->GetWorldPosition().z);
-            }
-
-            ImGui::EndMainMenuBar();
-        }
+        ShowMainMenuBar(play);
 
         // Show hymn selection window.
         if (selectHymnWindow.IsVisible()) {
@@ -533,6 +447,96 @@ void Editor::SetVisible(bool visible) {
 
 Entity* Editor::GetCamera() const {
     return cameraEntity;
+}
+
+void Editor::ShowMainMenuBar(bool& play) {
+    ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
+    
+    // Main menu bar.
+    if (ImGui::BeginMainMenuBar()) {
+        // File menu.
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("New Hymn", "CTRL+N"))
+                NewHymn();
+
+            if (ImGui::MenuItem("Open Hymn", "CTRL+O"))
+                OpenHymn();
+
+            if (Hymn().GetPath() != "") {
+                if (ImGui::MenuItem("Save Hymn", "CTRL+S"))
+                    Save();
+            }
+
+            ImGui::Separator();
+
+            if (ImGui::MenuItem("Settings"))
+                settingsWindow.SetVisible(true);
+
+            ImGui::EndMenu();
+        }
+
+        // View menu.
+        if (ImGui::BeginMenu("View")) {
+            ImGui::MenuItem("Grid Settings", "", &showGridSettings);
+            EditorSettings::GetInstance().SetBool("Grid Settings", showGridSettings);
+
+            static bool soundSources = EditorSettings::GetInstance().GetBool("Sound Source Icons");
+            ImGui::MenuItem("Sound Sources", "", &soundSources);
+            EditorSettings::GetInstance().SetBool("Sound Source Icons", soundSources);
+
+            static bool particleEmitters = EditorSettings::GetInstance().GetBool("Particle Emitter Icons");
+            ImGui::MenuItem("Particle Emitters", "", &particleEmitters);
+            EditorSettings::GetInstance().SetBool("Particle Emitter Icons", particleEmitters);
+
+            static bool lightSources = EditorSettings::GetInstance().GetBool("Light Source Icons");
+            ImGui::MenuItem("Light Sources", "", &lightSources);
+            EditorSettings::GetInstance().SetBool("Light Source Icons", lightSources);
+
+            static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
+            ImGui::MenuItem("Cameras", "", &cameras);
+            EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
+
+            static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
+            ImGui::MenuItem("Physics", "", &physics);
+            EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
+
+            ImGui::EndMenu();
+        }
+
+        if (Hymn().GetPath() != "") {
+            // Play
+            if (ImGui::BeginMenu("Play")) {
+                if (ImGui::MenuItem("Play", "F5"))
+                    play = true;
+
+                ImGui::EndMenu();
+            }
+
+            // Hymn
+            if (ImGui::BeginMenu("Hymn")) {
+                if (ImGui::MenuItem("Input"))
+                    inputWindow.SetVisible(true);
+
+                if (ImGui::MenuItem("Filters"))
+                    filtersWindow.SetVisible(true);
+
+                ImGui::EndMenu();
+            }
+
+            if (Input()->Triggered(InputHandler::ZOOM)) {
+                if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
+                    const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
+                    cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
+                    cameraEntity->rotation = glm::vec3(0, 45, 1);
+                }
+            }
+
+            // Editor Camera Coordinates
+            ImGui::SameLine(size.x - 280); ImGui::Text("X: %f, Y: %f, Z: %f", cameraEntity->GetWorldPosition().x, cameraEntity->GetWorldPosition().y, cameraEntity->GetWorldPosition().z);
+        }
+
+        ImGui::EndMainMenuBar();
+    }
 }
 
 void Editor::ShowGridSettings() {

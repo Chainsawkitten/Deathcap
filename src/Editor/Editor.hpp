@@ -74,6 +74,7 @@ class Editor {
         Entity* GetCamera() const;
         
     private:
+        void ShowMainMenuBar(bool& play);
         void ShowGridSettings();
         void Play();
         void NewHymn();
