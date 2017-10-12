@@ -3,22 +3,18 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include "Lighting/Light.hpp"
 
 namespace Video {
-    struct Light;
-    class Lighting;
     class StaticRenderProgram;
     class SkinRenderProgram;
     class Texture2D;
     class PostProcessing;
-    class ColorFilter;
-    class FogFilter;
     class FXAAFilter;
-    class GlowBlurFilter;
-    class GlowFilter;
     class ShaderProgram;
     class RenderSurface;
     class FrameBuffer;
+    class StorageBuffer;
     namespace Geometry {
         class Geometry3D;
         class Rectangle;
@@ -32,18 +28,22 @@ namespace Video {
             
             /// Destructor.
             ~Renderer(); 
-            
-            /// Clear the previous frame's data.
-            void Clear();
+
+            /// Prepare for depth rendering static meshes.
+            /**
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             */
+            void PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
             /// Render a static mesh.
             /**
-            * @param geometry The geometry to render.
-            * @param viewMatrix The camera's view matrix.
-            * @param projectionMatrix The camera's projection matrix.
-            * @param modelMatrix Model matrix.
-            */
-            void DepthRenderStaticMesh(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix);
+             * @param geometry The geometry to render.
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             * @param modelMatrix Model matrix.
+             */
+            void DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix);
             
             /// Start rendering the frame.
             /**
@@ -66,38 +66,15 @@ namespace Video {
              * @param metallic Metallic map.
              * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
+             * @param isSelected Whether model is selected(should be highlighted) or not.
              */
             void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
-            
-            /// Prepare for rendering skinned meshes.
+
+            /// Update light buffer.
             /**
-             * @param viewMatrix The camera's view matrix.
-             * @param projectionMatrix The camera's projection matrix.
+             * @param lights Vector of lights to push to the light buffer.
              */
-            void PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
-            
-            /// Render a skinned mesh.
-            /**
-             * @param geometry The geometry to render.
-             * @param albedo Albedo texture.
-             * @param normal Normal map.
-             * @param metallic Metallic map.
-             * @param roughness Roughness texture.
-             * @param modelMatrix Model matrix.
-             * @param bones Transformations of skeleton.
-             * @param bonesIT Inverse transpose transformations of skeleton.
-             */
-            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
-            
-            /// Add a light to the scene.
-            void AddLight(const Video::Light& light);
-            
-            /// Light the scene with the added lights.
-            /**
-             * @param inverseProjectionMatrix The camera's inverse projection matrix.
-             * @param renderSurface %RenderSurface contaning textures.
-             */
-            void Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
+            void SetLights(const std::vector<Video::Light>& lights);
             
             /// Anti-alias using FXAA.
             /**
@@ -128,12 +105,11 @@ namespace Video {
              */
             void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
-            /// Display the rendered results.
+            /// Display the rendered results to back buffer.
             /**
-             * @param renderSurface %RenderSurface to render to back buffer.
-             * @param dither Whether to use dithering.
+             * @param renderSurface %RenderSurface to present to back buffer.
              */
-            void DisplayResults(RenderSurface* renderSurface, bool dither);
+            void Present(RenderSurface* renderSurface);
             
             /// Begin rendering icons.
             /**
@@ -160,16 +136,13 @@ namespace Video {
             
         private:
             Renderer(const Renderer & other) = delete;
-            Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
-            SkinRenderProgram* skinRenderProgram;
+
+            unsigned int lightCount;
+            StorageBuffer* lightBuffer;
             
             PostProcessing* postProcessing;
-            ColorFilter* colorFilter;
-            FogFilter* fogFilter;
             FXAAFilter* fxaaFilter;
-            GlowFilter* glowFilter;
-            GlowBlurFilter* glowBlurFilter;
             
             // Icon rendering.
             ShaderProgram* iconShaderProgram;

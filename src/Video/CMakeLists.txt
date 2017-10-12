@@ -1,8 +1,9 @@
 set(SRCS
-        DebugDrawing.cpp
-        FrameBuffer.cpp
+        Buffer/FrameBuffer.cpp
+        Buffer/ReadWriteTexture.cpp
+        Buffer/StorageBuffer.cpp
+        DebugDrawing.cpp  
         ParticleRenderer.cpp
-        ReadWriteTexture.cpp
         Renderer.cpp
         RenderSurface.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -12,13 +13,7 @@ set(SRCS
         Geometry/Rectangle.cpp
         Geometry/VertexType/SkinVertex.cpp
         Geometry/VertexType/StaticVertex.cpp
-        Lighting/Lighting.cpp
-        PostProcessing/ColorFilter.cpp
-        PostProcessing/FogFilter.cpp
         PostProcessing/FXAAFilter.cpp
-        PostProcessing/GammaCorrectionFilter.cpp
-        PostProcessing/GlowBlurFilter.cpp
-        PostProcessing/GlowFilter.cpp
         PostProcessing/PostProcessing.cpp
         Profiling/Query.cpp
         RenderProgram/SkinRenderProgram.cpp
@@ -30,10 +25,11 @@ set(SRCS
     )
 
 set(HEADERS
+        Buffer/FrameBuffer.hpp
+        Buffer/ReadWriteTexture.hpp
+        Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
-        FrameBuffer.hpp
         ParticleRenderer.hpp
-        ReadWriteTexture.hpp
         Renderer.hpp
         RenderSurface.hpp
         Culling/AxisAlignedBoundingBox.hpp
@@ -44,14 +40,7 @@ set(HEADERS
         Geometry/VertexType/SkinVertex.hpp
         Geometry/VertexType/StaticVertex.hpp
         Lighting/Light.hpp
-        Lighting/Lighting.hpp
-        PostProcessing/ColorFilter.hpp
-        PostProcessing/Filter.hpp
-        PostProcessing/FogFilter.hpp
         PostProcessing/FXAAFilter.hpp
-        PostProcessing/GammaCorrectionFilter.hpp
-        PostProcessing/GlowBlurFilter.hpp
-        PostProcessing/GlowFilter.hpp
         PostProcessing/PostProcessing.hpp
         Profiling/Query.hpp
         RenderProgram/SkinRenderProgram.hpp
@@ -68,7 +57,6 @@ set(EMBEDDED_INPUT
     ../../shaders/DebugDrawing.frag
     ../../shaders/Default3D.vert
     ../../shaders/Default3D.frag
-    ../../shaders/Deferred.frag
     ../../shaders/EditorEntity.vert
     ../../shaders/EditorEntity.geom
     ../../shaders/EditorEntity.frag
@@ -76,14 +64,7 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.geom
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
-    ../../shaders/PostColor.frag
-    ../../shaders/PostCopy.frag
-    ../../shaders/PostDither.frag
-    ../../shaders/PostFog.frag
     ../../shaders/PostFXAA.frag
-    ../../shaders/PostGamma.frag
-    ../../shaders/PostGlow.frag
-    ../../shaders/PostGlowBlur.frag
     ../../shaders/Skinning.vert
     ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag
