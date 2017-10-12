@@ -102,7 +102,14 @@ class SteamAudioInterface {
          * @param sourcePosition The position of the sound source.
          * @param sourceRadius The radius of the source. To determine how much of the source is occluded rather than have it be on/off.
          **/
-        void Process(IPLAudioBuffer input, IPLVector3* sourcePosition, float sourceRadius); // Needs to be called in a way so that there's always at least one processed audio frame ready to go.
+        void Process(float* input, size_t samples, IPLVector3* sourcePosition, float sourceRadius); // Needs to be called in a way so that there's always at least one processed audio frame ready to go.
+
+        /// Fetches the processed mix using all buffers sent through Process()
+        /**
+         * @param numSamples The number of samples in the final buffer.
+         * @return A pointer to the processed buffer.
+         **/
+        float* GetProcessed(size_t* numSamples);
 
     private:
 

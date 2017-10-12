@@ -3,7 +3,7 @@
 #include <AL/alc.h>
 #include "../Entity/ComponentContainer.hpp"
 #include "portaudio.h"
-#include <queue>
+#include "../Audio/SteamAudioInterface.hpp"
 
 namespace Component {
     class SoundSource;
@@ -85,12 +85,10 @@ class SoundManager {
         ~SoundManager();
         SoundManager(SoundManager const&) = delete;
         void operator=(SoundManager const&) = delete;
-        static int fillOutputBufferCallback(const void* inputBuffer, void* outputBuffer,
-            unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo,
-            PaStreamCallbackFlags statusFlags, void* userData);
         
+        SteamAudioInterface sAudio;
         PaStream* stream;
-        short* processedFrameSamples;
+        float* processedFrameSamples;
         
         float volume = 1.f;
         

@@ -1,6 +1,7 @@
 #pragma once
 #include "SteamAudioDirectRenderer.hpp"
 #include "SteamAudioIndirectRenderer.hpp"
+#include <vector>
 
 //Note to self: Might just merge this shit with the interface class.
 /// Main Steam Audio class for processing audio samples
@@ -27,11 +28,22 @@ class SteamAudio {
         * @param sourceRadius The radius of the source, for calculating occlusion.
         * @return The processed buffer.
         */
-        IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
+        void Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
+
+        /// Mixes and returns the final buffer, ready to be played.
+        /**
+         * @param finalBuf Pointer to an empty buffer.
+         * @param numSamples The number of samples in the final buffer.
+         */
+        void GetFinalMix(IPLAudioBuffer* finalBuf, size_t* numSamples);
+
+        
 
     private:
 
         IPLAudioBuffer MixAudio(IPLAudioBuffer direct, IPLAudioBuffer indirect);
+
+        std::vector<IPLAudioBuffer> processedBuffers;
 
         IPLContext* context;
 

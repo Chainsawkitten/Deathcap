@@ -20,7 +20,7 @@ SoundBuffer::~SoundBuffer() {
     free(buffer);
 }
 
-short* SoundBuffer::GetBuffer() const {
+float* SoundBuffer::GetBuffer() const {
     return buffer;
 }
 

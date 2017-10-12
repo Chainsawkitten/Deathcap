@@ -13,7 +13,7 @@
 #include "portaudio.h"
 
 #define SAMPLE_RATE (44100)
-#define PA_SAMPLE_TYPE  paInt16
+#define PA_SAMPLE_TYPE  paFloat32
 
 SoundManager::SoundManager() {
     PaError err;
@@ -42,7 +42,7 @@ SoundManager::SoundManager() {
     );
     CheckError(err);
 
-    processedFrameSamples = new short[735] { 0 };
+    processedFrameSamples = new float[1] { 0 };
 
     err = Pa_StartStream(stream);
     CheckError(err);
@@ -69,35 +69,32 @@ void SoundManager::Update(float deltaTime) {
     // Number of samples to process dependant on deltaTime
     int numSamples = SAMPLE_RATE * deltaTime;
 
+    
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
-        // Obviously send all buffers into steam audio and use the mix from there to fill processedFrameSamples. The solution below only works properly with one soundsource.
+        
         if (sound->shouldPlay) {
-            delete processedFrameSamples;
-            processedFrameSamples = new short[numSamples];
-            if (sound->soundBuffer->GetSize() > sound->place + sizeof(char)*numSamples) {
-                short* audioBuffer = sound->soundBuffer->GetBuffer();
-                memcpy(processedFrameSamples,(sound->soundBuffer->GetBuffer() + sound->place), sizeof(short)*numSamples);
+
+            float* soundBuf = new float[numSamples];
+            if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
+                memcpy(soundBuf,(sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
                 sound->place += numSamples;
             } else {
                 // Only copy the end samples of the buffer
-                size_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place)/sizeof(short);
-                memcpy(processedFrameSamples, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
+                size_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place)/sizeof(float);
+                memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
                 if (sound->loop) {
-                    memcpy(processedFrameSamples + numToCpy*sizeof(short), sound->soundBuffer->GetBuffer(), sizeof(short)*numSamples -numToCpy);
+                    memcpy(soundBuf + numToCpy*sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
                     sound->place = numSamples - numToCpy;
                 } else {
-                    memset(processedFrameSamples + numToCpy * sizeof(short), 0, sizeof(short)*(numSamples - numToCpy));
+                    memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
                     sound->shouldPlay = false;
                 }
             }
+
+            sAudio.Process(soundBuf, numSamples, 0, 0);
         }
 
-        /*if (sound->IsKilled() || !sound->entity->enabled)
-            continue;
-        
-        Entity* entity = sound->entity;
-        
         // Pause it.
         if (sound->shouldPause) {
             alSourcePause(sound->source);
@@ -110,56 +107,17 @@ void SoundManager::Update(float deltaTime) {
             sound->shouldStop = false;
         }
         
-        // Set position.
-        glm::vec3 position = soundScale * glm::vec3(entity->GetModelMatrix() * glm::vec4(0.f, 0.f, 0.f, 1.f));
-        alSource3f(sound->source, AL_POSITION, position.x, position.y, position.z);
-        
-        // Set velocity based on physics.
-        Component::Physics* physics = entity->GetComponent<Component::Physics>();
-        if (physics != nullptr) {
-            glm::vec3 velocity = soundScale * physics->velocity;
-            alSource3f(sound->source, AL_VELOCITY, velocity.x, velocity.y, velocity.z);
-        } else {
-            alSource3f(sound->source, AL_VELOCITY, 0.f, 0.f, 0.f);
-        }
-        
-        // Set other properties.
-        alSourcef(sound->source, AL_PITCH, sound->pitch);
-        alSourcef(sound->source, AL_GAIN, sound->gain);
-        alSourcei(sound->source, AL_LOOPING, sound->loop);
-        if (sound->soundBuffer != nullptr && !sound->soundBufferSet) {
-            alSourcei(sound->source, AL_BUFFER, sound->soundBuffer->GetBuffer());
-            sound->soundBufferSet = true;
-        }
-
-        // Play it.
-        if (sound->shouldPlay) {
-            alSourcePlay(sound->source);
-            sound->shouldPlay = false;
-        }
-        
-        CheckError("Something went wrong updating a sound source.");
-        */
-    }
-    
-    // Update listener.
-    for (Component::Listener* listener : listeners.GetAll()) {
-        Entity* entity = listener->entity;
-        
-        // Set position
-        //glm::vec3 position = soundScale * entity->position;
-        //alListener3f(AL_POSITION, position.x, position.y, position.z);
-        
-        // Set orientation.
-        glm::vec4 forward = glm::inverse(entity->GetOrientation()) * glm::vec4(0.f, 0.f, -1.f, 1.f);
-        glm::vec4 up = glm::inverse(entity->GetOrientation()) * glm::vec4(0.f, 1.f, 0.f, 1.f);
-        ALfloat listenerOri[] = { forward.x, forward.y, forward.z, up.x, up.y, up.z };
-        alListenerfv(AL_ORIENTATION, listenerOri);
-        
-        break;
     }
 
-    Pa_WriteStream(stream, processedFrameSamples, numSamples);
+    size_t* numProcessedSamples = new size_t;
+    float* processedSamples = sAudio.GetProcessed(numProcessedSamples);
+
+    //If not playing anything, add silence
+    if (*numProcessedSamples == 0)
+        processedSamples = new float[numSamples] {0};
+
+    Pa_WriteStream(stream, processedSamples, *numProcessedSamples);
+    delete processedSamples;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
