@@ -76,7 +76,89 @@
 					{
 						"scriptName" : "Resources/Player"
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Controller" : 
+							{
+								"controllerID" : 2
+							},
+							"Material" : 
+							{
+								"albedo" : "",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Controller/controller_fix"
+							},
+							"children" : null,
+							"name" : "RightCtrlModel",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : -4.0
+							},
+							"rotation" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 0.25,
+								"y" : 0.24999997019767761,
+								"z" : 0.24999997019767761
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1507278061
+						},
+						{
+							"Controller" : 
+							{
+								"controllerID" : 1
+							},
+							"Material" : 
+							{
+								"albedo" : "",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Controller/controller_fix"
+							},
+							"children" : null,
+							"name" : "LeftCtrlModel",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : -4.0
+							},
+							"rotation" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 0.24999980628490448,
+								"y" : 0.24999997019767761,
+								"z" : 0.24999997019767761
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1507122300
+						}
+					],
 					"name" : "Player",
 					"position" : 
 					{
@@ -142,7 +224,7 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : -4.8320002555847168,
+				"y" : -2.9700000286102295,
 				"z" : 500.0
 			},
 			"rotation" : 
@@ -184,8 +266,8 @@
 					"name" : "Lever",
 					"position" : 
 					{
-						"x" : -5.0,
-						"y" : -6.5,
+						"x" : -4.0,
+						"y" : -5.0,
 						"z" : 400.0
 					},
 					"rotation" : 

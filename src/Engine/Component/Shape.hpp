@@ -18,7 +18,7 @@ namespace Component {
         public:
             /// Create new shape.
             Shape() = default;
-            
+
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.

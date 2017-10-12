@@ -71,7 +71,10 @@ void RegisterTriggerLeaveHelper(Component::RigidBody* triggerBody, Component::Ri
 }
 
 bool ButtonInput(int buttonIndex) {
-    return Input::GetInstance().CheckButton(buttonIndex);
+    if (Managers().vrManager->Active())
+        return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<Controller>());
+    else
+        return Input::GetInstance().CheckButton(buttonIndex);
 }
 
 glm::vec2 GetCursorXY() {

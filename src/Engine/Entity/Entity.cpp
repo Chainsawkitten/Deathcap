@@ -25,6 +25,7 @@
 #include "../Manager/RenderManager.hpp"
 #include "../Manager/ScriptManager.hpp"
 #include "../Manager/SoundManager.hpp"
+#include "Component/Controller.hpp"
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
@@ -179,6 +180,7 @@ Json::Value Entity::Save() const {
     } else {
         // Save components.
         Save<Component::Animation>(entity, "Animation");
+        Save<Component::Controller>(entity, "Controller");
         Save<Component::Lens>(entity, "Lens");
         Save<Component::Mesh>(entity, "Mesh");
         Save<Component::Material>(entity, "Material");
@@ -220,6 +222,7 @@ void Entity::Load(const Json::Value& node) {
     } else {
         // Load components.
         Load<Component::Animation>(node, "Animation");
+        Load<Component::Controller>(node, "Controller");
         Load<Component::Lens>(node, "Lens");
         Load<Component::Mesh>(node, "Mesh");
         Load<Component::Material>(node, "Material");
@@ -302,6 +305,8 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
     // Create a component in the correct manager.
     if (*componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation();
+    else if (*componentType == typeid(Component::Controller*))
+        component = Managers().renderManager->CreateController();
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight();
     else if (*componentType == typeid(Component::Lens*))
@@ -346,6 +351,8 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
     // Create a component in the correct manager.
     if (*componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation(node);
+    else if (*componentType == typeid(Component::Controller*))
+        component = Managers().renderManager->CreateController(node);
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight(node);
     else if (*componentType == typeid(Component::Lens*))
