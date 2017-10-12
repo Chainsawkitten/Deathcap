@@ -35,24 +35,7 @@ namespace Component {
             glm::vec4(0.f, 0.f, 0.f, 1.f)
         );
 
-        //glm::mat4 hmdTranslationLocal = glm::inverse(glm::transpose(ctrlOrientation)) * ctrlTransform;
-        //glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
-
-        //glm::vec3 globalPosition = entity->GetWorldPosition() + ctrlPosition * 2.0f;
-        //glm::mat4 globalTranslation = glm::translate(glm::mat4(), globalPosition);
-
-        //ctrlOrientation = ctrlOrientation; //*entity->GetOrientation();
-
-        //glm::mat4 ctrlTranslationLocal = glm::inverse(ctrlOrientation) * ctrlTransform;
-        //glm::vec3 ctrlPositionLocal = glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
-        //glm::vec3 ctrlPositionScaled = ctrlPositionLocal * 2.0f;
-        //glm::mat4 ctrlTranslationScaled = glm::translate(glm::mat4(), ctrlPositionScaled);
-        //glm::mat4 ctrlModelMatrix = ctrlTranslationScaled * ctrlOrientation * glm::scale(glm::mat4(), entity->scale);
-
-        //ctrlModelMatrix = entity->GetLocalMatrix() * ctrlModelMatrix;
-        //ctrlModelMatrix = entity->GetModelMatrix() * ctrlModelMatrix;
-
-        glm::vec3 localPosition = ctrlPosition * 8.5f;
+        glm::vec3 localPosition = ctrlPosition * Managers().vrManager->GetScale();
         glm::mat4 localTranslationMatrix = glm::translate(glm::mat4(), localPosition);
         glm::mat4 globalTranslationMatix = entity->GetModelMatrix() * (ctrlOrientation * localTranslationMatrix * glm::mat4());
 

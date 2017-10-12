@@ -42,7 +42,7 @@ void VRManager::Sync() {
 
     // Get VR device pose(s).
     vr::VRCompositor()->WaitGetPoses(tracedDevicePoseArray, vr::k_unMaxTrackedDeviceCount, NULL, 0);
-
+    vr::ETrackedControllerRole role;
     // Convert to glm format.
     for (int nDevice = 0; nDevice < vr::k_unMaxTrackedDeviceCount; ++nDevice)
         if (tracedDevicePoseArray[nDevice].bPoseIsValid)
@@ -76,7 +76,7 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
         return glm::mat4();
     }
 
-    for (vr::TrackedDeviceIndex_t untrackedDevice = vr::k_unTrackedDeviceIndex_Hmd + 1; untrackedDevice < vr::k_unMaxTrackedDeviceCount; untrackedDevice++) {
+    for (vr::TrackedDeviceIndex_t untrackedDevice = 0; untrackedDevice < vr::k_unMaxTrackedDeviceCount; untrackedDevice++) {
         // Skip current VR device if it's not connected
         if (!vrSystem->IsTrackedDeviceConnected(untrackedDevice))
             continue;
@@ -94,17 +94,11 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
         if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
             continue;
         else if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
-            glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);// glm::inverse(deviceTransforms[untrackedDevice]);
-            return returnMatrix;
+            return glm::inverse(deviceTransforms[untrackedDevice]);
         }
         else if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
-            glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);// glm::inverse(deviceTransforms[untrackedDevice]);
-            return returnMatrix;
+            return glm::inverse(deviceTransforms[untrackedDevice]);
         }
-
-        /* Alternatively
-        if (role != vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
-            return glm::inverse(deviceTransforms[untrackedDevice]);*/
     }
 
     return glm::mat4();
