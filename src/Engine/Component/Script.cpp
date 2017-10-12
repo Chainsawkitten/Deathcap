@@ -2,6 +2,7 @@
 
 #include <angelscript.h>
 #include "../Manager/Managers.hpp"
+#include "../Manager/ScriptManager.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Script/ScriptFile.hpp"
@@ -41,10 +42,10 @@ Json::Value Script::Save() const {
             {
                 component["propertyMap"][name][std::to_string(typeId)] = *(float*)varPointer;
             }
-            else if (typeId == instance->GetEngine()->GetTypeIdByDecl("string"))
+            else if (typeId == Managers().scriptManager->GetStringDeclarationID())
             {
                 std::string *str = (std::string*)varPointer;
-                component["propertyMap"][name][std::to_string(typeId)] = str;
+                component["propertyMap"][name][std::to_string(typeId)] = *str;
             }
         }
     }

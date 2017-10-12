@@ -33,7 +33,16 @@ class ScriptManager {
         void BuildAllScripts();
         
         ///Build and create context.
+        /**
+         * @param script The script which map to update.
+         */
         void FillPropertyMap(Component::Script* script);
+
+        ///Build and create context.
+        /**
+         * @param script The script which map to clear.
+         */
+        void ClearPropertyMap(Component::Script* script);
 
         /// Update all script entities in the game world.
         /**
@@ -105,6 +114,12 @@ class ScriptManager {
          */
         Component::Script* CreateScript(const Json::Value& node);
         
+        /// Used to get the string identifier used to check if a property is a string.
+        /**
+         * @return The identifier of the string declaration.
+         */
+        int GetStringDeclarationID();
+
         /// Get all script components.
         /**
          * @return All script components.

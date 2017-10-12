@@ -394,70 +394,81 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 void *varPointer = script->instance->GetAddressOfProperty(n);
                 if (typeId == asTYPEID_INT32)
                 {
-                    ImGui::Text("%s = %d\n", script->instance->GetPropertyName(n), *(int*)varPointer);
+                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)][typeId], 0.0f);
                 }
                 else if (typeId == asTYPEID_FLOAT)
                 {
-
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)][typeId], 0.0f);
-
                 }
                 else if (typeId & asTYPEID_SCRIPTOBJECT)
                 {
                     asIScriptObject *obj = (asIScriptObject*)varPointer;
-                    if (obj)
-                        ImGui::Text("%s = {...}\n", script->instance->GetPropertyName(n));
-                    else
-                        ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
                 }
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string"))
                 {
-                    std::string *str = (std::string*)varPointer;
-                    if (str)
-                        ImGui::Text("%s = '%s'\n", script->instance->GetPropertyName(n), str->c_str());
+                    std::string *str = (std::string*)script->propertyMap[script->instance->GetPropertyName(n)][typeId];
+                    if (str) {
+
+                        if (str->size() <= 128) {
+
+                            std::copy(str->begin(), str->end(), stringPropertyBuffer);
+                            stringPropertyBuffer[str->size()] = '\0';
+
+                            ImGui::InputText(script->instance->GetPropertyName(n), stringPropertyBuffer, 128);
+
+                            *str = stringPropertyBuffer;
+
+                        }
+                        else
+                            ImGui::Text("%s = <TOO BIG>\n", script->instance->GetPropertyName(n));
+
+                    }
                     else
                         ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
                 }
-                else
-                {
-                    ImGui::Text("%s = {...}\n", script->instance->GetPropertyName(n));
-                }
+
+            }
+
+            if (ImGui::Button("Reset properties")) {
+
+                Managers().scriptManager->ClearPropertyMap(script);
+                Managers().scriptManager->FillPropertyMap(script);
 
             }
 
         }
         ImGui::Separator();
 
-		//ImGui::Text("Entity References");
-		//// Display current entity references
-		//for (size_t i = 0; i != script->refList.size(); ++i) {
-		//	ImGui::Text(script->refList[i]->name.c_str());
-		//	ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-		//	if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
-		//		script->refList.erase(script->refList.begin() + i);
-		//		break;
-		//	}
-		//}
+		ImGui::Text("Entity References");
+		// Display current entity references
+		for (size_t i = 0; i != script->refList.size(); ++i) {
+			ImGui::Text(script->refList[i]->name.c_str());
+			ImGui::SameLine(ImGui::GetWindowWidth() - 30);
+			if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
+				script->refList.erase(script->refList.begin() + i);
+				break;
+			}
+		}
 
-		//// Choosing other entity references
-		//if (ImGui::Button("Add entity reference")) {
-		//	ImGui::OpenPopup("Add entity reference");
-		//}
+		// Choosing other entity references
+		if (ImGui::Button("Add entity reference")) {
+			ImGui::OpenPopup("Add entity reference");
+		}
 
-		//if (ImGui::BeginPopup("Add entity reference"))
-		//{
-		//	ImGui::Text("Entities");
-		//	ImGui::Separator();
-		//	for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
-		//	{
-		//		if (ImGui::Selectable(entity->name.c_str()))
-		//		{
-		//			script->refList.push_back(entity);
-		//		}
-		//	}
+		if (ImGui::BeginPopup("Add entity reference"))
+		{
+			ImGui::Text("Entities");
+			ImGui::Separator();
+			for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
+			{
+				if (ImGui::Selectable(entity->name.c_str()))
+				{
+					script->refList.push_back(entity);
+				}
+			}
 
-		//	ImGui::EndPopup();
-		//}
+			ImGui::EndPopup();
+		}
 
 	}
 	else

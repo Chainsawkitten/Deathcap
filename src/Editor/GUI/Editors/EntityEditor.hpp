@@ -92,6 +92,7 @@ namespace GUI {
             Entity* entity = nullptr;
             bool visible = false;
             char name[128];
+            char stringPropertyBuffer[128];
             
             struct Editor {
                 std::function<void()> addFunction;

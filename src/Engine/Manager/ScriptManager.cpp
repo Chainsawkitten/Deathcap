@@ -434,10 +434,6 @@ void ScriptManager::FillPropertyMap(Script* script) {
     BuildScript(script->scriptFile);
     CreateInstance(script);
 
-    //for (auto &propertyMap : script->propertyMap) 
-    //    propertyMap.second.clear();
-    //script->propertyMap.clear();
-
     int propertyCount = script->instance->GetPropertyCount();
 
     for (int n = 0; n < propertyCount; n++) {
@@ -486,6 +482,14 @@ void ScriptManager::FillPropertyMap(Script* script) {
 
 }
 
+void ScriptManager::ClearPropertyMap(Script* script) {
+
+    for (auto &propertyMap : script->propertyMap)
+        propertyMap.second.clear();
+    script->propertyMap.clear();
+
+}
+
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
     for (Script* script : scripts.GetAll()) {
@@ -525,12 +529,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
                             std::string *str = (std::string*)varPointer;
                             if (str) {
 
-
+                                *str = *(std::string*)script->propertyMap[script->instance->GetPropertyName(n)][typeId];
 
                             }
-
                         }
-
                     }
                 }
             }
@@ -699,6 +701,12 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
     }
     
     return script;
+}
+
+int ScriptManager::GetStringDeclarationID() {
+
+    return engine->GetTypeIdByDecl("string");
+
 }
 
 const std::vector<Component::Script*>& ScriptManager::GetScripts() const {
