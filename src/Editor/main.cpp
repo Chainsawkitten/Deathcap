@@ -127,6 +127,9 @@ int main() {
         lastTimeRender = glfwGetTime();
     }
     
+    // Save editor settings.
+    EditorSettings::GetInstance().Save();
+    
     // Shut down and cleanup.
     ImGuiImplementation::Shutdown();
     delete editor;
