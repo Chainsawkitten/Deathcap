@@ -10,7 +10,9 @@
 #include "Default3D.frag.hpp"
 #include "Zrejection.vert.hpp"
 #include "Zrejection.frag.hpp"
+#include "../Buffer/StorageBuffer.hpp"
 #include <chrono>
+#include "Lighting/Light.hpp"
 
 using namespace Video;
 
@@ -55,16 +57,23 @@ void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D * geometry, co
     }
 }
 
-void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer) {
     this->shaderProgram->Use();
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
     glm::mat4 inverseProjectionMatrix = glm::inverse(projectionMatrix);
 
+    // Matrices.
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
+    
+    // Lights.
+    const int lightCount = lightBuffer->GetSize() / sizeof(Video::Light);
+    glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
+    lightBuffer->BindBase(5);
 
+    // Post processing.
     {
         float gamma = 2.2f;
         glUniform1fv(shaderProgram->GetUniformLocation("gamma"), 1, &gamma);
@@ -139,8 +148,4 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LESS);
     }
-}
-
-ShaderProgram* Video::StaticRenderProgram::GetShaderProgram() const {
-    return shaderProgram;
 }

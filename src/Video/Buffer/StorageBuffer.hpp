@@ -34,7 +34,7 @@ namespace Video {
             /**
              * @param binding Binding to set.
              */
-            void BindBase(unsigned int binding);
+            void BindBase(unsigned int binding) const;
 
             /// Get size of this buffer.
             /**

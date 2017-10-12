@@ -5,6 +5,7 @@
 namespace Video {
     class Texture2D;
     class ShaderProgram;
+    class StorageBuffer;
     namespace Geometry {
         class Geometry3D;
     }
@@ -38,8 +39,9 @@ namespace Video {
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
+             * @param lightBuffer %StorageBuffer containing light data.
              */
-            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer);
     
             /// Render mesh.
             /**
@@ -51,9 +53,6 @@ namespace Video {
              * @param modelMatrix Model matrix.
              */
             void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix, bool isSelected) const;
-
-            /// Returns shaderprogram
-            ShaderProgram* GetShaderProgram() const;
 
         private:
             StaticRenderProgram(const StaticRenderProgram & other) = delete;

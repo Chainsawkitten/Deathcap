@@ -93,12 +93,6 @@ void Renderer::ClearLights() {
 }
 
 void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
-
-    ShaderProgram* shaderProgram = staticRenderProgram->GetShaderProgram();
-
-    glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lights.size());
-
     // Update light buffer.
     if (lights.size() > 0) {
         // Resize light buffer if necessary.
@@ -112,8 +106,9 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
         lightBuffer->Bind();
         lightBuffer->Write(lights.data(), 0, byteSize);
         lightBuffer->Unbind();
-        lightBuffer->BindBase(5);
     }
+    
+    staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer);
 }
 
 void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {
