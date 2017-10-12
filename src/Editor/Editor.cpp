@@ -532,7 +532,6 @@ Entity* Editor::GetCamera() const {
 }
 
 void Editor::Play() {
-    Resources().Save();
 
     sceneState = Hymn().world.GetSaveJson();
 
@@ -544,11 +543,6 @@ void Editor::Play() {
 }
 
 void Editor::LoadSceneState() {
-
-    std::string path = Hymn().GetPath();
-    Resources().Clear();
-    Resources().Load();
-
     Hymn().world.Load(sceneState);
 }
 
