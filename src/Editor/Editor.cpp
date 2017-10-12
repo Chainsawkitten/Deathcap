@@ -464,11 +464,11 @@ void Editor::ShowGridSettings() {
         ImGui::SetNextWindowPos(ImVec2(1275, 25));
         ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
         ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
-        ImGui::DragInt("Grid Scale", &gridSettings.gridSize, 1.0f, 0, 100);
+        ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
         EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
         ImGui::Checkbox("Grid Snap", &gridSettings.gridSnap);
         EditorSettings::GetInstance().SetBool("Grid Snap", gridSettings.gridSnap);
-        ImGui::DragInt("Snap Option", &gridSettings.snapOption, (float)gridSettings.snapOption * 10, 1, 100);
+        ImGui::DragInt("Snap Size", &gridSettings.snapOption, (float)gridSettings.snapOption * 10, 1, 100);
         EditorSettings::GetInstance().SetLong("Grid Snap Size", gridSettings.snapOption);
         ImGui::End();
     }
