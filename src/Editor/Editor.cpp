@@ -156,41 +156,8 @@ void Editor::Show(float deltaTime) {
         // Control the editor camera.
         ControlEditorCamera(deltaTime);
 
-        // Mouse ray.
-        if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
-            mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
-            mousePicker.Update();
-            float lastDistance = INFINITY;
-            int entityIndex = 0;
-            int entityAmount = Hymn().world.GetEntities().size();
-            for (int i = 0; i < entityAmount; ++i) {
-                selectedEntity = Hymn().world.GetEntities().at(i);
-                if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
-                    selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
-                    float intersectDistance = 0.0f;
-                    if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
-                        selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
-                        selectedEntity->GetModelMatrix(), intersectDistance)) {
-                        if (intersectDistance < lastDistance) {
-                            lastDistance = intersectDistance;
-                            entityIndex = i;
-                            if (entityAmount - i == 1) {
-                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                                resourceView.GetScene().entityEditor.SetVisible(true);
-                                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
-                                break;
-                            }
-                          
-                        } else if (intersectDistance > 0.0f) {
-                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                            resourceView.GetScene().entityEditor.SetVisible(true);
-                            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        // Select entity by clicking on it with the mouse.
+        Picking();
 
         // Move camera position and rotation to fixate on selected object.
         if (Input()->Triggered(InputHandler::FOCUS)) {
@@ -551,6 +518,43 @@ void Editor::ControlEditorCamera(float deltaTime) {
         } else {
             cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
             cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        }
+    }
+}
+
+void Editor::Picking() {
+    if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+        mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+        mousePicker.Update();
+        float lastDistance = INFINITY;
+        int entityIndex = 0;
+        int entityAmount = Hymn().world.GetEntities().size();
+        for (int i = 0; i < entityAmount; ++i) {
+            selectedEntity = Hymn().world.GetEntities().at(i);
+            if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
+                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
+                float intersectDistance = 0.0f;
+                if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
+                    selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
+                    selectedEntity->GetModelMatrix(), intersectDistance)) {
+                    if (intersectDistance < lastDistance) {
+                        lastDistance = intersectDistance;
+                        entityIndex = i;
+                        if (entityAmount - i == 1) {
+                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
+                            break;
+                        }
+                      
+                    } else if (intersectDistance > 0.0f) {
+                        resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                        resourceView.GetScene().entityEditor.SetVisible(true);
+                        selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
