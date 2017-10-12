@@ -95,14 +95,13 @@ void SoundManager::Update(float deltaTime) {
 
         // Pause it.
         if (sound->shouldPause) {
-            alSourcePause(sound->source);
-            sound->shouldPause = false;
+            sound->shouldPlay = false;
         }
         
         // Stop it.
         if (sound->shouldStop) {
-            alSourceStop(sound->source);
-            sound->shouldStop = false;
+            sound->shouldPlay = false;
+            sound->place = 0;
         }
         
     }
