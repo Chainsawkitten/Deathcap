@@ -89,9 +89,9 @@ class Editor {
         void LoadActiveScene();
         
         struct GridSettings {
-            int gridSize = 0;
-            bool gridSnap = true;
-            int snapOption = 100;
+            int gridSize;
+            bool gridSnap;
+            int snapOption;
         } gridSettings;
         
         bool visible = true;

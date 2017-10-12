@@ -77,6 +77,9 @@ Editor::Editor() {
     
     // Load settings.
     showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
+    gridSettings.gridSize = EditorSettings::GetInstance().GetLong("Grid Size");
+    gridSettings.gridSnap = EditorSettings::GetInstance().GetBool("Grid Snap");
+    gridSettings.snapOption = EditorSettings::GetInstance().GetLong("Grid Snap Size");
 
     // Ray mouse.
     mousePicker = MousePicking(cameraEntity, cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
