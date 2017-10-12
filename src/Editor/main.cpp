@@ -79,7 +79,7 @@ int main() {
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
 
                 Managers().debugDrawingManager->Update(deltaTime);
-                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"), EditorSettings::GetInstance().GetBool("Grid Settings"));
+                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"));
 
                 if (window->ShouldClose())
                     editor->Close();
@@ -126,6 +126,9 @@ int main() {
             std::this_thread::sleep_for(std::chrono::microseconds(wait));
         lastTimeRender = glfwGetTime();
     }
+    
+    // Save editor settings.
+    EditorSettings::GetInstance().Save();
     
     // Shut down and cleanup.
     ImGuiImplementation::Shutdown();
