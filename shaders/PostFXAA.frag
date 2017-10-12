@@ -14,34 +14,22 @@ layout(location = 0) out vec4 fragmentColor;
 // --- UNIFORMS ---
 uniform sampler2D tDiffuse;
 uniform vec2 screenSize;
-uniform float gamma;
 
 // --- CONSTANTS ---
 const float FXAA_SPAN_MAX = 8.0f;
 const float FXAA_REDUCE_MUL = 1.0f/8.0f;
 const float FXAA_REDUCE_MIN = 1.0f/128.0f;
 
-// --- FUNCTIONS ---
-// Invert gamma.
-vec3 InvGamma(vec3 color) {
-    return pow(color, vec3(gamma));
-}
-
-// Apply gamma.
-vec3 Gamma(vec3 color) {
-    return pow(color, vec3(1.0f / gamma));
-}
-
 // --- MAIN ---
 void main () {
     vec2 invScreenSize = 1.0f / screenSize;
     
     vec3 luma = vec3(0.299f, 0.587f, 0.114f);
-    float lumaTL = dot(luma, Gamma(texture(tDiffuse, vertexIn.texCoords + (vec2(-1.0f, -1.0f) * invScreenSize)).rgb));
-    float lumaTR = dot(luma, Gamma(texture(tDiffuse, vertexIn.texCoords + (vec2(1.0f, -1.0f) * invScreenSize)).rgb));
-    float lumaBL = dot(luma, Gamma(texture(tDiffuse, vertexIn.texCoords + (vec2(-1.0f, 1.0f) * invScreenSize)).rgb));
-    float lumaBR = dot(luma, Gamma(texture(tDiffuse, vertexIn.texCoords + (vec2(1.0f, 1.0f) * invScreenSize)).rgb));
-    float lumaM  = dot(luma, Gamma(texture(tDiffuse, vertexIn.texCoords).rgb));
+    float lumaTL = dot(luma, texture(tDiffuse, vertexIn.texCoords + (vec2(-1.0f, -1.0f) * invScreenSize)).rgb);
+    float lumaTR = dot(luma, texture(tDiffuse, vertexIn.texCoords + (vec2(1.0f, -1.0f) * invScreenSize)).rgb);
+    float lumaBL = dot(luma, texture(tDiffuse, vertexIn.texCoords + (vec2(-1.0f, 1.0f) * invScreenSize)).rgb);
+    float lumaBR = dot(luma, texture(tDiffuse, vertexIn.texCoords + (vec2(1.0f, 1.0f) * invScreenSize)).rgb);
+    float lumaM  = dot(luma, texture(tDiffuse, vertexIn.texCoords).rgb);
 
     vec2 dir;
     dir.x = -((lumaTL + lumaTR) - (lumaBL + lumaBR));
@@ -54,12 +42,12 @@ void main () {
         max(vec2(-FXAA_SPAN_MAX, -FXAA_SPAN_MAX), dir * inverseDirAdjustment)) * invScreenSize;
 
     vec3 result1 = (1.0f/2.0f) * (
-        Gamma(texture(tDiffuse, vertexIn.texCoords + (dir * vec2(1.0f/3.0f - 0.5f))).rgb) +
-        Gamma(texture(tDiffuse, vertexIn.texCoords + (dir * vec2(2.0f/3.0f - 0.5f))).rgb));
+        texture(tDiffuse, vertexIn.texCoords + (dir * vec2(1.0f/3.0f - 0.5f))).rgb +
+        texture(tDiffuse, vertexIn.texCoords + (dir * vec2(2.0f/3.0f - 0.5f))).rgb);
 
     vec3 result2 = result1 * (1.0f/2.0f) + (1.0f/4.0f) * (
-        Gamma(texture(tDiffuse, vertexIn.texCoords + (dir * vec2(0.0f/3.0f - 0.5f))).rgb) +
-        Gamma(texture(tDiffuse, vertexIn.texCoords + (dir * vec2(3.0f/3.0f - 0.5f))).rgb));
+        texture(tDiffuse, vertexIn.texCoords + (dir * vec2(0.0f/3.0f - 0.5f))).rgb +
+        texture(tDiffuse, vertexIn.texCoords + (dir * vec2(3.0f/3.0f - 0.5f))).rgb);
 
     float lumaMin = min(lumaM, min(min(lumaTL, lumaTR), min(lumaBL, lumaBR)));
     float lumaMax = max(lumaM, max(max(lumaTL, lumaTR), max(lumaBL, lumaBR)));
@@ -69,7 +57,4 @@ void main () {
         fragmentColor = vec4(result1, 1.0f);
     else
         fragmentColor = vec4(result2, 1.0f);
-    
-    // Final color.
-    fragmentColor = vec4(InvGamma(fragmentColor.rgb), 1.0f);
 }

@@ -26,7 +26,7 @@ void PostProcessing::ApplyFilter(Video::RenderSurface* renderSurface, Video::Fil
     renderSurface->Swap();
 
     // Set render surface as render target.
-    renderSurface->GetColorFrameBuffer()->Bind();
+    renderSurface->GetColorFrameBuffer()->BindWrite();
 
     // Bind shaders.
     filter->GetShaderProgram()->Use();

@@ -38,7 +38,7 @@ FrameBuffer::~FrameBuffer() {
     glDeleteFramebuffers(1, &frameBufferObject);
 }
 
-void FrameBuffer::Bind() {
+void FrameBuffer::BindWrite() {
     if (bound) {
         Log() << "StorageBuffer::Bind Warning: Already bound.\n";
         return;

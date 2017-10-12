@@ -19,7 +19,7 @@ namespace Video {
             ~FrameBuffer();
 
             /// Bind this framebuffer as render target.
-            void Bind();
+            void BindWrite();
 
             /// Bind this framebuffer as render source.
             void BindRead();

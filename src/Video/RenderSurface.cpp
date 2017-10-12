@@ -62,12 +62,12 @@ void RenderSurface::Swap() {
 }
 
 void RenderSurface::Clear() const {
-    depthFrameBuffer->Bind();
+    depthFrameBuffer->BindWrite();
     depthFrameBuffer->Clear();
     depthFrameBuffer->Unbind();
 
     for (int i = 0; i < 2; ++i) {
-        colorFrameBuffer[i]->Bind();
+        colorFrameBuffer[i]->BindWrite();
         colorFrameBuffer[i]->Clear();
         colorFrameBuffer[i]->Unbind();
     }
