@@ -9,7 +9,6 @@
 
 namespace Component {
     class Animation;
-    class Physics;
     class Mesh;
     class Lens;
     class Material;
@@ -78,8 +77,6 @@ namespace GUI {
             
             // Editors
             void AnimationEditor(Component::Animation* animation);
-            /// @todo: remove when physics component is gone
-            void PhysicsEditor(Component::Physics* physics);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
             void MaterialEditor(Component::Material* material);

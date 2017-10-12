@@ -23,7 +23,6 @@ set(SRCS
         Component/Material.cpp
         Component/Mesh.cpp
         Component/ParticleEmitter.cpp
-        Component/Physics.cpp
         Component/PointLight.cpp
         Component/RigidBody.cpp
         Component/Script.cpp
@@ -84,7 +83,6 @@ set(HEADERS
         Component/Material.hpp
         Component/Mesh.hpp
         Component/ParticleEmitter.hpp
-        Component/Physics.hpp
         Component/PointLight.hpp
         Component/RigidBody.hpp
         Component/Script.hpp
