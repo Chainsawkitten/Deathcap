@@ -21,10 +21,10 @@ EditorSettings::EditorSettings() {
     
     AddStringSetting("Text Editor", "Script", "Text Editor", "");
     
-    AddBoolSetting("Grid", "View", "Grid Settings", false);
-    AddLongSetting("Grid", "Size", "Grid Size", 100);
-    AddBoolSetting("Grid", "Snap", "Grid Snap", false);
-    AddLongSetting("Grid", "Snap Size", "Grid Snap size", 100);
+    AddBoolSetting("Grid Settings", "View", "Grid Settings", false);
+    AddLongSetting("Grid Size", "Grid", "Size", 100);
+    AddBoolSetting("Grid Snap", "Grid", "Snap", false);
+    AddLongSetting("Grid Snap Size", "Grid", "Snap Size", 100);
 }
 
 EditorSettings& EditorSettings::GetInstance() {
