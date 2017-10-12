@@ -45,6 +45,6 @@ void SoundBuffer::Load(SoundFile* soundFile) {
     sampleRate = soundFile->GetSampleRate();
 }
 
-size_t Audio::SoundBuffer::GetSize() {
+uint32_t Audio::SoundBuffer::GetSize() {
     return size;
 }
