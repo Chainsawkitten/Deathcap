@@ -1,11 +1,11 @@
 #pragma once
-
 #include <map>
 #include <vector>
 #include <typeinfo>
 #include "../Entity/World.hpp"
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
+#include <fstream>
 
 
 /// %Entity containing various components.
@@ -50,10 +50,10 @@ class Entity {
 
         /// Check if entity is a child.
         /**
-        * @param child The entity you want to check if it is a child.
-        * @param deep True if we want to check if it's a grandchild, false if we do not.
-        * @return True if it has a child, false if it does not.
-        */
+         * @param child The entity you want to check if it is a child.
+         * @param deep True if we want to check if it's a grandchild, false if we do not.
+         * @return True if it has a child, false if it does not.
+         */
         bool HasChild(const Entity* child, bool deep = true) const;
 
         /// Instantiate a scene as a child to this entity.
@@ -61,8 +61,17 @@ class Entity {
          * @param name The name of the scene to instantiate.
          * @return The created root entity of the scene.
          */
-        Entity* InstantiateScene(const std::string& name);
+        Entity* InstantiateScene(const std::string& name, const std::string& originScene);
         
+        /// Check if scene already exists in any of json files.
+        /**
+        * @param filename The name of the scene to check.
+        * @param error Set to true inside the function if it allready exists.
+        * @param originScene Name of scene you want to check.
+        * @param root The json value of root scene.
+        */
+        void CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root);
+
         /// Get all of the entity's children.
         /**
          * @return All the children.
@@ -123,6 +132,12 @@ class Entity {
          * @return The model matrix.
          */
         glm::mat4 GetModelMatrix() const;
+
+        /// Get the local model matrix.
+        /**
+         * @return The local model matrix.
+         */
+        glm::mat4 GetLocalMatrix() const;
         
         /// Get orientation matrix.
         /**
@@ -184,6 +199,9 @@ class Entity {
 
         /// Whether the entity is active.
         bool enabled = true;
+
+        /// Whether the entity is static.
+        bool isStatic = false;
         
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;

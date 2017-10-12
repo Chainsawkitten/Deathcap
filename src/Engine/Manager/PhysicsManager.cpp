@@ -2,13 +2,13 @@
 
 #include <btBulletDynamicsCommon.h>
 #include <glm/gtx/quaternion.hpp>
-#include "../Component/Physics.hpp"
+#include "../Component/RigidBody.hpp"
+#include "../Component/Shape.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Physics/GlmConversion.hpp"
-#include "../Physics/ITrigger.hpp"
-#include "../Physics/RigidBody.hpp"
 #include "../Physics/Shape.hpp"
 #include "../Physics/Trigger.hpp"
+#include "../Physics/TriggerObserver.hpp"
 #include "../Util/Json.hpp"
 
 PhysicsManager::PhysicsManager() {
@@ -42,49 +42,15 @@ PhysicsManager::~PhysicsManager() {
 }
 
 void PhysicsManager::Update(float deltaTime) {
-    for (Component::Physics* physicsComp : physicsComponents.GetAll()) {
-        if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
+    for (auto rigidBodyComp : rigidBodyComponents.GetAll()) {
+        if (rigidBodyComp->IsKilled() || !rigidBodyComp->entity->enabled) {
             continue;
-        
-        Entity* entity = physicsComp->entity;
-        // --- Velocity ---
-        // Add acceleration.
-        physicsComp->velocity += (physicsComp->acceleration + this->gravity * physicsComp->gravityFactor) * deltaTime;
-        
-        // Add retardation.
-        physicsComp->velocity -= physicsComp->velocity * physicsComp->velocityDragFactor * deltaTime;
-        if (glm::length(physicsComp->velocity) > 0.01f) {
-            // Cap velocity.
-            if (glm::length(physicsComp->velocity) > physicsComp->maxVelocity)
-                physicsComp->velocity = glm::length(physicsComp->maxVelocity) / glm::length(physicsComp->velocity) * physicsComp->velocity;
-        } else {
-            physicsComp->velocity = glm::vec3(0.f, 0.f, 0.f);
         }
-        
-        // Update position.
-        entity->position += physicsComp->velocity * deltaTime;
-        
-        // --- Angular Velocity ---
-        // Add angular acceleration.
-        physicsComp->angularVelocity += physicsComp->angularAcceleration * physicsComp->momentOfInertia * deltaTime;
-        
-        // Add drag.
-        physicsComp->angularVelocity -= physicsComp->angularVelocity * physicsComp->angularDragFactor * deltaTime;
-        if (glm::length(physicsComp->angularVelocity) > 0.01f) {
-            // Cap angular velocity.
-            if (glm::length(physicsComp->angularAcceleration) > physicsComp->maxAngularVelocity)
-                physicsComp->angularAcceleration = glm::length(physicsComp->maxAngularVelocity) / glm::length(physicsComp->angularAcceleration) * physicsComp->angularAcceleration;
-        } else {
-            physicsComp->angularAcceleration = glm::vec3(0.f, 0.f, 0.f);
-        }
-        
-        // Update rotation.
-        entity->rotation += physicsComp->angularVelocity * 360.f * deltaTime;
 
-        physicsComp->GetRigidBody().Position(entity->position);
-        dynamicsWorld->removeRigidBody(physicsComp->GetRigidBody().GetRigidBody());
-        dynamicsWorld->addRigidBody(physicsComp->GetRigidBody().GetRigidBody());
-        physicsComp->GetRigidBody().GetRigidBody()->setGravity(btVector3(0, 0, 0));
+        rigidBodyComp->Position(rigidBodyComp->entity->position);
+        dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
+        dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
+        rigidBodyComp->GetBulletRigidBody()->setGravity(btVector3(0, 0, 0));
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
@@ -95,78 +61,134 @@ void PhysicsManager::Update(float deltaTime) {
 }
 
 void PhysicsManager::UpdateEntityTransforms() {
-    std::vector<Component::Physics*> physicsObjects = physicsComponents.GetAll();
-    for (Component::Physics* physicsComp : physicsObjects) {
-        if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
+    for (auto rigidBodyComp : rigidBodyComponents.GetAll()) {
+        if (rigidBodyComp->IsKilled() || !rigidBodyComp->entity->enabled)
             continue;
 
-        Entity* entity = physicsComp->entity;
+        Entity* entity = rigidBodyComp->entity;
 
-        auto trans = physicsComp->GetRigidBody().GetRigidBody()->getWorldTransform();
+        auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
         entity->position = Physics::btToGlm(trans.getOrigin());
         entity->rotation = glm::eulerAngles(Physics::btToGlm(trans.getRotation()));
     }
 }
 
-void PhysicsManager::OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback) {
-    auto trigger = MakeTrigger(triggerBody);
-    trigger->OnEnter(object, callback);
+void PhysicsManager::OnTriggerEnter(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
+    auto t = MakeTrigger(trigger);
+    // Add the callback to the trigger observer
+    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnEnter(callback);
+    });
 }
 
-Physics::RigidBody* PhysicsManager::MakeRigidBody(Physics::Shape* shape, float mass) {
-    auto body = new Physics::RigidBody(shape, mass);
-    dynamicsWorld->addRigidBody(body->GetRigidBody());
-    return body;
+void PhysicsManager::OnTriggerRetain(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
+    auto t = MakeTrigger(trigger);
+    // Add the callback to the trigger observer
+    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnRetain(callback);
+    });
 }
 
-Physics::Trigger* PhysicsManager::MakeTrigger(Component::Physics* comp) {
-    Physics::Trigger* trigger = new Physics::Trigger(comp);
+void PhysicsManager::OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
+    auto t = MakeTrigger(trigger);
+    // Add the callback to the trigger observer
+    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        observer.OnLeave(callback);
+    });
+}
+
+Physics::Trigger* PhysicsManager::MakeTrigger(Component::RigidBody* comp) {
+    btTransform trans(btQuaternion(0, 0, 0, 1), ::Physics::glmToBt(comp->entity->position));
+    Physics::Trigger* trigger = new Physics::Trigger(trans);
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape() : nullptr);
     triggers.push_back(trigger);
     return trigger;
 }
 
-Component::Physics* PhysicsManager::CreatePhysics() {
-    return physicsComponents.Create();
+Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner) {
+    auto comp = rigidBodyComponents.Create();
+    comp->entity = owner;
+
+    comp->NewBulletRigidBody(1.0f);
+
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
+    }
+
+    return comp;
 }
 
-Component::Physics* PhysicsManager::CreatePhysics(const Json::Value& node) {
-    Component::Physics* physics = physicsComponents.Create();
-    
-    // Load values from Json node.
-    physics->velocity = Json::LoadVec3(node["velocity"]);
-    physics->maxVelocity = node.get("maxVelocity", 20.f).asFloat();
-    physics->angularVelocity = Json::LoadVec3(node["angularVelocity"]);
-    physics->maxAngularVelocity = node.get("maxAngularVelocity", 2.f).asFloat();
-    physics->acceleration = Json::LoadVec3(node["acceleration"]);
-    physics->angularAcceleration = Json::LoadVec3(node["angularAcceleration"]);
-    physics->velocityDragFactor = node.get("velocityDragFactor", 1.f).asFloat();
-    physics->angularDragFactor = node.get("angularDragFactor", 1.f).asFloat();
-    physics->gravityFactor = node.get("gravityFactor", 0.f).asFloat();
-    physics->momentOfInertia = Json::LoadVec3(node["momentOfInertia"]);
-    
-    auto shape = node.get("shape", {});
-    if (shape.isMember("sphere")) {
-        auto sphere = shape.get("sphere", {});
+Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json::Value& node) {
+    auto comp = rigidBodyComponents.Create();
+    comp->entity = owner;
+
+    auto mass = node.get("mass", 1.0f).asFloat();
+    comp->NewBulletRigidBody(mass);
+
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
+    }
+
+    return comp;
+}
+
+Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
+    auto comp = shapeComponents.Create();
+    comp->entity = owner;
+
+    auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
+    if (rigidBodyComp) {
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
+    }
+
+    return comp;
+}
+
+Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& node) {
+    auto comp = shapeComponents.Create();
+    comp->entity = owner;
+
+    if (node.isMember("sphere")) {
+        auto sphere = node.get("sphere", {});
         auto radius = sphere.get("radius", 1.0f).asFloat();
-        auto shape = new ::Physics::Shape(::Physics::Shape::Sphere(radius));
-        physics->rigidBody = new ::Physics::RigidBody(shape, 1.0f);
-    } else if (shape.isMember("plane")) {
-        auto plane = shape.get("plane", {});
+        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Sphere(radius)));
+        comp->SetShape(shape);
+    }
+    else if (node.isMember("plane")) {
+        auto plane = node.get("plane", {});
         auto normal = Json::LoadVec3(plane.get("normal", {}));
         auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
-        auto shape = new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff));
-        physics->rigidBody = new ::Physics::RigidBody(shape, 1.0f);
+        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff)));
+        comp->SetShape(shape);
     }
-    
-    assert(physics->rigidBody);
-    
-    return physics;
+
+    auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
+    if (rigidBodyComp) {
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
+    }
+
+    return comp;
 }
 
-const std::vector<Component::Physics*>& PhysicsManager::GetPhysicsComponents() const {
-    return physicsComponents.GetAll();
+void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape) {
+    comp->SetShape(shape);
+}
+
+void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
+    comp->Mass(mass);
+}
+
+const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {
+    return shapeComponents.GetAll();
 }
 
 void PhysicsManager::ClearKilledComponents() {
-    physicsComponents.ClearKilled();
+    rigidBodyComponents.ClearKilled(
+        [this](Component::RigidBody* body) {
+            dynamicsWorld->removeRigidBody(body->GetBulletRigidBody());
+        });
+    shapeComponents.ClearKilled();
 }

@@ -11,6 +11,8 @@ set(SRCS
         GUI/SavePromptWindow.cpp
         GUI/InputWindow.cpp
         GUI/FileSelector.cpp
+        GUI/FolderNameWindow.cpp
+        GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
         GUI/Editors/EntityEditor.cpp
@@ -38,6 +40,8 @@ set(HEADERS
         GUI/SavePromptWindow.hpp
         GUI/InputWindow.hpp
         GUI/FileSelector.hpp
+        GUI/FolderNameWindow.hpp
+        GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
         GUI/Editors/EntityEditor.hpp
@@ -54,9 +58,28 @@ set(HEADERS
         Util/EditorSettings.hpp
     )
 
+# Setup embedded source
+set(EMBEDDED_INPUT
+    ../../assets/Camera.png
+    ../../assets/DefaultAlbedo.png
+    ../../assets/DefaultNormal.png
+    ../../assets/DefaultMetallic.png
+    ../../assets/DefaultRoughness.png
+    ../../assets/Light.png
+    ../../assets/ParticleAtlas.png
+    ../../assets/ParticleEmitter.png
+    ../../assets/SoundSource.png
+)
+
+foreach(item ${EMBEDDED_INPUT})
+    ProcessWithHeaderize(EMBEDDED_HEADER EMBEDDED_SOURCE ${item} ${CMAKE_CURRENT_BINARY_DIR})
+endforeach()
+
+set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
+
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_executable(Editor ${SRCS} ${HEADERS})
-target_link_libraries(Editor Engine)
+target_link_libraries(Editor Engine imguizmo)
 set_property(TARGET Editor PROPERTY CXX_STANDARD 11)
 set_property(TARGET Editor PROPERTY CXX_STANDARD_REQUIRED ON)

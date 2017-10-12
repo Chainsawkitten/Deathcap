@@ -33,68 +33,35 @@
 				"z" : 1.0
 			},
 			"scene" : false,
+			"static" : false,
 			"uid" : 1
 		},
 		{
 			"Material" : 
 			{
-				"albedo" : "Texture #1",
+				"albedo" : "Resources/Minecart/Texture #1",
 				"metallic" : "",
-				"normal" : "Texture #1",
+				"normal" : "Resources/Minecart/Texture #1",
 				"roughness" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "CartSecond"
+				"model" : "Resources/Minecart/CartSecond"
 			},
-			"Physics" : 
+			"RigidBody" : 
 			{
-				"acceleration" : 
-				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				},
-				"angularAcceleration" : 
-				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				},
-				"angularDragFactor" : 1.0,
-				"angularVelocity" : 
-				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				},
-				"gravityFactor" : 0.0,
-				"maxAngularVelocity" : 2.0,
-				"maxVelocity" : 20.0,
-				"momentOfInertia" : 
-				{
-					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
-				},
-				"shape" : 
-				{
-					"sphere" : 
-					{
-						"radius" : 1.0
-					}
-				},
-				"velocity" : 
-				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				},
-				"velocityDragFactor" : 1.0
+				"mass" : 1.0
 			},
 			"Script" : 
 			{
-				"scriptName" : "Cart"
+				"scriptName" : "Resources/Minecart/Cart"
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
 			},
 			"children" : 
 			[
@@ -107,7 +74,7 @@
 					},
 					"Script" : 
 					{
-						"scriptName" : "Player"
+						"scriptName" : "Resources/Player"
 					},
 					"children" : null,
 					"name" : "Player",
@@ -130,6 +97,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 4
 				},
 				{
@@ -166,6 +134,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 5
 				}
 			],
@@ -189,6 +158,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
+			"static" : false,
 			"uid" : 2
 		},
 		{
@@ -204,11 +174,11 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "spak"
+						"model" : "Resources/spak"
 					},
 					"Script" : 
 					{
-						"scriptName" : "Lever"
+						"scriptName" : "Resources/Lever"
 					},
 					"children" : null,
 					"name" : "Lever",
@@ -231,23 +201,24 @@
 						"z" : 0.5
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 1506428286
 				},
 				{
 					"Material" : 
 					{
-						"albedo" : "Texture #1",
+						"albedo" : "Resources/Minecart/Texture #1",
 						"metallic" : "",
 						"normal" : "",
 						"roughness" : ""
 					},
 					"Mesh" : 
 					{
-						"model" : "Galler"
+						"model" : "Resources/Gate/Galler"
 					},
 					"Script" : 
 					{
-						"scriptName" : "Gates"
+						"scriptName" : "Resources/Gate/Gates"
 					},
 					"children" : null,
 					"name" : "Gates",
@@ -270,59 +241,26 @@
 						"z" : 1.0
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 1506428288
 				},
 				{
-					"Physics" : 
+					"RigidBody" : 
 					{
-						"acceleration" : 
+						"mass" : 1.0
+					},
+					"Shape" : 
+					{
+						"plane" : 
 						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"angularAcceleration" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"angularDragFactor" : 1.0,
-						"angularVelocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"gravityFactor" : 0.0,
-						"maxAngularVelocity" : 2.0,
-						"maxVelocity" : 20.0,
-						"momentOfInertia" : 
-						{
-							"x" : 1.0,
-							"y" : 1.0,
-							"z" : 1.0
-						},
-						"shape" : 
-						{
-							"plane" : 
+							"normal" : 
 							{
-								"normal" : 
-								{
-									"x" : 0.0,
-									"y" : 0.0,
-									"z" : 1.0
-								},
-								"planeCoeff" : 450.0
-							}
-						},
-						"velocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"velocityDragFactor" : 1.0
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 1.0
+							},
+							"planeCoeff" : 0.0
+						}
 					},
 					"children" : null,
 					"name" : "StopTrigger",
@@ -345,6 +283,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
+					"static" : false,
 					"uid" : 1506510737
 				}
 			],
@@ -368,19 +307,20 @@
 				"z" : 1.0
 			},
 			"scene" : false,
+			"static" : false,
 			"uid" : 1506431025
 		},
 		{
 			"Material" : 
 			{
-				"albedo" : "Texture #2",
+				"albedo" : "Resources/Cave/Texture #2",
 				"metallic" : "",
-				"normal" : "Texture #3",
+				"normal" : "Resources/Cave/Texture #3",
 				"roughness" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "Cave"
+				"model" : "Resources/Cave/Cave"
 			},
 			"children" : null,
 			"name" : "cave",
@@ -403,6 +343,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
+			"static" : false,
 			"uid" : 3
 		}
 	],
@@ -426,5 +367,6 @@
 		"z" : 1.0
 	},
 	"scene" : false,
+	"static" : false,
 	"uid" : 0
 }

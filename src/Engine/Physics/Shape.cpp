@@ -5,7 +5,6 @@
 #include "Shape.hpp"
 
 namespace Physics {
-
     Shape::Shape(const Shape::Sphere& params) {
         // Collision shapes are only used to determine collisions and have no
         // concept of physical quantities such as mass or inertia. Note that a
@@ -21,10 +20,6 @@ namespace Physics {
         plane = params;
     }
 
-    btCollisionShape* Shape::GetShape() {
-        return shape;
-    }
-
     Shape::Kind Shape::GetKind() const {
         return kind;
     }
@@ -37,4 +32,7 @@ namespace Physics {
         return kind == Kind::Plane ? &plane : nullptr;
     }
 
+    btCollisionShape* Shape::GetShape() const {
+        return shape;
+    }
 }

@@ -49,3 +49,6 @@
 [submodule "externals/portaudio"]
 	path = externals/portaudio
 	url = https://git.assembla.com/portaudio.git
+[submodule "externals/ImGuizmo"]
+	path = externals/ImGuizmo
+	url = https://github.com/CedricGuillemet/ImGuizmo.git

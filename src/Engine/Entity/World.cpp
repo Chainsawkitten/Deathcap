@@ -95,10 +95,14 @@ void World::SetParticleCount(unsigned int particleCount) {
 
 void World::Save(const std::string& filename) const {
     Json::Value rootNode = root->Save();
-    
+
     std::ofstream file(filename);
     file << rootNode;
     file.close();
+}
+
+Json::Value World::GetSaveJson() const {
+    return root->Save();
 }
 
 void World::Load(const std::string& filename) {
@@ -116,3 +120,12 @@ void World::Load(const std::string& filename) {
         root->Load(rootNode);
     }
 }
+
+void World::Load(const Json::Value& node) {
+
+    Clear();
+    CreateRoot();
+    root->Load(node);
+
+}
+
