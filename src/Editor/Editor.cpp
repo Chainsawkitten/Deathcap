@@ -405,7 +405,6 @@ void Editor::Show(float deltaTime) {
         glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
 
         // Identity matrix.
-        glm::mat4 identity = glm::mat4();
         float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
         float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
         float rotationValue[3] = { currentEntity->rotation.x, currentEntity->rotation.y, currentEntity->rotation.z };
