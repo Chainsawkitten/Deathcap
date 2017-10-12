@@ -98,7 +98,7 @@ int main() {
 
                 { PROFILE("Render");
                 { GPUPROFILE("Render", Video::Query::Type::TIME_ELAPSED);
-                    Hymn().Render(nullptr, false, false, false, false, true, false);
+                    Hymn().Render();
                 }
                 }
                 

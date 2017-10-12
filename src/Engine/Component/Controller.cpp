@@ -1,6 +1,5 @@
 #include "Controller.hpp"
 #include "Manager/Managers.hpp"
-#include <Utility/Log.hpp> // TMP
 
 namespace Component {
     Controller::Controller() {
@@ -37,7 +36,7 @@ namespace Component {
 
         glm::vec3 localPosition = ctrlPosition * Managers().vrManager->GetScale();
         glm::mat4 localTranslationMatrix = glm::translate(glm::mat4(), localPosition);
-        glm::mat4 globalTranslationMatix = entity->GetModelMatrix() * (ctrlOrientation * localTranslationMatrix * glm::mat4());
+        glm::mat4 globalTranslationMatix = entity->GetModelMatrix() * (ctrlOrientation * localTranslationMatrix);
 
         return globalTranslationMatix;
     }

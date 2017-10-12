@@ -19,8 +19,8 @@ namespace Component {
         
         /// Save the component.
         /**
-        * @return JSON value to be stored on disk.
-        */
+         * @return JSON value to be stored on disk.
+         */
         Json::Value Save() const override;
 
         /// Get's the VR controller's transformation matrix

@@ -50,7 +50,7 @@ class Input {
         /// Check if a button was activated this frame
         /**
          * @param controller The controller to check.
-         * @retirm Whether the button was activated this frame.
+         * @return Whether the button was activated this frame.
          */
         bool CheckVRButton(int index, Component::Controller *controller) const;
         
