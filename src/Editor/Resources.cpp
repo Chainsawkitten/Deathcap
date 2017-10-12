@@ -194,10 +194,14 @@ void ResourceList::ClearFolder(ResourceFolder& folder) {
         case Resource::Type::SOUND:
             Managers().resourceManager->FreeSound(resource.sound);
             break;
+        case Resource::Type::SCENE:
+            delete resource.scene;
+            break;
         default:
             break;
         }
     }
+    
     folder.resources.clear();
 }
 
