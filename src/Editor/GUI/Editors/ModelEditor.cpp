@@ -106,7 +106,7 @@ void ModelEditor::Show() {
                     // Create resource.
                     ResourceList::Resource resource;
                     resource.type = ResourceList::Resource::SCENE;
-                    resource.scene = model->name + "Scene";
+                    resource.scene = new std::string(model->name + "Scene");
                     folder->resources.push_back(resource);
                     
                     // Create and save scene.

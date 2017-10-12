@@ -14,7 +14,7 @@ using namespace std;
 string ResourceList::Resource::GetName() const {
     switch (type) {
     case Type::SCENE:
-        return scene;
+        return *scene;
     case Type::MODEL:
         return model->name;
     case Type::TEXTURE:
@@ -107,7 +107,7 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
         
         switch (resource.type) {
         case Resource::SCENE:
-            resourceNode["scene"] = resource.scene;
+            resourceNode["scene"] = *resource.scene;
             break;
         case Resource::TEXTURE:
             resourceNode["texture"] = resource.texture->name;
@@ -153,7 +153,7 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
         
         switch (resource.type) {
         case Resource::SCENE:
-            resource.scene = resourceNode["scene"].asString();
+            resource.scene = new string(resourceNode["scene"].asString());
             break;
         case Resource::TEXTURE:
             resource.texture = Managers().resourceManager->CreateTextureAsset(path + resourceNode["texture"].asString());
