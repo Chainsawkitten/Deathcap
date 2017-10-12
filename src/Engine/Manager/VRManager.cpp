@@ -94,11 +94,11 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
         if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
             continue;
         else if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
-            glm::mat4 returnMatrix = deviceTransforms[untrackedDevice];// glm::inverse(deviceTransforms[untrackedDevice]);
+            glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);// glm::inverse(deviceTransforms[untrackedDevice]);
             return returnMatrix;
         }
         else if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
-            glm::mat4 returnMatrix = deviceTransforms[untrackedDevice];// glm::inverse(deviceTransforms[untrackedDevice]);
+            glm::mat4 returnMatrix = glm::inverse(deviceTransforms[untrackedDevice]);// glm::inverse(deviceTransforms[untrackedDevice]);
             return returnMatrix;
         }
 
@@ -106,6 +106,8 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
         if (role != vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
             return glm::inverse(deviceTransforms[untrackedDevice]);*/
     }
+
+    return glm::mat4();
 }
 
 glm::mat4 VRManager::GetHMDEyeToHeadMatrix(vr::Hmd_Eye eye) const {
