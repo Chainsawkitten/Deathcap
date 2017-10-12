@@ -76,6 +76,7 @@ class Editor {
     private:
         void ShowMainMenuBar(bool& play);
         void ShowGridSettings();
+        void CreateGrid(int size);
         void ControlEditorCamera(float deltaTime);
         void Picking();
         void Focus();

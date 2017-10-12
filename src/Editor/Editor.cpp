@@ -7,6 +7,7 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
+#include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/MainWindow.hpp>
 #include <Engine/Component/DirectionalLight.hpp>
@@ -152,6 +153,7 @@ void Editor::Show(float deltaTime) {
         
         // Show grid settings window.
         ShowGridSettings();
+        CreateGrid(Hymn().gridSettings.gridSize);
 
         // Control the editor camera.
         ControlEditorCamera(deltaTime);
@@ -463,6 +465,26 @@ void Editor::ShowGridSettings() {
         ImGui::Checkbox("Grid Snap", &Hymn().gridSettings.gridSnap);
         ImGui::DragInt("Snap Option", &Hymn().gridSettings.snapOption, (float)Hymn().gridSettings.snapOption * 10, 1, 100);
         ImGui::End();
+    }
+}
+
+void Editor::CreateGrid(int size) {
+    glm::vec2 gridWidthDepth(10.0f, 10.0f);
+    gridWidthDepth.x = (gridWidthDepth.x * size);
+    gridWidthDepth.y = (gridWidthDepth.y * size);
+    
+    float xStart = (-gridWidthDepth.x / 2);
+    float xEnd = (gridWidthDepth.x / 2);
+    float zStart = (-gridWidthDepth.y / 2);
+    float zEnd = (gridWidthDepth.y / 2);
+    
+    if (size <= 100 && size > 0) {
+        for (int i = 0; i < (size + size + 1); i++) {
+            Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), 3.0f);
+            Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x / (2), 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), 3.0f);
+            xStart += (gridWidthDepth.x / 2) / size;
+            zStart += (gridWidthDepth.y / 2) / size;
+        }
     }
 }
 

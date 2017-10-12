@@ -213,29 +213,8 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
 
     { PROFILE("Render debug entities");
     { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-        CreateGrid(gridSettings.gridSize);
         Managers().debugDrawingManager->Render(camera);
     }
-    }
-}
-
-void ActiveHymn::CreateGrid(int scale) {
-    glm::vec2 gridWidthDepth(10.0f, 10.0f);
-    gridWidthDepth.x = (gridWidthDepth.x * scale);
-    gridWidthDepth.y = (gridWidthDepth.y * scale);
-
-    float xStart = (-gridWidthDepth.x / 2);
-    float xEnd = (gridWidthDepth.x / 2);
-    float zStart = (-gridWidthDepth.y / 2);
-    float zEnd = (gridWidthDepth.y / 2);
-
-    if (scale <= 100 && scale > 0) {
-        for (int i = 0; i < (scale + scale + 1); i++) {
-            Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), 3.0f);
-            Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x / (2), 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), 3.0f);
-            xStart += (gridWidthDepth.x / 2) / scale;
-            zStart += (gridWidthDepth.y / 2) / scale;
-        }
     }
 }
 

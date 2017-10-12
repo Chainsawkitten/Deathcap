@@ -71,13 +71,7 @@ class ActiveHymn {
          * @param physics Whether to show physics volumes.
          */
         void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
-
-        /// Create static grid.
-        /**
-        * @param scale Scales the grid, scale can be a maximum of 100.
-        */
-        void CreateGrid(int scale);
-
+        
         /// The game world.
         World world;
         
