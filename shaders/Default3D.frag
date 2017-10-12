@@ -227,6 +227,6 @@ void main() {
         
         // Final color.
         finalColor = color;
-	}
+    }
     fragmentColor = vec4(finalColor, 1.0f);
 }
