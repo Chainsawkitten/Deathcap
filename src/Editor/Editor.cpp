@@ -73,6 +73,9 @@ Editor::Editor() {
     savePromptAnswered = false;
     savePromtWindow.SetTitle("Save before you quit?");
     close = false;
+    
+    // Load settings.
+    showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
 
     // Ray mouse.
     mousePicker = MousePicking(cameraEntity, cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
@@ -150,7 +153,6 @@ void Editor::Show(float deltaTime) {
 
             // View menu.
             if (ImGui::BeginMenu("View")) {
-                static bool showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
                 ImGui::MenuItem("Grid Settings", "", &showGridSettings);
                 EditorSettings::GetInstance().SetBool("Grid Settings", showGridSettings);
 
@@ -233,6 +235,9 @@ void Editor::Show(float deltaTime) {
         if (settingsWindow.IsVisible()) {
             settingsWindow.Show();
         }
+        
+        // Show grid settings window.
+        ShowGridSettings();
 
         // Control the editor camera.
         if (Input()->Pressed(InputHandler::CAMERA)) {
@@ -529,6 +534,18 @@ void Editor::SetVisible(bool visible) {
 
 Entity* Editor::GetCamera() const {
     return cameraEntity;
+}
+
+void Editor::ShowGridSettings() {
+    if (showGridSettings) {
+        ImGui::SetNextWindowPos(ImVec2(1275, 25));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
+        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
+        ImGui::DragInt("Grid Scale", &Hymn().gridSettings.gridSize, 1.0f, 0, 100);
+        ImGui::Checkbox("Grid Snap", &Hymn().gridSettings.gridSnap);
+        ImGui::DragInt("Snap Option", &Hymn().gridSettings.snapOption, (float)Hymn().gridSettings.snapOption * 10, 1, 100);
+        ImGui::End();
+    }
 }
 
 void Editor::Play() {

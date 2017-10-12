@@ -74,6 +74,7 @@ class Editor {
         Entity* GetCamera() const;
         
     private:
+        void ShowGridSettings();
         void Play();
         void NewHymn();
         void NewHymnClosed(const std::string& hymn);
@@ -91,6 +92,7 @@ class Editor {
 
         bool close;
         bool savePromptAnswered;
+        bool showGridSettings;
 
         Json::Value sceneState;
         
