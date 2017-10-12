@@ -4,7 +4,6 @@
 #include <cstdint>
 
 namespace Video {
-
     /// Queries information from the GPU.
     class Query {
         public:

@@ -66,8 +66,9 @@ namespace Video {
              * @param metallic Metallic map.
              * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
+             * @param isSelected Whether model is selected(should be highlighted) or not.
              */
-            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix);
+            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
             
             /// Add a light to the scene.
             /**

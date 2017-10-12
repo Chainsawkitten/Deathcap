@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Manager/ProfilingManager.hpp"
+#include "../Manager/ProfilingManager.hpp"
 #include <string>
 #include <Video/Profiling/Query.hpp>
 

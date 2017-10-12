@@ -36,7 +36,7 @@
 #include "../Hymn.hpp"
 #include "Util/Profiling.hpp"
 #include "Util/Json.hpp"
-#include <Video/Profiling/GPUProfiling.hpp>
+#include "Util/GPUProfiling.hpp"
 
 #include "Manager/VRManager.hpp"
 
@@ -86,7 +86,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (mainWindowRenderSurface != nullptr) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-            
+
                 const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
                 const glm::mat4 orientationMat = camera->GetCameraOrientation();
                 const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
@@ -109,8 +109,8 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (hmdRenderSurface != nullptr) {
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
-                for (int i = 0; i < 2; ++i)
-                {
+
+                for (int i = 0; i < 2; ++i) {
                     vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
                     glm::vec3 position = camera->GetWorldPosition();
@@ -251,7 +251,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 continue;
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                Entity* entity = mesh->entity;
+                Entity* entity = mesh->entity; 
                 // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr) {
                     renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
@@ -284,7 +284,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
-                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
+                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), mesh->GetSelected());
                 }
             }
         }

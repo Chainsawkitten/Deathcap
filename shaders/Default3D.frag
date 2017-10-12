@@ -37,6 +37,7 @@ uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
 uniform mat4 inverseProjectionMatrix;
 // Post processing uniforms.
+uniform bool isSelected;
 uniform float gamma;
 uniform bool fogApply;
 uniform float fogDensity;
@@ -127,8 +128,9 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
 
             // Spot light.
             float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(lights[i].direction)), -1.0f, 1.0f)));
-            if (lightToSurfaceAngle > lights[i].coneAngle) {
-                attenuation = 0.0f;
+            float fadeLength = 10.0;
+            if (lightToSurfaceAngle > lights[i].coneAngle - fadeLength) {
+                attenuation *= 1.0 - clamp(lightToSurfaceAngle - lights[i].coneAngle, 0.0, fadeLength) / fadeLength;
             }
         }
 
@@ -171,7 +173,6 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
 vec3 ApplyFog(vec3 pos, vec3 color) {
     float z = length(pos);
     float f = pow(M_E, -fogDensity * z);
-    
     return f * color + (1.0f - f) * fogColor;
 }
 
@@ -184,42 +185,48 @@ highp float rand(vec2 co) {
     return fract(sin(sn) * c);
 }
 
-
 // --- MAIN ---
 void main() {
 
-    float depth = texture(tDepth, vertexIn.texCoords).r;
-    vec3 albedo = texture(mapAlbedo, vertexIn.texCoords).rgb;
-    //vec3 albedo = pow(albedoRaw, vec3(gamma)); // Apply if texture not in sRGB
-    //vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
-    vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
-    float metallic = texture(mapMetallic, vertexIn.texCoords).r;
-    float roughness = texture(mapRoughness, vertexIn.texCoords).r;
-    vec3 pos = vertexIn.pos;
+    vec3 finalColor = vec3(0.f, 0.f, 0.f);
+    
+    if(isSelected) {
+        finalColor = vec3(0.0f, 0.7f, 0.0f);
+    } else {
+        float depth = texture(tDepth, vertexIn.texCoords).r;
+        vec3 albedo = texture(mapAlbedo, vertexIn.texCoords).rgb;
+        //vec3 albedo = pow(albedoRaw, vec3(gamma)); // Apply if texture not in sRGB
+        //vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
+        vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
+        float metallic = texture(mapMetallic, vertexIn.texCoords).r;
+        float roughness = texture(mapRoughness, vertexIn.texCoords).r;
+        vec3 pos = vertexIn.pos;
 
-    // Shade fragment.
-    vec3 color = ApplyLights(albedo, normal, metallic, roughness, pos);
+        // Shade fragment.
+        vec3 color = ApplyLights(albedo, normal, metallic, roughness, pos);
 
-    // Fog.
-    if (fogApply)
-        color = ApplyFog(pos, color);
+        // Fog.
+        if (fogApply)
+            color = ApplyFog(pos, color);
+            
+        // Color Filter.
+        if (colorFilterApply)
+            color = color * colorFilterColor;
         
-    // Color Filter.
-    if (colorFilterApply)
-        color = color * colorFilterColor;
-    
-    // Reinhard tone mapping.
-    color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
-    
-    // Gamma correction.
-    color = pow(color, vec3(1.0f / gamma));
+        // Reinhard tone mapping.
+        color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
+        
+        // Gamma correction.
+        color = pow(color, vec3(1.0f / gamma));
 
-    // Dither.
-    if (ditherApply) {
-        float dither = rand(vertexIn.texCoords + vec2(time, 0.0f)) / 255.0f;
-        color = color + vec3(dither);
-    }
-    
-    // Final color.
-    fragmentColor = vec4(color, 1.0f);
+        // Dither.
+        if (ditherApply) {
+            float dither = rand(vertexIn.texCoords + vec2(time, 0.0f)) / 255.0f;
+            color = color + vec3(dither);
+        }
+        
+        // Final color.
+        finalColor = color;
+	}
+    fragmentColor = vec4(finalColor, 1.0f);
 }

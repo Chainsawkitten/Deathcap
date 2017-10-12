@@ -13,7 +13,7 @@
 #include <Engine/Manager/ParticleManager.hpp>
 #include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/Profiling.hpp>
-#include <Video/Profiling/GPUProfiling.hpp>
+#include <Engine/Util/GPUProfiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>
 #include "ImGui/OpenGLImplementation.hpp"
@@ -21,9 +21,12 @@
 
 int main() {
     // Enable logging if requested.
-    if (EditorSettings::GetInstance().GetBool("Logging"))
-        freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
-    
+    if (EditorSettings::GetInstance().GetBool("Logging")){
+        FILE* file = freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
+        if (file == nullptr)
+            Log() << "Could not open logging file!\n";
+    }
+
     Log() << "Editor started - " << time(nullptr) << "\n";
     
     if (!glfwInit())

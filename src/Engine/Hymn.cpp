@@ -21,7 +21,7 @@
 #include "Util/Json.hpp"
 #include <fstream>
 #include "Util/Profiling.hpp"
-#include <Video/Profiling/GPUProfiling.hpp>
+#include "Util/GPUProfiling.hpp"
 
 #include "Entity/Entity.hpp"
 #include "Component/Animation.hpp"
@@ -74,16 +74,16 @@ const string& ActiveHymn::GetPath() const {
 void ActiveHymn::SetPath(const string& path) {
     this->path = path;
     FileSystem::CreateDirectory(path.c_str());
-    FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Models").c_str());
-    FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Scenes").c_str());
-    FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Scripts").c_str());
-    FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Sounds").c_str());
-    FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Textures").c_str());
+    FileSystem::CreateDirectory((path + "/Resources").c_str());
+}
+
+std::string ActiveHymn::GetSavePath() const {
+    return path + FileSystem::DELIMITER + "Hymn.json";
 }
 
 void ActiveHymn::Save() const {
     // Save to file.
-    ofstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    ofstream file(GetSavePath());
     file << ToJson();
     file.close();
 }
@@ -94,7 +94,7 @@ void ActiveHymn::Load(const string& path) {
     
     // Load Json document from file.
     Json::Value root;
-    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    ifstream file(GetSavePath());
     file >> root;
     file.close();
     
@@ -123,7 +123,7 @@ Json::Value ActiveHymn::ToJson() const {
     // Save scripts.
     Json::Value scriptNode;
     for (ScriptFile* script : scripts) {
-        scriptNode.append(script->name);
+        scriptNode.append(script->path + script->name);
     }
     root["scripts"] = scriptNode;
     
@@ -213,22 +213,23 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     if (showGridSettings)
     {
         ImGui::SetNextWindowPos(ImVec2(1275, 25));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(250, 50), ImVec2(250, 50));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
         ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
-        ImGui::DragInt("Grid Scale", &gridSettings.gridScale, 1.0f, 0, 100);
+        ImGui::DragInt("Grid Scale", &gridSettings.gridSize, 1.0f, 0, 100);
+        ImGui::Checkbox("Grid Snap", &gridSettings.gridSnap);
+        ImGui::DragInt("Snap Option", &gridSettings.snapOption, (float)gridSettings.snapOption * 10, 1, 100);
         ImGui::End();
     }
 
     { PROFILE("Render debug entities");
     { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-        CreateGrid(gridSettings.gridScale);
+        CreateGrid(gridSettings.gridSize);
         Managers().debugDrawingManager->Render(camera);
     }
     }
 }
 
-void ActiveHymn::CreateGrid(int scale)
-{
+void ActiveHymn::CreateGrid(int scale) {
     glm::vec2 gridWidthDepth(10.0f, 10.0f);
     gridWidthDepth.x = (gridWidthDepth.x * scale);
     gridWidthDepth.y = (gridWidthDepth.y * scale);
@@ -239,8 +240,7 @@ void ActiveHymn::CreateGrid(int scale)
     float zEnd = (gridWidthDepth.y / 2);
 
     if (scale <= 100 && scale > 0) {
-        for (int i = 0; i < (scale + scale + 1); i++)
-        {
+        for (int i = 0; i < (scale + scale + 1); i++) {
             Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), 3.0f);
             Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x / (2), 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), 3.0f);
             xStart += (gridWidthDepth.x / 2) / scale;

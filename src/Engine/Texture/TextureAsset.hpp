@@ -24,14 +24,6 @@ class TextureAsset {
          * @param name The name of the texture asset.
          */
         void Load(const std::string& name);
-
-        /// Load texture asset from memory.
-        /**
-         * @param name The name of the texture asset.
-         * @param texture The texture we will load our texture information from.
-         * @param srgb Whether to convert from SRGB space to linear space when loading.
-         */
-        void Load(const std::string& name, Video::Texture2D* texture, bool srgb = false);
         
         /// Get the texture.
         /**
@@ -44,6 +36,9 @@ class TextureAsset {
         
         /// Whether to convert from SRGB space to linear space when loading.
         bool srgb = false;
+        
+        /// The folder containing the texture files.
+        std::string path;
         
     private:
         TextureAsset(const TextureAsset & other) = delete;
