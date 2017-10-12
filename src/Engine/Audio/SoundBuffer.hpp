@@ -1,8 +1,8 @@
 #pragma once
 
-#include <AL/al.h>
 #include <string>
 #include <json/json.h>
+#include <cstdint>
 
 namespace Audio {
     class SoundFile;
@@ -48,9 +48,9 @@ namespace Audio {
 
             /// Get size of buffer.
             /**
-             * @return size_t The size of the buffer.
+             * @return The size of the buffer.
              */
-            size_t GetSize();
+            uint32_t GetSize();
 
             /// The name of the sound.
             std::string name;
@@ -60,7 +60,7 @@ namespace Audio {
             
         private:
             float* buffer;
-            size_t size;
-            size_t sampleRate;
+            uint32_t size;
+            uint32_t sampleRate;
     };
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SuperComponent.hpp"
-#include <AL/al.h>
+#include <cstdint>
 
 class SoundManager;
 namespace Audio {
@@ -48,11 +48,9 @@ namespace Component {
             bool loop = false;
 
             /// Place in buffer
-            size_t place = 0;
+            uint32_t place = 0;
             
-        private:
-            ALuint source;
-            
+        private:            
             bool shouldPlay = true;
             bool shouldPause = false;
             bool shouldStop = false;

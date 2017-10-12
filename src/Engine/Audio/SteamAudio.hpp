@@ -27,7 +27,6 @@ class SteamAudio {
         * @param playerUp The up direction of the player.
         * @param sourcePos The position of the audio source.
         * @param sourceRadius The radius of the source, for calculating occlusion.
-        * @return The processed buffer.
         */
         void Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
 

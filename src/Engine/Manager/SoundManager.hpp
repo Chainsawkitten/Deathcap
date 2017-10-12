@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Entity/ComponentContainer.hpp"
-#include "portaudio.h"
+#include <portaudio.h>
 #include "../Audio/SteamAudioInterface.hpp"
 
 namespace Component {
@@ -19,11 +19,14 @@ class SoundManager {
     public:     
         /// Check for OpenAL errors.
         /**
-         * @param message Message to print to standard error if an error was encountered.
+         * @param err The PortAudio error number to check.
          */
         static void CheckError(PaError err);
         
         /// Moves sound sources and plays sounds.
+        /**
+         * @param deltaTime Time since last frame.
+         */
         void Update(float deltaTime);
         
         /// Create sound source component.

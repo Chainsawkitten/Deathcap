@@ -76,17 +76,17 @@ void SoundManager::Update(float deltaTime) {
 
             float* soundBuf = new float[numSamples];
             if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
-                memcpy(soundBuf,(sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
+                std::memcpy(soundBuf,(sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
                 sound->place += numSamples;
             } else {
                 // Only copy the end samples of the buffer
                 uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place)/sizeof(float);
                 memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
                 if (sound->loop) {
-                    memcpy(soundBuf + numToCpy*sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
+                    std::memcpy(soundBuf + numToCpy*sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
                     sound->place = numSamples - numToCpy;
                 } else {
-                    memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
+                    std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
                     sound->shouldPlay = false;
                 }
             }
