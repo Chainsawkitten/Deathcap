@@ -10,6 +10,7 @@
 #include "ResourceManager.hpp"
 #include "portaudio.h"
 #include <cstdint>
+#include <cstring>
 
 #define SAMPLE_RATE (44100)
 #define PA_SAMPLE_TYPE  paFloat32
@@ -81,7 +82,7 @@ void SoundManager::Update(float deltaTime) {
             } else {
                 // Only copy the end samples of the buffer
                 uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place)/sizeof(float);
-                memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
+                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
                 if (sound->loop) {
                     std::memcpy(soundBuf + numToCpy*sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
                     sound->place = numSamples - numToCpy;
