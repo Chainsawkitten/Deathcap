@@ -154,35 +154,7 @@ void Editor::Show(float deltaTime) {
         ShowGridSettings();
 
         // Control the editor camera.
-        if (Input()->Pressed(InputHandler::CAMERA)) {
-            if (Input()->Triggered(InputHandler::CAMERA)) {
-                lastX = Input()->GetCursorX();
-                lastY = Input()->GetCursorY();
-            }
-
-            float sensitivity = 0.3f;
-            cameraEntity->rotation.x += sensitivity * (Input()->GetCursorX() - lastX);
-            cameraEntity->rotation.y += sensitivity * (Input()->GetCursorY() - lastY);
-
-            lastX = Input()->GetCursorX();
-            lastY = Input()->GetCursorY();
-
-            glm::mat4 orientation = cameraEntity->GetCameraOrientation();
-            glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-            glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
-
-            // Move speed scaling.
-            float speed = 10.0f * deltaTime * (glm::abs(cameraEntity->position.y) / 10.0f);
-            float constantSpeed = 10.0f * deltaTime;
-
-            if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
-                cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
-                cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            } else {
-                cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
-                cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            }
-        }
+        ControlEditorCamera(deltaTime);
 
         // Mouse ray.
         if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
@@ -548,6 +520,38 @@ void Editor::ShowGridSettings() {
         ImGui::Checkbox("Grid Snap", &Hymn().gridSettings.gridSnap);
         ImGui::DragInt("Snap Option", &Hymn().gridSettings.snapOption, (float)Hymn().gridSettings.snapOption * 10, 1, 100);
         ImGui::End();
+    }
+}
+
+void Editor::ControlEditorCamera(float deltaTime) {
+    if (Input()->Pressed(InputHandler::CAMERA)) {
+        if (Input()->Triggered(InputHandler::CAMERA)) {
+            lastX = Input()->GetCursorX();
+            lastY = Input()->GetCursorY();
+        }
+
+        float sensitivity = 0.3f;
+        cameraEntity->rotation.x += sensitivity * (Input()->GetCursorX() - lastX);
+        cameraEntity->rotation.y += sensitivity * (Input()->GetCursorY() - lastY);
+
+        lastX = Input()->GetCursorX();
+        lastY = Input()->GetCursorY();
+
+        glm::mat4 orientation = cameraEntity->GetCameraOrientation();
+        glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+        glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
+
+        // Move speed scaling.
+        float speed = 10.0f * deltaTime * (glm::abs(cameraEntity->position.y) / 10.0f);
+        float constantSpeed = 10.0f * deltaTime;
+
+        if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
+            cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
+            cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        } else {
+            cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
+            cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        }
     }
 }
 

@@ -76,6 +76,8 @@ class Editor {
     private:
         void ShowMainMenuBar(bool& play);
         void ShowGridSettings();
+        void ControlEditorCamera(float deltaTime);
+        
         void Play();
         void NewHymn();
         void NewHymnClosed(const std::string& hymn);
