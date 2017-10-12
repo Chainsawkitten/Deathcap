@@ -468,7 +468,7 @@ void Editor::ShowGridSettings() {
         EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
         ImGui::Checkbox("Grid Snap", &gridSettings.gridSnap);
         EditorSettings::GetInstance().SetBool("Grid Snap", gridSettings.gridSnap);
-        ImGui::DragInt("Snap Size", &gridSettings.snapOption, (float)gridSettings.snapOption * 10, 1, 100);
+        ImGui::DragInt("Snap Size", &gridSettings.snapOption, 1.0f, 1, 100);
         EditorSettings::GetInstance().SetLong("Grid Snap Size", gridSettings.snapOption);
         ImGui::End();
     }
