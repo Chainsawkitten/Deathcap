@@ -196,7 +196,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
 }
 
-void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, bool showGridSettings) {
+void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
     { PROFILE("Render world");
     { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
         Managers().renderManager->Render(world, camera);
@@ -210,42 +210,11 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
         }
         }
     }
-    if (showGridSettings)
-    {
-        ImGui::SetNextWindowPos(ImVec2(1275, 25));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
-        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
-        ImGui::DragInt("Grid Scale", &gridSettings.gridSize, 1.0f, 0, 100);
-        ImGui::Checkbox("Grid Snap", &gridSettings.gridSnap);
-        ImGui::DragInt("Snap Option", &gridSettings.snapOption, (float)gridSettings.snapOption * 10, 1, 100);
-        ImGui::End();
-    }
 
     { PROFILE("Render debug entities");
     { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-        CreateGrid(gridSettings.gridSize);
         Managers().debugDrawingManager->Render(camera);
     }
-    }
-}
-
-void ActiveHymn::CreateGrid(int scale) {
-    glm::vec2 gridWidthDepth(10.0f, 10.0f);
-    gridWidthDepth.x = (gridWidthDepth.x * scale);
-    gridWidthDepth.y = (gridWidthDepth.y * scale);
-
-    float xStart = (-gridWidthDepth.x / 2);
-    float xEnd = (gridWidthDepth.x / 2);
-    float zStart = (-gridWidthDepth.y / 2);
-    float zEnd = (gridWidthDepth.y / 2);
-
-    if (scale <= 100 && scale > 0) {
-        for (int i = 0; i < (scale + scale + 1); i++) {
-            Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), 3.0f);
-            Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x / (2), 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), 3.0f);
-            xStart += (gridWidthDepth.x / 2) / scale;
-            zStart += (gridWidthDepth.y / 2) / scale;
-        }
     }
 }
 
