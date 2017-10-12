@@ -196,7 +196,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
 }
 
-void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, bool showGridSettings) {
+void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
     { PROFILE("Render world");
     { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
         Managers().renderManager->Render(world, camera);

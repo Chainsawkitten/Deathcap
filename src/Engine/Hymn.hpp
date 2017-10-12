@@ -70,7 +70,7 @@ class ActiveHymn {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          */
-        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false, bool gridSettings = false);
+        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
 
         /// Create static grid.
         /**
