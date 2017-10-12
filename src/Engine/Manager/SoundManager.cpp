@@ -1,12 +1,10 @@
 #include "SoundManager.hpp"
 #include <phonon.h>
 #include <Utility/Log.hpp>
-#include <AL/al.h>
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Component/Listener.hpp"
 #include "../Component/SoundSource.hpp"
-#include "../Component/Physics.hpp"
 #include "../Audio/SoundBuffer.hpp"
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
@@ -63,11 +61,11 @@ void SoundManager::CheckError(PaError err) {
         Log() << "Error message: " << Pa_GetErrorText(err) << "\n";
     }
 }
-bool firstframe = true;
+
 void SoundManager::Update(float deltaTime) {
     
     // Number of samples to process dependant on deltaTime
-    int numSamples = SAMPLE_RATE * deltaTime;
+    int numSamples = int(SAMPLE_RATE * deltaTime);
 
     
     // Update sound sources.

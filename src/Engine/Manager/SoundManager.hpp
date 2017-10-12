@@ -1,6 +1,5 @@
 #pragma once
 
-#include <AL/alc.h>
 #include "../Entity/ComponentContainer.hpp"
 #include "portaudio.h"
 #include "../Audio/SteamAudioInterface.hpp"

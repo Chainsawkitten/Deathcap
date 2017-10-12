@@ -34,7 +34,7 @@ void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, size_t* numSamples)
         return;
     }
 
-    // Move the buffers into an array of contiguous memory (needed for steam audios mixing)
+    // Move the buffers into an array (needed for steam audios mixing)
     IPLAudioBuffer* buffers = new IPLAudioBuffer[processedBuffers.size()];
     for (int i = 0; i < processedBuffers.size(); i++)
     {
@@ -47,6 +47,7 @@ void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, size_t* numSamples)
     iplMixAudioBuffers(processedBuffers.size(), buffers, *finalBuf);
     *numSamples = finalBuf->numSamples;
 
+    // Clean up
     for (IPLAudioBuffer buf : processedBuffers)
     {
         if(buf.interleavedBuffer != nullptr)
