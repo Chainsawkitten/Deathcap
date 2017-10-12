@@ -1,6 +1,6 @@
 {
 	"activeScene" : "TestScene",
-	"modelNumber" : 4,
+	"modelNumber" : 5,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -87,7 +87,7 @@
 				"resources" : 
 				[
 					{
-						"model" : "controller",
+						"model" : "controller_fix",
 						"type" : 1
 					}
 				],

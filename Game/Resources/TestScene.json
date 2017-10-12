@@ -83,134 +83,80 @@
 							{
 								"controllerID" : 2
 							},
-							"children" : 
-							[
-								{
-									"Material" : 
-									{
-										"albedo" : "",
-										"metallic" : "",
-										"normal" : "",
-										"roughness" : ""
-									},
-									"Mesh" : 
-									{
-										"model" : "Resources/Controller/controller"
-									},
-									"children" : null,
-									"name" : "RightCtrlModel",
-									"position" : 
-									{
-										"x" : 0.0,
-										"y" : 0.0,
-										"z" : -4.0
-									},
-									"rotation" : 
-									{
-										"x" : -90.0,
-										"y" : -90.0,
-										"z" : 0.0
-									},
-									"scale" : 
-									{
-										"x" : 0.25,
-										"y" : 0.24999997019767761,
-										"z" : 0.24999997019767761
-									},
-									"scene" : false,
-									"static" : false,
-									"uid" : 1507278061
-								}
-							],
-							"name" : "RightCtrl",
+							"Material" : 
+							{
+								"albedo" : "",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Controller/controller_fix"
+							},
+							"children" : null,
+							"name" : "RightCtrlModel",
 							"position" : 
 							{
 								"x" : 0.0,
 								"y" : 0.0,
-								"z" : 0.0
+								"z" : -4.0
 							},
 							"rotation" : 
 							{
-								"x" : 0.0,
-								"y" : -0.0,
+								"x" : -90.0,
+								"y" : 0.0,
 								"z" : 0.0
 							},
 							"scale" : 
 							{
-								"x" : 0.99999970197677612,
-								"y" : 1.0,
-								"z" : 1.0
+								"x" : 0.25,
+								"y" : 0.24999997019767761,
+								"z" : 0.24999997019767761
 							},
 							"scene" : false,
 							"static" : false,
-							"uid" : 1507122304
+							"uid" : 1507278061
 						},
 						{
 							"Controller" : 
 							{
 								"controllerID" : 1
 							},
-							"children" : 
-							[
-								{
-									"Material" : 
-									{
-										"albedo" : "",
-										"metallic" : "",
-										"normal" : "",
-										"roughness" : ""
-									},
-									"Mesh" : 
-									{
-										"model" : "Resources/Controller/controller"
-									},
-									"children" : null,
-									"name" : "LeftCtrlModel",
-									"position" : 
-									{
-										"x" : 0.0,
-										"y" : 0.0,
-										"z" : -4.0
-									},
-									"rotation" : 
-									{
-										"x" : -90.0,
-										"y" : -90.0,
-										"z" : 0.0
-									},
-									"scale" : 
-									{
-										"x" : 0.24999980628490448,
-										"y" : 0.24999997019767761,
-										"z" : 0.24999997019767761
-									},
-									"scene" : false,
-									"static" : false,
-									"uid" : 1507122300
-								}
-							],
-							"name" : "LeftCtrl",
+							"Material" : 
+							{
+								"albedo" : "",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Controller/controller_fix"
+							},
+							"children" : null,
+							"name" : "LeftCtrlModel",
 							"position" : 
 							{
 								"x" : 0.0,
 								"y" : 0.0,
-								"z" : 0.0
+								"z" : -4.0
 							},
 							"rotation" : 
 							{
-								"x" : 0.0,
+								"x" : -90.0,
 								"y" : 0.0,
 								"z" : 0.0
 							},
 							"scale" : 
 							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
+								"x" : 0.24999980628490448,
+								"y" : 0.24999997019767761,
+								"z" : 0.24999997019767761
 							},
 							"scene" : false,
 							"static" : false,
-							"uid" : 1507277881
+							"uid" : 1507122300
 						}
 					],
 					"name" : "Player",
@@ -278,7 +224,7 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : -2.8910000324249268,
+				"y" : -2.9700000286102295,
 				"z" : 500.0
 			},
 			"rotation" : 
@@ -321,8 +267,8 @@
 					"position" : 
 					{
 						"x" : -4.0,
-						"y" : -5.0790004730224609,
-						"z" : 400.00003051757813
+						"y" : -5.0,
+						"z" : 400.0
 					},
 					"rotation" : 
 					{

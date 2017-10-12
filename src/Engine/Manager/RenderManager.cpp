@@ -86,7 +86,7 @@ void RenderManager::Render(World& world, Entity* camera) {
 
     if (camera != nullptr) {
         // Render main window.
-        if (mainWindowRenderSurface != nullptr  && camera->name == "Editor Camera") {
+        if (mainWindowRenderSurface != nullptr) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
 
@@ -100,7 +100,7 @@ void RenderManager::Render(World& world, Entity* camera) {
         }
 
         // Render hmd.
-        else if (hmdRenderSurface != nullptr) {
+        if (hmdRenderSurface != nullptr && camera->name != "Editor Camera") {
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
 
@@ -253,7 +253,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
-                Controller* controller = entity->GetParent()->GetComponent<Controller>();
+                Controller* controller = entity->GetComponent<Controller>();
                 // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr) {
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
@@ -281,7 +281,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
-                Controller* controller = entity->GetParent()->GetComponent<Controller>();
+                Controller* controller = entity->GetComponent<Controller>();
                 if (material != nullptr) {
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
                         glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
@@ -514,7 +514,7 @@ Component::Controller* RenderManager::CreateController(const Json::Value& node) 
     Component::Controller* controller = controllers.Create();
 
     //Load values from Json node.
-    controller->controllerID = node.get("controllerID", "").asInt();
+    controller->controllerID = node.get("controllerID", 1).asInt();
 
     return controller;
 }
