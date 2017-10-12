@@ -444,10 +444,10 @@ void ScriptManager::FillPropertyMap(Script* script) {
     BuildScript(script->scriptFile);
     CreateInstance(script);
 
-    for (auto &propertyMap : script->propertyMap) 
-        propertyMap.second.clear();
-
+    //for (auto &propertyMap : script->propertyMap) 
+    //    propertyMap.second.clear();
     script->propertyMap.clear();
+
     int propertyCount = script->instance->GetPropertyCount();
 
     for (int n = 0; n < propertyCount; n++) {
@@ -455,8 +455,20 @@ void ScriptManager::FillPropertyMap(Script* script) {
         int typeId = script->instance->GetPropertyTypeId(n);
         void *varPointer = script->instance->GetAddressOfProperty(n);
 
-        if (typeId == asTYPEID_INT32)
-        {
+        std::map<std::string, std::map<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
+        if (it != script->propertyMap.end()) {
+
+            std::map<int, void*>::iterator it2 = script->propertyMap[script->instance->GetPropertyName(n)].find(typeId);
+            if (it2 != script->propertyMap[script->instance->GetPropertyName(n)].end()) {
+
+                continue;
+
+            }
+
+        }
+
+        if (typeId == asTYPEID_INT32) {
+
             int* mapValue = new int();
             *mapValue = *(int*)varPointer;
             script->propertyMap[script->instance->GetPropertyName(n)][typeId] = mapValue;
@@ -673,6 +685,22 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
                 Json::Value typeId_value = propertyMapJson.get(name, "");
 
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
+                int typeId = std::atoi(typeIds[0].c_str());
+                if (typeId == asTYPEID_INT32)
+                {
+                    int* value = new int(typeId_value[typeIds[0]].asInt());
+                    script->propertyMap[name][typeId] = (void*)value;
+                }
+                else if (typeId == asTYPEID_FLOAT)
+                {
+                    float* value = new float(typeId_value[typeIds[0]].asFloat());
+                    script->propertyMap[name][typeId] = (void*)value;
+                }
+                else if (typeId == engine->GetTypeIdByDecl("string"))
+                {
+                    std::string* value = new std::string(typeId_value[typeIds[0]].asString());
+                    script->propertyMap[name][typeId] = (void*)value;
+                }
 
             }
 
