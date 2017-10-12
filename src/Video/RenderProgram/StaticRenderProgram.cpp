@@ -57,7 +57,7 @@ void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D * geometry, co
     }
 }
 
-void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer) {
+void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount) {
     this->shaderProgram->Use();
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
@@ -69,7 +69,6 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
     
     // Lights.
-    const int lightCount = lightBuffer->GetSize() / sizeof(Video::Light);
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     lightBuffer->BindBase(5);
 

@@ -26,6 +26,7 @@ Renderer::Renderer() {
 
     fxaaFilter = new FXAAFilter();
     
+    lightCount = 0;
     lightBuffer = new StorageBuffer(sizeof(Video::Light), GL_DYNAMIC_DRAW);
 
     // Icon rendering.
@@ -84,31 +85,27 @@ void Renderer::StartRendering(RenderSurface* renderSurface) {
     glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
 }
 
-void Renderer::AddLight(const Video::Light& light) {
-    lights.push_back(light);
-}
+void Renderer::SetLights(const std::vector<Video::Light>& lights) {
+    lightCount = lights.size();
 
-void Renderer::ClearLights() {
-    lights.clear();
+    // Skip if no lights.
+    if (lightCount == 0) return;
+
+    // Resize light buffer if necessary.
+    unsigned int byteSize = sizeof(Video::Light) * lights.size();
+    if (lightBuffer->GetSize() < byteSize) {
+        delete lightBuffer;
+        lightBuffer = new StorageBuffer(byteSize, GL_DYNAMIC_DRAW);
+    }
+
+    // Update light buffer.
+    lightBuffer->Bind();
+    lightBuffer->Write((void*)lights.data(), 0, byteSize);
+    lightBuffer->Unbind();
 }
 
 void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    // Update light buffer.
-    if (lights.size() > 0) {
-        // Resize light buffer if necessary.
-        unsigned int byteSize = sizeof(Video::Light) * lights.size();
-        if (lightBuffer->GetSize() < byteSize) {
-            delete lightBuffer;
-            lightBuffer = new StorageBuffer(byteSize, GL_DYNAMIC_DRAW);
-        }
-
-        // Push light data to GPU.
-        lightBuffer->Bind();
-        lightBuffer->Write(lights.data(), 0, byteSize);
-        lightBuffer->Unbind();
-    }
-    
-    staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer);
+    staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
 }
 
 void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {

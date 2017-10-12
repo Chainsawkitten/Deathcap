@@ -40,8 +40,9 @@ namespace Video {
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
              * @param lightBuffer %StorageBuffer containing light data.
+             * @param lightCount Number of lights in the light buffer.
              */
-            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer);
+            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount);
     
             /// Render mesh.
             /**

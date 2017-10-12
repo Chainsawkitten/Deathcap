@@ -69,15 +69,12 @@ namespace Video {
              * @param isSelected Whether model is selected(should be highlighted) or not.
              */
             void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
-            
-            /// Add a light to the scene.
-            /**
-             * @param light The light to add.
-             */
-            void AddLight(const Video::Light& light);
 
-            /// Clear lights in the scene.
-            void ClearLights();
+            /// Update light buffer.
+            /**
+             * @param lights Vector of lights to push to the light buffer.
+             */
+            void SetLights(const std::vector<Video::Light>& lights);
             
             /// Anti-alias using FXAA.
             /**
@@ -141,7 +138,7 @@ namespace Video {
             Renderer(const Renderer & other) = delete;
             StaticRenderProgram* staticRenderProgram;
 
-            std::vector<Video::Light> lights;
+            unsigned int lightCount;
             StorageBuffer* lightBuffer;
             
             PostProcessing* postProcessing;

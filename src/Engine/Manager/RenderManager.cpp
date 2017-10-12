@@ -458,8 +458,7 @@ void RenderManager::ClearKilledComponents() {
 
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
 
-    // Clear lights from previous frame.
-    renderer->ClearLights();
+    std::vector<Video::Light> lights;
 
     float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
@@ -478,7 +477,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.ambientCoefficient = directionalLight->ambientCoefficient;
         light.coneAngle = 0.f;
         light.direction = glm::vec3(0.f, 0.f, 0.f);
-        renderer->AddLight(light);
+        lights.push_back(light);
     }
     
     // Add all spot lights.
@@ -496,7 +495,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.ambientCoefficient = spotLight->ambientCoefficient;
         light.coneAngle = spotLight->coneAngle;
         light.direction = glm::vec3(direction);
-        renderer->AddLight(light);
+        lights.push_back(light);
     }
     
     // At which point lights should be cut off (no longer contribute).
@@ -521,12 +520,12 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             light.ambientCoefficient = pointLight->ambientCoefficient;
             light.coneAngle = 180.f;
             light.direction = glm::vec3(1.f, 0.f, 0.f);
-            renderer->AddLight(light);
+            lights.push_back(light);
         }
     }
     
-    // Render lights.
-    // renderer->Light(glm::inverse(projectionMatrix), renderSurface);
+    // Update light buffer.
+    renderer->SetLights(lights);
 }
 
 void RenderManager::LoadTexture(TextureAsset*& texture, const std::string& name) {
