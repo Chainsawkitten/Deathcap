@@ -161,3 +161,6 @@ set(OpenVR_LIBRARY ${OpenVR_LIBRARY} PARENT_SCOPE)
 
 # Steam Audio
 add_subdirectory(SteamAudio)
+
+# PortAudio
+add_subdirectory(portaudio)

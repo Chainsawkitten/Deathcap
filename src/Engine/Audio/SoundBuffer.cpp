@@ -17,10 +17,10 @@ SoundBuffer::SoundBuffer(SoundFile* soundFile) {
 }
 
 SoundBuffer::~SoundBuffer() {
-    alDeleteBuffers(1, &buffer);
+    free(buffer);
 }
 
-ALuint SoundBuffer::GetBuffer() const {
+float* SoundBuffer::GetBuffer() const {
     return buffer;
 }
 
@@ -40,12 +40,11 @@ void SoundBuffer::Load(const std::string& name) {
 }
 
 void SoundBuffer::Load(SoundFile* soundFile) {
-    // Create audio buffer.
-    alGetError();
-    alGenBuffers((ALuint)1, &buffer);
-    SoundManager::CheckError("Couldn't create buffers.");
-    
-    // Set the buffer data.
-    alBufferData(buffer, soundFile->GetFormat(), soundFile->GetData(), soundFile->GetSize(), soundFile->GetSampleRate());
-    SoundManager::CheckError("Couldn't set buffer data.");
+    buffer = soundFile->GetData();
+    size = soundFile->GetSize();
+    sampleRate = soundFile->GetSampleRate();
+}
+
+uint32_t Audio::SoundBuffer::GetSize() {
+    return size;
 }
