@@ -25,7 +25,7 @@ void SceneEditor::Show() {
     if (ImGui::Begin(("Scene: " + *scene + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
         *scene = name;
-        Resources().activeScene = name;
+        Resources().activeScene = path + "/" + name;
         
         // Entities.
         entityPressed = false;
