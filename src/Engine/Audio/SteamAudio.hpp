@@ -2,6 +2,7 @@
 #include "SteamAudioDirectRenderer.hpp"
 #include "SteamAudioIndirectRenderer.hpp"
 #include <vector>
+#include <cstdint>
 
 //Note to self: Might just merge this shit with the interface class.
 /// Main Steam Audio class for processing audio samples
@@ -35,7 +36,7 @@ class SteamAudio {
          * @param finalBuf Pointer to an empty buffer.
          * @param numSamples The number of samples in the final buffer.
          */
-        void GetFinalMix(IPLAudioBuffer* finalBuf, size_t* numSamples);
+        void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples);
 
         
 

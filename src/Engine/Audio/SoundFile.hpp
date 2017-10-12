@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <AL/al.h>
 
 namespace Audio {
@@ -22,12 +23,12 @@ namespace Audio {
             /**
              * @return The length of the raw audio data.
              */
-            virtual size_t GetSize() const = 0;
+            virtual uint32_t GetSize() const = 0;
             
             /// Get sample rate.
             /**
              * @return The sound file's sample rate (Hz).
              */
-            virtual size_t GetSampleRate() const = 0;
+            virtual uint32_t GetSampleRate() const = 0;
     };
 }

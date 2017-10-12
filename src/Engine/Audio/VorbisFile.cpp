@@ -20,10 +20,7 @@ VorbisFile::VorbisFile(const char *filename) {
     data = new float[samples * sizeof(float)];
     stb_vorbis_get_samples_float_interleaved(stbfile, info.channels, data, samples);
 
-
-    
-    // We get size in samples, but we need it in bytes.
-    dataSize = samples;// *sizeof(float);
+    dataSize = samples;
 }
 
 VorbisFile::~VorbisFile() {
@@ -34,10 +31,10 @@ float* VorbisFile::GetData() const {
     return data;
 }
 
-size_t VorbisFile::GetSize() const {
+uint32_t VorbisFile::GetSize() const {
     return dataSize;
 }
 
-size_t VorbisFile::GetSampleRate() const {
+uint32_t VorbisFile::GetSampleRate() const {
     return sampleRate;
 }

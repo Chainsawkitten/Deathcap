@@ -9,6 +9,7 @@
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "portaudio.h"
+#include <cstdint>
 
 #define SAMPLE_RATE (44100)
 #define PA_SAMPLE_TYPE  paFloat32
@@ -79,7 +80,7 @@ void SoundManager::Update(float deltaTime) {
                 sound->place += numSamples;
             } else {
                 // Only copy the end samples of the buffer
-                size_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place)/sizeof(float);
+                uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place)/sizeof(float);
                 memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
                 if (sound->loop) {
                     memcpy(soundBuf + numToCpy*sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
@@ -106,7 +107,7 @@ void SoundManager::Update(float deltaTime) {
         
     }
 
-    size_t* numProcessedSamples = new size_t;
+    uint32_t* numProcessedSamples = new uint32_t;
     float* processedSamples = sAudio.GetProcessed(numProcessedSamples);
 
     //If not playing anything, add silence

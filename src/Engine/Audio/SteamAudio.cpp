@@ -24,7 +24,7 @@ void SteamAudio::Process(IPLAudioBuffer input, IPLVector3 * playerPos, IPLVector
 
 }
 
-void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, size_t* numSamples)
+void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples)
 {
     // No audio is playing, return emptiness, let SoundManager figure it out.
     if (processedBuffers.size() == 0)

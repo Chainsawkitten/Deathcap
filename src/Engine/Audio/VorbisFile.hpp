@@ -28,18 +28,17 @@ namespace Audio {
             /**
              * @return The length of the raw audio data.
              */
-            size_t GetSize() const final;
+            uint32_t GetSize() const final;
             
             /// Get sample rate.
             /**
              * @return The sound file's sample rate (Hz).
              */
-            size_t GetSampleRate() const final;
+            uint32_t GetSampleRate() const final;
             
         private:
             float* data;
             int dataSize;
             int sampleRate;
-            ALenum format;
     };
 }
