@@ -78,6 +78,7 @@ class Editor {
         void ShowGridSettings();
         void ControlEditorCamera(float deltaTime);
         void Picking();
+        void Focus();
         
         void Play();
         void NewHymn();

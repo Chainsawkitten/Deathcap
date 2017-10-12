@@ -158,34 +158,10 @@ void Editor::Show(float deltaTime) {
 
         // Select entity by clicking on it with the mouse.
         Picking();
-
+        
         // Move camera position and rotation to fixate on selected object.
-        if (Input()->Triggered(InputHandler::FOCUS)) {
-
-            if (selectedEntity != NULL) {
-
-                glm::vec3 backward = glm::normalize(cameraEntity->position - selectedEntity->position);
-
-                while (glm::length(selectedEntity->position - cameraEntity->position) > 10) {
-                    cameraEntity->position -= backward;
-                }
-
-                while (glm::length(selectedEntity->position - cameraEntity->position) < 10) {
-                    cameraEntity->position += backward;
-                }
-
-                glm::vec3 camDirection = selectedEntity->position - cameraEntity->position;
-                glm::normalize(camDirection);
-
-                float yaw = std::atan2(camDirection.x, -camDirection.z);
-                cameraEntity->rotation.x = glm::degrees(yaw);
-
-                float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
-                float pitch = std::atan2(-camDirection.y, xz);
-                cameraEntity->rotation.y = glm::degrees(pitch);
-            }
-        }
-
+        Focus();
+        
         // Scroll zoom.
         if (Input()->GetScrollDown()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
@@ -240,7 +216,7 @@ void Editor::Show(float deltaTime) {
 
     Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
 
-    if (currentEntity != NULL) {
+    if (currentEntity != nullptr) {
         currentEntityMatrix = currentEntity->GetLocalMatrix();
 
         // Change operation based on key input.
@@ -555,6 +531,30 @@ void Editor::Picking() {
                     }
                 }
             }
+        }
+    }
+}
+
+void Editor::Focus() {
+    if (Input()->Triggered(InputHandler::FOCUS)) {
+        if (selectedEntity != nullptr) {
+            glm::vec3 backward = glm::normalize(cameraEntity->position - selectedEntity->position);
+            
+            while (glm::length(selectedEntity->position - cameraEntity->position) > 10)
+                cameraEntity->position -= backward;
+            
+            while (glm::length(selectedEntity->position - cameraEntity->position) < 10)
+                cameraEntity->position += backward;
+            
+            glm::vec3 camDirection = selectedEntity->position - cameraEntity->position;
+            glm::normalize(camDirection);
+
+            float yaw = std::atan2(camDirection.x, -camDirection.z);
+            cameraEntity->rotation.x = glm::degrees(yaw);
+
+            float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
+            float pitch = std::atan2(-camDirection.y, xz);
+            cameraEntity->rotation.y = glm::degrees(pitch);
         }
     }
 }
