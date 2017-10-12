@@ -660,7 +660,7 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
     std::string name = node.get("scriptName", "").asString();
     script->scriptFile = Managers().resourceManager->CreateScriptFile(name);
     std::string json = node.toStyledString();
-    
+
     if (node.isMember("propertyMap")) {
 
         Json::Value propertyMapJson = node.get("propertyMap", "");
@@ -668,7 +668,13 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
         for (auto name : names) {
 
-            Log() << name << "\n";
+            if (propertyMapJson.isMember(name)) {
+
+                Json::Value typeId_value = propertyMapJson.get(name, "");
+
+                std::vector<std::string> typeIds = typeId_value.getMemberNames();
+
+            }
 
         }
 

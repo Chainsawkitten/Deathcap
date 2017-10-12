@@ -35,16 +35,16 @@ Json::Value Script::Save() const {
             void* varPointer = typeId_value.second;
             if (typeId == asTYPEID_INT32)
             {
-                component["propertyMap"][name][typeId] = *(int*)varPointer;
+                component["propertyMap"][name][std::to_string(typeId)] = *(int*)varPointer;
             }
             else if (typeId == asTYPEID_FLOAT)
             {
-                component["propertyMap"][name][typeId] = *(float*)varPointer;
+                component["propertyMap"][name][std::to_string(typeId)] = *(float*)varPointer;
             }
             else if (typeId == instance->GetEngine()->GetTypeIdByDecl("string"))
             {
                 std::string *str = (std::string*)varPointer;
-                component["propertyMap"][name][typeId] = str;
+                component["propertyMap"][name][std::to_string(typeId)] = str;
             }
         }
     }
