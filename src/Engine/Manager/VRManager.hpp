@@ -32,6 +32,7 @@ class VRManager {
 
         /// Returns the transform for the controllers
         /**
+         * @param controlID Which controller to get the matrix for (1 = left, 2 = right).
          * @return The Controllers translation matrix.
          */
         glm::mat4 GetControllerPoseMatrix(int controlID) const;

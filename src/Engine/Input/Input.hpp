@@ -49,6 +49,7 @@ class Input {
 
         /// Check if a button was activated this frame
         /**
+         * @param index The button's index to check.
          * @param controller The controller to check.
          * @return Whether the button was activated this frame.
          */

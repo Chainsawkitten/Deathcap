@@ -15,11 +15,11 @@ class Lever {
     
     void Update(float deltaTime){
         if (Input(MouseOpen)){
-			if(self.rotation.y <= -45.0f){
-				SendMessage(sibling, 1);
-			}
-			else
-				self.rotation.y -= 0.3;
+            if(self.rotation.y <= -45.0f){
+                SendMessage(sibling, 1);
+            }
+            else
+                self.rotation.y -= 0.3;
         }
     }
 }
