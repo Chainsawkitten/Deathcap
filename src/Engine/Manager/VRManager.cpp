@@ -76,24 +76,23 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
         if (!vrSystem->IsTrackedDeviceConnected(untrackedDevice))
             continue;
         // Skip current device if it's not a controller
-        if (vrSystem->GetTrackedDeviceClass(untrackedDevice) != vr::TrackedDeviceClass_Controller)
+        else if (vrSystem->GetTrackedDeviceClass(untrackedDevice) != vr::TrackedDeviceClass_Controller)
             continue;
         // Skip current controller if it's not in a valid position
-        //if (!tracedDevicePoseArray[untrackedDevice].bPoseIsValid)
-            //continue;
+        else if (!tracedDevicePoseArray[untrackedDevice].bPoseIsValid)
+            continue;
 
         // Find out if current controller is the left or right one.
         vr::ETrackedControllerRole role = vrSystem->GetControllerRoleForTrackedDeviceIndex(untrackedDevice);
 
-
         // If we want to differentiate between left and right controller.
-        //if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
-           // continue;
-        if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
+        if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
+            continue;
+        else if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
             glm::mat4 returnMatrix = deviceTransforms[untrackedDevice];// glm::inverse(deviceTransforms[untrackedDevice]);
             return returnMatrix;
         }
-        if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
+        else if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
             glm::mat4 returnMatrix = deviceTransforms[untrackedDevice];// glm::inverse(deviceTransforms[untrackedDevice]);
             return returnMatrix;
         }

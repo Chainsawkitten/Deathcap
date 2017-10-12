@@ -24,6 +24,7 @@ namespace Component {
         glm::vec3 ctrlRight = glm::vec3(ctrlTransform[0][0], ctrlTransform[1][0], ctrlTransform[2][0]);
         glm::vec3 ctrlUp = glm::vec3(ctrlTransform[0][1], ctrlTransform[1][1], ctrlTransform[2][1]);
         glm::vec3 ctrlForward = glm::vec3(ctrlTransform[0][2], ctrlTransform[1][2], ctrlTransform[2][2]);
+        glm::vec3 position = glm::vec3(ctrlTransform[3][0], ctrlTransform[3][1], ctrlTransform[3][2]);
 
         glm::mat4 ctrlOrientation = glm::transpose(glm::mat4(
             glm::vec4(ctrlRight, 0.f),
@@ -34,9 +35,9 @@ namespace Component {
 
         ctrlOrientation = ctrlOrientation * entity->GetOrientation();
 
-        glm::mat4 ctrlTranslationLocal = ctrlTransform + glm::translate(glm::mat4(), entity->GetParent()->position);
+        glm::mat4 ctrlTranslationLocal = ctrlTransform;
         glm::vec3 ctrlPositionLocal = glm::vec3(ctrlTranslationLocal[3][0], ctrlTranslationLocal[3][1], ctrlTranslationLocal[3][2]);
-        glm::vec3 hmdPositionScaled = ctrlPositionLocal * 8.5f;
+        glm::vec3 hmdPositionScaled = ctrlPositionLocal * 1.0f;
         glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
         glm::mat4 ctrlModelMatrix = hmdTranslationScaled * ctrlOrientation * glm::scale(glm::mat4(), entity->scale);
 
