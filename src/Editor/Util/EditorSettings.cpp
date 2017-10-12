@@ -8,8 +8,6 @@ EditorSettings::EditorSettings() {
     
     AddBoolSetting("Logging", "Debug", "Logging", false);
     AddBoolSetting("Debug Context", "Debug", "Debug Context", false);
-    
-    AddBoolSetting("Grid Settings", "View", "Grid Settings", false);
 
     AddLongSetting("Width", "Graphics", "Width", 800);
     AddLongSetting("Height", "Graphics", "Height", 600);
@@ -22,6 +20,11 @@ EditorSettings::EditorSettings() {
     AddBoolSetting("Physics Volumes", "View", "Physics Volumes", true);
     
     AddStringSetting("Text Editor", "Script", "Text Editor", "");
+    
+    AddBoolSetting("Grid Settings", "View", "Grid Settings", false);
+    AddLongSetting("Grid Size", "Grid", "Size", 100);
+    AddBoolSetting("Grid Snap", "Grid", "Snap", false);
+    AddLongSetting("Grid Snap Size", "Grid", "Snap Size", 100);
 }
 
 EditorSettings& EditorSettings::GetInstance() {

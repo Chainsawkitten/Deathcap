@@ -77,8 +77,8 @@ void EntityEditor::Show() {
         ImGui::ShowHelpMarker("The entity's position, rotation and scale.", 75.f);
         ImGui::Indent();
 
-        if (Hymn().gridSettings.gridSnap) {
-            int toNearest = Hymn().gridSettings.snapOption;
+        if (EditorSettings::GetInstance().GetBool("Grid Snap")) {
+            int toNearest = EditorSettings::GetInstance().GetLong("Grid Snap Size");
 
             int value = entity->position.x;
             int rest = value % toNearest;
