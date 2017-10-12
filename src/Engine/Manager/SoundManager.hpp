@@ -1,7 +1,8 @@
 #pragma once
 
-#include <AL/alc.h>
 #include "../Entity/ComponentContainer.hpp"
+#include <portaudio.h>
+#include "../Audio/SteamAudioInterface.hpp"
 
 namespace Component {
     class SoundSource;
@@ -18,12 +19,15 @@ class SoundManager {
     public:     
         /// Check for OpenAL errors.
         /**
-         * @param message Message to print to standard error if an error was encountered.
+         * @param err The PortAudio error number to check.
          */
-        static void CheckError(const char* message);
+        static void CheckError(PaError err);
         
         /// Moves sound sources and plays sounds.
-        void Update();
+        /**
+         * @param deltaTime Time since last frame.
+         */
+        void Update(float deltaTime);
         
         /// Create sound source component.
         /**
@@ -72,8 +76,9 @@ class SoundManager {
         SoundManager(SoundManager const&) = delete;
         void operator=(SoundManager const&) = delete;
         
-        ALCdevice* device;
-        ALCcontext* context;
+        SteamAudioInterface sAudio;
+        PaStream* stream;
+        float* processedFrameSamples;
         
         float volume = 1.f;
         
