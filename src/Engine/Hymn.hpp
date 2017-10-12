@@ -96,13 +96,6 @@ class ActiveHymn {
         /// Default roughness texture.
         TextureAsset* defaultRoughness;
         
-        /// Grid settings.
-        struct GridSettings {
-            int gridSize = 0;
-            bool gridSnap = true;
-            int snapOption = 100;
-        } gridSettings;
-
         /// Filter settings.
         struct FilterSettings {
             /// Whether to enable color.

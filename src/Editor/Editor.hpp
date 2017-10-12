@@ -88,6 +88,12 @@ class Editor {
         void OpenHymnClosed(const std::string& hymn);
         void LoadActiveScene();
         
+        struct GridSettings {
+            int gridSize = 0;
+            bool gridSnap = true;
+            int snapOption = 100;
+        } gridSettings;
+        
         bool visible = true;
         GUI::SelectHymnWindow selectHymnWindow;
         GUI::InputWindow inputWindow;
