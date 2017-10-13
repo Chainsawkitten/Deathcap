@@ -32,14 +32,14 @@ namespace Component {
 
             /// Get mesh selection.
             /**
-            * @return Bool Is this selected or not.
-            */
+             * @return Is this selected or not.
+             */
             bool GetSelected() const;
 
             /// Set mesh selection.
             /**
-            * @param Value If selected or not.
-            */
+             * @param value If selected or not.
+             */
             void SetSelected(bool value);
 
     private:        

@@ -1,7 +1,11 @@
 #include "EntityEditor.hpp"
 
+<<<<<<< HEAD
 #include <Engine/Component/AnimationController.hpp>
 #include <Engine/Component/Physics.hpp>
+=======
+#include <Engine/Component/Animation.hpp>
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Lens.hpp>
 #include <Engine/Component/Material.hpp>
@@ -35,6 +39,7 @@
 #include <imgui_internal.h>
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
+#include "Engine/Component/Controller.hpp"
 
 namespace Physics {
     class Shape;
@@ -44,8 +49,12 @@ using namespace GUI;
 
 EntityEditor::EntityEditor() {
     name[0] = '\0';
+<<<<<<< HEAD
     AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
     AddEditor<Component::Physics>("Physics", std::bind(&EntityEditor::PhysicsEditor, this, std::placeholders::_1));
+=======
+    AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
     AddEditor<Component::Material>("Material", std::bind(&EntityEditor::MaterialEditor, this, std::placeholders::_1));
@@ -58,6 +67,7 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::Shape>("Shape", std::bind(&EntityEditor::ShapeEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
+    AddEditor<Component::Controller>("Controller", std::bind(&EntityEditor::ControllerEditor, this, std::placeholders::_1));
 
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
@@ -78,8 +88,8 @@ void EntityEditor::Show() {
         ImGui::ShowHelpMarker("The entity's position, rotation and scale.", 75.f);
         ImGui::Indent();
 
-        if (Hymn().gridSettings.gridSnap) {
-            int toNearest = Hymn().gridSettings.snapOption;
+        if (EditorSettings::GetInstance().GetBool("Grid Snap")) {
+            int toNearest = EditorSettings::GetInstance().GetLong("Grid Snap Size");
 
             int value = entity->position.x;
             int rest = value % toNearest;
@@ -145,7 +155,7 @@ void EntityEditor::SetEntity(Entity* entity) {
 
     auto shapeComp = this->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
-        Physics::Shape& shape = shapeComp->GetShape();
+        Physics::Shape& shape = *shapeComp->GetShape();
         for (uint32_t i = 0; i < shapeEditors.size(); ++i) {
             if (shapeEditors[i]->SetFromShape(shape)) {
                 selectedShape = i;
@@ -200,10 +210,13 @@ void EntityEditor::AnimationControllerEditor(Component::AnimationController* ani
     ImGui::Unindent();
 }
 
+<<<<<<< HEAD
 void EntityEditor::PhysicsEditor(Component::Physics* physics) {
     ImGui::Text("Will be removed soon.");
 }
 
+=======
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
 void EntityEditor::MeshEditor(Component::Mesh* mesh) {
     ImGui::Indent();
     if (ImGui::Button("Select model##Mesh"))
@@ -514,4 +527,10 @@ void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmi
     ImGui::Indent();
     ImGui::Checkbox("Simulate", &particleEmitter->preview);
     ImGui::Unindent();
+}
+
+void EntityEditor::ControllerEditor(Component::Controller* controller) {
+    ImGui::Text("Controller");
+    ImGui::Indent();
+    ImGui::InputInt("Controller ID (1 = left, 2 = right)", &controller->controllerID);
 }

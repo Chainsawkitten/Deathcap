@@ -1,8 +1,8 @@
 #pragma once
 
-#include <AL/al.h>
 #include <string>
 #include <json/json.h>
+#include <cstdint>
 
 namespace Audio {
     class SoundFile;
@@ -26,7 +26,7 @@ namespace Audio {
             /**
              * @return The OpenAL buffer ID.
              */
-            ALuint GetBuffer() const;
+            float* GetBuffer() const;
             
             /// Save the sound.
             /**
@@ -45,7 +45,13 @@ namespace Audio {
              * @param soundFile The sound file containing the sound.
              */
             void Load(SoundFile* soundFile);
-            
+
+            /// Get size of buffer.
+            /**
+             * @return The size of the buffer.
+             */
+            uint32_t GetSize();
+
             /// The name of the sound.
             std::string name;
             
@@ -53,6 +59,8 @@ namespace Audio {
             std::string path;
             
         private:
-            ALuint buffer;
+            float* buffer;
+            uint32_t size;
+            uint32_t sampleRate;
     };
 }

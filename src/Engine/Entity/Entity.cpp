@@ -8,7 +8,6 @@
 #include "../Component/DirectionalLight.hpp"
 #include "../Component/PointLight.hpp"
 #include "../Component/SpotLight.hpp"
-#include "../Component/Physics.hpp"
 #include "../Component/RigidBody.hpp"
 #include "../Component/Listener.hpp"
 #include "../Component/Script.hpp"
@@ -26,6 +25,7 @@
 #include "../Manager/RenderManager.hpp"
 #include "../Manager/ScriptManager.hpp"
 #include "../Manager/SoundManager.hpp"
+#include "Component/Controller.hpp"
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
@@ -179,14 +179,18 @@ Json::Value Entity::Save() const {
         entity["sceneName"] = sceneName;
     } else {
         // Save components.
+<<<<<<< HEAD
         Save<Component::AnimationController>(entity, "Animation");
+=======
+        Save<Component::Animation>(entity, "Animation");
+        Save<Component::Controller>(entity, "Controller");
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         Save<Component::Lens>(entity, "Lens");
         Save<Component::Mesh>(entity, "Mesh");
         Save<Component::Material>(entity, "Material");
         Save<Component::DirectionalLight>(entity, "DirectionalLight");
         Save<Component::PointLight>(entity, "PointLight");
         Save<Component::SpotLight>(entity, "SpotLight");
-        Save<Component::Physics>(entity, "Physics");
         Save<Component::RigidBody>(entity, "RigidBody");
         Save<Component::Listener>(entity, "Listener");
         Save<Component::Script>(entity, "Script");
@@ -221,14 +225,18 @@ void Entity::Load(const Json::Value& node) {
         scene = true;
     } else {
         // Load components.
+<<<<<<< HEAD
         Load<Component::AnimationController>(node, "Animation controller");
+=======
+        Load<Component::Animation>(node, "Animation");
+        Load<Component::Controller>(node, "Controller");
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         Load<Component::Lens>(node, "Lens");
         Load<Component::Mesh>(node, "Mesh");
         Load<Component::Material>(node, "Material");
         Load<Component::DirectionalLight>(node, "DirectionalLight");
         Load<Component::PointLight>(node, "PointLight");
         Load<Component::SpotLight>(node, "SpotLight");
-        Load<Component::Physics>(node, "Physics");
         Load<Component::RigidBody>(node, "RigidBody");
         Load<Component::Listener>(node, "Listener");
         Load<Component::Script>(node, "Script");
@@ -305,6 +313,8 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
     // Create a component in the correct manager.
     if (*componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation();
+    else if (*componentType == typeid(Component::Controller*))
+        component = Managers().renderManager->CreateController();
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight();
     else if (*componentType == typeid(Component::Lens*))
@@ -317,8 +327,6 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
         component = Managers().renderManager->CreateMesh();
     else if (*componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter();
-    else if (*componentType == typeid(Component::Physics*))
-        component = Managers().physicsManager->CreatePhysics(this);
     else if (*componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight();
     else if (*componentType == typeid(Component::RigidBody*))
@@ -351,6 +359,8 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
     // Create a component in the correct manager.
     if (*componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation(node);
+    else if (*componentType == typeid(Component::Controller*))
+        component = Managers().renderManager->CreateController(node);
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight(node);
     else if (*componentType == typeid(Component::Lens*))
@@ -363,8 +373,6 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
         component = Managers().renderManager->CreateMesh(node);
     else if (*componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter(node);
-    else if (*componentType == typeid(Component::Physics*))
-        component = Managers().physicsManager->CreatePhysics(this, node);
     else if (*componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight(node);
     else if (*componentType == typeid(Component::RigidBody*))

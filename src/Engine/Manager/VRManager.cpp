@@ -2,12 +2,17 @@
 #include "Utility/Log.hpp"
 
 VRManager::VRManager() : scale(1.f) {
-
+    // Check if VR runtime is installed.
+    if (!vr::VR_IsRuntimeInstalled()) {
+        vrSystem = nullptr;
+        Log() << "VR runtime not installed. Playing without VR.\n";
+        return;
+    }
+    
     // Load VR Runtime.
     vr::EVRInitError eError = vr::VRInitError_None;
     vrSystem = vr::VR_Init(&eError, vr::VRApplication_Scene);
-    if (eError != vr::VRInitError_None)
-    {
+    if (eError != vr::VRInitError_None) {
         vrSystem = nullptr;
         Log() << "Unable to init VR runtime: " << vr::VR_GetVRInitErrorAsEnglishDescription(eError) << "\n";
         return;
@@ -37,7 +42,7 @@ void VRManager::Sync() {
 
     // Get VR device pose(s).
     vr::VRCompositor()->WaitGetPoses(tracedDevicePoseArray, vr::k_unMaxTrackedDeviceCount, NULL, 0);
-
+    vr::ETrackedControllerRole role;
     // Convert to glm format.
     for (int nDevice = 0; nDevice < vr::k_unMaxTrackedDeviceCount; ++nDevice)
         if (tracedDevicePoseArray[nDevice].bPoseIsValid)
@@ -65,12 +70,45 @@ glm::mat4 VRManager::GetHMDPoseMatrix() const {
     return glm::inverse(deviceTransforms[vr::k_unTrackedDeviceIndex_Hmd]);
 }
 
-glm::mat4 VRManager::GetHMDEyeToHeadMatrix(vr::Hmd_Eye eye) const {
+glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
     if (vrSystem == nullptr) {
         Log() << "No initialized VR device.\n";
         return glm::mat4();
     }
 
+    for (vr::TrackedDeviceIndex_t untrackedDevice = 0; untrackedDevice < vr::k_unMaxTrackedDeviceCount; untrackedDevice++) {
+        // Skip current VR device if it's not connected
+        if (!vrSystem->IsTrackedDeviceConnected(untrackedDevice))
+            continue;
+        // Skip current device if it's not a controller
+        else if (vrSystem->GetTrackedDeviceClass(untrackedDevice) != vr::TrackedDeviceClass_Controller)
+            continue;
+        // Skip current controller if it's not in a valid position
+        else if (!tracedDevicePoseArray[untrackedDevice].bPoseIsValid)
+            continue;
+
+        // Find out if current controller is the left or right one.
+        vr::ETrackedControllerRole role = vrSystem->GetControllerRoleForTrackedDeviceIndex(untrackedDevice);
+
+        // If we want to differentiate between left and right controller.
+        if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
+            continue;
+        else if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
+            return glm::inverse(deviceTransforms[untrackedDevice]);
+        }
+        else if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
+            return glm::inverse(deviceTransforms[untrackedDevice]);
+        }
+    }
+
+    return glm::mat4();
+}
+
+glm::mat4 VRManager::GetHMDEyeToHeadMatrix(vr::Hmd_Eye eye) const {
+    if (vrSystem == nullptr) {
+        Log() << "No initialized VR device.\n";
+        return glm::mat4();
+    }
     return glm::inverse(ConvertMatrix(vrSystem->GetEyeToHeadTransform(eye)));
 }
 
@@ -122,4 +160,16 @@ float VRManager::GetScale() const {
 
 void VRManager::SetScale(float scale) {
     this->scale = scale;
+}
+
+bool VRManager::GetInput(vr::EVRButtonId buttonID) {
+    for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++) {
+        vr::VRControllerState_t controllerState;
+        if (vrSystem->GetControllerState(unDevice, &controllerState, sizeof(controllerState))) {
+            pressedTrackedDevice[unDevice] = controllerState.ulButtonPressed == 0;
+            if (controllerState.ulButtonPressed & vr::ButtonMaskFromId(buttonID))
+                return true;
+        }
+    }
+    return false;
 }

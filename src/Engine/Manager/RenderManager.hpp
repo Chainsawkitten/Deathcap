@@ -12,7 +12,12 @@ namespace Video {
 class World;
 class Entity;
 namespace Component {
+<<<<<<< HEAD
     class AnimationController;
+=======
+    class Animation;
+    class Controller;
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
     class DirectionalLight;
     class Lens;
     class Material;
@@ -190,6 +195,25 @@ class RenderManager {
          * @return All spot light components.
          */
         const std::vector<Component::SpotLight*>& GetSpotLights() const;
+
+        /// Create vr controller component
+        /**
+         * @return The created component.
+         */
+        Component::Controller* CreateController();
+
+        /// Create vr controller component
+        /**
+         * @param node Json node to load the component from
+         * @return The created component.
+         */
+        Component::Controller* CreateController(const Json::Value& node);
+
+        /// Get all vr controller components
+        /**
+         * @return All vr controller components
+         */
+        const std::vector<Component::Controller*>& GetControllers() const;
         
         /// Remove all killed components.
         void ClearKilledComponents();
@@ -202,7 +226,7 @@ class RenderManager {
 
         void Render(World& world, const glm::mat4& translationMatrix, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
         
-        void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, Video::RenderSurface* renderSurface);
+        void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix);
 
         void LoadTexture(TextureAsset*& texture, const std::string& name);
 
@@ -218,7 +242,12 @@ class RenderManager {
         Video::Texture2D* cameraTexture;
         
         // Components.
+<<<<<<< HEAD
         ComponentContainer<Component::AnimationController> animationControllers;
+=======
+        ComponentContainer<Component::Animation> animations;
+        ComponentContainer<Component::Controller> controllers;
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         ComponentContainer<Component::DirectionalLight> directionalLights;
         ComponentContainer<Component::Lens> lenses;
         ComponentContainer<Component::Material> materials;

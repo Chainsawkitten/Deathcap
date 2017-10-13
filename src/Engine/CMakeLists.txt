@@ -18,14 +18,18 @@ set(SRCS
         Audio/SteamAudioIndirectRenderer.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
+<<<<<<< HEAD
 	Component/AnimationController.cpp
+=======
+        Component/Animation.cpp
+        Component/Controller.cpp
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
         Component/Material.cpp
         Component/Mesh.cpp
         Component/ParticleEmitter.cpp
-        Component/Physics.cpp
         Component/PointLight.cpp
         Component/RigidBody.cpp
         Component/Script.cpp
@@ -81,14 +85,18 @@ set(HEADERS
         Audio/SteamAudioIndirectRenderer.hpp
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
+<<<<<<< HEAD
 	Component/AnimationController.hpp
+=======
+        Component/Animation.hpp
+        Component/Controller.hpp
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp
         Component/Material.hpp
         Component/Mesh.hpp
         Component/ParticleEmitter.hpp
-        Component/Physics.hpp
         Component/PointLight.hpp
         Component/RigidBody.hpp
         Component/Script.hpp
@@ -155,7 +163,7 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio glm bullet)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)

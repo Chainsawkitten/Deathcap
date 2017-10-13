@@ -8,12 +8,10 @@
 using namespace Component;
 
 SoundSource::SoundSource() {
-    alGenSources(1, &source);
+    
 }
 
 SoundSource::~SoundSource() {
-    alDeleteSources(1, &source);
-    
     if (soundBuffer != nullptr)
         Managers().resourceManager->FreeSound(soundBuffer);
 }

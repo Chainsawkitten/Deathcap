@@ -1,12 +1,12 @@
 #include "FrameBuffer.hpp"
 
 #include <Utility/Log.hpp>
-#include "Lighting/Lighting.hpp"
 #include "ReadWriteTexture.hpp"
 
 using namespace Video;
 
-FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) : textures(textures) {
+FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) : textures(textures), bound(false) {
+
     // Frame buffer object.
     glGenFramebuffers(1, &frameBufferObject);
     glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObject);
@@ -31,17 +31,47 @@ FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) : textu
         Log() << "Framebuffer creation failed\n";
 
     // Default framebuffer
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 FrameBuffer::~FrameBuffer() {
     glDeleteFramebuffers(1, &frameBufferObject);
 }
 
-void FrameBuffer::Bind() const {
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBufferObject);
+void FrameBuffer::BindWrite() {
+    if (bound) {
+        Log() << "StorageBuffer::Bind Warning: Already bound.\n";
+        return;
+    }
+
+    target = GL_DRAW_FRAMEBUFFER;
+    glBindFramebuffer(target, frameBufferObject);
+    bound = true;
 }
 
-void FrameBuffer::Unbind() const {
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+void FrameBuffer::BindRead() {
+    if (bound) {
+        Log() << "StorageBuffer::Bind Warning: Already bound.\n";
+        return;
+    }
+
+    target = GL_READ_FRAMEBUFFER;
+    glBindFramebuffer(target, frameBufferObject);
+    bound = true; 
+}
+
+void FrameBuffer::Unbind() {
+    if (!bound) {
+        Log() << "StorageBuffer::Bind Warning: Not bound.\n";
+        return;
+    }
+
+    glBindFramebuffer(target, 0);
+    bound = false;
+}
+
+void FrameBuffer::Clear() const {
+    assert(bound);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

@@ -1,18 +1,11 @@
 #include "Renderer.hpp"
 
 #include <GL/glew.h>
-#include "Lighting/Light.hpp"
-#include "Lighting/Lighting.hpp"
 #include "RenderProgram/StaticRenderProgram.hpp"
 #include "RenderProgram/SkinRenderProgram.hpp"
 #include "RenderSurface.hpp"
 #include "PostProcessing/PostProcessing.hpp"
-#include "PostProcessing/ColorFilter.hpp"
-#include "PostProcessing/FogFilter.hpp"
 #include "PostProcessing/FXAAFilter.hpp"
-#include "PostProcessing/GammaCorrectionFilter.hpp"
-#include "PostProcessing/GlowBlurFilter.hpp"
-#include "PostProcessing/GlowFilter.hpp"
 #include "Texture/Texture2D.hpp"
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"
@@ -20,22 +13,22 @@
 #include "EditorEntity.geom.hpp"
 #include "EditorEntity.frag.hpp"
 #include "Geometry/Rectangle.hpp"
-#include "FrameBuffer.hpp"
+#include "Buffer/FrameBuffer.hpp"
+#include "Buffer/StorageBuffer.hpp"
 
 using namespace Video;
 
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
-    lighting = new Lighting(staticRenderProgram->GetShaderProgram(), rectangle);
-   // skinRenderProgram = new SkinRenderProgram();
-   // postProcessing = new PostProcessing(rectangle);
-   // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
-   // fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
-   // fxaaFilter = new FXAAFilter();
-   // glowFilter = new GlowFilter();
-   // glowBlurFilter = new GlowBlurFilter();
+
+    postProcessing = new PostProcessing(rectangle);
+
+    fxaaFilter = new FXAAFilter();
     
+    lightCount = 0;
+    lightBuffer = new StorageBuffer(sizeof(Video::Light), GL_DYNAMIC_DRAW);
+
     // Icon rendering.
     Shader* iconVertexShader = new Shader(EDITORENTITY_VERT, EDITORENTITY_VERT_LENGTH, GL_VERTEX_SHADER);
     Shader* iconGeometryShader = new Shader(EDITORENTITY_GEOM, EDITORENTITY_GEOM_LENGTH, GL_GEOMETRY_SHADER);
@@ -66,48 +59,53 @@ Renderer::Renderer() {
 
 Renderer::~Renderer() {
     delete rectangle;
-    delete lighting;
     delete staticRenderProgram;
-    //delete skinRenderProgram;
-    //delete postProcessing;
-    //delete colorFilter;
-    //delete fogFilter;
-    //delete fxaaFilter;
-    //delete glowFilter;
-    //delete glowBlurFilter;
+
+    delete postProcessing;
+    delete fxaaFilter;
     
+    delete lightBuffer;
+
     // Icon rendering.
     delete iconShaderProgram;
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteVertexArrays(1, &vertexArray);
 }
 
-void Renderer::Clear() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void Renderer::PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+    staticRenderProgram->PreDepthRender(viewMatrix, projectionMatrix);
 }
 
-void Video::Renderer::DepthRenderStaticMesh(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix)
-{
+void Renderer::DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) {
     staticRenderProgram->DepthRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
 }
 
 void Renderer::StartRendering(RenderSurface* renderSurface) {
-    lighting->ClearLights();
-    
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    renderSurface->Clear();
     glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
 }
 
-void Renderer::AddLight(const Video::Light& light) {
-    lighting->AddLight(light);
-}
+void Renderer::SetLights(const std::vector<Video::Light>& lights) {
+    lightCount = lights.size();
 
-void Renderer::Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface) {
-    lighting->Render(inverseProjectionMatrix, renderSurface);
+    // Skip if no lights.
+    if (lightCount == 0) return;
+
+    // Resize light buffer if necessary.
+    unsigned int byteSize = sizeof(Video::Light) * lights.size();
+    if (lightBuffer->GetSize() < byteSize) {
+        delete lightBuffer;
+        lightBuffer = new StorageBuffer(byteSize, GL_DYNAMIC_DRAW);
+    }
+
+    // Update light buffer.
+    lightBuffer->Bind();
+    lightBuffer->Write((void*)lights.data(), 0, byteSize);
+    lightBuffer->Unbind();
 }
 
 void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
+    staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
 }
 
 void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {
@@ -123,35 +121,27 @@ void Video::Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D * geom
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
-    //fxaaFilter->SetScreenSize(renderSurface->GetSize());
-    //postProcessing->ApplyFilter(renderSurface, fxaaFilter);
+    fxaaFilter->SetScreenSize(renderSurface->GetSize());
+    postProcessing->ApplyFilter(renderSurface, fxaaFilter);
 }
 
-void Renderer::RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color) {
-    /*fogFilter->SetProjectionMatrix(projectionMatrix);
-    fogFilter->SetDensity(density);
-    fogFilter->SetColor(color);
-    postProcessing->ApplyFilter(renderSurface, fogFilter);*/
-}
-
-void Renderer::ApplyGlow(RenderSurface* renderSurface, int blurAmount) {
-    /*glowBlurFilter->SetScreenSize(renderSurface->GetSize());
-    for (int i = 0; i < blurAmount; ++i) {
-        glowBlurFilter->SetHorizontal(true);
-        postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
-        glowBlurFilter->SetHorizontal(false);
-        postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
-    }
-    postProcessing->ApplyFilter(renderSurface, glowFilter);*/
-}
-
-void Renderer::ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color) {
-    /*colorFilter->SetColor(color);
-    postProcessing->ApplyFilter(renderSurface, colorFilter);*/
-}
-
-void Renderer::DisplayResults(RenderSurface* renderSurface, bool dither) {
-    //postProcessing->Render(renderSurface, dither);
+void Renderer::Present(RenderSurface* renderSurface) {
+    const glm::vec2 size = renderSurface->GetSize();
+    
+    /// @todo See if doing this with a fullscreen quad would be faster.
+    /// With a fullscreen this would be one command (copying both color and depth) instead of two.
+    /// Additionally, online sources seem to indicate fullscreen quads are slightly faster than blitting.
+    
+    // Copy color buffer.
+    renderSurface->GetColorFrameBuffer()->BindRead();
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+    glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    renderSurface->GetColorFrameBuffer()->Unbind();
+    
+    // Copy depth buffer.
+    renderSurface->GetDepthFrameBuffer()->BindRead();
+    glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+    renderSurface->GetDepthFrameBuffer()->Unbind();
 }
 
 void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp) {
