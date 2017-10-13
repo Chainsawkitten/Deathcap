@@ -25,6 +25,7 @@
 #include <Engine/Manager/PhysicsManager.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Hymn.hpp>
+#include <angelscript.h>
 
 #include "../../Util/EditorSettings.hpp"
 #include "../FileSelector.hpp"
@@ -374,9 +375,71 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         ImGui::EndPopup();
     }
 
-    if (script->scriptFile != nullptr)
-    {
+    if (script->scriptFile != nullptr) {
         ImGui::Text(script->scriptFile->name.c_str());
+        ImGui::Separator();
+
+        if (ImGui::Button("Fetch properties")) {
+
+            Managers().scriptManager->FillPropertyMap(script);
+                
+        }
+
+        if (script->instance != nullptr) {
+
+            int propertyCount = script->instance->GetPropertyCount();
+
+            for (int n = 0; n < propertyCount; n++) {
+
+                int typeId = script->instance->GetPropertyTypeId(n);
+                void *varPointer = script->instance->GetAddressOfProperty(n);
+                if (typeId == asTYPEID_INT32){
+                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
+                }
+                else if (typeId == asTYPEID_FLOAT){
+                    ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
+                }
+                /// @todo This will be used to handle objects in the scripts
+                //else if (typeId & asTYPEID_SCRIPTOBJECT){
+                //    asIScriptObject *obj = (asIScriptObject*)varPointer;
+                //}
+                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
+                    
+                    std::map<std::string, std::pair<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
+                    if (it != script->propertyMap.end()) {
+
+                        std::string *str = (std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
+
+                        //We have to put a limit to the size of the string because we want to use a buffer so we don't have to reallocate it every frame.
+                        //I decided to use 128 because that's what we use for the name of the script.
+                        if (str->size() <= 128) {
+
+                            std::copy(str->begin(), str->end(), stringPropertyBuffer);
+                            stringPropertyBuffer[str->size()] = '\0';
+
+                            ImGui::InputText(script->instance->GetPropertyName(n), stringPropertyBuffer, 128);
+
+                            *str = stringPropertyBuffer;
+
+                        }
+                        else
+                            ImGui::Text("%s = <TOO BIG>\n", script->instance->GetPropertyName(n));
+
+                    }
+                    else
+                        ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
+                }
+
+            }
+
+            if (ImGui::Button("Reset properties")) {
+
+                script->ClearPropertyMap();
+                Managers().scriptManager->FillPropertyMap(script);
+
+            }
+
+        }
         ImGui::Separator();
 
         ImGui::Text("Entity References");
@@ -384,38 +447,33 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         for (size_t i = 0; i != script->refList.size(); ++i) {
             ImGui::Text(script->refList[i]->name.c_str());
             ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-            if (ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())) {
+            if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
                 script->refList.erase(script->refList.begin() + i);
                 break;
             }
         }
-        
 
         // Choosing other entity references
-        if (ImGui::Button("Add entity reference")) {
+        if (ImGui::Button("Add entity reference"))
             ImGui::OpenPopup("Add entity reference");
-        }
 
-        if (ImGui::BeginPopup("Add entity reference"))
-        {
+        if (ImGui::BeginPopup("Add entity reference")) {
             ImGui::Text("Entities");
             ImGui::Separator();
-            for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
-            {
+            for (Entity* entity : Hymn().world.GetEntities()) /// @todo Change into a prettier tree structure or something, later.
                 if (ImGui::Selectable(entity->name.c_str()))
-                {
                     script->refList.push_back(entity);
-                }
-            }
 
             ImGui::EndPopup();
         }
+
     }
     else
         ImGui::Text("No script loaded");
 
 
     ImGui::Unindent();
+
 }
 
 void EntityEditor::ShapeEditor(Component::Shape* shape) {

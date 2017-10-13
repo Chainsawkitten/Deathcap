@@ -591,10 +591,12 @@ void Editor::Focus() {
 }
 
 void Editor::Play() {
+
     sceneState = Hymn().world.GetSaveJson();
+
     SetVisible(false);
     resourceView.HideEditors();
-    resourceView.ResetScene();
+
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
 }

@@ -32,6 +32,12 @@ class ScriptManager {
         /// Build all scripts in the hymn.
         void BuildAllScripts();
         
+        ///Fetches the properties from the script and fills the map.
+        /**
+         * @param script The script which map to update.
+         */
+        void FillPropertyMap(Component::Script* script);
+
         /// Update all script entities in the game world.
         /**
          * @param world The world to update.
@@ -82,6 +88,13 @@ class ScriptManager {
          * @param type The type of message to send.
          */
         void SendMessage(Entity* recipient, int type);
+
+        /// Fetches an entity using its GUID.
+        /**
+         * @param GUID The entity to receive the message.
+         * @return The entity that has the corret GUID.
+         */
+        Entity* GetEntity(unsigned int GUID) const;
         
         /// Create script component.
         /**
@@ -96,6 +109,12 @@ class ScriptManager {
          */
         Component::Script* CreateScript(const Json::Value& node);
         
+        /// Used to get the string identifier used to check if a property is a string.
+        /**
+         * @return The identifier of the string declaration.
+         */
+        int GetStringDeclarationID();
+
         /// Get all script components.
         /**
          * @return All script components.

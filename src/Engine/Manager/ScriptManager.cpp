@@ -5,6 +5,8 @@
 #include <scriptmath/scriptmath.h>
 #include <scriptstdstring/scriptstdstring.h>
 #include <Utility/Log.hpp>
+#include <map>
+#include <typeindex>
 #include "../Util/FileSystem.hpp"
 #include "../Util/Input.hpp"
 #include "../Util/RayIntersection.hpp"
@@ -391,6 +393,7 @@ void ScriptManager::BuildScript(const ScriptFile* script) {
 }
 
 void ScriptManager::BuildAllScripts() {
+
     std::string path = Hymn().GetPath() + "/";
     
     for (ScriptFile* file : Hymn().scripts) {
@@ -411,12 +414,14 @@ void ScriptManager::BuildAllScripts() {
             r = builder.AddSectionFromFile(filename.c_str());
             if (r < 0)
                 Log() << "File section could not be added: " << filename << ".\n";
-            
+
             r = builder.BuildModule();
             if (r < 0)
                 Log() << "Compile errors.\n";
+
         } else {
             std::string script;
+
             LoadScriptFile(filename.c_str(), script);
             module->AddScriptSection(filename.c_str(), script.c_str());
             
@@ -427,12 +432,95 @@ void ScriptManager::BuildAllScripts() {
     }
 }
 
+void ScriptManager::FillPropertyMap(Script* script) {
+
+    BuildScript(script->scriptFile);
+    CreateInstance(script);
+
+    int propertyCount = script->instance->GetPropertyCount();
+
+    for (int n = 0; n < propertyCount; n++) {
+
+        int typeId = script->instance->GetPropertyTypeId(n);
+        void *varPointer = script->instance->GetAddressOfProperty(n);
+
+        auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
+        if (it != script->propertyMap.end()) {
+
+            if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId) {
+
+                continue;
+
+            }
+
+        }
+
+        if (typeId == asTYPEID_INT32) {
+            int* mapValue = new int();
+            *mapValue = *(int*)varPointer;
+            script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
+        }
+        else if (typeId == asTYPEID_FLOAT){
+            float* mapValue = new float();
+            *mapValue = *(float*)varPointer;
+            script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId,mapValue);
+        }
+        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
+            std::string *str = (std::string*)varPointer;
+            if (str) {
+
+                std::string* mapValue = new std::string();
+                *mapValue = *(std::string*)varPointer;
+                script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
+
+            }
+
+        }
+
+    }
+
+}
+
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
     for (Script* script : scripts.GetAll()) {
         if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
             CreateInstance(script);
             script->initialized = true;
+
+            int propertyCount = script->instance->GetPropertyCount();
+
+            for (int n = 0; n < propertyCount; n++) {
+
+                int typeId = script->instance->GetPropertyTypeId(n);
+                void *varPointer = script->instance->GetAddressOfProperty(n);
+
+                auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
+
+                if (it != script->propertyMap.end()){
+
+                    if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId) {
+
+                        if (typeId == asTYPEID_INT32){
+                            int* propertyPointer = static_cast<int*>(varPointer);
+                            *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)].second;
+                        }
+                        else if (typeId == asTYPEID_FLOAT){
+                            float* propertyPointer = static_cast<float*>(varPointer);
+                            *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second;
+                        }
+                        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
+
+                            std::string *str = (std::string*)varPointer;
+                            if (str) {
+
+                                *str = *(std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -535,6 +623,21 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
     messages.push_back(message);
 }
 
+Entity* ScriptManager::GetEntity(unsigned int GUID) const {
+
+    const std::vector<Entity*> entities = Hymn().world.GetEntities();
+    for (int i = 0; i < entities.size(); i++) {
+
+        if (entities[i]->GetUniqueIdentifier() == GUID) {
+
+            return entities[i];
+
+        }
+
+    }
+
+}
+
 Component::Script* ScriptManager::CreateScript() {
     return scripts.Create();
 }
@@ -545,8 +648,43 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
     // Load values from Json node.
     std::string name = node.get("scriptName", "").asString();
     script->scriptFile = Managers().resourceManager->CreateScriptFile(name);
+
+    if (node.isMember("propertyMap")) {
+
+        Json::Value propertyMapJson = node.get("propertyMap", "");
+        std::vector<std::string> names = propertyMapJson.getMemberNames();
+
+        for (const auto& name : names) {
+
+            if (propertyMapJson.isMember(name)) {
+
+                Json::Value typeId_value = propertyMapJson.get(name, "");
+
+                std::vector<std::string> typeIds = typeId_value.getMemberNames();
+                int typeId = std::atoi(typeIds[0].c_str());
+                if (typeId == asTYPEID_INT32){
+                    int* value = new int(typeId_value[typeIds[0]].asInt());
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
+                }
+                else if (typeId == asTYPEID_FLOAT){
+                    float* value = new float(typeId_value[typeIds[0]].asFloat());
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
+                }
+                else if (typeId == engine->GetTypeIdByDecl("string")){
+                    std::string* value = new std::string(typeId_value[typeIds[0]].asString());
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
+                }
+            }
+        }
+    }
     
     return script;
+}
+
+int ScriptManager::GetStringDeclarationID() {
+
+    return engine->GetTypeIdByDecl("string");
+
 }
 
 const std::vector<Component::Script*>& ScriptManager::GetScripts() const {
@@ -579,7 +717,7 @@ void ScriptManager::CreateInstance(Component::Script* script) {
     // Get the newly created object.
     script->instance = *(static_cast<asIScriptObject**>(context->GetAddressOfReturnValue()));
     script->instance->AddRef();
-    
+
     // Clean up.
     context->Release();
 }
