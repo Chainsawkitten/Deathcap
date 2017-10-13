@@ -35,8 +35,11 @@ namespace Component {
             /// Entities referenced by this script.
             std::vector<Entity*> refList;
 
-            ///Map containing the properties, map<nameOfProperty, map<typeOfProperty, valueOfProperty>>
-            std::map<std::string, std::map<int, void*>> propertyMap;
+            ///Map containing the properties, par<nameOfProperty, map<typeOfProperty, valueOfProperty>>
+            std::map<std::string, std::pair<int, void*>> propertyMap;
+
+            /// Clears the property map.
+            void ClearPropertyMap();
 
     };
 }

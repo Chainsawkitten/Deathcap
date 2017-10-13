@@ -441,11 +441,10 @@ void ScriptManager::FillPropertyMap(Script* script) {
         int typeId = script->instance->GetPropertyTypeId(n);
         void *varPointer = script->instance->GetAddressOfProperty(n);
 
-        std::map<std::string, std::map<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
+        auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
         if (it != script->propertyMap.end()) {
 
-            std::map<int, void*>::iterator it2 = script->propertyMap[script->instance->GetPropertyName(n)].find(typeId);
-            if (it2 != script->propertyMap[script->instance->GetPropertyName(n)].end()) {
+            if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId) {
 
                 continue;
 
@@ -454,39 +453,28 @@ void ScriptManager::FillPropertyMap(Script* script) {
         }
 
         if (typeId == asTYPEID_INT32) {
-
             int* mapValue = new int();
             *mapValue = *(int*)varPointer;
-            script->propertyMap[script->instance->GetPropertyName(n)][typeId] = mapValue;
+            script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
         }
-        else if (typeId == asTYPEID_FLOAT)
-        {
+        else if (typeId == asTYPEID_FLOAT){
             float* mapValue = new float();
             *mapValue = *(float*)varPointer;
-            script->propertyMap[script->instance->GetPropertyName(n)][typeId] = mapValue;
+            script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId,mapValue);
         }
-        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string"))
-        {
+        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
             std::string *str = (std::string*)varPointer;
             if (str) {
 
                 std::string* mapValue = new std::string();
                 *mapValue = *(std::string*)varPointer;
-                script->propertyMap[script->instance->GetPropertyName(n)][typeId] = mapValue;
+                script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
 
             }
 
         }
 
     }
-
-}
-
-void ScriptManager::ClearPropertyMap(Script* script) {
-
-    for (auto &propertyMap : script->propertyMap)
-        propertyMap.second.clear();
-    script->propertyMap.clear();
 
 }
 
@@ -504,32 +492,26 @@ void ScriptManager::Update(World& world, float deltaTime) {
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void *varPointer = script->instance->GetAddressOfProperty(n);
 
-                std::map<std::string, std::map<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
+                auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
 
-                if (it != script->propertyMap.end())
-                {
+                if (it != script->propertyMap.end()){
 
-                    std::map<int, void*>::iterator it2 = script->propertyMap[script->instance->GetPropertyName(n)].find(typeId);
+                    if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId) {
 
-                    if (it2 != script->propertyMap[script->instance->GetPropertyName(n)].end()) {
-
-                        if (typeId == asTYPEID_INT32)
-                        {
+                        if (typeId == asTYPEID_INT32){
                             int* propertyPointer = static_cast<int*>(varPointer);
-                            *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)][typeId];
+                            *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)].second;
                         }
-                        else if (typeId == asTYPEID_FLOAT)
-                        {
+                        else if (typeId == asTYPEID_FLOAT){
                             float* propertyPointer = static_cast<float*>(varPointer);
-                            *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)][typeId];
+                            *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second;
                         }
-                        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string"))
-                        {
+                        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
 
                             std::string *str = (std::string*)varPointer;
                             if (str) {
 
-                                *str = *(std::string*)script->propertyMap[script->instance->GetPropertyName(n)][typeId];
+                                *str = *(std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
 
                             }
                         }
@@ -669,7 +651,7 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
         Json::Value propertyMapJson = node.get("propertyMap", "");
         std::vector<std::string> names = propertyMapJson.getMemberNames();
 
-        for (auto name : names) {
+        for (const auto& name : names) {
 
             if (propertyMapJson.isMember(name)) {
 
@@ -677,26 +659,20 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
                 int typeId = std::atoi(typeIds[0].c_str());
-                if (typeId == asTYPEID_INT32)
-                {
+                if (typeId == asTYPEID_INT32){
                     int* value = new int(typeId_value[typeIds[0]].asInt());
-                    script->propertyMap[name][typeId] = (void*)value;
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
                 }
-                else if (typeId == asTYPEID_FLOAT)
-                {
+                else if (typeId == asTYPEID_FLOAT){
                     float* value = new float(typeId_value[typeIds[0]].asFloat());
-                    script->propertyMap[name][typeId] = (void*)value;
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
                 }
-                else if (typeId == engine->GetTypeIdByDecl("string"))
-                {
+                else if (typeId == engine->GetTypeIdByDecl("string")){
                     std::string* value = new std::string(typeId_value[typeIds[0]].asString());
-                    script->propertyMap[name][typeId] = (void*)value;
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
                 }
-
             }
-
         }
-
     }
     
     return script;

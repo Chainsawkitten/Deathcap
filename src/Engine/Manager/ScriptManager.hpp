@@ -32,17 +32,11 @@ class ScriptManager {
         /// Build all scripts in the hymn.
         void BuildAllScripts();
         
-        ///Build and create context.
+        ///Fetches the properties from the script and fills the map.
         /**
          * @param script The script which map to update.
          */
         void FillPropertyMap(Component::Script* script);
-
-        ///Build and create context.
-        /**
-         * @param script The script which map to clear.
-         */
-        void ClearPropertyMap(Component::Script* script);
 
         /// Update all script entities in the game world.
         /**
@@ -90,14 +84,15 @@ class ScriptManager {
         
         /// Send a message to an entity.
         /**
-        * @param recipient The entity to receive the message.
-        * @param type The type of message to send.
-        */
+         * @param recipient The entity to receive the message.
+         * @param type The type of message to send.
+         */
         void SendMessage(Entity* recipient, int type);
 
         /// Fetches an entity using its GUID.
         /**
          * @param GUID The entity to receive the message.
+         * @return The entity that has the corret GUID.
          */
         Entity* GetEntity(unsigned int GUID) const;
         

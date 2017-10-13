@@ -19,6 +19,9 @@ Script::~Script() {
     
     if (scriptFile != nullptr)
         Managers().resourceManager->FreeScriptFile(scriptFile);
+
+    ClearPropertyMap();
+
 }
 
 Json::Value Script::Save() const {
@@ -26,29 +29,49 @@ Json::Value Script::Save() const {
     if (scriptFile != nullptr)
         component["scriptName"] = scriptFile->path + scriptFile->name;
     
-    for (auto &name_map : propertyMap) {
+    for (auto &name_pair : propertyMap) {
 
-        std::string name = name_map.first.c_str();
+        const std::string& name = name_pair.first;
 
-        for (auto &typeId_value : name_map.second) {
-
-            int typeId = typeId_value.first;
-            void* varPointer = typeId_value.second;
-            if (typeId == asTYPEID_INT32)
-            {
-                component["propertyMap"][name][std::to_string(typeId)] = *(int*)varPointer;
-            }
-            else if (typeId == asTYPEID_FLOAT)
-            {
-                component["propertyMap"][name][std::to_string(typeId)] = *(float*)varPointer;
-            }
-            else if (typeId == Managers().scriptManager->GetStringDeclarationID())
-            {
-                std::string *str = (std::string*)varPointer;
-                component["propertyMap"][name][std::to_string(typeId)] = *str;
-            }
+        int typeId = name_pair.second.first;
+        void* varPointer = name_pair.second.second;
+        if (typeId == asTYPEID_INT32){
+            component["propertyMap"][name][std::to_string(typeId)] = *(int*)varPointer;
+        }
+        else if (typeId == asTYPEID_FLOAT){
+            component["propertyMap"][name][std::to_string(typeId)] = *(float*)varPointer;
+        }
+        else if (typeId == Managers().scriptManager->GetStringDeclarationID()){
+            std::string *str = (std::string*)varPointer;
+            component["propertyMap"][name][std::to_string(typeId)] = *str;
         }
     }
 
     return component;
+}
+
+/// Clears the property map.
+void Script::ClearPropertyMap() {
+
+    for (auto pair : propertyMap) {
+
+        int typeId = pair.second.first;
+        void* varPointer = pair.second.second;
+
+        if (typeId == asTYPEID_INT32) {
+
+            delete (int*)varPointer;
+
+        }
+        else if (typeId == asTYPEID_FLOAT) {
+            delete (float*)varPointer;
+        }
+        else if (typeId == Managers().scriptManager->GetStringDeclarationID()) {
+            delete (std::string*)varPointer;
+        }
+
+    }
+
+    propertyMap.clear();
+
 }
