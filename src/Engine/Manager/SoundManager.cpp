@@ -21,13 +21,16 @@ SoundManager::SoundManager() {
     // Initialize PortAudio
     err = Pa_Initialize();
     CheckError(err);
-    
+
     PaStreamParameters outputParams;
+
     outputParams.device = Pa_GetDefaultOutputDevice();
-    outputParams.channelCount = 1;
-    outputParams.sampleFormat = PA_SAMPLE_TYPE;
-    outputParams.hostApiSpecificStreamInfo = NULL;
-    outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultHighOutputLatency;
+    if (outputParams.device >= 0) {
+        outputParams.channelCount = 1;
+        outputParams.sampleFormat = PA_SAMPLE_TYPE;
+        outputParams.hostApiSpecificStreamInfo = NULL;
+        outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultHighOutputLatency;
+    }
 
     // Open Stream
     err = Pa_OpenStream(
@@ -42,7 +45,7 @@ SoundManager::SoundManager() {
     );
     CheckError(err);
 
-    processedFrameSamples = new float[1] { 0 };
+    processedFrameSamples = new float[1]{ 0 };
 
     err = Pa_StartStream(stream);
     CheckError(err);
@@ -65,28 +68,30 @@ void SoundManager::CheckError(PaError err) {
 }
 
 void SoundManager::Update(float deltaTime) {
-    
+
     // Number of samples to process dependant on deltaTime
     int numSamples = int(SAMPLE_RATE * deltaTime);
 
-    
+
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
-        
+
         if (sound->shouldPlay) {
 
             float* soundBuf = new float[numSamples];
             if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
-                std::memcpy(soundBuf,(sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
+                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
                 sound->place += numSamples;
-            } else {
+            }
+            else {
                 // Only copy the end samples of the buffer
-                uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place)/sizeof(float);
+                uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place) / sizeof(float);
                 std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
                 if (sound->loop) {
-                    std::memcpy(soundBuf + numToCpy*sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
+                    std::memcpy(soundBuf + numToCpy * sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
                     sound->place = numSamples - numToCpy;
-                } else {
+                }
+                else {
                     std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
                     sound->shouldPlay = false;
                 }
@@ -99,13 +104,13 @@ void SoundManager::Update(float deltaTime) {
         if (sound->shouldPause) {
             sound->shouldPlay = false;
         }
-        
+
         // Stop it.
         if (sound->shouldStop) {
             sound->shouldPlay = false;
             sound->place = 0;
         }
-        
+
     }
 
     uint32_t* numProcessedSamples = new uint32_t;
@@ -125,16 +130,16 @@ Component::SoundSource* SoundManager::CreateSoundSource() {
 
 Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node) {
     Component::SoundSource* soundSource = soundSources.Create();
-    
+
     // Load values from Json node.
     std::string name = node.get("sound", "").asString();
     if (!name.empty())
         soundSource->soundBuffer = Managers().resourceManager->CreateSound(name);
-    
+
     soundSource->pitch = node.get("pitch", 1.f).asFloat();
     soundSource->gain = node.get("gain", 1.f).asFloat();
     soundSource->loop = node.get("loop", false).asBool();
-    
+
     return soundSource;
 }
 
