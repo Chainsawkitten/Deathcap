@@ -467,7 +467,7 @@ void Editor::ShowGridSettings() {
         ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
         ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
         EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
-        ImGui::DragInt("Line Width", &gridSettings.lineWidth, 1.0f, 1, 5);
+        ImGui::DragInt("Line Width", &gridSettings.lineWidth, 0.1f, 1, 5);
         EditorSettings::GetInstance().SetLong("Grid Line Width", gridSettings.lineWidth);
         ImGui::Checkbox("Grid Snap", &gridSettings.gridSnap);
         EditorSettings::GetInstance().SetBool("Grid Snap", gridSettings.gridSnap);
