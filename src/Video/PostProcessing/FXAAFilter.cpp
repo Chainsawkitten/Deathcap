@@ -15,7 +15,6 @@ FXAAFilter::FXAAFilter() {
     delete fragmentShader;
     
     screenSizeLocation = shaderProgram->GetUniformLocation("screenSize");
-    brightnessLocation = shaderProgram->GetUniformLocation("brightness");
 }
 
 FXAAFilter::~FXAAFilter() {
@@ -28,7 +27,6 @@ ShaderProgram* FXAAFilter::GetShaderProgram() const {
 
 void FXAAFilter::SetUniforms() {
     glUniform2fv(screenSizeLocation, 1, &screenSize[0]);
-    glUniform1f(brightnessLocation, brightness);
 }
 
 void FXAAFilter::SetScreenSize(const glm::vec2& screenSize) {

@@ -6,37 +6,35 @@
 using namespace Audio;
 
 VorbisFile::VorbisFile(const char *filename) {
-    int channels;
-    dataSize = stb_vorbis_decode_filename(filename, &channels, &sampleRate, reinterpret_cast<short**>(&data));
-    
-    if (dataSize == -1)
+
+    // Open OGG file
+    int error;
+    stb_vorbis* stbfile = stb_vorbis_open_filename(filename, &error, NULL);
+    if (error == VORBIS_file_open_failure)
         Log() << "Couldn't load OGG Vorbis file: " << filename << "\n";
-    
-    // We get size in samples, but we need it in bytes.
-    dataSize *= channels * sizeof(short);
-    
-    if (channels > 1)
-        format = AL_FORMAT_STEREO16;
-    else
-        format = AL_FORMAT_MONO16;
+
+    stb_vorbis_info info = stb_vorbis_get_info(stbfile);
+    const int samples = stb_vorbis_stream_length_in_samples(stbfile) * info.channels;
+
+    // Get data
+    data = new float[samples * sizeof(float)];
+    stb_vorbis_get_samples_float_interleaved(stbfile, info.channels, data, samples);
+
+    dataSize = samples;
 }
 
 VorbisFile::~VorbisFile() {
-    free(data);
+
 }
 
-const char* VorbisFile::GetData() const {
+float* VorbisFile::GetData() const {
     return data;
 }
 
-ALsizei VorbisFile::GetSize() const {
+uint32_t VorbisFile::GetSize() const {
     return dataSize;
 }
 
-ALenum VorbisFile::GetFormat() const {
-    return format;
-}
-
-ALsizei VorbisFile::GetSampleRate() const {
+uint32_t VorbisFile::GetSampleRate() const {
     return sampleRate;
 }

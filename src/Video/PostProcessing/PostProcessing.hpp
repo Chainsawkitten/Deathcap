@@ -29,20 +29,8 @@ namespace Video {
              */
             void ApplyFilter(Video::RenderSurface* renderSurface, Filter* filter) const;
             
-            /// Render %RenderSurface to screen.
-            /**
-             * @param renderSurface %RenderSurface to render to screen.
-             * @param dither Whether to use dithering.
-             */
-            void Render(Video::RenderSurface* renderSurface, bool dither = false);
-            
         private:
             PostProcessing(const PostProcessing & other) = delete;
             const Geometry::Rectangle* rectangle;
-
-            float ditherTime = 0.f;
-
-            ShaderProgram* shaderProgram;
-            ShaderProgram* ditherShaderProgram;
     };
 }

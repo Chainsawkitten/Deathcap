@@ -9,7 +9,6 @@
 
 namespace Component {
     class Animation;
-    class Physics;
     class Mesh;
     class Lens;
     class Material;
@@ -22,6 +21,7 @@ namespace Component {
     class Shape;
     class SoundSource;
     class ParticleEmitter;
+    class Controller;
 }
 
 namespace GUI {
@@ -77,8 +77,6 @@ namespace GUI {
             
             // Editors
             void AnimationEditor(Component::Animation* animation);
-            /// @todo: remove when physics component is gone
-            void PhysicsEditor(Component::Physics* physics);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
             void MaterialEditor(Component::Material* material);
@@ -91,6 +89,7 @@ namespace GUI {
             void ShapeEditor(Component::Shape* shape);
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
+            void ControllerEditor(Component::Controller* controller);
             
             Entity* entity = nullptr;
             bool visible = false;

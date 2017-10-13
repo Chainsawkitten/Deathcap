@@ -29,6 +29,13 @@ class VRManager {
          */
         glm::mat4 GetHMDPoseMatrix() const;
 
+        /// Returns the transform for the controllers
+        /**
+         * @param controlID Which controller to get the matrix for (1 = left, 2 = right).
+         * @return The Controllers translation matrix.
+         */
+        glm::mat4 GetControllerPoseMatrix(int controlID) const;
+
         /// Returns the transform between the view space and eye space.
         /**
          * @param eye Which eye the function should return the eye matrix for.
@@ -63,6 +70,13 @@ class VRManager {
          * @param scale Scale to set.
          */
         void SetScale(float scale);
+
+        /// Gets if certain button is pressed (Only trigger for now)
+        /**
+         * @param buttonID the button we want to check is pressed.
+         * @return whether certain button is pressed or not. 
+         */
+        bool GetInput(vr::EVRButtonId buttonID);
         
     private:
         VRManager();
@@ -77,4 +91,6 @@ class VRManager {
         vr::IVRSystem* vrSystem;
         vr::TrackedDevicePose_t tracedDevicePoseArray[vr::k_unMaxTrackedDeviceCount];
         glm::mat4 deviceTransforms[vr::k_unMaxTrackedDeviceCount];
+
+        bool pressedTrackedDevice[vr::k_unMaxTrackedDeviceCount];
 };

@@ -206,7 +206,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         if (ImGui::Selectable("Add scene")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::SCENE;
-            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
+            resource.scene = new string("Scene #" + std::to_string(Resources().sceneNumber++));
             folder.resources.push_back(resource);
         }
         
@@ -263,8 +263,9 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         
         // Show resources.
         for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
-            if (ShowResource(*it, path)) {
+            if (ShowResource(folder, *it, path)) {
                 folder.resources.erase(it);
+                ImGui::TreePop();
                 return;
             }
         }
@@ -273,32 +274,32 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
     }
 }
 
-bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::string& path) {
+bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path) {
     // Scene.
     if (resource.type == ResourceList::Resource::SCENE) {
-        if (ImGui::Selectable(resource.scene.c_str())) {
+        if (ImGui::Selectable(resource.scene->c_str())) {
             // Sets to don't save when opening first scene.
             if (scene == nullptr) {
                 changeScene = true;
                 resourcePath = path;
-                scene = &resource.scene;
+                scene = resource.scene;
                 savePromptWindow.SetVisible(false);
                 savePromptWindow.SetDecision(1);
             } else {
                 // Does so that the prompt window won't show if you select active scene.
-                if (resource.scene != Resources().activeScene) {
+                if (*resource.scene != Resources().activeScene) {
                     changeScene = true;
                     resourcePath = path;
-                    scene = &resource.scene;
+                    scene = resource.scene;
                     savePromptWindow.SetTitle("Save before you switch scene?");
                 }
             }
         }
         
         // Delete scene.
-        if (ImGui::BeginPopupContextItem(resource.scene.c_str())) {
+        if (ImGui::BeginPopupContextItem(resource.scene->c_str())) {
             if (ImGui::Selectable("Delete")) {
-                if (Resources().activeScene == resource.scene) {
+                if (Resources().activeScene == *resource.scene) {
                     Resources().activeScene = "";
                     sceneEditor.SetScene("", nullptr);
                 }
@@ -315,7 +316,7 @@ bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::str
     if (resource.type == ResourceList::Resource::MODEL) {
         if (ImGui::Selectable(resource.model->name.c_str())) {
             modelPressed = true;
-            modelEditor.SetModel(resource.model);
+            modelEditor.SetModel(&folder, resource.model);
         }
         
         if (ImGui::BeginPopupContextItem(resource.model->name.c_str())) {

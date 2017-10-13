@@ -39,7 +39,7 @@ class ResourceList {
             } type;
             
             /// Scene name.
-            std::string scene;
+            std::string* scene;
             
             /// Model.
             Geometry::Model* model;

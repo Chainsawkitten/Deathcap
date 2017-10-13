@@ -16,13 +16,13 @@ set(SRCS
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
+        Component/Controller.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
         Component/Material.cpp
         Component/Mesh.cpp
         Component/ParticleEmitter.cpp
-        Component/Physics.cpp
         Component/PointLight.cpp
         Component/RigidBody.cpp
         Component/Script.cpp
@@ -76,13 +76,13 @@ set(HEADERS
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/Animation.hpp
+        Component/Controller.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp
         Component/Material.hpp
         Component/Mesh.hpp
         Component/ParticleEmitter.hpp
-        Component/Physics.hpp
         Component/PointLight.hpp
         Component/RigidBody.hpp
         Component/Script.hpp
@@ -149,7 +149,7 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio glm bullet)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)

@@ -1,6 +1,6 @@
 {
 	"activeScene" : "Resources/TestScene",
-	"modelNumber" : 4,
+	"modelNumber" : 5,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -78,6 +78,17 @@
 					{
 						"script" : "Gates",
 						"type" : 4
+					}
+				],
+				"subfolders" : null
+			},
+			{
+				"name" : "Controller",
+				"resources" : 
+				[
+					{
+						"model" : "controller_fix",
+						"type" : 1
 					}
 				],
 				"subfolders" : null

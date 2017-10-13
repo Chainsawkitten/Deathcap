@@ -19,14 +19,23 @@ namespace Video {
             ~FrameBuffer();
 
             /// Bind this framebuffer as render target.
-            void Bind() const;
+            void BindWrite();
+
+            /// Bind this framebuffer as render source.
+            void BindRead();
 
             /// Unbind this framebuffer as render target.
-            void Unbind() const;
+            void Unbind();
+
+            /// Clear this framebuffer.
+            void Clear() const;
 
         private:
             std::vector<ReadWriteTexture*> textures;
 
             GLuint frameBufferObject;
+            GLenum target;
+
+            bool bound;
     };
 }

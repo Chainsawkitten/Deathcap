@@ -38,7 +38,7 @@ class Editor {
         void Save() const;
 
         /// Loads the save editor state.
-        void LoadEditorState();
+        void LoadSceneState();
 
         /// Is the editor ready to be closed, have we saved everything?
         /**
@@ -74,12 +74,25 @@ class Editor {
         Entity* GetCamera() const;
         
     private:
+        void ShowMainMenuBar(bool& play);
+        void ShowGridSettings();
+        void CreateGrid(int size);
+        void ControlEditorCamera(float deltaTime);
+        void Picking();
+        void Focus();
+        
         void Play();
         void NewHymn();
         void NewHymnClosed(const std::string& hymn);
         void OpenHymn();
         void OpenHymnClosed(const std::string& hymn);
         void LoadActiveScene();
+        
+        struct GridSettings {
+            int gridSize;
+            bool gridSnap;
+            int snapOption;
+        } gridSettings;
         
         bool visible = true;
         GUI::SelectHymnWindow selectHymnWindow;
@@ -91,8 +104,9 @@ class Editor {
 
         bool close;
         bool savePromptAnswered;
+        bool showGridSettings;
 
-        Json::Value editorState;
+        Json::Value sceneState;
         
         World cameraWorld;
         Entity* cameraEntity;
