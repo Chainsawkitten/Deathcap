@@ -15,6 +15,7 @@ VorbisFile::VorbisFile(const char *filename) {
 
     stb_vorbis_info info = stb_vorbis_get_info(stbfile);
     const int samples = stb_vorbis_stream_length_in_samples(stbfile) * info.channels;
+    sampleRate = info.sample_rate;
 
     // Get data
     data = new float[samples * sizeof(float)];
