@@ -29,19 +29,10 @@ namespace Video {
              */
             void SetScreenSize(const glm::vec2& screenSize);
             
-            /// Set brightness.
-            /**
-             * @param brightness Brightness.
-             */
-            void SetBrightness(float brightness);
-            
         private:
             ShaderProgram* shaderProgram;
             
             glm::vec2 screenSize;
             GLint screenSizeLocation;
-            
-            float brightness = 2.2f;
-            GLint brightnessLocation;
     };
 }

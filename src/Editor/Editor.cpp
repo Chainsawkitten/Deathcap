@@ -7,6 +7,7 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
+#include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/MainWindow.hpp>
 #include <Engine/Component/DirectionalLight.hpp>
@@ -73,6 +74,13 @@ Editor::Editor() {
     savePromptAnswered = false;
     savePromtWindow.SetTitle("Save before you quit?");
     close = false;
+    
+    // Load settings.
+    showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
+    gridSettings.gridSize = EditorSettings::GetInstance().GetLong("Grid Size");
+    gridSettings.lineWidth = EditorSettings::GetInstance().GetLong("Grid Line Width");
+    gridSettings.gridSnap = EditorSettings::GetInstance().GetBool("Grid Snap");
+    gridSettings.snapOption = EditorSettings::GetInstance().GetLong("Grid Snap Size");
 
     // Ray mouse.
     mousePicker = MousePicking(cameraEntity, cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
@@ -121,96 +129,9 @@ void Editor::Show(float deltaTime) {
         }
     } else {
         bool play = false;
-
-        ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
-
+        
         // Main menu bar.
-        if (ImGui::BeginMainMenuBar()) {
-
-            // File menu.
-            if (ImGui::BeginMenu("File")) {
-                if (ImGui::MenuItem("New Hymn", "CTRL+N"))
-                    NewHymn();
-
-                if (ImGui::MenuItem("Open Hymn", "CTRL+O"))
-                    OpenHymn();
-
-                if (Hymn().GetPath() != "") {
-                    if (ImGui::MenuItem("Save Hymn", "CTRL+S"))
-                        Save();
-                }
-
-                ImGui::Separator();
-
-                if (ImGui::MenuItem("Settings"))
-                    settingsWindow.SetVisible(true);
-
-                ImGui::EndMenu();
-            }
-
-            // View menu.
-            if (ImGui::BeginMenu("View")) {
-                static bool showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
-                ImGui::MenuItem("Grid Settings", "", &showGridSettings);
-                EditorSettings::GetInstance().SetBool("Grid Settings", showGridSettings);
-
-                static bool soundSources = EditorSettings::GetInstance().GetBool("Sound Source Icons");
-                ImGui::MenuItem("Sound Sources", "", &soundSources);
-                EditorSettings::GetInstance().SetBool("Sound Source Icons", soundSources);
-
-                static bool particleEmitters = EditorSettings::GetInstance().GetBool("Particle Emitter Icons");
-                ImGui::MenuItem("Particle Emitters", "", &particleEmitters);
-                EditorSettings::GetInstance().SetBool("Particle Emitter Icons", particleEmitters);
-
-                static bool lightSources = EditorSettings::GetInstance().GetBool("Light Source Icons");
-                ImGui::MenuItem("Light Sources", "", &lightSources);
-                EditorSettings::GetInstance().SetBool("Light Source Icons", lightSources);
-
-                static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
-                ImGui::MenuItem("Cameras", "", &cameras);
-                EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
-
-                static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
-                ImGui::MenuItem("Physics", "", &physics);
-                EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
-
-                ImGui::EndMenu();
-            }
-
-            if (Hymn().GetPath() != "") {
-                // Play
-                if (ImGui::BeginMenu("Play")) {
-                    if (ImGui::MenuItem("Play", "F5"))
-                        play = true;
-
-                    ImGui::EndMenu();
-                }
-
-                // Hymn
-                if (ImGui::BeginMenu("Hymn")) {
-                    if (ImGui::MenuItem("Input"))
-                        inputWindow.SetVisible(true);
-
-                    if (ImGui::MenuItem("Filters"))
-                        filtersWindow.SetVisible(true);
-
-                    ImGui::EndMenu();
-                }
-
-                if (Input()->Triggered(InputHandler::ZOOM)) {
-                    if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
-                        const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
-                        cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
-                        cameraEntity->rotation = glm::vec3(0, 45, 1);
-                    }
-                }
-
-                // Editor Camera Coordinates
-                ImGui::SameLine(size.x - 280); ImGui::Text("X: %f, Y: %f, Z: %f", cameraEntity->GetWorldPosition().x, cameraEntity->GetWorldPosition().y, cameraEntity->GetWorldPosition().z);
-            }
-
-            ImGui::EndMainMenuBar();
-        }
+        ShowMainMenuBar(play);
 
         // Show hymn selection window.
         if (selectHymnWindow.IsVisible()) {
@@ -233,101 +154,20 @@ void Editor::Show(float deltaTime) {
         if (settingsWindow.IsVisible()) {
             settingsWindow.Show();
         }
+        
+        // Show grid settings window.
+        ShowGridSettings();
+        CreateGrid(gridSettings.gridSize);
 
         // Control the editor camera.
-        if (Input()->Pressed(InputHandler::CAMERA)) {
-            if (Input()->Triggered(InputHandler::CAMERA)) {
-                lastX = Input()->GetCursorX();
-                lastY = Input()->GetCursorY();
-            }
+        ControlEditorCamera(deltaTime);
 
-            float sensitivity = 0.3f;
-            cameraEntity->rotation.x += sensitivity * (Input()->GetCursorX() - lastX);
-            cameraEntity->rotation.y += sensitivity * (Input()->GetCursorY() - lastY);
-
-            lastX = Input()->GetCursorX();
-            lastY = Input()->GetCursorY();
-
-            glm::mat4 orientation = cameraEntity->GetCameraOrientation();
-            glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-            glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
-
-            // Move speed scaling.
-            float speed = 10.0f * deltaTime * (glm::abs(cameraEntity->position.y) / 10.0f);
-            float constantSpeed = 10.0f * deltaTime;
-
-            if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
-                cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
-                cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            } else {
-                cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
-                cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-            }
-        }
-
-        // Mouse ray.
-        if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
-            mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
-            mousePicker.Update();
-            float lastDistance = INFINITY;
-            int entityIndex = 0;
-            int entityAmount = Hymn().world.GetEntities().size();
-            for (int i = 0; i < entityAmount; ++i) {
-                selectedEntity = Hymn().world.GetEntities().at(i);
-                if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
-                    selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
-                    float intersectDistance = 0.0f;
-                    if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
-                        selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
-                        selectedEntity->GetModelMatrix(), intersectDistance)) {
-                        if (intersectDistance < lastDistance) {
-                            lastDistance = intersectDistance;
-                            entityIndex = i;
-                            if (entityAmount - i == 1) {
-                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                                resourceView.GetScene().entityEditor.SetVisible(true);
-                                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
-                                break;
-                            }
-                          
-                        } else if (intersectDistance > 0.0f) {
-                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                            resourceView.GetScene().entityEditor.SetVisible(true);
-                            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
+        // Select entity by clicking on it with the mouse.
+        Picking();
+        
         // Move camera position and rotation to fixate on selected object.
-        if (Input()->Triggered(InputHandler::FOCUS)) {
-
-            if (selectedEntity != NULL) {
-
-                glm::vec3 backward = glm::normalize(cameraEntity->position - selectedEntity->position);
-
-                while (glm::length(selectedEntity->position - cameraEntity->position) > 10) {
-                    cameraEntity->position -= backward;
-                }
-
-                while (glm::length(selectedEntity->position - cameraEntity->position) < 10) {
-                    cameraEntity->position += backward;
-                }
-
-                glm::vec3 camDirection = selectedEntity->position - cameraEntity->position;
-                glm::normalize(camDirection);
-
-                float yaw = std::atan2(camDirection.x, -camDirection.z);
-                cameraEntity->rotation.x = glm::degrees(yaw);
-
-                float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
-                float pitch = std::atan2(-camDirection.y, xz);
-                cameraEntity->rotation.y = glm::degrees(pitch);
-            }
-        }
-
+        Focus();
+        
         // Scroll zoom.
         if (Input()->GetScrollDown()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
@@ -382,7 +222,7 @@ void Editor::Show(float deltaTime) {
 
     Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
 
-    if (currentEntity != NULL) {
+    if (currentEntity != nullptr) {
         currentEntityMatrix = currentEntity->GetLocalMatrix();
 
         // Change operation based on key input.
@@ -400,7 +240,6 @@ void Editor::Show(float deltaTime) {
         glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
 
         // Identity matrix.
-        glm::mat4 identity = glm::mat4();
         float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
         float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
         float rotationValue[3] = { currentEntity->rotation.x, currentEntity->rotation.y, currentEntity->rotation.z };
@@ -529,6 +368,226 @@ void Editor::SetVisible(bool visible) {
 
 Entity* Editor::GetCamera() const {
     return cameraEntity;
+}
+
+void Editor::ShowMainMenuBar(bool& play) {
+    ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
+    
+    // Main menu bar.
+    if (ImGui::BeginMainMenuBar()) {
+        // File menu.
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("New Hymn", "CTRL+N"))
+                NewHymn();
+
+            if (ImGui::MenuItem("Open Hymn", "CTRL+O"))
+                OpenHymn();
+
+            if (Hymn().GetPath() != "") {
+                if (ImGui::MenuItem("Save Hymn", "CTRL+S"))
+                    Save();
+            }
+
+            ImGui::Separator();
+
+            if (ImGui::MenuItem("Settings"))
+                settingsWindow.SetVisible(true);
+
+            ImGui::EndMenu();
+        }
+
+        // View menu.
+        if (ImGui::BeginMenu("View")) {
+            ImGui::MenuItem("Grid Settings", "", &showGridSettings);
+            EditorSettings::GetInstance().SetBool("Grid Settings", showGridSettings);
+
+            static bool soundSources = EditorSettings::GetInstance().GetBool("Sound Source Icons");
+            ImGui::MenuItem("Sound Sources", "", &soundSources);
+            EditorSettings::GetInstance().SetBool("Sound Source Icons", soundSources);
+
+            static bool particleEmitters = EditorSettings::GetInstance().GetBool("Particle Emitter Icons");
+            ImGui::MenuItem("Particle Emitters", "", &particleEmitters);
+            EditorSettings::GetInstance().SetBool("Particle Emitter Icons", particleEmitters);
+
+            static bool lightSources = EditorSettings::GetInstance().GetBool("Light Source Icons");
+            ImGui::MenuItem("Light Sources", "", &lightSources);
+            EditorSettings::GetInstance().SetBool("Light Source Icons", lightSources);
+
+            static bool cameras = EditorSettings::GetInstance().GetBool("Camera Icons");
+            ImGui::MenuItem("Cameras", "", &cameras);
+            EditorSettings::GetInstance().SetBool("Camera Icons", cameras);
+
+            static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
+            ImGui::MenuItem("Physics", "", &physics);
+            EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
+
+            ImGui::EndMenu();
+        }
+
+        if (Hymn().GetPath() != "") {
+            // Play
+            if (ImGui::BeginMenu("Play")) {
+                if (ImGui::MenuItem("Play", "F5"))
+                    play = true;
+
+                ImGui::EndMenu();
+            }
+
+            // Hymn
+            if (ImGui::BeginMenu("Hymn")) {
+                if (ImGui::MenuItem("Input"))
+                    inputWindow.SetVisible(true);
+
+                if (ImGui::MenuItem("Filters"))
+                    filtersWindow.SetVisible(true);
+
+                ImGui::EndMenu();
+            }
+
+            if (Input()->Triggered(InputHandler::ZOOM)) {
+                if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
+                    const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
+                    cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
+                    cameraEntity->rotation = glm::vec3(0, 45, 1);
+                }
+            }
+
+            // Editor Camera Coordinates
+            ImGui::SameLine(size.x - 280); ImGui::Text("X: %f, Y: %f, Z: %f", cameraEntity->GetWorldPosition().x, cameraEntity->GetWorldPosition().y, cameraEntity->GetWorldPosition().z);
+        }
+
+        ImGui::EndMainMenuBar();
+    }
+}
+
+void Editor::ShowGridSettings() {
+    if (showGridSettings) {
+        ImGui::SetNextWindowPos(ImVec2(1275, 25));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
+        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
+        ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
+        EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
+        ImGui::DragInt("Line Width", &gridSettings.lineWidth, 0.1f, 1, 5);
+        EditorSettings::GetInstance().SetLong("Grid Line Width", gridSettings.lineWidth);
+        ImGui::Checkbox("Grid Snap", &gridSettings.gridSnap);
+        EditorSettings::GetInstance().SetBool("Grid Snap", gridSettings.gridSnap);
+        ImGui::DragInt("Snap Size", &gridSettings.snapOption, 1.0f, 1, 100);
+        EditorSettings::GetInstance().SetLong("Grid Snap Size", gridSettings.snapOption);
+        ImGui::End();
+    }
+}
+
+void Editor::CreateGrid(int size) {
+    glm::vec2 gridWidthDepth(10.0f, 10.0f);
+    gridWidthDepth.x = (gridWidthDepth.x * size);
+    gridWidthDepth.y = (gridWidthDepth.y * size);
+    
+    float xStart = (-gridWidthDepth.x / 2);
+    float xEnd = (gridWidthDepth.x / 2);
+    float zStart = (-gridWidthDepth.y / 2);
+    float zEnd = (gridWidthDepth.y / 2);
+    
+    if (size <= 100 && size > 0) {
+        for (int i = 0; i < (size + size + 1); i++) {
+            Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), static_cast<float>(gridSettings.lineWidth));
+            Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x / (2), 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), static_cast<float>(gridSettings.lineWidth));
+            xStart += (gridWidthDepth.x / 2) / size;
+            zStart += (gridWidthDepth.y / 2) / size;
+        }
+    }
+}
+
+void Editor::ControlEditorCamera(float deltaTime) {
+    if (Input()->Pressed(InputHandler::CAMERA)) {
+        if (Input()->Triggered(InputHandler::CAMERA)) {
+            lastX = Input()->GetCursorX();
+            lastY = Input()->GetCursorY();
+        }
+
+        float sensitivity = 0.3f;
+        cameraEntity->rotation.x += sensitivity * (Input()->GetCursorX() - lastX);
+        cameraEntity->rotation.y += sensitivity * (Input()->GetCursorY() - lastY);
+
+        lastX = Input()->GetCursorX();
+        lastY = Input()->GetCursorY();
+
+        glm::mat4 orientation = cameraEntity->GetCameraOrientation();
+        glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+        glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
+
+        // Move speed scaling.
+        float speed = 10.0f * deltaTime * (glm::abs(cameraEntity->position.y) / 10.0f);
+        float constantSpeed = 10.0f * deltaTime;
+
+        if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
+            cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
+            cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        } else {
+            cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
+            cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
+        }
+    }
+}
+
+void Editor::Picking() {
+    if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+        mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+        mousePicker.Update();
+        float lastDistance = INFINITY;
+        int entityIndex = 0;
+        int entityAmount = Hymn().world.GetEntities().size();
+        for (int i = 0; i < entityAmount; ++i) {
+            selectedEntity = Hymn().world.GetEntities().at(i);
+            if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
+                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
+                float intersectDistance = 0.0f;
+                if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
+                    selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
+                    selectedEntity->GetModelMatrix(), intersectDistance)) {
+                    if (intersectDistance < lastDistance) {
+                        lastDistance = intersectDistance;
+                        entityIndex = i;
+                        if (entityAmount - i == 1) {
+                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
+                            break;
+                        }
+                      
+                    } else if (intersectDistance > 0.0f) {
+                        resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                        resourceView.GetScene().entityEditor.SetVisible(true);
+                        selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void Editor::Focus() {
+    if (Input()->Triggered(InputHandler::FOCUS)) {
+        if (selectedEntity != nullptr) {
+            glm::vec3 backward = glm::normalize(cameraEntity->position - selectedEntity->position);
+            
+            while (glm::length(selectedEntity->position - cameraEntity->position) > 10)
+                cameraEntity->position -= backward;
+            
+            while (glm::length(selectedEntity->position - cameraEntity->position) < 10)
+                cameraEntity->position += backward;
+            
+            glm::vec3 camDirection = selectedEntity->position - cameraEntity->position;
+            glm::normalize(camDirection);
+
+            float yaw = std::atan2(camDirection.x, -camDirection.z);
+            cameraEntity->rotation.x = glm::degrees(yaw);
+
+            float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
+            float pitch = std::atan2(-camDirection.y, xz);
+            cameraEntity->rotation.y = glm::degrees(pitch);
+        }
+    }
 }
 
 void Editor::Play() {

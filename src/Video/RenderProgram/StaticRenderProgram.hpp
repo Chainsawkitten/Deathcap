@@ -5,6 +5,7 @@
 namespace Video {
     class Texture2D;
     class ShaderProgram;
+    class StorageBuffer;
     namespace Geometry {
         class Geometry3D;
     }
@@ -17,22 +18,31 @@ namespace Video {
             
             /// Destructor.
             ~StaticRenderProgram();
-            /// Render depth pass.
-            /**
-            * @param geometry The geometry to render.
-            * @param viewMatrix The camera's view matrix.
-            * @param projectionMatrix The camera's projection matrix.
-            * @param modelMatrix Model matrix.
-            */
-            void DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix);
 
-            
-            /// Bind render program.
+            /// Bind depth render program.
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
              */
-            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            void PreDepthRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+
+            /// Render depth pass.
+            /**
+             * @param geometry The geometry to render.
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             * @param modelMatrix Model matrix.
+             */
+            void DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix) const;
+
+            /// Bind render program.
+            /**
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             * @param lightBuffer %StorageBuffer containing light data.
+             * @param lightCount Number of lights in the light buffer.
+             */
+            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount);
     
             /// Render mesh.
             /**
@@ -44,11 +54,6 @@ namespace Video {
              * @param modelMatrix Model matrix.
              */
             void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix, bool isSelected) const;
-
-             /// Returns shaderprogram
-            /**
-            */
-            ShaderProgram* GetShaderProgram();
 
         private:
             StaticRenderProgram(const StaticRenderProgram & other) = delete;

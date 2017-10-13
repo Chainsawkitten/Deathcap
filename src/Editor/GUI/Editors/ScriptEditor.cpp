@@ -18,7 +18,7 @@ void ScriptEditor::Show() {
             script->name = nameText;
         
         if (ImGui::Button("Edit Script")) {
-            std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scripts" + FileSystem::DELIMITER + script->name + ".as";
+            std::string filename = Hymn().GetPath() + "/" + script->path + script->name + ".as";
             FileSystem::ExecuteProgram(EditorSettings::GetInstance().GetString("Text Editor"), "\"" + filename + "\"");
         }
         

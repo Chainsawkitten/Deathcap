@@ -18,6 +18,11 @@
  * Camera Icons           | Show camera icons.               | bool   | true
  * Physics Volumes        | Show physics volumes.            | bool   | true
  * Text Editor            | Path to text editor for scripts. | string | 
+ * Grid Settings          | Whether to show grid settings.   | bool   | false
+ * Grid Size              | Size of the grid.                | long   | 100
+ * Grid Line Width        | Width of the lines in the grid.  | long   | 3
+ * Grid Snap              | Snap to grid when moving.        | bool   | false
+ * Grid Snap Size         | Size to snap to.                 | long   | 100
  */
 class EditorSettings : public Settings {
     public:

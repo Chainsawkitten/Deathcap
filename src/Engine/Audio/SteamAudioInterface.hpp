@@ -1,6 +1,7 @@
 #pragma once
 #include <phonon.h>
 #include <vector>
+#include <cstdint>
 #include "SteamAudio.hpp"
 
 /// Interface to set up and send data to/from Steam Audio from the rest of the engine.
@@ -27,7 +28,7 @@ class SteamAudioInterface {
          * @param numMaterials Number of different materials used. May not be added or removed after Scene is created.
          * @return Scene object to be used for adding meshes.
          */
-        IPLhandle* CreateScene(IPLSimulationSettings settings, int numMaterials);
+        IPLhandle* CreateScene(IPLSimulationSettings settings, uint32_t numMaterials);
 
         /// Destroys a scene object (once reference count reaches zero).
         /**
@@ -69,7 +70,7 @@ class SteamAudioInterface {
          * @param material The material properties to set.
          * @param scene The scene to set the material for. If null, will use most recently created scene.
          **/
-        void SetSceneMaterial(int matIndex, IPLMaterial material, IPLhandle* scene = nullptr);
+        void SetSceneMaterial(uint32_t matIndex, IPLMaterial material, IPLhandle* scene = nullptr);
 
         /// Creates a static mesh and adds it to a non-finalized scene.
         /**
@@ -79,7 +80,7 @@ class SteamAudioInterface {
          * @param materialIndex Index of the material to be used. Previously specified in SetSceneMaterial.
          * @return A handle to the static mesh (automatically added to the scene).
          */
-        IPLhandle* CreateStaticMesh(IPLhandle* scene, std::vector<IPLVector3> vertices, std::vector<IPLVector3> indices, int materialIndex);
+        IPLhandle* CreateStaticMesh(IPLhandle* scene, std::vector<IPLVector3> vertices, std::vector<IPLVector3> indices, uint32_t materialIndex);
 
         /// Creates an Environment object for use by the audio engine internally.
         /**
@@ -102,7 +103,14 @@ class SteamAudioInterface {
          * @param sourcePosition The position of the sound source.
          * @param sourceRadius The radius of the source. To determine how much of the source is occluded rather than have it be on/off.
          **/
-        void Process(IPLAudioBuffer input, IPLVector3* sourcePosition, float sourceRadius); // Needs to be called in a way so that there's always at least one processed audio frame ready to go.
+        void Process(float* input, uint32_t samples, IPLVector3* sourcePosition, float sourceRadius); // Needs to be called in a way so that there's always at least one processed audio frame ready to go.
+
+        /// Fetches the processed mix using all buffers sent through Process()
+        /**
+         * @param numSamples The number of samples in the final buffer.
+         * @return A pointer to the processed buffer.
+         **/
+        float* GetProcessed(uint32_t* numSamples);
 
     private:
 
