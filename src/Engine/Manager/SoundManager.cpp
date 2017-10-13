@@ -77,7 +77,7 @@ void SoundManager::Update(float deltaTime) {
 
             float* soundBuf = new float[numSamples];
             if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
-                std::memcpy(soundBuf,(sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
+                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
                 sound->place += numSamples;
             } else {
                 // Only copy the end samples of the buffer
@@ -116,7 +116,7 @@ void SoundManager::Update(float deltaTime) {
         processedSamples = new float[numSamples] {0};
 
     Pa_WriteStream(stream, processedSamples, *numProcessedSamples);
-    delete processedSamples;
+    delete[] processedSamples;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {

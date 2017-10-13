@@ -11,7 +11,7 @@ class SteamAudioDirectRenderer {
          * @param context The Steam Audio context.
          * @param environment Handle to the Environment object to use.
          */
-        SteamAudioDirectRenderer(IPLContext context, IPLhandle* environment);
+        SteamAudioDirectRenderer(IPLContext* context, IPLhandle* environment);
 
         ~SteamAudioDirectRenderer();
 
@@ -30,5 +30,5 @@ class SteamAudioDirectRenderer {
     private:
         IPLDirectSoundPath GetDirectSoundPath();
         IPLhandle* environment;
-        IPLContext context;
+        IPLContext* context;
 };
