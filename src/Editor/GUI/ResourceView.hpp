@@ -94,6 +94,7 @@ namespace GUI {
             int editorWidth = 250;
             bool editorResize = false;
             
+            bool animationControllerPressed;
             bool scriptPressed;
             bool texturePressed;
             bool modelPressed;

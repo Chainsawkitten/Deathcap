@@ -18,6 +18,12 @@ class AnimationControllerEditor : public NodeEditor {
 
     protected:
         // Inherited via NodeEditor
-        virtual void DisplayNode(unsigned int index) override;
+        virtual void ShowContextMenu() override;
+
+        virtual void DisplayNode(Animation::AnimationController::Node * node) override;
+
+        virtual Animation::AnimationController::Node * GetNodeArray() override;
+
+        virtual unsigned int GetNumNodes() override;
 
 };

@@ -1,8 +1,9 @@
 #pragma once
 
 #include <imgui.h>
+#include <Engine/Animation/AnimationController.hpp>
 
-/// Generic node editor.
+/// Generic node editor base class.
 class NodeEditor {
     public:
         /// Create new animation controller editor editor.
@@ -27,7 +28,11 @@ class NodeEditor {
         void SetVisible(bool visible);
     
     protected:
-        virtual void DisplayNode(unsigned int index) = 0;
+        virtual void DrawContextMenu() = 0;
+        virtual void DisplayNode(Animation::AnimationController::Node * node) = 0;
+        virtual Animation::AnimationController::Node * GetNodeArray() = 0;
+        virtual unsigned int GetNumNodes() = 0;
+        virtual bool CanConnect(Animation::AnimationController::Node * output, Animation::AnimationController::Node * input);
 
     private:
         void Save();

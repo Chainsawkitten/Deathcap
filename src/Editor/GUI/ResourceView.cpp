@@ -38,6 +38,7 @@ void ResourceView::Show() {
     ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
     
     // Show resources.
+    animationControllerPressed = false;
     scriptPressed = false;
     texturePressed = false;
     modelPressed = false;
@@ -93,8 +94,9 @@ void ResourceView::Show() {
     if (folderNameWindow.IsVisible())
         folderNameWindow.Show();
     
-    if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
+    if (sceneEditor.entityPressed || animationControllerPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
+        animationControllerEditor.SetVisible(animationControllerPressed);
         scriptEditor.SetVisible(scriptPressed);
         textureEditor.SetVisible(texturePressed);
         modelEditor.SetVisible(modelPressed);
@@ -116,7 +118,9 @@ void ResourceView::Show() {
         ImGui::SetNextWindowPos(ImVec2(size.x - editorWidth, 20));
         ImGui::SetNextWindowSize(ImVec2(editorWidth, size.y - 20));
     }
-    
+
+    if (animationControllerEditor.IsVisible())
+        animationControllerEditor.Show();
     if (sceneEditor.entityEditor.IsVisible())
         sceneEditor.entityEditor.Show();
     if (scriptEditor.IsVisible())
@@ -168,6 +172,7 @@ void ResourceView::SetVisible(bool visible) {
 void ResourceView::HideEditors() {
     sceneEditor.SetVisible(false);
     sceneEditor.entityEditor.SetVisible(false);
+    animationControllerEditor.SetVisible(false);
     scriptEditor.SetVisible(false);
     modelEditor.SetVisible(false);
     textureEditor.SetVisible(false);
@@ -326,7 +331,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
     // Model.
     if (resource.type == ResourceList::Resource::ANIMATION_CONTROLLER) {
         if (ImGui::Selectable(resource.animationController->name.c_str())) {
-        //    animationControllerPressed = true;
+            animationControllerPressed = true;
         //    modelEditor.SetModel(resource.animationController);
         }
 
