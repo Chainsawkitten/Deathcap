@@ -10,7 +10,8 @@ SteamAudio::SteamAudio(IPLContext * context, IPLhandle * environment) {
 }
 
 SteamAudio::~SteamAudio() {
-    delete context;
+    if(context != nullptr)
+        delete context;
 }
 
 void SteamAudio::Process(IPLAudioBuffer input, IPLVector3 * playerPos, IPLVector3 * playerDir, IPLVector3 * playerUp, IPLVector3 * sourcePos, float sourceRadius) {
