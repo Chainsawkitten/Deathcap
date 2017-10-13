@@ -179,12 +179,8 @@ Json::Value Entity::Save() const {
         entity["sceneName"] = sceneName;
     } else {
         // Save components.
-<<<<<<< HEAD
-        Save<Component::AnimationController>(entity, "Animation");
-=======
-        Save<Component::Animation>(entity, "Animation");
+        Save<Component::AnimationController>(entity, "AnimatioController");
         Save<Component::Controller>(entity, "Controller");
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         Save<Component::Lens>(entity, "Lens");
         Save<Component::Mesh>(entity, "Mesh");
         Save<Component::Material>(entity, "Material");
@@ -225,12 +221,8 @@ void Entity::Load(const Json::Value& node) {
         scene = true;
     } else {
         // Load components.
-<<<<<<< HEAD
-        Load<Component::AnimationController>(node, "Animation controller");
-=======
-        Load<Component::Animation>(node, "Animation");
+        Load<Component::AnimationController>(node, "AnimatioController");
         Load<Component::Controller>(node, "Controller");
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         Load<Component::Lens>(node, "Lens");
         Load<Component::Mesh>(node, "Mesh");
         Load<Component::Material>(node, "Material");

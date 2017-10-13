@@ -18,12 +18,8 @@ set(SRCS
         Audio/SteamAudioIndirectRenderer.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
-<<<<<<< HEAD
-	Component/AnimationController.cpp
-=======
-        Component/Animation.cpp
+	    Component/AnimationController.cpp
         Component/Controller.cpp
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -39,7 +35,7 @@ set(SRCS
         Component/SuperComponent.cpp
         Entity/Entity.cpp
         Entity/World.cpp
-	Geometry/AssetFileAnimation.cpp
+	    Geometry/AssetFileAnimation.cpp
         Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
@@ -75,9 +71,9 @@ set(SRCS
 set(HEADERS
         Hymn.hpp
         MainWindow.hpp
-	Animation/AnimationClip.hpp
-	Animation/AnimationController.hpp
-	Animation/Skeleton.hpp
+	    Animation/AnimationClip.hpp
+	    Animation/AnimationController.hpp
+	    Animation/Skeleton.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/SteamAudio.hpp
@@ -85,12 +81,8 @@ set(HEADERS
         Audio/SteamAudioIndirectRenderer.hpp
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
-<<<<<<< HEAD
-	Component/AnimationController.hpp
-=======
-        Component/Animation.hpp
+	    Component/AnimationController.hpp
         Component/Controller.hpp
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp

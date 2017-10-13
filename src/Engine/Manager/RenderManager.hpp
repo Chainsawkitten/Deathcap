@@ -12,12 +12,8 @@ namespace Video {
 class World;
 class Entity;
 namespace Component {
-<<<<<<< HEAD
     class AnimationController;
-=======
-    class Animation;
     class Controller;
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
     class DirectionalLight;
     class Lens;
     class Material;
@@ -242,12 +238,8 @@ class RenderManager {
         Video::Texture2D* cameraTexture;
         
         // Components.
-<<<<<<< HEAD
         ComponentContainer<Component::AnimationController> animationControllers;
-=======
-        ComponentContainer<Component::Animation> animations;
         ComponentContainer<Component::Controller> controllers;
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
         ComponentContainer<Component::DirectionalLight> directionalLights;
         ComponentContainer<Component::Lens> lenses;
         ComponentContainer<Component::Material> materials;

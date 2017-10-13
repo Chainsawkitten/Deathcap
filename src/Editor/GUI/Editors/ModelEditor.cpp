@@ -10,16 +10,13 @@
 #include "Util/AssetMetaData.hpp"
 #include <Utility/Log.hpp>
 #include "../../Resources.hpp"
-<<<<<<< HEAD
 #include <Engine/Animation/AnimationClip.hpp>
 #include <Engine/Animation/Skeleton.hpp>
-=======
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Material.hpp>
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
 
 using namespace GUI;
 
@@ -72,10 +69,7 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Import Tangents", &importTangents);
             ImGui::Checkbox("Import Textures", &importTextures);
             ImGui::Checkbox("Flip UVs", &flipUVs);
-<<<<<<< HEAD
-=======
             ImGui::Checkbox("Create scene", &createScene);
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
 
             std::string button = isImported ? "Re-import" : "Import";
 

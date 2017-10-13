@@ -488,12 +488,8 @@ const std::vector<Component::Controller*>& RenderManager::GetControllers() const
 }
 
 void RenderManager::ClearKilledComponents() {
-<<<<<<< HEAD
     animationControllers.ClearKilled();
-=======
-    animations.ClearKilled();
     controllers.ClearKilled();
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
     directionalLights.ClearKilled();
     lenses.ClearKilled();
     materials.ClearKilled();

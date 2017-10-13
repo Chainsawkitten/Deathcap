@@ -1,11 +1,7 @@
 #include "EntityEditor.hpp"
 
-<<<<<<< HEAD
 #include <Engine/Component/AnimationController.hpp>
-#include <Engine/Component/Physics.hpp>
-=======
 #include <Engine/Component/Animation.hpp>
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Lens.hpp>
 #include <Engine/Component/Material.hpp>
@@ -49,12 +45,7 @@ using namespace GUI;
 
 EntityEditor::EntityEditor() {
     name[0] = '\0';
-<<<<<<< HEAD
     AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
-    AddEditor<Component::Physics>("Physics", std::bind(&EntityEditor::PhysicsEditor, this, std::placeholders::_1));
-=======
-    AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
     AddEditor<Component::Material>("Material", std::bind(&EntityEditor::MaterialEditor, this, std::placeholders::_1));
@@ -210,13 +201,6 @@ void EntityEditor::AnimationControllerEditor(Component::AnimationController* ani
     ImGui::Unindent();
 }
 
-<<<<<<< HEAD
-void EntityEditor::PhysicsEditor(Component::Physics* physics) {
-    ImGui::Text("Will be removed soon.");
-}
-
-=======
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
 void EntityEditor::MeshEditor(Component::Mesh* mesh) {
     ImGui::Indent();
     if (ImGui::Button("Select model##Mesh"))

@@ -69,35 +69,8 @@ namespace Video {
              * @param isSelected Whether model is selected(should be highlighted) or not.
              */
             void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
-<<<<<<< HEAD
-            
-            /// Prepare for rendering skinned meshes.
-            /**
-             * @param viewMatrix The camera's view matrix.
-             * @param projectionMatrix The camera's projection matrix.
-             */
-            void PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
-            
-            /// Render a skinned mesh.
-            /**
-             * @param geometry The geometry to render.
-             * @param albedo Albedo texture.
-             * @param normal Normal map.
-             * @param metallic Metallic map.
-             * @param roughness Roughness texture.
-             * @param modelMatrix Model matrix.
-             * @param bones Transformations of skeleton.
-             */
-            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones);
-            
-            /// Add a light to the scene.
-            void AddLight(const Video::Light& light);
-            
-            /// Light the scene with the added lights.
-=======
 
             /// Update light buffer.
->>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
             /**
              * @param lights Vector of lights to push to the light buffer.
              */
