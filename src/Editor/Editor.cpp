@@ -78,6 +78,7 @@ Editor::Editor() {
     // Load settings.
     showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
     gridSettings.gridSize = EditorSettings::GetInstance().GetLong("Grid Size");
+    gridSettings.lineWidth = EditorSettings::GetInstance().GetLong("Grid Line Width");
     gridSettings.gridSnap = EditorSettings::GetInstance().GetBool("Grid Snap");
     gridSettings.snapOption = EditorSettings::GetInstance().GetLong("Grid Snap Size");
 
@@ -466,6 +467,8 @@ void Editor::ShowGridSettings() {
         ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
         ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
         EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
+        ImGui::DragInt("Line Width", &gridSettings.lineWidth, 0.1f, 1, 5);
+        EditorSettings::GetInstance().SetLong("Grid Line Width", gridSettings.lineWidth);
         ImGui::Checkbox("Grid Snap", &gridSettings.gridSnap);
         EditorSettings::GetInstance().SetBool("Grid Snap", gridSettings.gridSnap);
         ImGui::DragInt("Snap Size", &gridSettings.snapOption, 1.0f, 1, 100);
@@ -486,8 +489,8 @@ void Editor::CreateGrid(int size) {
     
     if (size <= 100 && size > 0) {
         for (int i = 0; i < (size + size + 1); i++) {
-            Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), 3.0f);
-            Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x / (2), 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), 3.0f);
+            Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), static_cast<float>(gridSettings.lineWidth));
+            Managers().debugDrawingManager->AddLine(glm::vec3(-gridWidthDepth.x / (2), 0.0f, zStart), glm::vec3(xEnd, 0.0f, zStart), glm::vec3(0.5f, 0.1f, 0.1f), static_cast<float>(gridSettings.lineWidth));
             xStart += (gridWidthDepth.x / 2) / size;
             zStart += (gridWidthDepth.y / 2) / size;
         }

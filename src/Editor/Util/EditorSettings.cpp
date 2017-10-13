@@ -23,6 +23,7 @@ EditorSettings::EditorSettings() {
     
     AddBoolSetting("Grid Settings", "View", "Grid Settings", false);
     AddLongSetting("Grid Size", "Grid", "Size", 100);
+    AddLongSetting("Grid Line Width", "Grid", "Line Width", 3);
     AddBoolSetting("Grid Snap", "Grid", "Snap", false);
     AddLongSetting("Grid Snap Size", "Grid", "Snap Size", 100);
 }
