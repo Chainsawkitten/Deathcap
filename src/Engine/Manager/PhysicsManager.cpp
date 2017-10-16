@@ -139,6 +139,9 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
     auto comp = shapeComponents.Create();
     comp->entity = owner;
 
+    auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Sphere(1.0f)));
+    comp->SetShape(shape);
+
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     if (rigidBodyComp) {
         rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
