@@ -72,6 +72,15 @@ namespace Animation {
             /// Vector with the animation nodes.
             std::vector<Node*> animationNodes;
 
+            /// The first active animation.
+            AnimationAction* activeAction1 = nullptr;
+
+            /// The second active animation.
+            AnimationAction* activeAction2 = nullptr;
+
+            /// Transition between the two animations.
+            AnimationTransition* activeTransition = nullptr;
+
             /// Name of resource.
             std::string name;
 
