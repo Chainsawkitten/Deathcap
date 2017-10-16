@@ -11,7 +11,7 @@ class SteamAudioIndirectRenderer {
          * @param context The Steam Audio context.
          * @param environment Handle to the Environment object to use.
          */
-        SteamAudioIndirectRenderer(IPLContext context, IPLhandle* environment);
+        SteamAudioIndirectRenderer(IPLContext* context, IPLhandle* environment);
 
         ~SteamAudioIndirectRenderer();
 
@@ -27,5 +27,5 @@ class SteamAudioIndirectRenderer {
         /// Creates the binaural renderer object.
         void CreateBinauralRenderer();
         IPLhandle* environment;
-        IPLContext context;
+        IPLContext* context;
 };

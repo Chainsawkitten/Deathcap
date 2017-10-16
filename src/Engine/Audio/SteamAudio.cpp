@@ -1,7 +1,8 @@
 #include "SteamAudio.hpp"
 
 SteamAudio::SteamAudio() {
-
+    context = nullptr;
+    environmentalRenderer = nullptr;
 }
 
 SteamAudio::SteamAudio(IPLContext * context, IPLhandle * environment) {
@@ -9,7 +10,8 @@ SteamAudio::SteamAudio(IPLContext * context, IPLhandle * environment) {
 }
 
 SteamAudio::~SteamAudio() {
-
+    if(context != nullptr)
+        delete context;
 }
 
 void SteamAudio::Process(IPLAudioBuffer input, IPLVector3 * playerPos, IPLVector3 * playerDir, IPLVector3 * playerUp, IPLVector3 * sourcePos, float sourceRadius) {
@@ -45,8 +47,8 @@ void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples) {
 
     // Clean up
     for (IPLAudioBuffer buf : processedBuffers) {
-        if(buf.interleavedBuffer != nullptr)
-            delete buf.interleavedBuffer;
+        if (buf.interleavedBuffer != nullptr)
+            delete[] buf.interleavedBuffer;
     }
     processedBuffers.clear();
 }

@@ -37,8 +37,6 @@ class SteamAudio {
          */
         void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples);
 
-        
-
     private:
 
         IPLAudioBuffer MixAudio(IPLAudioBuffer direct, IPLAudioBuffer indirect);

@@ -90,6 +90,7 @@ class Editor {
         
         struct GridSettings {
             int gridSize;
+            int lineWidth;
             bool gridSnap;
             int snapOption;
         } gridSettings;

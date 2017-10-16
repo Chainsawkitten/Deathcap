@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include "SuperComponent.hpp"
 
 class ScriptFile;
@@ -33,5 +34,12 @@ namespace Component {
       
             /// Entities referenced by this script.
             std::vector<Entity*> refList;
+
+            ///Map containing the properties, maps a pair of a value and it's type to a name (map<nameOfProperty, pair<typeOfProperty, valueOfProperty>>)
+            std::map<std::string, std::pair<int, void*>> propertyMap;
+
+            /// Clears the property map.
+            void ClearPropertyMap();
+
     };
 }
