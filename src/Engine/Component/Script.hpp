@@ -3,13 +3,14 @@
 #include <vector>
 #include <map>
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 class ScriptFile;
 class asIScriptObject;
 
 namespace Component {
     /// %Component controlled by a script.
-    class Script : public SuperComponent {
+    class ENGINE_EXPORT Script : public SuperComponent {
         public:
             /// Create new script.
             Script();

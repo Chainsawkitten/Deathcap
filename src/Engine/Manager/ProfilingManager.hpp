@@ -5,6 +5,7 @@
 #include <map>
 
 #include <Video/Profiling/Query.hpp>
+#include "../linking.hpp"
 
 #ifdef MEASURE_VRAM
 #include <d3d11_3.h>
@@ -13,7 +14,7 @@
 #endif
 
 /// Handles profiling.
-class ProfilingManager {
+class ENGINE_EXPORT ProfilingManager {
     friend class Hub;
     friend class Profiling;
     friend class GPUProfiling;

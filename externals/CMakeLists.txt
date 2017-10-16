@@ -23,7 +23,7 @@ add_library(stb INTERFACE)
 target_include_directories(stb INTERFACE stb)
 
 # Imgui
-add_library(imgui STATIC imgui/imgui.cpp imgui/imgui_draw.cpp)
+add_library(imgui STATIC imgui/imgui.cpp imgui/imgui_demo.cpp imgui/imgui_draw.cpp)
 target_include_directories(imgui INTERFACE imgui)
 
 # Imguizmo

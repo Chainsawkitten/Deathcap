@@ -5,12 +5,13 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "../linking.hpp"
 
 struct aiAnimation;
 
 namespace Geometry {
     /// An animation loaded from a file.
-    class Animation {
+    class ENGINE_EXPORT Animation {
         public:
             /// Animation channel representing rotation, position and scale transformations. Describes the animation of a single node.
             struct AnimChannel {

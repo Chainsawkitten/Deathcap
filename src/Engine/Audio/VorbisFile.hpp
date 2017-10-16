@@ -1,13 +1,14 @@
 #pragma once
 
 #include "SoundFile.hpp"
+#include "../linking.hpp"
 
 namespace Audio {
     /// Ogg Vorbis implementation of SoundFile.
     /**
      * Loads .ogg-files.
      */
-    class VorbisFile : public SoundFile {
+    class ENGINE_EXPORT VorbisFile : public SoundFile {
         public:
             /// Loads the specified ogg-file.
             /**

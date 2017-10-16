@@ -3,9 +3,10 @@
 #include "../Manager/ProfilingManager.hpp"
 #include <string>
 #include <Video/Profiling/Query.hpp>
+#include "../linking.hpp"
 
 /// Run gpu profiling.
-class GPUProfiling {
+class ENGINE_EXPORT GPUProfiling {
     public:
         /// Start gpu profiling.
         /**

@@ -1,8 +1,10 @@
 #pragma once
+
 #include <phonon.h>
+#include "../linking.hpp"
 
 /// Class responsible for calculating indirect audio.
-class SteamAudioIndirectRenderer {
+class ENGINE_EXPORT SteamAudioIndirectRenderer {
     public:
 
         SteamAudioIndirectRenderer();

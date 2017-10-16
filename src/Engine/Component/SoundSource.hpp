@@ -2,6 +2,7 @@
 
 #include "SuperComponent.hpp"
 #include <cstdint>
+#include "../linking.hpp"
 
 class SoundManager;
 namespace Audio {
@@ -10,7 +11,7 @@ namespace Audio {
 
 namespace Component {
     /// %Component describing a sound source.
-    class SoundSource : public SuperComponent {
+    class ENGINE_EXPORT SoundSource : public SuperComponent {
         friend class ::SoundManager;
         
         public:

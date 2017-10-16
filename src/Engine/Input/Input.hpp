@@ -6,9 +6,10 @@
 #include <GLFW/glfw3.h>
 #include <json/json.h>
 #include <vector>
+#include "../linking.hpp"
 
 /// Hold information about the hymn's inputs.
-class Input {
+class ENGINE_EXPORT Input {
     public:
         /// The information needed to identify a button.
         struct Button {

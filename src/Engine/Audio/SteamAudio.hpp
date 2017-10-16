@@ -3,10 +3,11 @@
 #include "SteamAudioIndirectRenderer.hpp"
 #include <vector>
 #include <cstdint>
+#include "../linking.hpp"
 
 //Note to self: Might just merge this shit with the interface class.
 /// Main Steam Audio class for processing audio samples
-class SteamAudio {
+class ENGINE_EXPORT SteamAudio {
     public:
 
         SteamAudio();

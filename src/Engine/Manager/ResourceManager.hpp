@@ -2,6 +2,7 @@
 
 #include <map>
 #include <GL/glew.h>
+#include "../linking.hpp"
 
 namespace Video {
     class Texture2D;
@@ -20,7 +21,7 @@ class TextureAsset;
 class ScriptFile;
 
 /// Handles all resources.
-class ResourceManager {
+class ENGINE_EXPORT ResourceManager {
     friend class Hub;
     
     public:

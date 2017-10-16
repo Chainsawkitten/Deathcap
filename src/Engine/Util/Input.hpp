@@ -3,11 +3,12 @@
 #include <string>
 #include <vector>
 #include <glm/detail/type_vec2.hpp>
+#include "../linking.hpp"
 
 struct GLFWwindow;
 
 /// Class that handles input.
-class InputHandler {
+class ENGINE_EXPORT InputHandler {
     public:
         /// Button codes.
         enum Button {
@@ -158,4 +159,4 @@ class InputHandler {
 /**
  * @return The currently active input handler or nullptr.
  */
-InputHandler* Input();
+ENGINE_EXPORT InputHandler* Input();

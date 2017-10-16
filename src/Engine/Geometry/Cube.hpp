@@ -2,10 +2,11 @@
 
 #include <Video/Geometry/Geometry3D.hpp>
 #include <Video/Geometry/VertexType/StaticVertex.hpp>
+#include "../linking.hpp"
 
 namespace Geometry {
     /// A cube.
-    class Cube : public Video::Geometry::Geometry3D {
+    class ENGINE_EXPORT Cube : public Video::Geometry::Geometry3D {
         public:
             /// Create new cube.
             Cube();

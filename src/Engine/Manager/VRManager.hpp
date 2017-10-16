@@ -2,9 +2,10 @@
 
 #include <glm/glm.hpp>
 #include <openvr.h>
+#include "../linking.hpp"
 
 /// Handles communication with VR devices using OpenVR.
-class VRManager {
+class ENGINE_EXPORT VRManager {
     friend class Hub;
     
     public:

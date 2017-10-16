@@ -3,6 +3,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include "../linking.hpp"
 
 class PhysicsManager;
 
@@ -12,7 +13,7 @@ namespace Physics {
 
     /// Represent a trigger that checks intersections of specific rigid bodies
     /// against itself.
-    class Trigger {
+    class ENGINE_EXPORT Trigger {
         friend class ::PhysicsManager;
 
         public:

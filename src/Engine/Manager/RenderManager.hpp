@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include "../Entity/ComponentContainer.hpp"
 #include <string>
+#include "../linking.hpp"
 
 namespace Video {
     class Renderer;
@@ -27,7 +28,7 @@ namespace Json {
 class TextureAsset;
 
 /// Handles rendering the world.
-class RenderManager {
+class ENGINE_EXPORT RenderManager {
     friend class Hub;
     
     public:

@@ -4,12 +4,13 @@
 #include <vector>
 #include <json/json.h>
 #include "Entity/World.hpp"
+#include "linking.hpp"
 
 class TextureAsset;
 class ScriptFile;
 
 /// A hymn to beauty.
-class ActiveHymn {
+class ENGINE_EXPORT ActiveHymn {
     friend ActiveHymn& Hymn();
     
     public:
@@ -140,4 +141,4 @@ class ActiveHymn {
 /**
  * @return The %ActiveHymn instance.
  */
-ActiveHymn& Hymn();
+ENGINE_EXPORT ActiveHymn& Hymn();

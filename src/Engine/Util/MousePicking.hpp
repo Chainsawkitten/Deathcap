@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Engine/Entity/Entity.hpp"
+#include "../Entity/Entity.hpp"
+#include "../linking.hpp"
 
 /// Use mouse cursor to select objects in editor and in game.
-class MousePicking {
+class ENGINE_EXPORT MousePicking {
     public:
 
         /// Fake constructor.

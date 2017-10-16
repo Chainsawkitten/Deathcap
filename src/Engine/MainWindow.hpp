@@ -1,12 +1,13 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "linking.hpp"
 
 struct GLFWwindow;
 class InputHandler;
 
 /// The main game window in which the game is contained.
-class MainWindow {
+class ENGINE_EXPORT MainWindow {
     public:
         /// Create new main window.
         /**

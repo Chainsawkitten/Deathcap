@@ -1,9 +1,11 @@
 #pragma once
-#include <Engine/Geometry/AssetFileHandler.hpp>
-#include <Engine/Geometry/Model.hpp>
+
+#include "../Geometry/AssetFileHandler.hpp"
+#include "../Geometry/Model.hpp"
+#include "../linking.hpp"
 
 /// The class handling intersection checks.
-class RayIntersection {
+class ENGINE_EXPORT RayIntersection {
     public:
 
         /// Constructor.

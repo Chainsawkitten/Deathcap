@@ -3,9 +3,10 @@
 #include <string>
 #include "../Manager/Managers.hpp"
 #include "../Manager/ProfilingManager.hpp"
+#include "../linking.hpp"
 
 /// Run profiling.
-class Profiling {
+class ENGINE_EXPORT Profiling {
     public:
         /// Start profiling.
         /**

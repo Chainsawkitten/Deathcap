@@ -6,6 +6,7 @@
 #include <vector>
 #include <Video/Geometry/VertexType/StaticVertex.hpp>
 #include <Video/Geometry/VertexType/SkinVertex.hpp>
+#include "../linking.hpp"
 
 namespace Geometry {
     /// Handler for .asset format.
@@ -15,7 +16,7 @@ namespace Geometry {
      * a mode READ/WRITE.
      * End by using the Close() function.
      */
-    class AssetFileHandler {
+    class ENGINE_EXPORT AssetFileHandler {
         public:
             /// Mode to use class. READ/WRITE.
             enum Mode {

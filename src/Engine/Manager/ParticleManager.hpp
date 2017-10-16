@@ -5,6 +5,7 @@
 #include <random>
 
 #include "../Entity/ComponentContainer.hpp"
+#include "../linking.hpp"
 
 class Entity;
 class World;
@@ -20,7 +21,7 @@ namespace Json {
 }
 
 /// Handles particles.
-class ParticleManager {
+class ENGINE_EXPORT ParticleManager {
     friend class Hub;
     
     public:

@@ -2,10 +2,11 @@
 
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Component {
     /// %Component describing a point light.
-    class PointLight : public SuperComponent {
+    class ENGINE_EXPORT PointLight : public SuperComponent {
         public:
             /// Create new point light.
             PointLight();

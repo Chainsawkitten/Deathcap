@@ -5,10 +5,11 @@
 #include <glm/glm.hpp>
 #include <openvr.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include "../linking.hpp"
 
 namespace Component {
     /// Component giving VR controller functions to an Entity
-    class Controller : public SuperComponent {
+    class ENGINE_EXPORT Controller : public SuperComponent {
 
         public:
             /// Constructor

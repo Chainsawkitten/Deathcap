@@ -2,17 +2,18 @@
 
 #include <string>
 #include <vector>
+#include "../linking.hpp"
 
 /// Functionality to interact with the file system.
 namespace FileSystem {
     /// Delimiter, '\' on Windows, '/' elsewhere.
-    extern const char DELIMITER;
+    ENGINE_EXPORT extern const char DELIMITER;
     
     /// A file.
-    extern const unsigned int FILE;
+    ENGINE_EXPORT extern const unsigned int FILE;
     
     /// A directory.
-    extern const unsigned int DIRECTORY;
+    ENGINE_EXPORT extern const unsigned int DIRECTORY;
     
     /// Check if a file exists.
     /**
@@ -20,21 +21,21 @@ namespace FileSystem {
      * @param filename Filename (either relative or absolute) to check.
      * @return Whether the file exists
      */
-    bool FileExists(const char* filename);
+    ENGINE_EXPORT bool FileExists(const char* filename);
     
     /// Copy a file.
     /**
      * @param source Source to copy.
      * @param destination Destination to copy to.
      */
-    void Copy(const char* source, const char* destination);
+    ENGINE_EXPORT void Copy(const char* source, const char* destination);
     
     /// Create a directory if it does not already exist.
     /**
      * Permission for new directory is 0777 on Unix.
      * @param filename Filename (either absolute or relative) for the directory to create.
      */
-    void CreateDirectory(const char* filename);
+    ENGINE_EXPORT void CreateDirectory(const char* filename);
     
     /// Get all the contents of a directory.
     /**
@@ -42,7 +43,7 @@ namespace FileSystem {
      * @param type Type of content to get, FILE, DIRECTORY or both (use | to combine).
      * @return A list of all the files/directories in the directory.
      */
-    std::vector<std::string> DirectoryContents(const std::string& directoryName, unsigned int type = FILE | DIRECTORY);
+    ENGINE_EXPORT std::vector<std::string> DirectoryContents(const std::string& directoryName, unsigned int type = FILE | DIRECTORY);
     
     /// Get save path for application data folder.
     /**
@@ -53,7 +54,7 @@ namespace FileSystem {
      * @param appName The name of the app/game.
      * @return The path
      */
-    std::string DataPath(const char* appName);
+    ENGINE_EXPORT std::string DataPath(const char* appName);
     
     /// Get save path for application data.
     /**
@@ -65,35 +66,35 @@ namespace FileSystem {
      * @param filename Filename, eg. "settings.ini".
      * @return The path
      */
-    std::string DataPath(const char* appName, const char* filename);
+    ENGINE_EXPORT std::string DataPath(const char* appName, const char* filename);
     
     /// Get the parent directory of a path.
     /**
      * @param path Absolute path to get the parent directory of.
      * @return Path of the parent directory.
      */
-    std::string GetParentDirectory(const std::string& path);
+    ENGINE_EXPORT std::string GetParentDirectory(const std::string& path);
     
     /// Get the extension part of a filename.
     /**
      * @param filename The filename to check.
      * @return The extension part of the filename, converted to lower case.
      */
-    std::string GetExtension(const std::string& filename);
+    ENGINE_EXPORT std::string GetExtension(const std::string& filename);
 
     /// Get the name of the file without the extension.
     /**
      * @param The datapath to the file.
      * @return The name of the file without extension.
      */
-    std::string GetName(const std::string& filepath);
+    ENGINE_EXPORT std::string GetName(const std::string& filepath);
     
     /// Get the directory part for a path (including the final delimiter).
     /**
      * @param path The path to get the directory part of.
      * @return The directory path of the path.
      */
-    std::string GetDirectory(const std::string& path);
+    ENGINE_EXPORT std::string GetDirectory(const std::string& path);
 
     /// Rename an existing file.
     /**
@@ -101,12 +102,12 @@ namespace FileSystem {
      * @param name New name of the file.
      * @return Path to the renamed file.
      */
-    std::string Rename(const std::string& filepath, const std::string& name);
+    ENGINE_EXPORT std::string Rename(const std::string& filepath, const std::string& name);
     
     /// Execute a program asynchronously.
     /**
      * @param path The path to the program to execute.
      * @param arguments The arguments to the program.
      */
-    void ExecuteProgram(const std::string& path, const std::string& arguments);
+    ENGINE_EXPORT void ExecuteProgram(const std::string& path, const std::string& arguments);
 }

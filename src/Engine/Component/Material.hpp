@@ -1,12 +1,13 @@
 #pragma once
 
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 class TextureAsset;
 
 namespace Component {
     /// %Component providing a material to Entity.
-    class Material : public SuperComponent {
+    class ENGINE_EXPORT Material : public SuperComponent {
         public:
             /// Create new material.
             Material();

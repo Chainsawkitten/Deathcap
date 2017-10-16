@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "../Entity/ComponentContainer.hpp"
+#include "../linking.hpp"
 
 class asIScriptEngine;
 class asIScriptContext;
@@ -19,7 +20,7 @@ namespace Json {
 }
 
 /// Handles scripting.
-class ScriptManager {
+class ENGINE_EXPORT ScriptManager {
     friend class Hub;
         
     public:

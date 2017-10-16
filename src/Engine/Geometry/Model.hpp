@@ -3,10 +3,11 @@
 #include <Video/Geometry/Geometry3D.hpp>
 #include <json/json.h>
 #include "AssetFileHandler.hpp"
+#include "../linking.hpp"
 
 namespace Geometry {
     /// Interface of a model loaded from a file.
-    class Model : public Video::Geometry::Geometry3D {
+    class ENGINE_EXPORT Model : public Video::Geometry::Geometry3D {
         public:
             /// Create new empty model.
             /**

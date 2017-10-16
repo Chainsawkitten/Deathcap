@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 #include "../Entity/ComponentContainer.hpp"
+#include "../linking.hpp"
 
 namespace Component {
     class RigidBody;
@@ -29,7 +30,7 @@ class btDiscreteDynamicsWorld;
 class Entity;
 
 /// Updates the physics of the world.
-class PhysicsManager {
+class ENGINE_EXPORT PhysicsManager {
     friend class Hub;
 
     public:

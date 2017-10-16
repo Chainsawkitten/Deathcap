@@ -2,6 +2,7 @@
 
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <functional>
+#include "../linking.hpp"
 
 class btRigidBody;
 
@@ -13,7 +14,7 @@ namespace Physics {
      * always the same. If not, intersection phases may be erroneous.
      * \note Intended to be used only within the physics related engine classes.
      */
-    class TriggerObserver : public btCollisionWorld::ContactResultCallback {
+    class ENGINE_EXPORT TriggerObserver : public btCollisionWorld::ContactResultCallback {
         public:
             /// The type of intersection this observer has to its trigger.
             enum class IntersectionPhase {

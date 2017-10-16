@@ -2,10 +2,11 @@
 
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Component {
     /// %Component describing a directional light source (like the sun).
-    class DirectionalLight : public SuperComponent {
+    class ENGINE_EXPORT DirectionalLight : public SuperComponent {
         public:
             /// Create new directional light.
             DirectionalLight();

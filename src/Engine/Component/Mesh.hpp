@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 namespace Video {
     namespace Geometry {
@@ -10,7 +11,7 @@ namespace Video {
 
 namespace Component {
     /// %Component providing geometry to an entity.
-    class Mesh : public SuperComponent {
+    class ENGINE_EXPORT Mesh : public SuperComponent {
         public:
             /// Create new mesh.
             Mesh();

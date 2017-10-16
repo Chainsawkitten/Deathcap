@@ -59,6 +59,7 @@ set(SRCS
     )
 
 set(HEADERS
+        linking.hpp
         Hymn.hpp
         MainWindow.hpp
         Audio/SoundBuffer.hpp

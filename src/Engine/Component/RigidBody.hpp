@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 class btRigidBody;
 class PhysicsManager;
@@ -12,7 +13,7 @@ namespace Physics {
 
 namespace Component {
     /// %Component that allows interacting with other physics components.
-    class RigidBody : public SuperComponent {
+    class ENGINE_EXPORT RigidBody : public SuperComponent {
         friend class ::PhysicsManager;
         friend class ::Physics::Trigger;
 

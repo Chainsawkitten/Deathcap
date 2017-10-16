@@ -3,9 +3,10 @@
 #include <SimpleIni.h>
 #include <string>
 #include <map>
+#include "../linking.hpp"
 
 /// Handles settings.
-class Settings {
+class ENGINE_EXPORT Settings {
     public:
         /// Get a bool setting.
         /**

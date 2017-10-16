@@ -2,10 +2,11 @@
 
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Component {
     /// %Component handling a camera lens.
-    class Lens : public SuperComponent {
+    class ENGINE_EXPORT Lens : public SuperComponent {
         public:
             /// Create new lens.
             Lens();

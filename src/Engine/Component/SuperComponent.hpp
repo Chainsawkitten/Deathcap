@@ -1,12 +1,13 @@
 #pragma once
 
 #include <json/json.h>
+#include "../linking.hpp"
 
 class Entity;
 
 namespace Component {
     /// %Component which all components inherit.
-    class SuperComponent {
+    class ENGINE_EXPORT SuperComponent {
         public:
 
             /// Create new %SuperComponent.

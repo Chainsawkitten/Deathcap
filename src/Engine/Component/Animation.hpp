@@ -2,6 +2,7 @@
 
 #include "SuperComponent.hpp"
 #include "../Geometry/Model.hpp"
+#include "../linking.hpp"
 
 namespace Geometry {
     class Model;
@@ -9,7 +10,7 @@ namespace Geometry {
 
 namespace Component {
     /// %Component handling animations.
-    class Animation : public SuperComponent {
+    class ENGINE_EXPORT Animation : public SuperComponent {
         public:
             /// Create new %Animation component.
             Animation();

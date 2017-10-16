@@ -2,9 +2,10 @@
 
 #include <string>
 #include <json/json.h>
+#include "../linking.hpp"
     
 /// Information about a file containing a script.
-class ScriptFile {
+class ENGINE_EXPORT ScriptFile {
     public:
         /// Saves the scriptfile to Json value.
         /**

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <typeinfo>
+#include "../linking.hpp"
 
 class ResourceManager;
 class RenderManager;
@@ -19,7 +20,7 @@ namespace Component {
 }
 
 /// Singleton class that holds all subsystems.
-class Hub {
+class ENGINE_EXPORT Hub {
     friend Hub& Managers();
     
     public:
@@ -71,4 +72,4 @@ class Hub {
 /**
  * @return A hub containing all the subsystems.
  */
-Hub& Managers();
+ENGINE_EXPORT Hub& Managers();

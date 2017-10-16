@@ -3,11 +3,12 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <Video/DebugDrawing.hpp>
+#include "../linking.hpp"
 
 class Entity;
 
 /// Debug drawing facilities.
-class DebugDrawingManager {
+class ENGINE_EXPORT DebugDrawingManager {
     friend class Hub;
     
     public:

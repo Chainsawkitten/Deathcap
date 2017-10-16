@@ -6,10 +6,10 @@
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
 #include <fstream>
-
+#include "../linking.hpp"
 
 /// %Entity containing various components.
-class Entity {
+class ENGINE_EXPORT Entity {
     public:
         /// Create new entity.
         /**

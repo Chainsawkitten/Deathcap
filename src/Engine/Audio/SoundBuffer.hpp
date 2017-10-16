@@ -3,12 +3,13 @@
 #include <string>
 #include <json/json.h>
 #include <cstdint>
+#include "../linking.hpp"
 
 namespace Audio {
     class SoundFile;
     
     /// Wrapper for OpenAL buffers.
-    class SoundBuffer {
+    class ENGINE_EXPORT SoundBuffer {
         public:
             /// Create new unloaded sound buffer.
             SoundBuffer();

@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <map>
 #include <vector>
+#include "../linking.hpp"
 
 struct aiScene;
 struct aiNode;
@@ -12,7 +13,7 @@ namespace Geometry {
 }
 
 /// A skeleton loaded from a file.
-class Skeleton {
+class ENGINE_EXPORT Skeleton {
     public:
         /// Create new empty skeleton.
         /**

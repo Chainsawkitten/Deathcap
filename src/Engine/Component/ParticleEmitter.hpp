@@ -2,10 +2,11 @@
 
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Component {
     /// Emitter that emits particles.
-    class ParticleEmitter : public SuperComponent {
+    class ENGINE_EXPORT ParticleEmitter : public SuperComponent {
         public:
             /// Type of emitter
             enum EmitterType {

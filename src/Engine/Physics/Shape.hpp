@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include "../linking.hpp"
 
 class btCollisionShape;
 class PhysicsManager;
@@ -10,7 +11,7 @@ namespace Physics {
 
     /// Represents a shape for physics objects and facilitates creation of
     /// underlying types.
-    class Shape {
+    class ENGINE_EXPORT Shape {
         friend class ::PhysicsManager;
         friend class Trigger;
 

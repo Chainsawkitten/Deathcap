@@ -3,6 +3,7 @@
 #include "../Entity/ComponentContainer.hpp"
 #include <portaudio.h>
 #include "../Audio/SteamAudioInterface.hpp"
+#include "../linking.hpp"
 
 namespace Component {
     class SoundSource;
@@ -13,7 +14,7 @@ namespace Json {
 }
 
 /// Handles OpenAL sound.
-class SoundManager {
+class ENGINE_EXPORT SoundManager {
     friend class Hub;
     
     public:     

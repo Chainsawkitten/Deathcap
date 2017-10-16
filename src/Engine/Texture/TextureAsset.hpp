@@ -2,13 +2,14 @@
 
 #include <string>
 #include <json/json.h>
+#include "../linking.hpp"
 
 namespace Video {
     class Texture2D;
 }
 
 /// A texture used in a hymn.
-class TextureAsset {
+class ENGINE_EXPORT TextureAsset {
     public:
         /// Create new texture asset.
         TextureAsset();

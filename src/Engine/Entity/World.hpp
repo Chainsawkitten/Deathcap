@@ -4,6 +4,7 @@
 #include <map>
 #include <typeinfo>
 #include <Video/ParticleRenderer.hpp>
+#include "../linking.hpp"
 
 class Entity;
 namespace Component {
@@ -14,7 +15,7 @@ namespace Json {
 }
 
 /// The game world containing all entities.
-class World {
+class ENGINE_EXPORT World {
     friend class Entity;
     
     public:

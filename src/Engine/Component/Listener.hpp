@@ -1,10 +1,11 @@
 #pragma once
 
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 namespace Component {
     /// %Component describing a listener that can listen to sounds.
-    class Listener : public SuperComponent {
+    class ENGINE_EXPORT Listener : public SuperComponent {
         public:
             /// Create new listener.
             Listener();
