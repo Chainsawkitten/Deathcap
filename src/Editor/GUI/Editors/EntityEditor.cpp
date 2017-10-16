@@ -349,11 +349,18 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
 }
 
 void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
-    ImGui::Indent();
-    if (ImGui::InputFloat("Mass", &rigidBodyMass)) {
-        Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
+    auto shapeComp = rigidBody->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        ImGui::Indent();
+        if (ImGui::InputFloat("Mass", &rigidBodyMass)) {
+            Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
+        }
+        ImGui::Unindent();
+    } else {
+        ImGui::Indent();
+        ImGui::TextWrapped("A rigid body is only valid with a complementary shape component. Please add one to allow editing this component.");
+        ImGui::Unindent();
     }
-    ImGui::Unindent();
 }
 
 void EntityEditor::ScriptEditor(Component::Script* script) {
