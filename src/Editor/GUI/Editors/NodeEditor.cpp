@@ -39,16 +39,15 @@ void NodeEditor::Show() {
         ImDrawList* drawList = ImGui::GetWindowDrawList();
         drawList->ChannelsSplit(2);
 
-        // Grid
         ImU32 gridColorRight = ImColor(150, 150, 150, 200);
         ImU32 gridColorUp = ImColor(110, 110, 110, 200);
         float gridSquareSize = 64.0f;
-        ImVec2 win_pos = ImGui::GetCursorScreenPos();
-        ImVec2 canvas_sz = ImGui::GetWindowSize();
-        for (float x = fmodf(offset.x, gridSquareSize); x < canvas_sz.x; x += gridSquareSize)
-            drawList->AddLine(ImVec2(x, win_pos.y), ImVec2(x, canvas_sz.y + win_pos.y), gridColorRight);
-        for (float y = fmodf(offset.y, gridSquareSize); y < canvas_sz.y; y += gridSquareSize)
-            drawList->AddLine(ImVec2(win_pos.x, y), ImVec2(canvas_sz.x + win_pos.x, y), gridColorUp);
+        ImVec2 winPos = ImGui::GetCursorScreenPos();
+        ImVec2 canvasSize = ImGui::GetWindowSize();
+        for (float x = fmodf(offset.x, gridSquareSize); x < canvasSize.x; x += gridSquareSize)
+            drawList->AddLine(ImVec2(x, winPos.y), ImVec2(x, canvasSize.y + winPos.y), gridColorRight);
+        for (float y = fmodf(offset.y, gridSquareSize); y < canvasSize.y; y += gridSquareSize)
+            drawList->AddLine(ImVec2(winPos.x, y), ImVec2(canvasSize.x + winPos.x, y), gridColorUp);
 
         // Draw connection.
         if (isDragingConnection) {
@@ -90,7 +89,7 @@ void NodeEditor::Show() {
             // Save the size of what we have emitted and whether any of the widgets are being used.
             bool node_widgets_active = (!oldActive && ImGui::IsAnyItemActive());
             node->size = glm::vec2(ImGui::GetItemRectSize().x + nodeWindowPadding.x + nodeWindowPadding.x, ImGui::GetItemRectSize().y + nodeWindowPadding.y + nodeWindowPadding.y);
-            ImVec2 node_rect_max = ImVec2(node_rect_min.x + node->size.x, node_rect_min.y + node->size.y);
+            ImVec2 nodeRectMax = ImVec2(node_rect_min.x + node->size.x, node_rect_min.y + node->size.y);
 
             // Display node box
             drawList->ChannelsSetCurrent(0);
@@ -101,19 +100,18 @@ void NodeEditor::Show() {
                 openContextMenu |= ImGui::IsMouseClicked(1);
             }
 
-            bool node_moving_active = ImGui::IsItemActive();
+            bool nodeMovingActive = ImGui::IsItemActive();
 
-            if (node_widgets_active || node_moving_active)
+            if (node_widgets_active || nodeMovingActive)
                 nodeSelected = node->index;
 
-            if (node_moving_active && ImGui::IsMouseDragging(0))
+            if (nodeMovingActive && ImGui::IsMouseDragging(0))
                 node->pos += glm::vec2(ImGui::GetIO().MouseDelta.x, ImGui::GetIO().MouseDelta.y);
 
             ImU32 nodeBackground = (nodeHoveredInList == node->index || nodeHoveredInScene == node->index || (nodeHoveredInList == -1 && nodeSelected == node->index)) ? ImColor(220, 220, 220) : ImColor(190, 190, 190);
-            drawList->AddRectFilled(node_rect_min, node_rect_max, nodeBackground, 4.0f);
-            drawList->AddRect(node_rect_min, node_rect_max, ImColor(100, 100, 100), 4.0f);
+            drawList->AddRectFilled(node_rect_min, nodeRectMax, nodeBackground, 4.0f);
+            drawList->AddRect(node_rect_min, nodeRectMax, ImColor(100, 100, 100), 4.0f);
 
-            //  for (unsigned int in = 0; in < action->numInputSlots; ++in)
             ImVec2 outPos = ImVec2(node->pos.x + offset.x + node->size.x, node->pos.y + offset.y + (node->size.y / 2));
             ImVec2 inPos = ImVec2(node->pos.x + offset.x, node->pos.y + offset.y + (node->size.y / 2));
             ImColor inColor = ImColor(70, 70, 256, 256);
@@ -141,8 +139,10 @@ void NodeEditor::Show() {
             else {
                 if (isDragingConnection) {
                     if (GetNodeArray()[dragNodeIndex]->numOutputSlots < 8) {
-                        GetNodeArray()[dragNodeIndex]->outputIndex[GetNodeArray()[dragNodeIndex]->numOutputSlots] = hoveredNodeIndex;
-                        GetNodeArray()[dragNodeIndex]->numOutputSlots += 1;
+                        if (CanConnect(GetNodeArray()[dragNodeIndex], GetNodeArray()[hoveredNodeIndex])) {
+                            GetNodeArray()[dragNodeIndex]->outputIndex[GetNodeArray()[dragNodeIndex]->numOutputSlots] = hoveredNodeIndex;
+                            GetNodeArray()[dragNodeIndex]->numOutputSlots += 1;
+                        }
                     }
                     isDragingConnection = false;
                 } else {

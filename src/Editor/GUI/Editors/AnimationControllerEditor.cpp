@@ -31,10 +31,10 @@ void AnimationControllerEditor::ShowContextMenu() {
     }
 
     if (ImGui::MenuItem("Add animation transition")) {
-        Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
-        std::string name = "Animation transition: " + std::to_string(animationController->animationNodes.size());
-        memcpy(newAction->name, name.c_str(), name.size() + 1);
-        animationController->animationNodes.push_back(newAction);
+        Animation::AnimationController::AnimationTransition* newTransition = new Animation::AnimationController::AnimationTransition;
+        std::string name = "Animation transition: " + std::to_string(animationController->animationNodes.size() + 1);
+        memcpy(newTransition->name, name.c_str(), name.size() + 1);
+        animationController->animationNodes.push_back(newTransition);
     }
 }
 
