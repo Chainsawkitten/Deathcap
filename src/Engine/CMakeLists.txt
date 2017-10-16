@@ -147,7 +147,7 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 create_directory_groups(${SRCS} ${HEADERS})
 
-add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
+add_library(Engine SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
 target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
 
