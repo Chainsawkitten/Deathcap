@@ -78,7 +78,7 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 create_directory_groups(${SRCS} ${HEADERS})
 
-add_library(Video STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
+add_library(Video SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 target_link_libraries(Video Utility glew glm assimp jsoncpp_lib_static stb ${OpenVR_LIBRARY})
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
 set_property(TARGET Video PROPERTY CXX_STANDARD_REQUIRED ON)
