@@ -5,8 +5,8 @@
 
 
 #include <Utility/Log.hpp>
-#define ERROR_CHECK_VIDEO { GLenum __err(glGetError()); while (__err != GL_NO_ERROR) { Log() << "GL error: " << (const char*)gluErrorString(__err) << "\n"; __err = glGetError(); assert(false); } }
-
+//#define ERROR_CHECK_VIDEO { GLenum __err(glGetError()); while (__err != GL_NO_ERROR) { Log() << "GL error: " << (const char*)gluErrorString(__err) << "\n"; __err = glGetError(); assert(false); } }
+#include<ErrorVideoDebug.hpp>
 using namespace Video;
 
 StorageBuffer::StorageBuffer(unsigned int size, GLenum usage) : bound(false) {
@@ -26,8 +26,9 @@ StorageBuffer::~StorageBuffer() {
 void StorageBuffer::Write(void* data, unsigned int offset, unsigned int length) {
     assert(bound);
     assert(this->size >= offset + length);
-
-    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, length, data); ERROR_CHECK_VIDEO
+    ERROR_CHECK_VIDEO_START
+    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, length, data); 
+    ERROR_CHECK_VIDEO_END
 }
 
 void StorageBuffer::Bind() {
@@ -51,7 +52,9 @@ void StorageBuffer::Unbind() {
 }
 
 void StorageBuffer::BindBase(unsigned int binding) const {
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, (GLuint)binding, ssbo); ERROR_CHECK_VIDEO
+    ERROR_CHECK_VIDEO_START
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, (GLuint)binding, ssbo);
+    ERROR_CHECK_VIDEO_END
 }
 
 unsigned int StorageBuffer::GetSize() const {
