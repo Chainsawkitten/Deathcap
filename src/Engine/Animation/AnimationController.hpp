@@ -5,6 +5,7 @@
 #include <fstream>
 #include <glm/glm.hpp>
 #include "../Util/Node.hpp"
+#include <map>
 
 namespace Animation {
     class AnimationClip;
@@ -81,6 +82,12 @@ namespace Animation {
             /// Transition between the two animations.
             AnimationTransition* activeTransition = nullptr;
 
+            /// Animation clips.
+            std::map<std::string, AnimationClip*> animationClips;
+
+            /// Skeleton.
+            Skeleton* skeleton;
+
             /// Name of resource.
             std::string name;
 
@@ -88,6 +95,6 @@ namespace Animation {
             std::string path;
 
         private:
-
+            
     };
 }

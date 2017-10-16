@@ -1,4 +1,7 @@
 #include "AnimationController.hpp"
+#include "../Animation/AnimationController.hpp"
+#include "../Animation/Skeleton.hpp"
+#include "../Animation/AnimationClip.hpp"
 
 using namespace Component;
 
@@ -6,12 +9,23 @@ AnimationController::AnimationController() {
 }
 
 Json::Value AnimationController::Save() const {
-    return Json::Value();
-}
-
-std::vector<glm::mat4>& Component::AnimationController::GetBones() {
-    return std::vector<glm::mat4>();
+    Json::Value component;
+    component["animationController"] = controller->name;
+    component["skeleton"] = skeleton->name;
+    return component;
 }
 
 void Component::AnimationController::UpdateAnimation(float deltaTime) {
+    if (controller->activeAction1 != nullptr) {
+        Animation::AnimationClip* clip = controller->animationClips[controller->activeAction1->name];
+        Animation::AnimationClip::Animation* animation = clip->animation;
+
+        for (unsigned int bone = 1; bone < animation->numBones; ++bone) {
+            if (bone > skeleton->skeletonBones.size())
+                break;
+
+            skeleton->skeletonBones[bone]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[bone]->parentId]->globalTx * glm::mat4(1.0f); //animation.
+            bones[bone] = skeleton->skeletonBones[bone]->globalTx * skeleton->skeletonBones[bone]->inversed;
+        }
+    }
 }

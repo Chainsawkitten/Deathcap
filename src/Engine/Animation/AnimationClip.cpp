@@ -8,7 +8,3 @@ void Animation::AnimationClip::Load(const std::string & name) {
     animation->Load(&file);
     file.close();
 }
-
-void Animation::AnimationClip::Play(float deltaTime, const Skeleton & skeleton, float playbackSpeed) {
-    /// @todo Implement this.
-}

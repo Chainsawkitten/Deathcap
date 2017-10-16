@@ -175,30 +175,39 @@ void EntityEditor::SetVisible(bool visible) {
 void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
     ImGui::Indent(); 
     if (ImGui::Button("Select animation controller##Animation"))
-        ImGui::OpenPopup("Select animation Controller##Animation");
+        ImGui::OpenPopup("Select animation controller##Animation");
 
     if (ImGui::BeginPopup("Select animation controller##Animation")) {
-        ImGui::Text("Animation controller");
+        ImGui::Text("Animation controllers");
         ImGui::Separator();
 
-    //   for (Animation::AnimationController* controller : Resources().animationControllers) {
-    //       if (ImGui::Selectable(controller->name.c_str())) {
-    //           if (animationController->controller != nullptr)
-    //               Managers().resourceManager->FreeAnimationController(animationController->controller);
-    //
-    //           animationController->controller = Managers().resourceManager->CreateAnimationController(controller->name);
-    //       }
-        
-    //    if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
-    //        if (animation->riggedModel != nullptr)
-    //            Managers().resourceManager->FreeModel(animation->riggedModel);
-    //        
-    //        animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
-    //
-    //    }
+        if (resourceSelector.Show(ResourceList::Resource::Type::ANIMATION_CONTROLLER)) {
+            if (animationController != nullptr)
+                Managers().resourceManager->FreeAnimationController(animationController->controller);
+
+            animationController->controller = Managers().resourceManager->CreateAnimationController(resourceSelector.GetSelectedResource().GetPath());
+        }
 
         ImGui::EndPopup();
     }
+
+    if (ImGui::Button("Select skeleton##Skeleton"))
+        ImGui::OpenPopup("Select skeleton##Skeleton");
+
+    if (ImGui::BeginPopup("Select skeleton##Skeleton")) {
+        ImGui::Text("Skeletons");
+        ImGui::Separator();
+
+        if (resourceSelector.Show(ResourceList::Resource::Type::SKELETON)) {
+            if (animationController != nullptr)
+                Managers().resourceManager->FreeSkeleton(animationController->skeleton);
+
+            animationController->skeleton = Managers().resourceManager->CreateSkeleton(resourceSelector.GetSelectedResource().GetPath());
+        }
+
+        ImGui::EndPopup();
+    }
+
     ImGui::Unindent();
 }
 

@@ -3,39 +3,42 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <glm/glm.hpp>
 
 namespace Animation {
     /// An animation loaded from a file.
     /// @todo Implement this class.
     class Skeleton {
         public:
-            struct BindPoseBone {
-                /// 
-
-                void Save(std::ofstream file) {
-
-                }
-
-                void Load(std::ifstream file) {
-
-                }
+            struct SkeletonBone {
+                glm::mat4 localTx;
+                glm::mat4 globalTx = glm::mat4(1.0f);
+                glm::mat4 inversed = glm::mat4(1.0f);
+                uint32_t parentId = 0;
             };
 
-            struct BindPose {
+            /// Constructor.
+            Skeleton();
 
 
-                void Save(std::ofstream file) {
+            void Save(std::string name);
 
-                }
+            /// 
+            /** 
+             * @param name 
+             */ 
+            void Load(std::string name);
 
-                void Load(std::ifstream file) {
+            /// 
+            std::vector<SkeletonBone*> skeletonBones;
 
-                }
-            };
-            void Load(const std::string& name);
+            /// Path to skeleton.
+            std::string path;
 
+            /// Name of the resource.
             std::string name;
-        private:
 
+        private:
+            void InitSkeleton();
     };
 }

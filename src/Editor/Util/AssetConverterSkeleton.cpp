@@ -10,7 +10,7 @@ AssetConverterSkeleton::~AssetConverterSkeleton() {
 }
 
 bool AssetConverterSkeleton::Convert(const char * filepath, const char * destination,
-    bool bindpose) {
+    bool isSkeleton) {
 
     success = true;
     errorString = "";
@@ -27,40 +27,62 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
     }
 
     // Push back the bones.
-    for (int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
+    for (int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i)
         bones.push_back(aScene->mAnimations[0]->mChannels[i]->mNodeName.C_Str());
-    }
 
     currentId = -1;
     BoneRecursive(aScene->mRootNode, -1);
 
-    Animation::AnimationClip::Animation anim;
+    if (isSkeleton) {
+        Animation::Skeleton skeleton;
+        for (unsigned int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
+            aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
+            Animation::Skeleton::SkeletonBone bone;
+            bone.parentId = (uint32_t)parents[i];
 
-    anim.numBones = aScene->mAnimations[0]->mNumChannels;
-    anim.bones = new Animation::AnimationClip::Bone[aScene->mAnimations[0]->mNumChannels];
-
-    for (int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
-        aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
-        anim.bones[i].parent = (uint32_t)parents[i];
-        anim.bones[i].numRotationKeys = channel->mNumRotationKeys;
-        anim.bones[i].rotationKeys = new int32_t[anim.bones[i].numRotationKeys];
-        anim.bones[i].rotations = new glm::mat4[anim.bones[i].numRotationKeys];
-        
-        for (int j = 0; j < channel->mNumRotationKeys; ++j) {
-            anim.bones[i].rotationKeys[j] = channel->mRotationKeys->mTime;
+            // Rotation, local.
             glm::quat rot;
-            rot.x = channel->mRotationKeys->mValue.x;
-            rot.y = channel->mRotationKeys->mValue.y;
-            rot.z = channel->mRotationKeys->mValue.z;
-            rot.w = channel->mRotationKeys->mValue.w;
+            rot.x = channel->mRotationKeys[0].mValue.x;
+            rot.y = channel->mRotationKeys[0].mValue.y;
+            rot.z = channel->mRotationKeys[0].mValue.z;
+            rot.w = channel->mRotationKeys[0].mValue.w;
 
-            anim.bones[i].rotations[j] = glm::mat4(rot);
+            bone.localTx = glm::mat4(rot);
+
+            skeleton.skeletonBones.push_back(&bone);
         }
+
+        // Save to file.
+        skeleton.Save((std::string(destination) + ".asset").c_str());
+    } else {
+        Animation::AnimationClip::Animation anim;
+        anim.numBones = aScene->mAnimations[0]->mNumChannels;
+        anim.bones = new Animation::AnimationClip::Bone[aScene->mAnimations[0]->mNumChannels];
+
+        for (int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
+            aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
+            anim.bones[i].parent = (uint32_t)parents[i];
+            anim.bones[i].numRotationKeys = channel->mNumRotationKeys;
+            anim.bones[i].rotationKeys = new int32_t[anim.bones[i].numRotationKeys];
+            anim.bones[i].rotations = new glm::mat4[anim.bones[i].numRotationKeys];
+
+            for (int j = 0; j < channel->mNumRotationKeys; ++j) {
+                anim.bones[i].rotationKeys[j] = channel->mRotationKeys[j].mTime;
+                glm::quat rot;
+                rot.x = channel->mRotationKeys[j].mValue.x;
+                rot.y = channel->mRotationKeys[j].mValue.y;
+                rot.z = channel->mRotationKeys[j].mValue.z;
+                rot.w = channel->mRotationKeys[j].mValue.w;
+
+                anim.bones[i].rotations[j] = glm::mat4(rot);
+            }
+        }
+
+        std::ofstream file((std::string(destination) + ".asset").c_str(), std::ios::binary);
+        anim.Save(&file);
+        file.close();
     }
 
-    std::ofstream file((std::string(destination) + ".asset").c_str(), std::ios::binary);
-    anim.Save(&file);
-    file.close();
     return false;
 }
 

@@ -1,6 +1,8 @@
 #include "ResourceView.hpp"
 
+#include <Engine/Animation/AnimationClip.hpp>
 #include <Engine/Animation/AnimationController.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
@@ -216,13 +218,33 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             folder.resources.push_back(resource);
         }
 
-        // Add model.
+        // Add animation clip.
+        if (ImGui::Selectable("Add animation clip")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::ANIMATION_CLIP;
+            resource.animationClip = new Animation::AnimationClip();
+            resource.animationClip->path = path + "/";
+            resource.animationClip->name = "Animation clip #" + std::to_string(Resources().animationClipNumber++);
+            folder.resources.push_back(resource);
+        }
+
+        // Add animation controller.
         if (ImGui::Selectable("Add animation controller")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::ANIMATION_CONTROLLER;
             resource.animationController = new Animation::AnimationController();
             resource.animationController->path = path + "/";
             resource.animationController->name = "Animation controller #" + std::to_string(Resources().animationControllerNumber++);
+            folder.resources.push_back(resource);
+        }
+
+        // Add skeleton.
+        if (ImGui::Selectable("Add skeleton")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SKELETON;
+            resource.skeleton = new Animation::Skeleton();
+            resource.skeleton->path = path + "/";
+            resource.skeleton->name = "Skeleton #" + std::to_string(Resources().skeletonNumber++);
             folder.resources.push_back(resource);
         }
 
@@ -328,6 +350,28 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         }
     }
 
+    // Animation clip.
+    if (resource.type == ResourceList::Resource::ANIMATION_CLIP) {
+        if (ImGui::Selectable(resource.animationClip->name.c_str())) {
+         //   animationControllerPressed = true;
+         //   animationControllerEditor.SetAnimationController(resource.animationController);
+        }
+
+    //    // Delete animation controller.
+    //    if (ImGui::BeginPopupContextItem(resource.animationController->name.c_str())) {
+    //        if (ImGui::Selectable("Delete")) {
+    //            if (animationControllerEditor.Get() == resource.animationController)
+    //                animationControllerEditor.SetVisible(false);
+    //
+    //            Managers().resourceManager->FreeAnimationController(resource.animationController);
+    //            ImGui::EndPopup();
+    //
+    //            return true;
+    //        }
+    //        ImGui::EndPopup();
+    //    }
+    }
+
     // Animation controller.
     if (resource.type == ResourceList::Resource::ANIMATION_CONTROLLER) {
         if (ImGui::Selectable(resource.animationController->name.c_str())) {
@@ -348,6 +392,28 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
             }
             ImGui::EndPopup();
         }
+    }
+
+    // Skeleton.
+    if (resource.type == ResourceList::Resource::SKELETON) {
+        if (ImGui::Selectable(resource.skeleton->name.c_str())) {
+        //    animationControllerPressed = true;
+        //    animationControllerEditor.SetAnimationController(resource.animationController);
+        }
+
+    //    // Delete skeleton.
+    //    if (ImGui::BeginPopupContextItem(resource.skeleton->name.c_str())) {
+    //        if (ImGui::Selectable("Delete")) {
+    //            if (animationControllerEditor.Get() == resource.animationController)
+    //                animationControllerEditor.SetVisible(false);
+    //
+    //            Managers().resourceManager->FreeSkeleton(resource.skeleton);
+    //            ImGui::EndPopup();
+    //
+    //            return true;
+    //        }
+    //        ImGui::EndPopup();
+    //    }
     }
 
     // Model.

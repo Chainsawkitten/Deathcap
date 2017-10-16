@@ -77,19 +77,14 @@ namespace Animation {
             /**
              * @param name Name of animation.
              */
-            void Load(const std::string& name);
+            void Load(const std::string& name);       
 
-            /// Play animation.
-            /**
-             * @param deltaTime Time of last frame.
-             * @param playbackSpeed Modifier of playback speed.
-             */
-            void Play(float deltaTime, const Skeleton& skeleton, float playbackSpeed = 1.0f);
+            Animation * animation = nullptr;
+
+            /// Path of animation clip.
+            std::string path;
 
             /// Name of animation clip.
             std::string name;
-
-        private:
-            Animation * animation = nullptr;
     };
 }

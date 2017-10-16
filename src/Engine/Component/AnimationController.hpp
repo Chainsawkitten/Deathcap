@@ -1,9 +1,13 @@
 #pragma once
 
 #include "SuperComponent.hpp"
-#include "../Animation/AnimationController.hpp"
 #include <string>
 #include <glm/glm.hpp>
+
+namespace Animation {
+    class AnimationController;
+    class Skeleton;
+}
 
 namespace Component {
     /// Animation controller.
@@ -24,13 +28,15 @@ namespace Component {
              */
             void UpdateAnimation(float deltaTime);
 
-            /// Returns a vector with the final calculated bones.
-            /**
-             * @return Vector with bones.
-             */
-            std::vector<glm::mat4>& GetBones();
+            /// Vector with the final calculated bones.
+            std::vector<glm::mat4> bones;
 
+            /// The controller.
             Animation::AnimationController* controller = nullptr;
+
+            /// The skeleton.
+            Animation::Skeleton* skeleton = nullptr;
+
         private:
 
     };
