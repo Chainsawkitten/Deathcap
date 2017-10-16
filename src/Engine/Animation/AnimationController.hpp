@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <glm/glm.hpp>
+#include "../Util/Node.hpp"
 
 namespace Animation {
     class AnimationClip;
@@ -14,43 +15,26 @@ namespace Animation {
     /// An animation loaded from a file.
     class AnimationController {
         public:
-            struct Node {
-                uint32_t index;
-                char name[128];
-                uint32_t numInputSlots = 0;
-                uint32_t inputIndex[8];
-                uint32_t numOutputSlots = 0;
-                uint32_t outputIndex[8];
-                glm::vec2 pos = glm::vec2(0.0f);
-                glm::vec2 size = glm::vec2(250, 100);
-
-                virtual void Save(std::ofstream* file) {
-                    file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));
-                    file->write(reinterpret_cast<char*>(name), 128);
-                    file->write(reinterpret_cast<char*>(&numInputSlots), sizeof(uint32_t));
-                }
-
-                virtual void Load(std::ifstream* file) {
-
-                }
-            };
-
+            /// Animaiton action node.
             struct AnimationAction : public Node {
                 char animationClip[128];
                 float playbackModifier = 1.0f;
                 bool repeat = true;
 
+                /// Save the animation action node.
                 virtual void Save(std::ofstream* file) override {
                     Node::Save(file);
                     file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));
                 }
 
+                /// Load the animation action node.
                 virtual void Load(std::ifstream* file) override {
                     Node::Load(file);
                     file->read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
                 }
             };
 
+            /// Animation transition node.
             struct AnimationTransition : public Node {
                 uint32_t in;
                 float inTransitionValue;
@@ -58,7 +42,9 @@ namespace Animation {
                 float outTransitionValue;
                 glm::vec2 pos;
 
+                /// Save the animation transition node.
                 virtual void Save(std::ofstream* file) override {
+                    Node::Save(file);
                     file->write(reinterpret_cast<char*>(&in), sizeof(uint32_t));
                     file->write(reinterpret_cast<char*>(&inTransitionValue), sizeof(float));
                     file->write(reinterpret_cast<char*>(&out), sizeof(uint32_t));
@@ -66,7 +52,9 @@ namespace Animation {
                     file->write(reinterpret_cast<char*>(&pos), sizeof(glm::vec2));
                 }
 
+                /// Load the animation transition node.
                 virtual void Load(std::ifstream* file) override {
+                    Node::Load(file);
                     file->read(reinterpret_cast<char*>(&in), sizeof(uint32_t));
                     file->read(reinterpret_cast<char*>(&inTransitionValue), sizeof(float));
                     file->read(reinterpret_cast<char*>(&out), sizeof(uint32_t));
@@ -75,15 +63,16 @@ namespace Animation {
                 }
             };
 
+            /// Save animation controller.
             void Save(const std::string& name);
+
+            /// Load animation controller.
             void Load(const std::string& name);
 
+            /// Vector with the animation nodes.
+            std::vector<Node*> animationNodes;
 
-            std::vector<AnimationAction*> animationAction;
-
-            std::vector<AnimationTransition*> animationTransitions;
-
-            /// 
+            /// Name of resource.
             std::string name;
 
             /// The folder containing the model file.

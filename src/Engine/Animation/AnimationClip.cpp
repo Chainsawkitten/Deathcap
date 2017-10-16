@@ -10,4 +10,5 @@ void Animation::AnimationClip::Load(const std::string & name) {
 }
 
 void Animation::AnimationClip::Play(float deltaTime, const Skeleton & skeleton, float playbackSpeed) {
+    /// @todo Implement this.
 }

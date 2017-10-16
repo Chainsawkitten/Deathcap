@@ -28,33 +28,48 @@ class NodeEditor {
         void SetVisible(bool visible);
     
     protected:
-        virtual void DrawContextMenu() = 0;
-        virtual void DisplayNode(Animation::AnimationController::Node * node) = 0;
-        virtual Animation::AnimationController::Node * GetNodeArray() = 0;
+        /// Show context menu.
+        virtual void ShowContextMenu() = 0;
+
+        /// Show node.
+        /**
+         * @param node Node to be shown.
+         */
+        virtual void ShowNode(Node* node) = 0;
+
+        ///
+        /**
+         * @return Array with nodes.
+         */
+        virtual Node** GetNodeArray() = 0;
+
+        /// Returns the number of nodes in the array.
+        /**
+         * @return Number of nodes.
+         */
         virtual unsigned int GetNumNodes() = 0;
-        virtual bool CanConnect(Animation::AnimationController::Node * output, Animation::AnimationController::Node * input);
+
+
+        virtual bool CanConnect(Node * output, Node * input) = 0;
 
     private:
-        void Save();
-        void DrawGrid();
-        void DrawActions();
-        void DrawTransitions();
-        void DrawConnections();
+        void ShowGrid();
     
-        bool visible = false;
-    
+        ImVec2 scrolling = ImVec2(0.0f, 0.0f);
+        ImVec2 nodeWindowPadding = ImVec2(8.0f, 8.0f);
+
+        bool visible = false;    
         bool isDragingConnection = false;
+        bool inited = false;
+        bool openContextMenu = false;
+        bool showGrid = true;
+
+        float nodeSlotRadius = 6.0f;
+    
         int hoveredNodeIndex = -1;
         int dragNodeIndex = -1;
+        int nodeSelected = -1;
+        int nodeHoveredInList = -1;
+        int nodeHoveredInScene = -1;
     
-        bool inited = false;
-        ImVec2 scrolling = ImVec2(0.0f, 0.0f);
-        bool show_grid = true;
-        int node_selected = -1;
-        bool open_context_menu = false;
-        int node_hovered_in_list = -1;
-        int node_hovered_in_scene = -1;
-    
-        float NODE_SLOT_RADIUS = 6.0f;
-        ImVec2 NODE_WINDOW_PADDING = ImVec2(8.0f, 8.0f);
 };

@@ -6,10 +6,11 @@
 
 namespace Animation {
     /// An animation loaded from a file.
+    /// @todo Implement this class.
     class Skeleton {
         public:
             struct BindPoseBone {
-
+                /// 
 
                 void Save(std::ofstream file) {
 
