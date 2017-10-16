@@ -4,9 +4,6 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptmath/scriptmath.cpp
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring_utils.cpp
-        ../../externals/imgui/imgui.cpp
-        ../../externals/imgui/imgui_demo.cpp
-        ../../externals/imgui/imgui_draw.cpp
         Hymn.cpp
         MainWindow.cpp
         Audio/SoundBuffer.cpp
