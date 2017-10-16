@@ -112,6 +112,15 @@ add_subdirectory(AngelScript/sdk/angelscript/projects/cmake)
 target_include_directories(angelscript INTERFACE AngelScript/sdk/angelscript/include)
 target_include_directories(angelscript INTERFACE AngelScript/sdk/add_on)
 
+set(ANGELSCRIPT_ADDON_SRCS
+    AngelScript/sdk/add_on/scriptbuilder/scriptbuilder.cpp
+    AngelScript/sdk/add_on/scriptmath/scriptmath.cpp
+    AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
+    AngelScript/sdk/add_on/scriptstdstring/scriptstdstring_utils.cpp
+)
+add_library(angelscript_addons STATIC ${ANGELSCRIPT_ADDON_SRCS})
+target_link_libraries(angelscript_addons angelscript)
+
 # Headerize
 add_subdirectory(Headerize)
 macro(ProcessWithHeaderize headervar sourcevar inputfile outdir)
