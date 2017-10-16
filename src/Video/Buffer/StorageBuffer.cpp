@@ -5,7 +5,6 @@
 
 
 #include <Utility/Log.hpp>
-//#define ERROR_CHECK_VIDEO { GLenum __err(glGetError()); while (__err != GL_NO_ERROR) { Log() << "GL error: " << (const char*)gluErrorString(__err) << "\n"; __err = glGetError(); assert(false); } }
 #include<ErrorVideoDebug.hpp>
 using namespace Video;
 
