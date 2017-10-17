@@ -13,6 +13,7 @@
 #include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
+#include <Engine/Component/Trigger.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
@@ -58,6 +59,7 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
     AddEditor<Component::Controller>("Controller", std::bind(&EntityEditor::ControllerEditor, this, std::placeholders::_1));
+    AddEditor<Component::Trigger>("Trigger", std::bind(&EntityEditor::TriggerEditor, this, std::placeholders::_1));
 
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
@@ -570,4 +572,39 @@ void EntityEditor::ControllerEditor(Component::Controller* controller) {
     ImGui::Text("Controller");
     ImGui::Indent();
     ImGui::InputInt("Controller ID (1 = left, 2 = right)", &controller->controllerID);
+}
+
+void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
+    int current = static_cast<int>(trigger->triggerType);
+    const char* items[] = { "Once", "Repeat", "LookAt", "Proximity" };
+
+    ImGui::Indent();
+    if (ImGui::Combo("Class", &current, items, trigger->NUMBER_OF_TYPES)) {
+        trigger->triggerType = static_cast<Component::Trigger::TriggerTypes>(current);
+    }
+
+    switch (current) {
+
+    case Component::Trigger::TriggerTypes::ONCE:
+        // CREATE TRIGGER_ONCE
+        break;
+
+    case Component::Trigger::TriggerTypes::REPEAT:
+        // CREATE TRIGGER_REPEAT
+        break;
+
+    case Component::Trigger::TriggerTypes::LOOK_AT:
+        // CREATE TRIGGER_LOOK_AT
+        break;
+
+    case Component::Trigger::TriggerTypes::PROXIMITY:
+        // CREATE TRIGGER_PROXIMITY
+        break;
+
+    default: 
+        // Do nothing.
+        break;
+    }
+
+    ImGui::Unindent();
 }
