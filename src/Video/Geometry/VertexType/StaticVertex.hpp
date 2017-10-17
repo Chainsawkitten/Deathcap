@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "../../linking.hpp"
 
 namespace Video {
     namespace Geometry {
@@ -26,7 +27,7 @@ namespace Video {
                  * @param vertexCount Number of vertices.
                  * @return Vertex buffer.
                  */
-                static const GLuint GenerateVertexBuffer(StaticVertex* vertices, unsigned int vertexCount);
+                VIDEO_API static const GLuint GenerateVertexBuffer(StaticVertex* vertices, unsigned int vertexCount);
                 
                 /// Generate vertex buffer
                 /**
@@ -34,7 +35,7 @@ namespace Video {
                  * @param indexBuffer The index buffer.
                  * @return Vertex array.
                  */
-                static const GLuint GenerateVertexArray(GLuint vertexBuffer, GLuint indexBuffer);
+                VIDEO_API static const GLuint GenerateVertexArray(GLuint vertexBuffer, GLuint indexBuffer);
             };
         }
     }

@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "linking.hpp"
 
 namespace Video {
     class ShaderProgram;
@@ -41,17 +42,17 @@ namespace Video {
             /**
              * @param maxParticleCount The maximum amount of particles in the buffer.
              */
-            ParticleRenderer(unsigned int maxParticleCount);
+            VIDEO_API ParticleRenderer(unsigned int maxParticleCount);
             
             /// Destructor.
-            ~ParticleRenderer();
+            VIDEO_API ~ParticleRenderer();
             
             /// Set the particle buffer's contents.
             /**
              * @param count The number of particles.
              * @param particles The array of particles.
              */
-            void SetBufferContents(unsigned int count, const Particle* particles);
+            VIDEO_API void SetBufferContents(unsigned int count, const Particle* particles);
             
             /// Render the particles.
             /**
@@ -61,7 +62,7 @@ namespace Video {
              * @param cameraUp The camera's up vector.
              * @param viewProjectionMatrix The camera's view projection matrix.
              */
-            void Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix);
+            VIDEO_API void Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix);
             
         private:
             ParticleRenderer(const ParticleRenderer & other) = delete;

@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "linking.hpp"
 
 namespace Video {
     class ShaderProgram;
@@ -115,50 +116,50 @@ namespace Video {
             };
             
             /// Create new debug primitive renderer.
-            DebugDrawing();
+            VIDEO_API DebugDrawing();
             
             /// Destructor.
-            ~DebugDrawing();
+            VIDEO_API ~DebugDrawing();
             
             /// Start rendering debug primitives.
             /**
              * Needs to be called before DrawPoint, DrawLine or DrawCuboid.
              * @param viewProjectionMatrix The camera's view projection matrix.
              */
-            void StartDebugDrawing(const glm::mat4& viewProjectionMatrix);
+            VIDEO_API void StartDebugDrawing(const glm::mat4& viewProjectionMatrix);
             
             /// Draw a point.
             /**
              * @param point The point to draw.
              */
-            void DrawPoint(const Point& point);
+            VIDEO_API void DrawPoint(const Point& point);
             
             /// Draw a line.
             /**
              * @param line The line to draw.
              */
-            void DrawLine(const Line& line);
+            VIDEO_API void DrawLine(const Line& line);
             
             /// Draw a cuboid.
             /**
              * @param cuboid The cuboid to draw.
              */
-            void DrawCuboid(const Cuboid& cuboid);
+            VIDEO_API void DrawCuboid(const Cuboid& cuboid);
             
             /// Draw a plane.
             /**
              * @param plane The plane to draw.
              */
-            void DrawPlane(const Plane& plane);
+            VIDEO_API void DrawPlane(const Plane& plane);
             
             /// Draw a sphere.
             /**
              * @param sphere The sphere to draw.
              */
-            void DrawSphere(const Sphere& sphere);
+            VIDEO_API void DrawSphere(const Sphere& sphere);
             
             /// Stop debug drawing.
-            void EndDebugDrawing();
+            VIDEO_API void EndDebugDrawing();
             
         private:
             DebugDrawing(const DebugDrawing & other) = delete;

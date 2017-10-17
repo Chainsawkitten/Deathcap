@@ -25,6 +25,7 @@ set(SRCS
     )
 
 set(HEADERS
+        linking.hpp
         Buffer/FrameBuffer.hpp
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
