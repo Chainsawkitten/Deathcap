@@ -207,7 +207,7 @@ class Entity {
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
         template<typename T> void Load(const Json::Value& node, const std::string& name);
-        Component::SuperComponent* AddComponent(const std::type_info* componentType);
+        ENGINE_API Component::SuperComponent* AddComponent(const std::type_info* componentType);
         void LoadComponent(const std::type_info* componentType, const Json::Value& node);
         void KillHelper();
         
