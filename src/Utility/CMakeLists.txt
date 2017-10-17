@@ -3,6 +3,7 @@ set(SRCS
     )
 
 set(HEADERS
+        linking.hpp
         Log.hpp
     )
 
