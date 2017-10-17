@@ -26,8 +26,9 @@ class ScriptManager {
         /// Build a script that can later be run.
         /**
          * @param script Script to build.
+         * @return The result, < 0 means it failed.
          */
-        void BuildScript(const ScriptFile* script);
+        int BuildScript(const ScriptFile* script);
         
         /// Build all scripts in the hymn.
         void BuildAllScripts();

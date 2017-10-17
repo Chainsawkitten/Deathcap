@@ -50,6 +50,51 @@ Json::Value Script::Save() const {
     return component;
 }
 
+void Script::FillPropertyMap() {
+
+    int propertyCount = instance->GetPropertyCount();
+
+    for (int n = 0; n < propertyCount; n++) {
+
+        int typeId = instance->GetPropertyTypeId(n);
+        void *varPointer = instance->GetAddressOfProperty(n);
+
+        auto it = propertyMap.find(instance->GetPropertyName(n));
+        if (it != propertyMap.end()) {
+
+            if (propertyMap[instance->GetPropertyName(n)].first == typeId) {
+
+                continue;
+
+            }
+
+        }
+
+        if (typeId == asTYPEID_INT32) {
+            int* mapValue = new int();
+            *mapValue = *(int*)varPointer;
+            propertyMap[instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
+        }
+        else if (typeId == asTYPEID_FLOAT) {
+            float* mapValue = new float();
+            *mapValue = *(float*)varPointer;
+            propertyMap[instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
+        }
+        else if (typeId == instance->GetEngine()->GetTypeIdByDecl("string")) {
+            std::string *str = (std::string*)varPointer;
+            if (str) {
+
+                std::string* mapValue = new std::string();
+                *mapValue = *(std::string*)varPointer;
+                propertyMap[instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
+
+            }
+
+        }
+    }
+
+}
+
 /// Clears the property map.
 void Script::ClearPropertyMap() {
 

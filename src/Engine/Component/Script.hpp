@@ -38,6 +38,9 @@ namespace Component {
             ///Map containing the properties, maps a pair of a value and it's type to a name (map<nameOfProperty, pair<typeOfProperty, valueOfProperty>>)
             std::map<std::string, std::pair<int, void*>> propertyMap;
 
+            /// Fills the property map.
+            void FillPropertyMap();
+
             /// Clears the property map.
             void ClearPropertyMap();
 
