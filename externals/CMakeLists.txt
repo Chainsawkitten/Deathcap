@@ -1,3 +1,6 @@
+# Build libraries as shared.
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries." FORCE)
+
 # GLFW
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "Don't build GLFW docs" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Don't build GLFW examples" FORCE)
