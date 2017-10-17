@@ -352,9 +352,8 @@ void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
     auto shapeComp = rigidBody->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
         ImGui::Indent();
-        if (ImGui::InputFloat("Mass", &rigidBodyMass)) {
+        if (ImGui::InputFloat("Mass", &rigidBodyMass))
             Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
-        }
         ImGui::Unindent();
     } else {
         ImGui::Indent();
