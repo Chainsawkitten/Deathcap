@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <Utility/Log.hpp>
 #include <GL/glew.h>
 

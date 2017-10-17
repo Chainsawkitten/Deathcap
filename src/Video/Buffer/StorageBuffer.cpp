@@ -3,9 +3,9 @@
 #include <assert.h>
 #include <cstring>
 
+#include <Utility/Log.hpp>
+#include <ErrorVideoDebug.hpp>
 
-#include<Utility/Log.hpp>
-#include<ErrorVideoDebug.hpp>
 using namespace Video;
 
 StorageBuffer::StorageBuffer(unsigned int size, GLenum usage) : bound(false) {
