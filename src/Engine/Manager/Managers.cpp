@@ -18,7 +18,7 @@ Hub::Hub() {
     
 }
 
-Hub& Managers() {
+ENGINE_EXPORT Hub& Managers() {
     static Hub instance;
     
     return instance;
