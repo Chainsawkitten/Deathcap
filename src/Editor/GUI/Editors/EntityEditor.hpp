@@ -22,6 +22,7 @@ namespace Component {
     class SoundSource;
     class ParticleEmitter;
     class Controller;
+    class Trigger;
 }
 
 namespace GUI {
@@ -90,6 +91,7 @@ namespace GUI {
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
             void ControllerEditor(Component::Controller* controller);
+            void TriggerEditor(Component::Trigger* trigger);
             
             Entity* entity = nullptr;
             bool visible = false;

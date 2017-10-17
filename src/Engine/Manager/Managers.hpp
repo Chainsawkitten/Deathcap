@@ -12,6 +12,7 @@ class ScriptManager;
 class DebugDrawingManager;
 class ProfilingManager;
 class VRManager;
+class TriggerManager;
 
 class World;
 
@@ -47,6 +48,9 @@ class Hub {
         
         /// The profiling manager instance.
         ProfilingManager* profilingManager;
+
+        /// The trigger manager instance.
+        TriggerManager* triggerManager;
 
         /// The VR manager instance.
         VRManager* vrManager;
