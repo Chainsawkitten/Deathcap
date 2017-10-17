@@ -9,7 +9,7 @@
 #include "../linking.hpp"
 
 /// Hold information about the hymn's inputs.
-class ENGINE_EXPORT Input {
+class Input {
     public:
         /// The information needed to identify a button.
         struct Button {
@@ -30,7 +30,7 @@ class ENGINE_EXPORT Input {
         /**
          * @return The input instance.
          */
-        static Input& GetInstance() {
+        ENGINE_EXPORT static Input& GetInstance() {
             static Input instance;
             return instance;
         }
@@ -39,14 +39,14 @@ class ENGINE_EXPORT Input {
         /**
          * @param window The target GLFWwindow.
          */
-        void SetWindow(GLFWwindow* window);
+        ENGINE_EXPORT void SetWindow(GLFWwindow* window);
         
         /// Check if a button was activated this frame.
         /**
          * @param index The index of the button in the buttons array.
          * @return Whether the button was activated this frame.
          */
-        bool CheckButton(int index) const;
+        ENGINE_EXPORT bool CheckButton(int index) const;
 
         /// Check if a button was activated this frame
         /**
@@ -54,19 +54,19 @@ class ENGINE_EXPORT Input {
          * @param controller The controller to check.
          * @return Whether the button was activated this frame.
          */
-        bool CheckVRButton(int index, Component::Controller *controller) const;
+        ENGINE_EXPORT bool CheckVRButton(int index, Component::Controller *controller) const;
         
         /// Save the buttons to a JSON value.
         /**
          * @return The saved JSON value.
          */
-        Json::Value Save() const;
+        ENGINE_EXPORT Json::Value Save() const;
         
         /// Load buttons from JSON node.
         /**
          * @param buttonsNode The JSON value to load.
          */
-        void Load(const Json::Value& buttonsNode);
+        ENGINE_EXPORT void Load(const Json::Value& buttonsNode);
         
     private:
         GLFWwindow* window;

@@ -20,7 +20,7 @@ namespace Json {
 }
 
 /// Handles scripting.
-class ENGINE_EXPORT ScriptManager {
+class ScriptManager {
     friend class Hub;
         
     public:
@@ -28,30 +28,30 @@ class ENGINE_EXPORT ScriptManager {
         /**
          * @param script Script to build.
          */
-        void BuildScript(const ScriptFile* script);
+        ENGINE_EXPORT void BuildScript(const ScriptFile* script);
         
         /// Build all scripts in the hymn.
-        void BuildAllScripts();
+        ENGINE_EXPORT void BuildAllScripts();
         
         ///Fetches the properties from the script and fills the map.
         /**
          * @param script The script which map to update.
          */
-        void FillPropertyMap(Component::Script* script);
+        ENGINE_EXPORT void FillPropertyMap(Component::Script* script);
 
         /// Update all script entities in the game world.
         /**
          * @param world The world to update.
          * @param deltaTime Time since last frame (in seconds).
          */
-        void Update(World& world, float deltaTime);
+        ENGINE_EXPORT void Update(World& world, float deltaTime);
         
         /// Register an entity to recieve update callbacks.
         /**
          * @param entity %Entity to register.
          * @todo Fix so registered entities can be removed.
          */
-        void RegisterUpdate(Entity* entity);
+        ENGINE_EXPORT void RegisterUpdate(Entity* entity);
         
         /// Register an entity to receive an event when |object| enters |trigger|.
         /**
@@ -60,7 +60,7 @@ class ENGINE_EXPORT ScriptManager {
          * @param object Object to check if it enters the trigger.
          * @param methodName The name of the method to call when triggered.
          */
-        void RegisterTriggerEnter(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
+        ENGINE_EXPORT void RegisterTriggerEnter(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
 
         /// Register an entity to receive an event when |object| is intersecting |trigger|.
         /**
@@ -69,7 +69,7 @@ class ENGINE_EXPORT ScriptManager {
          * @param object Object to check if it intersects the trigger.
          * @param methodName The name of the method to call when triggered.
          */
-        void RegisterTriggerRetain(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
+        ENGINE_EXPORT void RegisterTriggerRetain(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
 
         /// Register an entity to receive an event when |object| leaves |trigger|.
         /**
@@ -78,52 +78,52 @@ class ENGINE_EXPORT ScriptManager {
          * @param object Object to check if it leaves the trigger.
          * @param methodName The name of the method to call when triggered.
          */
-        void RegisterTriggerLeave(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
+        ENGINE_EXPORT void RegisterTriggerLeave(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
         
         /// Register the input enum.
-        void RegisterInput();
+        ENGINE_EXPORT void RegisterInput();
         
         /// Send a message to an entity.
         /**
          * @param recipient The entity to receive the message.
          * @param type The type of message to send.
          */
-        void SendMessage(Entity* recipient, int type);
+        ENGINE_EXPORT void SendMessage(Entity* recipient, int type);
 
         /// Fetches an entity using its GUID.
         /**
          * @param GUID The entity to receive the message.
          * @return The entity that has the corret GUID.
          */
-        Entity* GetEntity(unsigned int GUID) const;
+        ENGINE_EXPORT Entity* GetEntity(unsigned int GUID) const;
         
         /// Create script component.
         /**
          * @return The created component.
          */
-        Component::Script* CreateScript();
+        ENGINE_EXPORT Component::Script* CreateScript();
         
         /// Create script component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Script* CreateScript(const Json::Value& node);
+        ENGINE_EXPORT Component::Script* CreateScript(const Json::Value& node);
         
         /// Used to get the string identifier used to check if a property is a string.
         /**
          * @return The identifier of the string declaration.
          */
-        int GetStringDeclarationID();
+        ENGINE_EXPORT int GetStringDeclarationID();
 
         /// Get all script components.
         /**
          * @return All script components.
          */
-        const std::vector<Component::Script*>& GetScripts() const;
+        ENGINE_EXPORT const std::vector<Component::Script*>& GetScripts() const;
         
         /// Remove all killed components.
-        void ClearKilledComponents();
+        ENGINE_EXPORT void ClearKilledComponents();
         
         /// The entity currently being executed.
         Entity* currentEntity;

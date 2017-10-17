@@ -6,7 +6,7 @@
 
 namespace Component {
     /// Emitter that emits particles.
-    class ENGINE_EXPORT ParticleEmitter : public SuperComponent {
+    class ParticleEmitter : public SuperComponent {
         public:
             /// Type of emitter
             enum EmitterType {
@@ -54,13 +54,13 @@ namespace Component {
             };
             
             /// Create new particle emitter.
-            ParticleEmitter();
+            ENGINE_EXPORT ParticleEmitter();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
             
             /// Particletype
             ParticleType particleType;

@@ -16,7 +16,7 @@ namespace Geometry {
      * a mode READ/WRITE.
      * End by using the Close() function.
      */
-    class ENGINE_EXPORT AssetFileHandler {
+    class AssetFileHandler {
         public:
             /// Mode to use class. READ/WRITE.
             enum Mode {
@@ -58,48 +58,48 @@ namespace Geometry {
             const uint16_t SUPPORTED_FROM = 1;
 
             /// Default constructor.
-            AssetFileHandler();
+            ENGINE_EXPORT AssetFileHandler();
 
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              * @param mode Use READ or WRITE.
              */
-            AssetFileHandler(const char* filepath, Mode mode = READ);
+            ENGINE_EXPORT AssetFileHandler(const char* filepath, Mode mode = READ);
 
             /// Destructor.
-            ~AssetFileHandler();
+            ENGINE_EXPORT ~AssetFileHandler();
 
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              */
-            bool Open(const char* filepath, Mode mode = READ);
+            ENGINE_EXPORT bool Open(const char* filepath, Mode mode = READ);
 
             /// Close the opened file and clear data.
-            void Close();
+            ENGINE_EXPORT void Close();
 
             /// Clear current data.
-            void Clear();
+            ENGINE_EXPORT void Clear();
 
             /// Load a mesh into memory.
             /**
             * @param Id of the mesh. Use GetNumMeshes() to get the number of meshes.
             */
-            void LoadMeshData(int meshID);
+            ENGINE_EXPORT void LoadMeshData(int meshID);
 
             /// Get static vertex data of a mesh.
             /**
              * First load a mesh into memory by using LoadMeshData().
              * @return Static mesh data.
              */
-            MeshData * GetStaticMeshData();
+            ENGINE_EXPORT MeshData * GetStaticMeshData();
 
             /// Save the meshdata.
-           /**
+            /**
             * @param meshData Static mesh data.
             */
-            void SaveStaticMesh(MeshData * meshData);
+            ENGINE_EXPORT void SaveStaticMesh(MeshData * meshData);
 
         private:
             void ReadGlobalHeader();

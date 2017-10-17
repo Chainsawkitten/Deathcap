@@ -10,57 +10,57 @@ class TextureAsset;
 class ScriptFile;
 
 /// A hymn to beauty.
-class ENGINE_EXPORT ActiveHymn {
+class ActiveHymn {
     ENGINE_EXPORT friend ActiveHymn& Hymn();
     
     public:
         /// Clear the hymn of all properties.
-        void Clear();
+        ENGINE_EXPORT void Clear();
         
         /// Get the path where the hymn is saved.
         /**
          * @return The hymn's path.
          */
-        const std::string& GetPath() const;
+        ENGINE_EXPORT const std::string& GetPath() const;
         
         /// Set the path where the hymn is saved.
         /**
          * @param path New path.
          */
-        void SetPath(const std::string& path);
+        ENGINE_EXPORT void SetPath(const std::string& path);
 
         /// Gets the path to the hymn file.
         /**
          * @return The full path.
          */
-        std::string GetSavePath() const;
+        ENGINE_EXPORT std::string GetSavePath() const;
 
         /// Save the hymn.
-        void Save() const;
+        ENGINE_EXPORT void Save() const;
         
         /// Load a hymn.
         /**
          * @param path Path to the saved hymn.
          */
-        void Load(const std::string& path);
+        ENGINE_EXPORT void Load(const std::string& path);
 
         /// Convert the hymn to Json.
         /**
          * @return The hymn as a Json.
          */
-        Json::Value ToJson() const;
+        ENGINE_EXPORT Json::Value ToJson() const;
 
         /// Convert a Json to a Hymn.
         /**
          * @param root The Json file to load.
          */
-        void FromJson(Json::Value root);
+        ENGINE_EXPORT void FromJson(Json::Value root);
 
         /// Update the world.
         /**
          * @param deltaTime Time since last frame (in seconds).
          */
-        void Update(float deltaTime);
+        ENGINE_EXPORT void Update(float deltaTime);
         
         /// Render the world.
         /**
@@ -71,7 +71,7 @@ class ENGINE_EXPORT ActiveHymn {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          */
-        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
+        ENGINE_EXPORT void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
         
         /// The game world.
         World world;

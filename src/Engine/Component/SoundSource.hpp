@@ -11,30 +11,30 @@ namespace Audio {
 
 namespace Component {
     /// %Component describing a sound source.
-    class ENGINE_EXPORT SoundSource : public SuperComponent {
+    class SoundSource : public SuperComponent {
         friend class ::SoundManager;
         
         public:
             /// Create new sound source.
-            SoundSource();
+            ENGINE_EXPORT SoundSource();
             
             /// Destructor.
-            ~SoundSource();
+            ENGINE_EXPORT ~SoundSource();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
             
             /// Play the sound.
-            void Play();
+            ENGINE_EXPORT void Play();
             
             /// Pause the sound.
-            void Pause();
+            ENGINE_EXPORT void Pause();
             
             /// Stop the sound.
-            void Stop();
+            ENGINE_EXPORT void Stop();
             
             /// Sound buffer.
             Audio::SoundBuffer* soundBuffer = nullptr;

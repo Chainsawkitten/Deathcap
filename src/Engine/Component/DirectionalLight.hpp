@@ -6,16 +6,16 @@
 
 namespace Component {
     /// %Component describing a directional light source (like the sun).
-    class ENGINE_EXPORT DirectionalLight : public SuperComponent {
+    class DirectionalLight : public SuperComponent {
         public:
             /// Create new directional light.
-            DirectionalLight();
+            ENGINE_EXPORT DirectionalLight();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
             
             /// Color.
             glm::vec3 color = glm::vec3(1.f, 1.f, 1.f);

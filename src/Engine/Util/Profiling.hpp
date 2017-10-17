@@ -6,16 +6,16 @@
 #include "../linking.hpp"
 
 /// Run profiling.
-class ENGINE_EXPORT Profiling {
+class Profiling {
     public:
         /// Start profiling.
         /**
          * @param name Name of the segment.
          */
-        Profiling(const std::string& name);
+        ENGINE_EXPORT Profiling(const std::string& name);
         
         /// End profiling.
-        ~Profiling();
+        ENGINE_EXPORT ~Profiling();
         
     private:
         ProfilingManager::Result* result;

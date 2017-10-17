@@ -6,63 +6,63 @@
 #include "../linking.hpp"
 
 /// Handles settings.
-class ENGINE_EXPORT Settings {
+class Settings {
     public:
         /// Get a bool setting.
         /**
          * @param settingName Setting name.
          * @return The value of the setting
          */
-        bool GetBool(const std::string& settingName);
+        ENGINE_EXPORT bool GetBool(const std::string& settingName);
         
         /// Set a bool setting.
         /**
          * @param settingName Setting name.
          * @param value Value to set it to.
          */
-        void SetBool(const std::string& settingName, bool value);
+        ENGINE_EXPORT void SetBool(const std::string& settingName, bool value);
         
         /// Get a long setting.
         /**
          * @param settingName Setting name.
          * @return The value of the setting
          */
-        long GetLong(const std::string& settingName);
+        ENGINE_EXPORT long GetLong(const std::string& settingName);
         
         /// Set a long setting.
         /**
          * @param settingName Setting name.
          * @param value Value to set it to.
          */
-        void SetLong(const std::string& settingName, long value);
+        ENGINE_EXPORT void SetLong(const std::string& settingName, long value);
         
         /// Get a double setting.
         /**
          * @param settingName Setting name.
          * @return The value of the setting
          */
-        double GetDouble(const std::string& settingName);
+        ENGINE_EXPORT double GetDouble(const std::string& settingName);
         
         /// Set a double setting.
         /**
          * @param settingName Setting name.
          * @param value Value to set it to.
          */
-        void SetDouble(const std::string& settingName, double value);
+        ENGINE_EXPORT void SetDouble(const std::string& settingName, double value);
         
         /// Get a string setting.
         /**
          * @param settingName Setting name.
          * @return The value of the setting
          */
-        std::string GetString(const std::string& settingName);
+        ENGINE_EXPORT std::string GetString(const std::string& settingName);
         
         /// Set a string setting.
         /**
          * @param settingName Setting name.
          * @param value Value to set it to.
          */
-        void SetString(const std::string& settingName, const std::string& value);
+        ENGINE_EXPORT void SetString(const std::string& settingName, const std::string& value);
         
         /// Save the settings to an INI file.
         virtual void Save() = 0;
@@ -78,7 +78,7 @@ class ENGINE_EXPORT Settings {
          * @param key INI key.
          * @param defaultValue Default value.
          */
-        void AddBoolSetting(const std::string& settingName, const std::string& section, const std::string& key, bool defaultValue);
+        ENGINE_EXPORT void AddBoolSetting(const std::string& settingName, const std::string& section, const std::string& key, bool defaultValue);
         
         /// Add a long setting.
         /**
@@ -87,7 +87,7 @@ class ENGINE_EXPORT Settings {
          * @param key INI key.
          * @param defaultValue Default value.
          */
-        void AddLongSetting(const std::string& settingName, const std::string& section, const std::string& key, long defaultValue);
+        ENGINE_EXPORT void AddLongSetting(const std::string& settingName, const std::string& section, const std::string& key, long defaultValue);
         
         /// Add a double setting.
         /**
@@ -96,7 +96,7 @@ class ENGINE_EXPORT Settings {
          * @param key INI key.
          * @param defaultValue Default value.
          */
-        void AddDoubleSetting(const std::string& settingName, const std::string& section, const std::string& key, double defaultValue);
+        ENGINE_EXPORT void AddDoubleSetting(const std::string& settingName, const std::string& section, const std::string& key, double defaultValue);
         
         /// Add a string setting.
         /**
@@ -105,7 +105,7 @@ class ENGINE_EXPORT Settings {
          * @param key INI key.
          * @param defaultValue Default value.
          */
-        void AddStringSetting(const std::string& settingName, const std::string& section, const std::string& key, const std::string& defaultValue);
+        ENGINE_EXPORT void AddStringSetting(const std::string& settingName, const std::string& section, const std::string& key, const std::string& defaultValue);
         
     private:
         struct BoolSetting {

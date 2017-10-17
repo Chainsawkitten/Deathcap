@@ -20,7 +20,7 @@ namespace Component {
 }
 
 /// Singleton class that holds all subsystems.
-class ENGINE_EXPORT Hub {
+class Hub {
     ENGINE_EXPORT friend Hub& Managers();
     
     public:
@@ -52,13 +52,13 @@ class ENGINE_EXPORT Hub {
         VRManager* vrManager;
         
         /// Initialize all subsystems.
-        void StartUp();
+        ENGINE_EXPORT void StartUp();
         
         /// Deinitialize all subsystems.
-        void ShutDown();
+        ENGINE_EXPORT void ShutDown();
         
         /// Clears the killed components of all managers.
-        void ClearKilledComponents();
+        ENGINE_EXPORT void ClearKilledComponents();
         
     private:
         Hub();

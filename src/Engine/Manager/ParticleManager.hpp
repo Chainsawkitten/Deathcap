@@ -21,7 +21,7 @@ namespace Json {
 }
 
 /// Handles particles.
-class ENGINE_EXPORT ParticleManager {
+class ParticleManager {
     friend class Hub;
     
     public:
@@ -29,7 +29,7 @@ class ENGINE_EXPORT ParticleManager {
         /**
          * @return Maximum amount of particles.
          */
-        unsigned int GetMaxParticleCount() const;
+        ENGINE_EXPORT unsigned int GetMaxParticleCount() const;
         
         /// Update all the system's particles, spawn new particles etc.
         /**
@@ -37,14 +37,14 @@ class ENGINE_EXPORT ParticleManager {
          * @param time Time since last frame (in seconds).
          * @param preview Whether to only update particle emitters that are being previewed.
          */
-        void Update(World& world, float time, bool preview = false);
+        ENGINE_EXPORT void Update(World& world, float time, bool preview = false);
         
         /// Update particle buffer.
         /**
          * Needs to be called before rendering (but only once a frame).
          * @param world The world to render.
          */
-        void UpdateBuffer(World& world);
+        ENGINE_EXPORT void UpdateBuffer(World& world);
 
         /// Render the particles in a world.
         /**
@@ -53,41 +53,41 @@ class ENGINE_EXPORT ParticleManager {
          * @param up Up direction of the camera.
          * @param viewProjectionMatrix View projection matrix of the camera.
          */
-        void Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix);
+        ENGINE_EXPORT void Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix);
         
         /// Get the texture atlas.
         /**
          * @return The particle texture atlas.
          */
-        const Video::Texture2D* GetTextureAtlas() const;
+        ENGINE_EXPORT const Video::Texture2D* GetTextureAtlas() const;
         
         /// Get the number of rows in the texture atlas.
         /**
          * @return The number of rows in the texture atlas.
          */
-        int GetTextureAtlasRows() const;
+        ENGINE_EXPORT int GetTextureAtlasRows() const;
         
         /// Create particle emitter component.
         /**
          * @return The created component.
          */
-        Component::ParticleEmitter* CreateParticleEmitter();
+        ENGINE_EXPORT Component::ParticleEmitter* CreateParticleEmitter();
         
         /// Create particle emitter component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::ParticleEmitter* CreateParticleEmitter(const Json::Value& node);
+        ENGINE_EXPORT Component::ParticleEmitter* CreateParticleEmitter(const Json::Value& node);
         
         /// Get all particle emitter components.
         /**
          * @return All particle emitter components.
          */
-        const std::vector<Component::ParticleEmitter*>& GetParticleEmitters() const;
+        ENGINE_EXPORT const std::vector<Component::ParticleEmitter*>& GetParticleEmitters() const;
         
         /// Remove all killed components.
-        void ClearKilledComponents();
+        ENGINE_EXPORT void ClearKilledComponents();
         
     private:
         ParticleManager();

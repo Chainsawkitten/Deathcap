@@ -4,18 +4,18 @@
 #include "../linking.hpp"
 
 /// Class responsible for calculating direct audio.
-class ENGINE_EXPORT SteamAudioDirectRenderer {
+class SteamAudioDirectRenderer {
     public:
 
-        SteamAudioDirectRenderer();
+        ENGINE_EXPORT SteamAudioDirectRenderer();
 
         /**
          * @param context The Steam Audio context.
          * @param environment Handle to the Environment object to use.
          */
-        SteamAudioDirectRenderer(IPLContext* context, IPLhandle* environment);
+        ENGINE_EXPORT SteamAudioDirectRenderer(IPLContext* context, IPLhandle* environment);
 
-        ~SteamAudioDirectRenderer();
+        ENGINE_EXPORT ~SteamAudioDirectRenderer();
 
         /// Processes the direct path portion of the audio
         /**
@@ -27,7 +27,7 @@ class ENGINE_EXPORT SteamAudioDirectRenderer {
          * @param sourceRadius The radius of the source, for calculating occlusion.
          * @return The processed buffer.
          */
-        IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
+        ENGINE_EXPORT IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
 
     private:
         IPLDirectSoundPath GetDirectSoundPath();

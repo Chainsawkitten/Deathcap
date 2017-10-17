@@ -11,19 +11,19 @@ namespace Video {
 
 namespace Component {
     /// %Component providing geometry to an entity.
-    class ENGINE_EXPORT Mesh : public SuperComponent {
+    class Mesh : public SuperComponent {
         public:
             /// Create new mesh.
-            Mesh();
+            ENGINE_EXPORT Mesh();
             
             /// Destructor.
-            ~Mesh() override;
+            ENGINE_EXPORT ~Mesh() override;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
 
             /// Geometry data.
             /**
@@ -35,13 +35,13 @@ namespace Component {
             /**
              * @return Is this selected or not.
              */
-            bool GetSelected() const;
+            ENGINE_EXPORT bool GetSelected() const;
 
             /// Set mesh selection.
             /**
              * @param value If selected or not.
              */
-            void SetSelected(bool value);
+            ENGINE_EXPORT void SetSelected(bool value);
 
     private:        
         bool isSelected;

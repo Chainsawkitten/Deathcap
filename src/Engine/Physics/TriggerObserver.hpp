@@ -14,7 +14,7 @@ namespace Physics {
      * always the same. If not, intersection phases may be erroneous.
      * \note Intended to be used only within the physics related engine classes.
      */
-    class ENGINE_EXPORT TriggerObserver : public btCollisionWorld::ContactResultCallback {
+    class TriggerObserver : public btCollisionWorld::ContactResultCallback {
         public:
             /// The type of intersection this observer has to its trigger.
             enum class IntersectionPhase {
@@ -33,45 +33,45 @@ namespace Physics {
             /**
              * @param body Rigid body listening to trigger.
              */
-            TriggerObserver(btRigidBody& body);
+            ENGINE_EXPORT TriggerObserver(btRigidBody& body);
 
             /// Get the Bullet collision object of the observing body.
             /**
              * @return Bullet collision object.
              */
-            btCollisionObject* GetBulletCollisionObject();
+            ENGINE_EXPORT btCollisionObject* GetBulletCollisionObject();
 
             /// Get the intersection phase of the observer.
             /**
              * @return IntersectionPhase indicating the intersection phase
              * relative to the trigger volume.
              */
-            IntersectionPhase GetPhase() const;
+            ENGINE_EXPORT IntersectionPhase GetPhase() const;
 
             /// Determine new intersection phase after collision test has been
             /// applied.
-            void PostIntersectionTest();
+            ENGINE_EXPORT void PostIntersectionTest();
 
             /// Set up a handler for when the observer begins intersecting its
             /// associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            void OnEnter(const std::function<void()>& handler);
+            ENGINE_EXPORT void OnEnter(const std::function<void()>& handler);
 
             /// Set up a handler for when the observer continues intersecting
             /// its associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            void OnRetain(const std::function<void()>& handler);
+            ENGINE_EXPORT void OnRetain(const std::function<void()>& handler);
 
             /// Set up a handler for when the observer stops intersecting its
             /// associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            void OnLeave(const std::function<void()>& handler);
+            ENGINE_EXPORT void OnLeave(const std::function<void()>& handler);
 
         private:
             /// Overridden from btCollisionWorld::ContactResultCallback for

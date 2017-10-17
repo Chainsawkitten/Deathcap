@@ -28,7 +28,7 @@ namespace Json {
 class TextureAsset;
 
 /// Handles rendering the world.
-class ENGINE_EXPORT RenderManager {
+class RenderManager {
     friend class Hub;
     
     public:
@@ -37,7 +37,7 @@ class ENGINE_EXPORT RenderManager {
          * @param world Contains a bunch of entities.
          * @param camera Camera through which to render (or first camera in the world if nullptr).
          */
-        void Render(World& world, Entity* camera = nullptr);
+        ENGINE_EXPORT void Render(World& world, Entity* camera = nullptr);
         
         /// Render editor entities.
         /**
@@ -49,165 +49,165 @@ class ENGINE_EXPORT RenderManager {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          */
-        void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
+        ENGINE_EXPORT void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
         
         /// Updates the buffers to fit the current screen size.
-        void UpdateBufferSize();
+        ENGINE_EXPORT void UpdateBufferSize();
         
         /// Create animation component.
         /**
          * @return The created component.
          */
-        Component::Animation* CreateAnimation();
+        ENGINE_EXPORT Component::Animation* CreateAnimation();
         
         /// Create animation component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Animation* CreateAnimation(const Json::Value& node);
+        ENGINE_EXPORT Component::Animation* CreateAnimation(const Json::Value& node);
         
         /// Get all animation components.
         /**
          * @return All animation components.
          */
-        const std::vector<Component::Animation*>& GetAnimations() const;
+        ENGINE_EXPORT const std::vector<Component::Animation*>& GetAnimations() const;
         
         /// Create directional light component.
         /**
          * @return The created component.
          */
-        Component::DirectionalLight* CreateDirectionalLight();
+        ENGINE_EXPORT Component::DirectionalLight* CreateDirectionalLight();
         
         /// Create directional light component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::DirectionalLight* CreateDirectionalLight(const Json::Value& node);
+        ENGINE_EXPORT Component::DirectionalLight* CreateDirectionalLight(const Json::Value& node);
         
         /// Get all directional light components.
         /**
          * @return All directional light components.
          */
-        const std::vector<Component::DirectionalLight*>& GetDirectionalLights() const;
+        ENGINE_EXPORT const std::vector<Component::DirectionalLight*>& GetDirectionalLights() const;
         
         /// Create lens component.
         /**
          * @return The created component.
          */
-        Component::Lens* CreateLens();
+        ENGINE_EXPORT Component::Lens* CreateLens();
         
         /// Create lens component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Lens* CreateLens(const Json::Value& node);
+        ENGINE_EXPORT Component::Lens* CreateLens(const Json::Value& node);
         
         /// Get all lens components.
         /**
          * @return All lens components.
          */
-        const std::vector<Component::Lens*>& GetLenses() const;
+        ENGINE_EXPORT const std::vector<Component::Lens*>& GetLenses() const;
         
         /// Create material component.
         /**
          * @return The created component.
          */
-        Component::Material* CreateMaterial();
+        ENGINE_EXPORT Component::Material* CreateMaterial();
         
         /// Create material component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Material* CreateMaterial(const Json::Value& node);
+        ENGINE_EXPORT Component::Material* CreateMaterial(const Json::Value& node);
         
         /// Get all material components.
         /**
          * @return All material components.
          */
-        const std::vector<Component::Material*>& GetMaterials() const;
+        ENGINE_EXPORT const std::vector<Component::Material*>& GetMaterials() const;
         
         /// Create mesh component.
         /**
          * @return The created component.
          */
-        Component::Mesh* CreateMesh();
+        ENGINE_EXPORT Component::Mesh* CreateMesh();
         
         /// Create mesh component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Mesh* CreateMesh(const Json::Value& node);
+        ENGINE_EXPORT Component::Mesh* CreateMesh(const Json::Value& node);
         
         /// Get all mesh components.
         /**
          * @return All mesh components.
          */
-        const std::vector<Component::Mesh*>& GetMeshes() const;
+        ENGINE_EXPORT const std::vector<Component::Mesh*>& GetMeshes() const;
         
         /// Create point light component.
         /**
          * @return The created component.
          */
-        Component::PointLight* CreatePointLight();
+        ENGINE_EXPORT Component::PointLight* CreatePointLight();
         
         /// Create point light component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::PointLight* CreatePointLight(const Json::Value& node);
+        ENGINE_EXPORT Component::PointLight* CreatePointLight(const Json::Value& node);
         
         /// Get all point light components.
         /**
          * @return All point light components.
          */
-        const std::vector<Component::PointLight*>& GetPointLights() const;
+        ENGINE_EXPORT const std::vector<Component::PointLight*>& GetPointLights() const;
         
         /// Create spot light component.
         /**
          * @return The created component.
          */
-        Component::SpotLight* CreateSpotLight();
+        ENGINE_EXPORT Component::SpotLight* CreateSpotLight();
         
         /// Create spot light component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::SpotLight* CreateSpotLight(const Json::Value& node);
+        ENGINE_EXPORT Component::SpotLight* CreateSpotLight(const Json::Value& node);
         
         /// Get all spot light components.
         /**
          * @return All spot light components.
          */
-        const std::vector<Component::SpotLight*>& GetSpotLights() const;
+        ENGINE_EXPORT const std::vector<Component::SpotLight*>& GetSpotLights() const;
 
         /// Create vr controller component
         /**
          * @return The created component.
          */
-        Component::Controller* CreateController();
+        ENGINE_EXPORT Component::Controller* CreateController();
 
         /// Create vr controller component
         /**
          * @param node Json node to load the component from
          * @return The created component.
          */
-        Component::Controller* CreateController(const Json::Value& node);
+        ENGINE_EXPORT Component::Controller* CreateController(const Json::Value& node);
 
         /// Get all vr controller components
         /**
          * @return All vr controller components
          */
-        const std::vector<Component::Controller*>& GetControllers() const;
+        ENGINE_EXPORT const std::vector<Component::Controller*>& GetControllers() const;
         
         /// Remove all killed components.
-        void ClearKilledComponents();
+        ENGINE_EXPORT void ClearKilledComponents();
         
     private:
         RenderManager();

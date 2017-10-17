@@ -13,22 +13,22 @@ namespace Physics {
 
 namespace Component {
     /// %Component that allows interacting with other physics components.
-    class ENGINE_EXPORT RigidBody : public SuperComponent {
+    class RigidBody : public SuperComponent {
         friend class ::PhysicsManager;
         friend class ::Physics::Trigger;
 
         public:
             /// Constructor.
-            RigidBody() = default;
+            ENGINE_EXPORT RigidBody() = default;
 
             /// Destructor.
-            ~RigidBody();
+            ENGINE_EXPORT ~RigidBody();
 
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
 
         private:
             // Get the underlying Bullet rigid body. If none has been set,

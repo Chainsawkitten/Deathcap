@@ -4,7 +4,7 @@
 #include "../linking.hpp"
 
 /// Use mouse cursor to select objects in editor and in game.
-class ENGINE_EXPORT MousePicking {
+class MousePicking {
     public:
 
         /// Fake constructor.
@@ -15,25 +15,25 @@ class ENGINE_EXPORT MousePicking {
          * @param cam The camera the mouse picking makes calculations from
          * @param projection The camera's projection matrix.
          */
-        MousePicking(Entity * cam, const glm::mat4& projection);
+        ENGINE_EXPORT MousePicking(Entity * cam, const glm::mat4& projection);
 
         /// Destructor.
-        ~MousePicking();
+        ENGINE_EXPORT ~MousePicking();
 
         /// Return the vector for current ray.
         /**
         * @return A vec3 with values from current ray in world space. Normalized.
         */
-        glm::vec3 GetCurrentRay() const;
+        ENGINE_EXPORT glm::vec3 GetCurrentRay() const;
 
         /// Updates the mouse picker's projection matrix
         /**
          * @param projection The projection matrix to update with.
          */
-        void UpdateProjectionMatrix(const glm::mat4& projection);
+        ENGINE_EXPORT void UpdateProjectionMatrix(const glm::mat4& projection);
 
         /// Update the view matrix and recalculates the ray.
-        void Update();
+        ENGINE_EXPORT void Update();
 
     private:
         // Where current ray direction points in world space.

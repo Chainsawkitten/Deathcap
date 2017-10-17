@@ -10,44 +10,44 @@
 #include "../linking.hpp"
 
 /// %Entity containing various components.
-class ENGINE_EXPORT Entity {
+class Entity {
     public:
         /// Create new entity.
         /**
          * @param world The game world in which the entity is contained.
          * @param name Name of the entity.
          */
-        Entity(World* world, const std::string& name);
+        ENGINE_EXPORT Entity(World* world, const std::string& name);
         
         /// Destructor.
-        ~Entity();
+        ENGINE_EXPORT ~Entity();
         
         /// Get the entity's parent entity.
         /**
          * @return The parent entity, or nullptr if none.
          */
-        Entity* GetParent() const;
+        ENGINE_EXPORT Entity* GetParent() const;
         
         /// Add child entity.
         /**
         * @param name The name of the child entity.
         * @return The new entity.
         */
-        Entity* AddChild(const std::string& name = "");
+        ENGINE_EXPORT Entity* AddChild(const std::string& name = "");
 
         /// Remove child entity.
         /**
         * @param child The entity you want to remove.
         * @return Did we manage to remove the child.
         */
-        bool RemoveChild(Entity* child);
+        ENGINE_EXPORT bool RemoveChild(Entity* child);
         
         /// Set a new parent.
         /**
         * @param newParent The entity you want to be the new parent.
         * @return Did we manage set the new parent?.
         */
-        bool SetParent(Entity* newParent);
+        ENGINE_EXPORT bool SetParent(Entity* newParent);
 
         /// Check if entity is a child.
         /**
@@ -55,14 +55,14 @@ class ENGINE_EXPORT Entity {
          * @param deep True if we want to check if it's a grandchild, false if we do not.
          * @return True if it has a child, false if it does not.
          */
-        bool HasChild(const Entity* child, bool deep = true) const;
+        ENGINE_EXPORT bool HasChild(const Entity* child, bool deep = true) const;
 
         /// Instantiate a scene as a child to this entity.
         /**
          * @param name The name of the scene to instantiate.
          * @return The created root entity of the scene.
          */
-        Entity* InstantiateScene(const std::string& name, const std::string& originScene);
+        ENGINE_EXPORT Entity* InstantiateScene(const std::string& name, const std::string& originScene);
         
         /// Check if scene already exists in any of json files.
         /**
@@ -71,26 +71,26 @@ class ENGINE_EXPORT Entity {
         * @param originScene Name of scene you want to check.
         * @param root The json value of root scene.
         */
-        void CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root);
+        ENGINE_EXPORT void CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root);
 
         /// Get all of the entity's children.
         /**
          * @return All the children.
          */
-        const std::vector<Entity*>& GetChildren() const;
+        ENGINE_EXPORT const std::vector<Entity*>& GetChildren() const;
         
         /// Get child based on its name.
         /**
          * @param name The name of the child to get.
          * @return The child or nullptr if none was found.
          */
-        Entity* GetChild(const std::string& name) const;
+        ENGINE_EXPORT Entity* GetChild(const std::string& name) const;
         
         /// Get whether the entity is an instantiated scene.
         /**
          * @return Whether the entity is an instantiated scene.
          */
-        bool IsScene() const;
+        ENGINE_EXPORT bool IsScene() const;
         
         /// Adds component with type T.
         /**
@@ -108,62 +108,62 @@ class ENGINE_EXPORT Entity {
         template <typename T> void KillComponent();
         
         /// Kill the entity, will be removed at the end of the frame.
-        void Kill();
+        ENGINE_EXPORT void Kill();
         
         /// Get whether entity has been killed.
         /**
          * @return Whether the entity has been killed.
          */
-        bool IsKilled() const;
+        ENGINE_EXPORT bool IsKilled() const;
         
         /// Save the entity.
         /**
          * @return JSON value to be stored on disk.
          */
-        Json::Value Save() const;
+        ENGINE_EXPORT Json::Value Save() const;
         
         /// Load entity from JSON node.
         /**
          * @param node JSON node to load from.
          */
-        void Load(const Json::Value& node);
+        ENGINE_EXPORT void Load(const Json::Value& node);
         
         /// Get the model matrix.
         /**
          * @return The model matrix.
          */
-        glm::mat4 GetModelMatrix() const;
+        ENGINE_EXPORT glm::mat4 GetModelMatrix() const;
 
         /// Get the local model matrix.
         /**
          * @return The local model matrix.
          */
-        glm::mat4 GetLocalMatrix() const;
+        ENGINE_EXPORT glm::mat4 GetLocalMatrix() const;
         
         /// Get orientation matrix.
         /**
          * @return The entity's orientation matrix.
          */
-        glm::mat4 GetOrientation() const;
+        ENGINE_EXPORT glm::mat4 GetOrientation() const;
         
         /// Get orientation matrix (for camera).
         /**
          * Calculates the orientation matrix as if the entity was a camera.
          * @return The entity's orientation matrix.
          */
-        glm::mat4 GetCameraOrientation() const;
+        ENGINE_EXPORT glm::mat4 GetCameraOrientation() const;
         
         /// Get direction of the entity.
         /**
          * @return The entity's direction.
          */
-        glm::vec3 GetDirection() const;
+        ENGINE_EXPORT glm::vec3 GetDirection() const;
         
         /// Get the position in the world.
         /**
          * @return The position in the world (not relative to parent).
          */
-        glm::vec3 GetWorldPosition() const;
+        ENGINE_EXPORT glm::vec3 GetWorldPosition() const;
         
         /// Name of the entity.
         std::string name;
@@ -190,13 +190,13 @@ class ENGINE_EXPORT Entity {
         /**
          * @return The entity's UID
          */
-        unsigned int GetUniqueIdentifier() const;
+        ENGINE_EXPORT unsigned int GetUniqueIdentifier() const;
            
         /// Set the entity's UID
         /**
          * @param UID the entity's unique identifier to be set
          */
-        void SetUniqueIdentifier(unsigned int UID);
+        ENGINE_EXPORT void SetUniqueIdentifier(unsigned int UID);
 
         /// Whether the entity is active.
         bool enabled = true;

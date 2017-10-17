@@ -7,40 +7,40 @@
 
 namespace Geometry {
     /// Interface of a model loaded from a file.
-    class ENGINE_EXPORT Model : public Video::Geometry::Geometry3D {
+    class Model : public Video::Geometry::Geometry3D {
         public:
             /// Create new empty model.
             /**
              * The created model has to be loaded later using Load.
              */
-            Model();
+            ENGINE_EXPORT Model();
             
             /// Destructor.
-            virtual ~Model();
+            ENGINE_EXPORT virtual ~Model();
             
             /// Save the model.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const;
+            ENGINE_EXPORT Json::Value Save() const;
             
             /// Load model from file.
             /**
              * @param name Name of the model.
              */
-            void Load(const std::string& name);
+            ENGINE_EXPORT void Load(const std::string& name);
             
             /// Load model from file.
             /**
              * @param filename Filename (relative or absolute) to the model file.
              */
-            void Load(const char* filename);
+            ENGINE_EXPORT void Load(const char* filename);
             
             /// Get geometry type.
             /**
              * @return Type.
              */
-            Type GetType() const final;
+            ENGINE_EXPORT Type GetType() const final;
             
             /// The name of the model.
             std::string name;

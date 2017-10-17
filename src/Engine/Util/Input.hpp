@@ -8,7 +8,7 @@
 struct GLFWwindow;
 
 /// Class that handles input.
-class ENGINE_EXPORT InputHandler {
+class InputHandler {
     public:
         /// Button codes.
         enum Button {
@@ -43,49 +43,49 @@ class ENGINE_EXPORT InputHandler {
         /**
          * @param window %Window to get input for.
          */
-        InputHandler(GLFWwindow* window);
+        ENGINE_EXPORT InputHandler(GLFWwindow* window);
         
         /// Get currently active input handler.
         /**
          * @return The currently active input handler or nullptr.
          */
-        static InputHandler* GetActiveInstance();
+        ENGINE_EXPORT static InputHandler* GetActiveInstance();
         
         /// Set as currently active input handler.
-        void SetActive();
+        ENGINE_EXPORT void SetActive();
         
         /// Update input state.
-        void Update();
+        ENGINE_EXPORT void Update();
         
         /// Get cursor's horizontal position.
         /**
          * @return X-position of the cursor
          */
-        double GetCursorX() const;
+        ENGINE_EXPORT double GetCursorX() const;
         
         /// Get cursor's vertical position.
         /**
          * @return Y-position of the cursor
          */
-        double GetCursorY() const;
+        ENGINE_EXPORT double GetCursorY() const;
 
         /// Get cursor's coordinates.
         /**
          * @return X- and Y-position of the cursor
          */
-        glm::vec2 GetCursorXY() const;
+        ENGINE_EXPORT glm::vec2 GetCursorXY() const;
  
         /// Get whether user has moved scroll wheel up.
         /**
          * @return Whether user has scrolled up
          */
-        bool GetScrollUp() const;
+        ENGINE_EXPORT bool GetScrollUp() const;
         
         /// Get whether user has moved scroll wheel down.
         /**
          * @return Whether user has scrolled down
          */
-        bool GetScrollDown() const;
+        ENGINE_EXPORT bool GetScrollDown() const;
         
         /// Assign a button binding.
         /**
@@ -95,14 +95,14 @@ class ENGINE_EXPORT InputHandler {
          * @param device Which device (KEYBOARD or MOUSE).
          * @param index Index of the key.
          */
-        void AssignButton(Button button, Device device, int index);
+        ENGINE_EXPORT void AssignButton(Button button, Device device, int index);
         
         /// Gets whether a button is currently down.
         /**
          * @param button The button to check.
          * @return Whether the button is down
          */
-        bool Pressed(Button button) const;
+        ENGINE_EXPORT bool Pressed(Button button) const;
         
         /// Gets whether a button was just pressed.
         /**
@@ -110,19 +110,19 @@ class ENGINE_EXPORT InputHandler {
          * @param button The button to check.
          * @return Whether the button was pressed
          */
-        bool Triggered(Button button) const;
+        ENGINE_EXPORT bool Triggered(Button button) const;
         
         /// GLFW character callback.
         /**
          * @param codePoint Unicode code point.
          */
-        void CharacterCallback(unsigned int codePoint);
+        ENGINE_EXPORT void CharacterCallback(unsigned int codePoint);
         
         /// GLFW scrolling callback.
         /**
          * @param yOffset Offset along the Y-axis.
          */
-        void ScrollCallback(double yOffset);
+        ENGINE_EXPORT void ScrollCallback(double yOffset);
         
     private:
         static InputHandler* activeInstance;

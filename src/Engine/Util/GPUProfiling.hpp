@@ -6,17 +6,17 @@
 #include "../linking.hpp"
 
 /// Run gpu profiling.
-class ENGINE_EXPORT GPUProfiling {
+class GPUProfiling {
     public:
         /// Start gpu profiling.
         /**
          * @param name Name of the segment.
          * @param type Type of profiling.
          */
-        GPUProfiling(const std::string& name, Video::Query::Type type);
+        ENGINE_EXPORT GPUProfiling(const std::string& name, Video::Query::Type type);
         
         /// End gpu profiling.
-        ~GPUProfiling();
+        ENGINE_EXPORT ~GPUProfiling();
         
     private:
         ProfilingManager::Result* result;

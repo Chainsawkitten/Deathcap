@@ -14,7 +14,7 @@ namespace Json {
 }
 
 /// Handles OpenAL sound.
-class ENGINE_EXPORT SoundManager {
+class SoundManager {
     friend class Hub;
     
     public:     
@@ -22,54 +22,54 @@ class ENGINE_EXPORT SoundManager {
         /**
          * @param err The PortAudio error number to check.
          */
-        static void CheckError(PaError err);
+        ENGINE_EXPORT static void CheckError(PaError err);
         
         /// Moves sound sources and plays sounds.
         /**
          * @param deltaTime Time since last frame.
          */
-        void Update(float deltaTime);
+        ENGINE_EXPORT void Update(float deltaTime);
         
         /// Create sound source component.
         /**
          * @return The created component.
          */
-        Component::SoundSource* CreateSoundSource();
+        ENGINE_EXPORT Component::SoundSource* CreateSoundSource();
         
         /// Create sound source component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::SoundSource* CreateSoundSource(const Json::Value& node);
+        ENGINE_EXPORT Component::SoundSource* CreateSoundSource(const Json::Value& node);
         
         /// Get all sound source components.
         /**
          * @return All sound source components.
          */
-        const std::vector<Component::SoundSource*>& GetSoundSources() const;
+        ENGINE_EXPORT const std::vector<Component::SoundSource*>& GetSoundSources() const;
         
         /// Create listener component.
         /**
          * @return The created component.
          */
-        Component::Listener* CreateListener();
+        ENGINE_EXPORT Component::Listener* CreateListener();
         
         /// Create listener component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Listener* CreateListener(const Json::Value& node);
+        ENGINE_EXPORT Component::Listener* CreateListener(const Json::Value& node);
         
         /// Get all listener components.
         /**
          * @return All listener components.
          */
-        const std::vector<Component::Listener*>& GetListeners() const;
+        ENGINE_EXPORT const std::vector<Component::Listener*>& GetListeners() const;
         
         /// Remove all killed components.
-        void ClearKilledComponents();
+        ENGINE_EXPORT void ClearKilledComponents();
         
     private:
         SoundManager();

@@ -5,19 +5,19 @@
 #include "../linking.hpp"
     
 /// Information about a file containing a script.
-class ENGINE_EXPORT ScriptFile {
+class ScriptFile {
     public:
         /// Saves the scriptfile to Json value.
         /**
          * @return The saved data in a JSON node.
          */
-        Json::Value Save() const;
+        ENGINE_EXPORT Json::Value Save() const;
         
         /// Loads the script information.
         /**
          * @param name Name of the script.
          */
-        void Load(const std::string& name);
+        ENGINE_EXPORT void Load(const std::string& name);
         
         /// The name of the script.
         std::string name = "";

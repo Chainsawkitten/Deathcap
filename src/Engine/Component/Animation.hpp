@@ -10,16 +10,16 @@ namespace Geometry {
 
 namespace Component {
     /// %Component handling animations.
-    class ENGINE_EXPORT Animation : public SuperComponent {
+    class Animation : public SuperComponent {
         public:
             /// Create new %Animation component.
-            Animation();
+            ENGINE_EXPORT Animation();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
             
             /// Rigged model to animate.
             /**

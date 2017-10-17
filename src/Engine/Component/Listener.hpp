@@ -5,15 +5,15 @@
 
 namespace Component {
     /// %Component describing a listener that can listen to sounds.
-    class ENGINE_EXPORT Listener : public SuperComponent {
+    class Listener : public SuperComponent {
         public:
             /// Create new listener.
-            Listener();
+            ENGINE_EXPORT Listener();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
     };
 }

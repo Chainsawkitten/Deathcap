@@ -11,7 +11,7 @@ namespace Physics {
 
     /// Represents a shape for physics objects and facilitates creation of
     /// underlying types.
-    class ENGINE_EXPORT Shape {
+    class Shape {
         friend class ::PhysicsManager;
         friend class Trigger;
 
@@ -40,31 +40,31 @@ namespace Physics {
             /**
              * @param params Sphere specific parameters.
              */
-            Shape(const Sphere& params);
+            ENGINE_EXPORT Shape(const Sphere& params);
 
             /// Construct a plane shape.
             /**
              * @param params Plane specific parameters.
              */
-            Shape(const Plane& params);
+            ENGINE_EXPORT Shape(const Plane& params);
 
             /// Get the type of wrapped shape.
             /**
              * @return The type of shape.
              */
-            Kind GetKind() const;
+            ENGINE_EXPORT Kind GetKind() const;
 
             /// Get sphere data of the shape.
             /**
              * @return Sphere data, or nullptr if the shape is not a sphere.
              */
-            const Sphere* GetSphereData() const;
+            ENGINE_EXPORT const Sphere* GetSphereData() const;
 
             /// Get plane data of the shape.
             /**
              * @return Plane data, or nullptr if the shape is not a plane.
              */
-            const Plane* GetPlaneData() const;
+            ENGINE_EXPORT const Plane* GetPlaneData() const;
 
         private:
             /// Get the wrapped Bullet shape.

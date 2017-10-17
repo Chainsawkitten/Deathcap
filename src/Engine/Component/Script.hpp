@@ -10,19 +10,19 @@ class asIScriptObject;
 
 namespace Component {
     /// %Component controlled by a script.
-    class ENGINE_EXPORT Script : public SuperComponent {
+    class Script : public SuperComponent {
         public:
             /// Create new script.
-            Script();
+            ENGINE_EXPORT Script();
             
             /// Destructor.
-            ~Script() final;
+            ENGINE_EXPORT ~Script() final;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
             
             /// Whether the script component has been initialized.
             bool initialized = false;
@@ -40,7 +40,7 @@ namespace Component {
             std::map<std::string, std::pair<int, void*>> propertyMap;
 
             /// Clears the property map.
-            void ClearPropertyMap();
+            ENGINE_EXPORT void ClearPropertyMap();
 
     };
 }

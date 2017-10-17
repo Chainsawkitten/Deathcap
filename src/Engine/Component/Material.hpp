@@ -7,19 +7,19 @@ class TextureAsset;
 
 namespace Component {
     /// %Component providing a material to Entity.
-    class ENGINE_EXPORT Material : public SuperComponent {
+    class Material : public SuperComponent {
         public:
             /// Create new material.
-            Material();
+            ENGINE_EXPORT Material();
             
             /// Destructor.
-            ~Material() override;
+            ENGINE_EXPORT ~Material() override;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_EXPORT Json::Value Save() const override;
             
             /// Albedo texture.
             TextureAsset* albedo;

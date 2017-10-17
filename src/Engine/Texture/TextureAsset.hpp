@@ -9,28 +9,28 @@ namespace Video {
 }
 
 /// A texture used in a hymn.
-class ENGINE_EXPORT TextureAsset {
+class TextureAsset {
     public:
         /// Create new texture asset.
-        TextureAsset();
+        ENGINE_EXPORT TextureAsset();
 
         /// Destructor.
-        ~TextureAsset();
+        ENGINE_EXPORT ~TextureAsset();
         
         /// Save the texture asset.
-        void Save() const;
+        ENGINE_EXPORT void Save() const;
         
         /// Load texture asset from disk.
         /**
          * @param name The name of the texture asset.
          */
-        void Load(const std::string& name);
+        ENGINE_EXPORT void Load(const std::string& name);
         
         /// Get the texture.
         /**
          * @return The texture.
          */
-        Video::Texture2D* GetTexture() const;
+        ENGINE_EXPORT Video::Texture2D* GetTexture() const;
         
         /// The name of the texture.
         std::string name;

@@ -9,49 +9,49 @@ namespace Audio {
     class SoundFile;
     
     /// Wrapper for OpenAL buffers.
-    class ENGINE_EXPORT SoundBuffer {
+    class SoundBuffer {
         public:
             /// Create new unloaded sound buffer.
-            SoundBuffer();
+            ENGINE_EXPORT SoundBuffer();
             
             /// Create a sound buffer from a sound file.
             /**
              * @param soundFile The sound file containing the sound.
              */
-            SoundBuffer(SoundFile* soundFile);
+            ENGINE_EXPORT SoundBuffer(SoundFile* soundFile);
             
             /// Destructor.
-            ~SoundBuffer();
+            ENGINE_EXPORT ~SoundBuffer();
             
             /// Get AL buffer.
             /**
              * @return The OpenAL buffer ID.
              */
-            float* GetBuffer() const;
+            ENGINE_EXPORT float* GetBuffer() const;
             
             /// Save the sound.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const;
+            ENGINE_EXPORT Json::Value Save() const;
             
             /// Load sound from file.
             /**
              * @param name Name of the sound to load.
              */
-            void Load(const std::string& name);
+            ENGINE_EXPORT void Load(const std::string& name);
             
             /// Load sound buffer from a sound file.
             /**
              * @param soundFile The sound file containing the sound.
              */
-            void Load(SoundFile* soundFile);
+            ENGINE_EXPORT void Load(SoundFile* soundFile);
 
             /// Get size of buffer.
             /**
              * @return The size of the buffer.
              */
-            uint32_t GetSize();
+            ENGINE_EXPORT uint32_t GetSize();
 
             /// The name of the sound.
             std::string name;

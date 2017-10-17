@@ -14,29 +14,29 @@
 #endif
 
 /// Handles profiling.
-class ENGINE_EXPORT ProfilingManager {
+class ProfilingManager {
     friend class Hub;
     friend class Profiling;
     friend class GPUProfiling;
     
     public:
         /// Begin profiling a frame.
-        void BeginFrame();
+        ENGINE_EXPORT void BeginFrame();
         
         /// Show the results of the profiling.
-        void ShowResults();
+        ENGINE_EXPORT void ShowResults();
 
         /// Check whether %ProfilingManager is active.
         /**
          * @return Active state.
          */
-        bool Active() const;
+        ENGINE_EXPORT bool Active() const;
 
         /// Set whether %ProfilingManager is active.
         /**
          * @param active Active state.
          */
-        void SetActive(bool active);
+        ENGINE_EXPORT void SetActive(bool active);
         
     private:
         ProfilingManager();

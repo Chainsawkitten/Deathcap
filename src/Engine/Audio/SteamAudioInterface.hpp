@@ -7,7 +7,7 @@
 #include "../linking.hpp"
 
 /// Interface to set up and send data to/from Steam Audio from the rest of the engine.
-class ENGINE_EXPORT SteamAudioInterface {
+class SteamAudioInterface {
     public:
 
         /// Create default.

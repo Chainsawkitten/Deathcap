@@ -5,14 +5,14 @@
 #include "../linking.hpp"
 
 /// The class handling intersection checks.
-class ENGINE_EXPORT RayIntersection {
+class RayIntersection {
     public:
 
         /// Constructor.
-        RayIntersection();
+        ENGINE_EXPORT RayIntersection();
 
         /// Destructor.
-        ~RayIntersection();
+        ENGINE_EXPORT ~RayIntersection();
 
         /// Checks whether a ray intersects with an OBB.
         /**
@@ -23,7 +23,7 @@ class ENGINE_EXPORT RayIntersection {
          * @param outputDistance The distance to the entity that is tested to be used as a return value check.
          * @return Whether or not the ray intersects with the entity that is tested against.
          */
-        bool RayOBBIntersect(glm::vec3 rayOrigin,
+        ENGINE_EXPORT bool RayOBBIntersect(glm::vec3 rayOrigin,
             glm::vec3 rayDirection,
             Video::AxisAlignedBoundingBox meshData,
             glm::mat4 modelMatrix,

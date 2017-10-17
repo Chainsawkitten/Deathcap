@@ -8,7 +8,7 @@
 class Entity;
 
 /// Debug drawing facilities.
-class ENGINE_EXPORT DebugDrawingManager {
+class DebugDrawingManager {
     friend class Hub;
     
     public:
@@ -20,7 +20,7 @@ class ENGINE_EXPORT DebugDrawingManager {
          * @param duration How long the point should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
-        void AddPoint(const glm::vec3& position, const glm::vec3& color, float size, float duration = 0.f, bool depthTesting = true);
+        ENGINE_EXPORT void AddPoint(const glm::vec3& position, const glm::vec3& color, float size, float duration = 0.f, bool depthTesting = true);
         
         /// Add a line to the world.
         /**
@@ -31,7 +31,7 @@ class ENGINE_EXPORT DebugDrawingManager {
          * @param duration How long the line should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
-        void AddLine(const glm::vec3& startPosition, const glm::vec3& endPosition, const glm::vec3& color, float width = 1.f, float duration = 0.f, bool depthTesting = true);
+        ENGINE_EXPORT void AddLine(const glm::vec3& startPosition, const glm::vec3& endPosition, const glm::vec3& color, float width = 1.f, float duration = 0.f, bool depthTesting = true);
         
         /// Add a cuboid to the world.
         /**
@@ -42,7 +42,7 @@ class ENGINE_EXPORT DebugDrawingManager {
          * @param duration How long the box should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
-        void AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        ENGINE_EXPORT void AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
         /// Add a plane to the world.
         /**
@@ -54,7 +54,7 @@ class ENGINE_EXPORT DebugDrawingManager {
          * @param duration How long the plane should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
-        void AddPlane(const glm::vec3& position, const glm::vec3& normal, const glm::vec2& size, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        ENGINE_EXPORT void AddPlane(const glm::vec3& position, const glm::vec3& normal, const glm::vec2& size, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
         /// Add a sphere to the world.
         /**
@@ -65,19 +65,19 @@ class ENGINE_EXPORT DebugDrawingManager {
          * @param duration How long the plane should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
-        void AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        ENGINE_EXPORT void AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
         /// Update the debug geometry.
         /**
          * @param deltaTime Time since last frame (in seconds).
          */
-        void Update(float deltaTime);
+        ENGINE_EXPORT void Update(float deltaTime);
         
         /// Render the debug primitives.
         /**
          * @param camera Camera through which to render (or first camera in world if nullptr).
          */
-        void Render(Entity* camera);
+        ENGINE_EXPORT void Render(Entity* camera);
         
     private:
         DebugDrawingManager();
