@@ -13,6 +13,7 @@
 #include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
+#include <Engine/Component/VRDevice.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
@@ -34,7 +35,6 @@
 #include <imgui_internal.h>
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
-#include "Engine/Component/Controller.hpp"
 
 namespace Physics {
     class Shape;
@@ -57,7 +57,7 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::Shape>("Shape", std::bind(&EntityEditor::ShapeEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
-    AddEditor<Component::Controller>("Controller", std::bind(&EntityEditor::ControllerEditor, this, std::placeholders::_1));
+    AddEditor<Component::VRDevice>("Controller", std::bind(&EntityEditor::ControllerEditor, this, std::placeholders::_1));
 
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
@@ -560,8 +560,9 @@ void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmi
     ImGui::Unindent();
 }
 
-void EntityEditor::ControllerEditor(Component::Controller* controller) {
+void EntityEditor::ControllerEditor(Component::VRDevice* controller) {
     ImGui::Text("Controller");
     ImGui::Indent();
     ImGui::InputInt("Controller ID (1 = left, 2 = right)", &controller->controllerID);
+    ImGui::Unindent();
 }

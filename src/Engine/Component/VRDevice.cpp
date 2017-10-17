@@ -1,16 +1,16 @@
-#include "Controller.hpp"
+#include "VRDevice.hpp"
 #include "Manager/Managers.hpp"
 
 namespace Component {
-    Controller::Controller() {
+    VRDevice::VRDevice() {
         controllerID = 1;
     }
 
-    Controller::~Controller() {
+    VRDevice::~VRDevice() {
 
     }
 
-    Json::Value Controller::Save() const {
+    Json::Value VRDevice::Save() const {
         Json::Value component;
 
         component["controllerID"] = controllerID;
@@ -18,7 +18,7 @@ namespace Component {
         return component;
     }
 
-    glm::mat4 Controller::HandleTransformation(Entity* entity) {
+    glm::mat4 VRDevice::HandleTransformation(Entity* entity) {
 
         glm::mat4 ctrlTransform = Managers().vrManager->GetControllerPoseMatrix(controllerID); 
         glm::vec3 ctrlRight = glm::vec3(ctrlTransform[0][0], ctrlTransform[1][0], ctrlTransform[2][0]);
@@ -41,7 +41,7 @@ namespace Component {
         return globalTranslationMatix;
     }
 
-    bool Controller::HandleInput(int buttonID) {
+    bool VRDevice::HandleInput(int buttonID) {
         vr::EVRButtonId vrButton = static_cast<vr::EVRButtonId>(buttonID);
 
         return Managers().vrManager->GetInput(vrButton);

@@ -14,6 +14,7 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/ParticleEmitter.hpp"
+#include "../Component/VRDevice.hpp"
 #include "../Util/Json.hpp"
 #include "../Util/FileSystem.hpp"
 #include <Utility/Log.hpp>
@@ -25,7 +26,6 @@
 #include "../Manager/RenderManager.hpp"
 #include "../Manager/ScriptManager.hpp"
 #include "../Manager/SoundManager.hpp"
-#include "Component/Controller.hpp"
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
@@ -180,7 +180,6 @@ Json::Value Entity::Save() const {
     } else {
         // Save components.
         Save<Component::Animation>(entity, "Animation");
-        Save<Component::Controller>(entity, "Controller");
         Save<Component::Lens>(entity, "Lens");
         Save<Component::Mesh>(entity, "Mesh");
         Save<Component::Material>(entity, "Material");
@@ -193,6 +192,7 @@ Json::Value Entity::Save() const {
         Save<Component::Shape>(entity, "Shape");
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
+        Save<Component::VRDevice>(entity, "Controller");
         
         // Save children.
         Json::Value childNodes;
@@ -222,7 +222,6 @@ void Entity::Load(const Json::Value& node) {
     } else {
         // Load components.
         Load<Component::Animation>(node, "Animation");
-        Load<Component::Controller>(node, "Controller");
         Load<Component::Lens>(node, "Lens");
         Load<Component::Mesh>(node, "Mesh");
         Load<Component::Material>(node, "Material");
@@ -235,6 +234,7 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::Shape>(node, "Shape");
         Load<Component::SoundSource>(node, "SoundSource");
         Load<Component::ParticleEmitter>(node, "ParticleEmitter");
+        Load<Component::VRDevice>(node, "Controller");
         
         // Load children.
         for (unsigned int i=0; i < node["children"].size(); ++i) {
@@ -305,7 +305,7 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
     // Create a component in the correct manager.
     if (*componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation();
-    else if (*componentType == typeid(Component::Controller*))
+    else if (*componentType == typeid(Component::VRDevice*))
         component = Managers().renderManager->CreateController();
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight();
@@ -351,7 +351,7 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
     // Create a component in the correct manager.
     if (*componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation(node);
-    else if (*componentType == typeid(Component::Controller*))
+    else if (*componentType == typeid(Component::VRDevice*))
         component = Managers().renderManager->CreateController(node);
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight(node);

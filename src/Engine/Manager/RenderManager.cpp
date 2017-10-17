@@ -25,6 +25,7 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
+#include "../Component/VRDevice.hpp"
 #include "../Physics/Shape.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
 #include "../Texture/TextureAsset.hpp"
@@ -39,7 +40,6 @@
 #include "Util/GPUProfiling.hpp"
 
 #include "Manager/VRManager.hpp"
-#include "Component/Controller.hpp"
 
 using namespace Component;
 
@@ -253,7 +253,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
-                Controller* controller = entity->GetComponent<Controller>();
+                VRDevice* controller = entity->GetComponent<VRDevice>();
                 // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr) {
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
@@ -290,7 +290,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
-                Controller* controller = entity->GetComponent<Controller>();
+                VRDevice* controller = entity->GetComponent<VRDevice>();
                 if (material != nullptr) {
                     if (controller != nullptr && hmdRenderSurface != nullptr) {
                         glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
@@ -459,12 +459,12 @@ const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
     return spotLights.GetAll();
 }
 
-Component::Controller* RenderManager::CreateController() {
+Component::VRDevice* RenderManager::CreateController() {
     return controllers.Create();
 }
 
-Component::Controller* RenderManager::CreateController(const Json::Value& node) {
-    Component::Controller* controller = controllers.Create();
+Component::VRDevice* RenderManager::CreateController(const Json::Value& node) {
+    Component::VRDevice* controller = controllers.Create();
 
     //Load values from Json node.
     controller->controllerID = node.get("controllerID", 1).asInt();
@@ -472,7 +472,7 @@ Component::Controller* RenderManager::CreateController(const Json::Value& node) 
     return controller;
 }
 
-const std::vector<Component::Controller*>& RenderManager::GetControllers() const {
+const std::vector<Component::VRDevice*>& RenderManager::GetControllers() const {
     return controllers.GetAll();
 }
 

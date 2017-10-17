@@ -13,13 +13,13 @@ class World;
 class Entity;
 namespace Component {
     class Animation;
-    class Controller;
     class DirectionalLight;
     class Lens;
     class Material;
     class Mesh;
     class PointLight;
     class SpotLight;
+    class VRDevice;
 }
 namespace Json {
     class Value;
@@ -190,20 +190,20 @@ class RenderManager {
         /**
          * @return The created component.
          */
-        Component::Controller* CreateController();
+        Component::VRDevice* CreateController();
 
         /// Create vr controller component
         /**
          * @param node Json node to load the component from
          * @return The created component.
          */
-        Component::Controller* CreateController(const Json::Value& node);
+        Component::VRDevice* CreateController(const Json::Value& node);
 
         /// Get all vr controller components
         /**
          * @return All vr controller components
          */
-        const std::vector<Component::Controller*>& GetControllers() const;
+        const std::vector<Component::VRDevice*>& GetControllers() const;
         
         /// Remove all killed components.
         void ClearKilledComponents();
@@ -233,7 +233,7 @@ class RenderManager {
         
         // Components.
         ComponentContainer<Component::Animation> animations;
-        ComponentContainer<Component::Controller> controllers;
+        ComponentContainer<Component::VRDevice> controllers;
         ComponentContainer<Component::DirectionalLight> directionalLights;
         ComponentContainer<Component::Lens> lenses;
         ComponentContainer<Component::Material> materials;

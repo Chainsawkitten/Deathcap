@@ -8,14 +8,14 @@
 
 namespace Component {
     /// Component giving VR controller functions to an Entity
-    class Controller : public SuperComponent {
+    class VRDevice : public SuperComponent {
 
         public:
             /// Constructor
-            Controller();
+            VRDevice();
 
             /// Destructor
-            ~Controller();            
+            ~VRDevice();
         
             /// Save the component.
             /**

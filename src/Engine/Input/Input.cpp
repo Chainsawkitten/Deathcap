@@ -1,6 +1,8 @@
 #include "Input.hpp"
 
 #include <cstring>
+#include <GLFW/glfw3.h>
+#include "../Component/VRDevice.hpp"
 
 void Input::SetWindow(GLFWwindow* window) {
     this->window = window;
@@ -16,7 +18,7 @@ bool Input::CheckButton(int index) const{
     return state == button->state;
 }
 
-bool Input::CheckVRButton(int index, Component::Controller *controller) const{
+bool Input::CheckVRButton(int index, Component::VRDevice *controller) const{
     Button* button = buttons[index];
     return controller->HandleInput(button->key);
 }
