@@ -77,11 +77,11 @@ void NodeEditor::Show() {
         for (unsigned int id = 0; id < GetNumNodes(); ++id) {
             Node * node = GetNodeArray()[id];
             ImGui::PushID(id);
-            ImVec2 node_rect_min = ImVec2(offset.x + node->pos.x, offset.y + node->pos.y);
+            ImVec2 nodeRectMin = ImVec2(offset.x + node->pos.x, offset.y + node->pos.y);
 
             drawList->ChannelsSetCurrent(1);
             bool oldActive = ImGui::IsAnyItemActive();
-            ImGui::SetCursorScreenPos(ImVec2(node_rect_min.x + nodeWindowPadding.x, node_rect_min.y + nodeWindowPadding.y));
+            ImGui::SetCursorScreenPos(ImVec2(nodeRectMin.x + nodeWindowPadding.x, nodeRectMin.y + nodeWindowPadding.y));
             ImGui::BeginGroup();
             ShowNode(node);
             ImGui::EndGroup();
@@ -89,11 +89,11 @@ void NodeEditor::Show() {
             // Save the size of what we have emitted and whether any of the widgets are being used.
             bool node_widgets_active = (!oldActive && ImGui::IsAnyItemActive());
             node->size = glm::vec2(ImGui::GetItemRectSize().x + nodeWindowPadding.x + nodeWindowPadding.x, ImGui::GetItemRectSize().y + nodeWindowPadding.y + nodeWindowPadding.y);
-            ImVec2 nodeRectMax = ImVec2(node_rect_min.x + node->size.x, node_rect_min.y + node->size.y);
+            ImVec2 nodeRectMax = ImVec2(nodeRectMin.x + node->size.x, nodeRectMin.y + node->size.y);
 
             // Display node box
             drawList->ChannelsSetCurrent(0);
-            ImGui::SetCursorScreenPos(node_rect_min);
+            ImGui::SetCursorScreenPos(nodeRectMin);
             ImGui::InvisibleButton("Node", ImVec2(node->size.x, node->size.y));
             if (ImGui::IsItemHovered()) {
                 nodeHoveredInScene = node->index;
@@ -109,8 +109,8 @@ void NodeEditor::Show() {
                 node->pos += glm::vec2(ImGui::GetIO().MouseDelta.x, ImGui::GetIO().MouseDelta.y);
 
             ImU32 nodeBackground = (nodeHoveredInList == node->index || nodeHoveredInScene == node->index || (nodeHoveredInList == -1 && nodeSelected == node->index)) ? ImColor(220, 220, 220) : ImColor(190, 190, 190);
-            drawList->AddRectFilled(node_rect_min, nodeRectMax, nodeBackground, 4.0f);
-            drawList->AddRect(node_rect_min, nodeRectMax, ImColor(100, 100, 100), 4.0f);
+            drawList->AddRectFilled(nodeRectMin, nodeRectMax, nodeBackground, 4.0f);
+            drawList->AddRect(nodeRectMin, nodeRectMax, ImColor(100, 100, 100), 4.0f);
 
             ImVec2 outPos = ImVec2(node->pos.x + offset.x + node->size.x, node->pos.y + offset.y + (node->size.y / 2));
             ImVec2 inPos = ImVec2(node->pos.x + offset.x, node->pos.y + offset.y + (node->size.y / 2));

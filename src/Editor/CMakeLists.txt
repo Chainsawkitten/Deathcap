@@ -15,6 +15,7 @@ set(SRCS
         GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
+	GUI/Editors/AnimationClipEditor.cpp
 	GUI/Editors/AnimationControllerEditor.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
@@ -22,6 +23,7 @@ set(SRCS
         GUI/Editors/PlaneShapeEditor.cpp
         GUI/Editors/SceneEditor.cpp
         GUI/Editors/ScriptEditor.cpp
+        GUI/Editors/SkeletonEditor.cpp
         GUI/Editors/SoundEditor.cpp
         GUI/Editors/SphereShapeEditor.cpp
         GUI/Editors/TextureEditor.cpp
@@ -47,6 +49,7 @@ set(HEADERS
         GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
+	GUI/Editors/AnimationClipEditor.hpp
 	GUI/Editors/AnimationControllerEditor.hpp
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/IShapeEditor.hpp
@@ -55,6 +58,7 @@ set(HEADERS
         GUI/Editors/PlaneShapeEditor.hpp
         GUI/Editors/SceneEditor.hpp
         GUI/Editors/ScriptEditor.hpp
+        GUI/Editors/SkeletonEditor.hpp
         GUI/Editors/SoundEditor.hpp
         GUI/Editors/SphereShapeEditor.hpp
         GUI/Editors/TextureEditor.hpp
