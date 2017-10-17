@@ -13,7 +13,7 @@ namespace Physics {
 
     /// Represent a trigger that checks intersections of specific rigid bodies
     /// against itself.
-    class ENGINE_EXPORT Trigger {
+    class Trigger {
         friend class ::PhysicsManager;
 
         public:
@@ -21,7 +21,7 @@ namespace Physics {
             /**
              * @param transform The world transform of the trigger volume.
              */
-            Trigger(const btTransform& transform);
+            ENGINE_EXPORT Trigger(const btTransform& transform);
 
         private:
             // Get the wrapped Bullet collision object.
