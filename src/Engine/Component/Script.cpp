@@ -60,27 +60,20 @@ void Script::FillPropertyMap() {
         void *varPointer = instance->GetAddressOfProperty(n);
 
         auto it = propertyMap.find(instance->GetPropertyName(n));
-        if (it != propertyMap.end()) {
-
-            if (propertyMap[instance->GetPropertyName(n)].first == typeId) {
-
+        if (it != propertyMap.end())
+            if (propertyMap[instance->GetPropertyName(n)].first == typeId)
                 continue;
 
-            }
-
-        }
 
         if (typeId == asTYPEID_INT32) {
             int* mapValue = new int();
             *mapValue = *(int*)varPointer;
             propertyMap[instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
-        }
-        else if (typeId == asTYPEID_FLOAT) {
+        } else if (typeId == asTYPEID_FLOAT) {
             float* mapValue = new float();
             *mapValue = *(float*)varPointer;
             propertyMap[instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
-        }
-        else if (typeId == instance->GetEngine()->GetTypeIdByDecl("string")) {
+        } else if (typeId == instance->GetEngine()->GetTypeIdByDecl("string")) {
             std::string *str = (std::string*)varPointer;
             if (str) {
 
@@ -89,10 +82,8 @@ void Script::FillPropertyMap() {
                 propertyMap[instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
 
             }
-
         }
     }
-
 }
 
 /// Clears the property map.

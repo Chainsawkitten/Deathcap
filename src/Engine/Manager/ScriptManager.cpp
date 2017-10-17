@@ -381,26 +381,20 @@ int ScriptManager::BuildScript(const ScriptFile* script) {
     CScriptBuilder builder;
     int r = builder.StartNewModule(engine, script->name.c_str());
     if (r < 0) {
-
         Log() << "Couldn't start new module: " << script->name << ".\n";
         return r;
-
     }
     
     r = builder.AddSectionFromFile(filename.c_str());
     if (r < 0) {
-
         Log() << "File section could not be added: " << filename << ".\n";
         return r;
-
     }
     
     r = builder.BuildModule();
     if (r < 0) {
-
         Log() << "Compile errors.\n";
         return r;
-
     }
 
     return r;
@@ -454,8 +448,7 @@ void ScriptManager::FillPropertyMap(Script* script) {
 
         Log() << "Couldn't fetch properties" << "\n";
 
-    }
-    else {
+    } else {
 
         CreateInstance(script);
         script->FillPropertyMap();
@@ -487,12 +480,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
                         if (typeId == asTYPEID_INT32){
                             int* propertyPointer = static_cast<int*>(varPointer);
                             *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        }
-                        else if (typeId == asTYPEID_FLOAT){
+                        } else if (typeId == asTYPEID_FLOAT){
                             float* propertyPointer = static_cast<float*>(varPointer);
                             *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        }
-                        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
+                        } else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
 
                             std::string *str = (std::string*)varPointer;
                             if (str) {
