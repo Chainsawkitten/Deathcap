@@ -11,13 +11,13 @@ class ScriptFile {
         /**
          * @return The saved data in a JSON node.
          */
-        ENGINE_EXPORT Json::Value Save() const;
+        ENGINE_API Json::Value Save() const;
         
         /// Loads the script information.
         /**
          * @param name Name of the script.
          */
-        ENGINE_EXPORT void Load(const std::string& name);
+        ENGINE_API void Load(const std::string& name);
         
         /// The name of the script.
         std::string name = "";

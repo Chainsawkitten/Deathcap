@@ -13,30 +13,30 @@ namespace Component {
 
         public:
             /// Constructor
-            ENGINE_EXPORT Controller();
+            ENGINE_API Controller();
 
             /// Destructor
-            ENGINE_EXPORT ~Controller();
+            ENGINE_API ~Controller();
         
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
 
             /// Get's the VR controller's transformation matrix
             /**
              * @param The entity who's controller it is we're handling.
              * @return The transformation matrix.
              */
-            ENGINE_EXPORT glm::mat4 HandleTransformation(Entity* entity);
+            ENGINE_API glm::mat4 HandleTransformation(Entity* entity);
 
             /// Handles all VR controller inputs (class for future implementations)
             /**
              * @param buttonID The id of the button to be handled.
              * @return Whether the checked button was pressed or not.
              */
-            ENGINE_EXPORT bool HandleInput(int buttonID);
+            ENGINE_API bool HandleInput(int buttonID);
 
             /// The controller's ID. 1 = left, 2 = right
             int controllerID;

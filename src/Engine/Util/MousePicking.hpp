@@ -15,25 +15,25 @@ class MousePicking {
          * @param cam The camera the mouse picking makes calculations from
          * @param projection The camera's projection matrix.
          */
-        ENGINE_EXPORT MousePicking(Entity * cam, const glm::mat4& projection);
+        ENGINE_API MousePicking(Entity * cam, const glm::mat4& projection);
 
         /// Destructor.
-        ENGINE_EXPORT ~MousePicking();
+        ENGINE_API ~MousePicking();
 
         /// Return the vector for current ray.
         /**
         * @return A vec3 with values from current ray in world space. Normalized.
         */
-        ENGINE_EXPORT glm::vec3 GetCurrentRay() const;
+        ENGINE_API glm::vec3 GetCurrentRay() const;
 
         /// Updates the mouse picker's projection matrix
         /**
          * @param projection The projection matrix to update with.
          */
-        ENGINE_EXPORT void UpdateProjectionMatrix(const glm::mat4& projection);
+        ENGINE_API void UpdateProjectionMatrix(const glm::mat4& projection);
 
         /// Update the view matrix and recalculates the ray.
-        ENGINE_EXPORT void Update();
+        ENGINE_API void Update();
 
     private:
         // Where current ray direction points in world space.

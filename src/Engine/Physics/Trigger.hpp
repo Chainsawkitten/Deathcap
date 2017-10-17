@@ -21,7 +21,7 @@ namespace Physics {
             /**
              * @param transform The world transform of the trigger volume.
              */
-            ENGINE_EXPORT Trigger(const btTransform& transform);
+            ENGINE_API Trigger(const btTransform& transform);
 
         private:
             // Get the wrapped Bullet collision object.

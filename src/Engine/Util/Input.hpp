@@ -43,49 +43,49 @@ class InputHandler {
         /**
          * @param window %Window to get input for.
          */
-        ENGINE_EXPORT InputHandler(GLFWwindow* window);
+        ENGINE_API InputHandler(GLFWwindow* window);
         
         /// Get currently active input handler.
         /**
          * @return The currently active input handler or nullptr.
          */
-        ENGINE_EXPORT static InputHandler* GetActiveInstance();
+        ENGINE_API static InputHandler* GetActiveInstance();
         
         /// Set as currently active input handler.
-        ENGINE_EXPORT void SetActive();
+        ENGINE_API void SetActive();
         
         /// Update input state.
-        ENGINE_EXPORT void Update();
+        ENGINE_API void Update();
         
         /// Get cursor's horizontal position.
         /**
          * @return X-position of the cursor
          */
-        ENGINE_EXPORT double GetCursorX() const;
+        ENGINE_API double GetCursorX() const;
         
         /// Get cursor's vertical position.
         /**
          * @return Y-position of the cursor
          */
-        ENGINE_EXPORT double GetCursorY() const;
+        ENGINE_API double GetCursorY() const;
 
         /// Get cursor's coordinates.
         /**
          * @return X- and Y-position of the cursor
          */
-        ENGINE_EXPORT glm::vec2 GetCursorXY() const;
+        ENGINE_API glm::vec2 GetCursorXY() const;
  
         /// Get whether user has moved scroll wheel up.
         /**
          * @return Whether user has scrolled up
          */
-        ENGINE_EXPORT bool GetScrollUp() const;
+        ENGINE_API bool GetScrollUp() const;
         
         /// Get whether user has moved scroll wheel down.
         /**
          * @return Whether user has scrolled down
          */
-        ENGINE_EXPORT bool GetScrollDown() const;
+        ENGINE_API bool GetScrollDown() const;
         
         /// Assign a button binding.
         /**
@@ -95,14 +95,14 @@ class InputHandler {
          * @param device Which device (KEYBOARD or MOUSE).
          * @param index Index of the key.
          */
-        ENGINE_EXPORT void AssignButton(Button button, Device device, int index);
+        ENGINE_API void AssignButton(Button button, Device device, int index);
         
         /// Gets whether a button is currently down.
         /**
          * @param button The button to check.
          * @return Whether the button is down
          */
-        ENGINE_EXPORT bool Pressed(Button button) const;
+        ENGINE_API bool Pressed(Button button) const;
         
         /// Gets whether a button was just pressed.
         /**
@@ -110,19 +110,19 @@ class InputHandler {
          * @param button The button to check.
          * @return Whether the button was pressed
          */
-        ENGINE_EXPORT bool Triggered(Button button) const;
+        ENGINE_API bool Triggered(Button button) const;
         
         /// GLFW character callback.
         /**
          * @param codePoint Unicode code point.
          */
-        ENGINE_EXPORT void CharacterCallback(unsigned int codePoint);
+        ENGINE_API void CharacterCallback(unsigned int codePoint);
         
         /// GLFW scrolling callback.
         /**
          * @param yOffset Offset along the Y-axis.
          */
-        ENGINE_EXPORT void ScrollCallback(double yOffset);
+        ENGINE_API void ScrollCallback(double yOffset);
         
     private:
         static InputHandler* activeInstance;
@@ -159,4 +159,4 @@ class InputHandler {
 /**
  * @return The currently active input handler or nullptr.
  */
-ENGINE_EXPORT InputHandler* Input();
+ENGINE_API InputHandler* Input();

@@ -38,21 +38,21 @@ namespace Geometry {
                  * @param animationTime Duration of the animation in seconds.
                  * @return Index of key.
                  */
-                ENGINE_EXPORT std::size_t FindRotKey(float animationTime) const;
+                ENGINE_API std::size_t FindRotKey(float animationTime) const;
                 
                 /// Find position key index.
                 /**
                  * @param animationTime Duration of the animation in seconds.
                  * @return Index of key.
                  */
-                ENGINE_EXPORT std::size_t FindPosKey(float animationTime) const;
+                ENGINE_API std::size_t FindPosKey(float animationTime) const;
                 
                 /// Find scale key index.
                 /**
                  * @param animationTime Duration of the animation in seconds.
                  * @return Index of key.
                  */
-                ENGINE_EXPORT std::size_t FindSclKey(float animationTime) const;
+                ENGINE_API std::size_t FindSclKey(float animationTime) const;
                 
                 /// Vector containing rotation keys.
                 std::vector<QuatKey> rotKeys;
@@ -71,29 +71,29 @@ namespace Geometry {
             /**
              * The created animation has to be loaded later using Load.
              */
-            ENGINE_EXPORT Animation();
+            ENGINE_API Animation();
             
             /// Create new animation.
             /**
              * @param aAnimation Pointer to assimp animation.
              */
-            ENGINE_EXPORT Animation(const aiAnimation* aAnimation);
+            ENGINE_API Animation(const aiAnimation* aAnimation);
             
             /// Destructor.
-            ENGINE_EXPORT ~Animation();
+            ENGINE_API ~Animation();
             
             /// Load animation.
             /**
              * @param aAnimation Pointer to assimp animation.
              */
-            ENGINE_EXPORT void Load(const aiAnimation* aAnimation);
+            ENGINE_API void Load(const aiAnimation* aAnimation);
             
             /// Load animation.
             /**
              * @param name Channel name to find.
              * @return Pointer to channel. Returns nullptr if channel isn't found.
              */
-            ENGINE_EXPORT const AnimChannel* FindChannel(const std::string& name) const;
+            ENGINE_API const AnimChannel* FindChannel(const std::string& name) const;
             
             /// Interpolate animation channel.
             /**
@@ -101,7 +101,7 @@ namespace Geometry {
              * @param animationTime Time fo animation.
              * @param channel Animation channel.
              */
-            ENGINE_EXPORT static void CalcInterpolatedScaling(glm::vec3& scaling, float animationTime, const AnimChannel* channel);
+            ENGINE_API static void CalcInterpolatedScaling(glm::vec3& scaling, float animationTime, const AnimChannel* channel);
             
             /// Interpolate animation channel.
             /**
@@ -109,7 +109,7 @@ namespace Geometry {
              * @param animationTime Time fo animation.
              * @param channel Animation channel.
              */
-            ENGINE_EXPORT static void CalcInterpolatedRotation(aiQuaternion& rotation, float animationTime, const Animation::AnimChannel* channel);
+            ENGINE_API static void CalcInterpolatedRotation(aiQuaternion& rotation, float animationTime, const Animation::AnimChannel* channel);
             
             /// Interpolate animation channel.
             /**
@@ -117,7 +117,7 @@ namespace Geometry {
              * @param animationTime Time fo animation.
              * @param channel Animation channel.
              */
-            ENGINE_EXPORT static void CalcInterpolatedPosition(glm::vec3& translation, float animationTime, const Animation::AnimChannel* channel);
+            ENGINE_API static void CalcInterpolatedPosition(glm::vec3& translation, float animationTime, const Animation::AnimChannel* channel);
             
             /// Animation name.
             std::string name;

@@ -13,34 +13,34 @@ namespace Geometry {
             /**
              * The created model has to be loaded later using Load.
              */
-            ENGINE_EXPORT Model();
+            ENGINE_API Model();
             
             /// Destructor.
-            ENGINE_EXPORT virtual ~Model();
+            ENGINE_API virtual ~Model();
             
             /// Save the model.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const;
+            ENGINE_API Json::Value Save() const;
             
             /// Load model from file.
             /**
              * @param name Name of the model.
              */
-            ENGINE_EXPORT void Load(const std::string& name);
+            ENGINE_API void Load(const std::string& name);
             
             /// Load model from file.
             /**
              * @param filename Filename (relative or absolute) to the model file.
              */
-            ENGINE_EXPORT void Load(const char* filename);
+            ENGINE_API void Load(const char* filename);
             
             /// Get geometry type.
             /**
              * @return Type.
              */
-            ENGINE_EXPORT Type GetType() const final;
+            ENGINE_API Type GetType() const final;
             
             /// The name of the model.
             std::string name;

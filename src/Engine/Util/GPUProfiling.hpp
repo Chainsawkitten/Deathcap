@@ -13,10 +13,10 @@ class GPUProfiling {
          * @param name Name of the segment.
          * @param type Type of profiling.
          */
-        ENGINE_EXPORT GPUProfiling(const std::string& name, Video::Query::Type type);
+        ENGINE_API GPUProfiling(const std::string& name, Video::Query::Type type);
         
         /// End gpu profiling.
-        ENGINE_EXPORT ~GPUProfiling();
+        ENGINE_API ~GPUProfiling();
         
     private:
         ProfilingManager::Result* result;

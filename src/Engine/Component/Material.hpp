@@ -10,16 +10,16 @@ namespace Component {
     class Material : public SuperComponent {
         public:
             /// Create new material.
-            ENGINE_EXPORT Material();
+            ENGINE_API Material();
             
             /// Destructor.
-            ENGINE_EXPORT ~Material() override;
+            ENGINE_API ~Material() override;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Albedo texture.
             TextureAsset* albedo;

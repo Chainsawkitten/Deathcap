@@ -54,13 +54,13 @@ namespace Component {
             };
             
             /// Create new particle emitter.
-            ENGINE_EXPORT ParticleEmitter();
+            ENGINE_API ParticleEmitter();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Particletype
             ParticleType particleType;

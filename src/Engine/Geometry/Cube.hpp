@@ -9,16 +9,16 @@ namespace Geometry {
     class Cube : public Video::Geometry::Geometry3D {
         public:
             /// Create new cube.
-            ENGINE_EXPORT Cube();
+            ENGINE_API Cube();
             
             /// Destructor.
-            ENGINE_EXPORT ~Cube() final;
+            ENGINE_API ~Cube() final;
             
             /// Get geometry type.
             /**
              * @return Type.
              */
-            ENGINE_EXPORT Type GetType() const override;
+            ENGINE_API Type GetType() const override;
         
         protected:
             /// Generate vertex buffer.

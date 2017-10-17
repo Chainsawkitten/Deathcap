@@ -7,15 +7,15 @@
 class SteamAudioDirectRenderer {
     public:
 
-        ENGINE_EXPORT SteamAudioDirectRenderer();
+        ENGINE_API SteamAudioDirectRenderer();
 
         /**
          * @param context The Steam Audio context.
          * @param environment Handle to the Environment object to use.
          */
-        ENGINE_EXPORT SteamAudioDirectRenderer(IPLContext* context, IPLhandle* environment);
+        ENGINE_API SteamAudioDirectRenderer(IPLContext* context, IPLhandle* environment);
 
-        ENGINE_EXPORT ~SteamAudioDirectRenderer();
+        ENGINE_API ~SteamAudioDirectRenderer();
 
         /// Processes the direct path portion of the audio
         /**
@@ -27,7 +27,7 @@ class SteamAudioDirectRenderer {
          * @param sourceRadius The radius of the source, for calculating occlusion.
          * @return The processed buffer.
          */
-        ENGINE_EXPORT IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
+        ENGINE_API IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
 
     private:
         IPLDirectSoundPath GetDirectSoundPath();

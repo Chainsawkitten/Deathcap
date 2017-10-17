@@ -13,13 +13,13 @@ namespace Component {
     class Animation : public SuperComponent {
         public:
             /// Create new %Animation component.
-            ENGINE_EXPORT Animation();
+            ENGINE_API Animation();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Rigged model to animate.
             /**

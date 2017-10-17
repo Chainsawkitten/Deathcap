@@ -30,7 +30,7 @@ class Input {
         /**
          * @return The input instance.
          */
-        ENGINE_EXPORT static Input& GetInstance() {
+        ENGINE_API static Input& GetInstance() {
             static Input instance;
             return instance;
         }
@@ -39,14 +39,14 @@ class Input {
         /**
          * @param window The target GLFWwindow.
          */
-        ENGINE_EXPORT void SetWindow(GLFWwindow* window);
+        ENGINE_API void SetWindow(GLFWwindow* window);
         
         /// Check if a button was activated this frame.
         /**
          * @param index The index of the button in the buttons array.
          * @return Whether the button was activated this frame.
          */
-        ENGINE_EXPORT bool CheckButton(int index) const;
+        ENGINE_API bool CheckButton(int index) const;
 
         /// Check if a button was activated this frame
         /**
@@ -54,19 +54,19 @@ class Input {
          * @param controller The controller to check.
          * @return Whether the button was activated this frame.
          */
-        ENGINE_EXPORT bool CheckVRButton(int index, Component::Controller *controller) const;
+        ENGINE_API bool CheckVRButton(int index, Component::Controller *controller) const;
         
         /// Save the buttons to a JSON value.
         /**
          * @return The saved JSON value.
          */
-        ENGINE_EXPORT Json::Value Save() const;
+        ENGINE_API Json::Value Save() const;
         
         /// Load buttons from JSON node.
         /**
          * @param buttonsNode The JSON value to load.
          */
-        ENGINE_EXPORT void Load(const Json::Value& buttonsNode);
+        ENGINE_API void Load(const Json::Value& buttonsNode);
         
     private:
         GLFWwindow* window;

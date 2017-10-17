@@ -19,16 +19,16 @@ namespace Component {
 
         public:
             /// Constructor.
-            ENGINE_EXPORT RigidBody() = default;
+            ENGINE_API RigidBody() = default;
 
             /// Destructor.
-            ENGINE_EXPORT ~RigidBody();
+            ENGINE_API ~RigidBody();
 
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
 
         private:
             // Get the underlying Bullet rigid body. If none has been set,

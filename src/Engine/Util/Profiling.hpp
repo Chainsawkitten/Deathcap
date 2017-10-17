@@ -12,10 +12,10 @@ class Profiling {
         /**
          * @param name Name of the segment.
          */
-        ENGINE_EXPORT Profiling(const std::string& name);
+        ENGINE_API Profiling(const std::string& name);
         
         /// End profiling.
-        ENGINE_EXPORT ~Profiling();
+        ENGINE_API ~Profiling();
         
     private:
         ProfilingManager::Result* result;

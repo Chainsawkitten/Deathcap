@@ -16,25 +16,25 @@ namespace Component {
         
         public:
             /// Create new sound source.
-            ENGINE_EXPORT SoundSource();
+            ENGINE_API SoundSource();
             
             /// Destructor.
-            ENGINE_EXPORT ~SoundSource();
+            ENGINE_API ~SoundSource();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Play the sound.
-            ENGINE_EXPORT void Play();
+            ENGINE_API void Play();
             
             /// Pause the sound.
-            ENGINE_EXPORT void Pause();
+            ENGINE_API void Pause();
             
             /// Stop the sound.
-            ENGINE_EXPORT void Stop();
+            ENGINE_API void Stop();
             
             /// Sound buffer.
             Audio::SoundBuffer* soundBuffer = nullptr;

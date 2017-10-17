@@ -12,25 +12,25 @@ namespace Video {
 class TextureAsset {
     public:
         /// Create new texture asset.
-        ENGINE_EXPORT TextureAsset();
+        ENGINE_API TextureAsset();
 
         /// Destructor.
-        ENGINE_EXPORT ~TextureAsset();
+        ENGINE_API ~TextureAsset();
         
         /// Save the texture asset.
-        ENGINE_EXPORT void Save() const;
+        ENGINE_API void Save() const;
         
         /// Load texture asset from disk.
         /**
          * @param name The name of the texture asset.
          */
-        ENGINE_EXPORT void Load(const std::string& name);
+        ENGINE_API void Load(const std::string& name);
         
         /// Get the texture.
         /**
          * @return The texture.
          */
-        ENGINE_EXPORT Video::Texture2D* GetTexture() const;
+        ENGINE_API Video::Texture2D* GetTexture() const;
         
         /// The name of the texture.
         std::string name;

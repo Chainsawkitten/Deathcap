@@ -33,45 +33,45 @@ namespace Physics {
             /**
              * @param body Rigid body listening to trigger.
              */
-            ENGINE_EXPORT TriggerObserver(btRigidBody& body);
+            ENGINE_API TriggerObserver(btRigidBody& body);
 
             /// Get the Bullet collision object of the observing body.
             /**
              * @return Bullet collision object.
              */
-            ENGINE_EXPORT btCollisionObject* GetBulletCollisionObject();
+            ENGINE_API btCollisionObject* GetBulletCollisionObject();
 
             /// Get the intersection phase of the observer.
             /**
              * @return IntersectionPhase indicating the intersection phase
              * relative to the trigger volume.
              */
-            ENGINE_EXPORT IntersectionPhase GetPhase() const;
+            ENGINE_API IntersectionPhase GetPhase() const;
 
             /// Determine new intersection phase after collision test has been
             /// applied.
-            ENGINE_EXPORT void PostIntersectionTest();
+            ENGINE_API void PostIntersectionTest();
 
             /// Set up a handler for when the observer begins intersecting its
             /// associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            ENGINE_EXPORT void OnEnter(const std::function<void()>& handler);
+            ENGINE_API void OnEnter(const std::function<void()>& handler);
 
             /// Set up a handler for when the observer continues intersecting
             /// its associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            ENGINE_EXPORT void OnRetain(const std::function<void()>& handler);
+            ENGINE_API void OnRetain(const std::function<void()>& handler);
 
             /// Set up a handler for when the observer stops intersecting its
             /// associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            ENGINE_EXPORT void OnLeave(const std::function<void()>& handler);
+            ENGINE_API void OnLeave(const std::function<void()>& handler);
 
         private:
             /// Overridden from btCollisionWorld::ContactResultCallback for

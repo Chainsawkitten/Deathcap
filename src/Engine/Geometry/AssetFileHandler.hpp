@@ -58,48 +58,48 @@ namespace Geometry {
             const uint16_t SUPPORTED_FROM = 1;
 
             /// Default constructor.
-            ENGINE_EXPORT AssetFileHandler();
+            ENGINE_API AssetFileHandler();
 
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              * @param mode Use READ or WRITE.
              */
-            ENGINE_EXPORT AssetFileHandler(const char* filepath, Mode mode = READ);
+            ENGINE_API AssetFileHandler(const char* filepath, Mode mode = READ);
 
             /// Destructor.
-            ENGINE_EXPORT ~AssetFileHandler();
+            ENGINE_API ~AssetFileHandler();
 
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              */
-            ENGINE_EXPORT bool Open(const char* filepath, Mode mode = READ);
+            ENGINE_API bool Open(const char* filepath, Mode mode = READ);
 
             /// Close the opened file and clear data.
-            ENGINE_EXPORT void Close();
+            ENGINE_API void Close();
 
             /// Clear current data.
-            ENGINE_EXPORT void Clear();
+            ENGINE_API void Clear();
 
             /// Load a mesh into memory.
             /**
             * @param Id of the mesh. Use GetNumMeshes() to get the number of meshes.
             */
-            ENGINE_EXPORT void LoadMeshData(int meshID);
+            ENGINE_API void LoadMeshData(int meshID);
 
             /// Get static vertex data of a mesh.
             /**
              * First load a mesh into memory by using LoadMeshData().
              * @return Static mesh data.
              */
-            ENGINE_EXPORT MeshData * GetStaticMeshData();
+            ENGINE_API MeshData * GetStaticMeshData();
 
             /// Save the meshdata.
             /**
             * @param meshData Static mesh data.
             */
-            ENGINE_EXPORT void SaveStaticMesh(MeshData * meshData);
+            ENGINE_API void SaveStaticMesh(MeshData * meshData);
 
         private:
             void ReadGlobalHeader();

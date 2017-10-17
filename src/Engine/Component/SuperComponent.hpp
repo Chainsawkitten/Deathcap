@@ -11,25 +11,25 @@ namespace Component {
         public:
 
             /// Create new %SuperComponent.
-            ENGINE_EXPORT SuperComponent();
+            ENGINE_API SuperComponent();
             
             /// Destructor.
-            ENGINE_EXPORT virtual ~SuperComponent();
+            ENGINE_API virtual ~SuperComponent();
             
             /// Kill the component, will be removed at the end of the frame.
-            ENGINE_EXPORT void Kill();
+            ENGINE_API void Kill();
             
             /// Get whether component has been killed.
             /**
              * @return Whether component has been killed.
              */
-            ENGINE_EXPORT bool IsKilled() const;
+            ENGINE_API bool IsKilled() const;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT virtual Json::Value Save() const;
+            ENGINE_API virtual Json::Value Save() const;
             
             /// Pointer to which entity this component corresponds.
             Entity* entity = nullptr;

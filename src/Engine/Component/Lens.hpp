@@ -9,20 +9,20 @@ namespace Component {
     class Lens : public SuperComponent {
         public:
             /// Create new lens.
-            ENGINE_EXPORT Lens();
+            ENGINE_API Lens();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
 
             /// Get the projection matrix.
             /**
              * @param screenSize Screen size in pixels.
              * @return The projection matrix.
              */
-            ENGINE_EXPORT glm::mat4 GetProjection(const glm::vec2& screenSize) const;
+            ENGINE_API glm::mat4 GetProjection(const glm::vec2& screenSize) const;
             
             /// Field of view, in degrees.
             /**

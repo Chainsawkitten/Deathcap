@@ -9,10 +9,10 @@ class RayIntersection {
     public:
 
         /// Constructor.
-        ENGINE_EXPORT RayIntersection();
+        ENGINE_API RayIntersection();
 
         /// Destructor.
-        ENGINE_EXPORT ~RayIntersection();
+        ENGINE_API ~RayIntersection();
 
         /// Checks whether a ray intersects with an OBB.
         /**
@@ -23,7 +23,7 @@ class RayIntersection {
          * @param outputDistance The distance to the entity that is tested to be used as a return value check.
          * @return Whether or not the ray intersects with the entity that is tested against.
          */
-        ENGINE_EXPORT bool RayOBBIntersect(glm::vec3 rayOrigin,
+        ENGINE_API bool RayOBBIntersect(glm::vec3 rayOrigin,
             glm::vec3 rayDirection,
             Video::AxisAlignedBoundingBox meshData,
             glm::mat4 modelMatrix,

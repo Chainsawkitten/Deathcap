@@ -9,13 +9,13 @@ namespace Component {
     class SpotLight : public SuperComponent {
         public:
             /// Create new spot light.
-            ENGINE_EXPORT SpotLight();
+            ENGINE_API SpotLight();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Color.
             glm::vec3 color = glm::vec3(1.f, 1.f, 1.f);

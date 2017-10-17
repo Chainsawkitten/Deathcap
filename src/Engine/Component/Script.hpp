@@ -13,16 +13,16 @@ namespace Component {
     class Script : public SuperComponent {
         public:
             /// Create new script.
-            ENGINE_EXPORT Script();
+            ENGINE_API Script();
             
             /// Destructor.
-            ENGINE_EXPORT ~Script() final;
+            ENGINE_API ~Script() final;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Whether the script component has been initialized.
             bool initialized = false;
@@ -40,7 +40,7 @@ namespace Component {
             std::map<std::string, std::pair<int, void*>> propertyMap;
 
             /// Clears the property map.
-            ENGINE_EXPORT void ClearPropertyMap();
+            ENGINE_API void ClearPropertyMap();
 
     };
 }

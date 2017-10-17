@@ -8,12 +8,12 @@ namespace Component {
     class Listener : public SuperComponent {
         public:
             /// Create new listener.
-            ENGINE_EXPORT Listener();
+            ENGINE_API Listener();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_EXPORT Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
     };
 }
