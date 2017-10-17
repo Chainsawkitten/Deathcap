@@ -1,5 +1,9 @@
 #include "SkeletonEditor.hpp"
 #include <Engine/Animation/Skeleton.hpp>
+#include <Engine/Hymn.hpp>
+#include <imgui.h>
+#include <Engine/Util/FileSystem.hpp>
+#include "Util/AssetConverterSkeleton.hpp"
 
 using namespace GUI;
 
@@ -7,20 +11,45 @@ SkeletonEditor::SkeletonEditor() {
 }
 
 void SkeletonEditor::Show() {
-//    if (ImGui::Begin(("Model: " + model->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(model))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
-//    
-//    }
+    if (ImGui::Begin(("Skeleton: " + skeleton->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(skeleton))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
+        if (ImGui::Button("Open skeleton model")) {
+            // Currently only fbx is tested.
+            fileSelector.AddExtensions("fbx");
+    
+            // Set the initial path to the models directory.
+            fileSelector.SetInitialPath((Hymn().GetPath()).c_str());
+            fileSelector.SetFileSelectedCallback(std::bind(&SkeletonEditor::FileSelected, this, std::placeholders::_1));
+            fileSelector.SetVisible(true);
+        }
+    }
+    ImGui::End();
+
+    if (fileSelector.IsVisible())
+        fileSelector.Show();
 }
 
-void SkeletonEditor::SetSkeleton(ResourceList::ResourceFolder * folder, Animation::Skeleton skeleton) {
+Animation::Skeleton * GUI::SkeletonEditor::GetSkeleton() {
+    return skeleton;
 }
 
-bool SkeletonEditor::IsVisable() const {
-    return false;
+void SkeletonEditor::SetSkeleton(ResourceList::ResourceFolder* folder, Animation::Skeleton* skeleton) {
+    this->skeleton = skeleton;
 }
 
-void SkeletonEditor::SetVisable(bool visable) {
+bool SkeletonEditor::IsVisible() const {
+    return visible;
 }
 
-void GUI::SkeletonEditor::FileSelected(const std::string & file) {
+void SkeletonEditor::SetVisible(bool visable) {
+    this->visible = visable;
+}
+
+void SkeletonEditor::FileSelected(const std::string& file) {
+    std::string name = FileSystem::GetName(file).c_str();
+    std::string newFile = Hymn().GetPath() + "/" + skeleton->path + name + ".asset";
+
+    AssetConverterSkeleton con;
+    con.Convert(file.c_str(), newFile.c_str(), true);
+    
+    skeleton->name = name;
 }

@@ -27,7 +27,7 @@ class AnimationControllerEditor : public NodeEditor {
         /**
          * @return The active animation controller.
          */
-        Animation::AnimationController* Get();
+        Animation::AnimationController* GetAnimationController();
 
     protected:
         /// Show the context menu.

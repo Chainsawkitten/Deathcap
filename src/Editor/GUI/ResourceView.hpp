@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Editors/AnimationClipEditor.hpp"
 #include "Editors/AnimationControllerEditor.hpp"
+#include "Editors/SkeletonEditor.hpp"
 #include "Editors/ModelEditor.hpp"
 #include "Editors/SceneEditor.hpp"
 #include "Editors/SoundEditor.hpp"
@@ -69,8 +71,10 @@ namespace GUI {
             
             bool visible = false;
             
+            AnimationClipEditor animationClipEditor;
             AnimationControllerEditor animationControllerEditor;
-            ScriptEditor scriptEditor;
+            SkeletonEditor skeletonEditor;
+            ScriptEditor scriptEditor;  
             SceneEditor sceneEditor;
             ModelEditor modelEditor;
             TextureEditor textureEditor;
@@ -94,7 +98,9 @@ namespace GUI {
             int editorWidth = 250;
             bool editorResize = false;
             
+            bool animationClipPressed;
             bool animationControllerPressed;
+            bool skeletonPressed;
             bool scriptPressed;
             bool texturePressed;
             bool modelPressed;

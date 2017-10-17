@@ -18,27 +18,40 @@ namespace GUI {
             /// Show the editor.
             void Show();
 
-            /// Set the skeleton to edit
+            /// Returns the active skeleton.
             /**
-             * @param folder Resource folder containing the model.
-             * @param model Model to edit.
+             * @return Active skeleton.
              */
-            void SetSkeleton(ResourceList::ResourceFolder* folder, Animation::Skeleton skeleton);
+            Animation::Skeleton* GetSkeleton();
+
+            /// Set the skeleton to edit.
+            /**
+             * @param folder Resource folder containing the skeleton.
+             * @param model Skeleton to edit.
+             */
+            void SetSkeleton(ResourceList::ResourceFolder* folder, Animation::Skeleton* skeleton);
             
             /// Get whether the window is visable.
             /**
              * @return True if visable.
              */
-            bool IsVisable() const;
+            bool IsVisible() const;
 
             /// Set whether the window should be visable.
             /**
              * @param visable Whether the window should be visible.
              */
-            void SetVisable(bool visable);
+            void SetVisible(bool visable);
 
         private:
             void FileSelected(const std::string& file);
 
+            ResourceList::ResourceFolder* folder = nullptr;
+            Animation::Skeleton* skeleton = nullptr;
+            bool visible = false;
+
+            FileSelector fileSelector;
+
+            char name[128];
     };
 }

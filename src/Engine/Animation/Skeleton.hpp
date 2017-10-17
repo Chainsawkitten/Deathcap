@@ -20,7 +20,6 @@ namespace Animation {
             /// Constructor.
             Skeleton();
 
-
             void Save(std::string name);
 
             /// 

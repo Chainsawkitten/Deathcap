@@ -11,7 +11,7 @@ NodeEditor::~NodeEditor() {
 
 void NodeEditor::Show() {
     if (ImGui::Begin("Animation controller", &visible)) {
-        // Draw a list of nodes on the left side
+        // Draw a list of nodes on the left side.
         ImGui::BeginChild("NodeList", ImVec2(200, 0), true);
         ImGui::Text("Nodes");
         ImGui::Separator();
@@ -157,7 +157,7 @@ void NodeEditor::Show() {
             ImGui::EndPopup();
         }
 
-        // Scrolling
+        // Scrolling.
         if (ImGui::IsWindowHovered() && !ImGui::IsAnyItemActive() && ImGui::IsMouseDragging(2, 0.0f))
             scrolling = ImVec2(scrolling.x - ImGui::GetIO().MouseDelta.x, scrolling.y - ImGui::GetIO().MouseDelta.y);
 

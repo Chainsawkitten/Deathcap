@@ -53,7 +53,7 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
         }
 
         // Save to file.
-        skeleton.Save((std::string(destination) + ".asset").c_str());
+        skeleton.Save((std::string(destination)).c_str());
     } else {
         Animation::AnimationClip::Animation anim;
         anim.numBones = aScene->mAnimations[0]->mNumChannels;
@@ -78,7 +78,7 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
             }
         }
 
-        std::ofstream file((std::string(destination) + ".asset").c_str(), std::ios::binary);
+        std::ofstream file((std::string(destination)).c_str(), std::ios::binary);
         anim.Save(&file);
         file.close();
     }

@@ -54,8 +54,8 @@ void ModelEditor::Show() {
         }
 
         if (hasSourceFile) {
-            ImGui::Text("Mesh Data");
-            ImGui::Checkbox("Uniform Scaling", &uniformScaling);
+            ImGui::Text("Mesh data");
+            ImGui::Checkbox("Uniform scaling", &uniformScaling);
 
             if (uniformScaling) {
                 float uniScale = scale.x;
@@ -65,16 +65,16 @@ void ModelEditor::Show() {
                 ImGui::DragFloat3("Scale", &scale[0], 0.01f);
             
             ImGui::Checkbox("Triangulate", &triangulate);
-            ImGui::Checkbox("Import Normals", &importNormals);
-            ImGui::Checkbox("Import Tangents", &importTangents);
-            ImGui::Checkbox("Import Textures", &importTextures);
+            ImGui::Checkbox("Import normals", &importNormals);
+            ImGui::Checkbox("Import tangents", &importTangents);
+            ImGui::Checkbox("Import textures", &importTextures);
             ImGui::Checkbox("Flip UVs", &flipUVs);
             ImGui::Checkbox("Create scene", &createScene);
 
             std::string button = isImported ? "Re-import" : "Import";
 
             if (ImGui::Button(button.c_str())) {
-                AssetConverter::Materials materials;
+                AssetConverter::Material materials;
                 
                 // Convert to .asset format.
                 AssetConverter asset;
@@ -142,15 +142,6 @@ void ModelEditor::Show() {
                     material->Kill();
                     delete world;
                 }
-            }
-
-            ImGui::Text("Animation");
-            ImGui::Checkbox("Bindpose", &bindPose);
-
-            if (ImGui::Button("Import animation")) {
-                AssetConverterSkeleton asset;
-                asset.Convert(source.c_str(), destination.c_str(), false);
-                Resources().animationClips.push_back(new Animation::AnimationClip);
             }
 
             if (isImported)
@@ -224,9 +215,8 @@ void ModelEditor::RefreshImportSettings() {
 
         delete importData;
         isImported = true;
-    } else {
+    } else
         isImported = false;
-    }
 }
 
 TextureAsset* ModelEditor::LoadTexture(const std::string& path, const std::string& name) {

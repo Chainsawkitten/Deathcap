@@ -40,7 +40,9 @@ void ResourceView::Show() {
     ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
 
     // Show resources.
+    animationClipPressed = false;
     animationControllerPressed = false;
+    skeletonPressed = false;
     scriptPressed = false;
     texturePressed = false;
     modelPressed = false;
@@ -96,9 +98,11 @@ void ResourceView::Show() {
     if (folderNameWindow.IsVisible())
         folderNameWindow.Show();
 
-    if (sceneEditor.entityPressed || animationControllerPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
+    if (sceneEditor.entityPressed || animationClipPressed || animationControllerPressed || skeletonPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
+        animationClipEditor.SetVisible(animationClipPressed);
         animationControllerEditor.SetVisible(animationControllerPressed);
+        skeletonEditor.SetVisible(skeletonPressed);
         scriptEditor.SetVisible(scriptPressed);
         textureEditor.SetVisible(texturePressed);
         modelEditor.SetVisible(modelPressed);
@@ -112,7 +116,7 @@ void ResourceView::Show() {
         sceneEditor.Show();
     }
 
-    if (sceneEditor.entityEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible()) {
+    if (sceneEditor.entityEditor.IsVisible() || animationClipEditor.IsVisible() || skeletonEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible()) {
         editorWidth = size.x - editorWidth;
         ImGui::HorizontalSplitter(ImVec2(editorWidth, 20), size.y - 20, splitterSize, editorWidth, editorResize, sceneWidth + 20, size.x - 20);
         editorWidth = size.x - editorWidth;
@@ -121,8 +125,12 @@ void ResourceView::Show() {
         ImGui::SetNextWindowSize(ImVec2(editorWidth, size.y - 20));
     }
 
+    if (animationClipEditor.IsVisible())
+        animationClipEditor.Show();
     if (animationControllerEditor.IsVisible())
         animationControllerEditor.Show();
+    if (skeletonEditor.IsVisible())
+        skeletonEditor.Show();
     if (sceneEditor.entityEditor.IsVisible())
         sceneEditor.entityEditor.Show();
     if (scriptEditor.IsVisible())
@@ -138,7 +146,6 @@ void ResourceView::Show() {
 }
 
 bool ResourceView::HasMadeChanges() const {
-
     std::string* sceneFilename = new std::string();
     Json::Value sceneJson = sceneEditor.GetSaveFileJson(sceneFilename);
 
@@ -160,7 +167,6 @@ bool ResourceView::HasMadeChanges() const {
         return true;
 
     return false;
-
 }
 
 bool ResourceView::IsVisible() const {
@@ -172,9 +178,11 @@ void ResourceView::SetVisible(bool visible) {
 }
 
 void ResourceView::HideEditors() {
+    animationClipEditor.SetVisible(false);
+    animationControllerEditor.SetVisible(false);
+    skeletonEditor.SetVisible(false);
     sceneEditor.SetVisible(false);
     sceneEditor.entityEditor.SetVisible(false);
-    animationControllerEditor.SetVisible(false);
     scriptEditor.SetVisible(false);
     modelEditor.SetVisible(false);
     textureEditor.SetVisible(false);
@@ -353,23 +361,23 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
     // Animation clip.
     if (resource.type == ResourceList::Resource::ANIMATION_CLIP) {
         if (ImGui::Selectable(resource.animationClip->name.c_str())) {
-         //   animationControllerPressed = true;
-         //   animationControllerEditor.SetAnimationController(resource.animationController);
+            animationClipPressed = true;
+            animationClipEditor.SetAnimationClip(&folder, resource.animationClip);
         }
 
-    //    // Delete animation controller.
-    //    if (ImGui::BeginPopupContextItem(resource.animationController->name.c_str())) {
-    //        if (ImGui::Selectable("Delete")) {
-    //            if (animationControllerEditor.Get() == resource.animationController)
-    //                animationControllerEditor.SetVisible(false);
-    //
-    //            Managers().resourceManager->FreeAnimationController(resource.animationController);
-    //            ImGui::EndPopup();
-    //
-    //            return true;
-    //        }
-    //        ImGui::EndPopup();
-    //    }
+        // Delete animation controller.
+        if (ImGui::BeginPopupContextItem(resource.animationClip->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (animationClipEditor.GetAnimationClip() == resource.animationClip)
+                    animationControllerEditor.SetVisible(false);
+    
+                Managers().resourceManager->FreeAnimationClip(resource.animationClip);
+                ImGui::EndPopup();
+    
+                return true;
+            }
+            ImGui::EndPopup();
+        }
     }
 
     // Animation controller.
@@ -382,7 +390,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         // Delete animation controller.
         if (ImGui::BeginPopupContextItem(resource.animationController->name.c_str())) {
             if (ImGui::Selectable("Delete")) {
-                if (animationControllerEditor.Get() == resource.animationController)
+                if (animationControllerEditor.GetAnimationController() == resource.animationController)
                     animationControllerEditor.SetVisible(false);
 
                 Managers().resourceManager->FreeAnimationController(resource.animationController);
@@ -397,23 +405,23 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
     // Skeleton.
     if (resource.type == ResourceList::Resource::SKELETON) {
         if (ImGui::Selectable(resource.skeleton->name.c_str())) {
-        //    animationControllerPressed = true;
-        //    animationControllerEditor.SetAnimationController(resource.animationController);
+            skeletonPressed = true;
+            skeletonEditor.SetSkeleton(&folder, resource.skeleton);
         }
 
-    //    // Delete skeleton.
-    //    if (ImGui::BeginPopupContextItem(resource.skeleton->name.c_str())) {
-    //        if (ImGui::Selectable("Delete")) {
-    //            if (animationControllerEditor.Get() == resource.animationController)
-    //                animationControllerEditor.SetVisible(false);
-    //
-    //            Managers().resourceManager->FreeSkeleton(resource.skeleton);
-    //            ImGui::EndPopup();
-    //
-    //            return true;
-    //        }
-    //        ImGui::EndPopup();
-    //    }
+        // Delete skeleton.
+        if (ImGui::BeginPopupContextItem(resource.skeleton->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (skeletonEditor.GetSkeleton() == resource.skeleton)
+                    skeletonEditor.SetVisible(false);
+    
+                Managers().resourceManager->FreeSkeleton(resource.skeleton);
+                ImGui::EndPopup();
+    
+                return true;
+            }
+            ImGui::EndPopup();
+        }
     }
 
     // Model.

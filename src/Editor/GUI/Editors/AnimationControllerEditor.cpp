@@ -12,7 +12,7 @@ void AnimationControllerEditor::SetAnimationController(Animation::AnimationContr
     this->animationController = animationController;
 }
 
-Animation::AnimationController * AnimationControllerEditor::Get() {
+Animation::AnimationController * AnimationControllerEditor::GetAnimationController() {
     return animationController;
 }
 

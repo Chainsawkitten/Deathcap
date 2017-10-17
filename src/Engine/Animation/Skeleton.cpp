@@ -1,37 +1,44 @@
 #include "Skeleton.hpp"
 #include "..\Animation\Skeleton.hpp"
 #include <glm/gtc/matrix_inverse.hpp>
+#include <Utility/Log.hpp>
+#include <Engine/Hymn.hpp>
 
 using namespace Animation;
 
 Animation::Skeleton::Skeleton() {
 }
 
-void Animation::Skeleton::Save(std::string name) {
-    std::ofstream file(name, std::ios::binary);
+void Skeleton::Save(std::string path) {
+    std::ofstream file(path, std::ios::binary);
     uint32_t size = skeletonBones.size();
     file.write(reinterpret_cast<char *>(&size), sizeof(uint32_t));
 
     for (unsigned int i = 0; i < size; ++i) {
-        file.write(reinterpret_cast<char *>(skeletonBones[i]), sizeof(SkeletonBone));
+        file.write(reinterpret_cast<char*>(skeletonBones[i]), sizeof(SkeletonBone));
     }
 }
 
-void Animation::Skeleton::Load(std::string name) {
-    std::ifstream file(name, std::ios::binary);
-    uint32_t size;
-    file.read(reinterpret_cast<char *>(&size), sizeof(uint32_t));
+void Skeleton::Load(std::string name) {
+    std::size_t pos = name.find_last_of('/');
+    this->name = name.substr(pos + 1);
+    path = name.substr(0, pos + 1);
+    std::string path =  (Hymn().GetPath() + "/" + name + ".asset").c_str();
 
+    std::ifstream file(path, std::ios::binary);
+
+    uint32_t size;
+    file.read(reinterpret_cast<char*>(&size), sizeof(uint32_t));
     for (unsigned int i = 0; i < size; ++i) {
         SkeletonBone * bone = new SkeletonBone;
-        file.read(reinterpret_cast<char *>(bone), sizeof(SkeletonBone));
+        file.read(reinterpret_cast<char*>(bone), sizeof(SkeletonBone));
         skeletonBones.push_back(bone);
     }
 
     InitSkeleton();
 }
 
-void Animation::Skeleton::InitSkeleton() {
+void Skeleton::InitSkeleton() {
     // Setup root.
     skeletonBones[0]->parentId = 0;
     skeletonBones[0]->globalTx = skeletonBones[0]->localTx;

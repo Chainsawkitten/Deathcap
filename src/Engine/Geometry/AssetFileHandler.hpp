@@ -99,7 +99,7 @@ namespace Geometry {
            /**
             * @param meshData Static mesh data.
             */
-            void SaveStaticMesh(MeshData * meshData);
+            void SaveMesh(MeshData * meshData);
 
         private:
             void ReadGlobalHeader();

@@ -56,8 +56,8 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         
         // Render model.
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
-        glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
-        glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
+//        glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
+//        glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
         assert(bones.size() <= 50);
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("bones"), bones.size(), GL_FALSE, &bones[0][0][0]);
         
