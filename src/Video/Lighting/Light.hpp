@@ -23,7 +23,7 @@ namespace Video {
         /// Angle of the cone (in degrees).
         float coneAngle;
 
-        /// Paddding.
+        /// Padding.
         float padding[3];
     };
 }
