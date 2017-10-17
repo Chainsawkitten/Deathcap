@@ -11,7 +11,7 @@ class ScriptFile;
 
 /// A hymn to beauty.
 class ENGINE_EXPORT ActiveHymn {
-    friend ActiveHymn& Hymn();
+    ENGINE_EXPORT friend ActiveHymn& Hymn();
     
     public:
         /// Clear the hymn of all properties.

@@ -218,6 +218,6 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
     }
 }
 
-ENGINE_EXPORT ActiveHymn& Hymn() {
+ActiveHymn& Hymn() {
     return ActiveHymn::GetInstance();
 }

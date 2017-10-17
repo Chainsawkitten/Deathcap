@@ -21,7 +21,7 @@ namespace Component {
 
 /// Singleton class that holds all subsystems.
 class ENGINE_EXPORT Hub {
-    friend Hub& Managers();
+    ENGINE_EXPORT friend Hub& Managers();
     
     public:
         /// The resource manager instance.
