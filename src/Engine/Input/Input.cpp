@@ -1,8 +1,8 @@
 #include "Input.hpp"
 
 #include <cstring>
-#include <GLFW/glfw3.h>
 #include "../Component/VRDevice.hpp"
+#include <GLFW/glfw3.h> // Must be included at the end to make sure gl.h is included AFTER glew.h
 
 void Input::SetWindow(GLFWwindow* window) {
     this->window = window;

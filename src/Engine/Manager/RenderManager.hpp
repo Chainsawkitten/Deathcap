@@ -19,7 +19,6 @@ namespace Component {
     class Mesh;
     class PointLight;
     class SpotLight;
-    class VRDevice;
 }
 namespace Json {
     class Value;
@@ -185,25 +184,6 @@ class RenderManager {
          * @return All spot light components.
          */
         const std::vector<Component::SpotLight*>& GetSpotLights() const;
-
-        /// Create vr controller component
-        /**
-         * @return The created component.
-         */
-        Component::VRDevice* CreateController();
-
-        /// Create vr controller component
-        /**
-         * @param node Json node to load the component from
-         * @return The created component.
-         */
-        Component::VRDevice* CreateController(const Json::Value& node);
-
-        /// Get all vr controller components
-        /**
-         * @return All vr controller components
-         */
-        const std::vector<Component::VRDevice*>& GetControllers() const;
         
         /// Remove all killed components.
         void ClearKilledComponents();
@@ -233,7 +213,6 @@ class RenderManager {
         
         // Components.
         ComponentContainer<Component::Animation> animations;
-        ComponentContainer<Component::VRDevice> controllers;
         ComponentContainer<Component::DirectionalLight> directionalLights;
         ComponentContainer<Component::Lens> lenses;
         ComponentContainer<Component::Material> materials;

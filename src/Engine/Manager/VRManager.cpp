@@ -1,5 +1,6 @@
 #include "VRManager.hpp"
 #include "Utility/Log.hpp"
+#include "../Component/VRDevice.hpp"
 
 VRManager::VRManager() : scale(1.f) {
     // Check if VR runtime is installed.
@@ -32,6 +33,23 @@ VRManager::~VRManager() {
 
 bool VRManager::Active() const {
     return vrSystem != nullptr;
+}
+
+Component::VRDevice* VRManager::CreateController() {
+    return controllers.Create();
+}
+
+Component::VRDevice* VRManager::CreateController(const Json::Value& node) {
+    Component::VRDevice* controller = controllers.Create();
+
+    //Load values from Json node.
+    controller->controllerID = node.get("controllerID", 1).asInt();
+
+    return controller;
+}
+
+const std::vector<Component::VRDevice*>& VRManager::GetControllers() const {
+    return controllers.GetAll();
 }
 
 void VRManager::Sync() {
@@ -172,4 +190,8 @@ bool VRManager::GetInput(vr::EVRButtonId buttonID) {
         }
     }
     return false;
+}
+
+void VRManager::ClearKilledComponents() {
+    controllers.ClearKilled();
 }

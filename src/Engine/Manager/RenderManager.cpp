@@ -459,26 +459,8 @@ const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
     return spotLights.GetAll();
 }
 
-Component::VRDevice* RenderManager::CreateController() {
-    return controllers.Create();
-}
-
-Component::VRDevice* RenderManager::CreateController(const Json::Value& node) {
-    Component::VRDevice* controller = controllers.Create();
-
-    //Load values from Json node.
-    controller->controllerID = node.get("controllerID", 1).asInt();
-
-    return controller;
-}
-
-const std::vector<Component::VRDevice*>& RenderManager::GetControllers() const {
-    return controllers.GetAll();
-}
-
 void RenderManager::ClearKilledComponents() {
     animations.ClearKilled();
-    controllers.ClearKilled();
     directionalLights.ClearKilled();
     lenses.ClearKilled();
     materials.ClearKilled();

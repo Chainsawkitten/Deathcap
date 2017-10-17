@@ -305,8 +305,6 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
     // Create a component in the correct manager.
     if (*componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation();
-    else if (*componentType == typeid(Component::VRDevice*))
-        component = Managers().renderManager->CreateController();
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight();
     else if (*componentType == typeid(Component::Lens*))
@@ -331,6 +329,8 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
         component = Managers().soundManager->CreateSoundSource();
     else if (*componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight();
+    else if (*componentType == typeid(Component::VRDevice*))
+        component = Managers().vrManager->CreateController();
     else {
         Log() << componentType->name() << " not assigned to a manager!" << "\n";
         return nullptr;
@@ -351,8 +351,6 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
     // Create a component in the correct manager.
     if (*componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation(node);
-    else if (*componentType == typeid(Component::VRDevice*))
-        component = Managers().renderManager->CreateController(node);
     else if (*componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight(node);
     else if (*componentType == typeid(Component::Lens*))
@@ -377,6 +375,8 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
         component = Managers().soundManager->CreateSoundSource(node);
     else if (*componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight(node);
+    else if (*componentType == typeid(Component::VRDevice*))
+        component = Managers().vrManager->CreateController(node);
     else {
         Log() << componentType->name() << " not assigned to a manager!" << "\n";
         return;

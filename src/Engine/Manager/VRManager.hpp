@@ -2,6 +2,15 @@
 
 #include <glm/glm.hpp>
 #include <openvr.h>
+#include "../Entity/ComponentContainer.hpp"
+
+namespace Component {
+    class VRDevice;
+}
+
+namespace Json {
+    class Value;
+}
 
 /// Handles communication with VR devices using OpenVR.
 class VRManager {
@@ -13,6 +22,25 @@ class VRManager {
          * @return Whether hmd is present or not.
          */
         bool Active() const;
+
+        /// Create vr controller component
+        /**
+         * @return The created component.
+         */
+        Component::VRDevice* CreateController();
+
+        /// Create vr controller component
+        /**
+         * @param node Json node to load the component from
+         * @return The created component.
+         */
+        Component::VRDevice* CreateController(const Json::Value& node);
+
+        /// Get all vr controller components
+        /**
+         * @return All vr controller components
+         */
+        const std::vector<Component::VRDevice*>& GetControllers() const;
 
         /// Sync VR device pose(s).
         void Sync();
@@ -77,7 +105,10 @@ class VRManager {
          * @return whether certain button is pressed or not. 
          */
         bool GetInput(vr::EVRButtonId buttonID);
-        
+
+        /// Remove all killed components.
+        void ClearKilledComponents();
+
     private:
         VRManager();
         ~VRManager();
@@ -93,4 +124,6 @@ class VRManager {
         glm::mat4 deviceTransforms[vr::k_unMaxTrackedDeviceCount];
 
         bool pressedTrackedDevice[vr::k_unMaxTrackedDeviceCount];
+
+        ComponentContainer<Component::VRDevice> controllers;
 };

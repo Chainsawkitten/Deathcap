@@ -1,10 +1,10 @@
 #pragma once
-#include "SuperComponent.hpp"
-#include "../Manager/VRManager.hpp"
-#include "../Entity/Entity.hpp"
 #include <glm/glm.hpp>
 #include <openvr.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include "SuperComponent.hpp"
+#include "../Manager/VRManager.hpp"
+#include "../Entity/Entity.hpp"
 
 namespace Component {
     /// Component giving VR controller functions to an Entity
