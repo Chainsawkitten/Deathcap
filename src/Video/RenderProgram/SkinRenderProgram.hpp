@@ -6,6 +6,7 @@
 namespace Video {
     class Texture2D;
     class ShaderProgram;
+    class StorageBuffer;
     namespace Geometry {
         class Geometry3D;
     }
@@ -24,7 +25,7 @@ namespace Video {
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
              */
-            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount);
     
             /// Render skinned geometry.
             /**

@@ -114,7 +114,7 @@ void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D*
 }
 
 void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
+    skinRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
 }
 
 void Renderer::RenderSkinnedMesh(Geometry::Geometry3D * geometry, const Texture2D * albedo, const Texture2D * normal, const Texture2D * metallic, const Texture2D * roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) {
