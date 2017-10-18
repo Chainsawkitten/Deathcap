@@ -2,6 +2,7 @@ set(SRCS
         main.cpp
         Editor.cpp
         Resources.cpp
+        ImGui/Json.cpp
         ImGui/OpenGLImplementation.cpp
         ImGui/Splitter.cpp
         ImGui/Theme.cpp
@@ -32,6 +33,7 @@ set(SRCS
 set(HEADERS
         Editor.hpp
         Resources.hpp
+        ImGui/Json.hpp
         ImGui/OpenGLImplementation.hpp
         ImGui/Splitter.hpp
         ImGui/Theme.hpp
