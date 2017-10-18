@@ -2,7 +2,7 @@
 
 #include <map>
 #include <vector>
-#include <typeinfo>
+#include <typeindex>
 #include "../Entity/World.hpp"
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
@@ -207,8 +207,10 @@ class Entity {
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
         template<typename T> void Load(const Json::Value& node, const std::string& name);
-        ENGINE_API Component::SuperComponent* AddComponent(const std::type_info* componentType);
-        void LoadComponent(const std::type_info* componentType, const Json::Value& node);
+        ENGINE_API Component::SuperComponent* AddComponent(std::type_index componentType);
+        ENGINE_API Component::SuperComponent* GetComponent(std::type_index componentType) const;
+        ENGINE_API void KillComponent(std::type_index componentType);
+        ENGINE_API void LoadComponent(std::type_index componentType, const Json::Value& node);
         void KillHelper();
         
         World* world;
@@ -217,46 +219,35 @@ class Entity {
         bool scene = false;
         std::string sceneName;
         
-        std::map<const std::type_info*, Component::SuperComponent*> components;
+        std::map<std::type_index, Component::SuperComponent*> components;
         
         bool killed = false;
         unsigned int uniqueIdentifier = 0;
 };
 
 template<typename T> T* Entity::AddComponent() {
-    const std::type_info* componentType = &typeid(T*);
-    if (components.find(componentType) != components.end())
-        return nullptr;
-    
+    std::type_index componentType = std::type_index(typeid(T*));
     return static_cast<T*>(AddComponent(componentType));
 }
 
 template<typename T> T* Entity::GetComponent() const {
-    auto it = components.find(&typeid(T*));
-    if (it != components.end())
-        return static_cast<T*>(it->second);
-    else
-        return nullptr;
+    return static_cast<T*>(GetComponent(std::type_index(typeid(T*))));
 }
 
 template <typename T> void Entity::KillComponent() {
-    const std::type_info* componentType = &typeid(T*);
-    if (components.find(componentType) != components.end()) {
-        components[componentType]->Kill();
-        components.erase(componentType);
-    }
+    KillComponent(typeid(T*));
 }
 
 template<typename T> void Entity::Save(Json::Value& node, const std::string& name) const {
-    auto it = components.find(&typeid(T*));
-    if (it != components.end())
-        node[name] = it->second->Save();
+    Component::SuperComponent* component = GetComponent(std::type_index(typeid(T*)));
+    if (component != nullptr)
+        node[name] = component->Save();
 }
 
 template<typename T> void Entity::Load(const Json::Value& node, const std::string& name) {
     Json::Value componentNode = node[name];
     if (!componentNode.isNull()) {
-        const std::type_info* componentType = &typeid(T*);
+        std::type_index componentType = std::type_index(typeid(T*));
         LoadComponent(componentType, componentNode);
     }
 }
