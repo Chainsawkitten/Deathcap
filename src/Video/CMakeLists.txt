@@ -30,6 +30,7 @@ set(HEADERS
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
+        ErrorVideoDebug.hpp
         ParticleRenderer.hpp
         Renderer.hpp
         RenderSurface.hpp

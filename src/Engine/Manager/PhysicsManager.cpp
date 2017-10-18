@@ -139,6 +139,9 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
     auto comp = shapeComponents.Create();
     comp->entity = owner;
 
+    auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Sphere(1.0f)));
+    comp->SetShape(shape);
+
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     if (rigidBodyComp) {
         rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
@@ -178,7 +181,10 @@ void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics:
 }
 
 void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
-    comp->Mass(mass);
+    // Setting mass is only valid with a shape because it also sets inertia.
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    if (shapeComp)
+        comp->Mass(mass);
 }
 
 const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {
