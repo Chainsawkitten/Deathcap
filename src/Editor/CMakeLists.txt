@@ -12,6 +12,7 @@ set(SRCS
         GUI/InputWindow.cpp
         GUI/FileSelector.cpp
         GUI/FolderNameWindow.cpp
+        GUI/ProfilingWindow.cpp
         GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
@@ -41,6 +42,7 @@ set(HEADERS
         GUI/InputWindow.hpp
         GUI/FileSelector.hpp
         GUI/FolderNameWindow.hpp
+        GUI/ProfilingWindow.hpp
         GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
