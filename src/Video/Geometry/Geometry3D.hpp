@@ -16,6 +16,9 @@ namespace Video {
                     SKIN ///< Skinning vertex layout (Skinning.vert).
                 };
                 
+                /// Default constructor.
+                VIDEO_API Geometry3D();
+                
                 /// Destructor.
                 VIDEO_API virtual ~Geometry3D();
     
@@ -41,7 +44,7 @@ namespace Video {
                 /**
                  * @return Type.
                  */
-                VIDEO_API virtual Type GetType() const = 0;
+                virtual Type GetType() const = 0;
                 
             protected:
                 /// Generate vertex buffer.
