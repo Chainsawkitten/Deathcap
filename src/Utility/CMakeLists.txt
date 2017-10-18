@@ -3,6 +3,7 @@ set(SRCS
     )
 
 set(HEADERS
+        LockBox.hpp
         Log.hpp
     )
 
