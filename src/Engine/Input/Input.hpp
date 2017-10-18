@@ -30,10 +30,7 @@ class Input {
         /**
          * @return The input instance.
          */
-        ENGINE_API static Input& GetInstance() {
-            static Input instance;
-            return instance;
-        }
+        ENGINE_API static Input& GetInstance();
         
         /// Set the window to check for input against.
         /**
