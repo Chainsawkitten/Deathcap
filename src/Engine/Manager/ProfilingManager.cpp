@@ -1,6 +1,5 @@
 #include "ProfilingManager.hpp"
 
-#include <imgui.h>
 #include <GLFW/glfw3.h>
 #ifdef MEASURE_RAM
 #include <windows.h>

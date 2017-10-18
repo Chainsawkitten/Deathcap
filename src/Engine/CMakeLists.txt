@@ -143,7 +143,7 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript angelscript_addons SteamAudio portaudio glm bullet)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${OPENAL_LIB} angelscript angelscript_addons SteamAudio portaudio glm bullet)
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)
