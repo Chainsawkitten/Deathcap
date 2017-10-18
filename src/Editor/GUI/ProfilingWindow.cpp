@@ -2,9 +2,62 @@
 
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
+#include <imgui.h>
+#include <Utility/Log.hpp>
 
 using namespace GUI;
 
 void ProfilingWindow::Show() {
-    Managers().profilingManager->ShowResults();
+    if (!Managers().profilingManager->Active()) {
+        Log() << "ProfilingManager::ShowResults warning: Not active.\n";
+        return;
+    }
+
+    // Show the results.
+    ImGui::Begin("Profiling", nullptr, ImGuiWindowFlags_ShowBorders);
+
+    // Frametimes.
+    unsigned int frames = Managers().profilingManager->GetFrameCount();
+    if (ImGui::CollapsingHeader("Frametimes")) {
+        if (ImGui::TreeNode("CPU Frametimes")) {
+            ImGui::PlotLines("Frametimes in ms", Managers().profilingManager->GetCPUFrameTimes(), frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
+            ImGui::TreePop();
+        }
+
+        if (ImGui::TreeNode("GPU Frametimes")) {
+            ImGui::PlotLines("Frametimes in ms", Managers().profilingManager->GetGPUFrameTimes(), frames, 0, nullptr, 0.f, FLT_MAX, ImVec2(0.f, 300.f));
+            ImGui::TreePop();
+        }
+    }
+
+    // Breakdown.
+    /*if (ImGui::CollapsingHeader("Breakdown")) {
+        for (int i = 0; i < COUNT; ++i) {
+            int flags = root[i]->children.empty() ? ImGuiTreeNodeFlags_Leaf : 0;
+            if (ImGui::TreeNodeEx(TypeToString((Type)i).c_str(), flags)) {
+                ImGui::Columns(2);
+                for (Result& child : root[i]->children)
+                    ShowResult(&child);
+                ImGui::Columns(1);
+                ImGui::TreePop();
+            }
+        }
+    }
+    */
+    if (ImGui::CollapsingHeader("Memory")) {
+#ifdef MEASURE_RAM
+        PROCESS_MEMORY_COUNTERS_EX memoryCounters;
+        GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&memoryCounters), sizeof(memoryCounters));
+        ImGui::Text("RAM: %u MiB", static_cast<unsigned int>(memoryCounters.PrivateUsage / 1024 / 1024));
+#endif
+
+#ifdef MEASURE_VRAM
+        DXGI_QUERY_VIDEO_MEMORY_INFO info;
+        dxgiAdapter3->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &info);
+        unsigned int memoryUsage = info.CurrentUsage;
+        ImGui::Text("VRAM: %u MiB", memoryUsage / 1024 / 1024);
+#endif
+    }
+
+    ImGui::End();
 }

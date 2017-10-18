@@ -22,9 +22,9 @@ class ProfilingManager {
     public:
         /// Begin profiling a frame.
         ENGINE_API void BeginFrame();
-        
-        /// Show the results of the profiling.
-        ENGINE_API void ShowResults();
+
+        /// End profiling a frame and collect the results.
+        ENGINE_API void EndFrame();
 
         /// Check whether %ProfilingManager is active.
         /**
@@ -37,6 +37,24 @@ class ProfilingManager {
          * @param active Active state.
          */
         ENGINE_API void SetActive(bool active);
+
+        /// Get number of frames being monitored.
+        /**
+         * @return The number of frames being stored.
+         */
+        ENGINE_API unsigned int GetFrameCount() const;
+
+        /// Get the measured CPU frame times.
+        /**
+         * @return The CPU frame times.
+         */
+        ENGINE_API const float* GetCPUFrameTimes() const;
+
+        /// Get the measured GPU frame times.
+        /**
+         * @return The GPU frame times.
+         */
+        ENGINE_API const float* GetGPUFrameTimes() const;
         
     private:
         ProfilingManager();

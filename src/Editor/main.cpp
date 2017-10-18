@@ -114,9 +114,11 @@ int main() {
             }
         }
         }
-
-        if (Managers().profilingManager->Active())
+        
+        if (Managers().profilingManager->Active()) {
+            Managers().profilingManager->EndFrame();
             profilingWindow.Show();
+        }
         
         ImGui::Render();
         
