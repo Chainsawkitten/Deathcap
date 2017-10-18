@@ -13,10 +13,12 @@ addons:
       - xorg-dev
       - libgl1-mesa-dev
       - libglu1-mesa-dev
+      - clang-format-3.9
 
 script:
 - cmake .
 - make -j4
+- "./scripts/clang-format/script.sh"
 
 before_deploy:
 - GITDATE="`git show -s --date=short --format='%ad' | sed 's/-//g'`"
