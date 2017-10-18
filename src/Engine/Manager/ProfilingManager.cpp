@@ -106,6 +106,28 @@ const float* ProfilingManager::GetGPUFrameTimes() const {
     return frameTimes[1];
 }
 
+ProfilingManager::Result* ProfilingManager::GetResult(Type type) const {
+    return root[type];
+}
+
+std::string ProfilingManager::TypeToString(ProfilingManager::Type type) {
+    switch (type) {
+    case ProfilingManager::CPU_TIME:
+        return "CPU time (ms)";
+        break;
+    case ProfilingManager::GPU_TIME_ELAPSED:
+        return "GPU time (ms)";
+        break;
+    case ProfilingManager::GPU_SAMPLES_PASSED:
+        return "GPU samples passed (number of fragments)";
+        break;
+    default:
+        assert(false);
+        return "ProfilingWindow::TypeToString warning: No valid type to string";
+        break;
+    }
+}
+
 ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name, Type type) {
     assert(active);
     assert(type != COUNT);
@@ -154,57 +176,6 @@ void ProfilingManager::FinishResult(Result* result, Type type) {
         queryMap[result]->End();
 
     current[type] = result->parent;
-}
-
-void ProfilingManager::ShowResult(Result* result) {
-    assert(active);
-
-    ImGui::AlignFirstTextHeightToWidgets();
-    int flags = result->children.empty() ? ImGuiTreeNodeFlags_Leaf : 0;
-    bool expanded = ImGui::TreeNodeEx(result->name.c_str(), flags);
-        
-    ImGui::NextColumn();
-    if (result->parent->parent != nullptr) {
-        ImGui::ProgressBar(result->value / result->parent->value, ImVec2(0.0f, 0.0f));
-        ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
-    }
-
-    ImGui::Text(std::to_string(result->value).c_str());
-    ImGui::NextColumn();
-
-    if (expanded) {
-        double otherTime = result->value;
-        for (Result& child : result->children) {
-            ShowResult(&child);
-            otherTime -= child.value;
-        }
-        
-        if (!result->children.empty()) {
-            Result other("Other", result);
-            other.value = otherTime;
-            ShowResult(&other);
-        }
-        
-        ImGui::TreePop();
-    }
-}
-
-std::string ProfilingManager::TypeToString(Type type) const {
-    switch (type) {
-        case ProfilingManager::CPU_TIME:
-            return "CPU time (ms)";
-            break;
-        case ProfilingManager::GPU_TIME_ELAPSED:
-            return "GPU time (ms)";
-            break;
-        case ProfilingManager::GPU_SAMPLES_PASSED:
-            return "GPU samples passed (number of fragments)";
-            break;
-        default:
-            assert(false);
-            return "ProfilingManager::TypeToString warning: No valid type to string";
-            break;
-    }
 }
 
 ProfilingManager::Result::Result(const std::string& name, Result* parent) : name (name) {

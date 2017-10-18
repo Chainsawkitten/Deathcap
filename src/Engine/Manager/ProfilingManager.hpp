@@ -20,6 +20,24 @@ class ProfilingManager {
     friend class GPUProfiling;
     
     public:
+        /// The type of profiling to perform.
+        enum Type {
+            CPU_TIME = 0,
+            GPU_TIME_ELAPSED,
+            GPU_SAMPLES_PASSED,
+            COUNT
+        };
+
+        /// A profiling result.
+        struct Result {
+            std::string name;
+            double value = 0.0;
+            std::list<Result> children;
+            Result* parent;
+
+            ENGINE_API Result(const std::string& name, Result* parent);
+        };
+
         /// Begin profiling a frame.
         ENGINE_API void BeginFrame();
 
@@ -55,6 +73,20 @@ class ProfilingManager {
          * @return The GPU frame times.
          */
         ENGINE_API const float* GetGPUFrameTimes() const;
+
+        /// Get profiling result.
+        /**
+         * @param type The type of profiling to get results for.
+         * @return The measured result.
+         */
+        ENGINE_API Result* GetResult(Type type) const;
+
+        /// Get the name of a type of profiling.
+        /**
+         * @param type The type of profiling.
+         * @return The name.
+         */
+        ENGINE_API static std::string TypeToString(Type type);
         
     private:
         ProfilingManager();
@@ -62,28 +94,10 @@ class ProfilingManager {
         ProfilingManager(ProfilingManager const&) = delete;
         void operator=(ProfilingManager const&) = delete;
         
-        enum Type {
-            CPU_TIME = 0,
-            GPU_TIME_ELAPSED,
-            GPU_SAMPLES_PASSED,
-            COUNT
-        };
-
-        struct Result {
-            std::string name;
-            double value = 0.0;
-            std::list<Result> children;
-            Result* parent;
-            
-            Result(const std::string& name, Result* parent);
-        };
-        
         Result* StartResult(const std::string& name, Type type);
         void FinishResult(Result* result, Type type);
         
         void ShowResult(Result* result);
-
-        std::string TypeToString(Type type) const;
 
         bool active;
         
