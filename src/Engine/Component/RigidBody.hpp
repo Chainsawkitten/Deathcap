@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 class btRigidBody;
 class PhysicsManager;
@@ -18,16 +19,16 @@ namespace Component {
 
         public:
             /// Constructor.
-            RigidBody() = default;
+            ENGINE_API RigidBody() = default;
 
             /// Destructor.
-            ~RigidBody();
+            ENGINE_API ~RigidBody();
 
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
 
         private:
             // Get the underlying Bullet rigid body. If none has been set,

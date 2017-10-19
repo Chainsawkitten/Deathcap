@@ -2,26 +2,27 @@
 
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Component {
     /// %Component handling a camera lens.
     class Lens : public SuperComponent {
         public:
             /// Create new lens.
-            Lens();
+            ENGINE_API Lens();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
 
             /// Get the projection matrix.
             /**
              * @param screenSize Screen size in pixels.
              * @return The projection matrix.
              */
-            glm::mat4 GetProjection(const glm::vec2& screenSize) const;
+            ENGINE_API glm::mat4 GetProjection(const glm::vec2& screenSize) const;
             
             /// Field of view, in degrees.
             /**

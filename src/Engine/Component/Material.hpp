@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 class TextureAsset;
 
@@ -9,16 +10,16 @@ namespace Component {
     class Material : public SuperComponent {
         public:
             /// Create new material.
-            Material();
+            ENGINE_API Material();
             
             /// Destructor.
-            ~Material() override;
+            ENGINE_API ~Material() override;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Albedo texture.
             TextureAsset* albedo;

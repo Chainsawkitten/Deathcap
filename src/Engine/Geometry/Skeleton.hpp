@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <map>
 #include <vector>
+#include "../linking.hpp"
 
 struct aiScene;
 struct aiNode;
@@ -18,35 +19,35 @@ class Skeleton {
         /**
          * The created skeleton has to be loaded later using Load.
          */
-        Skeleton();
+        ENGINE_API Skeleton();
         
         /// Create new skeleton.
         /**
          * @param aScene Pointer to assimp scene.
          */
-        Skeleton(const aiScene* aScene);
+        ENGINE_API Skeleton(const aiScene* aScene);
         
         /// Destructor.
-        ~Skeleton();
+        ENGINE_API ~Skeleton();
         
         /// Load skeleton.
         /**
          * @param aScene Pointer to assimp scene.
          */
-        void Load(const aiScene* aScene);
+        ENGINE_API void Load(const aiScene* aScene);
         
         /// Get bone index.
         /**
          * @param name Bone name.
          * @return Bone index, if not found -1.
          */
-        std::size_t FindBoneIndex(const std::string& name);
+        ENGINE_API std::size_t FindBoneIndex(const std::string& name);
         
         /// Get number of bones.
         /**
          * @return Number of bones.
          */
-        std::size_t GetNumBones() const;
+        ENGINE_API std::size_t GetNumBones() const;
         
         /// Animate skeleton.
         /**
@@ -54,27 +55,27 @@ class Skeleton {
          * @param animation Animation to animate skeleton.
          * @param timeInSeconds Time to find animation frame.
          */
-        void Animate(const Geometry::Animation* animation, const float timeInSeconds);
+        ENGINE_API void Animate(const Geometry::Animation* animation, const float timeInSeconds);
         
         /// Update skeleton to bind pose.
         /**
          * Use GetFinalTransformations after animation to get matrices.
          */
-        void BindPose();
+        ENGINE_API void BindPose();
         
         /// Get vector of transformations of skeleton.
         /**
          * Final transformations are updated when skeleton is animated.
          * @return Vector of bone transformations.
          */
-        const std::vector<glm::mat4>& GetFinalTransformations() const;
+        ENGINE_API const std::vector<glm::mat4>& GetFinalTransformations() const;
         
         /// Get vector of inverse transpose transformations of skeleton.
         /**
          * Final transformations are updated when skeleton is animated.
          * @return Vector of bone inverse transpose transformations.
          */
-        const std::vector<glm::mat3>& GetFinalTransformationsIT() const;
+        ENGINE_API const std::vector<glm::mat3>& GetFinalTransformationsIT() const;
         
     private:
         struct Node {

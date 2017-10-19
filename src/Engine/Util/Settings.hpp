@@ -3,6 +3,7 @@
 #include <SimpleIni.h>
 #include <string>
 #include <map>
+#include "../linking.hpp"
 
 /// Handles settings.
 class Settings {
@@ -12,56 +13,56 @@ class Settings {
          * @param settingName Setting name.
          * @return The value of the setting
          */
-        bool GetBool(const std::string& settingName);
+        ENGINE_API bool GetBool(const std::string& settingName);
         
         /// Set a bool setting.
         /**
          * @param settingName Setting name.
          * @param value Value to set it to.
          */
-        void SetBool(const std::string& settingName, bool value);
+        ENGINE_API void SetBool(const std::string& settingName, bool value);
         
         /// Get a long setting.
         /**
          * @param settingName Setting name.
          * @return The value of the setting
          */
-        long GetLong(const std::string& settingName);
+        ENGINE_API long GetLong(const std::string& settingName);
         
         /// Set a long setting.
         /**
          * @param settingName Setting name.
          * @param value Value to set it to.
          */
-        void SetLong(const std::string& settingName, long value);
+        ENGINE_API void SetLong(const std::string& settingName, long value);
         
         /// Get a double setting.
         /**
          * @param settingName Setting name.
          * @return The value of the setting
          */
-        double GetDouble(const std::string& settingName);
+        ENGINE_API double GetDouble(const std::string& settingName);
         
         /// Set a double setting.
         /**
          * @param settingName Setting name.
          * @param value Value to set it to.
          */
-        void SetDouble(const std::string& settingName, double value);
+        ENGINE_API void SetDouble(const std::string& settingName, double value);
         
         /// Get a string setting.
         /**
          * @param settingName Setting name.
          * @return The value of the setting
          */
-        std::string GetString(const std::string& settingName);
+        ENGINE_API std::string GetString(const std::string& settingName);
         
         /// Set a string setting.
         /**
          * @param settingName Setting name.
          * @param value Value to set it to.
          */
-        void SetString(const std::string& settingName, const std::string& value);
+        ENGINE_API void SetString(const std::string& settingName, const std::string& value);
         
         /// Save the settings to an INI file.
         virtual void Save() = 0;
@@ -77,7 +78,7 @@ class Settings {
          * @param key INI key.
          * @param defaultValue Default value.
          */
-        void AddBoolSetting(const std::string& settingName, const std::string& section, const std::string& key, bool defaultValue);
+        ENGINE_API void AddBoolSetting(const std::string& settingName, const std::string& section, const std::string& key, bool defaultValue);
         
         /// Add a long setting.
         /**
@@ -86,7 +87,7 @@ class Settings {
          * @param key INI key.
          * @param defaultValue Default value.
          */
-        void AddLongSetting(const std::string& settingName, const std::string& section, const std::string& key, long defaultValue);
+        ENGINE_API void AddLongSetting(const std::string& settingName, const std::string& section, const std::string& key, long defaultValue);
         
         /// Add a double setting.
         /**
@@ -95,7 +96,7 @@ class Settings {
          * @param key INI key.
          * @param defaultValue Default value.
          */
-        void AddDoubleSetting(const std::string& settingName, const std::string& section, const std::string& key, double defaultValue);
+        ENGINE_API void AddDoubleSetting(const std::string& settingName, const std::string& section, const std::string& key, double defaultValue);
         
         /// Add a string setting.
         /**
@@ -104,7 +105,7 @@ class Settings {
          * @param key INI key.
          * @param defaultValue Default value.
          */
-        void AddStringSetting(const std::string& settingName, const std::string& section, const std::string& key, const std::string& defaultValue);
+        ENGINE_API void AddStringSetting(const std::string& settingName, const std::string& section, const std::string& key, const std::string& defaultValue);
         
     private:
         struct BoolSetting {
