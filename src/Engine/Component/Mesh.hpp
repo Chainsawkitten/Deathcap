@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 namespace Video {
     namespace Geometry {
@@ -13,16 +14,16 @@ namespace Component {
     class Mesh : public SuperComponent {
         public:
             /// Create new mesh.
-            Mesh();
+            ENGINE_API Mesh();
             
             /// Destructor.
-            ~Mesh() override;
+            ENGINE_API ~Mesh() override;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
 
             /// Geometry data.
             /**
@@ -34,13 +35,13 @@ namespace Component {
             /**
              * @return Is this selected or not.
              */
-            bool GetSelected() const;
+            ENGINE_API bool GetSelected() const;
 
             /// Set mesh selection.
             /**
              * @param value If selected or not.
              */
-            void SetSelected(bool value);
+            ENGINE_API void SetSelected(bool value);
 
     private:        
         bool isSelected;

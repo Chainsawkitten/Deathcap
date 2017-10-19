@@ -2,22 +2,23 @@
 
 #include <Video/Geometry/Geometry3D.hpp>
 #include <Video/Geometry/VertexType/StaticVertex.hpp>
+#include "../linking.hpp"
 
 namespace Geometry {
     /// A cube.
     class Cube : public Video::Geometry::Geometry3D {
         public:
             /// Create new cube.
-            Cube();
+            ENGINE_API Cube();
             
             /// Destructor.
-            ~Cube() final;
+            ENGINE_API ~Cube() final;
             
             /// Get geometry type.
             /**
              * @return Type.
              */
-            Type GetType() const override;
+            ENGINE_API Type GetType() const override;
         
         protected:
             /// Generate vertex buffer.

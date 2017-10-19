@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include "../linking.hpp"
 
 class btCollisionShape;
 class PhysicsManager;
@@ -39,31 +40,31 @@ namespace Physics {
             /**
              * @param params Sphere specific parameters.
              */
-            Shape(const Sphere& params);
+            ENGINE_API Shape(const Sphere& params);
 
             /// Construct a plane shape.
             /**
              * @param params Plane specific parameters.
              */
-            Shape(const Plane& params);
+            ENGINE_API Shape(const Plane& params);
 
             /// Get the type of wrapped shape.
             /**
              * @return The type of shape.
              */
-            Kind GetKind() const;
+            ENGINE_API Kind GetKind() const;
 
             /// Get sphere data of the shape.
             /**
              * @return Sphere data, or nullptr if the shape is not a sphere.
              */
-            const Sphere* GetSphereData() const;
+            ENGINE_API const Sphere* GetSphereData() const;
 
             /// Get plane data of the shape.
             /**
              * @return Plane data, or nullptr if the shape is not a plane.
              */
-            const Plane* GetPlaneData() const;
+            ENGINE_API const Plane* GetPlaneData() const;
 
         private:
             /// Get the wrapped Bullet shape.
