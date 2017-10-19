@@ -148,6 +148,7 @@ target_link_libraries(bullet INTERFACE BulletDynamics BulletCollision LinearMath
 target_include_directories(bullet INTERFACE bullet3/src)
 
 # OpenVR
+set(BUILD_SHARED ON CACHE BOOL "Build OpenVR as shared library." FORCE)
 add_subdirectory(openvr)
 
 set(OpenVR_LIBRARY "openvr_api")
