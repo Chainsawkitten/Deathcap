@@ -1,16 +1,18 @@
 #pragma once
-#include <Engine/Geometry/AssetFileHandler.hpp>
-#include <Engine/Geometry/Model.hpp>
+
+#include "../Geometry/AssetFileHandler.hpp"
+#include "../Geometry/Model.hpp"
+#include "../linking.hpp"
 
 /// The class handling intersection checks.
 class RayIntersection {
     public:
 
         /// Constructor.
-        RayIntersection();
+        ENGINE_API RayIntersection();
 
         /// Destructor.
-        ~RayIntersection();
+        ENGINE_API ~RayIntersection();
 
         /// Checks whether a ray intersects with an OBB.
         /**
@@ -21,7 +23,7 @@ class RayIntersection {
          * @param outputDistance The distance to the entity that is tested to be used as a return value check.
          * @return Whether or not the ray intersects with the entity that is tested against.
          */
-        bool RayOBBIntersect(glm::vec3 rayOrigin,
+        ENGINE_API bool RayOBBIntersect(glm::vec3 rayOrigin,
             glm::vec3 rayDirection,
             Video::AxisAlignedBoundingBox meshData,
             glm::mat4 modelMatrix,
