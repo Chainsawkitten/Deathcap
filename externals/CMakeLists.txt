@@ -48,11 +48,12 @@ target_include_directories(${OPENAL_LIB} INTERFACE openal-soft/include)
 set(OPENAL_LIB ${OPENAL_LIB} PARENT_SCOPE)
 
 # JsonCpp
+set(BUILD_STATIC_LIBS OFF CACHE BOOL "Don't build statis JsonCpp" FORCE)
 set(JSONCPP_WITH_TESTS OFF CACHE BOOL "Don't build JsonCpp tests" FORCE)
 set(JSONCPP_WITH_POST_BUILD_UNITTEST OFF CACHE BOOL "Don't build JsonCpp unit tests" FORCE)
 set(JSONCPP_WITH_PKGCONFIG_SUPPORT OFF CACHE BOOL "Don't build JsonCpp with pkgconfig support" FORCE)
 add_subdirectory(jsoncpp)
-target_include_directories(jsoncpp_lib_static INTERFACE jsoncpp/include)
+target_include_directories(jsoncpp_lib INTERFACE jsoncpp/include)
 
 # Assimp
 set(ENABLE_BOOST_WORKAROUND ON CACHE BOOL "Building Assimp without boost" FORCE)
