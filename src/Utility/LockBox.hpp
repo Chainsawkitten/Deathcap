@@ -72,7 +72,7 @@ namespace Util {
             /**
              * @return Reference count.
              */
-            uint32_t RefCount();
+            uint32_t RefCount() const;
 
         private:
             struct Shared {
@@ -132,7 +132,7 @@ namespace Util {
         return false;
     }
 
-    template<typename T> uint32_t LockBox<T>::RefCount() {
+    template<typename T> uint32_t LockBox<T>::RefCount() const {
         return shared ? shared->refs : 0;
     }
 }
