@@ -191,7 +191,7 @@ SceneEditor& ResourceView::GetScene() {
     return sceneEditor;
 }
 
-void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path) {
+bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path) {
     bool opened = ImGui::TreeNode(folder.name.c_str());
     
     if (ImGui::BeginPopupContextItem(folder.name.c_str())) {
@@ -251,14 +251,27 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         /// @todo Remove folder.
-        
+        if (ImGui::Selectable("Remove Folder")) {
+            resourcePath = "";
+            parentFolder = nullptr;
+            folderNameWindow.SetVisible(false);
+            folder.resources.clear();
+            folder.subfolders.clear();
+            ImGui::EndPopup();
+            return true;
+        }
+
         ImGui::EndPopup();
     }
     
     if (opened) {
         // Show subfolders.
-        for (ResourceList::ResourceFolder& subfolder : folder.subfolders) {
-            ShowResourceFolder(subfolder, path + "/" + subfolder.name);
+        for (auto it = folder.subfolders.begin(); it != folder.subfolders.end(); ++it) {
+            if (ShowResourceFolder(*it, path + "/" + it->name)) {
+                folder.subfolders.erase(it);
+                ImGui::TreePop();
+                return false;
+            }
         }
         
         // Show resources.
@@ -266,7 +279,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             if (ShowResource(folder, *it, path)) {
                 folder.resources.erase(it);
                 ImGui::TreePop();
-                return;
+                return false;
             }
         }
         

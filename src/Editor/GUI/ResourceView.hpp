@@ -62,7 +62,7 @@ namespace GUI {
             SceneEditor& GetScene();
             
         private:
-            void ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path);
+            bool ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path);
             bool ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path);
             void FileNameWindowClosed(const std::string& name);
             
