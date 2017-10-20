@@ -49,3 +49,7 @@
 [submodule "externals/ImGuizmo"]
 	path = externals/ImGuizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo.git
+[submodule "externals/bullet3"]
+	path = externals/bullet3
+	url = https://github.com/Chainsawkitten/bullet3.git
+	branch = StaticLinking
