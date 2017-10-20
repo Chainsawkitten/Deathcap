@@ -654,9 +654,9 @@ void Editor::OpenHymnClosed(const std::string& hymn) {
     // Open hymn.
     if (!hymn.empty()) {
         std::string path = FileSystem::DataPath("Hymn to Beauty") + "/Hymns/" + hymn;
-        if (!FileSystem::FileExists((path + "/Hymn.json").c_str())) {
+        if (!FileSystem::FileExists((path + "/Hymn.json").c_str()))
             Log() << "Hymn does not exist: " << path << "\n";
-        } else {
+        else {
             resourceView.ResetScene();
             Hymn().Load(path);
             Resources().Clear();
