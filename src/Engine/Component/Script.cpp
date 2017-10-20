@@ -32,21 +32,14 @@ Json::Value Script::Save() const {
     for (auto &name_pair : propertyMap) {
 
         const std::string& name = name_pair.first;
-
         int typeId = name_pair.second.first;
         void* varPointer = name_pair.second.second;
-        if (typeId == asTYPEID_INT32){
-            component["propertyMap"][name][std::to_string(typeId)] = *(int*)varPointer;
-        }
-        else if (typeId == asTYPEID_FLOAT){
-            component["propertyMap"][name][std::to_string(typeId)] = *(float*)varPointer;
-        }
-        else if (typeId == Managers().scriptManager->GetStringDeclarationID()){
-            std::string *str = (std::string*)varPointer;
-            component["propertyMap"][name][std::to_string(typeId)] = *str;
-        }
-    }
+        int size = Managers().scriptManager->GetSizeOfASType(typeId, varPointer);
 
+        for (int i = 0; i < size; i++)
+            component["propertyMap"][name][std::to_string(typeId)][i] = ((unsigned char*)varPointer)[i];
+
+    }
     return component;
 }
 

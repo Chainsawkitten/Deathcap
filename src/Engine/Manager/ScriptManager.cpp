@@ -697,7 +697,9 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
                 int size = typeId_value[typeIds[0]].size();
                 script->propertyMap[name] = std::pair<int, void*>(typeId, malloc(size));
-                memcpy(script->propertyMap[name].second, typeId_value[typeIds[0]].asCString(), size);
+
+                for (int i = 0; i < size; i++)
+                    ((unsigned char*)script->propertyMap[name].second)[i] = typeId_value[typeIds[0]].asCString()[0];
 
             }
         }
