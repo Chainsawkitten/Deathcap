@@ -1,6 +1,6 @@
 {
-	"activeScene" : "Resources/TestScene",
-	"modelNumber" : 5,
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
+	"modelNumber" : 12,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -9,22 +9,6 @@
 			{
 				"scene" : "TestScene",
 				"type" : 0
-			},
-			{
-				"model" : "spak",
-				"type" : 1
-			},
-			{
-				"texture" : "Texture #0",
-				"type" : 2
-			},
-			{
-				"script" : "Player",
-				"type" : 4
-			},
-			{
-				"script" : "Lever",
-				"type" : 4
 			}
 		],
 		"subfolders" : 
@@ -53,10 +37,6 @@
 				"resources" : 
 				[
 					{
-						"script" : "Cart",
-						"type" : 4
-					},
-					{
 						"model" : "CartSecond",
 						"type" : 1
 					},
@@ -74,10 +54,6 @@
 					{
 						"model" : "Galler",
 						"type" : 1
-					},
-					{
-						"script" : "Gates",
-						"type" : 4
 					}
 				],
 				"subfolders" : null
@@ -92,11 +68,227 @@
 					}
 				],
 				"subfolders" : null
+			},
+			{
+				"name" : "Opening Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Opening Scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Cave",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "cave",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "cave_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Minecart",
+						"resources" : 
+						[
+							{
+								"script" : "Minecart",
+								"type" : 4
+							},
+							{
+								"script" : "Player",
+								"type" : 4
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "cart",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "cart_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Cate",
+						"resources" : null,
+						"subfolders" : null
+					},
+					{
+						"name" : "Lever",
+						"resources" : 
+						[
+							{
+								"script" : "Lever",
+								"type" : 4
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "leverbox",
+										"type" : 1
+									},
+									{
+										"model" : "leverFBX",
+										"type" : 1
+									},
+									{
+										"model" : "leverhandle",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "lever_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Gate",
+						"resources" : 
+						[
+							{
+								"script" : "Gates",
+								"type" : 4
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "barsfbx",
+										"type" : 1
+									},
+									{
+										"model" : "gateFBX",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "gate_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "gate_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "gate_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "gate_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					}
+				]
 			}
 		]
 	},
-	"sceneNumber" : 1,
+	"sceneNumber" : 2,
 	"scriptNumber" : 0,
 	"soundNumber" : 0,
-	"textureNumber" : 4
+	"textureNumber" : 20
 }
