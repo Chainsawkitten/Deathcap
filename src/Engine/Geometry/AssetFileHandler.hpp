@@ -6,6 +6,7 @@
 #include <vector>
 #include <Video/Geometry/VertexType/StaticVertex.hpp>
 #include <Video/Geometry/VertexType/SkinVertex.hpp>
+#include "../linking.hpp"
 
 namespace Geometry {
     /// Handler for .asset format.
@@ -57,48 +58,48 @@ namespace Geometry {
             const uint16_t SUPPORTED_FROM = 1;
 
             /// Default constructor.
-            AssetFileHandler();
+            ENGINE_API AssetFileHandler();
 
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              * @param mode Use READ or WRITE.
              */
-            AssetFileHandler(const char* filepath, Mode mode = READ);
+            ENGINE_API AssetFileHandler(const char* filepath, Mode mode = READ);
 
             /// Destructor.
-            ~AssetFileHandler();
+            ENGINE_API ~AssetFileHandler();
 
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
              */
-            bool Open(const char* filepath, Mode mode = READ);
+            ENGINE_API bool Open(const char* filepath, Mode mode = READ);
 
             /// Close the opened file and clear data.
-            void Close();
+            ENGINE_API void Close();
 
             /// Clear current data.
-            void Clear();
+            ENGINE_API void Clear();
 
             /// Load a mesh into memory.
             /**
             * @param Id of the mesh. Use GetNumMeshes() to get the number of meshes.
             */
-            void LoadMeshData(int meshID);
+            ENGINE_API void LoadMeshData(int meshID);
 
             /// Get static vertex data of a mesh.
             /**
              * First load a mesh into memory by using LoadMeshData().
              * @return Static mesh data.
              */
-            MeshData * GetStaticMeshData();
+            ENGINE_API MeshData * GetStaticMeshData();
 
             /// Save the meshdata.
-           /**
+            /**
             * @param meshData Static mesh data.
             */
-            void SaveStaticMesh(MeshData * meshData);
+            ENGINE_API void SaveStaticMesh(MeshData * meshData);
 
         private:
             void ReadGlobalHeader();

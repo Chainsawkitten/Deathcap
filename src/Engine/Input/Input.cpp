@@ -2,6 +2,11 @@
 
 #include <cstring>
 
+Input& Input::GetInstance() {
+    static Input instance;
+    return instance;
+}
+
 void Input::SetWindow(GLFWwindow* window) {
     this->window = window;
 }

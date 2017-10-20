@@ -3,21 +3,22 @@
 #include "SteamAudioIndirectRenderer.hpp"
 #include <vector>
 #include <cstdint>
+#include "../linking.hpp"
 
 //Note to self: Might just merge this shit with the interface class.
 /// Main Steam Audio class for processing audio samples
 class SteamAudio {
     public:
 
-        SteamAudio();
+        ENGINE_API SteamAudio();
 
         /**
         * @param context The Steam Audio context.
         * @param environment Handle to the Environment object to use.
         */
-        SteamAudio(IPLContext* context, IPLhandle* environment);
+        ENGINE_API SteamAudio(IPLContext* context, IPLhandle* environment);
 
-        ~SteamAudio();
+        ENGINE_API ~SteamAudio();
 
         /// Processes the audio with both indirect and direct methods and mixes them together.
         /**
@@ -28,14 +29,14 @@ class SteamAudio {
         * @param sourcePos The position of the audio source.
         * @param sourceRadius The radius of the source, for calculating occlusion.
         */
-        void Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
+        ENGINE_API void Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
 
         /// Mixes and returns the final buffer, ready to be played.
         /**
          * @param finalBuf Pointer to an empty buffer.
          * @param numSamples The number of samples in the final buffer.
          */
-        void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples);
+        ENGINE_API void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples);
 
     private:
 

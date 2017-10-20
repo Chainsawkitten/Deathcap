@@ -2,6 +2,7 @@
 
 #include "SuperComponent.hpp"
 #include "../Geometry/Model.hpp"
+#include "../linking.hpp"
 
 namespace Geometry {
     class Model;
@@ -12,13 +13,13 @@ namespace Component {
     class Animation : public SuperComponent {
         public:
             /// Create new %Animation component.
-            Animation();
+            ENGINE_API Animation();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Rigged model to animate.
             /**

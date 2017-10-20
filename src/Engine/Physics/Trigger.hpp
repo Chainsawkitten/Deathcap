@@ -3,6 +3,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include "../linking.hpp"
 
 class PhysicsManager;
 
@@ -20,7 +21,7 @@ namespace Physics {
             /**
              * @param transform The world transform of the trigger volume.
              */
-            Trigger(const btTransform& transform);
+            ENGINE_API Trigger(const btTransform& transform);
 
         private:
             // Get the wrapped Bullet collision object.

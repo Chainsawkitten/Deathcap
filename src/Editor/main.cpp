@@ -18,6 +18,7 @@
 #include <thread>
 #include "ImGui/OpenGLImplementation.hpp"
 #include <imgui.h>
+#include "GUI/ProfilingWindow.hpp"
 
 int main() {
     // Enable logging if requested.
@@ -46,6 +47,7 @@ int main() {
     ImGuiImplementation::Init(window->GetGLFWWindow());
     
     bool profiling = false;
+    GUI::ProfilingWindow profilingWindow;
     
     // Main loop.
     double targetFPS = 60.0;
@@ -112,9 +114,11 @@ int main() {
             }
         }
         }
-
-        if (Managers().profilingManager->Active())
-            Managers().profilingManager->ShowResults();
+        
+        if (Managers().profilingManager->Active()) {
+            Managers().profilingManager->EndFrame();
+            profilingWindow.Show();
+        }
         
         ImGui::Render();
         
