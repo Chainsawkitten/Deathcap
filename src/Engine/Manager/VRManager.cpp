@@ -144,7 +144,7 @@ glm::mat4 VRManager::GetHandleTransformation(int controlID, Entity* entity)
         glm::vec4(ctrlRight, 0.0f),
         glm::vec4(ctrlUp, 0.0f),
         glm::vec4(ctrlForward, 0.0f),
-        glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)
+        glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)
     );
 
     glm::vec3 localPosition = ctrlPosition * GetScale();
