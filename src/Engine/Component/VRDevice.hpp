@@ -30,6 +30,15 @@ namespace Component {
              */
             glm::mat4 HandleTransformation(Entity* entity);
 
+            /// Returns the projection matrix to use for the specified eye.
+            /**
+            * @param eye Which eye the function should return the eye matrix for.
+            * @param zNear Distance to the near clip plane in meters.
+            * @param zFar Distance to the far clip plane in meters.
+            * @return The projection matrix.
+            */
+            glm::mat4 GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float zFar) const;
+
             /// Handles all VR controller inputs (class for future implementations)
             /**
              * @param buttonID The id of the button to be handled.

@@ -116,7 +116,11 @@ void RenderManager::Render(World& world, Entity* camera) {
 
                     glm::vec3 position = camera->GetWorldPosition();
                     Lens* lens = camera->GetComponent<Lens>();
-                    const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
+
+                    VRDevice* headset = camera->GetComponent<VRDevice>();
+
+                    //const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
+                    const glm::mat4 projectionMat = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
                     glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
                     glm::mat4 eyeTranslation = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
