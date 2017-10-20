@@ -54,6 +54,33 @@
 			},
 			"Script" : 
 			{
+				"propertyMap" : 
+				{
+					"a" : 
+					{
+						"10" : 0.35555556416511536
+					},
+					"b" : 
+					{
+						"10" : 0.0
+					},
+					"c" : 
+					{
+						"10" : 20.0
+					},
+					"endTime" : 
+					{
+						"10" : 7.5
+					},
+					"speed" : 
+					{
+						"10" : 0.0
+					},
+					"stopTime" : 
+					{
+						"10" : 0.0
+					}
+				},
 				"scriptName" : "Resources/Minecart/Cart"
 			},
 			"Shape" : 

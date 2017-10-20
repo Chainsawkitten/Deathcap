@@ -548,29 +548,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
 
-                if (it != script->propertyMap.end()){
-
-                    if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId) {
-
-                        //memcpy(varPointer, &(script->propertyMap[script->instance->GetPropertyName(n)].second), sizeof(int));
-
-                        if (typeId == asTYPEID_INT32){
-                            int* propertyPointer = static_cast<int*>(varPointer);
-                            *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        } else if (typeId == asTYPEID_FLOAT){
-                            float* propertyPointer = static_cast<float*>(varPointer);
-                            *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        } else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
-
-                            std::string *str = (std::string*)varPointer;
-                            if (str) {
-
-                                *str = *(std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-
-                            }
-                        }
-                    }
-                }
+                if (it != script->propertyMap.end())
+                    if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId)
+                        memcpy(varPointer, script->propertyMap[script->instance->GetPropertyName(n)].second, GetSizeOfASType(typeId, script->propertyMap[script->instance->GetPropertyName(n)].second));
+   
             }
         }
     }
@@ -713,18 +694,11 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
                 int typeId = std::atoi(typeIds[0].c_str());
-                if (typeId == asTYPEID_INT32){
-                    int* value = new int(typeId_value[typeIds[0]].asInt());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
-                }
-                else if (typeId == asTYPEID_FLOAT){
-                    float* value = new float(typeId_value[typeIds[0]].asFloat());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
-                }
-                else if (typeId == engine->GetTypeIdByDecl("string")){
-                    std::string* value = new std::string(typeId_value[typeIds[0]].asString());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
-                }
+
+                int size = typeId_value[typeIds[0]].size();
+                script->propertyMap[name] = std::pair<int, void*>(typeId, malloc(size));
+                memcpy(script->propertyMap[name].second, typeId_value[typeIds[0]].asCString(), size);
+
             }
         }
     }
@@ -740,15 +714,11 @@ int ScriptManager::GetStringDeclarationID() {
 
 int ScriptManager::GetSizeOfASType(int typeID, void* value) {
 
-    switch (typeID) {
-
-    asTYPEID_INT32:
+   
+    if(typeID == asTYPEID_INT32)
         return sizeof(int);
-    asTYPEID_FLOAT:
-        return sizeof(int);
-
-    }
-
+    if(typeID == asTYPEID_FLOAT)
+        return sizeof(float);
     if (typeID == engine->GetTypeIdByDecl("string")) {
     
         std::string string(*(std::string*)value);
