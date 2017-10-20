@@ -685,6 +685,7 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
         Json::Value propertyMapJson = node.get("propertyMap", "");
         std::vector<std::string> names = propertyMapJson.getMemberNames();
+        std::string json = propertyMapJson.toStyledString();
 
         for (const auto& name : names) {
 
@@ -694,13 +695,16 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
                 int typeId = std::atoi(typeIds[0].c_str());
-
                 int size = typeId_value[typeIds[0]].size();
-                script->propertyMap[name] = std::pair<int, void*>(typeId, malloc(size));
 
-                for (int i = 0; i < size; i++)
-                    ((unsigned char*)script->propertyMap[name].second)[i] = typeId_value[typeIds[0]].asCString()[0];
+                if (size != -1) {
 
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, malloc(size + 1));
+
+                    for (int i = 0; i < size; i++)
+                        ((unsigned char*)script->propertyMap[name].second)[i] = unsigned char(typeId_value[typeIds[0]][i].asInt());
+
+                }
             }
         }
     }
@@ -721,12 +725,6 @@ int ScriptManager::GetSizeOfASType(int typeID, void* value) {
         return sizeof(int);
     if(typeID == asTYPEID_FLOAT)
         return sizeof(float);
-    if (typeID == engine->GetTypeIdByDecl("string")) {
-    
-        std::string string(*(std::string*)value);
-        return string.length();
-    
-    }
 
     return -1;
 
