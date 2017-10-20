@@ -125,6 +125,13 @@ class ScriptManager {
         
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
+
+        /// Execute a method on a script.
+        /**
+         * @param entity Target entity whose script will be run.
+         * @param method Method to call.
+         */
+        ENGINE_API void ExecuteScriptMethod(const Entity* entity, const std::string& method);
         
         /// The entity currently being executed.
         Entity* currentEntity;
