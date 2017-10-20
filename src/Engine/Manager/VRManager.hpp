@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <openvr.h>
 #include "../Entity/ComponentContainer.hpp"
+#include "Engine/Component/VRDevice.hpp"
 
 namespace Component {
     class VRDevice;
@@ -71,6 +72,14 @@ class VRManager {
          */
         glm::mat4 GetHMDEyeToHeadMatrix(vr::Hmd_Eye eye) const;
 
+        /// Get's the VR controller's transformation matrix
+        /**
+        * @param The entity who's controller it is we're handling.
+        * @return The transformation matrix.
+        */
+        glm::mat4 GetHandleTransformation(int controlID, Entity* entity);
+
+
         /// Returns the projection matrix to use for the specified eye.
         /**
          * @param eye Which eye the function should return the eye matrix for.
@@ -108,6 +117,7 @@ class VRManager {
 
         /// Remove all killed components.
         void ClearKilledComponents();
+
 
     private:
         VRManager();
