@@ -43,7 +43,7 @@ class Cart{
         // Braking phase
         if (hasHitPlane && stopTime < endTime){
             stopTime += deltaTime;
-            float t = stopTime;
+            float t = stopTime; //Break
             float zPos = a * t * t * t / 3.0f + b * t * t / 2.0f + c * t;
             self.position.z = 450.0f - zPos;
         }
