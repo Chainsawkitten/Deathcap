@@ -203,7 +203,7 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add scene.
-        if (ImGui::Selectable("Add scene")) {
+        else if (ImGui::Selectable("Add scene")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::SCENE;
             resource.scene = new string("Scene #" + std::to_string(Resources().sceneNumber++));
@@ -211,7 +211,7 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add model.
-        if (ImGui::Selectable("Add model")) {
+        else if (ImGui::Selectable("Add model")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::MODEL;
             resource.model = new Geometry::Model();
@@ -221,7 +221,7 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add texture.
-        if (ImGui::Selectable("Add texture")) {
+        else if (ImGui::Selectable("Add texture")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::TEXTURE;
             string name = path + "/Texture #" + std::to_string(Resources().textureNumber++);
@@ -230,7 +230,7 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add script.
-        if (ImGui::Selectable("Add script")) {
+        else if (ImGui::Selectable("Add script")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::SCRIPT;
             resource.script = new ScriptFile();
@@ -241,7 +241,7 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add sound.
-        if (ImGui::Selectable("Add sound")) {
+        else if (ImGui::Selectable("Add sound")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::SOUND;
             resource.sound = new Audio::SoundBuffer();
@@ -251,9 +251,11 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Remove Folder.
-        if (folder.subfolders.empty() && folder.resources.empty()) {
+        else if (folder.subfolders.empty() && folder.resources.empty()) {
             if (ImGui::Selectable("Remove Folder")) {
                 ImGui::EndPopup();
+                if (opened)
+                    ImGui::TreePop();
                 return true;
             }
         }
