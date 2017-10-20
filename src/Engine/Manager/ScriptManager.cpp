@@ -102,6 +102,10 @@ bool IsIntersect(Entity* checker, Entity* camera) {
     return false;
 }
 
+bool IsVRActive() {
+    return Managers().vrManager->Active();
+}
+
 void vec2Constructor(float x, float y, void* memory) {
     glm::vec2* vec = static_cast<glm::vec2*>(memory);
     vec->x = x;
@@ -364,6 +368,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool IsVRActive()", asFUNCTION(IsVRActive), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {

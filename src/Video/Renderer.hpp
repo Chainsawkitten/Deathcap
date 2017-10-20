@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "Lighting/Light.hpp"
+#include "linking.hpp"
 
 namespace Video {
     class StaticRenderProgram;
@@ -24,17 +25,17 @@ namespace Video {
     class Renderer {
         public:
             /// Create new renderer.
-            Renderer();
+            VIDEO_API Renderer();
             
             /// Destructor.
-            ~Renderer(); 
+            VIDEO_API ~Renderer();
 
             /// Prepare for depth rendering static meshes.
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
              */
-            void PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            VIDEO_API void PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
             /// Render a static mesh.
             /**
@@ -43,20 +44,20 @@ namespace Video {
              * @param projectionMatrix The camera's projection matrix.
              * @param modelMatrix Model matrix.
              */
-            void DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix);
+            VIDEO_API void DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix);
             
             /// Start rendering the frame.
             /**
              * @param renderSurface %RenderSurface to render to.
              */
-            void StartRendering(RenderSurface* renderSurface);
+            VIDEO_API void StartRendering(RenderSurface* renderSurface);
             
             /// Prepare for rendering static meshes.
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
              */
-            void PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            VIDEO_API void PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
             
             /// Render a static mesh.
             /**
@@ -68,19 +69,19 @@ namespace Video {
              * @param modelMatrix Model matrix.
              * @param isSelected Whether model is selected(should be highlighted) or not.
              */
-            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
+            VIDEO_API void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
 
             /// Update light buffer.
             /**
              * @param lights Vector of lights to push to the light buffer.
              */
-            void SetLights(const std::vector<Video::Light>& lights);
+            VIDEO_API void SetLights(const std::vector<Video::Light>& lights);
             
             /// Anti-alias using FXAA.
             /**
              * @param renderSurface %RenderSurface to apply filter to.
              */
-            void AntiAlias(RenderSurface* renderSurface);
+            VIDEO_API void AntiAlias(RenderSurface* renderSurface);
             
             /// Render fog.
             /**
@@ -89,27 +90,27 @@ namespace Video {
              * @param density The density of the fog.
              * @param color Color.
              */
-            void RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
+            VIDEO_API void RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
             
             /// Apply glow effect.
             /**
              * @param renderSurface %RenderSurface to apply filter to.
              * @param blurAmount How many times to blur the glow buffer.
              */
-            void ApplyGlow(RenderSurface* renderSurface, int blurAmount);
+            VIDEO_API void ApplyGlow(RenderSurface* renderSurface, int blurAmount);
             
             /// Apply a color filter.
             /**
              * @param renderSurface %RenderSurface to apply filter to.
              * @param color Color.
              */
-            void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
+            VIDEO_API void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
             /// Display the rendered results to back buffer.
             /**
              * @param renderSurface %RenderSurface to present to back buffer.
              */
-            void Present(RenderSurface* renderSurface);
+            VIDEO_API void Present(RenderSurface* renderSurface);
             
             /// Begin rendering icons.
             /**
@@ -118,7 +119,7 @@ namespace Video {
              * @param cameraPosition The camera's position.
              * @param cameraUp The camera's up vector.
              */
-            void PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp);
+            VIDEO_API void PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp);
             
             /// Render a billboarded icon.
             /**
@@ -126,13 +127,13 @@ namespace Video {
              * @param position World position to render at.
              * @param icon The icon to render.
              */
-            void RenderIcon(const glm::vec3& position, const Texture2D* icon);
+            VIDEO_API void RenderIcon(const glm::vec3& position, const Texture2D* icon);
             
             /// Stop rendering icons.
             /**
              * Should be called after all icons have been rendered.
              */
-            void StopRenderingIcons();
+            VIDEO_API void StopRenderingIcons();
             
         private:
             Renderer(const Renderer & other) = delete;
