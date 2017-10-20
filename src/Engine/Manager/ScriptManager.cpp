@@ -132,6 +132,10 @@ bool IsIntersect(Entity* checker, Entity* camera) {
     return false;
 }
 
+bool IsVRActive() {
+    return Managers().vrManager->Active();
+}
+
 void vec2Constructor(float x, float y, void* memory) {
     glm::vec2* vec = static_cast<glm::vec2*>(memory);
     vec->x = x;
@@ -394,6 +398,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool IsVRActive()", asFUNCTION(IsVRActive), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {
@@ -736,6 +741,33 @@ const std::vector<Component::Script*>& ScriptManager::GetScripts() const {
 
 void ScriptManager::ClearKilledComponents() {
     scripts.ClearKilled();
+}
+
+void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string& method) {
+    Component::Script* script = entity->GetComponent<Component::Script>();
+    if (!script)
+        return;
+    ScriptFile* scriptFile = script->scriptFile;
+
+    // Get class.
+    asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
+
+    // Find method to call.
+    std::string methodDecl;
+    methodDecl.reserve(method.length() + 7); // additional `void ` and `()`
+    methodDecl.append("void ").append(method).append("()");
+    asIScriptFunction* scriptMethod = type->GetMethodByDecl(methodDecl.c_str());
+    if (scriptMethod == nullptr)
+        Log() << "Can't find method void " << method << "()\n";
+
+    // Create context, prepare it and execute.
+    asIScriptContext* context = engine->CreateContext();
+    context->Prepare(scriptMethod);
+    context->SetObject(script->instance);
+    ExecuteCall(context);
+
+    // Clean up.
+    context->Release();
 }
 
 void ScriptManager::CreateInstance(Component::Script* script) {
