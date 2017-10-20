@@ -299,7 +299,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         // Delete scene.
         if (ImGui::BeginPopupContextItem(resource.scene->c_str())) {
             if (ImGui::Selectable("Delete")) {
-                if (Resources().activeScene == *resource.scene) {
+                if (Resources().activeScene == path + "/" + *resource.scene) {
                     Resources().activeScene = "";
                     sceneEditor.SetScene("", nullptr);
                 }
