@@ -4,6 +4,7 @@ set(SRCS
 
 set(HEADERS
         linking.hpp
+        LockBox.hpp
         Log.hpp
     )
 
