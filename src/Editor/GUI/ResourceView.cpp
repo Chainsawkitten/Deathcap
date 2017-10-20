@@ -250,17 +250,13 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             folder.resources.push_back(resource);
         }
         
-        /// @todo Remove folder.
-        if (ImGui::Selectable("Remove Folder")) {
-            resourcePath = "";
-            parentFolder = nullptr;
-            folderNameWindow.SetVisible(false);
-            folder.resources.clear();
-            folder.subfolders.clear();
-            ImGui::EndPopup();
-            return true;
+        // Remove Folder.
+        if (folder.subfolders.empty() && folder.resources.empty()) {
+            if (ImGui::Selectable("Remove Folder")) {
+                ImGui::EndPopup();
+                return true;
+            }
         }
-
         ImGui::EndPopup();
     }
     
@@ -285,6 +281,7 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         
         ImGui::TreePop();
     }
+    return false;
 }
 
 bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path) {
