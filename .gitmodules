@@ -52,4 +52,4 @@
 [submodule "externals/bullet3"]
 	path = externals/bullet3
 	url = https://github.com/Chainsawkitten/bullet3.git
-	branch = StaticLinking
+	branch = LargeGameProject
