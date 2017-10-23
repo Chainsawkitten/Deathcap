@@ -257,16 +257,9 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
-                VRDevice* controller = entity->GetComponent<VRDevice>();
                 // If entity does not have material, it won't be rendered.
-                if (entity->GetComponent<Material>() != nullptr) {
-                    if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
-                        renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, ctrlModelMatrix);
-                    }
-                    else
-                        renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
-                }
+                if (entity->GetComponent<Material>() != nullptr)
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
             }
         }
     }
@@ -294,15 +287,8 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
-                VRDevice* controller = entity->GetComponent<VRDevice>();
-                if (material != nullptr) {
-                    if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
-                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), ctrlModelMatrix, false);
-                    }
-                    else
-                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
-                }
+                if (material != nullptr)
+                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
             }
         }
     }
