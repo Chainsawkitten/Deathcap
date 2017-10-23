@@ -1,11 +1,14 @@
 #include "ShaderProgram.hpp"
 
 #include "Shader.hpp"
+#include "Utility/Log.hpp"
 
 using namespace Video;
 
 ShaderProgram::ShaderProgram(std::initializer_list<const Shader*> shaders) {
     shaderProgram = glCreateProgram();
+
+    Log() << shaderProgram + "\n";
     
     for (const Shader* shader : shaders)
         glAttachShader(shaderProgram, shader->GetShaderID());

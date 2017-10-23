@@ -304,10 +304,10 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     }
     }
     }
-    renderSurface->GetShadingFrameBuffer()->Unbind();
-
-    // Render skinned meshes.
-    renderSurface->GetShadingFrameBuffer()->BindWrite();
+//    renderSurface->GetShadingFrameBuffer()->Unbind();
+//
+//    // Render skinned meshes.
+//    renderSurface->GetShadingFrameBuffer()->BindWrite();
     { PROFILE("Render skinned meshes");
     { GPUPROFILE("Render skinned meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render skinned meshes", Video::Query::Type::SAMPLES_PASSED);
