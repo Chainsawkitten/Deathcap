@@ -66,7 +66,7 @@ void VRManager::Update() {
         if (vrDevice->type == Component::VRDevice::CONTROLLER) {
             // Update controller transformation.
             glm::mat4 transform = GetControllerPoseMatrix(vrDevice->controllerID);
-            glm::vec3 position = glm::vec3(-transform[3][0], -transform[3][1], -transform[3][2]);
+            glm::vec3 position = glm::vec3(transform[3][0], transform[3][1], transform[3][2]);
             
             /// @todo Update rotation.
             
@@ -122,10 +122,10 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
         if (role == vr::ETrackedControllerRole::TrackedControllerRole_Invalid)
             continue;
         else if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
-            return glm::inverse(deviceTransforms[untrackedDevice]);
+            return deviceTransforms[untrackedDevice];
         }
         else if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
-            return glm::inverse(deviceTransforms[untrackedDevice]);
+            return deviceTransforms[untrackedDevice];
         }
     }
 
