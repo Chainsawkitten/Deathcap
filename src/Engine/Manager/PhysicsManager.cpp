@@ -181,6 +181,12 @@ Utility::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(std::shared_ptr
     return Utility::LockBox<Physics::Trigger>(triggerLockBoxKey, trigger);
 }
 
+void PhysicsManager::SetPosition(Utility::LockBox<Physics::Trigger> trigger, const glm::vec3& position) {
+    trigger.Open(triggerLockBoxKey, [&position](Physics::Trigger& trigger) {
+        trigger.SetPosition(Physics::glmToBt(position));
+    });
+}
+
 void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape) {
     comp->SetShape(shape);
 }
