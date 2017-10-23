@@ -3,6 +3,7 @@
 #include <functional>
 #include <glm/glm.hpp>
 #include <memory>
+#include <Utility/LockBox.hpp>
 #include <vector>
 #include "../Entity/ComponentContainer.hpp"
 #include "../linking.hpp"
@@ -98,6 +99,15 @@ class PhysicsManager {
          */
         ENGINE_API Component::Shape* CreateShape(Entity* owner, const Json::Value& node);
 
+        /// Create a trigger volume that can be used to check intersection
+        /// events against physics bodies.
+        /**
+         * @param comp Rigid body that represents the volume. This is intended
+         * to be changed to a pure shape in the future.
+         * @return A reference to the internal trigger.
+         */
+        ENGINE_API Util::LockBox<Physics::Trigger> CreateTrigger(Component::RigidBody* comp);
+
         /// Set the shape of a given Component::Shape component.
         /**
          * @param comp The component on which to set the shape.
@@ -127,8 +137,6 @@ class PhysicsManager {
         PhysicsManager(PhysicsManager const&) = delete;
         void operator=(PhysicsManager const&) = delete;
 
-        ::Physics::Trigger* MakeTrigger(Component::RigidBody* comp);
-
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
 
         ComponentContainer<Component::RigidBody> rigidBodyComponents;
@@ -140,5 +148,6 @@ class PhysicsManager {
         btSequentialImpulseConstraintSolver* solver = nullptr;
         btDiscreteDynamicsWorld* dynamicsWorld = nullptr;
 
+        std::shared_ptr<Util::LockBox<Physics::Trigger>::Key> triggerLockBoxKey;
         std::vector<::Physics::Trigger*> triggers;
 };
