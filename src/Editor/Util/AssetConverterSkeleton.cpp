@@ -1,5 +1,6 @@
 #include "AssetConverterSkeleton.hpp"
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <Engine/Geometry/MathFunctions.hpp>
 #include <Utility/Log.hpp>
 
@@ -37,9 +38,9 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
         Animation::Skeleton skeleton;
         for (unsigned int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
-            Animation::Skeleton::SkeletonBone bone;
-            bone.parentId = (uint32_t)parents[i];
-
+            Animation::Skeleton::SkeletonBone * bone = new Animation::Skeleton::SkeletonBone;
+            bone->parentId = (uint32_t)parents[i];
+            Log() << parents[i] << "\n";
             // Rotation, local.
             glm::quat rot;
             rot.x = channel->mRotationKeys[0].mValue.x;
@@ -47,9 +48,30 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
             rot.z = channel->mRotationKeys[0].mValue.z;
             rot.w = channel->mRotationKeys[0].mValue.w;
 
-            bone.localTx = glm::mat4(rot);
+            Log() << channel->mRotationKeys[0].mValue.x << "\n";
+            Log() << channel->mRotationKeys[0].mValue.y << "\n";
+            Log() << channel->mRotationKeys[0].mValue.z << "\n";
+            Log() << channel->mRotationKeys[0].mValue.w << "\n";
 
-            skeleton.skeletonBones.push_back(&bone);
+            glm::mat4 modelMatrix(1.0f);
+            glm::vec3 pos;
+
+            pos.x = channel->mPositionKeys[0].mValue.x;
+            pos.y = channel->mPositionKeys[0].mValue.y;
+            pos.z = channel->mPositionKeys[0].mValue.z;
+            modelMatrix = glm::translate(modelMatrix, pos);
+
+            bone->localTx = glm::transpose(modelMatrix);
+            
+
+            Log() << "Matrix Matrix Matrix\n";
+            Log() << "[" << bone->localTx[0][0] << "\t" << bone->localTx[0][1] << "\t" << bone->globalTx[0][2] << "\t" << bone->localTx[0][3] << "]\n";
+            Log() << "[" << bone->localTx[1][0] << "\t" << bone->localTx[1][1] << "\t" << bone->globalTx[1][2] << "\t" << bone->localTx[1][3] << "]\n";
+            Log() << "[" << bone->localTx[2][0] << "\t" << bone->localTx[2][1] << "\t" << bone->globalTx[2][2] << "\t" << bone->localTx[2][3] << "]\n";
+            Log() << "[" << bone->localTx[3][0] << "\t" << bone->localTx[3][1] << "\t" << bone->globalTx[3][2] << "\t" << bone->localTx[3][3] << "]\n";
+            Log() << "\n\n\n";
+
+            skeleton.skeletonBones.push_back(bone);
         }
 
         // Save to file.

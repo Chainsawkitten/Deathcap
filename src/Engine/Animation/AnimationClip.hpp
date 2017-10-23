@@ -44,7 +44,6 @@ namespace Animation {
                     rotationKeys = new int32_t[numRotationKeys];
                     file->read(reinterpret_cast<char*>(rotationKeys), sizeof(int32_t) * numRotationKeys);
 
-
                     if (rotationKeys != nullptr) 
                         delete[] rotationKeys;
 

@@ -12,9 +12,24 @@ namespace Animation {
         public:
             struct SkeletonBone {
                 glm::mat4 localTx;
-                glm::mat4 globalTx = glm::mat4(1.0f);
-                glm::mat4 inversed = glm::mat4(1.0f);
-                uint32_t parentId = 0;
+                glm::mat4 globalTx;
+                glm::mat4 inversed;
+                uint32_t parentId;
+
+                void Save(std::ofstream * file) {
+                    file->write(reinterpret_cast<char*>(&localTx), sizeof(glm::mat4));
+                    file->write(reinterpret_cast<char*>(&globalTx), sizeof(glm::mat4));
+                    file->write(reinterpret_cast<char*>(&inversed), sizeof(glm::mat4));
+                    file->write(reinterpret_cast<char*>(&parentId), sizeof(uint32_t));
+                }
+
+                void Load(std::ifstream * file) {
+                    file->read(reinterpret_cast<char*>(&localTx), sizeof(glm::mat4));
+                    file->read(reinterpret_cast<char*>(&globalTx), sizeof(glm::mat4));
+                    file->read(reinterpret_cast<char*>(&inversed), sizeof(glm::mat4));
+                    file->read(reinterpret_cast<char*>(&parentId), sizeof(uint32_t));
+                }
+
             };
 
             /// Constructor.

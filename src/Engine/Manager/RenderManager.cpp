@@ -304,10 +304,10 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     }
     }
     }
-//    renderSurface->GetShadingFrameBuffer()->Unbind();
-//
-//    // Render skinned meshes.
-//    renderSurface->GetShadingFrameBuffer()->BindWrite();
+    renderSurface->GetShadingFrameBuffer()->Unbind();
+
+    // Render skinned meshes.
+    renderSurface->GetShadingFrameBuffer()->BindWrite();
     { PROFILE("Render skinned meshes");
     { GPUPROFILE("Render skinned meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render skinned meshes", Video::Query::Type::SAMPLES_PASSED);
@@ -353,13 +353,13 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 }
 
 void RenderManager::UpdateAnimations(float deltaTime) {
-//    // Update all enabled animation controllers.
-//    for (Component::AnimationController* animationController : animationControllers.GetAll()) {
-//        if (animationController->IsKilled() || !animationController->entity->enabled)
-//            continue;
-//    
-//        animationController->UpdateAnimation(deltaTime);
-//    }
+    // Update all enabled animation controllers.
+    for (Component::AnimationController* animationController : animationControllers.GetAll()) {
+        if (animationController->IsKilled() || !animationController->entity->enabled)
+            continue;
+    
+        animationController->UpdateAnimation(deltaTime);
+    }
 }
 
 Component::AnimationController* RenderManager::CreateAnimation() {
@@ -369,8 +369,14 @@ Component::AnimationController* RenderManager::CreateAnimation() {
 Component::AnimationController* RenderManager::CreateAnimation(const Json::Value& node) {
     Component::AnimationController* animationController = animationControllers.Create();
     
-    Managers().resourceManager->CreateSkeleton(node.get("skeleton", "").asString());
-    Managers().resourceManager->CreateAnimationController(node.get("animationController", "").asString());
+    std::string skeletonName = node.get("skeleton", "").asString();
+    if (!skeletonName.empty())
+        Managers().resourceManager->CreateSkeleton(skeletonName);
+
+    std::string controllerName = node.get("animationController", "").asString();
+    if (!controllerName.empty())
+        Managers().resourceManager->CreateAnimationController(controllerName);
+
     return animationController;
 }
 

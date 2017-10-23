@@ -225,10 +225,12 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
             unsigned int vertexID = aBone->mWeights[i].mVertexId;
             unsigned int& count = weightCounter[vertexID];
             vertices[vertexID].weights[count] = aBone->mWeights[i].mWeight;
-            vertices[vertexID].boneIDs[count] = i;
+            vertices[vertexID].boneIDs[count] = b;
             ++count;
         }
     }
+
+    Log() << "Num Weights: " << (int)aMesh->mBones[0]->mNumWeights << "\n";
 
     weightCounter.clear();
 

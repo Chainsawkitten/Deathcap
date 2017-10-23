@@ -31,8 +31,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
-    //Log() << "Hej Ludde\n";
-    
+
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 
     // Lights.
@@ -96,9 +95,10 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         
         // Render model.
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
-//        glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
-//        glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
+        glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
+        glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
         assert(bones.size() <= 50);
+        Log() << (int)bones.size() << "\n";
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("bones"), bones.size(), GL_FALSE, &bones[0][0][0]);
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);

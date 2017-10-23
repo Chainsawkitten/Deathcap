@@ -10,6 +10,7 @@
 #include "../Audio/SoundBuffer.hpp"
 #include "../Texture/TextureAsset.hpp"
 #include "../Script/ScriptFile.hpp"
+#include <Utility/Log.hpp>
 
 using namespace std;
 
@@ -86,6 +87,8 @@ void ResourceManager::FreeAnimationController(Animation::AnimationController * a
 }
 
 Animation::Skeleton* ResourceManager::CreateSkeleton(const std::string& name) {
+    Log() << "Create skeleton: " << name << "\n";
+
     if (skeletons.find(name) == skeletons.end()) {
         Animation::Skeleton* skeleton = new Animation::Skeleton;
         skeleton->Load(name);

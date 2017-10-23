@@ -113,32 +113,40 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
     vec3 F0 = mix(vec3(0.04f), albedo, metallic);
     
     for(int i = 0; i < lightCount; i++) {
+        Light light = lights[i];
+        light.position = vec4(1.0, 0.0, 0.0, 0.0);
+        light.intensities = vec3(1.0, 1.0, 1.0);
+        //light.attenuation = 0.001;
+        //light.direction = vec3(1.0, 0.0, 0.0);
+        light.ambientCoefficient = 0.1;
+        //light.coneAngle = 180.0;
+
         vec3 surfaceToLight;
         float attenuation;
         vec3 ambient;
 
-        if (lights[i].position.w == 0.0f) {
+        if (light.position.w == 0.0f) {
             //Directional light.
-            surfaceToLight = normalize(lights[i].position.xyz);
+            surfaceToLight = normalize(light.position.xyz);
             attenuation = 1.0f;
         } else {
             // Point light
-            vec3 toLight = lights[i].position.xyz - pos;
+            vec3 toLight = light.position.xyz - pos;
             surfaceToLight = normalize(toLight);
-            attenuation = 1.0f / (1.0f + lights[i].attenuation * (toLight.x * toLight.x + toLight.y * toLight.y + toLight.z * toLight.z));
+            attenuation = 1.0f / (1.0f + light.attenuation * (toLight.x * toLight.x + toLight.y * toLight.y + toLight.z * toLight.z));
 
             // Spot light.
-            float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(lights[i].direction)), -1.0f, 1.0f)));
+            float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(light.direction)), -1.0f, 1.0f)));
             float fadeLength = 10.0;
-            if (lightToSurfaceAngle > lights[i].coneAngle - fadeLength) {
-                attenuation *= 1.0 - clamp(lightToSurfaceAngle - lights[i].coneAngle, 0.0, fadeLength) / fadeLength;
+            if (lightToSurfaceAngle > light.coneAngle - fadeLength) {
+                attenuation *= 1.0 - clamp(lightToSurfaceAngle - light.coneAngle, 0.0, fadeLength) / fadeLength;
             }
         }
 
         vec3 H = normalize(V + surfaceToLight);
 
         // Calculate radiance of the light.
-        vec3 radiance = lights[i].intensities * attenuation;
+        vec3 radiance = light.intensities * attenuation;
         
         // Cook-torrance brdf.
         float NDF = DistributionGGX(N, H, roughness);
@@ -163,7 +171,7 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
         Lo += (kD * albedo / PI + specular) * radiance * NdotL;
         
         // Add ambient.
-        Lo += lights[i].ambientCoefficient * albedo;
+        Lo += light.ambientCoefficient * albedo;
     }
 
     return Lo;
@@ -229,5 +237,5 @@ void main() {
         // Final color.
         finalColor = color;
     }
-    fragmentColor = vec4(finalColor, 1.0f);
+    fragmentColor = vec4(0.5, 1.0, 0.5, 1.0f);
 }

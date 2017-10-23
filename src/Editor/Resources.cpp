@@ -11,6 +11,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
+#include <Utility/Log.hpp>
 
 using namespace std;
 
@@ -133,6 +134,7 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
             break;
         case Resource::SKELETON:
             resourceNode["skeleton"] = resource.skeleton->name;
+            //resource.skeleton->Save();
             break;
         case Resource::MODEL:
             resourceNode["model"] = resource.model->name;
@@ -184,10 +186,12 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
             resource.animationClip = Managers().resourceManager->CreateAnimationClip(path + resourceNode["animationClip"].asString());
             break;
         case Resource::ANIMATION_CONTROLLER:
-            resource.animationClip = Managers().resourceManager->CreateAnimationClip(path + resourceNode["animationController"].asString());
+            resource.animationController = Managers().resourceManager->CreateAnimationController(path + resourceNode["animationController"].asString());
             break;
         case Resource::SKELETON:
-            resource.animationClip = Managers().resourceManager->CreateAnimationClip(path + resourceNode["skeleton"].asString());
+            Log() << "Skeleton path: " << path << "\n";
+            Log() << "Skeleton name: " << resourceNode["skeleton"].asString() << "\n";
+            resource.skeleton = Managers().resourceManager->CreateSkeleton(path + resourceNode["skeleton"].asString());
             break;
         case Resource::MODEL:
             resource.model = Managers().resourceManager->CreateModel(path + resourceNode["model"].asString());
