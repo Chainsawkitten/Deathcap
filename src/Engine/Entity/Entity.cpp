@@ -334,7 +334,7 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
     else if (componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight();
     else if (componentType == typeid(Component::VRDevice*))
-        component = Managers().vrManager->CreateController();
+        component = Managers().vrManager->CreateVRDevice();
     else {
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return nullptr;
@@ -395,7 +395,7 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
     else if (componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight(node);
     else if (componentType == typeid(Component::VRDevice*))
-        component = Managers().vrManager->CreateController(node);
+        component = Managers().vrManager->CreateVRDevice(node);
     else {
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return;

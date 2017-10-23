@@ -37,23 +37,6 @@ bool VRManager::Active() const {
     return vrSystem != nullptr;
 }
 
-Component::VRDevice* VRManager::CreateController() {
-    return controllers.Create();
-}
-
-Component::VRDevice* VRManager::CreateController(const Json::Value& node) {
-    Component::VRDevice* controller = controllers.Create();
-
-    //Load values from Json node.
-    controller->controllerID = node.get("controllerID", 1).asInt();
-
-    return controller;
-}
-
-const std::vector<Component::VRDevice*>& VRManager::GetControllers() const {
-    return controllers.GetAll();
-}
-
 void VRManager::Sync() {
     if (vrSystem == nullptr) {
         Log() << "No initialized VR device.\n";
@@ -216,8 +199,25 @@ bool VRManager::GetInput(vr::EVRButtonId buttonID) {
     return false;
 }
 
+Component::VRDevice* VRManager::CreateVRDevice() {
+    return vrDevices.Create();
+}
+
+Component::VRDevice* VRManager::CreateVRDevice(const Json::Value& node) {
+    Component::VRDevice* vrDevice = vrDevices.Create();
+
+    // Load values from Json node.
+    vrDevice->controllerID = node.get("controllerID", 1).asInt();
+
+    return vrDevice;
+}
+
+const std::vector<Component::VRDevice*>& VRManager::GetVRDevices() const {
+    return vrDevices.GetAll();
+}
+
 void VRManager::ClearKilledComponents() {
-    controllers.ClearKilled();
+    vrDevices.ClearKilled();
 }
 
 

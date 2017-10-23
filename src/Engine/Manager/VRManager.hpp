@@ -25,25 +25,6 @@ class VRManager {
          */
         ENGINE_API bool Active() const;
 
-        /// Create vr controller component
-        /**
-         * @return The created component.
-         */
-        Component::VRDevice* CreateController();
-
-        /// Create vr controller component
-        /**
-         * @param node Json node to load the component from
-         * @return The created component.
-         */
-        Component::VRDevice* CreateController(const Json::Value& node);
-
-        /// Get all vr controller components
-        /**
-         * @return All vr controller components
-         */
-        const std::vector<Component::VRDevice*>& GetControllers() const;
-
         /// Sync VR device pose(s).
         ENGINE_API void Sync();
 
@@ -116,6 +97,25 @@ class VRManager {
          */
         ENGINE_API bool GetInput(vr::EVRButtonId buttonID);
         
+        /// Create VR device component.
+        /**
+         * @return The created component.
+         */
+        Component::VRDevice* CreateVRDevice();
+
+        /// Create VR device component.
+        /**
+         * @param node Json node to load the component from
+         * @return The created component.
+         */
+        Component::VRDevice* CreateVRDevice(const Json::Value& node);
+
+        /// Get all VR device components.
+        /**
+         * @return All VR device components.
+         */
+        const std::vector<Component::VRDevice*>& GetVRDevices() const;
+        
         /// Remove all killed components.
         void ClearKilledComponents();
         
@@ -135,5 +135,5 @@ class VRManager {
 
         bool pressedTrackedDevice[vr::k_unMaxTrackedDeviceCount];
 
-        ComponentContainer<Component::VRDevice> controllers;
+        ComponentContainer<Component::VRDevice> vrDevices;
 };
