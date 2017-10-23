@@ -122,8 +122,7 @@ glm::mat4 VRManager::GetHMDEyeToHeadMatrix(vr::Hmd_Eye eye) const {
     return glm::inverse(ConvertMatrix(vrSystem->GetEyeToHeadTransform(eye)));
 }
 
-glm::mat4 VRManager::GetHandleTransformation(int controlID, Entity* entity)
-{
+glm::mat4 VRManager::GetHandleTransformation(int controlID, Entity* entity) {
     glm::mat4 ctrlTransform = GetControllerPoseMatrix(controlID);
     glm::vec3 ctrlRight = glm::vec3(ctrlTransform[0][0], ctrlTransform[1][0], ctrlTransform[2][0]);
     glm::vec3 ctrlUp = glm::vec3(ctrlTransform[0][1], ctrlTransform[1][1], ctrlTransform[2][1]);
@@ -164,8 +163,7 @@ void VRManager::Submit(vr::Hmd_Eye eye, vr::Texture_t* texture) const {
         Log() << "Unable to submit texture to hmd: " << eError << "\n";
 }
 
-glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix34_t& mat)
-{
+glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix34_t& mat) {
     glm::mat4 glmMat(
         mat.m[0][0], mat.m[1][0], mat.m[2][0], 0.0,
         mat.m[0][1], mat.m[1][1], mat.m[2][1], 0.0,
@@ -175,8 +173,7 @@ glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix34_t& mat)
     return glmMat;
 }
 
-glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix44_t& mat)
-{
+glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix44_t& mat) {
     glm::mat4 glmMat(
         mat.m[0][0], mat.m[1][0], mat.m[2][0], mat.m[3][0],
         mat.m[0][1], mat.m[1][1], mat.m[2][1], mat.m[3][1],
@@ -214,6 +211,12 @@ Component::VRDevice* VRManager::CreateVRDevice(const Json::Value& node) {
     Component::VRDevice* vrDevice = vrDevices.Create();
 
     // Load values from Json node.
+    std::string type = node.get("type", "controller").asString();
+    if (type == "controller")
+        vrDevice->type = Component::VRDevice::CONTROLLER;
+    else if (type == "headset")
+        vrDevice->type = Component::VRDevice::HEADSET;
+    
     vrDevice->controllerID = node.get("controllerID", 1).asInt();
 
     return vrDevice;

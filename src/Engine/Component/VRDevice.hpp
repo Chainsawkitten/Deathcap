@@ -11,6 +11,12 @@ namespace Component {
     /// Component giving VR controller functions to an Entity
     class VRDevice : public SuperComponent {
         public:
+            /// The type of VR device.
+            enum Type {
+                CONTROLLER = 0, ///< Motion-tracking controller.
+                HEADSET ///< Head-mounted device.
+            };
+            
             /// Constructor
             ENGINE_API VRDevice();
 
@@ -32,11 +38,11 @@ namespace Component {
 
             /// Returns the projection matrix to use for the specified eye.
             /**
-            * @param eye Which eye the function should return the eye matrix for.
-            * @param zNear Distance to the near clip plane in meters.
-            * @param zFar Distance to the far clip plane in meters.
-            * @return The projection matrix.
-            */
+             * @param eye Which eye the function should return the eye matrix for.
+             * @param zNear Distance to the near clip plane in meters.
+             * @param zFar Distance to the far clip plane in meters.
+             * @return The projection matrix.
+             */
             glm::mat4 GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float zFar) const;
 
             /// Handles all VR controller inputs (class for future implementations)
@@ -46,6 +52,9 @@ namespace Component {
              */
             ENGINE_API bool HandleInput(int buttonID);
 
+            /// The type of VR device being used.
+            Type type = CONTROLLER;
+            
             /// The controller's ID. 1 = left, 2 = right
             int controllerID;
 

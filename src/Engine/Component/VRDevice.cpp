@@ -13,18 +13,23 @@ namespace Component {
     Json::Value VRDevice::Save() const {
         Json::Value component;
 
+        switch (type) {
+        case CONTROLLER:
+            component["type"] == "controller";
+            break;
+        case HEADSET:
+            component["type"] == "headset";
+        }
         component["controllerID"] = controllerID;
 
         return component;
     }
 
     glm::mat4 VRDevice::HandleTransformation(Entity* entity) {
-
         return Managers().vrManager->GetHandleTransformation(controllerID, entity);
     }
 
-    glm::mat4 VRDevice::GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float zFar) const
-    {
+    glm::mat4 VRDevice::GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float zFar) const {
         return Managers().vrManager->GetHMDProjectionMatrix(eye, zNear, zFar);
     }
 
