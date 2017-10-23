@@ -71,9 +71,9 @@ void VRManager::Update() {
             entity->position = position * GetScale();
             
             // Update rotation based on controller rotation.
-            entity->rotation.x = atan2(transform[1][0], transform[0][0]);
-            entity->rotation.y = atan2(-transform[2][0], sqrt(transform[2][1] * transform[2][1] + transform[2][2] * transform[2][2]));
-            entity->rotation.z = atan2(transform[2][1], transform[2][2]);
+            entity->rotation.x = glm::degrees(atan2(transform[1][0], transform[0][0]));
+            entity->rotation.y = glm::degrees(atan2(-transform[2][0], sqrt(transform[2][1] * transform[2][1] + transform[2][2] * transform[2][2])));
+            entity->rotation.z = glm::degrees(atan2(transform[2][1], transform[2][2]));
         } else if (vrDevice->type == Component::VRDevice::HEADSET) {
             /// @todo Update headset transformation.
         }
