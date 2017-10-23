@@ -13,14 +13,17 @@ namespace Video {
         
         /// Attenuation.
         float attenuation;
+
+        /// Direction.
+        glm::vec3 direction;
         
         /// Ambient coefficient.
         float ambientCoefficient;
         
         /// Angle of the cone (in degrees).
         float coneAngle;
-        
-        /// Direction.
-        glm::vec3 direction;
+
+        /// Padding.
+        float padding[3];
     };
 }

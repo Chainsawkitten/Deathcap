@@ -103,6 +103,10 @@ bool IsIntersect(Entity* checker, Entity* camera) {
     return false;
 }
 
+bool IsVRActive() {
+    return Managers().vrManager->Active();
+}
+
 void vec2Constructor(float x, float y, void* memory) {
     glm::vec2* vec = static_cast<glm::vec2*>(memory);
     vec->x = x;
@@ -365,32 +369,42 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool IsVRActive()", asFUNCTION(IsVRActive), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {
     engine->ShutDownAndRelease();
 }
 
-void ScriptManager::BuildScript(const ScriptFile* script) {
+int ScriptManager::BuildScript(const ScriptFile* script) {
     std::string filename = Hymn().GetPath() + "/" + script->path + script->name + ".as";
     if (!FileSystem::FileExists(filename.c_str())) {
         Log() << "Script file does not exist: " << filename << "\n";
-        return;
+        return -1;
     }
     
     // Create and build script module.
     CScriptBuilder builder;
     int r = builder.StartNewModule(engine, script->name.c_str());
-    if (r < 0)
+    if (r < 0) {
         Log() << "Couldn't start new module: " << script->name << ".\n";
+        return r;
+    }
     
     r = builder.AddSectionFromFile(filename.c_str());
-    if (r < 0)
+    if (r < 0) {
         Log() << "File section could not be added: " << filename << ".\n";
+        return r;
+    }
     
     r = builder.BuildModule();
-    if (r < 0)
+    if (r < 0) {
         Log() << "Compile errors.\n";
+        return r;
+    }
+
+    return r;
+
 }
 
 void ScriptManager::BuildAllScripts() {
@@ -435,48 +449,15 @@ void ScriptManager::BuildAllScripts() {
 
 void ScriptManager::FillPropertyMap(Script* script) {
 
-    BuildScript(script->scriptFile);
-    CreateInstance(script);
+    int r = BuildScript(script->scriptFile);
+    if (r < 0) {
 
-    int propertyCount = script->instance->GetPropertyCount();
+        Log() << "Couldn't fetch properties" << "\n";
 
-    for (int n = 0; n < propertyCount; n++) {
+    } else {
 
-        int typeId = script->instance->GetPropertyTypeId(n);
-        void *varPointer = script->instance->GetAddressOfProperty(n);
-
-        auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
-        if (it != script->propertyMap.end()) {
-
-            if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId) {
-
-                continue;
-
-            }
-
-        }
-
-        if (typeId == asTYPEID_INT32) {
-            int* mapValue = new int();
-            *mapValue = *(int*)varPointer;
-            script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
-        }
-        else if (typeId == asTYPEID_FLOAT){
-            float* mapValue = new float();
-            *mapValue = *(float*)varPointer;
-            script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId,mapValue);
-        }
-        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
-            std::string *str = (std::string*)varPointer;
-            if (str) {
-
-                std::string* mapValue = new std::string();
-                *mapValue = *(std::string*)varPointer;
-                script->propertyMap[script->instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, mapValue);
-
-            }
-
-        }
+        CreateInstance(script);
+        script->FillPropertyMap();
 
     }
 
@@ -505,12 +486,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
                         if (typeId == asTYPEID_INT32){
                             int* propertyPointer = static_cast<int*>(varPointer);
                             *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        }
-                        else if (typeId == asTYPEID_FLOAT){
+                        } else if (typeId == asTYPEID_FLOAT){
                             float* propertyPointer = static_cast<float*>(varPointer);
                             *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        }
-                        else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
+                        } else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
 
                             std::string *str = (std::string*)varPointer;
                             if (str) {
@@ -694,6 +673,33 @@ const std::vector<Component::Script*>& ScriptManager::GetScripts() const {
 
 void ScriptManager::ClearKilledComponents() {
     scripts.ClearKilled();
+}
+
+void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string& method) {
+    Component::Script* script = entity->GetComponent<Component::Script>();
+    if (!script)
+        return;
+    ScriptFile* scriptFile = script->scriptFile;
+
+    // Get class.
+    asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
+
+    // Find method to call.
+    std::string methodDecl;
+    methodDecl.reserve(method.length() + 7); // additional `void ` and `()`
+    methodDecl.append("void ").append(method).append("()");
+    asIScriptFunction* scriptMethod = type->GetMethodByDecl(methodDecl.c_str());
+    if (scriptMethod == nullptr)
+        Log() << "Can't find method void " << method << "()\n";
+
+    // Create context, prepare it and execute.
+    asIScriptContext* context = engine->CreateContext();
+    context->Prepare(scriptMethod);
+    context->SetObject(script->instance);
+    ExecuteCall(context);
+
+    // Clean up.
+    context->Release();
 }
 
 void ScriptManager::CreateInstance(Component::Script* script) {

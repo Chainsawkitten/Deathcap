@@ -22,6 +22,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/gtx/transform.hpp>
 #include <fstream>
+#include <Utility/Log.hpp>
 
 
 ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
@@ -473,6 +474,8 @@ void Editor::ShowGridSettings() {
         EditorSettings::GetInstance().SetBool("Grid Snap", gridSettings.gridSnap);
         ImGui::DragInt("Snap Size", &gridSettings.snapOption, 1.0f, 1, 100);
         EditorSettings::GetInstance().SetLong("Grid Snap Size", gridSettings.snapOption);
+        if (gridSettings.snapOption < 1)
+            gridSettings.snapOption = 1;
         ImGui::End();
     }
 }
@@ -650,12 +653,17 @@ void Editor::OpenHymn() {
 void Editor::OpenHymnClosed(const std::string& hymn) {
     // Open hymn.
     if (!hymn.empty()) {
-        resourceView.ResetScene();
-        Hymn().Load(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
-        Resources().Clear();
-        Resources().Load();
-        LoadActiveScene();
-        resourceView.SetVisible(true);
+        std::string path = FileSystem::DataPath("Hymn to Beauty") + "/Hymns/" + hymn;
+        if (!FileSystem::FileExists((path + "/Hymn.json").c_str()))
+            Log() << "Hymn does not exist: " << path << "\n";
+        else {
+            resourceView.ResetScene();
+            Hymn().Load(path);
+            Resources().Clear();
+            Resources().Load();
+            LoadActiveScene();
+            resourceView.SetVisible(true);
+        }
     }
 
     selectHymnWindow.SetVisible(false);

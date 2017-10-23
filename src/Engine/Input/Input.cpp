@@ -4,6 +4,11 @@
 #include "../Component/VRDevice.hpp"
 #include <GLFW/glfw3.h> // Must be included at the end to make sure gl.h is included AFTER glew.h
 
+Input& Input::GetInstance() {
+    static Input instance;
+    return instance;
+}
+
 void Input::SetWindow(GLFWwindow* window) {
     this->window = window;
 }

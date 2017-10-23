@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include "../Entity/ComponentContainer.hpp"
 #include <string>
+#include "../linking.hpp"
 
 namespace Video {
     class Renderer;
@@ -35,7 +36,7 @@ class RenderManager {
          * @param world Contains a bunch of entities.
          * @param camera Camera through which to render (or first camera in the world if nullptr).
          */
-        void Render(World& world, Entity* camera = nullptr);
+        ENGINE_API void Render(World& world, Entity* camera = nullptr);
         
         /// Render editor entities.
         /**
@@ -47,146 +48,146 @@ class RenderManager {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          */
-        void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
+        ENGINE_API void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
         
         /// Updates the buffers to fit the current screen size.
-        void UpdateBufferSize();
+        ENGINE_API void UpdateBufferSize();
         
         /// Create animation component.
         /**
          * @return The created component.
          */
-        Component::Animation* CreateAnimation();
+        ENGINE_API Component::Animation* CreateAnimation();
         
         /// Create animation component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Animation* CreateAnimation(const Json::Value& node);
+        ENGINE_API Component::Animation* CreateAnimation(const Json::Value& node);
         
         /// Get all animation components.
         /**
          * @return All animation components.
          */
-        const std::vector<Component::Animation*>& GetAnimations() const;
+        ENGINE_API const std::vector<Component::Animation*>& GetAnimations() const;
         
         /// Create directional light component.
         /**
          * @return The created component.
          */
-        Component::DirectionalLight* CreateDirectionalLight();
+        ENGINE_API Component::DirectionalLight* CreateDirectionalLight();
         
         /// Create directional light component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::DirectionalLight* CreateDirectionalLight(const Json::Value& node);
+        ENGINE_API Component::DirectionalLight* CreateDirectionalLight(const Json::Value& node);
         
         /// Get all directional light components.
         /**
          * @return All directional light components.
          */
-        const std::vector<Component::DirectionalLight*>& GetDirectionalLights() const;
+        ENGINE_API const std::vector<Component::DirectionalLight*>& GetDirectionalLights() const;
         
         /// Create lens component.
         /**
          * @return The created component.
          */
-        Component::Lens* CreateLens();
+        ENGINE_API Component::Lens* CreateLens();
         
         /// Create lens component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Lens* CreateLens(const Json::Value& node);
+        ENGINE_API Component::Lens* CreateLens(const Json::Value& node);
         
         /// Get all lens components.
         /**
          * @return All lens components.
          */
-        const std::vector<Component::Lens*>& GetLenses() const;
+        ENGINE_API const std::vector<Component::Lens*>& GetLenses() const;
         
         /// Create material component.
         /**
          * @return The created component.
          */
-        Component::Material* CreateMaterial();
+        ENGINE_API Component::Material* CreateMaterial();
         
         /// Create material component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Material* CreateMaterial(const Json::Value& node);
+        ENGINE_API Component::Material* CreateMaterial(const Json::Value& node);
         
         /// Get all material components.
         /**
          * @return All material components.
          */
-        const std::vector<Component::Material*>& GetMaterials() const;
+        ENGINE_API const std::vector<Component::Material*>& GetMaterials() const;
         
         /// Create mesh component.
         /**
          * @return The created component.
          */
-        Component::Mesh* CreateMesh();
+        ENGINE_API Component::Mesh* CreateMesh();
         
         /// Create mesh component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Mesh* CreateMesh(const Json::Value& node);
+        ENGINE_API Component::Mesh* CreateMesh(const Json::Value& node);
         
         /// Get all mesh components.
         /**
          * @return All mesh components.
          */
-        const std::vector<Component::Mesh*>& GetMeshes() const;
+        ENGINE_API const std::vector<Component::Mesh*>& GetMeshes() const;
         
         /// Create point light component.
         /**
          * @return The created component.
          */
-        Component::PointLight* CreatePointLight();
+        ENGINE_API Component::PointLight* CreatePointLight();
         
         /// Create point light component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::PointLight* CreatePointLight(const Json::Value& node);
+        ENGINE_API Component::PointLight* CreatePointLight(const Json::Value& node);
         
         /// Get all point light components.
         /**
          * @return All point light components.
          */
-        const std::vector<Component::PointLight*>& GetPointLights() const;
+        ENGINE_API const std::vector<Component::PointLight*>& GetPointLights() const;
         
         /// Create spot light component.
         /**
          * @return The created component.
          */
-        Component::SpotLight* CreateSpotLight();
+        ENGINE_API Component::SpotLight* CreateSpotLight();
         
         /// Create spot light component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::SpotLight* CreateSpotLight(const Json::Value& node);
+        ENGINE_API Component::SpotLight* CreateSpotLight(const Json::Value& node);
         
         /// Get all spot light components.
         /**
          * @return All spot light components.
          */
-        const std::vector<Component::SpotLight*>& GetSpotLights() const;
+        ENGINE_API const std::vector<Component::SpotLight*>& GetSpotLights() const;
         
         /// Remove all killed components.
-        void ClearKilledComponents();
+        ENGINE_API void ClearKilledComponents();
         
     private:
         RenderManager();

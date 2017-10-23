@@ -25,10 +25,12 @@ set(SRCS
     )
 
 set(HEADERS
+        linking.hpp
         Buffer/FrameBuffer.hpp
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
+        ErrorVideoDebug.hpp
         ParticleRenderer.hpp
         Renderer.hpp
         RenderSurface.hpp
@@ -78,7 +80,7 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 create_directory_groups(${SRCS} ${HEADERS})
 
-add_library(Video STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Video Utility glew glm assimp jsoncpp_lib_static stb ${OpenVR_LIBRARY})
+add_library(Video SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
+target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY})
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
 set_property(TARGET Video PROPERTY CXX_STANDARD_REQUIRED ON)

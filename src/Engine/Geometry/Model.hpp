@@ -3,6 +3,7 @@
 #include <Video/Geometry/Geometry3D.hpp>
 #include <json/json.h>
 #include "AssetFileHandler.hpp"
+#include "../linking.hpp"
 
 namespace Geometry {
     /// Interface of a model loaded from a file.
@@ -12,34 +13,34 @@ namespace Geometry {
             /**
              * The created model has to be loaded later using Load.
              */
-            Model();
+            ENGINE_API Model();
             
             /// Destructor.
-            virtual ~Model();
+            ENGINE_API virtual ~Model();
             
             /// Save the model.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const;
+            ENGINE_API Json::Value Save() const;
             
             /// Load model from file.
             /**
              * @param name Name of the model.
              */
-            void Load(const std::string& name);
+            ENGINE_API void Load(const std::string& name);
             
             /// Load model from file.
             /**
              * @param filename Filename (relative or absolute) to the model file.
              */
-            void Load(const char* filename);
+            ENGINE_API void Load(const char* filename);
             
             /// Get geometry type.
             /**
              * @return Type.
              */
-            Type GetType() const final;
+            ENGINE_API Type GetType() const final;
             
             /// The name of the model.
             std::string name;

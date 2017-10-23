@@ -2,6 +2,7 @@ set(SRCS
         main.cpp
         Editor.cpp
         Resources.cpp
+        ImGui/Json.cpp
         ImGui/OpenGLImplementation.cpp
         ImGui/Splitter.cpp
         ImGui/Theme.cpp
@@ -12,6 +13,7 @@ set(SRCS
         GUI/InputWindow.cpp
         GUI/FileSelector.cpp
         GUI/FolderNameWindow.cpp
+        GUI/ProfilingWindow.cpp
         GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
@@ -31,6 +33,7 @@ set(SRCS
 set(HEADERS
         Editor.hpp
         Resources.hpp
+        ImGui/Json.hpp
         ImGui/OpenGLImplementation.hpp
         ImGui/Splitter.hpp
         ImGui/Theme.hpp
@@ -41,6 +44,7 @@ set(HEADERS
         GUI/InputWindow.hpp
         GUI/FileSelector.hpp
         GUI/FolderNameWindow.hpp
+        GUI/ProfilingWindow.hpp
         GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
@@ -80,6 +84,6 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_executable(Editor ${SRCS} ${HEADERS})
-target_link_libraries(Editor Engine imguizmo)
+target_link_libraries(Editor Engine imgui imguizmo)
 set_property(TARGET Editor PROPERTY CXX_STANDARD 11)
 set_property(TARGET Editor PROPERTY CXX_STANDARD_REQUIRED ON)

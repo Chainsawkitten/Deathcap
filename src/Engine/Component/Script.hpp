@@ -3,6 +3,7 @@
 #include <vector>
 #include <map>
 #include "SuperComponent.hpp"
+#include "../linking.hpp"
 
 class ScriptFile;
 class asIScriptObject;
@@ -12,16 +13,16 @@ namespace Component {
     class Script : public SuperComponent {
         public:
             /// Create new script.
-            Script();
+            ENGINE_API Script();
             
             /// Destructor.
-            ~Script() final;
+            ENGINE_API ~Script() final;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Whether the script component has been initialized.
             bool initialized = false;
@@ -38,8 +39,11 @@ namespace Component {
             ///Map containing the properties, maps a pair of a value and it's type to a name (map<nameOfProperty, pair<typeOfProperty, valueOfProperty>>)
             std::map<std::string, std::pair<int, void*>> propertyMap;
 
+            /// Fills the property map.
+            void FillPropertyMap();
+
             /// Clears the property map.
-            void ClearPropertyMap();
+            ENGINE_API void ClearPropertyMap();
 
     };
 }

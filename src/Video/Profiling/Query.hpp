@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <cstdint>
+#include "../linking.hpp"
 
 namespace Video {
     /// Queries information from the GPU.
@@ -17,28 +18,28 @@ namespace Video {
             /**
              * @param type Specifies the type of query object.
              */
-            Query(Type type);
+            VIDEO_API Query(Type type);
             
             /// Destructor.
-            ~Query();
+            VIDEO_API ~Query();
 
             /// Start query.
-            void Begin();
+            VIDEO_API void Begin();
 
             /// Stop query.
-            void End();
+            VIDEO_API void End();
 
             /// Get query type.
             /**
              * @return The type of query.
              */
-            Type GetType() const;
+            VIDEO_API Type GetType() const;
 
             /// Resolve query result.
             /**
              * @return The result of query.
              */
-            std::uint64_t Resolve() const;
+            VIDEO_API std::uint64_t Resolve() const;
             
         private:
             Query(const Query & other) = delete;

@@ -299,40 +299,44 @@ void Entity::SetUniqueIdentifier(unsigned int UID) {
     uniqueIdentifier = UID;
 }
 
-Component::SuperComponent* Entity::AddComponent(const std::type_info* componentType) {
+Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
+    // Check if component already exists.
+    if (components.find(componentType) != components.end())
+        return nullptr;
+
     Component::SuperComponent* component;
     
     // Create a component in the correct manager.
-    if (*componentType == typeid(Component::Animation*))
+    if (componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation();
-    else if (*componentType == typeid(Component::DirectionalLight*))
+    else if (componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight();
-    else if (*componentType == typeid(Component::Lens*))
+    else if (componentType == typeid(Component::Lens*))
         component = Managers().renderManager->CreateLens();
-    else if (*componentType == typeid(Component::Listener*))
+    else if (componentType == typeid(Component::Listener*))
         component = Managers().soundManager->CreateListener();
-    else if (*componentType == typeid(Component::Material*))
+    else if (componentType == typeid(Component::Material*))
         component = Managers().renderManager->CreateMaterial();
-    else if (*componentType == typeid(Component::Mesh*))
+    else if (componentType == typeid(Component::Mesh*))
         component = Managers().renderManager->CreateMesh();
-    else if (*componentType == typeid(Component::ParticleEmitter*))
+    else if (componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter();
-    else if (*componentType == typeid(Component::PointLight*))
+    else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight();
-    else if (*componentType == typeid(Component::RigidBody*))
+    else if (componentType == typeid(Component::RigidBody*))
         component = Managers().physicsManager->CreateRigidBody(this);
-    else if (*componentType == typeid(Component::Script*))
+    else if (componentType == typeid(Component::Script*))
         component = Managers().scriptManager->CreateScript();
-    else if (*componentType == typeid(Component::Shape*))
+    else if (componentType == typeid(Component::Shape*))
         component = Managers().physicsManager->CreateShape(this);
-    else if (*componentType == typeid(Component::SoundSource*))
+    else if (componentType == typeid(Component::SoundSource*))
         component = Managers().soundManager->CreateSoundSource();
-    else if (*componentType == typeid(Component::SpotLight*))
+    else if (componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight();
-    else if (*componentType == typeid(Component::VRDevice*))
+    else if (componentType == typeid(Component::VRDevice*))
         component = Managers().vrManager->CreateController();
     else {
-        Log() << componentType->name() << " not assigned to a manager!" << "\n";
+        Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return nullptr;
     }
     
@@ -345,40 +349,55 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
     return component;
 }
 
-void Entity::LoadComponent(const std::type_info* componentType, const Json::Value& node) {
+Component::SuperComponent* Entity::GetComponent(std::type_index componentType) const {
+    auto it = components.find(componentType);
+    if (it != components.end())
+        return it->second;
+    else
+        return nullptr;
+}
+
+void Entity::KillComponent(std::type_index componentType) {
+    if (components.find(componentType) != components.end()) {
+        components[componentType]->Kill();
+        components.erase(componentType);
+    }
+}
+
+void Entity::LoadComponent(std::type_index componentType, const Json::Value& node) {
     Component::SuperComponent* component;
     
     // Create a component in the correct manager.
-    if (*componentType == typeid(Component::Animation*))
+    if (componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation(node);
-    else if (*componentType == typeid(Component::DirectionalLight*))
+    else if (componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight(node);
-    else if (*componentType == typeid(Component::Lens*))
+    else if (componentType == typeid(Component::Lens*))
         component = Managers().renderManager->CreateLens(node);
-    else if (*componentType == typeid(Component::Listener*))
+    else if (componentType == typeid(Component::Listener*))
         component = Managers().soundManager->CreateListener(node);
-    else if (*componentType == typeid(Component::Material*))
+    else if (componentType == typeid(Component::Material*))
         component = Managers().renderManager->CreateMaterial(node);
-    else if (*componentType == typeid(Component::Mesh*))
+    else if (componentType == typeid(Component::Mesh*))
         component = Managers().renderManager->CreateMesh(node);
-    else if (*componentType == typeid(Component::ParticleEmitter*))
+    else if (componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter(node);
-    else if (*componentType == typeid(Component::PointLight*))
+    else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight(node);
-    else if (*componentType == typeid(Component::RigidBody*))
+    else if (componentType == typeid(Component::RigidBody*))
         component = Managers().physicsManager->CreateRigidBody(this, node);
-    else if (*componentType == typeid(Component::Script*))
+    else if (componentType == typeid(Component::Script*))
         component = Managers().scriptManager->CreateScript(node);
-    else if (*componentType == typeid(Component::Shape*))
+    else if (componentType == typeid(Component::Shape*))
         component = Managers().physicsManager->CreateShape(this, node);
-    else if (*componentType == typeid(Component::SoundSource*))
+    else if (componentType == typeid(Component::SoundSource*))
         component = Managers().soundManager->CreateSoundSource(node);
-    else if (*componentType == typeid(Component::SpotLight*))
+    else if (componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight(node);
-    else if (*componentType == typeid(Component::VRDevice*))
+    else if (componentType == typeid(Component::VRDevice*))
         component = Managers().vrManager->CreateController(node);
     else {
-        Log() << componentType->name() << " not assigned to a manager!" << "\n";
+        Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return;
     }
     

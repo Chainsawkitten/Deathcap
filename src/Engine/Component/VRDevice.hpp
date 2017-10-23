@@ -5,30 +5,30 @@
 #include "SuperComponent.hpp"
 #include "../Manager/VRManager.hpp"
 #include "../Entity/Entity.hpp"
+#include "../linking.hpp"
 
 namespace Component {
     /// Component giving VR controller functions to an Entity
     class VRDevice : public SuperComponent {
-
         public:
             /// Constructor
-            VRDevice();
+            ENGINE_API VRDevice();
 
             /// Destructor
-            ~VRDevice();
+            ENGINE_API ~VRDevice();
         
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
 
             /// Get's the VR controller's transformation matrix
             /**
              * @param The entity who's controller it is we're handling.
              * @return The transformation matrix.
              */
-            glm::mat4 HandleTransformation(Entity* entity);
+            ENGINE_API glm::mat4 HandleTransformation(Entity* entity);
 
             /// Returns the projection matrix to use for the specified eye.
             /**
@@ -44,7 +44,7 @@ namespace Component {
              * @param buttonID The id of the button to be handled.
              * @return Whether the checked button was pressed or not.
              */
-            bool HandleInput(int buttonID);
+            ENGINE_API bool HandleInput(int buttonID);
 
             /// The controller's ID. 1 = left, 2 = right
             int controllerID;

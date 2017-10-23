@@ -1,6 +1,7 @@
 #pragma once
 
 #include <json/json.h>
+#include "../linking.hpp"
 
 class Entity;
 
@@ -10,25 +11,25 @@ namespace Component {
         public:
 
             /// Create new %SuperComponent.
-            SuperComponent();
+            ENGINE_API SuperComponent();
             
             /// Destructor.
-            virtual ~SuperComponent();
+            ENGINE_API virtual ~SuperComponent();
             
             /// Kill the component, will be removed at the end of the frame.
-            void Kill();
+            ENGINE_API void Kill();
             
             /// Get whether component has been killed.
             /**
              * @return Whether component has been killed.
              */
-            bool IsKilled() const;
+            ENGINE_API bool IsKilled() const;
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            virtual Json::Value Save() const;
+            ENGINE_API virtual Json::Value Save() const;
             
             /// Pointer to which entity this component corresponds.
             Entity* entity = nullptr;

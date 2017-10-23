@@ -19,9 +19,10 @@ struct Light {
     vec4 position;
     vec3 intensities;
     float attenuation;
+    vec3 direction;
     float ambientCoefficient;
     float coneAngle;
-    vec3 direction;
+    float padding[3];
 };
 
 // --- BINDINGS ---
