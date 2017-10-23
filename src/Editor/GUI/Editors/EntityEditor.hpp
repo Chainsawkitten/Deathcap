@@ -107,6 +107,11 @@ namespace GUI {
             ResourceSelector resourceSelector;
             
             float rigidBodyMass = 1.0f;
+
+            bool albedoShow = false;
+            bool normalShow = false;
+            bool metallicShow = false;
+            bool roughnessShow = false;
     };
 }
 

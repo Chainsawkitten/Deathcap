@@ -228,20 +228,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Image((void*) material->albedo->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
     if (ImGui::Button("Select albedo texture"))
-        ImGui::OpenPopup("Select albedo texture");
-    
-    if (ImGui::BeginPopup("Select albedo texture")) {
-        ImGui::Text("Textures");
-        ImGui::Separator();
-        
+        albedoShow = true;
+
+    if (albedoShow) {
+        ImGui::Begin("Textures", &albedoShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->albedo != Hymn().defaultAlbedo)
                 Managers().resourceManager->FreeTextureAsset(material->albedo);
-            
+
             material->albedo = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-        
-        ImGui::EndPopup();
+        ImGui::End();
     }
     ImGui::Unindent();
     
@@ -252,20 +249,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Image((void*) material->normal->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
     if (ImGui::Button("Select normal texture"))
-        ImGui::OpenPopup("Select normal texture");
+        normalShow = true;
     
-    if (ImGui::BeginPopup("Select normal texture")) {
-        ImGui::Text("Textures");
-        ImGui::Separator();
-        
+    if (normalShow) {
+        ImGui::Begin("Textures", &normalShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->normal != Hymn().defaultNormal)
                 Managers().resourceManager->FreeTextureAsset(material->normal);
             
             material->normal = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-        
-        ImGui::EndPopup();
+        ImGui::End();
     }
     ImGui::Unindent();
 
@@ -276,20 +270,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Image((void*) material->metallic->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
     if (ImGui::Button("Select metallic texture"))
-        ImGui::OpenPopup("Select metallic texture");
-    
-    if (ImGui::BeginPopup("Select metallic texture")) {
-        ImGui::Text("Textures");
-        ImGui::Separator();
-        
+        metallicShow = true;
+
+    if (metallicShow) {
+        ImGui::Begin("Textures", &metallicShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->metallic != Hymn().defaultMetallic)
                 Managers().resourceManager->FreeTextureAsset(material->metallic);
             
             material->metallic = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-        
-        ImGui::EndPopup();
+        ImGui::End();
     }
     ImGui::Unindent();
 
@@ -300,20 +291,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Image((void*) material->roughness->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
     if (ImGui::Button("Select roughness texture"))
-        ImGui::OpenPopup("Select roughness texture");
+        roughnessShow = true;
     
-    if (ImGui::BeginPopup("Select roughness texture")) {
-        ImGui::Text("Textures");
-        ImGui::Separator();
-        
+    if (roughnessShow) {
+        ImGui::Begin("Textures", &roughnessShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->roughness != Hymn().defaultRoughness)
                 Managers().resourceManager->FreeTextureAsset(material->roughness);
             
             material->roughness = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-        
-        ImGui::EndPopup();
+        ImGui::End();
     }
     ImGui::Unindent();
 }
