@@ -8,7 +8,7 @@
 #include "../linking.hpp"
 
 namespace Component {
-    /// Component giving VR controller functions to an Entity
+    /// Synchronizes an Entity's transformation to that of a VR device (controller or headset).
     class VRDevice : public SuperComponent {
         public:
             /// The type of VR device.
