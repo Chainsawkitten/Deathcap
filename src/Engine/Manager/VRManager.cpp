@@ -56,7 +56,17 @@ void VRManager::Update() {
     if (vrSystem == nullptr)
         return;
     
-    /// @todo Update VR devices.
+    // Update VR devices.
+    for (Component::VRDevice* vrDevice : vrDevices.GetAll()) {
+        if (vrDevice->IsKilled() || !vrDevice->entity->enabled)
+            continue;
+        
+        if (vrDevice->type == Component::VRDevice::CONTROLLER) {
+            /// @todo Update controller transformation.
+        } else if (vrDevice->type == Component::VRDevice::HEADSET) {
+            /// @todo Update headset transformation.
+        }
+    }
 }
 
 glm::vec2 VRManager::GetRecommendedRenderTargetSize() const {
