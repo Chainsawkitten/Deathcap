@@ -312,6 +312,8 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         if (ImGui::BeginPopupContextItem(resource.scene->c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (Resources().activeScene == path + "/" + *resource.scene) {
+                    Hymn().world.Clear();
+                    scene = nullptr;
                     Resources().activeScene = "";
                     sceneEditor.SetScene("", nullptr);
                 }
