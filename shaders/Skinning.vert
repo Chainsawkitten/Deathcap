@@ -1,7 +1,7 @@
 /*
 Skinning pass-through vertex shader - Vertex Shader
 */
-#version 400
+#version 430
 layout(location = 0) in vec3 vertexPosition;
 layout(location = 1) in vec2 vertexTexture;
 layout(location = 2) in vec3 vertexNormal;
@@ -35,7 +35,7 @@ void main () {
     normal += (bones[vertexBoneIDs[3]] * vec4(vertexNormal, 1.0)) * vertexWeights[3];
     
     gl_Position = viewProjection * (model * position);
-    vertexOut.pos = model * position;
+    vertexOut.pos = (model * position).xyz;
     vertexOut.normal = normalize(normalMatrix * normal.xyz);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;

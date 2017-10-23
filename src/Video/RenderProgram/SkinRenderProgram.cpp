@@ -27,11 +27,11 @@ SkinRenderProgram::~SkinRenderProgram() {
 }
 
 void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount) {
-    this->shaderProgram->Use();
+    shaderProgram->Use();
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
-    Log() << "Hej Ludde\n";
+    //Log() << "Hej Ludde\n";
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 
