@@ -192,7 +192,7 @@ Json::Value Entity::Save() const {
         Save<Component::Shape>(entity, "Shape");
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
-        Save<Component::VRDevice>(entity, "Controller");
+        Save<Component::VRDevice>(entity, "VRDevice");
         
         // Save children.
         Json::Value childNodes;
@@ -234,7 +234,7 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::Shape>(node, "Shape");
         Load<Component::SoundSource>(node, "SoundSource");
         Load<Component::ParticleEmitter>(node, "ParticleEmitter");
-        Load<Component::VRDevice>(node, "Controller");
+        Load<Component::VRDevice>(node, "VRDevice");
         
         // Load children.
         for (unsigned int i=0; i < node["children"].size(); ++i) {
