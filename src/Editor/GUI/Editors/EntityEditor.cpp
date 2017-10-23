@@ -57,7 +57,7 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::Shape>("Shape", std::bind(&EntityEditor::ShapeEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
-    AddEditor<Component::VRDevice>("Controller", std::bind(&EntityEditor::ControllerEditor, this, std::placeholders::_1));
+    AddEditor<Component::VRDevice>("VR device", std::bind(&EntityEditor::VRDeviceEditor, this, std::placeholders::_1));
 
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
@@ -566,9 +566,9 @@ void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmi
     ImGui::Unindent();
 }
 
-void EntityEditor::ControllerEditor(Component::VRDevice* controller) {
+void EntityEditor::VRDeviceEditor(Component::VRDevice* vrDevice) {
     ImGui::Text("Controller");
     ImGui::Indent();
-    ImGui::InputInt("Controller ID (1 = left, 2 = right)", &controller->controllerID);
+    ImGui::InputInt("Controller ID (1 = left, 2 = right)", &vrDevice->controllerID);
     ImGui::Unindent();
 }

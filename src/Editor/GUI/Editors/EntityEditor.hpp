@@ -89,7 +89,7 @@ namespace GUI {
             void ShapeEditor(Component::Shape* shape);
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
-            void ControllerEditor(Component::VRDevice* controller);
+            void VRDeviceEditor(Component::VRDevice* vrDevice);
             
             Entity* entity = nullptr;
             bool visible = false;
