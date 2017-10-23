@@ -567,8 +567,15 @@ void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmi
 }
 
 void EntityEditor::VRDeviceEditor(Component::VRDevice* vrDevice) {
-    ImGui::Text("Controller");
-    ImGui::Indent();
-    ImGui::InputInt("Controller ID (1 = left, 2 = right)", &vrDevice->controllerID);
-    ImGui::Unindent();
+    const char* items[] = { "Controller", "Headset" };
+    int item = static_cast<int>(vrDevice->type);
+    if (ImGui::Combo("Type", &item, items, 2))
+        vrDevice->type = static_cast<Component::VRDevice::Type>(item);
+    
+    if (vrDevice->type == Component::VRDevice::CONTROLLER) {
+        ImGui::Text("Controller");
+        ImGui::Indent();
+        ImGui::InputInt("Controller ID (1 = left, 2 = right)", &vrDevice->controllerID);
+        ImGui::Unindent();
+    }
 }
