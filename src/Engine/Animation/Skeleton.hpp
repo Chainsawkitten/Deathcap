@@ -22,7 +22,9 @@ namespace Animation {
             ENGINE_API Skeleton();
 
             /// Save skeleton.
-            
+            /**
+             * @param name Name of file.
+             */
             ENGINE_API void Save(std::string name);
 
             /// Load skeleton.
