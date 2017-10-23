@@ -52,6 +52,13 @@ void VRManager::Sync() {
             deviceTransforms[nDevice] = ConvertMatrix(tracedDevicePoseArray[nDevice].mDeviceToAbsoluteTracking);
 }
 
+void VRManager::Update() {
+    if (vrSystem == nullptr)
+        return;
+    
+    /// @todo Update VR devices.
+}
+
 glm::vec2 VRManager::GetRecommendedRenderTargetSize() const {
     if (vrSystem == nullptr) {
         Log() << "No initialized VR device.\n";

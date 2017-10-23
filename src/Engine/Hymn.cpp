@@ -158,6 +158,10 @@ void ActiveHymn::Update(float deltaTime) {
         Managers().scriptManager->Update(world, deltaTime);
     }
     
+    { PROFILE("Update VR devices");
+        Managers().vrManager->Update();
+    }
+    
     { PROFILE("Update physics");
         Managers().physicsManager->Update(deltaTime);
     }

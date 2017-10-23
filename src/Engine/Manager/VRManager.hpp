@@ -27,6 +27,9 @@ class VRManager {
 
         /// Sync VR device pose(s).
         ENGINE_API void Sync();
+        
+        /// Update VR device components.
+        void Update();
 
         /// Recommended render target size to minimize pixel stretching.
         /**
