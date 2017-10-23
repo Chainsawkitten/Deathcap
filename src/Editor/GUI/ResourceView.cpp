@@ -299,7 +299,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
                 savePromptWindow.SetDecision(1);
             } else {
                 // Does so that the prompt window won't show if you select active scene.
-                if (*resource.scene != Resources().activeScene) {
+                if (Resources().activeScene != path + "/" + *resource.scene) {
                     changeScene = true;
                     resourcePath = path;
                     scene = resource.scene;
