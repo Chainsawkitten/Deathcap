@@ -21,15 +21,17 @@ namespace Animation {
             /// Constructor.
             ENGINE_API Skeleton();
 
+            /// Save skeleton.
+            
             ENGINE_API void Save(std::string name);
 
-            /// 
+            /// Load skeleton.
             /** 
-             * @param name 
+             * @param name Name of skeleton to load.
              */ 
             ENGINE_API void Load(std::string name);
 
-            /// 
+            /// Bones of skeleton.
             std::vector<SkeletonBone*> skeletonBones;
 
             /// Path to skeleton.
