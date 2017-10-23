@@ -10,6 +10,7 @@
 #include "Skinning.vert.hpp"
 #include "Default3D.frag.hpp"
 #include <chrono>
+#include <Utility/Log.hpp>
 
 using namespace Video;
 
@@ -30,6 +31,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
+    Log() << "Hej Ludde\n";
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 

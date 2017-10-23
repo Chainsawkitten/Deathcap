@@ -17,6 +17,7 @@ uniform mat3 normalMatrix;
 uniform mat4 bones[MAX_BONES];
 
 out VertexData {
+    vec3 pos;
     vec3 normal;
     vec3 tangent;
     vec2 texCoords;
@@ -34,6 +35,7 @@ void main () {
     normal += (bones[vertexBoneIDs[3]] * vec4(vertexNormal, 1.0)) * vertexWeights[3];
     
     gl_Position = viewProjection * (model * position);
+    vertexOut.pos = model * position;
     vertexOut.normal = normalize(normalMatrix * normal.xyz);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;
