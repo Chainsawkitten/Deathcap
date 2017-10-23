@@ -674,6 +674,33 @@ void ScriptManager::ClearKilledComponents() {
     scripts.ClearKilled();
 }
 
+void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string& method) {
+    Component::Script* script = entity->GetComponent<Component::Script>();
+    if (!script)
+        return;
+    ScriptFile* scriptFile = script->scriptFile;
+
+    // Get class.
+    asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
+
+    // Find method to call.
+    std::string methodDecl;
+    methodDecl.reserve(method.length() + 7); // additional `void ` and `()`
+    methodDecl.append("void ").append(method).append("()");
+    asIScriptFunction* scriptMethod = type->GetMethodByDecl(methodDecl.c_str());
+    if (scriptMethod == nullptr)
+        Log() << "Can't find method void " << method << "()\n";
+
+    // Create context, prepare it and execute.
+    asIScriptContext* context = engine->CreateContext();
+    context->Prepare(scriptMethod);
+    context->SetObject(script->instance);
+    ExecuteCall(context);
+
+    // Clean up.
+    context->Release();
+}
+
 void ScriptManager::CreateInstance(Component::Script* script) {
     currentEntity = script->entity;
     ScriptFile* scriptFile = script->scriptFile;
