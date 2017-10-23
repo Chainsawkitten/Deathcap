@@ -3,10 +3,6 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptbuilder/scriptbuilder.cpp
         ../../externals/AngelScript/sdk/add_on/scriptmath/scriptmath.cpp
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
-        ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring_utils.cpp
-        ../../externals/imgui/imgui.cpp
-        ../../externals/imgui/imgui_demo.cpp
-        ../../externals/imgui/imgui_draw.cpp
         Hymn.cpp
         MainWindow.cpp
 	Animation/AnimationClip.cpp
@@ -67,6 +63,7 @@ set(SRCS
     )
 
 set(HEADERS
+        linking.hpp
         Hymn.hpp
         MainWindow.hpp
         Animation/AnimationClip.hpp
@@ -150,9 +147,9 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 create_directory_groups(${SRCS} ${HEADERS})
 
-add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
+add_library(Engine SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)

@@ -2,6 +2,7 @@
 
 #include <map>
 #include <GL/glew.h>
+#include "../linking.hpp"
 
 namespace Video {
     class Texture2D;
@@ -33,58 +34,57 @@ class ResourceManager {
         /// Constructor
         ResourceManager() {}
 
-        /// Create an model for rendering if it doesn't already exist.
-        /**
-         * @param name Name of model.
-         * @return The model instance
-         */
-        Geometry::Model* CreateModel(const std::string& name);
-
-        /// Free the reference to the model.
-        /**
-         * @param model %Model to dereference.
-         */
-        void FreeModel(Geometry::Model* model);
-
         /// Create an animation clip.
         /**
          * @param name Name of animation clip.
          * @return The animation clip instance.
          */
-        Animation::AnimationClip* CreateAnimationClip(const std::string& name);
+        ENGINE_API Animation::AnimationClip* CreateAnimationClip(const std::string& name);
 
         /// Free the reference to the animation clip.
         /**
          * @param animationClip %Animation clip to dereference.
          */
-        void FreeAnimationClip(Animation::AnimationClip * animationClip);
+        ENGINE_API void FreeAnimationClip(Animation::AnimationClip * animationClip);
 
         /// Create an animation clip.
         /**
          * @param name Name of animation controller.
          * @return The animation clip instance.
          */
-        Animation::AnimationController* CreateAnimationController(const std::string& name);
+        ENGINE_API Animation::AnimationController* CreateAnimationController(const std::string& name);
 
         /// Free the reference to the animation clip.
         /**
          * @param animationClip %Animation clip to dereference.
          */
-        void FreeAnimationController(Animation::AnimationController * animationController);
+        ENGINE_API void FreeAnimationController(Animation::AnimationController * animationController);
 
         /// Create a skeleton.
         /**
          * @param name Name of skeleton.
          * @return The skeleton instance.
          */
-        Animation::Skeleton* CreateSkeleton(const std::string& name);
+        ENGINE_API Animation::Skeleton* CreateSkeleton(const std::string& name);
 
         /// Free the reference to the skeleton.
         /**
          * @param skeleton %Skeleton to dereference.
          */
-        void FreeSkeleton(Animation::Skeleton * skeleton);
+        ENGINE_API void FreeSkeleton(Animation::Skeleton * skeleton);
 
+        /**
+         * @param name Name of model.
+         * @return The model instance
+         */
+        ENGINE_API Geometry::Model* CreateModel(const std::string& name);
+
+        /// Free the reference to the model.
+        /**
+        * @param model %Model to dereference.
+        */
+        ENGINE_API void FreeModel(Geometry::Model* model);
+        
         /// Create a 2D texture if it doesn't already exist.
         /**
          * @param data Image file data.
@@ -92,63 +92,63 @@ class ResourceManager {
          * @param srgb Whether the image is in SRGB space and should be converted to linear space.
          * @return The %Texture2D instance
          */
-        Video::Texture2D* CreateTexture2D(const char* data, int dataLength, bool srgb = false);
+        ENGINE_API Video::Texture2D* CreateTexture2D(const char* data, int dataLength, bool srgb = false);
         
         /// Free the reference to the 2D texture.
         /**
          * Deletes the instance if no more references exist.
          * @param texture %Texture to dereference.
          */
-        void FreeTexture2D(Video::Texture2D* texture);
+        ENGINE_API void FreeTexture2D(Video::Texture2D* texture);
         
         /// Create a texture asset if it doesn't already exist.
         /**
          * @param name The name of the texture asset.
          * @return The %TextureAsset instance
          */
-        TextureAsset* CreateTextureAsset(const std::string& name);
+        ENGINE_API TextureAsset* CreateTextureAsset(const std::string& name);
         
         /// Free the reference to the texture asset.
         /**
          * Deletes the instance if no more references exist.
          * @param textureAsset %TextureAsset to dereference.
          */
-        void FreeTextureAsset(TextureAsset* textureAsset);
+        ENGINE_API void FreeTextureAsset(TextureAsset* textureAsset);
         
         /// Get the number of instances of a texture asset.
         /**
          * @param textureAsset The texture asset to check.
          * @return How many instances of the texture asset currently exist.
          */
-        int GetTextureAssetInstanceCount(TextureAsset* textureAsset);
+        ENGINE_API int GetTextureAssetInstanceCount(TextureAsset* textureAsset);
         
         /// Create a sound if it doesn't already exist.
         /**
          * @param name Name of the sound.
          * @return The %SoundBuffer instance.
          */
-        Audio::SoundBuffer* CreateSound(const std::string& name);
+        ENGINE_API Audio::SoundBuffer* CreateSound(const std::string& name);
         
         /// Free the reference to the sound.
         /**
          * Deletes the instance if no more references exist.
          * @param soundBuffer %SoundBuffer to dereference.
          */
-        void FreeSound(Audio::SoundBuffer* soundBuffer);
+        ENGINE_API void FreeSound(Audio::SoundBuffer* soundBuffer);
         
         /// Create a script file if it doesn't already exist.
         /**
          * @param name Name of the script file.
          * @return The %ScriptFile instance.
          */
-        ScriptFile* CreateScriptFile(const std::string& name);
+        ENGINE_API ScriptFile* CreateScriptFile(const std::string& name);
         
         /// Free the reference to the script file.
         /**
          * Deletes the instance if no more references exist.
          * @param scriptFile %ScriptFile to dereference.
          */
-        void FreeScriptFile(ScriptFile* scriptFile);
+        ENGINE_API void FreeScriptFile(ScriptFile* scriptFile);
         
     private:
         ResourceManager(ResourceManager const&) = delete;

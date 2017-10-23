@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include "../Util/Node.hpp"
 #include <map>
+#include "../linking.hpp"
 
 namespace Animation {
     class AnimationClip;
@@ -65,10 +66,10 @@ namespace Animation {
             };
 
             /// Save animation controller.
-            void Save(const std::string& name);
+            ENGINE_API void Save(const std::string& name);
 
             /// Load animation controller.
-            void Load(const std::string& name);
+            ENGINE_API void Load(const std::string& name);
 
             /// Vector with the animation nodes.
             std::vector<Node*> animationNodes;

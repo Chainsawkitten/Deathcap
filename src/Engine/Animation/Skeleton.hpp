@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Animation {
     /// An animation loaded from a file.
@@ -18,15 +19,15 @@ namespace Animation {
             };
 
             /// Constructor.
-            Skeleton();
+            ENGINE_API Skeleton();
 
-            void Save(std::string name);
+            ENGINE_API void Save(std::string name);
 
             /// 
             /** 
              * @param name 
              */ 
-            void Load(std::string name);
+            ENGINE_API void Load(std::string name);
 
             /// 
             std::vector<SkeletonBone*> skeletonBones;

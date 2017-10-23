@@ -6,6 +6,7 @@
 #include <fstream>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include "../linking.hpp"
 
 namespace Animation {
     /// An animation loaded from a file.
@@ -73,11 +74,14 @@ namespace Animation {
                 }
             };
 
+            /// Default constructor.
+            AnimationClip() = default;
+
             /// Load.
             /**
              * @param name Name of animation.
              */
-            void Load(const std::string& name);       
+            ENGINE_API void Load(const std::string& name);       
 
             Animation * animation = nullptr;
 

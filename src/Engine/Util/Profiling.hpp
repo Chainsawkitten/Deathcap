@@ -3,6 +3,7 @@
 #include <string>
 #include "../Manager/Managers.hpp"
 #include "../Manager/ProfilingManager.hpp"
+#include "../linking.hpp"
 
 /// Run profiling.
 class Profiling {
@@ -11,10 +12,10 @@ class Profiling {
         /**
          * @param name Name of the segment.
          */
-        Profiling(const std::string& name);
+        ENGINE_API Profiling(const std::string& name);
         
         /// End profiling.
-        ~Profiling();
+        ENGINE_API ~Profiling();
         
     private:
         ProfilingManager::Result* result;
