@@ -7,8 +7,8 @@ class Lever {
     Lever(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        @sibling = self.GetParent().GetChild("Gates");
-        @player = self.GetParent().GetChild("Minecart").GetChild("Player");
+        @sibling = self.GetParent().GetParent().GetChild("Gates");
+        @player = self.GetParent().GetParent().GetChild("Minecart").GetChild("Player");
         
         RegisterUpdate();
     }

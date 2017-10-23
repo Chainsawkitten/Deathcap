@@ -1,74 +1,12 @@
 {
 	"activeScene" : "Resources/Opening Scene/Opening Scene",
-	"modelNumber" : 12,
+	"modelNumber" : 15,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
-		"resources" : 
-		[
-			{
-				"scene" : "TestScene",
-				"type" : 0
-			}
-		],
+		"resources" : null,
 		"subfolders" : 
 		[
-			{
-				"name" : "Cave",
-				"resources" : 
-				[
-					{
-						"model" : "Cave",
-						"type" : 1
-					},
-					{
-						"texture" : "Texture #2",
-						"type" : 2
-					},
-					{
-						"texture" : "Texture #3",
-						"type" : 2
-					}
-				],
-				"subfolders" : null
-			},
-			{
-				"name" : "Minecart",
-				"resources" : 
-				[
-					{
-						"model" : "CartSecond",
-						"type" : 1
-					},
-					{
-						"texture" : "Texture #1",
-						"type" : 2
-					}
-				],
-				"subfolders" : null
-			},
-			{
-				"name" : "Gate",
-				"resources" : 
-				[
-					{
-						"model" : "Galler",
-						"type" : 1
-					}
-				],
-				"subfolders" : null
-			},
-			{
-				"name" : "Controller",
-				"resources" : 
-				[
-					{
-						"model" : "controller_fix",
-						"type" : 1
-					}
-				],
-				"subfolders" : null
-			},
 			{
 				"name" : "Opening Scene",
 				"resources" : 
@@ -171,11 +109,6 @@
 								"subfolders" : null
 							}
 						]
-					},
-					{
-						"name" : "Cate",
-						"resources" : null,
-						"subfolders" : null
 					},
 					{
 						"name" : "Lever",
@@ -284,11 +217,75 @@
 						]
 					}
 				]
+			},
+			{
+				"name" : "Constant Scene",
+				"resources" : null,
+				"subfolders" : 
+				[
+					{
+						"name" : "Minecart",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Model",
+								"resources" : 
+								[
+									{
+										"model" : "cart",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Script",
+								"resources" : 
+								[
+									{
+										"script" : "Minecart",
+										"type" : 4
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "cart_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Controller",
+						"resources" : null,
+						"subfolders" : null
+					}
+				]
 			}
 		]
 	},
 	"sceneNumber" : 2,
 	"scriptNumber" : 0,
 	"soundNumber" : 0,
-	"textureNumber" : 20
+	"textureNumber" : 24
 }

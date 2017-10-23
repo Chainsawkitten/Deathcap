@@ -46,10 +46,10 @@ class Minecart{
         }
         // Start again after lever has been pulled
         if (trigger){
-            if (speed < 20.0f)
-                speed += 0.0664f;
-            if (speed > 20.0f){
-                speed = 20.0f;
+            if (speed < 2.0f)
+                speed += 0.00664f;
+            if (speed > 2.0f){
+                speed = 2.0f;
                 trigger = false;
             }
         }
