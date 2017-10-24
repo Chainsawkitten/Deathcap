@@ -73,6 +73,9 @@ class ActiveHymn {
          */
         ENGINE_API void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
         
+        /// Scene to start when playing the hymn.
+        std::string startupScene;
+        
         /// The game world.
         World world;
         

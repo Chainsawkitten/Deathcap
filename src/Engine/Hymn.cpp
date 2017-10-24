@@ -49,6 +49,7 @@ ActiveHymn& ActiveHymn::GetInstance() {
 
 void ActiveHymn::Clear() {
     path = "";
+    startupScene = "";
     world.Clear();
     
     entityNumber = 1U;
@@ -126,6 +127,8 @@ Json::Value ActiveHymn::ToJson() const {
         scriptNode.append(script->path + script->name);
     }
     root["scripts"] = scriptNode;
+
+    root["startupScene"] = startupScene;
     
     return root;
 }
@@ -151,6 +154,8 @@ void ActiveHymn::FromJson(Json::Value root) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
     }
     scriptNumber = scripts.size();
+
+    startupScene = root["startupScene"].asString();
 }
 
 void ActiveHymn::Update(float deltaTime) {
