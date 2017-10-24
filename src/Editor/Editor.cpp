@@ -14,6 +14,8 @@
 #include <Engine/Component/Lens.hpp>
 #include <Engine/Component/Listener.hpp>
 #include <Engine/Component/Mesh.hpp>
+#include <Engine/Component/SpotLight.hpp>
+#include <Engine/Component/PointLight.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
@@ -537,34 +539,37 @@ void Editor::Picking() {
         mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
         mousePicker.Update();
         float lastDistance = INFINITY;
-        int entityIndex = 0;
-        int entityAmount = Hymn().world.GetEntities().size();
-        for (int i = 0; i < entityAmount; ++i) {
-            selectedEntity = Hymn().world.GetEntities().at(i);
-            if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
-                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
-                float intersectDistance = 0.0f;
-                if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
-                    selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
-                    selectedEntity->GetModelMatrix(), intersectDistance)) {
-                    if (intersectDistance < lastDistance) {
+
+        if (selectedEntity != nullptr && selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
+            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
+            resourceView.GetScene().entityEditor.SetVisible(false);
+        }  
+        selectedEntity = nullptr;
+
+        float intersectDistance = 0.0f;
+        const std::vector<Entity*>& entities = Hymn().world.GetEntities();
+        for (Entity* entity : entities) {
+            // Check if entity has pickable component.
+            if (entity->GetComponent<Component::SpotLight>() || entity->GetComponent<Component::DirectionalLight>() || entity->GetComponent<Component::PointLight>() ||
+                entity->GetComponent<Component::Mesh>() || entity->GetComponent<Component::Lens>() || entity->GetComponent<Component::Listener>()) {
+                // Generate aabo.
+                Component::Mesh* mesh = entity->GetComponent<Component::Mesh>();
+                const Video::AxisAlignedBoundingBox aabo = mesh != nullptr && mesh->geometry != nullptr ?
+                    mesh->geometry->GetAxisAlignedBoundingBox() : Video::AxisAlignedBoundingBox(glm::vec3(1.f, 1.f, 1.f), entity->GetWorldPosition(), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
+                // Intersect with aabo.
+                if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(), aabo, entity->GetModelMatrix(), intersectDistance)) {
+                    if (intersectDistance < lastDistance && intersectDistance > 0.f) {
                         lastDistance = intersectDistance;
-                        entityIndex = i;
-                        if (entityAmount - i == 1) {
-                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                            resourceView.GetScene().entityEditor.SetVisible(true);
-                            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
-                            break;
-                        }
-                      
-                    } else if (intersectDistance > 0.0f) {
-                        resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                        resourceView.GetScene().entityEditor.SetVisible(true);
-                        selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
-                        break;
+                        selectedEntity = entity;
                     }
                 }
             }
+        }
+        if (selectedEntity != nullptr) {
+            resourceView.GetScene().entityEditor.SetEntity(selectedEntity);
+            resourceView.GetScene().entityEditor.SetVisible(true);
+            if (selectedEntity->GetComponent<Component::Mesh>() != nullptr)
+                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
         }
     }
 }
