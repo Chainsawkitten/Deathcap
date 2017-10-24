@@ -153,7 +153,6 @@ void ActiveHymn::FromJson(Json::Value root) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
     }
     scriptNumber = scripts.size();
-
     startupScene = root["startupScene"].asString();
 }
 
