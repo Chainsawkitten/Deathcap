@@ -299,7 +299,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
                 savePromptWindow.SetDecision(1);
             } else {
                 // Does so that the prompt window won't show if you select active scene.
-                if (*resource.scene != Resources().activeScene) {
+                if (Resources().activeScene != path + "/" + *resource.scene) {
                     changeScene = true;
                     resourcePath = path;
                     scene = resource.scene;
@@ -311,7 +311,9 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         // Delete scene.
         if (ImGui::BeginPopupContextItem(resource.scene->c_str())) {
             if (ImGui::Selectable("Delete")) {
-                if (Resources().activeScene == *resource.scene) {
+                if (Resources().activeScene == path + "/" + *resource.scene) {
+                    Hymn().world.Clear();
+                    scene = nullptr;
                     Resources().activeScene = "";
                     sceneEditor.SetScene("", nullptr);
                 }

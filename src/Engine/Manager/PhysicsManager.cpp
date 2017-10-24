@@ -33,7 +33,7 @@ PhysicsManager::PhysicsManager() {
     dynamicsWorld->setGravity(btVector3(0, -9.82, 0));
 
     // Set the lockbox key we will use for lockboxes created in here.
-    triggerLockBoxKey.reset(new Util::LockBox<Physics::Trigger>::Key());
+    triggerLockBoxKey.reset(new Utility::LockBox<Physics::Trigger>::Key());
 }
 
 PhysicsManager::~PhysicsManager() {
@@ -176,13 +176,13 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     return comp;
 }
 
-Util::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(Component::RigidBody* comp) {
+Utility::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(Component::RigidBody* comp) {
     btTransform trans(btQuaternion(0, 0, 0, 1), ::Physics::glmToBt(comp->entity->position));
     Physics::Trigger* trigger = new Physics::Trigger(trans);
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape() : nullptr);
     triggers.push_back(trigger);
-    return Util::LockBox<Physics::Trigger>(triggerLockBoxKey, trigger);
+    return Utility::LockBox<Physics::Trigger>(triggerLockBoxKey, trigger);
 }
 
 void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape) {
