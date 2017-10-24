@@ -543,25 +543,28 @@ void Editor::Picking() {
             selectedEntity = Hymn().world.GetEntities().at(i);
             if (selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
                 selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
-                float intersectDistance = 0.0f;
-                if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
-                    selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
-                    selectedEntity->GetModelMatrix(), intersectDistance)) {
-                    if (intersectDistance < lastDistance) {
-                        lastDistance = intersectDistance;
-                        entityIndex = i;
-                        if (entityAmount - i == 1) {
+                if (selectedEntity->GetComponent<Component::Mesh>()->geometry != nullptr) {
+                    float intersectDistance = 0.0f;
+                    if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(),
+                        selectedEntity->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
+                        selectedEntity->GetModelMatrix(), intersectDistance)) {
+                        if (intersectDistance < lastDistance) {
+                            lastDistance = intersectDistance;
+                            entityIndex = i;
+                            if (entityAmount - i == 1) {
+                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                                resourceView.GetScene().entityEditor.SetVisible(true);
+                                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
+                                break;
+                            }
+
+                        }
+                        else if (intersectDistance > 0.0f) {
                             resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
                             resourceView.GetScene().entityEditor.SetVisible(true);
                             selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
                             break;
                         }
-                      
-                    } else if (intersectDistance > 0.0f) {
-                        resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                        resourceView.GetScene().entityEditor.SetVisible(true);
-                        selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
-                        break;
                     }
                 }
             }
