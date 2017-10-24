@@ -1,6 +1,9 @@
 #pragma once
-
+#include "../Trigger/TriggerRepeat.hpp"
+#include "../Trigger/TriggerOnce.hpp"
 #include "SuperComponent.hpp"
+
+class SuperTrigger;
 
 namespace Component {
     class Trigger : public SuperComponent {
@@ -17,8 +20,14 @@ namespace Component {
 
             ~Trigger() override;
 
-            Json::Value Save() const override;
+            ENGINE_API  Json::Value Save() const override;
+
+            ENGINE_API  SuperTrigger* GetTrigger();
+            ENGINE_API  void SetTrigger(SuperTrigger* trigger);
 
             TriggerTypes triggerType = TriggerTypes::ONCE;
+
+        private:
+            SuperTrigger* m_trigger = nullptr;
     };
 }

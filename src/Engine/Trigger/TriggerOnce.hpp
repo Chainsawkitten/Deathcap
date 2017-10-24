@@ -1,30 +1,40 @@
 #pragma once
+#include "SuperTrigger.hpp"
 
-#include <string>
-#include "Entity/Entity.hpp"
+class TriggerOnce : public SuperTrigger {
+public:
 
-/// @todo: This pollutes global namespace. Should probably be placed inside TriggerOnce.
-enum Output {
-    OnEnter,
-    OnLeave
-};
+    ENGINE_API TriggerOnce();
+    ENGINE_API ~TriggerOnce();
 
-class TriggerOnce {
-    public:
-        TriggerOnce();
+    ENGINE_API  void OnEnter();
+    ENGINE_API  void OnLeave();
+    ENGINE_API  void OnRemain();
 
-        ~TriggerOnce();
+    ENGINE_API  std::string GetName();
+    ENGINE_API  void SetName(std::string value);
 
-        void Execute(Output type);
+    ENGINE_API  std::string GetTargetFunction();
+    ENGINE_API  void SetTargetFunction(std::string value);
 
-    private:
-        void OnEnter();
-        void OnLeave();
+    ENGINE_API  bool GetStartActive();
+    ENGINE_API  void SetStartActive(bool value);
 
-        std::string name;
-        std::string targetFunction;
-        bool startActive;
-        float delay;
-        Entity* targetEntity;
-        Entity* collidedEntity;
+    ENGINE_API  float GetDelay();
+    ENGINE_API  void SetDelay(float value);
+
+    ENGINE_API  Entity* GetTargetEntity();
+    ENGINE_API  void SetTargetEntity(Entity* value);
+
+    ENGINE_API  Entity* GetCollidedEntity();
+    ENGINE_API  void SetCollidedEntity(Entity* value);
+
+
+private:
+    std::string name = "DEBUG";
+    std::string targetFunction = "DEBUG";
+    bool startActive;
+    float delay = 0;
+    Entity* targetEntity = nullptr;
+    Entity* collidedEntity = nullptr;
 };

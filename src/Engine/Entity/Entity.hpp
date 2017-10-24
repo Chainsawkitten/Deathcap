@@ -203,6 +203,18 @@ class Entity {
 
         /// Whether the entity is static.
         bool isStatic = false;
+
+        /// Check if entity has trigger component attached.
+        /**
+        * @return The entity's trigger status.
+        */
+        ENGINE_API bool GetHasTrigger();
+
+        /// Set hasTrigger value.
+        /**
+        * @param Status of hasTrigger.
+        */
+        ENGINE_API void SetHasTrigger(bool status);
         
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
@@ -222,6 +234,7 @@ class Entity {
         std::map<std::type_index, Component::SuperComponent*> components;
         
         bool killed = false;
+        bool hasTrigger = false;
         unsigned int uniqueIdentifier = 0;
 };
 

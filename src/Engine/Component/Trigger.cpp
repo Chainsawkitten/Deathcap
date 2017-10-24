@@ -1,4 +1,5 @@
 #include "Trigger.hpp"
+#include "../Trigger/SuperTrigger.hpp"
 
 using namespace Component;
 
@@ -15,4 +16,16 @@ Json::Value Trigger::Save() const {
     Json::Value component;
 
     return component;
+}
+
+SuperTrigger* Trigger::GetTrigger() {
+    return m_trigger;
+}
+
+void Trigger::SetTrigger(SuperTrigger* trigger) {
+
+    if (m_trigger != nullptr)
+        delete m_trigger;
+
+    m_trigger = trigger;
 }
