@@ -535,7 +535,7 @@ void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmi
     
     ImGui::Text("Emitter");
     ImGui::Indent();
-    ImGui::DraggableFloat("Average emit time", particleEmitter->averageEmitTime, 0.0f);
+    ImGui::DraggableFloat("Average emit time", particleEmitter->averageEmitTime, 0.001f);
     ImGui::DraggableFloat("Emit time variance", particleEmitter->emitTimeVariance, 0.0f);
     
     const char* items[] = { "Point", "Cuboid" };
