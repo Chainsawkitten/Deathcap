@@ -75,6 +75,20 @@ set(EMBEDDED_INPUT
     ../../assets/SoundSource.png
 )
 
+# Copy assets to binary directory.
+set(COPY_FILES
+	../../assets/ErrorSign.fbx
+)
+foreach(item ${COPY_FILES})
+	if(MSVC)
+		file(COPY ${item} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+		file(COPY ${item} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+		file(COPY ${item} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+	else()
+		file(COPY ${item} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	endif()
+endforeach()
+
 foreach(item ${EMBEDDED_INPUT})
     ProcessWithHeaderize(EMBEDDED_HEADER EMBEDDED_SOURCE ${item} ${CMAKE_CURRENT_BINARY_DIR})
 endforeach()
