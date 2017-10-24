@@ -13,6 +13,8 @@ AnimationController::AnimationController() {
 }
 
 Json::Value AnimationController::Save() const {
+    Log() << "Save";
+
     Json::Value component;
     if (controller != nullptr)
         component["animationController"] = controller->name;

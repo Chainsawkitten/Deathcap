@@ -7,6 +7,8 @@
 #include "../Util/Node.hpp"
 #include <map>
 #include "../linking.hpp"
+#include "../Manager/Managers.hpp"
+#include "../Manager/ResourceManager.hpp"
 
 namespace Animation {
     class AnimationClip;
@@ -19,51 +21,65 @@ namespace Animation {
         public:
             /// Animaiton action node.
             struct AnimationAction : public Node {
-                char animationClip[128];
+                char animationClipName[128];
                 float playbackModifier = 1.0f;
                 bool repeat = true;
+                Animation::AnimationClip * animationClip = nullptr;
+
+                virtual ~AnimationAction() {
+                    if (animationClip != nullptr)
+                        Managers().resourceManager->FreeAnimationClip(animationClip);
+                }
 
                 /// Save the animation action node.
+                /**
+                 * @param file File to save to.
+                 */
                 virtual void Save(std::ofstream* file) override {
                     Node::Save(file);
-                    file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));
+                    file->write(reinterpret_cast<char*>(animationClipName), 128);
+                    file->write(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));
+                    file->write(reinterpret_cast<char*>(&repeat), sizeof(bool));
                 }
 
                 /// Load the animation action node.
+                /**
+                 * @param file File to load from.
+                 */
                 virtual void Load(std::ifstream* file) override {
                     Node::Load(file);
-                    file->read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
+                    file->read(reinterpret_cast<char*>(animationClipName), 128);
+                    file->read(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));
+                    file->read(reinterpret_cast<char*>(&repeat), sizeof(bool));
+                    Managers().resourceManager->CreateAnimationClip(animationClipName);
                 }
             };
 
             /// Animation transition node.
             struct AnimationTransition : public Node {
-                uint32_t in;
-                float inTransitionValue;
-                uint32_t out;
-                float outTransitionValue;
-                glm::vec2 pos;
+                float transitionTime;
 
                 /// Save the animation transition node.
+                /**
+                 * @param file File to save to.
+                 */
                 virtual void Save(std::ofstream* file) override {
                     Node::Save(file);
-                    file->write(reinterpret_cast<char*>(&in), sizeof(uint32_t));
-                    file->write(reinterpret_cast<char*>(&inTransitionValue), sizeof(float));
-                    file->write(reinterpret_cast<char*>(&out), sizeof(uint32_t));
-                    file->write(reinterpret_cast<char*>(&outTransitionValue), sizeof(float));
-                    file->write(reinterpret_cast<char*>(&pos), sizeof(glm::vec2));
+                    file->write(reinterpret_cast<char*>(&transitionTime), sizeof(float));
                 }
 
                 /// Load the animation transition node.
+                /**
+                 * @param file File to load from.
+                 */
                 virtual void Load(std::ifstream* file) override {
                     Node::Load(file);
-                    file->read(reinterpret_cast<char*>(&in), sizeof(uint32_t));
-                    file->read(reinterpret_cast<char*>(&inTransitionValue), sizeof(float));
-                    file->read(reinterpret_cast<char*>(&out), sizeof(uint32_t));
-                    file->read(reinterpret_cast<char*>(&outTransitionValue), sizeof(float));
-                    file->read(reinterpret_cast<char*>(&pos), sizeof(glm::vec2));
+                    file->read(reinterpret_cast<char*>(&transitionTime), sizeof(float));
                 }
             };
+
+            AnimationController() = default;
+            ~AnimationController();
 
             /// Save animation controller.
             ENGINE_API void Save(const std::string& name);
@@ -83,9 +99,6 @@ namespace Animation {
             /// Transition between the two animations.
             AnimationTransition* activeTransition = nullptr;
 
-            /// Animation clips.
-            std::map<std::string, AnimationClip*> animationClips;
-
             /// Skeleton.
             Skeleton* skeleton;
 
@@ -96,6 +109,11 @@ namespace Animation {
             std::string path;
 
         private:
-            
+            enum NodeType {
+                ACTION = 0,
+                TRANSITION = 1
+            };
+
+            void Clear();
     };
 }

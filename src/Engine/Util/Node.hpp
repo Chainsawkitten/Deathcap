@@ -9,6 +9,8 @@ struct Node {
     uint32_t outputIndex[8];
     glm::vec2 pos = glm::vec2(0.0f);
     glm::vec2 size = glm::vec2(250, 100);
+    
+    virtual ~Node() {}
 
     virtual void Save(std::ofstream* file) {
         file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));

@@ -381,7 +381,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         if (ImGui::BeginPopupContextItem(resource.animationClip->name.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (animationClipEditor.GetAnimationClip() == resource.animationClip)
-                    animationControllerEditor.SetVisible(false);
+                    animationClipEditor.SetVisible(false);
     
                 Managers().resourceManager->FreeAnimationClip(resource.animationClip);
                 ImGui::EndPopup();

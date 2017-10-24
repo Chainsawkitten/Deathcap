@@ -25,7 +25,7 @@ class NodeEditor {
         /**
         * @param visible Whether the window should be visible.
         */
-        void SetVisible(bool visible);
+        void virtual SetVisible(bool visible);
     
     protected:
         /// Show context menu.
