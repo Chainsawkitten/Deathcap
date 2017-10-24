@@ -722,7 +722,7 @@ int ScriptManager::GetStringDeclarationID() {
 
 }
 
-int ScriptManager::GetSizeOfASType(int typeID, void* value) {
+const int ScriptManager::GetSizeOfASType(int typeID, void* value) {
 
    
     if (typeID == asTYPEID_INT32)
