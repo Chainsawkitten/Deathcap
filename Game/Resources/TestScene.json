@@ -81,21 +81,49 @@
 						{
 							"VRDevice" : 
 							{
-								"controllerID" : 2
+								"controllerID" : 2,
+								"type" : null
 							},
-							"Material" : 
-							{
-								"albedo" : "",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : ""
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/Controller/controller_fix"
-							},
-							"children" : null,
-							"name" : "RightCtrlModel",
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
+									"Mesh" : 
+									{
+										"model" : "Resources/Controller/controller_fix"
+									},
+									"children" : null,
+									"name" : "Model",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"x" : 270.0,
+										"y" : 0.0,
+										"z" : 70.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1508836074
+								}
+							],
+							"name" : "RightController",
 							"position" : 
 							{
 								"x" : 0.0,
@@ -121,21 +149,49 @@
 						{
 							"VRDevice" : 
 							{
-								"controllerID" : 1
+								"controllerID" : 1,
+								"type" : null
 							},
-							"Material" : 
-							{
-								"albedo" : "",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : ""
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/Controller/controller_fix"
-							},
-							"children" : null,
-							"name" : "LeftCtrlModel",
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
+									"Mesh" : 
+									{
+										"model" : "Resources/Controller/controller_fix"
+									},
+									"children" : null,
+									"name" : "Model",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"x" : 270.0,
+										"y" : 0.0,
+										"z" : 70.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1508836100
+								}
+							],
+							"name" : "LeftController",
 							"position" : 
 							{
 								"x" : 0.0,
