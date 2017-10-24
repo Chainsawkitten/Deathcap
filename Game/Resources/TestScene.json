@@ -76,7 +76,7 @@
 							"VRDevice" : 
 							{
 								"controllerID" : 2,
-								"type" : null
+								"type" : "controller"
 							},
 							"children" : 
 							[
@@ -144,7 +144,7 @@
 							"VRDevice" : 
 							{
 								"controllerID" : 1,
-								"type" : null
+								"type" : "controller"
 							},
 							"children" : 
 							[
@@ -222,7 +222,7 @@
 							"VRDevice" : 
 							{
 								"controllerID" : 1,
-								"type" : null
+								"type" : "headset"
 							},
 							"children" : null,
 							"name" : "Camera",

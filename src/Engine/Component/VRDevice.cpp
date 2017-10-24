@@ -15,10 +15,11 @@ namespace Component {
 
         switch (type) {
         case CONTROLLER:
-            component["type"] == "controller";
+            component["type"] = "controller";
             break;
         case HEADSET:
-            component["type"] == "headset";
+            component["type"] = "headset";
+            break;
         }
         component["controllerID"] = controllerID;
 
