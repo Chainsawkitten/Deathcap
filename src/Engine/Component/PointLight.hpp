@@ -20,9 +20,6 @@ namespace Component {
             /// Color.
             glm::vec3 color = glm::vec3(1.f, 1.f, 1.f);
             
-            /// Ambient coefficient.
-            float ambientCoefficient = 0.f;
-            
             /// Attenuation.
             float attenuation = 1.f;
 
