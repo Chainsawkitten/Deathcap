@@ -22,7 +22,7 @@ int main() {
     
     Managers().StartUp();
     
-    Hymn().Load("C:/Users/Itamar/AppData/Roaming/Hymn to Beauty/Hymns/game");
+    Hymn().Load(".");
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");
 
     // Compile scripts.

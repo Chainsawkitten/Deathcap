@@ -32,7 +32,6 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
     if (importMaterial) {
         if (aScene->mMeshes[0]->mMaterialIndex >= 0) {
             aiMaterial* material = aScene->mMaterials[aScene->mMeshes[0]->mMaterialIndex];
-            
             LoadMaterial(material, aiTextureType_DIFFUSE, materials.albedo);
             LoadMaterial(material, aiTextureType_NORMALS, materials.normal);
             LoadMaterial(material, aiTextureType_SPECULAR, materials.roughness);

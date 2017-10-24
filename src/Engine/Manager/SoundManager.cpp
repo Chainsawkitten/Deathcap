@@ -121,7 +121,7 @@ void SoundManager::Update(float deltaTime) {
         processedSamples = new float[numSamples] {0};
 
     Pa_WriteStream(stream, processedSamples, *numProcessedSamples);
-    //delete[] processedSamples;
+    delete[] processedSamples;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
