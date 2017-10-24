@@ -9,6 +9,7 @@
 #include "../linking.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
+#include <Utility/Log.hpp>
 
 namespace Animation {
     class AnimationClip;
@@ -51,7 +52,11 @@ namespace Animation {
                     file->read(reinterpret_cast<char*>(animationClipName), 128);
                     file->read(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));
                     file->read(reinterpret_cast<char*>(&repeat), sizeof(bool));
-                    Managers().resourceManager->CreateAnimationClip(animationClipName);
+
+                    if (animationClip != nullptr)
+                        Managers().resourceManager->FreeAnimationClip(animationClip);
+
+                    animationClip = Managers().resourceManager->CreateAnimationClip(animationClipName);
                 }
             };
 
@@ -82,22 +87,13 @@ namespace Animation {
             ~AnimationController();
 
             /// Save animation controller.
-            ENGINE_API void Save(const std::string& name);
+            ENGINE_API void Save(const std::string& path);
 
             /// Load animation controller.
             ENGINE_API void Load(const std::string& name);
 
             /// Vector with the animation nodes.
             std::vector<Node*> animationNodes;
-
-            /// The first active animation.
-            AnimationAction* activeAction1 = nullptr;
-
-            /// The second active animation.
-            AnimationAction* activeAction2 = nullptr;
-
-            /// Transition between the two animations.
-            AnimationTransition* activeTransition = nullptr;
 
             /// Skeleton.
             Skeleton* skeleton;

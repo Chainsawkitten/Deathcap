@@ -10,13 +10,13 @@ AnimationController::~AnimationController() {
     Clear();
 }
 
-void AnimationController::Save(const std::string & name) {
+void AnimationController::Save(const std::string & path) {
     // Open file.
-    std::ofstream file(name, std::ios::binary);
+    std::ofstream file(path, std::ios::binary);
 
     // Check if file is open, if not log and early return.
     if (!file.is_open()) {
-        Log() << "Could not save file: " << name << "\n";
+        Log() << "Could not save animation controller file: " << path << "\n";
         file.close();
         return;
     }
@@ -50,7 +50,7 @@ void AnimationController::Load(const std::string& name) {
 
     // Check if file is open, if not log and early return.
     if (!file.is_open()) {
-        Log() << "Could not load file: " << Hymn().GetPath() + "/" + name + ".asset" << "\n";
+        Log() << "Could not load animation controller file: " << Hymn().GetPath() + "/" + name + ".asset" << "\n";
         file.close();
         return;
     }

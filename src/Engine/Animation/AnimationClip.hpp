@@ -18,6 +18,7 @@ namespace Animation {
                 uint32_t numRotationKeys;
                 int32_t* rotationKeys = nullptr;
                 glm::mat4* rotations = nullptr;
+                uint32_t currentKeyIndex = 0;
 
                 ~Bone() {
                     if (rotationKeys != nullptr)
@@ -30,7 +31,10 @@ namespace Animation {
                 void Save(std::ofstream * file) {
                     file->write(reinterpret_cast<char*>(&parent), sizeof(uint32_t));
                     file->write(reinterpret_cast<char*>(&numRotationKeys), sizeof(uint32_t));
-                    file->write(reinterpret_cast<char*>(rotationKeys), sizeof(int32_t) * numRotationKeys);
+                    for (unsigned int i = 0; i < numRotationKeys; ++i) {
+                        file->write(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
+                        file->write(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::mat4));
+                    }
                     file->write(reinterpret_cast<char*>(rotations), sizeof(glm::mat4) * numRotationKeys);
                 }
 
@@ -42,13 +46,17 @@ namespace Animation {
                         delete[] rotationKeys;
 
                     rotationKeys = new int32_t[numRotationKeys];
-                    file->read(reinterpret_cast<char*>(rotationKeys), sizeof(int32_t) * numRotationKeys);
+                    for (unsigned int i = 0; i < numRotationKeys; ++i) {
+                        file->read(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
+                    }
 
-                    if (rotationKeys != nullptr) 
-                        delete[] rotationKeys;
+                    if (rotations != nullptr)
+                        delete[] rotations;
 
                     rotations = new glm::mat4[numRotationKeys];
-                    file->read(reinterpret_cast<char*>(rotations), sizeof(glm::mat4) * numRotationKeys);
+                    for (unsigned int i = 0; i < numRotationKeys; ++i) {
+                        file->read(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::mat4));
+                    }
                 }
             };
 
@@ -56,6 +64,7 @@ namespace Animation {
             struct Animation {
                 uint32_t numBones;
                 Bone* bones = nullptr;
+                float currentFrame = 0.0f;
                 
                 void Save(std::ofstream * file) {
                     file->write(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));

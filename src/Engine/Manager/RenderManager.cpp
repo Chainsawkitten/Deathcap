@@ -371,11 +371,11 @@ Component::AnimationController* RenderManager::CreateAnimation(const Json::Value
     
     std::string skeletonName = node.get("skeleton", "").asString();
     if (!skeletonName.empty())
-        Managers().resourceManager->CreateSkeleton(skeletonName);
+        animationController->skeleton =  Managers().resourceManager->CreateSkeleton(skeletonName);
 
     std::string controllerName = node.get("animationController", "").asString();
     if (!controllerName.empty())
-        Managers().resourceManager->CreateAnimationController(controllerName);
+        animationController->controller =  Managers().resourceManager->CreateAnimationController(controllerName);
 
     return animationController;
 }

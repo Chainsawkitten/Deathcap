@@ -96,7 +96,7 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
                 rot.z = channel->mRotationKeys[j].mValue.z;
                 rot.w = channel->mRotationKeys[j].mValue.w;
 
-                anim.bones[i].rotations[j] = glm::mat4(rot);
+                anim.bones[i].rotations[j] = glm::transpose(glm::mat4(rot));
             }
         }
 

@@ -3,11 +3,7 @@
 #include "SuperComponent.hpp"
 #include <string>
 #include <glm/glm.hpp>
-
-namespace Animation {
-    class AnimationController;
-    class Skeleton;
-}
+#include "../Animation/AnimationController.hpp"
 
 namespace Component {
     /// Animation controller.
@@ -18,8 +14,8 @@ namespace Component {
 
             /// Save the component.
             /**
-            * @return JSON value to be stored on disk.
-            */
+             * @return JSON value to be stored on disk.
+             */
             Json::Value Save() const override;
 
             /// Update the animation controller.
@@ -38,6 +34,8 @@ namespace Component {
             Animation::Skeleton* skeleton = nullptr;
 
         private:
-
+            Animation::AnimationController::AnimationAction* activeAction1 = nullptr;
+            Animation::AnimationController::AnimationAction* activeAction2 = nullptr;
+            Animation::AnimationController::AnimationTransition* activeTransition = nullptr;
     };
 }

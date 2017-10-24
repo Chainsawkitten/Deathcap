@@ -13,6 +13,11 @@ void Skeleton::Save(std::string path) {
     // Open the file.
     std::ofstream file(path, std::ios::binary);
 
+    if (!file.is_open()) {
+        Log() << "Could not save skeleton file: " << path << "\n";
+        return;
+    }
+
     // Save size.
     uint32_t size = skeletonBones.size();
     file.write(reinterpret_cast<char *>(&size), sizeof(uint32_t));
@@ -20,7 +25,6 @@ void Skeleton::Save(std::string path) {
     // Save data.
     for (unsigned int i = 0; i < size; ++i) {
         skeletonBones[i]->Save(&file);
-        Log() << skeletonBones[i]->parentId << "\n";
     }
 
     // Close the file.
@@ -28,8 +32,6 @@ void Skeleton::Save(std::string path) {
 }
 
 void Skeleton::Load(std::string name) {
-    Log() << "Skeleton Load name: " << name << "\n";
-
     std::size_t pos = name.find_last_of('/');
     this->name = name.substr(pos + 1);
     path = name.substr(0, pos + 1);
@@ -38,7 +40,7 @@ void Skeleton::Load(std::string name) {
     std::ifstream file(filePath, std::ios::binary);
 
     if (!file.is_open()) {
-        Log() << "Failed to open file: " << filePath << "\n";
+        Log() << "Could not open skeleton file: " << filePath << "\n";
         file.close();
         return;
     }

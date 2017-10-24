@@ -71,7 +71,7 @@ void AnimationControllerEditor::ShowNode(Node * node) {
                     
                 std::string path = resourceSelector.GetSelectedResource().GetPath();
                 action->animationClip = Managers().resourceManager->CreateAnimationClip(path);
-                memcpy(action->animationClipName, path.c_str(), path.size());
+                memcpy(action->animationClipName, path.c_str(), path.size() + 1);
             }
 
             ImGui::EndPopup();
