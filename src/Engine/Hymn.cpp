@@ -127,7 +127,6 @@ Json::Value ActiveHymn::ToJson() const {
         scriptNode.append(script->path + script->name);
     }
     root["scripts"] = scriptNode;
-
     root["startupScene"] = startupScene;
     
     return root;
