@@ -87,12 +87,9 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (mainWindowRenderSurface != nullptr) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-
-                const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
-                const glm::mat4 orientationMat = camera->GetCameraOrientation();
                 const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
 
-                Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
+                Render(world, glm::inverse(camera->GetModelMatrix()), projectionMat, mainWindowRenderSurface);
             }
             }
 
@@ -114,37 +111,14 @@ void RenderManager::Render(World& world, Entity* camera) {
                 for (int i = 0; i < 2; ++i) {
                     vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
-                    glm::vec3 position = camera->GetWorldPosition();
                     Lens* lens = camera->GetComponent<Lens>();
 
                     VRDevice* headset = camera->GetComponent<VRDevice>();
 
-                    //const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
                     const glm::mat4 projectionMat = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
-
-                    glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
                     glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
 
-                    glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
-                    glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
-                    glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
-                    glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
-
-                    glm::mat4 orientationMat = glm::transpose(glm::mat4(
-                        glm::vec4(right, 0.f),
-                        glm::vec4(up, 0.f),
-                        glm::vec4(forward, 0.f),
-                        glm::vec4(0.f, 0.f, 0.f, 1.f)
-                    ));
-
-                    glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
-                    glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
-                    glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
-                    glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
-
-                    glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
-
-                    Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
+                    Render(world, glm::inverse(camera->GetModelMatrix()) * eyeTranslation, projectionMat, hmdRenderSurface);
 
                     hmdRenderSurface->Swap();
                     vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
@@ -175,10 +149,11 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
     // Render from camera.
     if (camera != nullptr) {
         const glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        const glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
+        const glm::mat4 cameraModel(camera->GetModelMatrix());
+        const glm::mat4 viewMat(glm::inverse(cameraModel));
         const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
         const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        const glm::vec3 up(glm::inverse(camera->GetCameraOrientation()) * glm::vec4(0, 1, 0, 1));
+        const glm::vec3 up(cameraModel[1][0], cameraModel[1][1], cameraModel[1][2]);
         
         renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
         
@@ -233,14 +208,11 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::Render(World& world, const glm::mat4& translationMatrix, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
+void RenderManager::Render(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
     // Render from camera.
     renderer->StartRendering(renderSurface);
 
     // Camera matrices.
-    const glm::vec3 position = glm::vec3(translationMatrix[3][0], translationMatrix[3][1], translationMatrix[3][2]);
-    const glm::vec3 up = glm::vec3(glm::inverse(orientationMatrix) * glm::vec4(0, 1, 0, 1));
-    const glm::mat4 viewMatrix = orientationMatrix * translationMatrix;
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
