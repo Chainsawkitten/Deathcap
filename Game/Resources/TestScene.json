@@ -66,12 +66,6 @@
 			"children" : 
 			[
 				{
-					"Lens" : 
-					{
-						"fieldOfView" : 45.0,
-						"zFar" : 1000.0,
-						"zNear" : 0.5
-					},
 					"Script" : 
 					{
 						"scriptName" : "Resources/Player"
@@ -213,6 +207,46 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1507122300
+						},
+						{
+							"Lens" : 
+							{
+								"fieldOfView" : 45.0,
+								"zFar" : 1000.0,
+								"zNear" : 0.5
+							},
+							"Listener" : 
+							{
+								"placeholderValue" : ""
+							},
+							"VRDevice" : 
+							{
+								"controllerID" : 1,
+								"type" : null
+							},
+							"children" : null,
+							"name" : "Camera",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1508840070
 						}
 					],
 					"name" : "Player",
