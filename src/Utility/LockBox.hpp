@@ -3,7 +3,7 @@
 #include <functional>
 #include <memory>
 
-namespace Util {
+namespace Utility {
     template<typename T> class LockBox;
     template<typename T> void swap(LockBox<T>& first, LockBox<T>& second);
 
