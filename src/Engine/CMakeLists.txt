@@ -50,6 +50,7 @@ set(SRCS
         Physics/Shape.cpp
         Physics/Trigger.cpp
         Physics/TriggerObserver.cpp
+	Trigger/SuperTrigger.cpp
 	Trigger/TriggerRepeat.cpp
 	Trigger/TriggerOnce.cpp	
         Util/FileSystem.cpp
@@ -116,6 +117,7 @@ set(HEADERS
         Physics/Shape.hpp
         Physics/Trigger.hpp
         Physics/TriggerObserver.hpp
+	Trigger/SuperTrigger.hpp
 	Trigger/TriggerRepeat.hpp
 	Trigger/TriggerOnce.hpp	
         Util/FileSystem.hpp

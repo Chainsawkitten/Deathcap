@@ -338,7 +338,7 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
     else if (componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight();
     else if (componentType == typeid(Component::Trigger*)) {
-        // ADD MANAGER
+        component = Managers().triggerManager->CreateTrigger();
     }
     else {
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
@@ -424,4 +424,12 @@ void Entity::KillHelper() {
     for (Entity* child : children) {
         child->KillHelper();
     }
+}
+
+bool Entity::GetHasTrigger() {
+    return hasTrigger;
+}
+
+void Entity::SetHasTrigger(bool status) {
+    hasTrigger = status;
 }
