@@ -144,7 +144,7 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
     return glm::mat4();
 }
 
-glm::mat4 VRManager::GetHMDEyeToHeadMatrix(vr::Hmd_Eye eye) const {
+glm::mat4 VRManager::GetHMDHeadToEyeMatrix(vr::Hmd_Eye eye) const {
     if (vrSystem == nullptr) {
         Log() << "No initialized VR device.\n";
         return glm::mat4();
