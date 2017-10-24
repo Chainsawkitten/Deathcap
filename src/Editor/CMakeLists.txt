@@ -1,5 +1,6 @@
 set(SRCS
         main.cpp
+        DefaultScript.cpp
         Editor.cpp
         Resources.cpp
         ImGui/Json.cpp
