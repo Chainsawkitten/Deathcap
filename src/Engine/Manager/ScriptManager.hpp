@@ -144,7 +144,7 @@ class ScriptManager {
          * @param value The pointer to the value.
          * @return The size in bytes for the provided typeID. -1 for unknown type.
          */
-        int GetSizeOfASType(int typeID, void* value);
+        const int GetSizeOfASType(int typeID, void* value);
         
     private:
         struct Message {

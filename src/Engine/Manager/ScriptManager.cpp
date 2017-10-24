@@ -54,8 +54,7 @@ void AngelScriptMessageCallback(const asSMessageInfo* message, void* param) {
 }
 
 // An example line callback
-void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::string, std::set<int>>* breakpoints)
-{
+void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::string, std::set<int>>* breakpoints){
     const char *scriptSection;
     int line = ctx->GetLineNumber(0, 0, &scriptSection);
     asIScriptFunction *function = ctx->GetFunction();
@@ -726,9 +725,9 @@ int ScriptManager::GetStringDeclarationID() {
 int ScriptManager::GetSizeOfASType(int typeID, void* value) {
 
    
-    if(typeID == asTYPEID_INT32)
+    if (typeID == asTYPEID_INT32)
         return sizeof(int);
-    if(typeID == asTYPEID_FLOAT)
+    if (typeID == asTYPEID_FLOAT)
         return sizeof(float);
 
     return -1;
