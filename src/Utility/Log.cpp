@@ -57,3 +57,16 @@ Log & Log::operator<<(const glm::vec4 & value) {
     fprintf(stderr, "(%f, %f, %f, %f)", value.x, value.y, value.z, value.w);
     return *this;
 }
+
+bool Log::SetupStream(const Channel channel, std::ostream* stream) {
+    // Check if channel is outside the range of available channels
+    if(channel < Channel::DEFAULT || channel >= Channel::NUMBER_OF_CHANNELS) {
+        std::cout << "Error channel: out of range.";
+        return false;
+    }
+
+    // Set the channel.
+    streams[static_cast<int>(channel)] = stream;
+    return true;
+}
+

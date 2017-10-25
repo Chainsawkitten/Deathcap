@@ -89,4 +89,16 @@ class Log {
         * @return The %Log instance.
         */
         UTILITY_API Log& operator<<(const glm::vec4& value);
+
+        /// Sets channels.
+        /**
+         * @param channel The channel to set.
+         * @param stream The stream that will be mapped to the channel.
+         * @return Whether the operation succeeded or not.
+         */
+        UTILITY_API static bool Log::SetupStream(const Channel channel, std::ostream* stream);
+
+    private:
+        Channel currentChannel;
+        static std::ostream* streams[Channel::NUMBER_OF_CHANNELS];
 };
