@@ -106,7 +106,7 @@ class PhysicsManager {
          * to be changed to a pure shape in the future.
          * @return A reference to the internal trigger.
          */
-        ENGINE_API Util::LockBox<Physics::Trigger> CreateTrigger(Component::RigidBody* comp);
+        ENGINE_API Utility::LockBox<Physics::Trigger> CreateTrigger(Component::RigidBody* comp);
 
         /// Set the shape of a given Component::Shape component.
         /**
@@ -148,6 +148,6 @@ class PhysicsManager {
         btSequentialImpulseConstraintSolver* solver = nullptr;
         btDiscreteDynamicsWorld* dynamicsWorld = nullptr;
 
-        std::shared_ptr<Util::LockBox<Physics::Trigger>::Key> triggerLockBoxKey;
+        std::shared_ptr<Utility::LockBox<Physics::Trigger>::Key> triggerLockBoxKey;
         std::vector<::Physics::Trigger*> triggers;
 };

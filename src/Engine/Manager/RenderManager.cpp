@@ -389,7 +389,6 @@ Component::PointLight* RenderManager::CreatePointLight(const Json::Value& node) 
     
     // Load values from Json node.
     pointLight->color = Json::LoadVec3(node["color"]);
-    pointLight->ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
     pointLight->attenuation = node.get("attenuation", 1.f).asFloat();
     pointLight->intensity = node.get("intensity", 1.f).asFloat();
     
@@ -492,7 +491,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
             light.intensities = pointLight->color * pointLight->intensity;
             light.attenuation = pointLight->attenuation;
-            light.ambientCoefficient = pointLight->ambientCoefficient;
+            light.ambientCoefficient = 0.f;
             light.coneAngle = 180.f;
             light.direction = glm::vec3(1.f, 0.f, 0.f);
             lights.push_back(light);
