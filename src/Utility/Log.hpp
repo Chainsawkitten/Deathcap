@@ -31,35 +31,35 @@ class Log {
          * @param text Text to output.
          * @return The %Log instance
          */
-        UTILITY_API Log& operator<<(std::string text);
+        UTILITY_API Log& operator<<(const std::string text);
         
         /// Output an integer to stderr.
         /**
          * @param value Value to output.
          * @return The %Log instance
          */
-        UTILITY_API Log& operator<<(int value);
+        UTILITY_API Log& operator<<(const int value);
         
         /// Output an unsigned integer to stderr.
         /**
          * @param value Value to output.
          * @return The %Log instance.
          */
-        UTILITY_API Log& operator<<(unsigned int value);
+        UTILITY_API Log& operator<<(const unsigned int value);
         
         /// Output a float to stderr.
         /**
          * @param value Value to output.
          * @return The %Log instance
          */
-        UTILITY_API Log& operator<<(float value);
+        UTILITY_API Log& operator<<(const float value);
         
         /// Output a double to stderr.
         /**
          * @param value Value to output.
          * @return The %Log instance.
          */
-        UTILITY_API Log& operator<<(double value);
+        UTILITY_API Log& operator<<(const double value);
         
         /// Output a time to stderr.
         /**
@@ -67,7 +67,7 @@ class Log {
          * @param value Value to output.
          * @return The %Log instance
          */
-        UTILITY_API Log& operator<<(time_t value);
+        UTILITY_API Log& operator<<(const time_t value);
         
         /// Output a vec2 to stderr.
         /**
