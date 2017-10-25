@@ -45,5 +45,6 @@
 		"Resources/Opening Scene/Lever/Lever",
 		"Resources/Opening Scene/Gate/Gates",
 		"Resources/Constant Scene/Minecart/Script/Minecart"
-	]
+	],
+	"startupScene" : "Resources/Opening Scene/Opening Scene"
 }

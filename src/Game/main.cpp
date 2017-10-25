@@ -2,7 +2,9 @@
 #include <GLFW/glfw3.h>
 #include <Engine/MainWindow.hpp>
 #include <Engine/Manager/Managers.hpp>
+#include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Hymn.hpp>
+#include <Engine/Input/Input.hpp>
 #include <Utility/Log.hpp>
 #include <thread>
 
@@ -15,10 +17,17 @@ int main() {
     MainWindow* window = new MainWindow(640, 480, false, false, "Hymn to Beauty", false);
     glewInit();
     window->Init(false);
+
+    Input::GetInstance().SetWindow(window->GetGLFWWindow());
     
     Managers().StartUp();
     
     Hymn().Load(".");
+    Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");
+
+    // Compile scripts.
+    Managers().scriptManager->RegisterInput();
+    Managers().scriptManager->BuildAllScripts();
     
     // Main loop.
     double targetFPS = 60.0;
