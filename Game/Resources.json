@@ -60,17 +60,6 @@
 						]
 					},
 					{
-						"name" : "Minecart",
-						"resources" : 
-						[
-							{
-								"script" : "Player",
-								"type" : 4
-							}
-						],
-						"subfolders" : null
-					},
-					{
 						"name" : "Lever",
 						"resources" : 
 						[
@@ -211,6 +200,10 @@
 								[
 									{
 										"script" : "Minecart",
+										"type" : 4
+									},
+									{
+										"script" : "Player",
 										"type" : 4
 									}
 								],

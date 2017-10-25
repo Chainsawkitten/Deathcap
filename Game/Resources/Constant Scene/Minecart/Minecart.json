@@ -33,6 +33,10 @@
 							{
 								"placeholderValue" : ""
 							},
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Player"
+							},
 							"VRDevice" : 
 							{
 								"controllerID" : 1,
