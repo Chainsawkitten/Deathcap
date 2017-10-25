@@ -14,6 +14,14 @@
  */
 class Log {
     public:
+        enum Channel {
+            DEFAULT,    ///< Default channel.
+            INFO,       ///< Information.
+            WARNING,    ///< Warnings.
+            ERR,        ///< Error.
+            CONSOLE     ///< Console.
+        };
+
         /// Destructor.
         UTILITY_API ~Log();
         
