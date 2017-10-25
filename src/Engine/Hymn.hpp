@@ -135,6 +135,9 @@ class ActiveHymn {
 
         /// Recently saved state of the hymn
         Json::Value saveState;
+
+        /// Input scaling when playing in VR.
+        float vrScale = 1.0f;
         
     private:
         static ActiveHymn& GetInstance();

@@ -4,7 +4,6 @@
 		{
 			"PointLight" : 
 			{
-				"ambientCoefficient" : 0.0,
 				"attenuation" : 1.0,
 				"color" : 
 				{
@@ -43,7 +42,7 @@
 			{
 				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
 				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
-				"normal" : "Resources/Opening Scene/Minecart/Textures/cart_normal",
+				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
 				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
 			},
 			"Mesh" : 
@@ -73,83 +72,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1508402717
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Opening Scene/Minecart/Textures/cart_albedo",
-				"metallic" : "Resources/Opening Scene/Minecart/Textures/cart_metallic",
-				"normal" : "Resources/Opening Scene/Minecart/Textures/cart_normal",
-				"roughness" : "Resources/Opening Scene/Minecart/Textures/cart_roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/Opening Scene/Minecart/Models/cart"
-			},
-			"Script" : 
-			{
-				"scriptName" : "Resources/Opening Scene/Minecart/Minecart"
-			},
-			"children" : 
-			[
-				{
-					"Lens" : 
-					{
-						"fieldOfView" : 45.0,
-						"zFar" : 100.0,
-						"zNear" : 0.5
-					},
-					"Script" : 
-					{
-						"scriptName" : "Resources/Opening Scene/Minecart/Player"
-					},
-					"children" : null,
-					"name" : "Player",
-					"position" : 
-					{
-						"x" : 0.26600000262260437,
-						"y" : 1.124000072479248,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1508413333
-				}
-			],
-			"name" : "Minecart",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : -2.0460000038146973,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1508403776
 		},
 		{
 			"Script" : 
@@ -392,6 +314,31 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1508412411
+		},
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : -2.1190001964569092,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : -0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
 		}
 	],
 	"name" : "Root",
