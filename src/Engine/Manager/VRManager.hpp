@@ -37,19 +37,6 @@ class VRManager {
          */
         ENGINE_API glm::vec2 GetRecommendedRenderTargetSize() const;
 
-        /// Returns the transform for the HMD.
-        /**
-         * @return The HMD translation matrix.
-         */
-        ENGINE_API glm::mat4 GetHMDPoseMatrix() const;
-
-        /// Returns the transform for the controllers
-        /**
-         * @param controlID Which controller to get the matrix for (1 = left, 2 = right).
-         * @return The Controllers translation matrix.
-         */
-        ENGINE_API glm::mat4 GetControllerPoseMatrix(int controlID) const;
-
         /// Returns the transform between the view space and eye space.
         /**
          * @param eye Which eye the function should return the eye matrix for.
@@ -122,6 +109,13 @@ class VRManager {
 
         static glm::mat4 ConvertMatrix(const vr::HmdMatrix34_t& mat);
         static glm::mat4 ConvertMatrix(const vr::HmdMatrix44_t& mat);
+        
+        // Returns the transform for the HMD.
+        glm::mat4 GetHMDPoseMatrix() const;
+        
+        // Returns the transform for the controllers
+        // controlID determines which controller to get (1 = left, 2 = right)
+        glm::mat4 GetControllerPoseMatrix(int controlID) const;
 
         float scale;
         vr::IVRSystem* vrSystem;
