@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 namespace Component {
     class Trigger;
 }
@@ -17,5 +19,8 @@ namespace GUI {
              * @param comp Trigger component to edit.
              */
             void Show(Component::Trigger& comp);
+
+        private:
+            uint32_t selectedTab = 0;
     };
 }
