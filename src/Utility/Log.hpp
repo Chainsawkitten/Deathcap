@@ -15,12 +15,12 @@
 class Log {
     public:
         UTILITY_API const enum Channel {
-            DEFAULT = 0,    ///< Default channel.
-            INFO,           ///< Information.
-            WARNING,        ///< Warnings.
-            ERR,            ///< Error.
-            CONSOLE,        ///< Console.
-            MAX             ///< Maximum number of channels, ensure this is the last element of the enum if adding channels.
+            DEFAULT = 0,        ///< Default channel.
+            INFO,               ///< Information.
+            WARNING,            ///< Warnings.
+            ERR,                ///< Error.
+            CONSOLE,            ///< Console.
+            NUMBER_OF_CHANNELS  ///< Maximum number of channels, ensure this is the last element of the enum if adding channels.
         };
 
         /// Destructor.
