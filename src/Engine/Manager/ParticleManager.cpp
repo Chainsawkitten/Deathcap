@@ -11,6 +11,7 @@
 #include "ParticleAtlas.png.hpp"
 #include <Video/ParticleRenderer.hpp>
 #include "../Util/Json.hpp"
+#include <Utility/Log.hpp>
 
 using namespace Video;
 
@@ -147,5 +148,7 @@ void ParticleManager::EmitParticle(World& world, const glm::vec3& position, Comp
         
         world.GetParticles()[world.GetParticleCount()] = particle;
         world.SetParticleCount(world.GetParticleCount() + 1);
+    } else {
+        Log() << "ParticleManager:EmitParticle: Warning: Exceeding max number of particles.\n";
     }
 }
