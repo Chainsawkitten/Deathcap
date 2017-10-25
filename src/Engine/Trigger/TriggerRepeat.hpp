@@ -1,10 +1,15 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include "../linking.hpp"
 #include "SuperTrigger.hpp"
 
 class Entity;
+
+namespace Physics {
+    class Shape;
+}
 
 class TriggerRepeat : public SuperTrigger {
     public:
@@ -48,4 +53,5 @@ class TriggerRepeat : public SuperTrigger {
         float triggerCharges = 0;
         Entity* targetEntity = nullptr;
         Entity* collidedEntity = nullptr;
+        std::shared_ptr<Physics::Shape> shape;
 };
