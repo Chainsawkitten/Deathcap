@@ -5,6 +5,7 @@
 #include "../linking.hpp"
 
 class SuperTrigger;
+class TriggerRepeat;
 
 namespace Component {
     class Trigger;
@@ -42,6 +43,13 @@ class TriggerManager {
          * @param shape The physical shape of the trigger volume.
          */
         ENGINE_API void AddTriggerRepeat(Component::Trigger* trigger, std::shared_ptr<Physics::Shape> shape);
+
+        /// Get the repeat trigger of a trigger component.
+        /**
+         * @param trigger Component to access.
+         * @return The repeat trigger if present, or nullptr if something else.
+         */
+        ENGINE_API TriggerRepeat* GetTriggerRepeat(Component::Trigger& trigger);
 
         /// Get all trigger components.
         /**
