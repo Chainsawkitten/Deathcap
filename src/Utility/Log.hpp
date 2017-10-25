@@ -101,6 +101,17 @@ class Log {
          */
         UTILITY_API static bool Log::SetupStream(const Channel channel, std::ostream* stream);
 
+        /// Sets all channels at once.
+        /**
+         * @param defaultStream The stream for default output.
+         * @param info The stream for information.
+         * @param warning The stream for warnings.
+         * @param error The stream for errors.
+         * @param console The stream to the console.
+         * @return Whether the operation succeeded or not.
+         */
+        UTILITY_API static bool Log::SetupStreams(std::ostream* defaultStream, std::ostream* info, std::ostream* warning, std::ostream* error, std::ostream* console);
+
     private:
         Channel currentChannel;
         static std::ostream* streams[Channel::NUMBER_OF_CHANNELS];

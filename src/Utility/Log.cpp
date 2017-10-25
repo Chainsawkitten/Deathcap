@@ -81,3 +81,15 @@ bool Log::SetupStream(const Channel channel, std::ostream* stream) {
     return true;
 }
 
+bool Log::SetupStreams(
+        std::ostream* defaultStream, 
+        std::ostream* info, 
+        std::ostream* warning, 
+        std::ostream* error, 
+        std::ostream* console) {
+    return  SetupStream(DEFAULT, defaultStream)    &&
+            SetupStream(INFO, info)                &&
+            SetupStream(WARNING, warning)          &&
+            SetupStream(ERR, error)                &&
+            SetupStream(CONSOLE, console);
+}
