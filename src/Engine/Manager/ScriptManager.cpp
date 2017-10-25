@@ -22,6 +22,7 @@
 #include "../Component/RigidBody.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/SpotLight.hpp"
+#include "../Component/VRDevice.hpp"
 #include "../Input/Input.hpp"
 #include "../Script/ScriptFile.hpp"
 #include "MainWindow.hpp"
@@ -74,7 +75,7 @@ void RegisterTriggerLeaveHelper(Component::RigidBody* triggerBody, Component::Ri
 
 bool ButtonInput(int buttonIndex) {
     if (Managers().vrManager->Active())
-        return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<Controller>());
+        return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<VRDevice>());
     else
         return Input::GetInstance().CheckButton(buttonIndex);
 }
