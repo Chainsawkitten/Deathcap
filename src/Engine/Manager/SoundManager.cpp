@@ -76,6 +76,10 @@ void SoundManager::Update(float deltaTime) {
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
+        // Skip sound components without sound resource.
+        if (!sound->soundBuffer)
+            continue;
+
         if (sound->shouldPlay) {
 
             float* soundBuf = new float[numSamples];
