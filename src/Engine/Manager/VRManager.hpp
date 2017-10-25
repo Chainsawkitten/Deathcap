@@ -96,23 +96,23 @@ class VRManager {
         /**
          * @return The created component.
          */
-        Component::VRDevice* CreateVRDevice();
+        ENGINE_API Component::VRDevice* CreateVRDevice();
 
         /// Create VR device component.
         /**
          * @param node Json node to load the component from
          * @return The created component.
          */
-        Component::VRDevice* CreateVRDevice(const Json::Value& node);
+        ENGINE_API Component::VRDevice* CreateVRDevice(const Json::Value& node);
 
         /// Get all VR device components.
         /**
          * @return All VR device components.
          */
-        const std::vector<Component::VRDevice*>& GetVRDevices() const;
+        ENGINE_API const std::vector<Component::VRDevice*>& GetVRDevices() const;
         
         /// Remove all killed components.
-        void ClearKilledComponents();
+        ENGINE_API void ClearKilledComponents();
         
     private:
         VRManager();
