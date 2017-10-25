@@ -126,6 +126,9 @@ class ActiveHymn {
         
         /// Filter settings.
         FilterSettings filterSettings;
+
+        /// Input scaling when playing in VR.
+        float vrScale = 1.0f;
         
     private:
         static ActiveHymn& GetInstance();

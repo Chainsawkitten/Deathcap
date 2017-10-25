@@ -126,6 +126,8 @@ Json::Value ActiveHymn::ToJson() const {
         scriptNode.append(script->path + script->name);
     }
     root["scripts"] = scriptNode;
+
+    root["vrScale"] = vrScale;
     
     return root;
 }
@@ -151,6 +153,9 @@ void ActiveHymn::FromJson(Json::Value root) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
     }
     scriptNumber = scripts.size();
+
+    vrScale = root["vrScale"].asFloat();
+    Managers().vrManager->SetScale(vrScale);
 }
 
 void ActiveHymn::Update(float deltaTime) {

@@ -44,5 +44,6 @@
 		"Resources/Opening Scene/Lever/Lever",
 		"Resources/Opening Scene/Gate/Gates",
 		"Resources/Constant Scene/Minecart/Script/Minecart"
-	]
+	],
+	"vrScale" : 1.5
 }
