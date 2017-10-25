@@ -343,7 +343,6 @@ ScriptManager::ScriptManager() {
     
     engine->RegisterObjectType("PointLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("PointLight", "vec3 color", asOFFSET(PointLight, color));
-    engine->RegisterObjectProperty("PointLight", "float ambientCoefficient", asOFFSET(PointLight, ambientCoefficient));
     engine->RegisterObjectProperty("PointLight", "float attenuation", asOFFSET(PointLight, attenuation));
     engine->RegisterObjectProperty("PointLight", "float intensity", asOFFSET(PointLight, intensity));
 
