@@ -3,12 +3,15 @@ class Player{
     Entity @self;
     Entity @cart;
     vec2 Cursor;
+    float deathTimer;
+    
     Player(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @cart = self.GetParent();
         RegisterUpdate();
         Cursor = vec2(0,0);
+        deathTimer = 0;
     }
     
     void MouseUpdate(){
@@ -29,5 +32,11 @@ class Player{
         self.rotation.y += 0.3f * (GetCursorXY().y - Cursor.y);
         
         Cursor = GetCursorXY();
+        deathTimer += i;
+        if(deathTimer > 5)
+        {
+        	print("Test");
+        	RestartScene();
+        }
     }
 }

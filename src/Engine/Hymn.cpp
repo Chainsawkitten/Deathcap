@@ -194,6 +194,14 @@ void ActiveHymn::Update(float deltaTime) {
     { PROFILE("Clear killed entities/components");
         world.ClearKilled();
     }
+
+    if (restart)
+    {
+        restart = false;
+        world.Load(world.GetSaveJson());
+        Managers().scriptManager->RegisterInput();
+        Managers().scriptManager->BuildAllScripts();
+    }
 }
 
 void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {

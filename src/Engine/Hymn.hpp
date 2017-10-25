@@ -126,6 +126,9 @@ class ActiveHymn {
         
         /// Filter settings.
         FilterSettings filterSettings;
+
+        /// Whether to restart the hymn
+        bool restart = false;
         
     private:
         static ActiveHymn& GetInstance();
