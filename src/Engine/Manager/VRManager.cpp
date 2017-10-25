@@ -68,7 +68,6 @@ void VRManager::Update() {
         if (vrDevice->type == Component::VRDevice::CONTROLLER) {
             transform = GetControllerPoseMatrix(vrDevice->controllerID);
         } else if (vrDevice->type == Component::VRDevice::HEADSET) {
-            Log() << "Moving headset device\n";
             transform = GetHMDPoseMatrix();
         }
 
