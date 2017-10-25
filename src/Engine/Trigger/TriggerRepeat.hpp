@@ -2,16 +2,20 @@
 
 #include <memory>
 #include <string>
+#include <Utility/LockBox.hpp>
 #include "../linking.hpp"
 #include "SuperTrigger.hpp"
 
 class Entity;
+class TriggerManager;
 
 namespace Physics {
-    class Shape;
+    class Trigger;
 }
 
 class TriggerRepeat : public SuperTrigger {
+    friend class ::TriggerManager;
+
     public:
         ENGINE_API TriggerRepeat();
         ENGINE_API ~TriggerRepeat();
@@ -53,5 +57,5 @@ class TriggerRepeat : public SuperTrigger {
         float triggerCharges = 0;
         Entity* targetEntity = nullptr;
         Entity* collidedEntity = nullptr;
-        std::shared_ptr<Physics::Shape> shape;
+        Utility::LockBox<Physics::Trigger> triggerVolume;
 };

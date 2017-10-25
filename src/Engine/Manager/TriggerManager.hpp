@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "../Entity/ComponentContainer.hpp"
 #include "../linking.hpp"
 
@@ -7,6 +8,10 @@ class SuperTrigger;
 
 namespace Component {
     class Trigger;
+}
+
+namespace Physics {
+    class Shape;
 }
 
 class TriggerManager {
@@ -18,6 +23,13 @@ class TriggerManager {
          * @return The created component.
          */
         ENGINE_API Component::Trigger* CreateTrigger();
+
+        /// Add a repeating trigger to the component.
+        /**
+         * @param trigger Component to add trigger to.
+         * @param shape The physical shape of the trigger volume.
+         */
+        ENGINE_API void AddTriggerRepeat(Component::Trigger* trigger, std::shared_ptr<Physics::Shape> shape);
 
         /// Get all trigger components.
         /**

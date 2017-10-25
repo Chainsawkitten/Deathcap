@@ -3,9 +3,12 @@
 #include "SuperComponent.hpp"
 
 class SuperTrigger;
+class TriggerManager;
 
 namespace Component {
     class Trigger : public SuperComponent {
+        friend class ::TriggerManager;
+
         public:
             enum TriggerTypes {
                 ONCE = 0,
