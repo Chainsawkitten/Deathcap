@@ -14,7 +14,7 @@
  */
 class Log {
     public:
-        enum Channel {
+        UTILITY_API enum Channel {
             DEFAULT,    ///< Default channel.
             INFO,       ///< Information.
             WARNING,    ///< Warnings.
