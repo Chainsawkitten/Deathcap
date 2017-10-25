@@ -553,7 +553,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 if (it != script->propertyMap.end())
                     if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId)
-                        memcpy(varPointer, script->propertyMap[script->instance->GetPropertyName(n)].second, GetSizeOfASType(typeId, script->propertyMap[script->instance->GetPropertyName(n)].second));
+                        std::memcpy(varPointer, script->propertyMap[script->instance->GetPropertyName(n)].second, GetSizeOfASType(typeId, script->propertyMap[script->instance->GetPropertyName(n)].second));
    
             }
         }
