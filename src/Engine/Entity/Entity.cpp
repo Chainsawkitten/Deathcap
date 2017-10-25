@@ -211,7 +211,7 @@ void Entity::Load(const Json::Value& node) {
         sceneName = node["sceneName"].asString();
         
         // Load scene.
-        std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + sceneName + ".json";
+        std::string filename = Hymn().GetPath() + "/" + sceneName + ".json";
         Json::Value root;
         std::ifstream file(filename);
         file >> root;
