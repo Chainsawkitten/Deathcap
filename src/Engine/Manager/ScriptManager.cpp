@@ -264,7 +264,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("mat4", "mat4& opDivAssign(float) const", asMETHODPR(glm::mat4, operator/=, (float), glm::mat4&), asCALL_THISCALL);
     engine->RegisterObjectMethod("mat4", "mat4 opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::mat4), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat4", "vec4 opMul(const vec4 &in) const", asFUNCTION(mat4MulVec4), asCALL_CDECL_OBJLAST);
-    
+
     // Register GLM functions.
     engine->RegisterGlobalFunction("vec2 normalize(const vec2 &in)", asFUNCTIONPR(glm::normalize, (const glm::vec2&), glm::vec2), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec3 normalize(const vec3 &in)", asFUNCTIONPR(glm::normalize, (const glm::vec3&), glm::vec3), asCALL_CDECL);
@@ -285,7 +285,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("mat4 transpose(const mat4 &in)", asFUNCTIONPR(glm::transpose, (const glm::mat4&), glm::mat4), asCALL_CDECL);
     engine->RegisterGlobalFunction("float determinant(const mat3 &in)", asFUNCTIONPR(glm::determinant, (const glm::mat3&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float determinant(const mat4 &in)", asFUNCTIONPR(glm::determinant, (const glm::mat4&), float), asCALL_CDECL);
-    
+
     // Register Entity.
     engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Entity", "string name", asOFFSET(Entity, name));
@@ -298,7 +298,9 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
-    
+
+    engine->RegisterGlobalFunction("Entity@ GetEntity(uint GUID)", asFUNCTIONPR(ScriptManager::GetEntity, (unsigned int), Entity*), asCALL_CDECL);
+
     // Register components.
     engine->SetDefaultNamespace("Component");
     
@@ -602,7 +604,7 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
     messages.push_back(message);
 }
 
-Entity* ScriptManager::GetEntity(unsigned int GUID) const {
+Entity* ScriptManager::GetEntity(unsigned int GUID) {
 
     const std::vector<Entity*> entities = Hymn().world.GetEntities();
     for (int i = 0; i < entities.size(); i++) {
@@ -614,6 +616,8 @@ Entity* ScriptManager::GetEntity(unsigned int GUID) const {
         }
 
     }
+
+    return nullptr;
 
 }
 
