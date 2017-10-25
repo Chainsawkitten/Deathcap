@@ -40,6 +40,7 @@
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
 #include "Engine/Component/Controller.hpp"
+#include "TriggerEditor.hpp"
 
 namespace Physics {
     class Shape;
@@ -68,6 +69,8 @@ EntityEditor::EntityEditor() {
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
     selectedShape = 0;
+
+    triggerEditor = std::unique_ptr<GUI::TriggerEditor>(new GUI::TriggerEditor);
 }
 
 EntityEditor::~EntityEditor() {
@@ -553,25 +556,12 @@ void EntityEditor::ControllerEditor(Component::Controller* controller) {
 }
 
 void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
-    /// @todo: We should take a look at how we deal with |current| and |items|.
-    /// I had some issues with current item that had to do with using a local
-    /// variable that resulted in the combo not working properly. Maybe it's
-    /// not a problem here, but I'm leaving this comment until I can verify it.
-    /// When it comes to items, we should really see if we can find a better
-    /// way than hardcoding types here. I changed into std::array which should
-    /// catch if the count changes, but it won't reflect changes in name or
-    /// ordering. We can take a look at how I did with physics shapes for that.
-
-    static char buf1[64] = "";
-
-    int current = static_cast<int>(trigger->triggerType);
-    std::array<const char*, trigger->NUMBER_OF_TYPES> items = { "Once", "Repeat", "LookAt", "Proximity" };
-
     ImGui::Indent();
 
-    if (ImGui::Combo("Class", &current, items.data(), trigger->NUMBER_OF_TYPES)) {
-        trigger->triggerType = static_cast<Component::Trigger::TriggerTypes>(current);
-    }
+    if (ImGui::Button("Edit"))
+        triggerEditor->Open();
+
+    triggerEditor->Show(*trigger);
 
     ImGui::Unindent();
 }
