@@ -45,5 +45,6 @@
 		"Resources/Constant Scene/Minecart/Script/Minecart",
 		"Resources/Constant Scene/Minecart/Script/Player"
 	],
-	"vrScale" : 1.5
+	"vrScale" : 1.5,
+	"startupScene" : "Resources/Opening Scene/Opening Scene"
 }
