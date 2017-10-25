@@ -45,7 +45,6 @@ void VRManager::Sync() {
 
     // Get VR device pose(s).
     vr::VRCompositor()->WaitGetPoses(tracedDevicePoseArray, vr::k_unMaxTrackedDeviceCount, NULL, 0);
-    vr::ETrackedControllerRole role;
     // Convert to glm format.
     for (uint32_t nDevice = 0; nDevice < vr::k_unMaxTrackedDeviceCount; ++nDevice)
         if (tracedDevicePoseArray[nDevice].bPoseIsValid)
