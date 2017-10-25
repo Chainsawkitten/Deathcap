@@ -10,6 +10,10 @@ namespace Component {
     class Trigger;
 }
 
+namespace Json {
+    class Value;
+}
+
 namespace Physics {
     class Shape;
 }
@@ -23,6 +27,14 @@ class TriggerManager {
          * @return The created component.
          */
         ENGINE_API Component::Trigger* CreateTrigger();
+
+        /// Create a trigger component from JSON definition.
+        /**
+         * @param owner The %Entity that will own the component.
+         * @param node Json node from which to load component definition.
+         * @return The created component.
+         */
+        ENGINE_API Component::Trigger* CreateTrigger(const Json::Value& node);
 
         /// Add a repeating trigger to the component.
         /**
