@@ -422,11 +422,3 @@ void Entity::KillHelper() {
         child->KillHelper();
     }
 }
-
-bool Entity::GetHasTrigger() {
-    return hasTrigger;
-}
-
-void Entity::SetHasTrigger(bool status) {
-    hasTrigger = status;
-}

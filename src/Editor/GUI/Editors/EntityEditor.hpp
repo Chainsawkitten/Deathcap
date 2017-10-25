@@ -137,12 +137,8 @@ template<typename type> void GUI::EntityEditor::EditComponent(const std::string&
         
         editorFunction(component);
         
-        if (ImGui::Button("Remove")) {
-            if(entity->GetHasTrigger())
-                entity->SetHasTrigger(false);
-
+        if (ImGui::Button("Remove"))
             entity->KillComponent<type>();
-        }
         
         ImGui::PopID();
     }

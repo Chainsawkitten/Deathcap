@@ -569,64 +569,8 @@ void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
 
     ImGui::Indent();
 
-    if (!entity->GetHasTrigger()) {
-        if (ImGui::Combo("Class", &current, items.data(), trigger->NUMBER_OF_TYPES)) {
-            trigger->triggerType = static_cast<Component::Trigger::TriggerTypes>(current);
-        }
-
-        switch (current) {
-            case Component::Trigger::TriggerTypes::ONCE: {
-                ImGui::InputText("Name", buf1, 64);
-
-                if (ImGui::Button("Create")) {
-                    ImGui::Indent();
-                    TriggerOnce* temp = new TriggerOnce;
-                    temp->SetName(buf1);
-
-                    trigger->SetTrigger(temp);
-                    Managers().triggerManager->CreateTrigger(temp);
-                    entity->SetHasTrigger(true);
-                }
-
-                break;
-            }
-            case Component::Trigger::TriggerTypes::REPEAT: {
-                ImGui::InputText("Name", buf1, 64);
-
-                if (ImGui::Button("Create")) {
-                    ImGui::Indent();
-                    TriggerRepeat* temp = new TriggerRepeat;
-                    temp->SetName(buf1);
-
-                    trigger->SetTrigger(temp);
-                    Managers().triggerManager->CreateTrigger(temp);
-                    entity->SetHasTrigger(true);
-                }
-
-                break;
-            }
-            case Component::Trigger::TriggerTypes::LOOK_AT: {
-                // CREATE TRIGGER_LOOK_AT
-                break;
-            }
-            case Component::Trigger::TriggerTypes::PROXIMITY: {
-                // CREATE TRIGGER_PROXIMITY
-                break;
-            }
-            default:
-                // Do nothing.
-                break;
-        }
-    } else {
-        if (TriggerRepeat* temp = dynamic_cast<TriggerRepeat*>(trigger->GetTrigger())) {
-            ImGui::Text("Class: TriggerRepeat");
-            ImGui::Text("Name: %s", temp->GetName().c_str());
-        }
-
-        if (TriggerOnce* temp = dynamic_cast<TriggerOnce*>(trigger->GetTrigger())) {
-            ImGui::Text("Class: TriggerOnce");
-            ImGui::Text("Name: %s", temp->GetName().c_str());
-        }
+    if (ImGui::Combo("Class", &current, items.data(), trigger->NUMBER_OF_TYPES)) {
+        trigger->triggerType = static_cast<Component::Trigger::TriggerTypes>(current);
     }
 
     ImGui::Unindent();
