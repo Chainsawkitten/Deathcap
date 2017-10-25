@@ -2,11 +2,15 @@
 
 #include "../Manager/Managers.hpp"
 #include "../Manager/VRManager.hpp"
-#include "../Component/Controller.hpp"
-#include <GLFW/glfw3.h>
 #include <json/json.h>
 #include <vector>
 #include "../linking.hpp"
+
+struct GLFWwindow;
+
+namespace Component {
+    class VRDevice;
+}
 
 /// Hold information about the hymn's inputs.
 class Input {
@@ -51,7 +55,7 @@ class Input {
          * @param controller The controller to check.
          * @return Whether the button was activated this frame.
          */
-        ENGINE_API bool CheckVRButton(int index, Component::Controller *controller) const;
+        ENGINE_API bool CheckVRButton(int index, Component::VRDevice* controller) const;
         
         /// Save the buttons to a JSON value.
         /**
