@@ -28,6 +28,8 @@
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Manager/TriggerManager.hpp>
 #include <Engine/Hymn.hpp>
+#include <Engine/Trigger/TriggerOnce.hpp>
+#include <Engine/Trigger/TriggerRepeat.hpp>
 #include <angelscript.h>
 
 #include "../../Util/EditorSettings.hpp"
@@ -354,7 +356,6 @@ void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
 }
 
 void EntityEditor::ScriptEditor(Component::Script* script) {
-
     ImGui::Indent();
 
     if (ImGui::Button("Select script"))
@@ -376,34 +377,27 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         ImGui::Text(script->scriptFile->name.c_str());
         ImGui::Separator();
 
-        if (ImGui::Button("Fetch properties")) {
-
+        if (ImGui::Button("Fetch properties"))
             Managers().scriptManager->FillPropertyMap(script);
 
-        }
-
         if (script->instance != nullptr) {
-
             int propertyCount = script->instance->GetPropertyCount();
 
             for (int n = 0; n < propertyCount; n++) {
-
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void *varPointer = script->instance->GetAddressOfProperty(n);
-                if (typeId == asTYPEID_INT32) {
+
+                if (typeId == asTYPEID_INT32)
                     ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
-                } else if (typeId == asTYPEID_FLOAT) {
+                else if (typeId == asTYPEID_FLOAT)
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
-                }
                 /// @todo This will be used to handle objects in the scripts
                 //else if (typeId & asTYPEID_SCRIPTOBJECT){
                 //    asIScriptObject *obj = (asIScriptObject*)varPointer;
                 //}
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")) {
-
                     std::map<std::string, std::pair<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
                     if (it != script->propertyMap.end()) {
-
                         std::string *str = (std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
 
                         //We have to put a limit to the size of the string because we want to use a buffer so we don't have to reallocate it every frame.
@@ -419,7 +413,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
                         } else
                             ImGui::Text("%s = <TOO BIG>\n", script->instance->GetPropertyName(n));
-
                     } else
                         ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
                 }
@@ -568,7 +561,9 @@ void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
     /// way than hardcoding types here. I changed into std::array which should
     /// catch if the count changes, but it won't reflect changes in name or
     /// ordering. We can take a look at how I did with physics shapes for that.
+
     static char buf1[64] = "";
+
     int current = static_cast<int>(trigger->triggerType);
     std::array<const char*, trigger->NUMBER_OF_TYPES> items = { "Once", "Repeat", "LookAt", "Proximity" };
 
@@ -578,54 +573,51 @@ void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
         if (ImGui::Combo("Class", &current, items.data(), trigger->NUMBER_OF_TYPES)) {
             trigger->triggerType = static_cast<Component::Trigger::TriggerTypes>(current);
         }
+
         switch (current) {
+            case Component::Trigger::TriggerTypes::ONCE: {
+                ImGui::InputText("Name", buf1, 64);
 
-        case Component::Trigger::TriggerTypes::ONCE:
+                if (ImGui::Button("Create")) {
+                    ImGui::Indent();
+                    TriggerOnce* temp = new TriggerOnce;
+                    temp->SetName(buf1);
 
-            ImGui::InputText("Name", buf1, 64);
+                    trigger->SetTrigger(temp);
+                    Managers().triggerManager->CreateTrigger(temp);
+                    entity->SetHasTrigger(true);
+                }
 
-            if (ImGui::Button("Create")) {
-                ImGui::Indent();
-                TriggerOnce * temp = new TriggerOnce;
-                temp->SetName(buf1);
-
-                trigger->SetTrigger(temp);
-                Managers().triggerManager->CreateTrigger(temp);
-                entity->SetHasTrigger(true);
+                break;
             }
-            break;
+            case Component::Trigger::TriggerTypes::REPEAT: {
+                ImGui::InputText("Name", buf1, 64);
 
-        case Component::Trigger::TriggerTypes::REPEAT:
+                if (ImGui::Button("Create")) {
+                    ImGui::Indent();
+                    TriggerRepeat* temp = new TriggerRepeat;
+                    temp->SetName(buf1);
 
-            ImGui::InputText("Name", buf1, 64);
+                    trigger->SetTrigger(temp);
+                    Managers().triggerManager->CreateTrigger(temp);
+                    entity->SetHasTrigger(true);
+                }
 
-            if (ImGui::Button("Create")) {
-                ImGui::Indent();
-                TriggerRepeat * temp = new TriggerRepeat;
-                temp->SetName(buf1);
-
-                trigger->SetTrigger(temp);
-                Managers().triggerManager->CreateTrigger(temp);
-                entity->SetHasTrigger(true);
+                break;
             }
-
-            break;
-
-        case Component::Trigger::TriggerTypes::LOOK_AT:
-            // CREATE TRIGGER_LOOK_AT
-            break;
-
-        case Component::Trigger::TriggerTypes::PROXIMITY:
-            // CREATE TRIGGER_PROXIMITY
-            break;
-
-        default:
-            // Do nothing.
-            break;
+            case Component::Trigger::TriggerTypes::LOOK_AT: {
+                // CREATE TRIGGER_LOOK_AT
+                break;
+            }
+            case Component::Trigger::TriggerTypes::PROXIMITY: {
+                // CREATE TRIGGER_PROXIMITY
+                break;
+            }
+            default:
+                // Do nothing.
+                break;
         }
-
     } else {
-
         if (TriggerRepeat* temp = dynamic_cast<TriggerRepeat*>(trigger->GetTrigger())) {
             ImGui::Text("Class: TriggerRepeat");
             ImGui::Text("Name: %s", temp->GetName().c_str());
@@ -636,7 +628,6 @@ void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
             ImGui::Text("Name: %s", temp->GetName().c_str());
         }
     }
-
 
     ImGui::Unindent();
 }
