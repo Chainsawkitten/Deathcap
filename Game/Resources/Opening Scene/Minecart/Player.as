@@ -33,10 +33,7 @@ class Player{
         
         Cursor = GetCursorXY();
         deathTimer += i;
-        if(deathTimer > 5)
-        {
-        	print("Test");
+        if(deathTimer > 10)
         	RestartScene();
-        }
     }
 }

@@ -198,10 +198,9 @@ void ActiveHymn::Update(float deltaTime) {
         world.ClearKilled();
     }
 
-    if (restart)
-    {
+    if (restart) {
         restart = false;
-        world.Load(world.GetSaveJson());
+        world.Load(saveState);
         Managers().scriptManager->RegisterInput();
         Managers().scriptManager->BuildAllScripts();
     }

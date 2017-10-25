@@ -132,6 +132,9 @@ class ActiveHymn {
 
         /// Whether to restart the hymn
         bool restart = false;
+
+        /// Recently saved state of the hymn
+        Json::Value saveState;
         
     private:
         static ActiveHymn& GetInstance();
