@@ -1,8 +1,8 @@
 #include "VRManager.hpp"
-#include "Utility/Log.hpp"
+
+#include <Utility/Log.hpp>
 #include "../Component/VRDevice.hpp"
-
-
+#include "../Entity/Entity.hpp"
 
 VRManager::VRManager() : scale(1.f) {
     // Check if VR runtime is installed.

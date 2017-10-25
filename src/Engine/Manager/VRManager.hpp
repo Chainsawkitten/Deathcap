@@ -3,7 +3,6 @@
 #include <glm/glm.hpp>
 #include <openvr.h>
 #include "../Entity/ComponentContainer.hpp"
-#include <Engine/Component/VRDevice.hpp>
 #include "../linking.hpp"
 
 namespace Component {

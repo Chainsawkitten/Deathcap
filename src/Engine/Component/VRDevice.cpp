@@ -1,5 +1,7 @@
 #include "VRDevice.hpp"
-#include "Manager/Managers.hpp"
+
+#include "../Manager/Managers.hpp"
+#include "../Manager/VRManager.hpp"
 
 namespace Component {
     VRDevice::VRDevice() {

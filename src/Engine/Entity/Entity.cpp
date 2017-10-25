@@ -26,6 +26,7 @@
 #include "../Manager/RenderManager.hpp"
 #include "../Manager/ScriptManager.hpp"
 #include "../Manager/SoundManager.hpp"
+#include "../Manager/VRManager.hpp"
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
