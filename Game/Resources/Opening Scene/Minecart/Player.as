@@ -14,8 +14,8 @@ class Player{
     void MouseUpdate(){
         if(Cursor.x == 0 && Cursor.y == 0)
             Cursor = GetCursorXY();
-        self.rotation.x += 0.3f * (GetCursorXY().x - Cursor.x);
-        self.rotation.y += 0.3f * (GetCursorXY().y - Cursor.y);
+        self.rotation.x -= 0.3f * (GetCursorXY().x - Cursor.x);
+        self.rotation.y -= 0.3f * (GetCursorXY().y - Cursor.y);
         
         Cursor = GetCursorXY();
     }
