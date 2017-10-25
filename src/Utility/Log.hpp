@@ -23,6 +23,9 @@ class Log {
             NUMBER_OF_CHANNELS  ///< Maximum number of channels, ensure this is the last element of the enum if adding channels.
         };
 
+        /// Constructor.
+        UTILITY_API Log(const Channel channel = Channel::DEFAULT);
+
         /// Destructor.
         UTILITY_API ~Log();
         
