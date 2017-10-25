@@ -57,14 +57,6 @@ class VRManager {
          */
         ENGINE_API glm::mat4 GetHMDHeadToEyeMatrix(vr::Hmd_Eye eye) const;
 
-        /// Get's the VR controller's transformation matrix
-        /**
-        * @param The entity who's controller it is we're handling.
-        * @return The transformation matrix.
-        */
-        glm::mat4 GetHandleTransformation(int controlID, Entity* entity);
-
-
         /// Returns the projection matrix to use for the specified eye.
         /**
          * @param eye Which eye the function should return the eye matrix for.

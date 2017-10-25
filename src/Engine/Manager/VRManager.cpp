@@ -154,27 +154,6 @@ glm::mat4 VRManager::GetHMDHeadToEyeMatrix(vr::Hmd_Eye eye) const {
     return glm::inverse(ConvertMatrix(vrSystem->GetEyeToHeadTransform(eye)));
 }
 
-glm::mat4 VRManager::GetHandleTransformation(int controlID, Entity* entity) {
-    glm::mat4 ctrlTransform = GetControllerPoseMatrix(controlID);
-    glm::vec3 ctrlRight = glm::vec3(ctrlTransform[0][0], ctrlTransform[1][0], ctrlTransform[2][0]);
-    glm::vec3 ctrlUp = glm::vec3(ctrlTransform[0][1], ctrlTransform[1][1], ctrlTransform[2][1]);
-    glm::vec3 ctrlForward = glm::vec3(ctrlTransform[0][2], ctrlTransform[1][2], ctrlTransform[2][2]);
-    glm::vec3 ctrlPosition = glm::vec3(-ctrlTransform[3][0], -ctrlTransform[3][1], -ctrlTransform[3][2]);
-
-    glm::mat4 ctrlOrientation = glm::mat4(
-        glm::vec4(ctrlRight, 0.0f),
-        glm::vec4(ctrlUp, 0.0f),
-        glm::vec4(ctrlForward, 0.0f),
-        glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)
-    );
-
-    glm::vec3 localPosition = ctrlPosition * GetScale();
-    glm::mat4 localTranslationMatrix = glm::translate(glm::mat4(), localPosition);
-    glm::mat4 globalTranslationMatrix = entity->GetModelMatrix() * (ctrlOrientation * localTranslationMatrix);
-
-    return globalTranslationMatrix;
-}
-
 glm::mat4 VRManager::GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float zFar) const {
     if (vrSystem == nullptr) {
         Log() << "No initialized VR device.\n";

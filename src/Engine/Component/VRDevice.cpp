@@ -26,10 +26,6 @@ namespace Component {
         return component;
     }
 
-    glm::mat4 VRDevice::HandleTransformation(Entity* entity) {
-        return Managers().vrManager->GetHandleTransformation(controllerID, entity);
-    }
-
     glm::mat4 VRDevice::GetHMDProjectionMatrix(vr::Hmd_Eye eye, float zNear, float zFar) const {
         return Managers().vrManager->GetHMDProjectionMatrix(eye, zNear, zFar);
     }
