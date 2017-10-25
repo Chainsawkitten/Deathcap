@@ -14,14 +14,10 @@ Component::Trigger* TriggerManager::CreateTrigger() {
     return triggerComponents.Create();
 }
 
-void TriggerManager::ClearKilledComponents() {
-    triggerComponents.ClearKilled();
-}
-
-const std::vector<Component::Trigger*>& TriggerManager::GetTriggerComponents() {
+const std::vector<Component::Trigger*>& TriggerManager::GetTriggerComponents() const {
     return triggerComponents.GetAll();
 }
 
-void TriggerManager::CreateTrigger(SuperTrigger* trigger) {
-    triggerComponents.Create();
+void TriggerManager::ClearKilledComponents() {
+    triggerComponents.ClearKilled();
 }
