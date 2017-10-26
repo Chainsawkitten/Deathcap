@@ -468,7 +468,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
     for (Script* script : scripts.GetAll()) {
         if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
             CreateInstance(script);
-            script->initialized = true;
+
+            // Skip if not initialized
+            if (!script->initialized)
+                continue;
 
             int propertyCount = script->instance->GetPropertyCount();
 
@@ -707,10 +710,18 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
 void ScriptManager::CreateInstance(Component::Script* script) {
     currentEntity = script->entity;
     ScriptFile* scriptFile = script->scriptFile;
+
+    // Skip if no script file.
+    if (!scriptFile)
+        return;
     
     // Find the class to instantiate.
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
     
+    // Skip if no class is found.
+    if (!type)
+        return;
+
     // Find factory function / constructor.
     std::string factoryName = scriptFile->name + "@ " + scriptFile->name + "(Entity@)";
     asIScriptFunction* factoryFunction = type->GetFactoryByDecl(factoryName.c_str());
@@ -729,6 +740,9 @@ void ScriptManager::CreateInstance(Component::Script* script) {
 
     // Clean up.
     context->Release();
+
+    // Set initialized.
+    script->initialized = true;
 }
 
 void ScriptManager::CallMessageReceived(const Message& message) {
@@ -833,8 +847,10 @@ void ScriptManager::ExecuteCall(asIScriptContext* context) {
 asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::string& className) {
     // Get script module.
     asIScriptModule* module = engine->GetModule(moduleName.c_str(), asGM_ONLY_IF_EXISTS);
-    if (module == nullptr)
+    if (module == nullptr) {
         Log() << "Couldn't find \"" << moduleName << "\" module.\n";
+        return nullptr;
+    }
     
     // Find the class.
     asUINT typeCount = module->GetObjectTypeCount();
