@@ -23,9 +23,9 @@ class RayIntersection {
          * @param outputDistance The distance to the entity that is tested to be used as a return value check.
          * @return Whether or not the ray intersects with the entity that is tested against.
          */
-        ENGINE_API bool RayOBBIntersect(glm::vec3 rayOrigin,
-            glm::vec3 rayDirection,
-            Video::AxisAlignedBoundingBox meshData,
-            glm::mat4 modelMatrix,
+        ENGINE_API bool RayOBBIntersect(const glm::vec3& rayOrigin,
+            const glm::vec3& rayDirection,
+            const Video::AxisAlignedBoundingBox& meshData,
+            const glm::mat4& modelMatrix,
             float &outputDistance) const;
 };
