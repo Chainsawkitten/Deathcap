@@ -14,7 +14,7 @@
  */
 class Log {
     public:
-        UTILITY_API const enum Channel {
+        const enum Channel {
             DEFAULT = 0,        ///< Default channel.
             INFO,               ///< Information.
             WARNING,            ///< Warnings.
