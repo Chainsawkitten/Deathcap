@@ -14,8 +14,8 @@ class scr_AudioManager{
     }
     
     void Update(float deltaTime){
-    	timer += deltaTime;
-    	if(!triggered && timer > 3)
-	    	ambient.Play();
+        timer += deltaTime;
+        if(!triggered && timer > 3)
+            ambient.Play();
     }
 }
