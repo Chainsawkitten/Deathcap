@@ -112,7 +112,14 @@ void ModelEditor::Show() {
                     // Create and save scene.
                     World* world = new World();
                     world->CreateRoot();
-                    Entity* entity = world->GetRoot()->AddChild(model->name);
+                    Entity* root = world->GetRoot();
+                    
+                    // Unique identifiers are based on the current time.
+                    // Since we're creating two entities at the same time, we fake that
+                    // the root was created one second ago to avoid duplicate UIDs.
+                    root->SetUniqueIdentifier(root->GetUniqueIdentifier() - 1);
+                    
+                    Entity* entity = root->AddChild(model->name);
                     
                     Component::Mesh* mesh = entity->AddComponent<Component::Mesh>();
                     mesh->geometry = model;
