@@ -719,6 +719,10 @@ void ScriptManager::CreateInstance(Component::Script* script) {
     // Find the class to instantiate.
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
     
+    // Skip if no class is found.
+    if (!type)
+        return;
+
     // Find factory function / constructor.
     std::string factoryName = scriptFile->name + "@ " + scriptFile->name + "(Entity@)";
     asIScriptFunction* factoryFunction = type->GetFactoryByDecl(factoryName.c_str());
@@ -844,8 +848,10 @@ void ScriptManager::ExecuteCall(asIScriptContext* context) {
 asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::string& className) {
     // Get script module.
     asIScriptModule* module = engine->GetModule(moduleName.c_str(), asGM_ONLY_IF_EXISTS);
-    if (module == nullptr)
+    if (module == nullptr) {
         Log() << "Couldn't find \"" << moduleName << "\" module.\n";
+        return nullptr;
+    }
     
     // Find the class.
     asUINT typeCount = module->GetObjectTypeCount();
