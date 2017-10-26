@@ -26,8 +26,8 @@ class Player{
         if (!IsVRActive())
             MouseUpdate();
             
-		deathTimer += i;
+        deathTimer += i;
         if(deathTimer > 10)
-        	RestartScene();
+            RestartScene();
     }
 }
