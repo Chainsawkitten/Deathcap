@@ -25,28 +25,63 @@ namespace GUI {
 
             ImGui::SameLine();
 
-            if (ImGui::Button("Close")) {
+            if (ImGui::Button("Close"))
                 ImGui::CloseCurrentPopup();
-            }
 
             ImGui::Separator();
 
+            // Working under the assumption that the internal trigger
+            // is set and is indeed a repeat trigger.
+            auto repeat = Managers().triggerManager->GetTriggerRepeat(comp);
+            assert(repeat);
+
             switch (selectedTab) {
                 case 0: {
-                    auto repeat = Managers().triggerManager->GetTriggerRepeat(comp);
-                    // Working under the assumption that the internal trigger
-                    // is set and is indeed a repeat trigger.
-                    assert(repeat);
                     std::array<char, 100> name;
                     memcpy(name.data(), repeat->GetName().c_str(), std::min(repeat->GetName().size(), name.size()));
                     name[std::min(repeat->GetName().size(), name.size() - 1)] = '\0';
-                    if (ImGui::InputText("Name", name.data(), name.size())) {
+                    if (ImGui::InputText("Name", name.data(), name.size()))
                         repeat->SetName(name.data());
-                    }
+
                     break;
                 }
                 case 1: {
-                    ImGui::Text("I am subjects");
+                    // Hardcoded single event for demonstration purposes
+                    ImGui::Columns(4);
+
+                    ImGui::Text("Event");
+                    ImGui::NextColumn();
+                    ImGui::Text("Subject");
+                    ImGui::NextColumn();
+                    ImGui::Text("Target entity");
+                    ImGui::NextColumn();
+                    ImGui::Text("Script method");
+                    ImGui::Separator();
+
+                    ImGui::Columns(4);
+
+                    std::array<const char*, 3> events = {
+                        "OnEnter",
+                        "OnRetain",
+                        "OnLeave",
+                    };
+                    int eventType = 0;
+                    if (ImGui::Combo("", &eventType, events.data(), events.size())) {
+                        // Do something
+                    }
+
+                    ImGui::NextColumn();
+
+                    ImGui::Text("[Select subject rigid body here]");
+
+                    ImGui::NextColumn();
+
+                    ImGui::Text("[Select target entity here]");
+
+                    ImGui::NextColumn();
+
+                    ImGui::Text("[Select script method here]");
+
                     break;
                 }
             }
