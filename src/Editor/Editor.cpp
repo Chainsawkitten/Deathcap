@@ -174,7 +174,7 @@ void Editor::Show(float deltaTime) {
         // Scroll zoom.
         if (Input()->GetScrollDown()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
-                glm::mat4 orientation = cameraEntity->GetCameraOrientation();
+                glm::mat4 orientation = cameraEntity->GetOrientation();
                 glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * backward;
@@ -182,7 +182,7 @@ void Editor::Show(float deltaTime) {
         }
         if (Input()->GetScrollUp()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
-                glm::mat4 orientation = cameraEntity->GetCameraOrientation();
+                glm::mat4 orientation = cameraEntity->GetOrientation();
                 glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * -backward;
@@ -229,18 +229,20 @@ void Editor::Show(float deltaTime) {
         currentEntityMatrix = currentEntity->GetLocalMatrix();
 
         // Change operation based on key input.
-        if (Input()->Triggered(InputHandler::W))
-            currentOperation = ImGuizmo::TRANSLATE;
-        else if (Input()->Triggered(InputHandler::E))
-            currentOperation = ImGuizmo::ROTATE;
-        else if (Input()->Triggered(InputHandler::R))
-            currentOperation = ImGuizmo::SCALE;
+        if (!ImGuizmo::IsUsing()) {
+            if (Input()->Triggered(InputHandler::W))
+                currentOperation = ImGuizmo::TRANSLATE;
+            else if (Input()->Triggered(InputHandler::E))
+                currentOperation = ImGuizmo::ROTATE;
+            else if (Input()->Triggered(InputHandler::R))
+                currentOperation = ImGuizmo::SCALE;
+        }  
 
         // Projection matrix.
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
 
         // View matrix.
-        glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
+        glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
 
         // Identity matrix.
         float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
@@ -450,8 +452,8 @@ void Editor::ShowMainMenuBar(bool& play) {
             if (Input()->Triggered(InputHandler::ZOOM)) {
                 if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
-                    cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
-                    cameraEntity->rotation = glm::vec3(0, 45, 1);
+                    cameraEntity->position = tempPos + glm::vec3(0, 7.f, 7.f);
+                    cameraEntity->rotation = glm::vec3(0.f, 315.f, 0.f);
                 }
             }
 
@@ -510,15 +512,15 @@ void Editor::ControlEditorCamera(float deltaTime) {
         }
 
         float sensitivity = 0.3f;
-        cameraEntity->rotation.x += sensitivity * (Input()->GetCursorX() - lastX);
-        cameraEntity->rotation.y += sensitivity * (Input()->GetCursorY() - lastY);
+        cameraEntity->rotation.x -= sensitivity * (Input()->GetCursorX() - lastX);
+        cameraEntity->rotation.y -= sensitivity * (Input()->GetCursorY() - lastY);
 
         lastX = Input()->GetCursorX();
         lastY = Input()->GetCursorY();
 
-        glm::mat4 orientation = cameraEntity->GetCameraOrientation();
-        glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
-        glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
+        glm::mat4 orientation = cameraEntity->GetOrientation();
+        glm::vec3 backward(orientation[2][0], orientation[2][1], orientation[2][2]);
+        glm::vec3 right(orientation[0][0], orientation[0][1], orientation[0][2]);
 
         // Move speed scaling.
         float speed = 10.0f * deltaTime * (glm::abs(cameraEntity->position.y) / 10.0f);
