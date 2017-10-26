@@ -88,6 +88,10 @@ void SendMessage(Entity* recipient, int type) {
     Managers().scriptManager->SendMessage(recipient, type);
 }
 
+void RestartScene() {
+    Hymn().restart = true;
+}
+
 bool IsIntersect(Entity* checker, Entity* camera) {
     MousePicking mousePicker = MousePicking(camera, camera->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
     mousePicker.Update();
@@ -361,6 +365,7 @@ ScriptManager::ScriptManager() {
     
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RestartScene()", asFUNCTION(RestartScene), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterTriggerEnter(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerEnterHelper), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterTriggerRetain(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerRetainHelper), asCALL_CDECL);
