@@ -561,7 +561,7 @@ void Editor::Picking() {
                 // Get aabo.
                 Component::Mesh* mesh = entity->GetComponent<Component::Mesh>();
                 const Video::AxisAlignedBoundingBox aabo = mesh != nullptr && mesh->geometry != nullptr ?
-                    mesh->geometry->GetAxisAlignedBoundingBox() : Video::AxisAlignedBoundingBox(glm::vec3(1.f, 1.f, 1.f), entity->GetWorldPosition(), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
+                    mesh->geometry->GetAxisAlignedBoundingBox() : Video::AxisAlignedBoundingBox(glm::vec3(1.f, 1.f, 1.f), entity->GetWorldPosition(), glm::vec3(-0.25f, -0.25f, -0.25f), glm::vec3(0.25f, 0.25f, 0.25f));
                 // Intersect with aabo.
                 if (rayIntersector.RayOBBIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(), aabo, entity->GetModelMatrix(), intersectDistance)) {
                     if (intersectDistance < lastDistance && intersectDistance > 0.f) {
