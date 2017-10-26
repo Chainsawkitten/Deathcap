@@ -39,11 +39,8 @@ namespace Component {
             /// Sound buffer.
             Audio::SoundBuffer* soundBuffer = nullptr;
             
-            /// Pitch.
-            float pitch = 1.f;
-            
             /// Gain.
-            float gain = 1.f;
+            float volume = 1.f;
             
             /// Whether the sound should loop.
             bool loop = false;
@@ -52,7 +49,7 @@ namespace Component {
             uint32_t place = 0;
             
         private:            
-            bool shouldPlay = true;
+            bool shouldPlay = false;
             bool shouldPause = false;
             bool shouldStop = false;
             

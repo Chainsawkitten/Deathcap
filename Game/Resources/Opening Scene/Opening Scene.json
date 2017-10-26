@@ -41,7 +41,7 @@
 			"Material" : 
 			{
 				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
-				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
+				"metallic" : "Resources/Opening Scene/Cave/Textures/Ambient",
 				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
 				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
 			},
@@ -339,6 +339,41 @@
 			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
 			"static" : false,
 			"uid" : 1508919163
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Opening Scene/Audio/scr_AudioManager"
+			},
+			"SoundSource" : 
+			{
+				"loop" : true,
+				"sound" : "Resources/Opening Scene/Audio/Ambient",
+				"volume" : 0.15000000596046448
+			},
+			"children" : null,
+			"name" : "AudioManager",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509010103
 		}
 	],
 	"name" : "Root",

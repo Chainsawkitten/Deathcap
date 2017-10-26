@@ -43,7 +43,7 @@
 										"type" : 2
 									},
 									{
-										"texture" : "cave_metallic",
+										"texture" : "Ambient",
 										"type" : 2
 									},
 									{
@@ -164,6 +164,21 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "Ambient",
+								"type" : 3
+							},
+							{
+								"script" : "scr_AudioManager",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -253,8 +268,8 @@
 			}
 		]
 	},
-	"sceneNumber" : 3,
+	"sceneNumber" : 4,
 	"scriptNumber" : 0,
-	"soundNumber" : 0,
+	"soundNumber" : 2,
 	"textureNumber" : 24
 }
