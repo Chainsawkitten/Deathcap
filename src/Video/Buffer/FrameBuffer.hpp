@@ -9,34 +9,34 @@ namespace Video {
 
     /// Frame buffer containing frame buffer object.
     class FrameBuffer {
-        public:
-            /// Create new frame buffer.
-            /**
+            public:
+        /// Create new frame buffer.
+        /**
              * @param textures Vector of %ReadWriteTexture to create a frame buffer object.
              */
-            VIDEO_API FrameBuffer(const std::vector<ReadWriteTexture*>& textures);
-            
-            /// Destructor.
-            VIDEO_API ~FrameBuffer();
+        VIDEO_API FrameBuffer(const std::vector<ReadWriteTexture*>& textures);
 
-            /// Bind this framebuffer as render target.
-            VIDEO_API void BindWrite();
+        /// Destructor.
+        VIDEO_API ~FrameBuffer();
 
-            /// Bind this framebuffer as render source.
-            VIDEO_API void BindRead();
+        /// Bind this framebuffer as render target.
+        VIDEO_API void BindWrite();
 
-            /// Unbind this framebuffer as render target.
-            VIDEO_API void Unbind();
+        /// Bind this framebuffer as render source.
+        VIDEO_API void BindRead();
 
-            /// Clear this framebuffer.
-            VIDEO_API void Clear() const;
+        /// Unbind this framebuffer as render target.
+        VIDEO_API void Unbind();
 
-        private:
-            std::vector<ReadWriteTexture*> textures;
+        /// Clear this framebuffer.
+        VIDEO_API void Clear() const;
 
-            GLuint frameBufferObject;
-            GLenum target;
+            private:
+        std::vector<ReadWriteTexture*> textures;
 
-            bool bound;
+        GLuint frameBufferObject;
+        GLenum target;
+
+        bool bound;
     };
 }

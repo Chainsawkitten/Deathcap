@@ -10,39 +10,38 @@ namespace GUI {
 
     /// Plane shape editor for physics components.
     class PlaneShapeEditor : public IShapeEditor {
-        public:
-            /// Constructor
-            PlaneShapeEditor() = default;
+            public:
+        /// Constructor
+        PlaneShapeEditor() = default;
 
-            /// Plane type label.
-            /**
+        /// Plane type label.
+        /**
              * @return "Plane" string.
              */
-            virtual const char* Label() const override { return "Plane"; }
+        virtual const char* Label() const override { return "Plane"; }
 
-            /// Show controls for editing a plane shape.
-            /**
+        /// Show controls for editing a plane shape.
+        /**
              * @param comp The shape component to edit.
              */
-            virtual void Show(Component::Shape* comp) override;
+        virtual void Show(Component::Shape* comp) override;
 
-            /// Set a sphere shape on the given shape component.
-            /**
+        /// Set a sphere shape on the given shape component.
+        /**
              * @param comp The shape component on which to set shape.
              */
-            virtual void Apply(Component::Shape* comp) override;
+        virtual void Apply(Component::Shape* comp) override;
 
-            /// Set internal data according the given %Shape, provided that it
-            /// is a plane.
-            /**
+        /// Set internal data according the given %Shape, provided that it
+        /// is a plane.
+        /**
              * @param shape The %Shape from which to initialize data.
              * @return True if shape type is plane, false otherwise.
              */
-            virtual bool SetFromShape(const Physics::Shape& shape) override;
+        virtual bool SetFromShape(const Physics::Shape& shape) override;
 
-        private:
-            float normal[3] = { 0.0f, 1.0f, 0.0f };
-            float planeCoeff = 0.0f;
+            private:
+        float normal[3] = { 0.0f, 1.0f, 0.0f };
+        float planeCoeff = 0.0f;
     };
-
 }

@@ -4,11 +4,11 @@
 
 namespace GUI {
     class ProfilingWindow {
-        public:
-            /// Show profiling results.
-            void Show();
-        
-        private:
-            void ShowResult(ProfilingManager::Result* result);
+            public:
+        /// Show profiling results.
+        void Show();
+
+            private:
+        void ShowResult(ProfilingManager::Result* result);
     };
 }
