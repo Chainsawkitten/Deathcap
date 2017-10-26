@@ -227,12 +227,14 @@ void Editor::Show(float deltaTime) {
         currentEntityMatrix = currentEntity->GetLocalMatrix();
 
         // Change operation based on key input.
-        if (Input()->Triggered(InputHandler::W))
-            currentOperation = ImGuizmo::TRANSLATE;
-        else if (Input()->Triggered(InputHandler::E))
-            currentOperation = ImGuizmo::ROTATE;
-        else if (Input()->Triggered(InputHandler::R))
-            currentOperation = ImGuizmo::SCALE;
+        if (!ImGuizmo::IsUsing()) {
+            if (Input()->Triggered(InputHandler::W))
+                currentOperation = ImGuizmo::TRANSLATE;
+            else if (Input()->Triggered(InputHandler::E))
+                currentOperation = ImGuizmo::ROTATE;
+            else if (Input()->Triggered(InputHandler::R))
+                currentOperation = ImGuizmo::SCALE;
+        }  
 
         // Projection matrix.
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
