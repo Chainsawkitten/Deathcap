@@ -2,6 +2,7 @@ class Player{
     Hub @hub;
     Entity @self;
     vec2 Cursor;
+    float deathTimer;
     
     Player(Entity @entity){
         @hub = Managers();
@@ -24,5 +25,9 @@ class Player{
         // Only control camera with mouse if we're not running in VR.
         if (!IsVRActive())
             MouseUpdate();
+            
+        deathTimer += i;
+        if(deathTimer > 10)
+            RestartScene();
     }
 }
