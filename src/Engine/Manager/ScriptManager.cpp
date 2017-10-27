@@ -720,7 +720,7 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
                     script->propertyMap[name] = std::pair<int, void*>(typeId, malloc(size + 1));
 
                     for (int i = 0; i < size; i++)
-                        ((unsigned char*)script->propertyMap[name].second)[i] = unsigned char(typeId_value[typeIds[0]][i].asInt());
+                        ((unsigned char*)script->propertyMap[name].second)[i] = (unsigned char)(typeId_value[typeIds[0]][i].asInt());
 
                 }
             }
