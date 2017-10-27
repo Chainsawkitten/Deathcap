@@ -56,6 +56,8 @@ class TriggerRepeat : public SuperTrigger {
         ENGINE_API Entity* GetCollidedEntity();
         ENGINE_API void SetCollidedEntity(Entity* value);
 
+        ENGINE_API void Process() override;
+
     private:
         void HandleTriggerEvent();
 
