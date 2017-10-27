@@ -76,8 +76,9 @@ void SoundManager::Update(float deltaTime) {
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
-        if (sound->shouldPlay) {
-            
+        // Check if sound should play and is a valid resource.
+        if (sound->shouldPlay && sound->soundBuffer && sound->soundBuffer->GetBuffer()) {
+
             float* soundBuf = new float[numSamples];
             if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
                 std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
