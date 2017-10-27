@@ -246,33 +246,28 @@ void Editor::Show(float deltaTime) {
 
         // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
-        ImGuizmo::RecomposeMatrixFromComponents(translationValue, rotationValue, scaleValue, &currentEntityMatrix[0][0]);
-        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, currentGizmoMode, &currentEntityMatrix[0][0]);
-        ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translationValue, rotationValue, scaleValue);
-
-        float zeroTransvestit[3] = { 0, 0, 0 };
-        float idScale[3] = { 1,1,1 };
-        glm::mat4 idMatrix = glm::mat4();
-
-        ImGuizmo::RecomposeMatrixFromComponents(zeroTransvestit, rotationValue, idScale, &idMatrix[0][0]);
-
-        glm::quat tempQuat = glm::quat_cast(idMatrix);
-
-        //printf("%f, %f, %f\n", glm::pitch(tempQuat), glm::yaw(tempQuat), glm::roll(tempQuat));
-
+        glm::mat4 deltaMatrix = glm::mat4();
+        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, currentGizmoMode, &currentEntityMatrix[0][0], &deltaMatrix[0][0]);
 
         if (ImGuizmo::IsUsing()) {
             switch (currentOperation) {
-            case ImGuizmo::TRANSLATE:
-                currentEntity->position.x = translationValue[0];
-                currentEntity->position.y = translationValue[1];
-                currentEntity->position.z = translationValue[2];
-            case ImGuizmo::ROTATE:
-                currentEntity->quaternion = glm::rotate(currentEntity->quaternion, glm::angle(tempQuat), glm::axis(tempQuat));
-            case ImGuizmo::SCALE:
-                currentEntity->scale.x = scaleValue[0];
-                currentEntity->scale.y = scaleValue[1];
-                currentEntity->scale.z = scaleValue[2];
+                case ImGuizmo::TRANSLATE: {
+                    currentEntity->position.x = translationValue[0];
+                    currentEntity->position.y = translationValue[1];
+                    currentEntity->position.z = translationValue[2];
+                    break;
+                }
+                case ImGuizmo::ROTATE: {
+                    auto deltaQuat = glm::toQuat(deltaMatrix);
+                    currentEntity->quaternion = glm::rotate(currentEntity->quaternion, glm::angle(deltaQuat), glm::axis(deltaQuat));
+                    break;
+                }
+                case ImGuizmo::SCALE: {
+                    currentEntity->scale.x = scaleValue[0];
+                    currentEntity->scale.y = scaleValue[1];
+                    currentEntity->scale.z = scaleValue[2];
+                    break;
+                }
             }
         }
     }

@@ -32,6 +32,7 @@
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
 #include <imgui_internal.h>
+#include <imgui.h>
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
 #include "Engine/Component/Controller.hpp"
@@ -109,14 +110,20 @@ void EntityEditor::Show() {
             }
         }
 
-        // = glm::axis(entity->quaternion);
-        //float angle = glm::angle(entity->quaternion);
-        //glm::vec3 axis = glm::axis(entity->quaternion);
+        float angle = glm::angle(entity->quaternion);
+        glm::vec3 axis = glm::axis(entity->quaternion);
 
         ImGui::DraggableVec3("Position", entity->position);
 
-        //if (ImGui::InputFloat("Angle", &angle) || ImGui::InputFloat3("Axis", &axis.x))
-            //entity->SetWorldRotation(glm::angleAxis(glm::radians(angle), axis));
+        if (ImGui::InputFloat("Angle", &angle) || ImGui::InputFloat3("Axis", &axis.x, -1, ImGuiInputTextFlags_EnterReturnsTrue)) {
+            float epsilon = 0.001f;
+            if (fabs(axis.x - epsilon) < epsilon && fabs(axis.y - epsilon) < epsilon && fabs(axis.z - epsilon) < epsilon)
+                axis = glm::vec3(0.0f, 0.0f, 0.0f);
+            else
+                axis = glm::normalize(axis);
+
+            entity->SetWorldRotation(glm::angleAxis(angle, axis));
+        }
 
         ImGui::DraggableVec3("Scale", entity->scale);
         ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());

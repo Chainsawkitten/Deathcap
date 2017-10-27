@@ -112,7 +112,6 @@ namespace GUI {
             bool normalShow = false;
             bool metallicShow = false;
             bool roughnessShow = false;
-            
     };
 }
 
