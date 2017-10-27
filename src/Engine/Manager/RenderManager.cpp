@@ -75,7 +75,7 @@ RenderManager::~RenderManager() {
     delete renderer;
 }
 
-void RenderManager::Render(World& world, Entity* camera) {
+void RenderManager::Render(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, Entity* camera) {
     // Find camera entity.
     if (camera == nullptr) {
         for (Lens* lens : lenses.GetAll())
@@ -87,11 +87,28 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (mainWindowRenderSurface != nullptr) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-                const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
 
-                Render(world, glm::inverse(camera->GetModelMatrix()), projectionMat, mainWindowRenderSurface);
+                { PROFILE("Render world entities");
+                { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
+                    RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                }
+                }
+
+                if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                    { PROFILE("Render editor entities");
+                    { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, camera->GetWorldPosition(), viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                    }
+                    }
+                }
+
             }
             }
+
+
+            
 
             // Present to back buffer.
             { PROFILE("Present to back buffer");
@@ -118,7 +135,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                     const glm::mat4 projectionMat = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
                     glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
 
-                    Render(world, glm::inverse(camera->GetModelMatrix()) * eyeTranslation, projectionMat, hmdRenderSurface);
+                    RenderWorldEntities(world, glm::inverse(camera->GetModelMatrix()) * eyeTranslation, projectionMat, hmdRenderSurface);
 
                     hmdRenderSurface->Swap();
                     vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
@@ -138,77 +155,12 @@ void RenderManager::Render(World& world, Entity* camera) {
     }
 }
 
-void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
-    // Find camera entity.
-    if (camera == nullptr) {
-        for (Lens* lens : lenses.GetAll()) {
-            camera = lens->entity;
-        }
-    }
-    
-    // Render from camera.
-    if (camera != nullptr) {
-        const glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        const glm::mat4 cameraModel(camera->GetModelMatrix());
-        const glm::mat4 viewMat(glm::inverse(cameraModel));
-        const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
-        const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        const glm::vec3 up(cameraModel[1][0], cameraModel[1][1], cameraModel[1][2]);
-        
-        renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
-        
-        // Render sound sources.
-        if (soundSources) {
-            for (SoundSource* soundSource : Managers().soundManager->GetSoundSources())
-                renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
-        }
-        
-        // Render particle emitters.
-        if (particleEmitters) {
-            for (ParticleEmitter* emitter : Managers().particleManager->GetParticleEmitters())
-                renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
-        }
-        
-        // Render light sources.
-        if (lightSources) {
-            for (DirectionalLight* light : directionalLights.GetAll())
-                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
-            
-            for (PointLight* light : pointLights.GetAll())
-                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
-            
-            for (SpotLight* light : spotLights.GetAll())
-                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
-        }
-        
-        // Render cameras.
-        if (cameras) {
-            for (Lens* lens : lenses.GetAll())
-                renderer->RenderIcon(lens->entity->GetWorldPosition(), cameraTexture);
-        }
-        
-        renderer->StopRenderingIcons();
-        
-        // Render physics.
-        if (physics) {
-            for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
-                const ::Physics::Shape& shape = *shapeComp->GetShape();
-                if (shape.GetKind() == ::Physics::Shape::Kind::Sphere) {
-                    Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
-                } else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
-                    Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-                }
-            }
-        }
-    }
-}
-
 void RenderManager::UpdateBufferSize() {
     delete mainWindowRenderSurface;
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::Render(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
+void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
     // Render from camera.
     renderer->StartRendering(renderSurface);
 
@@ -281,6 +233,63 @@ void RenderManager::Render(World& world, const glm::mat4& viewMatrix, const glm:
         }
     }
 
+}
+
+void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources,
+    bool cameras, bool physics, const glm::vec3& position, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix,
+    Video::RenderSurface* renderSurface) {
+
+    const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
+    const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+
+    renderSurface->GetShadingFrameBuffer()->BindWrite();
+    renderer->PrepareRenderingIcons(viewProjectionMatrix, position, up);
+
+    // Render sound sources.
+    if (soundSources) {
+        for (SoundSource* soundSource : Managers().soundManager->GetSoundSources())
+            renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
+    }
+
+    // Render particle emitters.
+    if (particleEmitters) {
+        for (ParticleEmitter* emitter : Managers().particleManager->GetParticleEmitters())
+            renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
+    }
+
+    // Render light sources.
+    if (lightSources) {
+        for (DirectionalLight* light : directionalLights.GetAll())
+            renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
+
+        for (PointLight* light : pointLights.GetAll())
+            renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
+
+        for (SpotLight* light : spotLights.GetAll())
+            renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
+    }
+
+    // Render cameras.
+    if (cameras) {
+        for (Lens* lens : lenses.GetAll())
+            renderer->RenderIcon(lens->entity->GetWorldPosition(), cameraTexture);
+    }
+
+    renderer->StopRenderingIcons();
+    renderSurface->GetShadingFrameBuffer()->Unbind();
+
+    // Render physics.
+    if (physics) {
+        for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
+            const ::Physics::Shape& shape = *shapeComp->GetShape();
+            if (shape.GetKind() == ::Physics::Shape::Kind::Sphere) {
+                Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
+            }
+            else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
+                Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+            }
+        }
+    }
 }
 
 Component::Animation* RenderManager::CreateAnimation() {

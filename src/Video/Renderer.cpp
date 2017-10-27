@@ -15,6 +15,7 @@
 #include "Geometry/Rectangle.hpp"
 #include "Buffer/FrameBuffer.hpp"
 #include "Buffer/StorageBuffer.hpp"
+#include "Buffer/ReadWriteTexture.hpp"
 
 using namespace Video;
 
@@ -142,13 +143,12 @@ void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, cons
     glDepthMask(GL_FALSE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-    
+
     // Set camera uniforms.
     glUniformMatrix4fv(iconShaderProgram->GetUniformLocation("viewProjectionMatrix"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniform3fv(iconShaderProgram->GetUniformLocation("cameraPosition"), 1, &cameraPosition[0]);
     glUniform3fv(iconShaderProgram->GetUniformLocation("cameraUp"), 1, &cameraUp[0]);
     glUniform1i(iconShaderProgram->GetUniformLocation("baseImage"), 0);
-    
     glActiveTexture(GL_TEXTURE0);
 }
 
