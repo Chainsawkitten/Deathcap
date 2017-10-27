@@ -1,6 +1,8 @@
 #include "Script.hpp"
 
 #include <angelscript.h>
+#include <cstring>
+
 #include "../Manager/Managers.hpp"
 #include "../Manager/ScriptManager.hpp"
 #include "../Manager/ResourceManager.hpp"

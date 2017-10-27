@@ -8,6 +8,8 @@
 #include <map>
 #include <typeindex>
 #include <sstream>
+#include <cstring>
+
 #include "../Util/FileSystem.hpp"
 #include "../Util/Input.hpp"
 #include "../Util/RayIntersection.hpp"
