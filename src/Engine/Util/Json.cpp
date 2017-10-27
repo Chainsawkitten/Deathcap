@@ -1,4 +1,5 @@
 #include "Json.hpp"
+#include <glm/gtc/quaternion.hpp>
 
 namespace Json {
     Value SaveVec2(const glm::vec2& value) {
@@ -22,5 +23,16 @@ namespace Json {
     
     glm::vec3 LoadVec3(const Value& value) {
         return glm::vec3(value.get("x", 0.f).asFloat(), value.get("y", 0.f).asFloat(), value.get("z", 0.f).asFloat());
+    }
+
+    Value SaveQuaternion(const glm::quat& value) {
+        Value node;
+        node["axis"] = Json::SaveVec3(glm::axis(value));
+        node["angle"] = glm::angle(value);
+        return node;
+    }
+
+    glm::quat LoadQuaternion(const Value& value) {
+        return glm::angleAxis(value.get("angle", 0).asFloat(), Json::LoadVec3(value["axis"]));
     }
 }

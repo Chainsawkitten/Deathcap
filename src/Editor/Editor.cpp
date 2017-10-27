@@ -213,7 +213,7 @@ void Editor::Show(float deltaTime) {
     ImGuizmo::BeginFrame();
     ImGuizmo::Enable(true);
     //Widget operation is in local mode
-    ImGuizmo::MODE currentGizmoMode(ImGuizmo::LOCAL);
+    ImGuizmo::MODE currentGizmoMode(ImGuizmo::WORLD);
     ImGuiIO& io = ImGui::GetIO();
 
     // Check that there is an active Entity.
@@ -238,19 +238,28 @@ void Editor::Show(float deltaTime) {
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
 
         // View matrix.
-        glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
-
+        glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetOrientation()) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
         // Identity matrix.
         float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
         float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
-        float rotationValue[3] = { currentEntity->rotation.x, currentEntity->rotation.y, currentEntity->rotation.z };
+        float rotationValue[3] = { glm::degrees(glm::pitch(currentEntity->quaternion)), glm::degrees(glm::yaw(currentEntity->quaternion)), glm::degrees(glm::roll(currentEntity->quaternion)) };
 
         // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
         ImGuizmo::RecomposeMatrixFromComponents(translationValue, rotationValue, scaleValue, &currentEntityMatrix[0][0]);
         ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, currentGizmoMode, &currentEntityMatrix[0][0]);
         ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translationValue, rotationValue, scaleValue);
-        glm::rotate(-90.0f, glm::vec3(rotationValue[0], rotationValue[1], rotationValue[2]));
+
+        float zeroTransvestit[3] = { 0, 0, 0 };
+        float idScale[3] = { 1,1,1 };
+        glm::mat4 idMatrix = glm::mat4();
+
+        ImGuizmo::RecomposeMatrixFromComponents(zeroTransvestit, rotationValue, idScale, &idMatrix[0][0]);
+
+        glm::quat tempQuat = glm::quat_cast(idMatrix);
+
+        //printf("%f, %f, %f\n", glm::pitch(tempQuat), glm::yaw(tempQuat), glm::roll(tempQuat));
+
 
         if (ImGuizmo::IsUsing()) {
             switch (currentOperation) {
@@ -259,9 +268,7 @@ void Editor::Show(float deltaTime) {
                 currentEntity->position.y = translationValue[1];
                 currentEntity->position.z = translationValue[2];
             case ImGuizmo::ROTATE:
-                currentEntity->rotation.x = rotationValue[0];
-                currentEntity->rotation.y = rotationValue[1];
-                currentEntity->rotation.z = rotationValue[2];
+                currentEntity->quaternion = glm::rotate(currentEntity->quaternion, glm::angle(tempQuat), glm::axis(tempQuat));
             case ImGuizmo::SCALE:
                 currentEntity->scale.x = scaleValue[0];
                 currentEntity->scale.y = scaleValue[1];
@@ -449,7 +456,7 @@ void Editor::ShowMainMenuBar(bool& play) {
                 if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
                     cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
-                    cameraEntity->rotation = glm::vec3(0, 45, 1);
+                    cameraEntity->quaternion = glm::quat(45, glm::vec3(0, 1, 0));
                 }
             }
 
@@ -506,15 +513,17 @@ void Editor::ControlEditorCamera(float deltaTime) {
             lastX = Input()->GetCursorX();
             lastY = Input()->GetCursorY();
         }
-
         float sensitivity = 0.3f;
-        cameraEntity->rotation.x += sensitivity * (Input()->GetCursorX() - lastX);
-        cameraEntity->rotation.y += sensitivity * (Input()->GetCursorY() - lastY);
+        rotationX += glm::radians(sensitivity * static_cast<float>(lastX - Input()->GetCursorX()));
+        rotationY += glm::radians(sensitivity * static_cast<float>(lastY - Input()->GetCursorY()));
+        glm::quat tempQuat = glm::fquat(glm::vec3(rotationY, rotationX, 0.0f));
+
+        cameraEntity->SetWorldRotation(tempQuat);
 
         lastX = Input()->GetCursorX();
         lastY = Input()->GetCursorY();
 
-        glm::mat4 orientation = cameraEntity->GetCameraOrientation();
+        glm::mat4 orientation = glm::inverse(cameraEntity->GetOrientation());
         glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
         glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
 
@@ -584,11 +593,11 @@ void Editor::Focus() {
             glm::normalize(camDirection);
 
             float yaw = std::atan2(camDirection.x, -camDirection.z);
-            cameraEntity->rotation.x = glm::degrees(yaw);
+            cameraEntity->quaternion = glm::rotate(cameraEntity->quaternion, yaw, glm::vec3(0, 1, 0));
 
             float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
             float pitch = std::atan2(-camDirection.y, xz);
-            cameraEntity->rotation.y = glm::degrees(pitch);
+            cameraEntity->quaternion = glm::rotate(cameraEntity->quaternion, pitch, glm::vec3(1, 0, 0));
         }
     }
 }

@@ -117,6 +117,9 @@ class Editor {
         
         double lastX = 0.0;
         double lastY = 0.0;
+
+        float rotationX = 0.0f;
+        float rotationY = 0.0f;
         
         GLFWcursor* cursors[5];
 };

@@ -72,7 +72,7 @@ void PhysicsManager::UpdateEntityTransforms() {
 
         auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
         entity->position = Physics::btToGlm(trans.getOrigin());
-        entity->rotation = glm::eulerAngles(Physics::btToGlm(trans.getRotation()));
+        entity->quaternion = Physics::btToGlm(trans.getRotation());
     }
 }
 

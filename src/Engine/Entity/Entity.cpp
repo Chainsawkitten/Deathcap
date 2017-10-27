@@ -170,7 +170,7 @@ Json::Value Entity::Save() const {
     entity["name"] = name;
     entity["position"] = Json::SaveVec3(position);
     entity["scale"] = Json::SaveVec3(scale);
-    entity["rotation"] = Json::SaveVec3(rotation);
+    entity["quaternion"] = Json::SaveQuaternion(quaternion);
     entity["scene"] = scene;
     entity["uid"] = uniqueIdentifier;
     entity["static"] = isStatic;
@@ -246,7 +246,7 @@ void Entity::Load(const Json::Value& node) {
     name = node.get("name", "").asString();
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
-    rotation = Json::LoadVec3(node["rotation"]);
+    quaternion = Json::LoadQuaternion(node["quaternion"]);
     uniqueIdentifier = node.get("uid", 0).asUInt();
     isStatic = node["static"].asBool();
     
@@ -267,17 +267,17 @@ glm::mat4 Entity::GetLocalMatrix() const {
 }
 
 glm::mat4 Entity::GetOrientation() const {
-    glm::mat4 orientation;
-    orientation = glm::rotate(orientation, glm::radians(rotation.x), glm::vec3(0.f, 1.f, 0.f));
-    orientation = glm::rotate(orientation, glm::radians(rotation.y), glm::vec3(1.f, 0.f, 0.f));
-    return glm::rotate(orientation, glm::radians(rotation.z), glm::vec3(0.f, 0.f, 1.f));
+    if (parent != nullptr) {
+        return parent->GetOrientation() * glm::toMat4(quaternion);
+    }
+     return glm::toMat4(quaternion);
 }
 
 glm::mat4 Entity::GetCameraOrientation() const {
     glm::mat4 orientation;
-    orientation = glm::rotate(orientation, glm::radians(rotation.z), glm::vec3(0.f, 0.f, 1.f));
-    orientation = glm::rotate(orientation, glm::radians(rotation.y), glm::vec3(1.f, 0.f, 0.f));
-    return glm::rotate(orientation, glm::radians(rotation.x), glm::vec3(0.f, 1.f, 0.f));
+    orientation = glm::rotate(orientation, glm::roll(quaternion), glm::vec3(0.f, 0.f, 1.f));
+    orientation = glm::rotate(orientation, glm::yaw(quaternion), glm::vec3(1.f, 0.f, 0.f));
+    return glm::rotate(orientation, glm::pitch(quaternion), glm::vec3(0.f, 1.f, 0.f));
 }
 
 glm::vec3 Entity::GetDirection() const {
@@ -289,6 +289,45 @@ glm::vec3 Entity::GetWorldPosition() const {
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
     
     return position;
+}
+
+void Entity::SetWorldPosition(const glm::vec3 &worldPos) {
+    if (parent == nullptr)
+        position = worldPos;
+    else
+        position = glm::inverse(parent->GetModelMatrix()) * glm::vec4(worldPos, 1);
+}
+
+void Entity::SetWorldRotation(const glm::quat &worldRot) {
+    if (parent == nullptr) {
+        quaternion = worldRot;
+    }
+    else {
+        glm::quat quater = glm::quat_cast(parent->GetModelMatrix());
+
+        quater = glm::inverse(quater) * worldRot;
+
+        quaternion = quater;
+    }
+}
+
+void Entity::SetLocalRotation(const glm::quat &localRot) {
+    quaternion = localRot;
+}
+
+void Entity::RotateYaw(float angle) {
+    glm::quat invQuat = glm::inverse(glm::quat_cast(GetModelMatrix()));
+    glm::vec3 tempVec = glm::rotate(invQuat, glm::vec3(0.0f, 1.0f, 0.0f));
+    quaternion = glm::rotate(quaternion, angle, tempVec);
+    //quaternion = glm::rotate(quaternion, angle, glm::vec3(0, 1, 0));
+}
+
+void Entity::RotatePitch(float angle) {
+    quaternion = glm::rotate(quaternion, angle, glm::vec3(1, 0, 0));
+}
+
+void Entity::RotateRoll(float angle) {
+    quaternion = glm::rotate(quaternion, angle, glm::vec3(0, 0, 1));
 }
 
 unsigned int Entity::GetUniqueIdentifier() const {

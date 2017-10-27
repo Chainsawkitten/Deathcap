@@ -5,6 +5,8 @@
 #include <typeindex>
 #include "../Entity/World.hpp"
 #include <json/json.h>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include "../Component/SuperComponent.hpp"
 #include <fstream>
 #include "../linking.hpp"
@@ -164,6 +166,31 @@ class Entity {
          * @return The position in the world (not relative to parent).
          */
         ENGINE_API glm::vec3 GetWorldPosition() const;
+
+        /// Get the quaternion
+        ENGINE_API glm::quat GetWorldQuat() const;
+
+        /// Set the position in the world
+        /**
+         * @param worldPos The world position you want the entity to have.
+         */
+        ENGINE_API void SetWorldPosition(const glm::vec3 &worldPos);
+
+        /// Set the rotation in the world
+        /**
+         * @param worldRot The world rotation you want the entity to have.
+         */
+        ENGINE_API void SetWorldRotation(const glm::quat &worldRot);
+
+        /// Set the rotation locally
+        /**
+         * param localRot The local rotation you want the entity to have.
+         */
+        ENGINE_API void SetLocalRotation(const glm::quat &localRot);
+
+        ENGINE_API void RotateYaw(float angle);
+        ENGINE_API void RotatePitch(float angle);
+        ENGINE_API void RotateRoll(float angle);
         
         /// Name of the entity.
         std::string name;
@@ -184,7 +211,13 @@ class Entity {
         /**
          * Default: 0.f, 0.f, 0.f
          */
-        glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
+        //glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
+
+        /// Quaternion describing rotation and angle of entity.
+        /**
+         * Default: 0 radians around x axis
+         */
+        glm::quat quaternion = glm::angleAxis(0.0f, glm::vec3(0, 1, 0));
 
         /// Get the entity's UID
         /**
@@ -218,7 +251,8 @@ class Entity {
         std::vector<Entity*> children;
         bool scene = false;
         std::string sceneName;
-        
+    
+
         std::map<std::type_index, Component::SuperComponent*> components;
         
         bool killed = false;

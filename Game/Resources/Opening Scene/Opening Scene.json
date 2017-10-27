@@ -22,11 +22,15 @@
 				"y" : 0.0,
 				"z" : 0.0
 			},
-			"rotation" : 
+			"quaternion" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"angle" : 0.0,
+				"axis" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 1.0
+				}
 			},
 			"scale" : 
 			{
@@ -58,11 +62,15 @@
 				"y" : 0.0,
 				"z" : 0.0
 			},
-			"rotation" : 
+			"quaternion" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"angle" : 0.0,
+				"axis" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 1.0
+				}
 			},
 			"scale" : 
 			{
@@ -111,11 +119,15 @@
 						"y" : 1.124000072479248,
 						"z" : 0.0
 					},
-					"rotation" : 
+					"quaternion" : 
 					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
+						"angle" : 0.0,
+						"axis" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 1.0
+						}
 					},
 					"scale" : 
 					{
@@ -135,11 +147,15 @@
 				"y" : -2.0460000038146973,
 				"z" : 0.0
 			},
-			"rotation" : 
+			"quaternion" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"angle" : 0.0,
+				"axis" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 1.0
+				}
 			},
 			"scale" : 
 			{
@@ -154,7 +170,7 @@
 		{
 			"Script" : 
 			{
-				"scriptName" : "Resources/Gate/Gates"
+				"scriptName" : "Resources/Opening Scene/Gate/Gates"
 			},
 			"children" : 
 			[
@@ -178,11 +194,15 @@
 						"y" : 0.0,
 						"z" : 0.0
 					},
-					"rotation" : 
+					"quaternion" : 
 					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
+						"angle" : 0.0,
+						"axis" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 1.0
+						}
 					},
 					"scale" : 
 					{
@@ -214,11 +234,15 @@
 						"y" : 0.0,
 						"z" : 0.0
 					},
-					"rotation" : 
+					"quaternion" : 
 					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
+						"angle" : 0.0,
+						"axis" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 1.0
+						}
 					},
 					"scale" : 
 					{
@@ -250,11 +274,15 @@
 						"y" : 0.0,
 						"z" : 0.0
 					},
-					"rotation" : 
+					"quaternion" : 
 					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
+						"angle" : 0.0,
+						"axis" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 1.0
+						}
 					},
 					"scale" : 
 					{
@@ -274,11 +302,15 @@
 				"y" : -1.8520001173019409,
 				"z" : -1.0
 			},
-			"rotation" : 
+			"quaternion" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"angle" : 0.0,
+				"axis" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 1.0
+				}
 			},
 			"scale" : 
 			{
@@ -313,11 +345,15 @@
 						"y" : 0.0,
 						"z" : 0.0
 					},
-					"rotation" : 
+					"quaternion" : 
 					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
+						"angle" : 0.0,
+						"axis" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 1.0
+						}
 					},
 					"scale" : 
 					{
@@ -353,11 +389,15 @@
 						"y" : 0.0,
 						"z" : 0.0
 					},
-					"rotation" : 
+					"quaternion" : 
 					{
-						"x" : 0.0,
-						"y" : 30.0,
-						"z" : 0.0
+						"angle" : 0.52359890937805176,
+						"axis" : 
+						{
+							"x" : 0.99999982118606567,
+							"y" : 0.0,
+							"z" : 0.0
+						}
 					},
 					"scale" : 
 					{
@@ -377,11 +417,15 @@
 				"y" : -2.1640000343322754,
 				"z" : 0.0
 			},
-			"rotation" : 
+			"quaternion" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"angle" : 0.0,
+				"axis" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 1.0
+				}
 			},
 			"scale" : 
 			{
@@ -392,6 +436,77 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1508412411
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Opening Scene/Lever/Models/leverbox"
+					},
+					"children" : null,
+					"name" : "Entity #2",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"quaternion" : 
+					{
+						"angle" : 0.0,
+						"axis" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 1.0
+						}
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1508759888
+				}
+			],
+			"name" : "Entity #1",
+			"position" : 
+			{
+				"x" : 2.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"quaternion" : 
+			{
+				"angle" : 0.0,
+				"axis" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 1.0
+				}
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1508759885
 		}
 	],
 	"name" : "Root",
@@ -401,11 +516,15 @@
 		"y" : 0.0,
 		"z" : 0.0
 	},
-	"rotation" : 
+	"quaternion" : 
 	{
-		"x" : 0.0,
-		"y" : 0.0,
-		"z" : 0.0
+		"angle" : 0.0,
+		"axis" : 
+		{
+			"x" : 0.0,
+			"y" : 0.0,
+			"z" : 1.0
+		}
 	},
 	"scale" : 
 	{

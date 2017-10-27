@@ -40,6 +40,7 @@
 
 #include "Manager/VRManager.hpp"
 #include "Component/Controller.hpp"
+#include <glm/gtc/quaternion.hpp>
 
 using namespace Component;
 
@@ -89,7 +90,7 @@ void RenderManager::Render(World& world, Entity* camera) {
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
 
                 const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
-                const glm::mat4 orientationMat = camera->GetCameraOrientation();
+                const glm::mat4 orientationMat = glm::inverse(camera->GetOrientation());
                 const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
 
                 Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
@@ -171,10 +172,10 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
     // Render from camera.
     if (camera != nullptr) {
         const glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        const glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
+        const glm::mat4 viewMat(glm::inverse(camera->GetOrientation()) * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
         const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
         const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        const glm::vec3 up(glm::inverse(camera->GetCameraOrientation()) * glm::vec4(0, 1, 0, 1));
+        const glm::vec3 up(glm::inverse(camera->GetOrientation()) * glm::vec4(0, 1, 0, 0));
         
         renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
         
@@ -234,8 +235,6 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
     renderer->StartRendering(renderSurface);
 
     // Camera matrices.
-    const glm::vec3 position = glm::vec3(translationMatrix[3][0], translationMatrix[3][1], translationMatrix[3][2]);
-    const glm::vec3 up = glm::vec3(glm::inverse(orientationMatrix) * glm::vec4(0, 1, 0, 1));
     const glm::mat4 viewMatrix = orientationMatrix * translationMatrix;
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
@@ -250,7 +249,6 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
         for (Mesh* mesh : meshComponents) {
             if (mesh->IsKilled() || !mesh->entity->enabled)
                 continue;
-
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Controller* controller = entity->GetComponent<Controller>();

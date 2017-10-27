@@ -80,7 +80,7 @@ void EntityEditor::Show() {
 
         if (EditorSettings::GetInstance().GetBool("Grid Snap")) {
             int toNearest = EditorSettings::GetInstance().GetLong("Grid Snap Size");
-
+ 
             int value = entity->position.x;
             int rest = value % toNearest;
 
@@ -109,8 +109,15 @@ void EntityEditor::Show() {
             }
         }
 
+        // = glm::axis(entity->quaternion);
+        //float angle = glm::angle(entity->quaternion);
+        //glm::vec3 axis = glm::axis(entity->quaternion);
+
         ImGui::DraggableVec3("Position", entity->position);
-        ImGui::DraggableVec3("Rotation", entity->rotation);
+
+        //if (ImGui::InputFloat("Angle", &angle) || ImGui::InputFloat3("Axis", &axis.x))
+            //entity->SetWorldRotation(glm::angleAxis(glm::radians(angle), axis));
+
         ImGui::DraggableVec3("Scale", entity->scale);
         ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
         ImGui::Checkbox("Is entity static", &entity->isStatic);
