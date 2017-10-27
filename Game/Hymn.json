@@ -43,8 +43,9 @@
 		"Resources/Opening Scene/Lever/Lever",
 		"Resources/Opening Scene/Gate/Gates",
 		"Resources/Constant Scene/Minecart/Script/Minecart",
-		"Resources/Constant Scene/Minecart/Script/Player"
+		"Resources/Constant Scene/Minecart/Script/Player",
+		"Resources/Opening Scene/Audio/scr_AudioManager"
 	],
-	"vrScale" : 1.5,
-	"startupScene" : "Resources/Opening Scene/Opening Scene"
+	"startupScene" : "Resources/Opening Scene/Opening Scene",
+	"vrScale" : 1.5
 }
