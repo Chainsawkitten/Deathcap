@@ -27,6 +27,8 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
     if (aScene == nullptr) {
         Log() << "Error importing mesh: " << filepath << "\n";
         Log() << aImporter.GetErrorString() << "\n";
+        aImporter.FreeScene();
+        aScene = aImporter.ReadFile("ErrorSign.fbx", flags);
     }
 
     if (importMaterial) {
