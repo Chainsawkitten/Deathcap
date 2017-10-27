@@ -10,28 +10,10 @@ using namespace GUI;
 
 
 LogView::LogView() {
-    defaultBuffer = new std::basic_stringbuf<char>();
-    infoBuffer = new std::basic_stringbuf<char>();
-    warningBuffer = new std::basic_stringbuf<char>();
-    errorBuffer = new std::basic_stringbuf<char>();
-
-    defaultStream = new LogStream(defaultBuffer);
-    infoStream = new LogStream(infoBuffer);
-    warningStream = new LogStream(warningBuffer);
-    errorStream = new LogStream(errorBuffer);
-    Log().SetupStreams(defaultStream, infoStream, warningStream, errorStream, &std::cout);
-}
-
-LogView::~LogView() {
-    delete defaultBuffer;
-    delete infoBuffer;
-    delete warningBuffer;
-    delete errorBuffer;
-
-    delete defaultStream;
-    delete infoStream;
-    delete warningStream;
-    delete errorStream;
+    Log().SetupStream(Log::DEFAULT, &defaultStringstream);
+    Log().SetupStream(Log::INFO, &infoStringstream);
+    Log().SetupStream(Log::WARNING, &warningStringstream);
+    Log().SetupStream(Log::ERR, &errorStringstream);
 }
 
 void LogView::Show() {
@@ -45,21 +27,34 @@ void LogView::Show() {
     ImGui::SetNextWindowPos(ImVec2(sceneWidth, 20));
     ImGui::SetNextWindowSize(ImVec2(size.x - sceneWidth - editorWidth, logHeight));
 
-    std::string textMessage = stringBuffer->str() + "\n";
+    //Create log output string.
+    std::string output;
+    if (!defaultStringstream.str().empty())
+        output += "[Default] " + defaultStringstream.str();
 
-    textBuffer.appendv(textMessage.c_str(), nullptr);
+    if (!infoStringstream.str().empty())
+        output += "[Info] " + infoStringstream.str();
 
+    if (!warningStringstream.str().empty())
+        output += "[Warning] " + warningStringstream.str();
+
+    if (!errorStringstream.str().empty())
+        output += "[Error] " + errorStringstream.str();
+
+    textBuffer.appendv(output.c_str(), nullptr);
     ImGui::Begin("Log", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
     ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
     ImGui::TextUnformatted(textBuffer.begin());
     ImGui::EndChild();
     ImGui::End();
+
+    // Clear streams.
+    defaultStringstream.str(std::string());
+    infoStringstream.str(std::string());
+    warningStringstream.str(std::string());
+    errorStringstream.str(std::string());
 }
 
 bool LogView::IsVisible() {
     return visible;
-}
-
-LogView::LogStream::LogStream(std::stringbuf* stringBuffer) : std::ostream(stringBuffer) {
-
 }

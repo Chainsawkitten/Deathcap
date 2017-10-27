@@ -7,27 +7,15 @@ namespace GUI {
         public:
         LogView();
 
-        ~LogView();
-
         void Show();
 
         bool IsVisible();
         
         private:
-        class LogStream : public std::ostream {
-        public:
-            LogStream(std::stringbuf* stringBuffer);
-        };
-
-        LogStream* defaultStream;
-        LogStream* infoStream;
-        LogStream* warningStream;
-        LogStream* errorStream;
-
-        std::stringbuf* defaultBuffer;
-        std::stringbuf* infoBuffer;
-        std::stringbuf* warningBuffer;
-        std::stringbuf* errorBuffer;
+        std::stringstream defaultStringstream;
+        std::stringstream infoStringstream;
+        std::stringstream warningStringstream;
+        std::stringstream errorStringstream;
 
         ImGuiTextBuffer textBuffer;
         ImGuiTextFilter textFilter;
