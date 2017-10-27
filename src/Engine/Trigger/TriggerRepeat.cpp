@@ -113,6 +113,8 @@ void TriggerRepeat::HandleTriggerEvent() {
 }
 
 void TriggerRepeat::Process() {
-    if (triggered)
+    if (triggered) {
         Managers().scriptManager->ExecuteScriptMethod(targetEntity, targetFunction);
+        triggered = false;
+    }
 }
