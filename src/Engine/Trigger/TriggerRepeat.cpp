@@ -1,5 +1,9 @@
 #include "TriggerRepeat.hpp"
 
+#include "../Component/RigidBody.hpp"
+#include "../Entity/Entity.hpp"
+#include "../Manager/Managers.hpp"
+#include "../Manager/PhysicsManager.hpp"
 
 TriggerRepeat::TriggerRepeat() {
 
@@ -10,16 +14,33 @@ TriggerRepeat::~TriggerRepeat() {
 }
 
 void TriggerRepeat::OnEnter() {
-    // TODO
+    if (collidedEntity && collidedEntity->GetComponent<Component::RigidBody>()) {
+        Component::RigidBody* rigidBodyComp = collidedEntity->GetComponent<Component::RigidBody>();
+        Managers().physicsManager->ForgetTriggerEnter(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->OnTriggerEnter(triggerVolume, rigidBodyComp, std::bind(&TriggerRepeat::HandleTriggerEvent, this));
+    }
+}
+
+void TriggerRepeat::OnRetain() {
+    if (collidedEntity && collidedEntity->GetComponent<Component::RigidBody>()) {
+        Component::RigidBody* rigidBodyComp = collidedEntity->GetComponent<Component::RigidBody>();
+        Managers().physicsManager->ForgetTriggerEnter(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->OnTriggerRetain(triggerVolume, rigidBodyComp, std::bind(&TriggerRepeat::HandleTriggerEvent, this));
+    }
 }
 
 void TriggerRepeat::OnLeave() {
-    // TODO
-}
-
-
-void TriggerRepeat::OnRemain() {
-    // TODO
+    if (collidedEntity && collidedEntity->GetComponent<Component::RigidBody>()) {
+        Component::RigidBody* rigidBodyComp = collidedEntity->GetComponent<Component::RigidBody>();
+        Managers().physicsManager->ForgetTriggerEnter(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->OnTriggerLeave(triggerVolume, rigidBodyComp, std::bind(&TriggerRepeat::HandleTriggerEvent, this));
+    }
 }
 
 std::string TriggerRepeat::GetName() {
@@ -84,4 +105,8 @@ Entity* TriggerRepeat::GetCollidedEntity() {
 
 void TriggerRepeat::SetCollidedEntity(Entity* value) {
     collidedEntity = value;
+}
+
+void TriggerRepeat::HandleTriggerEvent() {
+    triggered = true;
 }
