@@ -39,7 +39,7 @@ namespace Component {
             /// Sound buffer.
             Audio::SoundBuffer* soundBuffer = nullptr;
             
-            /// Gain.
+            /// Volume.
             float volume = 1.f;
             
             /// Whether the sound should loop.

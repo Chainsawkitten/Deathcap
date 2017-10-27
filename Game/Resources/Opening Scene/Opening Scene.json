@@ -41,7 +41,7 @@
 			"Material" : 
 			{
 				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
-				"metallic" : "Resources/Opening Scene/Cave/Textures/Ambient",
+				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
 				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
 				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
 			},
