@@ -15,6 +15,8 @@ Json::Value Trigger::Save() const {
     // ADD SAVE
     Json::Value component;
 
+    component["x"] = 0;
+
     return component;
 }
 

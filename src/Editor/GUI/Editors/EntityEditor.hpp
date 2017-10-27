@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <functional>
@@ -27,6 +28,7 @@ namespace Component {
 
 namespace GUI {
     class IShapeEditor;
+    class TriggerEditor;
 
     /// Used to edit an entity.
     class EntityEditor {
@@ -107,6 +109,7 @@ namespace GUI {
             int selectedShape = -1;
             
             ResourceSelector resourceSelector;
+            std::unique_ptr<GUI::TriggerEditor> triggerEditor;
             
             float rigidBodyMass = 1.0f;
 
