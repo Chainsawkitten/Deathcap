@@ -20,9 +20,17 @@ class TriggerRepeat : public SuperTrigger {
         ENGINE_API TriggerRepeat();
         ENGINE_API ~TriggerRepeat();
 
+        /// Setup the trigger to listen for `enter` events on the trigger
+        /// volume, forgetting any previously set listener
         ENGINE_API void OnEnter();
+
+        /// Setup the trigger to listen for `retain` events on the trigger
+        /// volume, forgetting any previously set listener
+        ENGINE_API void OnRetain();
+
+        /// Setup the trigger to listen for `leave` events on the trigger
+        /// volume, forgetting any previously set listener
         ENGINE_API void OnLeave();
-        ENGINE_API void OnRemain();
 
         ENGINE_API std::string GetName();
         ENGINE_API void SetName(std::string value);
@@ -49,6 +57,8 @@ class TriggerRepeat : public SuperTrigger {
         ENGINE_API void SetCollidedEntity(Entity* value);
 
     private:
+        void HandleTriggerEvent();
+
         std::string name = "DEBUG";
         std::string targetFunction = "DEBUG";
         bool startActive = false;
@@ -58,4 +68,5 @@ class TriggerRepeat : public SuperTrigger {
         Entity* targetEntity = nullptr;
         Entity* collidedEntity = nullptr;
         Utility::LockBox<Physics::Trigger> triggerVolume;
+        bool triggered = false;
 };

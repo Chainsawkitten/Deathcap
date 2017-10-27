@@ -53,6 +53,13 @@ class PhysicsManager {
          */
         ENGINE_API void OnTriggerEnter(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
 
+        /// Stop listening for when |object| has entered |trigger|.
+        /**
+         * @param trigger What trigger to stop listening on.
+         * @param object Body that is to be forgotten.
+         */
+        ENGINE_API void ForgetTriggerEnter(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object);
+
         /// Set up listener for when |object| is intersecting |trigger|.
         /**
          * @param trigger What trigger to check against.
@@ -61,6 +68,13 @@ class PhysicsManager {
          */
         ENGINE_API void OnTriggerRetain(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
 
+        /// Stop listening for when |object| is intersecting |trigger|.
+        /**
+         * @param trigger What trigger to stop listening on.
+         * @param object Body that is to be forgotten.
+         */
+        ENGINE_API void ForgetTriggerRetain(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object);
+
         /// Set up listener for when |object| has left |trigger|.
         /**
          * @param trigger What trigger to check against.
@@ -68,6 +82,13 @@ class PhysicsManager {
          * @param callback Function to call when resolving event.
          */
         ENGINE_API void OnTriggerLeave(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
+
+        /// Stop listening for when |object| has left |trigger|.
+        /**
+         * @param trigger What trigger to stop listening on.
+         * @param object Body that is to be forgotten.
+         */
+        ENGINE_API void ForgetTriggerLeave(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object);
 
         /// Create rigid body component.
         /**
