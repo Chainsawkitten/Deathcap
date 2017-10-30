@@ -187,6 +187,10 @@ void DebugDrawingManager::Render(Entity* camera) {
         for (const DebugDrawing::Plane& plane : planes)
             debugDrawing->DrawPlane(plane);
         
+        // Circles.
+        for (const DebugDrawing::Circle& circle : circles)
+            debugDrawing->DrawCircle(circle);
+        
         // Spheres.
         for (const DebugDrawing::Sphere& sphere : spheres)
             debugDrawing->DrawSphere(sphere);
