@@ -136,7 +136,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
                     const glm::mat4 lensViewMatrix = glm::inverse(camera->GetModelMatrix());
                     const glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
-                    const glm::mat4 eyeViewMatrix = lensViewMatrix * eyeTranslation;
+                    const glm::mat4 eyeViewMatrix = eyeTranslation * lensViewMatrix;
                     const glm::mat4 projectionMatrix = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
                     { PROFILE("Render world entities");
