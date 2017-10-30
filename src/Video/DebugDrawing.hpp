@@ -176,6 +176,12 @@ namespace Video {
              */
             VIDEO_API void DrawPlane(const Plane& plane);
             
+            /// Draw a circle.
+            /**
+             * @param circle The circle to draw.
+             */
+            VIDEO_API void DrawCircle(const Circle& circle);
+            
             /// Draw a sphere.
             /**
              * @param sphere The sphere to draw.

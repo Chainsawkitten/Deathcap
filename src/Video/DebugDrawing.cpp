@@ -175,6 +175,24 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
     glDrawArrays(GL_LINES, 0, 8);
 }
 
+void DebugDrawing::DrawCircle(const Circle& circle) {
+    BindVertexArray(circleVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(circle.radius, circle.radius, circle.radius)));
+    float yaw = atan2(circle.normal.x, circle.normal.z);
+    float pitch = atan2(circle.normal.y, sqrt(circle.normal.x * circle.normal.x + circle.normal.z * circle.normal.z));
+    model = glm::rotate(glm::mat4(), yaw, glm::vec3(0.f, 1.f, 0.f)) * model;
+    model = glm::rotate(glm::mat4(), pitch, glm::vec3(1.f, 0.f, 0.f)) * model;
+    model = glm::translate(glm::mat4(), circle.position) * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    circle.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &circle.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(circle.lineWidth);
+    glDrawArrays(GL_LINES, 0, 8);
+}
+
 void DebugDrawing::DrawSphere(const Sphere& sphere) {
     BindVertexArray(sphereVertexArray);
     
