@@ -109,6 +109,9 @@ DebugDrawing::~DebugDrawing() {
     glDeleteBuffers(1, &circleVertexBuffer);
     glDeleteVertexArrays(1, &circleVertexArray);
     
+    glDeleteBuffers(1, &sphereVertexBuffer);
+    glDeleteVertexArrays(1, &sphereVertexArray);
+    
     delete shaderProgram;
 }
 
