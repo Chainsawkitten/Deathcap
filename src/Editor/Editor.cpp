@@ -172,16 +172,14 @@ void Editor::Show(float deltaTime) {
         // Scroll zoom.
         if (Input()->GetScrollDown()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
-                glm::mat4 orientation = cameraEntity->GetCameraOrientation();
-                glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+                glm::vec3 backward = cameraEntity->GetOrientation() * glm::vec3(0, 0, 1);
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * backward;
             }
         }
         if (Input()->GetScrollUp()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
-                glm::mat4 orientation = cameraEntity->GetCameraOrientation();
-                glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+                glm::vec3 backward = cameraEntity->GetOrientation() * glm::vec3(0, 0, 1);
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * -backward;
             }
