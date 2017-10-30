@@ -39,7 +39,8 @@ void AnimationControllerEditor::ShowContextMenu() {
     if (ImGui::MenuItem("Add animation action")) {
         Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
         std::string name = "Action #" + std::to_string(animationController->animationNodes.size() + 1);
-        memcpy(newAction->name, name.c_str(), name.size() + 1);
+        unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
+        memcpy(newAction->name, name.c_str(), size);
         newAction->index = animationController->animationNodes.size();
         animationController->animationNodes.push_back(newAction);
     }
@@ -47,7 +48,8 @@ void AnimationControllerEditor::ShowContextMenu() {
     if (ImGui::MenuItem("Add animation transition")) {
         Animation::AnimationController::AnimationTransition* newTransition = new Animation::AnimationController::AnimationTransition;
         std::string name = "Animation transition: " + std::to_string(animationController->animationNodes.size() + 1);
-        memcpy(newTransition->name, name.c_str(), name.size() + 1);
+        unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
+        memcpy(newTransition->name, name.c_str(), size);
         animationController->animationNodes.push_back(newTransition);
     }
 }
