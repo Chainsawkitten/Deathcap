@@ -249,6 +249,7 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
         for (Mesh* mesh : meshComponents) {
             if (mesh->IsKilled() || !mesh->entity->enabled)
                 continue;
+
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Controller* controller = entity->GetComponent<Controller>();

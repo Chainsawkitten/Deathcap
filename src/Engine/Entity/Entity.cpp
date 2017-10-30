@@ -299,14 +299,11 @@ void Entity::SetWorldPosition(const glm::vec3 &worldPos) {
 }
 
 void Entity::SetWorldRotation(const glm::quat &worldRot) {
-    if (parent == nullptr) {
+    if (parent == nullptr)
         quaternion = worldRot;
-    }
     else {
         glm::quat quater = glm::quat_cast(parent->GetModelMatrix());
-
         quater = glm::inverse(quater) * worldRot;
-
         quaternion = quater;
     }
 }
