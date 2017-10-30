@@ -35,32 +35,32 @@ namespace GUI {
 
         protected:
             /// Show the context menu.
-            virtual void ShowContextMenu() override;
+            void ShowContextMenu() override;
 
             /// Shows the animation node.
             /**
              * @param node Node to be shown.
              */
-            virtual void ShowNode(Node * node) override;
+            void ShowNode(Node* node) override;
 
             /// Return the a node array of animation related nodes.
             /**
              * @return The node array.
              */
-            virtual Node** GetNodeArray() override;
+            Node** GetNodeArray() override;
 
             /// Return the number of animation nodes in the array.
             /**
              * @return The number of animation nodes.
              */
-            virtual unsigned int GetNumNodes() override;
+            unsigned int GetNumNodes() override;
 
             /// Returns true if the two nodes can connect.
             /**
              * @param output The output node.
              * @param input The input node.
              */
-            virtual bool CanConnect(Node* output, Node* input) override;
+            bool CanConnect(Node* output, Node* input) override;
 
         private:
             Animation::AnimationController* animationController = nullptr;
