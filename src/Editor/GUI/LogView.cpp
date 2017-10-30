@@ -10,13 +10,23 @@ using namespace GUI;
 
 
 LogView::LogView() {
+    // Setup streams.
     Log().SetupStream(Log::DEFAULT, &defaultStringstream);
     Log().SetupStream(Log::INFO, &infoStringstream);
     Log().SetupStream(Log::WARNING, &warningStringstream);
     Log().SetupStream(Log::ERR, &errorStringstream);
 }
 
+LogView::~LogView() {
+    // Reset streams to cout.
+    Log().SetupStream(Log::DEFAULT, &std::cout);
+    Log().SetupStream(Log::INFO, &std::cout);
+    Log().SetupStream(Log::WARNING, &std::cout);
+    Log().SetupStream(Log::ERR, &std::cout);
+}
+
 void LogView::Show() {
+    // Window size.
     ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
 
     // Splitter.
