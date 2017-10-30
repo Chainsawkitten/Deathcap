@@ -54,7 +54,7 @@ void AnimationControllerEditor::ShowContextMenu() {
     }
 }
 
-void AnimationControllerEditor::ShowNode(Node * node) {
+void AnimationControllerEditor::ShowNode(Node* node) {
     ImGui::Text("Action: %s", node->name);
     ImGui::InputText("Name", node->name, 128);
 
