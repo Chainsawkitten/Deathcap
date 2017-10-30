@@ -60,7 +60,7 @@ namespace GUI {
              * @param output The output node.
              * @param input The input node.
              */
-            virtual bool CanConnect(Node * output, Node * input) override;
+            virtual bool CanConnect(Node* output, Node* input) override;
 
         private:
             Animation::AnimationController* animationController = nullptr;

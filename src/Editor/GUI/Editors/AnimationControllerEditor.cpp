@@ -13,14 +13,14 @@ AnimationControllerEditor::AnimationControllerEditor() {
 AnimationControllerEditor::~AnimationControllerEditor() {
 }
 
-void AnimationControllerEditor::SetAnimationController(Animation::AnimationController * animationController) {
+void AnimationControllerEditor::SetAnimationController(Animation::AnimationController* animationController) {
     if (this->animationController != nullptr)
         this->animationController->Save(Hymn().GetPath() + "/" + animationController->path + animationController->name + ".asset");
 
     this->animationController = animationController;
 }
 
-Animation::AnimationController * AnimationControllerEditor::GetAnimationController() {
+Animation::AnimationController* AnimationControllerEditor::GetAnimationController() {
     return animationController;
 }
 
@@ -57,7 +57,7 @@ void AnimationControllerEditor::ShowNode(Node * node) {
     ImGui::InputText("Name", node->name, 128);
 
     if (typeid(*node) == typeid(Animation::AnimationController::AnimationAction)) {
-        Animation::AnimationController::AnimationAction * action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
+        Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
         
         // If action is nullptr, return.
         if (action == nullptr) {
@@ -99,7 +99,7 @@ unsigned int AnimationControllerEditor::GetNumNodes() {
     return animationController->animationNodes.size();
 }
 
-bool AnimationControllerEditor::CanConnect(Node * output, Node * input) {
+bool AnimationControllerEditor::CanConnect(Node* output, Node* input) {
     if (typeid(*output) == typeid(Animation::AnimationController::AnimationAction)) {
         if (typeid(*input) == typeid(Animation::AnimationController::AnimationTransition))
             return true;

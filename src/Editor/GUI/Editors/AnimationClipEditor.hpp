@@ -50,6 +50,5 @@ namespace GUI {
             bool visible = false;
 
             FileSelector fileSelector;
-
     };
 }
