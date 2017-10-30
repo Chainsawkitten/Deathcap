@@ -75,7 +75,7 @@ void NodeEditor::Show() {
 
         // Draw animation actions.
         for (unsigned int id = 0; id < GetNumNodes(); ++id) {
-            Node * node = GetNodeArray()[id];
+            Node* node = GetNodeArray()[id];
             ImGui::PushID(id);
             ImVec2 nodeRectMin = ImVec2(offset.x + node->pos.x, offset.y + node->pos.y);
 
