@@ -19,12 +19,12 @@ class Log {
             INFO,               ///< Information.
             WARNING,            ///< Warnings.
             ERR,                ///< Error.
-            CONSOLE,            ///< Console.
+            DEBUG,              ///< Debug messages.
             NUMBER_OF_CHANNELS  ///< Maximum number of channels, ensure this is the last element of the enum if adding channels.
         };
 
         /// Constructor.
-        UTILITY_API Log(const Channel channel = Channel::DEFAULT);
+        UTILITY_API Log(const Channel channel = DEFAULT);
 
         /// Destructor.
         UTILITY_API ~Log();

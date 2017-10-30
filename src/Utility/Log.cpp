@@ -91,5 +91,5 @@ bool Log::SetupStreams(
             SetupStream(INFO, info)                &&
             SetupStream(WARNING, warning)          &&
             SetupStream(ERR, error)                &&
-            SetupStream(CONSOLE, console);
+            SetupStream(DEBUG, console);
 }
