@@ -175,7 +175,7 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         const glm::mat4 viewMat(glm::toMat4(glm::inverse(camera->GetOrientation())) * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
         const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
         const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        const glm::vec3 up(glm::inverse(camera->GetOrientation()) * glm::vec4(0, 1, 0, 0));
+        const glm::vec3 up(glm::rotate(camera->GetOrientation(), glm::vec4(0, 1, 0, 0)));
         
         renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
         
