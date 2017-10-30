@@ -34,7 +34,7 @@ class Player{
         Rotation.x = radians(0.3f * (Cursor.x - GetCursorXY().x));
         Rotation.y = radians(0.3f * (Cursor.y - GetCursorXY().y));
 
-        self.RotateYaw(Rotation.x);
+        self.RotateAroundWorldAxis(Rotation.x, vec3(0.0f, 1.0f, 0.0f));
         self.RotatePitch(Rotation.y);
         
         Cursor = GetCursorXY();
