@@ -103,7 +103,7 @@ namespace Video {
                 glm::vec3 normal;
                 
                 /// Radius.
-                glm::vec2 radius;
+                float radius;
                 
                 /// Color.
                 glm::vec3 color;

@@ -63,6 +63,18 @@ void DebugDrawingManager::AddPlane(const glm::vec3& position, const glm::vec3& n
     planes.push_back(plane);
 }
 
+void DebugDrawingManager::AddCircle(const glm::vec3& position, const glm::vec3& normal, float radius, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Circle circle;
+    circle.position = position;
+    circle.normal = normal;
+    circle.radius = radius;
+    circle.color = color;
+    circle.lineWidth = lineWidth;
+    circle.duration = duration;
+    circle.depthTesting = depthTesting;
+    circles.push_back(circle);
+}
+
 void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
     DebugDrawing::Sphere sphere;
     sphere.position = position;
