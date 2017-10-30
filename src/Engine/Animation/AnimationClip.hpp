@@ -33,7 +33,7 @@ namespace Animation {
                 /**
                  * @param file File to save to.
                  */
-                void Save(std::ofstream * file) {
+                void Save(std::ofstream* file) {
                     file->write(reinterpret_cast<char*>(&parent), sizeof(uint32_t));
                     file->write(reinterpret_cast<char*>(&numRotationKeys), sizeof(uint32_t));
 
@@ -49,7 +49,7 @@ namespace Animation {
                 /**
                  * @param file File to load from.
                  */
-                void Load(std::ifstream * file) {
+                void Load(std::ifstream* file) {
                     file->read(reinterpret_cast<char*>(&parent), sizeof(uint32_t));
                     file->read(reinterpret_cast<char*>(&numRotationKeys), sizeof(uint32_t));
 
@@ -82,7 +82,7 @@ namespace Animation {
                 /**
                  * @param file File to save to.
                  */
-                void Save(std::ofstream * file) {
+                void Save(std::ofstream* file) {
                     file->write(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));
                     
                     for (unsigned int i = 0; i < numBones; ++i)
@@ -93,7 +93,7 @@ namespace Animation {
                 /**
                  * @param file File to load from.
                  */
-                void Load(std::ifstream * file) {
+                void Load(std::ifstream* file) {
                     file->read(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));
 
                     if (bones != nullptr)
@@ -115,7 +115,7 @@ namespace Animation {
              */
             ENGINE_API void Load(const std::string& name);       
 
-            Animation * animation = nullptr;
+            Animation* animation = nullptr;
 
             /// Path of animation clip.
             std::string path;

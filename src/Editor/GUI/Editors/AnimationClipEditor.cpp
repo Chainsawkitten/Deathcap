@@ -28,7 +28,7 @@ void AnimationClipEditor::Show() {
         fileSelector.Show();
 }
 
-Animation::AnimationClip * GUI::AnimationClipEditor::GetAnimationClip() {
+Animation::AnimationClip* GUI::AnimationClipEditor::GetAnimationClip() {
     return animationClip;
 }
 

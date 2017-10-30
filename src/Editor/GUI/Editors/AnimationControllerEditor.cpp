@@ -58,6 +58,13 @@ void AnimationControllerEditor::ShowNode(Node * node) {
 
     if (typeid(*node) == typeid(Animation::AnimationController::AnimationAction)) {
         Animation::AnimationController::AnimationAction * action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
+        
+        // If action is nullptr, return.
+        if (action == nullptr) {
+            ImGui::Text("Error action was nullptr: %s", node->name);
+            return;
+        }
+
         if (ImGui::Button("Select animation clip##Clip"))
             ImGui::OpenPopup("Select animation clip##Clip");
 
