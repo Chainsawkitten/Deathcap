@@ -173,7 +173,7 @@ void EntityEditor::SetVisible(bool visible) {
 }
 
 void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
-    ImGui::Indent(); 
+    ImGui::Indent();
     if (ImGui::Button("Select animation controller##Animation"))
         ImGui::OpenPopup("Select animation controller##Animation");
 
