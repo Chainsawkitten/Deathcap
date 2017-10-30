@@ -11,234 +11,218 @@
 
 /// %Entity containing various components.
 class Entity {
-    public:
-        /// Create new entity.
-        /**
-         * @param world The game world in which the entity is contained.
-         * @param name Name of the entity.
-         */
-        ENGINE_API Entity(World* world, const std::string& name);
-        
-        /// Destructor.
-        ENGINE_API ~Entity();
-        
-        /// Get the entity's parent entity.
-        /**
-         * @return The parent entity, or nullptr if none.
-         */
-        ENGINE_API Entity* GetParent() const;
-        
-        /// Add child entity.
-        /**
-         * @param name The name of the child entity.
-         * @return The new entity.
-         */
-        ENGINE_API Entity* AddChild(const std::string& name = "");
+public:
+    /// Create new entity.
+    /**
+    * @param world The game world in which the entity is contained.
+    * @param name Name of the entity.
+    */
+    ENGINE_API Entity(World* world, const std::string& name);
 
-        /// Remove child entity.
-        /**
-         * @param child The entity you want to remove.
-         * @return Did we manage to remove the child.
-         */
-        ENGINE_API bool RemoveChild(Entity* child);
-        
-        /// Set a new parent.
-        /**
-         * @param newParent The entity you want to be the new parent.
-         * @return Did we manage set the new parent?.
-         */
-        ENGINE_API bool SetParent(Entity* newParent);
+    /// Destructor.
+    ENGINE_API ~Entity();
 
-        /// Check if entity is a child.
-        /**
-         * @param child The entity you want to check if it is a child.
-         * @param deep True if we want to check if it's a grandchild, false if we do not.
-         * @return True if it has a child, false if it does not.
-         */
-        ENGINE_API bool HasChild(const Entity* child, bool deep = true) const;
+    /// Get the entity's parent entity.
+    /**
+    * @return The parent entity, or nullptr if none.
+    */
+    ENGINE_API Entity* GetParent() const;
 
-        /// Instantiate a scene as a child to this entity.
-        /**
-         * @param name The name of the scene to instantiate.
-         * @return The created root entity of the scene.
-         */
-        ENGINE_API Entity* InstantiateScene(const std::string& name, const std::string& originScene);
-        
-        /// Check if scene already exists in any of json files.
-        /**
-         * @param filename The name of the scene to check.
-         * @param error Set to true inside the function if it allready exists.
-         * @param originScene Name of scene you want to check.
-         * @param root The json value of root scene.
-         */
-        ENGINE_API void CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root);
+    /// Add child entity.
+    /**
+    * @param name The name of the child entity.
+    * @return The new entity.
+    */
+    ENGINE_API Entity* AddChild(const std::string& name = "");
 
-        /// Get all of the entity's children.
-        /**
-         * @return All the children.
-         */
-        ENGINE_API const std::vector<Entity*>& GetChildren() const;
-        
-        /// Get child based on its name.
-        /**
-         * @param name The name of the child to get.
-         * @return The child or nullptr if none was found.
-         */
-        ENGINE_API Entity* GetChild(const std::string& name) const;
-        
-        /// Get whether the entity is an instantiated scene.
-        /**
-         * @return Whether the entity is an instantiated scene.
-         */
-        ENGINE_API bool IsScene() const;
-        
-        /// Adds component with type T.
-        /**
-         * @return The created component.
-         */
-        template<typename T> T* AddComponent();
-        
-        /// Gets component with type T.
-        /**
-         * @return The requested component (or nullptr).
-         */
-        template<typename T> T* GetComponent() const;
-        
-        /// Kill component of type T.
-        template <typename T> void KillComponent();
-        
-        /// Kill the entity, will be removed at the end of the frame.
-        ENGINE_API void Kill();
-        
-        /// Get whether entity has been killed.
-        /**
-         * @return Whether the entity has been killed.
-         */
-        ENGINE_API bool IsKilled() const;
-        
-        /// Save the entity.
-        /**
-         * @return JSON value to be stored on disk.
-         */
-        ENGINE_API Json::Value Save() const;
-        
-        /// Load entity from JSON node.
-        /**
-         * @param node JSON node to load from.
-         */
-        ENGINE_API void Load(const Json::Value& node);
-        
-        /// Get the model matrix.
-        /**
-         * @return The model matrix.
-         */
-        ENGINE_API glm::mat4 GetModelMatrix() const;
+    /// Remove child entity.
+    /**
+    * @param child The entity you want to remove.
+    * @return Did we manage to remove the child.
+    */
+    ENGINE_API bool RemoveChild(Entity* child);
 
-        /// Get the local model matrix.
-        /**
-         * @return The local model matrix.
-         */
-        ENGINE_API glm::mat4 GetLocalMatrix() const;
-        
-        /// Get orientation matrix.
-        /**
-         * @return The entity's orientation matrix.
-         */
-        ENGINE_API glm::mat4 GetOrientation() const;
-        
-        /// Get orientation matrix (for camera).
-        /**
-         * Calculates the orientation matrix as if the entity was a camera.
-         * @return The entity's orientation matrix.
-         */
-        ENGINE_API glm::mat4 GetCameraOrientation() const;
-        
-        /// Get direction of the entity.
-        /**
-         * @return The entity's direction.
-         */
-        ENGINE_API glm::vec3 GetDirection() const;
-        
-        /// Get the position in the world.
-        /**
-         * @return The position in the world (not relative to parent).
-         */
-        ENGINE_API glm::vec3 GetWorldPosition() const;
-        
-        /// Name of the entity.
-        std::string name;
-        
-        /// Position relative to the parent entity.
-        /**
-         * Default: 0.f, 0.f, 0.f
-         */
-        glm::vec3 position = glm::vec3(0.f, 0.f, 0.f);
-        
-        /// Scale.
-        /**
-         * Default: 1.f, 1.f, 1.f
-         */
-        glm::vec3 scale = glm::vec3(1.f, 1.f, 1.f);
-        
-        /// Rotation (yaw, pitch, roll in degrees).
-        /**
-         * Default: 0.f, 0.f, 0.f
-         */
-        glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
+    /// Set a new parent.
+    /**
+    * @param newParent The entity you want to be the new parent.
+    * @return Did we manage set the new parent?.
+    */
+    ENGINE_API bool SetParent(Entity* newParent);
 
-        /// Get the entity's UID
-        /**
-         * @return The entity's UID
-         */
-        ENGINE_API unsigned int GetUniqueIdentifier() const;
-           
-        /// Set the entity's UID
-        /**
-         * @param UID the entity's unique identifier to be set
-         */
-        ENGINE_API void SetUniqueIdentifier(unsigned int UID);
+    /// Check if entity is a child.
+    /**
+    * @param child The entity you want to check if it is a child.
+    * @param deep True if we want to check if it's a grandchild, false if we do not.
+    * @return True if it has a child, false if it does not.
+    */
+    ENGINE_API bool HasChild(const Entity* child, bool deep = true) const;
 
-        /// Whether the entity is active.
-        bool enabled = true;
+    /// Instantiate a scene as a child to this entity.
+    /**
+    * @param name The name of the scene to instantiate.
+    * @return The created root entity of the scene.
+    */
+    ENGINE_API Entity* InstantiateScene(const std::string& name, const std::string& originScene);
 
-        /// Whether the entity is static.
-        bool isStatic = false;
+    /// Check if scene already exists in any of json files.
+    /**
+    * @param filename The name of the scene to check.
+    * @param error Set to true inside the function if it allready exists.
+    * @param originScene Name of scene you want to check.
+    * @param root The json value of root scene.
+    */
+    ENGINE_API void CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root);
 
-<<<<<<< HEAD
-        /// Check if entity has trigger component attached.
-        /**
-        * @return The entity's trigger status.
-        */
-        ENGINE_API bool GetHasTrigger();
+    /// Get all of the entity's children.
+    /**
+    * @return All the children.
+    */
+    ENGINE_API const std::vector<Entity*>& GetChildren() const;
 
-        /// Set hasTrigger value.
-        /**
-        * @param Status of hasTrigger.
-        */
-        ENGINE_API void SetHasTrigger(bool status);
-        
-=======
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
-    private:
-        template<typename T> void Save(Json::Value& node, const std::string& name) const;
-        template<typename T> void Load(const Json::Value& node, const std::string& name);
-        ENGINE_API Component::SuperComponent* AddComponent(std::type_index componentType);
-        ENGINE_API Component::SuperComponent* GetComponent(std::type_index componentType) const;
-        ENGINE_API void KillComponent(std::type_index componentType);
-        ENGINE_API void LoadComponent(std::type_index componentType, const Json::Value& node);
-        void KillHelper();
-        
-        World* world;
-        Entity* parent = nullptr;
-        std::vector<Entity*> children;
-        bool scene = false;
-        std::string sceneName;
-        
-        std::map<std::type_index, Component::SuperComponent*> components;
-        
-        bool killed = false;
-        bool hasTrigger = false;
-        unsigned int uniqueIdentifier = 0;
+    /// Get child based on its name.
+    /**
+    * @param name The name of the child to get.
+    * @return The child or nullptr if none was found.
+    */
+    ENGINE_API Entity* GetChild(const std::string& name) const;
+
+    /// Get whether the entity is an instantiated scene.
+    /**
+    * @return Whether the entity is an instantiated scene.
+    */
+    ENGINE_API bool IsScene() const;
+
+    /// Adds component with type T.
+    /**
+    * @return The created component.
+    */
+    template<typename T> T* AddComponent();
+
+    /// Gets component with type T.
+    /**
+    * @return The requested component (or nullptr).
+    */
+    template<typename T> T* GetComponent() const;
+
+    /// Kill component of type T.
+    template <typename T> void KillComponent();
+
+    /// Kill the entity, will be removed at the end of the frame.
+    ENGINE_API void Kill();
+
+    /// Get whether entity has been killed.
+    /**
+    * @return Whether the entity has been killed.
+    */
+    ENGINE_API bool IsKilled() const;
+
+    /// Save the entity.
+    /**
+    * @return JSON value to be stored on disk.
+    */
+    ENGINE_API Json::Value Save() const;
+
+    /// Load entity from JSON node.
+    /**
+    * @param node JSON node to load from.
+    */
+    ENGINE_API void Load(const Json::Value& node);
+
+    /// Get the model matrix.
+    /**
+    * @return The model matrix.
+    */
+    ENGINE_API glm::mat4 GetModelMatrix() const;
+
+    /// Get the local model matrix.
+    /**
+    * @return The local model matrix.
+    */
+    ENGINE_API glm::mat4 GetLocalMatrix() const;
+
+    /// Get orientation matrix.
+    /**
+    * @return The entity's orientation matrix.
+    */
+    ENGINE_API glm::mat4 GetOrientation() const;
+
+    /// Get orientation matrix (for camera).
+    /**
+    * Calculates the orientation matrix as if the entity was a camera.
+    * @return The entity's orientation matrix.
+    */
+    ENGINE_API glm::mat4 GetCameraOrientation() const;
+
+    /// Get direction of the entity.
+    /**
+    * @return The entity's direction.
+    */
+    ENGINE_API glm::vec3 GetDirection() const;
+
+    /// Get the position in the world.
+    /**
+    * @return The position in the world (not relative to parent).
+    */
+    ENGINE_API glm::vec3 GetWorldPosition() const;
+
+    /// Name of the entity.
+    std::string name;
+
+    /// Position relative to the parent entity.
+    /**
+    * Default: 0.f, 0.f, 0.f
+    */
+    glm::vec3 position = glm::vec3(0.f, 0.f, 0.f);
+
+    /// Scale.
+    /**
+    * Default: 1.f, 1.f, 1.f
+    */
+    glm::vec3 scale = glm::vec3(1.f, 1.f, 1.f);
+
+    /// Rotation (yaw, pitch, roll in degrees).
+    /**
+    * Default: 0.f, 0.f, 0.f
+    */
+    glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
+
+    /// Get the entity's UID
+    /**
+    * @return The entity's UID
+    */
+    ENGINE_API unsigned int GetUniqueIdentifier() const;
+
+    /// Set the entity's UID
+    /**
+    * @param UID the entity's unique identifier to be set
+    */
+    ENGINE_API void SetUniqueIdentifier(unsigned int UID);
+
+    /// Whether the entity is active.
+    bool enabled = true;
+
+    /// Whether the entity is static.
+    bool isStatic = false;
+
+private:
+    template<typename T> void Save(Json::Value& node, const std::string& name) const;
+    template<typename T> void Load(const Json::Value& node, const std::string& name);
+    ENGINE_API Component::SuperComponent* AddComponent(std::type_index componentType);
+    ENGINE_API Component::SuperComponent* GetComponent(std::type_index componentType) const;
+    ENGINE_API void KillComponent(std::type_index componentType);
+    ENGINE_API void LoadComponent(std::type_index componentType, const Json::Value& node);
+    void KillHelper();
+
+    World* world;
+    Entity* parent = nullptr;
+    std::vector<Entity*> children;
+    bool scene = false;
+    std::string sceneName;
+
+    std::map<std::type_index, Component::SuperComponent*> components;
+
+    bool killed = false;
+    unsigned int uniqueIdentifier = 0;
 };
 
 template<typename T> T* Entity::AddComponent() {

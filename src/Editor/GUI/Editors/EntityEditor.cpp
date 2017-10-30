@@ -237,31 +237,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Image((void*)material->albedo->GetTexture()->GetTextureID(), ImVec2(128, 128));
 
     if (ImGui::Button("Select albedo texture"))
-<<<<<<< HEAD
-        ImGui::OpenPopup("Select albedo texture");
-
-    if (ImGui::BeginPopup("Select albedo texture")) {
-        ImGui::Text("Textures");
-        ImGui::Separator();
-
-=======
         albedoShow = true;
 
     if (albedoShow) {
         ImGui::Begin("Textures", &albedoShow, ImGuiWindowFlags_ShowBorders);
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->albedo != Hymn().defaultAlbedo)
                 Managers().resourceManager->FreeTextureAsset(material->albedo);
 
             material->albedo = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-<<<<<<< HEAD
-
-        ImGui::EndPopup();
-=======
         ImGui::End();
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
     }
     ImGui::Unindent();
 
@@ -272,31 +258,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Image((void*)material->normal->GetTexture()->GetTextureID(), ImVec2(128, 128));
 
     if (ImGui::Button("Select normal texture"))
-<<<<<<< HEAD
-        ImGui::OpenPopup("Select normal texture");
-
-    if (ImGui::BeginPopup("Select normal texture")) {
-        ImGui::Text("Textures");
-        ImGui::Separator();
-
-=======
         normalShow = true;
 
     if (normalShow) {
         ImGui::Begin("Textures", &normalShow, ImGuiWindowFlags_ShowBorders);
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->normal != Hymn().defaultNormal)
                 Managers().resourceManager->FreeTextureAsset(material->normal);
 
             material->normal = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-<<<<<<< HEAD
-
-        ImGui::EndPopup();
-=======
         ImGui::End();
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
     }
     ImGui::Unindent();
 
@@ -307,31 +279,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Image((void*)material->metallic->GetTexture()->GetTextureID(), ImVec2(128, 128));
 
     if (ImGui::Button("Select metallic texture"))
-<<<<<<< HEAD
-        ImGui::OpenPopup("Select metallic texture");
-
-    if (ImGui::BeginPopup("Select metallic texture")) {
-        ImGui::Text("Textures");
-        ImGui::Separator();
-
-=======
         metallicShow = true;
 
     if (metallicShow) {
         ImGui::Begin("Textures", &metallicShow, ImGuiWindowFlags_ShowBorders);
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->metallic != Hymn().defaultMetallic)
                 Managers().resourceManager->FreeTextureAsset(material->metallic);
 
             material->metallic = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-<<<<<<< HEAD
-
-        ImGui::EndPopup();
-=======
         ImGui::End();
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
     }
     ImGui::Unindent();
 
@@ -342,31 +300,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Image((void*)material->roughness->GetTexture()->GetTextureID(), ImVec2(128, 128));
 
     if (ImGui::Button("Select roughness texture"))
-<<<<<<< HEAD
-        ImGui::OpenPopup("Select roughness texture");
-
-    if (ImGui::BeginPopup("Select roughness texture")) {
-        ImGui::Text("Textures");
-        ImGui::Separator();
-
-=======
         roughnessShow = true;
 
     if (roughnessShow) {
         ImGui::Begin("Textures", &roughnessShow, ImGuiWindowFlags_ShowBorders);
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->roughness != Hymn().defaultRoughness)
                 Managers().resourceManager->FreeTextureAsset(material->roughness);
 
             material->roughness = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-<<<<<<< HEAD
-
-        ImGui::EndPopup();
-=======
         ImGui::End();
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
     }
     ImGui::Unindent();
 }
@@ -438,11 +382,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
         if (ImGui::Button("Fetch properties"))
             Managers().scriptManager->FillPropertyMap(script);
-<<<<<<< HEAD
-
-        }
-=======
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
 
         if (script->instance != nullptr) {
             int propertyCount = script->instance->GetPropertyCount();
@@ -450,26 +389,16 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
             for (int n = 0; n < propertyCount; n++) {
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void *varPointer = script->instance->GetAddressOfProperty(n);
-<<<<<<< HEAD
-                if (typeId == asTYPEID_INT32) {
-                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
-                } else if (typeId == asTYPEID_FLOAT) {
-=======
 
                 if (typeId == asTYPEID_INT32)
                     ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
                 else if (typeId == asTYPEID_FLOAT)
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
                 /// @todo This will be used to handle objects in the scripts
                 //else if (typeId & asTYPEID_SCRIPTOBJECT){
                 //    asIScriptObject *obj = (asIScriptObject*)varPointer;
                 //}
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")) {
-<<<<<<< HEAD
-
-=======
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
                     std::map<std::string, std::pair<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
                     if (it != script->propertyMap.end()) {
                         std::string *str = (std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
@@ -487,10 +416,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
                         } else
                             ImGui::Text("%s = <TOO BIG>\n", script->instance->GetPropertyName(n));
-<<<<<<< HEAD
-
-=======
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
                     } else
                         ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
                 }
@@ -631,86 +556,12 @@ void EntityEditor::ControllerEditor(Component::Controller* controller) {
 }
 
 void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
-<<<<<<< HEAD
-
-
-    static char buf1[64] = "";
-
-    int current = static_cast<int>(trigger->triggerType);
-    const char* items[] = { "Once", "Repeat", "LookAt", "Proximity" };
-    ImGui::Indent();
-
-    if (!entity->GetHasTrigger()) {
-        if (ImGui::Combo("Class", &current, items, trigger->NUMBER_OF_TYPES)) {
-            trigger->triggerType = static_cast<Component::Trigger::TriggerTypes>(current);
-        }
-        switch (current) {
-
-        case Component::Trigger::TriggerTypes::ONCE:
-
-            ImGui::InputText("Name", buf1, 64);
-
-            if (ImGui::Button("Create")) {
-                ImGui::Indent();
-                TriggerOnce * temp = new TriggerOnce;
-                temp->SetName(buf1);
-
-                trigger->SetTrigger(temp);
-                Managers().triggerManager->CreateTrigger(temp);
-                entity->SetHasTrigger(true);
-            }
-            break;
-
-        case Component::Trigger::TriggerTypes::REPEAT:
-
-            ImGui::InputText("Name", buf1, 64);
-
-            if (ImGui::Button("Create")) {
-                ImGui::Indent();
-                TriggerRepeat * temp = new TriggerRepeat;
-                temp->SetName(buf1);
-
-                trigger->SetTrigger(temp);
-                Managers().triggerManager->CreateTrigger(temp);
-                entity->SetHasTrigger(true);
-            }
-
-            break;
-
-        case Component::Trigger::TriggerTypes::LOOK_AT:
-            // CREATE TRIGGER_LOOK_AT
-            break;
-
-        case Component::Trigger::TriggerTypes::PROXIMITY:
-            // CREATE TRIGGER_PROXIMITY
-            break;
-
-        default:
-            // Do nothing.
-            break;
-        }
-
-    } else {
-
-        if (TriggerRepeat* temp = dynamic_cast<TriggerRepeat*>(trigger->GetTrigger())) {
-            ImGui::Text("Class: TriggerRepeat");
-            ImGui::Text("Name: %s", temp->GetName().c_str());
-        }
-
-        if (TriggerOnce* temp = dynamic_cast<TriggerOnce*>(trigger->GetTrigger())) {
-            ImGui::Text("Class: TriggerOnce");
-            ImGui::Text("Name: %s", temp->GetName().c_str());
-        }
-    }
-
-=======
     ImGui::Indent();
 
     if (ImGui::Button("Edit"))
         triggerEditor->Open();
 
     triggerEditor->Show(*trigger);
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
 
     ImGui::Unindent();
 }

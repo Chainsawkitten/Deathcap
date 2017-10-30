@@ -142,9 +142,6 @@ template<typename type> void GUI::EntityEditor::EditComponent(const std::string&
         
         if (ImGui::Button("Remove")) {
 
-            if(entity->GetHasTrigger())
-                entity->SetHasTrigger(false);
-
             entity->KillComponent<type>();
         }
         
