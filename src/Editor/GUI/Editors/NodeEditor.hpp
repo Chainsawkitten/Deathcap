@@ -49,8 +49,11 @@ class NodeEditor {
          */
         virtual unsigned int GetNumNodes() = 0;
 
-
-        virtual bool CanConnect(Node * output, Node * input) = 0;
+        /// Returns true if nodes can connect.
+        /**
+         * @param output 
+         */
+        virtual bool CanConnect(Node* output, Node* input) = 0;
 
     private:
         void ShowGrid();
