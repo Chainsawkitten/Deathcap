@@ -445,7 +445,7 @@ void Editor::ShowMainMenuBar(bool& play) {
                 if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
                     cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
-                    cameraEntity->quaternion = glm::quat(45, glm::vec3(0, 1, 0));
+                    cameraEntity->quaternion = glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0));
                 }
             }
 
