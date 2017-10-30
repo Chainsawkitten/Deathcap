@@ -73,18 +73,11 @@ DebugDrawing::DebugDrawing() {
     
     CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
     
-    // Create plane vertex array.
-    glm::vec3 circle[8];
-    circle[0] = glm::vec3(-1.f, -1.f, 0.f);
-    circle[1] = glm::vec3(1.f, -1.f, 0.f);
-    circle[2] = glm::vec3(1.f, -1.f, 0.f);
-    circle[3] = glm::vec3(1.f, 1.f, 0.f);
-    circle[4] = glm::vec3(1.f, 1.f, 0.f);
-    circle[5] = glm::vec3(-1.f, 1.f, 0.f);
-    circle[6] = glm::vec3(-1.f, 1.f, 0.f);
-    circle[7] = glm::vec3(-1.f, -1.f, 0.f);
-    
-    CreateVertexArray(circle, 8, circleVertexBuffer, circleVertexArray);
+    // Create circle vertex array.
+    glm::vec3* circle;
+    CreateCircle(circle, circleVertexCount, 25);
+    CreateVertexArray(circle, circleVertexCount, circleVertexBuffer, circleVertexArray);
+    delete[] circle;
     
     // Create sphere vertex array.
     glm::vec3* sphere;
@@ -190,7 +183,7 @@ void DebugDrawing::DrawCircle(const Circle& circle) {
     glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &circle.color[0]);
     glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
     glLineWidth(circle.lineWidth);
-    glDrawArrays(GL_LINES, 0, 8);
+    glDrawArrays(GL_LINES, 0, circleVertexCount);
 }
 
 void DebugDrawing::DrawSphere(const Sphere& sphere) {
@@ -234,6 +227,19 @@ void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int po
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
     
     glBindVertexArray(0);
+}
+
+void DebugDrawing::CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 2;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int l = 0; l <= detail; ++l) {
+        float angle = static_cast<float>(l) / detail * 2.0f * glm::pi<float>();
+        positions[i++] = glm::vec3(cos(angle), sin(angle), 0.0f);
+        if (l > 0 && l < detail)
+            positions[i++] = glm::vec3(cos(angle), sin(angle), 0.0f);
+    }
 }
 
 // Create UV-sphere with given number of parallel and meridian lines.

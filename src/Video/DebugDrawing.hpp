@@ -196,6 +196,7 @@ namespace Video {
             
             static void CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray);
             void BindVertexArray(GLuint vertexArray);
+            void CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             void CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             
             Video::ShaderProgram* shaderProgram;
