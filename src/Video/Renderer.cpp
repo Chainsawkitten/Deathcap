@@ -121,20 +121,11 @@ void Renderer::AntiAlias(RenderSurface* renderSurface) {
 void Renderer::Present(RenderSurface* renderSurface) {
     const glm::vec2 size = renderSurface->GetSize();
     
-    /// @todo See if doing this with a fullscreen quad would be faster.
-    /// With a fullscreen this would be one command (copying both color and depth) instead of two.
-    /// Additionally, online sources seem to indicate fullscreen quads are slightly faster than blitting.
-    
     // Copy color buffer.
     renderSurface->GetColorFrameBuffer()->BindRead();
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
     glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
     renderSurface->GetColorFrameBuffer()->Unbind();
-    
-    // Copy depth buffer.
-    renderSurface->GetDepthFrameBuffer()->BindRead();
-    glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-    renderSurface->GetDepthFrameBuffer()->Unbind();
 }
 
 void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp) {

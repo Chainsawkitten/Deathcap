@@ -104,20 +104,23 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     }
                 }
 
+                { PROFILE("Render debug entities");
+                { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                    Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                }
+                }
+
+                { PROFILE("Present to back buffer");
+                { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
+                { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
+                    renderer->Present(mainWindowRenderSurface);
+                }
+                }
+                }
+
             }
             }
 
-
-            
-
-            // Present to back buffer.
-            { PROFILE("Present to back buffer");
-            { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
-            { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
-                renderer->Present(mainWindowRenderSurface);
-            }
-            }
-            }
         }
 
         // Render hmd.

@@ -214,12 +214,6 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
         Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera);
     }
     }
-
-    { PROFILE("Render debug entities");
-    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-        Managers().debugDrawingManager->Render(camera);
-    }
-    }
 }
 
 ActiveHymn& Hymn() {

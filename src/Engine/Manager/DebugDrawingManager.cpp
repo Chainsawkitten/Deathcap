@@ -1,11 +1,11 @@
 #include "DebugDrawingManager.hpp"
 
 #include "../Entity/World.hpp"
-#include "../Entity/Entity.hpp"
 #include "../Component/Lens.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-#include "../MainWindow.hpp"
 #include "Managers.hpp"
+#include <Video/RenderSurface.hpp>
+#include <Video/Buffer/FrameBuffer.hpp>
 
 #include "RenderManager.hpp"
 
@@ -131,43 +131,33 @@ void DebugDrawingManager::Update(float deltaTime) {
     }
 }
 
-void DebugDrawingManager::Render(Entity* camera) {
-    // Find camera entity.
-    if (camera == nullptr) {
-        const std::vector<Component::Lens*>& lenses = Managers().renderManager->GetLenses();
-        for (Component::Lens* lens : lenses) {
-            camera = lens->entity;
-        }
+void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {       
+
+    // Bind render target.
+    renderSurface->GetShadingFrameBuffer()->BindWrite();
+    debugDrawing->StartDebugDrawing(projectionMatrix * viewMatrix);
+        
+    // Points.
+    for (const DebugDrawing::Point& point : points) {
+        debugDrawing->DrawPoint(point);
     }
-    
-    if (camera != nullptr) {
-        glm::mat4 viewMat(glm::inverse(camera->GetModelMatrix()));
-        glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
-        glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
         
-        debugDrawing->StartDebugDrawing(viewProjectionMatrix);
+    // Lines.
+    for (const DebugDrawing::Line& line : lines)
+        debugDrawing->DrawLine(line);
         
-        // Points.
-        for (const DebugDrawing::Point& point : points) {
-            debugDrawing->DrawPoint(point);
-        }
-        
-        // Lines.
-        for (const DebugDrawing::Line& line : lines)
-            debugDrawing->DrawLine(line);
-        
-        // Cuboids.
-        for (const DebugDrawing::Cuboid& cuboid : cuboids)
-            debugDrawing->DrawCuboid(cuboid);
+    // Cuboids.
+    for (const DebugDrawing::Cuboid& cuboid : cuboids)
+        debugDrawing->DrawCuboid(cuboid);
        
-        // Planes.
-        for (const DebugDrawing::Plane& plane : planes)
-            debugDrawing->DrawPlane(plane);
+    // Planes.
+    for (const DebugDrawing::Plane& plane : planes)
+        debugDrawing->DrawPlane(plane);
         
-        // Spheres.
-        for (const DebugDrawing::Sphere& sphere : spheres)
-            debugDrawing->DrawSphere(sphere);
+    // Spheres.
+    for (const DebugDrawing::Sphere& sphere : spheres)
+        debugDrawing->DrawSphere(sphere);
         
-        debugDrawing->EndDebugDrawing();
-    }
+    debugDrawing->EndDebugDrawing();
+    renderSurface->GetShadingFrameBuffer()->Unbind();
 }
