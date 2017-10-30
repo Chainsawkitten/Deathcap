@@ -219,12 +219,10 @@ void Editor::Show(float deltaTime) {
     // Check that there is an active Entity.
 
     // Get current active Entity.
-    glm::mat4 currentEntityMatrix = glm::mat4();
-
     Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
 
     if (currentEntity != nullptr) {
-        currentEntityMatrix = currentEntity->GetLocalMatrix();
+        glm::mat4 currentEntityMatrix = currentEntity->GetLocalMatrix();
 
         // Change operation based on key input.
         if (Input()->Triggered(InputHandler::W))
@@ -239,10 +237,6 @@ void Editor::Show(float deltaTime) {
 
         // View matrix.
         glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetOrientation()) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
-        // Identity matrix.
-        float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
-        float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
-        float rotationValue[3] = { glm::degrees(glm::pitch(currentEntity->quaternion)), glm::degrees(glm::yaw(currentEntity->quaternion)), glm::degrees(glm::roll(currentEntity->quaternion)) };
 
         // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
@@ -252,9 +246,9 @@ void Editor::Show(float deltaTime) {
         if (ImGuizmo::IsUsing()) {
             switch (currentOperation) {
                 case ImGuizmo::TRANSLATE: {
-                    currentEntity->position.x = translationValue[0];
-                    currentEntity->position.y = translationValue[1];
-                    currentEntity->position.z = translationValue[2];
+                    currentEntity->position.x = currentEntityMatrix[3][0];
+                    currentEntity->position.y = currentEntityMatrix[3][1];
+                    currentEntity->position.z = currentEntityMatrix[3][2];
                     break;
                 }
                 case ImGuizmo::ROTATE: {
@@ -263,9 +257,9 @@ void Editor::Show(float deltaTime) {
                     break;
                 }
                 case ImGuizmo::SCALE: {
-                    currentEntity->scale.x = scaleValue[0];
-                    currentEntity->scale.y = scaleValue[1];
-                    currentEntity->scale.z = scaleValue[2];
+                    currentEntity->scale.x = currentEntityMatrix[0][0];
+                    currentEntity->scale.y = currentEntityMatrix[1][1];
+                    currentEntity->scale.z = currentEntityMatrix[2][2];
                     break;
                 }
             }
