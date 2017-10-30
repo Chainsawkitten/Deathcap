@@ -32,7 +32,7 @@ Animation::AnimationClip * GUI::AnimationClipEditor::GetAnimationClip() {
     return animationClip;
 }
 
-void AnimationClipEditor::SetAnimationClip(ResourceList::ResourceFolder* folder, Animation::AnimationClip* animationClip) {
+void AnimationClipEditor::SetAnimationClip(Animation::AnimationClip* animationClip) {
     this->animationClip = animationClip;
 }
 
@@ -44,7 +44,7 @@ void AnimationClipEditor::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void GUI::AnimationClipEditor::FileSelected(const std::string & file) {
+void GUI::AnimationClipEditor::FileSelected(const std::string& file) {
     std::string name = FileSystem::GetName(file).c_str();
     std::string newFile = Hymn().GetPath() + "/" + animationClip->path + name + ".asset";
 

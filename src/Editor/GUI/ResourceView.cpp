@@ -393,7 +393,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
     if (resource.type == ResourceList::Resource::ANIMATION_CLIP) {
         if (ImGui::Selectable(resource.animationClip->name.c_str())) {
             animationClipPressed = true;
-            animationClipEditor.SetAnimationClip(&folder, resource.animationClip);
+            animationClipEditor.SetAnimationClip(resource.animationClip);
         }
 
         // Delete animation controller.

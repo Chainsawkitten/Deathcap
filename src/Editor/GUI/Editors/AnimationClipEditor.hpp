@@ -23,23 +23,23 @@ namespace GUI {
              */
             Animation::AnimationClip* GetAnimationClip();
 
-            /// Set the skeleton to edit
+            /// Set the animation clip to edit
             /**
-            * @param folder Resource folder containing the animation clip.
-            * @param model Animation clip to edit.
-            */
-            void SetAnimationClip(ResourceList::ResourceFolder* folder, Animation::AnimationClip* animationClip);
+             * @param folder Resource folder containing the animation clip.
+             * @param model Animation clip to edit.
+             */
+            void SetAnimationClip(Animation::AnimationClip* animationClip);
 
-            /// Get whether the window is visable.
+            /// Get whether the window is visible.
             /**
-            * @return True if visable.
-            */
+             * @return True if visible.
+             */
             bool IsVisible() const;
 
             /// Set whether the window should be visable.
             /**
-            * @param visable Whether the window should be visible.
-            */
+             * @param visable Whether the window should be visible.
+             */
             void SetVisible(bool visible);
 
         private:

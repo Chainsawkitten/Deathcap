@@ -64,8 +64,6 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         interpolation /= bone->rotationKeys[bone->currentKeyIndex + 1];
         interpolation = 1 - interpolation;
 
-//        Log() << "Frame: " << (float)bone->rotationKeys[bone->currentKeyIndex + 1] << "\n";
-
         // Clamp interpolation.
         if (interpolation > 0.999f)
             interpolation = 0.999f;
