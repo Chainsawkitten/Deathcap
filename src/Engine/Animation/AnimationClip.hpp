@@ -6,6 +6,7 @@
 #include <fstream>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <Utility/Log.hpp>
 #include "../linking.hpp"
 
 namespace Animation {
@@ -28,16 +29,26 @@ namespace Animation {
                         delete[] rotations;
                 }
 
+                /// Save bone data.
+                /**
+                 * @param file File to save to.
+                 */
                 void Save(std::ofstream * file) {
                     file->write(reinterpret_cast<char*>(&parent), sizeof(uint32_t));
                     file->write(reinterpret_cast<char*>(&numRotationKeys), sizeof(uint32_t));
-                    for (unsigned int i = 0; i < numRotationKeys; ++i) {
+
+                    for (unsigned int i = 0; i < numRotationKeys; ++i)  
                         file->write(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
+                    
+
+                    for (unsigned int i = 0; i < numRotationKeys; ++i) 
                         file->write(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::mat4));
-                    }
-                    file->write(reinterpret_cast<char*>(rotations), sizeof(glm::mat4) * numRotationKeys);
                 }
 
+                /// Load bone data.
+                /**
+                 * @param file File to load from.
+                 */
                 void Load(std::ifstream * file) {
                     file->read(reinterpret_cast<char*>(&parent), sizeof(uint32_t));
                     file->read(reinterpret_cast<char*>(&numRotationKeys), sizeof(uint32_t));
@@ -45,17 +56,18 @@ namespace Animation {
                     if (rotationKeys != nullptr)
                         delete[] rotationKeys;
 
-                    rotationKeys = new int32_t[numRotationKeys];
-                    for (unsigned int i = 0; i < numRotationKeys; ++i) {
-                        file->read(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
-                    }
-
                     if (rotations != nullptr)
                         delete[] rotations;
+
+                    rotationKeys = new int32_t[numRotationKeys];
+                    for (unsigned int i = 0; i < numRotationKeys; ++i) 
+                        file->read(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
+                    
 
                     rotations = new glm::mat4[numRotationKeys];
                     for (unsigned int i = 0; i < numRotationKeys; ++i) {
                         file->read(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::mat4));
+                        Log() << "Load key: " << (float)rotationKeys[i] << "\n";
                     }
                 }
             };
@@ -66,11 +78,21 @@ namespace Animation {
                 Bone* bones = nullptr;
                 float currentFrame = 0.0f;
                 
+                /// Save animation data.
+                /**
+                 * @param file File to save to.
+                 */
                 void Save(std::ofstream * file) {
                     file->write(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));
-                    file->write(reinterpret_cast<char*>(bones), sizeof(Bone) * numBones);
+                    
+                    for (unsigned int i = 0; i < numBones; ++i)
+                        bones[i].Save(file);
                 }
 
+                /// Save animation data.
+                /**
+                 * @param file File to load from.
+                 */
                 void Load(std::ifstream * file) {
                     file->read(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));
 
@@ -78,7 +100,9 @@ namespace Animation {
                         delete[] bones;
 
                     bones = new Bone[numBones];
-                    file->read(reinterpret_cast<char*>(bones), sizeof(Bone) * numBones);
+                    
+                    for (unsigned int i = 0; i < numBones; ++i)
+                        bones[i].Load(file);
                 }
             };
 

@@ -48,11 +48,6 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
             rot.z = channel->mRotationKeys[0].mValue.z;
             rot.w = channel->mRotationKeys[0].mValue.w;
 
-            Log() << channel->mRotationKeys[0].mValue.x << "\n";
-            Log() << channel->mRotationKeys[0].mValue.y << "\n";
-            Log() << channel->mRotationKeys[0].mValue.z << "\n";
-            Log() << channel->mRotationKeys[0].mValue.w << "\n";
-
             glm::mat4 modelMatrix(1.0f);
             glm::vec3 pos;
 
@@ -61,15 +56,7 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
             pos.z = channel->mPositionKeys[0].mValue.z;
             modelMatrix = glm::translate(modelMatrix, pos);
 
-            bone->localTx = glm::transpose(modelMatrix);
-            
-
-            Log() << "Matrix Matrix Matrix\n";
-            Log() << "[" << bone->localTx[0][0] << "\t" << bone->localTx[0][1] << "\t" << bone->globalTx[0][2] << "\t" << bone->localTx[0][3] << "]\n";
-            Log() << "[" << bone->localTx[1][0] << "\t" << bone->localTx[1][1] << "\t" << bone->globalTx[1][2] << "\t" << bone->localTx[1][3] << "]\n";
-            Log() << "[" << bone->localTx[2][0] << "\t" << bone->localTx[2][1] << "\t" << bone->globalTx[2][2] << "\t" << bone->localTx[2][3] << "]\n";
-            Log() << "[" << bone->localTx[3][0] << "\t" << bone->localTx[3][1] << "\t" << bone->globalTx[3][2] << "\t" << bone->localTx[3][3] << "]\n";
-            Log() << "\n\n\n";
+            bone->localTx = modelMatrix;
 
             skeleton.skeletonBones.push_back(bone);
         }
@@ -90,13 +77,14 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
 
             for (int j = 0; j < channel->mNumRotationKeys; ++j) {
                 anim.bones[i].rotationKeys[j] = channel->mRotationKeys[j].mTime;
+
                 glm::quat rot;
                 rot.x = channel->mRotationKeys[j].mValue.x;
                 rot.y = channel->mRotationKeys[j].mValue.y;
                 rot.z = channel->mRotationKeys[j].mValue.z;
                 rot.w = channel->mRotationKeys[j].mValue.w;
 
-                anim.bones[i].rotations[j] = glm::transpose(glm::mat4(rot));
+                anim.bones[i].rotations[j] = glm::mat4(rot);
             }
         }
 

@@ -30,6 +30,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
 
     if (bones.size() != skeleton->skeletonBones.size()) {
         bones.clear();
+        bones.shrink_to_fit();
         bones.resize(skeleton->skeletonBones.size());
     }
 
@@ -41,8 +42,8 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     unsigned int size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
 
-    anim->currentFrame += deltaTime;
-    if (anim->currentFrame > 5.0f) {
+    anim->currentFrame += deltaTime * 1.0f;
+    if (anim->currentFrame > 15.0f) {
         anim->currentFrame = 0;
 
         for (unsigned int i = 0; i < size; ++i)
@@ -55,12 +56,15 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     for (unsigned int i = 1; i < size; ++i) {
         Animation::AnimationClip::Bone * bone = &anim->bones[i];
 
-        if (bone->rotationKeys[bone->currentKeyIndex + 1] > anim->currentFrame)
-            ++bone->currentKeyIndex;
+        if ((float)bone->rotationKeys[bone->currentKeyIndex + 1] > anim->currentFrame) {
+        //    ++bone->currentKeyIndex;
+        }
 
         float interpolation = (float)bone->rotationKeys[bone->currentKeyIndex + 1] - anim->currentFrame;
         interpolation /= bone->rotationKeys[bone->currentKeyIndex + 1];
         interpolation = 1 - interpolation;
+
+//        Log() << "Frame: " << (float)bone->rotationKeys[bone->currentKeyIndex + 1] << "\n";
 
         // Clamp interpolation.
         if (interpolation > 0.999f)
@@ -68,6 +72,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         else if (interpolation < 0.001f)
             interpolation = 0.001f;
 
+        // Convert to quaternion to interpolate animation then back to matrix.
         glm::quat rotation1 = glm::quat_cast(bone->rotations[bone->currentKeyIndex]);
         glm::quat rotation2 = glm::quat_cast(bone->rotations[bone->currentKeyIndex + 1]);
         glm::quat finalRot = glm::lerp(rotation1, rotation2, interpolation);
@@ -75,7 +80,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         glm::mat4 matrixRot = glm::mat4(finalRot);
         matrixRot[3][3] = 1.0f;
 
-        skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * matrixRot;
+        skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
         bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
 }
