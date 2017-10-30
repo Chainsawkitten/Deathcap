@@ -56,9 +56,8 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     for (unsigned int i = 1; i < size; ++i) {
         Animation::AnimationClip::Bone * bone = &anim->bones[i];
 
-        if ((float)bone->rotationKeys[bone->currentKeyIndex + 1] > anim->currentFrame) {
-        //    ++bone->currentKeyIndex;
-        }
+        if ((float)bone->rotationKeys[bone->currentKeyIndex + 1] > anim->currentFrame)
+            ++bone->currentKeyIndex;
 
         float interpolation = (float)bone->rotationKeys[bone->currentKeyIndex + 1] - anim->currentFrame;
         interpolation /= bone->rotationKeys[bone->currentKeyIndex + 1];

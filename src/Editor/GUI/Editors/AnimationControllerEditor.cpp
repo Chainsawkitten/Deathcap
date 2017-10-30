@@ -70,8 +70,11 @@ void AnimationControllerEditor::ShowNode(Node* node) {
             ImGui::Separator();
 
             if (resourceSelector.Show(ResourceList::Resource::Type::ANIMATION_CLIP)) {
-                if (action->animationClipName != nullptr)
+                // If clip is attached to action free it.
+                if (action->animationClip != nullptr) {
                     Managers().resourceManager->FreeAnimationClip(action->animationClip);
+                    action->animationClip = nullptr;
+                }
                     
                 std::string path = resourceSelector.GetSelectedResource().GetPath();
                 action->animationClip = Managers().resourceManager->CreateAnimationClip(path);

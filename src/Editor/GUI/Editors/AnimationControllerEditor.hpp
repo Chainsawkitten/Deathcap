@@ -31,7 +31,7 @@ namespace GUI {
              */
             Animation::AnimationController* GetAnimationController();
 
-            virtual void SetVisible(bool visible) override;
+            void SetVisible(bool visible) override;
 
         protected:
             /// Show the context menu.
