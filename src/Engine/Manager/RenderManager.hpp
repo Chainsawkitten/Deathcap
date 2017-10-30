@@ -14,7 +14,6 @@ class World;
 class Entity;
 namespace Component {
     class AnimationController;
-    class Controller;
     class DirectionalLight;
     class Lens;
     class Material;
@@ -222,7 +221,6 @@ class RenderManager {
         
         // Components.
         ComponentContainer<Component::AnimationController> animationControllers;
-        ComponentContainer<Component::Controller> controllers;
         ComponentContainer<Component::DirectionalLight> directionalLights;
         ComponentContainer<Component::Lens> lenses;
         ComponentContainer<Component::Material> materials;

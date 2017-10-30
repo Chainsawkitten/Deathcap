@@ -463,7 +463,6 @@ const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
 
 void RenderManager::ClearKilledComponents() {
     animationControllers.ClearKilled();
-    controllers.ClearKilled();
     directionalLights.ClearKilled();
     lenses.ClearKilled();
     materials.ClearKilled();

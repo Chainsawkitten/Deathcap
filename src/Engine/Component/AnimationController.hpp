@@ -22,13 +22,13 @@ namespace Component {
             /**
              * @param deltaTime Time between frames.
              */
-            void UpdateAnimation(float deltaTime);
+            ENGINE_API void UpdateAnimation(float deltaTime);
 
             /// Set a bool in the state machine.
-            void SetBool(std::string name, bool value);
+            ENGINE_API void SetBool(std::string name, bool value);
 
-            // Set a float in the state machine.
-            void SetFloat(std::string name, float value);
+            /// Set a float in the state machine.
+            ENGINE_API void SetFloat(std::string name, float value);
 
             /// Vector with the final calculated bones.
             std::vector<glm::mat4> bones;
