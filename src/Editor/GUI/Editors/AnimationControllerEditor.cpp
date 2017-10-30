@@ -58,15 +58,10 @@ void AnimationControllerEditor::ShowNode(Node* node) {
     ImGui::Text("Action: %s", node->name);
     ImGui::InputText("Name", node->name, 128);
 
-    if (typeid(*node) == typeid(Animation::AnimationController::AnimationAction)) {
+    if (dynamic_cast<Animation::AnimationController::AnimationAction*>(node) != nullptr) {
+        // Dynamic cast to AnimationAction.
         Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
         
-        // If action is nullptr, return.
-        if (action == nullptr) {
-            ImGui::Text("Error action was nullptr: %s", node->name);
-            return;
-        }
-
         if (ImGui::Button("Select animation clip##Clip"))
             ImGui::OpenPopup("Select animation clip##Clip");
 
@@ -80,7 +75,12 @@ void AnimationControllerEditor::ShowNode(Node* node) {
                     
                 std::string path = resourceSelector.GetSelectedResource().GetPath();
                 action->animationClip = Managers().resourceManager->CreateAnimationClip(path);
-                memcpy(action->animationClipName, path.c_str(), path.size() + 1);
+                if (path.size() < 512) {
+                    memcpy(action->animationClipName, path.c_str(), path.size() + 1);
+                }
+                else {
+                    Log() << "Error: " << (int)path.size() << "is to long.\n";
+                }
             }
 
             ImGui::EndPopup();

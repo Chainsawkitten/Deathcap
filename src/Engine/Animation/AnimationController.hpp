@@ -23,7 +23,7 @@ namespace Animation {
         public:
             /// Animaiton action node.
             struct AnimationAction : public Node {
-                char animationClipName[128];
+                char animationClipName[512];
                 float playbackModifier = 1.0f;
                 bool repeat = true;
                 Animation::AnimationClip * animationClip = nullptr;
@@ -39,7 +39,7 @@ namespace Animation {
                  */
                 virtual void Save(std::ofstream* file) override {
                     Node::Save(file);
-                    file->write(reinterpret_cast<char*>(animationClipName), 128);
+                    file->write(reinterpret_cast<char*>(animationClipName), 512);
                     file->write(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));
                     file->write(reinterpret_cast<char*>(&repeat), sizeof(bool));
                 }
@@ -50,7 +50,7 @@ namespace Animation {
                  */
                 virtual void Load(std::ifstream* file) override {
                     Node::Load(file);
-                    file->read(reinterpret_cast<char*>(animationClipName), 128);
+                    file->read(reinterpret_cast<char*>(animationClipName), 512);
                     file->read(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));
                     file->read(reinterpret_cast<char*>(&repeat), sizeof(bool));
 
