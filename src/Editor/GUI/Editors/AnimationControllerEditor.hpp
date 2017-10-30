@@ -31,6 +31,10 @@ namespace GUI {
              */
             Animation::AnimationController* GetAnimationController();
 
+            /// Set whether the window should be visible.
+            /**
+             * @param visible Whether the window should be visible.
+             */
             void SetVisible(bool visible) override;
 
         protected:

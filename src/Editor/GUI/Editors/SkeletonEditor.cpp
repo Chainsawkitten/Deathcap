@@ -40,12 +40,12 @@ bool SkeletonEditor::IsVisible() const {
     return visible;
 }
 
-void SkeletonEditor::SetVisible(bool visable) {
-    this->visible = visable;
+void SkeletonEditor::SetVisible(bool visible) {
+    this->visible = visible;
 }
 
 void SkeletonEditor::FileSelected(const std::string& file) {
-    std::string name = FileSystem::GetName(file).c_str();
+    std::string name = FileSystem::GetName(file);
     std::string newFile = Hymn().GetPath() + "/" + skeleton->path + name + ".asset";
 
     AssetConverterSkeleton con;

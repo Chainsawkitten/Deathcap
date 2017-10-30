@@ -36,11 +36,11 @@ namespace GUI {
              */
             bool IsVisible() const;
 
-            /// Set whether the window should be visable.
+            /// Set whether the window should be visible.
             /**
              * @param visable Whether the window should be visible.
              */
-            void SetVisible(bool visable);
+            void SetVisible(bool visible);
 
         private:
             void FileSelected(const std::string& file);
