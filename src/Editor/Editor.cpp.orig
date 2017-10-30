@@ -176,14 +176,24 @@ void Editor::Show(float deltaTime) {
         // Scroll zoom.
         if (Input()->GetScrollDown()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
+<<<<<<< HEAD
                 glm::vec3 backward = cameraEntity->GetOrientation() * glm::vec3(0, 0, 1);
+=======
+                glm::mat4 orientation = cameraEntity->GetOrientation();
+                glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+>>>>>>> master
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * backward;
             }
         }
         if (Input()->GetScrollUp()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
+<<<<<<< HEAD
                 glm::vec3 backward = cameraEntity->GetOrientation() * glm::vec3(0, 0, 1);
+=======
+                glm::mat4 orientation = cameraEntity->GetOrientation();
+                glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+>>>>>>> master
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * -backward;
             }
@@ -240,7 +250,16 @@ void Editor::Show(float deltaTime) {
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
 
         // View matrix.
+<<<<<<< HEAD
         glm::mat4 viewMatrix = glm::toMat4(glm::inverse(cameraEntity->GetOrientation())) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
+=======
+        glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
+
+        // Identity matrix.
+        float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
+        float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
+        float rotationValue[3] = { currentEntity->rotation.x, currentEntity->rotation.y, currentEntity->rotation.z };
+>>>>>>> master
 
         // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
@@ -448,8 +467,13 @@ void Editor::ShowMainMenuBar(bool& play) {
             if (Input()->Triggered(InputHandler::ZOOM)) {
                 if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
+<<<<<<< HEAD
                     cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
                     cameraEntity->quaternion = glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0));
+=======
+                    cameraEntity->position = tempPos + glm::vec3(0, 7.f, 7.f);
+                    cameraEntity->rotation = glm::vec3(0.f, 315.f, 0.f);
+>>>>>>> master
                 }
             }
 
@@ -507,18 +531,29 @@ void Editor::ControlEditorCamera(float deltaTime) {
             lastY = Input()->GetCursorY();
         }
         float sensitivity = 0.3f;
+<<<<<<< HEAD
         rotationX += glm::radians(sensitivity * static_cast<float>(lastX - Input()->GetCursorX()));
         rotationY += glm::radians(sensitivity * static_cast<float>(lastY - Input()->GetCursorY()));
         glm::quat tempQuat = glm::fquat(glm::vec3(rotationY, rotationX, 0.0f));
 
         cameraEntity->SetWorldRotation(tempQuat);
+=======
+        cameraEntity->rotation.x -= sensitivity * (Input()->GetCursorX() - lastX);
+        cameraEntity->rotation.y -= sensitivity * (Input()->GetCursorY() - lastY);
+>>>>>>> master
 
         lastX = Input()->GetCursorX();
         lastY = Input()->GetCursorY();
 
+<<<<<<< HEAD
         glm::mat4 orientation = glm::toMat4(glm::inverse(cameraEntity->GetOrientation()));
         glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
         glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
+=======
+        glm::mat4 orientation = cameraEntity->GetOrientation();
+        glm::vec3 backward(orientation[2][0], orientation[2][1], orientation[2][2]);
+        glm::vec3 right(orientation[0][0], orientation[0][1], orientation[0][2]);
+>>>>>>> master
 
         // Move speed scaling.
         float speed = 10.0f * deltaTime * (glm::abs(cameraEntity->position.y) / 10.0f);

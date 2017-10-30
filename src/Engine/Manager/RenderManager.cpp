@@ -25,6 +25,7 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
+#include "../Component/VRDevice.hpp"
 #include "../Physics/Shape.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
 #include "../Texture/TextureAsset.hpp"
@@ -39,7 +40,6 @@
 #include "Util/GPUProfiling.hpp"
 
 #include "Manager/VRManager.hpp"
-#include "Component/Controller.hpp"
 #include <glm/gtc/quaternion.hpp>
 
 using namespace Component;
@@ -93,7 +93,7 @@ void RenderManager::Render(World& world, Entity* camera) {
                 const glm::mat4 orientationMat = glm::toMat4(glm::inverse(camera->GetOrientation()));
                 const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
 
-                Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
+                Render(world, glm::inverse(camera->GetModelMatrix()), projectionMat, mainWindowRenderSurface);
             }
             }
 
@@ -115,33 +115,14 @@ void RenderManager::Render(World& world, Entity* camera) {
                 for (int i = 0; i < 2; ++i) {
                     vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
-                    glm::vec3 position = camera->GetWorldPosition();
                     Lens* lens = camera->GetComponent<Lens>();
-                    const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
-                    glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
-                    glm::mat4 eyeTranslation = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
+                    VRDevice* headset = camera->GetComponent<VRDevice>();
 
-                    glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
-                    glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
-                    glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
-                    glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
+                    const glm::mat4 projectionMat = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
+                    glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
 
-                    glm::mat4 orientationMat = glm::transpose(glm::mat4(
-                        glm::vec4(right, 0.f),
-                        glm::vec4(up, 0.f),
-                        glm::vec4(forward, 0.f),
-                        glm::vec4(0.f, 0.f, 0.f, 1.f)
-                    ));
-
-                    glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
-                    glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
-                    glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
-                    glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
-
-                    glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
-
-                    Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
+                    Render(world, glm::inverse(camera->GetModelMatrix()) * eyeTranslation, projectionMat, hmdRenderSurface);
 
                     hmdRenderSurface->Swap();
                     vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
@@ -230,12 +211,11 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::Render(World& world, const glm::mat4& translationMatrix, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
+void RenderManager::Render(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
     // Render from camera.
     renderer->StartRendering(renderSurface);
 
     // Camera matrices.
-    const glm::mat4 viewMatrix = orientationMatrix * translationMatrix;
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
@@ -252,16 +232,9 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
-                Controller* controller = entity->GetComponent<Controller>();
                 // If entity does not have material, it won't be rendered.
-                if (entity->GetComponent<Material>() != nullptr) {
-                    if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
-                        renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, ctrlModelMatrix);
-                    }
-                    else
-                        renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
-                }
+                if (entity->GetComponent<Material>() != nullptr)
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
             }
         }
     }
@@ -289,15 +262,8 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
-                Controller* controller = entity->GetComponent<Controller>();
-                if (material != nullptr) {
-                    if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
-                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), ctrlModelMatrix, false);
-                    }
-                    else
-                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
-                }
+                if (material != nullptr)
+                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
             }
         }
     }
@@ -426,7 +392,6 @@ Component::PointLight* RenderManager::CreatePointLight(const Json::Value& node) 
     
     // Load values from Json node.
     pointLight->color = Json::LoadVec3(node["color"]);
-    pointLight->ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
     pointLight->attenuation = node.get("attenuation", 1.f).asFloat();
     pointLight->intensity = node.get("intensity", 1.f).asFloat();
     
@@ -458,26 +423,8 @@ const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
     return spotLights.GetAll();
 }
 
-Component::Controller* RenderManager::CreateController() {
-    return controllers.Create();
-}
-
-Component::Controller* RenderManager::CreateController(const Json::Value& node) {
-    Component::Controller* controller = controllers.Create();
-
-    //Load values from Json node.
-    controller->controllerID = node.get("controllerID", 1).asInt();
-
-    return controller;
-}
-
-const std::vector<Component::Controller*>& RenderManager::GetControllers() const {
-    return controllers.GetAll();
-}
-
 void RenderManager::ClearKilledComponents() {
     animations.ClearKilled();
-    controllers.ClearKilled();
     directionalLights.ClearKilled();
     lenses.ClearKilled();
     materials.ClearKilled();
@@ -547,7 +494,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
             light.intensities = pointLight->color * pointLight->intensity;
             light.attenuation = pointLight->attenuation;
-            light.ambientCoefficient = pointLight->ambientCoefficient;
+            light.ambientCoefficient = 0.f;
             light.coneAngle = 180.f;
             light.direction = glm::vec3(1.f, 0.f, 0.f);
             lights.push_back(light);

@@ -148,13 +148,6 @@ class Entity {
          */
         ENGINE_API glm::quat GetOrientation() const;
         
-        /// Get orientation matrix (for camera).
-        /**
-         * Calculates the orientation matrix as if the entity was a camera.
-         * @return The entity's orientation matrix.
-         */
-        ENGINE_API glm::mat4 GetCameraOrientation() const;
-        
         /// Get direction of the entity.
         /**
          * @return The entity's direction.

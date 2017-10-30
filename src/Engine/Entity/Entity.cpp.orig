@@ -274,6 +274,16 @@ glm::quat Entity::GetOrientation() const {
     return quaternion;
 }
 
+<<<<<<< HEAD
+glm::mat4 Entity::GetCameraOrientation() const {
+    glm::mat4 orientation;
+    orientation = glm::rotate(orientation, glm::roll(quaternion), glm::vec3(0.f, 0.f, 1.f));
+    orientation = glm::rotate(orientation, glm::yaw(quaternion), glm::vec3(1.f, 0.f, 0.f));
+    return glm::rotate(orientation, glm::pitch(quaternion), glm::vec3(0.f, 1.f, 0.f));
+}
+
+=======
+>>>>>>> master
 glm::vec3 Entity::GetDirection() const {
     return glm::normalize(glm::vec3(GetOrientation() * glm::vec4(0.f, 0.f, -1.f, 0.f)));
 }
