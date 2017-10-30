@@ -437,7 +437,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
     if (resource.type == ResourceList::Resource::SKELETON) {
         if (ImGui::Selectable(resource.skeleton->name.c_str())) {
             skeletonPressed = true;
-            skeletonEditor.SetSkeleton(&folder, resource.skeleton);
+            skeletonEditor.SetSkeleton(resource.skeleton);
         }
 
         // Delete skeleton.

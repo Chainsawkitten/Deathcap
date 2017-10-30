@@ -26,14 +26,13 @@ namespace GUI {
 
             /// Set the skeleton to edit.
             /**
-             * @param folder Resource folder containing the skeleton.
              * @param model Skeleton to edit.
              */
-            void SetSkeleton(ResourceList::ResourceFolder* folder, Animation::Skeleton* skeleton);
+            void SetSkeleton(Animation::Skeleton* skeleton);
             
             /// Get whether the window is visable.
             /**
-             * @return True if visable.
+             * @return True if visible.
              */
             bool IsVisible() const;
 

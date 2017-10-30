@@ -6,7 +6,7 @@
 /// Generic node editor base class.
 class NodeEditor {
     public:
-        /// Create new animation controller editor editor.
+        /// Constructor.
         NodeEditor();
     
         /// Destructor.
@@ -17,14 +17,14 @@ class NodeEditor {
     
         /// Get whether the window is visible.
         /**
-        * @return Whether the window is visible.
-        */
+         * @return Whether the window is visible.
+         */
         bool IsVisible() const;
     
         /// Set whether the window should be visible.
         /**
-        * @param visible Whether the window should be visible.
-        */
+         * @param visible Whether the window should be visible.
+         */
         virtual void SetVisible(bool visible);
     
     protected:

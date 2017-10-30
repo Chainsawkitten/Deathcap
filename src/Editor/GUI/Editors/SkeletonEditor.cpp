@@ -28,11 +28,11 @@ void SkeletonEditor::Show() {
         fileSelector.Show();
 }
 
-Animation::Skeleton * GUI::SkeletonEditor::GetSkeleton() {
+Animation::Skeleton* GUI::SkeletonEditor::GetSkeleton() {
     return skeleton;
 }
 
-void SkeletonEditor::SetSkeleton(ResourceList::ResourceFolder* folder, Animation::Skeleton* skeleton) {
+void SkeletonEditor::SetSkeleton(Animation::Skeleton* skeleton) {
     this->skeleton = skeleton;
 }
 
