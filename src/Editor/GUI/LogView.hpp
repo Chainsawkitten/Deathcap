@@ -6,6 +6,7 @@ namespace GUI {
     class LogView {
         public:
         LogView();
+        ~LogView();
 
         void Show();
 
@@ -19,6 +20,7 @@ namespace GUI {
 
         ImGuiTextBuffer textBuffer;
         ImGuiTextFilter textFilter;
+        ImVector<int> lineOffsets;
 
         bool visible = true;
 

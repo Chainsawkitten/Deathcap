@@ -50,11 +50,52 @@ void LogView::Show() {
 
     if (!errorStringstream.str().empty())
         output += "[Error] " + errorStringstream.str();
-
+    
+    // Add new lines to text buffer.
+    int old_size = textBuffer.size();
+    
     textBuffer.appendv(output.c_str(), nullptr);
+
+    for (int newSize = textBuffer.size(); old_size < newSize; old_size++)
+        if (textBuffer[old_size] == '\n')
+            lineOffsets.push_back(old_size);
+
+    // Start drawing window.
     ImGui::Begin("Log", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
+    // Options.
+
+    // Clear log window from text.
+    if (ImGui::Button("Clear"))
+        textBuffer.clear();
+
+    ImGui::SameLine();
+
+    // Copy log contents to clipboard.
+    if (ImGui::Button("Copy to clipboard")) {
+        ImGui::LogToClipboard();
+    }
+
+    ImGui::SameLine();
+
+    // Filter
+    textFilter.Draw("Filter");
+
+    ImGui::Separator();
+
+    // Draw log. If filter is active, filter log contents.
     ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-    ImGui::TextUnformatted(textBuffer.begin());
+    if(textFilter.IsActive()) {
+        const char* bufferBegin = textBuffer.begin();
+        const char* line = bufferBegin;
+        for (int lineNumber = 0; line != NULL; lineNumber++) {
+            const char* line_end = (lineNumber < lineOffsets.Size) ? bufferBegin + lineOffsets[lineNumber] : NULL;
+            if (textFilter.PassFilter(line, line_end))
+                ImGui::TextUnformatted(line, line_end);
+            line = line_end && line_end[1] ? line_end + 1 : NULL;
+        }
+    } else
+        ImGui::TextUnformatted(textBuffer.begin());
+
     ImGui::EndChild();
     ImGui::End();
 
