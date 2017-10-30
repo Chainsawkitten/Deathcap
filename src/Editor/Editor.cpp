@@ -592,11 +592,11 @@ void Editor::Focus() {
             glm::normalize(camDirection);
 
             float yaw = std::atan2(camDirection.x, -camDirection.z);
-            cameraEntity->quaternion = glm::rotate(cameraEntity->quaternion, yaw, glm::vec3(0, 1, 0));
+            cameraEntity->RotateYaw(yaw);
 
             float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
             float pitch = std::atan2(-camDirection.y, xz);
-            cameraEntity->quaternion = glm::rotate(cameraEntity->quaternion, pitch, glm::vec3(1, 0, 0));
+            cameraEntity->RotateAroundWorldAxis(pitch, glm::vec3(1, 0, 0));
         }
     }
 }
