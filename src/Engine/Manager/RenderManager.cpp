@@ -117,14 +117,13 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 }
                 }
                 }
-
             }
             }
 
         }
 
         // Render hmd.
-        if (hmdRenderSurface != nullptr && camera->name != "Editor Camera") {
+        if (hmdRenderSurface != nullptr) {
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
 
@@ -135,10 +134,30 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
                     VRDevice* headset = camera->GetComponent<VRDevice>();
 
-                    const glm::mat4 projectionMat = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
-                    glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
+                    const glm::mat4 lensViewMatrix = glm::inverse(camera->GetModelMatrix());
+                    const glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
+                    const glm::mat4 eyeViewMatrix = lensViewMatrix * eyeTranslation;
+                    const glm::mat4 projectionMatrix = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
-                    RenderWorldEntities(world, glm::inverse(camera->GetModelMatrix()) * eyeTranslation, projectionMat, hmdRenderSurface);
+                    { PROFILE("Render world entities");
+                    { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
+                        RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface);
+                    }
+                    }
+
+                    if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                        { PROFILE("Render editor entities");
+                        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                            RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, camera->GetWorldPosition(), lensViewMatrix, projectionMatrix, hmdRenderSurface);
+                        }
+                        }
+                    }
+
+                    { PROFILE("Render debug entities");
+                    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                        Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
+                    }
+                    }
 
                     hmdRenderSurface->Swap();
                     vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
