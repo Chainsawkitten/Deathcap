@@ -14,7 +14,7 @@ set(SRCS
         Audio/SteamAudioIndirectRenderer.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
-	Component/AnimationController.cpp
+	      Component/AnimationController.cpp
         Component/Controller.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
@@ -29,6 +29,7 @@ set(SRCS
         Component/SoundSource.cpp
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
+        Component/VRDevice.cpp
         Entity/Entity.cpp
         Entity/World.cpp
         Geometry/AssetFileHandler.cpp
@@ -91,6 +92,7 @@ set(HEADERS
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
+        Component/VRDevice.hpp
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp

@@ -193,25 +193,6 @@ class RenderManager {
          * @return All spot light components.
          */
         ENGINE_API const std::vector<Component::SpotLight*>& GetSpotLights() const;
-
-        /// Create vr controller component
-        /**
-         * @return The created component.
-         */
-        ENGINE_API Component::Controller* CreateController();
-
-        /// Create vr controller component
-        /**
-         * @param node Json node to load the component from
-         * @return The created component.
-         */
-        ENGINE_API Component::Controller* CreateController(const Json::Value& node);
-
-        /// Get all vr controller components
-        /**
-         * @return All vr controller components
-         */
-        ENGINE_API const std::vector<Component::Controller*>& GetControllers() const;
         
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
@@ -222,7 +203,7 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
 
-        void Render(World& world, const glm::mat4& translationMatrix, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
+        void Render(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
         
         void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix);
 

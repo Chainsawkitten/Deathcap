@@ -94,9 +94,9 @@ class ScriptManager {
         /// Fetches an entity using its GUID.
         /**
          * @param GUID The entity to receive the message.
-         * @return The entity that has the corret GUID.
+         * @return The entity that has the correct GUID, or nullptr if it doesn't exist.
          */
-        ENGINE_API Entity* GetEntity(unsigned int GUID) const;
+        static ENGINE_API Entity* GetEntity(unsigned int GUID);
         
         /// Create script component.
         /**

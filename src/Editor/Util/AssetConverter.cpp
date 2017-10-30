@@ -27,12 +27,13 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
     if (aScene == nullptr) {
         Log() << "Error importing mesh: " << filepath << "\n";
         Log() << aImporter.GetErrorString() << "\n";
+        aImporter.FreeScene();
+        aScene = aImporter.ReadFile("ErrorSign.fbx", flags);
     }
 
     if (importMaterial) {
         if (aScene->mMeshes[0]->mMaterialIndex >= 0) {
             aiMaterial* material = aScene->mMaterials[aScene->mMeshes[0]->mMaterialIndex];
-            
             LoadMaterial(material, aiTextureType_DIFFUSE, materials.albedo);
             LoadMaterial(material, aiTextureType_NORMALS, materials.normal);
             LoadMaterial(material, aiTextureType_SPECULAR, materials.roughness);

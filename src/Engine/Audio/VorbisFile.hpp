@@ -38,8 +38,8 @@ namespace Audio {
             ENGINE_API uint32_t GetSampleRate() const final;
             
         private:
-            float* data;
-            int dataSize;
-            int sampleRate;
+            float* data = nullptr;
+            int dataSize = 0;
+            int sampleRate = 0;
     };
 }

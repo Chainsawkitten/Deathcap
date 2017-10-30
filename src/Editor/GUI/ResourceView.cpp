@@ -10,6 +10,7 @@
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/MainWindow.hpp>
+#include <fstream>
 #include <imgui.h>
 #include "../ImGui/Splitter.hpp"
 #include <Engine/Manager/Managers.hpp>
@@ -19,6 +20,8 @@
 
 using namespace GUI;
 using namespace std;
+
+extern std::string DefaultScriptBody;
 
 ResourceView::ResourceView() {
     folderNameWindow.SetClosedCallback(std::bind(&ResourceView::FileNameWindowClosed, this, placeholders::_1));
@@ -284,6 +287,20 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.script->name = "Script #" + std::to_string(Hymn().scriptNumber++);
             Hymn().scripts.push_back(resource.script);
             folder.resources.push_back(resource);
+
+            // Save the file with default contents.
+            std::string filePath;
+            filePath.append(Hymn().GetPath());
+            filePath.append("/");
+            filePath.append(resource.script->path);
+            filePath.append(resource.script->name);
+            filePath.append(".as");
+            if (!FileSystem::FileExists(filePath.c_str())) {
+                std::ofstream file(filePath);
+                file << DefaultScriptBody;
+                file.close();
+            } else
+                Log() << "Warning: new script `" << filePath << "` already exists.";
         }
 
         // Add sound.
