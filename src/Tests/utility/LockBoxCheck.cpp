@@ -8,8 +8,8 @@ TEST_CASE("LockBox", "[LockBox]") {
     } data;
 
     // Create a key and a lockbox with a matching lock.
-    auto key = std::shared_ptr<Util::LockBox<TestData>::Key>(new Util::LockBox<TestData>::Key());
-    auto box = Util::LockBox<TestData>(key, &data);
+    auto key = std::shared_ptr<Utility::LockBox<TestData>::Key>(new Utility::LockBox<TestData>::Key());
+    auto box = Utility::LockBox<TestData>(key, &data);
 
     SECTION("Initial reference count") {
         REQUIRE(box.RefCount() == 1);
@@ -24,7 +24,7 @@ TEST_CASE("LockBox", "[LockBox]") {
     }
 
     SECTION("Opening a box with the wrong key") {
-        auto wrongKey = std::shared_ptr<Util::LockBox<TestData>::Key>(new Util::LockBox<TestData>::Key());
+        auto wrongKey = std::shared_ptr<Utility::LockBox<TestData>::Key>(new Utility::LockBox<TestData>::Key());
         REQUIRE_FALSE(box.Open(wrongKey, [](TestData& t) {
             // Return value is one thing, but we must also make sure that this
             // function is never called.
@@ -40,7 +40,7 @@ TEST_CASE("LockBox", "[LockBox]") {
     }
 
     SECTION("Copied box") {
-        Util::LockBox<TestData> copy(box);
+        Utility::LockBox<TestData> copy(box);
 
         SECTION("Copied box increases reference count") {
             REQUIRE(box.RefCount() == 2);
@@ -118,7 +118,7 @@ TEST_CASE("LockBox", "[LockBox]") {
     }
 
     SECTION("Opening default created box does nothing") {
-        Util::LockBox<TestData> box;
+        Utility::LockBox<TestData> box;
         REQUIRE_NOTHROW(box.Open(key, [](TestData& t) {
             REQUIRE(false);
         }));

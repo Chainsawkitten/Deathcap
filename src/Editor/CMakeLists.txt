@@ -1,5 +1,6 @@
 set(SRCS
         main.cpp
+        DefaultScript.cpp
         Editor.cpp
         Resources.cpp
         ImGui/Json.cpp
@@ -25,6 +26,7 @@ set(SRCS
         GUI/Editors/SoundEditor.cpp
         GUI/Editors/SphereShapeEditor.cpp
         GUI/Editors/TextureEditor.cpp
+        GUI/Editors/TriggerEditor.cpp
         Util/AssetConverter.cpp
         Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
@@ -57,6 +59,7 @@ set(HEADERS
         GUI/Editors/SoundEditor.hpp
         GUI/Editors/SphereShapeEditor.hpp
         GUI/Editors/TextureEditor.hpp
+        GUI/Editors/TriggerEditor.hpp
         Util/AssetConverter.hpp
         Util/AssetMetaData.hpp
         Util/EditorSettings.hpp
@@ -74,6 +77,20 @@ set(EMBEDDED_INPUT
     ../../assets/ParticleEmitter.png
     ../../assets/SoundSource.png
 )
+
+# Copy assets to binary directory.
+set(COPY_FILES
+	../../assets/ErrorSign.fbx
+)
+foreach(item ${COPY_FILES})
+	if(MSVC)
+		file(COPY ${item} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+		file(COPY ${item} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+		file(COPY ${item} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+	else()
+		file(COPY ${item} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	endif()
+endforeach()
 
 foreach(item ${EMBEDDED_INPUT})
     ProcessWithHeaderize(EMBEDDED_HEADER EMBEDDED_SOURCE ${item} ${CMAKE_CURRENT_BINARY_DIR})

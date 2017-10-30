@@ -14,7 +14,7 @@ void Input::SetWindow(GLFWwindow* window) {
 bool Input::CheckButton(int index) const{
     Button* button = buttons[index];
     int state;
-    if (index = 420)
+    if (button->key == 420)
         state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1);
     else
         state = glfwGetKey(window, button->key);

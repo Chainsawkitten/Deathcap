@@ -1,6 +1,9 @@
 #include "TriggerOnce.hpp"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
 TriggerOnce::TriggerOnce() {
 
 }
@@ -17,7 +20,10 @@ void TriggerOnce::OnLeave() {
 
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
 void TriggerOnce::OnRemain() {
 
 }

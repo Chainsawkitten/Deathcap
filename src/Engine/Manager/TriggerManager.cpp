@@ -1,6 +1,17 @@
+<<<<<<< HEAD
 #include "TriggerManager.hpp"
 #include "../Component/Trigger.hpp"
 #include "../Trigger/SuperTrigger.hpp"
+=======
+#include "Managers.hpp"
+#include "PhysicsManager.hpp"
+#include "TriggerManager.hpp"
+#include "../Component/Trigger.hpp"
+#include "../Physics/Shape.hpp"
+#include "../Trigger/SuperTrigger.hpp"
+#include "../Trigger/TriggerRepeat.hpp"
+#include "../Util/Json.hpp"
+>>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
 
 TriggerManager::TriggerManager() {
 
@@ -14,6 +25,7 @@ Component::Trigger* TriggerManager::CreateTrigger() {
     return triggerComponents.Create();
 }
 
+<<<<<<< HEAD
 void TriggerManager::ClearKilledComponents() {
     triggerComponents.ClearKilled();
 }
@@ -25,3 +37,36 @@ const std::vector<Component::Trigger*>& TriggerManager::GetTriggerComponents() {
 void TriggerManager::CreateTrigger(SuperTrigger* trigger) {
     triggerComponents.Create();
 }
+=======
+Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
+    auto comp = triggerComponents.Create();
+
+    AddTriggerRepeat(comp, std::make_shared<Physics::Shape>(Physics::Shape::Sphere(1.0f)));
+
+    return comp;
+}
+
+void TriggerManager::AddTriggerRepeat(Component::Trigger* trigger, std::shared_ptr<Physics::Shape> shape) {
+    auto triggerVolume = Managers().physicsManager->CreateTrigger(shape);
+
+    delete trigger->m_trigger;
+    auto repeat = new TriggerRepeat;
+
+    repeat->triggerVolume = triggerVolume;
+
+    trigger->m_trigger = repeat;
+    trigger->triggerType = Component::Trigger::REPEAT;
+}
+
+TriggerRepeat* TriggerManager::GetTriggerRepeat(Component::Trigger& trigger) {
+    return dynamic_cast<TriggerRepeat*>(trigger.m_trigger);
+}
+
+const std::vector<Component::Trigger*>& TriggerManager::GetTriggerComponents() const {
+    return triggerComponents.GetAll();
+}
+
+void TriggerManager::ClearKilledComponents() {
+    triggerComponents.ClearKilled();
+}
+>>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
