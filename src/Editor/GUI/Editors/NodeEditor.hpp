@@ -25,7 +25,7 @@ class NodeEditor {
         /**
         * @param visible Whether the window should be visible.
         */
-        void virtual SetVisible(bool visible);
+        virtual void SetVisible(bool visible);
     
     protected:
         /// Show context menu.
@@ -37,7 +37,7 @@ class NodeEditor {
          */
         virtual void ShowNode(Node* node) = 0;
 
-        ///
+        /// Returns an array of nodes.
         /**
          * @return Array with nodes.
          */
