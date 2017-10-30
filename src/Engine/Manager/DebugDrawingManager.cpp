@@ -131,6 +131,17 @@ void DebugDrawingManager::Update(float deltaTime) {
         }
     }
     
+    // Circles.
+    for (std::size_t i=0; i < circles.size(); ++i) {
+        if (circles[i].duration < 0.f) {
+            circles[i] = circles[circles.size() - 1];
+            circles.pop_back();
+            --i;
+        } else {
+            circles[i].duration -= deltaTime;
+        }
+    }
+    
     // Spheres.
     for (std::size_t i=0; i < spheres.size(); ++i) {
         if (spheres[i].duration < 0.f) {
