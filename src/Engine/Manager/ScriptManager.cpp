@@ -22,6 +22,7 @@
 #include "../Component/RigidBody.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/SpotLight.hpp"
+#include "../Component/VRDevice.hpp"
 #include "../Input/Input.hpp"
 #include "../Script/ScriptFile.hpp"
 #include "MainWindow.hpp"
@@ -74,7 +75,7 @@ void RegisterTriggerLeaveHelper(Component::RigidBody* triggerBody, Component::Ri
 
 bool ButtonInput(int buttonIndex) {
     if (Managers().vrManager->Active())
-        return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<Controller>());
+        return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<VRDevice>());
     else
         return Input::GetInstance().CheckButton(buttonIndex);
 }
@@ -85,6 +86,10 @@ glm::vec2 GetCursorXY() {
 
 void SendMessage(Entity* recipient, int type) {
     Managers().scriptManager->SendMessage(recipient, type);
+}
+
+void RestartScene() {
+    Hymn().restart = true;
 }
 
 bool IsIntersect(Entity* checker, Entity* camera) {
@@ -263,7 +268,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("mat4", "mat4& opDivAssign(float) const", asMETHODPR(glm::mat4, operator/=, (float), glm::mat4&), asCALL_THISCALL);
     engine->RegisterObjectMethod("mat4", "mat4 opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::mat4), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat4", "vec4 opMul(const vec4 &in) const", asFUNCTION(mat4MulVec4), asCALL_CDECL_OBJLAST);
-    
+
     // Register GLM functions.
     engine->RegisterGlobalFunction("vec2 normalize(const vec2 &in)", asFUNCTIONPR(glm::normalize, (const glm::vec2&), glm::vec2), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec3 normalize(const vec3 &in)", asFUNCTIONPR(glm::normalize, (const glm::vec3&), glm::vec3), asCALL_CDECL);
@@ -284,7 +289,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("mat4 transpose(const mat4 &in)", asFUNCTIONPR(glm::transpose, (const glm::mat4&), glm::mat4), asCALL_CDECL);
     engine->RegisterGlobalFunction("float determinant(const mat3 &in)", asFUNCTIONPR(glm::determinant, (const glm::mat3&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float determinant(const mat4 &in)", asFUNCTIONPR(glm::determinant, (const glm::mat4&), float), asCALL_CDECL);
-    
+
     // Register Entity.
     engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Entity", "string name", asOFFSET(Entity, name));
@@ -297,7 +302,9 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
-    
+
+    engine->RegisterGlobalFunction("Entity@ GetEntity(uint GUID)", asFUNCTIONPR(ScriptManager::GetEntity, (unsigned int), Entity*), asCALL_CDECL);
+
     // Register components.
     engine->SetDefaultNamespace("Component");
     
@@ -327,8 +334,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectProperty("SpotLight", "float coneAngle", asOFFSET(SpotLight, coneAngle));
     
     engine->RegisterObjectType("SoundSource", 0, asOBJ_REF | asOBJ_NOCOUNT);
-    engine->RegisterObjectProperty("SoundSource", "float pitch", asOFFSET(SoundSource, pitch));
-    engine->RegisterObjectProperty("SoundSource", "float gain", asOFFSET(SoundSource, gain));
+    engine->RegisterObjectProperty("SoundSource", "float volume", asOFFSET(SoundSource, volume));
     engine->RegisterObjectProperty("SoundSource", "bool loop", asOFFSET(SoundSource, loop));
     engine->RegisterObjectMethod("SoundSource", "void Play()", asMETHOD(SoundSource, Play), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Pause()", asMETHOD(SoundSource, Pause), asCALL_THISCALL);
@@ -358,6 +364,7 @@ ScriptManager::ScriptManager() {
     
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void RestartScene()", asFUNCTION(RestartScene), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterTriggerEnter(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerEnterHelper), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterTriggerRetain(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerRetainHelper), asCALL_CDECL);
@@ -466,7 +473,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
     for (Script* script : scripts.GetAll()) {
         if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
             CreateInstance(script);
-            script->initialized = true;
+
+            // Skip if not initialized
+            if (!script->initialized)
+                continue;
 
             int propertyCount = script->instance->GetPropertyCount();
 
@@ -601,7 +611,7 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
     messages.push_back(message);
 }
 
-Entity* ScriptManager::GetEntity(unsigned int GUID) const {
+Entity* ScriptManager::GetEntity(unsigned int GUID) {
 
     const std::vector<Entity*> entities = Hymn().world.GetEntities();
     for (int i = 0; i < entities.size(); i++) {
@@ -613,6 +623,8 @@ Entity* ScriptManager::GetEntity(unsigned int GUID) const {
         }
 
     }
+
+    return nullptr;
 
 }
 
@@ -703,10 +715,18 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
 void ScriptManager::CreateInstance(Component::Script* script) {
     currentEntity = script->entity;
     ScriptFile* scriptFile = script->scriptFile;
+
+    // Skip if no script file.
+    if (!scriptFile)
+        return;
     
     // Find the class to instantiate.
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
     
+    // Skip if no class is found.
+    if (!type)
+        return;
+
     // Find factory function / constructor.
     std::string factoryName = scriptFile->name + "@ " + scriptFile->name + "(Entity@)";
     asIScriptFunction* factoryFunction = type->GetFactoryByDecl(factoryName.c_str());
@@ -725,6 +745,9 @@ void ScriptManager::CreateInstance(Component::Script* script) {
 
     // Clean up.
     context->Release();
+
+    // Set initialized.
+    script->initialized = true;
 }
 
 void ScriptManager::CallMessageReceived(const Message& message) {
@@ -829,8 +852,10 @@ void ScriptManager::ExecuteCall(asIScriptContext* context) {
 asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::string& className) {
     // Get script module.
     asIScriptModule* module = engine->GetModule(moduleName.c_str(), asGM_ONLY_IF_EXISTS);
-    if (module == nullptr)
+    if (module == nullptr) {
         Log() << "Couldn't find \"" << moduleName << "\" module.\n";
+        return nullptr;
+    }
     
     // Find the class.
     asUINT typeCount = module->GetObjectTypeCount();

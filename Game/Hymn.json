@@ -40,10 +40,12 @@
 	],
 	"scripts" : 
 	[
-		"Resources/Opening Scene/Minecart/Minecart",
-		"Resources/Opening Scene/Minecart/Player",
 		"Resources/Opening Scene/Lever/Lever",
 		"Resources/Opening Scene/Gate/Gates",
-		"Resources/Constant Scene/Minecart/Script/Minecart"
-	]
+		"Resources/Constant Scene/Minecart/Script/Minecart",
+		"Resources/Constant Scene/Minecart/Script/Player",
+		"Resources/Opening Scene/Audio/scr_AudioManager"
+	],
+	"startupScene" : "Resources/Opening Scene/Opening Scene",
+	"vrScale" : 1.5
 }
