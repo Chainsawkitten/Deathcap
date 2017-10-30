@@ -256,8 +256,8 @@ void Editor::Show(float deltaTime) {
                     break;
                 }
                 case ImGuizmo::ROTATE: {
-                    auto deltaQuat = glm::toQuat(deltaMatrix);
-                    currentEntity->quaternion = glm::rotate(currentEntity->quaternion, glm::angle(deltaQuat), glm::axis(deltaQuat));
+                    glm::quat deltaQuat = glm::toQuat(deltaMatrix);
+                    currentEntity->quaternion = deltaQuat * currentEntity->quaternion;
                     break;
                 }
                 case ImGuizmo::SCALE: {
