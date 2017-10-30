@@ -26,7 +26,7 @@ out VertexData {
 void main () {
     vec4 position = (bones[vertexBoneIDs[0]] * vec4(vertexPosition, 1.0)) * vertexWeights[0];
     position += (bones[vertexBoneIDs[1]] * vec4(vertexPosition, 1.0)) * vertexWeights[1];
-	position += (bones[vertexBoneIDs[2]] * vec4(vertexPosition, 1.0)) * vertexWeights[2];
+    position += (bones[vertexBoneIDs[2]] * vec4(vertexPosition, 1.0)) * vertexWeights[2];
     position += (bones[vertexBoneIDs[3]] * vec4(vertexPosition, 1.0)) * vertexWeights[3];
    
     vec4 normal = (bones[vertexBoneIDs[0]] * vec4(vertexNormal, 1.0)) * vertexWeights[0];

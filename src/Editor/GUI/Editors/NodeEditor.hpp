@@ -51,7 +51,9 @@ class NodeEditor {
 
         /// Returns true if nodes can connect.
         /**
-         * @param output 
+         * @param output Node to connect from.
+         * @param input Node to connect to.
+         * @return True if nodes can connect.
          */
         virtual bool CanConnect(Node* output, Node* input) = 0;
 
@@ -74,5 +76,4 @@ class NodeEditor {
         int nodeSelected = -1;
         int nodeHoveredInList = -1;
         int nodeHoveredInScene = -1;
-    
 };
