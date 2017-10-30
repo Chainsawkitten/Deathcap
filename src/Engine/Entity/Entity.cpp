@@ -316,10 +316,7 @@ void Entity::SetLocalRotation(const glm::quat &localRot) {
 }
 
 void Entity::RotateYaw(float angle) {
-    glm::quat invQuat = glm::inverse(glm::quat_cast(GetModelMatrix()));
-    glm::vec3 tempVec = glm::rotate(invQuat, glm::vec3(0.0f, 1.0f, 0.0f));
-    quaternion = glm::rotate(quaternion, angle, tempVec);
-    //quaternion = glm::rotate(quaternion, angle, glm::vec3(0, 1, 0));
+    quaternion = glm::rotate(quaternion, angle, glm::vec3(0, 1, 0));
 }
 
 void Entity::RotatePitch(float angle) {
@@ -328,6 +325,12 @@ void Entity::RotatePitch(float angle) {
 
 void Entity::RotateRoll(float angle) {
     quaternion = glm::rotate(quaternion, angle, glm::vec3(0, 0, 1));
+}
+
+void Entity::RotateAroundWorldAxis(float angle, const glm::vec3& axis) {
+    glm::quat invQuat = glm::inverse(glm::quat_cast(GetModelMatrix()));
+    glm::vec3 tempVec = glm::rotate(invQuat, axis);
+    quaternion = glm::rotate(quaternion, angle, tempVec);
 }
 
 unsigned int Entity::GetUniqueIdentifier() const {

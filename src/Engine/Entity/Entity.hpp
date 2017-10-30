@@ -191,6 +191,7 @@ class Entity {
         ENGINE_API void RotateYaw(float angle);
         ENGINE_API void RotatePitch(float angle);
         ENGINE_API void RotateRoll(float angle);
+        ENGINE_API void RotateAroundWorldAxis(float angle, const glm::vec3& axis);
         
         /// Name of the entity.
         std::string name;
@@ -251,7 +252,6 @@ class Entity {
         std::vector<Entity*> children;
         bool scene = false;
         std::string sceneName;
-    
 
         std::map<std::type_index, Component::SuperComponent*> components;
         
