@@ -5,11 +5,19 @@
 namespace GUI {
     class LogView {
         public:
+        /// Constructor.
         LogView();
+
+        /// Destructor.
         ~LogView();
 
+        /// Shows the log.
         void Show();
 
+        /// If the log is visible or not.
+        /**
+         * @return Whether the log is visible or not.
+         */
         bool IsVisible();
         
         private:
