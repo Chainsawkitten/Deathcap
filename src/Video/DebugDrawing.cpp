@@ -73,6 +73,19 @@ DebugDrawing::DebugDrawing() {
     
     CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
     
+    // Create plane vertex array.
+    glm::vec3 circle[8];
+    circle[0] = glm::vec3(-1.f, -1.f, 0.f);
+    circle[1] = glm::vec3(1.f, -1.f, 0.f);
+    circle[2] = glm::vec3(1.f, -1.f, 0.f);
+    circle[3] = glm::vec3(1.f, 1.f, 0.f);
+    circle[4] = glm::vec3(1.f, 1.f, 0.f);
+    circle[5] = glm::vec3(-1.f, 1.f, 0.f);
+    circle[6] = glm::vec3(-1.f, 1.f, 0.f);
+    circle[7] = glm::vec3(-1.f, -1.f, 0.f);
+    
+    CreateVertexArray(circle, 8, circleVertexBuffer, circleVertexArray);
+    
     // Create sphere vertex array.
     glm::vec3* sphere;
     CreateSphere(sphere, sphereVertexCount, 14);
@@ -92,6 +105,9 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &planeVertexBuffer);
     glDeleteVertexArrays(1, &planeVertexArray);
+    
+    glDeleteBuffers(1, &circleVertexBuffer);
+    glDeleteVertexArrays(1, &circleVertexArray);
     
     delete shaderProgram;
 }

@@ -210,6 +210,10 @@ namespace Video {
             GLuint sphereVertexArray;
             unsigned int sphereVertexCount;
             
+            GLuint circleVertexBuffer;
+            GLuint circleVertexArray;
+            unsigned int circleVertexCount;
+            
             GLuint boundVertexArray = 0;
     };
 }
