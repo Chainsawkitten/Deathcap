@@ -262,15 +262,15 @@ glm::mat4 Entity::GetModelMatrix() const {
 }
 
 glm::mat4 Entity::GetLocalMatrix() const {
-    glm::mat4 matrix = glm::translate(glm::mat4(), position) * GetOrientation() * glm::scale(glm::mat4(), scale);
+    glm::mat4 matrix = glm::translate(glm::mat4(), position) * glm::toMat4(GetOrientation()) * glm::scale(glm::mat4(), scale);
     return matrix;
 }
 
-glm::mat4 Entity::GetOrientation() const {
-    if (parent != nullptr) {
-        return parent->GetOrientation() * glm::toMat4(quaternion);
-    }
-     return glm::toMat4(quaternion);
+glm::quat Entity::GetOrientation() const {
+    if (parent != nullptr)
+        return parent->GetOrientation() * quaternion;
+
+    return quaternion;
 }
 
 glm::mat4 Entity::GetCameraOrientation() const {

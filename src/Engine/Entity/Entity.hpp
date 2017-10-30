@@ -142,11 +142,11 @@ class Entity {
          */
         ENGINE_API glm::mat4 GetLocalMatrix() const;
         
-        /// Get orientation matrix.
+        /// Get orientation of the entity.
         /**
-         * @return The entity's orientation matrix.
+         * @return Quaternion representing the orientation.
          */
-        ENGINE_API glm::mat4 GetOrientation() const;
+        ENGINE_API glm::quat GetOrientation() const;
         
         /// Get orientation matrix (for camera).
         /**

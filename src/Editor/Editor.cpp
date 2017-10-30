@@ -236,7 +236,7 @@ void Editor::Show(float deltaTime) {
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
 
         // View matrix.
-        glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetOrientation()) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
+        glm::mat4 viewMatrix = glm::toMat4(glm::inverse(cameraEntity->GetOrientation())) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
 
         // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
@@ -512,7 +512,7 @@ void Editor::ControlEditorCamera(float deltaTime) {
         lastX = Input()->GetCursorX();
         lastY = Input()->GetCursorY();
 
-        glm::mat4 orientation = glm::inverse(cameraEntity->GetOrientation());
+        glm::mat4 orientation = glm::toMat4(glm::inverse(cameraEntity->GetOrientation()));
         glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
         glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
 

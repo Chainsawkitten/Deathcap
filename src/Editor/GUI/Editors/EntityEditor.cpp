@@ -81,7 +81,7 @@ void EntityEditor::Show() {
 
         if (EditorSettings::GetInstance().GetBool("Grid Snap")) {
             int toNearest = EditorSettings::GetInstance().GetLong("Grid Snap Size");
- 
+
             int value = entity->position.x;
             int rest = value % toNearest;
 
@@ -110,11 +110,10 @@ void EntityEditor::Show() {
             }
         }
 
-        float angle = glm::angle(entity->quaternion);
-        glm::vec3 axis = glm::axis(entity->quaternion);
-
         ImGui::DraggableVec3("Position", entity->position);
 
+        float angle = glm::angle(entity->quaternion);
+        glm::vec3 axis = glm::axis(entity->quaternion);
         if (ImGui::InputFloat("Angle", &angle) || ImGui::InputFloat3("Axis", &axis.x, -1, ImGuiInputTextFlags_EnterReturnsTrue)) {
             float epsilon = 0.001f;
             if (fabs(axis.x - epsilon) < epsilon && fabs(axis.y - epsilon) < epsilon && fabs(axis.z - epsilon) < epsilon)

@@ -90,7 +90,7 @@ void RenderManager::Render(World& world, Entity* camera) {
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
 
                 const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
-                const glm::mat4 orientationMat = glm::inverse(camera->GetOrientation());
+                const glm::mat4 orientationMat = glm::toMat4(glm::inverse(camera->GetOrientation()));
                 const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
 
                 Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
@@ -172,7 +172,7 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
     // Render from camera.
     if (camera != nullptr) {
         const glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        const glm::mat4 viewMat(glm::inverse(camera->GetOrientation()) * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
+        const glm::mat4 viewMat(glm::toMat4(glm::inverse(camera->GetOrientation())) * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
         const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
         const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
         const glm::vec3 up(glm::inverse(camera->GetOrientation()) * glm::vec4(0, 1, 0, 0));
