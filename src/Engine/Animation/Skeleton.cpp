@@ -1,5 +1,5 @@
 #include "Skeleton.hpp"
-#include "..\Animation\Skeleton.hpp"
+#include "../Animation/Skeleton.hpp"
 #include <glm/gtc/matrix_inverse.hpp>
 #include <Utility/Log.hpp>
 #include <Engine/Hymn.hpp>
