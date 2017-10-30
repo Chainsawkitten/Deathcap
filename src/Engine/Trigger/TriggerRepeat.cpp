@@ -4,6 +4,7 @@
 #include "../Entity/Entity.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/PhysicsManager.hpp"
+#include "../Manager/ScriptManager.hpp"
 
 TriggerRepeat::TriggerRepeat() {
 
@@ -109,4 +110,11 @@ void TriggerRepeat::SetCollidedEntity(Entity* value) {
 
 void TriggerRepeat::HandleTriggerEvent() {
     triggered = true;
+}
+
+void TriggerRepeat::Process() {
+    if (triggered) {
+        Managers().scriptManager->ExecuteScriptMethod(targetEntity, targetFunction);
+        triggered = false;
+    }
 }

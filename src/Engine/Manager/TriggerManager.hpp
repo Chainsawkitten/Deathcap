@@ -23,6 +23,11 @@ class TriggerManager {
     friend class Hub;
 
     public:
+        /// Iterate triggers and have them call their target scripts if
+        /// conditions are satisfied. This should be called after both the
+        /// physics- and script managers have been updated.
+        ENGINE_API void ProcessTriggers();
+
         /// Create a trigger component.
         /**
          * @return The created component.
