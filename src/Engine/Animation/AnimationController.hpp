@@ -10,6 +10,7 @@
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include <Utility/Log.hpp>
+#include <map>
 
 namespace Animation {
     class AnimationClip;
@@ -104,11 +105,18 @@ namespace Animation {
             /// The folder containing the model file.
             std::string path;
 
-        private:
+            /// Map of bools.
+            std::map<std::string, bool> bools;
+    
+            /// Map of floats.
+            std::map<std::string, float> floats;
+
+    private:
             enum NodeType {
                 ACTION = 0,
                 TRANSITION = 1
             };
+
 
             void Clear();
     };

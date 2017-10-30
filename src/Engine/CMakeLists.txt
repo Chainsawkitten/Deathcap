@@ -14,8 +14,7 @@ set(SRCS
         Audio/SteamAudioIndirectRenderer.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
-	      Component/AnimationController.cpp
-        Component/Controller.cpp
+        Component/AnimationController.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -78,7 +77,6 @@ set(HEADERS
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/AnimationController.hpp
-        Component/Controller.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp
