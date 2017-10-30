@@ -92,3 +92,11 @@ void Component::AnimationController::SetBool(std::string name, bool value) {
 void Component::AnimationController::SetFloat(std::string name, float value) {
     Log() << name << " with value" << value << "is set\n";
 }
+
+bool Component::AnimationController::GetBool(std::string name) {
+    return true;
+}
+
+float Component::AnimationController::GetFloat(std::string name) {
+    return 1.0f;
+}
