@@ -161,6 +161,9 @@ class Entity {
         ENGINE_API glm::vec3 GetWorldPosition() const;
 
         /// Get the quaternion
+        /**
+         * @return the rotation in the world (not relative to parent).
+         */
         ENGINE_API glm::quat GetWorldQuat() const;
 
         /// Set the position in the world
@@ -177,13 +180,32 @@ class Entity {
 
         /// Set the rotation locally
         /**
-         * param localRot The local rotation you want the entity to have.
+         * @param localRot The local rotation you want the entity to have.
          */
         ENGINE_API void SetLocalRotation(const glm::quat &localRot);
 
+        /// Rotates around the Y axis
+        /**
+         * @param angle The angle in degrees that we want to rotate.
+         */
         ENGINE_API void RotateYaw(float angle);
+
+        /// Rotates around the X axis
+        /**
+        * @param angle The angle in degrees that we want to rotate.
+        */
         ENGINE_API void RotatePitch(float angle);
+
+        /// Rotates around the Z axis
+        /**
+        * @param angle The angle in degrees that we want to rotate.
+        */
         ENGINE_API void RotateRoll(float angle);
+
+        /// Rotates around the world Y axis (Necessary for the player camera).
+        /**
+        * @param angle The angle in degrees that we want to rotate.
+        */
         ENGINE_API void RotateAroundWorldAxis(float angle, const glm::vec3& axis);
         
         /// Name of the entity.
