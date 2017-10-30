@@ -223,12 +223,6 @@ class Entity {
          */
         glm::vec3 scale = glm::vec3(1.f, 1.f, 1.f);
         
-        /// Rotation (yaw, pitch, roll in degrees).
-        /**
-         * Default: 0.f, 0.f, 0.f
-         */
-        //glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
-
         /// Quaternion describing rotation and angle of entity.
         /**
          * Default: 0 radians around x axis
