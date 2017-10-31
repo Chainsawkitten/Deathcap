@@ -107,7 +107,7 @@ class Log {
          * @param info The stream for information.
          * @param warning The stream for warnings.
          * @param error The stream for errors.
-         * @param console The stream to the console.
+         * @param debug The stream for debug messages.
          * @return Whether the operation succeeded or not.
          */
         UTILITY_API static bool Log::SetupStreams(std::ostream* defaultStream, std::ostream* info, std::ostream* warning, std::ostream* error, std::ostream* console);
