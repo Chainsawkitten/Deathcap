@@ -72,7 +72,7 @@ void PhysicsManager::UpdateEntityTransforms() {
 
         auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
         entity->position = Physics::btToGlm(trans.getOrigin());
-        entity->SetLocalRotation(Physics::btToGlm(trans.getRotation()));
+        entity->SetLocalOrientation(Physics::btToGlm(trans.getRotation()));
     }
 }
 

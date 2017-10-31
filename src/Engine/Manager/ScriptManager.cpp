@@ -322,8 +322,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "void RotatePitch(float angle)", asMETHOD(Entity, RotatePitch), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void RotateRoll(float angle)", asMETHOD(Entity, RotateRoll), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void RotateAroundWorldAxis(float, const vec3 &in)", asMETHOD(Entity, RotateAroundWorldAxis), asCALL_THISCALL);
-    engine->RegisterObjectMethod("Entity", "void SetWorldRotation(quat)", asMETHOD(Entity, SetWorldRotation), asCALL_THISCALL);
-    engine->RegisterObjectMethod("Entity", "void SetLocalRotation(quat)", asMETHOD(Entity, SetLocalRotation), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetWorldOrientation(quat)", asMETHOD(Entity, SetWorldOrientation), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetLocalOrientation(quat)", asMETHOD(Entity, SetLocalOrientation), asCALL_THISCALL);
     
     // Register components.
     engine->SetDefaultNamespace("Component");

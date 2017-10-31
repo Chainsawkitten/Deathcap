@@ -176,14 +176,14 @@ void Editor::Show(float deltaTime) {
         // Scroll zoom.
         if (Input()->GetScrollDown()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
-                glm::vec3 backward = cameraEntity->GetOrientation() * glm::vec3(0, 0, 1);
+                glm::vec3 backward = cameraEntity->GetWorldOrientation() * glm::vec3(0, 0, 1);
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * backward;
             }
         }
         if (Input()->GetScrollUp()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
-                glm::vec3 backward = cameraEntity->GetOrientation() * glm::vec3(0, 0, 1);
+                glm::vec3 backward = cameraEntity->GetWorldOrientation() * glm::vec3(0, 0, 1);
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * -backward;
             }
@@ -241,7 +241,7 @@ void Editor::Show(float deltaTime) {
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
 
         // View matrix.
-        glm::mat4 viewMatrix = glm::toMat4(glm::inverse(cameraEntity->GetOrientation())) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
+        glm::mat4 viewMatrix = glm::toMat4(glm::inverse(cameraEntity->GetWorldOrientation())) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
 
         // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
@@ -257,7 +257,7 @@ void Editor::Show(float deltaTime) {
                     break;
                 }
                 case ImGuizmo::ROTATE: {
-                    currentEntity->SetLocalRotation(glm::toQuat(deltaMatrix) * currentEntity->GetWorldQuat());
+                    currentEntity->SetLocalOrientation(glm::toQuat(deltaMatrix) * currentEntity->GetLocalOrientation());
                     break;
                 }
                 case ImGuizmo::SCALE: {
@@ -453,7 +453,7 @@ void Editor::ShowMainMenuBar(bool& play) {
                 if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
                     cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
-                    cameraEntity->SetLocalRotation(glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0)));
+                    cameraEntity->SetLocalOrientation(glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0)));
                 }
             }
 
@@ -519,7 +519,7 @@ void Editor::ControlEditorCamera(float deltaTime) {
         lastX = Input()->GetCursorX();
         lastY = Input()->GetCursorY();
 
-        glm::mat4 orientation = glm::toMat4(glm::inverse(cameraEntity->GetOrientation()));
+        glm::mat4 orientation = glm::toMat4(glm::inverse(cameraEntity->GetWorldOrientation()));
         glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
         glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
 

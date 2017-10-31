@@ -141,12 +141,18 @@ class Entity {
          * @return The local model matrix.
          */
         ENGINE_API glm::mat4 GetLocalMatrix() const;
+
+        /// Get the rotation of this entity.
+        /**
+         * @return The rotation in local space.
+         */
+        ENGINE_API glm::quat GetLocalOrientation() const;
         
         /// Get orientation of the entity.
         /**
-         * @return Quaternion representing the orientation.
+         * @return The rotation in world space.
          */
-        ENGINE_API glm::quat GetOrientation() const;
+        ENGINE_API glm::quat GetWorldOrientation() const;
         
         /// Get direction of the entity.
         /**
@@ -160,52 +166,47 @@ class Entity {
          */
         ENGINE_API glm::vec3 GetWorldPosition() const;
 
-        /// Get the quaternion
-        /**
-         * @return the rotation in the world (not relative to parent).
-         */
-        ENGINE_API glm::quat GetWorldQuat() const;
-
-        /// Set the position in the world
+        /// Set the position of the entity in world space.
         /**
          * @param worldPos The world position you want the entity to have.
          */
-        ENGINE_API void SetWorldPosition(const glm::vec3 &worldPos);
+        ENGINE_API void SetWorldPosition(const glm::vec3& worldPos);
 
-        /// Set the rotation in the world
+        /// Set the orientation of the entity in world space.
         /**
-         * @param worldRot The world rotation you want the entity to have.
+         * @param worldRot New orientation.
          */
-        ENGINE_API void SetWorldRotation(const glm::quat &worldRot);
+        ENGINE_API void SetWorldOrientation(const glm::quat& worldRot);
 
-        /// Set the rotation locally
+        /// Set the local orientation of the entity.
         /**
          * @param localRot The local rotation you want the entity to have.
          */
-        ENGINE_API void SetLocalRotation(const glm::quat &localRot);
+        ENGINE_API void SetLocalOrientation(const glm::quat& localRot);
 
         /// Rotates around the Y axis
         /**
-         * @param angle The angle in degrees that we want to rotate.
+         * @param angle The angle in radians that we want to rotate.
          */
         ENGINE_API void RotateYaw(float angle);
 
         /// Rotates around the X axis
         /**
-        * @param angle The angle in degrees that we want to rotate.
-        */
+         * @param angle The angle in radians that we want to rotate.
+         */
         ENGINE_API void RotatePitch(float angle);
 
         /// Rotates around the Z axis
         /**
-        * @param angle The angle in degrees that we want to rotate.
-        */
+         * @param angle The angle in radians that we want to rotate.
+         */
         ENGINE_API void RotateRoll(float angle);
 
-        /// Rotates around the world Y axis (Necessary for the player camera).
+        /// Rotates around an axis given in world space.
         /**
-        * @param angle The angle in degrees that we want to rotate.
-        */
+         * @param angle The angle in radians that we want to rotate.
+         * @param axis World space axis to rotate around.
+         */
         ENGINE_API void RotateAroundWorldAxis(float angle, const glm::vec3& axis);
         
         /// Name of the entity.

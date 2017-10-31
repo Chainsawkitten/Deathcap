@@ -263,13 +263,20 @@ glm::mat4 Entity::GetModelMatrix() const {
 }
 
 glm::mat4 Entity::GetLocalMatrix() const {
-    glm::mat4 matrix = glm::translate(glm::mat4(), position) * glm::toMat4(GetOrientation()) * glm::scale(glm::mat4(), scale);
+    glm::mat4 matrix = glm::translate(glm::mat4(), position) * glm::toMat4(GetLocalOrientation()) * glm::scale(glm::mat4(), scale);
     return matrix;
 }
 
-glm::quat Entity::GetOrientation() const {
-    if (parent != nullptr)
-        return parent->GetOrientation() * rotation;
+glm::quat Entity::GetLocalOrientation() const {
+    return rotation;
+}
+
+glm::quat Entity::GetWorldOrientation() const {
+    if (parent != nullptr) {
+        auto transform = parent->GetModelMatrix();
+        transform = transform * glm::toMat4(rotation);
+        return glm::quat_cast(transform);
+    }
 
     return rotation;
 }
@@ -285,19 +292,14 @@ glm::vec3 Entity::GetWorldPosition() const {
     return position;
 }
 
-glm::quat Entity::GetWorldQuat() const
-{
-    return quaternion;
-}
-
-void Entity::SetWorldPosition(const glm::vec3 &worldPos) {
+void Entity::SetWorldPosition(const glm::vec3& worldPos) {
     if (parent == nullptr)
         position = worldPos;
     else
         position = glm::inverse(parent->GetModelMatrix()) * glm::vec4(worldPos, 1);
 }
 
-void Entity::SetWorldRotation(const glm::quat &worldRot) {
+void Entity::SetWorldOrientation(const glm::quat& worldRot) {
     if (parent == nullptr)
         rotation = worldRot;
     else {
@@ -307,7 +309,7 @@ void Entity::SetWorldRotation(const glm::quat &worldRot) {
     }
 }
 
-void Entity::SetLocalRotation(const glm::quat &localRot) {
+void Entity::SetLocalOrientation(const glm::quat& localRot) {
     rotation = localRot;
 }
 
