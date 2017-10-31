@@ -13,7 +13,7 @@ namespace GUI {
     /// Animation controller, node editor class.
     class AnimationControllerEditor : public NodeEditor {
         public:
-            /// Create new animation controller editor editor.
+            /// Create new animation controller editor.
             AnimationControllerEditor();
 
             /// Destructor.
@@ -63,6 +63,7 @@ namespace GUI {
             /**
              * @param output The output node.
              * @param input The input node.
+             * @return True if output and input can connect.
              */
             bool CanConnect(Node* output, Node* input) override;
 
