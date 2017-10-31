@@ -24,6 +24,9 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
     if (!aScene->HasAnimations()) {
         errorString.append("Error: No animation in scene.");
         success = false;
+
+        // Free memory.
+        aImporter.FreeScene();
         return false;
     }
 
@@ -92,11 +95,14 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         file.close();
     }
 
+    // Free memory.
+    aImporter.FreeScene();
+
     return false;
 }
 
 bool AssetConverterSkeleton::Success() const {
-    return false;
+    return success;
 }
 
 std::string & AssetConverterSkeleton::GetErrorString() {
