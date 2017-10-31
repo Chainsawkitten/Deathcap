@@ -14,7 +14,7 @@
  */
 class Log {
     public:
-        const enum Channel {
+        enum Channel {
             DEFAULT = 0,        ///< Default channel.
             INFO,               ///< Information.
             WARNING,            ///< Warnings.
