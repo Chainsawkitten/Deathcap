@@ -7,6 +7,9 @@
 #include <Utility/Log.hpp>
 #include <map>
 #include <typeindex>
+#include <sstream>
+#include <cstring>
+
 #include "../Util/FileSystem.hpp"
 #include "../Util/Input.hpp"
 #include "../Util/RayIntersection.hpp"
@@ -51,6 +54,34 @@ void AngelScriptMessageCallback(const asSMessageInfo* message, void* param) {
     }
     
     Log() << " : " << message->message << "\n";
+}
+
+// An example line callback
+void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::string, std::set<int>>* breakpoints){
+    const char *scriptSection;
+    int line = ctx->GetLineNumber(0, 0, &scriptSection);
+    asIScriptFunction *function = ctx->GetFunction();
+
+    std::string fileName(scriptSection);
+    fileName = fileName.substr(fileName.find_last_of("/") + 1);
+
+    // Determine if we have reached a break point
+    if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end())
+    {
+        // A break point has been reached so the execution of the script should be suspended
+        // Show the call stack
+        for (asUINT n = 0; n < ctx->GetCallstackSize(); n++)
+        {
+            asIScriptFunction *func;
+            const char *scriptSection;
+            int line, column;
+            func = ctx->GetFunction(n);
+            line = ctx->GetLineNumber(n, &column, &scriptSection);
+            printf("%s:%s:%d,%d\n", scriptSection,
+                func->GetDeclaration(),
+                line, column);
+        }
+    }
 }
 
 void print(const std::string& message) {
@@ -178,11 +209,11 @@ ScriptManager::ScriptManager() {
     
     // Set the message callback to receive information on errors in human readable form.
     engine->SetMessageCallback(asFUNCTION(AngelScriptMessageCallback), 0, asCALL_CDECL);
-    
+  
     // Register add-ons.
     RegisterStdString(engine);
     RegisterScriptMath(engine);
-    
+
     engine->RegisterEnum("input");
     
     // Register GLM types.
@@ -382,6 +413,9 @@ ScriptManager::~ScriptManager() {
 }
 
 int ScriptManager::BuildScript(const ScriptFile* script) {
+
+    GetBreakpoints(script);
+
     std::string filename = Hymn().GetPath() + "/" + script->path + script->name + ".as";
     if (!FileSystem::FileExists(filename.c_str())) {
         Log() << "Script file does not exist: " << filename << "\n";
@@ -422,6 +456,9 @@ void ScriptManager::BuildAllScripts() {
             Log() << "Script file does not exist: " << filename << "\n";
             return;
         }
+
+        // We get the breakpoints.
+        GetBreakpoints(file);
         
         // Create and build script module.
         CScriptBuilder builder;
@@ -450,6 +487,45 @@ void ScriptManager::BuildAllScripts() {
                 Log() << file->name.c_str() << "Compile errors.\n";
         }
     }
+}
+
+void ScriptManager::GetBreakpoints(const ScriptFile* scriptFile) {
+
+    //If we already fetched the breakpoints for this file, we clear it.
+    auto it = breakpoints.find(scriptFile->name + ".as");
+    if (it != breakpoints.end())
+        breakpoints[scriptFile->name + ".as"].clear();
+
+    std::string path = Hymn().GetPath() + "/";
+    std::string filePath = path + scriptFile->path + scriptFile->name + ".as";
+
+    std::string scriptLines;
+    LoadScriptFile(filePath.c_str(), scriptLines);
+    
+    std::istringstream f(scriptLines);
+    std::string line;
+    int lineNumber = 1;
+    while (std::getline(f, line)) {
+        if (line.length() >= 7) {
+
+            std::string end = line.substr(line.length() - 8, 7);
+            if (end == "//break" || end == "//Break" || end == "//BREAK") {
+
+                breakpoints[scriptFile->name + ".as"].insert(lineNumber);
+
+            }
+        }
+        lineNumber++;
+    }
+}
+
+void ScriptManager::ClearBreakpoints() {
+
+    for (auto pair : breakpoints)
+        pair.second.clear();
+
+    breakpoints.clear();
+
 }
 
 void ScriptManager::FillPropertyMap(Script* script) {
@@ -487,27 +563,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
 
-                if (it != script->propertyMap.end()){
-
-                    if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId) {
-
-                        if (typeId == asTYPEID_INT32){
-                            int* propertyPointer = static_cast<int*>(varPointer);
-                            *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        } else if (typeId == asTYPEID_FLOAT){
-                            float* propertyPointer = static_cast<float*>(varPointer);
-                            *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        } else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
-
-                            std::string *str = (std::string*)varPointer;
-                            if (str) {
-
-                                *str = *(std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-
-                            }
-                        }
-                    }
-                }
+                if (it != script->propertyMap.end())
+                    if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId)
+                        std::memcpy(varPointer, script->propertyMap[script->instance->GetPropertyName(n)].second, GetSizeOfASType(typeId, script->propertyMap[script->instance->GetPropertyName(n)].second));
+   
             }
         }
     }
@@ -643,6 +702,7 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
         Json::Value propertyMapJson = node.get("propertyMap", "");
         std::vector<std::string> names = propertyMapJson.getMemberNames();
+        std::string json = propertyMapJson.toStyledString();
 
         for (const auto& name : names) {
 
@@ -652,17 +712,15 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
                 int typeId = std::atoi(typeIds[0].c_str());
-                if (typeId == asTYPEID_INT32){
-                    int* value = new int(typeId_value[typeIds[0]].asInt());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
-                }
-                else if (typeId == asTYPEID_FLOAT){
-                    float* value = new float(typeId_value[typeIds[0]].asFloat());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
-                }
-                else if (typeId == engine->GetTypeIdByDecl("string")){
-                    std::string* value = new std::string(typeId_value[typeIds[0]].asString());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
+                int size = typeId_value[typeIds[0]].size();
+
+                if (size != -1) {
+
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, malloc(size + 1));
+
+                    for (int i = 0; i < size; i++)
+                        ((unsigned char*)script->propertyMap[name].second)[i] = (unsigned char)(typeId_value[typeIds[0]][i].asInt());
+
                 }
             }
         }
@@ -674,6 +732,18 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 int ScriptManager::GetStringDeclarationID() {
 
     return engine->GetTypeIdByDecl("string");
+
+}
+
+const int ScriptManager::GetSizeOfASType(int typeID, void* value) {
+
+   
+    if (typeID == asTYPEID_INT32)
+        return sizeof(int);
+    if (typeID == asTYPEID_FLOAT)
+        return sizeof(float);
+
+    return -1;
 
 }
 
@@ -734,7 +804,7 @@ void ScriptManager::CreateInstance(Component::Script* script) {
         Log() << "Couldn't find the factory function for " << scriptFile->name << ".\n";
     
     // Create context, prepare it and execute.
-    asIScriptContext* context = engine->CreateContext();
+    asIScriptContext* context = CreateContext();
     context->Prepare(factoryFunction);
     context->SetArgObject(0, script->entity);
     ExecuteCall(context);
@@ -748,6 +818,14 @@ void ScriptManager::CreateInstance(Component::Script* script) {
 
     // Set initialized.
     script->initialized = true;
+}
+
+asIScriptContext* ScriptManager::CreateContext() {
+
+    asIScriptContext* context = engine->CreateContext();
+    context->SetLineCallback(asFUNCTION(AngelScriptDebugLineCallback), &breakpoints, asCALL_CDECL);
+    return context;
+
 }
 
 void ScriptManager::CallMessageReceived(const Message& message) {
@@ -764,7 +842,7 @@ void ScriptManager::CallMessageReceived(const Message& message) {
         Log() << "Can't find method void ReceiveMessage(int)\n";
     
     // Create context, prepare it and execute.
-    asIScriptContext* context = engine->CreateContext();
+    asIScriptContext* context = CreateContext();
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgDWord(0, message.type);
@@ -787,7 +865,7 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
         Log() << "Can't find method void Update(float)\n";
     
     // Create context, prepare it and execute.
-    asIScriptContext* context = engine->CreateContext();
+    asIScriptContext* context = CreateContext();
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgFloat(0, deltaTime);
@@ -811,7 +889,7 @@ void ScriptManager::CallTrigger(const TriggerEvent& triggerEvent) {
         Log() << "Can't find method " << methodDeclaration << "\n";
     
     // Create context, prepare it and execute.
-    asIScriptContext* context = engine->CreateContext();
+    asIScriptContext* context = CreateContext();
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgAddress(0, triggerEvent.trigger);
