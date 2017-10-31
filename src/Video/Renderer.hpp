@@ -74,7 +74,7 @@ namespace Video {
             /// Prepare for rendering skinned meshes.
             /**
              * @param viewMatrix The camera's view matrix.
-             * @param The camera's projection matrix.
+             * @param projectionMatrix The camera's projection matrix.
              */
             VIDEO_API void PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 

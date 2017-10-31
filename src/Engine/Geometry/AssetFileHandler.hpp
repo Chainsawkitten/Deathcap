@@ -94,13 +94,13 @@ namespace Geometry {
              * First load a mesh into memory by using LoadMeshData().
              * @return Static mesh data.
              */
-            ENGINE_API MeshData * GetStaticMeshData();
+            ENGINE_API MeshData* GetStaticMeshData();
 
             /// Save the meshdata.
             /**
             * @param meshData Static mesh data.
             */
-            ENGINE_API void SaveMesh(MeshData * meshData);
+            ENGINE_API void SaveMesh(MeshData* meshData);
 
         private:
             void ReadGlobalHeader();

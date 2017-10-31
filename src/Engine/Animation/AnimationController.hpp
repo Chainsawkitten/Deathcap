@@ -84,18 +84,21 @@ namespace Animation {
                 }
             };
 
+            /// Default constructor. 
             AnimationController() = default;
+            
+            /// Destructor.
             ~AnimationController();
 
             /// Save animation controller.
             /**
-             * @path 
+             * @path Save location.
              */
             ENGINE_API void Save(const std::string& path);
 
             /// Load animation controller.
             /**
-             * @name 
+             * @name Load from name.
              */
             ENGINE_API void Load(const std::string& name);
 

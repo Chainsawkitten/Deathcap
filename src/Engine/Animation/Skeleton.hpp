@@ -16,14 +16,14 @@ namespace Animation {
                 glm::mat4 inversed;
                 uint32_t parentId;
 
-                void Save(std::ofstream * file) {
+                void Save(std::ofstream* file) {
                     file->write(reinterpret_cast<char*>(&localTx), sizeof(glm::mat4));
                     file->write(reinterpret_cast<char*>(&globalTx), sizeof(glm::mat4));
                     file->write(reinterpret_cast<char*>(&inversed), sizeof(glm::mat4));
                     file->write(reinterpret_cast<char*>(&parentId), sizeof(uint32_t));
                 }
 
-                void Load(std::ifstream * file) {
+                void Load(std::ifstream* file) {
                     file->read(reinterpret_cast<char*>(&localTx), sizeof(glm::mat4));
                     file->read(reinterpret_cast<char*>(&globalTx), sizeof(glm::mat4));
                     file->read(reinterpret_cast<char*>(&inversed), sizeof(glm::mat4));
