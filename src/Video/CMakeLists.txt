@@ -4,6 +4,7 @@ set(SRCS
         Buffer/StorageBuffer.cpp
         DebugDrawing.cpp  
         ParticleRenderer.cpp
+	ParticleSystem.cpp
         Renderer.cpp
         RenderSurface.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -32,6 +33,7 @@ set(HEADERS
         DebugDrawing.hpp
         ErrorVideoDebug.hpp
         ParticleRenderer.hpp
+	ParticleSystem.hpp
         Renderer.hpp
         RenderSurface.hpp
         Culling/AxisAlignedBoundingBox.hpp
@@ -70,6 +72,10 @@ set(EMBEDDED_INPUT
     ../../shaders/Skinning.vert
     ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag
+    ../../shaders/DefaultParticleShader.frag
+    ../../shaders/DefaultParticleShader.geom
+    ../../shaders/DefaultParticleShader.vert
+    ../../shaders/ComputeParticleShader.comp
 )
 
 foreach(item ${EMBEDDED_INPUT})
