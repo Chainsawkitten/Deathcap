@@ -9,6 +9,7 @@ in VertexData {
     vec3 normal;
     vec3 tangent;
     vec2 texCoords;
+    vec4 fragPosLightSpace;
 } vertexIn;
 
 // --- OUT ---

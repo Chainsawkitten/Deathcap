@@ -18,6 +18,12 @@ namespace Video {
             
             /// Destructor.
             ~StaticRenderProgram();
+            /// Bind shadow render program.
+            /**
+            * @param viewMatrix The camera's view matrix.
+            * @param projectionMatrix The camera's projection matrix.
+            */
+            void PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
             /// Bind depth render program.
             /**
@@ -59,9 +65,11 @@ namespace Video {
             StaticRenderProgram(const StaticRenderProgram & other) = delete;
             ShaderProgram* shaderProgram;
             ShaderProgram* zShaderProgram;
+            ShaderProgram* shadowProgram;
     
             glm::mat4 viewMatrix;
             glm::mat4 projectionMatrix;
             glm::mat4 viewProjectionMatrix;
+            glm::mat4 lightSpaceMatrix;
     };
 }

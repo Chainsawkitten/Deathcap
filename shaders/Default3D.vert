@@ -11,12 +11,14 @@ uniform mat4 viewProjection;
 uniform mat4 model;
 uniform mat3 normalMatrix;
 uniform mat4 viewMatrix;
+uniform mat4 lightSpaceMatrix;
 
 out VertexData {
     vec3 pos;
     vec3 normal;
     vec3 tangent;
     vec2 texCoords;
+    vec4 fragPosLightSpace;
 } vertexOut;
 
 void main () {
@@ -25,4 +27,5 @@ void main () {
     vertexOut.normal = normalize(normalMatrix * vertexNormal);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;
+    vertexOut.fragPosLightSpace = lightSpaceMatrix * vec4(vertexOut.pos, 1.0);
 }

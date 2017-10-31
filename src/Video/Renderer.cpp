@@ -74,7 +74,7 @@ Renderer::~Renderer() {
 
 VIDEO_API void Video::Renderer::PrepareShadowRendering(const glm::mat4 lightProjection, glm::mat4 lightView)
 {
-    staticRenderProgram->PreDepthRender(lightProjection, lightView);
+    staticRenderProgram->PreShadowRender(lightProjection, lightView);
 }
 
 void Renderer::PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {

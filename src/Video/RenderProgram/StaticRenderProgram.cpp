@@ -10,6 +10,7 @@
 #include "Default3D.frag.hpp"
 #include "Zrejection.vert.hpp"
 #include "Zrejection.frag.hpp"
+#include "Shadow.vert.hpp"
 #include "../Buffer/StorageBuffer.hpp"
 #include <chrono>
 #include "Lighting/Light.hpp"
@@ -27,12 +28,30 @@ StaticRenderProgram::StaticRenderProgram() {
     fragmentShader = new Shader(ZREJECTION_FRAG, ZREJECTION_FRAG_LENGTH, GL_FRAGMENT_SHADER);
     zShaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
+    
+    //Create shaders for shadowpass
+    vertexShader = new Shader(SHADOW_VERT, SHADOW_VERT_LENGTH, GL_VERTEX_SHADER);
+    shadowProgram = new ShaderProgram({ vertexShader, fragmentShader });
+    delete vertexShader;
     delete fragmentShader;
 }
 
 StaticRenderProgram::~StaticRenderProgram() {
     delete shaderProgram;
     delete zShaderProgram;
+
+
+}
+
+void Video::StaticRenderProgram::PreShadowRender(const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix)
+{
+    this->shadowProgram->Use();
+
+    this->viewMatrix = viewMatrix;
+    this->projectionMatrix = projectionMatrix;
+    this->lightSpaceMatrix = projectionMatrix * viewMatrix;
+
+    glUniformMatrix4fv(shadowProgram->GetUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 }
 
 void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
@@ -67,6 +86,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     // Matrices.
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
+    glUniformMatrix4fv(shadowProgram->GetUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
     
     // Lights.
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
