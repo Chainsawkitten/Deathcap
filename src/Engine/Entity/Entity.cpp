@@ -2,6 +2,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include "../Component/Animation.hpp"
+#include "../Component/AudioMaterial.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/Material.hpp"
@@ -349,6 +350,8 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
     // Create a component in the correct manager.
     if (componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation();
+    else if (componentType == typeid(Component::AudioMaterial*))
+        component = Managers().soundManager->CreateAudioMaterial();
     else if (componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight();
     else if (componentType == typeid(Component::Lens*))
@@ -410,6 +413,8 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
     // Create a component in the correct manager.
     if (componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation(node);
+    else if (componentType == typeid(Component::AudioMaterial*))
+        component = Managers().soundManager->CreateAudioMaterial(node);
     else if (componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight(node);
     else if (componentType == typeid(Component::Lens*))
