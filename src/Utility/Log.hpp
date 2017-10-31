@@ -99,7 +99,7 @@ class Log {
          * @param stream The stream that will be mapped to the channel.
          * @return Whether the operation succeeded or not.
          */
-        UTILITY_API static bool Log::SetupStream(const Channel channel, std::ostream* stream);
+        UTILITY_API static bool SetupStream(const Channel channel, std::ostream* stream);
 
         /// Sets all channels at once.
         /**
@@ -110,7 +110,7 @@ class Log {
          * @param debug The stream for debug messages.
          * @return Whether the operation succeeded or not.
          */
-        UTILITY_API static bool Log::SetupStreams(std::ostream* defaultStream, std::ostream* info, std::ostream* warning, std::ostream* error, std::ostream* console);
+        UTILITY_API static bool SetupStreams(std::ostream* defaultStream, std::ostream* info, std::ostream* warning, std::ostream* error, std::ostream* console);
 
     private:
         Channel currentChannel;
