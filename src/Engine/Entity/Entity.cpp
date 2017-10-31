@@ -2,6 +2,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include "../Component/Animation.hpp"
+#include "../Component/AudioMaterial.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/Material.hpp"
@@ -171,7 +172,7 @@ Json::Value Entity::Save() const {
     entity["name"] = name;
     entity["position"] = Json::SaveVec3(position);
     entity["scale"] = Json::SaveVec3(scale);
-    entity["rotation"] = Json::SaveVec3(rotation);
+    entity["rotation"] = Json::SaveQuaternion(rotation);
     entity["scene"] = scene;
     entity["uid"] = uniqueIdentifier;
     entity["static"] = isStatic;
@@ -247,7 +248,7 @@ void Entity::Load(const Json::Value& node) {
     name = node.get("name", "").asString();
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
-    rotation = Json::LoadVec3(node["rotation"]);
+    rotation = Json::LoadQuaternion(node["rotation"]);
     uniqueIdentifier = node.get("uid", 0).asUInt();
     isStatic = node["static"].asBool();
     
@@ -263,19 +264,26 @@ glm::mat4 Entity::GetModelMatrix() const {
 }
 
 glm::mat4 Entity::GetLocalMatrix() const {
-    glm::mat4 matrix = glm::translate(glm::mat4(), position) * GetOrientation() * glm::scale(glm::mat4(), scale);
+    glm::mat4 matrix = glm::translate(glm::mat4(), position) * glm::toMat4(GetLocalOrientation()) * glm::scale(glm::mat4(), scale);
     return matrix;
 }
 
-glm::mat4 Entity::GetOrientation() const {
-    glm::mat4 orientation;
-    orientation = glm::rotate(orientation, glm::radians(rotation.x), glm::vec3(0.f, 1.f, 0.f));
-    orientation = glm::rotate(orientation, glm::radians(rotation.y), glm::vec3(1.f, 0.f, 0.f));
-    return glm::rotate(orientation, glm::radians(rotation.z), glm::vec3(0.f, 0.f, 1.f));
+glm::quat Entity::GetLocalOrientation() const {
+    return rotation;
+}
+
+glm::quat Entity::GetWorldOrientation() const {
+    if (parent != nullptr) {
+        auto transform = parent->GetModelMatrix();
+        transform = transform * glm::toMat4(rotation);
+        return glm::quat_cast(transform);
+    }
+
+    return rotation;
 }
 
 glm::vec3 Entity::GetDirection() const {
-    return glm::normalize(glm::vec3(GetOrientation() * glm::vec4(0.f, 0.f, -1.f, 0.f)));
+    return glm::vec3(rotation * glm::vec3(0, 0, -1));
 }
 
 glm::vec3 Entity::GetWorldPosition() const {
@@ -283,6 +291,45 @@ glm::vec3 Entity::GetWorldPosition() const {
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
     
     return position;
+}
+
+void Entity::SetWorldPosition(const glm::vec3& worldPos) {
+    if (parent == nullptr)
+        position = worldPos;
+    else
+        position = glm::inverse(parent->GetModelMatrix()) * glm::vec4(worldPos, 1);
+}
+
+void Entity::SetWorldOrientation(const glm::quat& worldRot) {
+    if (parent == nullptr)
+        rotation = worldRot;
+    else {
+        glm::quat quater = glm::quat_cast(parent->GetModelMatrix());
+        quater = glm::inverse(quater) * worldRot;
+        rotation = quater;
+    }
+}
+
+void Entity::SetLocalOrientation(const glm::quat& localRot) {
+    rotation = localRot;
+}
+
+void Entity::RotateYaw(float angle) {
+    rotation = glm::rotate(rotation, angle, glm::vec3(0, 1, 0));
+}
+
+void Entity::RotatePitch(float angle) {
+    rotation = glm::rotate(rotation, angle, glm::vec3(1, 0, 0));
+}
+
+void Entity::RotateRoll(float angle) {
+    rotation = glm::rotate(rotation, angle, glm::vec3(0, 0, 1));
+}
+
+void Entity::RotateAroundWorldAxis(float angle, const glm::vec3& axis) {
+    glm::quat invQuat = glm::inverse(glm::quat_cast(GetModelMatrix()));
+    glm::vec3 tempVec = glm::rotate(invQuat, axis);
+    rotation = glm::rotate(rotation, angle, tempVec);
 }
 
 unsigned int Entity::GetUniqueIdentifier() const {
@@ -303,6 +350,8 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
     // Create a component in the correct manager.
     if (componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation();
+    else if (componentType == typeid(Component::AudioMaterial*))
+        component = Managers().soundManager->CreateAudioMaterial();
     else if (componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight();
     else if (componentType == typeid(Component::Lens*))
@@ -364,6 +413,8 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
     // Create a component in the correct manager.
     if (componentType == typeid(Component::Animation*))
         component = Managers().renderManager->CreateAnimation(node);
+    else if (componentType == typeid(Component::AudioMaterial*))
+        component = Managers().soundManager->CreateAudioMaterial(node);
     else if (componentType == typeid(Component::DirectionalLight*))
         component = Managers().renderManager->CreateDirectionalLight(node);
     else if (componentType == typeid(Component::Lens*))

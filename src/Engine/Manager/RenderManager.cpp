@@ -40,6 +40,7 @@
 #include "Util/GPUProfiling.hpp"
 
 #include "Manager/VRManager.hpp"
+#include <glm/gtc/quaternion.hpp>
 
 using namespace Component;
 
