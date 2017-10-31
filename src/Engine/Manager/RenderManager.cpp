@@ -88,9 +88,6 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (mainWindowRenderSurface != nullptr) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-
-                const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
-                const glm::mat4 orientationMat = glm::toMat4(glm::inverse(camera->GetOrientation()));
                 const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
 
                 Render(world, glm::inverse(camera->GetModelMatrix()), projectionMat, mainWindowRenderSurface);
