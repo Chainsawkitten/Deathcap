@@ -82,4 +82,3 @@ void Animation::AnimationController::Clear() {
 
     animationNodes.clear();
 }
-

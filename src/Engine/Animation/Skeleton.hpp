@@ -7,7 +7,7 @@
 #include "../linking.hpp"
 
 namespace Animation {
-    /// An animation loaded from a file.
+    /// Skeleton, bindpose of animation.
     class Skeleton {
         public:
             struct SkeletonBone {
@@ -15,7 +15,11 @@ namespace Animation {
                 glm::mat4 globalTx;
                 glm::mat4 inversed;
                 uint32_t parentId;
-
+                
+                /// Save skeleton bone.
+                /**
+                 * @param file File to save to.
+                 */
                 void Save(std::ofstream* file) {
                     file->write(reinterpret_cast<char*>(&localTx), sizeof(glm::mat4));
                     file->write(reinterpret_cast<char*>(&globalTx), sizeof(glm::mat4));
@@ -23,13 +27,16 @@ namespace Animation {
                     file->write(reinterpret_cast<char*>(&parentId), sizeof(uint32_t));
                 }
 
+                /// Load skeleton bone.
+                /**
+                * @param file File to load from.
+                */
                 void Load(std::ifstream* file) {
                     file->read(reinterpret_cast<char*>(&localTx), sizeof(glm::mat4));
                     file->read(reinterpret_cast<char*>(&globalTx), sizeof(glm::mat4));
                     file->read(reinterpret_cast<char*>(&inversed), sizeof(glm::mat4));
                     file->read(reinterpret_cast<char*>(&parentId), sizeof(uint32_t));
                 }
-
             };
 
             /// Constructor.
