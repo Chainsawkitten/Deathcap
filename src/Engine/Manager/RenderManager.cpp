@@ -171,6 +171,12 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     }
                     }
 
+                    { PROFILE("Render particles");
+                    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                        Managers().particleManager->Render(world, position, up, projectionMatrix * lensViewMatrix, hmdRenderSurface);
+                    }
+                    }
+
                     hmdRenderSurface->Swap();
                     vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
 
