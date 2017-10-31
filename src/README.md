@@ -18,13 +18,9 @@
     </td>
   </tr>
   <tr>
-    <td>
+    <td colspan="2">
       <h3><a href="Video">Video</a></h3>
       Rendering.
-    </td>
-    <td>
-      <h3><a href="Physics">Physics</a></h3>
-      Bullet implementation.
     </td>
   </tr>
   <tr>

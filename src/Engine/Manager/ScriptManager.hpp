@@ -2,6 +2,8 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <set>
 #include "../Entity/ComponentContainer.hpp"
 #include "../linking.hpp"
 
@@ -135,6 +137,14 @@ class ScriptManager {
         
         /// The entity currently being executed.
         Entity* currentEntity;
+
+        /// Gets the size in bytes for the ASType
+        /**
+         * @param typeID The asTypeID for the type we want the size for.
+         * @param value The pointer to the value.
+         * @return The size in bytes for the provided typeID. -1 for unknown type.
+         */
+        const int GetSizeOfASType(int typeID, void* value);
         
     private:
         struct Message {
@@ -155,6 +165,7 @@ class ScriptManager {
         void operator=(ScriptManager const&) = delete;
         
         void CreateInstance(Component::Script* script);
+        asIScriptContext* CreateContext();
         void CallMessageReceived(const Message& message);
         void CallUpdate(Entity* entity, float deltaTime);
         void CallTrigger(const TriggerEvent& triggerEvent);
@@ -168,6 +179,10 @@ class ScriptManager {
         std::vector<Entity*> updateEntities;
         std::vector<Message> messages;
         std::vector<TriggerEvent> triggerEvents;
+
+        void GetBreakpoints(const ScriptFile* script);
+        void ClearBreakpoints();
+        std::map<std::string, std::set<int>> breakpoints;
         
         ComponentContainer<Component::Script> scripts;
 };
