@@ -30,6 +30,11 @@ namespace Video {
             /// Destructor.
             VIDEO_API ~Renderer();
 
+            ////Prepare for shadow renderin
+            /**
+            */
+            VIDEO_API void PrepareShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection);
+
             /// Prepare for depth rendering static meshes.
             /**
              * @param viewMatrix The camera's view matrix.

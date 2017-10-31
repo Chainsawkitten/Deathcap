@@ -38,6 +38,7 @@
 #include "Util/Profiling.hpp"
 #include "Util/Json.hpp"
 #include "Util/GPUProfiling.hpp"
+#include <Video/ShadowPass.hpp>
 
 #include "Manager/VRManager.hpp"
 
@@ -53,6 +54,11 @@ RenderManager::RenderManager() {
     hmdRenderSurface = nullptr;
     if (Managers().vrManager->Active())
         hmdRenderSurface = new Video::RenderSurface(Managers().vrManager->GetRecommendedRenderTargetSize());
+
+    //init shadowpass
+    shadowPass = new Video::ShadowPass();
+    shadowPass->InitDephtMap();
+    shadowPass->BindBuffer();
 
     // Init textures.
     particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
@@ -212,11 +218,35 @@ void RenderManager::Render(World& world, const glm::mat4& viewMatrix, const glm:
     // Render from camera.
     renderer->StartRendering(renderSurface);
 
+   
     // Camera matrices.
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
+    //temp render shadows
+    { PROFILE("Render Shadows meshes");
+    { GPUPROFILE("Render Shadows meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render Shadows meshes", Video::Query::Type::SAMPLES_PASSED);
+        glViewport(0, 0, shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight());
+        glBindFramebuffer(GL_FRAMEBUFFER, shadowPass->GetDepthMapFbo());
+        glClear(GL_DEPTH_BUFFER_BIT);
+        renderer->PrepareShadowRendering(viewMatrix, shadowPass->getLightProjection());
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
 
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                // If entity does not have material, it won't be rendered.
+                if (entity->GetComponent<Material>() != nullptr)
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
+            }
+
+        }
+    }
+    }
+    }
+    renderer->StartRendering(renderSurface);
     // Render z-pass meshes.
     renderSurface->GetDepthFrameBuffer()->BindWrite();
     { PROFILE("Render z-pass meshes");

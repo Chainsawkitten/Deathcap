@@ -72,6 +72,11 @@ Renderer::~Renderer() {
     glDeleteVertexArrays(1, &vertexArray);
 }
 
+VIDEO_API void Video::Renderer::PrepareShadowRendering(const glm::mat4 lightProjection, glm::mat4 lightView)
+{
+    staticRenderProgram->PreDepthRender(lightProjection, lightView);
+}
+
 void Renderer::PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     staticRenderProgram->PreDepthRender(viewMatrix, projectionMatrix);
 }

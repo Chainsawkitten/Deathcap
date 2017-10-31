@@ -9,6 +9,7 @@ namespace Video {
     class Renderer;
     class RenderSurface;
     class Texture2D;
+    class ShadowPass;
 }
 class World;
 class Entity;
@@ -49,6 +50,7 @@ class RenderManager {
          * @param physics Whether to show physics volumes.
          */
         ENGINE_API void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
+
         
         /// Updates the buffers to fit the current screen size.
         ENGINE_API void UpdateBufferSize();
@@ -202,6 +204,8 @@ class RenderManager {
         void LoadTexture(TextureAsset*& texture, const std::string& name);
 
         Video::Renderer* renderer;
+        
+        Video::ShadowPass* shadowPass;
 
         Video::RenderSurface* mainWindowRenderSurface;
         Video::RenderSurface* hmdRenderSurface;
