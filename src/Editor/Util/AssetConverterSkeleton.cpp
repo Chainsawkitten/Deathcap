@@ -10,7 +10,7 @@ AssetConverterSkeleton::AssetConverterSkeleton() {
 AssetConverterSkeleton::~AssetConverterSkeleton() {
 }
 
-bool AssetConverterSkeleton::Convert(const char * filepath, const char * destination,
+bool AssetConverterSkeleton::Convert(const char* filepath, const char* destination,
     bool isSkeleton) {
 
     success = true;
@@ -40,8 +40,7 @@ bool AssetConverterSkeleton::Convert(const char * filepath, const char * destina
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
             Animation::Skeleton::SkeletonBone * bone = new Animation::Skeleton::SkeletonBone;
             bone->parentId = (uint32_t)parents[i];
-            Log() << parents[i] << "\n";
-            // Rotation, local.
+
             glm::quat rot;
             rot.x = channel->mRotationKeys[0].mValue.x;
             rot.y = channel->mRotationKeys[0].mValue.y;
@@ -104,9 +103,9 @@ std::string & AssetConverterSkeleton::GetErrorString() {
     return errorString;
 }
 
-void AssetConverterSkeleton::BoneRecursive(aiNode * node, int parent) {
+void AssetConverterSkeleton::BoneRecursive(aiNode* node, int parent) {
     for (unsigned int i = 0; i < node->mNumChildren; ++i) {
-        aiNode * child = node->mChildren[i];
+        aiNode* child = node->mChildren[i];
 
         for (unsigned int j = 0; j < bones.size(); ++j) {
             if (child->mName.C_Str() == bones[j]) {
