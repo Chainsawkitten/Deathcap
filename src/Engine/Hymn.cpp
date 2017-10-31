@@ -209,21 +209,7 @@ void ActiveHymn::Update(float deltaTime) {
 void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
     { PROFILE("Render world");
     { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
-        Managers().renderManager->Render(world, camera);
-    }
-    }
-    
-    if (soundSources || particleEmitters || lightSources || cameras || physics) {
-        { PROFILE("Render editor entities");
-        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras, physics);
-        }
-        }
-    }
-
-    { PROFILE("Render debug entities");
-    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-        Managers().debugDrawingManager->Render(camera);
+        Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera);
     }
     }
 }
