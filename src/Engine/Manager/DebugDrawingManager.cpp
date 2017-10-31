@@ -138,9 +138,8 @@ void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& p
     debugDrawing->StartDebugDrawing(projectionMatrix * viewMatrix);
         
     // Points.
-    for (const DebugDrawing::Point& point : points) {
+    for (const DebugDrawing::Point& point : points)
         debugDrawing->DrawPoint(point);
-    }
         
     // Lines.
     for (const DebugDrawing::Line& line : lines)
