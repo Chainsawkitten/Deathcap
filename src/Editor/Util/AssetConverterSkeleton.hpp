@@ -17,9 +17,7 @@ class AssetConverterSkeleton {
         /**
          * @param filepath Filepath of the fbxfile.
          * @param destination Filepath of the destination inculding name and extension.
-         * @param triangulate Should the mesh be triangulated?
-         * @param importNormals Should normals be imported from the mesh?
-         * @param importTangents Should tangents be imported from the mesh?
+         * @param bindpose Is it the skeleton of the animation?
          */
         bool Convert(const char* filepath, const char* destination,
             bool bindpose);

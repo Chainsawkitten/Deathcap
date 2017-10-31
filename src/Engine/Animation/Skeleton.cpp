@@ -47,12 +47,11 @@ void Skeleton::Load(const std::string& name) {
 
     // Clear bones if anything in them.
     skeletonBones.clear();
-    skeletonBones.shrink_to_fit();
 
     uint32_t size;
     file.read(reinterpret_cast<char*>(&size), sizeof(uint32_t));
     for (unsigned int i = 0; i < size; ++i) {
-        SkeletonBone * bone = new SkeletonBone;
+        SkeletonBone* bone = new SkeletonBone;
         bone->Load(&file);
         skeletonBones.push_back(bone);
     }
