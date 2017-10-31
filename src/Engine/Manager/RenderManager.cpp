@@ -89,6 +89,8 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
                 const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
                 const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
+                const glm::vec3 position = camera->GetWorldPosition();
+                const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
 
                 { PROFILE("Render world entities");
                 { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
@@ -99,7 +101,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 if (soundSources || particleEmitters || lightSources || cameras || physics) {
                     { PROFILE("Render editor entities");
                     { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, camera->GetWorldPosition(), viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
                     }
                     }
                 }
@@ -109,6 +111,13 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
                 }
                 }
+
+                { PROFILE("Render particles");
+                { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                    Managers().particleManager->Render(world, position, up, projectionMatrix * viewMatrix, mainWindowRenderSurface);
+                }
+                }
+
 
                 { PROFILE("Present to back buffer");
                 { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
@@ -138,6 +147,8 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     const glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
                     const glm::mat4 eyeViewMatrix = eyeTranslation * lensViewMatrix;
                     const glm::mat4 projectionMatrix = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
+                    const glm::vec3 position = camera->GetWorldPosition();
+                    const glm::vec3 up(lensViewMatrix[0][1], lensViewMatrix[1][1], lensViewMatrix[2][1]);
 
                     { PROFILE("Render world entities");
                     { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
@@ -148,7 +159,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     if (soundSources || particleEmitters || lightSources || cameras || physics) {
                         { PROFILE("Render editor entities");
                         { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, camera->GetWorldPosition(), lensViewMatrix, projectionMatrix, hmdRenderSurface);
+                            RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
                         }
                         }
                     }
@@ -258,11 +269,10 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
 }
 
 void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources,
-    bool cameras, bool physics, const glm::vec3& position, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix,
+    bool cameras, bool physics, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix,
     Video::RenderSurface* renderSurface) {
 
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
-    const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
 
     renderSurface->GetShadingFrameBuffer()->BindWrite();
     renderer->PrepareRenderingIcons(viewProjectionMatrix, position, up);
