@@ -76,19 +76,6 @@ void VRManager::Update() {
         glm::vec3 position = glm::vec3(transform[3][0], transform[3][1], transform[3][2]);
         entity->position = position * GetScale();
 
-        /*
-        /// @todo: Test on VR
-        // Update rotation based on device rotation.
-        glm::vec3 forward = -glm::vec3(transform[2][0], transform[2][1], transform[2][2]);
-        float yaw = atan2(-forward.x, -forward.z);
-        float pitch = atan2(forward.y, sqrt(forward.x * forward.x + forward.z * forward.z));
-
-        glm::vec3 up = glm::vec3(transform[1][0], transform[1][1], transform[1][2]);
-        glm::vec3 r = glm::cross(forward, glm::vec3(0.f, 1.f, 0.f));
-        glm::vec3 u = glm::cross(r, forward);
-        float roll = atan2(-glm::dot(up, r), glm::dot(up, u));
-        */
-
         entity->SetLocalOrientation(tempQuat);
     }
 }
