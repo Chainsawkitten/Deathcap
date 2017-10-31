@@ -89,7 +89,7 @@ namespace Animation {
                         bones[i].Save(file);
                 }
 
-                /// Save animation data.
+                /// Load animation data.
                 /**
                  * @param file File to load from.
                  */

@@ -59,7 +59,7 @@ void NodeEditor::Show() {
         }
 
         for (unsigned int id = 0; id < GetNumNodes(); ++id) {
-            Node * action = GetNodeArray()[id];
+            Node* action = GetNodeArray()[id];
 
             for (unsigned int connections = 0; connections < action->numOutputSlots; ++connections) {
                 ImVec2 p1 = ImVec2(action->pos.x + offset.x + action->size.x, action->pos.y + offset.y + (action->size.y / 2));

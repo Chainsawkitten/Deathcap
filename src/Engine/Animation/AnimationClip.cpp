@@ -5,7 +5,7 @@
 
 using namespace Animation;
 
-void AnimationClip::Load(const std::string & name) {
+void AnimationClip::Load(const std::string& name) {
     std::size_t pos = name.find_last_of('/');
     this->name = name.substr(pos + 1);
     path = name.substr(0, pos + 1);

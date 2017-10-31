@@ -134,7 +134,6 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
             break;
         case Resource::SKELETON:
             resourceNode["skeleton"] = resource.skeleton->name;
-            //resource.skeleton->Save();
             break;
         case Resource::MODEL:
             resourceNode["model"] = resource.model->name;

@@ -231,8 +231,6 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
         }
     }
 
-    Log() << "Num Weights: " << (int)aMesh->mBones[0]->mNumWeights << "\n";
-
     weightCounter.clear();
 
     return vertices;

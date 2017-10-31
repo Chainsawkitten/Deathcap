@@ -20,7 +20,7 @@ class AssetConverterSkeleton {
          * @param importNormals Should normals be imported from the mesh?
          * @param importTangents Should tangents be imported from the mesh?
          */
-        bool Convert(const char * filepath, const char * destination,
+        bool Convert(const char* filepath, const char* destination,
             bool bindpose);
     
         /// Check after conversion if everything went well.
@@ -36,7 +36,7 @@ class AssetConverterSkeleton {
         std::string& GetErrorString();
     
     private:
-        void BoneRecursive(aiNode * node, int parent);
+        void BoneRecursive(aiNode* node, int parent);
 
         Assimp::Importer aImporter;
 
