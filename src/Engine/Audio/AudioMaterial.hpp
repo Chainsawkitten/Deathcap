@@ -15,10 +15,7 @@ namespace Audio {
             ENGINE_API ~AudioMaterial();
 
             /// Saves the audio material to Json value.
-            /**
-             * @return The saved data in a JSON node.
-             */
-            ENGINE_API Json::Value Save() const;
+            ENGINE_API void Save() const;
 
             /// Loads the audio material information.
             /**

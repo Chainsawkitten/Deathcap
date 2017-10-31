@@ -170,13 +170,10 @@ Component::AudioMaterial* SoundManager::CreateAudioMaterial() {
 Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& node) {
     Component::AudioMaterial* audioMaterial = audioMaterials.Create();
 
-    //// Load values from Json node.
-    //std::string name = node.get("sound", "").asString();
-    //if (!name.empty())
-    //    soundSource->soundBuffer = Managers().resourceManager->CreateSound(name);
-
-    //soundSource->volume = node.get("volume", 1.f).asFloat();
-    //soundSource->loop = node.get("loop", false).asBool();
+    // Load values from Json node.
+    std::string name = node.get("audio material", "").asString();
+    if (!name.empty())
+        audioMaterial->material = Managers().resourceManager->CreateAudioMaterial(name);
 
     return audioMaterial;
 }

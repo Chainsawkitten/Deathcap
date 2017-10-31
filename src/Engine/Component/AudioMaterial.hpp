@@ -3,6 +3,10 @@
 #include "SuperComponent.hpp"
 #include "../linking.hpp"
 
+namespace Audio {
+    class AudioMaterial;
+}
+
 namespace Component {
     /// %Component providing an audio material to Entity.
     class AudioMaterial : public SuperComponent {
@@ -16,5 +20,7 @@ namespace Component {
              */
             ENGINE_API Json::Value Save() const override;
 
+            /// Audio material contaning information about how sound should interact with the material.
+            Audio::AudioMaterial* material = nullptr;
     };
 }
