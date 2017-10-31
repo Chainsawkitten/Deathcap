@@ -47,16 +47,16 @@ class ResourceManager {
          */
         ENGINE_API void FreeAnimationClip(Animation::AnimationClip* animationClip);
 
-        /// Create an animation clip.
+        /// Create an animation controller.
         /**
          * @param name Name of animation controller.
-         * @return The animation clip instance.
+         * @return The animation controller instance.
          */
         ENGINE_API Animation::AnimationController* CreateAnimationController(const std::string& name);
 
-        /// Free the reference to the animation clip.
+        /// Free the reference to the animation controller.
         /**
-         * @param animationClip %Animation clip to dereference.
+         * @param animationClip %Animation controller to dereference.
          */
         ENGINE_API void FreeAnimationController(Animation::AnimationController* animationController);
 
