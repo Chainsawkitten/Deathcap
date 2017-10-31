@@ -30,9 +30,8 @@ namespace Animation {
                 }
 
                 /// Save bone data.
-                /**
-                
-                @param file File to save to.
+                /**  
+                 * @param file File to save to.
                  */
                 void Save(std::ofstream* file) {
                     file->write(reinterpret_cast<char*>(&parent), sizeof(uint32_t));
@@ -41,7 +40,6 @@ namespace Animation {
                     for (unsigned int i = 0; i < numRotationKeys; ++i)  
                         file->write(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
                     
-
                     for (unsigned int i = 0; i < numRotationKeys; ++i) 
                         file->write(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::mat4));
                 }
@@ -63,13 +61,10 @@ namespace Animation {
                     rotationKeys = new int32_t[numRotationKeys];
                     for (unsigned int i = 0; i < numRotationKeys; ++i) 
                         file->read(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
-                    
 
                     rotations = new glm::mat4[numRotationKeys];
-                    for (unsigned int i = 0; i < numRotationKeys; ++i) {
+                    for (unsigned int i = 0; i < numRotationKeys; ++i)
                         file->read(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::mat4));
-                        Log() << "Load key: " << (float)rotationKeys[i] << "\n";
-                    }
                 }
             };
 
