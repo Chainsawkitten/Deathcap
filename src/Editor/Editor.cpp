@@ -511,11 +511,10 @@ void Editor::ControlEditorCamera(float deltaTime) {
             lastY = Input()->GetCursorY();
         }
         float sensitivity = 0.3f;
-        rotationX += glm::radians(sensitivity * static_cast<float>(lastX - Input()->GetCursorX()));
-        rotationY += glm::radians(sensitivity * static_cast<float>(lastY - Input()->GetCursorY()));
-        glm::quat tempQuat = glm::fquat(glm::vec3(rotationY, rotationX, 0.0f));
-
-        cameraEntity->SetWorldRotation(tempQuat);
+        float horizontal = glm::radians(sensitivity * static_cast<float>(lastX - Input()->GetCursorX()));
+        float vertical = glm::radians(sensitivity * static_cast<float>(lastY - Input()->GetCursorY()));
+        cameraEntity->RotatePitch(vertical);
+        cameraEntity->RotateAroundWorldAxis(horizontal, glm::vec3(0.0f, 1.0f, 0.0f));
 
         lastX = Input()->GetCursorX();
         lastY = Input()->GetCursorY();
