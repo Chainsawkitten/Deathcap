@@ -39,13 +39,13 @@ class ResourceList {
             /// The type of resource.
             enum Type {
                 SCENE = 0,
-                ANIMATION_CLIP,
-                ANIMATION_CONTROLLER,
-                SKELETON,
                 MODEL,
                 TEXTURE,
                 SOUND,
-                SCRIPT
+                SCRIPT,
+                ANIMATION_CLIP,
+                ANIMATION_CONTROLLER,
+                SKELETON,
             } type;
             
             /// Scene name.

@@ -15,6 +15,7 @@ void Skeleton::Save(const std::string& path) {
 
     if (!file.is_open()) {
         Log() << "Could not save skeleton file: " << path << "\n";
+        file.close();
         return;
     }
 
