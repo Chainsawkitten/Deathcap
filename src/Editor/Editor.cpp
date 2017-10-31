@@ -256,8 +256,7 @@ void Editor::Show(float deltaTime) {
                     break;
                 }
                 case ImGuizmo::ROTATE: {
-                    glm::quat deltaQuat = glm::toQuat(deltaMatrix);
-                    currentEntity->quaternion = deltaQuat * currentEntity->quaternion;
+                    currentEntity->SetLocalRotation(glm::toQuat(deltaMatrix) * currentEntity->GetWorldQuat());
                     break;
                 }
                 case ImGuizmo::SCALE: {
@@ -449,7 +448,7 @@ void Editor::ShowMainMenuBar(bool& play) {
                 if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
                     cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
-                    cameraEntity->quaternion = glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0));
+                    cameraEntity->SetLocalRotation(glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0)));
                 }
             }
 

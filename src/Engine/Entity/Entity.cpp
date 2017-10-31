@@ -285,6 +285,11 @@ glm::vec3 Entity::GetWorldPosition() const {
     return position;
 }
 
+glm::quat Entity::GetWorldQuat() const
+{
+    return quaternion;
+}
+
 void Entity::SetWorldPosition(const glm::vec3 &worldPos) {
     if (parent == nullptr)
         position = worldPos;

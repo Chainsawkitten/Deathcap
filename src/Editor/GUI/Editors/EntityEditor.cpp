@@ -112,8 +112,8 @@ void EntityEditor::Show() {
 
         ImGui::DraggableVec3("Position", entity->position);
 
-        float angle = glm::angle(entity->quaternion);
-        glm::vec3 axis = glm::axis(entity->quaternion);
+        float angle = glm::angle(entity->GetWorldQuat());
+        glm::vec3 axis = glm::axis(entity->GetWorldQuat());
         if (ImGui::InputFloat("Angle", &angle) || ImGui::InputFloat3("Axis", &axis.x, -1, ImGuiInputTextFlags_EnterReturnsTrue)) {
             float epsilon = 0.001f;
             if (fabs(axis.x - epsilon) < epsilon && fabs(axis.y - epsilon) < epsilon && fabs(axis.z - epsilon) < epsilon)
