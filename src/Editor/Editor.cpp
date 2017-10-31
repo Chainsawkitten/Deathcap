@@ -214,11 +214,6 @@ void Editor::Show(float deltaTime) {
     // Widget Controller for translation, rotation  and scale.
     ImGuizmo::BeginFrame();
     ImGuizmo::Enable(true);
-    //Widget operation is in local mode
-    ImGuizmo::MODE currentGizmoMode(ImGuizmo::WORLD);
-    ImGuiIO& io = ImGui::GetIO();
-
-    // Check that there is an active Entity.
 
     // Get current active Entity.
     Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
@@ -228,13 +223,19 @@ void Editor::Show(float deltaTime) {
 
         // Change operation based on key input.
         if (!ImGuizmo::IsUsing()) {
-            if (Input()->Triggered(InputHandler::W))
+            if (Input()->Triggered(InputHandler::W)) {
                 currentOperation = ImGuizmo::TRANSLATE;
-            else if (Input()->Triggered(InputHandler::E))
+                imguizmoMode = ImGuizmo::MODE::WORLD;
+            } else if (Input()->Triggered(InputHandler::E)) {
                 currentOperation = ImGuizmo::ROTATE;
-            else if (Input()->Triggered(InputHandler::R))
+                imguizmoMode = ImGuizmo::MODE::WORLD;
+            } else if (Input()->Triggered(InputHandler::R)) {
                 currentOperation = ImGuizmo::SCALE;
+                imguizmoMode = ImGuizmo::MODE::LOCAL;
+            }
         }
+
+        ImGuiIO& io = ImGui::GetIO();
 
         // Projection matrix.
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
@@ -245,7 +246,7 @@ void Editor::Show(float deltaTime) {
         // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
         glm::mat4 deltaMatrix = glm::mat4();
-        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, currentGizmoMode, &currentEntityMatrix[0][0], &deltaMatrix[0][0]);
+        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, imguizmoMode, &currentEntityMatrix[0][0], &deltaMatrix[0][0]);
 
         if (ImGuizmo::IsUsing()) {
             switch (currentOperation) {

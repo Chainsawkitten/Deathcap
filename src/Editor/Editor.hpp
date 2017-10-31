@@ -10,6 +10,7 @@
 #include <Engine/Util/RayIntersection.hpp>
 #include <string>
 #include <json/json.h>
+#include <ImGuizmo.h>
 
 struct GLFWcursor;
 
@@ -122,4 +123,6 @@ class Editor {
         float rotationY = 0.0f;
         
         GLFWcursor* cursors[5];
+
+        ImGuizmo::MODE imguizmoMode = ImGuizmo::MODE::WORLD;
 };
