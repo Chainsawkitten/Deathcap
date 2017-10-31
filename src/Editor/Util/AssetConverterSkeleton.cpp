@@ -107,7 +107,7 @@ bool AssetConverterSkeleton::Success() const {
     return success;
 }
 
-std::string& AssetConverterSkeleton::GetErrorString() const {
+const std::string& AssetConverterSkeleton::GetErrorString() {
     return errorString;
 }
 
