@@ -7,6 +7,7 @@
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
+#include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
@@ -33,6 +34,8 @@ string ResourceList::Resource::GetName() const {
         return sound->name;
     case Type::SCRIPT:
         return script->name;
+    case Type::AUDIOMATERIAL:
+        return audioMaterial->name;
     default:
         return "";
     }
@@ -68,6 +71,7 @@ Json::Value ResourceList::ToJson() const {
     root["textureNumber"] = textureNumber;
     root["soundNumber"] = soundNumber;
     root["scriptNumber"] = scriptNumber;
+    root["audioMaterialNumber"] = audioMaterialNumber;
     
     return root;
 }
@@ -89,6 +93,7 @@ void ResourceList::Load() {
     textureNumber = root["textureNumber"].asUInt();
     soundNumber = root["soundNumber"].asUInt();
     scriptNumber = root["scriptNumber"].asUInt();
+    audioMaterialNumber = root["audioMaterialNumber"].asUInt();
 }
 
 void ResourceList::Clear() {
@@ -103,6 +108,7 @@ void ResourceList::Clear() {
     textureNumber = 0U;
     soundNumber = 0U;
     scriptNumber = 0U;
+    audioMaterialNumber = 0U;
 }
 
 Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
@@ -150,6 +156,10 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
         case Resource::SCRIPT:
             resourceNode["script"] = resource.script->name;
             resource.script->Save();
+            break;
+        case Resource::AUDIOMATERIAL:
+            resourceNode["audioMaterial"] = resource.audioMaterial->name;
+            resource.audioMaterial->Save();
             break;
         }
         
@@ -202,6 +212,9 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
         case Resource::SCRIPT:
             resource.script = Managers().resourceManager->CreateScriptFile(path + resourceNode["script"].asString());
             break;
+        case Resource::AUDIOMATERIAL:
+            resource.audioMaterial = Managers().resourceManager->CreateAudioMaterial(path + resourceNode["audioMaterial"].asString());
+            break;
         }
         
         folder.resources.push_back(resource);
@@ -228,6 +241,8 @@ void ResourceList::ClearFolder(ResourceFolder& folder) {
             break;
         case Resource::Type::SKELETON:
             Managers().resourceManager->FreeAnimationController(resource.animationController);
+        case Resource::Type::AUDIOMATERIAL:
+            Managers().resourceManager->FreeAudioMaterial(resource.audioMaterial);
             break;
         case Resource::Type::MODEL:
             Managers().resourceManager->FreeModel(resource.model);

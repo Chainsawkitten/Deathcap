@@ -9,6 +9,7 @@
 
 namespace Component {
     class AnimationController;
+    class AudioMaterial;
     class Mesh;
     class Lens;
     class Material;
@@ -77,6 +78,7 @@ namespace GUI {
             
             // Editors
             void AnimationControllerEditor(Component::AnimationController* animationController);
+            void AudioMaterialEditor(Component::AudioMaterial* audioMaterial);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
             void MaterialEditor(Component::Material* material);

@@ -8,6 +8,7 @@
 #include "Editors/SoundEditor.hpp"
 #include "Editors/ScriptEditor.hpp"
 #include "Editors/TextureEditor.hpp"
+#include "Editors/AudioMaterialEditor.hpp"
 #include "SavePromptWindow.hpp"
 #include "FolderNameWindow.hpp"
 #include "../Resources.hpp"
@@ -79,6 +80,7 @@ namespace GUI {
             ModelEditor modelEditor;
             TextureEditor textureEditor;
             SoundEditor soundEditor;
+            AudioMaterialEditor audioMaterialEditor;
             
             SavePromptWindow savePromptWindow;
             FolderNameWindow folderNameWindow;
@@ -105,5 +107,6 @@ namespace GUI {
             bool texturePressed;
             bool modelPressed;
             bool soundPressed;
+            bool audioMaterialPressed;
     };
 }

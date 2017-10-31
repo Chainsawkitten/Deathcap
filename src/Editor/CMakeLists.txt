@@ -20,6 +20,7 @@ set(SRCS
         GUI/SettingsWindow.cpp
         GUI/Editors/AnimationClipEditor.cpp
         GUI/Editors/AnimationControllerEditor.cpp
+        GUI/Editors/AudioMaterialEditor.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
         GUI/Editors/NodeEditor.cpp
@@ -56,6 +57,7 @@ set(HEADERS
         GUI/SettingsWindow.hpp
         GUI/Editors/AnimationClipEditor.hpp
         GUI/Editors/AnimationControllerEditor.hpp
+        GUI/Editors/AudioMaterialEditor.hpp
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/IShapeEditor.hpp
         GUI/Editors/ModelEditor.hpp

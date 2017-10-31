@@ -8,6 +8,7 @@ set(SRCS
         Animation/AnimationClip.cpp
         Animation/AnimationController.cpp
         Animation/Skeleton.cpp
+        Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
@@ -15,6 +16,7 @@ set(SRCS
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/AnimationController.cpp
+        Component/AudioMaterial.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -69,6 +71,7 @@ set(HEADERS
         Animation/AnimationClip.hpp
         Animation/AnimationController.hpp
         Animation/Skeleton.hpp
+        Audio/AudioMaterial.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/SteamAudio.hpp
@@ -77,6 +80,7 @@ set(HEADERS
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/AnimationController.hpp
+        Component/AudioMaterial.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp

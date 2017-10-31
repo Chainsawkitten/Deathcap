@@ -11,6 +11,7 @@ namespace Geometry {
 }
 namespace Audio {
     class SoundBuffer;
+    class AudioMaterial;
 }
 
 namespace Animation {
@@ -43,9 +44,10 @@ class ResourceList {
                 TEXTURE,
                 SOUND,
                 SCRIPT,
+                AUDIOMATERIAL,
                 ANIMATION_CLIP,
                 ANIMATION_CONTROLLER,
-                SKELETON,
+                SKELETON
             } type;
             
             /// Scene name.
@@ -71,6 +73,9 @@ class ResourceList {
             
             /// Script.
             ScriptFile* script;
+
+            /// Audio Material.
+            Audio::AudioMaterial* audioMaterial;
         };
         
         /// A folder containing resources.
@@ -136,14 +141,17 @@ class ResourceList {
         /// The id of the next sound to create.
         unsigned int soundNumber = 0U;
 
+        /// The id of the next script to create.
+        unsigned int scriptNumber = 0U;
+
+        /// The id of the next audio material to create.
+        unsigned int audioMaterialNumber = 0U;
+
         /// Gets the path where it's saved.
         /**
          * @return The full path.
          */
         std::string GetSavePath() const;
-        
-        /// The id of the next script to create.
-        unsigned int scriptNumber = 0U;
         
     private:
         static ResourceList& GetInstance();

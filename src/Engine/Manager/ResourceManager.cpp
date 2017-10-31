@@ -11,6 +11,7 @@
 #include "../Texture/TextureAsset.hpp"
 #include "../Script/ScriptFile.hpp"
 #include <Utility/Log.hpp>
+#include "../Audio/AudioMaterial.hpp"
 
 using namespace std;
 
@@ -198,5 +199,30 @@ void ResourceManager::FreeScriptFile(ScriptFile* scriptFile) {
         scriptFilesInverse.erase(scriptFile);
         delete scriptFile;
         scriptFiles.erase(name);
+    }
+}
+
+Audio::AudioMaterial* ResourceManager::CreateAudioMaterial(const string& name) {
+    if (audioMaterials.find(name) == audioMaterials.end()) {
+        Audio::AudioMaterial* audioMaterial = new Audio::AudioMaterial();
+        audioMaterial->Load(name);
+        audioMaterials[name].audioMaterial = audioMaterial;
+        audioMaterialsInverse[audioMaterial] = name;
+        audioMaterials[name].count = 1;
+    }
+    else {
+        audioMaterials[name].count++;
+    }
+
+    return audioMaterials[name].audioMaterial;
+}
+
+void ResourceManager::FreeAudioMaterial(Audio::AudioMaterial* audioMaterial) {
+    string name = audioMaterialsInverse[audioMaterial];
+
+    if (audioMaterials[name].count-- <= 1) {
+        audioMaterialsInverse.erase(audioMaterial);
+        delete audioMaterial;
+        audioMaterials.erase(name);
     }
 }

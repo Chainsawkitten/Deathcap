@@ -7,6 +7,7 @@
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
+#include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/MainWindow.hpp>
@@ -50,6 +51,7 @@ void ResourceView::Show() {
     texturePressed = false;
     modelPressed = false;
     soundPressed = false;
+    audioMaterialPressed = false;
 
     ShowResourceFolder(Resources().resourceFolder, Resources().resourceFolder.name);
 
@@ -101,7 +103,7 @@ void ResourceView::Show() {
     if (folderNameWindow.IsVisible())
         folderNameWindow.Show();
 
-    if (sceneEditor.entityPressed || animationClipPressed || animationControllerPressed || skeletonPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
+    if (sceneEditor.entityPressed || animationClipPressed || animationControllerPressed || skeletonPressed || scriptPressed || texturePressed || modelPressed || soundPressed || audioMaterialPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
         animationClipEditor.SetVisible(animationClipPressed);
         animationControllerEditor.SetVisible(animationControllerPressed);
@@ -110,6 +112,7 @@ void ResourceView::Show() {
         textureEditor.SetVisible(texturePressed);
         modelEditor.SetVisible(modelPressed);
         soundEditor.SetVisible(soundPressed);
+        audioMaterialEditor.SetVisible(audioMaterialPressed);
     }
 
     if (sceneEditor.IsVisible()) {
@@ -119,7 +122,7 @@ void ResourceView::Show() {
         sceneEditor.Show();
     }
 
-    if (sceneEditor.entityEditor.IsVisible() || animationClipEditor.IsVisible() || skeletonEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible()) {
+    if (sceneEditor.entityEditor.IsVisible() || animationClipEditor.IsVisible() || skeletonEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible() || audioMaterialEditor.IsVisible()) {
         editorWidth = size.x - editorWidth;
         ImGui::HorizontalSplitter(ImVec2(editorWidth, 20), size.y - 20, splitterSize, editorWidth, editorResize, sceneWidth + 20, size.x - 20);
         editorWidth = size.x - editorWidth;
@@ -144,7 +147,9 @@ void ResourceView::Show() {
         modelEditor.Show();
     if (soundEditor.IsVisible())
         soundEditor.Show();
-
+    if (audioMaterialEditor.IsVisible())
+        audioMaterialEditor.Show();
+  
     ImGui::End();
 }
 
@@ -190,6 +195,7 @@ void ResourceView::HideEditors() {
     modelEditor.SetVisible(false);
     textureEditor.SetVisible(false);
     soundEditor.SetVisible(false);
+    audioMaterialEditor.SetVisible(false);
 }
 
 void ResourceView::SaveScene() const {
@@ -312,7 +318,15 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
             folder.resources.push_back(resource);
         }
-
+        // Add audio material.
+        else if (ImGui::Selectable("Add audio material")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::AUDIOMATERIAL;
+            resource.audioMaterial = new Audio::AudioMaterial();
+            resource.audioMaterial->path = path + "/";
+            resource.audioMaterial->name = "Audio material #" + std::to_string(Resources().audioMaterialNumber++);
+            folder.resources.push_back(resource);
+        }
         // Remove Folder.
         else if (folder.subfolders.empty() && folder.resources.empty()) {
             if (ImGui::Selectable("Remove Folder")) {
@@ -552,6 +566,26 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         }
     }
 
+    // Audio materials.
+    if (resource.type == ResourceList::Resource::AUDIOMATERIAL) {
+        if (ImGui::Selectable(resource.audioMaterial->name.c_str())) {
+            audioMaterialPressed = true;
+            audioMaterialEditor.SetAudioMaterial(resource.audioMaterial);
+        }
+
+        if (ImGui::BeginPopupContextItem(resource.audioMaterial->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (audioMaterialEditor.GetAudioMaterial() == resource.audioMaterial)
+                    audioMaterialEditor.SetVisible(false);
+
+                Managers().resourceManager->FreeAudioMaterial(resource.audioMaterial);
+                ImGui::EndPopup();
+                return true;
+            }
+            ImGui::EndPopup();
+        }
+    }
+  
     return false;
 }
 

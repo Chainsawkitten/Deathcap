@@ -16,6 +16,7 @@ namespace Geometry {
 }
 namespace Audio {
     class SoundBuffer;
+    class AudioMaterial;
 }
 
 namespace Animation {
@@ -149,6 +150,20 @@ class ResourceManager {
          * @param scriptFile %ScriptFile to dereference.
          */
         ENGINE_API void FreeScriptFile(ScriptFile* scriptFile);
+
+        /// Create an audio material if it doesn't already exist.
+        /**
+         * @param name Name of the audio material.
+         * @return The %AudioMaterial instance.
+         */
+        ENGINE_API Audio::AudioMaterial* CreateAudioMaterial(const std::string& name);
+
+        /// Free the reference to the audio material.
+        /**
+         * Deletes the instance if no more references exist.
+         * @param audioMaterial %AudioMaterial to dereference.
+         */
+        ENGINE_API void FreeAudioMaterial(Audio::AudioMaterial* audioMaterial);
         
     private:
         ResourceManager(ResourceManager const&) = delete;
@@ -225,4 +240,12 @@ class ResourceManager {
         };
         std::map<std::string, ScriptFileInstance> scriptFiles;
         std::map<ScriptFile*, std::string> scriptFilesInverse;
+
+        // Audio material
+        struct AudioMaterialInstance {
+            Audio::AudioMaterial* audioMaterial;
+            int count;
+        };
+        std::map<std::string, AudioMaterialInstance> audioMaterials;
+        std::map<Audio::AudioMaterial*, std::string> audioMaterialsInverse;
 };
