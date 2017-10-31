@@ -4,6 +4,7 @@
 #include <assimp/anim.h>
 #include <Engine/Animation/AnimationClip.hpp>
 
+/// Class used to convert fbx to .asset format for skeleton and animation.
 class AssetConverterSkeleton {
     public:
         /// Constructor.
