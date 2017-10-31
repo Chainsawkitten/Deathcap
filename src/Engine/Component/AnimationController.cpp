@@ -34,9 +34,10 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         bones.resize(skeleton->skeletonBones.size());
     }
 
-    if (activeAction1 == nullptr) {
+    // Hardcoded node system at this moment.
+    /// @todo Remove hardcoded node system.
+    if (activeAction1 == nullptr) 
         activeAction1 = dynamic_cast<Animation::AnimationController::AnimationAction*>(controller->animationNodes[0]);
-    }
 
     Animation::AnimationClip::Animation* anim = activeAction1->animationClip->animation;
     unsigned int size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();

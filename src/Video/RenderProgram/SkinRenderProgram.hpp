@@ -24,6 +24,8 @@ namespace Video {
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
+             * @param lightBuffer Storage buffer for lights.
+             * @param lightCount Number of lights.
              */
             void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount);
     
@@ -36,7 +38,6 @@ namespace Video {
              * @param textureRoughness Roughness texture.
              * @param modelMatrix Model matrix.
              * @param bones Transformations of skeleton.
-             * @param bonesIT Inverse transpose transformations of skeleton.
              */
             void Render(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const;
             
