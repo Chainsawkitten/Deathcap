@@ -424,32 +424,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 //else if (typeId & asTYPEID_SCRIPTOBJECT){
                 //    asIScriptObject *obj = (asIScriptObject*)varPointer;
                 //}
-                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
-                    
-                    std::map<std::string, std::pair<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
-                    if (it != script->propertyMap.end()) {
-
-                        std::string *str = (std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-
-                        //We have to put a limit to the size of the string because we want to use a buffer so we don't have to reallocate it every frame.
-                        //I decided to use 128 because that's what we use for the name of the script.
-                        if (str->size() <= 128) {
-
-                            std::copy(str->begin(), str->end(), stringPropertyBuffer);
-                            stringPropertyBuffer[str->size()] = '\0';
-
-                            ImGui::InputText(script->instance->GetPropertyName(n), stringPropertyBuffer, 128);
-
-                            *str = stringPropertyBuffer;
-
-                        }
-                        else
-                            ImGui::Text("%s = <TOO BIG>\n", script->instance->GetPropertyName(n));
-
-                    }
-                    else
-                        ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
-                }
 
             }
 
