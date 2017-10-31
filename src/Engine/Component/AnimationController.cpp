@@ -81,11 +81,3 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
 }
-
-void Component::AnimationController::SetBool(std::string name, bool value) {
-    Log() << name << " with value" << value << "is set\n";
-}
-
-void Component::AnimationController::SetFloat(std::string name, float value) {
-    Log() << name << " with value" << value << "is set\n";
-}
