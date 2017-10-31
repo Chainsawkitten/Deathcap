@@ -114,12 +114,6 @@ namespace Animation {
             /// The folder containing the model file.
             std::string path;
 
-            /// Map of bools.
-            std::map<std::string, bool> bools;
-    
-            /// Map of floats.
-            std::map<std::string, float> floats;
-
         private:
             enum NodeType {
                 ACTION = 0,

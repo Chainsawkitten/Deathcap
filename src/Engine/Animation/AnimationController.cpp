@@ -58,9 +58,9 @@ void AnimationController::Load(const std::string& name) {
     uint32_t numNodes = 0;
     file.read(reinterpret_cast<char*>(&numNodes), sizeof(uint32_t));
     for (unsigned int i = 0; i < numNodes; ++i)  {
-        NodeType nodetype;
-        file.read(reinterpret_cast<char*>(&nodetype), sizeof(NodeType));
-        if (nodetype == ACTION) {
+        NodeType nodeType;
+        file.read(reinterpret_cast<char*>(&nodeType), sizeof(NodeType));
+        if (nodeType == ACTION) {
             AnimationAction* node = new AnimationAction;
             node->Load(&file);
             animationNodes.push_back(node);
