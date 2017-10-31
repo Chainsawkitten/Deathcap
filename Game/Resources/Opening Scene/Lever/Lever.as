@@ -15,7 +15,7 @@ class Lever {
     
     void Update(float deltaTime){
         if (Input(MouseOpen)){
-            if (pitch(self.quaternion) <= radians(-30.0f)){
+            if (pitch(self.rotation) <= radians(-30.0f)){
                 SendMessage(sibling, 1);
             }
             else {

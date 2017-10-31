@@ -225,9 +225,9 @@ class Entity {
         
         /// Quaternion describing rotation and angle of entity.
         /**
-         * Default: 0 radians around x axis
+         * Default: 0 radians around y axis.
          */
-        glm::quat quaternion = glm::angleAxis(0.0f, glm::vec3(0, 1, 0));
+        glm::quat rotation = glm::angleAxis(0.0f, glm::vec3(0, 1, 0));
 
         /// Get the entity's UID
         /**

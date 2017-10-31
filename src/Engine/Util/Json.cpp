@@ -27,12 +27,18 @@ namespace Json {
 
     Value SaveQuaternion(const glm::quat& value) {
         Value node;
-        node["axis"] = Json::SaveVec3(glm::axis(value));
-        node["angle"] = glm::angle(value);
+        node["w"] = value.w;
+        node["x"] = value.x;
+        node["y"] = value.y;
+        node["z"] = value.z;
         return node;
     }
 
     glm::quat LoadQuaternion(const Value& value) {
-        return glm::angleAxis(value.get("angle", 0).asFloat(), Json::LoadVec3(value["axis"]));
+        return glm::quat(
+            value.get("w", 0.0f).asFloat(),
+            value.get("x", 0.0f).asFloat(),
+            value.get("y", 0.0f).asFloat(),
+            value.get("z", 0.0f).asFloat());
     }
 }

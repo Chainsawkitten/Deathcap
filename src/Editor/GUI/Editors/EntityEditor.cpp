@@ -112,7 +112,7 @@ void EntityEditor::Show() {
 
         ImGui::DraggableVec3("Position", entity->position);
 
-        auto eulerAngles = glm::eulerAngles(entity->quaternion);
+        glm::vec3 eulerAngles = glm::eulerAngles(entity->rotation);
         eulerAngles = glm::degrees(eulerAngles);
         if (ImGui::InputFloat3("Euler angles", &eulerAngles.x, -1, ImGuiInputTextFlags_EnterReturnsTrue))
             entity->SetLocalRotation(glm::quat(glm::radians(eulerAngles)));

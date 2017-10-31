@@ -306,7 +306,7 @@ ScriptManager::ScriptManager() {
     // Register Entity.
     engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Entity", "string name", asOFFSET(Entity, name));
-    engine->RegisterObjectProperty("Entity", "quat quaternion", asOFFSET(Entity, quaternion));
+    engine->RegisterObjectProperty("Entity", "quat rotation", asOFFSET(Entity, rotation));
     engine->RegisterObjectProperty("Entity", "vec3 position", asOFFSET(Entity, position));
     engine->RegisterObjectProperty("Entity", "vec3 scale", asOFFSET(Entity, scale));
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
