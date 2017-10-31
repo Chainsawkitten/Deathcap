@@ -41,7 +41,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         Animation::Skeleton skeleton;
         for (unsigned int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
-            Animation::Skeleton::SkeletonBone * bone = new Animation::Skeleton::SkeletonBone;
+            Animation::Skeleton::SkeletonBone* bone = new Animation::Skeleton::SkeletonBone;
             bone->parentId = (uint32_t)parents[i];
 
             glm::quat rot;
@@ -107,7 +107,7 @@ bool AssetConverterSkeleton::Success() const {
     return success;
 }
 
-std::string & AssetConverterSkeleton::GetErrorString() {
+std::string& AssetConverterSkeleton::GetErrorString() const {
     return errorString;
 }
 

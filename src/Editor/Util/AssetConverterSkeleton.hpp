@@ -34,7 +34,7 @@ class AssetConverterSkeleton {
         /**
          * @return A string with messages of what went wrong durning conversion.
          */
-        std::string& GetErrorString();
+        std::string& GetErrorString() const;
     
     private:
         void BoneRecursive(aiNode* node, int parent);
