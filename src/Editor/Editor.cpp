@@ -261,9 +261,13 @@ void Editor::Show(float deltaTime) {
                     break;
                 }
                 case ImGuizmo::SCALE: {
-                    currentEntity->scale.x = currentEntityMatrix[0][0];
-                    currentEntity->scale.y = currentEntityMatrix[1][1];
-                    currentEntity->scale.z = currentEntityMatrix[2][2];
+                    float translation[3];
+                    float rotation[3];
+                    float scale[3];
+                    ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translation, rotation, scale);
+                    currentEntity->scale.x = scale[0];
+                    currentEntity->scale.y = scale[1];
+                    currentEntity->scale.z = scale[2];
                     break;
                 }
             }
