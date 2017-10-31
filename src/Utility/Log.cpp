@@ -15,7 +15,7 @@ Log::~Log() {
     fflush(stderr);
 }
 
-Log& Log::operator<<(const string text) {
+Log& Log::operator<<(const string& text) {
     *streams[currentChannel] << text;
 
     #ifdef LOGTESTING 

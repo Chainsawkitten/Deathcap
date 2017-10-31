@@ -34,7 +34,7 @@ class Log {
          * @param text Text to output.
          * @return The %Log instance
          */
-        UTILITY_API Log& operator<<(const std::string text);
+        UTILITY_API Log& operator<<(const std::string& text);
         
         /// Output an integer to stderr.
         /**
