@@ -88,9 +88,15 @@ namespace Animation {
             ~AnimationController();
 
             /// Save animation controller.
+            /**
+             * @path 
+             */
             ENGINE_API void Save(const std::string& path);
 
             /// Load animation controller.
+            /**
+             * @name 
+             */
             ENGINE_API void Load(const std::string& name);
 
             /// Vector with the animation nodes.

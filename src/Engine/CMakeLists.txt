@@ -5,9 +5,9 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
         MainWindow.cpp
-	Animation/AnimationClip.cpp
-	Animation/AnimationController.cpp
-	Animation/Skeleton.cpp
+        Animation/AnimationClip.cpp
+        Animation/AnimationController.cpp
+        Animation/Skeleton.cpp
         Audio/SoundBuffer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp

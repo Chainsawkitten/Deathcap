@@ -21,9 +21,8 @@ Geometry::Model* ResourceManager::CreateModel(const std::string& name) {
         models[name].model = model;
         modelsInverse[model] = name;
         models[name].count = 1;
-    } else {
+    } else
         models[name].count++;
-    }
 
     return models[name].model;
 }
@@ -45,9 +44,8 @@ Animation::AnimationClip* ResourceManager::CreateAnimationClip(const std::string
         animationClips[name].animationClip = animationClip;
         animationClipsInverse[animationClip] = name;
         animationClips[name].count = 1;
-    } else {
+    } else
         animationClips[name].count++;
-    }
 
     return animationClips[name].animationClip;
 }
@@ -69,9 +67,8 @@ Animation::AnimationController* ResourceManager::CreateAnimationController(const
         animationControllers[name].animationController = animationController;
         animationControllersInverse[animationController] = name;
         animationControllers[name].count = 1;
-    } else {
+    } else
         animationControllers[name].count++;
-    }
 
     return animationControllers[name].animationController;
 }
@@ -93,9 +90,8 @@ Animation::Skeleton* ResourceManager::CreateSkeleton(const std::string& name) {
         skeletons[name].skeleton = skeleton;
         skeletonsInverse[skeleton] = name;
         skeletons[name].count = 1;
-    } else {
+    } else
         skeletons[name].count++;
-    }
 
     return skeletons[name].skeleton;
 }
@@ -115,9 +111,8 @@ Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLen
         textures[data].texture = new Video::Texture2D(data, dataLength, srgb);
         texturesInverse[textures[data].texture] = data;
         textures[data].count = 1;
-    } else {
+    } else
         textures[data].count++;
-    }
     
     return textures[data].texture;
 }
@@ -139,9 +134,8 @@ TextureAsset* ResourceManager::CreateTextureAsset(const std::string& name) {
         textureAssets[name].textureAsset = textureAsset;
         textureAssetsInverse[textureAsset] = name;
         textureAssets[name].count = 1;
-    } else {
+    } else
         textureAssets[name].count++;
-    }
     
     return textureAssets[name].textureAsset;
 }
@@ -168,9 +162,8 @@ Audio::SoundBuffer* ResourceManager::CreateSound(const string& name) {
         sounds[name].soundBuffer = soundBuffer;
         soundsInverse[soundBuffer] = name;
         sounds[name].count = 1;
-    } else {
+    } else
         sounds[name].count++;
-    }
     
     return sounds[name].soundBuffer;
 }
@@ -192,9 +185,8 @@ ScriptFile* ResourceManager::CreateScriptFile(const string& name) {
         scriptFiles[name].scriptFile = scriptFile;
         scriptFilesInverse[scriptFile] = name;
         scriptFiles[name].count = 1;
-    } else {
+    } else
         scriptFiles[name].count++;
-    }
     
     return scriptFiles[name].scriptFile;
 }

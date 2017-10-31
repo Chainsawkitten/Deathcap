@@ -61,11 +61,11 @@ void AnimationController::Load(const std::string& name) {
         NodeType nodetype;
         file.read(reinterpret_cast<char*>(&nodetype), sizeof(NodeType));
         if (nodetype == ACTION) {
-            AnimationAction * node = new AnimationAction;
+            AnimationAction* node = new AnimationAction;
             node->Load(&file);
             animationNodes.push_back(node);
         } else {
-            AnimationTransition * node = new AnimationTransition;
+            AnimationTransition* node = new AnimationTransition;
             node->Load(&file);
             animationNodes.push_back(node);
         }
@@ -76,7 +76,7 @@ void AnimationController::Load(const std::string& name) {
 }
 
 void Animation::AnimationController::Clear() {
-    for (Node * node : animationNodes) {
+    for (Node* node : animationNodes) {
         delete node;
     }
 
