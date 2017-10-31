@@ -35,6 +35,7 @@
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
 #include <imgui_internal.h>
+#include <imgui.h>
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
@@ -113,7 +114,12 @@ void EntityEditor::Show() {
         }
 
         ImGui::DraggableVec3("Position", entity->position);
-        ImGui::DraggableVec3("Rotation", entity->rotation);
+
+        glm::vec3 eulerAngles = glm::eulerAngles(entity->rotation);
+        eulerAngles = glm::degrees(eulerAngles);
+        if (ImGui::InputFloat3("Euler angles", &eulerAngles.x))
+            entity->SetLocalOrientation(glm::quat(glm::radians(eulerAngles)));
+
         ImGui::DraggableVec3("Scale", entity->scale);
         ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
         ImGui::Checkbox("Is entity static", &entity->isStatic);
