@@ -112,17 +112,10 @@ void EntityEditor::Show() {
 
         ImGui::DraggableVec3("Position", entity->position);
 
-        float angle = glm::angle(entity->quaternion);
-        glm::vec3 axis = glm::axis(entity->quaternion);
-        if (ImGui::InputFloat("Angle", &angle) || ImGui::InputFloat3("Axis", &axis.x, -1, ImGuiInputTextFlags_EnterReturnsTrue)) {
-            float epsilon = 0.001f;
-            if (fabs(axis.x - epsilon) < epsilon && fabs(axis.y - epsilon) < epsilon && fabs(axis.z - epsilon) < epsilon)
-                axis = glm::vec3(0.0f, 0.0f, 0.0f);
-            else
-                axis = glm::normalize(axis);
-
-            entity->SetWorldRotation(glm::angleAxis(angle, axis));
-        }
+        auto eulerAngles = glm::eulerAngles(entity->quaternion);
+        eulerAngles = glm::degrees(eulerAngles);
+        if (ImGui::InputFloat3("Euler angles", &eulerAngles.x, -1, ImGuiInputTextFlags_EnterReturnsTrue))
+            entity->SetLocalRotation(glm::quat(glm::radians(eulerAngles)));
 
         ImGui::DraggableVec3("Scale", entity->scale);
         ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
