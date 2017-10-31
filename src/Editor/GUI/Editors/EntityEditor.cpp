@@ -204,7 +204,7 @@ void EntityEditor::AudioMaterialEditor(Component::AudioMaterial* audioMaterial) 
         ImGui::OpenPopup("Select audio material");
 
     if (ImGui::BeginPopup("Select audio material")) {
-        ImGui::Text("Audio Materials");
+        ImGui::Text("Audio materials");
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::AUDIOMATERIAL)) {
