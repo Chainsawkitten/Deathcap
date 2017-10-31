@@ -10,7 +10,7 @@ AnimationController::~AnimationController() {
     Clear();
 }
 
-void AnimationController::Save(const std::string & path) {
+void AnimationController::Save(const std::string& path) {
     // Open file.
     std::ofstream file(path, std::ios::binary);
 
@@ -81,6 +81,5 @@ void Animation::AnimationController::Clear() {
     }
 
     animationNodes.clear();
-    animationNodes.shrink_to_fit();
 }
 

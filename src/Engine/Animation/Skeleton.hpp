@@ -39,13 +39,13 @@ namespace Animation {
             /**
              * @param name Name of file.
              */
-            ENGINE_API void Save(std::string name);
+            ENGINE_API void Save(const std::string& name);
 
             /// Load skeleton.
             /** 
              * @param name Name of skeleton to load.
              */ 
-            ENGINE_API void Load(std::string name);
+            ENGINE_API void Load(const std::string& name);
 
             /// Bones of skeleton.
             std::vector<SkeletonBone*> skeletonBones;

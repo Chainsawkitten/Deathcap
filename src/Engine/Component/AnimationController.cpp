@@ -41,7 +41,6 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     Animation::AnimationClip::Animation* anim = activeAction1->animationClip->animation;
     unsigned int size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
-
     anim->currentFrame += deltaTime * 1.0f;
     if (anim->currentFrame > 15.0f) {
         anim->currentFrame = 0;

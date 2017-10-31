@@ -9,7 +9,7 @@ using namespace Animation;
 Animation::Skeleton::Skeleton() {
 }
 
-void Skeleton::Save(std::string path) {
+void Skeleton::Save(const std::string& path) {
     // Open the file.
     std::ofstream file(path, std::ios::binary);
 
@@ -31,7 +31,7 @@ void Skeleton::Save(std::string path) {
     file.close();
 }
 
-void Skeleton::Load(std::string name) {
+void Skeleton::Load(const std::string& name) {
     std::size_t pos = name.find_last_of('/');
     this->name = name.substr(pos + 1);
     path = name.substr(0, pos + 1);
