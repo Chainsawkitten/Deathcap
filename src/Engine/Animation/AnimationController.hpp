@@ -111,7 +111,7 @@ namespace Animation {
             /// Map of floats.
             std::map<std::string, float> floats;
 
-    private:
+        private:
             enum NodeType {
                 ACTION = 0,
                 TRANSITION = 1
