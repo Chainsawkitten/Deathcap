@@ -31,7 +31,8 @@ namespace Animation {
 
                 /// Save bone data.
                 /**
-                 * @param file File to save to.
+                
+                @param file File to save to.
                  */
                 void Save(std::ofstream* file) {
                     file->write(reinterpret_cast<char*>(&parent), sizeof(uint32_t));

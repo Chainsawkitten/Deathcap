@@ -38,7 +38,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         activeAction1 = dynamic_cast<Animation::AnimationController::AnimationAction*>(controller->animationNodes[0]);
     }
 
-    Animation::AnimationClip::Animation * anim = activeAction1->animationClip->animation;
+    Animation::AnimationClip::Animation* anim = activeAction1->animationClip->animation;
     unsigned int size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
 
@@ -54,7 +54,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
 
     for (unsigned int i = 1; i < size; ++i) {
-        Animation::AnimationClip::Bone * bone = &anim->bones[i];
+        Animation::AnimationClip::Bone* bone = &anim->bones[i];
 
         if ((float)bone->rotationKeys[bone->currentKeyIndex + 1] > anim->currentFrame)
             ++bone->currentKeyIndex;

@@ -52,7 +52,7 @@ Animation::AnimationClip* ResourceManager::CreateAnimationClip(const std::string
     return animationClips[name].animationClip;
 }
 
-void ResourceManager::FreeAnimationClip(Animation::AnimationClip * animationClip) {
+void ResourceManager::FreeAnimationClip(Animation::AnimationClip* animationClip) {
     std::string name = animationClipsInverse[animationClip];
 
     if (animationClips[name].count-- <= 1) {
@@ -62,7 +62,7 @@ void ResourceManager::FreeAnimationClip(Animation::AnimationClip * animationClip
     }
 }
 
-Animation::AnimationController * ResourceManager::CreateAnimationController(const std::string& name) {
+Animation::AnimationController* ResourceManager::CreateAnimationController(const std::string& name) {
     if (animationControllers.find(name) == animationControllers.end()) {
         Animation::AnimationController* animationController = new Animation::AnimationController();
         animationController->Load(name);
@@ -76,7 +76,7 @@ Animation::AnimationController * ResourceManager::CreateAnimationController(cons
     return animationControllers[name].animationController;
 }
 
-void ResourceManager::FreeAnimationController(Animation::AnimationController * animationController) {
+void ResourceManager::FreeAnimationController(Animation::AnimationController* animationController) {
     std::string name = animationControllersInverse[animationController];
 
     if (animationControllers[name].count-- <= 1) {
@@ -87,8 +87,6 @@ void ResourceManager::FreeAnimationController(Animation::AnimationController * a
 }
 
 Animation::Skeleton* ResourceManager::CreateSkeleton(const std::string& name) {
-    Log() << "Create skeleton: " << name << "\n";
-
     if (skeletons.find(name) == skeletons.end()) {
         Animation::Skeleton* skeleton = new Animation::Skeleton;
         skeleton->Load(name);
@@ -102,7 +100,7 @@ Animation::Skeleton* ResourceManager::CreateSkeleton(const std::string& name) {
     return skeletons[name].skeleton;
 }
 
-void ResourceManager::FreeSkeleton(Animation::Skeleton * skeleton) {
+void ResourceManager::FreeSkeleton(Animation::Skeleton* skeleton) {
     std::string name = skeletonsInverse[skeleton];
 
     if (skeletons[name].count-- <= 1) {

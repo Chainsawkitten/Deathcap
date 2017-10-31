@@ -45,7 +45,7 @@ class ResourceManager {
         /**
          * @param animationClip %Animation clip to dereference.
          */
-        ENGINE_API void FreeAnimationClip(Animation::AnimationClip * animationClip);
+        ENGINE_API void FreeAnimationClip(Animation::AnimationClip* animationClip);
 
         /// Create an animation clip.
         /**
@@ -58,7 +58,7 @@ class ResourceManager {
         /**
          * @param animationClip %Animation clip to dereference.
          */
-        ENGINE_API void FreeAnimationController(Animation::AnimationController * animationController);
+        ENGINE_API void FreeAnimationController(Animation::AnimationController* animationController);
 
         /// Create a skeleton.
         /**
@@ -71,7 +71,7 @@ class ResourceManager {
         /**
          * @param skeleton %Skeleton to dereference.
          */
-        ENGINE_API void FreeSkeleton(Animation::Skeleton * skeleton);
+        ENGINE_API void FreeSkeleton(Animation::Skeleton* skeleton);
 
         /**
          * @param name Name of model.
