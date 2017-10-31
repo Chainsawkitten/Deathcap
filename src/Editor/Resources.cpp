@@ -188,8 +188,6 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
             resource.animationController = Managers().resourceManager->CreateAnimationController(path + resourceNode["animationController"].asString());
             break;
         case Resource::SKELETON:
-            Log() << "Skeleton path: " << path << "\n";
-            Log() << "Skeleton name: " << resourceNode["skeleton"].asString() << "\n";
             resource.skeleton = Managers().resourceManager->CreateSkeleton(path + resourceNode["skeleton"].asString());
             break;
         case Resource::MODEL:
