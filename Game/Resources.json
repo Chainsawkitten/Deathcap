@@ -1,6 +1,7 @@
 {
-	"activeScene" : "Resources/Constant Scene/Controller/controller_fixScene",
-	"modelNumber" : 16,
+	"activeScene" : "Resources/Bridge Puzzle Scene/Bridge Puzzle Scene",
+	"audioMaterialNumber" : 0,
+	"modelNumber" : 17,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -265,10 +266,61 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "Bridge Puzzle Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Bridge Puzzle Scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Cave",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "cave_straigth",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : null,
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Bucket",
+						"resources" : null,
+						"subfolders" : null
+					},
+					{
+						"name" : "Bridge",
+						"resources" : null,
+						"subfolders" : null
+					},
+					{
+						"name" : "Rock",
+						"resources" : null,
+						"subfolders" : null
+					}
+				]
 			}
 		]
 	},
-	"sceneNumber" : 4,
+	"sceneNumber" : 6,
 	"scriptNumber" : 0,
 	"soundNumber" : 2,
 	"textureNumber" : 24
