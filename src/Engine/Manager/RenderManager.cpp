@@ -56,7 +56,7 @@ RenderManager::RenderManager() {
     if (Managers().vrManager->Active())
         hmdRenderSurface = new Video::RenderSurface(Managers().vrManager->GetRecommendedRenderTargetSize());
 
-    //init shadowpass
+    //Init shadowpass.
     shadowPass = new Video::ShadowPass();
 
     // Init textures.
@@ -248,7 +248,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     // Camera matrices.
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
-    //render shadows
+    //Render shadows.
     {
         PROFILE("Render Shadows meshes");
         {
