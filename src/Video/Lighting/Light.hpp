@@ -23,7 +23,10 @@ namespace Video {
         /// Angle of the cone (in degrees).
         float coneAngle;
 
+        /// Whether the light should cast shadows.
+        float shadow;
+
         /// Padding.
-        float padding[3];
+        float padding[2];
     };
 }

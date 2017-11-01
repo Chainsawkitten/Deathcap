@@ -23,7 +23,8 @@ struct Light {
     vec3 direction;
     float ambientCoefficient;
     float coneAngle;
-    float padding[3];
+    float shadow;
+    float padding[2];
 };
 
 // --- BINDINGS ---
@@ -144,7 +145,9 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
 
             // Spot light.
             if (lights[i].coneAngle < 179.0) {
-                shadow = ShadowCalculation(vertexIn.fragPosLightSpace);
+                if(lights[i].shadow > 0.1)
+                    shadow = ShadowCalculation(vertexIn.fragPosLightSpace);
+                
                 float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(lights[i].direction)), -1.0f, 1.0f)));
                 float fadeLength = 10.0;
                 if (lightToSurfaceAngle > lights[i].coneAngle - fadeLength) {

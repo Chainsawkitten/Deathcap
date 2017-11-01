@@ -32,5 +32,8 @@ namespace Component {
             /// Angle of the cone (in degrees).
             float coneAngle = 15.f;
 
+            ///Bool for shadows
+            bool shadow = false;
+
     };
 }

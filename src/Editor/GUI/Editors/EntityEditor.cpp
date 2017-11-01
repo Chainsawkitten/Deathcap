@@ -328,6 +328,7 @@ void EntityEditor::SpotLightEditor(Component::SpotLight* spotLight) {
     ImGui::DraggableFloat("Attenuation", spotLight->attenuation, 0.0f);
     ImGui::DraggableFloat("Intensity", spotLight->intensity, 0.0f);
     ImGui::DraggableFloat("Cone angle", spotLight->coneAngle, 0.0f, 180.f);
+    ImGui::Checkbox("Gives shadows", &spotLight->shadow);
     ImGui::Unindent();
 }
 

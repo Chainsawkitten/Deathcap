@@ -225,9 +225,11 @@ void RenderManager::Render(World& world, const glm::mat4& viewMatrix, const glm:
         if (spotLight->IsKilled() || !spotLight->entity->enabled)
             continue;
 
-        Entity* lightEntity = spotLight->entity;
-        lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
-        lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.5f, 50.0f);
+        if (spotLight->shadow) {
+            Entity* lightEntity = spotLight->entity;
+            lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
+            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.5f, 50.0f);
+        }
     }
    
     // Camera matrices.
@@ -450,6 +452,7 @@ Component::SpotLight* RenderManager::CreateSpotLight(const Json::Value& node) {
     spotLight->attenuation = node.get("attenuation", 1.f).asFloat();
     spotLight->intensity = node.get("intensity", 1.f).asFloat();
     spotLight->coneAngle = node.get("coneAngle", 15.f).asFloat();
+    spotLight->shadow = node.get("shadow", false).asBool();
     
     return spotLight;
 }
@@ -489,6 +492,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.ambientCoefficient = directionalLight->ambientCoefficient;
         light.coneAngle = 0.f;
         light.direction = glm::vec3(0.f, 0.f, 0.f);
+        light.shadow = 0.f;
         lights.push_back(light);
     }
     
@@ -507,6 +511,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.ambientCoefficient = spotLight->ambientCoefficient;
         light.coneAngle = spotLight->coneAngle;
         light.direction = glm::vec3(direction);
+        light.shadow = spotLight->shadow ? 1.f : 0.f;
         lights.push_back(light);
     }
     
@@ -532,6 +537,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             light.ambientCoefficient = 0.f;
             light.coneAngle = 180.f;
             light.direction = glm::vec3(1.f, 0.f, 0.f);
+            light.shadow = 0.f;
             lights.push_back(light);
         }
     }
