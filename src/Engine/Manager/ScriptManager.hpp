@@ -31,7 +31,7 @@ class ScriptManager {
          * @param script Script to build.
          * @return The result, < 0 means it failed.
          */
-        ENGINE_API int BuildScript(const ScriptFile* script);
+        ENGINE_API int BuildScript(ScriptFile* script);
         
         /// Build all scripts in the hymn.
         ENGINE_API void BuildAllScripts();
@@ -41,6 +41,12 @@ class ScriptManager {
          * @param script The script which map to update.
          */
         ENGINE_API void FillPropertyMap(Component::Script* script);
+
+        ///Fetches the functions from the script and fills the scriptfiles vector.
+        /**
+         * @param script The scriptfile which vector to update.
+         */
+        ENGINE_API void FillFunctionVector(ScriptFile* scriptFile);
 
         /// Update all script entities in the game world.
         /**
