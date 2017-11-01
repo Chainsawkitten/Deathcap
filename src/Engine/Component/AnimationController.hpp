@@ -24,6 +24,34 @@ namespace Component {
              */
             ENGINE_API void UpdateAnimation(float deltaTime);
 
+            /// Set a bool in the state machine.
+            /**
+             * @name Name of the bool.
+             * @value Value to set.
+             */
+            ENGINE_API void SetBool(std::string name, bool value);
+
+            /// Set a float in the state machine.
+            /**
+             * @name Name of the float.
+             * @value Value to set.
+             */
+            ENGINE_API void SetFloat(std::string name, float value);
+
+            /// Get a bool in the state machine.
+            /**
+             * @name Name of the bool.
+             * @return Value of the bool.
+             */
+            ENGINE_API bool GetBool(std::string name);
+
+            /// Get a float in the state machine.
+            /**
+             * @name Name of the float.
+             * @return Value of the float.
+             */
+            ENGINE_API float GetFloat(std::string name);
+
             /// Vector with the final calculated bones.
             std::vector<glm::mat4> bones;
 
@@ -34,9 +62,6 @@ namespace Component {
             Animation::Skeleton* skeleton = nullptr;
 
         private:
-            void Animate(float deltaTime, Animation::AnimationController::AnimationAction* action);
-            void Interpolate(float deltaTime);
-
             Animation::AnimationController::AnimationAction* activeAction1 = nullptr;
             Animation::AnimationController::AnimationAction* activeAction2 = nullptr;
             Animation::AnimationController::AnimationTransition* activeTransition = nullptr;

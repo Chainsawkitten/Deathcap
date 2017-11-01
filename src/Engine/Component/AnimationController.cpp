@@ -92,3 +92,11 @@ void Component::AnimationController::Animate(float deltaTime, Animation::Animati
 void Component::AnimationController::Interpolate(float deltaTime) {
 
 }
+
+bool Component::AnimationController::GetBool(std::string name) {
+    return true;
+}
+
+float Component::AnimationController::GetFloat(std::string name) {
+    return 1.0f;
+}
