@@ -432,7 +432,7 @@ ScriptManager::~ScriptManager() {
     engine->ShutDownAndRelease();
 }
 
-int ScriptManager::BuildScript(const ScriptFile* script) {
+int ScriptManager::BuildScript(ScriptFile* script) {
 
     GetBreakpoints(script);
 
@@ -461,6 +461,8 @@ int ScriptManager::BuildScript(const ScriptFile* script) {
         Log() << "Compile errors.\n";
         return r;
     }
+
+    FillFunctionVector(script);
 
     return r;
 
@@ -506,6 +508,9 @@ void ScriptManager::BuildAllScripts() {
             if (r < 0)
                 Log() << file->name.c_str() << "Compile errors.\n";
         }
+
+        FillFunctionVector(file);
+
     }
 }
 
@@ -563,6 +568,24 @@ void ScriptManager::FillPropertyMap(Script* script) {
     }
 
 }
+
+void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
+
+    scriptFile->functionList.clear();
+
+    asITypeInfo* scriptClass = GetClass(scriptFile->name, scriptFile->name);
+    int functionCount = scriptClass->GetMethodCount();
+    for (int n = 0; n < functionCount; n++) {
+
+        asIScriptFunction* func = scriptClass->GetMethodByIndex(n);
+        std::string decl = func->GetDeclaration(false);
+
+        scriptFile->functionList.push_back(decl);
+
+    }
+
+}
+
 
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
