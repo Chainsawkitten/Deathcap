@@ -19,7 +19,7 @@ Log& Log::operator<<(const string& text) {
     *streams[currentChannel] << text;
 
     #ifdef LOGTESTING 
-    if(currentChannel == ERR)
+    if (currentChannel == ERR)
         throw (text);
     #endif
 
