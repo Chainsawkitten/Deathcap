@@ -70,9 +70,8 @@ void LogView::Show() {
     ImGui::SameLine();
 
     // Copy log contents to clipboard.
-    if (ImGui::Button("Copy to clipboard")) {
+    if (ImGui::Button("Copy to clipboard"))
         ImGui::LogToClipboard();
-    }
 
     ImGui::SameLine();
 
