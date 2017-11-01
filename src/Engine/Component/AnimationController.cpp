@@ -45,6 +45,14 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     Interpolate(deltaTime);
 }
 
+void AnimationController::SetBool(std::string name, bool value) {
+    return void();
+}
+
+void Component::AnimationController::SetFloat(std::string name, float value) {
+    return;
+}
+
 void Component::AnimationController::Animate(float deltaTime, Animation::AnimationController::AnimationAction* action) {
     Animation::AnimationClip::Animation* anim = action->animationClip->animation;
     unsigned int size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
@@ -89,14 +97,14 @@ void Component::AnimationController::Animate(float deltaTime, Animation::Animati
     }
 }
 
-void Component::AnimationController::Interpolate(float deltaTime) {
+void AnimationController::Interpolate(float deltaTime) {
 
 }
 
-bool Component::AnimationController::GetBool(std::string name) {
+bool AnimationController::GetBool(std::string name) {
     return true;
 }
 
-float Component::AnimationController::GetFloat(std::string name) {
+float AnimationController::GetFloat(std::string name) {
     return 1.0f;
 }

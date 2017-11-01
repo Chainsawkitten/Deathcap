@@ -75,7 +75,7 @@ void AnimationController::Load(const std::string& name) {
     file.close();
 }
 
-void Animation::AnimationController::Clear() {
+void AnimationController::Clear() {
     for (Node* node : animationNodes) {
         delete node;
     }

@@ -47,6 +47,9 @@ namespace GUI {
              */
             void ShowNode(Node* node) override;
 
+            /// Show global values exposed to scripting.
+            void ShowValues() override;
+
             /// Return the a node array of animation related nodes.
             /**
              * @return The node array.
@@ -66,6 +69,7 @@ namespace GUI {
              * @return True if output and input can connect.
              */
             bool CanConnect(Node* output, Node* input) override;
+
 
         private:
             Animation::AnimationController* animationController = nullptr;

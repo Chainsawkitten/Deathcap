@@ -29,6 +29,7 @@ namespace Animation {
                 bool repeat = true;
                 Animation::AnimationClip * animationClip = nullptr;
 
+                /// Destructor.
                 virtual ~AnimationAction() {
                     if (animationClip != nullptr)
                         Managers().resourceManager->FreeAnimationClip(animationClip);
@@ -86,6 +87,19 @@ namespace Animation {
                 }
             };
 
+            /// Used to map bools.
+            struct BoolItem {
+                std::string name = "NewBool";
+                bool value = true;
+            };
+
+            /// Used to map floats.
+            struct FloatItem {
+                std::string name = "NewFloat";
+                float value = 1.f;
+            };
+
+
             /// Default constructor. 
             AnimationController() = default;
             
@@ -106,6 +120,12 @@ namespace Animation {
 
             /// Vector with the animation nodes.
             std::vector<Node*> animationNodes;
+
+            /// Used to map bools for animation system.
+            std::vector<BoolItem*> boolMap;
+
+            /// Used to map floats for animation system.
+            std::vector<FloatItem*> floatMap;
 
             /// Skeleton.
             Skeleton* skeleton;

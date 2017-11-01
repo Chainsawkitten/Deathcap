@@ -56,20 +56,16 @@ void AnimationControllerEditor::ShowContextMenu() {
 
     ImGui::Separator();
 
-    if (ImGui::MenuItem("Add float")) {
-        Animation::AnimationController::AnimationTransition* newTransition = new Animation::AnimationController::AnimationTransition;
-        std::string name = "Animation transition: " + std::to_string(animationController->animationNodes.size() + 1);
-        unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
-        memcpy(newTransition->name, name.c_str(), size);
-        animationController->animationNodes.push_back(newTransition);
+    if (ImGui::MenuItem("Add bool")) {
+        Animation::AnimationController::BoolItem* newBool = new Animation::AnimationController::BoolItem;
+        newBool->name.append(std::to_string(animationController->boolMap.size() + 1));
+        animationController->boolMap.push_back(newBool);
     }
 
-    if (ImGui::MenuItem("Add bool")) {
-        Animation::AnimationController::AnimationTransition* newTransition = new Animation::AnimationController::AnimationTransition;
-        std::string name = "Animation transition: " + std::to_string(animationController->animationNodes.size() + 1);
-        unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
-        memcpy(newTransition->name, name.c_str(), size);
-        animationController->animationNodes.push_back(newTransition);
+    if (ImGui::MenuItem("Add float")) {
+        Animation::AnimationController::FloatItem* newFloat = new Animation::AnimationController::FloatItem;
+        newFloat->name.append(std::to_string(animationController->floatMap.size() + 1));
+        animationController->floatMap.push_back(newFloat);
     }
 }
 
@@ -102,8 +98,6 @@ void AnimationControllerEditor::ShowNode(Node* node) {
         else {
             if (ImGui::Button("Select float##Float"))
                 ImGui::OpenPopup("Select float##Float");
-
-
         }
 
         // Repeat.
@@ -135,6 +129,30 @@ void AnimationControllerEditor::ShowNode(Node* node) {
     } else if (dynamic_cast<Animation::AnimationController::AnimationTransition*>(node) != nullptr) {
         ImGui::Text("Transition: %s", node->name);
         ImGui::InputText("Name", node->name, 128);
+
+    }
+}
+
+void GUI::AnimationControllerEditor::ShowValues() {
+    ImGui::Text("Bools");
+    ImGui::Separator();
+
+    for (unsigned int i = 0; i < animationController->boolMap.size(); ++i) {
+        Animation::AnimationController::BoolItem* item = animationController->boolMap[i];
+        ImGui::Text("Bool: %s", item->name.c_str());
+        ImGui::Checkbox("Value", &item->value);
+    }
+
+    ImGui::Separator();
+    ImGui::NewLine();
+    ImGui::Text("Floats");
+    ImGui::Separator();
+
+    for (unsigned int i = 0; i < animationController->floatMap.size(); ++i) {
+        ImGui::BeginChild(animationController->floatMap[i]->name.c_str(), ImVec2(0, 50), true);
+        ImGui::Text("Float: %s", animationController->floatMap[i]->name.c_str());
+        ImGui::DragFloat("Value", &animationController->floatMap[i]->value, 0.01f);
+        ImGui::EndChild();
     }
 }
 
