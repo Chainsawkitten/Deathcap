@@ -109,6 +109,12 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 }
                 }
 
+                { PROFILE("Render debug entities");
+                { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                    Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                }
+                }
+
                 if (fxaa) {
                     { PROFILE("Anti-aliasing(FXAA)");
                     { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
@@ -119,6 +125,12 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     }
                 }
 
+                { PROFILE("Render particles");
+                { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                    Managers().particleManager->Render(world, position, up, projectionMatrix * viewMatrix, mainWindowRenderSurface);
+                }
+                }
+
                 if (soundSources || particleEmitters || lightSources || cameras || physics) {
                     { PROFILE("Render editor entities");
                     { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
@@ -126,19 +138,6 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     }
                     }
                 }
-
-                { PROFILE("Render debug entities");
-                { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-                    Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
-                }
-                }
-
-                { PROFILE("Render particles");
-                { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-                    Managers().particleManager->Render(world, position, up, projectionMatrix * viewMatrix, mainWindowRenderSurface);
-                }
-                }
-
 
                 { PROFILE("Present to back buffer");
                 { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
@@ -177,6 +176,12 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     }
                     }
 
+                    { PROFILE("Render debug entities");
+                    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                        Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
+                    }
+                    }
+
                     if (fxaa) {
                         { PROFILE("Anti-aliasing(FXAA)");
                         { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
@@ -187,24 +192,18 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                         }
                     }
 
+                    { PROFILE("Render particles");
+                    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                        Managers().particleManager->Render(world, position, up, projectionMatrix * lensViewMatrix, hmdRenderSurface);
+                    }
+                    }
+
                     if (soundSources || particleEmitters || lightSources || cameras || physics) {
                         { PROFILE("Render editor entities");
                         { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
                             RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
                         }
                         }
-                    }
-
-                    { PROFILE("Render debug entities");
-                    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-                        Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
-                    }
-                    }
-
-                    { PROFILE("Render particles");
-                    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-                        Managers().particleManager->Render(world, position, up, projectionMatrix * lensViewMatrix, hmdRenderSurface);
-                    }
                     }
 
                     hmdRenderSurface->Swap();
