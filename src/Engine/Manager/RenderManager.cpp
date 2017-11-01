@@ -462,6 +462,70 @@ void RenderManager::ClearKilledComponents() {
     spotLights.ClearKilled();
 }
 
+void RenderManager::SetGamma(float gamma) {
+    renderer->SetGamma(gamma);
+}
+
+float RenderManager::GetGamma() const {
+    return renderer->GetGamma();
+}
+
+void RenderManager::SetFogApply(bool fogApply) {
+    renderer->SetFogApply(fogApply);
+}
+
+bool RenderManager::GetFogApply() const {
+    return renderer->GetFogApply();
+}
+
+void RenderManager::SetFogDensity(bool fogDensity) {
+    renderer->SetFogDensity(fogDensity);;
+}
+
+float RenderManager::GetFogDensity() const {
+    return renderer->GetFogDensity();
+}
+
+void RenderManager::SetFogColor(glm::vec3 fogColor) {
+    renderer->SetFogColor(fogColor);
+}
+
+glm::vec3 RenderManager::GetFogColor() const {
+    return renderer->GetFogColor();
+}
+
+void RenderManager::SetColorFilterApply(bool colorFilterApply) {
+    renderer->SetColorFilterApply(colorFilterApply);
+}
+
+bool RenderManager::GetColorFilterApply() const {
+    return renderer->GetColorFilterApply();
+}
+
+void RenderManager::SetColorFilterColor(glm::vec3 colorFilterColor) {
+    renderer->SetColorFilterColor(colorFilterColor);
+}
+
+glm::vec3 RenderManager::GetColorFilterColor() const {
+    return renderer->GetColorFilterColor();
+}
+
+void RenderManager::SetDitherApply(bool ditherApply) {
+    renderer->SetDitherApply(ditherApply);
+}
+
+bool RenderManager::GetDitherApply() const {
+    return renderer->GetDitherApply();
+}
+
+void RenderManager::SetFrameSize(glm::vec2 frameSize) {
+    renderer->SetFrameSize(frameSize);
+}
+
+glm::vec2 RenderManager::GetFrameSize() const {
+    return renderer->GetFrameSize();
+}
+
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
 
     std::vector<Video::Light> lights;
