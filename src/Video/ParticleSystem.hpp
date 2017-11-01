@@ -40,7 +40,7 @@ namespace Particles
         VIDEO_API void Update(float dt);
 
         //Render the particles.
-        VIDEO_API void Draw(GLuint programID);
+        VIDEO_API void Draw(GLuint programID, const glm::mat4& viewProjectionMatrix);
 
     private:
         VIDEO_API void InitRender(const ParticlePos* particlesPos, const ParticleVelocity* particlesVelocity);

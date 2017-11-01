@@ -240,10 +240,14 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
     }
     }
+
+    // HERE?!
+//    Managers().particleManager->Render(world, glm::vec3(viewMatrix[3][0], viewMatrix[3][1], viewMatrix[3][2]), glm::vec3(0, 1, 0), viewProjectionMatrix);
+
     renderSurface->GetShadingFrameBuffer()->Unbind();
 
     /// @todo Render skinned meshes.
-    
+
     // Anti-aliasing.
     if (Hymn().filterSettings.fxaa) {
         { PROFILE("Anti-aliasing(FXAA)");
@@ -254,7 +258,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         }
         }
     }
-
 }
 
 void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources,

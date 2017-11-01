@@ -189,6 +189,7 @@ void ActiveHymn::Update(float deltaTime) {
     
     { PROFILE("Update particles");
         Managers().particleManager->Update(world, deltaTime);
+        Managers().particleManager->UpdateBuffer(world);
     }
     
     { PROFILE("Update sounds");
