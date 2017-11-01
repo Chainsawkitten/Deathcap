@@ -234,10 +234,10 @@ void DebugDrawing::CreateCircle(glm::vec3*& positions, unsigned int& vertexCount
     positions = new glm::vec3[vertexCount];
     
     unsigned int i = 0;
-    for (unsigned int l = 0; l <= detail; ++l) {
-        float angle = static_cast<float>(l) / detail * 2.0f * glm::pi<float>();
+    for (unsigned int j = 0; j <= detail; ++j) {
+        float angle = static_cast<float>(j) / detail * 2.0f * glm::pi<float>();
         positions[i++] = glm::vec3(cos(angle), sin(angle), 0.0f);
-        if (l > 0 && l < detail)
+        if (j > 0 && j < detail)
             positions[i++] = glm::vec3(cos(angle), sin(angle), 0.0f);
     }
 }
