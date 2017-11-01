@@ -83,7 +83,7 @@ void LogView::Show() {
 
     // Draw log. If filter is active, filter log contents.
     ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-    if(textFilter.IsActive()) {
+    if (textFilter.IsActive()) {
         const char* bufferBegin = textBuffer.begin();
         const char* line = bufferBegin;
         for (int lineNumber = 0; line != NULL; lineNumber++) {
