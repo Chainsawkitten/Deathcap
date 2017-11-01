@@ -20,7 +20,7 @@ Log& Log::operator<<(const string& text) {
 
     #ifdef LOGTESTING 
     if(currentChannel == ERR)
-        throw(text);
+        throw (text);
     #endif
 
     return *this;
@@ -31,7 +31,7 @@ Log& Log::operator <<(const int value) {
 
     #ifdef LOGTESTING 
         if (currentChannel == ERR)
-            throw("Error: i " + std::to_string(value));
+            throw ("Error: i " + std::to_string(value));
     #endif
 
     return *this;
@@ -42,7 +42,7 @@ Log& Log::operator <<(const unsigned int value) {
 
     #ifdef LOGTESTING 
         if (currentChannel == ERR)
-            throw("Error: u " + std::to_string(value));
+            throw ("Error: u " + std::to_string(value));
     #endif
 
     return *this;
@@ -53,7 +53,7 @@ Log& Log::operator <<(const float value) {
 
     #ifdef LOGTESTING 
         if (currentChannel == ERR)
-            throw("Error: f " + std::to_string(value));
+            throw ("Error: f " + std::to_string(value));
     #endif
 
     return *this;
@@ -64,7 +64,7 @@ Log& Log::operator <<(const double value) {
 
     #ifdef LOGTESTING 
         if (currentChannel == ERR)
-            throw("Error: d " + std::to_string(value));
+            throw ("Error: d " + std::to_string(value));
     #endif
 
     return *this;
@@ -81,7 +81,7 @@ Log& Log::operator <<(const time_t value) {
 
     #ifdef LOGTESTING 
         if (currentChannel == ERR)
-            throw("Error: t " + outString);
+            throw ("Error: t " + outString);
     #endif
 
     *streams[currentChannel] << outString;
@@ -94,7 +94,7 @@ Log& Log::operator <<(const glm::vec2& value) {
 
     #ifdef LOGTESTING 
         if (currentChannel == ERR)
-            throw("Error: vec2 x: " + std::to_string(value.x) + " y: " + std::to_string(value.y));
+            throw ("Error: vec2 x: " + std::to_string(value.x) + " y: " + std::to_string(value.y));
     #endif
 
     return *this;
@@ -105,7 +105,7 @@ Log& Log::operator <<(const glm::vec3& value) {
 
     #ifdef LOGTESTING 
         if (currentChannel == ERR)
-            throw("Error: vec3 x: " + std::to_string(value.x) + " y: " + std::to_string(value.y) + " z: " + std::to_string(value.z));
+            throw ("Error: vec3 x: " + std::to_string(value.x) + " y: " + std::to_string(value.y) + " z: " + std::to_string(value.z));
     #endif
 
     return *this;
@@ -116,7 +116,7 @@ Log & Log::operator<<(const glm::vec4 & value) {
 
     #ifdef LOGTESTING 
         if (currentChannel == ERR)
-            throw("Error: vec3 x: " + std::to_string(value.x) + " y: " + std::to_string(value.y) + " z: " + std::to_string(value.z) + " w: " + std::to_string(value.w));
+            throw ("Error: vec3 x: " + std::to_string(value.x) + " y: " + std::to_string(value.y) + " z: " + std::to_string(value.z) + " w: " + std::to_string(value.w));
     #endif
 
     return *this;
