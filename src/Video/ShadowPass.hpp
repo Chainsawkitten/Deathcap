@@ -3,9 +3,8 @@
 #include "linking.hpp"
 
 namespace Video {
-    class ShadowPass
-    {
-    public:
+    class ShadowPass {
+        public:
         VIDEO_API ShadowPass();
         VIDEO_API ~ShadowPass();
 
@@ -33,20 +32,16 @@ namespace Video {
         */
         VIDEO_API int GetDepthMapFbo();
 
-
         ///return shadowmap texture id
         /*
         * @return shadowmap texture id
         */
         VIDEO_API int GetShadowID();
 
-
-    private:
+        private:
         unsigned int depthMap;
         unsigned int depthMapFbo;
         const unsigned int SHADOW_WIDTH = 1024;
         const unsigned int SHADOW_HEIGHT = 1024;
-        
     };
-}
-
+} // namespace Video

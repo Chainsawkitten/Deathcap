@@ -26,7 +26,7 @@ Renderer::Renderer() {
     postProcessing = new PostProcessing(rectangle);
 
     fxaaFilter = new FXAAFilter();
-    
+
     lightCount = 0;
     lightBuffer = new StorageBuffer(sizeof(Video::Light), GL_DYNAMIC_DRAW);
 
@@ -38,23 +38,23 @@ Renderer::Renderer() {
     delete iconVertexShader;
     delete iconGeometryShader;
     delete iconFragmentShader;
-    
+
     // Create icon geometry.
     float vertex;
-    
+
     glBindVertexArray(0);
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, 1 * sizeof(float), &vertex, GL_STATIC_DRAW);
-    
+
     glGenVertexArrays(1, &vertexArray);
     glBindVertexArray(vertexArray);
-    
+
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(float), nullptr);
-    
+
     glBindVertexArray(0);
 }
 
@@ -64,7 +64,7 @@ Renderer::~Renderer() {
 
     delete postProcessing;
     delete fxaaFilter;
-    
+
     delete lightBuffer;
 
     // Icon rendering.
@@ -98,7 +98,8 @@ void Renderer::SetLights(const std::vector<Video::Light>& lights) {
     lightCount = lights.size();
 
     // Skip if no lights.
-    if (lightCount == 0) return;
+    if (lightCount == 0)
+        return;
 
     // Resize light buffer if necessary.
     unsigned int byteSize = sizeof(Video::Light) * lights.size();
@@ -128,7 +129,7 @@ void Renderer::AntiAlias(RenderSurface* renderSurface) {
 
 void Renderer::Present(RenderSurface* renderSurface) {
     const glm::vec2 size = renderSurface->GetSize();
-    
+
     // Copy color buffer.
     renderSurface->GetColorFrameBuffer()->BindRead();
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
@@ -156,7 +157,7 @@ void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
         currentIcon = icon;
         glBindTexture(GL_TEXTURE_2D, icon->GetTextureID());
     }
-    
+
     glUniform3fv(iconShaderProgram->GetUniformLocation("position"), 1, &position[0]);
     glDrawArrays(GL_POINTS, 0, 1);
 }
@@ -165,4 +166,3 @@ void Renderer::StopRenderingIcons() {
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
 }
-

@@ -2,15 +2,14 @@
 #include <GL/glew.h>
 
 namespace Video {
-    ShadowPass::ShadowPass(){
+    ShadowPass::ShadowPass() {
         InitDephtMap();
         BindBuffer();
     }
     ShadowPass::~ShadowPass() {
-
     }
 
-    void ShadowPass::InitDephtMap(){
+    void ShadowPass::InitDephtMap() {
         glGenFramebuffers(1, &depthMapFbo);
         glGenTextures(1, &depthMap);
         glBindTexture(GL_TEXTURE_2D, depthMap);
@@ -22,7 +21,7 @@ namespace Video {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     }
 
-    void ShadowPass::BindBuffer(){
+    void ShadowPass::BindBuffer() {
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFbo);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D,
             depthMap, 0);
@@ -31,18 +30,18 @@ namespace Video {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    int ShadowPass::GetShadowWidth(){
+    int ShadowPass::GetShadowWidth() {
         return SHADOW_WIDTH;
     }
 
-    int ShadowPass::GetShadowHeight(){
+    int ShadowPass::GetShadowHeight() {
         return SHADOW_HEIGHT;
     }
 
-    int ShadowPass::GetDepthMapFbo(){
+    int ShadowPass::GetDepthMapFbo() {
         return depthMapFbo;
     }
-    VIDEO_API int ShadowPass::GetShadowID(){
+    VIDEO_API int ShadowPass::GetShadowID() {
         return depthMap;
     }
-}
+} // namespace Video
