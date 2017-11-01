@@ -32,4 +32,18 @@ namespace Json {
      * @return The loaded vec3.
      */
     ENGINE_API glm::vec3 LoadVec3(const Value& value);
+
+    /// Convert a quaternion into a JSON node.
+    /**
+     * @param value %Value to convert.
+     * @return JSON node.
+     */
+    ENGINE_API Json::Value SaveQuaternion(const glm::quat& value);
+
+    /// Load a quaternion from a JSON node.
+    /**
+     * @param value The JSON node to load from.
+     * @return The loaded quaternion
+     */
+    ENGINE_API glm::quat LoadQuaternion(const Value& value);
 }

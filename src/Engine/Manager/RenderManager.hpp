@@ -35,22 +35,14 @@ class RenderManager {
         /// Render world containing entities.
         /**
          * @param world Contains a bunch of entities.
-         * @param camera Camera through which to render (or first camera in the world if nullptr).
-         */
-        ENGINE_API void Render(World& world, Entity* camera = nullptr);
-        
-        /// Render editor entities.
-        /**
-         * @param world World to render.
-         * @param camera Camera through which to render (or first camera in the world if nullptr).
          * @param soundSources Whether to show sound sources.
          * @param particleEmitters Whether to show particle emitters.
          * @param lightSources Whether to show light sources.
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
+         * @param camera Camera through which to render (or first camera in the world if nullptr).
          */
-        ENGINE_API void RenderEditorEntities(World& world, Entity* camera = nullptr, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true);
-
+        ENGINE_API void Render(World& world, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr);
         
         /// Updates the buffers to fit the current screen size.
         ENGINE_API void UpdateBufferSize();
@@ -197,7 +189,9 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
 
-        void Render(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
+        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
+
+        void RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
         
         void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix);
 
