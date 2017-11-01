@@ -7,7 +7,6 @@
 
 using namespace GUI;
 
-
 LogView::LogView() {
     // Setup streams.
     Log().SetupStream(Log::DEFAULT, &defaultStringstream);
@@ -49,10 +48,10 @@ void LogView::Show() {
 
     if (!errorStringstream.str().empty())
         output += "[Error] " + errorStringstream.str();
-    
+
     // Add new lines to text buffer.
     int old_size = textBuffer.size();
-    
+
     textBuffer.appendv(output.c_str(), nullptr);
 
     for (int newSize = textBuffer.size(); old_size < newSize; old_size++)
