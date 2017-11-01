@@ -1,6 +1,6 @@
 {
-	"activeScene" : "Resources/Opening Scene/Opening Scene",
-	"modelNumber" : 15,
+	"activeScene" : "Resources/Constant Scene/Controller/controller_fixScene",
+	"modelNumber" : 16,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -52,57 +52,6 @@
 									},
 									{
 										"texture" : "cave_roughness",
-										"type" : 2
-									}
-								],
-								"subfolders" : null
-							}
-						]
-					},
-					{
-						"name" : "Minecart",
-						"resources" : 
-						[
-							{
-								"script" : "Minecart",
-								"type" : 4
-							},
-							{
-								"script" : "Player",
-								"type" : 4
-							}
-						],
-						"subfolders" : 
-						[
-							{
-								"name" : "Models",
-								"resources" : 
-								[
-									{
-										"model" : "cart",
-										"type" : 1
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "Textures",
-								"resources" : 
-								[
-									{
-										"texture" : "cart_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "cart_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "cart_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "cart_roughness",
 										"type" : 2
 									}
 								],
@@ -215,6 +164,21 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "Ambient",
+								"type" : 3
+							},
+							{
+								"script" : "scr_AudioManager",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -225,7 +189,13 @@
 				[
 					{
 						"name" : "Minecart",
-						"resources" : null,
+						"resources" : 
+						[
+							{
+								"scene" : "Minecart",
+								"type" : 0
+							}
+						],
 						"subfolders" : 
 						[
 							{
@@ -245,6 +215,10 @@
 								[
 									{
 										"script" : "Minecart",
+										"type" : 4
+									},
+									{
+										"script" : "Player",
 										"type" : 4
 									}
 								],
@@ -277,15 +251,25 @@
 					},
 					{
 						"name" : "Controller",
-						"resources" : null,
+						"resources" : 
+						[
+							{
+								"model" : "controller_fix",
+								"type" : 1
+							},
+							{
+								"scene" : "controller_fixScene",
+								"type" : 0
+							}
+						],
 						"subfolders" : null
 					}
 				]
 			}
 		]
 	},
-	"sceneNumber" : 2,
+	"sceneNumber" : 4,
 	"scriptNumber" : 0,
-	"soundNumber" : 0,
+	"soundNumber" : 2,
 	"textureNumber" : 24
 }

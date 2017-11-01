@@ -1,0 +1,262 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
+				"metallic" : "Resources/Constant Scene/Minecart/Textures/cart_metallic",
+				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
+				"roughness" : "Resources/Constant Scene/Minecart/Textures/cart_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/Minecart/Model/cart"
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/Constant Scene/Minecart/Script/Minecart"
+			},
+			"children" : 
+			[
+				{
+					"children" : 
+					[
+						{
+							"Lens" : 
+							{
+								"fieldOfView" : 45.0,
+								"zFar" : 100.0,
+								"zNear" : 0.5
+							},
+							"Listener" : 
+							{
+								"placeholderValue" : ""
+							},
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Player"
+							},
+							"VRDevice" : 
+							{
+								"controllerID" : 1,
+								"type" : "headset"
+							},
+							"children" : null,
+							"name" : "Camera",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1508919707
+						},
+						{
+							"VRDevice" : 
+							{
+								"controllerID" : 1,
+								"type" : "controller"
+							},
+							"children" : 
+							[
+								{
+									"name" : "Controller Model",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/Constant Scene/Controller/controller_fixScene",
+									"static" : false,
+									"uid" : 1508918923
+								}
+							],
+							"name" : "Left Controller",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1508919751
+						},
+						{
+							"VRDevice" : 
+							{
+								"controllerID" : 2,
+								"type" : "controller"
+							},
+							"children" : 
+							[
+								{
+									"name" : "Controller Model",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/Constant Scene/Controller/controller_fixScene",
+									"static" : false,
+									"uid" : 1508918923
+								}
+							],
+							"name" : "Right Controller",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1508919758
+						}
+					],
+					"name" : "Player",
+					"position" : 
+					{
+						"x" : 0.1510000079870224,
+						"y" : 1.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1508919503
+				}
+			],
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1508919384
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1508919163
+}

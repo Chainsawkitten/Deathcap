@@ -2,6 +2,8 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <set>
 #include "../Entity/ComponentContainer.hpp"
 #include "../linking.hpp"
 
@@ -28,7 +30,7 @@ class ScriptManager {
          * @param script Script to build.
          * @return The result, < 0 means it failed.
          */
-        ENGINE_API int BuildScript(const ScriptFile* script);
+        ENGINE_API int BuildScript(ScriptFile* script);
         
         /// Build all scripts in the hymn.
         ENGINE_API void BuildAllScripts();
@@ -38,6 +40,12 @@ class ScriptManager {
          * @param script The script which map to update.
          */
         ENGINE_API void FillPropertyMap(Component::Script* script);
+
+        ///Fetches the functions from the script and fills the scriptfiles vector.
+        /**
+         * @param script The scriptfile which vector to update.
+         */
+        ENGINE_API void FillFunctionVector(ScriptFile* scriptFile);
 
         /// Update all script entities in the game world.
         /**
@@ -66,9 +74,9 @@ class ScriptManager {
         /// Fetches an entity using its GUID.
         /**
          * @param GUID The entity to receive the message.
-         * @return The entity that has the corret GUID.
+         * @return The entity that has the correct GUID, or nullptr if it doesn't exist.
          */
-        ENGINE_API Entity* GetEntity(unsigned int GUID) const;
+        static ENGINE_API Entity* GetEntity(unsigned int GUID);
         
         /// Create script component.
         /**
@@ -107,6 +115,14 @@ class ScriptManager {
         
         /// The entity currently being executed.
         Entity* currentEntity;
+
+        /// Gets the size in bytes for the ASType
+        /**
+         * @param typeID The asTypeID for the type we want the size for.
+         * @param value The pointer to the value.
+         * @return The size in bytes for the provided typeID. -1 for unknown type.
+         */
+        const int GetSizeOfASType(int typeID, void* value);
         
     private:
         struct Message {
@@ -120,6 +136,7 @@ class ScriptManager {
         void operator=(ScriptManager const&) = delete;
         
         void CreateInstance(Component::Script* script);
+        asIScriptContext* CreateContext();
         void CallMessageReceived(const Message& message);
         void CallUpdate(Entity* entity, float deltaTime);
         void LoadScriptFile(const char* fileName, std::string& script);
@@ -130,6 +147,10 @@ class ScriptManager {
         
         std::vector<Entity*> updateEntities;
         std::vector<Message> messages;
+
+        void GetBreakpoints(const ScriptFile* script);
+        void ClearBreakpoints();
+        std::map<std::string, std::set<int>> breakpoints;
         
         ComponentContainer<Component::Script> scripts;
 };

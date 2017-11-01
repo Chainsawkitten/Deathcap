@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <string>
 #include <json/json.h>
 #include "../linking.hpp"
@@ -24,4 +25,8 @@ class ScriptFile {
         
         /// The folder containing the script file.
         std::string path;
+
+        /// A list containing all the functions for the script.
+        std::vector<std::string> functionList;
+
 };
