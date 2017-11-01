@@ -103,6 +103,6 @@ void LogView::Show() {
     errorStringstream.str(std::string());
 }
 
-bool LogView::IsVisible() {
+const bool LogView::IsVisible() {
     return visible;
 }
