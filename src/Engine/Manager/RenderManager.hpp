@@ -212,7 +212,7 @@ class RenderManager {
         /**
          * @param fogDensity Density of the fog.
          */
-        ENGINE_API void SetFogDensity(bool fogDensity);
+        ENGINE_API void SetFogDensity(float fogDensity);
 
         /// get fog density.
         /**

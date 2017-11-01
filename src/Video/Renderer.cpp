@@ -175,7 +175,7 @@ bool Renderer::GetFogApply() const {
     return staticRenderProgram->GetFogApply();
 }
 
-void Renderer::SetFogDensity(bool fogDensity) {
+void Renderer::SetFogDensity(float fogDensity) {
     staticRenderProgram->SetFogDensity(fogDensity);;
 }
 

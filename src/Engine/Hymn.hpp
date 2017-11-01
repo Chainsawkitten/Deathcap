@@ -120,11 +120,11 @@ class ActiveHymn {
             /// Whether to enable FXAA.
             bool fxaa = true;
             
-            /// Whether to enable glow.
-            bool glow = true;
-            
-            /// How many times to blur the glow buffer.
-            int glowBlurAmount = 1;
+            /// Whether to enable dithering.
+            bool dither = true;
+
+            /// Gamma correction value.
+            float gamma = 2.2f;
         };
         
         /// Filter settings.

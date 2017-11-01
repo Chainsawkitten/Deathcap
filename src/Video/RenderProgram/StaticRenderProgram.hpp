@@ -85,7 +85,7 @@ namespace Video {
             /**
              * @param fogDensity Density of the fog.
              */
-            void SetFogDensity(bool fogDensity);
+            void SetFogDensity(float fogDensity);
 
             /// get fog density.
             /**

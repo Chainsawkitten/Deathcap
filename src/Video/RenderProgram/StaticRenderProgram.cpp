@@ -82,7 +82,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glUniform1iv(shaderProgram->GetUniformLocation("colorFilterApply"), 1, &colorFilterApply);
     glUniform3fv(shaderProgram->GetUniformLocation("colorFilterColor"), 1, &colorFilterColor[0]);
 
-    float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() / 1000000000.0;
+    float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0;
     glUniform1iv(shaderProgram->GetUniformLocation("ditherApply"), 1, &ditherApply);
     glUniform1fv(shaderProgram->GetUniformLocation("time"), 1, &time);
     glUniform2fv(shaderProgram->GetUniformLocation("frameSize"), 1, &frameSize[0]);
@@ -151,7 +151,7 @@ bool StaticRenderProgram::GetFogApply() const {
     return (bool)fogApply;
 }
 
-void StaticRenderProgram::SetFogDensity(bool fogDensity) {
+void StaticRenderProgram::SetFogDensity(float fogDensity) {
     this->fogDensity = fogDensity;
 }
 

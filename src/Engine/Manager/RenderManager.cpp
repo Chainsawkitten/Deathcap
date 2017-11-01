@@ -84,6 +84,16 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
     }
 
     if (camera != nullptr) {
+        // Set image processing variables.
+        SetGamma(Hymn().filterSettings.gamma);
+        SetFogApply(Hymn().filterSettings.fog);
+        SetFogDensity(Hymn().filterSettings.fogDensity);
+        SetFogColor(Hymn().filterSettings.fogColor);
+        SetColorFilterApply(Hymn().filterSettings.color);
+        SetColorFilterColor(Hymn().filterSettings.colorColor);
+        SetDitherApply(Hymn().filterSettings.dither);
+        const bool fxaa = Hymn().filterSettings.fxaa;
+
         // Render main window.
         if (mainWindowRenderSurface != nullptr) {
             { PROFILE("Render main window");
@@ -95,6 +105,16 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
                     RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface);
                 }
+                }
+
+                if (fxaa) {
+                    { PROFILE("Anti-aliasing(FXAA)");
+                    { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+                    { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+                        renderer->AntiAlias(mainWindowRenderSurface);
+                    }
+                    }
+                    }
                 }
 
                 if (soundSources || particleEmitters || lightSources || cameras || physics) {
@@ -144,6 +164,16 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
                         RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface);
                     }
+                    }
+
+                    if (fxaa) {
+                        { PROFILE("Anti-aliasing(FXAA)");
+                        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+                        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+                            renderer->AntiAlias(hmdRenderSurface);
+                        }
+                        }
+                        }
                     }
 
                     if (soundSources || particleEmitters || lightSources || cameras || physics) {
@@ -244,18 +274,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     renderSurface->GetShadingFrameBuffer()->Unbind();
 
     /// @todo Render skinned meshes.
-    
-    // Anti-aliasing.
-    if (Hymn().filterSettings.fxaa) {
-        { PROFILE("Anti-aliasing(FXAA)");
-        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-            renderer->AntiAlias(renderSurface);
-        }
-        }
-        }
-    }
-
 }
 
 void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources,
@@ -478,7 +496,7 @@ bool RenderManager::GetFogApply() const {
     return renderer->GetFogApply();
 }
 
-void RenderManager::SetFogDensity(bool fogDensity) {
+void RenderManager::SetFogDensity(float fogDensity) {
     renderer->SetFogDensity(fogDensity);;
 }
 

@@ -159,7 +159,7 @@ bool GetFogApply() {
     return Managers().renderManager->GetFogApply();
 }
 
-void SetFogDensity(bool fogDensity) {
+void SetFogDensity(float fogDensity) {
     Managers().renderManager->SetFogDensity(fogDensity);;
 }
 
@@ -489,8 +489,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("float GetGamma()", asFUNCTION(GetGamma), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SetFogApply(bool fogApply)", asFUNCTION(SetFogApply), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool GetFogApply()", asFUNCTION(GetFogApply), asCALL_CDECL);
-    engine->RegisterGlobalFunction("void SetFogDensity(bool fogDensity)", asFUNCTION(SetFogDensity), asCALL_CDECL);
-    engine->RegisterGlobalFunction("bool GetFogDensity()", asFUNCTION(GetFogDensity), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void SetFogDensity(float fogDensity)", asFUNCTION(SetFogDensity), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float GetFogDensity()", asFUNCTION(GetFogDensity), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SetFogColor(const vec3 &in)", asFUNCTION(SetFogColor), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec3 GetFogColor()", asFUNCTION(GetFogColor), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SetColorFilterApply(bool colorFilterApply)", asFUNCTION(SetColorFilterApply), asCALL_CDECL);
