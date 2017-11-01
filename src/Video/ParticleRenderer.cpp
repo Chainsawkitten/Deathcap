@@ -1,5 +1,7 @@
 #include "ParticleRenderer.hpp"
 
+#include <Video/RenderSurface.hpp>
+#include <Video/Buffer/FrameBuffer.hpp>
 #include "Texture/Texture.hpp"
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"
@@ -65,11 +67,14 @@ void ParticleRenderer::SetBufferContents(unsigned int count, const Particle* par
     particleCount = count;
 }
 
-void ParticleRenderer::Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix) {
+void ParticleRenderer::Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix, RenderSurface* renderSurface) {
     // Don't write to depth buffer.
     GLboolean depthWriting;
     glGetBooleanv(GL_DEPTH_WRITEMASK, &depthWriting);
     glDepthMask(GL_FALSE);
+
+    // Bind render surface.
+    renderSurface->GetShadingFrameBuffer()->BindWrite();
     
     // Blending
     glEnablei(GL_BLEND, 0);
@@ -103,4 +108,7 @@ void ParticleRenderer::Render(Texture* textureAtlas, unsigned int textureAtlasRo
     
     glUseProgram(0);
     glBindVertexArray(0);
+
+    // Unbind render surface.
+    renderSurface->GetShadingFrameBuffer()->Unbind();
 }
