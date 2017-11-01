@@ -12,6 +12,7 @@ class World;
 namespace Video {
     class Texture2D;
     class ParticleRenderer;
+    class RenderSurface;
 }
 namespace Component {
     class ParticleEmitter;
@@ -52,8 +53,9 @@ class ParticleManager {
          * @param position World position of the camera.
          * @param up Up direction of the camera.
          * @param viewProjectionMatrix View projection matrix of the camera.
+         * @param renderSurface %RenderSurface to render particles to.
          */
-        ENGINE_API void Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix);
+        ENGINE_API void Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix, Video::RenderSurface* renderSurface);
         
         /// Get the texture atlas.
         /**
