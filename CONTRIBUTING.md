@@ -26,7 +26,7 @@ For functions and methods, parameters are documented first and return type next.
 
 ### Clang
 We use clang-format (v 3.9) to enforce our coding standard.
-To format a specific file, use clang-format -i PATH_TO_FILE/FILENAME when in the /src directory.
+To format a specific file, use  ``clang-format -i PATH_TO_FILE/FILENAME`` when in the /src directory.
 
 Clang-format for windows can be grabbed from here: 
 http://releases.llvm.org/
