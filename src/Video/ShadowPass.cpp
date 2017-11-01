@@ -3,13 +3,15 @@
 
 namespace Video {
     ShadowPass::ShadowPass() {
-        InitDephtMap();
+        InitDepthMap();
         BindBuffer();
     }
     ShadowPass::~ShadowPass() {
+        glDeleteFramebuffers(1, &depthMapFbo);
+        glDeleteTextures(1, &depthMap);
     }
 
-    void ShadowPass::InitDephtMap() {
+    void ShadowPass::InitDepthMap() {
         glGenFramebuffers(1, &depthMapFbo);
         glGenTextures(1, &depthMap);
         glBindTexture(GL_TEXTURE_2D, depthMap);
