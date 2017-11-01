@@ -232,10 +232,8 @@ void RenderManager::Render(World& world, const glm::mat4& viewMatrix, const glm:
    
     // Camera matrices.
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
-    //glm::mat4 cam = glm::lookAt(glm::vec3(lightPos.x,lightPos.y,lightPos.z), lightPos + glm::vec3(direction), glm::vec3(0, 1, 0));
-    //glm::mat4 cam = glm::lookAt(glm::vec3(0, 0, 15), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
-    //temp render shadows
+    //render shadows
     { PROFILE("Render Shadows meshes");
     { GPUPROFILE("Render Shadows meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render Shadows meshes", Video::Query::Type::SAMPLES_PASSED);
