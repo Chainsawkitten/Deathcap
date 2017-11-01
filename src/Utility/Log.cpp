@@ -139,10 +139,10 @@ bool Log::SetupStreams(
         std::ostream* info, 
         std::ostream* warning, 
         std::ostream* error, 
-        std::ostream* console) {
+        std::ostream* debug) {
     return SetupStream(DEFAULT, defaultStream)    &&
            SetupStream(INFO, info)                &&
            SetupStream(WARNING, warning)          &&
            SetupStream(ERR, error)                &&
-           SetupStream(DEBUG, console);
+           SetupStream(DEBUG, debug);
 }
