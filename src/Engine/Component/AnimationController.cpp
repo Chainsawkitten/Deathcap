@@ -7,7 +7,8 @@
 using namespace Component;
 
 AnimationController::AnimationController() {
-    for (unsigned int i = 0; i < 20; ++i) {
+    // Push back identity matrcies.
+    for (unsigned int i = 0; i < 50; ++i) {
         bones.push_back(glm::mat4(1.0f));
     }
 }
@@ -39,7 +40,13 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     if (activeAction1 == nullptr) 
         activeAction1 = dynamic_cast<Animation::AnimationController::AnimationAction*>(controller->animationNodes[0]);
 
-    Animation::AnimationClip::Animation* anim = activeAction1->animationClip->animation;
+    Animate(deltaTime, activeAction1);
+//    Animate(deltaTime, activeAction2);
+    Interpolate(deltaTime);
+}
+
+void Component::AnimationController::Animate(float deltaTime, Animation::AnimationController::AnimationAction* action) {
+    Animation::AnimationClip::Animation* anim = action->animationClip->animation;
     unsigned int size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
     anim->currentFrame += deltaTime * 1.0f;
@@ -80,4 +87,8 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
         bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
+}
+
+void Component::AnimationController::Interpolate(float deltaTime) {
+
 }

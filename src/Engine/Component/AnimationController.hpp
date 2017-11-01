@@ -34,6 +34,9 @@ namespace Component {
             Animation::Skeleton* skeleton = nullptr;
 
         private:
+            void Animate(float deltaTime, Animation::AnimationController::AnimationAction* action);
+            void Interpolate(float deltaTime);
+
             Animation::AnimationController::AnimationAction* activeAction1 = nullptr;
             Animation::AnimationController::AnimationAction* activeAction2 = nullptr;
             Animation::AnimationController::AnimationTransition* activeTransition = nullptr;

@@ -24,6 +24,7 @@ namespace Animation {
             /// Animaiton action node.
             struct AnimationAction : public Node {
                 char animationClipName[512];
+                bool isPlaybackModifierStatic = true;
                 float playbackModifier = 1.0f;
                 bool repeat = true;
                 Animation::AnimationClip * animationClip = nullptr;
@@ -63,7 +64,8 @@ namespace Animation {
 
             /// Animation transition node.
             struct AnimationTransition : public Node {
-                float transitionTime;
+                float transitionTime = 0.0f;
+                float transitionProcess = 0.0f;
 
                 /// Save the animation transition node.
                 /**
@@ -119,7 +121,6 @@ namespace Animation {
                 ACTION = 0,
                 TRANSITION = 1
             };
-
 
             void Clear();
     };
