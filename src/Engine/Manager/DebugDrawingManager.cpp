@@ -93,9 +93,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             points[i] = points[points.size() - 1];
             points.pop_back();
             --i;
-        } else {
+        } else
             points[i].duration -= deltaTime;
-        }
     }
     
     // Lines.
@@ -104,9 +103,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             lines[i] = lines[lines.size() - 1];
             lines.pop_back();
             --i;
-        } else {
+        } else
             lines[i].duration -= deltaTime;
-        }
     }
     
     // Cuboids.
@@ -115,9 +113,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             cuboids[i] = cuboids[cuboids.size() - 1];
             cuboids.pop_back();
             --i;
-        } else {
+        } else
             cuboids[i].duration -= deltaTime;
-        }
     }
     
     // Planes.
@@ -126,9 +123,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             planes[i] = planes[planes.size() - 1];
             planes.pop_back();
             --i;
-        } else {
+        } else
             planes[i].duration -= deltaTime;
-        }
     }
     
     // Circles.
@@ -137,9 +133,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             circles[i] = circles[circles.size() - 1];
             circles.pop_back();
             --i;
-        } else {
+        } else
             circles[i].duration -= deltaTime;
-        }
     }
     
     // Spheres.
@@ -148,9 +143,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             spheres[i] = spheres[spheres.size() - 1];
             spheres.pop_back();
             --i;
-        } else {
+        } else
             spheres[i].duration -= deltaTime;
-        }
     }
 }
 
