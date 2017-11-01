@@ -37,6 +37,7 @@ uniform sampler2D mapNormal;
 uniform sampler2D mapMetallic;
 uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
+uniform sampler2D mapShadow;
 uniform mat4 inverseProjectionMatrix;
 // Post processing uniforms.
 uniform bool isSelected;
@@ -105,6 +106,19 @@ float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
 
     return clamp((ggx1 * ggx2), 0.f, 1.0f);
 }
+// --- SHADOW FUNCTIONS ----
+float ShadowCalculation(vec4 fragPosLightSpace)
+{
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // to range [0,1]
+    projCoords = projCoords * 0.5 + 0.5;
+    float closestDepth = texture(mapShadow, projCoords.xy).r;
+    float currentDepth = projCoords.z;
+    float bias = 0.0;//1;
+    float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+
+    return shadow;
+}
 
 vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3 pos) {
     vec3 Lo = vec3(0.0f);
@@ -116,7 +130,7 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
     for(int i = 0; i < lightCount; i++) {
         vec3 surfaceToLight;
         float attenuation;
-        vec3 ambient;
+        float shadow = 0.0;
 
         if (lights[i].position.w == 0.0f) {
             //Directional light.
@@ -129,10 +143,13 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
             attenuation = 1.0f / (1.0f + lights[i].attenuation * (toLight.x * toLight.x + toLight.y * toLight.y + toLight.z * toLight.z));
 
             // Spot light.
-            float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(lights[i].direction)), -1.0f, 1.0f)));
-            float fadeLength = 10.0;
-            if (lightToSurfaceAngle > lights[i].coneAngle - fadeLength) {
-                attenuation *= 1.0 - clamp(lightToSurfaceAngle - lights[i].coneAngle, 0.0, fadeLength) / fadeLength;
+            if (lights[i].coneAngle < 179.0) {
+                shadow = ShadowCalculation(vertexIn.fragPosLightSpace);
+                float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(lights[i].direction)), -1.0f, 1.0f)));
+                float fadeLength = 10.0;
+                if (lightToSurfaceAngle > lights[i].coneAngle - fadeLength) {
+                    attenuation *= 1.0 - clamp(lightToSurfaceAngle - (lights[i].coneAngle - fadeLength), 0.0, fadeLength) / fadeLength;
+                }
             }
         }
 
@@ -161,14 +178,16 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
         float NdotL = max(dot(N, surfaceToLight), 0.0f);
         
         // Add refraction.
-        Lo += (kD * albedo / PI + specular) * radiance * NdotL;
+        Lo += (kD * albedo / PI + specular) * radiance * NdotL * (1.0 - shadow);
         
         // Add ambient.
-        Lo += lights[i].ambientCoefficient * albedo;
+        Lo += (lights[i].ambientCoefficient * albedo);
     }
 
     return Lo;
 }
+
+
 
 
 // --- POSTPROCESSING FUNCTIONS ---
@@ -230,5 +249,6 @@ void main() {
         // Final color.
         finalColor = color;
     }
+
     fragmentColor = vec4(finalColor, 1.0f);
 }

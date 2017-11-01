@@ -23,7 +23,7 @@ namespace Video {
             * @param viewMatrix The camera's view matrix.
             * @param projectionMatrix The camera's projection matrix.
             */
-            void PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            void PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, int shadowWidth, int shadowHeight, int depthFbo);
 
             /// Bind depth render program.
             /**
@@ -40,6 +40,15 @@ namespace Video {
              * @param modelMatrix Model matrix.
              */
             void DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix) const;
+
+            /// Render shadow pass.
+            /**
+             * @param geometry The geometry to render.
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             * @param modelMatrix Model matrix.
+             */
+            void ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix) const;
 
             /// Bind render program.
             /**
@@ -71,5 +80,6 @@ namespace Video {
             glm::mat4 projectionMatrix;
             glm::mat4 viewProjectionMatrix;
             glm::mat4 lightSpaceMatrix;
+            int shadowId;
     };
 }

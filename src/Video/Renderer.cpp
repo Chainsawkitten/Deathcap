@@ -72,9 +72,8 @@ Renderer::~Renderer() {
     glDeleteVertexArrays(1, &vertexArray);
 }
 
-VIDEO_API void Video::Renderer::PrepareShadowRendering(const glm::mat4 lightProjection, glm::mat4 lightView)
-{
-    staticRenderProgram->PreShadowRender(lightProjection, lightView);
+VIDEO_API void Video::Renderer::PrepareShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
+    staticRenderProgram->PreShadowRender(lightView, lightProjection, shadowId, shadowWidth, shadowHeight, depthFbo);
 }
 
 void Renderer::PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
@@ -84,9 +83,13 @@ void Renderer::PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, cons
 void Renderer::DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) {
     staticRenderProgram->DepthRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
 }
+void Renderer::ShadowRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) {
+    staticRenderProgram->ShadowRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
+}
 
 void Renderer::StartRendering(RenderSurface* renderSurface) {
     renderSurface->Clear();
+    glCullFace(GL_BACK);
     glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
 }
 

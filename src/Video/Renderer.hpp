@@ -33,7 +33,7 @@ namespace Video {
             ////Prepare for shadow renderin
             /**
             */
-            VIDEO_API void PrepareShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection);
+            VIDEO_API void PrepareShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId,int shadowWidth, int shadowHeight, int dephtFbo);
 
             /// Prepare for depth rendering static meshes.
             /**
@@ -50,6 +50,15 @@ namespace Video {
              * @param modelMatrix Model matrix.
              */
             VIDEO_API void DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix);
+
+            /// Render a Shadow mesh.
+            /**
+            * @param geometry The geometry to render.
+            * @param viewMatrix The camera's view matrix.
+            * @param projectionMatrix The camera's projection matrix.
+            * @param modelMatrix Model matrix.
+            */
+            VIDEO_API void ShadowRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix);
             
             /// Start rendering the frame.
             /**

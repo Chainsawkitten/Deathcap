@@ -217,32 +217,42 @@ void RenderManager::UpdateBufferSize() {
 void RenderManager::Render(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
     // Render from camera.
     renderer->StartRendering(renderSurface);
+    glm::mat4 lightViewMatrix;
+    glm::mat4 lightProjection;
+    float aspectRatio = static_cast<float>(shadowPass->GetShadowWidth()) / shadowPass->GetShadowHeight();
 
+    for (Component::SpotLight* spotLight : spotLights.GetAll()) {
+        if (spotLight->IsKilled() || !spotLight->entity->enabled)
+            continue;
+
+        Entity* lightEntity = spotLight->entity;
+        lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
+        lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.5f, 50.0f);
+    }
    
     // Camera matrices.
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
-
+    //glm::mat4 cam = glm::lookAt(glm::vec3(lightPos.x,lightPos.y,lightPos.z), lightPos + glm::vec3(direction), glm::vec3(0, 1, 0));
+    //glm::mat4 cam = glm::lookAt(glm::vec3(0, 0, 15), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
     //temp render shadows
     { PROFILE("Render Shadows meshes");
     { GPUPROFILE("Render Shadows meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render Shadows meshes", Video::Query::Type::SAMPLES_PASSED);
-        glViewport(0, 0, shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight());
-        glBindFramebuffer(GL_FRAMEBUFFER, shadowPass->GetDepthMapFbo());
-        glClear(GL_DEPTH_BUFFER_BIT);
-        renderer->PrepareShadowRendering(viewMatrix, shadowPass->getLightProjection());
+        renderer->PrepareShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(),shadowPass->GetDepthMapFbo());
         for (Mesh* mesh : meshComponents) {
             if (mesh->IsKilled() || !mesh->entity->enabled)
                 continue;
-
+    
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr)
-                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
+                    renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
             }
-
+    
         }
+     
     }
     }
     }

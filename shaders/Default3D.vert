@@ -22,10 +22,11 @@ out VertexData {
 } vertexOut;
 
 void main () {
-    gl_Position = viewProjection * (model * vec4(vertexPosition, 1.0));
-    vertexOut.pos = vec3(viewMatrix * (model * vec4(vertexPosition,1.0)));
+    vec4 worldPosition = model * vec4(vertexPosition, 1.0);
+    gl_Position = viewProjection * worldPosition;
+    vertexOut.pos = vec3(viewMatrix * worldPosition);
     vertexOut.normal = normalize(normalMatrix * vertexNormal);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;
-    vertexOut.fragPosLightSpace = lightSpaceMatrix * vec4(vertexOut.pos, 1.0);
+    vertexOut.fragPosLightSpace = lightSpaceMatrix * worldPosition;
 }
