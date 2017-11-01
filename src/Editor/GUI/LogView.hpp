@@ -18,7 +18,7 @@ namespace GUI {
         /**
          * @return Whether the log is visible or not.
          */
-        bool IsVisible();
+        const bool IsVisible();
 
         private:
         std::stringstream defaultStringstream;
