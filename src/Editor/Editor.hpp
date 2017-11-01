@@ -11,6 +11,7 @@
 #include <Engine/Util/RayIntersection.hpp>
 #include <string>
 #include <json/json.h>
+#include <ImGuizmo.h>
 
 struct GLFWcursor;
 
@@ -121,4 +122,6 @@ class Editor {
         double lastY = 0.0;
         
         GLFWcursor* cursors[5];
+
+        ImGuizmo::MODE imguizmoMode = ImGuizmo::MODE::WORLD;
 };

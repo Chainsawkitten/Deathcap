@@ -6,8 +6,9 @@
 #include "../linking.hpp"
 
 namespace Component {
-    class SoundSource;
+    class AudioMaterial;
     class Listener;
+    class SoundSource;
 }
 namespace Json {
     class Value;
@@ -67,6 +68,25 @@ class SoundManager {
          * @return All listener components.
          */
         ENGINE_API const std::vector<Component::Listener*>& GetListeners() const;
+
+        /// Create audio material component.
+        /**
+         * @return The created component.
+         */
+        ENGINE_API Component::AudioMaterial* CreateAudioMaterial();
+
+        /// Create audio material component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        ENGINE_API Component::AudioMaterial* CreateAudioMaterial(const Json::Value& node);
+
+        /// Get all audio material components.
+        /**
+         * @return All audio material components.
+         */
+        ENGINE_API const std::vector<Component::AudioMaterial*>& GetAudioMaterial() const;
         
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
@@ -85,4 +105,5 @@ class SoundManager {
         
         ComponentContainer<Component::SoundSource> soundSources;
         ComponentContainer<Component::Listener> listeners;
+        ComponentContainer<Component::AudioMaterial> audioMaterials;
 };

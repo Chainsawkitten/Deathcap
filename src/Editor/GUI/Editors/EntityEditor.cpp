@@ -1,6 +1,7 @@
 #include "EntityEditor.hpp"
 
 #include <Engine/Component/Animation.hpp>
+#include <Engine/Component/AudioMaterial.hpp>
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Lens.hpp>
 #include <Engine/Component/Material.hpp>
@@ -18,6 +19,7 @@
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
+#include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/Manager/Managers.hpp>
@@ -33,6 +35,7 @@
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
 #include <imgui_internal.h>
+#include <imgui.h>
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
@@ -45,6 +48,7 @@ using namespace GUI;
 EntityEditor::EntityEditor() {
     name[0] = '\0';
     AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
+    AddEditor<Component::AudioMaterial> ("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
     AddEditor<Component::Material>("Material", std::bind(&EntityEditor::MaterialEditor, this, std::placeholders::_1));
@@ -110,7 +114,12 @@ void EntityEditor::Show() {
         }
 
         ImGui::DraggableVec3("Position", entity->position);
-        ImGui::DraggableVec3("Rotation", entity->rotation);
+
+        glm::vec3 eulerAngles = glm::eulerAngles(entity->rotation);
+        eulerAngles = glm::degrees(eulerAngles);
+        if (ImGui::InputFloat3("Euler angles", &eulerAngles.x))
+            entity->SetLocalOrientation(glm::quat(glm::radians(eulerAngles)));
+
         ImGui::DraggableVec3("Scale", entity->scale);
         ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
         ImGui::Checkbox("Is entity static", &entity->isStatic);
@@ -184,6 +193,31 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
                 Managers().resourceManager->FreeModel(animation->riggedModel);
             
             animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
+        }
+
+        ImGui::EndPopup();
+    }
+    ImGui::Unindent();
+}
+
+void EntityEditor::AudioMaterialEditor(Component::AudioMaterial* audioMaterial) {
+    ImGui::Text("Audio material");
+    ImGui::Indent();
+    if (audioMaterial->material != nullptr)
+        ImGui::Text(audioMaterial->material->name.c_str());
+
+    if (ImGui::Button("Select audio material"))
+        ImGui::OpenPopup("Select audio material");
+
+    if (ImGui::BeginPopup("Select audio material")) {
+        ImGui::Text("Audio materials");
+        ImGui::Separator();
+
+        if (resourceSelector.Show(ResourceList::Resource::Type::AUDIOMATERIAL)) {
+            if (audioMaterial->material != nullptr)
+                Managers().resourceManager->FreeAudioMaterial(audioMaterial->material);
+
+            audioMaterial->material = Managers().resourceManager->CreateAudioMaterial(resourceSelector.GetSelectedResource().GetPath());
         }
 
         ImGui::EndPopup();
@@ -396,32 +430,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 //else if (typeId & asTYPEID_SCRIPTOBJECT){
                 //    asIScriptObject *obj = (asIScriptObject*)varPointer;
                 //}
-                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
-                    
-                    std::map<std::string, std::pair<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
-                    if (it != script->propertyMap.end()) {
-
-                        std::string *str = (std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-
-                        //We have to put a limit to the size of the string because we want to use a buffer so we don't have to reallocate it every frame.
-                        //I decided to use 128 because that's what we use for the name of the script.
-                        if (str->size() <= 128) {
-
-                            std::copy(str->begin(), str->end(), stringPropertyBuffer);
-                            stringPropertyBuffer[str->size()] = '\0';
-
-                            ImGui::InputText(script->instance->GetPropertyName(n), stringPropertyBuffer, 128);
-
-                            *str = stringPropertyBuffer;
-
-                        }
-                        else
-                            ImGui::Text("%s = <TOO BIG>\n", script->instance->GetPropertyName(n));
-
-                    }
-                    else
-                        ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
-                }
 
             }
 

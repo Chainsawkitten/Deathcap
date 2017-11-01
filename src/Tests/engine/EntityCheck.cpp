@@ -9,7 +9,7 @@ TEST_CASE("Entity check", "[entity component]")
     SECTION ("Test default values.")
     {
         REQUIRE(nullWorldEntity.position == glm::vec3(0, 0, 0));
-        REQUIRE(nullWorldEntity.rotation == glm::vec3(0, 0, 0));
+        REQUIRE(nullWorldEntity.rotation == glm::quat(1, 0, 0, 0));
         REQUIRE(nullWorldEntity.scale == glm::vec3(1, 1, 1));
     }
 }

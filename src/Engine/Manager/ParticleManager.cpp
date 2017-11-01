@@ -61,9 +61,10 @@ void ParticleManager::UpdateBuffer(World& world) {
     particleRenderer->SetBufferContents(world.GetParticleCount(), world.GetParticles());
 }
 
-void ParticleManager::Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix) {
+void ParticleManager::Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix, RenderSurface* renderSurface) {
     if (world.GetParticleCount() > 0) {
-        particleRenderer->Render(textureAtlas, textureAtlasRowNumber, position, up, viewProjectionMatrix);
+        UpdateBuffer(world);
+        particleRenderer->Render(textureAtlas, textureAtlasRowNumber, position, up, viewProjectionMatrix, renderSurface);
     }
 }
 

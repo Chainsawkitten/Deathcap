@@ -9,14 +9,19 @@ class Player{
         @self = @entity;
         RegisterUpdate();
         Cursor = vec2(0,0);
+        
+        deathTimer = 0.0f;
     }
     
     // Update the camera's rotation based on mouse movement.
     void MouseUpdate(){
         if(Cursor.x == 0 && Cursor.y == 0)
             Cursor = GetCursorXY();
-        self.rotation.x -= 0.3f * (GetCursorXY().x - Cursor.x);
-        self.rotation.y -= 0.3f * (GetCursorXY().y - Cursor.y);
+
+        float horizontal = radians(0.3f * (Cursor.x - GetCursorXY().x));
+        float vertical = radians(0.3f * (Cursor.y - GetCursorXY().y));
+        self.RotateAroundWorldAxis(horizontal, vec3(0.0f, 1.0f, 0.0f));
+        self.RotatePitch(vertical);
         
         Cursor = GetCursorXY();
     }
@@ -26,7 +31,7 @@ class Player{
         if (!IsVRActive())
             MouseUpdate();
             
-        deathTimer += i;
+        deathTimer += 0.001;
         if(deathTimer > 10)
             RestartScene();
     }
