@@ -110,7 +110,7 @@ class Log {
          * @param debug The stream for debug messages.
          * @return Whether the operation succeeded or not.
          */
-        UTILITY_API static bool SetupStreams(std::ostream* defaultStream, std::ostream* info, std::ostream* warning, std::ostream* error, std::ostream* console);
+        UTILITY_API static bool SetupStreams(std::ostream* defaultStream, std::ostream* info, std::ostream* warning, std::ostream* error, std::ostream* debug);
 
     private:
         Channel currentChannel;
