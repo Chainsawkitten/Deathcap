@@ -2,6 +2,7 @@
 #include <glm\glm.hpp>
 #include "Shader\Shader.hpp"
 #include "Shader\ShaderProgram.hpp"
+
 #include "linking.hpp"
 
 struct ParticlePos
@@ -20,7 +21,7 @@ struct ParticleVelocity
     float vx;
     float vy;
     float vz;
-    float fTimeToLive; //Remaining time. 
+    float life; //Remaining time. 
 };
 
 namespace Particles
@@ -57,7 +58,7 @@ namespace Particles
         unsigned int        nr_particles = 1024;
         glm::vec2		    particleShootIndex = glm::vec2(0, 1);
         int                 nr_new_particles = 1;
-        float               rate = 10.0f;
+        float               rate = 0.01f;
         float               delta_time = 0.0f;
         float               speed = 1.0f;
         float               variation = 2.0f;

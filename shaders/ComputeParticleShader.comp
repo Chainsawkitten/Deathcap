@@ -12,22 +12,22 @@ layout(binding = 1) buffer Vel
     vec4 Velocities[];
 };
 
-layout( local_size_x = 32, local_size_y = 32, local_size_z = 1 ) in;
+layout( local_size_x = 128, local_size_y = 1, local_size_z = 1 ) in;
 
 uniform vec2 ShootIndex;
 uniform float timer;
 uniform float rate;
 uniform vec3 InitVel;
 
-float lifetime = 500.0f;
+float lifetime = 5.0f;
 
 void main(void)
 {
 
     const float DT = 0.1;
-    const vec3 G = vec3(0.0, -0.098, 0.0);
+    const vec3 G = vec3(0.0, -9.8, 0.0);
 
-	uint index = gl_GlobalInvocationID.x + gl_GlobalInvocationID.y;
+	uint index = gl_GlobalInvocationID.x;
 
     if (index > 1024)
         return;
@@ -48,7 +48,7 @@ void main(void)
         life += DT;
         v += G * DT;
 
-        p += 0.01 * vec3(v) * DT;
+        p += 0.1 * vec3(v) * DT;
     }
 
     if (life > lifetime)

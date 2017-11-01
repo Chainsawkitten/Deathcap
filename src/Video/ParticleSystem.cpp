@@ -62,7 +62,7 @@ void ParticleSystem::CreateStorageBuffers()
         points[i].x = 0.0f;
         points[i].y = 0.0f;
         points[i].z = 0.0f;
-        points[i].w = 1.0f;
+        points[i].w = 0.0f;
     }
 
     glGenBuffers(1, &posSSbo);
@@ -86,10 +86,10 @@ void ParticleSystem::CreateStorageBuffers()
 
     for (int i = 0; i < this->nr_particles; i++)
     {
-        vels[i].vx = 1.0f;
-        vels[i].vy = 1.0f;
+        vels[i].vx = 5.0f * (rand()%10) - 5;
+        vels[i].vy = 5.0f * (rand() % 10) - 5;
         vels[i].vz = 0.0f;
-        vels[i].fTimeToLive = 1.0f;
+        vels[i].life = 0.0f;
     }
     
     glGenBuffers(1, &velSSbo);
@@ -102,8 +102,9 @@ void ParticleSystem::CreateStorageBuffers()
 
 void ParticleSystem::Update(float dt)
 {
-    glm::vec3 InitVeloc = glm::vec3(1, 1, 0);
+    glm::vec3 InitVeloc = glm::vec3(5 * (rand() % 10) - 5, 5 * (rand() % 10) - 5, 0);
     timer += dt;
+
     computeShaderProgram->Use();
     glUniform2fv(shootIndex, 1, &this->particleShootIndex[0]);
     glUniform1f(rateUni, rate);
@@ -113,11 +114,12 @@ void ParticleSystem::Update(float dt)
     glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 0, posSSbo, 0, nr_particles * sizeof(ParticlePos));
     glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 1, velSSbo, 0, nr_particles * sizeof(ParticlePos));
     
-    glDispatchCompute((nr_particles/2)/32, (nr_particles / 2)/32, 1);
+    glDispatchCompute(nr_particles/128, 1, 1);
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
     glUseProgram(0);
+
     if (timer >= rate)
     {
         particleShootIndex.x++;
@@ -125,11 +127,10 @@ void ParticleSystem::Update(float dt)
         if (particleShootIndex.y > nr_particles)
         {
             particleShootIndex.y = 1;
-            particleShootIndex.x = 1;
+            particleShootIndex.x = 0;
         }
         timer = 0.0f;
     }
-
 }
 
 void ParticleSystem::Draw(GLuint programID, const glm::mat4& viewProjectionMatrix)
