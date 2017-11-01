@@ -31,7 +31,7 @@ To format a specific file, use  ``clang-format -i PATH_TO_FILE/FILENAME`` when i
 Clang-format for windows can be grabbed from here: 
 http://releases.llvm.org/
 
-The options we use can be found here:
+The options we use are specified in src/.clang-format. Explanations of the options can be found here:
 http://releases.llvm.org/3.9.0/tools/clang/docs/ClangFormatStyleOptions.html
 
 ### Example
