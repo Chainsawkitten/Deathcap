@@ -26,11 +26,7 @@ set(SRCS
         Component/SoundSource.cpp
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
-<<<<<<< HEAD
-	Component/Trigger.cpp
-=======
         Component/Trigger.cpp
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         Entity/Entity.cpp
         Entity/World.cpp
         Geometry/Animation.cpp
@@ -48,25 +44,15 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
-<<<<<<< HEAD
-	Manager/TriggerManager.cpp
-=======
         Manager/TriggerManager.cpp
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         Manager/VRManager.cpp
         Physics/GlmConversion.cpp
         Physics/Shape.cpp
         Physics/Trigger.cpp
         Physics/TriggerObserver.cpp
-<<<<<<< HEAD
-	Trigger/SuperTrigger.cpp
-	Trigger/TriggerRepeat.cpp
-	Trigger/TriggerOnce.cpp	
-=======
         Trigger/SuperTrigger.cpp
         Trigger/TriggerRepeat.cpp
         Trigger/TriggerOnce.cpp	
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         Util/FileSystem.cpp
         Util/GPUProfiling.cpp
         Util/Input.cpp
@@ -106,11 +92,7 @@ set(HEADERS
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
-<<<<<<< HEAD
-	Component/Trigger.hpp
-=======
         Component/Trigger.hpp
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
@@ -129,25 +111,15 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
-<<<<<<< HEAD
-	Manager/TriggerManager.hpp
-=======
         Manager/TriggerManager.hpp
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         Manager/VRManager.hpp
         Physics/GlmConversion.hpp
         Physics/Shape.hpp
         Physics/Trigger.hpp
         Physics/TriggerObserver.hpp
-<<<<<<< HEAD
-	Trigger/SuperTrigger.hpp
-	Trigger/TriggerRepeat.hpp
-	Trigger/TriggerOnce.hpp	
-=======
         Trigger/SuperTrigger.hpp
         Trigger/TriggerRepeat.hpp
         Trigger/TriggerOnce.hpp	
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
         Util/FileSystem.hpp
         Util/GPUProfiling.hpp
         Util/Input.hpp
@@ -155,7 +127,7 @@ set(HEADERS
         Util/MousePicking.hpp
         Util/RayIntersection.hpp
         Util/Profiling.hpp
-        Util/Settings.hpp	
+        Util/Settings.hpp
         Texture/TextureAsset.hpp
         Script/ScriptFile.hpp
         Input/Input.hpp

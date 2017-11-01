@@ -195,10 +195,7 @@ Json::Value Entity::Save() const {
         Save<Component::Shape>(entity, "Shape");
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
-<<<<<<< HEAD
-=======
         Save<Component::Trigger>(entity, "Trigger");
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
 
         // Save children.
         Json::Value childNodes;
@@ -241,10 +238,7 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::Shape>(node, "Shape");
         Load<Component::SoundSource>(node, "SoundSource");
         Load<Component::ParticleEmitter>(node, "ParticleEmitter");
-<<<<<<< HEAD
-=======
         Load<Component::Trigger>(node, "Trigger");
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
 
         // Load children.
         for (unsigned int i = 0; i < node["children"].size(); ++i) {
@@ -345,24 +339,13 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
         component = Managers().soundManager->CreateSoundSource();
     else if (componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight();
-<<<<<<< HEAD
-    else if (componentType == typeid(Component::Trigger*)) {
-        component = Managers().triggerManager->CreateTrigger();
-    }
-=======
     else if (componentType == typeid(Component::Trigger*))
         component = Managers().triggerManager->CreateTrigger();
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
     else {
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return nullptr;
     }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 27b038f5d15d1d78d7eea09191ce72cae328e2b5
     // Add component to our map.
     components[componentType] = component;
 
@@ -442,12 +425,4 @@ void Entity::KillHelper() {
     for (Entity* child : children) {
         child->KillHelper();
     }
-}
-
-bool Entity::GetHasTrigger() {
-    return hasTrigger;
-}
-
-void Entity::SetHasTrigger(bool status) {
-    hasTrigger = status;
 }
