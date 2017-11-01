@@ -12,9 +12,11 @@ class World;
 namespace Video {
     class Texture2D;
     class ParticleRenderer;
+    class ParticleSystemRenderer;
 }
 namespace Component {
     class ParticleEmitter;
+    class ParticleSystemComponent;
 }
 namespace Json {
     class Value;
@@ -72,6 +74,12 @@ class ParticleManager {
          * @return The created component.
          */
         ENGINE_API Component::ParticleEmitter* CreateParticleEmitter();
+
+        /// Create particle emitter component.
+        /**
+        * @return The created component.
+        */
+        ENGINE_API Component::ParticleSystemComponent* CreateParticleSystem();
         
         /// Create particle emitter component.
         /**
@@ -79,6 +87,13 @@ class ParticleManager {
          * @return The created component.
          */
         ENGINE_API Component::ParticleEmitter* CreateParticleEmitter(const Json::Value& node);
+
+        /// Create particle System component.
+        /**
+        * @param node Json node to load the component from.
+        * @return The created component.
+        */
+        ENGINE_API Component::ParticleSystemComponent* CreateParticleSystem(const Json::Value& node);
         
         /// Get all particle emitter components.
         /**
@@ -107,6 +122,7 @@ class ParticleManager {
         std::mt19937 randomEngine;
         
         Video::ParticleRenderer* particleRenderer;
+        Video::ParticleSystemRenderer* particleSystemRenderer;
 
         // The number of rows in the texture atlas.
         int textureAtlasRowNumber = 4;
@@ -115,4 +131,5 @@ class ParticleManager {
         Video::Texture2D* textureAtlas;
         
         ComponentContainer<Component::ParticleEmitter> particleEmitters;
+        ComponentContainer<Component::ParticleSystemComponent> particleSystems;
 };

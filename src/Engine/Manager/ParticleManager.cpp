@@ -5,11 +5,13 @@
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Component/ParticleEmitter.hpp"
+#include "../Component/ParticleSystem.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include <Video/Texture/Texture2D.hpp>
 #include "ParticleAtlas.png.hpp"
 #include <Video/ParticleRenderer.hpp>
+#include <Video/ParticleSystemRenderer.hpp>
 #include "../Util/Json.hpp"
 #include <Utility/Log.hpp>
 
@@ -21,6 +23,7 @@ ParticleManager::ParticleManager() {
     textureAtlas = Managers().resourceManager->CreateTexture2D(PARTICLEATLAS_PNG, PARTICLEATLAS_PNG_LENGTH);
     
     particleRenderer = new ParticleRenderer(maxParticleCount);
+    particleSystemRenderer = new ParticleSystemRenderer();
 }
 
 ParticleManager::~ParticleManager() {
@@ -77,6 +80,10 @@ Component::ParticleEmitter* ParticleManager::CreateParticleEmitter() {
     return particleEmitters.Create();
 }
 
+Component::ParticleSystemComponent* ParticleManager::CreateParticleSystem() {
+    return particleSystems.Create();
+}
+
 Component::ParticleEmitter* ParticleManager::CreateParticleEmitter(const Json::Value& node) {
     Component::ParticleEmitter* particleEmitter = particleEmitters.Create();
     
@@ -99,6 +106,29 @@ Component::ParticleEmitter* ParticleManager::CreateParticleEmitter(const Json::V
     particleEmitter->emitterType = static_cast<Component::ParticleEmitter::EmitterType>(node.get("emitterType", 0).asInt());
     
     return particleEmitter;
+}
+
+Component::ParticleSystemComponent* ParticleManager::CreateParticleSystem(const Json::Value& node) {
+    Component::ParticleSystemComponent* particleSystem = particleSystems.Create();
+
+    // Load values from Json node.
+    particleSystem->particleType.textureIndex = node.get("textureIndex", 0).asInt();
+    particleSystem->particleType.minVelocity = Json::LoadVec3(node["minVelocity"]);
+    particleSystem->particleType.maxVelocity = Json::LoadVec3(node["maxVelocity"]);
+    particleSystem->particleType.averageLifetime = node.get("averageLifetime", 0.f).asFloat();
+    particleSystem->particleType.lifetimeVariance = node.get("lifetimeVariance", 0.f).asFloat();
+    particleSystem->particleType.averageSize = Json::LoadVec2(node["averageSize"]);
+    particleSystem->particleType.sizeVariance = Json::LoadVec2(node["sizeVariance"]);
+    particleSystem->particleType.uniformScaling = node.get("uniformScaling", false).asBool();
+    particleSystem->particleType.startAlpha = node.get("startAlpha", 0.f).asFloat();
+    particleSystem->particleType.midAlpha = node.get("midAlpha", 1.f).asFloat();
+    particleSystem->particleType.endAlpha = node.get("endAlpha", 0.f).asFloat();
+    particleSystem->particleType.color = Json::LoadVec3(node["color"]);
+    particleSystem->size = Json::LoadVec3(node["size"]);
+    particleSystem->averageEmitTime = node.get("averageEmitTime", 0.03).asFloat();
+    particleSystem->emitTimeVariance = node.get("emitTimeVariance", 0.03).asFloat();
+
+    return particleSystem;
 }
 
 const std::vector<Component::ParticleEmitter*>& ParticleManager::GetParticleEmitters() const {

@@ -1,4 +1,4 @@
-﻿#include "Video\ParticleSystem.hpp"
+﻿#include "Video\ParticleSystemRenderer.hpp"
 
 #include "ComputeParticleShader.comp.hpp"
 #include "DefaultParticleShader.vert.hpp"
@@ -10,30 +10,30 @@ GLuint rateUni;
 GLuint timerUni;
 GLuint velocityUni;
 
-using namespace Particles;
+using namespace Video;
 
-ParticleSystem::ParticleSystem()
+ParticleSystemRenderer::ParticleSystemRenderer()
 {
     points = new ParticlePos[nr_particles];
     vels = new ParticleVelocity[nr_particles];
 }
 
-ParticleSystem::ParticleSystem(int count)
+ParticleSystemRenderer::ParticleSystemRenderer(int count)
 {
     points = new ParticlePos[count];
     vels = new ParticleVelocity[count];
 }
 
-ParticleSystem::~ParticleSystem()
+ParticleSystemRenderer::~ParticleSystemRenderer()
 {
 }
 
-void ParticleSystem::InitRender(const ParticlePos* particlesPos, const ParticleVelocity* particlesVelocity)
+void ParticleSystemRenderer::InitRender(const ParticlePos* particlesPos, const ParticleVelocity* particlesVelocity)
 {
 
 }
 
-void ParticleSystem::Init()
+void ParticleSystemRenderer::Init()
 {
     // Load shaders.
     Video::Shader* vertexShader =   new Video::Shader(DEFAULTPARTICLESHADER_VERT, DEFAULTPARTICLESHADER_VERT_LENGTH, GL_VERTEX_SHADER);
@@ -54,7 +54,7 @@ void ParticleSystem::Init()
     velocityUni = computeShaderProgram->GetUniformLocation("InitVel");
 }
 
-void ParticleSystem::CreateStorageBuffers()
+void ParticleSystemRenderer::CreateStorageBuffers()
 {
 
     for (int i = 0; i < this->nr_particles; i++)
@@ -100,7 +100,7 @@ void ParticleSystem::CreateStorageBuffers()
 
 }
 
-void ParticleSystem::Update(float dt)
+void ParticleSystemRenderer::Update(float dt)
 {
     glm::vec3 InitVeloc = glm::vec3(5 * (rand() % 10) - 5, 5 * (rand() % 10) - 5, 0);
     timer += dt;
@@ -133,7 +133,7 @@ void ParticleSystem::Update(float dt)
     }
 }
 
-void ParticleSystem::Draw(GLuint programID, const glm::mat4& viewProjectionMatrix)
+void ParticleSystemRenderer::Draw(GLuint programID, const glm::mat4& viewProjectionMatrix)
 {
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);

@@ -21,6 +21,7 @@ namespace Component {
     class Shape;
     class SoundSource;
     class ParticleEmitter;
+    class ParticleSystemComponent;
     class VRDevice;
 }
 
@@ -89,6 +90,7 @@ namespace GUI {
             void ShapeEditor(Component::Shape* shape);
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
+            void ParticleSystemEditor(Component::ParticleSystemComponent* particleSystem);
             void VRDeviceEditor(Component::VRDevice* vrDevice);
             
             Entity* entity = nullptr;

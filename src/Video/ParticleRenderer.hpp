@@ -2,7 +2,6 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include "Video/ParticleSystem.hpp"
 #include "linking.hpp"
 
 namespace Video {
@@ -68,7 +67,6 @@ namespace Video {
         private:
             ParticleRenderer(const ParticleRenderer & other) = delete;
             ShaderProgram* shaderProgram;
-            Particles::ParticleSystem PS;
             // Vertex buffer.
             GLuint vertexBuffer = 0;
             GLuint vertexArray = 0;

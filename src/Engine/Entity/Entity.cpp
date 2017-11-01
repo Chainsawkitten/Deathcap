@@ -14,6 +14,7 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/ParticleEmitter.hpp"
+#include "../Component/ParticleSystem.hpp"
 #include "../Component/VRDevice.hpp"
 #include "../Util/Json.hpp"
 #include "../Util/FileSystem.hpp"
@@ -315,6 +316,8 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
         component = Managers().renderManager->CreateMesh();
     else if (componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter();
+    else if (componentType == typeid(Component::ParticleSystemComponent*))
+        component = Managers().particleManager->CreateParticleSystem();
     else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight();
     else if (componentType == typeid(Component::RigidBody*))
@@ -376,6 +379,8 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
         component = Managers().renderManager->CreateMesh(node);
     else if (componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter(node);
+    else if (componentType == typeid(Component::ParticleSystemComponent*))
+        component = Managers().particleManager->CreateParticleSystem();
     else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight(node);
     else if (componentType == typeid(Component::RigidBody*))

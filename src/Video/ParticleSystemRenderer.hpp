@@ -24,14 +24,14 @@ struct ParticleVelocity
     float life; //Remaining time. 
 };
 
-namespace Particles
+namespace Video
 {
-    class ParticleSystem
+    class ParticleSystemRenderer
     {
     public:
-        VIDEO_API ParticleSystem();
-        VIDEO_API ParticleSystem(int count);
-        VIDEO_API ~ParticleSystem();
+        VIDEO_API ParticleSystemRenderer();
+        VIDEO_API ParticleSystemRenderer(int count);
+        VIDEO_API ~ParticleSystemRenderer();
 
         VIDEO_API void Init();
 
