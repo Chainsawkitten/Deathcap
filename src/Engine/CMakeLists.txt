@@ -5,6 +5,7 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
         MainWindow.cpp
+        Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
@@ -12,6 +13,7 @@ set(SRCS
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
+        Component/AudioMaterial.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -65,6 +67,7 @@ set(HEADERS
         linking.hpp
         Hymn.hpp
         MainWindow.hpp
+        Audio/AudioMaterial.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/SteamAudio.hpp
@@ -73,6 +76,7 @@ set(HEADERS
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/Animation.hpp
+        Component/AudioMaterial.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp
