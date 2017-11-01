@@ -124,7 +124,7 @@ Log & Log::operator<<(const glm::vec4 & value) {
 
 bool Log::SetupStream(const Channel channel, std::ostream* stream) {
     // Check if channel is outside the range of available channels
-    if(channel < DEFAULT || channel >= NUMBER_OF_CHANNELS) {
+    if (channel < DEFAULT || channel >= NUMBER_OF_CHANNELS) {
         std::cout << "Error channel: out of range.\n";
         return false;
     }
@@ -140,9 +140,9 @@ bool Log::SetupStreams(
         std::ostream* warning, 
         std::ostream* error, 
         std::ostream* console) {
-    return  SetupStream(DEFAULT, defaultStream)    &&
-            SetupStream(INFO, info)                &&
-            SetupStream(WARNING, warning)          &&
-            SetupStream(ERR, error)                &&
-            SetupStream(DEBUG, console);
+    return SetupStream(DEFAULT, defaultStream)    &&
+           SetupStream(INFO, info)                &&
+           SetupStream(WARNING, warning)          &&
+           SetupStream(ERR, error)                &&
+           SetupStream(DEBUG, console);
 }
