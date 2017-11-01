@@ -45,20 +45,20 @@ class Fish : public Example {
     public:
     /// Create new fish.
     /**
-    * @param name The name to give the fish.
-    */
+     * @param name The name to give the fish.
+     */
     Fish(const std::string& name);
 
     /// Display the name of the fish.
     /**
-    * @param prefix Whether to prefix the output with 'A fish called '.
-    */
+     * @param prefix Whether to prefix the output with 'A fish called '.
+     */
     void DisplayName(bool prefix = false) const;
 
     /// Get whether the fish is happy.
     /**
-    * @return Whether the fish is happy.
-    */
+     * @return Whether the fish is happy.
+     */
     bool GetHappy() const;
 
     private:
