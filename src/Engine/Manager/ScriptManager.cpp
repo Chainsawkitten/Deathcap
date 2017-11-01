@@ -301,6 +301,15 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("mat4", "mat4 opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::mat4), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat4", "vec4 opMul(const vec4 &in) const", asFUNCTION(mat4MulVec4), asCALL_CDECL_OBJLAST);
 
+    engine->RegisterObjectType("quat", sizeof(glm::quat), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<glm::quat>());
+    engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f()", asFUNCTIONPR(glmConstructor<glm::quat>, (void*), void), asCALL_CDECL_OBJLAST);
+    engine->RegisterObjectMethod("quat", "quat opAdd(const quat &in) const", asFUNCTIONPR(glmAdd, (const glm::quat&, const void*), glm::quat), asCALL_CDECL_OBJLAST);
+    engine->RegisterObjectMethod("quat", "quat opMul(float) const", asFUNCTIONPR(glmMul, (float, const void*), glm::quat), asCALL_CDECL_OBJLAST);
+    engine->RegisterObjectMethod("quat", "quat opMul_r(float) const", asFUNCTIONPR(glmMulR, (float, const void*), glm::quat), asCALL_CDECL_OBJLAST);
+    engine->RegisterObjectMethod("quat", "quat opMul(const quat &in) const", asFUNCTIONPR(glmMul, (const glm::quat&, const void*), glm::quat), asCALL_CDECL_OBJLAST);
+    engine->RegisterObjectMethod("quat", "quat& opMulAssign(float) const", asMETHODPR(glm::quat, operator*=, (float), glm::quat&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("quat", "quat opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::quat), asCALL_CDECL_OBJLAST);
+    
     // Register GLM functions.
     engine->RegisterGlobalFunction("vec2 normalize(const vec2 &in)", asFUNCTIONPR(glm::normalize, (const glm::vec2&), glm::vec2), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec3 normalize(const vec3 &in)", asFUNCTIONPR(glm::normalize, (const glm::vec3&), glm::vec3), asCALL_CDECL);
@@ -321,13 +330,17 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("mat4 transpose(const mat4 &in)", asFUNCTIONPR(glm::transpose, (const glm::mat4&), glm::mat4), asCALL_CDECL);
     engine->RegisterGlobalFunction("float determinant(const mat3 &in)", asFUNCTIONPR(glm::determinant, (const glm::mat3&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float determinant(const mat4 &in)", asFUNCTIONPR(glm::determinant, (const glm::mat4&), float), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float pitch(const quat &in)", asFUNCTIONPR(glm::pitch, (const glm::quat&), float), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float yaw(const quat &in)", asFUNCTIONPR(glm::yaw, (const glm::quat&), float), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float roll(const quat &in)", asFUNCTIONPR(glm::roll, (const glm::quat&), float), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float radians(float)", asFUNCTIONPR(glm::radians, (float), float), asCALL_CDECL);
 
     // Register Entity.
     engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Entity", "string name", asOFFSET(Entity, name));
+    engine->RegisterObjectProperty("Entity", "quat rotation", asOFFSET(Entity, rotation));
     engine->RegisterObjectProperty("Entity", "vec3 position", asOFFSET(Entity, position));
     engine->RegisterObjectProperty("Entity", "vec3 scale", asOFFSET(Entity, scale));
-    engine->RegisterObjectProperty("Entity", "vec3 rotation", asOFFSET(Entity, rotation));
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
@@ -337,6 +350,13 @@ ScriptManager::ScriptManager() {
 
     engine->RegisterGlobalFunction("Entity@ GetEntity(uint GUID)", asFUNCTIONPR(ScriptManager::GetEntity, (unsigned int), Entity*), asCALL_CDECL);
 
+    engine->RegisterObjectMethod("Entity", "void RotateYaw(float angle)", asMETHOD(Entity, RotateYaw), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void RotatePitch(float angle)", asMETHOD(Entity, RotatePitch), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void RotateRoll(float angle)", asMETHOD(Entity, RotateRoll), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void RotateAroundWorldAxis(float, const vec3 &in)", asMETHOD(Entity, RotateAroundWorldAxis), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetWorldOrientation(quat)", asMETHOD(Entity, SetWorldOrientation), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetLocalOrientation(quat)", asMETHOD(Entity, SetLocalOrientation), asCALL_THISCALL);
+    
     // Register components.
     engine->SetDefaultNamespace("Component");
     
@@ -577,8 +597,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
     }
     
     // Update.
-    for (Entity* entity : world.GetUpdateEntities())
+    for (Entity* entity : world.GetUpdateEntities()) {
+        this->currentEntity = entity;
         CallUpdate(entity, deltaTime);
+    }
     
     // Handle messages.
     while (!messages.empty()) {
