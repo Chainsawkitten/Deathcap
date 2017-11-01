@@ -225,7 +225,7 @@ class RenderManager {
         /**
          * @param fogColor Color of the fog.
          */
-        ENGINE_API void SetFogColor(glm::vec3 fogColor);
+        ENGINE_API void SetFogColor(const glm::vec3& fogColor);
 
         /// Get fog color.
         /**
@@ -251,7 +251,7 @@ class RenderManager {
         /**
          * @param colorFilterColor Color of the color filter.
          */
-        ENGINE_API void SetColorFilterColor(glm::vec3 colorFilterColor);
+        ENGINE_API void SetColorFilterColor(const glm::vec3& colorFilterColor);
 
         /// Get color filer color.
         /**
@@ -271,19 +271,6 @@ class RenderManager {
          * @return Whether dithering is applyed.
          */
         ENGINE_API bool GetDitherApply() const;
-
-
-        /// Set size of the current frame to be rendered in pixels.
-        /**
-         * @param frameSize Size of the frame in pixels.
-         */
-        ENGINE_API void SetFrameSize(glm::vec2 frameSize);
-
-        /// Get size of the current frame to be rendered in pixels.
-        /**
-         * @return Size of the frame in pixels.
-         */
-        ENGINE_API glm::vec2 GetFrameSize() const;
 
     private:
         RenderManager();

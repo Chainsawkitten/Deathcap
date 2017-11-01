@@ -25,6 +25,7 @@
 #include "../Component/RigidBody.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/SpotLight.hpp"
+#include "../Component/Mesh.hpp"
 #include "../Component/VRDevice.hpp"
 #include "../Input/Input.hpp"
 #include "../Script/ScriptFile.hpp"
@@ -34,7 +35,7 @@
 #include "DebugDrawingManager.hpp"
 #include "PhysicsManager.hpp"
 #include "ResourceManager.hpp"
-#include "Component/Mesh.hpp"
+#include "RenderManager.hpp"
 
 using namespace Component;
 
@@ -140,6 +141,62 @@ bool IsIntersect(Entity* checker, Entity* camera) {
 
 bool IsVRActive() {
     return Managers().vrManager->Active();
+}
+
+void SetGamma(float gamma) {
+    Managers().renderManager->SetGamma(gamma);
+}
+
+float GetGamma() {
+    return Managers().renderManager->GetGamma();
+}
+
+void SetFogApply(bool fogApply) {
+    Managers().renderManager->SetFogApply(fogApply);
+}
+
+bool GetFogApply() {
+    return Managers().renderManager->GetFogApply();
+}
+
+void SetFogDensity(bool fogDensity) {
+    Managers().renderManager->SetFogDensity(fogDensity);;
+}
+
+float GetFogDensity() {
+    return Managers().renderManager->GetFogDensity();
+}
+
+void SetFogColor(const glm::vec3& fogColor) {
+    Managers().renderManager->SetFogColor(fogColor);
+}
+
+glm::vec3 GetFogColor() {
+    return Managers().renderManager->GetFogColor();
+}
+
+void SetColorFilterApply(bool colorFilterApply) {
+    Managers().renderManager->SetColorFilterApply(colorFilterApply);
+}
+
+bool GetColorFilterApply() {
+    return Managers().renderManager->GetColorFilterApply();
+}
+
+void SetColorFilterColor(const glm::vec3& colorFilterColor) {
+    Managers().renderManager->SetColorFilterColor(colorFilterColor);
+}
+
+glm::vec3 GetColorFilterColor() {
+    return Managers().renderManager->GetColorFilterColor();
+}
+
+void SetDitherApply(bool ditherApply) {
+    Managers().renderManager->SetDitherApply(ditherApply);
+}
+
+bool GetDitherApply() {
+    return Managers().renderManager->GetDitherApply();
 }
 
 void vec2Constructor(float x, float y, void* memory) {
@@ -426,6 +483,22 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsVRActive()", asFUNCTION(IsVRActive), asCALL_CDECL);
+
+    // Register image processing functions.
+    engine->RegisterGlobalFunction("void SetGamma(float gamma)", asFUNCTION(SetGamma), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float GetGamma()", asFUNCTION(GetGamma), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void SetFogApply(bool fogApply)", asFUNCTION(SetFogApply), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool GetFogApply()", asFUNCTION(GetFogApply), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void SetFogDensity(bool fogDensity)", asFUNCTION(SetFogDensity), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool GetFogDensity()", asFUNCTION(GetFogDensity), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void SetFogColor(const vec3 &in)", asFUNCTION(SetFogColor), asCALL_CDECL);
+    engine->RegisterGlobalFunction("vec3 GetFogColor()", asFUNCTION(GetFogColor), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void SetColorFilterApply(bool colorFilterApply)", asFUNCTION(SetColorFilterApply), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool GetColorFilterApply()", asFUNCTION(GetColorFilterApply), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void SetColorFilterColor(const vec3 &in)", asFUNCTION(SetColorFilterColor), asCALL_CDECL);
+    engine->RegisterGlobalFunction("vec3 GetColorFilterColor()", asFUNCTION(GetColorFilterColor), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void SetDitherApply(bool ditherApply)", asFUNCTION(SetDitherApply), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool GetDitherApply()", asFUNCTION(GetDitherApply), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {

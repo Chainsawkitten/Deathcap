@@ -159,7 +159,7 @@ float StaticRenderProgram::GetFogDensity() const {
     return fogDensity;
 }
 
-void StaticRenderProgram::SetFogColor(glm::vec3 fogColor) {
+void StaticRenderProgram::SetFogColor(const glm::vec3& fogColor) {
     this->fogColor = fogColor;
 }
 
@@ -175,7 +175,7 @@ bool StaticRenderProgram::GetColorFilterApply() const {
     return (bool)colorFilterApply;
 }
 
-void StaticRenderProgram::SetColorFilterColor(glm::vec3 colorFilterColor) {
+void StaticRenderProgram::SetColorFilterColor(const glm::vec3& colorFilterColor) {
     this->colorFilterColor = colorFilterColor;
 }
 
@@ -191,7 +191,7 @@ bool StaticRenderProgram::GetDitherApply() const {
     return (bool)ditherApply;
 }
 
-void StaticRenderProgram::SetFrameSize(glm::vec2 frameSize) {
+void StaticRenderProgram::SetFrameSize(const glm::vec2& frameSize) {
     this->frameSize = frameSize;
 }
 

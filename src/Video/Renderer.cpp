@@ -183,7 +183,7 @@ float Renderer::GetFogDensity() const {
     return staticRenderProgram->GetFogDensity();
 }
 
-void Renderer::SetFogColor(glm::vec3 fogColor) {
+void Renderer::SetFogColor(const glm::vec3& fogColor) {
     staticRenderProgram->SetFogColor(fogColor);
 }
 
@@ -199,7 +199,7 @@ bool Renderer::GetColorFilterApply() const {
     return staticRenderProgram->GetColorFilterApply();
 }
 
-void Renderer::SetColorFilterColor(glm::vec3 colorFilterColor) {
+void Renderer::SetColorFilterColor(const glm::vec3& colorFilterColor) {
     staticRenderProgram->SetColorFilterColor(colorFilterColor);
 }
 
@@ -215,7 +215,7 @@ bool Renderer::GetDitherApply() const {
     return staticRenderProgram->GetDitherApply();
 }
 
-void Renderer::SetFrameSize(glm::vec2 frameSize) {
+void Renderer::SetFrameSize(const glm::vec2& frameSize) {
     staticRenderProgram->SetFrameSize(frameSize);
 }
 

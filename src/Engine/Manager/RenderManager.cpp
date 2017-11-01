@@ -486,7 +486,7 @@ float RenderManager::GetFogDensity() const {
     return renderer->GetFogDensity();
 }
 
-void RenderManager::SetFogColor(glm::vec3 fogColor) {
+void RenderManager::SetFogColor(const glm::vec3& fogColor) {
     renderer->SetFogColor(fogColor);
 }
 
@@ -502,7 +502,7 @@ bool RenderManager::GetColorFilterApply() const {
     return renderer->GetColorFilterApply();
 }
 
-void RenderManager::SetColorFilterColor(glm::vec3 colorFilterColor) {
+void RenderManager::SetColorFilterColor(const glm::vec3& colorFilterColor) {
     renderer->SetColorFilterColor(colorFilterColor);
 }
 
@@ -516,14 +516,6 @@ void RenderManager::SetDitherApply(bool ditherApply) {
 
 bool RenderManager::GetDitherApply() const {
     return renderer->GetDitherApply();
-}
-
-void RenderManager::SetFrameSize(glm::vec2 frameSize) {
-    renderer->SetFrameSize(frameSize);
-}
-
-glm::vec2 RenderManager::GetFrameSize() const {
-    return renderer->GetFrameSize();
 }
 
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {

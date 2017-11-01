@@ -155,7 +155,7 @@ namespace Video {
             /**
              * @param fogColor Color of the fog.
              */
-            VIDEO_API void SetFogColor(glm::vec3 fogColor);
+            VIDEO_API void SetFogColor(const glm::vec3& fogColor);
 
             /// Get fog color.
             /**
@@ -181,7 +181,7 @@ namespace Video {
             /**
              * @param colorFilterColor Color of the color filter.
              */
-            VIDEO_API void SetColorFilterColor(glm::vec3 colorFilterColor);
+            VIDEO_API void SetColorFilterColor(const glm::vec3& colorFilterColor);
 
             /// Get color filer color.
             /**
@@ -207,7 +207,7 @@ namespace Video {
             /**
              * @param frameSize Size of the frame in pixels.
              */
-            VIDEO_API void SetFrameSize(glm::vec2 frameSize);
+            VIDEO_API void SetFrameSize(const glm::vec2& frameSize);
 
             /// Get size of the current frame to be rendered in pixels.
             /**
