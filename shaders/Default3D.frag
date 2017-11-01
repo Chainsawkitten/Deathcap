@@ -108,11 +108,10 @@ float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
     return clamp((ggx1 * ggx2), 0.f, 1.0f);
 }
 // --- SHADOW FUNCTIONS ----
-float ShadowCalculation(vec4 fragPosLightSpace)
-{
+float ShadowCalculation(vec4 fragPosLightSpace){
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     // to range [0,1]
-    projCoords = projCoords * 0.5 + 0.5;
+    projCoords = projCoords * 0.5 + vec3(0.5);
     float closestDepth = texture(mapShadow, projCoords.xy).r;
     float currentDepth = projCoords.z;
     float bias = 0.0;//1;
@@ -189,9 +188,6 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
 
     return Lo;
 }
-
-
-
 
 // --- POSTPROCESSING FUNCTIONS ---
 vec3 ApplyFog(vec3 pos, vec3 color) {

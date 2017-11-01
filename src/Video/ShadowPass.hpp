@@ -9,21 +9,35 @@ namespace Video {
         VIDEO_API ShadowPass();
         VIDEO_API ~ShadowPass();
 
-        ////Create shadowbuffer
-        /**
-        *
-        */
+        ///Create shadowbuffer for writing
         VIDEO_API void InitDephtMap();
 
-        ////Bind Texture to depth buffer
-        /**
-        *
-        */
+        ///Bind Texture to depth buffer
         VIDEO_API void BindBuffer();
 
+        ///return shadowmaps width
+        /*
+        * @return shadowmaps width
+        */
         VIDEO_API int GetShadowWidth();
+
+        ///return shadowmaps height
+        /*
+        * @return shadowmaps height
+        */
         VIDEO_API int GetShadowHeight();
+
+        ///return shadowmap framebuffer object
+        /*
+        * @return shadowmap framebuffer object
+        */
         VIDEO_API int GetDepthMapFbo();
+
+
+        ///return shadowmap texture id
+        /*
+        * @return shadowmap texture id
+        */
         VIDEO_API int GetShadowID();
 
 

@@ -32,6 +32,12 @@ namespace Video {
 
             ////Prepare for shadow renderin
             /**
+            * @param lightView The lights view matrix
+            * @param lightProjection the Lights projection matrix
+            * @param shadowId the texture ID for the shadowMap
+            * @param shadowWidth size x of shadowMap
+            * @param shadowHeight size y of shadowMap
+            * @param depthFbo framebuffer object for shadowMap
             */
             VIDEO_API void PrepareShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId,int shadowWidth, int shadowHeight, int dephtFbo);
 

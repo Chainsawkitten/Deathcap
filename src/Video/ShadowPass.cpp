@@ -3,6 +3,8 @@
 
 namespace Video {
     ShadowPass::ShadowPass(){
+        InitDephtMap();
+        BindBuffer();
     }
     ShadowPass::~ShadowPass() {
 

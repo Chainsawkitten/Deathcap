@@ -58,8 +58,6 @@ RenderManager::RenderManager() {
 
     //init shadowpass
     shadowPass = new Video::ShadowPass();
-    shadowPass->InitDephtMap();
-    shadowPass->BindBuffer();
 
     // Init textures.
     particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);

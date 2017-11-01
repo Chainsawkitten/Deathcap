@@ -92,7 +92,6 @@ void Video::StaticRenderProgram::ShadowRender(Geometry::Geometry3D * geometry, c
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
-    
 }
 
 void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount) {
