@@ -36,14 +36,69 @@ namespace Component {
             /// Entities referenced by this script.
             std::vector<Entity*> refList;
 
-            ///Map containing the properties, maps a pair of a value and it's type to a name (map<nameOfProperty, pair<typeOfProperty, valueOfProperty>>)
-            std::map<std::string, std::pair<int, void*>> propertyMap;
+            /// Add a property to the propertyMap.
+            /**
+             * @param name The name of the property.
+             * @param type The asTypeID of the property.
+             * @param size The size in number of bytes of the property.
+             * @param data A pointer to the data to store.
+             */
+            ENGINE_API void AddToPropertyMap(std::string name, int type, int size, void* data);
 
-            /// Fills the property map.
-            void FillPropertyMap();
+            /// Add a property to the propertyMap.
+            /**
+             * @param name The name of the property.
+             * @param type The asTypeID of the property.
+             * @param target A pointer that points where to copy the data.
+             */
+            ENGINE_API void CopyDataFromPropertyMap(std::string name, void* target);
+
+            /// Add a property to the propertyMap.
+            /**
+             * @param name The name of the property.
+             * @return A pointer to the data of the property.
+             */
+            ENGINE_API void* GetDataFromPropertyMap(std::string name);
+
+            /// Save the component.
+            /**
+             * @param name The name of the property.
+             * @param type The asTypeID of the property.
+             * @return Is there a property with the provided name and type in propertyMap.
+             */  
+            ENGINE_API bool isInPropertyMap(std::string name, int type);
 
             /// Clears the property map.
             ENGINE_API void ClearPropertyMap();
+
+        private:
+
+            class Property {
+                
+            public:
+                Property() {
+
+                    typeID = -1;
+                    size = -1;
+
+                }
+                Property(int _typeID, int _size, void* _data) {
+
+                    typeID = _typeID;
+                    size = _size;
+                    data = malloc(size);
+                    memcpy(data, _data, size);
+
+                }
+
+                int typeID;
+                int size;
+                void* data;
+
+            };
+
+            //Map containing the properties, maps a struct of a value, it's type, and size to a name.
+            std::map<std::string, Property> propertyMap;
 
     };
 }
