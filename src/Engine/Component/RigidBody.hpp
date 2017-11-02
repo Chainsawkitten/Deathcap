@@ -43,15 +43,23 @@ namespace Component {
             void Destroy();
 
             // Get the position of a rigid body.
-            glm::vec3 Position() const;
+            glm::vec3 GetPosition() const;
 
             // Set the position of a rigid body.
-            void Position(const glm::vec3& pos);
+            void SetPosition(const glm::vec3& pos);
+
+            // Get the orientation of a rigid body.
+            glm::quat GetOrientation() const;
+
+            // Set the orientation of a rigid body.
+            void SetOrientation(const glm::quat& rotation);
+
+            // Get the mass in kilograms of a rigid body.
+            float GetMass();
 
             // Set the mass in kilograms of a rigid body.
-            void Mass(float mass);
+            void SetMass(float mass);
 
-        private:
             float mass = 1.0f;
             btRigidBody* rigidBody = nullptr;
     };
