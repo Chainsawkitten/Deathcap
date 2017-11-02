@@ -40,11 +40,20 @@ namespace Physics {
                 float depth;
             };
 
+            /// Parameters used to create a cylinder shape.
+            struct Cylinder {
+                Cylinder(float radius, float length)
+                    : radius(radius), length(length) {}
+                float radius;
+                float length;
+            };
+
             /// The various kinds of shapes that are wrapped by %Shape.
             enum class Kind {
                 Sphere,
                 Plane,
                 Box,
+                Cylinder,
             };
 
             /// Construct a sphere shape.
@@ -64,6 +73,12 @@ namespace Physics {
              * @param params Box specific parameters.
              */
             ENGINE_API Shape(const Box& params);
+
+            /// Construct a cylinder shape.
+            /**
+             * @param params Cylinder specific parameters.
+             */
+            ENGINE_API Shape(const Cylinder& params);
 
             /// Destructor
             ENGINE_API ~Shape();
@@ -92,6 +107,12 @@ namespace Physics {
              */
             ENGINE_API const Box* GetBoxData() const;
 
+            /// Get cylinder data of the shape.
+            /**
+             * @return Cylinder data, or nullptr if the shape is not a cylinder.
+             */
+            ENGINE_API const Cylinder* GetCylinderData() const;
+
         private:
             /// Get the wrapped Bullet shape.
             /**
@@ -107,6 +128,7 @@ namespace Physics {
                 Sphere sphere;
                 Plane plane;
                 Box box;
+                Cylinder cylinder;
             };
     };
 }
