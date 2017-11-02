@@ -39,6 +39,7 @@
 #include <imgui_internal.h>
 #include <imgui.h>
 #include "PlaneShapeEditor.hpp"
+#include "RigidBodyEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
 namespace Physics {
@@ -69,6 +70,8 @@ EntityEditor::EntityEditor() {
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
     selectedShape = 0;
+
+    rigidBodyEditor.reset(new GUI::RigidBodyEditor);
 }
 
 EntityEditor::~EntityEditor() {
@@ -391,17 +394,7 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
 }
 
 void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
-    auto shapeComp = rigidBody->entity->GetComponent<Component::Shape>();
-    if (shapeComp) {
-        ImGui::Indent();
-        if (ImGui::InputFloat("Mass", &rigidBodyMass))
-            Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
-        ImGui::Unindent();
-    } else {
-        ImGui::Indent();
-        ImGui::TextWrapped("A rigid body is only valid with a complementary shape component. Please add one to allow editing this component.");
-        ImGui::Unindent();
-    }
+    rigidBodyEditor->Show(rigidBody);
 }
 
 void EntityEditor::ScriptEditor(Component::Script* script) {
