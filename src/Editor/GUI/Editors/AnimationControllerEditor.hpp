@@ -75,5 +75,8 @@ namespace GUI {
             Animation::AnimationController* animationController = nullptr;
 
             ResourceSelector resourceSelector;
+
+            int boolEditIndex = -1;
+            int floatEditIndex = -1;
     };
 }

@@ -58,13 +58,15 @@ void AnimationControllerEditor::ShowContextMenu() {
 
     if (ImGui::MenuItem("Add bool")) {
         Animation::AnimationController::BoolItem* newBool = new Animation::AnimationController::BoolItem;
-        newBool->name.append(std::to_string(animationController->boolMap.size() + 1));
+        std::string name = "NewBool" + std::to_string(animationController->boolMap.size() + 1);
+        memcpy(newBool->name, name.c_str(), name.size() + 1);
         animationController->boolMap.push_back(newBool);
     }
 
     if (ImGui::MenuItem("Add float")) {
         Animation::AnimationController::FloatItem* newFloat = new Animation::AnimationController::FloatItem;
-        newFloat->name.append(std::to_string(animationController->floatMap.size() + 1));
+        std::string name = "NewFloat" + std::to_string(animationController->floatMap.size() + 1);
+        memcpy(newFloat->name, name.c_str(), name.size() + 1);
         animationController->floatMap.push_back(newFloat);
     }
 }
@@ -76,7 +78,7 @@ void AnimationControllerEditor::ShowNode(Node* node) {
 
         // Dynamic cast to AnimationAction.
         Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
-        
+
         // Select animation clip.
         if (ImGui::Button("Select animation clip##Clip"))
             ImGui::OpenPopup("Select animation clip##Clip");
@@ -88,7 +90,7 @@ void AnimationControllerEditor::ShowNode(Node* node) {
 
         // Keep the radiobuttons on the same line.
         ImGui::SameLine();
-        
+
         if (ImGui::RadioButton("Dynamic", !action->isPlaybackModifierStatic))
             action->isPlaybackModifierStatic = false;
 
@@ -98,6 +100,19 @@ void AnimationControllerEditor::ShowNode(Node* node) {
         else {
             if (ImGui::Button("Select float##Float"))
                 ImGui::OpenPopup("Select float##Float");
+
+            if (ImGui::BeginPopup("Select float##float")) {
+                ImGui::Text("Select float");
+
+                for (auto i = 0; i < animationController->boolMap.size(); ++i) {
+                    if (ImGui::Selectable(animationController->floatMap[i]->name)) {
+                        action->playbackModifierFloatIndex = i;
+                        break;
+                    }
+                }
+
+                ImGui::EndPopup();
+            }
         }
 
         // Repeat.
@@ -130,6 +145,55 @@ void AnimationControllerEditor::ShowNode(Node* node) {
         ImGui::Text("Transition: %s", node->name);
         ImGui::InputText("Name", node->name, 128);
 
+        // Dynamic cast to AnimationAction.
+        Animation::AnimationController::AnimationTransition* transition = dynamic_cast<Animation::AnimationController::AnimationTransition*>(node);
+
+        ImGui::Checkbox("Is static", &transition->isStatic);
+
+        // If is not static.
+        if (!transition->isStatic) {
+            if (ImGui::Button("Select bool"))
+                ImGui::OpenPopup("Select bool##Bool");
+
+            if (ImGui::BeginPopup("Select bool##Bool")) {
+                ImGui::Text("Select bool");
+
+                for (auto i = 0; i < animationController->boolMap.size(); ++i) {
+                    if (ImGui::Selectable(animationController->boolMap[i]->name)) {
+                        transition->transitionBoolIndex = i;
+                        break;
+                    }
+                }
+
+                ImGui::EndPopup();
+            }
+        }
+    }
+
+    if (ImGui::BeginPopup("Select float##Float")) {
+        ImGui::Text("Select float");
+
+        for (auto i = 0; i < animationController->floatMap.size(); ++i) {
+            if (ImGui::Selectable(animationController->floatMap[i]->name)) {
+
+                break;
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    if (ImGui::BeginPopup("Select bool##Bool")) {
+        ImGui::Text("Select bool");
+
+        for (auto i = 0; i < animationController->boolMap.size(); ++i) {
+            if (ImGui::Selectable(animationController->boolMap[i]->name)) {
+
+                break;
+            }
+        }
+
+        ImGui::EndPopup();
     }
 }
 
@@ -139,8 +203,39 @@ void GUI::AnimationControllerEditor::ShowValues() {
 
     for (unsigned int i = 0; i < animationController->boolMap.size(); ++i) {
         Animation::AnimationController::BoolItem* item = animationController->boolMap[i];
-        ImGui::Text("Bool: %s", item->name.c_str());
-        ImGui::Checkbox("Value", &item->value);
+
+        if (boolEditIndex == i) {
+            ImGui::BeginChild(item->name, ImVec2(0, 98), true);
+            ImGui::Text("Bool: %s", item->name);
+            ImGui::InputText("Name", item->name, 128, ImGuiInputTextFlags_CharsNoBlank);
+            ImGui::Checkbox("Value", &item->value);
+            if (ImGui::Button("Remove")) {
+                delete item;
+                item = nullptr;
+                animationController->boolMap.erase(animationController->boolMap.begin() + i);
+                ImGui::EndChild();
+                break;
+            }
+            ImGui::EndChild();
+        } else {
+            ImGui::BeginChild(item->name, ImVec2(0, 72), true);
+            ImGui::Text("Bool: %s", item->name);
+
+            if (ImGui::Button("Edit")) {
+                boolEditIndex = i;
+                floatEditIndex = -1;
+            }
+
+            if (ImGui::Button("Remove")) {
+                delete item;
+                item = nullptr;
+                animationController->boolMap.erase(animationController->boolMap.begin() + i);
+                ImGui::EndChild();
+                break;
+            }
+
+            ImGui::EndChild();
+        }
     }
 
     ImGui::Separator();
@@ -149,10 +244,42 @@ void GUI::AnimationControllerEditor::ShowValues() {
     ImGui::Separator();
 
     for (unsigned int i = 0; i < animationController->floatMap.size(); ++i) {
-        ImGui::BeginChild(animationController->floatMap[i]->name.c_str(), ImVec2(0, 50), true);
-        ImGui::Text("Float: %s", animationController->floatMap[i]->name.c_str());
-        ImGui::DragFloat("Value", &animationController->floatMap[i]->value, 0.01f);
-        ImGui::EndChild();
+        Animation::AnimationController::FloatItem* item = animationController->floatMap[i];
+
+        if (floatEditIndex == i) {
+            ImGui::BeginChild(item->name, ImVec2(0, 98), true);
+            ImGui::Text("Float: %s", item->name);
+            ImGui::InputText("Name", item->name, 128, ImGuiInputTextFlags_CharsNoBlank);
+            ImGui::DragFloat("Value", &item->value, 0.01f);
+
+            if (ImGui::Button("Remove")) {
+                delete item;
+                item = nullptr;
+                animationController->floatMap.erase(animationController->floatMap.begin() + i);
+                ImGui::EndChild();
+                break;
+            }
+
+            ImGui::EndChild();
+        } else {
+            ImGui::BeginChild(item->name, ImVec2(0, 72), true);
+            ImGui::Text("Bool: %s", item->name);
+
+            if (ImGui::Button("Edit")) {
+                floatEditIndex = i;
+                boolEditIndex = -1;
+            }
+
+            if (ImGui::Button("Remove")) {
+                delete item;
+                item = nullptr;
+                animationController->floatMap.erase(animationController->floatMap.begin() + i);
+                ImGui::EndChild();
+                break;
+            }
+
+            ImGui::EndChild();
+        }
     }
 }
 

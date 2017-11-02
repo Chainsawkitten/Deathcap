@@ -3,11 +3,12 @@
 #include "../Animation/AnimationClip.hpp"
 #include <Utility/Log.hpp>
 #include "glm/gtc/quaternion.hpp"
+#include <cstring>
 
 using namespace Component;
 
 AnimationController::AnimationController() {
-    // Push back identity matrcies.
+    // Push back identity matrices.
     for (unsigned int i = 0; i < 50; ++i) {
         bones.push_back(glm::mat4(1.0f));
     }
@@ -43,14 +44,6 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     Animate(deltaTime, activeAction1);
 //    Animate(deltaTime, activeAction2);
     Interpolate(deltaTime);
-}
-
-void AnimationController::SetBool(std::string name, bool value) {
-    return void();
-}
-
-void Component::AnimationController::SetFloat(std::string name, float value) {
-    return;
 }
 
 void Component::AnimationController::Animate(float deltaTime, Animation::AnimationController::AnimationAction* action) {
@@ -101,10 +94,36 @@ void AnimationController::Interpolate(float deltaTime) {
 
 }
 
+void AnimationController::SetBool(std::string name, bool value) {
+    for (auto i = 0; i < controller->boolMap.size(); ++i) {
+        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
+            controller->boolMap[i]->value = value;
+            return;
+        }
+    }
+}
+
+void AnimationController::SetFloat(std::string name, float value) {
+    for (auto i = 0; i < controller->floatMap.size(); ++i) {
+        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
+            controller->floatMap[i]->value = value;
+            return;
+        }
+    }
+}
+
 bool AnimationController::GetBool(std::string name) {
-    return true;
+    for (auto i = 0; i < controller->boolMap.size(); ++i) {
+        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
+            return controller->boolMap[i]->value;
+        }
+    }
 }
 
 float AnimationController::GetFloat(std::string name) {
-    return 1.0f;
+    for (auto i = 0; i < controller->floatMap.size(); ++i) {
+        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
+            return controller->floatMap[i]->value;
+        }
+    }
 }

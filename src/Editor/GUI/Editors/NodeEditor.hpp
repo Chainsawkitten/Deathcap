@@ -38,7 +38,7 @@ class NodeEditor {
         virtual void ShowNode(Node* node) = 0;
 
         /// If the node system has values global to all the nodes, override this.
-        virtual void ShowValues();
+        virtual void ShowValues() {}
 
         /// Returns an array of nodes.
         /**

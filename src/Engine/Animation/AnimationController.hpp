@@ -26,6 +26,7 @@ namespace Animation {
                 char animationClipName[512];
                 bool isPlaybackModifierStatic = true;
                 float playbackModifier = 1.0f;
+                int32_t playbackModifierFloatIndex = -1;
                 bool repeat = true;
                 Animation::AnimationClip * animationClip = nullptr;
 
@@ -65,7 +66,9 @@ namespace Animation {
 
             /// Animation transition node.
             struct AnimationTransition : public Node {
-                float transitionTime = 0.0f;
+                bool isStatic = true;
+                int32_t transitionBoolIndex = -1;
+                float transitionTime = 1.0f;
                 float transitionProcess = 0.0f;
 
                 /// Save the animation transition node.
@@ -89,13 +92,13 @@ namespace Animation {
 
             /// Used to map bools.
             struct BoolItem {
-                std::string name = "NewBool";
+                char name[128] = "NewBool\0";
                 bool value = true;
             };
 
             /// Used to map floats.
             struct FloatItem {
-                std::string name = "NewFloat";
+                char name[128] = "NewFloat\0";
                 float value = 1.f;
             };
 

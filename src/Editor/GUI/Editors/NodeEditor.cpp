@@ -190,9 +190,6 @@ void NodeEditor::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void NodeEditor::ShowValues() {
-}
-
 void NodeEditor::ShowGrid() {
     ImGui::Text("Graph editor");
     ImGui::SameLine(ImGui::GetWindowWidth() - 100);
