@@ -47,6 +47,7 @@ uniform bool colorFilterApply;
 uniform vec3 colorFilterColor;
 uniform bool ditherApply;
 uniform float time;
+uniform vec2 frameSize;
 
 // --- CONSTANTS ---
 const float PI = 3.14159265359f;
@@ -222,7 +223,7 @@ void main() {
 
         // Dither.
         if (ditherApply) {
-            float dither = rand(vertexIn.texCoords + vec2(time, 0.0f)) / 255.0f;
+            float dither = rand(gl_FragCoord.xy / frameSize + vec2(time, 0.0f)) / 255.0f;
             color = color + vec3(dither);
         }
         

@@ -104,29 +104,6 @@ namespace Video {
              */
             VIDEO_API void AntiAlias(RenderSurface* renderSurface);
             
-            /// Render fog.
-            /**
-             * @param renderSurface %RenderSurface to apply filter to.
-             * @param projectionMatrix The camera's projection matrix.
-             * @param density The density of the fog.
-             * @param color Color.
-             */
-            VIDEO_API void RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
-            
-            /// Apply glow effect.
-            /**
-             * @param renderSurface %RenderSurface to apply filter to.
-             * @param blurAmount How many times to blur the glow buffer.
-             */
-            VIDEO_API void ApplyGlow(RenderSurface* renderSurface, int blurAmount);
-            
-            /// Apply a color filter.
-            /**
-             * @param renderSurface %RenderSurface to apply filter to.
-             * @param color Color.
-             */
-            VIDEO_API void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
-            
             /// Display the rendered results to back buffer.
             /**
              * @param renderSurface %RenderSurface to present to back buffer.
@@ -155,6 +132,109 @@ namespace Video {
              * Should be called after all icons have been rendered.
              */
             VIDEO_API void StopRenderingIcons();
+
+            /// Gamma correction.
+            /**
+             * @param gamma Gamma to apply.
+             */
+            VIDEO_API void SetGamma(float gamma);
+
+            /// Gamma correction.
+            /**
+             * @return gamma Gamma value.
+             */
+            VIDEO_API float GetGamma() const;
+
+
+            /// Set whether fog is applied.
+            /**
+             * @param fogApply Whether to apply fog.
+             */
+            VIDEO_API void SetFogApply(bool fogApply);
+
+            /// Get whether fog is applied.
+            /**
+             * @return Whether fog is applied.
+             */
+            VIDEO_API bool GetFogApply() const;
+
+
+            /// Set fog density.
+            /**
+             * @param fogDensity Density of the fog.
+             */
+            VIDEO_API void SetFogDensity(float fogDensity);
+
+            /// get fog density.
+            /**
+             * @return Density of the fog
+             */
+            VIDEO_API float GetFogDensity() const;
+
+
+            /// Set fog color.
+            /**
+             * @param fogColor Color of the fog.
+             */
+            VIDEO_API void SetFogColor(const glm::vec3& fogColor);
+
+            /// Get fog color.
+            /**
+             * @return Color of the fog.
+             */
+            VIDEO_API glm::vec3 GetFogColor() const;
+
+
+            /// Set whether color filter is applied.
+            /**
+             * @param colorFilterApply Whether to apply color filter.
+             */
+            VIDEO_API void SetColorFilterApply(bool colorFilterApply);
+
+            /// Get whether color filter is applied.
+            /**
+             * @return Whether color filter is applied.
+             */
+            VIDEO_API bool GetColorFilterApply() const;
+
+
+            /// Set color filer color.
+            /**
+             * @param colorFilterColor Color of the color filter.
+             */
+            VIDEO_API void SetColorFilterColor(const glm::vec3& colorFilterColor);
+
+            /// Get color filer color.
+            /**
+             * @return Color of the color filter.
+             */
+            VIDEO_API glm::vec3 GetColorFilterColor() const;
+
+
+            /// Set whether dithering is applied.
+            /**
+             * @param ditherApply Whether to apply dithering.
+             */
+            VIDEO_API void SetDitherApply(bool ditherApply);
+
+            /// Get whether dithering is applied.
+            /**
+             * @return Whether dithering is applied.
+             */
+            VIDEO_API bool GetDitherApply() const;
+
+
+            /// Set size of the current frame to be rendered in pixels.
+            /**
+             * @param frameSize Size of the frame in pixels.
+             */
+            VIDEO_API void SetFrameSize(const glm::vec2& frameSize);
+
+            /// Get size of the current frame to be rendered in pixels.
+            /**
+             * @return Size of the frame in pixels.
+             */
+            VIDEO_API glm::vec2 GetFrameSize() const;
             
         private:
             Renderer(const Renderer & other) = delete;

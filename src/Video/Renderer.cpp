@@ -85,6 +85,7 @@ void Renderer::DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::
 void Renderer::StartRendering(RenderSurface* renderSurface) {
     renderSurface->Clear();
     glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
+    SetFrameSize(renderSurface->GetSize());
 }
 
 void Renderer::SetLights(const std::vector<Video::Light>& lights) {
@@ -167,3 +168,66 @@ void Renderer::StopRenderingIcons() {
     glDisable(GL_BLEND);
 }
 
+void Renderer::SetGamma(float gamma) {
+    staticRenderProgram->SetGamma(gamma);
+}
+
+float Renderer::GetGamma() const {
+    return staticRenderProgram->GetGamma();
+}
+
+void Renderer::SetFogApply(bool fogApply) {
+    staticRenderProgram->SetFogApply(fogApply);
+}
+
+bool Renderer::GetFogApply() const {
+    return staticRenderProgram->GetFogApply();
+}
+
+void Renderer::SetFogDensity(float fogDensity) {
+    staticRenderProgram->SetFogDensity(fogDensity);;
+}
+
+float Renderer::GetFogDensity() const {
+    return staticRenderProgram->GetFogDensity();
+}
+
+void Renderer::SetFogColor(const glm::vec3& fogColor) {
+    staticRenderProgram->SetFogColor(fogColor);
+}
+
+glm::vec3 Renderer::GetFogColor() const {
+    return staticRenderProgram->GetFogColor();
+}
+
+void Renderer::SetColorFilterApply(bool colorFilterApply) {
+    staticRenderProgram->SetColorFilterApply(colorFilterApply);
+}
+
+bool Renderer::GetColorFilterApply() const {
+    return staticRenderProgram->GetColorFilterApply();
+}
+
+void Renderer::SetColorFilterColor(const glm::vec3& colorFilterColor) {
+    staticRenderProgram->SetColorFilterColor(colorFilterColor);
+}
+
+glm::vec3 Renderer::GetColorFilterColor() const {
+    return staticRenderProgram->GetColorFilterColor();
+}
+
+void Renderer::SetDitherApply(bool ditherApply) {
+    staticRenderProgram->SetDitherApply(ditherApply);
+}
+
+bool Renderer::GetDitherApply() const {
+    return staticRenderProgram->GetDitherApply();
+}
+
+void Renderer::SetFrameSize(const glm::vec2& frameSize) {
+    staticRenderProgram->SetFrameSize(frameSize);
+}
+
+glm::vec2 Renderer::GetFrameSize() const {
+    return staticRenderProgram->GetFrameSize();
+}
