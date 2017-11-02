@@ -512,7 +512,7 @@ bool RenderManager::GetFogApply() const {
 }
 
 void RenderManager::SetFogDensity(float fogDensity) {
-    renderer->SetFogDensity(fogDensity);;
+    renderer->SetFogDensity(fogDensity);
 }
 
 float RenderManager::GetFogDensity() const {

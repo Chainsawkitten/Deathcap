@@ -182,13 +182,13 @@ class RenderManager {
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
         
-        /// Gamma correction.
+        /// Set gamma correction.
         /**
          * @param gamma Gamma to apply.
          */
         ENGINE_API void SetGamma(float gamma);
 
-        /// Gamma correction.
+        /// Get gamma correction.
         /**
          * @return gamma Gamma value.
          */
@@ -214,7 +214,7 @@ class RenderManager {
          */
         ENGINE_API void SetFogDensity(float fogDensity);
 
-        /// get fog density.
+        /// Get fog density.
         /**
          * @return Density of the fog
          */
