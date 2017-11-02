@@ -59,6 +59,11 @@ void ProfilingWindow::Show() {
 #endif
     }
 
+    /// Update log whether or not we're actually showing it.
+    logView.UpdateLog();
+    if (ImGui::CollapsingHeader("Log"))
+        logView.Show();
+
     ImGui::End();
 }
 
