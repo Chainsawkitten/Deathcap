@@ -181,6 +181,12 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
         auto length = cylinder.get("length", 1.0f).asFloat();
         auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Cylinder(radius, length)));
         comp->SetShape(shape);
+    } else if (node.isMember("cone")) {
+        auto cone = node.get("cone", {});
+        auto radius = cone.get("radius", 1.0f).asFloat();
+        auto height = cone.get("height", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Cone(radius, height)));
+        comp->SetShape(shape);
     }
 
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
