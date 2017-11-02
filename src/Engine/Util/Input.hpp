@@ -14,6 +14,7 @@ class InputHandler {
         enum Button {
             PLAYTEST = 0, ///< Start/stop playtesting the game.
             PROFILE, ///< Show profiling information.
+            WINDOWMODE, ///< Toggle window mode.
             CONTROL, ///< Control key.
             NEW, ///< Create new hymn.
             OPEN, ///< Open existing hymn.
