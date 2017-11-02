@@ -96,7 +96,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
         const bool fxaa = Hymn().filterSettings.fxaa;
 
         // Render main window.
-        if (mainWindowRenderSurface != nullptr) {
+        if (mainWindowRenderSurface != nullptr && MainWindow::GetInstance()->GetSize() != glm::vec2(0, 0)) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
                 const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
