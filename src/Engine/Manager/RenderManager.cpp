@@ -248,6 +248,8 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     // Camera matrices.
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
+   // lightViewMatrix = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    //lightProjection = glm::perspective<float>(glm::radians(45.0f), 1.0f, 2.0f, 50.0f);
     //Render shadows maps.
     {
         PROFILE("Render Shadows meshes");
@@ -263,8 +265,8 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                     if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                         Entity* entity = mesh->entity;
                         // If entity does not have material, it won't be rendered.
-                        if (entity->GetComponent<Material>() != nullptr)
-                            renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
+                        //if (entity->GetComponent<Material>() != nullptr)
+                        renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
                     }
                 }
             }
