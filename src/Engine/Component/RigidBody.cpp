@@ -41,14 +41,12 @@ namespace Component {
     }
 
     glm::vec3 RigidBody::Position() const {
-        btTransform trans;
-        rigidBody->getMotionState()->getWorldTransform(trans);
+        btTransform trans = rigidBody->getWorldTransform();
         return Physics::btToGlm(trans.getOrigin());
     }
 
     void RigidBody::Position(const glm::vec3& pos) {
-        btTransform trans;
-        rigidBody->getMotionState()->getWorldTransform(trans);
+        btTransform trans = rigidBody->getWorldTransform();
         trans.setOrigin(Physics::glmToBt(pos));
         rigidBody->setWorldTransform(trans);
     }
