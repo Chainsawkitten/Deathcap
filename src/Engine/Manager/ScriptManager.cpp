@@ -61,18 +61,15 @@ void AngelScriptMessageCallback(const asSMessageInfo* message, void* param) {
 void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::string, std::set<int>>* breakpoints){
     const char *scriptSection;
     int line = ctx->GetLineNumber(0, 0, &scriptSection);
-    asIScriptFunction *function = ctx->GetFunction();
 
     std::string fileName(scriptSection);
     fileName = fileName.substr(fileName.find_last_of("/") + 1);
 
     // Determine if we have reached a break point
-    if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end())
-    {
+    if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end()) {
         // A break point has been reached so the execution of the script should be suspended
         // Show the call stack
-        for (asUINT n = 0; n < ctx->GetCallstackSize(); n++)
-        {
+        for (asUINT n = 0; n < ctx->GetCallstackSize(); n++) {
             asIScriptFunction *func;
             const char *scriptSection;
             int line, column;
