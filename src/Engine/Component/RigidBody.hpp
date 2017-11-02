@@ -48,6 +48,9 @@ namespace Component {
             // Set the position of a rigid body.
             void Position(const glm::vec3& pos);
 
+            // Get the mass in kilograms of a rigid body.
+            float Mass();
+
             // Set the mass in kilograms of a rigid body.
             void Mass(float mass);
 

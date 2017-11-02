@@ -53,11 +53,16 @@ namespace Component {
         rigidBody->setWorldTransform(trans);
     }
 
+    float RigidBody::Mass() {
+        return mass;
+    }
+
     void RigidBody::Mass(float mass) {
         // Bullet provides a method on the shape that we can use to calculate
         // inertia.
         btVector3 inertia;
         rigidBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
         rigidBody->setMassProps(mass, inertia);
+        this->mass = mass;
     }
 }
