@@ -158,10 +158,6 @@ void Editor::Show(float deltaTime) {
         // Show settings window.
         if (settingsWindow.IsVisible())
             settingsWindow.Show();
-
-        // Show log window.
-        if (logView.IsVisible())
-            logView.Show();
         
         // Show grid settings window.
         ShowGridSettings();
