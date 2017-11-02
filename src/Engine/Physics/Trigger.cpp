@@ -11,10 +11,6 @@ namespace Physics {
         trigger->setWorldTransform(transform);
     }
 
-    btCollisionObject* Trigger::GetCollisionObject() const {
-        return trigger.get();
-    }
-
     void Trigger::Process(btCollisionWorld& world) {
         for (auto& observer : observers) {
             world.contactPairTest(trigger.get(), observer->GetBulletCollisionObject(), *observer);

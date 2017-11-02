@@ -24,9 +24,6 @@ namespace Physics {
             ENGINE_API Trigger(const btTransform& transform);
 
         private:
-            // Get the wrapped Bullet collision object.
-            btCollisionObject* GetCollisionObject() const;
-
             // Process observers against the trigger volume, passing the world
             // in which rigid bodies reside.
             void Process(btCollisionWorld& world);
