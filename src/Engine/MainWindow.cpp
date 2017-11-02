@@ -44,7 +44,6 @@ MainWindow::MainWindow(int width, int height, bool fullscreen, bool borderless, 
     instance = this;
 
     glfwSetWindowSizeCallback(window, WindowSizeCallback);
-
 }
 
 MainWindow::~MainWindow() {
@@ -105,6 +104,21 @@ void MainWindow::SwapBuffers() const {
 
 GLFWwindow* MainWindow::GetGLFWWindow() const {
     return window;
+}
+
+void MainWindow::SetWindowMode(bool fullscreen, bool borderless) const {
+    glfwSetWindowAttrib(window, GLFW_DECORATED, borderless ? GLFW_FALSE : GLFW_TRUE);
+
+    int x, y, width, height;
+    glfwGetWindowPos(window, &x, &y);
+    glfwGetWindowSize(window, &width, &height);
+    glfwSetWindowMonitor(window, fullscreen ? glfwGetPrimaryMonitor() : nullptr, 50, 50, width, height, GLFW_DONT_CARE);
+        
+}
+
+void MainWindow::GetWindowMode(bool& fullscreen, bool& borderless) const {
+    fullscreen = glfwGetWindowMonitor(window) != nullptr;
+    borderless = glfwGetWindowAttrib(window, GLFW_DECORATED) == GLFW_FALSE;
 }
 
 void WindowSizeCallback(GLFWwindow* window, int width, int height) {
