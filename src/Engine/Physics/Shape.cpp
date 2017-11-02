@@ -9,16 +9,18 @@ namespace Physics {
         // Collision shapes are only used to determine collisions and have no
         // concept of physical quantities such as mass or inertia. Note that a
         // shape may be reused for multiple bodies.
-        shape = new btSphereShape(static_cast<btScalar>(params.radius));
+        shape.reset(new btSphereShape(static_cast<btScalar>(params.radius)));
         kind = Kind::Sphere;
         sphere = params;
     }
 
     Shape::Shape(const Shape::Plane& params) {
-        shape = new btStaticPlaneShape(glmToBt(params.normal), static_cast<btScalar>(params.planeCoeff));
+        shape.reset(new btStaticPlaneShape(glmToBt(params.normal), static_cast<btScalar>(params.planeCoeff)));
         kind = Kind::Plane;
         plane = params;
     }
+
+    Shape::~Shape() {}
 
     Shape::Kind Shape::GetKind() const {
         return kind;
@@ -33,6 +35,6 @@ namespace Physics {
     }
 
     btCollisionShape* Shape::GetShape() const {
-        return shape;
+        return shape.get();
     }
 }
