@@ -115,6 +115,13 @@ class PhysicsManager {
          */
         ENGINE_API void SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape);
 
+        /// Get the mass of a rigid body component.
+        /**
+         * @param comp Rigid body component to get mass of.
+         * @return Mass in kilograms.
+         */
+        ENGINE_API float GetMass(Component::RigidBody* comp);
+
         /// Set the mass of a Component::RigidBody component.
         /**
          * @param comp The component on which to set mass.
