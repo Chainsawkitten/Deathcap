@@ -93,7 +93,7 @@ namespace Component {
                 }
 
                 ~Property() {
-                    delete data;
+                    free(data);
                 }
 
                 int typeID;
