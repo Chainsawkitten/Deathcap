@@ -734,7 +734,7 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
 Entity* ScriptManager::GetEntity(unsigned int GUID) {
 
     const std::vector<Entity*> entities = Hymn().world.GetEntities();
-    for (int i = 0; i < entities.size(); i++) {
+    for (std::size_t i = 0; i < entities.size(); ++i) {
 
         if (entities[i]->GetUniqueIdentifier() == GUID) {
 
