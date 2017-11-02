@@ -20,6 +20,12 @@ namespace Physics {
         plane = params;
     }
 
+    Shape::Shape(const Shape::Box& params) {
+        shape.reset(new btBoxShape(btVector3(params.width * 0.5f, params.height * 0.5f, params.depth * 0.5f)));
+        kind = Kind::Box;
+        box = params;
+    }
+
     Shape::~Shape() {}
 
     Shape::Kind Shape::GetKind() const {
@@ -32,6 +38,10 @@ namespace Physics {
 
     const Shape::Plane* Shape::GetPlaneData() const {
         return kind == Kind::Plane ? &plane : nullptr;
+    }
+
+    const Shape::Box* Shape::GetBoxData() const {
+        return kind == Kind::Box ? &box : nullptr;
     }
 
     btCollisionShape* Shape::GetShape() const {
