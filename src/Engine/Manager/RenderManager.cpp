@@ -73,6 +73,7 @@ RenderManager::~RenderManager() {
     Managers().resourceManager->FreeTexture2D(cameraTexture);
 
     delete mainWindowRenderSurface;
+    delete shadowPass;
 
     if (hmdRenderSurface != nullptr)
         delete hmdRenderSurface;
