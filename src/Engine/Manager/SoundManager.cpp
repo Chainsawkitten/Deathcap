@@ -3,6 +3,7 @@
 #include <Utility/Log.hpp>
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
+#include "../Component/AudioMaterial.hpp"
 #include "../Component/Listener.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Audio/SoundBuffer.hpp"
@@ -160,6 +161,25 @@ Component::Listener* SoundManager::CreateListener(const Json::Value& node) {
 
 const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
     return listeners.GetAll();
+}
+
+Component::AudioMaterial* SoundManager::CreateAudioMaterial() {
+    return audioMaterials.Create();
+}
+
+Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& node) {
+    Component::AudioMaterial* audioMaterial = audioMaterials.Create();
+
+    // Load values from Json node.
+    std::string name = node.get("audio material", "").asString();
+    if (!name.empty())
+        audioMaterial->material = Managers().resourceManager->CreateAudioMaterial(name);
+
+    return audioMaterial;
+}
+
+const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterial() const {
+    return audioMaterials.GetAll();
 }
 
 void SoundManager::ClearKilledComponents() {

@@ -1,6 +1,7 @@
 #include "EntityEditor.hpp"
 
 #include <Engine/Component/Animation.hpp>
+#include <Engine/Component/AudioMaterial.hpp>
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Lens.hpp>
 #include <Engine/Component/Material.hpp>
@@ -18,6 +19,7 @@
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
+#include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/Manager/Managers.hpp>
@@ -33,7 +35,9 @@
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
 #include <imgui_internal.h>
+#include <imgui.h>
 #include "PlaneShapeEditor.hpp"
+#include "RigidBodyEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
 namespace Physics {
@@ -45,6 +49,7 @@ using namespace GUI;
 EntityEditor::EntityEditor() {
     name[0] = '\0';
     AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
+    AddEditor<Component::AudioMaterial> ("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
     AddEditor<Component::Material>("Material", std::bind(&EntityEditor::MaterialEditor, this, std::placeholders::_1));
@@ -62,6 +67,8 @@ EntityEditor::EntityEditor() {
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
     selectedShape = 0;
+
+    rigidBodyEditor.reset(new GUI::RigidBodyEditor);
 }
 
 EntityEditor::~EntityEditor() {
@@ -110,7 +117,12 @@ void EntityEditor::Show() {
         }
 
         ImGui::DraggableVec3("Position", entity->position);
-        ImGui::DraggableVec3("Rotation", entity->rotation);
+
+        glm::vec3 eulerAngles = glm::eulerAngles(entity->rotation);
+        eulerAngles = glm::degrees(eulerAngles);
+        if (ImGui::InputFloat3("Euler angles", &eulerAngles.x))
+            entity->SetLocalOrientation(glm::quat(glm::radians(eulerAngles)));
+
         ImGui::DraggableVec3("Scale", entity->scale);
         ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
         ImGui::Checkbox("Is entity static", &entity->isStatic);
@@ -184,6 +196,31 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
                 Managers().resourceManager->FreeModel(animation->riggedModel);
             
             animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
+        }
+
+        ImGui::EndPopup();
+    }
+    ImGui::Unindent();
+}
+
+void EntityEditor::AudioMaterialEditor(Component::AudioMaterial* audioMaterial) {
+    ImGui::Text("Audio material");
+    ImGui::Indent();
+    if (audioMaterial->material != nullptr)
+        ImGui::Text(audioMaterial->material->name.c_str());
+
+    if (ImGui::Button("Select audio material"))
+        ImGui::OpenPopup("Select audio material");
+
+    if (ImGui::BeginPopup("Select audio material")) {
+        ImGui::Text("Audio materials");
+        ImGui::Separator();
+
+        if (resourceSelector.Show(ResourceList::Resource::Type::AUDIOMATERIAL)) {
+            if (audioMaterial->material != nullptr)
+                Managers().resourceManager->FreeAudioMaterial(audioMaterial->material);
+
+            audioMaterial->material = Managers().resourceManager->CreateAudioMaterial(resourceSelector.GetSelectedResource().GetPath());
         }
 
         ImGui::EndPopup();
@@ -336,17 +373,7 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
 }
 
 void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
-    auto shapeComp = rigidBody->entity->GetComponent<Component::Shape>();
-    if (shapeComp) {
-        ImGui::Indent();
-        if (ImGui::InputFloat("Mass", &rigidBodyMass))
-            Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
-        ImGui::Unindent();
-    } else {
-        ImGui::Indent();
-        ImGui::TextWrapped("A rigid body is only valid with a complementary shape component. Please add one to allow editing this component.");
-        ImGui::Unindent();
-    }
+    rigidBodyEditor->Show(rigidBody);
 }
 
 void EntityEditor::ScriptEditor(Component::Script* script) {

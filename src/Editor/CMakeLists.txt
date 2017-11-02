@@ -18,9 +18,12 @@ set(SRCS
         GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
+        GUI/LogView.cpp
+        GUI/Editors/AudioMaterialEditor.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
         GUI/Editors/PlaneShapeEditor.cpp
+        GUI/Editors/RigidBodyEditor.cpp
         GUI/Editors/SceneEditor.cpp
         GUI/Editors/ScriptEditor.cpp
         GUI/Editors/SoundEditor.cpp
@@ -49,10 +52,13 @@ set(HEADERS
         GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
+        GUI/LogView.hpp
+        GUI/Editors/AudioMaterialEditor.hpp
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/IShapeEditor.hpp
         GUI/Editors/ModelEditor.hpp
         GUI/Editors/PlaneShapeEditor.hpp
+        GUI/Editors/RigidBodyEditor.hpp
         GUI/Editors/SceneEditor.hpp
         GUI/Editors/ScriptEditor.hpp
         GUI/Editors/SoundEditor.hpp

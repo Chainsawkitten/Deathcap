@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <functional>
@@ -9,6 +10,7 @@
 
 namespace Component {
     class Animation;
+    class AudioMaterial;
     class Mesh;
     class Lens;
     class Material;
@@ -26,6 +28,7 @@ namespace Component {
 
 namespace GUI {
     class IShapeEditor;
+    class RigidBodyEditor;
 
     /// Used to edit an entity.
     class EntityEditor {
@@ -77,6 +80,7 @@ namespace GUI {
             
             // Editors
             void AnimationEditor(Component::Animation* animation);
+            void AudioMaterialEditor(Component::AudioMaterial* audioMaterial);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
             void MaterialEditor(Component::Material* material);
@@ -103,10 +107,10 @@ namespace GUI {
             std::vector<Editor> editors;
             std::vector<IShapeEditor*> shapeEditors;
             int selectedShape = -1;
+
+            std::unique_ptr<GUI::RigidBodyEditor> rigidBodyEditor;
             
             ResourceSelector resourceSelector;
-            
-            float rigidBodyMass = 1.0f;
 
             bool albedoShow = false;
             bool normalShow = false;

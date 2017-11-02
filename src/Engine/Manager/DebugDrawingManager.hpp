@@ -7,6 +7,10 @@
 
 class Entity;
 
+namespace Video {
+    class RenderSurface;
+}
+
 /// Debug drawing facilities.
 class DebugDrawingManager {
     friend class Hub;
@@ -75,9 +79,11 @@ class DebugDrawingManager {
         
         /// Render the debug primitives.
         /**
-         * @param camera Camera through which to render (or first camera in world if nullptr).
+         * @param viewMatrix The camera's view matrix.
+         * @param projectionMatrix The camera's projection matrix.
+         * @param renderSurface %RenderSurface to render to.
          */
-        ENGINE_API void Render(Entity* camera);
+        ENGINE_API void Render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
         
     private:
         DebugDrawingManager();
