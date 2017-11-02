@@ -51,7 +51,6 @@ namespace Component {
             // Set the mass in kilograms of a rigid body.
             void Mass(float mass);
 
-        private:
             float mass = 1.0f;
             btRigidBody* rigidBody = nullptr;
     };
