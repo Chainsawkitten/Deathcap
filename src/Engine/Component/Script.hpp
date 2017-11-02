@@ -41,22 +41,21 @@ namespace Component {
              * @param size The size in number of bytes of the property.
              * @param data A pointer to the data to store.
              */
-            ENGINE_API void AddToPropertyMap(std::string name, int type, int size, void* data);
+            ENGINE_API void AddToPropertyMap(std::string &name, int type, int size, void* data);
 
-            /// Add a property to the propertyMap.
+            /// Copy the data from a property in the map.
             /**
              * @param name The name of the property.
-             * @param type The asTypeID of the property.
              * @param target A pointer that points where to copy the data.
              */
-            ENGINE_API void CopyDataFromPropertyMap(std::string name, void* target);
+            ENGINE_API void CopyDataFromPropertyMap(const std::string &name, void* target);
 
-            /// Add a property to the propertyMap.
+            /// Get the pointer to the data of a property in the map.
             /**
              * @param name The name of the property.
              * @return A pointer to the data of the property.
              */
-            ENGINE_API void* GetDataFromPropertyMap(std::string name);
+            ENGINE_API void* GetDataFromPropertyMap(const std::string &name);
 
             /// Save the component.
             /**
@@ -64,7 +63,7 @@ namespace Component {
              * @param type The asTypeID of the property.
              * @return Is there a property with the provided name and type in propertyMap.
              */  
-            ENGINE_API bool isInPropertyMap(std::string name, int type);
+            ENGINE_API bool IsInPropertyMap(const std::string name, const int type);
 
             /// Clears the property map.
             ENGINE_API void ClearPropertyMap();
@@ -73,32 +72,32 @@ namespace Component {
 
             class Property {
                 
-            public:
+                public:
 
-                Property() {
+                    Property() {
 
-                    typeID = -1;
-                    size = -1;
-                    data = nullptr;
+                        typeID = -1;
+                        size = -1;
+                        data = nullptr;
 
-                }
+                    }
 
-                Property(int _typeID, int _size, void* _data) {
+                    Property(int _typeID, int _size, void* _data) {
 
-                    typeID = _typeID;
-                    size = _size;
-                    data = malloc(size);
-                    std::memcpy(data, _data, size);
+                        typeID = _typeID;
+                        size = _size;
+                        data = malloc(size);
+                        std::memcpy(data, _data, size);
 
-                }
+                    }
 
-                ~Property() {
-                    std::free(data);
-                }
+                    ~Property() {
+                        std::free(data);
+                    }
 
-                int typeID;
-                int size;
-                void* data;
+                    int typeID;
+                    int size;
+                    void* data;
 
             };
 

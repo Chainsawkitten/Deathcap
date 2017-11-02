@@ -414,12 +414,10 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 std::string propertyName = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
 
-                if (typeId == asTYPEID_INT32){
+                if (typeId == asTYPEID_INT32)
                     ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->GetDataFromPropertyMap(propertyName), 0.0f);
-                }
-                else if (typeId == asTYPEID_FLOAT){
+                else if (typeId == asTYPEID_FLOAT)
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->GetDataFromPropertyMap(propertyName), 0.0f);
-                }
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
 
                     // Find method to call.
@@ -429,7 +427,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
                         std::string entityGUID = std::to_string(*(unsigned int*)script->GetDataFromPropertyMap(propertyName));
                         std::string propertyText;
-                        propertyText.reserve(entityName.length() + entityGUID.length() + 2); // additional `void ` and `()`
+                        propertyText.reserve(entityName.length() + entityGUID.length() + 2); // additional `: `
                         propertyText.append(entityName).append(": ").append(entityGUID);
 
                         ImGui::Separator();
@@ -469,7 +467,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
             }
 
         }
-        ImGui::Separator();
 
     }
     else

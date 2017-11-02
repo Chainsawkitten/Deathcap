@@ -572,29 +572,27 @@ void ScriptManager::FillPropertyMap(Script* script) {
             int typeId = script->instance->GetPropertyTypeId(n);
             void *varPointer = script->instance->GetAddressOfProperty(n);
 
-            if (script->isInPropertyMap(name, typeId))
+            if (script->IsInPropertyMap(name, typeId))
                 continue;
 
             if (typeId == asTYPEID_INT32) {
                 int size = sizeof(int);
                 script->AddToPropertyMap(name, typeId, size, varPointer);
-            }
-            else if (typeId == asTYPEID_FLOAT) {
+            } else if (typeId == asTYPEID_FLOAT) {
                 int size = sizeof(float);
                 script->AddToPropertyMap(name, typeId, size, varPointer);
-            }
-            else if (typeId == engine->GetTypeIdByDecl("Entity@")) {
+            } else if (typeId == engine->GetTypeIdByDecl("Entity@")) {
                 int size = sizeof(unsigned int);
                 
                 const std::vector<Entity*> entities = Hymn().world.GetEntities();
                 
-                unsigned int* GUID = new unsigned int();
+                unsigned int GUID = 0;
                 if (entities.size() != 0)
-                    *GUID = 0;
-                else *GUID = entities[0]->GetUniqueIdentifier();
+                    GUID = 0;
+                else 
+                    GUID = entities[0]->GetUniqueIdentifier();
                 
-                script->AddToPropertyMap(name, typeId, size, (void*)GUID);
-                delete GUID;
+                script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
 
             }
 
@@ -640,7 +638,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void *varPointer = script->instance->GetAddressOfProperty(n);
 
-                if (script->isInPropertyMap(name, typeId)) {
+                if (script->IsInPropertyMap(name, typeId)) {
 
                     if (typeId == engine->GetTypeIdByDecl("Entity@"))
                         *reinterpret_cast<Entity*>(varPointer) = *GetEntity(*(unsigned int*)script->GetDataFromPropertyMap(name));
@@ -787,7 +785,7 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
         std::vector<std::string> names = propertyMapJson.getMemberNames();
         std::string json = propertyMapJson.toStyledString();
 
-        for (const auto& name : names) {
+        for (auto& name : names) {
 
             if (propertyMapJson.isMember(name)) {
 
@@ -801,6 +799,7 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
                     ((unsigned char*)data)[i] = (unsigned char)(typeId_value[typeIds[0]][i].asInt());
 
                 script->AddToPropertyMap(name, typeId, size, data);
+                std::free(data);
 
             }
         }

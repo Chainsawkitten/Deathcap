@@ -31,12 +31,12 @@ Json::Value Script::Save() const {
     if (scriptFile != nullptr)
         component["scriptName"] = scriptFile->path + scriptFile->name;
     
-    for (auto name_property : propertyMap) {
+    for (auto &nameProperty : propertyMap) {
 
-        const std::string& name = name_property.first;
-        int typeId = name_property.second.typeID;
-        void* varPointer = name_property.second.data;
-        int size = name_property.second.size;
+        const std::string& name = nameProperty.first;
+        int typeId = nameProperty.second.typeID;
+        void* varPointer = nameProperty.second.data;
+        int size = nameProperty.second.size;
 
         for (int i = 0; i < size; i++)
             component["propertyMap"][name][std::to_string(typeId)][i] = ((unsigned char*)varPointer)[i];
@@ -45,31 +45,30 @@ Json::Value Script::Save() const {
     return component;
 }
 
-void Script::AddToPropertyMap(std::string name, int type, int size, void* data) {
+void Script::AddToPropertyMap(std::string &name, int type, int size, void* data) {
 
     propertyMap[name] = Property(type, size, data);
 
 }
 
-void Script::CopyDataFromPropertyMap(std::string name, void* target){
+void Script::CopyDataFromPropertyMap(const std::string &name, void* target){
 
     std::memcpy(target, propertyMap[name].data, propertyMap[name].size);
     
 }
 
-void* Script::GetDataFromPropertyMap(std::string name){
+void* Script::GetDataFromPropertyMap(const std::string &name){
 
     return propertyMap[name].data;
 
 }
 
-bool Script::isInPropertyMap(std::string name, int type) {
+bool Script::IsInPropertyMap(std::string name, int type) {
 
     auto it = propertyMap.find(name);
 
-    if (it != propertyMap.end())
-        if (propertyMap[name].typeID == type)
-            return true;
+    if (it != propertyMap.end() && it->second.typeID == type)
+        return true;
 
     return false;
 
