@@ -7,7 +7,6 @@ namespace Component {
 }
 
 namespace GUI {
-
     /// Plane shape editor for physics components.
     class PlaneShapeEditor : public IShapeEditor {
         public:
@@ -26,7 +25,7 @@ namespace GUI {
              */
             virtual void Show(Component::Shape* comp) override;
 
-            /// Set a sphere shape on the given shape component.
+            /// Set a plane shape on the given shape component.
             /**
              * @param comp The shape component on which to set shape.
              */
@@ -44,5 +43,4 @@ namespace GUI {
             float normal[3] = { 0.0f, 1.0f, 0.0f };
             float planeCoeff = 0.0f;
     };
-
 }

@@ -7,7 +7,6 @@ namespace Component {
 }
 
 namespace GUI {
-
     /// Sphere shape editor for physics components.
     class SphereShapeEditor : public IShapeEditor {
         public:
@@ -23,7 +22,7 @@ namespace GUI {
              */
             virtual void Show(Component::Shape* comp) override;
 
-            /// Set a plane shape on the given shape component.
+            /// Set a sphere shape on the given shape component.
             /**
              * @param comp The shape component on which to set shape.
              */
@@ -40,5 +39,4 @@ namespace GUI {
         private:
             float radius = 1.0f;
     };
-
 }
