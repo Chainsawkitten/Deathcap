@@ -63,7 +63,7 @@ void* Script::GetDataFromPropertyMap(const std::string &name){
 
 }
 
-bool Script::IsInPropertyMap(std::string name, int type) {
+bool Script::IsInPropertyMap(const std::string &name, int type) {
 
     auto it = propertyMap.find(name);
 
