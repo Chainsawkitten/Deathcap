@@ -248,8 +248,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     // Camera matrices.
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
-   // lightViewMatrix = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-    //lightProjection = glm::perspective<float>(glm::radians(45.0f), 1.0f, 2.0f, 50.0f);
     //Render shadows maps.
     {
         PROFILE("Render Shadows meshes");
