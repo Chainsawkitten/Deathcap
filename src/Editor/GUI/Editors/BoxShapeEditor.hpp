@@ -17,19 +17,19 @@ namespace GUI {
             /**
              * @return "Box" string.
              */
-            virtual const char* Label() const override { return "Box"; }
+            const char* Label() const override { return "Box"; }
 
             /// Show controls for editing a box shape.
             /**
              * @param comp The shape component to edit.
              */
-            virtual void Show(Component::Shape* comp) override;
+            void Show(Component::Shape* comp) override;
 
             /// Set a box shape on the given shape component.
             /**
              * @param comp The shape component on which to set shape.
              */
-            virtual void Apply(Component::Shape* comp) override;
+            void Apply(Component::Shape* comp) override;
 
             /// Set internal data according the given %Shape, provided that it
             /// is a box.
@@ -37,7 +37,7 @@ namespace GUI {
              * @param shape The %Shape from which to initialize data.
              * @return True if shape type is box, false otherwise.
              */
-            virtual bool SetFromShape(const Physics::Shape& shape) override;
+            bool SetFromShape(const Physics::Shape& shape) override;
 
         private:
             float width = 1.0f;
