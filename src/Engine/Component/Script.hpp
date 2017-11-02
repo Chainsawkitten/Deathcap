@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <map>
-#include <string>
+#include <string.h>
 #include "SuperComponent.hpp"
 #include "../linking.hpp"
 
@@ -88,12 +88,12 @@ namespace Component {
                     typeID = _typeID;
                     size = _size;
                     data = malloc(size);
-                    memcpy(data, _data, size);
+                    std::memcpy(data, _data, size);
 
                 }
 
                 ~Property() {
-                    free(data);
+                    std::free(data);
                 }
 
                 int typeID;
