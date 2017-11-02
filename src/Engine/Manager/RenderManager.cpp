@@ -38,6 +38,7 @@
 #include "Util/Profiling.hpp"
 #include "Util/Json.hpp"
 #include "Util/GPUProfiling.hpp"
+#include <Utility/Log.hpp>
 
 #include "Manager/VRManager.hpp"
 #include <glm/gtc/quaternion.hpp>
@@ -85,13 +86,13 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
     if (camera != nullptr) {
         // Set image processing variables.
-        SetGamma(Hymn().filterSettings.gamma);
-        SetFogApply(Hymn().filterSettings.fog);
-        SetFogDensity(Hymn().filterSettings.fogDensity);
-        SetFogColor(Hymn().filterSettings.fogColor);
-        SetColorFilterApply(Hymn().filterSettings.color);
-        SetColorFilterColor(Hymn().filterSettings.colorColor);
-        SetDitherApply(Hymn().filterSettings.dither);
+        renderer->SetGamma(Hymn().filterSettings.gamma);
+        renderer->SetFogApply(Hymn().filterSettings.fogApply);
+        renderer->SetFogDensity(Hymn().filterSettings.fogDensity);
+        renderer->SetFogColor(Hymn().filterSettings.fogColor);
+        renderer->SetColorFilterApply(Hymn().filterSettings.colorFilterApply);
+        renderer->SetColorFilterColor(Hymn().filterSettings.colorFilterColor);
+        renderer->SetDitherApply(Hymn().filterSettings.ditherApply);
         const bool fxaa = Hymn().filterSettings.fxaa;
 
         // Render main window.
@@ -496,59 +497,59 @@ void RenderManager::ClearKilledComponents() {
 }
 
 void RenderManager::SetGamma(float gamma) {
-    renderer->SetGamma(gamma);
+    Hymn().filterSettings.gamma = gamma;
 }
 
 float RenderManager::GetGamma() const {
-    return renderer->GetGamma();
+    return Hymn().filterSettings.gamma;
 }
 
 void RenderManager::SetFogApply(bool fogApply) {
-    renderer->SetFogApply(fogApply);
+    Hymn().filterSettings.fogApply = fogApply;
 }
 
 bool RenderManager::GetFogApply() const {
-    return renderer->GetFogApply();
+    return Hymn().filterSettings.fogApply;
 }
 
 void RenderManager::SetFogDensity(float fogDensity) {
-    renderer->SetFogDensity(fogDensity);
+    Hymn().filterSettings.fogDensity = fogDensity;
 }
 
 float RenderManager::GetFogDensity() const {
-    return renderer->GetFogDensity();
+    return Hymn().filterSettings.fogDensity;
 }
 
 void RenderManager::SetFogColor(const glm::vec3& fogColor) {
-    renderer->SetFogColor(fogColor);
+    Hymn().filterSettings.fogColor = fogColor;
 }
 
 glm::vec3 RenderManager::GetFogColor() const {
-    return renderer->GetFogColor();
+    return Hymn().filterSettings.fogColor;
 }
 
 void RenderManager::SetColorFilterApply(bool colorFilterApply) {
-    renderer->SetColorFilterApply(colorFilterApply);
+    Hymn().filterSettings.colorFilterApply = colorFilterApply;
 }
 
 bool RenderManager::GetColorFilterApply() const {
-    return renderer->GetColorFilterApply();
+    return Hymn().filterSettings.colorFilterApply;
 }
 
 void RenderManager::SetColorFilterColor(const glm::vec3& colorFilterColor) {
-    renderer->SetColorFilterColor(colorFilterColor);
+    Hymn().filterSettings.colorFilterColor = colorFilterColor;
 }
 
 glm::vec3 RenderManager::GetColorFilterColor() const {
-    return renderer->GetColorFilterColor();
+    return Hymn().filterSettings.colorFilterColor;
 }
 
 void RenderManager::SetDitherApply(bool ditherApply) {
-    renderer->SetDitherApply(ditherApply);
+    Hymn().filterSettings.ditherApply = ditherApply;
 }
 
 bool RenderManager::GetDitherApply() const {
-    return renderer->GetDitherApply();
+    return Hymn().filterSettings.ditherApply;
 }
 
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {

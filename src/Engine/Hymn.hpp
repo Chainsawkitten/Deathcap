@@ -103,13 +103,13 @@ class ActiveHymn {
         /// Filter settings.
         struct FilterSettings {
             /// Whether to enable color.
-            bool color = false;
+            bool colorFilterApply = false;
             
             /// The color to blend with.
-            glm::vec3 colorColor = glm::vec3(1.0f, 1.0f, 1.0f);
+            glm::vec3 colorFilterColor = glm::vec3(1.0f, 1.0f, 1.0f);
             
             /// Whether to enable fog.
-            bool fog = false;
+            bool fogApply = false;
             
             /// Fog density.
             float fogDensity = 0.01f;
@@ -121,7 +121,7 @@ class ActiveHymn {
             bool fxaa = true;
             
             /// Whether to enable dithering.
-            bool dither = true;
+            bool ditherApply = true;
 
             /// Gamma correction value.
             float gamma = 2.2f;
@@ -133,8 +133,11 @@ class ActiveHymn {
         /// Whether to restart the hymn
         bool restart = false;
 
-        /// Recently saved state of the hymn
-        Json::Value saveState;
+        /// Recently saved state of the world.
+        Json::Value worldSaveState;
+
+        /// Recently saved state of the hymn.
+        Json::Value hymnSaveState;
 
         /// Input scaling when playing in VR.
         float vrScale = 1.0f;
