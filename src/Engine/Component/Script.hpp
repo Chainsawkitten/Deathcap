@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <map>
+#include <string>
 #include "SuperComponent.hpp"
 #include "../linking.hpp"
 
