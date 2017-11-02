@@ -30,7 +30,6 @@ namespace Component {
         btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, nullptr, btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
         rigidBody->setUserPointer(this);
-        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     }
 
     void RigidBody::Destroy() {

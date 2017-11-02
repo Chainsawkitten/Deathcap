@@ -52,8 +52,8 @@ void PhysicsManager::Update(float deltaTime) {
 
         rigidBodyComp->Position(rigidBodyComp->entity->position);
         dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
+        rigidBodyComp->Mass(rigidBodyComp->Mass());
         dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
-        rigidBodyComp->GetBulletRigidBody()->setGravity(btVector3(0, 0, 0));
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
