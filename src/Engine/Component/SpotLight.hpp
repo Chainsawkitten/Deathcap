@@ -32,7 +32,7 @@ namespace Component {
         /// Angle of the cone (in degrees).
         float coneAngle = 15.f;
 
-        ///Bool for shadows
+        ///Whether the light should create shadows.
         bool shadow = false;
     };
 } // namespace Component
