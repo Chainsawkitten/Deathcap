@@ -23,7 +23,7 @@ AssetMetaData::MeshImportData * AssetMetaData::GetMetaData(const char * filepath
 
     // Return if file is not open.
     if (!file.is_open())
-        return false;
+        return nullptr;
 
     MeshImportData * meshImportData = new MeshImportData;
 
