@@ -94,6 +94,30 @@ namespace Video {
                 bool depthTesting;
             };
             
+            /// A debug drawing circle.
+            struct Circle {
+                /// The center position of the circle.
+                glm::vec3 position;
+                
+                /// The circle normal.
+                glm::vec3 normal;
+                
+                /// Radius.
+                float radius;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
             /// A debug drawing sphere.
             struct Sphere {
                 /// The center position of the sphere.
@@ -152,6 +176,12 @@ namespace Video {
              */
             VIDEO_API void DrawPlane(const Plane& plane);
             
+            /// Draw a circle.
+            /**
+             * @param circle The circle to draw.
+             */
+            VIDEO_API void DrawCircle(const Circle& circle);
+            
             /// Draw a sphere.
             /**
              * @param sphere The sphere to draw.
@@ -166,6 +196,7 @@ namespace Video {
             
             static void CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray);
             void BindVertexArray(GLuint vertexArray);
+            void CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             void CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             
             Video::ShaderProgram* shaderProgram;
@@ -185,6 +216,10 @@ namespace Video {
             GLuint sphereVertexBuffer;
             GLuint sphereVertexArray;
             unsigned int sphereVertexCount;
+            
+            GLuint circleVertexBuffer;
+            GLuint circleVertexArray;
+            unsigned int circleVertexCount;
             
             GLuint boundVertexArray = 0;
     };
