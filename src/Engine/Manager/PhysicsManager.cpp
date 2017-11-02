@@ -50,8 +50,9 @@ void PhysicsManager::Update(float deltaTime) {
             continue;
         }
 
-        rigidBodyComp->Position(rigidBodyComp->entity->position);
         dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
+        rigidBodyComp->Position(rigidBodyComp->entity->GetWorldPosition());
+        rigidBodyComp->Orientation(rigidBodyComp->entity->GetWorldOrientation());
         rigidBodyComp->Mass(rigidBodyComp->Mass());
         dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
     }
@@ -69,10 +70,9 @@ void PhysicsManager::UpdateEntityTransforms() {
             continue;
 
         Entity* entity = rigidBodyComp->entity;
-
         auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
-        entity->position = Physics::btToGlm(trans.getOrigin());
-        entity->SetLocalOrientation(Physics::btToGlm(trans.getRotation()));
+        entity->SetWorldPosition(Physics::btToGlm(trans.getOrigin()));
+        entity->SetWorldOrientation(Physics::btToGlm(trans.getRotation()));
     }
 }
 
