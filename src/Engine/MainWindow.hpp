@@ -77,6 +77,20 @@ class MainWindow {
          * @return The GLFW window struct.
          */
         ENGINE_API GLFWwindow* GetGLFWWindow() const;
+
+        /// Set window mode.
+        /**
+         * @param fullscreen Whether window should be fullscreen.
+         * @param borderless Whether window should be borderless.
+         */
+        ENGINE_API void SetWindowMode(bool fullscreen, bool borderless) const;
+
+        /// Get window mode.
+        /**
+         * @param fullscreen Get whether window is fullscreen.
+         * @param borderless Get whether window is borderless.
+         */
+        ENGINE_API void GetWindowMode(bool& fullscreen, bool& borderless) const;
         
     private:
         // Copy Constructor
