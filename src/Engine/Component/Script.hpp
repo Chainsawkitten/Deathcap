@@ -32,9 +32,6 @@ namespace Component {
             
             /// The instance of the script class.
             asIScriptObject* instance = nullptr;
-      
-            /// Entities referenced by this script.
-            std::vector<Entity*> refList;
 
             /// Add a property to the propertyMap.
             /**

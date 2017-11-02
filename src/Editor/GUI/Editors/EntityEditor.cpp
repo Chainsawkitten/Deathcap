@@ -393,6 +393,40 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 else if (typeId == asTYPEID_FLOAT){
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 }
+                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
+
+                    // Find method to call.
+                    std::string entityName = script->instance->GetPropertyName(n);
+
+                    if (entityName != "self") {
+
+                        std::string entityGUID = std::to_string(*(unsigned int*)script->GetDataFromPropertyMap(propertyName));
+                        std::string propertyText;
+                        propertyText.reserve(entityName.length() + entityGUID.length() + 2); // additional `void ` and `()`
+                        propertyText.append(entityName).append(": ").append(entityGUID);
+
+                        ImGui::Separator();
+
+                        // Choosing other entity references
+                        ImGui::Text(propertyText.c_str());
+                        if (ImGui::Button("Change entity reference"))
+                            ImGui::OpenPopup("Add entity reference");
+
+                        if (ImGui::BeginPopup("Add entity reference")) {
+                            ImGui::Text("Entities");
+                            ImGui::Separator();
+                            for (Entity* entity : Hymn().world.GetEntities()) /// @todo Change into a prettier tree structure or something, later.
+                                if (ImGui::Selectable(entity->name.c_str()))
+                                    *(unsigned int*)script->GetDataFromPropertyMap(propertyName) = entity->GetUniqueIdentifier();
+
+                            ImGui::EndPopup();
+                        }
+
+                        ImGui::Separator();
+
+                    }
+
+                }
                 /// @todo This will be used to handle objects in the scripts
                 //else if (typeId & asTYPEID_SCRIPTOBJECT){
                 //    asIScriptObject *obj = (asIScriptObject*)varPointer;
@@ -409,31 +443,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
         }
         ImGui::Separator();
-
-        ImGui::Text("Entity References");
-        // Display current entity references
-        for (size_t i = 0; i != script->refList.size(); ++i) {
-            ImGui::Text(script->refList[i]->name.c_str());
-            ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-            if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
-                script->refList.erase(script->refList.begin() + i);
-                break;
-            }
-        }
-
-        // Choosing other entity references
-        if (ImGui::Button("Add entity reference"))
-            ImGui::OpenPopup("Add entity reference");
-
-        if (ImGui::BeginPopup("Add entity reference")) {
-            ImGui::Text("Entities");
-            ImGui::Separator();
-            for (Entity* entity : Hymn().world.GetEntities()) /// @todo Change into a prettier tree structure or something, later.
-                if (ImGui::Selectable(entity->name.c_str()))
-                    script->refList.push_back(entity);
-
-            ImGui::EndPopup();
-        }
 
     }
     else

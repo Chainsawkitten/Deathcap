@@ -597,9 +597,14 @@ void ScriptManager::Update(World& world, float deltaTime) {
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void *varPointer = script->instance->GetAddressOfProperty(n);
 
-                if (script->isInPropertyMap(name, typeId))
-                    script->CopyDataFromPropertyMap(name, varPointer);
-   
+                if (script->isInPropertyMap(name, typeId)) {
+
+                    if (typeId == engine->GetTypeIdByDecl("Entity@"))
+                        *(Entity*)varPointer = *GetEntity(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                    else 
+                        script->CopyDataFromPropertyMap(name, varPointer);
+
+                } 
             }
         }
     }
