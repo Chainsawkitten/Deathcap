@@ -50,10 +50,11 @@ void PhysicsManager::Update(float deltaTime) {
             continue;
         }
 
-        rigidBodyComp->Position(rigidBodyComp->entity->position);
         dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
+        rigidBodyComp->SetPosition(rigidBodyComp->entity->GetWorldPosition());
+        rigidBodyComp->SetOrientation(rigidBodyComp->entity->GetWorldOrientation());
+        rigidBodyComp->SetMass(rigidBodyComp->GetMass());
         dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
-        rigidBodyComp->GetBulletRigidBody()->setGravity(btVector3(0, 0, 0));
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
@@ -69,10 +70,9 @@ void PhysicsManager::UpdateEntityTransforms() {
             continue;
 
         Entity* entity = rigidBodyComp->entity;
-
         auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
-        entity->position = Physics::btToGlm(trans.getOrigin());
-        entity->SetLocalOrientation(Physics::btToGlm(trans.getRotation()));
+        entity->SetWorldPosition(Physics::btToGlm(trans.getOrigin()));
+        entity->SetWorldOrientation(Physics::btToGlm(trans.getRotation()));
     }
 }
 
@@ -189,11 +189,15 @@ void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics:
     comp->SetShape(shape);
 }
 
+float PhysicsManager::GetMass(Component::RigidBody* comp) {
+    return comp->GetMass();
+}
+
 void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
     // Setting mass is only valid with a shape because it also sets inertia.
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp)
-        comp->Mass(mass);
+        comp->SetMass(mass);
 }
 
 const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {
