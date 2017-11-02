@@ -39,33 +39,33 @@ namespace Component {
         }
     }
 
-    glm::vec3 RigidBody::Position() const {
+    glm::vec3 RigidBody::GetPosition() const {
         btTransform trans = rigidBody->getWorldTransform();
         return Physics::btToGlm(trans.getOrigin());
     }
 
-    void RigidBody::Position(const glm::vec3& pos) {
+    void RigidBody::SetPosition(const glm::vec3& pos) {
         btTransform trans = rigidBody->getWorldTransform();
         trans.setOrigin(Physics::glmToBt(pos));
         rigidBody->setWorldTransform(trans);
     }
 
-    glm::quat RigidBody::Orientation() const {
+    glm::quat RigidBody::GetOrientation() const {
         btTransform trans = rigidBody->getWorldTransform();
         return Physics::btToGlm(trans.getRotation());
     }
 
-    void RigidBody::Orientation(const glm::quat& rotation) {
+    void RigidBody::SetOrientation(const glm::quat& rotation) {
         btTransform trans = rigidBody->getWorldTransform();
         trans.setRotation(Physics::glmToBt(rotation));
         rigidBody->setWorldTransform(trans);
     }
 
-    float RigidBody::Mass() {
+    float RigidBody::GetMass() {
         return mass;
     }
 
-    void RigidBody::Mass(float mass) {
+    void RigidBody::SetMass(float mass) {
         // Bullet provides a method on the shape that we can use to calculate
         // inertia.
         btVector3 inertia;
