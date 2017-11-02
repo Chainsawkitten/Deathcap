@@ -13,6 +13,8 @@ bool AssetMetaData::GenerateMetaData(const char * filepath, MeshImportData * mes
 
     // Close the file.
     file.close();
+    
+    return true;
 }
 
 AssetMetaData::MeshImportData * AssetMetaData::GetMetaData(const char * filepath) {

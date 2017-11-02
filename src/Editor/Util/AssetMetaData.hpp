@@ -32,7 +32,7 @@ class AssetMetaData
         /**
          * @param filepath Filepath with extensions.
          * @param metaData Metadata to be exported.
-         * @return False if file could not be opened.
+         * @return Whether the file could be opened.
          */
         static bool GenerateMetaData(const char * filepath, MeshImportData * metaData);
 
