@@ -125,15 +125,15 @@ namespace Video {
             VIDEO_API float GetGamma() const;
 
 
-            /// Set whether fog is applyed.
+            /// Set whether fog is applied.
             /**
              * @param fogApply Whether to apply fog.
              */
             VIDEO_API void SetFogApply(bool fogApply);
 
-            /// Get whether fog is applyed.
+            /// Get whether fog is applied.
             /**
-             * @return Whether fog is applyed.
+             * @return Whether fog is applied.
              */
             VIDEO_API bool GetFogApply() const;
 
@@ -164,15 +164,15 @@ namespace Video {
             VIDEO_API glm::vec3 GetFogColor() const;
 
 
-            /// Set whether color filter is applyed.
+            /// Set whether color filter is applied.
             /**
              * @param colorFilterApply Whether to apply color filter.
              */
             VIDEO_API void SetColorFilterApply(bool colorFilterApply);
 
-            /// Get whether color filter is applyed.
+            /// Get whether color filter is applied.
             /**
-             * @return Whether color filter is applyed.
+             * @return Whether color filter is applied.
              */
             VIDEO_API bool GetColorFilterApply() const;
 
@@ -190,15 +190,15 @@ namespace Video {
             VIDEO_API glm::vec3 GetColorFilterColor() const;
 
 
-            /// Set whether dithering is applyed.
+            /// Set whether dithering is applied.
             /**
              * @param ditherApply Whether to apply dithering.
              */
             VIDEO_API void SetDitherApply(bool ditherApply);
 
-            /// Get whether dithering is applyed.
+            /// Get whether dithering is applied.
             /**
-             * @return Whether dithering is applyed.
+             * @return Whether dithering is applied.
              */
             VIDEO_API bool GetDitherApply() const;
 
