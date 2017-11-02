@@ -95,14 +95,6 @@ namespace FileSystem {
      * @return The directory path of the path.
      */
     ENGINE_API std::string GetDirectory(const std::string& path);
-
-    /// Rename an existing file.
-    /**
-     * @param filepath The path of the original file.
-     * @param name New name of the file.
-     * @return Path to the renamed file.
-     */
-    ENGINE_API std::string Rename(const std::string& filepath, const std::string& name);
     
     /// Execute a program asynchronously.
     /**
