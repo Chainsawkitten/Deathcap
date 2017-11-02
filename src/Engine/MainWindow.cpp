@@ -117,7 +117,6 @@ void MainWindow::SetWindowMode(bool fullscreen, bool borderless) const {
 }
 
 void MainWindow::GetWindowMode(bool& fullscreen, bool& borderless) const {
-    GLFWmonitor* monitor = glfwGetWindowMonitor(window);
     fullscreen = glfwGetWindowMonitor(window) != nullptr;
     borderless = glfwGetWindowAttrib(window, GLFW_DECORATED) == GLFW_FALSE;
 }
