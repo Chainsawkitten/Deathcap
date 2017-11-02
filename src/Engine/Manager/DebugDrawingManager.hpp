@@ -66,8 +66,8 @@ class DebugDrawingManager {
          * @param normal Circle normal.
          * @param radius Radius.
          * @param color Color of the lines.
-         * @param lineWidth The width of the lines used to draw the plane.
-         * @param duration How long the plane should stay in the world (in seconds).
+         * @param lineWidth The width of the lines used to draw the circle.
+         * @param duration How long the circle should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
         ENGINE_API void AddCircle(const glm::vec3& position, const glm::vec3& normal, float radius, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
