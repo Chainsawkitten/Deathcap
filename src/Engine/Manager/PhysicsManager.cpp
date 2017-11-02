@@ -157,14 +157,22 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     if (node.isMember("sphere")) {
         auto sphere = node.get("sphere", {});
         auto radius = sphere.get("radius", 1.0f).asFloat();
-        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Sphere(radius)));
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Sphere(radius)));
         comp->SetShape(shape);
     }
     else if (node.isMember("plane")) {
         auto plane = node.get("plane", {});
         auto normal = Json::LoadVec3(plane.get("normal", {}));
         auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
-        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff)));
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Plane(normal, planeCoeff)));
+        comp->SetShape(shape);
+    }
+    else if (node.isMember("box")) {
+        auto box = node.get("box", {});
+        auto width = box.get("width", 1.0f).asFloat();
+        auto height = box.get("height", 1.0f).asFloat();
+        auto depth = box.get("depth", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Box(width, height, depth)));
         comp->SetShape(shape);
     }
 
