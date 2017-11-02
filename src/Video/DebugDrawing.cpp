@@ -171,7 +171,7 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
 void DebugDrawing::DrawCircle(const Circle& circle) {
     BindVertexArray(circleVertexArray);
     
-    glm::mat4 model(glm::scale(glm::mat4(), 0.5f * glm::vec3(circle.radius, circle.radius, circle.radius)));
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(circle.radius, circle.radius, circle.radius)));
     float yaw = atan2(circle.normal.x, circle.normal.z);
     float pitch = atan2(circle.normal.y, sqrt(circle.normal.x * circle.normal.x + circle.normal.z * circle.normal.z));
     model = glm::rotate(glm::mat4(), yaw, glm::vec3(0.f, 1.f, 0.f)) * model;
