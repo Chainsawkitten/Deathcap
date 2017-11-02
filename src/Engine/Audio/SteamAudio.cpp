@@ -35,7 +35,7 @@ void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples) {
 
     // Move the buffers into an array (needed for steam audios mixing)
     IPLAudioBuffer* buffers = new IPLAudioBuffer[processedBuffers.size()];
-    for (int i = 0; i < processedBuffers.size(); i++) {
+    for (std::size_t i = 0; i < processedBuffers.size(); i++) {
         buffers[i] = processedBuffers[i];
     }
 
