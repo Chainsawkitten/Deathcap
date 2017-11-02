@@ -44,11 +44,11 @@ namespace Video {
             /// Render shadow pass.
             /**
              * @param geometry The geometry to render.
-             * @param viewMatrix The camera's view matrix.
-             * @param projectionMatrix The camera's projection matrix.
+             * @param viewMatrix The lights's view matrix.
+             * @param projectionMatrix The lights's projection matrix.
              * @param modelMatrix Model matrix.
              */
-            void ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix) const;
+            void ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 &modelMatrix) const;
 
             /// Bind render program.
             /**
