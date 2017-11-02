@@ -51,6 +51,17 @@ namespace Component {
         rigidBody->setWorldTransform(trans);
     }
 
+    glm::quat RigidBody::Orientation() const {
+        btTransform trans = rigidBody->getWorldTransform();
+        return Physics::btToGlm(trans.getRotation());
+    }
+
+    void RigidBody::Orientation(const glm::quat& rotation) {
+        btTransform trans = rigidBody->getWorldTransform();
+        trans.setRotation(Physics::glmToBt(rotation));
+        rigidBody->setWorldTransform(trans);
+    }
+
     float RigidBody::Mass() {
         return mass;
     }

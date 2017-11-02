@@ -48,6 +48,12 @@ namespace Component {
             // Set the position of a rigid body.
             void Position(const glm::vec3& pos);
 
+            // Get the orientation of a rigid body.
+            glm::quat Orientation() const;
+
+            // Set the orientation of a rigid body.
+            void Orientation(const glm::quat& rotation);
+
             // Get the mass in kilograms of a rigid body.
             float Mass();
 
