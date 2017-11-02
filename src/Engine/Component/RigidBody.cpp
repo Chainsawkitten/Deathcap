@@ -30,7 +30,6 @@ namespace Component {
         btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, nullptr, btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
         rigidBody->setUserPointer(this);
-        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     }
 
     void RigidBody::Destroy() {
@@ -40,24 +39,38 @@ namespace Component {
         }
     }
 
-    glm::vec3 RigidBody::Position() const {
-        btTransform trans;
-        rigidBody->getMotionState()->getWorldTransform(trans);
+    glm::vec3 RigidBody::GetPosition() const {
+        btTransform trans = rigidBody->getWorldTransform();
         return Physics::btToGlm(trans.getOrigin());
     }
 
-    void RigidBody::Position(const glm::vec3& pos) {
-        btTransform trans;
-        rigidBody->getMotionState()->getWorldTransform(trans);
+    void RigidBody::SetPosition(const glm::vec3& pos) {
+        btTransform trans = rigidBody->getWorldTransform();
         trans.setOrigin(Physics::glmToBt(pos));
         rigidBody->setWorldTransform(trans);
     }
 
-    void RigidBody::Mass(float mass) {
+    glm::quat RigidBody::GetOrientation() const {
+        btTransform trans = rigidBody->getWorldTransform();
+        return Physics::btToGlm(trans.getRotation());
+    }
+
+    void RigidBody::SetOrientation(const glm::quat& rotation) {
+        btTransform trans = rigidBody->getWorldTransform();
+        trans.setRotation(Physics::glmToBt(rotation));
+        rigidBody->setWorldTransform(trans);
+    }
+
+    float RigidBody::GetMass() {
+        return mass;
+    }
+
+    void RigidBody::SetMass(float mass) {
         // Bullet provides a method on the shape that we can use to calculate
         // inertia.
         btVector3 inertia;
         rigidBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
         rigidBody->setMassProps(mass, inertia);
+        this->mass = mass;
     }
 }
