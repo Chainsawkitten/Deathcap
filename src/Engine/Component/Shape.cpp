@@ -37,6 +37,13 @@ namespace Component {
                 component["cylinder"] = concreteShape;
                 break;
             }
+            case Physics::Shape::Kind::Cone: {
+                auto coneData = shape->GetConeData();
+                concreteShape["radius"] = coneData->radius;
+                concreteShape["height"] = coneData->height;
+                component["cone"] = concreteShape;
+                break;
+            }
             default:
                 Log(Log::ERR) << "Component::Shape::Save: Unsupported shape `" << static_cast<uint32_t>(shape->GetKind()) << "`.\n";
         }

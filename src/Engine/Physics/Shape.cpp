@@ -37,6 +37,12 @@ namespace Physics {
         cylinder = params;
     }
 
+    Shape::Shape(const Shape::Cone& params) {
+        shape.reset(new btConeShape(params.radius, params.height));
+        kind = Kind::Cone;
+        cone = params;
+    }
+
     Shape::~Shape() {}
 
     Shape::Kind Shape::GetKind() const {
@@ -57,6 +63,10 @@ namespace Physics {
 
     const Shape::Cylinder* Shape::GetCylinderData() const {
         return kind == Kind::Cylinder ? &cylinder : nullptr;
+    }
+
+    const Shape::Cone* Shape::GetConeData() const {
+        return kind == Kind::Cone ? &cone : nullptr;
     }
 
     btCollisionShape* Shape::GetShape() const {
