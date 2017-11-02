@@ -31,10 +31,20 @@ namespace Physics {
                 float planeCoeff;
             };
 
+            /// Parameters used to create a box shape.
+            struct Box {
+                Box(float width, float height, float depth)
+                    : width(width), height(height), depth(depth) {}
+                float width;
+                float height;
+                float depth;
+            };
+
             /// The various kinds of shapes that are wrapped by %Shape.
             enum class Kind {
                 Sphere,
                 Plane,
+                Box,
             };
 
             /// Construct a sphere shape.
@@ -48,6 +58,12 @@ namespace Physics {
              * @param params Plane specific parameters.
              */
             ENGINE_API Shape(const Plane& params);
+
+            /// Construct a box shape.
+            /**
+             * @param params Box specific parameters.
+             */
+            ENGINE_API Shape(const Box& params);
 
             /// Destructor
             ENGINE_API ~Shape();
@@ -70,6 +86,12 @@ namespace Physics {
              */
             ENGINE_API const Plane* GetPlaneData() const;
 
+            /// Get box data of the shape.
+            /**
+             * @return Box data, or nullptr if the shape is not a box.
+             */
+            ENGINE_API const Box* GetBoxData() const;
+
         private:
             /// Get the wrapped Bullet shape.
             /**
@@ -84,6 +106,7 @@ namespace Physics {
             union {
                 Sphere sphere;
                 Plane plane;
+                Box box;
             };
     };
 }

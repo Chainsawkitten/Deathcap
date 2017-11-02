@@ -8,17 +8,14 @@
 #include <imgui.h>
 
 namespace GUI {
-
     void PlaneShapeEditor::Show(Component::Shape* comp) {
         ImGui::Indent();
 
-        if (ImGui::InputFloat3("Normal", normal)) {
+        if (ImGui::InputFloat3("Normal", normal))
             Apply(comp);
-        }
 
-        if (ImGui::InputFloat("Plane coeff.", &planeCoeff)) {
+        if (ImGui::InputFloat("Plane coeff.", &planeCoeff))
             Apply(comp);
-        }
 
         ImGui::Unindent();
     }
