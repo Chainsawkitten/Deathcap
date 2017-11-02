@@ -33,9 +33,9 @@ namespace Video {
              */
             VIDEO_API int GetDepthMapFbo();
 
-            ///return shadowmap texture id
+            ///return shadowmap textures id
             /**
-             * @return shadowmap texture id
+             * @return shadowmap textures id
              */
             VIDEO_API int GetShadowID();
 
