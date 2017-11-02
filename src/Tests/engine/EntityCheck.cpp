@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <Engine/Entity/Entity.hpp>
 
-TEST_CASE("", "[entity component]")
+TEST_CASE("Entity check", "[entity component]")
 {
     // Create testEntity with null world.
     Entity nullWorldEntity(nullptr, "TestEntity");

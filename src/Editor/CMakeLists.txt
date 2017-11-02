@@ -18,6 +18,7 @@ set(SRCS
         GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
+        GUI/LogView.cpp
         GUI/Editors/AudioMaterialEditor.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
@@ -50,6 +51,7 @@ set(HEADERS
         GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
+        GUI/LogView.hpp
         GUI/Editors/AudioMaterialEditor.hpp
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/IShapeEditor.hpp
