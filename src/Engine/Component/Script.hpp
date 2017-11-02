@@ -63,7 +63,7 @@ namespace Component {
              * @param type The asTypeID of the property.
              * @return Is there a property with the provided name and type in propertyMap.
              */  
-            ENGINE_API bool IsInPropertyMap(const std::string name, const int type);
+            ENGINE_API bool IsInPropertyMap(const std::string &name, const int type);
 
             /// Clears the property map.
             ENGINE_API void ClearPropertyMap();

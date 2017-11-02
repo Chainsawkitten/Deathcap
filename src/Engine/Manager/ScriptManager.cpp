@@ -783,7 +783,6 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
         Json::Value propertyMapJson = node.get("propertyMap", "");
         std::vector<std::string> names = propertyMapJson.getMemberNames();
-        std::string json = propertyMapJson.toStyledString();
 
         for (auto& name : names) {
 
