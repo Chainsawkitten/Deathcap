@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <memory>
 #include "../linking.hpp"
 
 class btCollisionShape;
@@ -48,6 +49,9 @@ namespace Physics {
              */
             ENGINE_API Shape(const Plane& params);
 
+            /// Destructor
+            ENGINE_API ~Shape();
+
             /// Get the type of wrapped shape.
             /**
              * @return The type of shape.
@@ -75,7 +79,7 @@ namespace Physics {
 
             Shape(const Shape& other) = delete;
 
-            btCollisionShape* shape;
+            std::unique_ptr<btCollisionShape> shape;
             Kind kind;
             union {
                 Sphere sphere;
