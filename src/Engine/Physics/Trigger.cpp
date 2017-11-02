@@ -7,17 +7,17 @@
 
 namespace Physics {
     Trigger::Trigger(const btTransform& transform) {
-        trigger = new btCollisionObject();
+        trigger.reset(new btCollisionObject());
         trigger->setWorldTransform(transform);
     }
 
     btCollisionObject* Trigger::GetCollisionObject() const {
-        return trigger;
+        return trigger.get();
     }
 
     void Trigger::Process(btCollisionWorld& world) {
         for (auto& observer : observers) {
-            world.contactPairTest(trigger, observer->GetBulletCollisionObject(), *observer);
+            world.contactPairTest(trigger.get(), observer->GetBulletCollisionObject(), *observer);
             observer->PostIntersectionTest();
         }
     }

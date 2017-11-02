@@ -39,7 +39,7 @@ namespace Physics {
             void SetCollisionShape(std::shared_ptr<Shape> shape);
 
         private:
-            btCollisionObject* trigger = nullptr;
+            std::unique_ptr<btCollisionObject> trigger = nullptr;
             std::shared_ptr<Shape> shape = nullptr;
             std::vector<std::unique_ptr<TriggerObserver>> observers;
     };
