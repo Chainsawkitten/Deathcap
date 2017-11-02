@@ -413,7 +413,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
                 std::string propertyName = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
-                void *varPointer = script->instance->GetAddressOfProperty(n);
+
                 if (typeId == asTYPEID_INT32){
                     ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 }

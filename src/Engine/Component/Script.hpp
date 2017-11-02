@@ -73,12 +73,15 @@ namespace Component {
             class Property {
                 
             public:
+
                 Property() {
 
                     typeID = -1;
                     size = -1;
+                    data = nullptr;
 
                 }
+
                 Property(int _typeID, int _size, void* _data) {
 
                     typeID = _typeID;
@@ -86,6 +89,10 @@ namespace Component {
                     data = malloc(size);
                     memcpy(data, _data, size);
 
+                }
+
+                ~Property() {
+                    delete data;
                 }
 
                 int typeID;

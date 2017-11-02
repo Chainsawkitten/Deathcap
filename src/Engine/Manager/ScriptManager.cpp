@@ -643,7 +643,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
                 if (script->isInPropertyMap(name, typeId)) {
 
                     if (typeId == engine->GetTypeIdByDecl("Entity@"))
-                        *(Entity*)varPointer = *GetEntity(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                        *reinterpret_cast<Entity*>(varPointer) = *GetEntity(*(unsigned int*)script->GetDataFromPropertyMap(name));
                     else 
                         script->CopyDataFromPropertyMap(name, varPointer);
 
@@ -812,12 +812,6 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 int ScriptManager::GetStringDeclarationID() {
 
     return engine->GetTypeIdByDecl("string");
-
-}
-
-const int ScriptManager::GetSizeOfASType(int typeID, void* value) {
-
-    return -1;
 
 }
 
