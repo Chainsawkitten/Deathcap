@@ -43,9 +43,8 @@ PhysicsManager::~PhysicsManager() {
     delete collisionConfiguration;
     delete broadphase;
 
-    for (auto t : triggers) {
+    for (auto t : triggers)
         delete t;
-    }
 }
 
 void PhysicsManager::Update(float deltaTime) {
