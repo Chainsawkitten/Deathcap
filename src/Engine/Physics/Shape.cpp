@@ -26,6 +26,23 @@ namespace Physics {
         box = params;
     }
 
+    Shape::Shape(const Shape::Cylinder& params) {
+        // From the Bullet source code:
+        // cylinder is defined as following :
+        //   - principle axis aligned along y by default, radius in x, z - value not used
+        //   - for btCylinderShapeX : principle axis aligned along x, radius in y direction, z - value not used
+        //   - for btCylinderShapeZ : principle axis aligned along z, radius in x direction, y - value not used
+        shape.reset(new btCylinderShape(btVector3(params.radius, params.length * 0.5f, 0.0f)));
+        kind = Kind::Cylinder;
+        cylinder = params;
+    }
+
+    Shape::Shape(const Shape::Cone& params) {
+        shape.reset(new btConeShape(params.radius, params.height));
+        kind = Kind::Cone;
+        cone = params;
+    }
+
     Shape::~Shape() {}
 
     Shape::Kind Shape::GetKind() const {
@@ -42,6 +59,14 @@ namespace Physics {
 
     const Shape::Box* Shape::GetBoxData() const {
         return kind == Kind::Box ? &box : nullptr;
+    }
+
+    const Shape::Cylinder* Shape::GetCylinderData() const {
+        return kind == Kind::Cylinder ? &cylinder : nullptr;
+    }
+
+    const Shape::Cone* Shape::GetConeData() const {
+        return kind == Kind::Cone ? &cone : nullptr;
     }
 
     btCollisionShape* Shape::GetShape() const {

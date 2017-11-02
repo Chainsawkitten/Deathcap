@@ -63,6 +63,18 @@ void DebugDrawingManager::AddPlane(const glm::vec3& position, const glm::vec3& n
     planes.push_back(plane);
 }
 
+void DebugDrawingManager::AddCircle(const glm::vec3& position, const glm::vec3& normal, float radius, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Circle circle;
+    circle.position = position;
+    circle.normal = normal;
+    circle.radius = radius;
+    circle.color = color;
+    circle.lineWidth = lineWidth;
+    circle.duration = duration;
+    circle.depthTesting = depthTesting;
+    circles.push_back(circle);
+}
+
 void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
     DebugDrawing::Sphere sphere;
     sphere.position = position;
@@ -81,9 +93,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             points[i] = points[points.size() - 1];
             points.pop_back();
             --i;
-        } else {
+        } else
             points[i].duration -= deltaTime;
-        }
     }
     
     // Lines.
@@ -92,9 +103,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             lines[i] = lines[lines.size() - 1];
             lines.pop_back();
             --i;
-        } else {
+        } else
             lines[i].duration -= deltaTime;
-        }
     }
     
     // Cuboids.
@@ -103,9 +113,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             cuboids[i] = cuboids[cuboids.size() - 1];
             cuboids.pop_back();
             --i;
-        } else {
+        } else
             cuboids[i].duration -= deltaTime;
-        }
     }
     
     // Planes.
@@ -114,9 +123,18 @@ void DebugDrawingManager::Update(float deltaTime) {
             planes[i] = planes[planes.size() - 1];
             planes.pop_back();
             --i;
-        } else {
+        } else
             planes[i].duration -= deltaTime;
-        }
+    }
+    
+    // Circles.
+    for (std::size_t i=0; i < circles.size(); ++i) {
+        if (circles[i].duration < 0.f) {
+            circles[i] = circles[circles.size() - 1];
+            circles.pop_back();
+            --i;
+        } else
+            circles[i].duration -= deltaTime;
     }
     
     // Spheres.
@@ -125,14 +143,12 @@ void DebugDrawingManager::Update(float deltaTime) {
             spheres[i] = spheres[spheres.size() - 1];
             spheres.pop_back();
             --i;
-        } else {
+        } else
             spheres[i].duration -= deltaTime;
-        }
     }
 }
 
 void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {       
-
     // Bind render target.
     renderSurface->GetShadingFrameBuffer()->BindWrite();
     debugDrawing->StartDebugDrawing(projectionMatrix * viewMatrix);
@@ -152,11 +168,15 @@ void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& p
     // Planes.
     for (const DebugDrawing::Plane& plane : planes)
         debugDrawing->DrawPlane(plane);
-        
+    
+    // Circles.
+    for (const DebugDrawing::Circle& circle : circles)
+        debugDrawing->DrawCircle(circle);
+    
     // Spheres.
     for (const DebugDrawing::Sphere& sphere : spheres)
         debugDrawing->DrawSphere(sphere);
-        
+    
     debugDrawing->EndDebugDrawing();
     renderSurface->GetShadingFrameBuffer()->Unbind();
 }

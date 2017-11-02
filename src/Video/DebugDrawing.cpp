@@ -73,6 +73,12 @@ DebugDrawing::DebugDrawing() {
     
     CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
     
+    // Create circle vertex array.
+    glm::vec3* circle;
+    CreateCircle(circle, circleVertexCount, 25);
+    CreateVertexArray(circle, circleVertexCount, circleVertexBuffer, circleVertexArray);
+    delete[] circle;
+    
     // Create sphere vertex array.
     glm::vec3* sphere;
     CreateSphere(sphere, sphereVertexCount, 14);
@@ -92,6 +98,12 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &planeVertexBuffer);
     glDeleteVertexArrays(1, &planeVertexArray);
+    
+    glDeleteBuffers(1, &circleVertexBuffer);
+    glDeleteVertexArrays(1, &circleVertexArray);
+    
+    glDeleteBuffers(1, &sphereVertexBuffer);
+    glDeleteVertexArrays(1, &sphereVertexArray);
     
     delete shaderProgram;
 }
@@ -156,6 +168,24 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
     glDrawArrays(GL_LINES, 0, 8);
 }
 
+void DebugDrawing::DrawCircle(const Circle& circle) {
+    BindVertexArray(circleVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(circle.radius, circle.radius, circle.radius)));
+    float yaw = atan2(circle.normal.x, circle.normal.z);
+    float pitch = atan2(circle.normal.y, sqrt(circle.normal.x * circle.normal.x + circle.normal.z * circle.normal.z));
+    model = glm::rotate(glm::mat4(), yaw, glm::vec3(0.f, 1.f, 0.f)) * model;
+    model = glm::rotate(glm::mat4(), pitch, glm::vec3(1.f, 0.f, 0.f)) * model;
+    model = glm::translate(glm::mat4(), circle.position) * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    circle.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &circle.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(circle.lineWidth);
+    glDrawArrays(GL_LINES, 0, circleVertexCount);
+}
+
 void DebugDrawing::DrawSphere(const Sphere& sphere) {
     BindVertexArray(sphereVertexArray);
     
@@ -197,6 +227,19 @@ void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int po
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
     
     glBindVertexArray(0);
+}
+
+void DebugDrawing::CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 2;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int j = 0; j <= detail; ++j) {
+        float angle = static_cast<float>(j) / detail * 2.0f * glm::pi<float>();
+        positions[i++] = glm::vec3(cos(angle), sin(angle), 0.0f);
+        if (j > 0 && j < detail)
+            positions[i++] = glm::vec3(cos(angle), sin(angle), 0.0f);
+    }
 }
 
 // Create UV-sphere with given number of parallel and meridian lines.
