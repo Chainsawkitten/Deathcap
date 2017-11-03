@@ -58,10 +58,9 @@ void AnimationControllerEditor::ShowNode(Node* node) {
     ImGui::Text("Action: %s", node->name);
     ImGui::InputText("Name", node->name, 128);
 
-    if (dynamic_cast<Animation::AnimationController::AnimationAction*>(node) != nullptr) {
-        // Dynamic cast to AnimationAction.
-        Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
-        
+    // Dynamic cast to AnimationAction.
+    Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
+    if (action) {
         if (ImGui::Button("Select animation clip##Clip"))
             ImGui::OpenPopup("Select animation clip##Clip");
 
