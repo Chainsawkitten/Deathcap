@@ -7,40 +7,40 @@ namespace Component {
 }
 
 namespace GUI {
-    /// Plane shape editor for physics components.
-    class PlaneShapeEditor : public IShapeEditor {
+    /// Cone shape editor for physics components.
+    class ConeShapeEditor : public IShapeEditor {
         public:
             /// Constructor
-            PlaneShapeEditor() = default;
+            ConeShapeEditor() = default;
 
-            /// Plane type label.
+            /// Cone type label.
             /**
-             * @return "Plane" string.
+             * @return "Cone" string.
              */
-            const char* Label() const override { return "Plane"; }
+            const char* Label() const override { return "Cone"; }
 
-            /// Show controls for editing a plane shape.
+            /// Show controls for editing a cone shape.
             /**
              * @param comp The shape component to edit.
              */
             void Show(Component::Shape* comp) override;
 
-            /// Set a plane shape on the given shape component.
+            /// Set a cone shape on the given shape component.
             /**
              * @param comp The shape component on which to set shape.
              */
             void Apply(Component::Shape* comp) override;
 
             /// Set internal data according the given %Shape, provided that it
-            /// is a plane.
+            /// is a cone.
             /**
              * @param shape The %Shape from which to initialize data.
-             * @return True if shape type is plane, false otherwise.
+             * @return True if shape type is cone, false otherwise.
              */
             bool SetFromShape(const Physics::Shape& shape) override;
 
         private:
-            float normal[3] = { 0.0f, 1.0f, 0.0f };
-            float planeCoeff = 0.0f;
+            float radius = 1.0f;
+            float height = 1.0f;
     };
 }

@@ -16,8 +16,13 @@ SoundEditor::SoundEditor() {
 
 void SoundEditor::Show() {
     if (ImGui::Begin(("Sound: " + sound->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(sound))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
-        ImGui::InputText("Name", name, 128);
-        sound->name = name;
+        if (ImGui::InputText("Name", name, 128, ImGuiInputTextFlags_EnterReturnsTrue)) {
+            // Rename sound file.
+            std::string path = Hymn().GetPath() + "/" + sound->path;
+            rename((path + sound->name + ".ogg").c_str(), (path + name + ".ogg").c_str());
+            
+            sound->name = name;
+        }
         
         if (ImGui::Button("Load Ogg Vorbis")) {
             fileSelector.AddExtensions("ogg");

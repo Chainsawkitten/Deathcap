@@ -20,6 +20,7 @@ set(SRCS
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
+        ShadowPass.cpp
         Texture/Texture.cpp
         Texture/Texture2D.cpp
     )
@@ -49,6 +50,7 @@ set(HEADERS
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
+        ShadowPass.hpp
         Texture/Texture.hpp
         Texture/Texture2D.hpp
     )
@@ -67,6 +69,7 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostFXAA.frag
+    ../../shaders/Shadow.vert
     ../../shaders/Skinning.vert
     ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag

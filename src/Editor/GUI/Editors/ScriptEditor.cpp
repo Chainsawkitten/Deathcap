@@ -14,8 +14,12 @@ void ScriptEditor::Show() {
     if (ImGui::Begin(("Script: " + script->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(script))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         char nameText[255];
         strcpy(nameText, script->name.c_str());
-        if (ImGui::InputText("Name", nameText, 255))
+        if (ImGui::InputText("Name", nameText, 255, ImGuiInputTextFlags_EnterReturnsTrue)) {
+            // Rename script file.
+            rename((Hymn().GetPath() + "/" + script->path + script->name + ".as").c_str(), (Hymn().GetPath() + "/" + script->path + nameText + ".as").c_str());
+            
             script->name = nameText;
+        }
         
         if (ImGui::Button("Edit Script")) {
             std::string filename = Hymn().GetPath() + "/" + script->path + script->name + ".as";
