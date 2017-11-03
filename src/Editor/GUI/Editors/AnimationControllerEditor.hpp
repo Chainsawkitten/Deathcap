@@ -47,7 +47,7 @@ namespace GUI {
              */
             void ShowNode(Node* node) override;
 
-            /// Return the a node array of animation related nodes.
+            /// Return a node array of animation related nodes.
             /**
              * @return The node array.
              */
