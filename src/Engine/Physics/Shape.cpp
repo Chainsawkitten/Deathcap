@@ -1,5 +1,3 @@
-#pragma once
-
 #include <btBulletCollisionCommon.h>
 #include "GlmConversion.hpp"
 #include "Shape.hpp"
