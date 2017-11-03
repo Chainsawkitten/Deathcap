@@ -71,6 +71,12 @@ int main() {
 
             glfwPollEvents();
 
+            if (Input()->Triggered(InputHandler::WINDOWMODE)) {
+                bool fullscreen, borderless;
+                window->GetWindowMode(fullscreen, borderless);
+                window->SetWindowMode(!fullscreen, borderless);
+            }
+
             if (Input()->Triggered(InputHandler::PROFILE))
                 profiling = !profiling;
 
