@@ -44,7 +44,6 @@ namespace Component {
             ENGINE_API void SetSelected(bool value);
 
     private:        
-        bool isSelected;
-
+        bool isSelected = false;
     };
 }
