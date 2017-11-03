@@ -102,7 +102,7 @@ namespace Component {
             };
 
             //Map containing the properties, maps a struct of a value, it's type, and size to a name.
-            std::map<std::string, Property> propertyMap;
+            std::map<std::string, Property*> propertyMap;
 
     };
 }

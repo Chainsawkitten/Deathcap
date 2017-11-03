@@ -34,9 +34,9 @@ Json::Value Script::Save() const {
     for (auto &nameProperty : propertyMap) {
 
         const std::string& name = nameProperty.first;
-        int typeId = nameProperty.second.typeID;
-        void* varPointer = nameProperty.second.data;
-        int size = nameProperty.second.size;
+        int typeId = nameProperty.second->typeID;
+        void* varPointer = nameProperty.second->data;
+        int size = nameProperty.second->size;
 
         for (int i = 0; i < size; i++)
             component["propertyMap"][name][std::to_string(typeId)][i] = ((unsigned char*)varPointer)[i];
@@ -47,19 +47,20 @@ Json::Value Script::Save() const {
 
 void Script::AddToPropertyMap(std::string &name, int type, int size, void* data) {
 
-    propertyMap[name] = Property(type, size, data);
+    if(!IsInPropertyMap(name, type))
+        propertyMap[name] = new Property(type, size, data);
 
 }
 
 void Script::CopyDataFromPropertyMap(const std::string &name, void* target){
 
-    std::memcpy(target, propertyMap[name].data, propertyMap[name].size);
+    std::memcpy(target, propertyMap[name]->data, propertyMap[name]->size);
     
 }
 
 void* Script::GetDataFromPropertyMap(const std::string &name){
 
-    return propertyMap[name].data;
+    return propertyMap[name]->data;
 
 }
 
@@ -67,7 +68,7 @@ bool Script::IsInPropertyMap(const std::string &name, int type) {
 
     auto it = propertyMap.find(name);
 
-    if (it != propertyMap.end() && it->second.typeID == type)
+    if (it != propertyMap.end() && it->second->typeID == type)
         return true;
 
     return false;
@@ -76,9 +77,9 @@ bool Script::IsInPropertyMap(const std::string &name, int type) {
 
 /// Clears the property map.
 void Script::ClearPropertyMap() {
-
-    for (auto pair : propertyMap)
-        free(pair.second.data);
+    
+    for(auto pair : propertyMap) 
+        delete pair.second;
 
     propertyMap.clear();
 
