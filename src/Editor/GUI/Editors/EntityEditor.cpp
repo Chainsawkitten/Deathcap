@@ -37,6 +37,7 @@
 #include <imgui_internal.h>
 #include <imgui.h>
 #include "BoxShapeEditor.hpp"
+#include "CapsuleShapeEditor.hpp"
 #include "ConeShapeEditor.hpp"
 #include "CylinderShapeEditor.hpp"
 #include "PlaneShapeEditor.hpp"
@@ -72,6 +73,7 @@ EntityEditor::EntityEditor() {
     shapeEditors.push_back(new BoxShapeEditor());
     shapeEditors.push_back(new CylinderShapeEditor());
     shapeEditors.push_back(new ConeShapeEditor());
+    shapeEditors.push_back(new CapsuleShapeEditor());
     selectedShape = 0;
 
     rigidBodyEditor.reset(new GUI::RigidBodyEditor);
