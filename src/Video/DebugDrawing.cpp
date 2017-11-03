@@ -140,7 +140,7 @@ void DebugDrawing::DrawLine(const Line& line) {
 void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
     BindVertexArray(cuboidVertexArray);
     
-    glm::mat4 model(glm::translate(glm::mat4(), cuboid.minCoordinates) * glm::scale(glm::mat4(), cuboid.maxCoordinates - cuboid.minCoordinates));
+    glm::mat4 model(cuboid.matrix * glm::scale(glm::mat4(), cuboid.dimensions));
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
     cuboid.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
