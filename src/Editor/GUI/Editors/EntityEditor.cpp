@@ -208,12 +208,6 @@ void EntityEditor::AnimationControllerEditor(Component::AnimationController* ani
                 Managers().resourceManager->FreeAnimationController(animationController->controller);
 
             animationController->controller = Managers().resourceManager->CreateAnimationController(resourceSelector.GetSelectedResource().GetPath());
-
-        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
-            if (animation->riggedModel != nullptr)
-                Managers().resourceManager->FreeModel(animation->riggedModel);
-
-            animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
 
         ImGui::EndPopup();
