@@ -21,6 +21,7 @@ set(SRCS
         GUI/LogView.cpp
         GUI/Editors/AudioMaterialEditor.cpp
         GUI/Editors/BoxShapeEditor.cpp
+        GUI/Editors/CapsuleShapeEditor.cpp
         GUI/Editors/ConeShapeEditor.cpp
         GUI/Editors/CylinderShapeEditor.cpp
         GUI/Editors/EntityEditor.cpp
@@ -58,6 +59,7 @@ set(HEADERS
         GUI/LogView.hpp
         GUI/Editors/AudioMaterialEditor.hpp
         GUI/Editors/BoxShapeEditor.hpp
+        GUI/Editors/CapsuleShapeEditor.hpp
         GUI/Editors/ConeShapeEditor.hpp
         GUI/Editors/CylinderShapeEditor.hpp
         GUI/Editors/EntityEditor.hpp

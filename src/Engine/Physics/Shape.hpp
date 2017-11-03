@@ -56,6 +56,14 @@ namespace Physics {
                 float height;
             };
 
+            /// Parameters used to create a capsule shape.
+            struct Capsule {
+                Capsule(float radius, float height)
+                    : radius(radius), height(height) {}
+                float radius;
+                float height;
+            };
+
             /// The various kinds of shapes that are wrapped by %Shape.
             enum class Kind {
                 Sphere,
@@ -63,6 +71,7 @@ namespace Physics {
                 Box,
                 Cylinder,
                 Cone,
+                Capsule,
             };
 
             /// Construct a sphere shape.
@@ -94,6 +103,12 @@ namespace Physics {
              * @param params Cone specific parameters.
              */
             ENGINE_API Shape(const Cone& params);
+
+            /// Construct a capsule shape.
+            /**
+             * @param params Capsule specific parameters.
+             */
+            ENGINE_API Shape(const Capsule& params);
 
             /// Destructor
             ENGINE_API ~Shape();
@@ -134,6 +149,12 @@ namespace Physics {
              */
             ENGINE_API const Cone* GetConeData() const;
 
+            /// Get capsule data of the shape.
+            /**
+             * @return Capsule data, or nullptr if the shape is not a capsule.
+             */
+            ENGINE_API const Capsule* GetCapsuleData() const;
+
         private:
             /// Get the wrapped Bullet shape.
             /**
@@ -151,6 +172,7 @@ namespace Physics {
                 Box box;
                 Cylinder cylinder;
                 Cone cone;
+                Capsule capsule;
             };
     };
 }
