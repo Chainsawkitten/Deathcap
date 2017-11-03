@@ -45,6 +45,7 @@ Editor::Editor() {
 
     // Assign controls.
     Input()->AssignButton(InputHandler::PROFILE, InputHandler::KEYBOARD, GLFW_KEY_F2);
+    Input()->AssignButton(InputHandler::WINDOWMODE, InputHandler::KEYBOARD, GLFW_KEY_F4);
     Input()->AssignButton(InputHandler::PLAYTEST, InputHandler::KEYBOARD, GLFW_KEY_F5);
     Input()->AssignButton(InputHandler::CONTROL, InputHandler::KEYBOARD, GLFW_KEY_LEFT_CONTROL);
     Input()->AssignButton(InputHandler::NEW, InputHandler::KEYBOARD, GLFW_KEY_N);
@@ -156,10 +157,13 @@ void Editor::Show(float deltaTime) {
             resourceView.Show();
 
         // Show settings window.
-        if (settingsWindow.IsVisible()) {
+        if (settingsWindow.IsVisible())
             settingsWindow.Show();
-        }
 
+        // Show log window.
+        if (logView.IsVisible())
+            logView.Show();
+        
         // Show grid settings window.
         ShowGridSettings();
         CreateGrid(gridSettings.gridSize);
@@ -605,8 +609,8 @@ void Editor::Focus() {
 }
 
 void Editor::Play() {
-
-    Hymn().saveState = Hymn().world.GetSaveJson();
+    Hymn().hymnSaveState = Hymn().ToJson();
+    Hymn().worldSaveState = Hymn().world.GetSaveJson();
     SetVisible(false);
     resourceView.HideEditors();
 
@@ -615,7 +619,8 @@ void Editor::Play() {
 }
 
 void Editor::LoadSceneState() {
-    Hymn().world.Load(Hymn().saveState);
+    Hymn().FromJson(Hymn().hymnSaveState);
+    Hymn().world.Load(Hymn().worldSaveState);
 }
 
 void Editor::NewHymn() {

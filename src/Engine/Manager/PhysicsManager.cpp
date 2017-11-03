@@ -42,6 +42,9 @@ PhysicsManager::~PhysicsManager() {
     delete dispatcher;
     delete collisionConfiguration;
     delete broadphase;
+
+    for (auto t : triggers)
+        delete t;
 }
 
 void PhysicsManager::Update(float deltaTime) {
@@ -50,10 +53,11 @@ void PhysicsManager::Update(float deltaTime) {
             continue;
         }
 
-        rigidBodyComp->Position(rigidBodyComp->entity->position);
         dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
+        rigidBodyComp->SetPosition(rigidBodyComp->entity->GetWorldPosition());
+        rigidBodyComp->SetOrientation(rigidBodyComp->entity->GetWorldOrientation());
+        rigidBodyComp->SetMass(rigidBodyComp->GetMass());
         dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
-        rigidBodyComp->GetBulletRigidBody()->setGravity(btVector3(0, 0, 0));
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
@@ -69,10 +73,9 @@ void PhysicsManager::UpdateEntityTransforms() {
             continue;
 
         Entity* entity = rigidBodyComp->entity;
-
         auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
-        entity->position = Physics::btToGlm(trans.getOrigin());
-        entity->SetLocalOrientation(Physics::btToGlm(trans.getRotation()));
+        entity->SetWorldPosition(Physics::btToGlm(trans.getOrigin()));
+        entity->SetWorldOrientation(Physics::btToGlm(trans.getRotation()));
     }
 }
 
@@ -157,14 +160,32 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     if (node.isMember("sphere")) {
         auto sphere = node.get("sphere", {});
         auto radius = sphere.get("radius", 1.0f).asFloat();
-        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Sphere(radius)));
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Sphere(radius)));
         comp->SetShape(shape);
-    }
-    else if (node.isMember("plane")) {
+    } else if (node.isMember("plane")) {
         auto plane = node.get("plane", {});
         auto normal = Json::LoadVec3(plane.get("normal", {}));
         auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
-        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff)));
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Plane(normal, planeCoeff)));
+        comp->SetShape(shape);
+    } else if (node.isMember("box")) {
+        auto box = node.get("box", {});
+        auto width = box.get("width", 1.0f).asFloat();
+        auto height = box.get("height", 1.0f).asFloat();
+        auto depth = box.get("depth", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Box(width, height, depth)));
+        comp->SetShape(shape);
+    } else if (node.isMember("cylinder")) {
+        auto cylinder = node.get("cylinder", {});
+        auto radius = cylinder.get("radius", 1.0f).asFloat();
+        auto length = cylinder.get("length", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Cylinder(radius, length)));
+        comp->SetShape(shape);
+    } else if (node.isMember("cone")) {
+        auto cone = node.get("cone", {});
+        auto radius = cone.get("radius", 1.0f).asFloat();
+        auto height = cone.get("height", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Cone(radius, height)));
         comp->SetShape(shape);
     }
 
@@ -189,11 +210,15 @@ void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics:
     comp->SetShape(shape);
 }
 
+float PhysicsManager::GetMass(Component::RigidBody* comp) {
+    return comp->GetMass();
+}
+
 void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
     // Setting mass is only valid with a shape because it also sets inertia.
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp)
-        comp->Mass(mass);
+        comp->SetMass(mass);
 }
 
 const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {

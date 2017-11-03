@@ -21,6 +21,13 @@ namespace Physics {
      */
     glm::vec3 btToGlm(btVector3 const& vec);
 
+    /// Convert GLM quaternion to Bullet quaternion.
+    /**
+     * @param quat Quaternion to convert.
+     * @return Converted quaternion.
+     */
+    btQuaternion glmToBt(const glm::quat& quat);
+
     /// Convert Bullet quaternion to GLM quaternion.
     /**
      * @param quat Quaternion to convert.

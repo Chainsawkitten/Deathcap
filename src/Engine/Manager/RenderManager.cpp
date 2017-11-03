@@ -38,6 +38,7 @@
 #include "Util/Profiling.hpp"
 #include "Util/Json.hpp"
 #include "Util/GPUProfiling.hpp"
+#include <Utility/Log.hpp>
 
 #include "Manager/VRManager.hpp"
 #include <glm/gtc/quaternion.hpp>
@@ -84,8 +85,19 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
     }
 
     if (camera != nullptr) {
+        // Set image processing variables.
+        renderer->SetGamma(Hymn().filterSettings.gamma);
+        renderer->SetFogApply(Hymn().filterSettings.fogApply);
+        renderer->SetFogDensity(Hymn().filterSettings.fogDensity);
+        renderer->SetFogColor(Hymn().filterSettings.fogColor);
+        renderer->SetColorFilterApply(Hymn().filterSettings.colorFilterApply);
+        renderer->SetColorFilterColor(Hymn().filterSettings.colorFilterColor);
+        renderer->SetDitherApply(Hymn().filterSettings.ditherApply);
+        const bool fxaa = Hymn().filterSettings.fxaa;
+
         // Render main window.
-        if (mainWindowRenderSurface != nullptr) {
+        const glm::vec2 windowSize = MainWindow::GetInstance()->GetSize();
+        if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
                 const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
@@ -99,18 +111,20 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 }
                 }
 
-                if (soundSources || particleEmitters || lightSources || cameras || physics) {
-                    { PROFILE("Render editor entities");
-                    { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
-                    }
-                    }
-                }
-
                 { PROFILE("Render debug entities");
                 { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
                     Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
                 }
+                }
+
+                if (fxaa) {
+                    { PROFILE("Anti-aliasing(FXAA)");
+                    { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+                    { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+                        renderer->AntiAlias(mainWindowRenderSurface);
+                    }
+                    }
+                    }
                 }
 
                 { PROFILE("Render particles");
@@ -119,6 +133,13 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 }
                 }
 
+                if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                    { PROFILE("Render editor entities");
+                    { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                    }
+                    }
+                }
 
                 { PROFILE("Present to back buffer");
                 { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
@@ -157,24 +178,34 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     }
                     }
 
-                    if (soundSources || particleEmitters || lightSources || cameras || physics) {
-                        { PROFILE("Render editor entities");
-                        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
-                        }
-                        }
-                    }
-
                     { PROFILE("Render debug entities");
                     { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
                         Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
                     }
                     }
 
+                    if (fxaa) {
+                        { PROFILE("Anti-aliasing(FXAA)");
+                        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+                        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+                            renderer->AntiAlias(hmdRenderSurface);
+                        }
+                        }
+                        }
+                    }
+
                     { PROFILE("Render particles");
                     { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
                         Managers().particleManager->Render(world, position, up, projectionMatrix * lensViewMatrix, hmdRenderSurface);
                     }
+                    }
+
+                    if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                        { PROFILE("Render editor entities");
+                        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                            RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
+                        }
+                        }
                     }
 
                     hmdRenderSurface->Swap();
@@ -261,18 +292,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     renderSurface->GetShadingFrameBuffer()->Unbind();
 
     /// @todo Render skinned meshes.
-    
-    // Anti-aliasing.
-    if (Hymn().filterSettings.fxaa) {
-        { PROFILE("Anti-aliasing(FXAA)");
-        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-            renderer->AntiAlias(renderSurface);
-        }
-        }
-        }
-    }
-
 }
 
 void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources,
@@ -476,6 +495,62 @@ void RenderManager::ClearKilledComponents() {
     meshes.ClearKilled();
     pointLights.ClearKilled();
     spotLights.ClearKilled();
+}
+
+void RenderManager::SetGamma(float gamma) {
+    Hymn().filterSettings.gamma = gamma;
+}
+
+float RenderManager::GetGamma() const {
+    return Hymn().filterSettings.gamma;
+}
+
+void RenderManager::SetFogApply(bool fogApply) {
+    Hymn().filterSettings.fogApply = fogApply;
+}
+
+bool RenderManager::GetFogApply() const {
+    return Hymn().filterSettings.fogApply;
+}
+
+void RenderManager::SetFogDensity(float fogDensity) {
+    Hymn().filterSettings.fogDensity = fogDensity;
+}
+
+float RenderManager::GetFogDensity() const {
+    return Hymn().filterSettings.fogDensity;
+}
+
+void RenderManager::SetFogColor(const glm::vec3& fogColor) {
+    Hymn().filterSettings.fogColor = fogColor;
+}
+
+glm::vec3 RenderManager::GetFogColor() const {
+    return Hymn().filterSettings.fogColor;
+}
+
+void RenderManager::SetColorFilterApply(bool colorFilterApply) {
+    Hymn().filterSettings.colorFilterApply = colorFilterApply;
+}
+
+bool RenderManager::GetColorFilterApply() const {
+    return Hymn().filterSettings.colorFilterApply;
+}
+
+void RenderManager::SetColorFilterColor(const glm::vec3& colorFilterColor) {
+    Hymn().filterSettings.colorFilterColor = colorFilterColor;
+}
+
+glm::vec3 RenderManager::GetColorFilterColor() const {
+    return Hymn().filterSettings.colorFilterColor;
+}
+
+void RenderManager::SetDitherApply(bool ditherApply) {
+    Hymn().filterSettings.ditherApply = ditherApply;
+}
+
+bool RenderManager::GetDitherApply() const {
+    return Hymn().filterSettings.ditherApply;
 }
 
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
