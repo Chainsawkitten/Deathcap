@@ -96,14 +96,14 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
 
         glBindVertexArray(geometry->GetVertexArray());
 
-        // Set texture locations
+        // Set texture locations.
         glUniform1i(shaderProgram->GetUniformLocation("isSelected"), false);
         glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
         glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
         glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
         glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
 
-        // Textures
+        // Textures.
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureAlbedo->GetTextureID());
         glActiveTexture(GL_TEXTURE1);
