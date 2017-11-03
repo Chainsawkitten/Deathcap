@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "linking.hpp"
 
 namespace Video {
     class ShaderProgram;
@@ -93,6 +94,30 @@ namespace Video {
                 bool depthTesting;
             };
             
+            /// A debug drawing circle.
+            struct Circle {
+                /// The center position of the circle.
+                glm::vec3 position;
+                
+                /// The circle normal.
+                glm::vec3 normal;
+                
+                /// Radius.
+                float radius;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
             /// A debug drawing sphere.
             struct Sphere {
                 /// The center position of the sphere.
@@ -115,56 +140,63 @@ namespace Video {
             };
             
             /// Create new debug primitive renderer.
-            DebugDrawing();
+            VIDEO_API DebugDrawing();
             
             /// Destructor.
-            ~DebugDrawing();
+            VIDEO_API ~DebugDrawing();
             
             /// Start rendering debug primitives.
             /**
              * Needs to be called before DrawPoint, DrawLine or DrawCuboid.
              * @param viewProjectionMatrix The camera's view projection matrix.
              */
-            void StartDebugDrawing(const glm::mat4& viewProjectionMatrix);
+            VIDEO_API void StartDebugDrawing(const glm::mat4& viewProjectionMatrix);
             
             /// Draw a point.
             /**
              * @param point The point to draw.
              */
-            void DrawPoint(const Point& point);
+            VIDEO_API void DrawPoint(const Point& point);
             
             /// Draw a line.
             /**
              * @param line The line to draw.
              */
-            void DrawLine(const Line& line);
+            VIDEO_API void DrawLine(const Line& line);
             
             /// Draw a cuboid.
             /**
              * @param cuboid The cuboid to draw.
              */
-            void DrawCuboid(const Cuboid& cuboid);
+            VIDEO_API void DrawCuboid(const Cuboid& cuboid);
             
             /// Draw a plane.
             /**
              * @param plane The plane to draw.
              */
-            void DrawPlane(const Plane& plane);
+            VIDEO_API void DrawPlane(const Plane& plane);
+            
+            /// Draw a circle.
+            /**
+             * @param circle The circle to draw.
+             */
+            VIDEO_API void DrawCircle(const Circle& circle);
             
             /// Draw a sphere.
             /**
              * @param sphere The sphere to draw.
              */
-            void DrawSphere(const Sphere& sphere);
+            VIDEO_API void DrawSphere(const Sphere& sphere);
             
             /// Stop debug drawing.
-            void EndDebugDrawing();
+            VIDEO_API void EndDebugDrawing();
             
         private:
             DebugDrawing(const DebugDrawing & other) = delete;
             
             static void CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray);
             void BindVertexArray(GLuint vertexArray);
+            void CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             void CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             
             Video::ShaderProgram* shaderProgram;
@@ -184,6 +216,10 @@ namespace Video {
             GLuint sphereVertexBuffer;
             GLuint sphereVertexArray;
             unsigned int sphereVertexCount;
+            
+            GLuint circleVertexBuffer;
+            GLuint circleVertexArray;
+            unsigned int circleVertexCount;
             
             GLuint boundVertexArray = 0;
     };

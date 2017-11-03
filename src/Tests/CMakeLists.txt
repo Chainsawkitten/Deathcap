@@ -1,6 +1,8 @@
 set(SRCS
     engine/EntityCheck.cpp
     main.cpp
+    utility/LockBoxCheck.cpp
+    utility/LogCheck.cpp
 )
 
 set(HEADERS

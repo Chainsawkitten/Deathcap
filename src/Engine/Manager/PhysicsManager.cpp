@@ -31,6 +31,9 @@ PhysicsManager::PhysicsManager() {
 
     // Y axis up
     dynamicsWorld->setGravity(btVector3(0, -9.82, 0));
+
+    // Set the lockbox key we will use for lockboxes created in here.
+    triggerLockBoxKey.reset(new Utility::LockBox<Physics::Trigger>::Key());
 }
 
 PhysicsManager::~PhysicsManager() {
@@ -39,6 +42,9 @@ PhysicsManager::~PhysicsManager() {
     delete dispatcher;
     delete collisionConfiguration;
     delete broadphase;
+
+    for (auto t : triggers)
+        delete t;
 }
 
 void PhysicsManager::Update(float deltaTime) {
@@ -47,10 +53,11 @@ void PhysicsManager::Update(float deltaTime) {
             continue;
         }
 
-        rigidBodyComp->Position(rigidBodyComp->entity->position);
         dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
+        rigidBodyComp->SetPosition(rigidBodyComp->entity->GetWorldPosition());
+        rigidBodyComp->SetOrientation(rigidBodyComp->entity->GetWorldOrientation());
+        rigidBodyComp->SetMass(rigidBodyComp->GetMass());
         dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
-        rigidBodyComp->GetBulletRigidBody()->setGravity(btVector3(0, 0, 0));
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
@@ -66,44 +73,40 @@ void PhysicsManager::UpdateEntityTransforms() {
             continue;
 
         Entity* entity = rigidBodyComp->entity;
-
         auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
-        entity->position = Physics::btToGlm(trans.getOrigin());
-        entity->rotation = glm::eulerAngles(Physics::btToGlm(trans.getRotation()));
+        entity->SetWorldPosition(Physics::btToGlm(trans.getOrigin()));
+        entity->SetWorldOrientation(Physics::btToGlm(trans.getRotation()));
     }
 }
 
 void PhysicsManager::OnTriggerEnter(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = MakeTrigger(trigger);
+    auto t = CreateTrigger(trigger);
     // Add the callback to the trigger observer
-    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
-        observer.OnEnter(callback);
+    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+        trigger.ForObserver(object->GetBulletRigidBody(), [&callback](Physics::TriggerObserver& observer) {
+            observer.OnEnter(callback);
+        });
     });
 }
 
 void PhysicsManager::OnTriggerRetain(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = MakeTrigger(trigger);
+    auto t = CreateTrigger(trigger);
     // Add the callback to the trigger observer
-    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
-        observer.OnRetain(callback);
+    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+        trigger.ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+            observer.OnRetain(callback);
+        });
     });
 }
 
 void PhysicsManager::OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = MakeTrigger(trigger);
+    auto t = CreateTrigger(trigger);
     // Add the callback to the trigger observer
-    t->ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
-        observer.OnLeave(callback);
+    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+        trigger.ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+            observer.OnLeave(callback);
+        });
     });
-}
-
-Physics::Trigger* PhysicsManager::MakeTrigger(Component::RigidBody* comp) {
-    btTransform trans(btQuaternion(0, 0, 0, 1), ::Physics::glmToBt(comp->entity->position));
-    Physics::Trigger* trigger = new Physics::Trigger(trans);
-    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
-    trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape() : nullptr);
-    triggers.push_back(trigger);
-    return trigger;
 }
 
 Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner) {
@@ -157,14 +160,38 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     if (node.isMember("sphere")) {
         auto sphere = node.get("sphere", {});
         auto radius = sphere.get("radius", 1.0f).asFloat();
-        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Sphere(radius)));
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Sphere(radius)));
         comp->SetShape(shape);
-    }
-    else if (node.isMember("plane")) {
+    } else if (node.isMember("plane")) {
         auto plane = node.get("plane", {});
         auto normal = Json::LoadVec3(plane.get("normal", {}));
         auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();
-        auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Plane(normal, planeCoeff)));
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Plane(normal, planeCoeff)));
+        comp->SetShape(shape);
+    } else if (node.isMember("box")) {
+        auto box = node.get("box", {});
+        auto width = box.get("width", 1.0f).asFloat();
+        auto height = box.get("height", 1.0f).asFloat();
+        auto depth = box.get("depth", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Box(width, height, depth)));
+        comp->SetShape(shape);
+    } else if (node.isMember("cylinder")) {
+        auto cylinder = node.get("cylinder", {});
+        auto radius = cylinder.get("radius", 1.0f).asFloat();
+        auto length = cylinder.get("length", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Cylinder(radius, length)));
+        comp->SetShape(shape);
+    } else if (node.isMember("cone")) {
+        auto cone = node.get("cone", {});
+        auto radius = cone.get("radius", 1.0f).asFloat();
+        auto height = cone.get("height", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Cone(radius, height)));
+        comp->SetShape(shape);
+    } else if (node.isMember("capsule")) {
+        auto capsule = node.get("capsule", {});
+        auto radius = capsule.get("radius", 1.0f).asFloat();
+        auto height = capsule.get("height", 1.0f).asFloat();
+        auto shape = std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Capsule(radius, height)));
         comp->SetShape(shape);
     }
 
@@ -176,12 +203,28 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     return comp;
 }
 
+Utility::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(Component::RigidBody* comp) {
+    btTransform trans(btQuaternion(0, 0, 0, 1), ::Physics::glmToBt(comp->entity->position));
+    Physics::Trigger* trigger = new Physics::Trigger(trans);
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape() : nullptr);
+    triggers.push_back(trigger);
+    return Utility::LockBox<Physics::Trigger>(triggerLockBoxKey, trigger);
+}
+
 void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape) {
     comp->SetShape(shape);
 }
 
+float PhysicsManager::GetMass(Component::RigidBody* comp) {
+    return comp->GetMass();
+}
+
 void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
-    comp->Mass(mass);
+    // Setting mass is only valid with a shape because it also sets inertia.
+    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
+    if (shapeComp)
+        comp->SetMass(mass);
 }
 
 const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {

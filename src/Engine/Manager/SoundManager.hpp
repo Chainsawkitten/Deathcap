@@ -3,10 +3,12 @@
 #include "../Entity/ComponentContainer.hpp"
 #include <portaudio.h>
 #include "../Audio/SteamAudioInterface.hpp"
+#include "../linking.hpp"
 
 namespace Component {
-    class SoundSource;
+    class AudioMaterial;
     class Listener;
+    class SoundSource;
 }
 namespace Json {
     class Value;
@@ -21,54 +23,73 @@ class SoundManager {
         /**
          * @param err The PortAudio error number to check.
          */
-        static void CheckError(PaError err);
+        ENGINE_API static void CheckError(PaError err);
         
         /// Moves sound sources and plays sounds.
         /**
          * @param deltaTime Time since last frame.
          */
-        void Update(float deltaTime);
+        ENGINE_API void Update(float deltaTime);
         
         /// Create sound source component.
         /**
          * @return The created component.
          */
-        Component::SoundSource* CreateSoundSource();
+        ENGINE_API Component::SoundSource* CreateSoundSource();
         
         /// Create sound source component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::SoundSource* CreateSoundSource(const Json::Value& node);
+        ENGINE_API Component::SoundSource* CreateSoundSource(const Json::Value& node);
         
         /// Get all sound source components.
         /**
          * @return All sound source components.
          */
-        const std::vector<Component::SoundSource*>& GetSoundSources() const;
+        ENGINE_API const std::vector<Component::SoundSource*>& GetSoundSources() const;
         
         /// Create listener component.
         /**
          * @return The created component.
          */
-        Component::Listener* CreateListener();
+        ENGINE_API Component::Listener* CreateListener();
         
         /// Create listener component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Listener* CreateListener(const Json::Value& node);
+        ENGINE_API Component::Listener* CreateListener(const Json::Value& node);
         
         /// Get all listener components.
         /**
          * @return All listener components.
          */
-        const std::vector<Component::Listener*>& GetListeners() const;
+        ENGINE_API const std::vector<Component::Listener*>& GetListeners() const;
+
+        /// Create audio material component.
+        /**
+         * @return The created component.
+         */
+        ENGINE_API Component::AudioMaterial* CreateAudioMaterial();
+
+        /// Create audio material component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        ENGINE_API Component::AudioMaterial* CreateAudioMaterial(const Json::Value& node);
+
+        /// Get all audio material components.
+        /**
+         * @return All audio material components.
+         */
+        ENGINE_API const std::vector<Component::AudioMaterial*>& GetAudioMaterial() const;
         
         /// Remove all killed components.
-        void ClearKilledComponents();
+        ENGINE_API void ClearKilledComponents();
         
     private:
         SoundManager();
@@ -84,4 +105,5 @@ class SoundManager {
         
         ComponentContainer<Component::SoundSource> soundSources;
         ComponentContainer<Component::Listener> listeners;
+        ComponentContainer<Component::AudioMaterial> audioMaterials;
 };

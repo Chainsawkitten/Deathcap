@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "linking.hpp"
 
 struct GLFWwindow;
 class InputHandler;
@@ -17,65 +18,79 @@ class MainWindow {
          * @param title Window title.
          * @param debugContext Whether to activate OpenGL debug context.
          */
-        MainWindow(int width, int height, bool fullscreen = false, bool borderless = false, const char* title = "", bool debugContext = false);
+        ENGINE_API MainWindow(int width, int height, bool fullscreen = false, bool borderless = false, const char* title = "", bool debugContext = false);
         
         /// Destructor.
-        ~MainWindow();
+        ENGINE_API ~MainWindow();
         
         /// Get the instance of %MainWindow.
         /**
          * @return The %MainWindow instance.
          */
-        static MainWindow* GetInstance();
+        ENGINE_API static MainWindow* GetInstance();
         
         /// Initialize components.
         /**
          * @param showNotifications Whether to show debug messages of notification priority.
          */
-        void Init(bool showNotifications = false) const;
+        ENGINE_API void Init(bool showNotifications = false) const;
 
         /// Update
-        void Update();
+        ENGINE_API void Update();
         
         /// Get the size of the window.
         /**
          * @return The size of the window in pixels.
          */
-        const glm::vec2& GetSize() const;
+        ENGINE_API const glm::vec2& GetSize() const;
 
         /// Set the size of the window.
         /**
          * @param width The width of the window in pixels.
          * @param height The height of the window in pixels.
          */
-        void SetSize(int width, int height);
+        ENGINE_API void SetSize(int width, int height);
 
         /// Set window title.
         /**
          * @param title New window title.
          */
-        void SetTitle(const char* title) const;
+        ENGINE_API void SetTitle(const char* title) const;
         
         /// Get whether the window should close.
         /**
          * @return Whether the window should close
          */
-        bool ShouldClose() const;
+        ENGINE_API bool ShouldClose() const;
         
         /// Close the window.
-        void Close();
+        ENGINE_API void Close();
 
         /// Cancel the closing of the window.
-        void CancelClose();
+        ENGINE_API void CancelClose();
         
         /// Swap front- and backbuffers.
-        void SwapBuffers() const;
+        ENGINE_API void SwapBuffers() const;
         
         /// Get GLFW window.
         /**
          * @return The GLFW window struct.
          */
-        GLFWwindow* GetGLFWWindow() const;
+        ENGINE_API GLFWwindow* GetGLFWWindow() const;
+
+        /// Set window mode.
+        /**
+         * @param fullscreen Whether window should be fullscreen.
+         * @param borderless Whether window should be borderless.
+         */
+        ENGINE_API void SetWindowMode(bool fullscreen, bool borderless) const;
+
+        /// Get window mode.
+        /**
+         * @param fullscreen Get whether window is fullscreen.
+         * @param borderless Get whether window is borderless.
+         */
+        ENGINE_API void GetWindowMode(bool& fullscreen, bool& borderless) const;
         
     private:
         // Copy Constructor

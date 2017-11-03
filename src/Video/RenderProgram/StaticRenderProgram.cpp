@@ -10,6 +10,7 @@
 #include "Default3D.frag.hpp"
 #include "Zrejection.vert.hpp"
 #include "Zrejection.frag.hpp"
+#include "Shadow.vert.hpp"
 #include "../Buffer/StorageBuffer.hpp"
 #include <chrono>
 #include "Lighting/Light.hpp"
@@ -27,12 +28,35 @@ StaticRenderProgram::StaticRenderProgram() {
     fragmentShader = new Shader(ZREJECTION_FRAG, ZREJECTION_FRAG_LENGTH, GL_FRAGMENT_SHADER);
     zShaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
+
+    //Create shaders for shadowpass
+    vertexShader = new Shader(SHADOW_VERT, SHADOW_VERT_LENGTH, GL_VERTEX_SHADER);
+    shadowProgram = new ShaderProgram({ vertexShader, fragmentShader });
+    delete vertexShader;
     delete fragmentShader;
 }
 
 StaticRenderProgram::~StaticRenderProgram() {
     delete shaderProgram;
     delete zShaderProgram;
+    delete shadowProgram;
+}
+
+void Video::StaticRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
+    // Cull front faces to avoid peter panning.
+    glCullFace(GL_FRONT);
+    glViewport(0, 0, shadowWidth, shadowHeight);
+    glBindFramebuffer(GL_FRAMEBUFFER, depthFbo);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    this->shadowProgram->Use();
+
+    this->viewMatrix = viewMatrix;
+    this->projectionMatrix = projectionMatrix;
+    this->lightSpaceMatrix = projectionMatrix * viewMatrix;
+    this->viewProjectionMatrix = projectionMatrix * viewMatrix;
+    this->shadowId = shadowId;
+
+    glUniformMatrix4fv(shadowProgram->GetUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 }
 
 void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
@@ -45,13 +69,22 @@ void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm:
     glUniformMatrix4fv(zShaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix) const {
+void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
-
         glBindVertexArray(geometry->GetVertexArray());
 
         glUniformMatrix4fv(zShaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+
+        glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+    }
+}
+void Video::StaticRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 &modelMatrix) const {
+    Frustum frustum(viewProjectionMatrix * modelMatrix);
+    if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
+        glBindVertexArray(geometry->GetVertexArray());
+
+        glUniformMatrix4fv(shadowProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
@@ -67,7 +100,8 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     // Matrices.
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
-    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
+
     // Lights.
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     lightBuffer->BindBase(5);
@@ -77,7 +111,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
         float gamma = 2.2f;
         glUniform1fv(shaderProgram->GetUniformLocation("gamma"), 1, &gamma);
     }
-    
+
     {
         int fogApply = false;
         float fogDensity = 0.002f;
@@ -116,6 +150,7 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
         glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
         glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
+        glUniform1i(shaderProgram->GetUniformLocation("mapShadow"), 4);
 
         // Textures
         glActiveTexture(GL_TEXTURE0);
@@ -126,6 +161,8 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glBindTexture(GL_TEXTURE_2D, textureMetallic->GetTextureID());
         glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, textureRoughness->GetTextureID());
+        glActiveTexture(GL_TEXTURE4);
+        glBindTexture(GL_TEXTURE_2D, shadowId);
 
         // Render model.
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);

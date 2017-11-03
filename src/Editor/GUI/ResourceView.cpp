@@ -4,9 +4,11 @@
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
+#include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/MainWindow.hpp>
+#include <fstream>
 #include <imgui.h>
 #include "../ImGui/Splitter.hpp"
 #include <Engine/Manager/Managers.hpp>
@@ -16,6 +18,8 @@
 
 using namespace GUI;
 using namespace std;
+
+extern std::string DefaultScriptBody;
 
 ResourceView::ResourceView() {
     folderNameWindow.SetClosedCallback(std::bind(&ResourceView::FileNameWindowClosed, this, placeholders::_1));
@@ -41,6 +45,7 @@ void ResourceView::Show() {
     texturePressed = false;
     modelPressed = false;
     soundPressed = false;
+    audioMaterialPressed = false;
     
     ShowResourceFolder(Resources().resourceFolder, Resources().resourceFolder.name);
 
@@ -92,12 +97,13 @@ void ResourceView::Show() {
     if (folderNameWindow.IsVisible())
         folderNameWindow.Show();
     
-    if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
+    if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed || audioMaterialPressed){
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
         scriptEditor.SetVisible(scriptPressed);
         textureEditor.SetVisible(texturePressed);
         modelEditor.SetVisible(modelPressed);
         soundEditor.SetVisible(soundPressed);
+        audioMaterialEditor.SetVisible(audioMaterialPressed);
     }
     
     if (sceneEditor.IsVisible()) {
@@ -107,7 +113,7 @@ void ResourceView::Show() {
         sceneEditor.Show();
     }
     
-    if (sceneEditor.entityEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible()) {
+    if (sceneEditor.entityEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible() || audioMaterialEditor.IsVisible()) {
         editorWidth = size.x - editorWidth;
         ImGui::HorizontalSplitter(ImVec2(editorWidth, 20), size.y - 20, splitterSize, editorWidth, editorResize, sceneWidth + 20, size.x - 20);
         editorWidth = size.x - editorWidth;
@@ -126,6 +132,8 @@ void ResourceView::Show() {
         modelEditor.Show();
     if (soundEditor.IsVisible())
         soundEditor.Show();
+    if (audioMaterialEditor.IsVisible())
+        audioMaterialEditor.Show();
     
     ImGui::End();
 }
@@ -171,6 +179,7 @@ void ResourceView::HideEditors() {
     modelEditor.SetVisible(false);
     textureEditor.SetVisible(false);
     soundEditor.SetVisible(false);
+    audioMaterialEditor.SetVisible(false);
 }
 
 void ResourceView::SaveScene() const {
@@ -191,7 +200,7 @@ SceneEditor& ResourceView::GetScene() {
     return sceneEditor;
 }
 
-void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path) {
+bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path) {
     bool opened = ImGui::TreeNode(folder.name.c_str());
     
     if (ImGui::BeginPopupContextItem(folder.name.c_str())) {
@@ -203,7 +212,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add scene.
-        if (ImGui::Selectable("Add scene")) {
+        else if (ImGui::Selectable("Add scene")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::SCENE;
             resource.scene = new string("Scene #" + std::to_string(Resources().sceneNumber++));
@@ -211,7 +220,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add model.
-        if (ImGui::Selectable("Add model")) {
+        else if (ImGui::Selectable("Add model")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::MODEL;
             resource.model = new Geometry::Model();
@@ -221,7 +230,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add texture.
-        if (ImGui::Selectable("Add texture")) {
+        else if (ImGui::Selectable("Add texture")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::TEXTURE;
             string name = path + "/Texture #" + std::to_string(Resources().textureNumber++);
@@ -230,7 +239,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         }
         
         // Add script.
-        if (ImGui::Selectable("Add script")) {
+        else if (ImGui::Selectable("Add script")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::SCRIPT;
             resource.script = new ScriptFile();
@@ -238,10 +247,24 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.script->name = "Script #" + std::to_string(Hymn().scriptNumber++);
             Hymn().scripts.push_back(resource.script);
             folder.resources.push_back(resource);
+
+            // Save the file with default contents.
+            std::string filePath;
+            filePath.append(Hymn().GetPath());
+            filePath.append("/");
+            filePath.append(resource.script->path);
+            filePath.append(resource.script->name);
+            filePath.append(".as");
+            if (!FileSystem::FileExists(filePath.c_str())) {
+                std::ofstream file(filePath);
+                file << DefaultScriptBody;
+                file.close();
+            } else
+                Log() << "Warning: new script `" << filePath << "` already exists.";
         }
         
         // Add sound.
-        if (ImGui::Selectable("Add sound")) {
+        else if (ImGui::Selectable("Add sound")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::SOUND;
             resource.sound = new Audio::SoundBuffer();
@@ -249,16 +272,37 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             resource.sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
             folder.resources.push_back(resource);
         }
+
+        // Add audio material.
+        else if (ImGui::Selectable("Add audio material")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::AUDIOMATERIAL;
+            resource.audioMaterial = new Audio::AudioMaterial();
+            resource.audioMaterial->path = path + "/";
+            resource.audioMaterial->name = "Audio material #" + std::to_string(Resources().audioMaterialNumber++);
+            folder.resources.push_back(resource);
+        }
         
-        /// @todo Remove folder.
-        
+        // Remove Folder.
+        else if (folder.subfolders.empty() && folder.resources.empty()) {
+            if (ImGui::Selectable("Remove Folder")) {
+                ImGui::EndPopup();
+                if (opened)
+                    ImGui::TreePop();
+                return true;
+            }
+        }
         ImGui::EndPopup();
     }
     
     if (opened) {
         // Show subfolders.
-        for (ResourceList::ResourceFolder& subfolder : folder.subfolders) {
-            ShowResourceFolder(subfolder, path + "/" + subfolder.name);
+        for (auto it = folder.subfolders.begin(); it != folder.subfolders.end(); ++it) {
+            if (ShowResourceFolder(*it, path + "/" + it->name)) {
+                folder.subfolders.erase(it);
+                ImGui::TreePop();
+                return false;
+            }
         }
         
         // Show resources.
@@ -266,12 +310,13 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
             if (ShowResource(folder, *it, path)) {
                 folder.resources.erase(it);
                 ImGui::TreePop();
-                return;
+                return false;
             }
         }
         
         ImGui::TreePop();
     }
+    return false;
 }
 
 bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path) {
@@ -287,7 +332,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
                 savePromptWindow.SetDecision(1);
             } else {
                 // Does so that the prompt window won't show if you select active scene.
-                if (*resource.scene != Resources().activeScene) {
+                if (Resources().activeScene != path + "/" + *resource.scene) {
                     changeScene = true;
                     resourcePath = path;
                     scene = resource.scene;
@@ -299,7 +344,9 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         // Delete scene.
         if (ImGui::BeginPopupContextItem(resource.scene->c_str())) {
             if (ImGui::Selectable("Delete")) {
-                if (Resources().activeScene == *resource.scene) {
+                if (Resources().activeScene == path + "/" + *resource.scene) {
+                    Hymn().world.Clear();
+                    scene = nullptr;
                     Resources().activeScene = "";
                     sceneEditor.SetScene("", nullptr);
                 }
@@ -402,6 +449,26 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
                     soundEditor.SetVisible(false);
                 
                 Managers().resourceManager->FreeSound(resource.sound);
+                ImGui::EndPopup();
+                return true;
+            }
+            ImGui::EndPopup();
+        }
+    }
+
+    // Audio materials.
+    if (resource.type == ResourceList::Resource::AUDIOMATERIAL) {
+        if (ImGui::Selectable(resource.audioMaterial->name.c_str())) {
+            audioMaterialPressed = true;
+            audioMaterialEditor.SetAudioMaterial(resource.audioMaterial);
+        }
+
+        if (ImGui::BeginPopupContextItem(resource.audioMaterial->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (audioMaterialEditor.GetAudioMaterial() == resource.audioMaterial)
+                    audioMaterialEditor.SetVisible(false);
+
+                Managers().resourceManager->FreeAudioMaterial(resource.audioMaterial);
                 ImGui::EndPopup();
                 return true;
             }

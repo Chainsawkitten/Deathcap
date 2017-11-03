@@ -4,62 +4,63 @@
 #include <vector>
 #include <json/json.h>
 #include "Entity/World.hpp"
+#include "linking.hpp"
 
 class TextureAsset;
 class ScriptFile;
 
 /// A hymn to beauty.
 class ActiveHymn {
-    friend ActiveHymn& Hymn();
+    ENGINE_API friend ActiveHymn& Hymn();
     
     public:
         /// Clear the hymn of all properties.
-        void Clear();
+        ENGINE_API void Clear();
         
         /// Get the path where the hymn is saved.
         /**
          * @return The hymn's path.
          */
-        const std::string& GetPath() const;
+        ENGINE_API const std::string& GetPath() const;
         
         /// Set the path where the hymn is saved.
         /**
          * @param path New path.
          */
-        void SetPath(const std::string& path);
+        ENGINE_API void SetPath(const std::string& path);
 
         /// Gets the path to the hymn file.
         /**
          * @return The full path.
          */
-        std::string GetSavePath() const;
+        ENGINE_API std::string GetSavePath() const;
 
         /// Save the hymn.
-        void Save() const;
+        ENGINE_API void Save() const;
         
         /// Load a hymn.
         /**
          * @param path Path to the saved hymn.
          */
-        void Load(const std::string& path);
+        ENGINE_API void Load(const std::string& path);
 
         /// Convert the hymn to Json.
         /**
          * @return The hymn as a Json.
          */
-        Json::Value ToJson() const;
+        ENGINE_API Json::Value ToJson() const;
 
         /// Convert a Json to a Hymn.
         /**
          * @param root The Json file to load.
          */
-        void FromJson(Json::Value root);
+        ENGINE_API void FromJson(Json::Value root);
 
         /// Update the world.
         /**
          * @param deltaTime Time since last frame (in seconds).
          */
-        void Update(float deltaTime);
+        ENGINE_API void Update(float deltaTime);
         
         /// Render the world.
         /**
@@ -70,7 +71,10 @@ class ActiveHymn {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          */
-        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
+        ENGINE_API void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
+        
+        /// Scene to start when playing the hymn.
+        std::string startupScene;
         
         /// The game world.
         World world;
@@ -125,6 +129,15 @@ class ActiveHymn {
         
         /// Filter settings.
         FilterSettings filterSettings;
+
+        /// Whether to restart the hymn
+        bool restart = false;
+
+        /// Recently saved state of the hymn
+        Json::Value saveState;
+
+        /// Input scaling when playing in VR.
+        float vrScale = 1.0f;
         
     private:
         static ActiveHymn& GetInstance();
@@ -140,4 +153,4 @@ class ActiveHymn {
 /**
  * @return The %ActiveHymn instance.
  */
-ActiveHymn& Hymn();
+ENGINE_API ActiveHymn& Hymn();

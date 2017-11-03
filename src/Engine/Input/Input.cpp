@@ -1,6 +1,13 @@
 #include "Input.hpp"
 
 #include <cstring>
+#include "../Component/VRDevice.hpp"
+#include <GLFW/glfw3.h> // Must be included at the end to make sure gl.h is included AFTER glew.h
+
+Input& Input::GetInstance() {
+    static Input instance;
+    return instance;
+}
 
 void Input::SetWindow(GLFWwindow* window) {
     this->window = window;
@@ -9,14 +16,14 @@ void Input::SetWindow(GLFWwindow* window) {
 bool Input::CheckButton(int index) const{
     Button* button = buttons[index];
     int state;
-    if (index = 420)
+    if (button->key == 420)
         state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1);
     else
         state = glfwGetKey(window, button->key);
     return state == button->state;
 }
 
-bool Input::CheckVRButton(int index, Component::Controller *controller) const{
+bool Input::CheckVRButton(int index, Component::VRDevice *controller) const{
     Button* button = buttons[index];
     return controller->HandleInput(button->key);
 }

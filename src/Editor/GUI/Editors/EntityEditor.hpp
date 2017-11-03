@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <functional>
@@ -11,6 +12,7 @@
 
 namespace Component {
     class Animation;
+    class AudioMaterial;
     class Mesh;
     class Lens;
     class Material;
@@ -23,14 +25,16 @@ namespace Component {
     class Shape;
     class SoundSource;
     class ParticleEmitter;
-    class Controller;
+    class VRDevice;
 }
 
 namespace GUI {
     class IShapeEditor;
+    class RigidBodyEditor;
 
     /// Used to edit an entity.
     class EntityEditor {
+<<<<<<< HEAD
     public:
         /// Create new entity editor.
         EntityEditor();
@@ -152,6 +156,92 @@ namespace GUI {
         ResourceSelector resourceSelector;
 
         float rigidBodyMass = 1.0f;
+=======
+        public:
+            /// Create new entity editor.
+            EntityEditor();
+            
+            /// Destructor.
+            ~EntityEditor();
+            
+            /// Show the editor.
+            void Show();
+            
+            /// Set the entity to edit.
+            /**
+             * @param entity The entity to edit.
+             */
+            void SetEntity(Entity* entity);
+
+            /// Get the entity being edited
+            /**
+             * @return The Entity object being edited.
+             */
+            Entity* GetEntity();
+
+            /// Checks if the editor is showing this entity.
+            /**
+             * @param entity The entity to check.
+             * @return Is it showing.
+             */
+            bool ShowsEntity(Entity* entity);
+
+            /// Get whether the window is visible.
+            /**
+             * @return Whether the window is visible.
+             */
+            bool IsVisible() const;
+            
+            /// Set whether the window should be visible.
+            /**
+             * @param visible Whether the window should be visible.
+             */
+            void SetVisible(bool visible);
+            
+        private:
+            template<typename type> void AddEditor(const std::string& name, std::function<void(type*)> editorFunction);
+            template<typename type> void AddComponent(const std::string& name);
+            template<typename type> void EditComponent(const std::string& name, std::function<void(type*)> editorFunction);
+            
+            // Editors
+            void AnimationEditor(Component::Animation* animation);
+            void AudioMaterialEditor(Component::AudioMaterial* audioMaterial);
+            void MeshEditor(Component::Mesh* mesh);
+            void LensEditor(Component::Lens* lens);
+            void MaterialEditor(Component::Material* material);
+            void DirectionalLightEditor(Component::DirectionalLight* directionalLight);
+            void PointLightEditor(Component::PointLight* pointLight);
+            void SpotLightEditor(Component::SpotLight* spotLight);
+            void ListenerEditor(Component::Listener* listener);
+            void RigidBodyEditor(Component::RigidBody* rigidBody);
+            void ScriptEditor(Component::Script* script);
+            void ShapeEditor(Component::Shape* shape);
+            void SoundSourceEditor(Component::SoundSource* soundSource);
+            void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
+            void VRDeviceEditor(Component::VRDevice* vrDevice);
+            
+            Entity* entity = nullptr;
+            bool visible = false;
+            char name[128];
+            char stringPropertyBuffer[128];
+            
+            struct Editor {
+                std::function<void()> addFunction;
+                std::function<void()> editFunction;
+            };
+            std::vector<Editor> editors;
+            std::vector<IShapeEditor*> shapeEditors;
+            int selectedShape = -1;
+
+            std::unique_ptr<GUI::RigidBodyEditor> rigidBodyEditor;
+            
+            ResourceSelector resourceSelector;
+
+            bool albedoShow = false;
+            bool normalShow = false;
+            bool metallicShow = false;
+            bool roughnessShow = false;
+>>>>>>> 80dd1320cac99b976d2e11d30c8536373ce4eea5
     };
 }
 

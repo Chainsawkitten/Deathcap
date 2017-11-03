@@ -28,15 +28,17 @@ void ModelEditor::Show() {
 
             // Rename all the files.
             if (FileSystem::FileExists((destination + ".fbx").c_str())) {
-                FileSystem::Rename(destination + ".fbx", std::string(name) + ".fbx");
+                std::string newDestination = Hymn().GetPath() + "/" + model->path + name;
+
+                rename((destination + ".fbx").c_str(), (newDestination + ".fbx").c_str());
 
                 if (FileSystem::FileExists((destination + ".asset").c_str()))
-                    FileSystem::Rename(destination + ".asset", std::string(name) + ".asset");
+                    rename((destination + ".asset").c_str(), (newDestination + ".asset").c_str());
 
                 if (FileSystem::FileExists((destination + ".asset.meta").c_str()))
-                    FileSystem::Rename(destination + ".asset.meta", std::string(name) + ".asset.meta");
+                    rename((destination + ".asset.meta").c_str(), (newDestination + ".asset.meta").c_str());
 
-                destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+                destination = newDestination;
             }
         }
 
@@ -112,7 +114,14 @@ void ModelEditor::Show() {
                     // Create and save scene.
                     World* world = new World();
                     world->CreateRoot();
-                    Entity* entity = world->GetRoot()->AddChild(model->name);
+                    Entity* root = world->GetRoot();
+                    
+                    // Unique identifiers are based on the current time.
+                    // Since we're creating two entities at the same time, we fake that
+                    // the root was created one second ago to avoid duplicate UIDs.
+                    root->SetUniqueIdentifier(root->GetUniqueIdentifier() - 1);
+                    
+                    Entity* entity = root->AddChild(model->name);
                     
                     Component::Mesh* mesh = entity->AddComponent<Component::Mesh>();
                     mesh->geometry = model;

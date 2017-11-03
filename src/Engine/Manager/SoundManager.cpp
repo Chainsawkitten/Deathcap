@@ -3,6 +3,7 @@
 #include <Utility/Log.hpp>
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
+#include "../Component/AudioMaterial.hpp"
 #include "../Component/Listener.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Audio/SoundBuffer.hpp"
@@ -76,7 +77,8 @@ void SoundManager::Update(float deltaTime) {
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
-        if (sound->shouldPlay) {
+        // Check if sound should play and is a valid resource.
+        if (sound->shouldPlay && sound->soundBuffer && sound->soundBuffer->GetBuffer()) {
 
             float* soundBuf = new float[numSamples];
             if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
@@ -97,6 +99,9 @@ void SoundManager::Update(float deltaTime) {
                 }
             }
 
+            for (int i = 0; i < numSamples; i++) {
+                soundBuf[i] *= sound->volume;
+            }
             sAudio.Process(soundBuf, numSamples, 0, 0);
         }
 
@@ -136,8 +141,7 @@ Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node)
     if (!name.empty())
         soundSource->soundBuffer = Managers().resourceManager->CreateSound(name);
 
-    soundSource->pitch = node.get("pitch", 1.f).asFloat();
-    soundSource->gain = node.get("gain", 1.f).asFloat();
+    soundSource->volume = node.get("volume", 1.f).asFloat();
     soundSource->loop = node.get("loop", false).asBool();
 
     return soundSource;
@@ -157,6 +161,25 @@ Component::Listener* SoundManager::CreateListener(const Json::Value& node) {
 
 const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
     return listeners.GetAll();
+}
+
+Component::AudioMaterial* SoundManager::CreateAudioMaterial() {
+    return audioMaterials.Create();
+}
+
+Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& node) {
+    Component::AudioMaterial* audioMaterial = audioMaterials.Create();
+
+    // Load values from Json node.
+    std::string name = node.get("audio material", "").asString();
+    if (!name.empty())
+        audioMaterial->material = Managers().resourceManager->CreateAudioMaterial(name);
+
+    return audioMaterial;
+}
+
+const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterial() const {
+    return audioMaterials.GetAll();
 }
 
 void SoundManager::ClearKilledComponents() {

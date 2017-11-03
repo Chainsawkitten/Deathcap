@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Video {
     /// Texture to write and read from.
@@ -14,34 +15,34 @@ namespace Video {
              * @param internalFormat GL internal format, bits per channel.
              * @param type Type for pixel data.
              */
-            ReadWriteTexture(const glm::vec2& size, GLenum format, GLint internalFormat, GLenum type);
+            VIDEO_API ReadWriteTexture(const glm::vec2& size, GLenum format, GLint internalFormat, GLenum type);
             
             /// Destructor.
-            ~ReadWriteTexture();
+            VIDEO_API ~ReadWriteTexture();
 
             /// Get size of texture.
             /**
              * @return The size of texture in pixels.
              */
-            glm::vec2 GetSize() const;
+            VIDEO_API glm::vec2 GetSize() const;
 
             /// Get texture.
             /**
              * @return The texture.
              */
-            GLuint GetTexture() const;
+            VIDEO_API GLuint GetTexture() const;
 
             /// Get format.
             /**
              * @return Format of texture.
              */
-            GLenum GetFormat() const;
+            VIDEO_API GLenum GetFormat() const;
 
             /// Bind texture for reading.
             /**
              * @param binding Slot to bind texture to.
              */
-            void BindForReading(GLenum binding) const;
+            VIDEO_API void BindForReading(GLenum binding) const;
 
         private:
             static void CreateTexture(GLuint& texture, unsigned width, unsigned height, GLenum format, GLint internalFormat, GLenum type);
