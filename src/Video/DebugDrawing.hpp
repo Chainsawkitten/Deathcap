@@ -139,6 +139,30 @@ namespace Video {
                 bool depthTesting;
             };
             
+            /// A debug drawing cone.
+            struct Cone {
+                /// Radius.
+                float radius;
+                
+                /// Height.
+                float height;
+                
+                /// The matrix used to transform the cone.
+                glm::mat4 matrix;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
             /// Create new debug primitive renderer.
             VIDEO_API DebugDrawing();
             

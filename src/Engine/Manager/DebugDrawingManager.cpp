@@ -86,6 +86,18 @@ void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, con
     spheres.push_back(sphere);
 }
 
+void DebugDrawingManager::AddCone(float radius, float height, const glm::mat4& matrix, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Cone cone;
+    cone.radius = radius;
+    cone.height = height;
+    cone.matrix = matrix;
+    cone.color = color;
+    cone.lineWidth = lineWidth;
+    cone.duration = duration;
+    cone.depthTesting = depthTesting;
+    cones.push_back(cone);
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
