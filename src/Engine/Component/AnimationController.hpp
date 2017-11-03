@@ -68,5 +68,8 @@ namespace Component {
             Animation::AnimationController::AnimationAction* activeAction1 = nullptr;
             Animation::AnimationController::AnimationAction* activeAction2 = nullptr;
             Animation::AnimationController::AnimationTransition* activeTransition = nullptr;
+
+            std::vector<glm::mat4> bonesToInterpolate1;
+            std::vector<glm::mat4> bonesToInterpolate2;
     };
 }

@@ -169,32 +169,6 @@ void AnimationControllerEditor::ShowNode(Node* node) {
             }
         }
     }
-
-    if (ImGui::BeginPopup("Select float##Float")) {
-        ImGui::Text("Select float");
-
-        for (auto i = 0; i < animationController->floatMap.size(); ++i) {
-            if (ImGui::Selectable(animationController->floatMap[i]->name)) {
-
-                break;
-            }
-        }
-
-        ImGui::EndPopup();
-    }
-
-    if (ImGui::BeginPopup("Select bool##Bool")) {
-        ImGui::Text("Select bool");
-
-        for (auto i = 0; i < animationController->boolMap.size(); ++i) {
-            if (ImGui::Selectable(animationController->boolMap[i]->name)) {
-
-                break;
-            }
-        }
-
-        ImGui::EndPopup();
-    }
 }
 
 void GUI::AnimationControllerEditor::ShowValues() {
