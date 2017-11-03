@@ -154,6 +154,7 @@ target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)
+    target_compile_definitions(Engine PRIVATE MEASURE_VRAM=1)
     target_link_libraries(Engine ${DirectX11_LIBRARIES})
     target_include_directories(Engine PRIVATE ${DirectX11_INCLUDE_DIRS})
 endif()
@@ -162,7 +163,7 @@ endif()
 if(WIN32)
     find_library(PSAPI Psapi)
     if(PSAPI)
-        add_definitions(-DMEASURE_RAM)
+        target_compile_definitions(Engine PRIVATE MEASURE_RAM=1)
         target_link_libraries(Engine ${PSAPI})
     endif()
 endif()

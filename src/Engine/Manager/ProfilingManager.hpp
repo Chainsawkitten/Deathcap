@@ -7,11 +7,9 @@
 #include <Video/Profiling/Query.hpp>
 #include "../linking.hpp"
 
-#ifdef MEASURE_VRAM
 #include <d3d11_3.h>
 #include <dxgi1_4.h>
 #undef CreateDirectory
-#endif
 
 /// Handles profiling.
 class ProfilingManager {
@@ -87,6 +85,10 @@ class ProfilingManager {
          * @return The name.
          */
         ENGINE_API static std::string TypeToString(Type type);
+
+        ENGINE_API unsigned int MeasureRAM();
+
+        ENGINE_API unsigned int MeasureVRAM();
         
     private:
         ProfilingManager();

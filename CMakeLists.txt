@@ -65,8 +65,6 @@ if(WIN32)
     if(MeasureVRAM)
         set(CMAKE_MODULE_PATH "${HymnToBeauty_SOURCE_DIR}/CMake/Packages")
         find_package(DirectX11)
-        
-        add_definitions(-DMEASURE_VRAM)
     endif()
 endif()
 
