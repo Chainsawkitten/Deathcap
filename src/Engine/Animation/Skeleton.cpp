@@ -36,7 +36,7 @@ void Skeleton::Load(const std::string& name) {
     std::size_t pos = name.find_last_of('/');
     this->name = name.substr(pos + 1);
     path = name.substr(0, pos + 1);
-    std::string filePath =  (Hymn().GetPath() + "/" + name + ".asset").c_str();
+    std::string filePath = Hymn().GetPath() + "/" + name + ".asset";
 
     std::ifstream file(filePath, std::ios::binary);
 

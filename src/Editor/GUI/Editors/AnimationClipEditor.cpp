@@ -45,7 +45,7 @@ void AnimationClipEditor::SetVisible(bool visible) {
 }
 
 void GUI::AnimationClipEditor::FileSelected(const std::string& file) {
-    std::string name = FileSystem::GetName(file).c_str();
+    std::string name = FileSystem::GetName(file);
     std::string newFile = Hymn().GetPath() + "/" + animationClip->path + name + ".asset";
 
     AssetConverterSkeleton con;
