@@ -106,7 +106,10 @@ class Editor {
         bool close;
         bool savePromptAnswered;
         bool showGridSettings;
-
+        bool vertsLoaded = false;
+        bool paintModeActive = false;
+        int nrOfVertices=0;
+        int nrOfIndices=0;
         Json::Value sceneState;
         
         World cameraWorld;
@@ -114,9 +117,12 @@ class Editor {
         Entity* selectedEntity;
         MousePicking mousePicker;
         RayIntersection rayIntersector;
-        
+        Video::Geometry::VertexType::StaticVertex* vertices;
+        uint32_t* indices;
+        glm::vec3 normal;
+        float lastIntersect = INFINITY;
         double lastX = 0.0;
         double lastY = 0.0;
-        
+        glm::vec3 centroid;
         GLFWcursor* cursors[5];
 };

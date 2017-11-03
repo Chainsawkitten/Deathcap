@@ -34,6 +34,9 @@ class MousePicking {
         /// Update the view matrix and recalculates the ray.
         void Update();
 
+        // Return a vector with mouse coordinates in Normalized Device Coordinates.
+        static glm::vec2 GetNDC(double mouseX, double mouseY);
+
     private:
         // Where current ray direction points in world space.
         glm::vec3 currentRay;
@@ -50,12 +53,12 @@ class MousePicking {
         // Return a vector
         glm::vec3 CalculateRay() const;
 
-        // Return a vector with mouse coordinates in Normalized Device Coordinates.
-        static glm::vec2 GetNDC(double mouseX, double mouseY);
-
         // Convert clip space coordinates to eye coordinates.
         glm::vec4 ConvertEyeCoords(const glm::vec4& clipSpaceCoordinates) const;
 
         // Convert eye coordinates to world coordinates.
         glm::vec3 ConvertWorldCoords(const glm::vec4& eyeCoords) const;
+
+
+
 };

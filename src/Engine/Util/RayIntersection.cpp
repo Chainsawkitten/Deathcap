@@ -1,18 +1,18 @@
 #include "RayIntersection.hpp"
 
 RayIntersection::RayIntersection() {
-    
+
 }
 
 RayIntersection::~RayIntersection() {
-    
+
 }
 
 bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix, float &outputDistance) const {
 
     float tMin = -INFINITY;
     float tMax = INFINITY;
-  
+
     glm::vec3 worldPos = glm::vec3(modelMatrix[3].x, modelMatrix[3].y, modelMatrix[3].z);
     glm::vec3 delta = worldPos - rayOrigin;
 
@@ -46,15 +46,54 @@ bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirectio
             if (tMax < 0)
                 return false;
 
-        } else {
+        }
+        else {
             if (-e + minValue[i] > 0.0f || -e + maxValue[i] < 0.0f)
                 return false;
         }
     }
+
 
     if (tMin > 0)
         outputDistance = tMin;
     else
         outputDistance = tMax;
     return true;
+}
+
+bool RayIntersection::TriangleIntersect(glm::vec3 origin, glm::vec3 direction, glm::vec3 p0, glm::vec3 p1, glm::vec3 p2, float &distance) {
+
+    glm::vec3 e1, e2;
+    glm::vec3 q;
+    glm::vec3 r;
+    glm::vec3 s;
+    float epsilon = pow(10, -5);
+    float a;
+    float f;
+    float u;
+    float v;
+    float t = 0;
+    bool returnValue = false;
+
+    e1 = p1 - p0;
+    e2 = p2 - p0;
+    q = glm::cross(direction, e2);
+    a = glm::dot(e1, q);
+
+    if (a > -epsilon && a < epsilon)
+        return false;
+
+    f = 1 / a;
+    s = origin - p0;
+    u = f*(glm::dot(s, q));
+    if (u < 0.0)
+        return false;
+    r = glm::cross(s, e1);
+    v = f*(glm::dot(direction, r));
+    if (v<0.0 || u + v>1.0)
+        return false;
+    t = f*(glm::dot(e2, r));
+    distance = t;
+    returnValue = true;
+    return returnValue;
 }

@@ -32,7 +32,7 @@ Entity::Entity(World* world, const std::string& name) : name ( name ) {
 }
 
 Entity::~Entity() {
-    
+
 }
 
 Entity* Entity::GetParent() const {

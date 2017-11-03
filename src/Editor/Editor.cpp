@@ -74,7 +74,7 @@ Editor::Editor() {
     savePromptAnswered = false;
     savePromtWindow.SetTitle("Save before you quit?");
     close = false;
-    
+
     // Load settings.
     showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");
     gridSettings.gridSize = EditorSettings::GetInstance().GetLong("Grid Size");
@@ -91,13 +91,16 @@ Editor::~Editor() {
     for (int i = 0; i < 5; ++i) {
         glfwDestroyCursor(cursors[i]);
     }
+    delete[] vertices;
+    delete[] indices;
 }
 
 void Editor::Show(float deltaTime) {
     if (close) {
         if (!HasMadeChanges()) {
             savePromptAnswered = true;
-        } else {
+        }
+        else {
 
             // Ask the user whether they wish to save.
             if (Hymn().GetPath() != "") {
@@ -123,13 +126,15 @@ void Editor::Show(float deltaTime) {
                 default:
                     break;
                 }
-            } else {
+            }
+            else {
                 savePromptAnswered = true;
             }
         }
-    } else {
+    }
+    else {
         bool play = false;
-        
+
         // Main menu bar.
         ShowMainMenuBar(play);
 
@@ -154,7 +159,7 @@ void Editor::Show(float deltaTime) {
         if (settingsWindow.IsVisible()) {
             settingsWindow.Show();
         }
-        
+
         // Show grid settings window.
         ShowGridSettings();
         CreateGrid(gridSettings.gridSize);
@@ -164,10 +169,10 @@ void Editor::Show(float deltaTime) {
 
         // Select entity by clicking on it with the mouse.
         Picking();
-        
+
         // Move camera position and rotation to fixate on selected object.
         Focus();
-        
+
         // Scroll zoom.
         if (Input()->GetScrollDown()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
@@ -221,10 +226,88 @@ void Editor::Show(float deltaTime) {
     glm::mat4 currentEntityMatrix = glm::mat4();
 
     Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
-
     if (currentEntity != nullptr) {
+
         currentEntityMatrix = currentEntity->GetLocalMatrix();
 
+        // Projection matrix.
+        glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
+
+        // View matrix.
+        glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
+
+        //Load Vertices and Indices for the ray-triangle intersection test when the "paint mode" button is pressed.
+        if (currentEntity->loadPaintModeClicked && currentEntity->vertsLoaded == true) {
+
+           //delete previously loaded verts and indices
+            if (nrOfVertices > 0) {
+                delete[] vertices;
+                delete[] indices;
+                vertices = nullptr;
+                indices = nullptr;
+                nrOfVertices = 0;
+            }
+            vertices = new Video::Geometry::VertexType::StaticVertex[resourceView.GetScene().entityEditor.GetNrOfVerts()];
+            indices = new uint32_t[resourceView.GetScene().entityEditor.GetNrOfIndices()];
+
+            for (int i = 0; i < resourceView.GetScene().entityEditor.GetNrOfVerts(); i++)
+                vertices[i] = resourceView.GetScene().entityEditor.GetVertices()[i];
+
+            for (int i = 0; i < resourceView.GetScene().entityEditor.GetNrOfIndices(); i++)
+                indices[i] = resourceView.GetScene().entityEditor.GetIndices()[i];
+
+            nrOfIndices = resourceView.GetScene().entityEditor.GetNrOfIndices();
+            nrOfVertices = resourceView.GetScene().entityEditor.GetNrOfVerts();
+        }
+
+        //Ray-Triangle intersection test.
+        if (currentEntity->GetComponent<Component::Mesh>() != nullptr && currentEntity->GetComponent<Component::Mesh>()->geometry != nullptr && currentEntity->vertsLoaded) {
+            currentEntity->loadPaintModeClicked = false;
+
+            if (currentEntity->brushActive == true) {
+
+                glm::vec3 last_p0;
+                glm::vec3 last_p1;
+                glm::vec3 last_p2;
+                glm::vec3 p0;
+                glm::vec3 p1;
+                glm::vec3 p2;
+
+                mousePicker.Update();
+                mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+
+                float intersectT = INFINITY;
+
+                //Loop through each triangle and check for intersection.
+                for (int i = 0; i < resourceView.GetScene().entityEditor.GetNrOfIndices();) {
+
+                    p0 = vertices[indices[i++]].position;
+                    p1 = vertices[indices[i++]].position;
+                    p2 = vertices[indices[i++]].position;
+
+                    //Calculate intersection.
+                    if (rayIntersector.TriangleIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(), p0, p1, p2, intersectT)) {
+
+                        if (intersectT < lastIntersect && intersectT >= 0.0f) {
+                            lastIntersect = intersectT;
+                            last_p0 = p0;
+                            last_p1 = p1;
+                            last_p2 = p2;
+                        }
+                    }
+                }
+                glm::vec3 e1 = last_p1 - last_p0;
+                glm::vec3 e2 = last_p2 - last_p0;
+                normal = glm::cross(e1, e2);
+                glm::normalize(normal);
+
+                //Get mousePosition in worldspace
+                glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
+                Managers().debugDrawingManager->AddPlane(mousePos, -normal, glm::vec2(0.5, 0.5), glm::vec3(1.0, 1.0, 0.0), 10.0f, 0.0f, false);
+                lastIntersect = INFINITY;
+            }
+        }
+        //Widget Controls.
         // Change operation based on key input.
         if (Input()->Triggered(InputHandler::W))
             currentOperation = ImGuizmo::TRANSLATE;
@@ -232,12 +315,6 @@ void Editor::Show(float deltaTime) {
             currentOperation = ImGuizmo::ROTATE;
         else if (Input()->Triggered(InputHandler::R))
             currentOperation = ImGuizmo::SCALE;
-
-        // Projection matrix.
-        glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
-
-        // View matrix.
-        glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
 
         // Identity matrix.
         float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
@@ -372,7 +449,7 @@ Entity* Editor::GetCamera() const {
 
 void Editor::ShowMainMenuBar(bool& play) {
     ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
-    
+
     // Main menu bar.
     if (ImGui::BeginMainMenuBar()) {
         // File menu.
@@ -481,12 +558,12 @@ void Editor::CreateGrid(int size) {
     glm::vec2 gridWidthDepth(10.0f, 10.0f);
     gridWidthDepth.x = (gridWidthDepth.x * size);
     gridWidthDepth.y = (gridWidthDepth.y * size);
-    
+
     float xStart = (-gridWidthDepth.x / 2);
     float xEnd = (gridWidthDepth.x / 2);
     float zStart = (-gridWidthDepth.y / 2);
     float zEnd = (gridWidthDepth.y / 2);
-    
+
     if (size <= 100 && size > 0) {
         for (int i = 0; i < (size + size + 1); i++) {
             Managers().debugDrawingManager->AddLine(glm::vec3(xStart, 0.0f, -gridWidthDepth.y / (2)), glm::vec3(xStart, 0.0f, zEnd), glm::vec3(0.1f, 0.1f, 0.5f), static_cast<float>(gridSettings.lineWidth));
@@ -522,7 +599,8 @@ void Editor::ControlEditorCamera(float deltaTime) {
         if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
             cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
             cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-        } else {
+        }
+        else {
             cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
             cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
         }
@@ -553,8 +631,9 @@ void Editor::Picking() {
                             selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
                             break;
                         }
-                      
-                    } else if (intersectDistance > 0.0f) {
+
+                    }
+                    else if (intersectDistance > 0.0f) {
                         resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
                         resourceView.GetScene().entityEditor.SetVisible(true);
                         selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
@@ -570,13 +649,13 @@ void Editor::Focus() {
     if (Input()->Triggered(InputHandler::FOCUS)) {
         if (selectedEntity != nullptr) {
             glm::vec3 backward = glm::normalize(cameraEntity->position - selectedEntity->position);
-            
+
             while (glm::length(selectedEntity->position - cameraEntity->position) > 10)
                 cameraEntity->position -= backward;
-            
+
             while (glm::length(selectedEntity->position - cameraEntity->position) < 10)
                 cameraEntity->position += backward;
-            
+
             glm::vec3 camDirection = selectedEntity->position - cameraEntity->position;
             glm::normalize(camDirection);
 

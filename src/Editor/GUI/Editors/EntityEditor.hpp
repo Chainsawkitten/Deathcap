@@ -6,6 +6,8 @@
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
 #include "../ResourceSelector.hpp"
+#include <Video\Geometry\VertexType\StaticVertex.hpp>
+#include <Editor\Util\AssetConverter.hpp>
 
 namespace Component {
     class Animation;
@@ -29,84 +31,127 @@ namespace GUI {
 
     /// Used to edit an entity.
     class EntityEditor {
-        public:
-            /// Create new entity editor.
-            EntityEditor();
-            
-            /// Destructor.
-            ~EntityEditor();
-            
-            /// Show the editor.
-            void Show();
-            
-            /// Set the entity to edit.
-            /**
-             * @param entity The entity to edit.
-             */
-            void SetEntity(Entity* entity);
+    public:
+        /// Create new entity editor.
+        EntityEditor();
 
-            /// Get the entity being edited
-            /**
-             * @return The Entity object being edited.
-             */
-            Entity* GetEntity();
+        /// Destructor.
+        ~EntityEditor();
 
-            /// Checks if the editor is showing this entity.
-            /**
-             * @param entity The entity to check.
-             * @return Is it showing.
-             */
-            bool ShowsEntity(Entity* entity);
+        /// Show the editor.
+        void Show();
 
-            /// Get whether the window is visible.
-            /**
-             * @return Whether the window is visible.
-             */
-            bool IsVisible() const;
-            
-            /// Set whether the window should be visible.
-            /**
-             * @param visible Whether the window should be visible.
-             */
-            void SetVisible(bool visible);
-            
-        private:
-            template<typename type> void AddEditor(const std::string& name, std::function<void(type*)> editorFunction);
-            template<typename type> void AddComponent(const std::string& name);
-            template<typename type> void EditComponent(const std::string& name, std::function<void(type*)> editorFunction);
-            
-            // Editors
-            void AnimationEditor(Component::Animation* animation);
-            void MeshEditor(Component::Mesh* mesh);
-            void LensEditor(Component::Lens* lens);
-            void MaterialEditor(Component::Material* material);
-            void DirectionalLightEditor(Component::DirectionalLight* directionalLight);
-            void PointLightEditor(Component::PointLight* pointLight);
-            void SpotLightEditor(Component::SpotLight* spotLight);
-            void ListenerEditor(Component::Listener* listener);
-            void RigidBodyEditor(Component::RigidBody* rigidBody);
-            void ScriptEditor(Component::Script* script);
-            void ShapeEditor(Component::Shape* shape);
-            void SoundSourceEditor(Component::SoundSource* soundSource);
-            void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
-            void ControllerEditor(Component::Controller* controller);
-            
-            Entity* entity = nullptr;
-            bool visible = false;
-            char name[128];
-            char stringPropertyBuffer[128];
-            
-            struct Editor {
-                std::function<void()> addFunction;
-                std::function<void()> editFunction;
-            };
-            std::vector<Editor> editors;
-            std::vector<IShapeEditor*> shapeEditors;
-            int selectedShape = -1;
-            
-            ResourceSelector resourceSelector;
-            
-            float rigidBodyMass = 1.0f;
+        /// Set the entity to edit.
+        /**
+         * @param entity The entity to edit.
+         */
+        void SetEntity(Entity* entity);
+
+        /// Get the entity being edited
+        /**
+         * @return The Entity object being edited.
+         */
+        Entity* GetEntity();
+
+        /// Checks if the editor is showing this entity.
+        /**
+         * @param entity The entity to check.
+         * @return Is it showing.
+         */
+        bool ShowsEntity(Entity* entity);
+
+        /// Get whether the window is visible.
+        /**
+         * @return Whether the window is visible.
+         */
+        bool IsVisible() const;
+
+        /// Set whether the window should be visible.
+        /**
+         * @param visible Whether the window should be visible.
+         */
+        void SetVisible(bool visible);
+
+        /// Sets the vertex and index data.
+        /**
+        * @param the data which to set the information from.
+        */
+        void SetVertexData(Geometry::AssetFileHandler::MeshData* data);
+
+        ///Returns the vertex data.
+        /**
+        * @return The array of vertices previously loaded by the SetVertexData function.
+        */
+        Video::Geometry::VertexType::StaticVertex* GetVertices();
+       
+        ///Returns the index data.
+        /**
+        * @return The array of indices previously loaded by the SetVertexData function.
+        */
+        uint32_t* GetIndices();
+        
+        ///Returns the number of vertices.
+        /**
+        * @return The number of vertices in the array of vertices loaded by the SetVertexData function.
+        */
+        int GetNrOfVerts();
+
+        ///Returns the number of indices.
+        /**
+        * @return The number of indices in the array of indices loaded by the SetVertexData function.
+        */
+        int GetNrOfIndices();
+
+        ///Returns whether the vertex and index data has been loaded.
+        /**
+        * @return Whether vertex and index data has been loaded.
+        */
+        bool vertsLoaded = false;
+
+    private:
+        template<typename type> void AddEditor(const std::string& name, std::function<void(type*)> editorFunction);
+        template<typename type> void AddComponent(const std::string& name);
+        template<typename type> void EditComponent(const std::string& name, std::function<void(type*)> editorFunction);
+
+        //Vertex and index data
+        Entity* entity = nullptr;
+        int nrOfVerts;
+        int nrOfIndices;
+        uint32_t* indices;
+        bool isLoaded();
+        Video::Geometry::VertexType::StaticVertex* vertices;
+       
+        // Editors
+        void AnimationEditor(Component::Animation* animation);
+        void MeshEditor(Component::Mesh* mesh);
+        void LensEditor(Component::Lens* lens);
+        void MaterialEditor(Component::Material* material);
+        void DirectionalLightEditor(Component::DirectionalLight* directionalLight);
+        void PointLightEditor(Component::PointLight* pointLight);
+        void SpotLightEditor(Component::SpotLight* spotLight);
+        void ListenerEditor(Component::Listener* listener);
+        void RigidBodyEditor(Component::RigidBody* rigidBody);
+        void ScriptEditor(Component::Script* script);
+        void ShapeEditor(Component::Shape* shape);
+        void SoundSourceEditor(Component::SoundSource* soundSource);
+        void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
+        void ControllerEditor(Component::Controller* controller);
+
+        bool visible = false;
+        char name[128];
+        char stringPropertyBuffer[128];
+
+        struct Editor {
+            std::function<void()> addFunction;
+            std::function<void()> editFunction;
+        };
+        std::vector<Editor> editors;
+        std::vector<IShapeEditor*> shapeEditors;
+        int selectedShape = -1;
+
+        ResourceSelector resourceSelector;
+
+        float rigidBodyMass = 1.0f;
     };
 }
 
@@ -127,12 +172,12 @@ template<typename type> void GUI::EntityEditor::EditComponent(const std::string&
     type* component = entity->GetComponent<type>();
     if (component != nullptr && ImGui::CollapsingHeader(name.c_str())) {
         ImGui::PushID(name.c_str());
-        
+
         editorFunction(component);
-        
+
         if (ImGui::Button("Remove"))
             entity->KillComponent<type>();
-        
+
         ImGui::PopID();
     }
 }

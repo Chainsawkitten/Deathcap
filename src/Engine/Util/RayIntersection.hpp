@@ -26,4 +26,16 @@ class RayIntersection {
             Video::AxisAlignedBoundingBox meshData,
             glm::mat4 modelMatrix,
             float &outputDistance) const;
+
+        /// Checks whether a ray intersects with a triangle.
+        /**
+        * @param rayOrigin The position the ray originates from.
+        * @param rayDirection The direction the ray is shooting towards.
+        * @param p0 The first vertex of the triangle thats being tested for intersection.
+        * @param p1 The second vertex of the triangle thats being tested for intersection.
+        * @param p2 The third vertex of the triangle thats being tested for intersection.
+        *@param distance the distance from the origin to the intersection point.
+        * @return Whether or not the ray intersects with the triangle that is tested against.
+        */
+        bool TriangleIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, glm::vec3 p0, glm::vec3 p1, glm::vec3 p2, float &distance);
 };
