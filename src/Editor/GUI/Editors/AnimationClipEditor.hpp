@@ -25,8 +25,7 @@ namespace GUI {
 
             /// Set the animation clip to edit
             /**
-             * @param folder Resource folder containing the animation clip.
-             * @param model Animation clip to edit.
+             * @param animationClip Animation clip to edit.
              */
             void SetAnimationClip(Animation::AnimationClip* animationClip);
 
@@ -36,9 +35,9 @@ namespace GUI {
              */
             bool IsVisible() const;
 
-            /// Set whether the window should be visable.
+            /// Set whether the window should be visible.
             /**
-             * @param visable Whether the window should be visible.
+             * @param visible Whether the window should be visible.
              */
             void SetVisible(bool visible);
 
