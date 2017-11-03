@@ -214,6 +214,10 @@ Utility::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(Component::Rigi
 
 void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape) {
     comp->SetShape(shape);
+
+    auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
+    if (rigidBodyComp)
+        rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
 }
 
 float PhysicsManager::GetMass(Component::RigidBody* comp) {
