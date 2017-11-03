@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Constant Scene/Controller/controller_fixScene",
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
 	"audioMaterialNumber" : 0,
 	"modelNumber" : 20,
 	"resourceFolder" : 
@@ -220,6 +220,10 @@
 									},
 									{
 										"script" : "Player",
+										"type" : 4
+									},
+									{
+										"script" : "Lantern",
 										"type" : 4
 									}
 								],
