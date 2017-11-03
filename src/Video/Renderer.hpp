@@ -134,7 +134,8 @@ namespace Video {
 
             /// Begin rendering icons.
             /**
-             * /Note Needs to be called before RenderIcon.
+             * \note 
+             * Needs to be called before RenderIcon.
              * @param viewProjectionMatrix The camera's view projection matrix.
              * @param cameraPosition The camera's position.
              * @param cameraUp The camera's up vector.
@@ -143,7 +144,8 @@ namespace Video {
 
             /// Render a billboarded icon.
             /**
-             * /Note PrepareRenderingIcons must be called before.
+             * \note 
+             * PrepareRenderingIcons must be called before.
              * @param position World position to render at.
              * @param icon The icon to render.
              */
@@ -151,7 +153,8 @@ namespace Video {
 
             /// Stop rendering icons.
             /**
-             * /Note Should be called after all icons have been rendered.
+             * \note 
+             * Should be called after all icons have been rendered.
              */
             VIDEO_API void StopRenderingIcons();
 
