@@ -609,8 +609,8 @@ void Editor::Focus() {
 }
 
 void Editor::Play() {
-    Hymn().hymnSaveState = Hymn().ToJson();
-    Hymn().worldSaveState = Hymn().world.GetSaveJson();
+
+    Hymn().saveState = Hymn().world.GetSaveJson();
     SetVisible(false);
     resourceView.HideEditors();
 
@@ -619,8 +619,7 @@ void Editor::Play() {
 }
 
 void Editor::LoadSceneState() {
-    Hymn().FromJson(Hymn().hymnSaveState);
-    Hymn().world.Load(Hymn().worldSaveState);
+    Hymn().world.Load(Hymn().saveState);
 }
 
 void Editor::NewHymn() {
