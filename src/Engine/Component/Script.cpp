@@ -47,7 +47,7 @@ Json::Value Script::Save() const {
 
 void Script::AddToPropertyMap(std::string &name, int type, int size, void* data) {
 
-    if(!IsInPropertyMap(name, type))
+    if (!IsInPropertyMap(name, type))
         propertyMap[name] = new Property(type, size, data);
 
 }
@@ -78,7 +78,7 @@ bool Script::IsInPropertyMap(const std::string &name, int type) {
 /// Clears the property map.
 void Script::ClearPropertyMap() {
     
-    for(auto pair : propertyMap) 
+    for (auto pair : propertyMap) 
         delete pair.second;
 
     propertyMap.clear();
