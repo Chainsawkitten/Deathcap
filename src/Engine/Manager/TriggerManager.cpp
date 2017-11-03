@@ -2,6 +2,7 @@
 #include "PhysicsManager.hpp"
 #include "TriggerManager.hpp"
 #include "../Component/Trigger.hpp"
+#include "../Entity/Entity.hpp"
 #include "../Physics/Shape.hpp"
 #include "../Trigger/SuperTrigger.hpp"
 #include "../Trigger/TriggerRepeat.hpp"
@@ -13,6 +14,15 @@ TriggerManager::TriggerManager() {
 
 TriggerManager::~TriggerManager() {
 
+}
+
+void TriggerManager::ProcessTriggers() {
+    for (auto trigger : triggerComponents.GetAll()) {
+        if (trigger->IsKilled() || !trigger->entity->enabled)
+            continue;
+
+        trigger->m_trigger->Process();
+    }
 }
 
 Component::Trigger* TriggerManager::CreateTrigger() {

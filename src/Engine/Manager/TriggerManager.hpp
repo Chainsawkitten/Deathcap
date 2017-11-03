@@ -22,49 +22,54 @@ namespace Physics {
 class TriggerManager {
     friend class Hub;
 
-public:
-    /// Create a trigger component.
-    /**
-    * @return The created component.
-    */
-    ENGINE_API Component::Trigger* CreateTrigger();
+    public:
+        /// Iterate triggers and have them call their target scripts if
+        /// conditions are satisfied. This should be called after both the
+        /// physics- and script managers have been updated.
+        ENGINE_API void ProcessTriggers();
 
-    /// Create a trigger component from JSON definition.
-    /**
-    * @param owner The %Entity that will own the component.
-    * @param node Json node from which to load component definition.
-    * @return The created component.
-    */
-    ENGINE_API Component::Trigger* CreateTrigger(const Json::Value& node);
+        /// Create a trigger component.
+        /**
+         * @return The created component.
+         */
+        ENGINE_API Component::Trigger* CreateTrigger();
 
-    /// Add a repeating trigger to the component.
-    /**
-    * @param trigger Component to add trigger to.
-    * @param shape The physical shape of the trigger volume.
-    */
-    ENGINE_API void AddTriggerRepeat(Component::Trigger* trigger, std::shared_ptr<Physics::Shape> shape);
+        /// Create a trigger component from JSON definition.
+        /**
+         * @param owner The %Entity that will own the component.
+         * @param node Json node from which to load component definition.
+         * @return The created component.
+         */
+        ENGINE_API Component::Trigger* CreateTrigger(const Json::Value& node);
 
-    /// Get the repeat trigger of a trigger component.
-    /**
-    * @param trigger Component to access.
-    * @return The repeat trigger if present, or nullptr if something else.
-    */
-    ENGINE_API TriggerRepeat* GetTriggerRepeat(Component::Trigger& trigger);
+        /// Add a repeating trigger to the component.
+        /**
+         * @param trigger Component to add trigger to.
+         * @param shape The physical shape of the trigger volume.
+         */
+        ENGINE_API void AddTriggerRepeat(Component::Trigger* trigger, std::shared_ptr<Physics::Shape> shape);
 
-    /// Get all trigger components.
-    /**
-    * @return All trigger components.
-    */
-    ENGINE_API const std::vector<Component::Trigger*>& GetTriggerComponents() const;
+        /// Get the repeat trigger of a trigger component.
+        /**
+         * @param trigger Component to access.
+         * @return The repeat trigger if present, or nullptr if something else.
+         */
+        ENGINE_API TriggerRepeat* GetTriggerRepeat(Component::Trigger& trigger);
 
-    /// Remove all killed components.
-    void ClearKilledComponents();
+        /// Get all trigger components.
+        /**
+         * @return All trigger components.
+         */
+        ENGINE_API const std::vector<Component::Trigger*>& GetTriggerComponents() const;
 
-private:
-    TriggerManager();
-    ~TriggerManager();
-    TriggerManager(const TriggerManager&) = delete;
-    void operator=(const TriggerManager&) = delete;
+        /// Remove all killed components.
+        void ClearKilledComponents();
 
-    ComponentContainer<Component::Trigger> triggerComponents;
+    private:
+        TriggerManager();
+        ~TriggerManager();
+        TriggerManager(const TriggerManager&) = delete;
+        void operator=(const TriggerManager&) = delete;
+
+        ComponentContainer<Component::Trigger> triggerComponents;
 };

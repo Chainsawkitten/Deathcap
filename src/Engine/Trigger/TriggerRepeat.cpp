@@ -5,6 +5,7 @@
 #include "../Entity/Entity.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/PhysicsManager.hpp"
+#include "../Manager/ScriptManager.hpp"
 
 TriggerRepeat::TriggerRepeat() {
 
@@ -107,4 +108,12 @@ void TriggerRepeat::HandleTriggerEvent() {
 
 std::vector<EventStruct> *TriggerRepeat::GetEventVector() {
     return &eventVector;
+}
+
+void TriggerRepeat::Process() {
+    // ADD SUPPORT FOR VECTOR
+    if (triggered) {
+        Managers().scriptManager->ExecuteScriptMethod(targetEntity.front(), targetFunction.front());
+        triggered = false;
+    }
 }
