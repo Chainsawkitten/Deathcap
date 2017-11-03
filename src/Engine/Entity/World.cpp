@@ -85,8 +85,17 @@ Video::ParticleRenderer::Particle* World::GetParticles() const {
     return particles;
 }
 
+ENGINE_API unsigned int World::GetNrOfParticleSystems() const {
+
+    return nr_particle_sytems;
+}
+
 unsigned int World::GetParticleCount() const {
     return particleCount;
+}
+
+ENGINE_API void World::SetNrOfParticleSystems(unsigned int nrof_particleSystems) {
+    this->nr_particle_sytems = nrof_particleSystems;
 }
 
 void World::SetParticleCount(unsigned int particleCount) {

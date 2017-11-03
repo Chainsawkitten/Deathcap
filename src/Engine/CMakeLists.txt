@@ -26,6 +26,7 @@ set(SRCS
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
         Component/VRDevice.cpp
+        Component/ParticleSystem.cpp
         Entity/Entity.cpp
         Entity/World.cpp
         Geometry/Animation.cpp
@@ -87,6 +88,7 @@ set(HEADERS
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
         Component/VRDevice.hpp
+        Component/ParticleSystem.hpp
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp

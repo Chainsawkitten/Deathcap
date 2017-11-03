@@ -80,7 +80,6 @@ void ParticleRenderer::Render(Texture* textureAtlas, unsigned int textureAtlasRo
     shaderProgram->Use();
     
     glBindVertexArray(vertexArray);
-    
     glUniform1i(shaderProgram->GetUniformLocation("baseImage"), 0);
     
     // Base image texture

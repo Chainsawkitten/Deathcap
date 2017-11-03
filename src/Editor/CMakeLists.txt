@@ -26,6 +26,7 @@ set(SRCS
         GUI/Editors/SoundEditor.cpp
         GUI/Editors/SphereShapeEditor.cpp
         GUI/Editors/TextureEditor.cpp
+        GUI/Editors/CurveEditor.cpp
         Util/AssetConverter.cpp
         Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
@@ -58,6 +59,7 @@ set(HEADERS
         GUI/Editors/SoundEditor.hpp
         GUI/Editors/SphereShapeEditor.hpp
         GUI/Editors/TextureEditor.hpp
+        GUI/Editors/CurveEditor.hpp
         Util/AssetConverter.hpp
         Util/AssetMetaData.hpp
         Util/EditorSettings.hpp

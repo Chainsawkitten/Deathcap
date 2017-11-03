@@ -36,6 +36,7 @@
 #include <imgui_internal.h>
 #include "PlaneShapeEditor.hpp"
 #include "SphereShapeEditor.hpp"
+#include "Editor\GUI\Editors\CurveEditor.hpp"
 
 namespace Physics {
     class Shape;
@@ -64,6 +65,8 @@ EntityEditor::EntityEditor() {
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
     selectedShape = 0;
+
+    curveEditor.SetVisible(false);
 }
 
 EntityEditor::~EntityEditor() {
@@ -73,6 +76,7 @@ EntityEditor::~EntityEditor() {
 }
 
 void EntityEditor::Show() {
+
     if (ImGui::Begin(("Entity: " + entity->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(entity))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
         entity->name = name;
@@ -139,6 +143,10 @@ void EntityEditor::Show() {
     }
 
     ImGui::End();
+
+    // Show external editors.
+    if (curveEditor.IsVisible())
+        curveEditor.Show();
 }
 
 void EntityEditor::SetEntity(Entity* entity) {
@@ -537,30 +545,13 @@ void GUI::EntityEditor::ParticleSystemEditor(Component::ParticleSystemComponent*
     float row = static_cast<float>(particleSystem->particleType.textureIndex / rows);
     ImGui::Image((void*)Managers().particleManager->GetTextureAtlas()->GetTextureID(), ImVec2(128, 128), ImVec2(column / rows, row / rows), ImVec2((column + 1.f) / rows, (row + 1.f) / rows));
     ImGui::InputInt("Texture index", &particleSystem->particleType.textureIndex);
-    ImGui::ColorEdit3("Color", &particleSystem->particleType.color[0]);
-    ImGui::DraggableVec3("Min velocity", particleSystem->particleType.minVelocity);
-    ImGui::DraggableVec3("Max velocity", particleSystem->particleType.maxVelocity);
-    ImGui::DraggableFloat("Average lifetime", particleSystem->particleType.averageLifetime, 0.0f);
-    ImGui::DraggableFloat("Lifetime variance", particleSystem->particleType.lifetimeVariance, 0.0f);
-    ImGui::DraggableVec2("Average size", particleSystem->particleType.averageSize, 0.0f);
-    ImGui::DraggableVec2("Size variance", particleSystem->particleType.sizeVariance, 0.0f);
-    ImGui::Checkbox("Uniform scaling", &particleSystem->particleType.uniformScaling);
-    ImGui::DraggableFloat("Start alpha", particleSystem->particleType.startAlpha, 0.0f, 1.0f);
-    ImGui::DraggableFloat("Mid alpha", particleSystem->particleType.midAlpha, 0.0f, 1.0f);
-    ImGui::DraggableFloat("End alpha", particleSystem->particleType.endAlpha, 0.0f, 1.0f);
-    ImGui::Unindent();
 
-    ImGui::Text("Emitter");
-    ImGui::Indent();
-    ImGui::DraggableFloat("Average emit time", particleSystem->averageEmitTime, 0.001f);
-    ImGui::DraggableFloat("Emit time variance", particleSystem->emitTimeVariance, 0.0f);
+    if (ImGui::Button("Curve editor")) {
+        curveEditor.SetVisible(!curveEditor.IsVisible());
+    }
 
     ImGui::Unindent();
 
-    ImGui::Text("Preview");
-    ImGui::Indent();
-    ImGui::Checkbox("Simulate", &particleSystem->preview);
-    ImGui::Unindent();
 }
 
 void EntityEditor::VRDeviceEditor(Component::VRDevice* vrDevice) {

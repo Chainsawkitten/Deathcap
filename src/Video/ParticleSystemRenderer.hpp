@@ -26,9 +26,39 @@ struct ParticleVelocity
 
 namespace Video
 {
+    class Texture;
+
     class ParticleSystemRenderer
     {
     public:
+        struct EmitterSettings {
+            /// Position.
+            glm::vec3 worldPos;
+
+            /// Size.
+            glm::vec2 size;
+
+            /// Life (in seconds).
+            float life;
+
+            /// Lifetime (in seconds).
+            float lifetime;
+
+            /// Initial velocity.
+            glm::vec3 velocity;
+
+            /// Start, mid and end of life alpha of particle.
+            glm::vec3 alpha;
+
+            /// Color of the particle.
+            glm::vec3 color;
+
+            /// Texture index (for the texture atlas, left to right, top to bottom indexing)
+            float textureIndex;
+        };
+
+        EmitterSettings emitterSettings;
+
         VIDEO_API ParticleSystemRenderer();
         VIDEO_API ParticleSystemRenderer(int count);
         VIDEO_API ~ParticleSystemRenderer();
@@ -38,10 +68,10 @@ namespace Video
         VIDEO_API void CreateStorageBuffers();
 
         //Particles are sent to the compute shader and we compute there the new positions/velocities.
-        VIDEO_API void Update(float dt);
+        VIDEO_API void Update(float dt, EmitterSettings settings);
 
         //Render the particles.
-        VIDEO_API void Draw(GLuint programID, const glm::mat4& viewProjectionMatrix);
+        VIDEO_API void Draw(Texture* textureAtlas, unsigned int textureAtlasRows , const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
 
     private:
         VIDEO_API void InitRender(const ParticlePos* particlesPos, const ParticleVelocity* particlesVelocity);

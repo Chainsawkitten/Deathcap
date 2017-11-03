@@ -242,7 +242,8 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
 
     // Particles
-    Managers().particleManager->Render(world, glm::vec3(viewMatrix[3][0], viewMatrix[3][1], viewMatrix[3][2]), glm::vec3(0, 1, 0), viewProjectionMatrix);
+    //Managers().particleManager->Render(world, glm::vec3(viewMatrix[3][0], viewMatrix[3][1], viewMatrix[3][2]), glm::vec3(0, 1, 0), viewProjectionMatrix);
+    Managers().particleManager->RenderParticleSystem(world, viewProjectionMatrix);
 
     renderSurface->GetShadingFrameBuffer()->Unbind();
 

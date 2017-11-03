@@ -11,7 +11,6 @@
 #include <Video/Texture/Texture2D.hpp>
 #include "ParticleAtlas.png.hpp"
 #include <Video/ParticleRenderer.hpp>
-#include <Video/ParticleSystemRenderer.hpp>
 #include "../Util/Json.hpp"
 #include <Utility/Log.hpp>
 
@@ -23,7 +22,6 @@ ParticleManager::ParticleManager() {
     textureAtlas = Managers().resourceManager->CreateTexture2D(PARTICLEATLAS_PNG, PARTICLEATLAS_PNG_LENGTH);
     
     particleRenderer = new ParticleRenderer(maxParticleCount);
-    particleSystemRenderer = new ParticleSystemRenderer();
 }
 
 ParticleManager::~ParticleManager() {
@@ -44,6 +42,14 @@ void ParticleManager::Update(World& world, float time, bool preview) {
             world.GetParticles()[i--] = world.GetParticles()[world.GetParticleCount() - 1];
             world.SetParticleCount(world.GetParticleCount() - 1);
         }
+    }
+
+    for (Component::ParticleSystemComponent* particleSystem : particleSystems.GetAll()) {
+        UpdateParticleSystem(world, particleSystem);
+    }
+
+    for (unsigned int i = 0; i < world.GetNrOfParticleSystems(); ++i) {
+        particleSystemRenderers[i].Update(0.1f, emitterSettings[i]);
     }
     
     // Spawn new particles from emitters.
@@ -68,6 +74,22 @@ void ParticleManager::Render(World& world, const glm::vec3& position, const glm:
     particleRenderer->Render(textureAtlas, textureAtlasRowNumber, position, up, viewProjectionMatrix);
 }
 
+void ParticleManager::UpdateParticleSystem(World& world, Component::ParticleSystemComponent* particleSystem) {
+    for (unsigned int i = 0; i < world.GetNrOfParticleSystems(); ++i) {
+        emitterSettings[i].textureIndex = particleSystem->particleType.textureIndex;
+    }
+}
+
+void ParticleManager::RenderParticleSystem(World & world, const glm::mat4& viewProjectionMatrix) {
+
+    if (world.GetNrOfParticleSystems() > 0) {
+        for (unsigned int i = 0; i < world.GetNrOfParticleSystems(); i++) {
+            particleSystemRenderers[i].Draw(textureAtlas, textureAtlasRowNumber, viewProjectionMatrix, emitterSettings[i]);
+        }
+    }
+
+}
+
 const Texture2D* ParticleManager::GetTextureAtlas() const {
     return textureAtlas;
 }
@@ -80,7 +102,14 @@ Component::ParticleEmitter* ParticleManager::CreateParticleEmitter() {
     return particleEmitters.Create();
 }
 
-Component::ParticleSystemComponent* ParticleManager::CreateParticleSystem() {
+Component::ParticleSystemComponent* ParticleManager::CreateAParticleSystem(World * world) {
+    ParticleSystemRenderer PS_Renderer;
+    ParticleSystemRenderer::EmitterSettings setting;
+    emitterSettings.push_back(setting);
+    particleSystemRenderers.push_back(PS_Renderer);
+    particleSystemRenderers[world->GetNrOfParticleSystems()].Init();
+    particleSystemRenderers[world->GetNrOfParticleSystems()].CreateStorageBuffers();
+    world->SetNrOfParticleSystems(world->GetNrOfParticleSystems() + 1);
     return particleSystems.Create();
 }
 

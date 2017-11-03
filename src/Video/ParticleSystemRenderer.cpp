@@ -4,11 +4,7 @@
 #include "DefaultParticleShader.vert.hpp"
 #include "DefaultParticleShader.geom.hpp"
 #include "DefaultParticleShader.frag.hpp"
-
-GLuint shootIndex;
-GLuint rateUni;
-GLuint timerUni;
-GLuint velocityUni;
+#include "Texture/Texture.hpp"
 
 using namespace Video;
 
@@ -47,11 +43,6 @@ void ParticleSystemRenderer::Init()
     Video::Shader* computeShader = new Video::Shader(COMPUTEPARTICLESHADER_COMP, COMPUTEPARTICLESHADER_COMP_LENGTH, GL_COMPUTE_SHADER);
     computeShaderProgram = new Video::ShaderProgram({computeShader});
     delete computeShader;
-
-    shootIndex = computeShaderProgram->GetUniformLocation("ShootIndex");
-    timerUni = computeShaderProgram->GetUniformLocation("timer");
-    rateUni = computeShaderProgram->GetUniformLocation("rate");
-    velocityUni = computeShaderProgram->GetUniformLocation("InitVel");
 }
 
 void ParticleSystemRenderer::CreateStorageBuffers()
@@ -100,16 +91,12 @@ void ParticleSystemRenderer::CreateStorageBuffers()
 
 }
 
-void ParticleSystemRenderer::Update(float dt)
+void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSettings settings)
 {
     glm::vec3 InitVeloc = glm::vec3(5 * (rand() % 10) - 5, 5 * (rand() % 10) - 5, 0);
     timer += dt;
 
     computeShaderProgram->Use();
-    glUniform2fv(shootIndex, 1, &this->particleShootIndex[0]);
-    glUniform1f(rateUni, rate);
-    glUniform1f(timerUni, timer);
-    glUniform3fv(velocityUni, 1, &InitVeloc[0]);
 
     glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 0, posSSbo, 0, nr_particles * sizeof(ParticlePos));
     glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 1, velSSbo, 0, nr_particles * sizeof(ParticlePos));
@@ -133,20 +120,36 @@ void ParticleSystemRenderer::Update(float dt)
     }
 }
 
-void ParticleSystemRenderer::Draw(GLuint programID, const glm::mat4& viewProjectionMatrix)
+void ParticleSystemRenderer::Draw(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings)
 {
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
+    // Blending
+    glEnablei(GL_BLEND, 0);
+    glEnablei(GL_BLEND, 1);
+    glBlendFunci(0, GL_SRC_ALPHA, GL_ONE);
+    glBlendFunci(1, GL_SRC_ALPHA, GL_ONE);
     shaderProgram->Use();
+    glBindVertexArray(m_glDrawVAO);
 
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjectionMatrix"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniform1i(shaderProgram->GetUniformLocation("baseImage"), 0);
+    glUniform1f(shaderProgram->GetUniformLocation("textureIndex"), settings.textureIndex);
 
-    glBindVertexArray(m_glDrawVAO);
+    // Base image texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureAtlas->GetTextureID());
+
+    // Send the texture to shader.
+    glUniform1f(shaderProgram->GetUniformLocation("textureAtlasRows"), textureAtlasRows);
+
     glDrawArrays(GL_POINTS, 0, nr_particles);
+
+    glDisablei(GL_BLEND, 0);
+    glDisablei(GL_BLEND, 1);
 
     //Cleanup
     //glDisableClientState(GL_VERTEX_ARRAY);
     glBindVertexArray(0);
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_DEPTH_TEST);
+
 }

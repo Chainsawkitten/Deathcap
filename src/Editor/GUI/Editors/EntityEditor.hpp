@@ -6,6 +6,7 @@
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
 #include "../ResourceSelector.hpp"
+#include "Editor/GUI/Editors/CurveEditor.hpp"
 
 namespace Component {
     class Animation;
@@ -114,6 +115,8 @@ namespace GUI {
             bool normalShow = false;
             bool metallicShow = false;
             bool roughnessShow = false;
+
+            CurveEditor curveEditor;
     };
 }
 

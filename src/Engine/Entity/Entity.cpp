@@ -317,7 +317,7 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
     else if (componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter();
     else if (componentType == typeid(Component::ParticleSystemComponent*))
-        component = Managers().particleManager->CreateParticleSystem();
+        component = Managers().particleManager->CreateAParticleSystem(world);
     else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight();
     else if (componentType == typeid(Component::RigidBody*))
@@ -380,7 +380,7 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
     else if (componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter(node);
     else if (componentType == typeid(Component::ParticleSystemComponent*))
-        component = Managers().particleManager->CreateParticleSystem();
+        component = Managers().particleManager->CreateParticleSystem(world);
     else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight(node);
     else if (componentType == typeid(Component::RigidBody*))

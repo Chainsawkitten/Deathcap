@@ -70,12 +70,24 @@ class World {
          * @return Array of all the particles in the world.
          */
         ENGINE_API Video::ParticleRenderer::Particle* GetParticles() const;
+
+        /// Get number of particle systems in the world.
+        /**
+        * @return unsigned int of number of particle systems in the world.
+        */
+        ENGINE_API unsigned int GetNrOfParticleSystems() const;
         
         /// Get the number of particles in the world.
         /**
          * @return The number of particles in the world.
          */
         ENGINE_API unsigned int GetParticleCount() const;
+
+        /// Get number of particle systems in the world.
+        /**
+        * @sets unsigned int of number of particle systems in the world.
+        */
+        ENGINE_API void SetNrOfParticleSystems(unsigned int nrof_particleSystems);
         
         /// Set the number of particles in the world.
         /**
@@ -114,6 +126,9 @@ class World {
         // List of all entities in this world.
         std::vector<Entity*> entities;
         Entity* root = nullptr;
+
+        // Number of particle systems.
+        unsigned int nr_particle_sytems;
                 
         // All particles in the world.
         Video::ParticleRenderer::Particle* particles;

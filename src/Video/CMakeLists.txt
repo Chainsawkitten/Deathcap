@@ -4,7 +4,7 @@ set(SRCS
         Buffer/StorageBuffer.cpp
         DebugDrawing.cpp  
         ParticleRenderer.cpp
-	ParticleSystem.cpp
+        ParticleSystemRenderer.cpp
         Renderer.cpp
         RenderSurface.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -33,7 +33,7 @@ set(HEADERS
         DebugDrawing.hpp
         ErrorVideoDebug.hpp
         ParticleRenderer.hpp
-	ParticleSystem.hpp
+        ParticleSystemRenderer.hpp
         Renderer.hpp
         RenderSurface.hpp
         Culling/AxisAlignedBoundingBox.hpp
