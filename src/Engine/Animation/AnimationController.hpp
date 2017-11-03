@@ -26,7 +26,7 @@ namespace Animation {
                 char animationClipName[512];
                 float playbackModifier = 1.0f;
                 bool repeat = true;
-                Animation::AnimationClip * animationClip = nullptr;
+                Animation::AnimationClip* animationClip = nullptr;
 
                 virtual ~AnimationAction() {
                     if (animationClip != nullptr)
