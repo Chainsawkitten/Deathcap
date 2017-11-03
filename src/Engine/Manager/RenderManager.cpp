@@ -90,15 +90,26 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
     if (camera != nullptr) {
         // Render main window.
-        if (mainWindowRenderSurface != nullptr) {
-            {
-                PROFILE("Render main window");
-                {
-                    GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-                    const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
-                    const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
-                    const glm::vec3 position = camera->GetWorldPosition();
-                    const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+        const glm::vec2 windowSize = MainWindow::GetInstance()->GetSize();
+        if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
+            { PROFILE("Render main window");
+            { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
+                const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
+                const glm::vec3 position = camera->GetWorldPosition();
+                const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+
+                { PROFILE("Render world entities");
+                { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
+                    RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                }
+                }
+
+                { PROFILE("Render debug entities");
+                { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                    Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                }
+                }
 
                     {
                         PROFILE("Render world entities");
