@@ -40,7 +40,7 @@ uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
 uniform sampler2D mapShadow;
 uniform mat4 inverseProjectionMatrix;
-// Imgae processing uniforms.
+// Image processing uniforms.
 uniform bool isSelected;
 uniform float gamma;
 uniform bool fogApply;
