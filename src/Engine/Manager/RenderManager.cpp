@@ -345,6 +345,9 @@ void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool p
             }
             else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
                 Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+            } else if (shape.GetKind() == ::Physics::Shape::Kind::Box) {
+                glm::vec3 dimensions(shape.GetBoxData()->width, shape.GetBoxData()->height, shape.GetBoxData()->depth);
+                Managers().debugDrawingManager->AddCuboid(dimensions, shapeComp->entity->GetModelMatrix(), glm::vec3(1.0f, 1.0f, 1.0f));
             }
         }
     }
