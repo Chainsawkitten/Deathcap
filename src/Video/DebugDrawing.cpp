@@ -50,8 +50,8 @@ DebugDrawing::DebugDrawing() {
     box[14] = glm::vec3(-0.5f, 0.5f, 0.5f);
     box[15] = glm::vec3(-0.5f, -0.5f, 0.5f);
     box[16] = glm::vec3(-0.5f, 0.5f, -0.5f);
-    box[17] = glm::vec3(-0.5f, 0.5f, -0.5f);
-    box[18] = glm::vec3(-0.5f, 0.5f, 0.5f);
+    box[17] = glm::vec3(-0.5f, -0.5f, -0.5f);
+    box[18] = glm::vec3(-0.5f, -0.5f, 0.5f);
     box[19] = glm::vec3(-0.5f, -0.5f, -0.5f);
     box[20] = glm::vec3(-0.5f, 0.5f, 0.5f);
     box[21] = glm::vec3(0.5f, 0.5f, 0.5f);
