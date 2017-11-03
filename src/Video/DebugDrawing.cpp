@@ -33,30 +33,30 @@ DebugDrawing::DebugDrawing() {
     
     // Create cuboid vertex array.
     glm::vec3 box[24];
-    box[0] = glm::vec3(0.f, 0.f, 0.f);
-    box[1] = glm::vec3(1.f, 0.f, 0.f);
-    box[2] = glm::vec3(1.f, 0.f, 0.f);
-    box[3] = glm::vec3(1.f, 1.f, 0.f);
-    box[4] = glm::vec3(1.f, 1.f, 0.f);
-    box[5] = glm::vec3(0.f, 1.f, 0.f);
-    box[6] = glm::vec3(1.f, 1.f, 0.f);
-    box[7] = glm::vec3(1.f, 1.f, 1.f);
-    box[8] = glm::vec3(1.f, 1.f, 1.f);
-    box[9] = glm::vec3(1.f, 0.f, 1.f);
-    box[10] = glm::vec3(1.f, 0.f, 1.f);
-    box[11] = glm::vec3(1.f, 0.f, 0.f);
-    box[12] = glm::vec3(0.f, 1.f, 0.f);
-    box[13] = glm::vec3(0.f, 1.f, 1.f);
-    box[14] = glm::vec3(0.f, 1.f, 1.f);
-    box[15] = glm::vec3(0.f, 0.f, 1.f);
-    box[16] = glm::vec3(0.f, 1.f, 0.f);
-    box[17] = glm::vec3(0.f, 0.f, 0.f);
-    box[18] = glm::vec3(0.f, 0.f, 1.f);
-    box[19] = glm::vec3(0.f, 0.f, 0.f);
-    box[20] = glm::vec3(0.f, 1.f, 1.f);
-    box[21] = glm::vec3(1.f, 1.f, 1.f);
-    box[22] = glm::vec3(0.f, 0.f, 1.f);
-    box[23] = glm::vec3(1.f, 0.f, 1.f);
+    box[0] = glm::vec3(-0.5f, -0.5f, -0.5f);
+    box[1] = glm::vec3(0.5f, -0.5f, -0.5f);
+    box[2] = glm::vec3(0.5f, -0.5f, -0.5f);
+    box[3] = glm::vec3(0.5f, 0.5f, -0.5f);
+    box[4] = glm::vec3(0.5f, 0.5f, -0.5f);
+    box[5] = glm::vec3(-0.5f, 0.5f, -0.5f);
+    box[6] = glm::vec3(0.5f, 0.5f, -0.5f);
+    box[7] = glm::vec3(0.5f, 0.5f, 0.5f);
+    box[8] = glm::vec3(0.5f, 0.5f, 0.5f);
+    box[9] = glm::vec3(0.5f, -0.5f, 0.5f);
+    box[10] = glm::vec3(0.5f, -0.5f, 0.5f);
+    box[11] = glm::vec3(0.5f, -0.5f, -0.5f);
+    box[12] = glm::vec3(-0.5f, 0.5f, -0.5f);
+    box[13] = glm::vec3(-0.5f, 0.5f, 0.5f);
+    box[14] = glm::vec3(-0.5f, 0.5f, 0.5f);
+    box[15] = glm::vec3(-0.5f, -0.5f, 0.5f);
+    box[16] = glm::vec3(-0.5f, 0.5f, -0.5f);
+    box[17] = glm::vec3(-0.5f, -0.5f, -0.5f);
+    box[18] = glm::vec3(-0.5f, -0.5f, 0.5f);
+    box[19] = glm::vec3(-0.5f, -0.5f, -0.5f);
+    box[20] = glm::vec3(-0.5f, 0.5f, 0.5f);
+    box[21] = glm::vec3(0.5f, 0.5f, 0.5f);
+    box[22] = glm::vec3(-0.5f, -0.5f, 0.5f);
+    box[23] = glm::vec3(0.5f, -0.5f, 0.5f);
     
     CreateVertexArray(box, 24, cuboidVertexBuffer, cuboidVertexArray);
     
@@ -140,7 +140,7 @@ void DebugDrawing::DrawLine(const Line& line) {
 void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
     BindVertexArray(cuboidVertexArray);
     
-    glm::mat4 model(glm::translate(glm::mat4(), cuboid.minCoordinates) * glm::scale(glm::mat4(), cuboid.maxCoordinates - cuboid.minCoordinates));
+    glm::mat4 model(cuboid.matrix * glm::scale(glm::mat4(), cuboid.dimensions));
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
     cuboid.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
