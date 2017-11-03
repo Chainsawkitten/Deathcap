@@ -25,7 +25,6 @@
 #include "../Component/RigidBody.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/SpotLight.hpp"
-#include "../Component/Mesh.hpp"
 #include "../Component/VRDevice.hpp"
 #include "../Input/Input.hpp"
 #include "../Script/ScriptFile.hpp"
@@ -35,7 +34,7 @@
 #include "DebugDrawingManager.hpp"
 #include "PhysicsManager.hpp"
 #include "ResourceManager.hpp"
-#include "RenderManager.hpp"
+#include "Component/Mesh.hpp"
 
 using namespace Component;
 
@@ -341,6 +340,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectProperty("Entity", "quat rotation", asOFFSET(Entity, rotation));
     engine->RegisterObjectProperty("Entity", "vec3 position", asOFFSET(Entity, position));
     engine->RegisterObjectProperty("Entity", "vec3 scale", asOFFSET(Entity, scale));
+    engine->RegisterObjectMethod("Entity", "vec3 GetWorldPosition() const", asMETHOD(Entity, GetWorldPosition), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
@@ -412,23 +412,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddCircle(const vec3 &in, const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCircle), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddSphere(const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddSphere), asCALL_THISCALL);
     
-    engine->RegisterObjectType("RenderManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
-    engine->RegisterObjectMethod("RenderManager", "void SetGamma(float)", asMETHOD(RenderManager, SetGamma), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "float GetGamma()", asMETHOD(RenderManager, GetGamma), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetFogApply(bool)", asMETHOD(RenderManager, SetFogApply), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "bool GetFogApply()", asMETHOD(RenderManager, GetFogApply), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetFogDensity(float)", asMETHOD(RenderManager, SetFogDensity), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "float GetFogDensity()", asMETHOD(RenderManager, GetFogDensity), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetFogColor(const vec3 &in)", asMETHOD(RenderManager, SetFogColor), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "vec3 GetFogColor()", asMETHOD(RenderManager, GetFogColor), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetColorFilterApply(bool)", asMETHOD(RenderManager, SetColorFilterApply), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "vec3 GetColorFilterColor()", asMETHOD(RenderManager, GetColorFilterColor), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetDitherApply(bool)", asMETHOD(RenderManager, SetDitherApply), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "bool GetDitherApply()", asMETHOD(RenderManager, GetDitherApply), asCALL_THISCALL);
-
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
-    engine->RegisterObjectProperty("Hub", "RenderManager@ renderManager", asOFFSET(Hub, renderManager));
     
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);

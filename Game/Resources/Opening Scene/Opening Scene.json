@@ -11,7 +11,7 @@
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"intensity" : 1.0
+				"intensity" : 0.0
 			},
 			"children" : null,
 			"name" : "Sun",
@@ -385,6 +385,36 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1509010103
+		},
+		{
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/Minecart/Model/cart"
+			},
+			"children" : null,
+			"name" : "nonMaterialTest",
+			"position" : 
+			{
+				"x" : 0.96500003337860107,
+				"y" : -0.090000003576278687,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509626126
 		}
 	],
 	"name" : "Root",
