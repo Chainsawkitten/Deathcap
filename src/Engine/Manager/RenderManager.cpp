@@ -341,10 +341,10 @@ void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool p
         for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
             const ::Physics::Shape& shape = *shapeComp->GetShape();
             if (shape.GetKind() == ::Physics::Shape::Kind::Sphere) {
-                Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
-            }
-            else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
-                Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+                Managers().debugDrawingManager->AddSphere(shapeComp->entity->GetWorldPosition(), shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
+            } else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
+                glm::vec3 normal = shapeComp->entity->GetModelMatrix() * glm::vec4(shape.GetPlaneData()->normal, 0.0f);
+                Managers().debugDrawingManager->AddPlane(shapeComp->entity->GetWorldPosition(), normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
             }
         }
     }
