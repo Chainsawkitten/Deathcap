@@ -1,7 +1,7 @@
 {
-	"activeScene" : "Resources/Bridge Puzzle Scene/Bridge Puzzle Scene",
+	"activeScene" : "Resources/Constant Scene/Controller/controller_fixScene",
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 17,
+	"modelNumber" : 20,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -261,6 +261,10 @@
 							{
 								"scene" : "controller_fixScene",
 								"type" : 0
+							},
+							{
+								"model" : "Hands",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -288,7 +292,7 @@
 								"resources" : 
 								[
 									{
-										"model" : "cave_straigth",
+										"model" : "cave_puzzle_01",
 										"type" : 1
 									}
 								],
@@ -296,7 +300,25 @@
 							},
 							{
 								"name" : "Textures",
-								"resources" : null,
+								"resources" : 
+								[
+									{
+										"texture" : "cave_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_roughness",
+										"type" : 2
+									}
+								],
 								"subfolders" : null
 							}
 						]
@@ -323,5 +345,5 @@
 	"sceneNumber" : 6,
 	"scriptNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 24
+	"textureNumber" : 29
 }

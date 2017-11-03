@@ -4,14 +4,14 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/Bridge Puzzle Scene/Cave/Textures/cave_albedo",
+				"metallic" : "Resources/Bridge Puzzle Scene/Cave/Textures/cave_metallic",
+				"normal" : "Resources/Bridge Puzzle Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Cave/Textures/cave_roughness"
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Bridge Puzzle Scene/Cave/Models/cave_straigth"
+				"model" : "Resources/Bridge Puzzle Scene/Cave/Models/cave_puzzle_01"
 			},
 			"children" : null,
 			"name" : "Cave",
@@ -152,6 +152,32 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1509540824
+		},
+		{
+			"name" : "Root",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
 		}
 	],
 	"name" : "Root",

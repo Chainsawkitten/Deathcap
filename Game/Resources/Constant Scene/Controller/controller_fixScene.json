@@ -11,32 +11,58 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Constant Scene/Controller/controller_fix"
+				"model" : "Resources/Constant Scene/Controller/Hands"
 			},
 			"children" : null,
 			"name" : "controller_fix",
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : -0.10000000149011612,
-				"z" : 0.15700000524520874
+				"y" : 0.0,
+				"z" : 0.0
 			},
 			"rotation" : 
 			{
-				"w" : 0.70710676908493042,
+				"w" : 0.70722883939743042,
 				"x" : 0.0,
-				"y" : -0.70710676908493042,
+				"y" : -0.70698469877243042,
 				"z" : 0.0
 			},
 			"scale" : 
 			{
-				"x" : 0.05000000074505806,
-				"y" : 0.05000000074505806,
-				"z" : 0.05000000074505806
+				"x" : 0.17499999701976776,
+				"y" : 0.17499999701976776,
+				"z" : 0.17499999701976776
 			},
 			"scene" : false,
 			"static" : false,
 			"uid" : 1508918923
+		},
+		{
+			"children" : null,
+			"name" : "Entity #1",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 2.2829999923706055
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509702679
 		}
 	],
 	"name" : "Root",
