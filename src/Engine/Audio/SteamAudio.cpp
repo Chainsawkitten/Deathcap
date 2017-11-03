@@ -6,7 +6,8 @@ SteamAudio::SteamAudio() {
 }
 
 SteamAudio::SteamAudio(IPLContext * context, IPLhandle * environment) {
-
+    this->context = context;
+    this->environmentalRenderer = environment;
 }
 
 SteamAudio::~SteamAudio() {
