@@ -13,8 +13,10 @@ class TriggerManager;
 
 struct EventStruct {
     int m_eventID = 0;
+    int m_shapeID = 0;
     int m_targetID = 0;
-    bool isGettingRemoved = false;
+    int m_scriptID = 0;
+    int check[4] = { 0 };
 };
 
 namespace Physics {
@@ -43,8 +45,7 @@ public:
     ENGINE_API std::string GetName();
     ENGINE_API void SetName(std::string value);
 
-    ENGINE_API std::vector<std::string> GetTargetFunction();
-    ENGINE_API void SetTargetFunction(std::string value);
+    ENGINE_API std::vector<std::string> *GetTargetFunction();
 
     ENGINE_API bool GetStartActive();
     ENGINE_API void SetStartActive(bool value);
@@ -60,8 +61,7 @@ public:
 
     ENGINE_API std::vector<Entity*> *GetTargetEntity();
 
-    ENGINE_API Entity* GetCollidedEntity();
-    ENGINE_API void SetCollidedEntity(Entity* value);
+    ENGINE_API std::vector<Entity*> *GetCollidedEntity();
 
     ENGINE_API std::vector<EventStruct>* GetEventVector();
 
@@ -75,7 +75,7 @@ private:
     float cooldown = 0;
     int triggerCharges = 0;
     std::vector<Entity*> targetEntity;
-    Entity* collidedEntity = nullptr;
+    std::vector<Entity*> collidedEntity;
     Utility::LockBox<Physics::Trigger> triggerVolume;
     bool triggered = false;
     std::vector<EventStruct> eventVector;

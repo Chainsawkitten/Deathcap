@@ -2,12 +2,16 @@
 
 #include <array>
 #include <Engine/Component/Trigger.hpp>
+#include <Engine/Component/Script.hpp>
+#include <Engine/Component/Shape.hpp>
+#include <Engine/Component/RigidBody.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/TriggerManager.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Trigger/TriggerRepeat.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Entity/Entity.hpp>
+#include <Engine/Script/ScriptFile.hpp>
 #include <imgui.h>
 
 // This is necessary to use std::string in ImGui::Combo()
@@ -151,15 +155,6 @@ namespace GUI {
                 ImGui::Separator();
 
                 for (int i = 0; i < repeat->GetEventVector()->size(); i++) {
-
-                    if (repeat->GetEventVector()->at(i).isGettingRemoved == true) {
-                        repeat->GetEventVector()->erase(repeat->GetEventVector()->begin() + i);
-                        repeat->GetTargetEntity()->erase(repeat->GetTargetEntity()->begin() + i);
-                        break;
-                    }
-                }
-
-                for (int i = 0; i < repeat->GetEventVector()->size(); i++) {
                     ImGui::Columns(4);
 
                     std::array<const char*, 3> events = {
@@ -170,61 +165,102 @@ namespace GUI {
 
                     std::string labelEvent = "Type ";
                     labelEvent.append(std::to_string(i));
+                    std::string labelShape = "Shape ";
+                    labelShape.append(std::to_string(i));
                     std::string labelTarget = "Entity ";
                     labelTarget.append(std::to_string(i));
+                    std::string labelScript = "Script ";
+                    labelScript.append(std::to_string(i));
 
+                    // Event type
                     int eventType = repeat->GetEventVector()->at(i).m_eventID;
 
                     if (ImGui::Combo(labelEvent.c_str(), &eventType, events.data(), events.size())) {
                         repeat->GetEventVector()->at(i).m_eventID = eventType;
+                        repeat->GetEventVector()->at(i).check[0] = true;
                     }
 
-
+                    // Subject
                     ImGui::NextColumn();
+                    int shapeID = repeat->GetEventVector()->at(i).m_shapeID;
+                    std::vector<std::string> entityWithShape;
+                    for (int i = 0; i < Hymn().world.GetEntities().size(); i++) {
+                        if (Hymn().world.GetEntities().at(i)->GetComponent<Component::RigidBody>() != nullptr) {
+                            entityWithShape.push_back(Hymn().world.GetEntities().at(i)->name);
+                        }
+                    }
 
-                    ImGui::Text("[Select subject rigid body here]");
+                    if (ImGui::Combo(labelShape.c_str(), &shapeID, entityWithShape)) {
+                        repeat->GetEventVector()->at(i).m_shapeID = shapeID;
 
+                        for (int j = 0; j < Hymn().world.GetEntities().size(); j++) {
+                            if (Hymn().world.GetEntities().at(j)->name == entityWithShape.at(shapeID)) {
+                                repeat->GetCollidedEntity()->push_back(Hymn().world.GetEntities().at(j));
+                                repeat->GetEventVector()->at(i).check[1] = true;
+                            }
+                        }
+                    }
+
+                    // Entity target
                     ImGui::NextColumn();
                     int targetID = repeat->GetEventVector()->at(i).m_targetID;
                     std::vector<std::string> entityName;
 
                     for (int i = 0; i < Hymn().world.GetEntities().size(); i++) {
-
-                        entityName.push_back(Hymn().world.GetEntities().at(i)->name);
+                        if (Hymn().world.GetEntities().at(i)->GetComponent<Component::Script>() != nullptr && Hymn().world.GetEntities().at(i)->name != comp.entity->name) {
+                            entityName.push_back(Hymn().world.GetEntities().at(i)->name);
+                        }
                     }
 
                     if (ImGui::Combo(labelTarget.c_str(), &targetID, entityName)) {
                         repeat->GetEventVector()->at(i).m_targetID = targetID;
 
-                        for (int i = 0; i < Hymn().world.GetEntities().size(); i++) {
+                        for (int j = 0; j < Hymn().world.GetEntities().size(); j++) {
 
-                            if (Hymn().world.GetEntities().at(i)->name == entityName.at(targetID) && entityName.at(targetID) != comp.entity->name) {
-                                repeat->GetTargetEntity()->push_back(Hymn().world.GetEntities().at(i));
-
+                            if (Hymn().world.GetEntities().at(j)->name == entityName.at(targetID)) {
+                                repeat->GetTargetEntity()->push_back(Hymn().world.GetEntities().at(j));
+                                repeat->GetEventVector()->at(i).check[2] = true;
                             }
                         }
                     }
 
-                    if (entityName.at(targetID) == comp.entity->name) {
-                        ImGui::SameLine();
-                        ImGui::PushStyleColor(0, ImVec4(1.0, 0.0, 0.0, 1.0));
-                        ImGui::Text("[?]");
+                    // Script name
+                    ImGui::NextColumn();
+                    int scriptID = repeat->GetEventVector()->at(i).m_scriptID;
 
-                        if (ImGui::IsItemHovered())
-                            ImGui::SetTooltip("Cannot select the Entity this trigger belongs to.");
+                    std::vector<std::string> scriptVector;
 
-                        ImGui::PopStyleColor();
+                    if (!repeat->GetTargetEntity()->empty()) {
+                        for (int x = 0; x < repeat->GetTargetEntity()->size(); x++) {
+
+                            if (repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>() != nullptr && repeat->GetTargetEntity()->at(x)->name == entityName.at(targetID)) {
+
+                                for (int j = 0; j < repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>()->scriptFile->functionList.size(); j++) {
+
+                                    if (std::find(scriptVector.begin(), scriptVector.end(), repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>()->scriptFile->functionList.at(j)) == scriptVector.end()) {
+                                        scriptVector.push_back(repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>()->scriptFile->functionList.at(j));
+                                    }
+                                }
+                            }
+                        }
                     }
 
-                    ImGui::NextColumn();
-                    ImGui::Text("[Select script method here]");
-
-                    ImGui::SameLine();
-                    if (ImGui::Button("Remove")) {
-                        repeat->GetEventVector()->at(i).isGettingRemoved = true;
+                    if (!scriptVector.empty()) {
+                        if (ImGui::Combo(labelScript.c_str(), &scriptID, scriptVector)) {
+                            repeat->GetEventVector()->at(i).m_scriptID = scriptID;
+                            repeat->GetTargetFunction()->push_back(scriptVector.at(scriptID));
+                            repeat->GetEventVector()->at(i).check[3] = true;
+                        }
                     }
 
                     ImGui::Separator();
+
+                    if (repeat->GetEventVector()->at(i).check[0] == true,
+                        repeat->GetEventVector()->at(i).check[1] == true,
+                        repeat->GetEventVector()->at(i).check[2] == true,
+                        repeat->GetEventVector()->at(i).check[3] == true) {
+                        repeat->OnRetain();
+                    }
                 }
                 break;
             }
@@ -232,5 +268,6 @@ namespace GUI {
 
             ImGui::EndPopup();
         }
+
     }
 }

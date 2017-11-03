@@ -1,6 +1,7 @@
 #include "TriggerRepeat.hpp"
 
 #include "../Component/RigidBody.hpp"
+#include "../Component/Shape.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/PhysicsManager.hpp"
@@ -14,8 +15,8 @@ TriggerRepeat::~TriggerRepeat() {
 }
 
 void TriggerRepeat::OnEnter() {
-    if (collidedEntity && collidedEntity->GetComponent<Component::RigidBody>()) {
-        Component::RigidBody* rigidBodyComp = collidedEntity->GetComponent<Component::RigidBody>();
+    if (collidedEntity.front() && collidedEntity.front()->GetComponent<Component::RigidBody>()) {
+        Component::RigidBody* rigidBodyComp = collidedEntity.front()->GetComponent<Component::RigidBody>();
         Managers().physicsManager->ForgetTriggerEnter(triggerVolume, rigidBodyComp);
         Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
         Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
@@ -23,9 +24,10 @@ void TriggerRepeat::OnEnter() {
     }
 }
 
+// ADD SUPPORT FOR VECTOR
 void TriggerRepeat::OnRetain() {
-    if (collidedEntity && collidedEntity->GetComponent<Component::RigidBody>()) {
-        Component::RigidBody* rigidBodyComp = collidedEntity->GetComponent<Component::RigidBody>();
+    if (collidedEntity.front() && collidedEntity.front()->GetComponent<Component::RigidBody>()) {
+        Component::RigidBody* rigidBodyComp = collidedEntity.front()->GetComponent<Component::RigidBody>();
         Managers().physicsManager->ForgetTriggerEnter(triggerVolume, rigidBodyComp);
         Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
         Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
@@ -33,14 +35,15 @@ void TriggerRepeat::OnRetain() {
     }
 }
 
+// ADD SUPPORT FOR VECTOR
 void TriggerRepeat::OnLeave() {
-    if (collidedEntity && collidedEntity->GetComponent<Component::RigidBody>()) {
+    /*if (collidedEntity && collidedEntity->GetComponent<Component::RigidBody>()) {
         Component::RigidBody* rigidBodyComp = collidedEntity->GetComponent<Component::RigidBody>();
         Managers().physicsManager->ForgetTriggerEnter(triggerVolume, rigidBodyComp);
         Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
         Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
         Managers().physicsManager->OnTriggerLeave(triggerVolume, rigidBodyComp, std::bind(&TriggerRepeat::HandleTriggerEvent, this));
-    }
+    }*/
 }
 
 std::string TriggerRepeat::GetName() {
@@ -51,12 +54,8 @@ void TriggerRepeat::SetName(std::string value) {
     name = value;
 }
 
-std::vector<std::string> TriggerRepeat::GetTargetFunction() {
-    return targetFunction;
-}
-
-void TriggerRepeat::SetTargetFunction(std::string value) {
-    targetFunction.push_back(value);
+std::vector<std::string> *TriggerRepeat::GetTargetFunction() {
+    return &targetFunction;
 }
 
 bool TriggerRepeat::GetStartActive() {
@@ -95,16 +94,15 @@ std::vector<Entity*> *TriggerRepeat::GetTargetEntity() {
     return &targetEntity;
 }
 
-Entity* TriggerRepeat::GetCollidedEntity() {
-    return collidedEntity;
-}
-
-void TriggerRepeat::SetCollidedEntity(Entity* value) {
-    collidedEntity = value;
+std::vector<Entity*> *TriggerRepeat::GetCollidedEntity() {
+    return &collidedEntity;
 }
 
 void TriggerRepeat::HandleTriggerEvent() {
     triggered = true;
+
+    // DEBUG
+    printf("Event Triggered!\n");
 }
 
 std::vector<EventStruct> *TriggerRepeat::GetEventVector() {
