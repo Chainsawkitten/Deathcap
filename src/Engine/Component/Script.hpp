@@ -87,12 +87,12 @@ namespace Component {
                         typeID = _typeID;
                         size = _size;
                         data = malloc(size);
-                        std::memcpy(data, _data, size);
+                        memcpy(data, _data, size);
 
                     }
 
                     ~Property() {
-                        std::free(data);
+                        free(data);
                     }
 
                     int typeID;
