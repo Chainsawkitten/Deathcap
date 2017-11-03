@@ -92,13 +92,13 @@ namespace Animation {
 
             /// Save animation controller.
             /**
-             * @path Save location.
+             * @param path Save location.
              */
             ENGINE_API void Save(const std::string& path);
 
             /// Load animation controller.
             /**
-             * @name Load from name.
+             * @param name Load from name.
              */
             ENGINE_API void Load(const std::string& name);
 
