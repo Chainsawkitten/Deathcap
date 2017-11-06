@@ -86,6 +86,18 @@ void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, con
     spheres.push_back(sphere);
 }
 
+void DebugDrawingManager::AddCone(float radius, float height, const glm::mat4& matrix, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Cone cone;
+    cone.radius = radius;
+    cone.height = height;
+    cone.matrix = matrix;
+    cone.color = color;
+    cone.lineWidth = lineWidth;
+    cone.duration = duration;
+    cone.depthTesting = depthTesting;
+    cones.push_back(cone);
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
@@ -146,6 +158,16 @@ void DebugDrawingManager::Update(float deltaTime) {
         } else
             spheres[i].duration -= deltaTime;
     }
+    
+    // Cone.
+    for (std::size_t i=0; i < cones.size(); ++i) {
+        if (cones[i].duration < 0.f) {
+            cones[i] = cones[cones.size() - 1];
+            cones.pop_back();
+            --i;
+        } else
+            cones[i].duration -= deltaTime;
+    }
 }
 
 void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {       
@@ -176,6 +198,10 @@ void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& p
     // Spheres.
     for (const DebugDrawing::Sphere& sphere : spheres)
         debugDrawing->DrawSphere(sphere);
+    
+    // Cones.
+    for (const DebugDrawing::Cone& cone : cones)
+        debugDrawing->DrawCone(cone);
     
     debugDrawing->EndDebugDrawing();
     renderSurface->GetShadingFrameBuffer()->Unbind();
