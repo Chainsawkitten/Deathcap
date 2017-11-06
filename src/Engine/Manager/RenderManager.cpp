@@ -457,6 +457,11 @@ void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool p
                 glm::quat orientation = shapeComp->entity->GetWorldOrientation();
                 glm::mat4 transformationMatrix = glm::translate(glm::toMat4(orientation), position);
                 Managers().debugDrawingManager->AddCuboid(dimensions, transformationMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
+            } else if (shape.GetKind() == ::Physics::Shape::Kind::Cylinder) {
+                glm::vec3 position = shapeComp->entity->GetWorldPosition();
+                glm::quat orientation = shapeComp->entity->GetWorldOrientation();
+                glm::mat4 transformationMatrix = glm::translate(glm::toMat4(orientation), position);
+                Managers().debugDrawingManager->AddCylinder(shape.GetCylinderData()->radius, shape.GetCylinderData()->length, transformationMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
             }
         }
     }
