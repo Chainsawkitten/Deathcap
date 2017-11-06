@@ -139,6 +139,30 @@ namespace Video {
                 bool depthTesting;
             };
             
+            /// A debug drawing cylinder.
+            struct Cylinder {
+                /// Radius.
+                float radius;
+                
+                /// Length.
+                float length;
+                
+                /// The matrix used to transform the cylinder.
+                glm::mat4 matrix;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
             /// Create new debug primitive renderer.
             VIDEO_API DebugDrawing();
             

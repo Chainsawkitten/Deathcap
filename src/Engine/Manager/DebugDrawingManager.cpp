@@ -86,6 +86,18 @@ void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, con
     spheres.push_back(sphere);
 }
 
+void DebugDrawingManager::AddCylinder(float radius, float length, const glm::mat4& matrix, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Cylinder cylinder;
+    cylinder.radius = radius;
+    cylinder.length = length;
+    cylinder.matrix = matrix;
+    cylinder.color = color;
+    cylinder.lineWidth = lineWidth;
+    cylinder.duration = duration;
+    cylinder.depthTesting = depthTesting;
+    cylinders.push_back(cylinder);
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
