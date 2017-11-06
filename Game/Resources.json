@@ -1,7 +1,7 @@
 {
 	"activeScene" : "Resources/Bridge Puzzle Scene/Bridge Puzzle Scene",
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 27,
+	"modelNumber" : 28,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -395,8 +395,31 @@
 								"resources" : 
 								[
 									{
-										"model" : "Model #25",
+										"model" : "Bridge",
 										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "bridge_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_roughness",
+										"type" : 2
 									}
 								],
 								"subfolders" : null
@@ -451,5 +474,5 @@
 	"sceneNumber" : 8,
 	"scriptNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 39
+	"textureNumber" : 44
 }

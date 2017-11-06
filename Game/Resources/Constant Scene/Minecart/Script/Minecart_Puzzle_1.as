@@ -1,8 +1,8 @@
 class Minecart_Puzzle_1{
     Hub @hub;
     Entity @self;
-    Rigidbody @selfBody;
-    Rigidbody @puzzleBody;
+    //Rigidbody @selfBody;
+    //Rigidbody @puzzleBody;
     float speed;
     bool trigger;
     float stopTime;
@@ -12,8 +12,8 @@ class Minecart_Puzzle_1{
     Minecart_Puzzle_1(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        @selfBody = self.GetRigidBody();
-        @puzzleBody = self.GetParent().GetParent().GetChild("BreakCheck").GetRigidBody();
+        //@selfBody = self.GetRigidBody();
+        //@puzzleBody = self.GetParent().GetParent().GetChild("BreakCheck").GetRigidBody();
         speed = 2.0f;
         stopTime = 0.0f;
         endTime = 7.5f;
