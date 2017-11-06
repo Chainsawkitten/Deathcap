@@ -82,7 +82,7 @@ RenderManager::~RenderManager() {
     delete renderer;
 }
 
-void RenderManager::Render(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, Entity* camera) {
+void RenderManager::Render(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, Entity* camera, bool lighting) {
     // Find camera entity.
     if (camera == nullptr) {
         for (Lens* lens : lenses.GetAll())
@@ -104,7 +104,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                         PROFILE("Render world entities");
                         {
                             GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
                         }
                     }
 
@@ -173,7 +173,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                             PROFILE("Render world entities");
                             {
                                 GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                                RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface);
+                                RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting);
                             }
                         }
 
@@ -228,7 +228,7 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
+void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting) {
     // Render from camera.
     renderer->StartRendering(renderSurface);
     glm::mat4 lightViewMatrix;
@@ -307,8 +307,14 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
             {
                 GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
 
-                // Cull lights and update light list.
-                LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+                if (lighting) {
+                    // Cull lights and update light list.
+                    LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+                } else {
+                    // Use full ambient light and ignore lights in the scene.
+                    LightAmbient();
+                }
+                    
 
                 // Push matricies and light buffer to the GPU.
                 renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
@@ -673,6 +679,23 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         }
     }
 
+    // Update light buffer.
+    renderer->SetLights(lights);
+}
+
+void RenderManager::LightAmbient() {
+    std::vector<Video::Light> lights;
+    
+    Video::Light light;
+    light.position = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    light.intensities = glm::vec3(0.0f, 0.0f, 0.0f);
+    light.attenuation = 1.f;
+    light.ambientCoefficient = 1.0f;
+    light.coneAngle = 0.f;
+    light.direction = glm::vec3(0.f, 0.f, 0.f);
+    light.shadow = 0.f;
+    lights.push_back(light);
+    
     // Update light buffer.
     renderer->SetLights(lights);
 }
