@@ -3,15 +3,19 @@
 #include <Engine/MainWindow.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
+#include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Input/Input.hpp>
 #include <Utility/Log.hpp>
 #include <thread>
+#include <iostream>
 
 int main() {
     if (!glfwInit())
         return 1;
     
+    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr, &std::cout);
+
     Log() << "Game started - " << time(nullptr) << "\n";
     
     MainWindow* window = new MainWindow(640, 480, false, false, "Hymn to Beauty", false);
@@ -21,8 +25,8 @@ int main() {
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
     
     Managers().StartUp();
-    
-    Hymn().Load(".");
+
+    Hymn().Load("C:/Users/danzer/AppData/Roaming/Hymn to Beauty/Hymns/Game");
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");
 
     // Compile scripts.
@@ -51,6 +55,15 @@ int main() {
         
         // Get input.
         glfwPollEvents();
+
+#ifdef TESTMEMORY
+        int ramUsed = Managers().profilingManager->MeasureRAM();
+        int vramUsed = Managers().profilingManager->MeasureVRAM();
+        if (ramUsed > 256)
+            Log(Log::INFO) << "DANGER! RAM LIMIT EXCEEDED\nMIB RAM used: " << ramUsed << "\n";
+        if (vramUsed > 512)
+            Log(Log::INFO) << "DANGER! VRAM LIMIT EXCEEDED\nMIB VRAM used: " << vramUsed << "\n";
+#endif
     }
     
     Managers().ShutDown();

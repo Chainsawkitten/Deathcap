@@ -68,5 +68,7 @@ if(WIN32)
     endif()
 endif()
 
+option(TestMemory "Enables memory testing in the game project." OFF)
+
 # Source files
 add_subdirectory(src)
