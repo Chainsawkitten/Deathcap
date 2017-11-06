@@ -34,7 +34,7 @@ int main() {
     
     Managers().StartUp();
 
-    Hymn().Load("C:/Users/danzer/AppData/Roaming/Hymn to Beauty/Hymns/Game");
+    Hymn().Load(".");
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");
 
     // Compile scripts.
