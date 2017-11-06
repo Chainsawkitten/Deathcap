@@ -22,19 +22,19 @@ void main(void)
     int points = 0;
 
 	gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(0.0, 0.0, 0.0, 1.0));
-	UV = vec2(0,0.25);
+	UV = vec2(atlasCoordOffset.x+atlasIndexOffset, atlasCoordOffset.y);
 	EmitVertex();
 
 	gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(0.0, 1.0, 0.0, 1.0));
-	UV = vec2(0,0);
+	UV = vec2(atlasCoordOffset.x, atlasCoordOffset.y);
 	EmitVertex();
 
 	gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(1.0, 0.0, 0.0, 1.0));
-	UV = vec2(0.25,0.25);
+	UV = vec2(atlasCoordOffset.x+atlasIndexOffset, atlasCoordOffset.y+atlasIndexOffset);
 	EmitVertex();
 
 	gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(1.0, 1.0, 0.0, 1.0));
-	UV = vec2(0.25,0);
+	UV = vec2(atlasCoordOffset.x + atlasIndexOffset, atlasCoordOffset.y);
 	EmitVertex();
 
 	EndPrimitive();
