@@ -127,7 +127,7 @@ void SoundManager::Update(float deltaTime) {
 
     Pa_WriteStream(stream, processedSamples, *numProcessedSamples);
 
-    if(*numProcessedSamples != 0)
+    if (*numProcessedSamples != 0)
         delete[] processedSamples;
 }
 
