@@ -130,6 +130,10 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto mass = node.get("mass", 1.0f).asFloat();
     comp->NewBulletRigidBody(mass);
 
+    auto kinematic = node.get("kinematic", false).asFloat();
+    if (kinematic)
+        comp->MakeKinematic();
+
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
         comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
