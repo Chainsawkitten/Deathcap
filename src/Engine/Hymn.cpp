@@ -208,6 +208,7 @@ void ActiveHymn::Update(float deltaTime) {
 
     if (restart) {
         restart = false;
+        FromJson(saveStateHymn);
         world.Load(saveStateWorld);
         Managers().scriptManager->RegisterInput();
         Managers().scriptManager->BuildAllScripts();
