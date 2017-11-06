@@ -85,6 +85,12 @@ DebugDrawing::DebugDrawing() {
     CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
     delete[] sphere;
     
+    // Create cylinder vertex array.
+    glm::vec3* cylinder;
+    CreateCylinder(cylinder, cylinderVertexCount, 14);
+    CreateVertexArray(cylinder, cylinderVertexCount, cylinderVertexBuffer, cylinderVertexArray);
+    delete[] cylinder;
+    
     // Create cone vertex array.
     glm::vec3* cone;
     CreateCone(cone, coneVertexCount, 14);
@@ -110,6 +116,9 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &sphereVertexBuffer);
     glDeleteVertexArrays(1, &sphereVertexArray);
+    
+    glDeleteBuffers(1, &cylinderVertexBuffer);
+    glDeleteVertexArrays(1, &cylinderVertexArray);
     
     glDeleteBuffers(1, &coneVertexBuffer);
     glDeleteVertexArrays(1, &coneVertexArray);
@@ -209,6 +218,20 @@ void DebugDrawing::DrawSphere(const Sphere& sphere) {
     glDrawArrays(GL_LINES, 0, sphereVertexCount);
 }
 
+void DebugDrawing::DrawCylinder(const Cylinder& cylinder) {
+    BindVertexArray(cylinderVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(cylinder.radius, cylinder.length, cylinder.radius)));
+    model = cylinder.matrix * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    cylinder.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cylinder.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(cylinder.lineWidth);
+    glDrawArrays(GL_LINES, 0, cylinderVertexCount);
+}
+
 void DebugDrawing::DrawCone(const Cone& cone) {
     BindVertexArray(coneVertexArray);
     
@@ -300,6 +323,26 @@ void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount
     }
 }
 
+void DebugDrawing::CreateCylinder(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 6;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int j = 0; j < detail; ++j) {
+        float angle1 = static_cast<float>(j) / detail * 2.0f * glm::pi<float>();
+        float angle2 = static_cast<float>(j + 1) / detail * 2.0f * glm::pi<float>();
+        
+        positions[i++] = glm::vec3(cos(angle1), 0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle1), -0.5f, sin(angle1));
+        
+        positions[i++] = glm::vec3(cos(angle1), 0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle2), 0.5f, sin(angle2));
+        
+        positions[i++] = glm::vec3(cos(angle1), -0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle2), -0.5f, sin(angle2));
+    }
+}
+    
 void DebugDrawing::CreateCone(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
     vertexCount = detail * 4;
     positions = new glm::vec3[vertexCount];

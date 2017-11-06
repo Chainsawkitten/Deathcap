@@ -143,14 +143,6 @@ class ScriptManager {
         
         /// The entity currently being executed.
         Entity* currentEntity;
-
-        /// Gets the size in bytes for the ASType
-        /**
-         * @param typeID The asTypeID for the type we want the size for.
-         * @param value The pointer to the value.
-         * @return The size in bytes for the provided typeID. -1 for unknown type.
-         */
-        const int GetSizeOfASType(int typeID, void* value);
         
     private:
         struct Message {

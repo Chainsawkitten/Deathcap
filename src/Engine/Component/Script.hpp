@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <map>
+#include <string.h>
 #include "SuperComponent.hpp"
 #include "../linking.hpp"
 
@@ -32,18 +33,76 @@ namespace Component {
             
             /// The instance of the script class.
             asIScriptObject* instance = nullptr;
-      
-            /// Entities referenced by this script.
-            std::vector<Entity*> refList;
 
-            ///Map containing the properties, maps a pair of a value and it's type to a name (map<nameOfProperty, pair<typeOfProperty, valueOfProperty>>)
-            std::map<std::string, std::pair<int, void*>> propertyMap;
+            /// Add a property to the propertyMap.
+            /**
+             * @param name The name of the property.
+             * @param type The asTypeID of the property.
+             * @param size The size in number of bytes of the property.
+             * @param data A pointer to the data to store.
+             */
+            ENGINE_API void AddToPropertyMap(const std::string& name, int type, int size, void* data);
 
-            /// Fills the property map.
-            void FillPropertyMap();
+            /// Copy the data from a property in the map.
+            /**
+             * @param name The name of the property.
+             * @param target A pointer that points where to copy the data.
+             */
+            ENGINE_API void CopyDataFromPropertyMap(const std::string& name, void* target);
+
+            /// Get the pointer to the data of a property in the map.
+            /**
+             * @param name The name of the property.
+             * @return A pointer to the data of the property.
+             */
+            ENGINE_API void* GetDataFromPropertyMap(const std::string& name);
+
+            /// Is the property in the map?
+            /**
+             * @param name The name of the property.
+             * @param type The asTypeID of the property.
+             * @return Is there a property with the provided name and type in propertyMap.
+             */  
+            ENGINE_API bool IsInPropertyMap(const std::string& name, const int type);
 
             /// Clears the property map.
             ENGINE_API void ClearPropertyMap();
+
+        private:
+
+            class Property {
+                
+                public:
+
+                    Property() {
+
+                        typeID = -1;
+                        size = -1;
+                        data = nullptr;
+
+                    }
+
+                    Property(int _typeID, int _size, void* _data) {
+
+                        typeID = _typeID;
+                        size = _size;
+                        data = malloc(size);
+                        memcpy(data, _data, size);
+
+                    }
+
+                    ~Property() {
+                        free(data);
+                    }
+
+                    int typeID;
+                    int size;
+                    void* data;
+
+            };
+
+            //Map containing the properties, maps a struct of a value, it's type, and size to a name.
+            std::map<std::string, Property*> propertyMap;
 
     };
 }
