@@ -199,6 +199,10 @@ void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& p
     for (const DebugDrawing::Sphere& sphere : spheres)
         debugDrawing->DrawSphere(sphere);
     
+    // Cones.
+    for (const DebugDrawing::Cone& cone : cones)
+        debugDrawing->DrawCone(cone);
+    
     debugDrawing->EndDebugDrawing();
     renderSurface->GetShadingFrameBuffer()->Unbind();
 }

@@ -212,6 +212,12 @@ namespace Video {
              */
             VIDEO_API void DrawSphere(const Sphere& sphere);
             
+            /// Draw a cone.
+            /**
+             * @param cone The cone to draw.
+             */
+            VIDEO_API void DrawCone(const Cone& cone);
+            
             /// Stop debug drawing.
             VIDEO_API void EndDebugDrawing();
             

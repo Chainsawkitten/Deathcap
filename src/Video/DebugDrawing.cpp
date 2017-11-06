@@ -209,6 +209,20 @@ void DebugDrawing::DrawSphere(const Sphere& sphere) {
     glDrawArrays(GL_LINES, 0, sphereVertexCount);
 }
 
+void DebugDrawing::DrawCone(const Cone& cone) {
+    BindVertexArray(coneVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(cone.radius, cone.height, cone.radius)));
+    model = cone.matrix * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    cone.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cone.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(cone.lineWidth);
+    glDrawArrays(GL_LINES, 0, coneVertexCount);
+}
+
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
     BindVertexArray(0);
