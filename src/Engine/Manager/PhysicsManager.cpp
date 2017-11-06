@@ -53,11 +53,19 @@ void PhysicsManager::Update(float deltaTime) {
             continue;
         }
 
-        dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
-        rigidBodyComp->SetPosition(rigidBodyComp->entity->GetWorldPosition());
-        rigidBodyComp->SetOrientation(rigidBodyComp->entity->GetWorldOrientation());
-        rigidBodyComp->SetMass(rigidBodyComp->GetMass());
-        dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
+        auto worldPos = rigidBodyComp->entity->GetWorldPosition();
+        auto worldOrientation = rigidBodyComp->entity->GetWorldOrientation();
+        if (rigidBodyComp->IsKinematic()) {
+            rigidBodyComp->SetPosition(worldPos);
+            rigidBodyComp->SetOrientation(worldOrientation);
+        } else if (rigidBodyComp->GetForceTransformSync()) {
+            dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
+            rigidBodyComp->SetPosition(worldPos);
+            rigidBodyComp->SetOrientation(worldOrientation);
+            rigidBodyComp->GetBulletRigidBody()->activate(true); // To wake up from potentially sleeping state
+            dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
+            rigidBodyComp->SetForceTransformSync(false);
+        }
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
