@@ -9,7 +9,7 @@ AssetConverter::AssetConverter() {
 AssetConverter::~AssetConverter() {
 }
 
-void AssetConverter::Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs, bool importMaterial, Materials& materials) {
+void AssetConverter::Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs, bool importMaterial, Materials& materials, bool CPU, bool GPU) {
     success = true;
     errorString.clear();
 
@@ -41,7 +41,7 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
         }
     }
 
-    ConvertMeshes(aScene, &file, scale, flipUVs);
+    ConvertMeshes(aScene, &file, scale, flipUVs, CPU, GPU);
 
     aImporter.FreeScene();
 
@@ -56,14 +56,17 @@ std::string& AssetConverter::GetErrorString() {
     return errorString;
 }
 
-void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
+void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs, bool CPU, bool GPU) {
     for (unsigned int i = 0; i < aScene->mNumMeshes; ++i)
-        ConvertMesh(aScene->mMeshes[i], file, scale, flipUVs);
+        ConvertMesh(aScene->mMeshes[i], file, scale, flipUVs, CPU, GPU);
 }
 
-void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
+void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs, bool CPU, bool GPU) {
     Geometry::AssetFileHandler::MeshData * meshData = new Geometry::AssetFileHandler::MeshData;
     
+    meshData->CPU = CPU;
+    meshData->GPU = GPU;
+
     meshData->parent = 0;
 
     // Convert vertices.

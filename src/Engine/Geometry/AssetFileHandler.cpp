@@ -82,6 +82,8 @@ void AssetFileHandler::LoadMeshData(int meshID) {
     rFile.read(reinterpret_cast<char*>(&meshData->aabbMaxpos), sizeof(glm::vec3));
 
     rFile.read(reinterpret_cast<char*>(&meshData->skinnedVertices), sizeof(bool));
+    rFile.read(reinterpret_cast<char*>(&meshData->CPU), sizeof(bool));
+    rFile.read(reinterpret_cast<char*>(&meshData->GPU), sizeof(bool));
 
     if (meshData->isSkinned) {
         meshData->skinnedVertices = new Video::Geometry::VertexType::SkinVertex[meshData->numVertices];
@@ -117,6 +119,8 @@ void AssetFileHandler::SaveStaticMesh(AssetFileHandler::MeshData * meshData) {
     wFile.write(reinterpret_cast<char*>(&meshData->aabbMaxpos), sizeof(glm::vec3));
 
     wFile.write(reinterpret_cast<char*>(&meshData->isSkinned), sizeof(bool));
+    wFile.write(reinterpret_cast<char*>(&meshData->CPU), sizeof(bool));
+    wFile.write(reinterpret_cast<char*>(&meshData->GPU), sizeof(bool));
 
     // Write mesh data.
     if (meshData->isSkinned) {

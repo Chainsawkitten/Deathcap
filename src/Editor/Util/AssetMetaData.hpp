@@ -26,6 +26,8 @@ class AssetMetaData
             bool triangulate;
             bool importNormals;
             bool importTangents;
+            bool CPU;
+            bool GPU;
         };
 
         /// Generate metadata for a mesh.

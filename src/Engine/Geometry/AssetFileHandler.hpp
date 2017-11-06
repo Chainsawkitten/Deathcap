@@ -34,6 +34,8 @@ namespace Geometry {
                 glm::vec3 aabbMinpos;
                 glm::vec3 aabbMaxpos;
                 bool isSkinned = false;
+                bool CPU;
+                bool GPU;
                 Video::Geometry::VertexType::StaticVertex * staticVertices = nullptr;
                 Video::Geometry::VertexType::SkinVertex * skinnedVertices = nullptr;
                 uint32_t * indices = nullptr;

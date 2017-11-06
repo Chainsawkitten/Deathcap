@@ -71,5 +71,7 @@ namespace GUI {
             bool importTextures = false;
             bool flipUVs = false;
             bool createScene = false;
+            bool CPU = false;
+            bool GPU = true;
     };
 }

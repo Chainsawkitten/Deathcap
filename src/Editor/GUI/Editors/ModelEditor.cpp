@@ -69,6 +69,8 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Import Textures", &importTextures);
             ImGui::Checkbox("Flip UVs", &flipUVs);
             ImGui::Checkbox("Create scene", &createScene);
+            ImGui::Checkbox("CPU", &CPU);
+            ImGui::Checkbox("GPU", &GPU);
 
             std::string button = isImported ? "Re-import" : "Import";
 
@@ -77,7 +79,7 @@ void ModelEditor::Show() {
                 
                 // Convert to .asset format.
                 AssetConverter asset;
-                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs, importTextures, materials);
+                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs, importTextures, materials, CPU, GPU);
                 model->Load(destination.c_str());
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
@@ -87,6 +89,8 @@ void ModelEditor::Show() {
                 importData->triangulate = triangulate;
                 importData->importNormals = importNormals;
                 importData->importTangents = importTangents;
+                importData->CPU = CPU;
+                importData->GPU = GPU;
                 AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
                 
                 // Import textures.
@@ -230,6 +234,8 @@ void ModelEditor::RefreshImportSettings() {
         triangulate = importData->triangulate;
         importNormals = importData->importNormals;
         importTangents = importData->importTangents;
+        CPU = importData->CPU;
+        GPU = importData->GPU;
 
         delete importData;
         isImported = true;
