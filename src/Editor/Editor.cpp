@@ -105,7 +105,8 @@ void Editor::Show(float deltaTime) {
     if (close) {
         if (!HasMadeChanges()) {
             savePromptAnswered = true;
-        } else {
+        }
+        else {
 
             // Ask the user whether they wish to save.
             if (Hymn().GetPath() != "") {
@@ -131,11 +132,13 @@ void Editor::Show(float deltaTime) {
                 default:
                     break;
                 }
-            } else {
+            }
+            else {
                 savePromptAnswered = true;
             }
         }
-    } else {
+    }
+    else {
         bool play = false;
 
         // Main menu bar.
@@ -165,7 +168,7 @@ void Editor::Show(float deltaTime) {
         // Show log window.
         if (logView.IsVisible())
             logView.Show();
-        
+
         // Show grid settings window.
         ShowGridSettings();
         CreateGrid(gridSettings.gridSize);
@@ -304,6 +307,57 @@ void Editor::Show(float deltaTime) {
                 //Get mousePosition in worldspace
                 glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
                 Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
+
+                //When mouse is pressed during paint mode, instantiate objects (scenes).
+                if (Input()->Pressed(InputHandler::Button::SELECT)) {
+
+                    // Create resource.
+                    ResourceList::ResourceFolder* folder = nullptr;
+                    ResourceList::Resource resource;
+                    resource.type = ResourceList::Resource::SCENE;
+                    resource.scene = new std::string("mushroom");
+                    folder->resources.push_back(resource);
+
+                    // Create and save scene.
+                    World* world = new World();
+                    world->CreateRoot();
+                    Entity* root = world->GetRoot();
+
+                    // Unique identifiers are based on the current time.
+                    // Since we're creating two entities at the same time, we fake that
+                    // the root was created one second ago to avoid duplicate UIDs.
+                    root->SetUniqueIdentifier(root->GetUniqueIdentifier() - 1);
+
+                    Geometry::Model* model;
+                    model->Load("C://Users//Erik//Documents//LGPE//Game//Resources//Opening Scene//Lever//Models//leverhandle.asset");
+                    
+                    Entity* entity = root->AddChild("mushymushy");
+                    Component::Mesh* mesh = entity->AddComponent<Component::Mesh>();
+                    mesh->geometry = model;
+
+                    //Component::Material* material = entity->AddComponent<Component::Material>();
+                    //if (albedo != nullptr)
+                    //    material->albedo = albedo;
+                    //if (normal != nullptr)
+                    //    material->normal = normal;
+                    //if (roughness != nullptr)
+                    //    material->roughness = roughness;
+                    //if (metallic != nullptr)
+                    //    material->metallic = metallic;
+
+                    world->Save(Hymn().GetPath() + "/" + model->path + model->name + "Scene.json");
+
+                    // Cleanup.
+                    mesh->geometry = nullptr;
+                    mesh->Kill();
+  /*                  material->albedo = nullptr;
+                    material->normal = nullptr;
+                    material->roughness = nullptr;
+                    material->metallic = nullptr;
+                    material->Kill();*/
+                    delete world;
+                }
+
                 lastIntersect = INFINITY;
             }
         }
@@ -313,10 +367,12 @@ void Editor::Show(float deltaTime) {
             if (Input()->Triggered(InputHandler::W)) {
                 currentOperation = ImGuizmo::TRANSLATE;
                 imguizmoMode = ImGuizmo::MODE::WORLD;
-            } else if (Input()->Triggered(InputHandler::E)) {
+            }
+            else if (Input()->Triggered(InputHandler::E)) {
                 currentOperation = ImGuizmo::ROTATE;
                 imguizmoMode = ImGuizmo::MODE::WORLD;
-            } else if (Input()->Triggered(InputHandler::R)) {
+            }
+            else if (Input()->Triggered(InputHandler::R)) {
                 currentOperation = ImGuizmo::SCALE;
                 imguizmoMode = ImGuizmo::MODE::LOCAL;
             }
@@ -330,26 +386,26 @@ void Editor::Show(float deltaTime) {
 
         if (ImGuizmo::IsUsing()) {
             switch (currentOperation) {
-                case ImGuizmo::TRANSLATE: {
-                    currentEntity->position.x = currentEntityMatrix[3][0];
-                    currentEntity->position.y = currentEntityMatrix[3][1];
-                    currentEntity->position.z = currentEntityMatrix[3][2];
-                    break;
-                }
-                case ImGuizmo::ROTATE: {
-                    currentEntity->SetLocalOrientation(glm::toQuat(deltaMatrix) * currentEntity->GetLocalOrientation());
-                    break;
-                }
-                case ImGuizmo::SCALE: {
-                    float translation[3];
-                    float rotation[3];
-                    float scale[3];
-                    ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translation, rotation, scale);
-                    currentEntity->scale.x = scale[0];
-                    currentEntity->scale.y = scale[1];
-                    currentEntity->scale.z = scale[2];
-                    break;
-                }
+            case ImGuizmo::TRANSLATE: {
+                currentEntity->position.x = currentEntityMatrix[3][0];
+                currentEntity->position.y = currentEntityMatrix[3][1];
+                currentEntity->position.z = currentEntityMatrix[3][2];
+                break;
+            }
+            case ImGuizmo::ROTATE: {
+                currentEntity->SetLocalOrientation(glm::toQuat(deltaMatrix) * currentEntity->GetLocalOrientation());
+                break;
+            }
+            case ImGuizmo::SCALE: {
+                float translation[3];
+                float rotation[3];
+                float scale[3];
+                ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translation, rotation, scale);
+                currentEntity->scale.x = scale[0];
+                currentEntity->scale.y = scale[1];
+                currentEntity->scale.z = scale[2];
+                break;
+            }
             }
         }
     }
@@ -610,7 +666,8 @@ void Editor::ControlEditorCamera(float deltaTime) {
         if (cameraEntity->position.y > 10.0f || cameraEntity->position.y < -10.0f) {
             cameraEntity->position += speed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
             cameraEntity->position += speed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
-        } else {
+        }
+        else {
             cameraEntity->position += constantSpeed * backward * static_cast<float>(Input()->Pressed(InputHandler::BACKWARD) - Input()->Pressed(InputHandler::FORWARD));
             cameraEntity->position += constantSpeed * right * static_cast<float>(Input()->Pressed(InputHandler::RIGHT) - Input()->Pressed(InputHandler::LEFT));
         }
