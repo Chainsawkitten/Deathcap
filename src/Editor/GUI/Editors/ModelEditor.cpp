@@ -85,13 +85,13 @@ void ModelEditor::Show() {
                 isImported = true;
 
                 // Generate meta data.
-                AssetMetaData::MeshImportData* importData = new AssetMetaData::MeshImportData;
-                importData->triangulate = triangulate;
-                importData->importNormals = importNormals;
-                importData->importTangents = importTangents;
-                importData->CPU = CPU;
-                importData->GPU = GPU;
-                AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
+                AssetMetaData::MeshImportData importData;
+                importData.triangulate = triangulate;
+                importData.importNormals = importNormals;
+                importData.importTangents = importTangents;
+                importData.CPU = CPU;
+                importData.GPU = GPU;
+                AssetMetaData::SaveMetaData((destination + ".asset.meta").c_str(), &importData);
                 
                 // Import textures.
                 TextureAsset* albedo = nullptr;
@@ -104,8 +104,6 @@ void ModelEditor::Show() {
                     roughness = LoadTexture(materials.roughness, "Roughness");
                     metallic = LoadTexture(materials.metallic, "Metallic");
                 }
-                
-                delete importData;
                 
                 // Create scene containing an entity with the model and textures.
                 if (createScene) {
@@ -230,14 +228,14 @@ void ModelEditor::RefreshImportSettings() {
     // Check if meta file already exists. If it does import the metadata.
     std::string filePath(destination + ".asset.meta");
     if (FileSystem::FileExists(filePath.c_str())) {
-        AssetMetaData::MeshImportData * importData = AssetMetaData::GetMetaData(filePath.c_str());
-        triangulate = importData->triangulate;
-        importNormals = importData->importNormals;
-        importTangents = importData->importTangents;
-        CPU = importData->CPU;
-        GPU = importData->GPU;
+        AssetMetaData::MeshImportData importData;
+        AssetMetaData::LoadMetaData(filePath.c_str(), &importData);
+        triangulate = importData.triangulate;
+        importNormals = importData.importNormals;
+        importTangents = importData.importTangents;
+        CPU = importData.CPU;
+        GPU = importData.GPU;
 
-        delete importData;
         isImported = true;
     } else {
         isImported = false;
