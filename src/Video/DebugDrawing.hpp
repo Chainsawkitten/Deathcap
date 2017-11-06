@@ -51,7 +51,7 @@ namespace Video {
             
             /// A debug drawing cuboid.
             struct Cuboid {
-                /// The dimensions of the cuboids.
+                /// The dimensions of the cuboid.
                 glm::vec3 dimensions;
                 
                 /// The matrix used to transform the cuboid.
