@@ -39,14 +39,14 @@ class DebugDrawingManager {
         
         /// Add a cuboid to the world.
         /**
-         * @param minCoordinates The minimum coordinates of the box.
-         * @param maxCoordinates The maximum coordinates of the box.
+         * @param dimensions The dimensions of the cuboid.
+         * @param matrix Matrix used to transform the cuboid.
          * @param color Color of the lines.
          * @param lineWidth The width of the lines used to draw the box.
          * @param duration How long the box should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
-        ENGINE_API void AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        ENGINE_API void AddCuboid(const glm::vec3& dimensions, const glm::mat4& matrix, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
         /// Add a plane to the world.
         /**

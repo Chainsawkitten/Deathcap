@@ -40,10 +40,10 @@ void DebugDrawingManager::AddLine(const glm::vec3& startPosition, const glm::vec
     lines.push_back(line);
 }
 
-void DebugDrawingManager::AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+void DebugDrawingManager::AddCuboid(const glm::vec3& dimensions, const glm::mat4& matrix, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
     DebugDrawing::Cuboid cuboid;
-    cuboid.minCoordinates = minCoordinates;
-    cuboid.maxCoordinates = maxCoordinates;
+    cuboid.dimensions = dimensions;
+    cuboid.matrix = matrix;
     cuboid.color = color;
     cuboid.lineWidth = lineWidth;
     cuboid.duration = duration;
