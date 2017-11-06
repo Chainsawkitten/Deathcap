@@ -56,7 +56,7 @@ EntityEditor::EntityEditor() {
     name[0] = '\0';
 
     AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
-    AddEditor<Component::AudioMaterial> ("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
+    AddEditor<Component::AudioMaterial>("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::AudioMaterial>("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
@@ -105,8 +105,7 @@ void EntityEditor::Show() {
 
             if (rest > (toNearest / 2)) {
                 entity->position.x = (value - rest) + toNearest;
-            }
-            else {
+            } else {
                 entity->position.x = (value - rest);
             }
 
@@ -115,8 +114,7 @@ void EntityEditor::Show() {
 
             if (rest > (toNearest / 2)) {
                 entity->position.y = (value - rest) + toNearest;
-            }
-            else {
+            } else {
                 entity->position.y = (value - rest);
             }
 
@@ -125,8 +123,7 @@ void EntityEditor::Show() {
 
             if (rest > (toNearest / 2)) {
                 entity->position.z = (value - rest) + toNearest;
-            }
-            else {
+            } else {
                 entity->position.z = (value - rest);
             }
         }
@@ -278,22 +275,14 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         }
         ImGui::EndPopup();
     }
-    //Paint Mode. Load vertices and indices.
-    if (entity->loadPaintModeClicked == false && entity->brushActive == false && vertsLoaded == false) {
-        if (ImGui::Button("Load paint mode.") && entity->GetComponent<Component::Mesh>()->geometry != nullptr) {
-            Geometry::Model * model = dynamic_cast<Geometry::Model*>(mesh->geometry);
-            std::string modelPath = Hymn().GetPath() + FileSystem::DELIMITER + model->path + model->name + ".asset";
-            Geometry::AssetFileHandler handler;
-            handler.Open(modelPath.c_str());
-            handler.LoadMeshData(0);
-            Geometry::AssetFileHandler::MeshData* data = handler.GetStaticMeshData();
-            this->SetVertexData(data);
-            handler.Close();
+    // Paint Mode. Load vertices and indices.
+    if (entity->loadPaintModeClicked == false) {
+        if (ImGui::Button("Load paint mode.")){
             entity->loadPaintModeClicked = true;
             entity->vertsLoaded = true;
         }
     }
-    if (entity->vertsLoaded) {
+    if (entity->loadPaintModeClicked) {
         if (entity->brushActive == false) {
             if (ImGui::Button("Activate paint brush")) {
                 entity->brushActive = true;
@@ -302,6 +291,7 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         if (entity->brushActive == true) {
             if (ImGui::Button("Exit paint brush")) {
                 entity->brushActive = false;
+                entity->loadPaintModeClicked = false;
             }
         }
     }
@@ -470,8 +460,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
                 if (typeId == asTYPEID_INT32) {
                     ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
-                }
-                else if (typeId == asTYPEID_FLOAT) {
+                } else if (typeId == asTYPEID_FLOAT) {
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
                 }
                 /// @todo This will be used to handle objects in the scripts
@@ -512,8 +501,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
             ImGui::EndPopup();
         }
 
-    }
-    else
+    } else
         ImGui::Text("No script loaded");
 
     ImGui::Unindent();
@@ -615,37 +603,4 @@ void EntityEditor::VRDeviceEditor(Component::VRDevice* vrDevice) {
         ImGui::InputInt("Controller ID (1 = left, 2 = right)", &vrDevice->controllerID);
         ImGui::Unindent();
     }
-}
-
-
-void EntityEditor::SetVertexData(Geometry::AssetFileHandler::MeshData * data) {
-    
-    vertices = new Video::Geometry::VertexType::StaticVertex[data->numVertices];
-    indices = new uint32_t[data->numIndices];
-    for (int i = 0; i < data->numVertices; i++) {
-        vertices[i] = data->staticVertices[i];
-        nrOfVerts = data->numVertices;
-        nrOfIndices = data->numIndices;
-    }
-    for (int i = 0; i < data->numIndices; i++) {
-        indices[i] = data->indices[i];
-    }
-
-}
-
-int EntityEditor::GetNrOfVerts() {
-    return nrOfVerts;
-}
-
-int EntityEditor::GetNrOfIndices() {
-    return nrOfIndices;
-}
-
-Video::Geometry::VertexType::StaticVertex* EntityEditor::GetVertices() {
-    return vertices;
-}
-
-uint32_t* EntityEditor::GetIndices() {
-    return indices;
-
 }

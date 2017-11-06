@@ -74,42 +74,6 @@ namespace GUI {
              */
             void SetVisible(bool visible);
             
-            /// Sets the vertex and index data.
-            /**
-            * @param the data which to set the information from.
-            */
-            void SetVertexData(Geometry::AssetFileHandler::MeshData* data);
-
-            /// Returns the vertex data.
-            /**
-            * @return The array of vertices previously loaded by the SetVertexData function.
-            */
-            Video::Geometry::VertexType::StaticVertex* GetVertices();
-
-            /// Returns the index data.
-            /**
-            * @return The array of indices previously loaded by the SetVertexData function.
-            */
-            uint32_t* GetIndices();
-
-            /// Returns the number of vertices.
-            /**
-            * @return The number of vertices in the array of vertices loaded by the SetVertexData function.
-            */
-            int GetNrOfVerts();
-
-            /// Returns the number of indices.
-            /**
-            * @return The number of indices in the array of indices loaded by the SetVertexData function.
-            */
-            int GetNrOfIndices();
-
-            /// Returns whether the vertex and index data has been loaded.
-            /**
-            * @return Whether vertex and index data has been loaded.
-            */
-            bool vertsLoaded = false;
-
         private:
             template<typename type> void AddEditor(const std::string& name, std::function<void(type*)> editorFunction);
             template<typename type> void AddComponent(const std::string& name);
