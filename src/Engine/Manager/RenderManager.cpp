@@ -465,7 +465,7 @@ void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool p
             } else if (shape.GetKind() == ::Physics::Shape::Kind::Cone) {
                 glm::vec3 position = shapeComp->entity->GetWorldPosition();
                 glm::quat orientation = shapeComp->entity->GetWorldOrientation();
-                glm::mat4 transformationMatrix = glm::translate(glm::toMat4(orientation), position);
+                glm::mat4 transformationMatrix = glm::translate(glm::mat4(), position) * glm::toMat4(orientation);
                 Managers().debugDrawingManager->AddCone(shape.GetConeData()->radius, shape.GetConeData()->height, transformationMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
             }
         }
