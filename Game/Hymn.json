@@ -45,7 +45,8 @@
 		"Resources/Constant Scene/Minecart/Script/Minecart",
 		"Resources/Constant Scene/Minecart/Script/Player",
 		"Resources/Constant Scene/Minecart/Script/Lantern",
-		"Resources/Opening Scene/Audio/scr_AudioManager"
+		"Resources/Opening Scene/Audio/scr_AudioManager",
+		"Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1"
 	],
 	"startupScene" : "Resources/Opening Scene/Opening Scene",
 	"vrScale" : 1.5

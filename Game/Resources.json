@@ -1,7 +1,7 @@
 {
 	"activeScene" : "Resources/Bridge Puzzle Scene/Bridge Puzzle Scene",
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 26,
+	"modelNumber" : 27,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -235,6 +235,10 @@
 									{
 										"script" : "Lantern",
 										"type" : 4
+									},
+									{
+										"script" : "Minecart_Puzzle_1",
+										"type" : 4
 									}
 								],
 								"subfolders" : null
@@ -402,7 +406,43 @@
 					{
 						"name" : "Rock",
 						"resources" : null,
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "rockscaled",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "rock_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Texture #38",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			}
@@ -411,5 +451,5 @@
 	"sceneNumber" : 8,
 	"scriptNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 34
+	"textureNumber" : 39
 }

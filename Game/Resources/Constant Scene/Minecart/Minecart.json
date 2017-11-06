@@ -15,7 +15,7 @@
 			},
 			"Script" : 
 			{
-				"scriptName" : "Resources/Constant Scene/Minecart/Script/Minecart"
+				"scriptName" : "Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1"
 			},
 			"children" : 
 			[
@@ -292,6 +292,45 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1508919503
+				},
+				{
+					"RigidBody" : 
+					{
+						"mass" : 1.0
+					},
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 1.0,
+							"height" : 1.0,
+							"width" : 1.0
+						}
+					},
+					"children" : null,
+					"name" : "MinecraftPhysicsComponent",
+					"position" : 
+					{
+						"x" : 0.19700001180171967,
+						"y" : 0.39400002360343933,
+						"z" : -0.44700002670288086
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1509959164
 				}
 			],
 			"name" : "Minecart",

@@ -13,6 +13,19 @@
 			{
 				"model" : "Resources/Constant Scene/Controller/Hands"
 			},
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
+			"Shape" : 
+			{
+				"box" : 
+				{
+					"depth" : 0.20000000298023224,
+					"height" : 0.10000000149011612,
+					"width" : 0.10000000149011612
+				}
+			},
 			"children" : null,
 			"name" : "controller_fix",
 			"position" : 
@@ -39,6 +52,17 @@
 			"uid" : 1508918923
 		},
 		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 1.0
+			},
 			"children" : null,
 			"name" : "Entity #1",
 			"position" : 
