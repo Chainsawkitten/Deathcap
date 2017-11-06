@@ -10,6 +10,7 @@
 
 namespace Component {
     class Animation;
+    class AudioMaterial;
     class Mesh;
     class Lens;
     class Material;
@@ -22,7 +23,7 @@ namespace Component {
     class Shape;
     class SoundSource;
     class ParticleEmitter;
-    class Controller;
+    class VRDevice;
     class Trigger;
 }
 
@@ -80,6 +81,7 @@ namespace GUI {
             
             // Editors
             void AnimationEditor(Component::Animation* animation);
+            void AudioMaterialEditor(Component::AudioMaterial* audioMaterial);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
             void MaterialEditor(Component::Material* material);
@@ -92,7 +94,7 @@ namespace GUI {
             void ShapeEditor(Component::Shape* shape);
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
-            void ControllerEditor(Component::Controller* controller);
+            void VRDeviceEditor(Component::VRDevice* vrDevice);
             void TriggerEditor(Component::Trigger* trigger);
             
             Entity* entity = nullptr;
@@ -140,8 +142,10 @@ template<typename type> void GUI::EntityEditor::EditComponent(const std::string&
         
         editorFunction(component);
         
-        if (ImGui::Button("Remove"))
+        if (ImGui::Button("Remove")) {
+
             entity->KillComponent<type>();
+        }
         
         ImGui::PopID();
     }

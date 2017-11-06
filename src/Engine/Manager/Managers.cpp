@@ -60,5 +60,6 @@ void Hub::ClearKilledComponents() {
         physicsManager->ClearKilledComponents();
         soundManager->ClearKilledComponents();
         scriptManager->ClearKilledComponents();
+        vrManager->ClearKilledComponents();
     }
 }

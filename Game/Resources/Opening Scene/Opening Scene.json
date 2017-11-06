@@ -4,7 +4,6 @@
 		{
 			"PointLight" : 
 			{
-				"ambientCoefficient" : 0.0,
 				"attenuation" : 1.0,
 				"color" : 
 				{
@@ -24,6 +23,7 @@
 			},
 			"rotation" : 
 			{
+				"w" : 1.0,
 				"x" : 0.0,
 				"y" : 0.0,
 				"z" : 0.0
@@ -43,7 +43,7 @@
 			{
 				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
 				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
-				"normal" : "Resources/Opening Scene/Minecart/Textures/cart_normal",
+				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
 				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
 			},
 			"Mesh" : 
@@ -60,6 +60,7 @@
 			},
 			"rotation" : 
 			{
+				"w" : 1.0,
 				"x" : 0.0,
 				"y" : 0.0,
 				"z" : 0.0
@@ -75,86 +76,9 @@
 			"uid" : 1508402717
 		},
 		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Opening Scene/Minecart/Textures/cart_albedo",
-				"metallic" : "Resources/Opening Scene/Minecart/Textures/cart_metallic",
-				"normal" : "Resources/Opening Scene/Minecart/Textures/cart_normal",
-				"roughness" : "Resources/Opening Scene/Minecart/Textures/cart_roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/Opening Scene/Minecart/Models/cart"
-			},
 			"Script" : 
 			{
-				"scriptName" : "Resources/Opening Scene/Minecart/Minecart"
-			},
-			"children" : 
-			[
-				{
-					"Lens" : 
-					{
-						"fieldOfView" : 45.0,
-						"zFar" : 100.0,
-						"zNear" : 0.5
-					},
-					"Script" : 
-					{
-						"scriptName" : "Resources/Opening Scene/Minecart/Player"
-					},
-					"children" : null,
-					"name" : "Player",
-					"position" : 
-					{
-						"x" : 0.26600000262260437,
-						"y" : 1.124000072479248,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1508413333
-				}
-			],
-			"name" : "Minecart",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : -2.0460000038146973,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1508403776
-		},
-		{
-			"Script" : 
-			{
-				"scriptName" : "Resources/Gate/Gates"
+				"scriptName" : "Resources/Opening Scene/Gate/Gates"
 			},
 			"children" : 
 			[
@@ -180,6 +104,7 @@
 					},
 					"rotation" : 
 					{
+						"w" : 1.0,
 						"x" : 0.0,
 						"y" : 0.0,
 						"z" : 0.0
@@ -216,6 +141,7 @@
 					},
 					"rotation" : 
 					{
+						"w" : 1.0,
 						"x" : 0.0,
 						"y" : 0.0,
 						"z" : 0.0
@@ -252,6 +178,7 @@
 					},
 					"rotation" : 
 					{
+						"w" : 1.0,
 						"x" : 0.0,
 						"y" : 0.0,
 						"z" : 0.0
@@ -276,6 +203,7 @@
 			},
 			"rotation" : 
 			{
+				"w" : 1.0,
 				"x" : 0.0,
 				"y" : 0.0,
 				"z" : 0.0
@@ -315,6 +243,7 @@
 					},
 					"rotation" : 
 					{
+						"w" : 1.0,
 						"x" : 0.0,
 						"y" : 0.0,
 						"z" : 0.0
@@ -355,8 +284,9 @@
 					},
 					"rotation" : 
 					{
-						"x" : 0.0,
-						"y" : 30.0,
+						"w" : 0.96592581272125244,
+						"x" : 0.25881904363632202,
+						"y" : 0.0,
 						"z" : 0.0
 					},
 					"scale" : 
@@ -379,6 +309,7 @@
 			},
 			"rotation" : 
 			{
+				"w" : 1.0,
 				"x" : 0.0,
 				"y" : 0.0,
 				"z" : 0.0
@@ -392,6 +323,68 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1508412411
+		},
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : -2.1190001964569092,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Opening Scene/Audio/scr_AudioManager"
+			},
+			"SoundSource" : 
+			{
+				"loop" : true,
+				"sound" : "Resources/Opening Scene/Audio/Ambient",
+				"volume" : 0.15000000596046448
+			},
+			"children" : null,
+			"name" : "AudioManager",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509010103
 		}
 	],
 	"name" : "Root",
@@ -403,6 +396,7 @@
 	},
 	"rotation" : 
 	{
+		"w" : 1.0,
 		"x" : 0.0,
 		"y" : 0.0,
 		"z" : 0.0

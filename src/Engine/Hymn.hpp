@@ -73,6 +73,9 @@ class ActiveHymn {
          */
         ENGINE_API void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
         
+        /// Scene to start when playing the hymn.
+        std::string startupScene;
+        
         /// The game world.
         World world;
         
@@ -126,6 +129,15 @@ class ActiveHymn {
         
         /// Filter settings.
         FilterSettings filterSettings;
+
+        /// Whether to restart the hymn
+        bool restart = false;
+
+        /// Recently saved state of the hymn
+        Json::Value saveState;
+
+        /// Input scaling when playing in VR.
+        float vrScale = 1.0f;
         
     private:
         static ActiveHymn& GetInstance();

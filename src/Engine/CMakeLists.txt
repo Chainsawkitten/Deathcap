@@ -5,6 +5,7 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
         MainWindow.cpp
+        Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
@@ -12,7 +13,7 @@ set(SRCS
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
-        Component/Controller.cpp
+        Component/AudioMaterial.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -26,6 +27,7 @@ set(SRCS
         Component/SoundSource.cpp
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
+        Component/VRDevice.cpp
         Component/Trigger.cpp
         Entity/Entity.cpp
         Entity/World.cpp
@@ -70,6 +72,7 @@ set(HEADERS
         linking.hpp
         Hymn.hpp
         MainWindow.hpp
+        Audio/AudioMaterial.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/SteamAudio.hpp
@@ -78,7 +81,7 @@ set(HEADERS
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/Animation.hpp
-        Component/Controller.hpp
+        Component/AudioMaterial.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp
@@ -92,6 +95,7 @@ set(HEADERS
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
+        Component/VRDevice.hpp
         Component/Trigger.hpp
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp

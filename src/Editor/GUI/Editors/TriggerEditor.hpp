@@ -1,5 +1,4 @@
 #pragma once
-
 #include <cstdint>
 
 namespace Component {
@@ -22,5 +21,6 @@ namespace GUI {
 
         private:
             uint32_t selectedTab = 0;
+            
     };
 }

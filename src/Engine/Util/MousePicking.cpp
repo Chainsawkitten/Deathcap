@@ -7,7 +7,7 @@ MousePicking::MousePicking(Entity * cam,  const glm::mat4& projection) {
     this->camera = cam;
     this->pMatrix = projection;
 
-    glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
+    glm::mat4 viewMatrix = glm::inverse(cam->GetModelMatrix());
     this->vMatrix = viewMatrix;
 }
 
@@ -24,7 +24,7 @@ void MousePicking::UpdateProjectionMatrix(const glm::mat4& projection) {
 
 void MousePicking::Update() {
 
-    glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
+    glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
     this->vMatrix = viewMatrix;
     this->currentRay = CalculateRay();
 }

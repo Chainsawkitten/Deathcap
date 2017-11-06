@@ -22,8 +22,7 @@ Json::Value SoundSource::Save() const {
     if (soundBuffer != nullptr)
         component["sound"] = soundBuffer->path + soundBuffer->name;
     
-    component["pitch"] = pitch;
-    component["gain"] = gain;
+    component["volume"] = volume;
     component["loop"] = loop;
     return component;
 }

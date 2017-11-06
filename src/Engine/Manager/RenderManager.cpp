@@ -25,6 +25,7 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
+#include "../Component/VRDevice.hpp"
 #include "../Physics/Shape.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
 #include "../Texture/TextureAsset.hpp"
@@ -39,7 +40,7 @@
 #include "Util/GPUProfiling.hpp"
 
 #include "Manager/VRManager.hpp"
-#include "Component/Controller.hpp"
+#include <glm/gtc/quaternion.hpp>
 
 using namespace Component;
 
@@ -75,7 +76,7 @@ RenderManager::~RenderManager() {
     delete renderer;
 }
 
-void RenderManager::Render(World& world, Entity* camera) {
+void RenderManager::Render(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, Entity* camera) {
     // Find camera entity.
     if (camera == nullptr) {
         for (Lens* lens : lenses.GetAll())
@@ -87,60 +88,94 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (mainWindowRenderSurface != nullptr) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
+                const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
+                const glm::vec3 position = camera->GetWorldPosition();
+                const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
 
-                const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
-                const glm::mat4 orientationMat = camera->GetCameraOrientation();
-                const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                { PROFILE("Render world entities");
+                { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
+                    RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                }
+                }
 
-                Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
+                if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                    { PROFILE("Render editor entities");
+                    { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                    }
+                    }
+                }
+
+                { PROFILE("Render debug entities");
+                { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                    Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                }
+                }
+
+                { PROFILE("Render particles");
+                { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                    Managers().particleManager->Render(world, position, up, projectionMatrix * viewMatrix, mainWindowRenderSurface);
+                }
+                }
+
+
+                { PROFILE("Present to back buffer");
+                { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
+                { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
+                    renderer->Present(mainWindowRenderSurface);
+                }
+                }
+                }
             }
             }
 
-            // Present to back buffer.
-            { PROFILE("Present to back buffer");
-            { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
-            { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
-                renderer->Present(mainWindowRenderSurface);
-            }
-            }
-            }
         }
 
         // Render hmd.
-        if (hmdRenderSurface != nullptr && camera->name != "Editor Camera") {
+        if (hmdRenderSurface != nullptr) {
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
 
                 for (int i = 0; i < 2; ++i) {
                     vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
-                    glm::vec3 position = camera->GetWorldPosition();
                     Lens* lens = camera->GetComponent<Lens>();
-                    const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
-                    glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
-                    glm::mat4 eyeTranslation = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
+                    VRDevice* headset = camera->GetComponent<VRDevice>();
 
-                    glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
-                    glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
-                    glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
-                    glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
+                    const glm::mat4 lensViewMatrix = glm::inverse(camera->GetModelMatrix());
+                    const glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
+                    const glm::mat4 eyeViewMatrix = eyeTranslation * lensViewMatrix;
+                    const glm::mat4 projectionMatrix = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
+                    const glm::vec3 position = camera->GetWorldPosition();
+                    const glm::vec3 up(lensViewMatrix[0][1], lensViewMatrix[1][1], lensViewMatrix[2][1]);
 
-                    glm::mat4 orientationMat = glm::transpose(glm::mat4(
-                        glm::vec4(right, 0.f),
-                        glm::vec4(up, 0.f),
-                        glm::vec4(forward, 0.f),
-                        glm::vec4(0.f, 0.f, 0.f, 1.f)
-                    ));
+                    { PROFILE("Render world entities");
+                    { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
+                        RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface);
+                    }
+                    }
 
-                    glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
-                    glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
-                    glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
-                    glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
+                    if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                        { PROFILE("Render editor entities");
+                        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                            RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
+                        }
+                        }
+                    }
 
-                    glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
+                    { PROFILE("Render debug entities");
+                    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                        Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
+                    }
+                    }
 
-                    Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
+                    { PROFILE("Render particles");
+                    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                        Managers().particleManager->Render(world, position, up, projectionMatrix * lensViewMatrix, hmdRenderSurface);
+                    }
+                    }
 
                     hmdRenderSurface->Swap();
                     vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
@@ -160,83 +195,16 @@ void RenderManager::Render(World& world, Entity* camera) {
     }
 }
 
-void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
-    // Find camera entity.
-    if (camera == nullptr) {
-        for (Lens* lens : lenses.GetAll()) {
-            camera = lens->entity;
-        }
-    }
-    
-    // Render from camera.
-    if (camera != nullptr) {
-        const glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
-        const glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
-        const glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
-        const glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        const glm::vec3 up(glm::inverse(camera->GetCameraOrientation()) * glm::vec4(0, 1, 0, 1));
-        
-        renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->GetWorldPosition(), up);
-        
-        // Render sound sources.
-        if (soundSources) {
-            for (SoundSource* soundSource : Managers().soundManager->GetSoundSources())
-                renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
-        }
-        
-        // Render particle emitters.
-        if (particleEmitters) {
-            for (ParticleEmitter* emitter : Managers().particleManager->GetParticleEmitters())
-                renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
-        }
-        
-        // Render light sources.
-        if (lightSources) {
-            for (DirectionalLight* light : directionalLights.GetAll())
-                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
-            
-            for (PointLight* light : pointLights.GetAll())
-                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
-            
-            for (SpotLight* light : spotLights.GetAll())
-                renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
-        }
-        
-        // Render cameras.
-        if (cameras) {
-            for (Lens* lens : lenses.GetAll())
-                renderer->RenderIcon(lens->entity->GetWorldPosition(), cameraTexture);
-        }
-        
-        renderer->StopRenderingIcons();
-        
-        // Render physics.
-        if (physics) {
-            for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
-                const ::Physics::Shape& shape = *shapeComp->GetShape();
-                if (shape.GetKind() == ::Physics::Shape::Kind::Sphere) {
-                    Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
-                } else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
-                    Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-                }
-            }
-        }
-    }
-}
-
 void RenderManager::UpdateBufferSize() {
     delete mainWindowRenderSurface;
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::Render(World& world, const glm::mat4& translationMatrix, const glm::mat4& orientationMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
+void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
     // Render from camera.
     renderer->StartRendering(renderSurface);
 
     // Camera matrices.
-    const glm::vec3 position = glm::vec3(translationMatrix[3][0], translationMatrix[3][1], translationMatrix[3][2]);
-    const glm::vec3 up = glm::vec3(glm::inverse(orientationMatrix) * glm::vec4(0, 1, 0, 1));
-    const glm::mat4 viewMatrix = orientationMatrix * translationMatrix;
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
@@ -253,16 +221,9 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
-                Controller* controller = entity->GetComponent<Controller>();
                 // If entity does not have material, it won't be rendered.
-                if (entity->GetComponent<Material>() != nullptr) {
-                    if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
-                        renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, ctrlModelMatrix);
-                    }
-                    else
-                        renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
-                }
+                if (entity->GetComponent<Material>() != nullptr)
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
             }
         }
     }
@@ -290,15 +251,8 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
-                Controller* controller = entity->GetComponent<Controller>();
-                if (material != nullptr) {
-                    if (controller != nullptr && hmdRenderSurface != nullptr) {
-                        glm::mat4 ctrlModelMatrix = controller->HandleTransformation(entity);
-                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), ctrlModelMatrix, false);
-                    }
-                    else
-                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
-                }
+                if (material != nullptr)
+                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
             }
         }
     }
@@ -319,6 +273,62 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
         }
     }
 
+}
+
+void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources,
+    bool cameras, bool physics, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix,
+    Video::RenderSurface* renderSurface) {
+
+    const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
+
+    renderSurface->GetShadingFrameBuffer()->BindWrite();
+    renderer->PrepareRenderingIcons(viewProjectionMatrix, position, up);
+
+    // Render sound sources.
+    if (soundSources) {
+        for (SoundSource* soundSource : Managers().soundManager->GetSoundSources())
+            renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
+    }
+
+    // Render particle emitters.
+    if (particleEmitters) {
+        for (ParticleEmitter* emitter : Managers().particleManager->GetParticleEmitters())
+            renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
+    }
+
+    // Render light sources.
+    if (lightSources) {
+        for (DirectionalLight* light : directionalLights.GetAll())
+            renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
+
+        for (PointLight* light : pointLights.GetAll())
+            renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
+
+        for (SpotLight* light : spotLights.GetAll())
+            renderer->RenderIcon(light->entity->GetWorldPosition(), lightTexture);
+    }
+
+    // Render cameras.
+    if (cameras) {
+        for (Lens* lens : lenses.GetAll())
+            renderer->RenderIcon(lens->entity->GetWorldPosition(), cameraTexture);
+    }
+
+    renderer->StopRenderingIcons();
+    renderSurface->GetShadingFrameBuffer()->Unbind();
+
+    // Render physics.
+    if (physics) {
+        for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
+            const ::Physics::Shape& shape = *shapeComp->GetShape();
+            if (shape.GetKind() == ::Physics::Shape::Kind::Sphere) {
+                Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
+            }
+            else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
+                Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+            }
+        }
+    }
 }
 
 Component::Animation* RenderManager::CreateAnimation() {
@@ -458,26 +468,8 @@ const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
     return spotLights.GetAll();
 }
 
-Component::Controller* RenderManager::CreateController() {
-    return controllers.Create();
-}
-
-Component::Controller* RenderManager::CreateController(const Json::Value& node) {
-    Component::Controller* controller = controllers.Create();
-
-    //Load values from Json node.
-    controller->controllerID = node.get("controllerID", 1).asInt();
-
-    return controller;
-}
-
-const std::vector<Component::Controller*>& RenderManager::GetControllers() const {
-    return controllers.GetAll();
-}
-
 void RenderManager::ClearKilledComponents() {
     animations.ClearKilled();
-    controllers.ClearKilled();
     directionalLights.ClearKilled();
     lenses.ClearKilled();
     materials.ClearKilled();

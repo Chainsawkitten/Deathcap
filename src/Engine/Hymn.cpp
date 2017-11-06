@@ -50,6 +50,7 @@ ActiveHymn& ActiveHymn::GetInstance() {
 
 void ActiveHymn::Clear() {
     path = "";
+    startupScene = "";
     world.Clear();
     
     entityNumber = 1U;
@@ -127,6 +128,9 @@ Json::Value ActiveHymn::ToJson() const {
         scriptNode.append(script->path + script->name);
     }
     root["scripts"] = scriptNode;
+
+    root["vrScale"] = vrScale;
+    root["startupScene"] = startupScene;
     
     return root;
 }
@@ -152,11 +156,19 @@ void ActiveHymn::FromJson(Json::Value root) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
     }
     scriptNumber = scripts.size();
+
+    vrScale = root["vrScale"].asFloat();
+    Managers().vrManager->SetScale(vrScale);
+    startupScene = root["startupScene"].asString();
 }
 
 void ActiveHymn::Update(float deltaTime) {
     { PROFILE("Run scripts.");
         Managers().scriptManager->Update(world, deltaTime);
+    }
+    
+    { PROFILE("Update VR devices");
+        Managers().vrManager->Update();
     }
     
     { PROFILE("Update physics");
@@ -199,26 +211,19 @@ void ActiveHymn::Update(float deltaTime) {
     { PROFILE("Clear killed entities/components");
         world.ClearKilled();
     }
+
+    if (restart) {
+        restart = false;
+        world.Load(saveState);
+        Managers().scriptManager->RegisterInput();
+        Managers().scriptManager->BuildAllScripts();
+    }
 }
 
 void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
     { PROFILE("Render world");
     { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
-        Managers().renderManager->Render(world, camera);
-    }
-    }
-    
-    if (soundSources || particleEmitters || lightSources || cameras || physics) {
-        { PROFILE("Render editor entities");
-        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras, physics);
-        }
-        }
-    }
-
-    { PROFILE("Render debug entities");
-    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-        Managers().debugDrawingManager->Render(camera);
+        Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera);
     }
     }
 }
