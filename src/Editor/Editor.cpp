@@ -236,10 +236,10 @@ void Editor::Show(float deltaTime) {
         // View matrix.
         glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
 
-        //Load Vertices and Indices for the ray-triangle intersection test when the "paint mode" button is pressed.
+        // Load Vertices and Indices for the ray-triangle intersection test when the "paint mode" button is pressed.
         if (currentEntity->loadPaintModeClicked && currentEntity->vertsLoaded == true) {
-
-            //delete previously loaded verts and indices
+            
+            // Delete previously loaded verts and indices.
             if (nrOfVertices > 0) {
                 delete[] vertices;
                 delete[] indices;
@@ -260,7 +260,7 @@ void Editor::Show(float deltaTime) {
             nrOfVertices = resourceView.GetScene().entityEditor.GetNrOfVerts();
         }
 
-        //Ray-Triangle intersection test.
+        // Ray-Triangle intersection test.
         if (currentEntity->GetComponent<Component::Mesh>() != nullptr && currentEntity->GetComponent<Component::Mesh>()->geometry != nullptr && currentEntity->vertsLoaded) {
             currentEntity->loadPaintModeClicked = false;
 
@@ -278,14 +278,14 @@ void Editor::Show(float deltaTime) {
 
                 float intersectT = INFINITY;
 
-                //Loop through each triangle and check for intersection.
+                // Loop through each triangle and check for intersection.
                 for (int i = 0; i < resourceView.GetScene().entityEditor.GetNrOfIndices();) {
 
                     p0 = vertices[indices[i++]].position;
                     p1 = vertices[indices[i++]].position;
                     p2 = vertices[indices[i++]].position;
 
-                    //Calculate intersection.
+                    // Calculate intersection.
                     if (rayIntersector.TriangleIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(), p0, p1, p2, intersectT)) {
 
                         if (intersectT < lastIntersect && intersectT >= 0.0f) {
@@ -301,7 +301,7 @@ void Editor::Show(float deltaTime) {
                 normal = glm::cross(e1, e2);
                 glm::normalize(normal);
 
-                //Get mousePosition in worldspace
+                // Get mousePosition in worldspace.
                 glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
                 Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
                 lastIntersect = INFINITY;
