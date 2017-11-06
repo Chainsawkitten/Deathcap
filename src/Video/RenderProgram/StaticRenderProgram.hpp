@@ -78,8 +78,11 @@ namespace Video {
             StaticRenderProgram(const StaticRenderProgram& other) = delete;
             ShaderProgram* shaderProgram;
             ShaderProgram* zShaderProgram;
-            ShaderProgram* shadowProgram;
 
+            bool first = true;
+      
+            ShaderProgram* shadowProgram;
+      
             glm::mat4 viewMatrix;
             glm::mat4 projectionMatrix;
             glm::mat4 viewProjectionMatrix;
