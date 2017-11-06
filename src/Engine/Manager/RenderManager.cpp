@@ -407,6 +407,12 @@ void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool p
                 Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
             } else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {
                 Managers().debugDrawingManager->AddPlane(shapeComp->entity->position, shape.GetPlaneData()->normal, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+            } else if (shape.GetKind() == ::Physics::Shape::Kind::Box) {
+                glm::vec3 dimensions(shape.GetBoxData()->width, shape.GetBoxData()->height, shape.GetBoxData()->depth);
+                glm::vec3 position = shapeComp->entity->GetWorldPosition();
+                glm::quat orientation = shapeComp->entity->GetWorldOrientation();
+                glm::mat4 transformationMatrix = glm::translate(glm::toMat4(orientation), position);
+                Managers().debugDrawingManager->AddCuboid(dimensions, transformationMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
             }
         }
     }
