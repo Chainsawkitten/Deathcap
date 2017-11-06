@@ -41,29 +41,29 @@ namespace Component {
              * @param size The size in number of bytes of the property.
              * @param data A pointer to the data to store.
              */
-            ENGINE_API void AddToPropertyMap(std::string &name, int type, int size, void* data);
+            ENGINE_API void AddToPropertyMap(const std::string& name, int type, int size, void* data);
 
             /// Copy the data from a property in the map.
             /**
              * @param name The name of the property.
              * @param target A pointer that points where to copy the data.
              */
-            ENGINE_API void CopyDataFromPropertyMap(const std::string &name, void* target);
+            ENGINE_API void CopyDataFromPropertyMap(const std::string& name, void* target);
 
             /// Get the pointer to the data of a property in the map.
             /**
              * @param name The name of the property.
              * @return A pointer to the data of the property.
              */
-            ENGINE_API void* GetDataFromPropertyMap(const std::string &name);
+            ENGINE_API void* GetDataFromPropertyMap(const std::string& name);
 
-            /// Save the component.
+            /// Is the property in the map?
             /**
              * @param name The name of the property.
              * @param type The asTypeID of the property.
              * @return Is there a property with the provided name and type in propertyMap.
              */  
-            ENGINE_API bool IsInPropertyMap(const std::string &name, const int type);
+            ENGINE_API bool IsInPropertyMap(const std::string& name, const int type);
 
             /// Clears the property map.
             ENGINE_API void ClearPropertyMap();

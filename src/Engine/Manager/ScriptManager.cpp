@@ -575,7 +575,7 @@ void ScriptManager::FillPropertyMap(Script* script) {
 
             std::string name = script->instance->GetPropertyName(n);
             int typeId = script->instance->GetPropertyTypeId(n);
-            void *varPointer = script->instance->GetAddressOfProperty(n);
+            void* varPointer = script->instance->GetAddressOfProperty(n);
 
             if (script->IsInPropertyMap(name, typeId))
                 continue;
