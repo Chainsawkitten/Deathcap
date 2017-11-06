@@ -6,7 +6,7 @@
 #include <functional>
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
-#include <Engine\Geometry\AssetFileHandler.hpp>
+#include <Engine/Geometry/AssetFileHandler.hpp> 
 #include "../ResourceSelector.hpp"
 
 namespace Component {
@@ -137,7 +137,6 @@ namespace GUI {
             int nrOfVerts;
             int nrOfIndices;
             uint32_t* indices;
-            bool isLoaded();
             Video::Geometry::VertexType::StaticVertex* vertices;
          
             bool visible = false;

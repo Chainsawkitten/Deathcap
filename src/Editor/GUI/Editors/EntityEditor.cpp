@@ -645,10 +645,6 @@ Video::Geometry::VertexType::StaticVertex* EntityEditor::GetVertices() {
     return vertices;
 }
 
-bool EntityEditor::isLoaded() {
-    return vertsLoaded;
-}
-
 uint32_t* EntityEditor::GetIndices() {
     return indices;
 
