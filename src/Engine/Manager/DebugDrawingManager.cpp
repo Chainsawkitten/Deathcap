@@ -158,6 +158,16 @@ void DebugDrawingManager::Update(float deltaTime) {
         } else
             spheres[i].duration -= deltaTime;
     }
+    
+    // Cylinders.
+    for (std::size_t i=0; i < cylinders.size(); ++i) {
+        if (cylinders[i].duration < 0.f) {
+            cylinders[i] = cylinders[cylinders.size() - 1];
+            cylinders.pop_back();
+            --i;
+        } else
+            cylinders[i].duration -= deltaTime;
+    }
 }
 
 void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {       
