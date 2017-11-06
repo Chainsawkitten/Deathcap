@@ -11,15 +11,15 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Bridge Puzzle Scene/Cave/Models/cave_puzzle_01"
+				"model" : "Resources/Bridge Puzzle Scene/Cave/Models/cave_puzzle_02"
 			},
 			"children" : null,
 			"name" : "Cave",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : 3.2340002059936523,
 				"y" : 0.0,
-				"z" : 0.0
+				"z" : 0.23100000619888306
 			},
 			"rotation" : 
 			{
@@ -196,7 +196,7 @@
 			{
 				"x" : 3.3270001411437988,
 				"y" : -0.6950000524520874,
-				"z" : 33.156002044677734
+				"z" : 39.897003173828125
 			},
 			"rotation" : 
 			{
@@ -215,6 +215,75 @@
 			"sceneName" : "Resources/Constant Scene/Rails/Rail Scene",
 			"static" : false,
 			"uid" : 1509713057
+		},
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 3.2050001621246338,
+				"y" : -0.41600000858306885,
+				"z" : 30.264001846313477
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		},
+		{
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
+			"Shape" : 
+			{
+				"plane" : 
+				{
+					"normal" : 
+					{
+						"x" : 0.0,
+						"y" : 1.0,
+						"z" : 0.0
+					},
+					"planeCoeff" : 0.0
+				}
+			},
+			"children" : null,
+			"name" : "BreakCheck",
+			"position" : 
+			{
+				"x" : 3.3410000801086426,
+				"y" : 0.0,
+				"z" : 13.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509958720
 		}
 	],
 	"name" : "Root",

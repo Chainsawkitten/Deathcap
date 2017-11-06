@@ -1,7 +1,7 @@
 {
 	"activeScene" : "Resources/Bridge Puzzle Scene/Bridge Puzzle Scene",
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 25,
+	"modelNumber" : 26,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -325,7 +325,7 @@
 										"type" : 1
 									},
 									{
-										"model" : "cave_straigth",
+										"model" : "cave_puzzle_02",
 										"type" : 1
 									},
 									{
@@ -384,7 +384,20 @@
 					{
 						"name" : "Bridge",
 						"resources" : null,
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "Model #25",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					},
 					{
 						"name" : "Rock",
