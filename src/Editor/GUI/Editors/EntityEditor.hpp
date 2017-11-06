@@ -80,31 +80,31 @@ namespace GUI {
             */
             void SetVertexData(Geometry::AssetFileHandler::MeshData* data);
 
-            ///Returns the vertex data.
+            /// Returns the vertex data.
             /**
             * @return The array of vertices previously loaded by the SetVertexData function.
             */
             Video::Geometry::VertexType::StaticVertex* GetVertices();
 
-            ///Returns the index data.
+            /// Returns the index data.
             /**
             * @return The array of indices previously loaded by the SetVertexData function.
             */
             uint32_t* GetIndices();
 
-            ///Returns the number of vertices.
+            /// Returns the number of vertices.
             /**
             * @return The number of vertices in the array of vertices loaded by the SetVertexData function.
             */
             int GetNrOfVerts();
 
-            ///Returns the number of indices.
+            /// Returns the number of indices.
             /**
             * @return The number of indices in the array of indices loaded by the SetVertexData function.
             */
             int GetNrOfIndices();
 
-            ///Returns whether the vertex and index data has been loaded.
+            /// Returns whether the vertex and index data has been loaded.
             /**
             * @return Whether vertex and index data has been loaded.
             */
@@ -132,7 +132,7 @@ namespace GUI {
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
             void VRDeviceEditor(Component::VRDevice* vrDevice);
 
-            //Vertex and index data
+            // Vertex and index data
             Entity* entity = nullptr;
             int nrOfVerts;
             int nrOfIndices;
