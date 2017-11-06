@@ -100,18 +100,6 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 const glm::vec3 position = camera->GetWorldPosition();
                 const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
 
-                { PROFILE("Render world entities");
-                { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                    RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface);
-                }
-                }
-
-                { PROFILE("Render debug entities");
-                { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-                    Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
-                }
-                }
-
                     {
                         PROFILE("Render world entities");
                         {
