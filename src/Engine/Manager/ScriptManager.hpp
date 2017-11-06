@@ -97,7 +97,7 @@ class ScriptManager {
          * @param recipient The entity to receive the message.
          * @param type The type of message to send.
          */
-        ENGINE_API void SendMessage(Entity* recipient, int type);
+        ENGINE_API void SendMessage(Entity* recipient, Entity* sender, int type);
 
         /// Fetches an entity using its GUID.
         /**
@@ -155,6 +155,7 @@ class ScriptManager {
     private:
         struct Message {
             Entity* recipient;
+            Entity* sender;
             int type;
         };
         

@@ -114,7 +114,7 @@ glm::vec2 GetCursorXY() {
 }
 
 void SendMessage(Entity* recipient, int type) {
-    Managers().scriptManager->SendMessage(recipient, type);
+    Managers().scriptManager->SendMessage(recipient, Managers().scriptManager->currentEntity, type);
 }
 
 void RestartScene() {
@@ -354,6 +354,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "void RotateAroundWorldAxis(float, const vec3 &in)", asMETHOD(Entity, RotateAroundWorldAxis), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void SetWorldOrientation(quat)", asMETHOD(Entity, SetWorldOrientation), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void SetLocalOrientation(quat)", asMETHOD(Entity, SetLocalOrientation), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "Entity@ SetParent(Entity@ parent) const", asMETHOD(Entity, SetParent), asCALL_THISCALL);
     
     // Register components.
     engine->SetDefaultNamespace("Component");
@@ -712,9 +713,10 @@ void ScriptManager::RegisterInput() {
     }
 }
 
-void ScriptManager::SendMessage(Entity* recipient, int type) {
+void ScriptManager::SendMessage(Entity* recipient, Entity* sender, int type) {
     Message message;
     message.recipient = recipient;
+    message.sender = sender;
     message.type = type;
     messages.push_back(message);
 }
@@ -886,14 +888,15 @@ void ScriptManager::CallMessageReceived(const Message& message) {
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
     
     // Find method to call.
-    asIScriptFunction* method = type->GetMethodByDecl("void ReceiveMessage(int)");
+    asIScriptFunction* method = type->GetMethodByDecl("void ReceiveMessage(@Entity, int)");
     if (method == nullptr)
-        Log() << "Can't find method void ReceiveMessage(int)\n";
+        Log() << "Can't find method void ReceiveMessage(@Entity, int)\n";
     
     // Create context, prepare it and execute.
     asIScriptContext* context = CreateContext();
     context->Prepare(method);
     context->SetObject(script->instance);
+    context->SetArgAddress(0, message.sender);
     context->SetArgDWord(0, message.type);
     ExecuteCall(context);
     

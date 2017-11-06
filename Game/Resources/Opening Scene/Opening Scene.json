@@ -415,6 +415,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1509626126
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Lever/Models/leverbox"
+			},
+			"children" : null,
+			"name" : "Pickup Test",
+			"position" : 
+			{
+				"x" : 1.1550000905990601,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509964911
 		}
 	],
 	"name" : "Root",
