@@ -115,12 +115,39 @@ class PhysicsManager {
          */
         ENGINE_API void SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape);
 
+        /// Get the mass of a rigid body component.
+        /**
+         * @param comp Rigid body component to get mass of.
+         * @return Mass in kilograms.
+         */
+        ENGINE_API float GetMass(Component::RigidBody* comp);
+
         /// Set the mass of a Component::RigidBody component.
         /**
          * @param comp The component on which to set mass.
          * @param mass Mass in kilograms.
          */
         ENGINE_API void SetMass(Component::RigidBody* comp, float mass);
+
+        /// Turn a rigid body into a kinematic object, putting movement in the
+        /// control of the programmer.
+        /**
+         * @param comp Rigid body to make kinematic.
+         */
+        ENGINE_API void MakeKinematic(Component::RigidBody* comp);
+
+        /// Turn a rigid body into a dynamic object.
+        /**
+         * @param comp Rigid body to make dynamic.
+         */
+        ENGINE_API void MakeDynamic(Component::RigidBody* comp);
+
+        /// Forces a dynamic rigid body to synchronize its transform with that
+        /// of its owning entity during the next simulation iteration.
+        /**
+         * @param comp Rigid body to synchronize.
+         */
+        ENGINE_API void ForceTransformSync(Component::RigidBody* comp);
 
         /// Get all shape components.
         /**

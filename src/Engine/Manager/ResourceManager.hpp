@@ -169,12 +169,13 @@ class ResourceManager {
         ResourceManager(ResourceManager const&) = delete;
         void operator=(ResourceManager const&) = delete;
         
-        // Rectangle.
-        Video::Geometry::Rectangle* rectangle;
+        // Rectangle
+        Video::Geometry::Rectangle* rectangle = nullptr;
         int rectangleCount = 0;
         
-        // Cube.
-        Geometry::Cube* cube;
+        // Cube
+        Geometry::Cube* cube = nullptr;
+
         int cubeCount = 0;
         
         // Model.

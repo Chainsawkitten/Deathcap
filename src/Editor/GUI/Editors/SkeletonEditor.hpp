@@ -26,11 +26,11 @@ namespace GUI {
 
             /// Set the skeleton to edit.
             /**
-             * @param model Skeleton to edit.
+             * @param skeleton Skeleton to edit.
              */
             void SetSkeleton(Animation::Skeleton* skeleton);
             
-            /// Get whether the window is visable.
+            /// Get whether the window is visible.
             /**
              * @return True if visible.
              */
@@ -38,7 +38,7 @@ namespace GUI {
 
             /// Set whether the window should be visible.
             /**
-             * @param visable Whether the window should be visible.
+             * @param visible Whether the window should be visible.
              */
             void SetVisible(bool visible);
 

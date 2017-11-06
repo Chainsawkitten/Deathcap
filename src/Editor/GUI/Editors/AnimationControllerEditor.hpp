@@ -50,7 +50,7 @@ namespace GUI {
             /// Show global values exposed to scripting.
             void ShowValues() override;
 
-            /// Return the a node array of animation related nodes.
+            /// Return a node array of animation related nodes.
             /**
              * @return The node array.
              */

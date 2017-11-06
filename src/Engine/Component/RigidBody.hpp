@@ -30,6 +30,14 @@ namespace Component {
              */
             ENGINE_API Json::Value Save() const override;
 
+            /// Return a value indicating whether the rigid body is kinematic
+            /// or dynamic. In the former case the transform is determined by
+            /// that of its entity. In the latter case, Bullet calculates it.
+            /**
+             * @return True if kinematic, false if dynamic.
+             */
+            ENGINE_API bool IsKinematic() const;
+
         private:
             // Get the underlying Bullet rigid body. If none has been set,
             // nullptr is returned.
@@ -43,16 +51,34 @@ namespace Component {
             void Destroy();
 
             // Get the position of a rigid body.
-            glm::vec3 Position() const;
+            glm::vec3 GetPosition() const;
 
             // Set the position of a rigid body.
-            void Position(const glm::vec3& pos);
+            void SetPosition(const glm::vec3& pos);
+
+            // Get the orientation of a rigid body.
+            glm::quat GetOrientation() const;
+
+            // Set the orientation of a rigid body.
+            void SetOrientation(const glm::quat& rotation);
+
+            // Get the mass in kilograms of a rigid body.
+            float GetMass();
 
             // Set the mass in kilograms of a rigid body.
-            void Mass(float mass);
+            void SetMass(float mass);
 
-        private:
+            void MakeKinematic();
+            void MakeDynamic();
+
+            // Get/set whether a dynamic rigid body should synchronize its
+            // transform against the owning entity during the next simulation.
+            bool GetForceTransformSync() const;
+            void SetForceTransformSync(bool sync);
+
             float mass = 1.0f;
             btRigidBody* rigidBody = nullptr;
+            bool kinematic = false;
+            bool forceTransformSync = true; // For first frame
     };
 }

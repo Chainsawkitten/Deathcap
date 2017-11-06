@@ -72,14 +72,12 @@ void AnimationControllerEditor::ShowContextMenu() {
 }
 
 void AnimationControllerEditor::ShowNode(Node* node) {
-    if (dynamic_cast<Animation::AnimationController::AnimationAction*>(node) != nullptr) {
-        ImGui::Text("Action: %s", node->name);
-        ImGui::InputText("Name", node->name, 128);
+    ImGui::Text("Action: %s", node->name);
+    ImGui::InputText("Name", node->name, 128);
 
-        // Dynamic cast to AnimationAction.
-        Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
-
-        // Select animation clip.
+    // Dynamic cast to AnimationAction.
+    Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
+    if (action) {
         if (ImGui::Button("Select animation clip##Clip"))
             ImGui::OpenPopup("Select animation clip##Clip");
 

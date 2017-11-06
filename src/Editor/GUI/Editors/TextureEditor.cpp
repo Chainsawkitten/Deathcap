@@ -16,8 +16,14 @@ TextureEditor::TextureEditor() {
 
 void TextureEditor::Show() {
     if (ImGui::Begin(("Texture: " + texture->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(texture))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
-        ImGui::InputText("Name", name, 128);
-        texture->name = name;
+        if (ImGui::InputText("Name", name, 128, ImGuiInputTextFlags_EnterReturnsTrue)) {
+            // Rename texture files.
+            std::string path = Hymn().GetPath() + "/" + texture->path;
+            rename((path + texture->name + ".png").c_str(), (path + name + ".png").c_str());
+            rename((path + texture->name + ".json").c_str(), (path + name + ".json").c_str());
+            
+            texture->name = name;
+        }
         
         if (texture->GetTexture()->IsLoaded()) {
             ImGui::Image((void*) texture->GetTexture()->GetTextureID(), ImVec2(128, 128));

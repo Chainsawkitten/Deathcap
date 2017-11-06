@@ -10,7 +10,12 @@ namespace Component {
     Json::Value RigidBody::Save() const {
         Json::Value component;
         component["mass"] = mass;
+        component["kinematic"] = kinematic;
         return component;
+    }
+
+    bool RigidBody::IsKinematic() const {
+        return kinematic;
     }
 
     btRigidBody* RigidBody::GetBulletRigidBody() {
@@ -30,7 +35,6 @@ namespace Component {
         btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, nullptr, btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
         rigidBody->setUserPointer(this);
-        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     }
 
     void RigidBody::Destroy() {
@@ -40,24 +44,80 @@ namespace Component {
         }
     }
 
-    glm::vec3 RigidBody::Position() const {
+    glm::vec3 RigidBody::GetPosition() const {
         btTransform trans;
-        rigidBody->getMotionState()->getWorldTransform(trans);
+        if (IsKinematic())
+            rigidBody->getMotionState()->getWorldTransform(trans);
+        else
+            trans = rigidBody->getWorldTransform();
+
         return Physics::btToGlm(trans.getOrigin());
     }
 
-    void RigidBody::Position(const glm::vec3& pos) {
-        btTransform trans;
-        rigidBody->getMotionState()->getWorldTransform(trans);
-        trans.setOrigin(Physics::glmToBt(pos));
-        rigidBody->setWorldTransform(trans);
+    void RigidBody::SetPosition(const glm::vec3& pos) {
+        if (IsKinematic()) {
+            btTransform trans;
+            rigidBody->getMotionState()->getWorldTransform(trans);
+            trans.setOrigin(Physics::glmToBt(pos));
+            rigidBody->getMotionState()->setWorldTransform(trans);
+        } else {
+            btTransform trans = rigidBody->getWorldTransform();
+            trans.setOrigin(Physics::glmToBt(pos));
+            rigidBody->setWorldTransform(trans);
+        }
     }
 
-    void RigidBody::Mass(float mass) {
+    glm::quat RigidBody::GetOrientation() const {
+        btTransform trans;
+        if (IsKinematic())
+            rigidBody->getMotionState()->getWorldTransform(trans);
+        else
+            trans = rigidBody->getWorldTransform();
+
+        return Physics::btToGlm(trans.getRotation());
+    }
+
+    void RigidBody::SetOrientation(const glm::quat& rotation) {
+        if (IsKinematic()) {
+            btTransform trans;
+            rigidBody->getMotionState()->getWorldTransform(trans);
+            trans.setRotation(Physics::glmToBt(rotation));
+            rigidBody->getMotionState()->setWorldTransform(trans);
+        } else {
+            btTransform trans = rigidBody->getWorldTransform();
+            trans.setRotation(Physics::glmToBt(rotation));
+            rigidBody->setWorldTransform(trans);
+        }
+    }
+
+    float RigidBody::GetMass() {
+        return mass;
+    }
+
+    void RigidBody::SetMass(float mass) {
         // Bullet provides a method on the shape that we can use to calculate
         // inertia.
         btVector3 inertia;
         rigidBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
         rigidBody->setMassProps(mass, inertia);
+        this->mass = mass;
+    }
+
+    void RigidBody::MakeKinematic() {
+        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+        kinematic = true;
+    }
+
+    void RigidBody::MakeDynamic() {
+        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() & ~btCollisionObject::CF_KINEMATIC_OBJECT);
+        kinematic = false;
+    }
+
+    bool RigidBody::GetForceTransformSync() const {
+        return forceTransformSync;
+    }
+
+    void RigidBody::SetForceTransformSync(bool sync) {
+        forceTransformSync = sync;
     }
 }

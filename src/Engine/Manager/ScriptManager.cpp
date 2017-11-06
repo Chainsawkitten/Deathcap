@@ -61,18 +61,15 @@ void AngelScriptMessageCallback(const asSMessageInfo* message, void* param) {
 void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::string, std::set<int>>* breakpoints){
     const char *scriptSection;
     int line = ctx->GetLineNumber(0, 0, &scriptSection);
-    asIScriptFunction *function = ctx->GetFunction();
 
     std::string fileName(scriptSection);
     fileName = fileName.substr(fileName.find_last_of("/") + 1);
 
     // Determine if we have reached a break point
-    if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end())
-    {
+    if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end()) {
         // A break point has been reached so the execution of the script should be suspended
         // Show the call stack
-        for (asUINT n = 0; n < ctx->GetCallstackSize(); n++)
-        {
+        for (asUINT n = 0; n < ctx->GetCallstackSize(); n++) {
             asIScriptFunction *func;
             const char *scriptSection;
             int line, column;
@@ -341,6 +338,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectProperty("Entity", "quat rotation", asOFFSET(Entity, rotation));
     engine->RegisterObjectProperty("Entity", "vec3 position", asOFFSET(Entity, position));
     engine->RegisterObjectProperty("Entity", "vec3 scale", asOFFSET(Entity, scale));
+    engine->RegisterObjectMethod("Entity", "vec3 GetWorldPosition() const", asMETHOD(Entity, GetWorldPosition), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
@@ -414,9 +412,12 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectType("DebugDrawingManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPoint(const vec3 &in, const vec3 &in, float, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPoint), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddLine(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddLine), asCALL_THISCALL);
-    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCuboid(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCuboid), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCuboid(const vec3 &in, const mat4 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCuboid), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPlane(const vec3 &in, const vec3 &in, const vec2 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPlane), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCircle(const vec3 &in, const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCircle), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddSphere(const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddSphere), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCylinder(float, float, const mat4& in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCylinder), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCone(float, float, const mat4& in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCone), asCALL_THISCALL);
     
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
@@ -440,7 +441,7 @@ ScriptManager::~ScriptManager() {
     engine->ShutDownAndRelease();
 }
 
-int ScriptManager::BuildScript(const ScriptFile* script) {
+int ScriptManager::BuildScript(ScriptFile* script) {
 
     GetBreakpoints(script);
 
@@ -469,6 +470,8 @@ int ScriptManager::BuildScript(const ScriptFile* script) {
         Log() << "Compile errors.\n";
         return r;
     }
+
+    FillFunctionVector(script);
 
     return r;
 
@@ -514,6 +517,9 @@ void ScriptManager::BuildAllScripts() {
             if (r < 0)
                 Log() << file->name.c_str() << "Compile errors.\n";
         }
+
+        FillFunctionVector(file);
+
     }
 }
 
@@ -566,11 +572,62 @@ void ScriptManager::FillPropertyMap(Script* script) {
     } else {
 
         CreateInstance(script);
-        script->FillPropertyMap();
+
+        int propertyCount = script->instance->GetPropertyCount();
+
+        for (int n = 0; n < propertyCount; n++) {
+
+            std::string name = script->instance->GetPropertyName(n);
+            int typeId = script->instance->GetPropertyTypeId(n);
+            void* varPointer = script->instance->GetAddressOfProperty(n);
+
+            if (script->IsInPropertyMap(name, typeId))
+                continue;
+
+            if (typeId == asTYPEID_INT32) {
+                int size = sizeof(int);
+                script->AddToPropertyMap(name, typeId, size, varPointer);
+            } else if (typeId == asTYPEID_FLOAT) {
+                int size = sizeof(float);
+                script->AddToPropertyMap(name, typeId, size, varPointer);
+            } else if (typeId == engine->GetTypeIdByDecl("Entity@")) {
+                int size = sizeof(unsigned int);
+                
+                const std::vector<Entity*> entities = Hymn().world.GetEntities();
+                
+                unsigned int GUID = 0;
+                if (entities.size() != 0)
+                    GUID = 0;
+                else 
+                    GUID = entities[0]->GetUniqueIdentifier();
+                
+                script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
+
+            }
+
+        }
 
     }
 
 }
+
+void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
+
+    scriptFile->functionList.clear();
+
+    asITypeInfo* scriptClass = GetClass(scriptFile->name, scriptFile->name);
+    int functionCount = scriptClass->GetMethodCount();
+    for (int n = 0; n < functionCount; n++) {
+
+        asIScriptFunction* func = scriptClass->GetMethodByIndex(n);
+        std::string decl = func->GetDeclaration(false);
+
+        scriptFile->functionList.push_back(decl);
+
+    }
+
+}
+
 
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
@@ -586,15 +643,18 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
             for (int n = 0; n < propertyCount; n++) {
 
+                std::string name = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void *varPointer = script->instance->GetAddressOfProperty(n);
 
-                auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
+                if (script->IsInPropertyMap(name, typeId)) {
 
-                if (it != script->propertyMap.end())
-                    if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId)
-                        std::memcpy(varPointer, script->propertyMap[script->instance->GetPropertyName(n)].second, GetSizeOfASType(typeId, script->propertyMap[script->instance->GetPropertyName(n)].second));
-   
+                    if (typeId == engine->GetTypeIdByDecl("Entity@"))
+                        *reinterpret_cast<Entity*>(varPointer) = *GetEntity(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                    else 
+                        script->CopyDataFromPropertyMap(name, varPointer);
+
+                } 
             }
         }
     }
@@ -703,7 +763,7 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
 Entity* ScriptManager::GetEntity(unsigned int GUID) {
 
     const std::vector<Entity*> entities = Hymn().world.GetEntities();
-    for (int i = 0; i < entities.size(); i++) {
+    for (std::size_t i = 0; i < entities.size(); ++i) {
 
         if (entities[i]->GetUniqueIdentifier() == GUID) {
 
@@ -732,9 +792,8 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
         Json::Value propertyMapJson = node.get("propertyMap", "");
         std::vector<std::string> names = propertyMapJson.getMemberNames();
-        std::string json = propertyMapJson.toStyledString();
 
-        for (const auto& name : names) {
+        for (auto& name : names) {
 
             if (propertyMapJson.isMember(name)) {
 
@@ -743,15 +802,13 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
                 int typeId = std::atoi(typeIds[0].c_str());
                 int size = typeId_value[typeIds[0]].size();
+                void* data = malloc(size + 1);
+                for (int i = 0; i < size; i++)
+                    ((unsigned char*)data)[i] = (unsigned char)(typeId_value[typeIds[0]][i].asInt());
 
-                if (size != -1) {
+                script->AddToPropertyMap(name, typeId, size, data);
+                std::free(data);
 
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, malloc(size + 1));
-
-                    for (int i = 0; i < size; i++)
-                        ((unsigned char*)script->propertyMap[name].second)[i] = (unsigned char)(typeId_value[typeIds[0]][i].asInt());
-
-                }
             }
         }
     }
@@ -762,18 +819,6 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 int ScriptManager::GetStringDeclarationID() {
 
     return engine->GetTypeIdByDecl("string");
-
-}
-
-const int ScriptManager::GetSizeOfASType(int typeID, void* value) {
-
-   
-    if (typeID == asTYPEID_INT32)
-        return sizeof(int);
-    if (typeID == asTYPEID_FLOAT)
-        return sizeof(float);
-
-    return -1;
 
 }
 

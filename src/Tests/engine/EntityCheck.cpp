@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <Engine/Entity/Entity.hpp>
 
-TEST_CASE("", "[entity component]")
+TEST_CASE("Entity check", "[entity component]")
 {
     // Create testEntity with null world.
     Entity nullWorldEntity(nullptr, "TestEntity");
@@ -9,7 +9,7 @@ TEST_CASE("", "[entity component]")
     SECTION ("Test default values.")
     {
         REQUIRE(nullWorldEntity.position == glm::vec3(0, 0, 0));
-        REQUIRE(nullWorldEntity.rotation == glm::quat(0, 0, 0, 0));
+        REQUIRE(nullWorldEntity.rotation == glm::quat(1, 0, 0, 0));
         REQUIRE(nullWorldEntity.scale == glm::vec3(1, 1, 1));
     }
 }
