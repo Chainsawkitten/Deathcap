@@ -51,11 +51,11 @@ namespace Video {
             
             /// A debug drawing cuboid.
             struct Cuboid {
-                /// The minimum coordinates of the box.
-                glm::vec3 minCoordinates;
+                /// The dimensions of the cuboids.
+                glm::vec3 dimensions;
                 
-                /// The maximum coordinates of the box.
-                glm::vec3 maxCoordinates;
+                /// The matrix used to transform the cuboid.
+                glm::mat4 matrix;
                 
                 /// Color.
                 glm::vec3 color;
