@@ -45,14 +45,26 @@ namespace Component {
     }
 
     glm::vec3 RigidBody::GetPosition() const {
-        btTransform trans = rigidBody->getWorldTransform();
+        btTransform trans;
+        if (IsKinematic())
+            rigidBody->getMotionState()->getWorldTransform(trans);
+        else
+            trans = rigidBody->getWorldTransform();
+
         return Physics::btToGlm(trans.getOrigin());
     }
 
     void RigidBody::SetPosition(const glm::vec3& pos) {
-        btTransform trans = rigidBody->getWorldTransform();
-        trans.setOrigin(Physics::glmToBt(pos));
-        rigidBody->setWorldTransform(trans);
+        if (IsKinematic()) {
+            btTransform trans;
+            rigidBody->getMotionState()->getWorldTransform(trans);
+            trans.setOrigin(Physics::glmToBt(pos));
+            rigidBody->getMotionState()->setWorldTransform(trans);
+        } else {
+            btTransform trans = rigidBody->getWorldTransform();
+            trans.setOrigin(Physics::glmToBt(pos));
+            rigidBody->setWorldTransform(trans);
+        }
     }
 
     glm::quat RigidBody::GetOrientation() const {
