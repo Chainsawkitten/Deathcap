@@ -112,4 +112,12 @@ namespace Component {
         rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() & ~btCollisionObject::CF_KINEMATIC_OBJECT);
         kinematic = false;
     }
+
+    bool RigidBody::GetForceTransformSync() const {
+        return forceTransformSync;
+    }
+
+    void RigidBody::SetForceTransformSync(bool sync) {
+        forceTransformSync = sync;
+    }
 }

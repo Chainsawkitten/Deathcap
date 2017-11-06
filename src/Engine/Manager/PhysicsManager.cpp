@@ -251,6 +251,10 @@ void PhysicsManager::MakeDynamic(Component::RigidBody* comp) {
     comp->MakeDynamic();
 }
 
+void PhysicsManager::ForceTransformSync(Component::RigidBody* comp) {
+    comp->SetForceTransformSync(true);
+}
+
 const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {
     return shapeComponents.GetAll();
 }

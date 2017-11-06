@@ -71,8 +71,14 @@ namespace Component {
             void MakeKinematic();
             void MakeDynamic();
 
+            // Get/set whether a dynamic rigid body should synchronize its
+            // transform against the owning entity during the next simulation.
+            bool GetForceTransformSync() const;
+            void SetForceTransformSync(bool sync);
+
             float mass = 1.0f;
             btRigidBody* rigidBody = nullptr;
             bool kinematic = false;
+            bool forceTransformSync = true; // For first frame
     };
 }

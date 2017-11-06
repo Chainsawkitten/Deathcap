@@ -142,6 +142,13 @@ class PhysicsManager {
          */
         ENGINE_API void MakeDynamic(Component::RigidBody* comp);
 
+        /// Forces a dynamic rigid body to synchronize its transform with that
+        /// of its owning entity during the next simulation iteration.
+        /**
+         * @param comp Rigid body to synchronize.
+         */
+        ENGINE_API void ForceTransformSync(Component::RigidBody* comp);
+
         /// Get all shape components.
         /**
          * @return All shape components.
