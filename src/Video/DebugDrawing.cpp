@@ -84,6 +84,12 @@ DebugDrawing::DebugDrawing() {
     CreateSphere(sphere, sphereVertexCount, 14);
     CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
     delete[] sphere;
+    
+    // Create cylinder vertex array.
+    glm::vec3* cylinder;
+    CreateCylinder(cylinder, cylinderVertexCount, 14);
+    CreateVertexArray(cylinder, cylinderVertexCount, cylinderVertexBuffer, cylinderVertexArray);
+    delete[] cylinder;
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -104,6 +110,9 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &sphereVertexBuffer);
     glDeleteVertexArrays(1, &sphereVertexArray);
+    
+    glDeleteBuffers(1, &cylinderVertexBuffer);
+    glDeleteVertexArrays(1, &cylinderVertexArray);
     
     delete shaderProgram;
 }
@@ -274,5 +283,25 @@ void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount
             if (m > 0 && m < detail)
                 positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
         }
+    }
+}
+
+void DebugDrawing::CreateCylinder(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 6;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int j = 0; j < detail; ++j) {
+        float angle1 = static_cast<float>(j) / detail * 2.0f * glm::pi<float>();
+        float angle2 = static_cast<float>(j + 1) / detail * 2.0f * glm::pi<float>();
+        
+        positions[i++] = glm::vec3(cos(angle1), 0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle1), -0.5f, sin(angle1));
+        
+        positions[i++] = glm::vec3(cos(angle1), 0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle2), 0.5f, sin(angle2));
+        
+        positions[i++] = glm::vec3(cos(angle1), -0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle2), -0.5f, sin(angle2));
     }
 }

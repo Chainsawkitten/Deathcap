@@ -222,6 +222,7 @@ namespace Video {
             void BindVertexArray(GLuint vertexArray);
             void CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             void CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
+            void CreateCylinder(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             
             Video::ShaderProgram* shaderProgram;
             
@@ -244,6 +245,10 @@ namespace Video {
             GLuint circleVertexBuffer;
             GLuint circleVertexArray;
             unsigned int circleVertexCount;
+            
+            GLuint cylinderVertexBuffer;
+            GLuint cylinderVertexArray;
+            unsigned int cylinderVertexCount;
             
             GLuint boundVertexArray = 0;
     };
