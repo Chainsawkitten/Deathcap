@@ -68,14 +68,26 @@ namespace Component {
     }
 
     glm::quat RigidBody::GetOrientation() const {
-        btTransform trans = rigidBody->getWorldTransform();
+        btTransform trans;
+        if (IsKinematic())
+            rigidBody->getMotionState()->getWorldTransform(trans);
+        else
+            trans = rigidBody->getWorldTransform();
+
         return Physics::btToGlm(trans.getRotation());
     }
 
     void RigidBody::SetOrientation(const glm::quat& rotation) {
-        btTransform trans = rigidBody->getWorldTransform();
-        trans.setRotation(Physics::glmToBt(rotation));
-        rigidBody->setWorldTransform(trans);
+        if (IsKinematic()) {
+            btTransform trans;
+            rigidBody->getMotionState()->getWorldTransform(trans);
+            trans.setRotation(Physics::glmToBt(rotation));
+            rigidBody->getMotionState()->setWorldTransform(trans);
+        } else {
+            btTransform trans = rigidBody->getWorldTransform();
+            trans.setRotation(Physics::glmToBt(rotation));
+            rigidBody->setWorldTransform(trans);
+        }
     }
 
     float RigidBody::GetMass() {
