@@ -1,6 +1,7 @@
 #include "TriggerEditor.hpp"
 
 #include <array>
+#include <algorithm>
 #include <Engine/Component/Trigger.hpp>
 #include <Engine/Component/Script.hpp>
 #include <Engine/Component/Shape.hpp>
@@ -14,7 +15,7 @@
 #include <Engine/Script/ScriptFile.hpp>
 #include <imgui.h>
 
-// This is necessary to use std::string in ImGui::Combo()
+// This is necessary to use std::string in ImGui::Combo(). Taken from https://github.com/ocornut/imgui/issues/1180
 namespace ImGui {
 
     static auto vector_getter = [](void* vec, int idx, const char** out_text) {
