@@ -231,6 +231,14 @@ void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
         comp->SetMass(mass);
 }
 
+void PhysicsManager::MakeKinematic(Component::RigidBody* comp) {
+    comp->MakeKinematic();
+}
+
+void PhysicsManager::MakeDynamic(Component::RigidBody* comp) {
+    comp->MakeDynamic();
+}
+
 const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {
     return shapeComponents.GetAll();
 }

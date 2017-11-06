@@ -13,6 +13,10 @@ namespace Component {
         return component;
     }
 
+    bool RigidBody::IsKinematic() const {
+        return kinematic;
+    }
+
     btRigidBody* RigidBody::GetBulletRigidBody() {
         return rigidBody;
     }
@@ -72,5 +76,15 @@ namespace Component {
         rigidBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
         rigidBody->setMassProps(mass, inertia);
         this->mass = mass;
+    }
+
+    void RigidBody::MakeKinematic() {
+        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+        kinematic = true;
+    }
+
+    void RigidBody::MakeDynamic() {
+        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() & ~btCollisionObject::CF_KINEMATIC_OBJECT);
+        kinematic = false;
     }
 }

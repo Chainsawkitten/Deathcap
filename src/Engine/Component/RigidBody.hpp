@@ -30,6 +30,14 @@ namespace Component {
              */
             ENGINE_API Json::Value Save() const override;
 
+            /// Return a value indicating whether the rigid body is kinematic
+            /// or dynamic. In the former case the transform is determined by
+            /// that of its entity. In the latter case, Bullet calculates it.
+            /**
+             * @return True if kinematic, false if dynamic.
+             */
+            ENGINE_API bool IsKinematic() const;
+
         private:
             // Get the underlying Bullet rigid body. If none has been set,
             // nullptr is returned.
@@ -60,7 +68,11 @@ namespace Component {
             // Set the mass in kilograms of a rigid body.
             void SetMass(float mass);
 
+            void MakeKinematic();
+            void MakeDynamic();
+
             float mass = 1.0f;
             btRigidBody* rigidBody = nullptr;
+            bool kinematic = false;
     };
 }
