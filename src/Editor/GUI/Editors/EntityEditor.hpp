@@ -96,13 +96,7 @@ namespace GUI {
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
             void VRDeviceEditor(Component::VRDevice* vrDevice);
 
-            // Vertex and index data
             Entity* entity = nullptr;
-            int nrOfVerts;
-            int nrOfIndices;
-            uint32_t* indices;
-            Video::Geometry::VertexType::StaticVertex* vertices;
-         
             bool visible = false;
             char name[128];
             char stringPropertyBuffer[128];

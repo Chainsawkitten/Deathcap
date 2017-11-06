@@ -125,11 +125,8 @@ class Editor {
         RayIntersection rayIntersector;
         int nrOfVertices = 0;
         int nrOfIndices = 0;
-        Video::Geometry::VertexType::StaticVertex* vertices;
-        uint32_t* indices;
         glm::vec3 normal;
         float lastIntersect = INFINITY;
-
         double lastX = 0.0;
         double lastY = 0.0;
         
