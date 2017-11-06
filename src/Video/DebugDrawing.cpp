@@ -84,6 +84,12 @@ DebugDrawing::DebugDrawing() {
     CreateSphere(sphere, sphereVertexCount, 14);
     CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
     delete[] sphere;
+    
+    // Create cone vertex array.
+    glm::vec3* cone;
+    CreateCone(cone, coneVertexCount, 14);
+    CreateVertexArray(cone, coneVertexCount, coneVertexBuffer, coneVertexArray);
+    delete[] cone;
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -104,6 +110,9 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &sphereVertexBuffer);
     glDeleteVertexArrays(1, &sphereVertexArray);
+    
+    glDeleteBuffers(1, &coneVertexBuffer);
+    glDeleteVertexArrays(1, &coneVertexArray);
     
     delete shaderProgram;
 }
@@ -200,6 +209,20 @@ void DebugDrawing::DrawSphere(const Sphere& sphere) {
     glDrawArrays(GL_LINES, 0, sphereVertexCount);
 }
 
+void DebugDrawing::DrawCone(const Cone& cone) {
+    BindVertexArray(coneVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(cone.radius, cone.height, cone.radius)));
+    model = cone.matrix * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    cone.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cone.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(cone.lineWidth);
+    glDrawArrays(GL_LINES, 0, coneVertexCount);
+}
+
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
     BindVertexArray(0);
@@ -274,5 +297,22 @@ void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount
             if (m > 0 && m < detail)
                 positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
         }
+    }
+}
+
+void DebugDrawing::CreateCone(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 4;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int j = 0; j < detail; ++j) {
+        float angle = 2.0f * glm::pi<float>() * static_cast<float>(j) / detail;
+        
+        positions[i++] = glm::vec3(0.0f, 1.0f, 0.0f);
+        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
+        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
+        
+        angle = 2.0f * glm::pi<float>() * static_cast<float>(j + 1) / detail;
+        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
     }
 }
