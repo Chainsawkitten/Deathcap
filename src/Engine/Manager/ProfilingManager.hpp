@@ -6,10 +6,11 @@
 
 #include <Video/Profiling/Query.hpp>
 #include "../linking.hpp"
-
+#ifdef MEASURE_VRAM
 #include <d3d11_3.h>
 #include <dxgi1_4.h>
 #undef CreateDirectory
+#endif
 
 /// Handles profiling.
 class ProfilingManager {
