@@ -25,7 +25,6 @@
 #include "../Component/RigidBody.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/SpotLight.hpp"
-#include "../Component/Mesh.hpp"
 #include "../Component/VRDevice.hpp"
 #include "../Input/Input.hpp"
 #include "../Script/ScriptFile.hpp"
@@ -35,7 +34,7 @@
 #include "DebugDrawingManager.hpp"
 #include "PhysicsManager.hpp"
 #include "ResourceManager.hpp"
-#include "RenderManager.hpp"
+#include "Component/Mesh.hpp"
 
 using namespace Component;
 
@@ -61,18 +60,15 @@ void AngelScriptMessageCallback(const asSMessageInfo* message, void* param) {
 void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::string, std::set<int>>* breakpoints){
     const char *scriptSection;
     int line = ctx->GetLineNumber(0, 0, &scriptSection);
-    asIScriptFunction *function = ctx->GetFunction();
 
     std::string fileName(scriptSection);
     fileName = fileName.substr(fileName.find_last_of("/") + 1);
 
     // Determine if we have reached a break point
-    if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end())
-    {
+    if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end()) {
         // A break point has been reached so the execution of the script should be suspended
         // Show the call stack
-        for (asUINT n = 0; n < ctx->GetCallstackSize(); n++)
-        {
+        for (asUINT n = 0; n < ctx->GetCallstackSize(); n++) {
             asIScriptFunction *func;
             const char *scriptSection;
             int line, column;
@@ -341,6 +337,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectProperty("Entity", "quat rotation", asOFFSET(Entity, rotation));
     engine->RegisterObjectProperty("Entity", "vec3 position", asOFFSET(Entity, position));
     engine->RegisterObjectProperty("Entity", "vec3 scale", asOFFSET(Entity, scale));
+    engine->RegisterObjectMethod("Entity", "vec3 GetWorldPosition() const", asMETHOD(Entity, GetWorldPosition), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
@@ -407,28 +404,13 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectType("DebugDrawingManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPoint(const vec3 &in, const vec3 &in, float, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPoint), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddLine(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddLine), asCALL_THISCALL);
-    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCuboid(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCuboid), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCuboid(const vec3 &in, const mat4 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCuboid), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPlane(const vec3 &in, const vec3 &in, const vec2 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPlane), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddCircle(const vec3 &in, const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCircle), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddSphere(const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddSphere), asCALL_THISCALL);
     
-    engine->RegisterObjectType("RenderManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
-    engine->RegisterObjectMethod("RenderManager", "void SetGamma(float)", asMETHOD(RenderManager, SetGamma), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "float GetGamma()", asMETHOD(RenderManager, GetGamma), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetFogApply(bool)", asMETHOD(RenderManager, SetFogApply), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "bool GetFogApply()", asMETHOD(RenderManager, GetFogApply), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetFogDensity(float)", asMETHOD(RenderManager, SetFogDensity), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "float GetFogDensity()", asMETHOD(RenderManager, GetFogDensity), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetFogColor(const vec3 &in)", asMETHOD(RenderManager, SetFogColor), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "vec3 GetFogColor()", asMETHOD(RenderManager, GetFogColor), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetColorFilterApply(bool)", asMETHOD(RenderManager, SetColorFilterApply), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "vec3 GetColorFilterColor()", asMETHOD(RenderManager, GetColorFilterColor), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "void SetDitherApply(bool)", asMETHOD(RenderManager, SetDitherApply), asCALL_THISCALL);
-    engine->RegisterObjectMethod("RenderManager", "bool GetDitherApply()", asMETHOD(RenderManager, GetDitherApply), asCALL_THISCALL);
-
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
-    engine->RegisterObjectProperty("Hub", "RenderManager@ renderManager", asOFFSET(Hub, renderManager));
     
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
@@ -735,7 +717,7 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
 Entity* ScriptManager::GetEntity(unsigned int GUID) {
 
     const std::vector<Entity*> entities = Hymn().world.GetEntities();
-    for (int i = 0; i < entities.size(); i++) {
+    for (std::size_t i = 0; i < entities.size(); ++i) {
 
         if (entities[i]->GetUniqueIdentifier() == GUID) {
 
