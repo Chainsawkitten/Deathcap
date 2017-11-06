@@ -313,6 +313,10 @@ void Editor::Show(float deltaTime) {
             glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
             Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
             lastIntersect = INFINITY;
+
+            if (Input()->Pressed(InputHandler::SELECT)) {
+                printf("hehehe");
+            }
         }
 
         // Change operation based on key input.
