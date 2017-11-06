@@ -84,6 +84,12 @@ DebugDrawing::DebugDrawing() {
     CreateSphere(sphere, sphereVertexCount, 14);
     CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
     delete[] sphere;
+    
+    // Create cone vertex array.
+    glm::vec3* cone;
+    CreateCone(cone, coneVertexCount, 14);
+    CreateVertexArray(cone, coneVertexCount, coneVertexBuffer, coneVertexArray);
+    delete[] cone;
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -104,6 +110,9 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &sphereVertexBuffer);
     glDeleteVertexArrays(1, &sphereVertexArray);
+    
+    glDeleteBuffers(1, &coneVertexBuffer);
+    glDeleteVertexArrays(1, &coneVertexArray);
     
     delete shaderProgram;
 }
@@ -274,5 +283,22 @@ void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount
             if (m > 0 && m < detail)
                 positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
         }
+    }
+}
+
+void DebugDrawing::CreateCone(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 4;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int j = 0; j < detail; ++j) {
+        float angle = 2.0f * glm::pi<float>() * static_cast<float>(j) / detail;
+        
+        positions[i++] = glm::vec3(0.0f, 1.0f, 0.0f);
+        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
+        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
+        
+        angle = 2.0f * glm::pi<float>() * static_cast<float>(j + 1) / detail;
+        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
     }
 }
