@@ -118,6 +118,8 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner) {
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
         comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
+        comp->SetMass(1.0f);
+        dynamicsWorld->addRigidBody(comp->GetBulletRigidBody());
     }
 
     return comp;
@@ -137,6 +139,8 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
         comp->GetBulletRigidBody()->setCollisionShape(shapeComp->GetShape()->GetShape());
+        comp->SetMass(mass);
+        dynamicsWorld->addRigidBody(comp->GetBulletRigidBody());
     }
 
     return comp;
@@ -152,6 +156,8 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     if (rigidBodyComp) {
         rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
+        rigidBodyComp->SetMass(rigidBodyComp->GetMass());
+        dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
     }
 
     return comp;
@@ -202,6 +208,8 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     auto rigidBodyComp = comp->entity->GetComponent<Component::RigidBody>();
     if (rigidBodyComp) {
         rigidBodyComp->GetBulletRigidBody()->setCollisionShape(comp->GetShape()->GetShape());
+        rigidBodyComp->SetMass(rigidBodyComp->GetMass());
+        dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
     }
 
     return comp;
