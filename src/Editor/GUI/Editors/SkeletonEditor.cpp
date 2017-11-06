@@ -8,6 +8,7 @@
 using namespace GUI;
 
 SkeletonEditor::SkeletonEditor() {
+    name[0] = '\0';
 }
 
 void SkeletonEditor::Show() {

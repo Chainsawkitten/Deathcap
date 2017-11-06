@@ -87,6 +87,6 @@ namespace Video {
             glm::mat4 projectionMatrix;
             glm::mat4 viewProjectionMatrix;
             glm::mat4 lightSpaceMatrix;
-            int shadowId;
+            int shadowId = 0;
     };
 } // namespace Video
