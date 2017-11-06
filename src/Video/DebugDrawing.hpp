@@ -139,6 +139,30 @@ namespace Video {
                 bool depthTesting;
             };
             
+            /// A debug drawing cone.
+            struct Cone {
+                /// Radius.
+                float radius;
+                
+                /// Height.
+                float height;
+                
+                /// The matrix used to transform the cone.
+                glm::mat4 matrix;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
             /// Create new debug primitive renderer.
             VIDEO_API DebugDrawing();
             
@@ -188,6 +212,12 @@ namespace Video {
              */
             VIDEO_API void DrawSphere(const Sphere& sphere);
             
+            /// Draw a cone.
+            /**
+             * @param cone The cone to draw.
+             */
+            VIDEO_API void DrawCone(const Cone& cone);
+            
             /// Stop debug drawing.
             VIDEO_API void EndDebugDrawing();
             
@@ -198,6 +228,7 @@ namespace Video {
             void BindVertexArray(GLuint vertexArray);
             void CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             void CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
+            void CreateCone(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             
             Video::ShaderProgram* shaderProgram;
             
@@ -220,6 +251,10 @@ namespace Video {
             GLuint circleVertexBuffer;
             GLuint circleVertexArray;
             unsigned int circleVertexCount;
+            
+            GLuint coneVertexBuffer;
+            GLuint coneVertexArray;
+            unsigned int coneVertexCount;
             
             GLuint boundVertexArray = 0;
     };
