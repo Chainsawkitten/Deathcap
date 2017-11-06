@@ -77,8 +77,8 @@ class DebugDrawingManager {
          * @param position The position of the sphere.
          * @param radius The radius of the sphere.
          * @param color Color of the lines.
-         * @param lineWidth The width of the lines used to draw the plane.
-         * @param duration How long the plane should stay in the world (in seconds).
+         * @param lineWidth The width of the lines used to draw the sphere.
+         * @param duration How long the sphere should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
         ENGINE_API void AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
