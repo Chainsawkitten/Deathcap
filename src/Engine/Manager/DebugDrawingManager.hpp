@@ -95,6 +95,18 @@ class DebugDrawingManager {
          */
         ENGINE_API void AddCylinder(float radius, float length, const glm::mat4& matrix, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
+        /// Add a cone to the world.
+        /**
+         * @param radius The radius of the cone.
+         * @param height The height of the cone.
+         * @param matrix Matrix to transform the cone with.
+         * @param color Color of the lines.
+         * @param lineWidth The width of the lines used to draw the cone.
+         * @param duration How long the cone should stay in the world (in seconds).
+         * @param depthTesting Whether to enable depth testing.
+         */
+        ENGINE_API void AddCone(float radius, float height, const glm::mat4& matrix, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        
         /// Update the debug geometry.
         /**
          * @param deltaTime Time since last frame (in seconds).
@@ -122,6 +134,7 @@ class DebugDrawingManager {
         std::vector<Video::DebugDrawing::Circle> circles;
         std::vector<Video::DebugDrawing::Sphere> spheres;
         std::vector<Video::DebugDrawing::Cylinder> cylinders;
+        std::vector<Video::DebugDrawing::Cone> cones;
         
         Video::DebugDrawing* debugDrawing;
 };
