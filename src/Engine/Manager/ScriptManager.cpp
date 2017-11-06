@@ -18,6 +18,7 @@
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Component/Script.hpp"
+#include "../Component/AnimationController.hpp"
 #include "../Component/DirectionalLight.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Listener.hpp"
@@ -357,6 +358,10 @@ ScriptManager::ScriptManager() {
     // Register components.
     engine->SetDefaultNamespace("Component");
     
+//   engine->RegisterObjectType("AnimationController", 0, asOBJ_REF | asOBJ_NOCOUNT);
+//   engine->RegisterObjectMethod("AnimationController", "void SetBool(string name, bool value)", asMETHOD(AnimationController, SetBool), asCALL_THISCALL);
+//   engine->RegisterObjectMethod("AnimationController", "void SetFloat(string name, float value)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
+
     engine->RegisterObjectType("DirectionalLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("DirectionalLight", "vec3 color", asOFFSET(DirectionalLight, color));
     engine->RegisterObjectProperty("DirectionalLight", "float ambientCoefficient", asOFFSET(DirectionalLight, ambientCoefficient));
@@ -408,6 +413,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPlane(const vec3 &in, const vec3 &in, const vec2 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPlane), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddCircle(const vec3 &in, const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCircle), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddSphere(const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddSphere), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCone(float, float, const mat4& in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCone), asCALL_THISCALL);
     
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));

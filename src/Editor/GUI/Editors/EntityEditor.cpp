@@ -1,5 +1,6 @@
 #include "EntityEditor.hpp"
 
+#include <Engine/Component/AnimationController.hpp>
 #include <Engine/Component/Animation.hpp>
 #include <Engine/Component/AudioMaterial.hpp>
 #include <Engine/Component/Mesh.hpp>
@@ -14,6 +15,7 @@
 #include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
+#include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Component/VRDevice.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
@@ -52,7 +54,9 @@ using namespace GUI;
 
 EntityEditor::EntityEditor() {
     name[0] = '\0';
-    AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
+
+    AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
+    AddEditor<Component::AudioMaterial> ("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::AudioMaterial>("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
@@ -190,24 +194,42 @@ void EntityEditor::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void EntityEditor::AnimationEditor(Component::Animation* animation) {
+void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
     ImGui::Indent();
-    if (ImGui::Button("Select model##Animation"))
-        ImGui::OpenPopup("Select model##Animation");
+    if (ImGui::Button("Select animation controller##Animation"))
+        ImGui::OpenPopup("Select animation controller##Animation");
 
-    if (ImGui::BeginPopup("Select model##Animation")) {
-        ImGui::Text("Models");
+    if (ImGui::BeginPopup("Select animation controller##Animation")) {
+        ImGui::Text("Animation controllers");
         ImGui::Separator();
 
-        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
-            if (animation->riggedModel != nullptr)
-                Managers().resourceManager->FreeModel(animation->riggedModel);
+        if (resourceSelector.Show(ResourceList::Resource::Type::ANIMATION_CONTROLLER)) {
+            if (animationController != nullptr)
+                Managers().resourceManager->FreeAnimationController(animationController->controller);
 
-            animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
+            animationController->controller = Managers().resourceManager->CreateAnimationController(resourceSelector.GetSelectedResource().GetPath());
         }
 
         ImGui::EndPopup();
     }
+
+    if (ImGui::Button("Select skeleton##Skeleton"))
+        ImGui::OpenPopup("Select skeleton##Skeleton");
+
+    if (ImGui::BeginPopup("Select skeleton##Skeleton")) {
+        ImGui::Text("Skeletons");
+        ImGui::Separator();
+
+        if (resourceSelector.Show(ResourceList::Resource::Type::SKELETON)) {
+            if (animationController != nullptr)
+                Managers().resourceManager->FreeSkeleton(animationController->skeleton);
+
+            animationController->skeleton = Managers().resourceManager->CreateSkeleton(resourceSelector.GetSelectedResource().GetPath());
+        }
+
+        ImGui::EndPopup();
+    }
+
     ImGui::Unindent();
 }
 
@@ -417,7 +439,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
                 std::string propertyName = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
-
                 if (typeId == asTYPEID_INT32)
                     ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 else if (typeId == asTYPEID_FLOAT)

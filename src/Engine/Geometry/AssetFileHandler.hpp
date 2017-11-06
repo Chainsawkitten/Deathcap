@@ -38,6 +38,7 @@ namespace Geometry {
                 Video::Geometry::VertexType::SkinVertex * skinnedVertices = nullptr;
                 uint32_t * indices = nullptr;
 
+                /// Destructor.
                 ~MeshData() {
                     if (staticVertices != nullptr) {
                         delete[] staticVertices;
@@ -73,6 +74,8 @@ namespace Geometry {
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
+             * @param mode Use READ or WRITE.
+             * @return False if failed could not be opened.
              */
             ENGINE_API bool Open(const char* filepath, Mode mode = READ);
 
@@ -84,8 +87,8 @@ namespace Geometry {
 
             /// Load a mesh into memory.
             /**
-            * @param Id of the mesh. Use GetNumMeshes() to get the number of meshes.
-            */
+             * @param Id of the mesh. Use GetNumMeshes() to get the number of meshes.
+             */
             ENGINE_API void LoadMeshData(int meshID);
 
             /// Get static vertex data of a mesh.
@@ -93,13 +96,13 @@ namespace Geometry {
              * First load a mesh into memory by using LoadMeshData().
              * @return Static mesh data.
              */
-            ENGINE_API MeshData * GetStaticMeshData();
+            ENGINE_API MeshData* GetStaticMeshData();
 
             /// Save the meshdata.
             /**
-            * @param meshData Static mesh data.
-            */
-            ENGINE_API void SaveStaticMesh(MeshData * meshData);
+             * @param meshData Static mesh data.
+             */
+            ENGINE_API void SaveMesh(MeshData* meshData);
 
         private:
             void ReadGlobalHeader();
