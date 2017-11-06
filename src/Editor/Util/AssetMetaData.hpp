@@ -19,7 +19,7 @@ class AssetMetaData
 {
     public:
         /// Metadata for mesh asset.
-        struct MeshImportData {
+        struct MeshMetaData {
             bool triangulate;
             bool importNormals;
             bool importTangents;
@@ -27,34 +27,21 @@ class AssetMetaData
             bool GPU;
         };
 
-        //TMPTODO
-        /// Generate metadata for a mesh.
+        /// Save metadata for a mesh.
         /**
          * @param filepath Filepath with extensions.
          * @param metaData Metadata to be exported.
          * @return Whether the file could be opened.
          */
-        static bool SaveMetaData(const char* filepath, MeshImportData* metaData);
+        static bool SaveMetaData(const char* filepath, MeshMetaData* metaData);
 
-        //TMPTODO
-        /// Get metadata from a mesh.
+        /// Load metadata for a mesh.
         /**
          * @param filepath Filepath with extensions.
-         * @return Metadata pointer with info about the file. You will have to delete it yourself.
+         * @param metaData Metadata to be imported.
+         * @return Whether the file could be opened.
          */
-        static bool LoadMetaData(const char* filepath, MeshImportData* metaData);
-
-        //TMPTODO
-        static void ToJson(const MeshImportData* metaData, Json::Value& node);
-
-        //TMPTODO
-        static void FromJson(const Json::Value& node, MeshImportData* metaData);
-
-        //TMPTODO
-        static bool AssetMetaData::Save(const char* filepath, Json::Value& node);
-
-        //TMPTODO
-        static bool AssetMetaData::Load(const char* filepath, Json::Value& node);
+        static bool LoadMetaData(const char* filepath, MeshMetaData* metaData);
 
     protected:
         /// Constructor.
@@ -62,4 +49,12 @@ class AssetMetaData
 
         /// Destructor.
         ~AssetMetaData() {}
+
+        static void ToJson(const MeshMetaData* metaData, Json::Value& node);
+
+        static void FromJson(const Json::Value& node, MeshMetaData* metaData);
+
+        static bool AssetMetaData::Save(const char* filepath, Json::Value& node);
+
+        static bool AssetMetaData::Load(const char* filepath, Json::Value& node);
 };

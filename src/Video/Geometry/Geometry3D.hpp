@@ -48,18 +48,27 @@ namespace Video {
                  */
                 virtual Type GetType() const = 0;
                
-                //TMPTODO
+                /// Get static vertex vector.
+                /**
+                 * @return Vertices.
+                 */
                 VIDEO_API const std::vector<VertexType::StaticVertex>& GetStaticVertexData() const;
 
-                //TMPTODO
+                /// Get skin vertex vector.
+                /**
+                 * @return Vertices.
+                 */
                 VIDEO_API const std::vector<VertexType::SkinVertex>& GetSkinVertexData() const;
 
-                //TMPTODO
+                /// Get index vector.
+                /**
+                 * @return Indices.
+                 */
                 VIDEO_API const std::vector<uint32_t>& GetIndexData() const;
 
             protected:
                 /// Generate index buffer.
-                /**
+                /**in
                  * @param indexData Pointer to array of indices.
                  * @param indexCount Number of indices.
                  * @param indexBuffer Index buffer.

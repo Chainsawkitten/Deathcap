@@ -2,21 +2,21 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 
-bool AssetMetaData::SaveMetaData(const char* filepath, MeshImportData* metaData) {
+bool AssetMetaData::SaveMetaData(const char* filepath, MeshMetaData* metaData) {
     Json::Value node;
     ToJson(metaData, node);
     Save(filepath, node);
     return true;
 }
 
-bool AssetMetaData::LoadMetaData(const char* filepath, MeshImportData* metaData) {
+bool AssetMetaData::LoadMetaData(const char* filepath, MeshMetaData* metaData) {
     Json::Value node;
     Load(filepath, node);
     FromJson(node, metaData);
     return metaData;
 }
 
-void AssetMetaData::ToJson(const MeshImportData* metaData, Json::Value& node) {
+void AssetMetaData::ToJson(const MeshMetaData* metaData, Json::Value& node) {
     node["triangulate"] = metaData->triangulate;
     node["importNormals"] = metaData->importNormals;
     node["importTangents"] = metaData->importTangents;
@@ -24,7 +24,7 @@ void AssetMetaData::ToJson(const MeshImportData* metaData, Json::Value& node) {
     node["GPU"] = metaData->GPU;
 }
 
-void AssetMetaData::FromJson(const Json::Value& node, MeshImportData* metaData) {
+void AssetMetaData::FromJson(const Json::Value& node, MeshMetaData* metaData) {
     metaData->triangulate = node.get("triangulate", true).asBool();
     metaData->importNormals = node.get("importNormals", true).asBool();
     metaData->importTangents = node.get("importTangents", false).asBool();
