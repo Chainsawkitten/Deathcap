@@ -75,7 +75,10 @@ class Editor {
          */
         Entity* GetCamera() const;
 
+        //Whether the vertices for the paint mode are loaded or not.
         bool vertsLoaded = false;
+
+        //Whether the paint mode is active or not.
         bool paintModeActive = false;
         
     private:
@@ -126,7 +129,6 @@ class Editor {
         uint32_t* indices;
         glm::vec3 normal;
         float lastIntersect = INFINITY;
-
 
         double lastX = 0.0;
         double lastY = 0.0;

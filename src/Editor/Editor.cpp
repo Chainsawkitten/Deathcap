@@ -97,6 +97,8 @@ Editor::~Editor() {
     for (int i = 0; i < 5; ++i) {
         glfwDestroyCursor(cursors[i]);
     }
+    delete[] vertices;
+    delete[] indices;
 }
 
 void Editor::Show(float deltaTime) {
@@ -301,11 +303,10 @@ void Editor::Show(float deltaTime) {
 
                 //Get mousePosition in worldspace
                 glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
-                Managers().debugDrawingManager->AddPlane(mousePos, -normal, glm::vec2(0.5, 0.5), glm::vec3(1.0, 1.0, 0.0), 10.0f, 0.0f, false);
+                Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
                 lastIntersect = INFINITY;
             }
         }
-
 
         // Change operation based on key input.
         if (!ImGuizmo::IsUsing()) {
