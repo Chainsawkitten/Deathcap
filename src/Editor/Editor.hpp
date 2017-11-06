@@ -74,6 +74,9 @@ class Editor {
          * @return Camera through which to render.
          */
         Entity* GetCamera() const;
+
+        bool vertsLoaded = false;
+        bool paintModeActive = false;
         
     private:
         void ShowMainMenuBar(bool& play);
@@ -117,7 +120,14 @@ class Editor {
         Entity* selectedEntity;
         MousePicking mousePicker;
         RayIntersection rayIntersector;
-        
+        int nrOfVertices = 0;
+        int nrOfIndices = 0;
+        Video::Geometry::VertexType::StaticVertex* vertices;
+        uint32_t* indices;
+        glm::vec3 normal;
+        float lastIntersect = INFINITY;
+
+
         double lastX = 0.0;
         double lastY = 0.0;
         
