@@ -209,6 +209,20 @@ void DebugDrawing::DrawSphere(const Sphere& sphere) {
     glDrawArrays(GL_LINES, 0, sphereVertexCount);
 }
 
+void DebugDrawing::DrawCylinder(const Cylinder& cylinder) {
+    BindVertexArray(cylinderVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(cylinder.radius, cylinder.length, cylinder.radius)));
+    model = cylinder.matrix * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    cylinder.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cylinder.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(cylinder.lineWidth);
+    glDrawArrays(GL_LINES, 0, cylinderVertexCount);
+}
+
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
     BindVertexArray(0);

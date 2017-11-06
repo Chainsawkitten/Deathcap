@@ -212,6 +212,12 @@ namespace Video {
              */
             VIDEO_API void DrawSphere(const Sphere& sphere);
             
+            /// Draw a cylinder.
+            /**
+             * @param cylinder The cylinder to draw.
+             */
+            VIDEO_API void DrawCylinder(const Cylinder& cylinder);
+            
             /// Stop debug drawing.
             VIDEO_API void EndDebugDrawing();
             

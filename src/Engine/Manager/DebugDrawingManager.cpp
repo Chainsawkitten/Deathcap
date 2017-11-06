@@ -199,6 +199,10 @@ void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& p
     for (const DebugDrawing::Sphere& sphere : spheres)
         debugDrawing->DrawSphere(sphere);
     
+    // Cylinders.
+    for (const DebugDrawing::Cylinder& cylinder : cylinders)
+        debugDrawing->DrawCylinder(cylinder);
+    
     debugDrawing->EndDebugDrawing();
     renderSurface->GetShadingFrameBuffer()->Unbind();
 }
