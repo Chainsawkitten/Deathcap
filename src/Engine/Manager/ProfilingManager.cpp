@@ -137,10 +137,12 @@ unsigned int ProfilingManager::MeasureRAM() {
 }
 
 unsigned int ProfilingManager::MeasureVRAM() {
+#ifdef MEASURE_VRAM
     DXGI_QUERY_VIDEO_MEMORY_INFO info;
     dxgiAdapter3->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &info);
     unsigned int memoryUsage = info.CurrentUsage;
     return (memoryUsage / 1024 / 1024);
+#endif
     return 0;
 }
 
