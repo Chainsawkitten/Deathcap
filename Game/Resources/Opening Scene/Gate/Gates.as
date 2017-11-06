@@ -9,7 +9,7 @@ class Gates{
     Gates(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        @cart = self.GetParent().GetChild("Minecart");
+        @cart = self.GetParent().GetChild("Minecart").GetChild("Minecart");
         trigger = false;
         speed = 0.0f;
         lastSpeed = 0.0f;

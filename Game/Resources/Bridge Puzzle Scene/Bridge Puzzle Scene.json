@@ -4,10 +4,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Bridge Puzzle Scene/Cave/Textures/cave_albedo",
-				"metallic" : "Resources/Bridge Puzzle Scene/Cave/Textures/cave_metallic",
-				"normal" : "Resources/Bridge Puzzle Scene/Cave/Textures/cave_normal",
-				"roughness" : "Resources/Bridge Puzzle Scene/Cave/Textures/cave_roughness"
+				"albedo" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_albedo",
+				"metallic" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_metallic",
+				"normal" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_roughness"
 			},
 			"Mesh" : 
 			{
@@ -23,9 +23,9 @@
 			},
 			"rotation" : 
 			{
-				"w" : 1.0,
+				"w" : 0.70710676908493042,
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -0.70710676908493042,
 				"z" : 0.0
 			},
 			"scale" : 
@@ -154,12 +154,24 @@
 			"uid" : 1509540824
 		},
 		{
-			"name" : "Root",
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_albedo",
+				"metallic" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_metallic",
+				"normal" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Bridge Puzzle Scene/Cave/Models/cave"
+			},
+			"children" : null,
+			"name" : "IntroCave",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : 3.2800002098083496,
 				"y" : 0.0,
-				"z" : 0.0
+				"z" : 22.130001068115234
 			},
 			"rotation" : 
 			{
@@ -174,10 +186,35 @@
 				"y" : 1.0,
 				"z" : 1.0
 			},
-			"scene" : true,
-			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"scene" : false,
 			"static" : false,
-			"uid" : 1508919163
+			"uid" : 1509710888
+		},
+		{
+			"name" : "Rails 1",
+			"position" : 
+			{
+				"x" : 3.3270001411437988,
+				"y" : -0.6950000524520874,
+				"z" : 33.156002044677734
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Rails/Rail Scene",
+			"static" : false,
+			"uid" : 1509713057
 		}
 	],
 	"name" : "Root",

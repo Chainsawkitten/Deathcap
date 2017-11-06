@@ -201,15 +201,54 @@
 									"z" : 1.0
 								},
 								"coneAngle" : 30.0,
-								"intensity" : 3.0,
+								"intensity" : 5.0,
 								"shadow" : true
 							},
-							"children" : null,
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
+									"Mesh" : 
+									{
+										"model" : "Resources/Constant Scene/Minecart/Model/Lantern"
+									},
+									"children" : null,
+									"name" : "LanternMesh",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : -4.371138473402425e-08,
+										"x" : -4.3711391839451608e-08,
+										"y" : 1.0,
+										"z" : -4.3711391839451608e-08
+									},
+									"scale" : 
+									{
+										"x" : 0.070000000298023224,
+										"y" : 0.070000000298023224,
+										"z" : 0.070000000298023224
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1509714156
+								}
+							],
 							"name" : "Lantern",
 							"position" : 
 							{
 								"x" : 0.0,
-								"y" : 0.0,
+								"y" : -0.16700001060962677,
 								"z" : 0.0
 							},
 							"rotation" : 
@@ -227,7 +266,7 @@
 							},
 							"scene" : false,
 							"static" : false,
-							"uid" : 1509625199
+							"uid" : 1509711303
 						}
 					],
 					"name" : "Player",

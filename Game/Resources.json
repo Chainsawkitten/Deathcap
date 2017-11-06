@@ -1,11 +1,17 @@
 {
-	"activeScene" : "Resources/Opening Scene/Opening Scene",
+	"activeScene" : "Resources/Bridge Puzzle Scene/Bridge Puzzle Scene",
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 20,
+	"modelNumber" : 25,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
-		"resources" : null,
+		"resources" : 
+		[
+			{
+				"scene" : "Combined Scene",
+				"type" : 0
+			}
+		],
 		"subfolders" : 
 		[
 			{
@@ -206,6 +212,10 @@
 									{
 										"model" : "cart",
 										"type" : 1
+									},
+									{
+										"model" : "Lantern",
+										"type" : 1
 									}
 								],
 								"subfolders" : null
@@ -272,6 +282,21 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "Rails",
+						"resources" : 
+						[
+							{
+								"scene" : "Rail Scene",
+								"type" : 0
+							},
+							{
+								"model" : "rails",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -298,6 +323,14 @@
 									{
 										"model" : "cave_puzzle_01",
 										"type" : 1
+									},
+									{
+										"model" : "cave_straigth",
+										"type" : 1
+									},
+									{
+										"model" : "cave",
+										"type" : 1
 									}
 								],
 								"subfolders" : null
@@ -320,6 +353,22 @@
 									},
 									{
 										"texture" : "cave_roughness",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_roughness",
 										"type" : 2
 									}
 								],
@@ -346,8 +395,8 @@
 			}
 		]
 	},
-	"sceneNumber" : 6,
+	"sceneNumber" : 8,
 	"scriptNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 29
+	"textureNumber" : 34
 }
