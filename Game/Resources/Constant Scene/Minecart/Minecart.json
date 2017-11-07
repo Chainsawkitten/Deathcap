@@ -192,7 +192,7 @@
 							},
 							"SpotLight" : 
 							{
-								"ambientCoefficient" : 4.6270003318786621,
+								"ambientCoefficient" : 0.0,
 								"attenuation" : 1.0,
 								"color" : 
 								{
