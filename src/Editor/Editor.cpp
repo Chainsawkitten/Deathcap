@@ -308,7 +308,8 @@ void Editor::Show(float deltaTime) {
                 // Paint objects (scenes).
                 if (Input()->Pressed(InputHandler::SELECT) && intersect) {
                     Entity* entity = Hymn().world.GetRoot()->AddChild("mrm");
-                    entity->InstantiateScene("Resources/" + paintScene, "Resources/cave_scene");
+
+                    entity->InstantiateScene("Resources/" + paintScene, "Resources/"+ Hymn().world.GetRoot()->name);
                     entity->SetWorldPosition(mousePos);
                     entity->RotateYaw(-normal.y);
                 }
