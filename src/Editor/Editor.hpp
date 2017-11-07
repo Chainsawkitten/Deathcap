@@ -116,7 +116,7 @@ class Editor {
         bool savePromptAnswered;
         bool showGridSettings;
         bool sceneChosen = false;
-
+        Entity* parentEntity = nullptr;
         Json::Value sceneState;
         
         World cameraWorld;

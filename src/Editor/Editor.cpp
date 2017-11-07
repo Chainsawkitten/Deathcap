@@ -224,7 +224,6 @@ void Editor::Show(float deltaTime) {
 
     if (currentEntity != nullptr) {
         glm::mat4 currentEntityMatrix = currentEntity->GetLocalMatrix();
-
         currentEntityMatrix = currentEntity->GetLocalMatrix();
 
         // Projection matrix.
@@ -245,7 +244,8 @@ void Editor::Show(float deltaTime) {
             nrOfIndices = data->numIndices;
             nrOfVertices = data->numVertices;
 
-            if (currentEntity->brushActive == false && sceneChosen==false) {
+            // Which scene to draw.
+            if (currentEntity->brushActive == false && sceneChosen == false) {
 
                 ImGui::OpenPopup("Select scene to paint with.##Scene");
 
@@ -306,10 +306,13 @@ void Editor::Show(float deltaTime) {
                 Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
 
                 // Paint objects (scenes).
+                // Draw them when mouse pressed.
                 if (Input()->Pressed(InputHandler::SELECT) && intersect) {
-                    Entity* entity = Hymn().world.GetRoot()->AddChild("mrm");
+                    if (currentEntity->GetChild("foliage") == nullptr)
+                        parentEntity = currentEntity->AddChild("foliage");
 
-                    entity->InstantiateScene("Resources/" + paintScene, "Resources/"+ Hymn().world.GetRoot()->name);
+                    Entity* entity = parentEntity->AddChild("foliage_");
+                    entity->InstantiateScene("Resources/" + paintScene, "Resources/" + Hymn().world.GetRoot()->name);
                     entity->SetWorldPosition(mousePos);
                     entity->RotateYaw(-normal.y);
                 }
@@ -517,7 +520,7 @@ void Editor::ShowMainMenuBar(bool& play) {
             static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
             ImGui::MenuItem("Physics", "", &physics);
             EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
-            
+
             static bool lighting = EditorSettings::GetInstance().GetBool("Lighting");
             ImGui::MenuItem("Lighting", "", &lighting);
             EditorSettings::GetInstance().SetBool("Lighting", lighting);
