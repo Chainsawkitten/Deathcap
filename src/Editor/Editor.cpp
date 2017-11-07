@@ -28,7 +28,6 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 
-
 ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
 Editor::Editor() {
     // Create Hymns directory.
@@ -287,6 +286,10 @@ void Editor::Show(float deltaTime) {
                 glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
                 Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
                 lastIntersect = INFINITY;
+
+                if (Input()->Pressed(InputHandler::SELECT)) {       
+
+                }
             }
             handler.Close();
         }
@@ -514,7 +517,7 @@ void Editor::ShowMainMenuBar(bool& play) {
             }
 
             if (Input()->Triggered(InputHandler::ZOOM)) {
-                if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
+                if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {                 
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
                     cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
                     cameraEntity->SetLocalOrientation(glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0)));
