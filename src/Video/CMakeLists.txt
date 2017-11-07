@@ -16,6 +16,7 @@ set(SRCS
         PostProcessing/FXAAFilter.cpp
         PostProcessing/PostProcessing.cpp
         Profiling/Query.cpp
+        RenderProgram/RenderProgram.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
@@ -46,6 +47,7 @@ set(HEADERS
         PostProcessing/FXAAFilter.hpp
         PostProcessing/PostProcessing.hpp
         Profiling/Query.hpp
+        RenderProgram/RenderProgram.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp

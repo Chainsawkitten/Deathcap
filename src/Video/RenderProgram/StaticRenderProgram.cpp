@@ -13,7 +13,6 @@
 #include "Shadow.vert.hpp"
 #include "../Buffer/StorageBuffer.hpp"
 #include <chrono>
-#include "Lighting/Light.hpp"
 
 using namespace Video;
 
@@ -23,6 +22,7 @@ StaticRenderProgram::StaticRenderProgram() {
     shaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
     delete fragmentShader;
+
     //Create shaders for early rejection pass
     vertexShader = new Shader(ZREJECTION_VERT, ZREJECTION_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = new Shader(ZREJECTION_FRAG, ZREJECTION_FRAG_LENGTH, GL_FRAGMENT_SHADER);
@@ -69,7 +69,7 @@ void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm:
     glUniformMatrix4fv(zShaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix) const {
+void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
@@ -79,7 +79,8 @@ void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, con
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
 }
-void Video::StaticRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 &modelMatrix) const {
+
+void Video::StaticRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
@@ -122,7 +123,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glUniform2fv(shaderProgram->GetUniformLocation("frameSize"), 1, &frameSize[0]);
 }
 
-void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix, bool isSelected) const {
+void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, bool isSelected) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glDepthFunc(GL_LEQUAL);
@@ -170,68 +171,4 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LESS);
     }
-}
-
-void StaticRenderProgram::SetGamma(float gamma) {
-    this->gamma = gamma;
-}
-
-float StaticRenderProgram::GetGamma() const {
-    return gamma;
-}
-
-void StaticRenderProgram::SetFogApply(bool fogApply) {
-    this->fogApply = (int)fogApply;
-}
-
-bool StaticRenderProgram::GetFogApply() const {
-    return (bool)fogApply;
-}
-
-void StaticRenderProgram::SetFogDensity(float fogDensity) {
-    this->fogDensity = fogDensity;
-}
-
-float StaticRenderProgram::GetFogDensity() const {
-    return fogDensity;
-}
-
-void StaticRenderProgram::SetFogColor(const glm::vec3& fogColor) {
-    this->fogColor = fogColor;
-}
-
-glm::vec3 StaticRenderProgram::GetFogColor() const {
-    return fogColor;
-}
-
-void StaticRenderProgram::SetColorFilterApply(bool colorFilterApply) {
-    this->colorFilterApply = (int)colorFilterApply;
-}
-
-bool StaticRenderProgram::GetColorFilterApply() const {
-    return (bool)colorFilterApply;
-}
-
-void StaticRenderProgram::SetColorFilterColor(const glm::vec3& colorFilterColor) {
-    this->colorFilterColor = colorFilterColor;
-}
-
-glm::vec3 StaticRenderProgram::GetColorFilterColor() const {
-    return colorFilterColor;
-}
-
-void StaticRenderProgram::SetDitherApply(bool ditherApply) {
-    this->ditherApply = (int)ditherApply;
-}
-
-bool StaticRenderProgram::GetDitherApply() const {
-    return (bool)ditherApply;
-}
-
-void StaticRenderProgram::SetFrameSize(const glm::vec2& frameSize) {
-    this->frameSize = frameSize;
-}
-
-glm::vec2 StaticRenderProgram::GetFrameSize() const {
-    return frameSize;
 }
