@@ -288,10 +288,11 @@ void Editor::Show(float deltaTime) {
                 glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
                 Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
 
+                // Paint objects (scenes).
                 if (Input()->Pressed(InputHandler::SELECT) && intersect) {
-                    Entity* entity = Hymn().world.GetRoot()->AddChild("mushrooms");
-                    entity->InstantiateScene("mushroom_scene", "plane_scene");
-                    entity->SetWorldPosition(mousePos);
+                    Entity* entity = Hymn().world.GetRoot()->AddChild("mrm");
+                    entity->InstantiateScene("Resources/mushroom_scene", "Resources/cave_scene");
+                    entity->SetWorldPosition(mousePos);       
                 }
                 lastIntersect = INFINITY;
 
