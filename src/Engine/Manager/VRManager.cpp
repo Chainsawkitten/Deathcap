@@ -136,7 +136,7 @@ bool VRManager::GetInput(vr::EVRButtonId buttonID, int ID) {
                 vr::VRControllerState_t controllerState;
                 if (vrSystem->GetControllerState(unDevice, &controllerState, sizeof(controllerState))) {
                     pressedTrackedDevice[unDevice] = controllerState.ulButtonPressed == 0;
-                    if (!controllerState.ulButtonPressed & vr::ButtonMaskFromId(buttonID))
+                    if (controllerState.ulButtonPressed & vr::ButtonMaskFromId(buttonID))
                         return true;
                 }
             }

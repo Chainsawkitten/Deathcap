@@ -105,7 +105,12 @@ void RegisterTriggerLeaveHelper(Component::RigidBody* triggerBody, Component::Ri
 
 bool ButtonInput(int buttonIndex) {
     if (Managers().vrManager->Active())
-        return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<VRDevice>());
+        if (Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<VRDevice>())) {
+            printf("%d\n", Managers().scriptManager->currentEntity->GetUniqueIdentifier());
+            return true;
+        }
+        else
+            return false;
     else
         return Input::GetInstance().CheckButton(buttonIndex);
 }
