@@ -237,58 +237,60 @@ void Editor::Show(float deltaTime) {
 
             // Read vertex data.
             Geometry::Model * model = dynamic_cast<Geometry::Model*>(currentEntity->GetComponent<Component::Mesh>()->geometry);
-            std::string modelPath = Hymn().GetPath() + FileSystem::DELIMITER + model->path + model->name + ".asset";
-            Geometry::AssetFileHandler handler;
-            handler.Open(modelPath.c_str());
-            handler.LoadMeshData(0);
-            Geometry::AssetFileHandler::MeshData* data = handler.GetStaticMeshData();
-            nrOfIndices = data->numIndices;
-            nrOfVertices = data->numVertices;
+            if (model != nullptr) {
+                std::string modelPath = Hymn().GetPath() + FileSystem::DELIMITER + model->path + model->name + ".asset";
+                Geometry::AssetFileHandler handler;
+                handler.Open(modelPath.c_str());
+                handler.LoadMeshData(0);
+                Geometry::AssetFileHandler::MeshData* data = handler.GetStaticMeshData();
+                nrOfIndices = data->numIndices;
+                nrOfVertices = data->numVertices;
 
-            // Ray-Triangle intersection test.     
-            if (currentEntity->brushActive) {
+                // Ray-Triangle intersection test.     
+                if (currentEntity->brushActive) {
 
-                glm::vec3 last_p0;
-                glm::vec3 last_p1;
-                glm::vec3 last_p2;
-                glm::vec3 p0;
-                glm::vec3 p1;
-                glm::vec3 p2;
+                    glm::vec3 last_p0;
+                    glm::vec3 last_p1;
+                    glm::vec3 last_p2;
+                    glm::vec3 p0;
+                    glm::vec3 p1;
+                    glm::vec3 p2;
 
-                mousePicker.Update();
-                mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+                    mousePicker.Update();
+                    mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
 
-                float intersectT = INFINITY;
+                    float intersectT = INFINITY;
 
-                // Loop through each triangle and check for intersection.
-                for (int i = 0; i < nrOfIndices;) {
+                    // Loop through each triangle and check for intersection.
+                    for (int i = 0; i < nrOfIndices;) {
 
-                    p0 = data->staticVertices[data->indices[i++]].position;
-                    p1 = data->staticVertices[data->indices[i++]].position;
-                    p2 = data->staticVertices[data->indices[i++]].position;
+                        p0 = data->staticVertices[data->indices[i++]].position;
+                        p1 = data->staticVertices[data->indices[i++]].position;
+                        p2 = data->staticVertices[data->indices[i++]].position;
 
-                    // Calculate intersection.
-                    if (rayIntersector.TriangleIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(), p0, p1, p2, intersectT)) {
+                        // Calculate intersection.
+                        if (rayIntersector.TriangleIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(), p0, p1, p2, intersectT)) {
 
-                        if (intersectT < lastIntersect && intersectT >= 0.0f) {
-                            lastIntersect = intersectT;
-                            last_p0 = p0;
-                            last_p1 = p1;
-                            last_p2 = p2;
+                            if (intersectT < lastIntersect && intersectT >= 0.0f) {
+                                lastIntersect = intersectT;
+                                last_p0 = p0;
+                                last_p1 = p1;
+                                last_p2 = p2;
+                            }
                         }
                     }
-                }
-                glm::vec3 e1 = last_p1 - last_p0;
-                glm::vec3 e2 = last_p2 - last_p0;
-                normal = glm::cross(e1, e2);
-                glm::normalize(normal);
+                    glm::vec3 e1 = last_p1 - last_p0;
+                    glm::vec3 e2 = last_p2 - last_p0;
+                    normal = glm::cross(e1, e2);
+                    glm::normalize(normal);
 
-                // Get mousePosition in worldspace.
-                glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
-                Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
-                lastIntersect = INFINITY;
+                    // Get mousePosition in worldspace.
+                    glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
+                    Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
+                    lastIntersect = INFINITY;
+                }
+                handler.Close();
             }
-            handler.Close();
         }
 
         // Change operation based on key input.

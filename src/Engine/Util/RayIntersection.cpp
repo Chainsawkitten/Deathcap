@@ -62,7 +62,7 @@ bool RayIntersection::RayOBBIntersect(const glm::vec3& rayOrigin, const glm::vec
     return true;
 }
 
-bool RayIntersection::TriangleIntersect(glm::vec3 origin, glm::vec3 direction, glm::vec3 p0, glm::vec3 p1, glm::vec3 p2, float & distance) {
+bool RayIntersection::TriangleIntersect(glm::vec3 origin, glm::vec3 direction, glm::vec3 p0, glm::vec3 p1, glm::vec3 p2, float& distance) {
 
     glm::vec3 e1, e2;
     glm::vec3 q;
