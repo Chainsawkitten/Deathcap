@@ -58,6 +58,12 @@ namespace Component {
              */
             ENGINE_API float GetSpinningFriction() const;
 
+            /// Get the coefficient of restitution the rigid body.
+            /**
+             * @return Coefficient of restitution.
+             */
+            ENGINE_API float GetRestitution() const;
+
         private:
             // Get the underlying Bullet rigid body. If none has been set,
             // nullptr is returned.
@@ -92,6 +98,8 @@ namespace Component {
             void SetRollingFriction(float friction);
             void SetSpinningFriction(float friction);
 
+            void SetRestitution(float cor);
+
             void MakeKinematic();
             void MakeDynamic();
 
@@ -107,5 +115,6 @@ namespace Component {
             float friction = 0.0f;
             float rollingFriction = 0.0f;
             float spinningFriction = 0.0f;
+            float restitution = 0.0f;
     };
 }

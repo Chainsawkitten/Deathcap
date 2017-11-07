@@ -33,6 +33,10 @@ namespace Component {
         return spinningFriction;
     }
 
+    float RigidBody::GetRestitution() const {
+        return restitution;
+    }
+
     btRigidBody* RigidBody::GetBulletRigidBody() {
         return rigidBody;
     }
@@ -131,6 +135,11 @@ namespace Component {
     void RigidBody::SetSpinningFriction(float friction) {
         rigidBody->setSpinningFriction(friction);
         this->spinningFriction = friction;
+    }
+
+    void RigidBody::SetRestitution(float cor) {
+        rigidBody->setRestitution(cor);
+        this->restitution = cor;
     }
 
     void RigidBody::MakeKinematic() {
