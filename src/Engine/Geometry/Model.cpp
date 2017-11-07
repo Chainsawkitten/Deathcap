@@ -36,16 +36,16 @@ void Model::Load(const char* filename) {
         type = meshData->isSkinned ? SKIN : STATIC;
 
         if (meshData->CPU) {
-            if (meshData->isSkinned) {
-                skinVertexData.resize(meshData->numVertices);
-                memcpy(skinVertexData.data(), meshData->skinnedVertices, sizeof(Video::Geometry::VertexType::SkinVertex) * meshData->numVertices);
-            }
-            else {
-                staticVertexData.resize(meshData->numVertices);
-                memcpy(staticVertexData.data(), meshData->staticVertices, sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
-            }
-            indexData.resize(meshData->numIndices);
-            memcpy(indexData.data(), meshData->indices, sizeof(uint32_t) * meshData->numIndices);
+            vertexPositionData.resize(meshData->numVertices);
+            if (meshData->isSkinned)
+                for (std::size_t i = 0; i < meshData->numVertices; ++i)
+                    vertexPositionData[i] = meshData->skinnedVertices[i].position;
+            else
+                for (std::size_t i = 0; i < meshData->numVertices; ++i)
+                    vertexPositionData[i] = meshData->staticVertices[i].position;
+
+            vertexIndexData.resize(meshData->numIndices);
+            std::memcpy(vertexIndexData.data(), meshData->indices, sizeof(uint32_t) * meshData->numIndices);
         }
 
         if (meshData->GPU) {

@@ -32,16 +32,12 @@ const Video::AxisAlignedBoundingBox& Geometry3D::GetAxisAlignedBoundingBox() con
     return axisAlignedBoundingBox;
 }
 
-const std::vector<VertexType::StaticVertex>& Geometry3D::GetStaticVertexData() const {
-    return staticVertexData;
+const std::vector<glm::vec3>& Geometry3D::GetVertexPositionData() const {
+    return vertexPositionData;
 }
 
-const std::vector<VertexType::SkinVertex>& Geometry3D::GetSkinVertexData() const {
-    return skinVertexData;
-}
-
-const std::vector<uint32_t>& Geometry3D::GetIndexData() const {
-    return indexData;
+const std::vector<uint32_t>& Geometry3D::GetVertexIndexData() const {
+    return vertexIndexData;
 }
 
 void Geometry3D::CreateAxisAlignedBoundingBox(const std::vector<glm::vec3*>& positions) {

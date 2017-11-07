@@ -4,8 +4,7 @@
 #include <Video/Culling/AxisAlignedBoundingBox.hpp>
 #include <vector>
 #include "../linking.hpp"
-#include "VertexType/StaticVertex.hpp"
-#include "VertexType/SkinVertex.hpp"
+#include <glm/glm.hpp>
 
 namespace Video {
     namespace Geometry {
@@ -48,23 +47,17 @@ namespace Video {
                  */
                 virtual Type GetType() const = 0;
 
-                /// Get static vertex vector.
+                /// Get vertex position vector.
                 /**
-                 * @return Vertices.
+                 * @return Vertex positions.
                  */
-                VIDEO_API const std::vector<VertexType::StaticVertex>& GetStaticVertexData() const;
+                VIDEO_API const std::vector<glm::vec3>& GetVertexPositionData() const;
 
-                /// Get skin vertex vector.
-                /**
-                 * @return Vertices.
-                 */
-                VIDEO_API const std::vector<VertexType::SkinVertex>& GetSkinVertexData() const;
-
-                /// Get index vector.
+                /// Get vertex index vector.
                 /**
                  * @return Indices.
                  */
-                VIDEO_API const std::vector<uint32_t>& GetIndexData() const;
+                VIDEO_API const std::vector<uint32_t>& GetVertexIndexData() const;
 
             protected:
                 /// Generate index buffer.
@@ -99,14 +92,11 @@ namespace Video {
                 /// Vertex array.
                 GLuint vertexArray;
 
-                /// %StaticVertex data.
-                std::vector<VertexType::StaticVertex> staticVertexData;
+                /// Vertex position data.
+                std::vector<glm::vec3> vertexPositionData;
 
-                /// %SkinVertex data.
-                std::vector<VertexType::SkinVertex> skinVertexData;
-
-                /// Index data.
-                std::vector<uint32_t> indexData;
+                /// Vertex index data.
+                std::vector<uint32_t> vertexIndexData;
                 
             private:
                 Video::AxisAlignedBoundingBox axisAlignedBoundingBox;
