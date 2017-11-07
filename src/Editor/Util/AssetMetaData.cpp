@@ -5,15 +5,15 @@
 bool AssetMetaData::SaveMetaData(const char* filepath, MeshMetaData* metaData) {
     Json::Value node;
     ToJson(metaData, node);
-    Save(filepath, node);
-    return true;
+    return Save(filepath, node);
 }
 
 bool AssetMetaData::LoadMetaData(const char* filepath, MeshMetaData* metaData) {
     Json::Value node;
-    Load(filepath, node);
+    if (!Load(filepath, node))
+        return false;
     FromJson(node, metaData);
-    return metaData;
+    return true;
 }
 
 void AssetMetaData::ToJson(const MeshMetaData* metaData, Json::Value& node) {
