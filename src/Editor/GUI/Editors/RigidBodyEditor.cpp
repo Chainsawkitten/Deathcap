@@ -38,6 +38,10 @@ namespace GUI {
             if (ImGui::InputFloat("Lin. damping", &linearDamping))
                 Managers().physicsManager->SetLinearDamping(comp, linearDamping);
 
+            float angularDamping = comp->GetAngularDamping();
+            if (ImGui::InputFloat("Ang. damping", &angularDamping))
+                Managers().physicsManager->SetAngularDamping(comp, angularDamping);
+
             bool kinematic = comp->IsKinematic();
             if (ImGui::Checkbox("Kinematic", &kinematic)) {
                 if (kinematic)
