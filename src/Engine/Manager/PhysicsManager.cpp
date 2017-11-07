@@ -140,6 +140,24 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto mass = node.get("mass", 1.0f).asFloat();
     comp->NewBulletRigidBody(mass);
 
+    auto friction = node.get("friction", 0.5f).asFloat();
+    comp->SetFriction(friction);
+
+    auto rollingFriction = node.get("rollingFriction", 0.0f).asFloat();
+    comp->SetRollingFriction(rollingFriction);
+
+    auto spinningFriction = node.get("spinningFriction", 0.0f).asFloat();
+    comp->SetSpinningFriction(spinningFriction);
+
+    auto cor = node.get("cor", 0.0f).asFloat();
+    comp->SetRestitution(cor);
+
+    auto linearDamping = node.get("linearDamping", 0.0f).asFloat();
+    comp->SetLinearDamping(linearDamping);
+
+    auto angularDamping = node.get("angularDamping", 0.0f).asFloat();
+    comp->SetAngularDamping(angularDamping);
+
     auto kinematic = node.get("kinematic", false).asFloat();
     if (kinematic)
         comp->MakeKinematic();
@@ -249,6 +267,30 @@ void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp)
         comp->SetMass(mass);
+}
+
+void PhysicsManager::SetFriction(Component::RigidBody* comp, float friction) {
+    comp->SetFriction(friction);
+}
+
+void PhysicsManager::SetRollingFriction(Component::RigidBody* comp, float friction) {
+    comp->SetRollingFriction(friction);
+}
+
+void PhysicsManager::SetSpinningFriction(Component::RigidBody* comp, float friction) {
+    comp->SetSpinningFriction(friction);
+}
+
+void PhysicsManager::SetRestitution(Component::RigidBody* comp, float cor) {
+    comp->SetRestitution(cor);
+}
+
+void PhysicsManager::SetLinearDamping(Component::RigidBody* comp, float damping) {
+    comp->SetLinearDamping(damping);
+}
+
+void PhysicsManager::SetAngularDamping(Component::RigidBody* comp, float damping) {
+    comp->SetAngularDamping(damping);
 }
 
 void PhysicsManager::MakeKinematic(Component::RigidBody* comp) {
