@@ -220,6 +220,7 @@ void Editor::Show(float deltaTime) {
 
     // Get current active Entity.
     Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
+    GUI::ResourceSelector rs;
 
     if (currentEntity != nullptr) {
         glm::mat4 currentEntityMatrix = currentEntity->GetLocalMatrix();
@@ -243,6 +244,22 @@ void Editor::Show(float deltaTime) {
             Geometry::AssetFileHandler::MeshData* data = handler.GetStaticMeshData();
             nrOfIndices = data->numIndices;
             nrOfVertices = data->numVertices;
+
+            if (currentEntity->brushActive == false && sceneChosen==false) {
+
+                ImGui::OpenPopup("Select scene to paint with.##Scene");
+
+                if (ImGui::BeginPopup("Select scene to paint with.##Scene")) {
+                    ImGui::Text("Scene");
+                    ImGui::Separator();
+
+                    if (rs.Show(ResourceList::Resource::Type::SCENE)) {
+                        paintScene = rs.GetSelectedResource().resource->scene->c_str();
+                        sceneChosen = true;
+                    }
+                    ImGui::EndPopup();
+                }
+            }
 
             // Ray-Triangle intersection test.     
             if (currentEntity->brushActive) {
@@ -291,10 +308,9 @@ void Editor::Show(float deltaTime) {
                 // Paint objects (scenes).
                 if (Input()->Pressed(InputHandler::SELECT) && intersect) {
                     Entity* entity = Hymn().world.GetRoot()->AddChild("mrm");
-                    entity->InstantiateScene("Resources/mushroom_scene", "Resources/cave_scene");
+                    entity->InstantiateScene("Resources/" + paintScene, "Resources/cave_scene");
                     entity->SetWorldPosition(mousePos);
-                    entity->SetDirection(-normal);
-
+                    entity->RotateYaw(-normal.y);
                 }
                 lastIntersect = INFINITY;
 

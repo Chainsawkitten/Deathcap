@@ -115,6 +115,7 @@ class Editor {
         bool close;
         bool savePromptAnswered;
         bool showGridSettings;
+        bool sceneChosen = false;
 
         Json::Value sceneState;
         
@@ -129,6 +130,7 @@ class Editor {
         float lastIntersect = INFINITY;
         double lastX = 0.0;
         double lastY = 0.0;
+        std::string paintScene;
         
         GLFWcursor* cursors[5];
 
