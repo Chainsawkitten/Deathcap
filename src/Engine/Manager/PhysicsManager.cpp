@@ -140,6 +140,9 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto mass = node.get("mass", 1.0f).asFloat();
     comp->NewBulletRigidBody(mass);
 
+    auto friction = node.get("friction", 0.5f).asFloat();
+    comp->SetFriction(friction);
+
     auto kinematic = node.get("kinematic", false).asFloat();
     if (kinematic)
         comp->MakeKinematic();
