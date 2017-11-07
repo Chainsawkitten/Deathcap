@@ -1,8 +1,7 @@
 #include "Model.hpp"
 
-#include <glm/gtc/quaternion.hpp>
+#include <cstring>
 #include "../Hymn.hpp"
-#include "../Util/FileSystem.hpp"
 #include <Utility/Log.hpp>
 
 using namespace Geometry;
