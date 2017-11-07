@@ -155,6 +155,9 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto linearDamping = node.get("linearDamping", 0.0f).asFloat();
     comp->SetLinearDamping(linearDamping);
 
+    auto angularDamping = node.get("angularDamping", 0.0f).asFloat();
+    comp->SetAngularDamping(angularDamping);
+
     auto kinematic = node.get("kinematic", false).asFloat();
     if (kinematic)
         comp->MakeKinematic();
