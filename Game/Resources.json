@@ -1,7 +1,7 @@
 {
-	"activeScene" : "Resources/Bridge Puzzle Scene/Bridge Puzzle Scene",
+	"activeScene" : "Resources/NewAssetsScene",
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 28,
+	"modelNumber" : 37,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -9,6 +9,10 @@
 		[
 			{
 				"scene" : "Combined Scene",
+				"type" : 0
+			},
+			{
+				"scene" : "NewAssetsScene",
 				"type" : 0
 			}
 		],
@@ -468,11 +472,67 @@
 						]
 					}
 				]
+			},
+			{
+				"name" : "NewAssets",
+				"resources" : 
+				[
+					{
+						"model" : "Cave",
+						"type" : 1
+					},
+					{
+						"model" : "Cave-",
+						"type" : 1
+					},
+					{
+						"model" : "crates",
+						"type" : 1
+					},
+					{
+						"model" : "BridgeFbx",
+						"type" : 1
+					},
+					{
+						"model" : "Tracks",
+						"type" : 1
+					},
+					{
+						"model" : "Barrels",
+						"type" : 1
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Textures",
+						"resources" : 
+						[
+							{
+								"texture" : "CrateAlbedo",
+								"type" : 2
+							},
+							{
+								"texture" : "CreateNormal",
+								"type" : 2
+							},
+							{
+								"texture" : "CrateMetallic",
+								"type" : 2
+							},
+							{
+								"texture" : "CrateRoughness",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
+					}
+				]
 			}
 		]
 	},
-	"sceneNumber" : 8,
+	"sceneNumber" : 9,
 	"scriptNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 44
+	"textureNumber" : 49
 }
