@@ -43,6 +43,10 @@ namespace Component {
         return linearDamping;
     }
 
+    float RigidBody::GetAngularDamping() const {
+        return angularDamping;
+    }
+
     btRigidBody* RigidBody::GetBulletRigidBody() {
         return rigidBody;
     }
@@ -149,8 +153,13 @@ namespace Component {
     }
 
     void RigidBody::SetLinearDamping(float damping) {
-        rigidBody->setDamping(linearDamping, 0.0f);
+        rigidBody->setDamping(damping, angularDamping);
         this->linearDamping = damping;
+    }
+
+    void RigidBody::SetAngularDamping(float damping) {
+        rigidBody->setDamping(linearDamping, damping);
+        this->angularDamping = damping;
     }
 
     void RigidBody::MakeKinematic() {
