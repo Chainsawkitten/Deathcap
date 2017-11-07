@@ -206,10 +206,10 @@ void ActiveHymn::Update(float deltaTime) {
     }
 }
 
-void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
+void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, bool lighting) {
     { PROFILE("Render world");
     { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
-        Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera);
+        Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera, lighting);
     }
     }
 }
