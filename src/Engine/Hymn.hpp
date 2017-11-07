@@ -70,8 +70,9 @@ class ActiveHymn {
          * @param lightSources Whether to show light sources.
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
+         * @param lighting Whether to light the world (otherwise full ambient is used).
          */
-        ENGINE_API void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
+        ENGINE_API void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false, bool lighting = true);
         
         /// Scene to start when playing the hymn.
         std::string startupScene;
