@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/NewAssetsScene",
+	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 46,
+	"modelNumber" : 57,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -508,7 +508,7 @@
 						"resources" : 
 						[
 							{
-								"model" : "Cave",
+								"model" : "Barrels",
 								"type" : 1
 							},
 							{
@@ -516,15 +516,23 @@
 								"type" : 1
 							},
 							{
-								"model" : "Cave-2",
-								"type" : 1
-							},
-							{
-								"model" : "Barrels",
+								"model" : "Cave",
 								"type" : 1
 							},
 							{
 								"model" : "crates",
+								"type" : 1
+							},
+							{
+								"model" : "Pick",
+								"type" : 1
+							},
+							{
+								"model" : "Platform",
+								"type" : 1
+							},
+							{
+								"model" : "Cave-2",
 								"type" : 1
 							},
 							{
