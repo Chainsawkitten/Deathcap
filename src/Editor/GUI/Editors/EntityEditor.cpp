@@ -276,22 +276,24 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         ImGui::EndPopup();
     }
     // Paint Mode. Load vertices and indices.
-    if (entity->loadPaintModeClicked == false) {
-        if (ImGui::Button("Load paint mode.")){
-            entity->loadPaintModeClicked = true;
-            entity->vertsLoaded = true;
-        }
-    }
-    if (entity->loadPaintModeClicked) {
-        if (entity->brushActive == false) {
-            if (ImGui::Button("Activate paint brush")) {
-                entity->brushActive = true;
+    if (entity->GetComponent<Component::Mesh>()->geometry != nullptr) {
+        if (entity->loadPaintModeClicked == false) {
+            if (ImGui::Button("Load paint mode.")) {
+                entity->loadPaintModeClicked = true;
+                entity->vertsLoaded = true;
             }
         }
-        if (entity->brushActive == true) {
-            if (ImGui::Button("Exit paint brush")) {
-                entity->brushActive = false;
-                entity->loadPaintModeClicked = false;
+        if (entity->loadPaintModeClicked) {
+            if (entity->brushActive == false) {
+                if (ImGui::Button("Activate paint brush")) {
+                    entity->brushActive = true;
+                }
+            }
+            if (entity->brushActive == true) {
+                if (ImGui::Button("Exit paint brush")) {
+                    entity->brushActive = false;
+                    entity->loadPaintModeClicked = false;
+                }
             }
         }
     }
