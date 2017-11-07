@@ -12,7 +12,11 @@ class Controller{
     
     void Update(float deltaTime){
         if(Input(Grip)){
+        print("True");
             SendMessage(testEntity, 2);
+        }
+        else{
+            SendMessage(testEntity, 1);
         }
     }
 }
