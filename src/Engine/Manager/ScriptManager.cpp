@@ -62,8 +62,8 @@ std::string CallstackToString(asIScriptContext* ctx) {
 
     std::string callstack = "Callstack:\n";
     for (asUINT n = 0; n < ctx->GetCallstackSize(); n++) {
-        asIScriptFunction *func;
-        const char *scriptSection;
+        asIScriptFunction* func;
+        const char* scriptSection;
         int line, column;
         func = ctx->GetFunction(n);
         line = ctx->GetLineNumber(n, &column, &scriptSection);
@@ -76,12 +76,12 @@ std::string CallstackToString(asIScriptContext* ctx) {
     }
     return callstack;
 }
-std::string VariablesToString(asIScriptContext *ctx, asUINT stackLevel)
+std::string VariablesToString(asIScriptContext* ctx, asUINT stackLevel)
 {
-    asIScriptEngine *engine = ctx->GetEngine();
+    asIScriptEngine* engine = ctx->GetEngine();
     // First print the this pointer if this is a class method
     int typeId = ctx->GetThisTypeId(stackLevel);
-    void *varPointer = ctx->GetThisPointer(stackLevel);
+    void* varPointer = ctx->GetThisPointer(stackLevel);
 
     // Print the value of each variable, including parameters
     int numVars = ctx->GetVarCount(stackLevel);
@@ -89,7 +89,7 @@ std::string VariablesToString(asIScriptContext *ctx, asUINT stackLevel)
     for (int n = 0; n < numVars; n++)
     {
         int typeId = ctx->GetVarTypeId(n, stackLevel);
-        void *varPointer = ctx->GetAddressOfVar(n, stackLevel);
+        void* varPointer = ctx->GetAddressOfVar(n, stackLevel);
         if (typeId == asTYPEID_INT32) {
             variables.append(ctx->GetVarDeclaration(n, stackLevel));
             variables.append(" = ");
@@ -108,7 +108,7 @@ std::string VariablesToString(asIScriptContext *ctx, asUINT stackLevel)
 }
 // An example line callback
 void AngelScriptDebugLineCallback(asIScriptContext* ctx, const std::map<std::string, std::set<int>>* breakpoints){
-    const char *scriptSection;
+    const char* scriptSection;
     int line = ctx->GetLineNumber(0, 0, &scriptSection);
 
     std::string fileName(scriptSection);
@@ -698,7 +698,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 std::string name = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
-                void *varPointer = script->instance->GetAddressOfProperty(n);
+                void* varPointer = script->instance->GetAddressOfProperty(n);
 
                 if (script->IsInPropertyMap(name, typeId)) {
 
