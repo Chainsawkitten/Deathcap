@@ -105,10 +105,6 @@ Json::Value SceneEditor::GetSaveFileJson(std::string* filename) const {
     return Json::Value();
 }
 
-std::string SceneEditor::GetSceneName() {
-    return name;
-}
-
 void SceneEditor::ShowEntity(Entity* entity) {
     bool leaf = entity->IsScene() || entity->GetChildren().empty();
     bool opened = ImGui::TreeNodeEx(entity->name.c_str(), leaf ? ImGuiTreeNodeFlags_Leaf : 0);

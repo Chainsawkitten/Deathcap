@@ -49,8 +49,6 @@ namespace GUI {
             
             /// The Entity Editor
             EntityEditor entityEditor;
-
-            std::string GetSceneName();
             
         private:
             void ShowEntity(Entity* entity);
