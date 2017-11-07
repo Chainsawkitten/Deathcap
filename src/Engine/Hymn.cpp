@@ -54,12 +54,11 @@ void ActiveHymn::Clear() {
     
     entityNumber = 1U;
     
-    filterSettings.color = false;
-    filterSettings.fog = false;
+    filterSettings.gamma = 2.2f;
+    filterSettings.colorFilterApply = false;
+    filterSettings.fogApply = false;
     filterSettings.fogDensity = 0.001f;
     filterSettings.fxaa = true;
-    filterSettings.glow = true;
-    filterSettings.glowBlurAmount = 1;
     
     for (ScriptFile* script : scripts) {
         Managers().resourceManager->FreeScriptFile(script);
@@ -111,14 +110,14 @@ Json::Value ActiveHymn::ToJson() const {
 
     // Filter settings.
     Json::Value filtersNode;
-    filtersNode["color"] = filterSettings.color;
-    filtersNode["colorColor"] = Json::SaveVec3(filterSettings.colorColor);
-    filtersNode["fog"] = filterSettings.fog;
+    filtersNode["gamma"] = filterSettings.gamma;
+    filtersNode["color"] = filterSettings.colorFilterApply;
+    filtersNode["colorColor"] = Json::SaveVec3(filterSettings.colorFilterColor);
+    filtersNode["fog"] = filterSettings.fogApply;
     filtersNode["fogDensity"] = filterSettings.fogDensity;
     filtersNode["fogColor"] = Json::SaveVec3(filterSettings.fogColor);
+    filtersNode["dither"] = filterSettings.ditherApply;
     filtersNode["fxaa"] = filterSettings.fxaa;
-    filtersNode["glow"] = filterSettings.glow;
-    filtersNode["glowBlurAmount"] = filterSettings.glowBlurAmount;
     root["filters"] = filtersNode;
     
     // Save scripts.
@@ -140,14 +139,14 @@ void ActiveHymn::FromJson(Json::Value root) {
     
     // Load filter settings.
     Json::Value filtersNode = root["filters"];
-    filterSettings.color = filtersNode["color"].asBool();
-    filterSettings.colorColor = Json::LoadVec3(filtersNode["colorColor"]);
-    filterSettings.fog = filtersNode["fog"].asBool();
+    filterSettings.gamma = filtersNode.get("gamma", 2.2f).asFloat();
+    filterSettings.colorFilterApply = filtersNode["color"].asBool();
+    filterSettings.colorFilterColor = Json::LoadVec3(filtersNode["colorColor"]);
+    filterSettings.fogApply = filtersNode["fog"].asBool();
     filterSettings.fogDensity = filtersNode["fogDensity"].asFloat();
     filterSettings.fogColor = Json::LoadVec3(filtersNode["fogColor"]);
+    filterSettings.ditherApply = filtersNode["dither"].asBool();
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
-    filterSettings.glow = filtersNode["glow"].asBool();
-    filterSettings.glowBlurAmount = filtersNode["glowBlurAmount"].asInt();
     
     // Load scripts.
     const Json::Value scriptNode = root["scripts"];
@@ -200,7 +199,8 @@ void ActiveHymn::Update(float deltaTime) {
 
     if (restart) {
         restart = false;
-        world.Load(saveState);
+        FromJson(saveStateHymn);
+        world.Load(saveStateWorld);
         Managers().scriptManager->RegisterInput();
         Managers().scriptManager->BuildAllScripts();
     }
