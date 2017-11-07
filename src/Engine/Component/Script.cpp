@@ -31,12 +31,12 @@ Json::Value Script::Save() const {
     if (scriptFile != nullptr)
         component["scriptName"] = scriptFile->path + scriptFile->name;
     
-    for (auto &name_pair : propertyMap) {
+    for (auto& nameProperty : propertyMap) {
 
-        const std::string& name = name_pair.first;
-        int typeId = name_pair.second.first;
-        void* varPointer = name_pair.second.second;
-        int size = Managers().scriptManager->GetSizeOfASType(typeId, varPointer);
+        const std::string& name = nameProperty.first;
+        int typeId = nameProperty.second->typeID;
+        void* varPointer = nameProperty.second->data;
+        int size = nameProperty.second->size;
 
         for (int i = 0; i < size; i++)
             component["propertyMap"][name][std::to_string(typeId)][i] = ((unsigned char*)varPointer)[i];
@@ -45,36 +45,33 @@ Json::Value Script::Save() const {
     return component;
 }
 
-void Script::FillPropertyMap() {
+void Script::AddToPropertyMap(const std::string& name, int type, int size, void* data) {
 
-    int propertyCount = instance->GetPropertyCount();
+    if (!IsInPropertyMap(name, type))
+        propertyMap[name] = new Property(type, size, data);
 
-    for (int n = 0; n < propertyCount; n++) {
+}
 
-        int typeId = instance->GetPropertyTypeId(n);
-        void *varPointer = instance->GetAddressOfProperty(n);
+void Script::CopyDataFromPropertyMap(const std::string& name, void* target){
 
-        auto it = propertyMap.find(instance->GetPropertyName(n));
-        if (it != propertyMap.end())
-            if (propertyMap[instance->GetPropertyName(n)].first == typeId)
-                continue;
+    std::memcpy(target, propertyMap[name]->data, propertyMap[name]->size);
+    
+}
 
-        int size = Managers().scriptManager->GetSizeOfASType(typeId, varPointer);
-        if (size != -1) {
+void* Script::GetDataFromPropertyMap(const std::string& name){
 
-            propertyMap[instance->GetPropertyName(n)] = std::pair<int, void*>(typeId, malloc(size));
-            memcpy(propertyMap[instance->GetPropertyName(n)].second, varPointer, size);
+    return propertyMap[name]->data;
 
-        }
-    }
+}
+
+bool Script::IsInPropertyMap(const std::string& name, int type) {
+    auto it = propertyMap.find(name);
+    return it != propertyMap.end() && it->second->typeID == type;
 }
 
 /// Clears the property map.
 void Script::ClearPropertyMap() {
-
     for (auto pair : propertyMap)
-        free(pair.second.second);
-
+        delete pair.second;
     propertyMap.clear();
-
 }

@@ -22,6 +22,7 @@
 #include "../Component/DirectionalLight.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Listener.hpp"
+#include "../Component/Mesh.hpp"
 #include "../Component/PointLight.hpp"
 #include "../Component/RigidBody.hpp"
 #include "../Component/SoundSource.hpp"
@@ -35,7 +36,7 @@
 #include "DebugDrawingManager.hpp"
 #include "PhysicsManager.hpp"
 #include "ResourceManager.hpp"
-#include "Component/Mesh.hpp"
+#include "RenderManager.hpp"
 
 using namespace Component;
 
@@ -411,12 +412,27 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddLine(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddLine), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddCuboid(const vec3 &in, const mat4 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCuboid), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPlane(const vec3 &in, const vec3 &in, const vec2 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPlane), asCALL_THISCALL);
-    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCircle(const vec3 &in, const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCircle), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddSphere(const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddSphere), asCALL_THISCALL);
+    engine->RegisterObjectMethod("DebugDrawingManager", "void AddCylinder(float, float, const mat4& in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCylinder), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddCone(float, float, const mat4& in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCone), asCALL_THISCALL);
-    
+
+    engine->RegisterObjectType("RenderManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
+    engine->RegisterObjectMethod("RenderManager", "void SetGamma(float)", asMETHOD(RenderManager, SetGamma), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "float GetGamma()", asMETHOD(RenderManager, GetGamma), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "void SetFogApply(bool)", asMETHOD(RenderManager, SetFogApply), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "bool GetFogApply()", asMETHOD(RenderManager, GetFogApply), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "void SetFogDensity(float)", asMETHOD(RenderManager, SetFogDensity), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "float GetFogDensity()", asMETHOD(RenderManager, GetFogDensity), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "void SetFogColor(const vec3 &in)", asMETHOD(RenderManager, SetFogColor), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "vec3 GetFogColor()", asMETHOD(RenderManager, GetFogColor), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "void SetColorFilterApply(bool)", asMETHOD(RenderManager, SetColorFilterApply), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "vec3 GetColorFilterColor()", asMETHOD(RenderManager, GetColorFilterColor), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "void SetDitherApply(bool)", asMETHOD(RenderManager, SetDitherApply), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "bool GetDitherApply()", asMETHOD(RenderManager, GetDitherApply), asCALL_THISCALL);
+
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
+    engine->RegisterObjectProperty("Hub", "RenderManager@ renderManager", asOFFSET(Hub, renderManager));
     
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
@@ -568,7 +584,40 @@ void ScriptManager::FillPropertyMap(Script* script) {
     } else {
 
         CreateInstance(script);
-        script->FillPropertyMap();
+
+        int propertyCount = script->instance->GetPropertyCount();
+
+        for (int n = 0; n < propertyCount; n++) {
+
+            std::string name = script->instance->GetPropertyName(n);
+            int typeId = script->instance->GetPropertyTypeId(n);
+            void* varPointer = script->instance->GetAddressOfProperty(n);
+
+            if (script->IsInPropertyMap(name, typeId))
+                continue;
+
+            if (typeId == asTYPEID_INT32) {
+                int size = sizeof(int);
+                script->AddToPropertyMap(name, typeId, size, varPointer);
+            } else if (typeId == asTYPEID_FLOAT) {
+                int size = sizeof(float);
+                script->AddToPropertyMap(name, typeId, size, varPointer);
+            } else if (typeId == engine->GetTypeIdByDecl("Entity@")) {
+                int size = sizeof(unsigned int);
+                
+                const std::vector<Entity*> entities = Hymn().world.GetEntities();
+                
+                unsigned int GUID = 0;
+                if (entities.size() != 0)
+                    GUID = 0;
+                else 
+                    GUID = entities[0]->GetUniqueIdentifier();
+                
+                script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
+
+            }
+
+        }
 
     }
 
@@ -606,15 +655,18 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
             for (int n = 0; n < propertyCount; n++) {
 
+                std::string name = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void *varPointer = script->instance->GetAddressOfProperty(n);
 
-                auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
+                if (script->IsInPropertyMap(name, typeId)) {
 
-                if (it != script->propertyMap.end())
-                    if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId)
-                        std::memcpy(varPointer, script->propertyMap[script->instance->GetPropertyName(n)].second, GetSizeOfASType(typeId, script->propertyMap[script->instance->GetPropertyName(n)].second));
-   
+                    if (typeId == engine->GetTypeIdByDecl("Entity@"))
+                        *reinterpret_cast<Entity*>(varPointer) = *GetEntity(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                    else 
+                        script->CopyDataFromPropertyMap(name, varPointer);
+
+                } 
             }
         }
     }
@@ -752,9 +804,8 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 
         Json::Value propertyMapJson = node.get("propertyMap", "");
         std::vector<std::string> names = propertyMapJson.getMemberNames();
-        std::string json = propertyMapJson.toStyledString();
 
-        for (const auto& name : names) {
+        for (auto& name : names) {
 
             if (propertyMapJson.isMember(name)) {
 
@@ -763,15 +814,13 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
                 int typeId = std::atoi(typeIds[0].c_str());
                 int size = typeId_value[typeIds[0]].size();
+                void* data = malloc(size + 1);
+                for (int i = 0; i < size; i++)
+                    ((unsigned char*)data)[i] = (unsigned char)(typeId_value[typeIds[0]][i].asInt());
 
-                if (size != -1) {
+                script->AddToPropertyMap(name, typeId, size, data);
+                std::free(data);
 
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, malloc(size + 1));
-
-                    for (int i = 0; i < size; i++)
-                        ((unsigned char*)script->propertyMap[name].second)[i] = (unsigned char)(typeId_value[typeIds[0]][i].asInt());
-
-                }
             }
         }
     }
@@ -782,18 +831,6 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
 int ScriptManager::GetStringDeclarationID() {
 
     return engine->GetTypeIdByDecl("string");
-
-}
-
-const int ScriptManager::GetSizeOfASType(int typeID, void* value) {
-
-   
-    if (typeID == asTYPEID_INT32)
-        return sizeof(int);
-    if (typeID == asTYPEID_FLOAT)
-        return sizeof(float);
-
-    return -1;
 
 }
 
