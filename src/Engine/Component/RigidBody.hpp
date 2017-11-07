@@ -64,6 +64,12 @@ namespace Component {
              */
             ENGINE_API float GetRestitution() const;
 
+            /// Get the linear damping of the rigid body.
+            /**
+             * @return Linear damping.
+             */
+            ENGINE_API float GetLinearDamping() const;
+
         private:
             // Get the underlying Bullet rigid body. If none has been set,
             // nullptr is returned.
@@ -100,6 +106,8 @@ namespace Component {
 
             void SetRestitution(float cor);
 
+            void SetLinearDamping(float damping);
+
             void MakeKinematic();
             void MakeDynamic();
 
@@ -116,5 +124,6 @@ namespace Component {
             float rollingFriction = 0.0f;
             float spinningFriction = 0.0f;
             float restitution = 0.0f;
+            float linearDamping = 0.0f;
     };
 }

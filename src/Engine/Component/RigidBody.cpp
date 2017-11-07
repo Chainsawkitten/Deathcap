@@ -38,6 +38,10 @@ namespace Component {
         return restitution;
     }
 
+    float RigidBody::GetLinearDamping() const {
+        return linearDamping;
+    }
+
     btRigidBody* RigidBody::GetBulletRigidBody() {
         return rigidBody;
     }
@@ -141,6 +145,11 @@ namespace Component {
     void RigidBody::SetRestitution(float cor) {
         rigidBody->setRestitution(cor);
         this->restitution = cor;
+    }
+
+    void RigidBody::SetLinearDamping(float damping) {
+        rigidBody->setDamping(linearDamping, 0.0f);
+        this->linearDamping = damping;
     }
 
     void RigidBody::MakeKinematic() {
