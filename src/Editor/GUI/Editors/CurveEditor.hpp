@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <vector>
+#include <Video/ParticleSystemRenderer.hpp>
 
 struct MyCurve
 {
@@ -15,6 +16,12 @@ struct MyCurve
     ImVec2 value[10];
     ImGuiID id;
     int item = 0;
+    float value_you_care_about = 0.0f;
+
+    // Variables for controlling particle.
+    bool editVelocityX = false;
+    bool editVelocityY = false;
+    bool editVelocityZ = false;
 };
 
 class CurveEditor
@@ -31,8 +38,10 @@ public:
     void SetVisible(bool visible);
 
     void AddMyCurve(std::string curve_name, ImGuiID uniqueId, int item);
-    void UpdateCurves(float deltaTime);
+    void UpdateCurves(float deltaTime, float totalTime);
     void RenderCurveEditor();
+
+    const std::vector<MyCurve>& GetAllCurves() const;
 
 private:
     bool visible = false;
@@ -41,5 +50,8 @@ private:
     std::string editor_name;
     std::vector<MyCurve> curves;
     float time = 0.0f;
+    Video::ParticleSystemRenderer::EmitterSettings emitterSettings;
+
+    bool play = false;
 
 };

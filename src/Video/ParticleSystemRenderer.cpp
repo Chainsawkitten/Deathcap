@@ -5,6 +5,7 @@
 #include "DefaultParticleShader.geom.hpp"
 #include "DefaultParticleShader.frag.hpp"
 #include "Texture/Texture.hpp"
+#include <time.h>
 
 using namespace Video;
 
@@ -12,12 +13,16 @@ ParticleSystemRenderer::ParticleSystemRenderer()
 {
     points = new ParticlePos[nr_particles];
     vels = new ParticleVelocity[nr_particles];
+    col = new ParticleColor[nr_particles];
+    srand(time(NULL));
 }
 
 ParticleSystemRenderer::ParticleSystemRenderer(int count)
 {
     points = new ParticlePos[count];
     vels = new ParticleVelocity[count];
+    col = new ParticleColor[count];
+    srand(time(NULL));
 }
 
 ParticleSystemRenderer::~ParticleSystemRenderer()
@@ -77,8 +82,8 @@ void ParticleSystemRenderer::CreateStorageBuffers()
 
     for (int i = 0; i < this->nr_particles; i++)
     {
-        vels[i].vx = 5.0f * (rand()%10) - 5;
-        vels[i].vy = 5.0f * (rand() % 10) - 5;
+        vels[i].vx = 0.0f;
+        vels[i].vy = 0.0f;
         vels[i].vz = 0.0f;
         vels[i].life = 0.0f;
     }
@@ -89,35 +94,74 @@ void ParticleSystemRenderer::CreateStorageBuffers()
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, velSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
 
+    for (int i = 0; i < this->nr_particles; i++) {
+        col[i].cx = 0.0f;
+        col[i].cy = 0.0f;
+        col[i].cz = 0.0f;
+        col[i].ca = 0.0f;
+    }
+
+    glGenBuffers(1, &colSSbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, colSSbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(ParticlePos)*nr_particles, &col[0], GL_STATIC_DRAW);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, colSSbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
+
+    glBindVertexArray(m_glDrawVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, colSSbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(ParticlePos) * nr_particles, &col[0], GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(ParticleColor), 0);
+
+    glBindVertexArray(0);
+
 }
 
 void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSettings settings)
 {
-    glm::vec3 InitVeloc = glm::vec3(5 * (rand() % 10) - 5, 5 * (rand() % 10) - 5, 0);
     timer += dt;
 
     computeShaderProgram->Use();
 
     glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 0, posSSbo, 0, nr_particles * sizeof(ParticlePos));
-    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 1, velSSbo, 0, nr_particles * sizeof(ParticlePos));
+    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 1, velSSbo, 0, nr_particles * sizeof(ParticleVelocity));
+    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 2, colSSbo, 0, nr_particles * sizeof(ParticleColor));
     
+    glUniform3fv(computeShaderProgram->GetUniformLocation("Velocity"), 1, &glm::vec3(settings.velocity.x, settings.velocity.y, settings.velocity.z)[0]);
+    glUniform1f(computeShaderProgram->GetUniformLocation("rate"), settings.rate);
+    glUniform2fv(computeShaderProgram->GetUniformLocation("ShootIndex"), 1, &particleShootIndex[0]);
+    glUniform1f(computeShaderProgram->GetUniformLocation("timer"), timer);
+    glUniform1f(computeShaderProgram->GetUniformLocation("lifetime"), settings.lifetime);
+    glUniform1f(computeShaderProgram->GetUniformLocation("speed"), settings.velocityMultiplier);
+
+    glm::vec3 randomVec[32];
+
+    for (unsigned int i = 0; i < 32; i++) {
+        randomVec[i] = glm::normalize(glm::vec3(settings.randomVec.x + (rand() % settings.spread) - (settings.spread / 2),
+            settings.randomVec.y + ((rand() % settings.spread) - (settings.spread / 2)), settings.randomVec.z + (rand() % settings.spread) - (settings.spread / 2)));
+    }
+
+    glUniform3fv(computeShaderProgram->GetUniformLocation("randomVec"), 32, &randomVec[0].x);
+    glUniform1f(shaderProgram->GetUniformLocation("alphaControl"), settings.alpha_control);
+
     glDispatchCompute(nr_particles/128, 1, 1);
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
     glUseProgram(0);
 
-    if (timer >= rate)
-    {
-        particleShootIndex.x++;
-        particleShootIndex.y++;
-        if (particleShootIndex.y > nr_particles)
-        {
-            particleShootIndex.y = 1;
+    if (timer >= settings.rate) {
+        particleShootIndex.x += nr_new_particles;
+        particleShootIndex.y = particleShootIndex.x + nr_new_particles;
+        if (particleShootIndex.y > nr_particles) {
+            particleShootIndex.y = nr_new_particles;
             particleShootIndex.x = 0;
         }
         timer = 0.0f;
     }
+
 }
 
 void ParticleSystemRenderer::Draw(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings)
@@ -134,7 +178,8 @@ void ParticleSystemRenderer::Draw(Texture* textureAtlas, unsigned int textureAtl
 
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjectionMatrix"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniform1i(shaderProgram->GetUniformLocation("baseImage"), 0);
-    glUniform1f(shaderProgram->GetUniformLocation("textureIndex"), settings.textureIndex);
+    glUniform1i(shaderProgram->GetUniformLocation("textureIndex"), settings.textureIndex);
+    glUniform1f(shaderProgram->GetUniformLocation("scale"), settings.scale);
 
     // Base image texture
     glActiveTexture(GL_TEXTURE0);
@@ -151,5 +196,7 @@ void ParticleSystemRenderer::Draw(Texture* textureAtlas, unsigned int textureAtl
     //Cleanup
     //glDisableClientState(GL_VERTEX_ARRAY);
     glBindVertexArray(0);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
 
 }

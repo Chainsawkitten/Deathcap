@@ -24,6 +24,13 @@ struct ParticleVelocity
     float life; //Remaining time. 
 };
 
+struct ParticleColor {
+    float cx;
+    float cy;
+    float cz;
+    float ca; //Remaining time. 
+};
+
 namespace Video
 {
     class Texture;
@@ -42,7 +49,7 @@ namespace Video
             float life;
 
             /// Lifetime (in seconds).
-            float lifetime;
+            float lifetime = 10;
 
             /// Initial velocity.
             glm::vec3 velocity;
@@ -53,8 +60,27 @@ namespace Video
             /// Color of the particle.
             glm::vec3 color;
 
+            /// Fire rate.
+            float rate = 1.0f;
+
             /// Texture index (for the texture atlas, left to right, top to bottom indexing)
-            float textureIndex;
+            int textureIndex = 0;
+
+            /// Multiply velocity.
+            float velocityMultiplier = 10.0f;
+
+            /// Gives spread to the particles
+            int spread = 1;
+
+            /// Used to give random velocity to particles at all time.
+            glm::vec3 randomVec = glm::vec3(1, 1, 1);
+
+            /// Scale.
+            float scale = 1.0f;
+
+            /// Particle mass.
+            float alpha_control = 1.0f;
+
         };
 
         EmitterSettings emitterSettings;
@@ -86,9 +112,9 @@ namespace Video
         int WORK_GROUP_SIZE = 128;
 
         unsigned int        nr_particles = 1024;
-        glm::vec2		    particleShootIndex = glm::vec2(0, 1);
-        int                 nr_new_particles = 1;
-        float               rate = 0.01f;
+        glm::vec2		    particleShootIndex = glm::vec2(0, 10);
+        int                 nr_new_particles = 32;
+        float               rate = 1000.0f;
         float               delta_time = 0.0f;
         float               speed = 1.0f;
         float               variation = 2.0f;
@@ -99,11 +125,13 @@ namespace Video
         glm::vec3           velocity;
         ParticlePos *points;
         ParticleVelocity *vels;
+        ParticleColor *col;
 
         float timer = 0.0f;
 
         GLuint posSSbo;
         GLuint velSSbo;
+        GLuint colSSbo;
         GLuint m_glDrawVAO;
 
     };

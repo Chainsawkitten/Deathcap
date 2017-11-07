@@ -76,7 +76,7 @@ void ParticleManager::Render(World& world, const glm::vec3& position, const glm:
 
 void ParticleManager::UpdateParticleSystem(World& world, Component::ParticleSystemComponent* particleSystem) {
     for (unsigned int i = 0; i < world.GetNrOfParticleSystems(); ++i) {
-        emitterSettings[i].textureIndex = particleSystem->particleType.textureIndex;
+        emitterSettings[i] = particleSystem->particleType;
     }
 }
 
@@ -142,16 +142,6 @@ Component::ParticleSystemComponent* ParticleManager::CreateParticleSystem(const 
 
     // Load values from Json node.
     particleSystem->particleType.textureIndex = node.get("textureIndex", 0).asInt();
-    particleSystem->particleType.minVelocity = Json::LoadVec3(node["minVelocity"]);
-    particleSystem->particleType.maxVelocity = Json::LoadVec3(node["maxVelocity"]);
-    particleSystem->particleType.averageLifetime = node.get("averageLifetime", 0.f).asFloat();
-    particleSystem->particleType.lifetimeVariance = node.get("lifetimeVariance", 0.f).asFloat();
-    particleSystem->particleType.averageSize = Json::LoadVec2(node["averageSize"]);
-    particleSystem->particleType.sizeVariance = Json::LoadVec2(node["sizeVariance"]);
-    particleSystem->particleType.uniformScaling = node.get("uniformScaling", false).asBool();
-    particleSystem->particleType.startAlpha = node.get("startAlpha", 0.f).asFloat();
-    particleSystem->particleType.midAlpha = node.get("midAlpha", 1.f).asFloat();
-    particleSystem->particleType.endAlpha = node.get("endAlpha", 0.f).asFloat();
     particleSystem->particleType.color = Json::LoadVec3(node["color"]);
     particleSystem->size = Json::LoadVec3(node["size"]);
     particleSystem->averageEmitTime = node.get("averageEmitTime", 0.03).asFloat();

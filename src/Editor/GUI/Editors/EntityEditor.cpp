@@ -538,16 +538,38 @@ void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmi
 
 void GUI::EntityEditor::ParticleSystemEditor(Component::ParticleSystemComponent* particleSystem)
 {
-    ImGui::Text("Particle");
+    ImGui::Text("Particle System");
     ImGui::Indent();
     int rows = Managers().particleManager->GetTextureAtlasRows();
     float column = static_cast<float>(particleSystem->particleType.textureIndex % rows);
     float row = static_cast<float>(particleSystem->particleType.textureIndex / rows);
     ImGui::Image((void*)Managers().particleManager->GetTextureAtlas()->GetTextureID(), ImVec2(128, 128), ImVec2(column / rows, row / rows), ImVec2((column + 1.f) / rows, (row + 1.f) / rows));
     ImGui::InputInt("Texture index", &particleSystem->particleType.textureIndex);
+    ImGui::DragFloat("Rate", &particleSystem->particleType.rate, 0.3f, 0.0001f, 10.0f);
+    ImGui::DragFloat("Lifetime", &particleSystem->particleType.lifetime, 1.0f, 0.01f, 1000.0f);
+    ImGui::DragFloat("Scale", &particleSystem->particleType.scale, 0.2f, 0.1f, 5.0f);
+    ImGui::DragFloat3("Velocity", &particleSystem->particleType.velocity[0], 1.0f, -100.0f, 100.0f);
+    ImGui::DragFloat("Alpha Control", &particleSystem->particleType.alpha_control, 1.0f, 0.1f, 100.0f);
+
+    ImGui::DragInt("Spread", &particleSystem->particleType.spread, 1.0f, 1, 100);
+    ImGui::DragFloat3("Random Velocity", &particleSystem->particleType.randomVec[0], 1.0f, -10.0f, 10.0f);
 
     if (ImGui::Button("Curve editor")) {
         curveEditor.SetVisible(!curveEditor.IsVisible());
+    }
+
+    ImGui::DragFloat("Speed", &particleSystem->particleType.velocityMultiplier, 1.0f, 0.01f, 100.0f);
+
+    for (unsigned int i = 0; i < curveEditor.GetAllCurves().size(); i++) {
+        if (curveEditor.GetAllCurves()[i].editVelocityX) {
+            particleSystem->particleType.velocity.x = curveEditor.GetAllCurves()[i].value_you_care_about;
+        }
+        if (curveEditor.GetAllCurves()[i].editVelocityY) {
+            particleSystem->particleType.velocity.y = curveEditor.GetAllCurves()[i].value_you_care_about;
+        }
+        if (curveEditor.GetAllCurves()[i].editVelocityZ) {
+            particleSystem->particleType.velocity.z = curveEditor.GetAllCurves()[i].value_you_care_about;
+        }
     }
 
     ImGui::Unindent();
