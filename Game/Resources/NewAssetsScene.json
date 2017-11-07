@@ -258,6 +258,32 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510054402
+		},
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 8.6510000228881836,
+				"y" : -0.63400000333786011,
+				"z" : 0.25800001621246338
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
 		}
 	],
 	"name" : "Root",
