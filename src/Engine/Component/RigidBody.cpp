@@ -23,6 +23,10 @@ namespace Component {
         return friction;
     }
 
+    float RigidBody::GetRollingFriction() const {
+        return rollingFriction;
+    }
+
     btRigidBody* RigidBody::GetBulletRigidBody() {
         return rigidBody;
     }
@@ -111,6 +115,11 @@ namespace Component {
     void RigidBody::SetFriction(float friction) {
         rigidBody->setFriction(friction);
         this->friction = friction;
+    }
+
+    void RigidBody::SetRollingFriction(float friction) {
+        rigidBody->setRollingFriction(friction);
+        this->rollingFriction = friction;
     }
 
     void RigidBody::MakeKinematic() {
