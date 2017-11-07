@@ -149,6 +149,9 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto spinningFriction = node.get("spinningFriction", 0.0f).asFloat();
     comp->SetSpinningFriction(spinningFriction);
 
+    auto cor = node.get("cor", 0.0f).asFloat();
+    comp->SetRestitution(cor);
+
     auto kinematic = node.get("kinematic", false).asFloat();
     if (kinematic)
         comp->MakeKinematic();
