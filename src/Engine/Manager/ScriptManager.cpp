@@ -78,11 +78,6 @@ std::string CallstackToString(asIScriptContext* ctx) {
 }
 std::string VariablesToString(asIScriptContext* ctx, asUINT stackLevel)
 {
-    asIScriptEngine* engine = ctx->GetEngine();
-    // First print the this pointer if this is a class method
-    int typeId = ctx->GetThisTypeId(stackLevel);
-    void* varPointer = ctx->GetThisPointer(stackLevel);
-
     // Print the value of each variable, including parameters
     int numVars = ctx->GetVarCount(stackLevel);
     std::string variables = "Variables:\n";
