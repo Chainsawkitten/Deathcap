@@ -30,6 +30,10 @@ namespace GUI {
             if (ImGui::InputFloat("Spinning friction", &spinningFriction))
                 Managers().physicsManager->SetSpinningFriction(comp, spinningFriction);
 
+            float cor = comp->GetRestitution();
+            if (ImGui::InputFloat("CoR", &cor))
+                Managers().physicsManager->SetRestitution(comp, cor);
+
             bool kinematic = comp->IsKinematic();
             if (ImGui::Checkbox("Kinematic", &kinematic)) {
                 if (kinematic)
