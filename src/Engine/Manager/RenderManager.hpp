@@ -189,6 +189,96 @@ class RenderManager {
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
 
+        /// Set gamma correction.
+        /**
+         * @param gamma Gamma to apply.
+         */
+        ENGINE_API void SetGamma(float gamma);
+
+        /// Get gamma correction.
+        /**
+         * @return gamma Gamma value.
+         */
+        ENGINE_API float GetGamma() const;
+
+
+        /// Set whether fog is applied.
+        /**
+         * @param fogApply Whether to apply fog.
+         */
+        ENGINE_API void SetFogApply(bool fogApply);
+
+        /// Get whether fog is applied.
+        /**
+         * @return Whether fog is applied.
+         */
+        ENGINE_API bool GetFogApply() const;
+
+
+        /// Set fog density.
+        /**
+         * @param fogDensity Density of the fog.
+         */
+        ENGINE_API void SetFogDensity(float fogDensity);
+
+        /// Get fog density.
+        /**
+         * @return Density of the fog
+         */
+        ENGINE_API float GetFogDensity() const;
+
+
+        /// Set fog color.
+        /**
+         * @param fogColor Color of the fog.
+         */
+        ENGINE_API void SetFogColor(const glm::vec3& fogColor);
+
+        /// Get fog color.
+        /**
+         * @return Color of the fog.
+         */
+        ENGINE_API glm::vec3 GetFogColor() const;
+
+
+        /// Set whether color filter is applied.
+        /**
+         * @param colorFilterApply Whether to apply color filter.
+         */
+        ENGINE_API void SetColorFilterApply(bool colorFilterApply);
+
+        /// Get whether color filter is applied.
+        /**
+         * @return Whether color filter is applied.
+         */
+        ENGINE_API bool GetColorFilterApply() const;
+
+
+        /// Set color filer color.
+        /**
+         * @param colorFilterColor Color of the color filter.
+         */
+        ENGINE_API void SetColorFilterColor(const glm::vec3& colorFilterColor);
+
+        /// Get color filer color.
+        /**
+         * @return Color of the color filter.
+         */
+        ENGINE_API glm::vec3 GetColorFilterColor() const;
+
+
+        /// Set whether dithering is applied.
+        /**
+         * @param ditherApply Whether to apply dithering.
+         */
+        ENGINE_API void SetDitherApply(bool ditherApply);
+
+        /// Get whether dithering is applied.
+        /**
+         * @return Whether dithering is applied.
+         */
+        ENGINE_API bool GetDitherApply() const;
+
     private:
         RenderManager();
         ~RenderManager();
