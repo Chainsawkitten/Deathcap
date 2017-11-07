@@ -121,8 +121,17 @@ void RestartScene() {
     Hymn().restart = true;
 }
 
-bool IsIntersect(Entity* checker, Entity* camera) {
-    MousePicking mousePicker = MousePicking(camera, camera->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+Entity* IsIntersect(Entity* checker) {
+    std::vector<Entity*> entities = Managers().scriptManager->GetPickupList();
+    for (int i = 0; i < entities.size(); i++) {
+        float distance = glm::distance(checker->GetWorldPosition(), entities[i]->GetWorldPosition());
+        if (distance <= 0.2) {
+            int whatever = entities[i]->GetUniqueIdentifier();
+            return Managers().scriptManager->GetEntity(entities[i]->GetUniqueIdentifier());
+        }
+    }
+    return nullptr;
+    /*MousePicking mousePicker = MousePicking(camera, camera->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
     mousePicker.Update();
     RayIntersection rayIntersector;
     float intersectDistance;
@@ -133,7 +142,7 @@ bool IsIntersect(Entity* checker, Entity* camera) {
             return true;
         return false;
     }
-    return false;
+    return false;*/
 }
 
 bool IsVRActive() {
@@ -429,7 +438,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
-    engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
+    engine->RegisterGlobalFunction("Entity@ IsIntersect(Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsVRActive()", asFUNCTION(IsVRActive), asCALL_CDECL);
 }
 
@@ -888,16 +897,16 @@ void ScriptManager::CallMessageReceived(const Message& message) {
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
     
     // Find method to call.
-    asIScriptFunction* method = type->GetMethodByDecl("void ReceiveMessage(@Entity, int)");
+    asIScriptFunction* method = type->GetMethodByDecl("void ReceiveMessage(Entity@, int)");
     if (method == nullptr)
-        Log() << "Can't find method void ReceiveMessage(@Entity, int)\n";
+        Log() << "Can't find method void ReceiveMessage(Entity@, int)\n";
     
     // Create context, prepare it and execute.
     asIScriptContext* context = CreateContext();
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgAddress(0, message.sender);
-    context->SetArgDWord(0, message.type);
+    context->SetArgDWord(1, message.type);
     ExecuteCall(context);
     
     // Clean up.
@@ -1001,4 +1010,12 @@ asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::s
 
 void ScriptManager::HandleTrigger(TriggerEvent triggerEvent) {
     triggerEvents.push_back(triggerEvent);
+}
+
+void ScriptManager::InsertPickupList(Entity* entity) {
+    pickupEntities.push_back(entity);
+}
+
+std::vector<Entity*> ScriptManager::GetPickupList() {
+    return pickupEntities;
 }

@@ -17,6 +17,10 @@
 					{
 						"scene" : "Opening Scene",
 						"type" : 0
+					},
+					{
+						"script" : "Pickup",
+						"type" : 4
 					}
 				],
 				"subfolders" : 
@@ -221,11 +225,15 @@
 										"type" : 4
 									},
 									{
-										"script" : "Player",
+										"script" : "Camera",
 										"type" : 4
 									},
 									{
 										"script" : "Lantern",
+										"type" : 4
+									},
+									{
+										"script" : "Controller",
 										"type" : 4
 									}
 								],

@@ -13,12 +13,13 @@ class Pickup {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-
     }
     
     void ReceiveMessage(Entity @sender, int i)
     {
-        if(i == 2)
-            @parent = self.SetParent(@sender);
+        if(i == 2){
+                self.position = vec3(0.0f,0.0f,0.0f);
+                @parent = self.SetParent(@sender);
+            }
     }
 }

@@ -5,7 +5,6 @@
 
 namespace Component {
     VRDevice::VRDevice() {
-        controllerID = 1;
     }
 
     VRDevice::~VRDevice() {
@@ -35,6 +34,6 @@ namespace Component {
     bool VRDevice::HandleInput(int buttonID) {
         vr::EVRButtonId vrButton = static_cast<vr::EVRButtonId>(buttonID);
 
-        return Managers().vrManager->GetInput(vrButton);
+        return Managers().vrManager->GetInput(vrButton, controllerID);
     }
 }

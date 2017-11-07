@@ -151,6 +151,9 @@ class ScriptManager {
          * @return The size in bytes for the provided typeID. -1 for unknown type.
          */
         const int GetSizeOfASType(int typeID, void* value);
+
+        void InsertPickupList(Entity* entity);
+        std::vector<Entity*> GetPickupList();
         
     private:
         struct Message {
@@ -184,6 +187,7 @@ class ScriptManager {
         asIScriptEngine* engine;
         
         std::vector<Entity*> updateEntities;
+        std::vector<Entity*> pickupEntities;
         std::vector<Message> messages;
         std::vector<TriggerEvent> triggerEvents;
 
