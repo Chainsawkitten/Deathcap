@@ -152,6 +152,13 @@ class PhysicsManager {
          */
         ENGINE_API void SetSpinningFriction(Component::RigidBody* comp, float friction);
 
+        /// Set the restitution (bounciness) of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param cor Coefficient of restitution.
+         */
+        ENGINE_API void SetRestitution(Component::RigidBody* comp, float cor);
+
         /// Turn a rigid body into a kinematic object, putting movement in the
         /// control of the programmer.
         /**

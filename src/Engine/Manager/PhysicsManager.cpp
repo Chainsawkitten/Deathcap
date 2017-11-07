@@ -272,6 +272,10 @@ void PhysicsManager::SetSpinningFriction(Component::RigidBody* comp, float frict
     comp->SetSpinningFriction(friction);
 }
 
+void PhysicsManager::SetRestitution(Component::RigidBody* comp, float cor) {
+    comp->SetRestitution(cor);
+}
+
 void PhysicsManager::MakeKinematic(Component::RigidBody* comp) {
     comp->MakeKinematic();
 }
