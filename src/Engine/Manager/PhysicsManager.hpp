@@ -166,6 +166,13 @@ class PhysicsManager {
          */
         ENGINE_API void SetLinearDamping(Component::RigidBody* comp, float damping);
 
+        /// Set the angular damping factor of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param damping Angular damping.
+         */
+        ENGINE_API void SetAngularDamping(Component::RigidBody* comp, float damping);
+
         /// Turn a rigid body into a kinematic object, putting movement in the
         /// control of the programmer.
         /**

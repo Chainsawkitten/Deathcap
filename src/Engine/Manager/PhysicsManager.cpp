@@ -286,6 +286,10 @@ void PhysicsManager::SetLinearDamping(Component::RigidBody* comp, float damping)
     comp->SetLinearDamping(damping);
 }
 
+void PhysicsManager::SetAngularDamping(Component::RigidBody* comp, float damping) {
+    comp->SetAngularDamping(damping);
+}
+
 void PhysicsManager::MakeKinematic(Component::RigidBody* comp) {
     comp->MakeKinematic();
 }
