@@ -430,7 +430,14 @@
 			},
 			"RigidBody" : 
 			{
-				"mass" : 1.0
+				"angularDamping" : 0.0,
+				"cor" : 0.0,
+				"friction" : 0.5,
+				"kinematic" : true,
+				"linearDamping" : 0.0,
+				"mass" : 1.0,
+				"rollingFriction" : 0.0,
+				"spinningFriction" : 0.0
 			},
 			"Script" : 
 			{
@@ -471,7 +478,14 @@
 		{
 			"RigidBody" : 
 			{
-				"mass" : 0.0
+				"angularDamping" : 0.0,
+				"cor" : 0.0,
+				"friction" : 0.5,
+				"kinematic" : false,
+				"linearDamping" : 0.0,
+				"mass" : 0.0,
+				"rollingFriction" : 0.0,
+				"spinningFriction" : 0.0
 			},
 			"Shape" : 
 			{
