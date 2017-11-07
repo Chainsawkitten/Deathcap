@@ -70,5 +70,10 @@ if(WIN32)
     endif()
 endif()
 
+option(UseMemTrack "Activates the memtrack library across solution." OFF)
+if(UseMemTrack)
+	add_definitions(-DUSINGMEMTRACK)
+endif()
+
 # Source files
 add_subdirectory(src)
