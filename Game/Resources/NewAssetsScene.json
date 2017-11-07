@@ -4,7 +4,7 @@
 		{
 			"DirectionalLight" : 
 			{
-				"ambientCoefficient" : 0.41900002956390381,
+				"ambientCoefficient" : 0.0,
 				"color" : 
 				{
 					"x" : 1.0,
@@ -258,6 +258,32 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510054402
+		},
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 12.039000511169434,
+				"y" : -0.45100003480911255,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
 		}
 	],
 	"name" : "Root",
