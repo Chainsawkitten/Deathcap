@@ -247,7 +247,7 @@ void Editor::Show(float deltaTime) {
             // Ray-Triangle intersection test.     
             if (currentEntity->brushActive) {
 
-                bool intersect=false;
+                bool intersect = false;
                 glm::vec3 last_p0;
                 glm::vec3 last_p1;
                 glm::vec3 last_p2;
@@ -292,7 +292,9 @@ void Editor::Show(float deltaTime) {
                 if (Input()->Pressed(InputHandler::SELECT) && intersect) {
                     Entity* entity = Hymn().world.GetRoot()->AddChild("mrm");
                     entity->InstantiateScene("Resources/mushroom_scene", "Resources/cave_scene");
-                    entity->SetWorldPosition(mousePos);       
+                    entity->SetWorldPosition(mousePos);
+                    entity->SetDirection(-normal);
+
                 }
                 lastIntersect = INFINITY;
 
