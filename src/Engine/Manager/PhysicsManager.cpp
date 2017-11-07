@@ -251,6 +251,10 @@ void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
         comp->SetMass(mass);
 }
 
+void PhysicsManager::SetFriction(Component::RigidBody* comp, float friction) {
+    comp->SetFriction(friction);
+}
+
 void PhysicsManager::MakeKinematic(Component::RigidBody* comp) {
     comp->MakeKinematic();
 }
