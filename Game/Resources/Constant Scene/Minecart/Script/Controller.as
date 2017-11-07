@@ -11,10 +11,8 @@ class Controller{
     }
     
     void Update(float deltaTime){
-        if(Input(Grip)){ 
-            @testEntity = IsIntersect(@self);
-            if (testEntity != null) 
-                SendMessage(testEntity, 2); //Break
+        if(Input(Grip)){
+            SendMessage(testEntity, 2);
         }
     }
 }

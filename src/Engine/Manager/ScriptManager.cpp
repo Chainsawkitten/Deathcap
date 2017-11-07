@@ -121,18 +121,8 @@ void RestartScene() {
     Hymn().restart = true;
 }
 
-Entity* IsIntersect(Entity* checker) {
-    // @todo fucking look up updateentities yay
-    int what = Managers().scriptManager->GetUpdateEntities().size();
-    for (int i = 0; i < Managers().scriptManager->GetUpdateEntities().size(); i++) {
-        float distance = glm::distance(checker->GetWorldPosition(), Managers().scriptManager->GetUpdateEntities().at(i)->GetWorldPosition());
-        if (distance <= 0.2) {
-            int whatever = Managers().scriptManager->GetUpdateEntities().at(i)->GetUniqueIdentifier();
-            return Managers().scriptManager->GetUpdateEntities().at(i);
-        }
-    }
-    return nullptr;
-    /*MousePicking mousePicker = MousePicking(camera, camera->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+Entity* IsIntersect(Entity* checker) {/*
+    MousePicking mousePicker = MousePicking(camera, camera->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
     mousePicker.Update();
     RayIntersection rayIntersector;
     float intersectDistance;
@@ -144,6 +134,7 @@ Entity* IsIntersect(Entity* checker) {
         return false;
     }
     return false;*/
+    return nullptr;
 }
 
 bool IsVRActive() {

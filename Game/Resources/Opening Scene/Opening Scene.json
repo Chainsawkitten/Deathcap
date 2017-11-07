@@ -428,9 +428,20 @@
 			{
 				"model" : "Resources/Opening Scene/Lever/Models/leverbox"
 			},
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
 			"Script" : 
 			{
 				"scriptName" : "Resources/Opening Scene/Pickup"
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 0.20000000298023224
+				}
 			},
 			"children" : null,
 			"name" : "Pickup Test",
@@ -456,6 +467,49 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1509964911
+		},
+		{
+			"RigidBody" : 
+			{
+				"mass" : 0.0
+			},
+			"Shape" : 
+			{
+				"plane" : 
+				{
+					"normal" : 
+					{
+						"x" : 0.0,
+						"y" : 1.0,
+						"z" : 0.0
+					},
+					"planeCoeff" : 0.0
+				}
+			},
+			"children" : null,
+			"name" : "floor",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : -1.9180001020431519,
+				"z" : 2.6140000820159912
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510059357
 		}
 	],
 	"name" : "Root",

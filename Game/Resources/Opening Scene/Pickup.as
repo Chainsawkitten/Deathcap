@@ -1,7 +1,7 @@
 class Pickup {
     Hub @hub;
     Entity @self;
-    Entity @parent;
+    Entity @lastParent;
 
     Pickup(Entity @entity){
         @hub = Managers();
@@ -19,7 +19,7 @@ class Pickup {
     {
         if(i == 2){
                 self.position = vec3(0.0f,0.0f,0.0f);
-                @parent = self.SetParent(@sender);
+                @lastParent = self.SetParent(@sender);
             }
     }
 }
