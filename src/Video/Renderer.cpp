@@ -22,6 +22,7 @@ using namespace Video;
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
+    skinRenderProgram = new SkinRenderProgram();
 
     postProcessing = new PostProcessing(rectangle);
 
@@ -122,6 +123,14 @@ void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D*
     staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, isSelected);
 }
 
+void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+    skinRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
+}
+
+void Renderer::RenderSkinnedMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) {
+    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones);
+}
+
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
     fxaaFilter->SetScreenSize(renderSurface->GetSize());
     postProcessing->ApplyFilter(renderSurface, fxaaFilter);
@@ -165,4 +174,68 @@ void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
 void Renderer::StopRenderingIcons() {
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
+}
+
+void Renderer::SetGamma(float gamma) {
+    staticRenderProgram->SetGamma(gamma);
+}
+
+float Renderer::GetGamma() const {
+    return staticRenderProgram->GetGamma();
+}
+
+void Renderer::SetFogApply(bool fogApply) {
+    staticRenderProgram->SetFogApply(fogApply);
+}
+
+bool Renderer::GetFogApply() const {
+    return staticRenderProgram->GetFogApply();
+}
+
+void Renderer::SetFogDensity(float fogDensity) {
+    staticRenderProgram->SetFogDensity(fogDensity);;
+}
+
+float Renderer::GetFogDensity() const {
+    return staticRenderProgram->GetFogDensity();
+}
+
+void Renderer::SetFogColor(const glm::vec3& fogColor) {
+    staticRenderProgram->SetFogColor(fogColor);
+}
+
+glm::vec3 Renderer::GetFogColor() const {
+    return staticRenderProgram->GetFogColor();
+}
+
+void Renderer::SetColorFilterApply(bool colorFilterApply) {
+    staticRenderProgram->SetColorFilterApply(colorFilterApply);
+}
+
+bool Renderer::GetColorFilterApply() const {
+    return staticRenderProgram->GetColorFilterApply();
+}
+
+void Renderer::SetColorFilterColor(const glm::vec3& colorFilterColor) {
+    staticRenderProgram->SetColorFilterColor(colorFilterColor);
+}
+
+glm::vec3 Renderer::GetColorFilterColor() const {
+    return staticRenderProgram->GetColorFilterColor();
+}
+
+void Renderer::SetDitherApply(bool ditherApply) {
+    staticRenderProgram->SetDitherApply(ditherApply);
+}
+
+bool Renderer::GetDitherApply() const {
+    return staticRenderProgram->GetDitherApply();
+}
+
+void Renderer::SetFrameSize(const glm::vec2& frameSize) {
+    staticRenderProgram->SetFrameSize(frameSize);
+}
+
+glm::vec2 Renderer::GetFrameSize() const {
+    return staticRenderProgram->GetFrameSize();
 }
