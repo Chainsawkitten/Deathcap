@@ -152,6 +152,9 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto cor = node.get("cor", 0.0f).asFloat();
     comp->SetRestitution(cor);
 
+    auto linearDamping = node.get("linearDamping", 0.0f).asFloat();
+    comp->SetLinearDamping(linearDamping);
+
     auto kinematic = node.get("kinematic", false).asFloat();
     if (kinematic)
         comp->MakeKinematic();
