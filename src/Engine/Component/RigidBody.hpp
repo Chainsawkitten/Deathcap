@@ -52,6 +52,12 @@ namespace Component {
              */
             ENGINE_API float GetRollingFriction() const;
 
+            /// Get the spinning friction coefficient of the rigid body.
+            /**
+             * @return Spinning friction value.
+             */
+            ENGINE_API float GetSpinningFriction() const;
+
         private:
             // Get the underlying Bullet rigid body. If none has been set,
             // nullptr is returned.
@@ -84,6 +90,7 @@ namespace Component {
 
             void SetFriction(float friction);
             void SetRollingFriction(float friction);
+            void SetSpinningFriction(float friction);
 
             void MakeKinematic();
             void MakeDynamic();
@@ -99,5 +106,6 @@ namespace Component {
             bool forceTransformSync = true; // For first frame
             float friction = 0.0f;
             float rollingFriction = 0.0f;
+            float spinningFriction = 0.0f;
     };
 }
