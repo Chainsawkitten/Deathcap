@@ -204,7 +204,7 @@ void EntityEditor::AnimationControllerEditor(Component::AnimationController* ani
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::ANIMATION_CONTROLLER)) {
-            if (animationController != nullptr)
+            if (animationController->controller != nullptr)
                 Managers().resourceManager->FreeAnimationController(animationController->controller);
 
             animationController->controller = Managers().resourceManager->CreateAnimationController(resourceSelector.GetSelectedResource().GetPath());
@@ -221,7 +221,7 @@ void EntityEditor::AnimationControllerEditor(Component::AnimationController* ani
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::SKELETON)) {
-            if (animationController != nullptr)
+            if (animationController->skeleton != nullptr)
                 Managers().resourceManager->FreeSkeleton(animationController->skeleton);
 
             animationController->skeleton = Managers().resourceManager->CreateSkeleton(resourceSelector.GetSelectedResource().GetPath());
