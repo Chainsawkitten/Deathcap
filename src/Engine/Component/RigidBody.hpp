@@ -38,7 +38,7 @@ namespace Component {
              */
             ENGINE_API bool IsKinematic() const;
 
-            /// Get the friction coefficient of the rigid body. Not that this
+            /// Get the friction coefficient of the rigid body. Note that this
             /// does not necessarily match the real world as objects don't have
             /// one single value for friction.
             /**
@@ -58,7 +58,7 @@ namespace Component {
              */
             ENGINE_API float GetSpinningFriction() const;
 
-            /// Get the coefficient of restitution the rigid body.
+            /// Get the coefficient of restitution of the rigid body.
             /**
              * @return Coefficient of restitution.
              */
