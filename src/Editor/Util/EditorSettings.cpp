@@ -18,6 +18,7 @@ EditorSettings::EditorSettings() {
     AddBoolSetting("Light Source Icons", "View", "Light Source Icons", true);
     AddBoolSetting("Camera Icons", "View", "Camera Icons", true);
     AddBoolSetting("Physics Volumes", "View", "Physics Volumes", true);
+    AddBoolSetting("Lighting", "View", "Lighting", true);
     
     AddStringSetting("Text Editor", "Script", "Text Editor", "");
     

@@ -129,6 +129,70 @@ class PhysicsManager {
          */
         ENGINE_API void SetMass(Component::RigidBody* comp, float mass);
 
+        /// Set the friction coefficient of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param friction Friction coefficient.
+         */
+        ENGINE_API void SetFriction(Component::RigidBody* comp, float friction);
+
+        /// Set the rolling friction coefficient of a Component::RigidBody
+        /// component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param friction Friction coefficient.
+         */
+        ENGINE_API void SetRollingFriction(Component::RigidBody* comp, float friction);
+
+        /// Set the spinning friction coefficient of a Component::RigidBody
+        /// component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param friction Friction coefficient.
+         */
+        ENGINE_API void SetSpinningFriction(Component::RigidBody* comp, float friction);
+
+        /// Set the restitution (bounciness) of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param cor Coefficient of restitution.
+         */
+        ENGINE_API void SetRestitution(Component::RigidBody* comp, float cor);
+
+        /// Set the linear damping factor of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param damping Linear damping.
+         */
+        ENGINE_API void SetLinearDamping(Component::RigidBody* comp, float damping);
+
+        /// Set the angular damping factor of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param damping Angular damping.
+         */
+        ENGINE_API void SetAngularDamping(Component::RigidBody* comp, float damping);
+
+        /// Turn a rigid body into a kinematic object, putting movement in the
+        /// control of the programmer.
+        /**
+         * @param comp Rigid body to make kinematic.
+         */
+        ENGINE_API void MakeKinematic(Component::RigidBody* comp);
+
+        /// Turn a rigid body into a dynamic object.
+        /**
+         * @param comp Rigid body to make dynamic.
+         */
+        ENGINE_API void MakeDynamic(Component::RigidBody* comp);
+
+        /// Forces a dynamic rigid body to synchronize its transform with that
+        /// of its owning entity during the next simulation iteration.
+        /**
+         * @param comp Rigid body to synchronize.
+         */
+        ENGINE_API void ForceTransformSync(Component::RigidBody* comp);
+
         /// Get all shape components.
         /**
          * @return All shape components.

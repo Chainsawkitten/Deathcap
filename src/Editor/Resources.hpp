@@ -13,6 +13,13 @@ namespace Audio {
     class SoundBuffer;
     class AudioMaterial;
 }
+
+namespace Animation {
+    class AnimationClip;
+    class AnimationController;
+    class Skeleton;
+}
+
 namespace Json {
     class Value;
 }
@@ -37,7 +44,10 @@ class ResourceList {
                 TEXTURE,
                 SOUND,
                 SCRIPT,
-                AUDIOMATERIAL
+                AUDIOMATERIAL,
+                ANIMATION_CLIP,
+                ANIMATION_CONTROLLER,
+                SKELETON
             } type;
             
             /// Scene name.
@@ -45,7 +55,16 @@ class ResourceList {
             
             /// Model.
             Geometry::Model* model;
+
+            /// Animation clip.
+            Animation::AnimationClip* animationClip;
             
+            /// Animation controller.
+            Animation::AnimationController* animationController;
+
+            /// Skeleton.
+            Animation::Skeleton* skeleton;
+
             /// Texture.
             TextureAsset* texture;
             
@@ -97,6 +116,24 @@ class ResourceList {
         
         /// The id of the next model to create.
         unsigned int modelNumber = 0U;
+
+        /// Animation clips.
+        std::vector<Animation::AnimationClip*> animationClips;
+
+        /// The id of the next animation clip to create.
+        unsigned int animationClipNumber = 0U;
+
+        /// Animation controllers.
+        std::vector<Animation::AnimationController*> animationControllers;
+
+        /// The id of the next animation controller to create.
+        unsigned int animationControllerNumber = 0U;
+
+        /// Skeletons.
+        std::vector<Animation::Skeleton*> skeletons;
+
+        /// The id of the next skeleton to create.
+        unsigned int skeletonNumber = 0U;
         
         /// The id of the next texture to create.
         unsigned int textureNumber = 0U;

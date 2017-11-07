@@ -10,7 +10,42 @@ namespace Component {
     Json::Value RigidBody::Save() const {
         Json::Value component;
         component["mass"] = mass;
+        component["friction"] = friction;
+        component["rollingFriction"] = rollingFriction;
+        component["spinningFriction"] = spinningFriction;
+        component["cor"] = restitution;
+        component["linearDamping"] = linearDamping;
+        component["angularDamping"] = angularDamping;
+        component["kinematic"] = kinematic;
         return component;
+    }
+
+    bool RigidBody::IsKinematic() const {
+        return kinematic;
+    }
+
+    float RigidBody::GetFriction() const {
+        return friction;
+    }
+
+    float RigidBody::GetRollingFriction() const {
+        return rollingFriction;
+    }
+
+    float RigidBody::GetSpinningFriction() const {
+        return spinningFriction;
+    }
+
+    float RigidBody::GetRestitution() const {
+        return restitution;
+    }
+
+    float RigidBody::GetLinearDamping() const {
+        return linearDamping;
+    }
+
+    float RigidBody::GetAngularDamping() const {
+        return angularDamping;
     }
 
     btRigidBody* RigidBody::GetBulletRigidBody() {
@@ -40,25 +75,49 @@ namespace Component {
     }
 
     glm::vec3 RigidBody::GetPosition() const {
-        btTransform trans = rigidBody->getWorldTransform();
+        btTransform trans;
+        if (IsKinematic())
+            rigidBody->getMotionState()->getWorldTransform(trans);
+        else
+            trans = rigidBody->getWorldTransform();
+
         return Physics::btToGlm(trans.getOrigin());
     }
 
     void RigidBody::SetPosition(const glm::vec3& pos) {
-        btTransform trans = rigidBody->getWorldTransform();
-        trans.setOrigin(Physics::glmToBt(pos));
-        rigidBody->setWorldTransform(trans);
+        if (IsKinematic()) {
+            btTransform trans;
+            rigidBody->getMotionState()->getWorldTransform(trans);
+            trans.setOrigin(Physics::glmToBt(pos));
+            rigidBody->getMotionState()->setWorldTransform(trans);
+        } else {
+            btTransform trans = rigidBody->getWorldTransform();
+            trans.setOrigin(Physics::glmToBt(pos));
+            rigidBody->setWorldTransform(trans);
+        }
     }
 
     glm::quat RigidBody::GetOrientation() const {
-        btTransform trans = rigidBody->getWorldTransform();
+        btTransform trans;
+        if (IsKinematic())
+            rigidBody->getMotionState()->getWorldTransform(trans);
+        else
+            trans = rigidBody->getWorldTransform();
+
         return Physics::btToGlm(trans.getRotation());
     }
 
     void RigidBody::SetOrientation(const glm::quat& rotation) {
-        btTransform trans = rigidBody->getWorldTransform();
-        trans.setRotation(Physics::glmToBt(rotation));
-        rigidBody->setWorldTransform(trans);
+        if (IsKinematic()) {
+            btTransform trans;
+            rigidBody->getMotionState()->getWorldTransform(trans);
+            trans.setRotation(Physics::glmToBt(rotation));
+            rigidBody->getMotionState()->setWorldTransform(trans);
+        } else {
+            btTransform trans = rigidBody->getWorldTransform();
+            trans.setRotation(Physics::glmToBt(rotation));
+            rigidBody->setWorldTransform(trans);
+        }
     }
 
     float RigidBody::GetMass() {
@@ -72,5 +131,53 @@ namespace Component {
         rigidBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
         rigidBody->setMassProps(mass, inertia);
         this->mass = mass;
+    }
+
+    void RigidBody::SetFriction(float friction) {
+        rigidBody->setFriction(friction);
+        this->friction = friction;
+    }
+
+    void RigidBody::SetRollingFriction(float friction) {
+        rigidBody->setRollingFriction(friction);
+        this->rollingFriction = friction;
+    }
+
+    void RigidBody::SetSpinningFriction(float friction) {
+        rigidBody->setSpinningFriction(friction);
+        this->spinningFriction = friction;
+    }
+
+    void RigidBody::SetRestitution(float cor) {
+        rigidBody->setRestitution(cor);
+        this->restitution = cor;
+    }
+
+    void RigidBody::SetLinearDamping(float damping) {
+        rigidBody->setDamping(damping, angularDamping);
+        this->linearDamping = damping;
+    }
+
+    void RigidBody::SetAngularDamping(float damping) {
+        rigidBody->setDamping(linearDamping, damping);
+        this->angularDamping = damping;
+    }
+
+    void RigidBody::MakeKinematic() {
+        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+        kinematic = true;
+    }
+
+    void RigidBody::MakeDynamic() {
+        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() & ~btCollisionObject::CF_KINEMATIC_OBJECT);
+        kinematic = false;
+    }
+
+    bool RigidBody::GetForceTransformSync() const {
+        return forceTransformSync;
+    }
+
+    void RigidBody::SetForceTransformSync(bool sync) {
+        forceTransformSync = sync;
     }
 }
