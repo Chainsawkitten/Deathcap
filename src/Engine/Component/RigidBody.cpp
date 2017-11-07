@@ -13,6 +13,7 @@ namespace Component {
         component["friction"] = friction;
         component["rollingFriction"] = rollingFriction;
         component["spinningFriction"] = spinningFriction;
+        component["cor"] = restitution;
         component["kinematic"] = kinematic;
         return component;
     }
