@@ -11,6 +11,7 @@ namespace Component {
         Json::Value component;
         component["mass"] = mass;
         component["friction"] = friction;
+        component["rollingFriction"] = rollingFriction;
         component["kinematic"] = kinematic;
         return component;
     }
