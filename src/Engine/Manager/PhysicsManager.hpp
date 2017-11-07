@@ -144,6 +144,14 @@ class PhysicsManager {
          */
         ENGINE_API void SetRollingFriction(Component::RigidBody* comp, float friction);
 
+        /// Set the spinning friction coefficient of a Component::RigidBody
+        /// component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param friction Friction coefficient.
+         */
+        ENGINE_API void SetSpinningFriction(Component::RigidBody* comp, float friction);
+
         /// Turn a rigid body into a kinematic object, putting movement in the
         /// control of the programmer.
         /**
