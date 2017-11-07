@@ -18,6 +18,10 @@ namespace Component {
         return kinematic;
     }
 
+    float RigidBody::GetFriction() const {
+        return friction;
+    }
+
     btRigidBody* RigidBody::GetBulletRigidBody() {
         return rigidBody;
     }
@@ -101,6 +105,11 @@ namespace Component {
         rigidBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
         rigidBody->setMassProps(mass, inertia);
         this->mass = mass;
+    }
+
+    void RigidBody::SetFriction(float friction) {
+        rigidBody->setFriction(friction);
+        this->friction = friction;
     }
 
     void RigidBody::MakeKinematic() {
