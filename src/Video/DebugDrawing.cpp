@@ -351,11 +351,11 @@ void DebugDrawing::CreateCone(glm::vec3*& positions, unsigned int& vertexCount, 
     for (unsigned int j = 0; j < detail; ++j) {
         float angle = 2.0f * glm::pi<float>() * static_cast<float>(j) / detail;
         
-        positions[i++] = glm::vec3(0.0f, 1.0f, 0.0f);
-        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
-        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
+        positions[i++] = glm::vec3(0.0f, 0.5f, 0.0f);
+        positions[i++] = glm::vec3(cos(angle), -0.5f, sin(angle));
+        positions[i++] = glm::vec3(cos(angle), -0.5f, sin(angle));
         
         angle = 2.0f * glm::pi<float>() * static_cast<float>(j + 1) / detail;
-        positions[i++] = glm::vec3(cos(angle), 0.0f, sin(angle));
+        positions[i++] = glm::vec3(cos(angle), -0.5f, sin(angle));
     }
 }

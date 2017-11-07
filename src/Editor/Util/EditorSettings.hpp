@@ -17,6 +17,7 @@
  * Light Source Icons     | Show light source icons.         | bool   | true
  * Camera Icons           | Show camera icons.               | bool   | true
  * Physics Volumes        | Show physics volumes.            | bool   | true
+ * Lighting               | Light the scene.                 | bool   | true
  * Text Editor            | Path to text editor for scripts. | string | 
  * Grid Settings          | Whether to show grid settings.   | bool   | false
  * Grid Size              | Size of the grid.                | long   | 100

@@ -10,12 +10,42 @@ namespace Component {
     Json::Value RigidBody::Save() const {
         Json::Value component;
         component["mass"] = mass;
+        component["friction"] = friction;
+        component["rollingFriction"] = rollingFriction;
+        component["spinningFriction"] = spinningFriction;
+        component["cor"] = restitution;
+        component["linearDamping"] = linearDamping;
+        component["angularDamping"] = angularDamping;
         component["kinematic"] = kinematic;
         return component;
     }
 
     bool RigidBody::IsKinematic() const {
         return kinematic;
+    }
+
+    float RigidBody::GetFriction() const {
+        return friction;
+    }
+
+    float RigidBody::GetRollingFriction() const {
+        return rollingFriction;
+    }
+
+    float RigidBody::GetSpinningFriction() const {
+        return spinningFriction;
+    }
+
+    float RigidBody::GetRestitution() const {
+        return restitution;
+    }
+
+    float RigidBody::GetLinearDamping() const {
+        return linearDamping;
+    }
+
+    float RigidBody::GetAngularDamping() const {
+        return angularDamping;
     }
 
     btRigidBody* RigidBody::GetBulletRigidBody() {
@@ -101,6 +131,36 @@ namespace Component {
         rigidBody->getCollisionShape()->calculateLocalInertia(mass, inertia);
         rigidBody->setMassProps(mass, inertia);
         this->mass = mass;
+    }
+
+    void RigidBody::SetFriction(float friction) {
+        rigidBody->setFriction(friction);
+        this->friction = friction;
+    }
+
+    void RigidBody::SetRollingFriction(float friction) {
+        rigidBody->setRollingFriction(friction);
+        this->rollingFriction = friction;
+    }
+
+    void RigidBody::SetSpinningFriction(float friction) {
+        rigidBody->setSpinningFriction(friction);
+        this->spinningFriction = friction;
+    }
+
+    void RigidBody::SetRestitution(float cor) {
+        rigidBody->setRestitution(cor);
+        this->restitution = cor;
+    }
+
+    void RigidBody::SetLinearDamping(float damping) {
+        rigidBody->setDamping(damping, angularDamping);
+        this->linearDamping = damping;
+    }
+
+    void RigidBody::SetAngularDamping(float damping) {
+        rigidBody->setDamping(linearDamping, damping);
+        this->angularDamping = damping;
     }
 
     void RigidBody::MakeKinematic() {
