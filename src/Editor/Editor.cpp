@@ -491,6 +491,10 @@ void Editor::ShowMainMenuBar(bool& play) {
             static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
             ImGui::MenuItem("Physics", "", &physics);
             EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
+            
+            static bool lighting = EditorSettings::GetInstance().GetBool("Lighting");
+            ImGui::MenuItem("Lighting", "", &lighting);
+            EditorSettings::GetInstance().SetBool("Lighting", lighting);
 
             ImGui::EndMenu();
         }
@@ -604,7 +608,7 @@ void Editor::ControlEditorCamera(float deltaTime) {
 }
 
 void Editor::Picking() {
-    if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+    if (Input()->Pressed(InputHandler::CONTROL) && Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
         mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
         mousePicker.Update();
         float lastDistance = INFINITY;

@@ -41,8 +41,9 @@ class RenderManager {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          * @param camera Camera through which to render (or first camera in the world if nullptr).
+         * @param lighting Whether to light the scene (otherwise full ambient is used).
          */
-        ENGINE_API void Render(World& world, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr);
+        ENGINE_API void Render(World& world, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr, bool lighting = true);
         
         /// Update all the animations in the scene.
         /**
@@ -285,11 +286,12 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
 
-        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
+        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting);
 
         void RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
 
         void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix);
+        void LightAmbient();
 
         void LoadTexture(TextureAsset*& texture, const std::string& name);
 

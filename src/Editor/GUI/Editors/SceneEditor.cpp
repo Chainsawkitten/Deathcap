@@ -145,10 +145,11 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::EndPopup();
     }
     
+    std::string popupName = "Select scene##" + std::to_string(entity->GetUniqueIdentifier());
     if (instantiate)
-        ImGui::OpenPopup("Select scene");
+        ImGui::OpenPopup(popupName.c_str());
     
-    if (ImGui::BeginPopup("Select scene")) {
+    if (ImGui::BeginPopup(popupName.c_str())) {
         ImGui::Text("Scenes");
         ImGui::Separator();
         
