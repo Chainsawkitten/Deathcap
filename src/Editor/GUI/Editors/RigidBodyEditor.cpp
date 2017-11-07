@@ -18,6 +18,10 @@ namespace GUI {
             if (ImGui::InputFloat("Mass", &mass))
                 Managers().physicsManager->SetMass(comp, mass);
 
+            float friction = comp->GetFriction();
+            if (ImGui::InputFloat("Friction", &friction))
+                Managers().physicsManager->SetFriction(comp, friction);
+
             bool kinematic = comp->IsKinematic();
             if (ImGui::Checkbox("Kinematic", &kinematic)) {
                 if (kinematic)
