@@ -232,7 +232,7 @@ void Editor::Show(float deltaTime) {
         // View matrix.
         glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
 
-        if (currentEntity->loadPaintModeClicked) {
+        if (currentEntity->loadPaintModeClicked && currentEntity->GetComponent<Component::Mesh>()!= nullptr) {
 
             // Read vertex data.
             Geometry::Model * model = dynamic_cast<Geometry::Model*>(currentEntity->GetComponent<Component::Mesh>()->geometry);
@@ -287,8 +287,8 @@ void Editor::Show(float deltaTime) {
                 Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
                 lastIntersect = INFINITY;
 
-                if (Input()->Pressed(InputHandler::SELECT)) {       
-
+                if (Input()->Pressed(InputHandler::SELECT)) {
+                    //  Entity entity = Entity::InstantiateScene("lol", );
                 }
             }
             handler.Close();
@@ -517,7 +517,7 @@ void Editor::ShowMainMenuBar(bool& play) {
             }
 
             if (Input()->Triggered(InputHandler::ZOOM)) {
-                if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {                 
+                if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
                     cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
                     cameraEntity->SetLocalOrientation(glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0)));
