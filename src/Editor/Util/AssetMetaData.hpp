@@ -54,7 +54,7 @@ class AssetMetaData
 
         static void FromJson(const Json::Value& node, MeshMetaData* metaData);
 
-        static bool AssetMetaData::Save(const char* filepath, Json::Value& node);
+        static bool Save(const char* filepath, Json::Value& node);
 
-        static bool AssetMetaData::Load(const char* filepath, Json::Value& node);
+        static bool Load(const char* filepath, Json::Value& node);
 };
