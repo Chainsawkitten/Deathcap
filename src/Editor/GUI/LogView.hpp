@@ -14,11 +14,8 @@ namespace GUI {
         /// Shows the log.
         void Show();
 
-        /// If the log is visible or not.
-        /**
-         * @return Whether the log is visible or not.
-         */
-        const bool IsVisible();
+        // Updates the log.
+        void UpdateLog();
 
         private:
         std::stringstream defaultStringstream;
@@ -29,17 +26,5 @@ namespace GUI {
         ImGuiTextBuffer textBuffer;
         ImGuiTextFilter textFilter;
         ImVector<int> lineOffsets;
-
-        bool visible = true;
-
-        static const int splitterSize = 2;
-        int logHeight = 250;
-        bool logResize = false;
-
-        int sceneWidth = 250;
-        bool sceneResize = false;
-
-        int editorWidth = 250;
-        bool editorResize = false;
     };
 } // namespace GUI
