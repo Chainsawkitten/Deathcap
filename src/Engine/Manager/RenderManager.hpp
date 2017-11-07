@@ -41,8 +41,9 @@ class RenderManager {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          * @param camera Camera through which to render (or first camera in the world if nullptr).
+         * @param lighting Whether to light the scene (otherwise full ambient is used).
          */
-        ENGINE_API void Render(World& world, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr);
+        ENGINE_API void Render(World& world, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr, bool lighting = true);
         
         /// Update all the animations in the scene.
         /**
@@ -189,17 +190,108 @@ class RenderManager {
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
 
+        /// Set gamma correction.
+        /**
+         * @param gamma Gamma to apply.
+         */
+        ENGINE_API void SetGamma(float gamma);
+
+        /// Get gamma correction.
+        /**
+         * @return gamma Gamma value.
+         */
+        ENGINE_API float GetGamma() const;
+
+
+        /// Set whether fog is applied.
+        /**
+         * @param fogApply Whether to apply fog.
+         */
+        ENGINE_API void SetFogApply(bool fogApply);
+
+        /// Get whether fog is applied.
+        /**
+         * @return Whether fog is applied.
+         */
+        ENGINE_API bool GetFogApply() const;
+
+
+        /// Set fog density.
+        /**
+         * @param fogDensity Density of the fog.
+         */
+        ENGINE_API void SetFogDensity(float fogDensity);
+
+        /// Get fog density.
+        /**
+         * @return Density of the fog
+         */
+        ENGINE_API float GetFogDensity() const;
+
+
+        /// Set fog color.
+        /**
+         * @param fogColor Color of the fog.
+         */
+        ENGINE_API void SetFogColor(const glm::vec3& fogColor);
+
+        /// Get fog color.
+        /**
+         * @return Color of the fog.
+         */
+        ENGINE_API glm::vec3 GetFogColor() const;
+
+
+        /// Set whether color filter is applied.
+        /**
+         * @param colorFilterApply Whether to apply color filter.
+         */
+        ENGINE_API void SetColorFilterApply(bool colorFilterApply);
+
+        /// Get whether color filter is applied.
+        /**
+         * @return Whether color filter is applied.
+         */
+        ENGINE_API bool GetColorFilterApply() const;
+
+
+        /// Set color filer color.
+        /**
+         * @param colorFilterColor Color of the color filter.
+         */
+        ENGINE_API void SetColorFilterColor(const glm::vec3& colorFilterColor);
+
+        /// Get color filer color.
+        /**
+         * @return Color of the color filter.
+         */
+        ENGINE_API glm::vec3 GetColorFilterColor() const;
+
+
+        /// Set whether dithering is applied.
+        /**
+         * @param ditherApply Whether to apply dithering.
+         */
+        ENGINE_API void SetDitherApply(bool ditherApply);
+
+        /// Get whether dithering is applied.
+        /**
+         * @return Whether dithering is applied.
+         */
+        ENGINE_API bool GetDitherApply() const;
+
     private:
         RenderManager();
         ~RenderManager();
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
 
-        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
+        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting);
 
         void RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
 
         void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix);
+        void LightAmbient();
 
         void LoadTexture(TextureAsset*& texture, const std::string& name);
 

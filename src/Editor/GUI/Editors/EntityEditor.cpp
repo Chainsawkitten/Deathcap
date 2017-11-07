@@ -204,7 +204,7 @@ void EntityEditor::AnimationControllerEditor(Component::AnimationController* ani
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::ANIMATION_CONTROLLER)) {
-            if (animationController != nullptr)
+            if (animationController->controller != nullptr)
                 Managers().resourceManager->FreeAnimationController(animationController->controller);
 
             animationController->controller = Managers().resourceManager->CreateAnimationController(resourceSelector.GetSelectedResource().GetPath());
@@ -221,7 +221,7 @@ void EntityEditor::AnimationControllerEditor(Component::AnimationController* ani
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::SKELETON)) {
-            if (animationController != nullptr)
+            if (animationController->skeleton != nullptr)
                 Managers().resourceManager->FreeSkeleton(animationController->skeleton);
 
             animationController->skeleton = Managers().resourceManager->CreateSkeleton(resourceSelector.GetSelectedResource().GetPath());
@@ -436,13 +436,46 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
             int propertyCount = script->instance->GetPropertyCount();
 
             for (int n = 0; n < propertyCount; n++) {
-                int typeId = script->instance->GetPropertyTypeId(n);
-                void* varPointer = script->instance->GetAddressOfProperty(n);
 
-                if (typeId == asTYPEID_INT32) {
-                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
-                } else if (typeId == asTYPEID_FLOAT) {
-                    ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
+                std::string propertyName = script->instance->GetPropertyName(n);
+                int typeId = script->instance->GetPropertyTypeId(n);
+                if (typeId == asTYPEID_INT32)
+                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->GetDataFromPropertyMap(propertyName), 0.0f);
+                else if (typeId == asTYPEID_FLOAT)
+                    ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->GetDataFromPropertyMap(propertyName), 0.0f);
+                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
+
+                    // Find method to call.
+                    std::string entityName = script->instance->GetPropertyName(n);
+
+                    if (entityName != "self") {
+
+                        std::string entityGUID = std::to_string(*(unsigned int*)script->GetDataFromPropertyMap(propertyName));
+                        std::string propertyText;
+                        propertyText.reserve(entityName.length() + entityGUID.length() + 2); // additional `: `
+                        propertyText.append(entityName).append(": ").append(entityGUID);
+
+                        ImGui::Separator();
+
+                        // Choosing other entity references
+                        ImGui::Text(propertyText.c_str());
+                        if (ImGui::Button("Change entity reference"))
+                            ImGui::OpenPopup("Add entity reference");
+
+                        if (ImGui::BeginPopup("Add entity reference")) {
+                            ImGui::Text("Entities");
+                            ImGui::Separator();
+                            for (Entity* entity : Hymn().world.GetEntities()) /// @todo Change into a prettier tree structure or something, later.
+                                if (ImGui::Selectable(entity->name.c_str()))
+                                    *(unsigned int*)script->GetDataFromPropertyMap(propertyName) = entity->GetUniqueIdentifier();
+
+                            ImGui::EndPopup();
+                        }
+
+                        ImGui::Separator();
+
+                    }
+
                 }
                 /// @todo This will be used to handle objects in the scripts
                 //else if (typeId & asTYPEID_SCRIPTOBJECT){
@@ -454,32 +487,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 script->ClearPropertyMap();
                 Managers().scriptManager->FillPropertyMap(script);
             }
-        }
-        ImGui::Separator();
-
-        ImGui::Text("Entity References");
-        // Display current entity references
-        for (size_t i = 0; i != script->refList.size(); ++i) {
-            ImGui::Text(script->refList[i]->name.c_str());
-            ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-            if (ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())) {
-                script->refList.erase(script->refList.begin() + i);
-                break;
-            }
-        }
-
-        // Choosing other entity references
-        if (ImGui::Button("Add entity reference"))
-            ImGui::OpenPopup("Add entity reference");
-
-        if (ImGui::BeginPopup("Add entity reference")) {
-            ImGui::Text("Entities");
-            ImGui::Separator();
-            for (Entity* entity : Hymn().world.GetEntities()) /// @todo Change into a prettier tree structure or something, later.
-                if (ImGui::Selectable(entity->name.c_str()))
-                    script->refList.push_back(entity);
-
-            ImGui::EndPopup();
         }
 
     } else
