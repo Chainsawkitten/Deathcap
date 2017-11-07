@@ -232,7 +232,7 @@ void Editor::Show(float deltaTime) {
         // View matrix.
         glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
 
-        if (currentEntity->loadPaintModeClicked && currentEntity->GetComponent<Component::Mesh>()!= nullptr) {
+        if (currentEntity->loadPaintModeClicked && currentEntity->GetComponent<Component::Mesh>() != nullptr) {
 
             // Read vertex data.
             Geometry::Model * model = dynamic_cast<Geometry::Model*>(currentEntity->GetComponent<Component::Mesh>()->geometry);
@@ -247,6 +247,7 @@ void Editor::Show(float deltaTime) {
             // Ray-Triangle intersection test.     
             if (currentEntity->brushActive) {
 
+                bool intersect=false;
                 glm::vec3 last_p0;
                 glm::vec3 last_p1;
                 glm::vec3 last_p2;
@@ -274,6 +275,7 @@ void Editor::Show(float deltaTime) {
                             last_p0 = p0;
                             last_p1 = p1;
                             last_p2 = p2;
+                            intersect = true;
                         }
                     }
                 }
@@ -285,11 +287,14 @@ void Editor::Show(float deltaTime) {
                 // Get mousePosition in worldspace.
                 glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
                 Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
+
+                if (Input()->Pressed(InputHandler::SELECT) && intersect) {
+                    Entity* entity = Hymn().world.GetRoot()->AddChild("mushrooms");
+                    entity->InstantiateScene("mushroom_scene", "plane_scene");
+                    entity->SetWorldPosition(mousePos);
+                }
                 lastIntersect = INFINITY;
 
-                if (Input()->Pressed(InputHandler::SELECT)) {
-                    //  Entity entity = Entity::InstantiateScene("lol", );
-                }
             }
             handler.Close();
         }
