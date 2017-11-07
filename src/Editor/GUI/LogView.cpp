@@ -24,44 +24,7 @@ LogView::~LogView() {
 }
 
 void LogView::Show() {
-    // Window size.
-    ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
-
-    // Splitter.
-    ImGui::VerticalSplitter(ImVec2(sceneWidth, 0), size.x - sceneWidth - editorWidth, splitterSize, logHeight, logResize, 20, size.y - 20);
-    if (logResize)
-        logHeight = size.y - logHeight;
-
-    ImGui::SetNextWindowPos(ImVec2(sceneWidth, 20));
-    ImGui::SetNextWindowSize(ImVec2(size.x - sceneWidth - editorWidth, logHeight));
-
-    //Create log output string.
-    std::string output;
-    if (!defaultStringstream.str().empty())
-        output += "[Default] " + defaultStringstream.str();
-
-    if (!infoStringstream.str().empty())
-        output += "[Info] " + infoStringstream.str();
-
-    if (!warningStringstream.str().empty())
-        output += "[Warning] " + warningStringstream.str();
-
-    if (!errorStringstream.str().empty())
-        output += "[Error] " + errorStringstream.str();
-
-    // Add new lines to text buffer.
-    int old_size = textBuffer.size();
-
-    textBuffer.appendv(output.c_str(), nullptr);
-
-    for (int newSize = textBuffer.size(); old_size < newSize; old_size++)
-        if (textBuffer[old_size] == '\n')
-            lineOffsets.push_back(old_size);
-
-    // Start drawing window.
-    ImGui::Begin("Log", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
     // Options.
-
     // Clear log window from text.
     if (ImGui::Button("Clear"))
         textBuffer.clear();
@@ -94,15 +57,35 @@ void LogView::Show() {
         ImGui::TextUnformatted(textBuffer.begin());
 
     ImGui::EndChild();
-    ImGui::End();
+}
+
+void LogView::UpdateLog() {
+    //Create log output string.
+    std::string output;
+    if (!defaultStringstream.str().empty())
+        output += "[Default] " + defaultStringstream.str();
+
+    if (!infoStringstream.str().empty())
+        output += "[Info] " + infoStringstream.str();
+
+    if (!warningStringstream.str().empty())
+        output += "[Warning] " + warningStringstream.str();
+
+    if (!errorStringstream.str().empty())
+        output += "[Error] " + errorStringstream.str();
+
+    // Add new lines to text buffer.
+    int old_size = textBuffer.size();
+
+    textBuffer.appendv(output.c_str(), nullptr);
+
+    for (int newSize = textBuffer.size(); old_size < newSize; old_size++)
+        if (textBuffer[old_size] == '\n')
+            lineOffsets.push_back(old_size);
 
     // Clear streams.
     defaultStringstream.str(std::string());
     infoStringstream.str(std::string());
     warningStringstream.str(std::string());
     errorStringstream.str(std::string());
-}
-
-const bool LogView::IsVisible() {
-    return visible;
 }
