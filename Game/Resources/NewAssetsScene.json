@@ -47,7 +47,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/NewAssets/Cave"
+				"model" : "Resources/NewAssets/Models/Cave"
 			},
 			"children" : null,
 			"name" : "Cave",
@@ -72,7 +72,7 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1510049242
+			"uid" : 1510059436
 		},
 		{
 			"Material" : 
@@ -84,51 +84,14 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/NewAssets/Cave-"
+				"model" : "Resources/NewAssets/Models/Cave-"
 			},
 			"children" : null,
 			"name" : "cave-",
 			"position" : 
 			{
-				"x" : 0.43500003218650818,
-				"y" : 0.027000000700354576,
-				"z" : -0.0010000000474974513
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
 				"x" : 0.0,
 				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510049275
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/NewAssets/Textures/CrateAlbedo",
-				"metallic" : "Resources/NewAssets/Textures/CrateMetallic",
-				"normal" : "Resources/NewAssets/Textures/CreateNormal",
-				"roughness" : "Resources/NewAssets/Textures/CrateRoughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/NewAssets/crates"
-			},
-			"children" : null,
-			"name" : "Crates",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : -0.040000002831220627,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -146,22 +109,22 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1510049478
+			"uid" : 1510059460
 		},
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
-				"metallic" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_metallic",
-				"normal" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_normal",
-				"roughness" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_roughness"
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/NewAssets/BridgeFbx"
+				"model" : "Resources/NewAssets/Models/Cave-2"
 			},
 			"children" : null,
-			"name" : "Bridge",
+			"name" : "cave-2",
 			"position" : 
 			{
 				"x" : 0.0,
@@ -183,7 +146,7 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1510049543
+			"uid" : 1510059480
 		},
 		{
 			"Material" : 
@@ -195,44 +158,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/NewAssets/Tracks"
-			},
-			"children" : null,
-			"name" : "Track",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510050465
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/NewAssets/Barrels"
+				"model" : "Resources/NewAssets/Models/Barrels"
 			},
 			"children" : null,
 			"name" : "Barrels",
@@ -257,21 +183,132 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1510054402
+			"uid" : 1510059564
 		},
 		{
-			"name" : "Cart",
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/CrateAlbedo",
+				"metallic" : "Resources/NewAssets/Textures/CrateMetallic",
+				"normal" : "Resources/NewAssets/Textures/CreateNormal",
+				"roughness" : "Resources/NewAssets/Textures/CrateRoughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/crates"
+			},
+			"children" : null,
+			"name" : "Crates",
 			"position" : 
 			{
-				"x" : -26.729001998901367,
-				"y" : -0.4790000319480896,
-				"z" : -0.11600000411272049
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510059587
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Tracks"
+			},
+			"children" : null,
+			"name" : "Track",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510059615
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
+				"metallic" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_metallic",
+				"normal" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/BridgeFbx"
+			},
+			"children" : null,
+			"name" : "Bridge",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510059646
+		},
+		{
+			"name" : "MineCart",
+			"position" : 
+			{
+				"x" : 30.586002349853516,
+				"y" : -0.47500002384185791,
+				"z" : 0.0
 			},
 			"rotation" : 
 			{
 				"w" : 0.70710676908493042,
 				"x" : 0.0,
-				"y" : -0.70710676908493042,
+				"y" : 0.70710676908493042,
 				"z" : 0.0
 			},
 			"scale" : 
