@@ -14,6 +14,7 @@ namespace Component {
         component["rollingFriction"] = rollingFriction;
         component["spinningFriction"] = spinningFriction;
         component["cor"] = restitution;
+        component["linearDamping"] = linearDamping;
         component["kinematic"] = kinematic;
         return component;
     }
