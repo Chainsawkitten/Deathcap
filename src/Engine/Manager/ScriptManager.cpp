@@ -76,13 +76,11 @@ std::string CallstackToString(asIScriptContext* ctx) {
     }
     return callstack;
 }
-std::string VariablesToString(asIScriptContext* ctx, asUINT stackLevel)
-{
+std::string VariablesToString(asIScriptContext* ctx, asUINT stackLevel) {
     // Print the value of each variable, including parameters
     int numVars = ctx->GetVarCount(stackLevel);
     std::string variables = "Variables:\n";
-    for (int n = 0; n < numVars; n++)
-    {
+    for (int n = 0; n < numVars; n++) {
         int typeId = ctx->GetVarTypeId(n, stackLevel);
         void* varPointer = ctx->GetAddressOfVar(n, stackLevel);
         if (typeId == asTYPEID_INT32) {
@@ -90,9 +88,7 @@ std::string VariablesToString(asIScriptContext* ctx, asUINT stackLevel)
             variables.append(" = ");
             variables.append(std::to_string(*(int*)varPointer));
             variables.append("\n");
-        }
-        else if (typeId == asTYPEID_FLOAT)
-        {
+        } else if (typeId == asTYPEID_FLOAT) {
             variables.append(ctx->GetVarDeclaration(n, stackLevel));
             variables.append(" = ");
             variables.append(std::to_string(*(float*)varPointer));
