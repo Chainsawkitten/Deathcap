@@ -279,6 +279,10 @@ void PhysicsManager::SetRestitution(Component::RigidBody* comp, float cor) {
     comp->SetRestitution(cor);
 }
 
+void PhysicsManager::SetLinearDamping(Component::RigidBody* comp, float damping) {
+    comp->SetLinearDamping(damping);
+}
+
 void PhysicsManager::MakeKinematic(Component::RigidBody* comp) {
     comp->MakeKinematic();
 }

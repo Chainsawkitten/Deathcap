@@ -159,6 +159,13 @@ class PhysicsManager {
          */
         ENGINE_API void SetRestitution(Component::RigidBody* comp, float cor);
 
+        /// Set the linear damping factor of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param damping Linear damping.
+         */
+        ENGINE_API void SetLinearDamping(Component::RigidBody* comp, float damping);
+
         /// Turn a rigid body into a kinematic object, putting movement in the
         /// control of the programmer.
         /**
