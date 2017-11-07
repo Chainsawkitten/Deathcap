@@ -77,11 +77,35 @@ class DebugDrawingManager {
          * @param position The position of the sphere.
          * @param radius The radius of the sphere.
          * @param color Color of the lines.
-         * @param lineWidth The width of the lines used to draw the plane.
-         * @param duration How long the plane should stay in the world (in seconds).
+         * @param lineWidth The width of the lines used to draw the sphere.
+         * @param duration How long the sphere should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
         ENGINE_API void AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        
+        /// Add a cylinder to the world.
+        /**
+         * @param radius The radius of the cylinder.
+         * @param length The length of the cylinder.
+         * @param matrix Matrix used to transform the cylinder.
+         * @param color Color of the lines.
+         * @param lineWidth The width of the lines used to draw the cylinder.
+         * @param duration How long the cylinder should stay in the world (in seconds).
+         * @param depthTesting Whether to enable depth testing.
+         */
+        ENGINE_API void AddCylinder(float radius, float length, const glm::mat4& matrix, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        
+        /// Add a cone to the world.
+        /**
+         * @param radius The radius of the cone.
+         * @param height The height of the cone.
+         * @param matrix Matrix to transform the cone with.
+         * @param color Color of the lines.
+         * @param lineWidth The width of the lines used to draw the cone.
+         * @param duration How long the cone should stay in the world (in seconds).
+         * @param depthTesting Whether to enable depth testing.
+         */
+        ENGINE_API void AddCone(float radius, float height, const glm::mat4& matrix, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
         /// Update the debug geometry.
         /**
@@ -109,6 +133,8 @@ class DebugDrawingManager {
         std::vector<Video::DebugDrawing::Plane> planes;
         std::vector<Video::DebugDrawing::Circle> circles;
         std::vector<Video::DebugDrawing::Sphere> spheres;
+        std::vector<Video::DebugDrawing::Cylinder> cylinders;
+        std::vector<Video::DebugDrawing::Cone> cones;
         
         Video::DebugDrawing* debugDrawing;
 };

@@ -1,6 +1,9 @@
 #include "Resources.hpp"
 
 #include <Engine/Texture/TextureAsset.hpp>
+#include <Engine/Animation/AnimationClip.hpp>
+#include <Engine/Animation/AnimationController.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
@@ -9,6 +12,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
+#include <Utility/Log.hpp>
 
 using namespace std;
 
@@ -16,6 +20,12 @@ string ResourceList::Resource::GetName() const {
     switch (type) {
     case Type::SCENE:
         return *scene;
+    case Type::ANIMATION_CLIP:
+        return animationClip->name;
+    case Type::ANIMATION_CONTROLLER:
+        return animationController->name;
+    case Type::SKELETON:
+        return skeleton->name;
     case Type::MODEL:
         return model->name;
     case Type::TEXTURE:
@@ -53,10 +63,12 @@ Json::Value ResourceList::ToJson() const {
     
     root["activeScene"] = activeScene;
     root["resourceFolder"] = SaveFolder(resourceFolder);
-    
     root["sceneNumber"] = sceneNumber;
-    root["textureNumber"] = textureNumber;
+    root["animationClipNumber"] = animationClipNumber;
+    root["animationControllerNumber"] = animationControllerNumber;
+    root["skeletonNumber"] = skeletonNumber;
     root["modelNumber"] = modelNumber;
+    root["textureNumber"] = textureNumber;
     root["soundNumber"] = soundNumber;
     root["scriptNumber"] = scriptNumber;
     root["audioMaterialNumber"] = audioMaterialNumber;
@@ -70,13 +82,15 @@ void ResourceList::Load() {
     ifstream file(GetSavePath());
     file >> root;
     file.close();
-    
+
     activeScene = root["activeScene"].asString();
-    resourceFolder = LoadFolder(root["resourceFolder"], "");
-    
+    resourceFolder = LoadFolder(root["resourceFolder"], "");    
     sceneNumber = root["sceneNumber"].asUInt();
-    textureNumber = root["textureNumber"].asUInt();
+    animationClipNumber = root["animationClipNumber"].asUInt();
+    animationControllerNumber = root["animationControllerNumber"].asUInt();
+    skeletonNumber = root["skeletonNumber"].asUInt();
     modelNumber = root["modelNumber"].asUInt();
+    textureNumber = root["textureNumber"].asUInt();
     soundNumber = root["soundNumber"].asUInt();
     scriptNumber = root["scriptNumber"].asUInt();
     audioMaterialNumber = root["audioMaterialNumber"].asUInt();
@@ -87,6 +101,9 @@ void ResourceList::Clear() {
     resourceFolder.name = "Resources";
     
     sceneNumber = 0U;
+    animationClipNumber = 0U;
+    animationControllerNumber = 0U;
+    skeletonNumber = 0U;
     modelNumber = 0U;
     textureNumber = 0U;
     soundNumber = 0U;
@@ -115,13 +132,22 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
         case Resource::SCENE:
             resourceNode["scene"] = *resource.scene;
             break;
-        case Resource::TEXTURE:
-            resourceNode["texture"] = resource.texture->name;
-            resource.texture->Save();
+        case Resource::ANIMATION_CLIP:
+            resourceNode["animationClip"] = resource.animationClip->name;
+            break;
+        case Resource::ANIMATION_CONTROLLER:
+            resourceNode["animationController"] = resource.animationController->name;
+            break;
+        case Resource::SKELETON:
+            resourceNode["skeleton"] = resource.skeleton->name;
             break;
         case Resource::MODEL:
             resourceNode["model"] = resource.model->name;
             resource.model->Save();
+            break;
+        case Resource::TEXTURE:
+            resourceNode["texture"] = resource.texture->name;
+            resource.texture->Save();
             break;
         case Resource::SOUND:
             resourceNode["sound"] = resource.sound->name;
@@ -165,11 +191,20 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
         case Resource::SCENE:
             resource.scene = new string(resourceNode["scene"].asString());
             break;
-        case Resource::TEXTURE:
-            resource.texture = Managers().resourceManager->CreateTextureAsset(path + resourceNode["texture"].asString());
+        case Resource::ANIMATION_CLIP:
+            resource.animationClip = Managers().resourceManager->CreateAnimationClip(path + resourceNode["animationClip"].asString());
+            break;
+        case Resource::ANIMATION_CONTROLLER:
+            resource.animationController = Managers().resourceManager->CreateAnimationController(path + resourceNode["animationController"].asString());
+            break;
+        case Resource::SKELETON:
+            resource.skeleton = Managers().resourceManager->CreateSkeleton(path + resourceNode["skeleton"].asString());
             break;
         case Resource::MODEL:
             resource.model = Managers().resourceManager->CreateModel(path + resourceNode["model"].asString());
+            break;
+        case Resource::TEXTURE:
+            resource.texture = Managers().resourceManager->CreateTextureAsset(path + resourceNode["texture"].asString());
             break;
         case Resource::SOUND:
             resource.sound = Managers().resourceManager->CreateSound(path + resourceNode["sound"].asString());
@@ -198,6 +233,14 @@ void ResourceList::ClearFolder(ResourceFolder& folder) {
     // Clear resources.
     for (const Resource& resource : folder.resources) {
         switch (resource.type) {
+        case Resource::Type::ANIMATION_CLIP:
+            Managers().resourceManager->FreeAnimationClip(resource.animationClip);
+            break;
+        case Resource::Type::ANIMATION_CONTROLLER:
+            Managers().resourceManager->FreeAnimationController(resource.animationController);
+            break;
+        case Resource::Type::SKELETON:
+            Managers().resourceManager->FreeAnimationController(resource.animationController);
         case Resource::Type::AUDIOMATERIAL:
             Managers().resourceManager->FreeAudioMaterial(resource.audioMaterial);
             break;
