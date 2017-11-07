@@ -143,6 +143,9 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     auto friction = node.get("friction", 0.5f).asFloat();
     comp->SetFriction(friction);
 
+    auto rollingFriction = node.get("rollingFriction", 0.0f).asFloat();
+    comp->SetRollingFriction(rollingFriction);
+
     auto kinematic = node.get("kinematic", false).asFloat();
     if (kinematic)
         comp->MakeKinematic();
