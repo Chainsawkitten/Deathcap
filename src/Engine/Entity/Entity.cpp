@@ -251,9 +251,6 @@ void Entity::Load(const Json::Value& node) {
     rotation = Json::LoadQuaternion(node["rotation"]);
     uniqueIdentifier = node.get("uid", 0).asUInt();
     isStatic = node["static"].asBool();
-    if (isStatic == false)
-        Managers().scriptManager->InsertPickupList(this);
-    
 }
 
 glm::mat4 Entity::GetModelMatrix() const {

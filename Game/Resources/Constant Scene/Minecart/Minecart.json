@@ -64,7 +64,7 @@
 								"z" : 1.0
 							},
 							"scene" : false,
-							"static" : false,
+							"static" : true,
 							"uid" : 1508919707
 						},
 						{
@@ -102,7 +102,7 @@
 									},
 									"scene" : true,
 									"sceneName" : "Resources/Constant Scene/Controller/controller_fixScene",
-									"static" : false,
+									"static" : true,
 									"uid" : 1508918923
 								}
 							],
@@ -127,7 +127,7 @@
 								"z" : 1.0
 							},
 							"scene" : false,
-							"static" : false,
+							"static" : true,
 							"uid" : 1508919751
 						},
 						{
@@ -165,7 +165,7 @@
 									},
 									"scene" : true,
 									"sceneName" : "Resources/Constant Scene/Controller/controller_fixScene",
-									"static" : false,
+									"static" : true,
 									"uid" : 1508918923
 								}
 							],
@@ -190,7 +190,7 @@
 								"z" : 1.0
 							},
 							"scene" : false,
-							"static" : false,
+							"static" : true,
 							"uid" : 1508919758
 						},
 						{
@@ -234,7 +234,7 @@
 								"z" : 1.0
 							},
 							"scene" : false,
-							"static" : false,
+							"static" : true,
 							"uid" : 1509625199
 						}
 					],
@@ -259,7 +259,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
-					"static" : false,
+					"static" : true,
 					"uid" : 1508919503
 				}
 			],
@@ -284,7 +284,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
-			"static" : false,
+			"static" : true,
 			"uid" : 1508919384
 		}
 	],
@@ -309,6 +309,6 @@
 		"z" : 1.0
 	},
 	"scene" : false,
-	"static" : false,
+	"static" : true,
 	"uid" : 1508919163
 }

@@ -122,12 +122,13 @@ void RestartScene() {
 }
 
 Entity* IsIntersect(Entity* checker) {
-    std::vector<Entity*> entities = Managers().scriptManager->GetPickupList();
-    for (int i = 0; i < entities.size(); i++) {
-        float distance = glm::distance(checker->GetWorldPosition(), entities[i]->GetWorldPosition());
+    // @todo fucking look up updateentities yay
+    int what = Managers().scriptManager->GetUpdateEntities().size();
+    for (int i = 0; i < Managers().scriptManager->GetUpdateEntities().size(); i++) {
+        float distance = glm::distance(checker->GetWorldPosition(), Managers().scriptManager->GetUpdateEntities().at(i)->GetWorldPosition());
         if (distance <= 0.2) {
-            int whatever = entities[i]->GetUniqueIdentifier();
-            return Managers().scriptManager->GetEntity(entities[i]->GetUniqueIdentifier());
+            int whatever = Managers().scriptManager->GetUpdateEntities().at(i)->GetUniqueIdentifier();
+            return Managers().scriptManager->GetUpdateEntities().at(i);
         }
     }
     return nullptr;
@@ -1012,10 +1013,6 @@ void ScriptManager::HandleTrigger(TriggerEvent triggerEvent) {
     triggerEvents.push_back(triggerEvent);
 }
 
-void ScriptManager::InsertPickupList(Entity* entity) {
-    pickupEntities.push_back(entity);
-}
-
-std::vector<Entity*> ScriptManager::GetPickupList() {
-    return pickupEntities;
+std::vector<Entity*> ScriptManager::GetUpdateEntities() {
+    return updateEntities;
 }
