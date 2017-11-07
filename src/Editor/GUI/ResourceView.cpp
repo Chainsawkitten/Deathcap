@@ -19,6 +19,10 @@
 #include <cstdio>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 using namespace GUI;
 using namespace std;
 

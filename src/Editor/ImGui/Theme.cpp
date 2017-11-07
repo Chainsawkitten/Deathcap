@@ -5,6 +5,9 @@
 #include "Json.hpp"
 #include <fstream>
 #include <imgui.h>
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
 
 namespace ImGui {
     void SaveTheme(const char* name) {

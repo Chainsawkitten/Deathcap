@@ -5,6 +5,10 @@
 #include <Utility/Log.hpp>
 #include <iostream>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 using namespace GUI;
 
 LogView::LogView() {

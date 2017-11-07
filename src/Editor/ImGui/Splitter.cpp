@@ -2,6 +2,10 @@
 
 #include <imgui.h>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 namespace ImGui {
     void HorizontalSplitter(const ImVec2& position, int height, int splitterSize, int& value, bool& active, int min, int max) {
         if (ImGui::GetIO().MousePos.x >= position.x - splitterSize && ImGui::GetIO().MousePos.x <= position.x + splitterSize &&

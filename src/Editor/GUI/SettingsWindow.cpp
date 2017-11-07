@@ -5,6 +5,10 @@
 #include <Engine/Util/FileSystem.hpp>
 #include "../Util/EditorSettings.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 using namespace GUI;
 
 SettingsWindow::SettingsWindow() {

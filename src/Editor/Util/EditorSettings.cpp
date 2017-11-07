@@ -2,6 +2,10 @@
 
 #include <Engine/Util/FileSystem.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 EditorSettings::EditorSettings() {
     ini.SetUnicode(true);
     ini.LoadFile(FileSystem::DataPath("Hymn to Beauty", "Settings.ini").c_str());

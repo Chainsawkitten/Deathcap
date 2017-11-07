@@ -3,6 +3,10 @@
 #include <Engine/Util/FileSystem.hpp>
 #include <imgui.h>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 using namespace GUI;
 using namespace std;
 

@@ -1,5 +1,9 @@
 #include "AssetMetaData.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 bool AssetMetaData::GenerateMetaData(const char * filepath, MeshImportData * meshImportData) {
     // Open file for writing.
     std::ofstream file(filepath);

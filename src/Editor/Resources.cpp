@@ -14,6 +14,10 @@
 #include <Engine/Util/FileSystem.hpp>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 using namespace std;
 
 string ResourceList::Resource::GetName() const {

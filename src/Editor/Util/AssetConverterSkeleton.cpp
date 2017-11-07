@@ -4,6 +4,10 @@
 #include <Engine/Geometry/MathFunctions.hpp>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 AssetConverterSkeleton::AssetConverterSkeleton() {
 }
 

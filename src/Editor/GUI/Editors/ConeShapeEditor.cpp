@@ -6,6 +6,10 @@
 #include <Engine/Physics/Shape.hpp>
 #include <imgui.h>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 namespace GUI {
     void ConeShapeEditor::Show(Component::Shape* comp) {
         ImGui::Indent();

@@ -2,6 +2,10 @@
 
 #include <imgui.h>
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 using namespace GUI;
 
 void FolderNameWindow::Show() {

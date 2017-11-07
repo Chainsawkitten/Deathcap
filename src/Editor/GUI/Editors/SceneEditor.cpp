@@ -6,6 +6,10 @@
 #include <imgui.h>
 #include "../../Resources.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrack.hpp>
+#endif
+
 using namespace GUI;
 
 enum DraggedItemState {
