@@ -10,6 +10,7 @@ namespace Component {
     Json::Value RigidBody::Save() const {
         Json::Value component;
         component["mass"] = mass;
+        component["friction"] = friction;
         component["kinematic"] = kinematic;
         return component;
     }
