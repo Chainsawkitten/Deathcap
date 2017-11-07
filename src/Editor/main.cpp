@@ -90,7 +90,13 @@ int main() {
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
 
                 Managers().debugDrawingManager->Update(deltaTime);
-                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"));
+                Hymn().Render(editor->GetCamera(),
+                              EditorSettings::GetInstance().GetBool("Sound Source Icons"),
+                              EditorSettings::GetInstance().GetBool("Particle Emitter Icons"),
+                              EditorSettings::GetInstance().GetBool("Light Source Icons"),
+                              EditorSettings::GetInstance().GetBool("Camera Icons"),
+                              EditorSettings::GetInstance().GetBool("Physics Volumes"),
+                              EditorSettings::GetInstance().GetBool("Lighting"));
 
                 if (window->ShouldClose())
                     editor->Close();

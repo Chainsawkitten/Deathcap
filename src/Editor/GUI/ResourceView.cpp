@@ -216,10 +216,11 @@ SceneEditor& ResourceView::GetScene() {
     return sceneEditor;
 }
 
-bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path) {
-    bool opened = ImGui::TreeNode(folder.name.c_str());
+bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const string& path) {
+    string imguiName = folder.name + "##F--" + path;
+    bool opened = ImGui::TreeNode(imguiName.c_str());
 
-    if (ImGui::BeginPopupContextItem(folder.name.c_str())) {
+    if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
         // Add subfolder.
         if (ImGui::Selectable("Add folder")) {
             resourcePath = path;
@@ -363,10 +364,11 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
     return false;
 }
 
-bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path) {
+bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const string& path) {
     // Scene.
     if (resource.type == ResourceList::Resource::SCENE) {
-        if (ImGui::Selectable(resource.scene->c_str())) {
+        string imguiName = *resource.scene + "##" + path;
+        if (ImGui::Selectable(imguiName.c_str())) {
             // Sets to don't save when opening first scene.
             if (scene == nullptr) {
                 changeScene = true;
@@ -386,7 +388,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
         }
 
         // Delete scene.
-        if (ImGui::BeginPopupContextItem(resource.scene->c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (Resources().activeScene == path + "/" + *resource.scene) {
                     Hymn().world.Clear();
@@ -405,13 +407,14 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
 
     // Animation clip.
     if (resource.type == ResourceList::Resource::ANIMATION_CLIP) {
-        if (ImGui::Selectable(resource.animationClip->name.c_str())) {
+        string imguiName = resource.animationClip->name + "##" + path;
+        if (ImGui::Selectable(imguiName.c_str())) {
             animationClipPressed = true;
             animationClipEditor.SetAnimationClip(resource.animationClip);
         }
 
         // Delete animation controller.
-        if (ImGui::BeginPopupContextItem(resource.animationClip->name.c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (animationClipEditor.GetAnimationClip() == resource.animationClip)
                     animationClipEditor.SetVisible(false);
@@ -427,13 +430,14 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
 
     // Animation controller.
     if (resource.type == ResourceList::Resource::ANIMATION_CONTROLLER) {
-        if (ImGui::Selectable(resource.animationController->name.c_str())) {
+        string imguiName = resource.animationController->name + "##" + path;
+        if (ImGui::Selectable(imguiName.c_str())) {
             animationControllerPressed = true;
             animationControllerEditor.SetAnimationController(resource.animationController);
         }
 
         // Delete animation controller.
-        if (ImGui::BeginPopupContextItem(resource.animationController->name.c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (animationControllerEditor.GetAnimationController() == resource.animationController)
                     animationControllerEditor.SetVisible(false);
@@ -449,13 +453,14 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
 
     // Skeleton.
     if (resource.type == ResourceList::Resource::SKELETON) {
-        if (ImGui::Selectable(resource.skeleton->name.c_str())) {
+        string imguiName = resource.skeleton->name + "##" + path;
+        if (ImGui::Selectable(imguiName.c_str())) {
             skeletonPressed = true;
             skeletonEditor.SetSkeleton(resource.skeleton);
         }
 
         // Delete skeleton.
-        if (ImGui::BeginPopupContextItem(resource.skeleton->name.c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (skeletonEditor.GetSkeleton() == resource.skeleton)
                     skeletonEditor.SetVisible(false);
@@ -471,12 +476,13 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
 
     // Model.
     if (resource.type == ResourceList::Resource::MODEL) {
-        if (ImGui::Selectable(resource.model->name.c_str())) {
+        string imguiName = resource.model->name + "##" + path;
+        if (ImGui::Selectable(imguiName.c_str())) {
             modelPressed = true;
             modelEditor.SetModel(&folder, resource.model);
         }
 
-        if (ImGui::BeginPopupContextItem(resource.model->name.c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (modelEditor.GetModel() == resource.model)
                     modelEditor.SetVisible(false);
@@ -492,12 +498,13 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
 
     // Textures.
     if (resource.type == ResourceList::Resource::TEXTURE) {
-        if (ImGui::Selectable(resource.texture->name.c_str())) {
+        string imguiName = resource.texture->name + "##" + path;
+        if (ImGui::Selectable(imguiName.c_str())) {
             texturePressed = true;
             textureEditor.SetTexture(resource.texture);
         }
 
-        if (ImGui::BeginPopupContextItem(resource.texture->name.c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (Managers().resourceManager->GetTextureAssetInstanceCount(resource.texture) > 1) {
                     Log() << "This texture is in use. Remove all references to the texture first.\n";
@@ -520,14 +527,14 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
 
     // Scripts.
     if (resource.type == ResourceList::Resource::SCRIPT) {
-        std::string name = resource.script->name;
+        string imguiName = resource.script->name + "##" + path;
 
-        if (ImGui::Selectable(name.c_str())) {
+        if (ImGui::Selectable(imguiName.c_str())) {
             scriptPressed = true;
             scriptEditor.SetScript(resource.script);
         }
 
-        if (ImGui::BeginPopupContextItem(name.c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (scriptEditor.GetScript() == resource.script)
                     scriptEditor.SetVisible(false);
@@ -548,12 +555,13 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
 
     // Sounds.
     if (resource.type == ResourceList::Resource::SOUND) {
-        if (ImGui::Selectable(resource.sound->name.c_str())) {
+        string imguiName = resource.sound->name + "##" + path;
+        if (ImGui::Selectable(imguiName.c_str())) {
             soundPressed = true;
             soundEditor.SetSound(resource.sound);
         }
 
-        if (ImGui::BeginPopupContextItem(resource.sound->name.c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (soundEditor.GetSound() == resource.sound)
                     soundEditor.SetVisible(false);
@@ -568,12 +576,13 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
 
     // Audio materials.
     if (resource.type == ResourceList::Resource::AUDIOMATERIAL) {
-        if (ImGui::Selectable(resource.audioMaterial->name.c_str())) {
+        string imguiName = resource.audioMaterial->name + "##" + path;
+        if (ImGui::Selectable(imguiName.c_str())) {
             audioMaterialPressed = true;
             audioMaterialEditor.SetAudioMaterial(resource.audioMaterial);
         }
 
-        if (ImGui::BeginPopupContextItem(resource.audioMaterial->name.c_str())) {
+        if (ImGui::BeginPopupContextItem(imguiName.c_str())) {
             if (ImGui::Selectable("Delete")) {
                 if (audioMaterialEditor.GetAudioMaterial() == resource.audioMaterial)
                     audioMaterialEditor.SetVisible(false);
