@@ -12,6 +12,7 @@ namespace Component {
         component["mass"] = mass;
         component["friction"] = friction;
         component["rollingFriction"] = rollingFriction;
+        component["spinningFriction"] = spinningFriction;
         component["kinematic"] = kinematic;
         return component;
     }
