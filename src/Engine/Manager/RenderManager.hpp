@@ -14,7 +14,7 @@ namespace Video {
 class World;
 class Entity;
 namespace Component {
-    class Animation;
+    class AnimationController;
     class DirectionalLight;
     class Lens;
     class Material;
@@ -43,6 +43,12 @@ class RenderManager {
          * @param camera Camera through which to render (or first camera in the world if nullptr).
          */
         ENGINE_API void Render(World& world, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr);
+        
+        /// Update all the animations in the scene.
+        /**
+         * @param deltaTime Time between frames.
+         */
+        ENGINE_API void UpdateAnimations(float deltaTime);
 
         /// Updates the buffers to fit the current screen size.
         ENGINE_API void UpdateBufferSize();
@@ -51,20 +57,20 @@ class RenderManager {
         /**
          * @return The created component.
          */
-        ENGINE_API Component::Animation* CreateAnimation();
-
+        ENGINE_API Component::AnimationController* CreateAnimation();
+  
         /// Create animation component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        ENGINE_API Component::Animation* CreateAnimation(const Json::Value& node);
+        ENGINE_API Component::AnimationController* CreateAnimation(const Json::Value& node);
 
-        /// Get all animation components.
+        /// Get all animation controller components.
         /**
-         * @return All animation components.
+         * @return All animation controller components.
          */
-        ENGINE_API const std::vector<Component::Animation*>& GetAnimations() const;
+        ENGINE_API const std::vector<Component::AnimationController*>& GetAnimations() const;
 
         /// Create directional light component.
         /**
@@ -211,7 +217,7 @@ class RenderManager {
         Video::Texture2D* cameraTexture;
 
         // Components.
-        ComponentContainer<Component::Animation> animations;
+        ComponentContainer<Component::AnimationController> animationControllers;
         ComponentContainer<Component::DirectionalLight> directionalLights;
         ComponentContainer<Component::Lens> lenses;
         ComponentContainer<Component::Material> materials;

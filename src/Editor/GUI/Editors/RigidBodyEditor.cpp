@@ -14,8 +14,18 @@ namespace GUI {
         auto shapeComp = comp->entity->GetComponent<Component::Shape>();
         if (shapeComp) {
             ImGui::Indent();
+
             if (ImGui::InputFloat("Mass", &mass))
                 Managers().physicsManager->SetMass(comp, mass);
+
+            bool kinematic = comp->IsKinematic();
+            if (ImGui::Checkbox("Kinematic", &kinematic)) {
+                if (kinematic)
+                    Managers().physicsManager->MakeKinematic(comp);
+                else
+                    Managers().physicsManager->MakeDynamic(comp);
+            }
+
             ImGui::Unindent();
         }
         else {

@@ -47,7 +47,7 @@ namespace Video {
                  * @return Type.
                  */
                 virtual Type GetType() const = 0;
-               
+
                 /// Get static vertex vector.
                 /**
                  * @return Vertices.

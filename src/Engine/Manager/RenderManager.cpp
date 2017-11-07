@@ -15,7 +15,7 @@
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
 #include "../Entity/Entity.hpp"
-#include "../Component/Animation.hpp"
+#include "../Component/AnimationController.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/Material.hpp"
@@ -25,6 +25,7 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
+#include "../Geometry/Model.hpp"
 #include "../Component/VRDevice.hpp"
 #include "../Physics/Shape.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
@@ -38,8 +39,8 @@
 #include "Util/Profiling.hpp"
 #include "Util/Json.hpp"
 #include "Util/GPUProfiling.hpp"
+#include <Utility/Log.hpp>
 #include <Video/ShadowPass.hpp>
-
 #include "Manager/VRManager.hpp"
 #include <glm/gtc/quaternion.hpp>
 
@@ -341,8 +342,39 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
     renderSurface->GetShadingFrameBuffer()->Unbind();
 
-    /// @todo Render skinned meshes.
+    // Render skinned meshes.
+    renderSurface->GetShadingFrameBuffer()->BindWrite();
+    { PROFILE("Render skinned meshes");
+    { GPUPROFILE("Render skinned meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render skinned meshes", Video::Query::Type::SAMPLES_PASSED);
 
+        // Cull lights and update light list.
+        LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+
+        // Push matricies and light buffer to the GPU.
+        renderer->PrepareSkinnedMeshRendering(viewMatrix, projectionMatrix);
+
+        // Render meshes
+        /// @todo Sort meshes after animation controller instead of
+        /// meshes would be better.
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
+
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                Entity* entity = mesh->entity;
+                Material* material = entity->GetComponent<Material>();
+                AnimationController* controller = entity->GetComponent<AnimationController>();
+                if (material != nullptr && controller != nullptr && controller->skeleton != nullptr) {
+                    renderer->RenderSkinnedMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones, false);
+                }
+            }
+        }
+    }
+    }
+    }
+    renderSurface->GetShadingFrameBuffer()->Unbind();
+    
     // Anti-aliasing.
     if (Hymn().filterSettings.fxaa) {
         {
@@ -355,6 +387,17 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 }
             }
         }
+    }
+}
+
+
+void RenderManager::UpdateAnimations(float deltaTime) {
+    // Update all enabled animation controllers.
+    for (Component::AnimationController* animationController : animationControllers.GetAll()) {
+        if (animationController->IsKilled() || !animationController->entity->enabled)
+            continue;
+    
+        animationController->UpdateAnimation(deltaTime);
     }
 }
 
@@ -412,33 +455,43 @@ void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool p
                 glm::vec3 dimensions(shape.GetBoxData()->width, shape.GetBoxData()->height, shape.GetBoxData()->depth);
                 glm::vec3 position = shapeComp->entity->GetWorldPosition();
                 glm::quat orientation = shapeComp->entity->GetWorldOrientation();
-                glm::mat4 transformationMatrix = glm::translate(glm::toMat4(orientation), position);
+                glm::mat4 transformationMatrix = glm::translate(glm::mat4(), position) * glm::toMat4(orientation);
                 Managers().debugDrawingManager->AddCuboid(dimensions, transformationMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
+            } else if (shape.GetKind() == ::Physics::Shape::Kind::Cylinder) {
+                glm::vec3 position = shapeComp->entity->GetWorldPosition();
+                glm::quat orientation = shapeComp->entity->GetWorldOrientation();
+                glm::mat4 transformationMatrix = glm::translate(glm::mat4(), position) * glm::toMat4(orientation);
+                Managers().debugDrawingManager->AddCylinder(shape.GetCylinderData()->radius, shape.GetCylinderData()->length, transformationMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
+            } else if (shape.GetKind() == ::Physics::Shape::Kind::Cone) {
+                glm::vec3 position = shapeComp->entity->GetWorldPosition();
+                glm::quat orientation = shapeComp->entity->GetWorldOrientation();
+                glm::mat4 transformationMatrix = glm::translate(glm::mat4(), position) * glm::toMat4(orientation);
+                Managers().debugDrawingManager->AddCone(shape.GetConeData()->radius, shape.GetConeData()->height, transformationMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
             }
         }
     }
 }
 
-Component::Animation* RenderManager::CreateAnimation() {
-    return animations.Create();
+Component::AnimationController* RenderManager::CreateAnimation() {
+    return animationControllers.Create();
 }
 
-Component::Animation* RenderManager::CreateAnimation(const Json::Value& node) {
-    Component::Animation* animation = animations.Create();
+Component::AnimationController* RenderManager::CreateAnimation(const Json::Value& node) {
+    Component::AnimationController* animationController = animationControllers.Create();
+    
+    std::string skeletonName = node.get("skeleton", "").asString();
+    if (!skeletonName.empty())
+        animationController->skeleton =  Managers().resourceManager->CreateSkeleton(skeletonName);
 
-    // Load values from Json node.
-    std::string name = node.get("riggedModel", "").asString();
-    /// @todo Fix animation.
-    /*for (Geometry::Model* model : Hymn().models) {
-        if (model->name == name)
-            riggedModel = model;
-    }*/
+    std::string controllerName = node.get("animationController", "").asString();
+    if (!controllerName.empty())
+        animationController->controller =  Managers().resourceManager->CreateAnimationController(controllerName);
 
-    return animation;
+    return animationController;
 }
 
-const std::vector<Component::Animation*>& RenderManager::GetAnimations() const {
-    return animations.GetAll();
+const std::vector<Component::AnimationController*>& RenderManager::GetAnimations() const {
+    return animationControllers.GetAll();
 }
 
 Component::DirectionalLight* RenderManager::CreateDirectionalLight() {
@@ -558,7 +611,7 @@ const std::vector<Component::SpotLight*>& RenderManager::GetSpotLights() const {
 }
 
 void RenderManager::ClearKilledComponents() {
-    animations.ClearKilled();
+    animationControllers.ClearKilled();
     directionalLights.ClearKilled();
     lenses.ClearKilled();
     materials.ClearKilled();

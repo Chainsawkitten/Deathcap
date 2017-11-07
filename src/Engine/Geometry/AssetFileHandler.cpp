@@ -76,12 +76,13 @@ void AssetFileHandler::LoadMeshData(int meshID) {
     rFile.read(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
     rFile.read(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));
     rFile.read(reinterpret_cast<char*>(&meshData->numIndices), sizeof(uint32_t));
+
     rFile.read(reinterpret_cast<char*>(&meshData->aabbDim), sizeof(glm::vec3));
     rFile.read(reinterpret_cast<char*>(&meshData->aabbOrigin), sizeof(glm::vec3));
     rFile.read(reinterpret_cast<char*>(&meshData->aabbMinpos), sizeof(glm::vec3));
     rFile.read(reinterpret_cast<char*>(&meshData->aabbMaxpos), sizeof(glm::vec3));
 
-    rFile.read(reinterpret_cast<char*>(&meshData->skinnedVertices), sizeof(bool));
+    rFile.read(reinterpret_cast<char*>(&meshData->isSkinned), sizeof(bool));
     rFile.read(reinterpret_cast<char*>(&meshData->CPU), sizeof(bool));
     rFile.read(reinterpret_cast<char*>(&meshData->GPU), sizeof(bool));
 
@@ -102,11 +103,11 @@ void AssetFileHandler::LoadMeshData(int meshID) {
     rFile.read(reinterpret_cast<char*>(meshData->indices), sizeof(uint32_t) * meshData->numIndices);
 }
 
-AssetFileHandler::MeshData * AssetFileHandler::GetStaticMeshData() {
+AssetFileHandler::MeshData* AssetFileHandler::GetStaticMeshData() {
     return meshData;
 }
 
-void AssetFileHandler::SaveStaticMesh(AssetFileHandler::MeshData * meshData) {
+void AssetFileHandler::SaveMesh(AssetFileHandler::MeshData* meshData) {
     // Write header.
     wFile.write(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
     wFile.write(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));
