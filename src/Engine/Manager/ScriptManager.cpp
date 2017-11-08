@@ -1054,6 +1054,6 @@ void ScriptManager::HandleTrigger(TriggerEvent triggerEvent) {
     triggerEvents.push_back(triggerEvent);
 }
 
-std::vector<Entity*> ScriptManager::GetUpdateEntities() {
+const std::vector<Entity*>& ScriptManager::GetUpdateEntities() {
     return updateEntities;
 }

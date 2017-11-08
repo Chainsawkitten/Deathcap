@@ -144,7 +144,12 @@ class ScriptManager {
         /// The entity currently being executed.
         Entity* currentEntity;
 
-        std::vector<Entity*> ScriptManager::GetUpdateEntities();
+        /// Get the set of entities with a script component that accepts
+        /// update events.
+        /**
+         * @return Entities with script updates.
+         */
+        ENGINE_API const std::vector<Entity*>& GetUpdateEntities();
         
     private:
         struct Message {
