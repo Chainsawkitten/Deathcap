@@ -51,7 +51,7 @@ private:
     std::vector<MyCurve> curves;
     float time = 0.0f;
     Video::ParticleSystemRenderer::EmitterSettings emitterSettings;
-
+    bool goBack = false;
     bool play = false;
 
 };

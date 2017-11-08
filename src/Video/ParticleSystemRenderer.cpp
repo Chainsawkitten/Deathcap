@@ -135,6 +135,10 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     glUniform1f(computeShaderProgram->GetUniformLocation("timer"), timer);
     glUniform1f(computeShaderProgram->GetUniformLocation("lifetime"), settings.lifetime);
     glUniform1f(computeShaderProgram->GetUniformLocation("speed"), settings.velocityMultiplier);
+    glUniform1f(computeShaderProgram->GetUniformLocation("mass"), settings.mass);
+
+    nr_new_particles = settings.nr_new_particles;
+    particleShootIndex.y = settings.nr_new_particles - 1;
 
     glm::vec3 randomVec[32];
 
@@ -144,7 +148,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     }
 
     glUniform3fv(computeShaderProgram->GetUniformLocation("randomVec"), 32, &randomVec[0].x);
-    glUniform1f(shaderProgram->GetUniformLocation("alphaControl"), settings.alpha_control);
+    glUniform1f(computeShaderProgram->GetUniformLocation("alphaControl"), settings.alpha_control);
 
     glDispatchCompute(nr_particles/128, 1, 1);
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);

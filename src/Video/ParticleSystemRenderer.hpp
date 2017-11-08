@@ -79,7 +79,13 @@ namespace Video
             float scale = 1.0f;
 
             /// Particle mass.
+            float mass = 0.01f;
+
+            /// Alpha control
             float alpha_control = 1.0f;
+
+            /// Nr Of new particles per emitt.
+            int nr_new_particles = 31;
 
         };
 
@@ -112,8 +118,8 @@ namespace Video
         int WORK_GROUP_SIZE = 128;
 
         unsigned int        nr_particles = 1024;
-        glm::vec2		    particleShootIndex = glm::vec2(0, 10);
-        int                 nr_new_particles = 32;
+        glm::vec2		    particleShootIndex = glm::vec2(0, 30);
+        int                 nr_new_particles = 31;
         float               rate = 1000.0f;
         float               delta_time = 0.0f;
         float               speed = 1.0f;

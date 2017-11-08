@@ -656,7 +656,7 @@ CurveEditor::~CurveEditor() {
 
 void CurveEditor::Show() {
 
-    UpdateCurves(0.1f, 1000.0f);
+    UpdateCurves(0.1f, 100.0f);
 
     if (ImGui::Begin("Curve editor")) {
         ImGui::InputText("Unique curve name", curvename, 10);
@@ -692,21 +692,41 @@ void CurveEditor::AddMyCurve(std::string curve_name, ImGuiID uniqueId, int item)
 }
 
 void CurveEditor::UpdateCurves(float deltaTime, float totalTime) {
-    time += deltaTime;
 
     if (time >= totalTime) {
+        time = totalTime;
+        goBack = true;
+    }
+    if (time <= 0.0f) {
         time = 0.0f;
+        goBack = false;
+    }
+    
+    if (!goBack) {
+        time += deltaTime;
+    }
+    if (goBack) {
+        time -= deltaTime;
     }
 
+
+
+    float tempValue;
     for (unsigned int i = 0; i < curves.size(); i++) {
-        curves[i].value_you_care_about = ImGui::CurveValue(time / totalTime, (int)totalTime, curves[i].value); // calculate value at position
+        tempValue = ImGui::CurveValue(time / totalTime, (int)totalTime, curves[i].value); // calculate value at position
+        if (tempValue < 0.5f) {
+            tempValue -= 1.0f;
+        }
+        if (tempValue == 0.5f) {
+            tempValue = 0.0f;
+        }
+        curves[i].value_you_care_about = tempValue;
     }
 
 }
 
 void CurveEditor::RenderCurveEditor( ) {
     bool open = true;
-    UpdateCurves(0.1f, 10);
     for (int i = 0; i < curves.size(); ++i) {
         ImGui::BeginChild(curves[i].curve_name.c_str(), ImVec2(500, 250), true);
         ImGui::Checkbox("Velocity X", &curves[i].editVelocityX);

@@ -30,6 +30,8 @@ uniform float speed;
 
 uniform float alphaControl;
 
+uniform float mass;
+
 uniform vec3[32] randomVec;
 
 void main(void)
@@ -55,16 +57,16 @@ void main(void)
     {
         shot = 1.0;
 		v = vec3(speed * (randomVec[index - int(ShootIndex.x)] + Velocity));
+		p = vec3(0, 0, 0);
 		color.w = 1.0;
-		color.w *= lifetime;
     }
 
     if (shot == 1.0)
     {
-		color.w -= DT;
+		color.w -= DT/alphaControl;
         life += DT;
 		
-        v += Velocity + G * DT;
+        v += Velocity + mass * G * DT;
 
         p += vec3(v) * DT;
     }
