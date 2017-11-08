@@ -533,9 +533,10 @@ void Editor::ShowMainMenuBar(bool& play) {
 
 void Editor::ShowGridSettings() {
     if (showGridSettings) {
-        ImGui::SetNextWindowPos(ImVec2(1275, 25));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
-        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
+        glm::vec2 size(MainWindow::GetInstance()->GetSize());
+        ImGui::SetNextWindowPos(ImVec2((int)size.x - 255 - resourceView.GetEditorWidth(), 20));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 105), ImVec2(255, 105));
+        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
         ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
         EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
         ImGui::DragInt("Line Width", &gridSettings.lineWidth, 0.1f, 1, 5);

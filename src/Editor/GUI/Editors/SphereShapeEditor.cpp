@@ -10,8 +10,12 @@ namespace GUI {
     void SphereShapeEditor::Show(Component::Shape* comp) {
         ImGui::Indent();
 
-        if (ImGui::DragFloat("Radius", &radius, 1.0f, 0.0f))
+        if (ImGui::DragFloat("Radius", &radius, 1.0f, 0.0f)) {
+            if (radius < 0.0f)
+                radius = 0.0f;
+            
             Apply(comp);
+        }
 
         ImGui::Unindent();
     }
