@@ -43,7 +43,7 @@ namespace Video {
             /**
              * @param maxParticleCount The maximum amount of particles in the buffer.
              */
-            VIDEO_API ParticleRenderer(unsigned int maxParticleCount);
+            VIDEO_API explicit ParticleRenderer(unsigned int maxParticleCount);
             
             /// Destructor.
             VIDEO_API ~ParticleRenderer();
