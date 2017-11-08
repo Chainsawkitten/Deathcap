@@ -55,6 +55,7 @@ const ScriptFile* ScriptEditor::GetScript() const {
 
 void ScriptEditor::SetScript(ScriptFile* script) {
     this->script = script;
+    status = UNKNOWN;
 }
 
 bool ScriptEditor::IsVisible() const {
