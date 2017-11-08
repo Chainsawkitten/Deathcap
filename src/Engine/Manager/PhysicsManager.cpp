@@ -314,6 +314,10 @@ void PhysicsManager::ForceTransformSync(Component::RigidBody* comp) {
     comp->SetForceTransformSync(true);
 }
 
+void PhysicsManager::HaltMovement(Component::RigidBody* comp) {
+    comp->SetHaltMovement(true);
+}
+
 const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {
     return shapeComponents.GetAll();
 }
