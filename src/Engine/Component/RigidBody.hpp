@@ -123,10 +123,16 @@ namespace Component {
             bool GetForceTransformSync() const;
             void SetForceTransformSync(bool sync);
 
+            // Get/set whether a kinematic rigid body should halt its movement
+            // during the next simulation frame.
+            bool GetHaltMovement() const;
+            void SetHaltMovement(bool halt);
+
             float mass = 1.0f;
             btRigidBody* rigidBody = nullptr;
             bool kinematic = false;
             bool forceTransformSync = true; // For first frame
+            bool haltMovement = true; // True for first frame
             float friction = 0.0f;
             float rollingFriction = 0.0f;
             float spinningFriction = 0.0f;
