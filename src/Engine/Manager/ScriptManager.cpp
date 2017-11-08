@@ -9,6 +9,7 @@
 #include <typeindex>
 #include <sstream>
 #include <cstring>
+#include <iostream>
 
 #include "../Util/FileSystem.hpp"
 #include "../Util/Input.hpp"
@@ -105,12 +106,7 @@ void RegisterTriggerLeaveHelper(Component::RigidBody* triggerBody, Component::Ri
 
 bool ButtonInput(int buttonIndex) {
     if (Managers().vrManager->Active())
-        if (Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<VRDevice>())) {
-            printf("%d\n", Managers().scriptManager->currentEntity->GetUniqueIdentifier());
-            return true;
-        }
-        else
-            return false;
+        return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<VRDevice>());
     else
         return Input::GetInstance().CheckButton(buttonIndex);
 }
@@ -352,6 +348,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "uint GetUniqueIdentifier() const", asMETHOD(Entity, GetUniqueIdentifier), asCALL_THISCALL);
 
     engine->RegisterGlobalFunction("Entity@ GetEntity(uint GUID)", asFUNCTIONPR(ScriptManager::GetEntity, (unsigned int), Entity*), asCALL_CDECL);
 

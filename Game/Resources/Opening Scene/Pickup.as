@@ -1,7 +1,6 @@
 class Pickup {
     Hub @hub;
     Entity @self;
-    Entity @lastParent;
     Entity @originalParent;
 
     Pickup(Entity @entity){
@@ -19,12 +18,11 @@ class Pickup {
     
     void ReceiveMessage(Entity @sender, int i)
     {
-        if(i == 1 && @originalParent != self.GetParent()){
-                @lastParent = self.SetParent(@originalParent);
-        }
-        else if(i == 2 && @originalParent == self.GetParent()){
+        if (i == 1) {
+                self.SetParent(@originalParent);
+        } else if (i == 2) {
                 self.position = vec3(0.0f,0.0f,0.0f);
-                @originalParent = self.SetParent(@sender);
+                self.SetParent(@sender);
         }
     }
 }
