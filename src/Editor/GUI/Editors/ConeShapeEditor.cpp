@@ -10,11 +10,19 @@ namespace GUI {
     void ConeShapeEditor::Show(Component::Shape* comp) {
         ImGui::Indent();
 
-        if (ImGui::InputFloat("Radius", &radius))
+        if (ImGui::InputFloat("Radius", &radius)) {
+            if (radius < 0.0f)
+                radius = 0.0f;
+            
             Apply(comp);
+        }
 
-        if (ImGui::InputFloat("Height", &height))
+        if (ImGui::InputFloat("Height", &height)) {
+            if (height < 0.0f)
+                height = 0.0f;
+            
             Apply(comp);
+        }
 
         ImGui::Unindent();
     }
