@@ -38,6 +38,44 @@ namespace Component {
              */
             ENGINE_API bool IsKinematic() const;
 
+            /// Get the friction coefficient of the rigid body. Note that this
+            /// does not necessarily match the real world as objects don't have
+            /// one single value for friction.
+            /**
+             * @return Friction value.
+             */
+            ENGINE_API float GetFriction() const;
+
+            /// Get the rolling friction coefficient of the rigid body.
+            /**
+             * @return Rolling friction value.
+             */
+            ENGINE_API float GetRollingFriction() const;
+
+            /// Get the spinning friction coefficient of the rigid body.
+            /**
+             * @return Spinning friction value.
+             */
+            ENGINE_API float GetSpinningFriction() const;
+
+            /// Get the coefficient of restitution of the rigid body.
+            /**
+             * @return Coefficient of restitution.
+             */
+            ENGINE_API float GetRestitution() const;
+
+            /// Get the linear damping of the rigid body.
+            /**
+             * @return Linear damping.
+             */
+            ENGINE_API float GetLinearDamping() const;
+
+            /// Get the angular damping of the rigid body.
+            /**
+             * @return Angular damping.
+             */
+            ENGINE_API float GetAngularDamping() const;
+
         private:
             // Get the underlying Bullet rigid body. If none has been set,
             // nullptr is returned.
@@ -68,6 +106,15 @@ namespace Component {
             // Set the mass in kilograms of a rigid body.
             void SetMass(float mass);
 
+            void SetFriction(float friction);
+            void SetRollingFriction(float friction);
+            void SetSpinningFriction(float friction);
+
+            void SetRestitution(float cor);
+
+            void SetLinearDamping(float damping);
+            void SetAngularDamping(float damping);
+
             void MakeKinematic();
             void MakeDynamic();
 
@@ -80,5 +127,11 @@ namespace Component {
             btRigidBody* rigidBody = nullptr;
             bool kinematic = false;
             bool forceTransformSync = true; // For first frame
+            float friction = 0.0f;
+            float rollingFriction = 0.0f;
+            float spinningFriction = 0.0f;
+            float restitution = 0.0f;
+            float linearDamping = 0.0f;
+            float angularDamping = 0.0f;
     };
 }
