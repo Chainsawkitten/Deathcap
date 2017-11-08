@@ -27,7 +27,6 @@ class Camera{
     }
     
     void Update(float deltaTime){
-        print("Test");
         // Only control camera with mouse if we're not running in VR.
         if (!IsVRActive())
             MouseUpdate();
