@@ -433,6 +433,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectType("PhysicsManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectMethod("PhysicsManager", "void MakeKinematic(Component::RigidBody@)", asMETHOD(PhysicsManager, MakeKinematic), asCALL_THISCALL);
     engine->RegisterObjectMethod("PhysicsManager", "void MakeDynamic(Component::RigidBody@)", asMETHOD(PhysicsManager, MakeDynamic), asCALL_THISCALL);
+    engine->RegisterObjectMethod("PhysicsManager", "void ForceTransformSync(Component::RigidBody@)", asMETHOD(PhysicsManager, ForceTransformSync), asCALL_THISCALL);
+    engine->RegisterObjectMethod("PhysicsManager", "void HaltMovement(Component::RigidBody@)", asMETHOD(PhysicsManager, HaltMovement), asCALL_THISCALL);
 
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
