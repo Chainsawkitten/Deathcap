@@ -431,6 +431,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("RenderManager", "bool GetDitherApply()", asMETHOD(RenderManager, GetDitherApply), asCALL_THISCALL);
 
     engine->RegisterObjectType("PhysicsManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
+    engine->RegisterObjectMethod("PhysicsManager", "void MakeKinematic(Component::RigidBody@)", asMETHOD(PhysicsManager, MakeKinematic), asCALL_THISCALL);
+    engine->RegisterObjectMethod("PhysicsManager", "void MakeDynamic(Component::RigidBody@)", asMETHOD(PhysicsManager, MakeDynamic), asCALL_THISCALL);
 
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
