@@ -247,6 +247,7 @@ class Entity {
 
         /// Whether the entity is static.
         bool isStatic = false;
+
         
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;

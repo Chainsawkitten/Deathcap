@@ -8,14 +8,15 @@ Trigger::Trigger() {
 }
 
 Trigger::~Trigger() {
-    // ADD DECONSTRUCT
+
+    if(m_trigger != nullptr)
+        delete m_trigger;
 }
 
 Json::Value Trigger::Save() const {
-    // ADD SAVE
     Json::Value component;
 
-    component["x"] = 0;
+    component = m_trigger->Save();
 
     return component;
 }
