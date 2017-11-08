@@ -7,7 +7,7 @@ class Lantern {
         @debugDrawingManager = Managers().debugDrawingManager;
         
         @self = entity;
-        @controller = GetEntity(1508918923);
+        @controller = GetEntity(1508919751);
         RegisterUpdate();
     }
     
@@ -15,7 +15,7 @@ class Lantern {
         self.position.x = controller.position.x;
         self.position.y = controller.position.y;
         self.position.z = controller.position.z;
-        self.rotation = controller.rotation;
+        self.SetWorldOrientation(inverse(controller.GetWorldOrientation()));
         
     }
 }
