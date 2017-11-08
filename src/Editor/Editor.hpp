@@ -129,13 +129,14 @@ private:
     float lastIntersect = INFINITY;
     double lastX = 0.0;
     double lastY = 0.0;
+
+    // Paint brush variables
     float paintTimer = 0.0f;
     float paintSpawnRate[1] = { 0.5f };
-    float brushSize[1] = { 0.5f };
+    int brushSize[1] = { 1 };
     float paintObjScale[1] = { 1.0f };
     int paintScaleRandomness[1] = { 1 };
     bool toolMenuPressed = false;
-
     std::string paintScene;
 
     GLFWcursor* cursors[5];

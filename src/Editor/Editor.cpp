@@ -257,11 +257,14 @@ void Editor::Show(float deltaTime) {
                     ImGui::EndPopup();
                 }
             }
-
             // Brush tool settings.
+            toolMenuPressed = false;
+            if (ImGui::IsMouseHoveringWindow())
+                toolMenuPressed = true;
+
             ImGui::BeginPopupContextWindow("Paint Brush Tool");
             ImGui::Indent();
-            ImGui::SliderFloat("Brush size.", brushSize, 0.05f, 20.0f);
+            ImGui::SliderInt("Brush size.", brushSize, 1, 30);
             ImGui::SliderFloat("Spawn rate.", paintSpawnRate, 0.05f, 1.0f);
             ImGui::SliderFloat("Object scale.", paintObjScale, 1.0f, 100.0f);
             ImGui::SliderInt("Scale randomness", paintScaleRandomness, 1, 10);
@@ -316,25 +319,31 @@ void Editor::Show(float deltaTime) {
                     if (currentEntity->GetChild("foliage") == nullptr)
                         parentEntity = currentEntity->AddChild("foliage");
 
+                    for (int i = 0; i < brushSize[0]; i++) {
+                        float randAngle = 0.0;
+                        float randDistance = 0.0;
+                        if (brushSize[0] > 1) {
+                            randAngle = rand() % 360;
+                            randDistance = rand() % 10;
+                        }
+                        Entity* entity = parentEntity->AddChild("foliage_");
+                        entity->InstantiateScene("Resources/" + paintScene, "Resources/" + Hymn().world.GetRoot()->name);
+                        entity->SetWorldPosition(glm::vec3(mousePos.x + randDistance*cos(randAngle), mousePos.y, mousePos.z + randDistance*sin(randAngle)));
+                        entity->scale *= paintObjScale[0];
+                        entity->scale += rand() % paintScaleRandomness[0];
+                        entity->RotateYaw(-normal.y + rand() % 360);
 
-                    Entity* entity = parentEntity->AddChild("foliage_");
-                    entity->InstantiateScene("Resources/" + paintScene, "Resources/" + Hymn().world.GetRoot()->name);
-                    entity->SetWorldPosition(mousePos);
-                    entity->scale *= paintObjScale[0];
-                    entity->scale += rand() % paintScaleRandomness[0];
-                    entity->RotateYaw(-normal.y + rand() % 360);
-                  
-                    glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
-                    glm::vec3 axis = glm::cross(up, normal);
-                    float angle = std::atan2(axis.length(), glm::dot(up, normal));
-                    glm::normalize(axis);
-                    entity->RotateAroundWorldAxis(angle, axis);
-
+                        // Rotate the entity after the normal of the currentEntity.
+                        glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
+                        glm::vec3 axis = glm::cross(up, normal);
+                        float angle = std::atan2(axis.length(), glm::dot(up, normal));
+                        glm::normalize(axis);
+                        entity->RotateAroundWorldAxis(angle, axis);
+                    }
 
                     paintTimer = 0.0f;
                 }
                 lastIntersect = INFINITY;
-
             }
             handler.Close();
         }
