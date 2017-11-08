@@ -58,6 +58,15 @@ void PhysicsManager::Update(float deltaTime) {
         if (rigidBodyComp->IsKinematic()) {
             rigidBodyComp->SetPosition(worldPos);
             rigidBodyComp->SetOrientation(worldOrientation);
+
+            if (rigidBodyComp->GetHaltMovement()) {
+                btTransform trans;
+                rigidBodyComp->GetBulletRigidBody()->getMotionState()->getWorldTransform(trans);
+                // Proceed twice to prevent interpolation of velocities.
+                rigidBodyComp->GetBulletRigidBody()->proceedToTransform(trans);
+                rigidBodyComp->GetBulletRigidBody()->proceedToTransform(trans);
+                rigidBodyComp->SetHaltMovement(false);
+            }
         } else if (rigidBodyComp->GetForceTransformSync()) {
             dynamicsWorld->removeRigidBody(rigidBodyComp->GetBulletRigidBody());
             rigidBodyComp->SetPosition(worldPos);
@@ -305,6 +314,10 @@ void PhysicsManager::MakeDynamic(Component::RigidBody* comp) {
 
 void PhysicsManager::ForceTransformSync(Component::RigidBody* comp) {
     comp->SetForceTransformSync(true);
+}
+
+void PhysicsManager::HaltMovement(Component::RigidBody* comp) {
+    comp->SetHaltMovement(true);
 }
 
 const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const {
