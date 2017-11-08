@@ -256,6 +256,7 @@ class Entity {
         bool brushActive = false;
         bool vertsLoaded = false;
         bool painting = false;
+        bool sceneChosen = false;
 
         
     private:

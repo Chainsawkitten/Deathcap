@@ -221,6 +221,7 @@ void Editor::Show(float deltaTime) {
     if (currentEntity != nullptr) {
         glm::mat4 currentEntityMatrix = currentEntity->GetLocalMatrix();
         currentEntityMatrix = currentEntity->GetLocalMatrix();
+        paintTimer += deltaTime;
 
         // Projection matrix.
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y));
@@ -241,17 +242,17 @@ void Editor::Show(float deltaTime) {
             nrOfVertices = data->numVertices;
 
             // Which scene to draw.
-            if (currentEntity->brushActive == false && sceneChosen == false) {
+            if (currentEntity->brushActive == false && currentEntity->sceneChosen == false) {
 
                 ImGui::OpenPopup("Select scene to paint with.##Scene");
 
                 if (ImGui::BeginPopup("Select scene to paint with.##Scene")) {
-                    ImGui::Text("Scene");
+                    ImGui::Text("Select scene to paint with.");
                     ImGui::Separator();
 
                     if (rs.Show(ResourceList::Resource::Type::SCENE)) {
                         paintScene = rs.GetSelectedResource().resource->scene->c_str();
-                        sceneChosen = true;
+                        currentEntity->sceneChosen = true;
                     }
                     ImGui::EndPopup();
                 }
@@ -259,7 +260,10 @@ void Editor::Show(float deltaTime) {
 
             // Ray-Triangle intersection test.     
             if (currentEntity->brushActive) {
-
+                ImGui::BeginPopupContextWindow("Paint Brush Tool");
+                ImGui::Indent();
+                ImGui::SliderFloat("Paint brush size.", brushSize, 0.05f, 20.0f);
+                ImGui::SliderFloat("Paint brush spawn rate.", paintSpawnRate, 0.05f, 1.0f);
                 bool intersect = false;
                 glm::vec3 last_p0;
                 glm::vec3 last_p1;
@@ -299,18 +303,22 @@ void Editor::Show(float deltaTime) {
 
                 // Get mousePosition in worldspace.
                 glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
-                Managers().debugDrawingManager->AddCircle(mousePos, -normal, 0.2f, glm::vec3(1.0, 1.0, 0.0), 3.0f, 0.0f, false);
+                Managers().debugDrawingManager->AddCircle(mousePos, -normal, brushSize[0], glm::vec3(1.0, 1.0, 0.0), 0.5f, 0.0f, false);
 
                 // Paint objects (scenes).
                 // Draw them when mouse pressed.
-                if (Input()->Pressed(InputHandler::SELECT) && intersect) {
+                if (Input()->Pressed(InputHandler::SELECT) && intersect &&paintTimer >= paintSpawnRate[0]) {
                     if (currentEntity->GetChild("foliage") == nullptr)
                         parentEntity = currentEntity->AddChild("foliage");
+
 
                     Entity* entity = parentEntity->AddChild("foliage_");
                     entity->InstantiateScene("Resources/" + paintScene, "Resources/" + Hymn().world.GetRoot()->name);
                     entity->SetWorldPosition(mousePos);
-                    entity->RotateYaw(-normal.y);
+                    entity->scale *= brushSize[0];
+                    entity->RotateYaw(-normal.y+rand() % 360);
+                    paintTimer = 0.0f;
+
                 }
                 lastIntersect = INFINITY;
 

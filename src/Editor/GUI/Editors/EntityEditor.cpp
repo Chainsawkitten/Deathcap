@@ -293,6 +293,7 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
                 if (ImGui::Button("Exit paint brush")) {
                     entity->brushActive = false;
                     entity->loadPaintModeClicked = false;
+                    entity->sceneChosen = false;
                 }
             }
         }
