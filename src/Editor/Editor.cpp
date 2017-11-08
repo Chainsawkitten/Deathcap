@@ -258,12 +258,19 @@ void Editor::Show(float deltaTime) {
                 }
             }
 
-            // Ray-Triangle intersection test.     
-            if (currentEntity->brushActive) {
+            // Brush tool settings.
+      
+                toolMenuPressed = true;
                 ImGui::BeginPopupContextWindow("Paint Brush Tool");
                 ImGui::Indent();
-                ImGui::SliderFloat("Paint brush size.", brushSize, 0.05f, 20.0f);
-                ImGui::SliderFloat("Paint brush spawn rate.", paintSpawnRate, 0.05f, 1.0f);
+                ImGui::SliderFloat("Brush size.", brushSize, 0.05f, 20.0f);
+                ImGui::SliderFloat("Spawn rate.", paintSpawnRate, 0.05f, 1.0f);
+                ImGui::SliderFloat("Object scale.", paintObjScale, 1.0f, 100.0f);
+                ImGui::SliderInt("Scale randomness", paintScaleRandomness, 1, 10);
+
+            // Ray-Triangle intersection test.     
+            if (currentEntity->brushActive) {
+
                 bool intersect = false;
                 glm::vec3 last_p0;
                 glm::vec3 last_p1;
@@ -307,7 +314,7 @@ void Editor::Show(float deltaTime) {
 
                 // Paint objects (scenes).
                 // Draw them when mouse pressed.
-                if (Input()->Pressed(InputHandler::SELECT) && intersect &&paintTimer >= paintSpawnRate[0]) {
+                if (Input()->Pressed(InputHandler::SELECT) && intersect &&paintTimer >= paintSpawnRate[0] && toolMenuPressed == false) {
                     if (currentEntity->GetChild("foliage") == nullptr)
                         parentEntity = currentEntity->AddChild("foliage");
 
@@ -315,8 +322,9 @@ void Editor::Show(float deltaTime) {
                     Entity* entity = parentEntity->AddChild("foliage_");
                     entity->InstantiateScene("Resources/" + paintScene, "Resources/" + Hymn().world.GetRoot()->name);
                     entity->SetWorldPosition(mousePos);
-                    entity->scale *= brushSize[0];
-                    entity->RotateYaw(-normal.y+rand() % 360);
+                    entity->scale *= paintObjScale[0];
+                    entity->scale += rand() % paintScaleRandomness[0];
+                    entity->RotateYaw(-normal.y + rand() % 360);
                     paintTimer = 0.0f;
 
                 }
@@ -325,7 +333,6 @@ void Editor::Show(float deltaTime) {
             }
             handler.Close();
         }
-
         // Change operation based on key input.
         if (!ImGuizmo::IsUsing()) {
             if (Input()->Triggered(InputHandler::W)) {
