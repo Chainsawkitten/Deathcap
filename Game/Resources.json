@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
+	"activeScene" : "Resources/NewAssetsScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 57,
+	"modelNumber" : 63,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -536,11 +536,15 @@
 								"type" : 1
 							},
 							{
-								"model" : "Tracks",
+								"model" : "BridgeFbx",
 								"type" : 1
 							},
 							{
-								"model" : "BridgeFbx",
+								"model" : "TrackPlatform",
+								"type" : 1
+							},
+							{
+								"model" : "Tracks",
 								"type" : 1
 							}
 						],
