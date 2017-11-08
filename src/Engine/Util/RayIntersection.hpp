@@ -6,7 +6,7 @@
 
 /// The class handling intersection checks.
 class RayIntersection {
-public:
+    public:
 
     /// Constructor.
     ENGINE_API RayIntersection();
