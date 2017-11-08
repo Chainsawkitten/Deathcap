@@ -2,6 +2,7 @@
 	"children" : 
 	[
 		{
+<<<<<<< HEAD
 			"DirectionalLight" : 
 			{
 				"ambientCoefficient" : 0.029999999329447746,
@@ -12,6 +13,8 @@
 					"z" : 0.0
 				}
 			},
+=======
+>>>>>>> a8af28db322fceb36dd76340a973a733e0332f65
 			"children" : null,
 			"name" : "Sun",
 			"position" : 
