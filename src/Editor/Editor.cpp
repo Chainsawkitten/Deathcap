@@ -259,14 +259,12 @@ void Editor::Show(float deltaTime) {
             }
 
             // Brush tool settings.
-      
-                toolMenuPressed = true;
-                ImGui::BeginPopupContextWindow("Paint Brush Tool");
-                ImGui::Indent();
-                ImGui::SliderFloat("Brush size.", brushSize, 0.05f, 20.0f);
-                ImGui::SliderFloat("Spawn rate.", paintSpawnRate, 0.05f, 1.0f);
-                ImGui::SliderFloat("Object scale.", paintObjScale, 1.0f, 100.0f);
-                ImGui::SliderInt("Scale randomness", paintScaleRandomness, 1, 10);
+            ImGui::BeginPopupContextWindow("Paint Brush Tool");
+            ImGui::Indent();
+            ImGui::SliderFloat("Brush size.", brushSize, 0.05f, 20.0f);
+            ImGui::SliderFloat("Spawn rate.", paintSpawnRate, 0.05f, 1.0f);
+            ImGui::SliderFloat("Object scale.", paintObjScale, 1.0f, 100.0f);
+            ImGui::SliderInt("Scale randomness", paintScaleRandomness, 1, 10);
 
             // Ray-Triangle intersection test.     
             if (currentEntity->brushActive) {
@@ -325,8 +323,15 @@ void Editor::Show(float deltaTime) {
                     entity->scale *= paintObjScale[0];
                     entity->scale += rand() % paintScaleRandomness[0];
                     entity->RotateYaw(-normal.y + rand() % 360);
-                    paintTimer = 0.0f;
+                  
+                    glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
+                    glm::vec3 axis = glm::cross(up, normal);
+                    float angle = std::atan2(axis.length(), glm::dot(up, normal));
+                    glm::normalize(axis);
+                    entity->RotateAroundWorldAxis(angle, axis);
 
+
+                    paintTimer = 0.0f;
                 }
                 lastIntersect = INFINITY;
 
