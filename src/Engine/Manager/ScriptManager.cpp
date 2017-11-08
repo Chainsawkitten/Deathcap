@@ -433,10 +433,17 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("RenderManager", "void SetDitherApply(bool)", asMETHOD(RenderManager, SetDitherApply), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "bool GetDitherApply()", asMETHOD(RenderManager, GetDitherApply), asCALL_THISCALL);
 
+    engine->RegisterObjectType("PhysicsManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
+    engine->RegisterObjectMethod("PhysicsManager", "void MakeKinematic(Component::RigidBody@)", asMETHOD(PhysicsManager, MakeKinematic), asCALL_THISCALL);
+    engine->RegisterObjectMethod("PhysicsManager", "void MakeDynamic(Component::RigidBody@)", asMETHOD(PhysicsManager, MakeDynamic), asCALL_THISCALL);
+    engine->RegisterObjectMethod("PhysicsManager", "void ForceTransformSync(Component::RigidBody@)", asMETHOD(PhysicsManager, ForceTransformSync), asCALL_THISCALL);
+    engine->RegisterObjectMethod("PhysicsManager", "void HaltMovement(Component::RigidBody@)", asMETHOD(PhysicsManager, HaltMovement), asCALL_THISCALL);
+
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
     engine->RegisterObjectProperty("Hub", "RenderManager@ renderManager", asOFFSET(Hub, renderManager));
-    
+    engine->RegisterObjectProperty("Hub", "PhysicsManager@ physicsManager", asOFFSET(Hub, physicsManager));
+
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RestartScene()", asFUNCTION(RestartScene), asCALL_CDECL);

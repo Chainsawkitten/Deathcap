@@ -193,6 +193,12 @@ class PhysicsManager {
          */
         ENGINE_API void ForceTransformSync(Component::RigidBody* comp);
 
+        /// Halts movement of a kinematic rigid body.
+        /**
+         * @param comp Rigid body to halt.
+         */
+        ENGINE_API void HaltMovement(Component::RigidBody* comp);
+
         /// Get all shape components.
         /**
          * @return All shape components.

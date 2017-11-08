@@ -14,7 +14,7 @@ namespace Audio {
             /**
              * @param filename Filename (relative or absolute) to ogg-file.
              */
-            ENGINE_API VorbisFile(const char* filename);
+            ENGINE_API explicit VorbisFile(const char* filename);
             
             /// Destructor.
             ENGINE_API ~VorbisFile() final;
