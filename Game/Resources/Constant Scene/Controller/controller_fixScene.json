@@ -13,19 +13,6 @@
 			{
 				"model" : "Resources/Constant Scene/Controller/Hands"
 			},
-			"RigidBody" : 
-			{
-				"mass" : 1.0
-			},
-			"Shape" : 
-			{
-				"box" : 
-				{
-					"depth" : 0.20000000298023224,
-					"height" : 0.10000000149011612,
-					"width" : 0.10000000149011612
-				}
-			},
 			"children" : null,
 			"name" : "controller_fix",
 			"position" : 
@@ -63,6 +50,24 @@
 				},
 				"intensity" : 1.0
 			},
+			"RigidBody" : 
+			{
+				"angularDamping" : 0.0,
+				"cor" : 0.0,
+				"friction" : 0.0,
+				"kinematic" : false,
+				"linearDamping" : 0.0,
+				"mass" : 1.0,
+				"rollingFriction" : 0.0,
+				"spinningFriction" : 0.0
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
 			"children" : null,
 			"name" : "Entity #1",
 			"position" : 
@@ -93,8 +98,8 @@
 	"position" : 
 	{
 		"x" : 0.0,
-		"y" : 0.0,
-		"z" : 0.0
+		"y" : -0.86163556575775146,
+		"z" : -0.2972683310508728
 	},
 	"rotation" : 
 	{
