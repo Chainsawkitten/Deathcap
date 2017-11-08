@@ -62,6 +62,12 @@ class TriggerManager {
          */
         ENGINE_API const std::vector<Component::Trigger*>& GetTriggerComponents() const;
 
+        /// Update the trigger volume data.
+        ENGINE_API void SynchronizeTriggers();
+
+        /// Find and set entity with Unique ID.
+        ENGINE_API void InitiateUID();
+
         /// Remove all killed components.
         void ClearKilledComponents();
 

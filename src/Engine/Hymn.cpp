@@ -26,6 +26,7 @@
 
 #include "Entity/Entity.hpp"
 #include "Component/Animation.hpp"
+#include "Component/Trigger.hpp"
 
 using namespace std;
 
@@ -165,6 +166,10 @@ void ActiveHymn::FromJson(Json::Value root) {
 void ActiveHymn::Update(float deltaTime) {
     { PROFILE("Run scripts.");
         Managers().scriptManager->Update(world, deltaTime);
+    }
+
+    { PROFILE("Synchronize triggers.");
+        Managers().triggerManager->SynchronizeTriggers();    
     }
     
     { PROFILE("Update VR devices");

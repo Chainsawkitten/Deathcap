@@ -5,6 +5,10 @@
 class SuperTrigger;
 class TriggerManager;
 
+namespace Json {
+    class Value;
+}
+
 namespace Component {
     class Trigger : public SuperComponent {
         friend class ::TriggerManager;

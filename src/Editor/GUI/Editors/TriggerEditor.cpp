@@ -59,6 +59,7 @@ namespace GUI {
             // is set and is indeed a repeat trigger.
             auto repeat = Managers().triggerManager->GetTriggerRepeat(comp);
             assert(repeat);
+            repeat->SetOwningEntity(comp.entity);
 
             switch (selectedTab) {
             case 0: {
@@ -148,9 +149,19 @@ namespace GUI {
 
                 ImGui::Text("Event");
                 ImGui::NextColumn();
-                ImGui::Text("Subject");
+                ImGui::Text("Shape");
+                ImGui::SameLine();
+                ImGui::Text("[?]");
+                if (ImGui::IsItemHovered()) {
+                    ImGui::SetTooltip("When this shape collide with trigger volume the trigger will be executed.");
+                }
                 ImGui::NextColumn();
                 ImGui::Text("Target entity");
+                ImGui::SameLine();
+                ImGui::Text("[?]");
+                if (ImGui::IsItemHovered()) {
+                    ImGui::SetTooltip("Entity to gather script from.");
+                }
                 ImGui::NextColumn();
                 ImGui::Text("Script method");
                 ImGui::Separator();
@@ -255,13 +266,6 @@ namespace GUI {
                     }
 
                     ImGui::Separator();
-
-                    if (repeat->GetEventVector()->at(i).check[0] == true,
-                        repeat->GetEventVector()->at(i).check[1] == true,
-                        repeat->GetEventVector()->at(i).check[2] == true,
-                        repeat->GetEventVector()->at(i).check[3] == true) {
-                        repeat->OnRetain();
-                    }
                 }
                 break;
             }

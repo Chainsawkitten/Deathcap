@@ -667,13 +667,10 @@ Entity* ScriptManager::GetEntity(unsigned int GUID) {
         if (entities[i]->GetUniqueIdentifier() == GUID) {
 
             return entities[i];
-
         }
-
     }
 
     return nullptr;
-
 }
 
 Component::Script* ScriptManager::CreateScript() {
@@ -755,8 +752,9 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
 
     // Find method to call.
     std::string methodDecl;
-    methodDecl.reserve(method.length() + 7); // additional `void ` and `()`
-    methodDecl.append("void ").append(method).append("()");
+    //methodDecl.reserve(method.length() + 7); // additional `void ` and `()`
+    //methodDecl.append("void ").append(method).append("()");
+    methodDecl.append(method);
     asIScriptFunction* scriptMethod = type->GetMethodByDecl(methodDecl.c_str());
     if (scriptMethod == nullptr)
         Log() << "Can't find method void " << method << "()\n";

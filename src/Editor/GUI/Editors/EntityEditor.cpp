@@ -582,6 +582,5 @@ void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
         triggerEditor->Open();
 
     triggerEditor->Show(*trigger);
-
     ImGui::Unindent();
 }
