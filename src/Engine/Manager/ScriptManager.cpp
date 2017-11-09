@@ -5,6 +5,7 @@
 #include <scriptmath/scriptmath.h>
 #include <scriptstdstring/scriptstdstring.h>
 #include <Utility/Log.hpp>
+#include <Video/Geometry/Geometry3D.hpp>
 #include <map>
 #include <typeindex>
 #include <sstream>
@@ -37,6 +38,7 @@
 #include "PhysicsManager.hpp"
 #include "ResourceManager.hpp"
 #include "RenderManager.hpp"
+#include "VRManager.hpp"
 
 using namespace Component;
 

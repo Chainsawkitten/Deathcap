@@ -3,13 +3,14 @@
 #include <map>
 #include <vector>
 #include <typeindex>
-#include "../Entity/World.hpp"
 #include <json/json.h>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include "../Component/SuperComponent.hpp"
 #include <fstream>
 #include "../linking.hpp"
+
+class World;
 
 /// %Entity containing various components.
 class Entity {
