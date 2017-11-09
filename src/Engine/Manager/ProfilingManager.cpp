@@ -6,7 +6,7 @@
 #include <psapi.h>
 #endif
 
-#include "../Utility/Log.hpp"
+#include <Utility/Log.hpp>
 
 ProfilingManager::ProfilingManager() : active(false) {
     for (int i = 0; i < Type::COUNT; ++i) {

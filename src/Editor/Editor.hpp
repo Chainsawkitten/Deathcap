@@ -7,6 +7,7 @@
 #include "GUI/FiltersWindow.hpp"
 #include "GUI/SavePromptWindow.hpp"
 #include "GUI/LogView.hpp"
+#include <Engine/Entity/World.hpp>
 #include <Engine/Util/MousePicking.hpp>
 #include <Engine/Util/RayIntersection.hpp>
 #include <string>

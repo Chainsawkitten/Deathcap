@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../Manager/Managers.hpp"
-#include "../Manager/VRManager.hpp"
 #include <json/json.h>
 #include <vector>
 #include "../linking.hpp"
