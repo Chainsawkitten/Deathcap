@@ -240,7 +240,6 @@ void RenderManager::UpdateBufferSize() {
 
 void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting) {
     // Render from camera.
-    renderer->StartRendering(renderSurface);
     glm::mat4 lightViewMatrix;
     glm::mat4 lightProjection;
     float aspectRatio = static_cast<float>(shadowPass->GetShadowWidth()) / shadowPass->GetShadowHeight();
@@ -279,7 +278,9 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
     }
     }
+
     // Render z-pass meshes.
+    renderer->StartRendering(renderSurface);
     renderSurface->GetDepthFrameBuffer()->BindWrite();
     { VIDEO_ERROR_CHECK("Render z-pass meshes");
     { PROFILE("Render z-pass meshes");
@@ -304,13 +305,19 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     renderSurface->GetDepthFrameBuffer()->Unbind();
 
     // Lights.
-    if (lighting) {
-        // Cull lights and update light list.
-        LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+    { VIDEO_ERROR_CHECK("Update lights");
+    { PROFILE("Update lights");
+    { GPUPROFILE("Update lights", Video::Query::Type::TIME_ELAPSED);
+        if (lighting) {
+            // Cull lights and update light list.
+            LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+        }
+        else {
+            // Use full ambient light and ignore lights in the scene.
+            LightAmbient();
+        }
     }
-    else {
-        // Use full ambient light and ignore lights in the scene.
-        LightAmbient();
+    }
     }
 
     // Render static meshes.
