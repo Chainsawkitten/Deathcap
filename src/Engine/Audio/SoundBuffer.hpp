@@ -18,7 +18,7 @@ namespace Audio {
             /**
              * @param soundFile The sound file containing the sound.
              */
-            ENGINE_API SoundBuffer(SoundFile* soundFile);
+            ENGINE_API explicit SoundBuffer(SoundFile* soundFile);
             
             /// Destructor.
             ENGINE_API ~SoundBuffer();

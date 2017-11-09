@@ -21,7 +21,7 @@ namespace Physics {
             /**
              * @param transform The world transform of the trigger volume.
              */
-            ENGINE_API Trigger(const btTransform& transform);
+            ENGINE_API explicit Trigger(const btTransform& transform);
 
         private:
             // Process observers against the trigger volume, passing the world

@@ -15,7 +15,7 @@ namespace Video {
             /**
              * @param size Size of the new render surface.
              */
-            VIDEO_API RenderSurface(const glm::vec2& size);
+            VIDEO_API explicit RenderSurface(const glm::vec2& size);
             
             /// Destructor.
             VIDEO_API ~RenderSurface();
