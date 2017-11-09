@@ -14,7 +14,6 @@ namespace Component {
 }
 
 namespace Physics {
-    class RigidBody;
     class Shape;
     class Trigger;
 }
@@ -129,6 +128,50 @@ class PhysicsManager {
          */
         ENGINE_API void SetMass(Component::RigidBody* comp, float mass);
 
+        /// Set the friction coefficient of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param friction Friction coefficient.
+         */
+        ENGINE_API void SetFriction(Component::RigidBody* comp, float friction);
+
+        /// Set the rolling friction coefficient of a Component::RigidBody
+        /// component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param friction Friction coefficient.
+         */
+        ENGINE_API void SetRollingFriction(Component::RigidBody* comp, float friction);
+
+        /// Set the spinning friction coefficient of a Component::RigidBody
+        /// component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param friction Friction coefficient.
+         */
+        ENGINE_API void SetSpinningFriction(Component::RigidBody* comp, float friction);
+
+        /// Set the restitution (bounciness) of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param cor Coefficient of restitution.
+         */
+        ENGINE_API void SetRestitution(Component::RigidBody* comp, float cor);
+
+        /// Set the linear damping factor of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param damping Linear damping.
+         */
+        ENGINE_API void SetLinearDamping(Component::RigidBody* comp, float damping);
+
+        /// Set the angular damping factor of a Component::RigidBody component.
+        /**
+         * @param comp Rigid body to alter.
+         * @param damping Angular damping.
+         */
+        ENGINE_API void SetAngularDamping(Component::RigidBody* comp, float damping);
+
         /// Turn a rigid body into a kinematic object, putting movement in the
         /// control of the programmer.
         /**
@@ -148,6 +191,12 @@ class PhysicsManager {
          * @param comp Rigid body to synchronize.
          */
         ENGINE_API void ForceTransformSync(Component::RigidBody* comp);
+
+        /// Halts movement of a kinematic rigid body.
+        /**
+         * @param comp Rigid body to halt.
+         */
+        ENGINE_API void HaltMovement(Component::RigidBody* comp);
 
         /// Get all shape components.
         /**

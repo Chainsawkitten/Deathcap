@@ -3,13 +3,14 @@
 #include <map>
 #include <vector>
 #include <typeindex>
-#include "../Entity/World.hpp"
 #include <json/json.h>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include "../Component/SuperComponent.hpp"
 #include <fstream>
 #include "../linking.hpp"
+
+class World;
 
 /// %Entity containing various components.
 class Entity {
@@ -47,9 +48,9 @@ class Entity {
         /// Set a new parent.
         /**
         * @param newParent The entity you want to be the new parent.
-        * @return Did we manage set the new parent?.
+        * @return The old parent.
         */
-        ENGINE_API bool SetParent(Entity* newParent);
+        ENGINE_API Entity* SetParent(Entity* newParent);
 
         /// Check if entity is a child.
         /**

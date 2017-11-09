@@ -159,10 +159,6 @@ void Editor::Show(float deltaTime) {
         // Show settings window.
         if (settingsWindow.IsVisible())
             settingsWindow.Show();
-
-        // Show log window.
-        if (logView.IsVisible())
-            logView.Show();
         
         // Show grid settings window.
         ShowGridSettings();
@@ -429,6 +425,10 @@ void Editor::ShowMainMenuBar(bool& play) {
             static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
             ImGui::MenuItem("Physics", "", &physics);
             EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
+            
+            static bool lighting = EditorSettings::GetInstance().GetBool("Lighting");
+            ImGui::MenuItem("Lighting", "", &lighting);
+            EditorSettings::GetInstance().SetBool("Lighting", lighting);
 
             ImGui::EndMenu();
         }
@@ -471,9 +471,10 @@ void Editor::ShowMainMenuBar(bool& play) {
 
 void Editor::ShowGridSettings() {
     if (showGridSettings) {
-        ImGui::SetNextWindowPos(ImVec2(1275, 25));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
-        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
+        glm::vec2 size(MainWindow::GetInstance()->GetSize());
+        ImGui::SetNextWindowPos(ImVec2((int)size.x - 255 - resourceView.GetEditorWidth(), 20));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 105), ImVec2(255, 105));
+        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
         ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
         EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
         ImGui::DragInt("Line Width", &gridSettings.lineWidth, 0.1f, 1, 5);
@@ -542,7 +543,7 @@ void Editor::ControlEditorCamera(float deltaTime) {
 }
 
 void Editor::Picking() {
-    if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+    if (Input()->Pressed(InputHandler::CONTROL) && Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
         mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
         mousePicker.Update();
         float lastDistance = INFINITY;

@@ -18,7 +18,7 @@ namespace Video {
             /**
              * @param type Specifies the type of query object.
              */
-            VIDEO_API Query(Type type);
+            VIDEO_API explicit Query(Type type);
             
             /// Destructor.
             VIDEO_API ~Query();
