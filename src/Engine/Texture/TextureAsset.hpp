@@ -35,9 +35,6 @@ class TextureAsset {
         /// The name of the texture.
         std::string name;
         
-        /// Whether to convert from SRGB space to linear space when loading.
-        bool srgb = false;
-        
         /// The folder containing the texture files.
         std::string path;
         
