@@ -120,6 +120,7 @@ private:
 
     World cameraWorld;
     Entity* cameraEntity;
+    Entity* currentEntity;
     Entity* selectedEntity;
     MousePicking mousePicker;
     RayIntersection rayIntersector;
@@ -130,13 +131,13 @@ private:
     double lastX = 0.0;
     double lastY = 0.0;
 
-    // Paint brush variables
+    // Paint brush variables.
     float paintTimer = 0.0f;
     float paintSpawnRate[1] = { 0.5f };
-    int brushSize[1] = { 1 };
     float paintObjScale[1] = { 1.0f };
     int paintScaleRandomness[1] = { 1 };
     bool toolMenuPressed = false;
+    bool spreadRand = false;
     std::string paintScene;
 
     GLFWcursor* cursors[5];
