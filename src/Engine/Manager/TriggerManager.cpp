@@ -62,10 +62,10 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
         eventstruct.m_shapeID = node.get("triggerEventStruct_ShapeID", 0).asInt();
         eventstruct.m_targetID = node.get("triggerEventStruct_TargetID", 0).asInt();
         eventstruct.m_scriptID = node.get("triggerEventStruct_ScriptID", 0).asInt();
-        eventstruct.check[0] = node.get("triggerEventStruct_Check_0", 0).asInt();
-        eventstruct.check[1] = node.get("triggerEventStruct_Check_1", 0).asInt();
-        eventstruct.check[2] = node.get("triggerEventStruct_Check_2", 0).asInt();
-        eventstruct.check[3] = node.get("triggerEventStruct_Check_3", 0).asInt();
+        eventstruct.check[0] = node.get("triggerEventStruct_Check_0", 0).asBool();
+        eventstruct.check[1] = node.get("triggerEventStruct_Check_1", 0).asBool();
+        eventstruct.check[2] = node.get("triggerEventStruct_Check_2", 0).asBool();
+        eventstruct.check[3] = node.get("triggerEventStruct_Check_3", 0).asBool();
 
         repeat->eventVector.push_back(eventstruct);
 

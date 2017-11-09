@@ -16,7 +16,7 @@ struct EventStruct {
     int m_shapeID = 0;
     int m_targetID = 0;
     int m_scriptID = 0;
-    int check[4] = { 0 }; /// Simple check, should probably be replaced soon.
+    bool check[4] = { false }; /// Simple check, should probably be replaced soon.
 };
 
 namespace Physics {
