@@ -46,7 +46,16 @@
 		"Resources/Constant Scene/Minecart/Script/Camera",
 		"Resources/Constant Scene/Minecart/Script/Lantern",
 		"Resources/Opening Scene/Audio/scr_AudioManager",
-		"Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1"
+		"Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1",
+		"Resources/Opening Scene/Lever/Lever",
+		"Resources/Opening Scene/Gate/Gates",
+		"Resources/Constant Scene/Minecart/Script/Minecart",
+		"Resources/Constant Scene/Minecart/Script/Camera",
+		"Resources/Constant Scene/Minecart/Script/Lantern",
+		"Resources/Opening Scene/Audio/scr_AudioManager",
+		"Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1",
+		"Resources/NewAssets/Scripts/Rock",
+		"Resources/NewAssets/Scripts/Bridge"
 	],
 	"startupScene" : "Resources/Opening Scene/Opening Scene",
 	"vrScale" : 1.5
