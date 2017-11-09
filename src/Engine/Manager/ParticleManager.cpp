@@ -43,9 +43,9 @@ void ParticleManager::Update(World& world, float time, bool preview) {
             world.SetParticleCount(world.GetParticleCount() - 1);
         }
     }
-
-    for (Component::ParticleSystemComponent* particleSystem : particleSystems.GetAll()) {
-        UpdateParticleSystem(world, particleSystem);
+    auto particleSystem = particleSystems.GetAll();
+    for (unsigned int i = 0; i < particleSystems.GetAll().size(); i++) {
+        emitterSettings[i] = particleSystem[i]->particleType;
     }
 
     for (unsigned int i = 0; i < world.GetNrOfParticleSystems(); ++i) {
@@ -75,9 +75,6 @@ void ParticleManager::Render(World& world, const glm::vec3& position, const glm:
 }
 
 void ParticleManager::UpdateParticleSystem(World& world, Component::ParticleSystemComponent* particleSystem) {
-    for (unsigned int i = 0; i < world.GetNrOfParticleSystems(); ++i) {
-        emitterSettings[i] = particleSystem->particleType;
-    }
 }
 
 void ParticleManager::RenderParticleSystem(World & world, const glm::mat4& viewProjectionMatrix) {

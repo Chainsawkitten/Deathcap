@@ -10,25 +10,26 @@ struct ParticlePos
     float x;
     float y;
     float z;
-    float w;          //Holds the speed so when we get this in the pixel shader we can color our particles based on that.
+    float w;
 };
 
-
-//ParticleVelocity are only used in the compute shader.
-//This is why I keep the  fTimeToLive here.
 struct ParticleVelocity
 {
     float vx;
     float vy;
     float vz;
-    float life; //Remaining time. 
+    float life; 
 };
 
 struct ParticleColor {
     float cx;
     float cy;
     float cz;
-    float ca; //Remaining time. 
+    float ca; 
+};
+
+struct ParticleModelMatrix {
+    glm::mat4 m = glm::mat4(1);
 };
 
 namespace Video
@@ -58,7 +59,7 @@ namespace Video
             glm::vec3 alpha;
 
             /// Color of the particle.
-            glm::vec3 color;
+            glm::vec3 color = glm::vec3(0, 0, 0);
 
             /// Fire rate.
             float rate = 1.0f;
@@ -132,12 +133,15 @@ namespace Video
         ParticlePos *points;
         ParticleVelocity *vels;
         ParticleColor *col;
+        ParticleModelMatrix *rots;
+        glm::mat4 rotMat;
 
         float timer = 0.0f;
 
         GLuint posSSbo;
         GLuint velSSbo;
         GLuint colSSbo;
+        GLuint mmSSbo;
         GLuint m_glDrawVAO;
 
     };

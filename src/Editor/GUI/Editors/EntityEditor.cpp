@@ -540,6 +540,9 @@ void GUI::EntityEditor::ParticleSystemEditor(Component::ParticleSystemComponent*
 {
     ImGui::Text("Particle System");
     ImGui::Indent();
+    if (ImGui::Button("Curve editor")) {
+        curveEditor.SetVisible(!curveEditor.IsVisible());
+    }
     int rows = Managers().particleManager->GetTextureAtlasRows();
     float column = static_cast<float>(particleSystem->particleType.textureIndex % rows);
     float row = static_cast<float>(particleSystem->particleType.textureIndex / rows);
@@ -551,15 +554,9 @@ void GUI::EntityEditor::ParticleSystemEditor(Component::ParticleSystemComponent*
     ImGui::DragFloat("Scale", &particleSystem->particleType.scale, 0.2f, 0.1f, 5.0f);
     ImGui::DragFloat3("Velocity", &particleSystem->particleType.velocity[0], 1.0f, -1.0f, 1.0f);
     ImGui::DragFloat("Alpha Control", &particleSystem->particleType.alpha_control, 1.0f, 0.1f, 10.0f);
-    ImGui::DragFloat("Mass", &particleSystem->particleType.mass, 0.01f, 0.01f, 1.0f);
-
+    ImGui::DragFloat("Mass", &particleSystem->particleType.mass, 0.001f, 0.001f, 1.0f);
     ImGui::DragInt("Spread", &particleSystem->particleType.spread, 1.0f, 1, 100);
     ImGui::DragFloat3("Random Velocity", &particleSystem->particleType.randomVec[0], 1.0f, -10.0f, 10.0f);
-
-    if (ImGui::Button("Curve editor")) {
-        curveEditor.SetVisible(!curveEditor.IsVisible());
-    }
-
     ImGui::DragFloat("Speed", &particleSystem->particleType.velocityMultiplier, 1.0f, 0.01f, 100.0f);
 
     for (unsigned int i = 0; i < curveEditor.GetAllCurves().size(); i++) {

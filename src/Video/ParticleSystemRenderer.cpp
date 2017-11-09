@@ -14,7 +14,25 @@ ParticleSystemRenderer::ParticleSystemRenderer()
     points = new ParticlePos[nr_particles];
     vels = new ParticleVelocity[nr_particles];
     col = new ParticleColor[nr_particles];
+    rots = new ParticleModelMatrix[nr_particles];
     srand(time(NULL));
+
+    rotMat[0][0] = cos(1);
+    rotMat[0][1] = -sin(1);
+    rotMat[0][2] = 0;
+    rotMat[0][3] = 1;
+    rotMat[1][0] = sin(1);
+    rotMat[1][1] = cos(1);
+    rotMat[1][2] = 0;
+    rotMat[1][3] = 1;
+    rotMat[2][0] = 0;
+    rotMat[2][1] = 0;
+    rotMat[2][2] = 0;
+    rotMat[2][3] = 1;
+    rotMat[3][0] = 0;
+    rotMat[3][1] = 0;
+    rotMat[3][2] = 0;
+    rotMat[3][3] = 1;
 }
 
 ParticleSystemRenderer::ParticleSystemRenderer(int count)
@@ -22,7 +40,25 @@ ParticleSystemRenderer::ParticleSystemRenderer(int count)
     points = new ParticlePos[count];
     vels = new ParticleVelocity[count];
     col = new ParticleColor[count];
+    rots = new ParticleModelMatrix[count];
     srand(time(NULL));
+
+    rotMat[0][0] = cos(10);
+    rotMat[0][1] = -sin(10);
+    rotMat[0][2] = 0;
+    rotMat[0][3] = 1;
+    rotMat[1][0] = sin(10);
+    rotMat[1][1] = cos(10);
+    rotMat[1][2] = 0;
+    rotMat[1][3] = 1;
+    rotMat[2][0] = 0;
+    rotMat[2][1] = 0;
+    rotMat[2][2] = 0;
+    rotMat[2][3] = 1;
+    rotMat[3][0] = 0;
+    rotMat[3][1] = 0;
+    rotMat[3][2] = 0;
+    rotMat[3][3] = 1;
 }
 
 ParticleSystemRenderer::~ParticleSystemRenderer()
@@ -52,6 +88,7 @@ void ParticleSystemRenderer::Init()
 
 void ParticleSystemRenderer::CreateStorageBuffers()
 {
+    // positions.
 
     for (int i = 0; i < this->nr_particles; i++)
     {
@@ -80,6 +117,8 @@ void ParticleSystemRenderer::CreateStorageBuffers()
 
     glBindVertexArray(0);
 
+    // Velocity.
+
     for (int i = 0; i < this->nr_particles; i++)
     {
         vels[i].vx = 0.0f;
@@ -93,6 +132,8 @@ void ParticleSystemRenderer::CreateStorageBuffers()
     glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(ParticlePos)*nr_particles, &vels[0], GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, velSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
+
+    // Color.
 
     for (int i = 0; i < this->nr_particles; i++) {
         col[i].cx = 0.0f;
@@ -136,6 +177,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     glUniform1f(computeShaderProgram->GetUniformLocation("lifetime"), settings.lifetime);
     glUniform1f(computeShaderProgram->GetUniformLocation("speed"), settings.velocityMultiplier);
     glUniform1f(computeShaderProgram->GetUniformLocation("mass"), settings.mass);
+    glUniform3fv(computeShaderProgram->GetUniformLocation("modColor"), 1, &settings.color[0]);
 
     nr_new_particles = settings.nr_new_particles;
     particleShootIndex.y = settings.nr_new_particles - 1;

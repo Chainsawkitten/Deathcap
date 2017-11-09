@@ -17,21 +17,17 @@ layout(binding = 2) buffer Col
     vec4 Colors[];
 };
 
+
 layout( local_size_x = 128, local_size_y = 1, local_size_z = 1 ) in;
 
 uniform vec2 ShootIndex;
 uniform float timer;
 uniform float rate;
 uniform vec3 Velocity;
-
 uniform float lifetime;
-
 uniform float speed;
-
 uniform float alphaControl;
-
 uniform float mass;
-
 uniform vec3[32] randomVec;
 
 void main(void)
