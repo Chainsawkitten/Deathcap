@@ -128,15 +128,22 @@ void VRManager::SetScale(float scale) {
     this->scale = scale;
 }
 
-bool VRManager::GetInput(vr::EVRButtonId buttonID) {
-    for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++) {
-        vr::VRControllerState_t controllerState;
-        if (vrSystem->GetControllerState(unDevice, &controllerState, sizeof(controllerState))) {
-            pressedTrackedDevice[unDevice] = controllerState.ulButtonPressed == 0;
-            if (controllerState.ulButtonPressed & vr::ButtonMaskFromId(buttonID))
-                return true;
+bool VRManager::GetInput(vr::EVRButtonId buttonID, int ID) {
+    if (ID == 1 || ID == 2) {
+        vr::ETrackedControllerRole desiredRole = static_cast<vr::ETrackedControllerRole>(ID);
+        for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++) {
+            vr::ETrackedControllerRole role = vrSystem->GetControllerRoleForTrackedDeviceIndex(unDevice);
+            if (role == desiredRole) {
+                vr::VRControllerState_t controllerState;
+                if (vrSystem->GetControllerState(unDevice, &controllerState, sizeof(controllerState))) {
+                    pressedTrackedDevice[unDevice] = controllerState.ulButtonPressed == 0;
+                    if (controllerState.ulButtonPressed & vr::ButtonMaskFromId(buttonID))
+                        return true;
+                }
+            }
         }
     }
+
     return false;
 }
 

@@ -1,11 +1,11 @@
 #include "DebugDrawing.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/constants.hpp>
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"
 #include "DebugDrawing.vert.hpp"
 #include "DebugDrawing.frag.hpp"
-#include "glm/gtc/constants.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 

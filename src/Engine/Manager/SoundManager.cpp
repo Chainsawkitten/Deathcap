@@ -9,7 +9,7 @@
 #include "../Audio/SoundBuffer.hpp"
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
-#include "portaudio.h"
+#include <portaudio.h>
 #include <cstdint>
 #include <cstring>
 

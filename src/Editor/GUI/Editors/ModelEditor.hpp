@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
+#include <glm/glm.hpp>
 #include "../FileSelector.hpp"
-#include "Util/AssetConverter.hpp"
 #include "../../Resources.hpp"
 
 namespace Geometry {
