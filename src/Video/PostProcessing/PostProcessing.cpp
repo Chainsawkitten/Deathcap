@@ -1,13 +1,13 @@
 #include "PostProcessing.hpp"
 
-#include <Video/Shader/ShaderProgram.hpp>
-#include <Video/Geometry/Rectangle.hpp>
-#include <Video/PostProcessing/Filter.hpp>
-#include "Shader/Shader.hpp"
+#include "../Shader/ShaderProgram.hpp"
+#include "../Geometry/Rectangle.hpp"
+#include "Filter.hpp"
+#include "../Shader/Shader.hpp"
 #include <Post.vert.hpp>
-#include "RenderSurface.hpp"
-#include "Buffer/ReadWriteTexture.hpp"
-#include "Buffer/FrameBuffer.hpp"
+#include "../RenderSurface.hpp"
+#include "../Buffer/ReadWriteTexture.hpp"
+#include "../Buffer/FrameBuffer.hpp"
 
 using namespace Video;
 

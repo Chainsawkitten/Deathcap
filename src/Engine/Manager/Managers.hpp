@@ -1,6 +1,5 @@
 #pragma once
 
-#include <typeinfo>
 #include "../linking.hpp"
 
 class ResourceManager;
@@ -12,12 +11,6 @@ class ScriptManager;
 class DebugDrawingManager;
 class ProfilingManager;
 class VRManager;
-
-class World;
-
-namespace Component {
-    class SuperComponent;
-}
 
 /// Singleton class that holds all subsystems.
 class Hub {
