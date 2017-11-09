@@ -1,0 +1,165 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Testing/Platform-2"
+			},
+			"children" : null,
+			"name" : "Entity #3",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.70710676908493042,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 10.0,
+				"y" : 10.0,
+				"z" : 10.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510219163
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Testing/Platform-2"
+			},
+			"children" : null,
+			"name" : "Entity #4",
+			"position" : 
+			{
+				"x" : 65.331687927246094,
+				"y" : -34.070198059082031,
+				"z" : -40.424163818359375
+			},
+			"rotation" : 
+			{
+				"w" : 0.5001220703125,
+				"x" : -0.49987787008285522,
+				"y" : 0.49987787008285522,
+				"z" : 0.5001220703125
+			},
+			"scale" : 
+			{
+				"x" : 10.0,
+				"y" : 10.0,
+				"z" : 10.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510219198
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Testing/Platform-2"
+			},
+			"children" : null,
+			"name" : "Entity #5",
+			"position" : 
+			{
+				"x" : -7.7935352325439453,
+				"y" : -93.719711303710938,
+				"z" : -12.359664916992188
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 10.0,
+				"y" : 10.0,
+				"z" : 10.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510219268
+		},
+		{
+			"name" : "asd",
+			"position" : 
+			{
+				"x" : -29.954000473022461,
+				"y" : -32.951999664306641,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1510219039
+}

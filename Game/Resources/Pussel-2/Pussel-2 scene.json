@@ -372,7 +372,7 @@
 			"uid" : 1510144268
 		},
 		{
-			"name" : "Root",
+			"name" : "Player",
 			"position" : 
 			{
 				"x" : 30.795001983642578,
@@ -388,9 +388,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
+				"x" : 0.20000000298023224,
+				"y" : 0.20000000298023224,
+				"z" : 0.20000000298023224
 			},
 			"scene" : true,
 			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
