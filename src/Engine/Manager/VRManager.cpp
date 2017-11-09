@@ -141,8 +141,7 @@ bool VRManager::GetInput(vr::EVRButtonId buttonID, int ID) {
                 }
             }
         }
-    }
-    else if (ID == 2) {
+    } else if (ID == 2) {
         for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++) {
             vr::ETrackedControllerRole role = vrSystem->GetControllerRoleForTrackedDeviceIndex(unDevice);
             if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand) {
