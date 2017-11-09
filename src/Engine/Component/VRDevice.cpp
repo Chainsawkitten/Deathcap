@@ -5,6 +5,7 @@
 
 namespace Component {
     VRDevice::VRDevice() {
+        controllerID = 1;
     }
 
     VRDevice::~VRDevice() {
