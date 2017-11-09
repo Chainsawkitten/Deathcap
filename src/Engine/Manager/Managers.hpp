@@ -22,47 +22,47 @@ namespace Component {
 
 /// Singleton class that holds all subsystems.
 class Hub {
-    ENGINE_API friend Hub& Managers();
+        ENGINE_API friend Hub& Managers();
 
 public:
-    /// The resource manager instance.
-    ResourceManager* resourceManager;
+        /// The resource manager instance.
+        ResourceManager* resourceManager;
 
-    /// The render manager instance.
-    RenderManager* renderManager;
+        /// The render manager instance.
+        RenderManager* renderManager;
 
-    /// The particle manager instance.
-    ParticleManager* particleManager;
+        /// The particle manager instance.
+        ParticleManager* particleManager;
 
-    /// The physics manager instance.
-    PhysicsManager* physicsManager;
+        /// The physics manager instance.
+        PhysicsManager* physicsManager;
 
-    /// The sound manager instance.
-    SoundManager* soundManager;
+        /// The sound manager instance.
+        SoundManager* soundManager;
 
-    /// The script manager instance.
-    ScriptManager* scriptManager;
+        /// The script manager instance.
+        ScriptManager* scriptManager;
 
-    /// The debug drawing manager instance.
-    DebugDrawingManager* debugDrawingManager;
+        /// The debug drawing manager instance.
+        DebugDrawingManager* debugDrawingManager;
 
-    /// The profiling manager instance.
-    ProfilingManager* profilingManager;
+        /// The profiling manager instance.
+        ProfilingManager* profilingManager;
 
-    /// The trigger manager instance.
-    TriggerManager* triggerManager;
+        /// The trigger manager instance.
+        TriggerManager* triggerManager;
 
-    /// The VR manager instance.
-    VRManager* vrManager;
+        /// The VR manager instance.
+        VRManager* vrManager;
 
-    /// Initialize all subsystems.
-    ENGINE_API void StartUp();
+        /// Initialize all subsystems.
+        ENGINE_API void StartUp();
 
-    /// Deinitialize all subsystems.
-    ENGINE_API void ShutDown();
+        /// Deinitialize all subsystems.
+        ENGINE_API void ShutDown();
 
-    /// Clears the killed components of all managers.
-    ENGINE_API void ClearKilledComponents();
+        /// Clears the killed components of all managers.
+        ENGINE_API void ClearKilledComponents();
 
 private:
     Hub();
@@ -74,6 +74,6 @@ private:
 
 /// Get a hub containing all the subsystems.
 /**
-* @return A hub containing all the subsystems.
-*/
+ * @return A hub containing all the subsystems.
+ */
 ENGINE_API Hub& Managers();

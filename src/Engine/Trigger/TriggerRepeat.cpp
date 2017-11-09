@@ -9,6 +9,7 @@
 #include "../Physics/Shape.hpp"
 #include "../Hymn.hpp"
 
+
 TriggerRepeat::TriggerRepeat() {
 
 }
@@ -30,6 +31,7 @@ Entity* GetEntity(int GUID) {
 
     return nullptr;
 }
+
 
 // ADD SUPPORT FOR VECTOR
 void TriggerRepeat::OnEnter() {
@@ -101,7 +103,7 @@ void TriggerRepeat::SetCooldown(float value) {
     cooldown = value;
 }
 
-float TriggerRepeat::GetTriggerCharges() {
+int TriggerRepeat::GetTriggerCharges() {
     return triggerCharges;
 }
 
@@ -121,7 +123,7 @@ void TriggerRepeat::HandleTriggerEvent() {
     triggered = true;
 }
 
-std::vector<EventStruct> *TriggerRepeat::GetEventVector() {
+std::vector<triggerEvent::EventStruct> *TriggerRepeat::GetEventVector() {
     return &eventVector;
 }
 

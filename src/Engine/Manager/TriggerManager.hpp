@@ -19,6 +19,7 @@ namespace Physics {
     class Shape;
 }
 
+/// Trigger management.
 class TriggerManager {
     friend class Hub;
 
@@ -53,7 +54,7 @@ class TriggerManager {
          * @param trigger Component to access.
          * @return The repeat trigger if present, or nullptr if something else.
          */
-        ENGINE_API TriggerRepeat* GetTriggerRepeat(Component::Trigger& trigger);
+        ENGINE_API TriggerRepeat* GetTriggerRepeat(const Component::Trigger& trigger) const;
 
         /// Get all trigger components.
         /**

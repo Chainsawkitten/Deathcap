@@ -31,20 +31,20 @@ namespace Component {
 
         /// Save the component.
         /**
-        * @return JSON value to be stored on disk.
-        */
+         * @return JSON value to be stored on disk.
+         */
         ENGINE_API Json::Value Save() const override;
 
         /// Get trigger of this component.
         /**
-        * @return The %Trigger
-        */
+         * @return The %Trigger
+         */
         ENGINE_API SuperTrigger* GetTrigger();
 
         /// Get trigger of this component.
         /**
-        * @param trigger The trigger to be set.
-        */
+         * @param trigger The trigger to be set.
+         */
         ENGINE_API void SetTrigger(SuperTrigger* trigger);
 
         /// What type of trigger type this component is. Set to ONCE by default.

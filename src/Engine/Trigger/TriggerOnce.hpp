@@ -31,74 +31,74 @@ public:
 
     /// Get the name of the trigger.
     /**
-    * @return The name of the trigger.
-    */
+     * @return The name of the trigger.
+     */
     ENGINE_API std::string GetName();
 
     /// Set the name of the trigger.
     /**
-    * @param value The name of the trigger.
-    */
+     * @param value The name of the trigger.
+     */
     ENGINE_API void SetName(std::string value);
 
     /// Get name of target function.
     /**
-    * @return Name of target function.
-    */
+     * @return Name of target function.
+     */
     ENGINE_API std::string GetTargetFunction();
 
     /// Set name of target function.
     /**
-    * @param value Name of target function.
-    */
+     * @param value Name of target function.
+     */
     ENGINE_API void SetTargetFunction(std::string value);
 
     /// If trigger is starting active or not.
     /**
-    * @return If trigger is starting active or not.
-    */
+     * @return If trigger is starting active or not.
+     */
     ENGINE_API bool GetStartActive();
 
     /// Set if trigger is starting active or not.
     /**
-    * @param value If trigger is starting active or not.
-    */
+     * @param value If trigger is starting active or not.
+     */
     ENGINE_API void SetStartActive(bool value);
 
     /// Get the delay before the trigger gets active.
     /**
-    * @return The delay before the trigger gets active.
-    */
+     * @return The delay before the trigger gets active.
+     */
     ENGINE_API float GetDelay();
 
     /// Set the delay before the trigger gets active.
     /**
-    * @param value The delay before the trigger gets active.
-    */
+     * @param value The delay before the trigger gets active.
+     */
     ENGINE_API void SetDelay(float value);
 
     /// Pointer to target entity.
     /**
-    * @return Pointer to target entity.
-    */
+     * @return Pointer to target entity.
+     */
     ENGINE_API Entity* GetTargetEntity();
 
     /// Set pointer to target entity.
     /**
-    * @param value Pointer to target entity.
-    */
+     * @param value Pointer to target entity.
+     */
     ENGINE_API void SetTargetEntity(Entity* value);
 
     /// Pointer to collided entity.
     /**
-    * @return Pointer to collided entity.
-    */
+     * @return Pointer to collided entity.
+     */
     ENGINE_API Entity* GetCollidedEntity();
 
     /// Set pointer to collided entity.
     /**
-    * @param value Pointer to collided entity.
-    */
+     * @param value Pointer to collided entity.
+     */
     ENGINE_API void SetCollidedEntity(Entity* value);
 
 private:

@@ -139,7 +139,7 @@ namespace GUI {
 
                     // Hardcoded single event for demonstration purposes
                     if (ImGui::Button("New event", ImVec2(100, 25))) {
-                        EventStruct newStruct;
+                        triggerEvent::EventStruct newStruct;
                         repeat->GetEventVector()->push_back(newStruct);
                     }
 
@@ -270,6 +270,5 @@ namespace GUI {
 
             ImGui::EndPopup();
         }
-
     }
 }

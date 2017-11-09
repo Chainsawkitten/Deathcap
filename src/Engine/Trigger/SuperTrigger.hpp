@@ -22,8 +22,8 @@ class SuperTrigger {
 
         /// Save the trigger.
         /**
-        * @return JSON value to be stored on disk.
-        */
+         * @return JSON value to be stored on disk.
+         */
         virtual Json::Value Save() = 0;
 
         /// Initialize entity references for triggers via entity UIDs.

@@ -45,14 +45,14 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
     repeat->triggerVolume = triggerVolume;
 
     if (!name.empty()) {
-        EventStruct eventstruct;
+        triggerEvent::EventStruct eventstruct;
 
-        repeat->name = node.get("triggerName", 0).asString();
-        repeat->startActive = node.get("triggerActive", 0).asBool();
+        repeat->name = node.get("triggerName", "").asString();
+        repeat->startActive = node.get("triggerActive", false).asBool();
         repeat->delay = node.get("triggerDelay", 0).asFloat();
         repeat->cooldown = node.get("triggerCooldown", 0).asFloat();
         repeat->triggerCharges = node.get("triggerCharges", 0).asInt();
-        repeat->targetFunction.push_back(node.get("triggerFunction", 0).asString());
+        repeat->targetFunction.push_back(node.get("triggerFunction", "").asString());
 
         repeat->collidedEntityUID = node.get("triggerCollidedEntity", 0).asInt();
         repeat->targetEntityUID = node.get("triggerTargetEntity", 0).asInt();
@@ -62,10 +62,10 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
         eventstruct.m_shapeID = node.get("triggerEventStruct_ShapeID", 0).asInt();
         eventstruct.m_targetID = node.get("triggerEventStruct_TargetID", 0).asInt();
         eventstruct.m_scriptID = node.get("triggerEventStruct_ScriptID", 0).asInt();
-        eventstruct.check[0] = node.get("triggerEventStruct_Check_0", 0).asBool();
-        eventstruct.check[1] = node.get("triggerEventStruct_Check_1", 0).asBool();
-        eventstruct.check[2] = node.get("triggerEventStruct_Check_2", 0).asBool();
-        eventstruct.check[3] = node.get("triggerEventStruct_Check_3", 0).asBool();
+        eventstruct.check[0] = node.get("triggerEventStruct_Check_0", false).asBool();
+        eventstruct.check[1] = node.get("triggerEventStruct_Check_1", false).asBool();
+        eventstruct.check[2] = node.get("triggerEventStruct_Check_2", false).asBool();
+        eventstruct.check[3] = node.get("triggerEventStruct_Check_3", false).asBool();
 
         repeat->eventVector.push_back(eventstruct);
 
@@ -93,7 +93,7 @@ void TriggerManager::AddTriggerRepeat(Component::Trigger* trigger, std::shared_p
 }
 
 
-TriggerRepeat* TriggerManager::GetTriggerRepeat(Component::Trigger& trigger) {
+TriggerRepeat* TriggerManager::GetTriggerRepeat(const Component::Trigger& trigger) const {
     return dynamic_cast<TriggerRepeat*>(trigger.superTrigger);
 }
 

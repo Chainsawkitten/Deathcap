@@ -18,7 +18,7 @@ namespace Physics {
 
         private:
             // Construct a trigger with world transform |transform|.
-            Trigger(const btTransform& transform);
+            explicit Trigger(const btTransform& transform);
 
             // Process observers against the trigger volume, passing the world
             // in which rigid bodies reside.
