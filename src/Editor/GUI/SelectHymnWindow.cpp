@@ -50,6 +50,7 @@ bool SelectHymnWindow::IsVisible() const {
 
 void SelectHymnWindow::SetVisible(bool visible) {
     this->visible = visible;
+    name[0] = '\0';
 }
 
 void SelectHymnWindow::SetTitle(const char* title) {

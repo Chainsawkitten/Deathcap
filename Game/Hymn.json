@@ -35,7 +35,13 @@
 				"key" : 33,
 				"state" : 1
 			},
-			"size" : 2
+			"2" : 
+			{
+				"action" : "Grip",
+				"key" : 2,
+				"state" : 1
+			},
+			"size" : 3
 		}
 	],
 	"scripts" : 
@@ -47,6 +53,7 @@
 		"Resources/Constant Scene/Minecart/Script/Lantern",
 		"Resources/Opening Scene/Audio/scr_AudioManager",
 		"Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1"
+
 	],
 	"startupScene" : "Resources/Opening Scene/Opening Scene",
 	"vrScale" : 1.5

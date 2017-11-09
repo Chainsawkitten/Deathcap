@@ -10,11 +10,19 @@ namespace GUI {
     void CylinderShapeEditor::Show(Component::Shape* comp) {
         ImGui::Indent();
 
-        if (ImGui::InputFloat("Radius", &radius))
+        if (ImGui::InputFloat("Radius", &radius)) {
+            if (radius < 0.0f)
+                radius = 0.0f;
+            
             Apply(comp);
+        }
 
-        if (ImGui::InputFloat("Length", &length))
+        if (ImGui::InputFloat("Length", &length)) {
+            if (length < 0.0f)
+                length = 0.0f;
+            
             Apply(comp);
+        }
 
         ImGui::Unindent();
     }

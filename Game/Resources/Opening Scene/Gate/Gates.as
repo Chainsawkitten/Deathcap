@@ -33,7 +33,7 @@ class Gates{
         lastSpeed = self.position.y;
     }
     
-    void ReceiveMessage(int signal){
+    void ReceiveMessage(Entity @sender, int signal){
         if(signal == 1 && !trigger)
             trigger = true;
     }
