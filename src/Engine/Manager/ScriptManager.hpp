@@ -97,7 +97,7 @@ class ScriptManager {
          * @param recipient The entity to receive the message.
          * @param type The type of message to send.
          */
-        ENGINE_API void SendMessage(Entity* recipient, int type);
+        ENGINE_API void SendMessage(Entity* recipient, Entity* sender, int type);
 
         /// Fetches an entity using its GUID.
         /**
@@ -143,10 +143,18 @@ class ScriptManager {
         
         /// The entity currently being executed.
         Entity* currentEntity;
+
+        /// Get the set of entities with a script component that accepts
+        /// update events.
+        /**
+         * @return Entities with script updates.
+         */
+        ENGINE_API const std::vector<Entity*>& GetUpdateEntities();
         
     private:
         struct Message {
             Entity* recipient;
+            Entity* sender;
             int type;
         };
         

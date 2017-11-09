@@ -1,28 +1,23 @@
-class Minecart{
+class Minecart_Puzzle_1{
     Hub @hub;
     Entity @self;
+    Rigidbody @selfBody;
+    Rigidbody @puzzleBody;
     float speed;
     bool trigger;
     float stopTime;
     float endTime;
-    float a;
-    float b;
-    float c;
     bool hasHitPlane;
     
-    Minecart(Entity @entity){
+    Minecart_Puzzle_1(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        speed = 0.0f;
+        @selfBody = self.GetRigidBody();
+        @puzzleBody = self.GetParent().GetParent().GetChild("BreakCheck").GetRigidBody();
+        speed = 2.0f;
         stopTime = 0.0f;
         endTime = 7.5f;
         hasHitPlane = false;
-        
-        // Calculate second grade equation.
-        float t = endTime;
-        c = speed;
-        a = (3.0f * c - 300.0f / t) / (t * t);
-        b = 100.0f / (t * t) - 2.0f * a * t / 3.0f - 2.0f * c / t;
         
         trigger = false;
         RegisterUpdate();
@@ -35,16 +30,14 @@ class Minecart{
         // Braking phase
         if (hasHitPlane && stopTime < endTime){
             stopTime += deltaTime;
-            float t = stopTime; //Break
-            float zPos = a * t * t * t / 3.0f + b * t * t / 2.0f + c * t;
-            self.position.z = 450.0f - zPos;
+            speed -= 0.0056f;
         }
         // Stopping phase
         else if (stopTime >= endTime && !trigger) {
-            self.position.z = 400.0f;
+            self.position.z = 4;
             speed = 0.0f;
         }
-        // Start again after lever has been pulled
+        // Start again after puzzle has been solved
         if (trigger){
             if (speed < 2.0f)
                 speed += 0.00664f;
@@ -55,7 +48,7 @@ class Minecart{
         }
     }
     
-    void ReceiveMessage(Entity @sender, int signal){
+    void ReceiveMessage(int signal){
         if (signal == 1)
             trigger = true;
     }

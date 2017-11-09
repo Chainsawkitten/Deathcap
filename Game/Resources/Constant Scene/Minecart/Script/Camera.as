@@ -1,16 +1,16 @@
-class Player{
+class Camera{
     Hub @hub;
     Entity @self;
     vec2 Cursor;
     float deathTimer;
     
-    Player(Entity @entity){
+    Camera(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        RegisterUpdate();
         Cursor = vec2(0,0);
         
         deathTimer = 0.0f;
+        RegisterUpdate();
     }
     
     // Update the camera's rotation based on mouse movement.
