@@ -36,6 +36,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <typeinfo>
 
+#ifdef _WIN32
+#ifdef memtrack_EXPORTS
+#define MEMTRACK_API __declspec(dllexport)
+#else
+#define MEMTRACK_API __declspec(dllimport)
+#endif
+#else
+#define MEMTRACK_API
+#endif
+
 namespace MemTrack
 {
     /* ---------------------------------------- class MemStamp */
@@ -53,11 +63,11 @@ namespace MemTrack
 
     /* ---------------------------------------- memory allocation and stamping prototypes */
 
-    void *TrackMalloc(size_t size);
-    void TrackFree(void *p);
-    void TrackStamp(void *p, const MemStamp &stamp, char const *typeName);
-    void TrackDumpBlocks();
-    void TrackListMemoryUsage();
+    MEMTRACK_API void *TrackMalloc(size_t size);
+    MEMTRACK_API void TrackFree(void *p);
+    MEMTRACK_API void TrackStamp(void *p, const MemStamp &stamp, char const *typeName);
+    MEMTRACK_API void TrackDumpBlocks();
+    MEMTRACK_API void TrackListMemoryUsage();
 
     /* ---------------------------------------- operator * (MemStamp, ptr) */
 
@@ -73,5 +83,6 @@ namespace MemTrack
 
 #define MEMTRACK_NEW MemTrack::MemStamp(__FILE__, __LINE__) * new
 #define new MEMTRACK_NEW
+
 
 #endif    // MemTrack_HPP_

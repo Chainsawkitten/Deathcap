@@ -35,7 +35,7 @@ target_link_libraries(imguizmo imgui)
 target_include_directories(imguizmo INTERFACE ImGuizmo)
 
 # MemTrack
-add_library(memtrack STATIC memtrack/MemTrack.cpp)
+add_library(memtrack SHARED memtrack/MemTrack.cpp)
 target_include_directories(memtrack INTERFACE memtrack)
 
 # OpenAL Soft
