@@ -85,8 +85,7 @@ void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::str
 }
 
 void print(const std::string& message) {
-    std::cout << message;
-    //Log() << message;
+    Log() << message;
 }
 
 void RegisterUpdate() {
@@ -124,7 +123,7 @@ void RestartScene() {
     Hymn().restart = true;
 }
 
-Entity* IsIntersect(Entity* checker) {/*
+bool IsIntersect(Entity* checker, Entity* camera) {
     MousePicking mousePicker = MousePicking(camera, camera->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
     mousePicker.Update();
     RayIntersection rayIntersector;
@@ -136,8 +135,7 @@ Entity* IsIntersect(Entity* checker) {/*
             return true;
         return false;
     }
-    return false;*/
-    return nullptr;
+    return false;
 }
 
 bool IsVRActive() {
@@ -459,7 +457,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
-    engine->RegisterGlobalFunction("Entity@ IsIntersect(Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsVRActive()", asFUNCTION(IsVRActive), asCALL_CDECL);
 }
 
