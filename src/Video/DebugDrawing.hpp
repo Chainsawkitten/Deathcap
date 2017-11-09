@@ -51,11 +51,11 @@ namespace Video {
             
             /// A debug drawing cuboid.
             struct Cuboid {
-                /// The minimum coordinates of the box.
-                glm::vec3 minCoordinates;
+                /// The dimensions of the cuboid.
+                glm::vec3 dimensions;
                 
-                /// The maximum coordinates of the box.
-                glm::vec3 maxCoordinates;
+                /// The matrix used to transform the cuboid.
+                glm::mat4 matrix;
                 
                 /// Color.
                 glm::vec3 color;
@@ -94,6 +94,30 @@ namespace Video {
                 bool depthTesting;
             };
             
+            /// A debug drawing circle.
+            struct Circle {
+                /// The center position of the circle.
+                glm::vec3 position;
+                
+                /// The circle normal.
+                glm::vec3 normal;
+                
+                /// Radius.
+                float radius;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
             /// A debug drawing sphere.
             struct Sphere {
                 /// The center position of the sphere.
@@ -101,6 +125,54 @@ namespace Video {
                 
                 /// Radius.
                 float radius;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
+            /// A debug drawing cylinder.
+            struct Cylinder {
+                /// Radius.
+                float radius;
+                
+                /// Length.
+                float length;
+                
+                /// The matrix used to transform the cylinder.
+                glm::mat4 matrix;
+                
+                /// Color.
+                glm::vec3 color;
+                
+                /// Line width.
+                float lineWidth;
+                
+                /// Duration (in seconds).
+                float duration;
+                
+                /// Whether to enable depth testing.
+                bool depthTesting;
+            };
+            
+            /// A debug drawing cone.
+            struct Cone {
+                /// Radius.
+                float radius;
+                
+                /// Height.
+                float height;
+                
+                /// The matrix used to transform the cone.
+                glm::mat4 matrix;
                 
                 /// Color.
                 glm::vec3 color;
@@ -152,11 +224,29 @@ namespace Video {
              */
             VIDEO_API void DrawPlane(const Plane& plane);
             
+            /// Draw a circle.
+            /**
+             * @param circle The circle to draw.
+             */
+            VIDEO_API void DrawCircle(const Circle& circle);
+            
             /// Draw a sphere.
             /**
              * @param sphere The sphere to draw.
              */
             VIDEO_API void DrawSphere(const Sphere& sphere);
+            
+            /// Draw a cylinder.
+            /**
+             * @param cylinder The cylinder to draw.
+             */
+            VIDEO_API void DrawCylinder(const Cylinder& cylinder);
+            
+            /// Draw a cone.
+            /**
+             * @param cone The cone to draw.
+             */
+            VIDEO_API void DrawCone(const Cone& cone);
             
             /// Stop debug drawing.
             VIDEO_API void EndDebugDrawing();
@@ -166,7 +256,10 @@ namespace Video {
             
             static void CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray);
             void BindVertexArray(GLuint vertexArray);
+            void CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             void CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
+            void CreateCylinder(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
+            void CreateCone(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail);
             
             Video::ShaderProgram* shaderProgram;
             
@@ -185,6 +278,18 @@ namespace Video {
             GLuint sphereVertexBuffer;
             GLuint sphereVertexArray;
             unsigned int sphereVertexCount;
+            
+            GLuint circleVertexBuffer;
+            GLuint circleVertexArray;
+            unsigned int circleVertexCount;
+            
+            GLuint cylinderVertexBuffer;
+            GLuint cylinderVertexArray;
+            unsigned int cylinderVertexCount;
+            
+            GLuint coneVertexBuffer;
+            GLuint coneVertexArray;
+            unsigned int coneVertexCount;
             
             GLuint boundVertexArray = 0;
     };

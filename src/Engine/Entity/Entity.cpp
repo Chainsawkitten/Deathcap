@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
-#include "../Component/Animation.hpp"
+#include "../Component/AnimationController.hpp"
 #include "../Component/AudioMaterial.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
@@ -50,20 +50,21 @@ Entity* Entity::AddChild(const std::string& name) {
     return child;
 }
 
-bool Entity::SetParent(Entity* newParent) {
+Entity* Entity::SetParent(Entity* newParent) {
     //We make sure we're not trying to put the root as a child.
     if (parent != nullptr) {
         //We make sure we're not trying to set a parent as a child to one of it's own children.
         if (!HasChild(newParent)) {
             parent->RemoveChild(this);
+            Entity* lastParent = parent;
             parent = newParent;
             newParent->children.push_back(this);
 
-            return true;
+            return lastParent;
         }
     }
 
-    return false;
+    return nullptr;
 }
 
 bool Entity::HasChild(const Entity* check_child, bool deep) const {
@@ -183,7 +184,7 @@ Json::Value Entity::Save() const {
         entity["sceneName"] = sceneName;
     } else {
         // Save components.
-        Save<Component::Animation>(entity, "Animation");
+        Save<Component::AnimationController>(entity, "AnimationController");
         Save<Component::Lens>(entity, "Lens");
         Save<Component::Mesh>(entity, "Mesh");
         Save<Component::Material>(entity, "Material");
@@ -226,7 +227,7 @@ void Entity::Load(const Json::Value& node) {
         scene = true;
     } else {
         // Load components.
-        Load<Component::Animation>(node, "Animation");
+        Load<Component::AnimationController>(node, "AnimationController");
         Load<Component::Lens>(node, "Lens");
         Load<Component::Mesh>(node, "Mesh");
         Load<Component::Material>(node, "Material");
@@ -255,7 +256,6 @@ void Entity::Load(const Json::Value& node) {
     rotation = Json::LoadQuaternion(node["rotation"]);
     uniqueIdentifier = node.get("uid", 0).asUInt();
     isStatic = node["static"].asBool();
-
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
@@ -352,7 +352,7 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
     Component::SuperComponent* component;
 
     // Create a component in the correct manager.
-    if (componentType == typeid(Component::Animation*))
+    if (componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation();
     else if (componentType == typeid(Component::AudioMaterial*))
         component = Managers().soundManager->CreateAudioMaterial();
@@ -417,7 +417,7 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
     Component::SuperComponent* component;
 
     // Create a component in the correct manager.
-    if (componentType == typeid(Component::Animation*))
+    if (componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation(node);
     else if (componentType == typeid(Component::AudioMaterial*))
         component = Managers().soundManager->CreateAudioMaterial(node);

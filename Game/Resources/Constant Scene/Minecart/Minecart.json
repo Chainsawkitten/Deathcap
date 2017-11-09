@@ -35,7 +35,7 @@
 							},
 							"Script" : 
 							{
-								"scriptName" : "Resources/Constant Scene/Minecart/Script/Player"
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Camera"
 							},
 							"VRDevice" : 
 							{
@@ -64,10 +64,14 @@
 								"z" : 1.0
 							},
 							"scene" : false,
-							"static" : false,
+							"static" : true,
 							"uid" : 1508919707
 						},
 						{
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
 							"VRDevice" : 
 							{
 								"controllerID" : 1,
@@ -98,7 +102,7 @@
 									},
 									"scene" : true,
 									"sceneName" : "Resources/Constant Scene/Controller/controller_fixScene",
-									"static" : false,
+									"static" : true,
 									"uid" : 1508918923
 								}
 							],
@@ -123,10 +127,14 @@
 								"z" : 1.0
 							},
 							"scene" : false,
-							"static" : false,
+							"static" : true,
 							"uid" : 1508919751
 						},
 						{
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
 							"VRDevice" : 
 							{
 								"controllerID" : 2,
@@ -157,7 +165,7 @@
 									},
 									"scene" : true,
 									"sceneName" : "Resources/Constant Scene/Controller/controller_fixScene",
-									"static" : false,
+									"static" : true,
 									"uid" : 1508918923
 								}
 							],
@@ -182,8 +190,52 @@
 								"z" : 1.0
 							},
 							"scene" : false,
-							"static" : false,
+							"static" : true,
 							"uid" : 1508919758
+						},
+						{
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Lantern"
+							},
+							"SpotLight" : 
+							{
+								"ambientCoefficient" : 0.0,
+								"attenuation" : 1.0,
+								"color" : 
+								{
+									"x" : 1.0,
+									"y" : 1.0,
+									"z" : 1.0
+								},
+								"coneAngle" : 30.0,
+								"intensity" : 3.0,
+								"shadow" : true
+							},
+							"children" : null,
+							"name" : "Lantern",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : true,
+							"uid" : 1509625199
 						}
 					],
 					"name" : "Player",
@@ -207,7 +259,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
-					"static" : false,
+					"static" : true,
 					"uid" : 1508919503
 				}
 			],
@@ -232,7 +284,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
-			"static" : false,
+			"static" : true,
 			"uid" : 1508919384
 		}
 	],
@@ -257,6 +309,6 @@
 		"z" : 1.0
 	},
 	"scene" : false,
-	"static" : false,
+	"static" : true,
 	"uid" : 1508919163
 }

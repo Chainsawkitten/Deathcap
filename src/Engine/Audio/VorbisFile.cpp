@@ -22,6 +22,8 @@ VorbisFile::VorbisFile(const char* filename) {
         stb_vorbis_get_samples_float_interleaved(stbfile, info.channels, data, samples);
 
         dataSize = samples;
+        
+        stb_vorbis_close(stbfile);
     }
 }
 

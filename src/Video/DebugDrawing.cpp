@@ -33,30 +33,30 @@ DebugDrawing::DebugDrawing() {
     
     // Create cuboid vertex array.
     glm::vec3 box[24];
-    box[0] = glm::vec3(0.f, 0.f, 0.f);
-    box[1] = glm::vec3(1.f, 0.f, 0.f);
-    box[2] = glm::vec3(1.f, 0.f, 0.f);
-    box[3] = glm::vec3(1.f, 1.f, 0.f);
-    box[4] = glm::vec3(1.f, 1.f, 0.f);
-    box[5] = glm::vec3(0.f, 1.f, 0.f);
-    box[6] = glm::vec3(1.f, 1.f, 0.f);
-    box[7] = glm::vec3(1.f, 1.f, 1.f);
-    box[8] = glm::vec3(1.f, 1.f, 1.f);
-    box[9] = glm::vec3(1.f, 0.f, 1.f);
-    box[10] = glm::vec3(1.f, 0.f, 1.f);
-    box[11] = glm::vec3(1.f, 0.f, 0.f);
-    box[12] = glm::vec3(0.f, 1.f, 0.f);
-    box[13] = glm::vec3(0.f, 1.f, 1.f);
-    box[14] = glm::vec3(0.f, 1.f, 1.f);
-    box[15] = glm::vec3(0.f, 0.f, 1.f);
-    box[16] = glm::vec3(0.f, 1.f, 0.f);
-    box[17] = glm::vec3(0.f, 0.f, 0.f);
-    box[18] = glm::vec3(0.f, 0.f, 1.f);
-    box[19] = glm::vec3(0.f, 0.f, 0.f);
-    box[20] = glm::vec3(0.f, 1.f, 1.f);
-    box[21] = glm::vec3(1.f, 1.f, 1.f);
-    box[22] = glm::vec3(0.f, 0.f, 1.f);
-    box[23] = glm::vec3(1.f, 0.f, 1.f);
+    box[0] = glm::vec3(-0.5f, -0.5f, -0.5f);
+    box[1] = glm::vec3(0.5f, -0.5f, -0.5f);
+    box[2] = glm::vec3(0.5f, -0.5f, -0.5f);
+    box[3] = glm::vec3(0.5f, 0.5f, -0.5f);
+    box[4] = glm::vec3(0.5f, 0.5f, -0.5f);
+    box[5] = glm::vec3(-0.5f, 0.5f, -0.5f);
+    box[6] = glm::vec3(0.5f, 0.5f, -0.5f);
+    box[7] = glm::vec3(0.5f, 0.5f, 0.5f);
+    box[8] = glm::vec3(0.5f, 0.5f, 0.5f);
+    box[9] = glm::vec3(0.5f, -0.5f, 0.5f);
+    box[10] = glm::vec3(0.5f, -0.5f, 0.5f);
+    box[11] = glm::vec3(0.5f, -0.5f, -0.5f);
+    box[12] = glm::vec3(-0.5f, 0.5f, -0.5f);
+    box[13] = glm::vec3(-0.5f, 0.5f, 0.5f);
+    box[14] = glm::vec3(-0.5f, 0.5f, 0.5f);
+    box[15] = glm::vec3(-0.5f, -0.5f, 0.5f);
+    box[16] = glm::vec3(-0.5f, 0.5f, -0.5f);
+    box[17] = glm::vec3(-0.5f, -0.5f, -0.5f);
+    box[18] = glm::vec3(-0.5f, -0.5f, 0.5f);
+    box[19] = glm::vec3(-0.5f, -0.5f, -0.5f);
+    box[20] = glm::vec3(-0.5f, 0.5f, 0.5f);
+    box[21] = glm::vec3(0.5f, 0.5f, 0.5f);
+    box[22] = glm::vec3(-0.5f, -0.5f, 0.5f);
+    box[23] = glm::vec3(0.5f, -0.5f, 0.5f);
     
     CreateVertexArray(box, 24, cuboidVertexBuffer, cuboidVertexArray);
     
@@ -73,11 +73,29 @@ DebugDrawing::DebugDrawing() {
     
     CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
     
+    // Create circle vertex array.
+    glm::vec3* circle;
+    CreateCircle(circle, circleVertexCount, 25);
+    CreateVertexArray(circle, circleVertexCount, circleVertexBuffer, circleVertexArray);
+    delete[] circle;
+    
     // Create sphere vertex array.
     glm::vec3* sphere;
     CreateSphere(sphere, sphereVertexCount, 14);
     CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
     delete[] sphere;
+    
+    // Create cylinder vertex array.
+    glm::vec3* cylinder;
+    CreateCylinder(cylinder, cylinderVertexCount, 14);
+    CreateVertexArray(cylinder, cylinderVertexCount, cylinderVertexBuffer, cylinderVertexArray);
+    delete[] cylinder;
+    
+    // Create cone vertex array.
+    glm::vec3* cone;
+    CreateCone(cone, coneVertexCount, 14);
+    CreateVertexArray(cone, coneVertexCount, coneVertexBuffer, coneVertexArray);
+    delete[] cone;
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -92,6 +110,18 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &planeVertexBuffer);
     glDeleteVertexArrays(1, &planeVertexArray);
+    
+    glDeleteBuffers(1, &circleVertexBuffer);
+    glDeleteVertexArrays(1, &circleVertexArray);
+    
+    glDeleteBuffers(1, &sphereVertexBuffer);
+    glDeleteVertexArrays(1, &sphereVertexArray);
+    
+    glDeleteBuffers(1, &cylinderVertexBuffer);
+    glDeleteVertexArrays(1, &cylinderVertexArray);
+    
+    glDeleteBuffers(1, &coneVertexBuffer);
+    glDeleteVertexArrays(1, &coneVertexArray);
     
     delete shaderProgram;
 }
@@ -128,7 +158,7 @@ void DebugDrawing::DrawLine(const Line& line) {
 void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
     BindVertexArray(cuboidVertexArray);
     
-    glm::mat4 model(glm::translate(glm::mat4(), cuboid.minCoordinates) * glm::scale(glm::mat4(), cuboid.maxCoordinates - cuboid.minCoordinates));
+    glm::mat4 model(cuboid.matrix * glm::scale(glm::mat4(), cuboid.dimensions));
     
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
     cuboid.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
@@ -156,6 +186,24 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
     glDrawArrays(GL_LINES, 0, 8);
 }
 
+void DebugDrawing::DrawCircle(const Circle& circle) {
+    BindVertexArray(circleVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(circle.radius, circle.radius, circle.radius)));
+    float yaw = atan2(circle.normal.x, circle.normal.z);
+    float pitch = atan2(circle.normal.y, sqrt(circle.normal.x * circle.normal.x + circle.normal.z * circle.normal.z));
+    model = glm::rotate(glm::mat4(), yaw, glm::vec3(0.f, 1.f, 0.f)) * model;
+    model = glm::rotate(glm::mat4(), pitch, glm::vec3(1.f, 0.f, 0.f)) * model;
+    model = glm::translate(glm::mat4(), circle.position) * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    circle.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &circle.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(circle.lineWidth);
+    glDrawArrays(GL_LINES, 0, circleVertexCount);
+}
+
 void DebugDrawing::DrawSphere(const Sphere& sphere) {
     BindVertexArray(sphereVertexArray);
     
@@ -168,6 +216,34 @@ void DebugDrawing::DrawSphere(const Sphere& sphere) {
     glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
     glLineWidth(sphere.lineWidth);
     glDrawArrays(GL_LINES, 0, sphereVertexCount);
+}
+
+void DebugDrawing::DrawCylinder(const Cylinder& cylinder) {
+    BindVertexArray(cylinderVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(cylinder.radius, cylinder.length, cylinder.radius)));
+    model = cylinder.matrix * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    cylinder.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cylinder.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(cylinder.lineWidth);
+    glDrawArrays(GL_LINES, 0, cylinderVertexCount);
+}
+
+void DebugDrawing::DrawCone(const Cone& cone) {
+    BindVertexArray(coneVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(cone.radius, cone.height, cone.radius)));
+    model = cone.matrix * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    cone.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cone.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(cone.lineWidth);
+    glDrawArrays(GL_LINES, 0, coneVertexCount);
 }
 
 void DebugDrawing::EndDebugDrawing() {
@@ -197,6 +273,19 @@ void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int po
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
     
     glBindVertexArray(0);
+}
+
+void DebugDrawing::CreateCircle(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 2;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int j = 0; j <= detail; ++j) {
+        float angle = static_cast<float>(j) / detail * 2.0f * glm::pi<float>();
+        positions[i++] = glm::vec3(cos(angle), sin(angle), 0.0f);
+        if (j > 0 && j < detail)
+            positions[i++] = glm::vec3(cos(angle), sin(angle), 0.0f);
+    }
 }
 
 // Create UV-sphere with given number of parallel and meridian lines.
@@ -231,5 +320,42 @@ void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount
             if (m > 0 && m < detail)
                 positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
         }
+    }
+}
+
+void DebugDrawing::CreateCylinder(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 6;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int j = 0; j < detail; ++j) {
+        float angle1 = static_cast<float>(j) / detail * 2.0f * glm::pi<float>();
+        float angle2 = static_cast<float>(j + 1) / detail * 2.0f * glm::pi<float>();
+        
+        positions[i++] = glm::vec3(cos(angle1), 0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle1), -0.5f, sin(angle1));
+        
+        positions[i++] = glm::vec3(cos(angle1), 0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle2), 0.5f, sin(angle2));
+        
+        positions[i++] = glm::vec3(cos(angle1), -0.5f, sin(angle1));
+        positions[i++] = glm::vec3(cos(angle2), -0.5f, sin(angle2));
+    }
+}
+    
+void DebugDrawing::CreateCone(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * 4;
+    positions = new glm::vec3[vertexCount];
+    
+    unsigned int i = 0;
+    for (unsigned int j = 0; j < detail; ++j) {
+        float angle = 2.0f * glm::pi<float>() * static_cast<float>(j) / detail;
+        
+        positions[i++] = glm::vec3(0.0f, 0.5f, 0.0f);
+        positions[i++] = glm::vec3(cos(angle), -0.5f, sin(angle));
+        positions[i++] = glm::vec3(cos(angle), -0.5f, sin(angle));
+        
+        angle = 2.0f * glm::pi<float>() * static_cast<float>(j + 1) / detail;
+        positions[i++] = glm::vec3(cos(angle), -0.5f, sin(angle));
     }
 }
