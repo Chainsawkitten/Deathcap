@@ -4,12 +4,11 @@
 #include "../Util/FileSystem.hpp"
 #include <DefaultAlbedo.png.hpp>
 #include <Video/Texture/Texture2D.hpp>
-#include <fstream>
 
 using namespace Video;
 
 TextureAsset::TextureAsset() {
-    texture = new Texture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH, false);
+    texture = new Texture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH);
 }
 
 TextureAsset::~TextureAsset() {
@@ -27,7 +26,7 @@ void TextureAsset::Load(const std::string& name) {
     std::string filename = Hymn().GetPath() + "/" + name;
     
     // Load texture from disk.
-    texture->Load((filename + ".png").c_str(), false);
+    texture->Load((filename + ".png").c_str());
 }
 
 Texture2D* TextureAsset::GetTexture() const {
