@@ -23,9 +23,8 @@
 #include <fstream>
 #include "Util/Profiling.hpp"
 #include "Util/GPUProfiling.hpp"
-
 #include "Entity/Entity.hpp"
-#include "Component/Trigger.hpp"
+
 
 using namespace std;
 

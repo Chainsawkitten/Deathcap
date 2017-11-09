@@ -36,7 +36,6 @@ class TriggerManager {
 
         /// Create a trigger component from JSON definition.
         /**
-         * @param owner The %Entity that will own the component.
          * @param node Json node from which to load component definition.
          * @return The created component.
          */

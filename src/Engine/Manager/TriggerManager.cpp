@@ -23,7 +23,7 @@ void TriggerManager::ProcessTriggers() {
         if (trigger->IsKilled() || !trigger->entity->enabled)
             continue;
 
-        trigger->m_trigger->Process();
+        trigger->superTrigger->Process();
     }
 }
 
@@ -72,12 +72,9 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
         repeat->triggered = node.get("triggerTriggered", 0).asBool();
 
         repeat->triggerVolume = triggerVolume;
-
-        std::string test = node.toStyledString();
-
     }
 
-    comp->m_trigger = repeat;
+    comp->superTrigger = repeat;
 
     return comp;
 }
@@ -86,18 +83,18 @@ void TriggerManager::AddTriggerRepeat(Component::Trigger* trigger, std::shared_p
 
     auto triggerVolume = Managers().physicsManager->CreateTrigger(shape);
 
-    delete trigger->m_trigger;
+    delete trigger->superTrigger;
     auto repeat = new TriggerRepeat;
 
     repeat->triggerVolume = triggerVolume;
 
-    trigger->m_trigger = repeat;
+    trigger->superTrigger = repeat;
     trigger->triggerType = Component::Trigger::REPEAT;
 }
 
 
 TriggerRepeat* TriggerManager::GetTriggerRepeat(Component::Trigger& trigger) {
-    return dynamic_cast<TriggerRepeat*>(trigger.m_trigger);
+    return dynamic_cast<TriggerRepeat*>(trigger.superTrigger);
 }
 
 const std::vector<Component::Trigger*>& TriggerManager::GetTriggerComponents() const {
@@ -110,7 +107,7 @@ void TriggerManager::SynchronizeTriggers() {
         if (trigger->IsKilled() || !trigger->entity->enabled)
             continue;
 
-        trigger->m_trigger->Update();
+        trigger->superTrigger->Update();
 
     }
 }
@@ -124,7 +121,7 @@ void TriggerManager::InitiateUID() {
         if (trigger->IsKilled() || !trigger->entity->enabled)
             continue;
 
-        trigger->m_trigger->InitTriggerUID();
+        trigger->superTrigger->InitTriggerUID();
 
     }
 }

@@ -9,23 +9,23 @@ Trigger::Trigger() {
 
 Trigger::~Trigger() {
 
-    if(m_trigger != nullptr)
-        delete m_trigger;
+    if (superTrigger != nullptr) 
+        delete superTrigger;
 }
 
 Json::Value Trigger::Save() const {
     Json::Value component;
 
-    component = m_trigger->Save();
+    component = superTrigger->Save();
 
     return component;
 }
 
 SuperTrigger* Trigger::GetTrigger() {
-    return m_trigger;
+    return superTrigger;
 }
 
 void Trigger::SetTrigger(SuperTrigger* trigger) {
-    delete m_trigger;
-    m_trigger = trigger;
+    delete superTrigger;
+    superTrigger = trigger;
 }

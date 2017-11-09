@@ -25,7 +25,7 @@ namespace Physics {
 
 class TriggerRepeat : public SuperTrigger {
     friend class ::TriggerManager;
-
+    /// %Trigger that can be executed multiple times.
     public:
         ENGINE_API TriggerRepeat();
         ENGINE_API ~TriggerRepeat();
@@ -62,7 +62,7 @@ class TriggerRepeat : public SuperTrigger {
 
         /// Get if the trigger starts active or not.
         /**
-        * @return The name of the trigger.
+        * @return If the trigger starts active or not.
         */
         ENGINE_API bool GetStartActive();
 

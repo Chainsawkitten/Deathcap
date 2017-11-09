@@ -1,6 +1,5 @@
 #include "EntityEditor.hpp"
 
-#include <array>
 #include <Engine/Component/AnimationController.hpp>
 #include <Engine/Component/Animation.hpp>
 #include <Engine/Component/AudioMaterial.hpp>
@@ -31,9 +30,7 @@
 #include <Engine/Manager/ParticleManager.hpp>
 #include <Engine/Manager/PhysicsManager.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
-#include <Engine/Manager/TriggerManager.hpp>
 #include <Engine/Hymn.hpp>
-#include <Engine/Trigger/TriggerOnce.hpp>
 #include <Engine/Trigger/TriggerRepeat.hpp>
 #include <angelscript.h>
 
@@ -87,7 +84,7 @@ EntityEditor::EntityEditor() {
     selectedShape = 0;
 
     rigidBodyEditor.reset(new GUI::RigidBodyEditor);
-    triggerEditor = std::unique_ptr<GUI::TriggerEditor>(new GUI::TriggerEditor);
+    triggerEditor.reset(new GUI::TriggerEditor);
 }
 
 EntityEditor::~EntityEditor() {

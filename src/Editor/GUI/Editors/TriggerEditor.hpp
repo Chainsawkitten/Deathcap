@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 
+
 namespace Component {
     class Trigger;
 }
@@ -10,6 +11,13 @@ namespace GUI {
     /// settings for a given trigger component.
     class TriggerEditor {
         public:
+
+            enum Cases {
+                PROPERTIES = 0,
+                SUBJECTS,
+                NUMBER_OF_CASES
+            };
+
             /// Open the trigger editor.
             void Open();
 
