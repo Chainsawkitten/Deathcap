@@ -30,7 +30,7 @@
 #include "../Component/VRDevice.hpp"
 #include "../Input/Input.hpp"
 #include "../Script/ScriptFile.hpp"
-#include "MainWindow.hpp"
+#include "../MainWindow.hpp"
 
 #include "Managers.hpp"
 #include "DebugDrawingManager.hpp"
