@@ -42,13 +42,11 @@
 			{
 				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
 				"metallic" : "",
-
 				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
 				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
 			},
 			"Mesh" : 
 			{
-
 				"model" : "Resources/NewAssets/Models/Cave"
 			},
 			"children" : null,
@@ -149,7 +147,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510062352
-
 		},
 		{
 			"Material" : 
@@ -165,7 +162,6 @@
 			},
 			"children" : null,
 			"name" : "Platform",
-
 			"position" : 
 			{
 				"x" : 0.0,
@@ -187,7 +183,6 @@
 			},
 			"scene" : false,
 			"static" : false,
-
 			"uid" : 1510062354
 		},
 		{
@@ -226,10 +221,18 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510064094
-			"uid" : 1510049543
-
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
 				"model" : "Resources/NewAssets/Models/Tracks"
-
 			},
 			"children" : null,
 			"name" : "Track",
