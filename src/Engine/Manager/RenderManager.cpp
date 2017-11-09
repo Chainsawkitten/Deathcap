@@ -377,19 +377,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
     }
     renderSurface->GetShadingFrameBuffer()->Unbind();
-    
-    // Anti-aliasing.
-    if (Hymn().filterSettings.fxaa) {
-        { VIDEO_ERROR_CHECK("Anti-aliasing(FXAA)");
-        { PROFILE("Anti-aliasing(FXAA)");
-        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-            renderer->AntiAlias(renderSurface);
-        }
-        }
-        }
-        }
-    }
 }
 
 
