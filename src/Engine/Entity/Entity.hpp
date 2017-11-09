@@ -241,8 +241,6 @@ class Entity {
          * @param UID the entity's unique identifier to be set
          */
 
-        ENGINE_API void SetDirection(glm::vec3 rot);
-
         ENGINE_API void SetUniqueIdentifier(unsigned int UID);
 
         /// Whether the entity is active.
