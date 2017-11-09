@@ -88,6 +88,8 @@ private:
     void ControlEditorCamera(float deltaTime);
     void Picking();
     void Focus();
+    void PaintBrush(Entity* entity);
+    void WidgetGizmo(Entity* entity);
 
     void Play();
     void NewHymn();
