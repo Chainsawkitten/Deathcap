@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
+	"activeScene" : "Resources/Pussel-2/Pussel-2 scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 77,
+	"modelNumber" : 79,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
