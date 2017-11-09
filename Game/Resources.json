@@ -245,6 +245,10 @@
 									{
 										"script" : "Camera",
 										"type" : 4
+									},
+									{
+										"script" : "Controller",
+										"type" : 4
 									}
 								],
 								"subfolders" : null
