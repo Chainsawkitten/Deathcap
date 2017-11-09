@@ -611,21 +611,6 @@
 						"subfolders" : null
 					}
 				]
-			},
-			{
-				"name" : "Testing",
-				"resources" : 
-				[
-					{
-						"scene" : "Scene #10",
-						"type" : 0
-					},
-					{
-						"model" : "Platform-2",
-						"type" : 1
-					}
-				],
-				"subfolders" : null
 			}
 		]
 	},
