@@ -49,10 +49,6 @@
 #include "SphereShapeEditor.hpp"
 #include "TriggerEditor.hpp"
 
-namespace Physics {
-    class Shape;
-}
-
 using namespace GUI;
 
 EntityEditor::EntityEditor() {
