@@ -3,7 +3,7 @@
 #include <Engine/Hymn.hpp>
 #include <imgui.h>
 #include <Engine/Util/FileSystem.hpp>
-#include "Util/AssetConverterSkeleton.hpp"
+#include "../../Util/AssetConverterSkeleton.hpp"
 
 using namespace GUI;
 

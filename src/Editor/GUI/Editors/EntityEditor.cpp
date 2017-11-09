@@ -46,10 +46,6 @@
 #include "RigidBodyEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
-namespace Physics {
-    class Shape;
-}
-
 using namespace GUI;
 
 EntityEditor::EntityEditor() {

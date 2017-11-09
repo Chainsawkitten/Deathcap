@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../Entity/Entity.hpp"
+#include <glm/glm.hpp>
 #include "../linking.hpp"
+
+class Entity;
 
 /// Use mouse cursor to select objects in editor and in game.
 class MousePicking {
