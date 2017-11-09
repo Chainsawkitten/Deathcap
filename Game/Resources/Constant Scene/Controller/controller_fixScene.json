@@ -35,7 +35,7 @@
 				"z" : 0.05000000074505806
 			},
 			"scene" : false,
-			"static" : false,
+			"static" : true,
 			"uid" : 1508918923
 		}
 	],
@@ -60,6 +60,6 @@
 		"z" : 1.0
 	},
 	"scene" : false,
-	"static" : false,
+	"static" : true,
 	"uid" : 1508918922
 }
