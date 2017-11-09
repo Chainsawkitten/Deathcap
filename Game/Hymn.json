@@ -43,7 +43,7 @@
 		"Resources/Opening Scene/Lever/Lever",
 		"Resources/Opening Scene/Gate/Gates",
 		"Resources/Constant Scene/Minecart/Script/Minecart",
-		"Resources/Constant Scene/Minecart/Script/Player",
+		"Resources/Constant Scene/Minecart/Script/Camera",
 		"Resources/Constant Scene/Minecart/Script/Lantern",
 		"Resources/Opening Scene/Audio/scr_AudioManager",
 		"Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1"

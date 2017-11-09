@@ -35,7 +35,7 @@
 							},
 							"Script" : 
 							{
-								"scriptName" : "Resources/Constant Scene/Minecart/Script/Player"
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Camera"
 							},
 							"VRDevice" : 
 							{
