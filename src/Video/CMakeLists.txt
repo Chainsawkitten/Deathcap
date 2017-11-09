@@ -43,6 +43,7 @@ set(HEADERS
         Geometry/VertexType/SkinVertex.hpp
         Geometry/VertexType/StaticVertex.hpp
         Lighting/Light.hpp
+        PostProcessing/Filter.hpp
         PostProcessing/FXAAFilter.hpp
         PostProcessing/PostProcessing.hpp
         Profiling/Query.hpp

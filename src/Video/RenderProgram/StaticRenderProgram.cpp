@@ -13,7 +13,7 @@
 #include "Shadow.vert.hpp"
 #include "../Buffer/StorageBuffer.hpp"
 #include <chrono>
-#include "Lighting/Light.hpp"
+#include "../Lighting/Light.hpp"
 
 using namespace Video;
 

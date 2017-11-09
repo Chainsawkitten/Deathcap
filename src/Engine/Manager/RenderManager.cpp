@@ -11,6 +11,7 @@
 #include "SoundManager.hpp"
 #include "PhysicsManager.hpp"
 #include "DebugDrawingManager.hpp"
+#include "VRManager.hpp"
 #include "Light.png.hpp"
 #include "ParticleEmitter.png.hpp"
 #include "SoundSource.png.hpp"
@@ -37,12 +38,11 @@
 #include "../MainWindow.hpp"
 #include <Video/Lighting/Light.hpp>
 #include "../Hymn.hpp"
-#include "Util/Profiling.hpp"
-#include "Util/Json.hpp"
-#include "Util/GPUProfiling.hpp"
+#include "../Util/Profiling.hpp"
+#include "../Util/Json.hpp"
+#include "../Util/GPUProfiling.hpp"
 #include <Utility/Log.hpp>
 #include <Video/ShadowPass.hpp>
-#include "Manager/VRManager.hpp"
 #include <glm/gtc/quaternion.hpp>
 
 using namespace Component;

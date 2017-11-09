@@ -1,6 +1,7 @@
 #include "AudioMaterial.hpp"
-#include "Hymn.hpp"
-#include "Util/FileSystem.hpp"
+
+#include "../Hymn.hpp"
+#include "../Util/FileSystem.hpp"
 #include <fstream>
 
 using namespace Audio;
