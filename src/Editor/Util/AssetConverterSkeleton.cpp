@@ -1,7 +1,9 @@
 #include "AssetConverterSkeleton.hpp"
+
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Engine/Geometry/MathFunctions.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 #include <Utility/Log.hpp>
 
 AssetConverterSkeleton::AssetConverterSkeleton() {

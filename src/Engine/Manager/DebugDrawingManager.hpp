@@ -5,8 +5,6 @@
 #include <Video/DebugDrawing.hpp>
 #include "../linking.hpp"
 
-class Entity;
-
 namespace Video {
     class RenderSurface;
 }
