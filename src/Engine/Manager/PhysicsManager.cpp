@@ -91,8 +91,10 @@ void PhysicsManager::UpdateEntityTransforms() {
 
         Entity* entity = rigidBodyComp->entity;
         auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
-        entity->SetWorldPosition(Physics::btToGlm(trans.getOrigin()));
-        entity->SetWorldOrientation(Physics::btToGlm(trans.getRotation()));
+        if (!rigidBodyComp->IsKinematic()) {
+            entity->SetWorldPosition(Physics::btToGlm(trans.getOrigin()));
+            entity->SetWorldOrientation(Physics::btToGlm(trans.getRotation()));
+        }
     }
 }
 
