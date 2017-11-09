@@ -45,6 +45,7 @@ Editor::Editor() {
 
     // Assign controls.
     Input()->AssignButton(InputHandler::PROFILE, InputHandler::KEYBOARD, GLFW_KEY_F2);
+    Input()->AssignButton(InputHandler::WINDOWMODE, InputHandler::KEYBOARD, GLFW_KEY_F4);
     Input()->AssignButton(InputHandler::PLAYTEST, InputHandler::KEYBOARD, GLFW_KEY_F5);
     Input()->AssignButton(InputHandler::CONTROL, InputHandler::KEYBOARD, GLFW_KEY_LEFT_CONTROL);
     Input()->AssignButton(InputHandler::NEW, InputHandler::KEYBOARD, GLFW_KEY_N);
@@ -157,10 +158,9 @@ void Editor::Show(float deltaTime) {
             resourceView.Show();
 
         // Show settings window.
-        if (settingsWindow.IsVisible()) {
+        if (settingsWindow.IsVisible())
             settingsWindow.Show();
-        }
-
+        
         // Show grid settings window.
         ShowGridSettings();
         CreateGrid(gridSettings.gridSize);
@@ -426,6 +426,10 @@ void Editor::ShowMainMenuBar(bool& play) {
             static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
             ImGui::MenuItem("Physics", "", &physics);
             EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
+            
+            static bool lighting = EditorSettings::GetInstance().GetBool("Lighting");
+            ImGui::MenuItem("Lighting", "", &lighting);
+            EditorSettings::GetInstance().SetBool("Lighting", lighting);
 
             ImGui::EndMenu();
         }
@@ -468,9 +472,10 @@ void Editor::ShowMainMenuBar(bool& play) {
 
 void Editor::ShowGridSettings() {
     if (showGridSettings) {
-        ImGui::SetNextWindowPos(ImVec2(1275, 25));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
-        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
+        glm::vec2 size(MainWindow::GetInstance()->GetSize());
+        ImGui::SetNextWindowPos(ImVec2((int)size.x - 255 - resourceView.GetEditorWidth(), 20));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 105), ImVec2(255, 105));
+        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
         ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
         EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
         ImGui::DragInt("Line Width", &gridSettings.lineWidth, 0.1f, 1, 5);
@@ -539,7 +544,7 @@ void Editor::ControlEditorCamera(float deltaTime) {
 }
 
 void Editor::Picking() {
-    if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+    if (Input()->Pressed(InputHandler::CONTROL) && Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
         mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
         mousePicker.Update();
         float lastDistance = INFINITY;
@@ -606,8 +611,8 @@ void Editor::Focus() {
 }
 
 void Editor::Play() {
-
-    Hymn().saveState = Hymn().world.GetSaveJson();
+    Hymn().saveStateHymn = Hymn().ToJson();
+    Hymn().saveStateWorld = Hymn().world.GetSaveJson();
     SetVisible(false);
     resourceView.HideEditors();
 
@@ -616,7 +621,8 @@ void Editor::Play() {
 }
 
 void Editor::LoadSceneState() {
-    Hymn().world.Load(Hymn().saveState);
+    Hymn().FromJson(Hymn().saveStateHymn);
+    Hymn().world.Load(Hymn().saveStateWorld);
 }
 
 void Editor::NewHymn() {

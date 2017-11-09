@@ -4,14 +4,14 @@
 		{
 			"PointLight" : 
 			{
-				"attenuation" : 1.0,
+				"attenuation" : 0.0010000000474974513,
 				"color" : 
 				{
 					"x" : 1.0,
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"intensity" : 1.0
+				"intensity" : 10.0
 			},
 			"children" : null,
 			"name" : "Sun",
@@ -35,7 +35,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
-			"static" : false,
+			"static" : true,
 			"uid" : 1508402678
 		},
 		{
@@ -72,7 +72,7 @@
 				"z" : 2.5
 			},
 			"scene" : false,
-			"static" : false,
+			"static" : true,
 			"uid" : 1508402717
 		},
 		{
@@ -116,7 +116,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
-					"static" : false,
+					"static" : true,
 					"uid" : 1508412106
 				},
 				{
@@ -153,7 +153,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
-					"static" : false,
+					"static" : true,
 					"uid" : 1508412107
 				},
 				{
@@ -190,7 +190,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
-					"static" : false,
+					"static" : true,
 					"uid" : 1508412109
 				}
 			],
@@ -215,7 +215,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
-			"static" : false,
+			"static" : true,
 			"uid" : 1508411993
 		},
 		{
@@ -255,7 +255,7 @@
 						"z" : 1.0
 					},
 					"scene" : false,
-					"static" : false,
+					"static" : true,
 					"uid" : 1508412420
 				},
 				{
@@ -321,7 +321,7 @@
 				"z" : 0.5
 			},
 			"scene" : false,
-			"static" : false,
+			"static" : true,
 			"uid" : 1508412411
 		},
 		{
@@ -347,7 +347,7 @@
 			},
 			"scene" : true,
 			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
-			"static" : false,
+			"static" : true,
 			"uid" : 1508919163
 		},
 		{
@@ -383,7 +383,7 @@
 				"z" : 1.0
 			},
 			"scene" : false,
-			"static" : false,
+			"static" : true,
 			"uid" : 1509010103
 		}
 	],
@@ -408,6 +408,6 @@
 		"z" : 1.0
 	},
 	"scene" : false,
-	"static" : false,
+	"static" : true,
 	"uid" : 1508399850
 }

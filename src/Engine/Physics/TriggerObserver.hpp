@@ -33,7 +33,7 @@ namespace Physics {
             /**
              * @param body Rigid body listening to trigger.
              */
-            ENGINE_API TriggerObserver(btRigidBody& body);
+            ENGINE_API explicit TriggerObserver(btRigidBody& body);
 
             /// Get the Bullet collision object of the observing body.
             /**

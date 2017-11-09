@@ -172,18 +172,6 @@ namespace FileSystem {
         
         return path.substr(0, end);
     }
-    
-    std::string Rename(const std::string& filepath, const std::string& name) {
-        std::size_t length = filepath.find_last_of(DELIMITER);
-        std::string path = filepath.substr(0, length + 1);
-
-        std::string newPath = path + name;
-
-        if (rename(filepath.c_str(), newPath.c_str()) > 0)
-            Log() << "Error renaming file: " << filepath <<"\n";
-
-        return newPath;
-    }
 
     void ExecuteProgram(const std::string& path, const std::string& arguments) {
 #if defined(_WIN32) || defined(WIN32)

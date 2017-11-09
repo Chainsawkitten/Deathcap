@@ -10,20 +10,23 @@ namespace Video {
 
         /// Intensity.
         glm::vec3 intensities;
-        
+
         /// Attenuation.
         float attenuation;
 
         /// Direction.
         glm::vec3 direction;
-        
+
         /// Ambient coefficient.
         float ambientCoefficient;
-        
+
         /// Angle of the cone (in degrees).
         float coneAngle;
 
+        /// Whether the light should cast shadows.
+        float shadow;
+
         /// Padding.
-        float padding[3];
+        float padding[2];
     };
-}
+} // namespace Video

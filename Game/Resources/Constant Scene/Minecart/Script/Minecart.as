@@ -55,7 +55,7 @@ class Minecart{
         }
     }
     
-    void ReceiveMessage(int signal){
+    void ReceiveMessage(Entity @sender, int signal){
         if (signal == 1)
             trigger = true;
     }

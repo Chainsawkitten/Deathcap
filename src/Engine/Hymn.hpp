@@ -70,8 +70,9 @@ class ActiveHymn {
          * @param lightSources Whether to show light sources.
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
+         * @param lighting Whether to light the world (otherwise full ambient is used).
          */
-        ENGINE_API void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false);
+        ENGINE_API void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false, bool lighting = true);
         
         /// Scene to start when playing the hymn.
         std::string startupScene;
@@ -103,28 +104,28 @@ class ActiveHymn {
         /// Filter settings.
         struct FilterSettings {
             /// Whether to enable color.
-            bool color = false;
-            
+            bool colorFilterApply = false;
+
             /// The color to blend with.
-            glm::vec3 colorColor = glm::vec3(1.0f, 1.0f, 1.0f);
-            
+            glm::vec3 colorFilterColor = glm::vec3(1.0f, 1.0f, 1.0f);
+
             /// Whether to enable fog.
-            bool fog = false;
-            
+            bool fogApply = false;
+
             /// Fog density.
             float fogDensity = 0.01f;
-            
+
             /// Fog color.
             glm::vec3 fogColor = glm::vec3(1.0f, 1.0f, 1.0f);
-            
+
             /// Whether to enable FXAA.
             bool fxaa = true;
-            
-            /// Whether to enable glow.
-            bool glow = true;
-            
-            /// How many times to blur the glow buffer.
-            int glowBlurAmount = 1;
+
+            /// Whether to enable dithering.
+            bool ditherApply = true;
+
+            /// Gamma correction value.
+            float gamma = 2.2f;
         };
         
         /// Filter settings.
@@ -133,8 +134,11 @@ class ActiveHymn {
         /// Whether to restart the hymn
         bool restart = false;
 
-        /// Recently saved state of the hymn
-        Json::Value saveState;
+        /// Recently saved state of the world.
+        Json::Value saveStateWorld;
+
+        /// Recently saved state of the hymn.
+        Json::Value saveStateHymn;
 
         /// Input scaling when playing in VR.
         float vrScale = 1.0f;

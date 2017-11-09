@@ -5,7 +5,6 @@
 using namespace Component;
 
 SpotLight::SpotLight() {
-    
 }
 
 Json::Value SpotLight::Save() const {
@@ -15,5 +14,6 @@ Json::Value SpotLight::Save() const {
     component["attenuation"] = attenuation;
     component["intensity"] = intensity;
     component["coneAngle"] = coneAngle;
+    component["shadow"] = shadow;
     return component;
 }

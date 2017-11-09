@@ -20,9 +20,6 @@ namespace Physics {
             // Construct a trigger with world transform |transform|.
             Trigger(const btTransform& transform);
 
-            // Get the wrapped Bullet collision object.
-            btCollisionObject* GetCollisionObject() const;
-
             // Process observers against the trigger volume, passing the world
             // in which rigid bodies reside.
             void Process(btCollisionWorld& world);
@@ -36,7 +33,7 @@ namespace Physics {
             void SetPosition(const btVector3& position);
 
         private:
-            btCollisionObject* trigger = nullptr;
+            std::unique_ptr<btCollisionObject> trigger = nullptr;
             std::shared_ptr<Shape> shape = nullptr;
             std::vector<std::unique_ptr<TriggerObserver>> observers;
     };

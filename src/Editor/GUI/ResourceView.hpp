@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Editors/AnimationClipEditor.hpp"
+#include "Editors/AnimationControllerEditor.hpp"
+#include "Editors/SkeletonEditor.hpp"
 #include "Editors/ModelEditor.hpp"
 #include "Editors/SceneEditor.hpp"
 #include "Editors/SoundEditor.hpp"
@@ -62,6 +65,12 @@ namespace GUI {
              */
             SceneEditor& GetScene();
             
+            /// Get the width of the right-side editor (entity, script, etc.).
+            /**
+             * @return The width of the editor.
+             */
+            int GetEditorWidth() const;
+            
         private:
             bool ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path);
             bool ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path);
@@ -69,7 +78,10 @@ namespace GUI {
             
             bool visible = false;
             
-            ScriptEditor scriptEditor;
+            AnimationClipEditor animationClipEditor;
+            AnimationControllerEditor animationControllerEditor;
+            SkeletonEditor skeletonEditor;
+            ScriptEditor scriptEditor;  
             SceneEditor sceneEditor;
             ModelEditor modelEditor;
             TextureEditor textureEditor;
@@ -94,6 +106,9 @@ namespace GUI {
             int editorWidth = 250;
             bool editorResize = false;
             
+            bool animationClipPressed;
+            bool animationControllerPressed;
+            bool skeletonPressed;
             bool scriptPressed;
             bool texturePressed;
             bool modelPressed;

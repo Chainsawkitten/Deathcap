@@ -9,7 +9,7 @@
 #include "../ResourceSelector.hpp"
 
 namespace Component {
-    class Animation;
+    class AnimationController;
     class AudioMaterial;
     class Mesh;
     class Lens;
@@ -29,6 +29,7 @@ namespace Component {
 
 namespace GUI {
     class IShapeEditor;
+    class RigidBodyEditor;
     class TriggerEditor;
 
     /// Used to edit an entity.
@@ -80,7 +81,7 @@ namespace GUI {
             template<typename type> void EditComponent(const std::string& name, std::function<void(type*)> editorFunction);
             
             // Editors
-            void AnimationEditor(Component::Animation* animation);
+            void AnimationControllerEditor(Component::AnimationController* animationController);
             void AudioMaterialEditor(Component::AudioMaterial* audioMaterial);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
@@ -109,11 +110,11 @@ namespace GUI {
             std::vector<Editor> editors;
             std::vector<IShapeEditor*> shapeEditors;
             int selectedShape = -1;
+
+            std::unique_ptr<GUI::RigidBodyEditor> rigidBodyEditor;
             
             ResourceSelector resourceSelector;
-            std::unique_ptr<GUI::TriggerEditor> triggerEditor;
-            
-            float rigidBodyMass = 1.0f;
+            std::unique_ptr<GUI::TriggerEditor> triggerEditor;     
 
             bool albedoShow = false;
             bool normalShow = false;

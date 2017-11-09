@@ -1,6 +1,7 @@
 #include "EntityEditor.hpp"
 
 #include <array>
+#include <Engine/Component/AnimationController.hpp>
 #include <Engine/Component/Animation.hpp>
 #include <Engine/Component/AudioMaterial.hpp>
 #include <Engine/Component/Mesh.hpp>
@@ -15,6 +16,7 @@
 #include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
+#include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Component/VRDevice.hpp>
 #include <Engine/Component/Trigger.hpp>
 #include <Engine/Geometry/Model.hpp>
@@ -41,7 +43,12 @@
 #include "../../Resources.hpp"
 #include <imgui_internal.h>
 #include <imgui.h>
+#include "BoxShapeEditor.hpp"
+#include "CapsuleShapeEditor.hpp"
+#include "ConeShapeEditor.hpp"
+#include "CylinderShapeEditor.hpp"
 #include "PlaneShapeEditor.hpp"
+#include "RigidBodyEditor.hpp"
 #include "SphereShapeEditor.hpp"
 #include "TriggerEditor.hpp"
 
@@ -53,8 +60,9 @@ using namespace GUI;
 
 EntityEditor::EntityEditor() {
     name[0] = '\0';
-    AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
-    AddEditor<Component::AudioMaterial> ("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
+
+    AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
+    AddEditor<Component::AudioMaterial>("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
     AddEditor<Component::Material>("Material", std::bind(&EntityEditor::MaterialEditor, this, std::placeholders::_1));
@@ -72,8 +80,13 @@ EntityEditor::EntityEditor() {
 
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
+    shapeEditors.push_back(new BoxShapeEditor());
+    shapeEditors.push_back(new CylinderShapeEditor());
+    shapeEditors.push_back(new ConeShapeEditor());
+    shapeEditors.push_back(new CapsuleShapeEditor());
     selectedShape = 0;
 
+    rigidBodyEditor.reset(new GUI::RigidBodyEditor);
     triggerEditor = std::unique_ptr<GUI::TriggerEditor>(new GUI::TriggerEditor);
 }
 
@@ -188,24 +201,42 @@ void EntityEditor::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void EntityEditor::AnimationEditor(Component::Animation* animation) {
+void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
     ImGui::Indent();
-    if (ImGui::Button("Select model##Animation"))
-        ImGui::OpenPopup("Select model##Animation");
+    if (ImGui::Button("Select animation controller##Animation"))
+        ImGui::OpenPopup("Select animation controller##Animation");
 
-    if (ImGui::BeginPopup("Select model##Animation")) {
-        ImGui::Text("Models");
+    if (ImGui::BeginPopup("Select animation controller##Animation")) {
+        ImGui::Text("Animation controllers");
         ImGui::Separator();
 
-        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
-            if (animation->riggedModel != nullptr)
-                Managers().resourceManager->FreeModel(animation->riggedModel);
+        if (resourceSelector.Show(ResourceList::Resource::Type::ANIMATION_CONTROLLER)) {
+            if (animationController->controller != nullptr)
+                Managers().resourceManager->FreeAnimationController(animationController->controller);
 
-            animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
+            animationController->controller = Managers().resourceManager->CreateAnimationController(resourceSelector.GetSelectedResource().GetPath());
         }
 
         ImGui::EndPopup();
     }
+
+    if (ImGui::Button("Select skeleton##Skeleton"))
+        ImGui::OpenPopup("Select skeleton##Skeleton");
+
+    if (ImGui::BeginPopup("Select skeleton##Skeleton")) {
+        ImGui::Text("Skeletons");
+        ImGui::Separator();
+
+        if (resourceSelector.Show(ResourceList::Resource::Type::SKELETON)) {
+            if (animationController->skeleton != nullptr)
+                Managers().resourceManager->FreeSkeleton(animationController->skeleton);
+
+            animationController->skeleton = Managers().resourceManager->CreateSkeleton(resourceSelector.GetSelectedResource().GetPath());
+        }
+
+        ImGui::EndPopup();
+    }
+
     ImGui::Unindent();
 }
 
@@ -371,25 +402,15 @@ void EntityEditor::SpotLightEditor(Component::SpotLight* spotLight) {
     ImGui::DraggableFloat("Attenuation", spotLight->attenuation, 0.0f);
     ImGui::DraggableFloat("Intensity", spotLight->intensity, 0.0f);
     ImGui::DraggableFloat("Cone angle", spotLight->coneAngle, 0.0f, 180.f);
+    ImGui::Checkbox("Gives shadows", &spotLight->shadow);
     ImGui::Unindent();
 }
 
 void EntityEditor::ListenerEditor(Component::Listener* listener) {
-
 }
 
 void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
-    auto shapeComp = rigidBody->entity->GetComponent<Component::Shape>();
-    if (shapeComp) {
-        ImGui::Indent();
-        if (ImGui::InputFloat("Mass", &rigidBodyMass))
-            Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
-        ImGui::Unindent();
-    } else {
-        ImGui::Indent();
-        ImGui::TextWrapped("A rigid body is only valid with a complementary shape component. Please add one to allow editing this component.");
-        ImGui::Unindent();
-    }
+    rigidBodyEditor->Show(rigidBody);
 }
 
 void EntityEditor::ScriptEditor(Component::Script* script) {
@@ -421,69 +442,71 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
             int propertyCount = script->instance->GetPropertyCount();
 
             for (int n = 0; n < propertyCount; n++) {
+                std::string propertyName = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
-                void *varPointer = script->instance->GetAddressOfProperty(n);
 
                 if (typeId == asTYPEID_INT32)
-                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
+                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 else if (typeId == asTYPEID_FLOAT)
-                    ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
+                    ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->GetDataFromPropertyMap(propertyName), 0.0f);
+                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
+
+                    // Find method to call.
+                    std::string entityName = script->instance->GetPropertyName(n);
+
+                    if (entityName != "self") {
+
+                        std::string entityGUID = std::to_string(*(unsigned int*)script->GetDataFromPropertyMap(propertyName));
+                        std::string propertyText;
+                        propertyText.reserve(entityName.length() + entityGUID.length() + 2); // additional `: `
+                        propertyText.append(entityName).append(": ").append(entityGUID);
+
+                        ImGui::Separator();
+
+                        // Choosing other entity references
+                        ImGui::Text(propertyText.c_str());
+                        if (ImGui::Button("Change entity reference"))
+                            ImGui::OpenPopup("Add entity reference");
+
+                        if (ImGui::BeginPopup("Add entity reference")) {
+                            ImGui::Text("Entities");
+                            ImGui::Separator();
+                            for (Entity* entity : Hymn().world.GetEntities()) /// @todo Change into a prettier tree structure or something, later.
+                                if (ImGui::Selectable(entity->name.c_str()))
+                                    *(unsigned int*)script->GetDataFromPropertyMap(propertyName) = entity->GetUniqueIdentifier();
+
+                            ImGui::EndPopup();
+                        }
+
+                        ImGui::Separator();
+
+                    }
+
+                }
                 /// @todo This will be used to handle objects in the scripts
                 //else if (typeId & asTYPEID_SCRIPTOBJECT){
                 //    asIScriptObject *obj = (asIScriptObject*)varPointer;
                 //}
-
             }
 
             if (ImGui::Button("Reset properties")) {
-
                 script->ClearPropertyMap();
                 Managers().scriptManager->FillPropertyMap(script);
-
-            }
-
-        }
-        ImGui::Separator();
-
-        ImGui::Text("Entity References");
-        // Display current entity references
-        for (size_t i = 0; i != script->refList.size(); ++i) {
-            ImGui::Text(script->refList[i]->name.c_str());
-            ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-            if (ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())) {
-                script->refList.erase(script->refList.begin() + i);
-                break;
             }
         }
-
-        // Choosing other entity references
-        if (ImGui::Button("Add entity reference"))
-            ImGui::OpenPopup("Add entity reference");
-
-        if (ImGui::BeginPopup("Add entity reference")) {
-            ImGui::Text("Entities");
-            ImGui::Separator();
-            for (Entity* entity : Hymn().world.GetEntities()) /// @todo Change into a prettier tree structure or something, later.
-                if (ImGui::Selectable(entity->name.c_str()))
-                    script->refList.push_back(entity);
-
-            ImGui::EndPopup();
-        }
-
     } else
         ImGui::Text("No script loaded");
 
-
     ImGui::Unindent();
-
 }
 
 void EntityEditor::ShapeEditor(Component::Shape* shape) {
     if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
-        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
-        *outText = editor->Label();
-        return true;
-    }, shapeEditors.data(), shapeEditors.size())) {
+            IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
+            *outText = editor->Label();
+            return true;
+        },
+            shapeEditors.data(), shapeEditors.size())) {
         shapeEditors[selectedShape]->Apply(shape);
     }
 
@@ -566,7 +589,7 @@ void EntityEditor::VRDeviceEditor(Component::VRDevice* vrDevice) {
     int item = static_cast<int>(vrDevice->type);
     if (ImGui::Combo("Type", &item, items, 2))
         vrDevice->type = static_cast<Component::VRDevice::Type>(item);
-    
+
     if (vrDevice->type == Component::VRDevice::CONTROLLER) {
         ImGui::Text("Controller");
         ImGui::Indent();
