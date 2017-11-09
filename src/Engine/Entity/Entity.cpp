@@ -194,6 +194,7 @@ Json::Value Entity::Save() const {
         Save<Component::Shape>(entity, "Shape");
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
+        Save<Component::ParticleSystemComponent>(entity, "ParticleSystem");
         Save<Component::VRDevice>(entity, "VRDevice");
         
         // Save children.
@@ -236,6 +237,7 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::Shape>(node, "Shape");
         Load<Component::SoundSource>(node, "SoundSource");
         Load<Component::ParticleEmitter>(node, "ParticleEmitter");
+        Load<Component::ParticleSystemComponent>(node, "ParticleSystem");
         Load<Component::VRDevice>(node, "VRDevice");
         
         // Load children.
@@ -380,7 +382,7 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
     else if (componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter(node);
     else if (componentType == typeid(Component::ParticleSystemComponent*))
-        component = Managers().particleManager->CreateParticleSystem(world);
+        component = Managers().particleManager->CreateParticleSystem(node);
     else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight(node);
     else if (componentType == typeid(Component::RigidBody*))

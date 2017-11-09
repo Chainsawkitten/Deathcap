@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 #include <random>
+#include <map>
 #include <Video/ParticleSystemRenderer.hpp>
 #include "../Entity/ComponentContainer.hpp"
 #include "../linking.hpp"
@@ -68,7 +69,7 @@ class ParticleManager {
         /**
         * @param world %World containing number of particle systems to render.
         */
-        ENGINE_API void RenderParticleSystem(World& world, const glm::mat4& viewProjectionMatrix);
+        ENGINE_API void RenderParticleSystem(const glm::mat4& viewProjectionMatrix);
         
         /// Get the texture atlas.
         /**
@@ -123,6 +124,8 @@ class ParticleManager {
         ~ParticleManager();
         ParticleManager(ParticleManager const&) = delete;
         void operator=(ParticleManager const&) = delete;
+
+        Component::ParticleSystemComponent* InitParticleSystem(Component::ParticleSystemComponent* component);
         
         // Decide where the emitter should emit before rendering.
         void EmitParticle(World& world, Component::ParticleEmitter* emitter);
@@ -136,9 +139,9 @@ class ParticleManager {
         std::mt19937 randomEngine;
         
         Video::ParticleRenderer* particleRenderer;
-        std::vector<Video::ParticleSystemRenderer> particleSystemRenderers;
+        std::map<Component::ParticleSystemComponent*, Video::ParticleSystemRenderer> particleSystemRenderers;
 
-        std::vector<Video::ParticleSystemRenderer::EmitterSettings> emitterSettings;
+        std::map<Component::ParticleSystemComponent*, Video::ParticleSystemRenderer::EmitterSettings> emitterSettings;
 
         // The number of rows in the texture atlas.
         int textureAtlasRowNumber = 4;

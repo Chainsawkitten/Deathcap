@@ -7,7 +7,8 @@ out vec4 myColor;
 
 void main()
 { 
-	gl_Position = vec4(position.xyz, 1.0);
+	mat4 test = mat4(1);//ModelMatrix[0];
+	gl_Position = test * vec4(position.xyz, 1.0);
 	
 	myColor = color;
 	

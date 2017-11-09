@@ -40,6 +40,9 @@ namespace Video
     {
     public:
         struct EmitterSettings {
+            /// Number of particles.
+            int nr_particles = 1024;
+
             /// Position.
             glm::vec3 worldPos;
 
@@ -118,7 +121,7 @@ namespace Video
 
         int WORK_GROUP_SIZE = 128;
 
-        unsigned int        nr_particles = 1024;
+        unsigned int        nr_particles = 1024 * 32;
         glm::vec2		    particleShootIndex = glm::vec2(0, 30);
         int                 nr_new_particles = 31;
         float               rate = 1000.0f;

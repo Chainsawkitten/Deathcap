@@ -43,13 +43,11 @@ void ParticleManager::Update(World& world, float time, bool preview) {
             world.SetParticleCount(world.GetParticleCount() - 1);
         }
     }
-    auto particleSystem = particleSystems.GetAll();
-    for (unsigned int i = 0; i < particleSystems.GetAll().size(); i++) {
-        emitterSettings[i] = particleSystem[i]->particleType;
-    }
 
-    for (unsigned int i = 0; i < world.GetNrOfParticleSystems(); ++i) {
-        particleSystemRenderers[i].Update(0.1f, emitterSettings[i]);
+    for (Component::ParticleSystemComponent* comp : particleSystems.GetAll()) {
+        emitterSettings[comp].worldPos = comp->entity->GetModelMatrix() * glm::vec4(comp->entity->GetWorldPosition(), 1.0);
+        particleSystemRenderers[comp].Update(0.1f, emitterSettings[comp]);
+        emitterSettings[comp] = comp->particleType;
     }
     
     // Spawn new particles from emitters.
@@ -77,14 +75,11 @@ void ParticleManager::Render(World& world, const glm::vec3& position, const glm:
 void ParticleManager::UpdateParticleSystem(World& world, Component::ParticleSystemComponent* particleSystem) {
 }
 
-void ParticleManager::RenderParticleSystem(World & world, const glm::mat4& viewProjectionMatrix) {
+void ParticleManager::RenderParticleSystem(const glm::mat4& viewProjectionMatrix) {
 
-    if (world.GetNrOfParticleSystems() > 0) {
-        for (unsigned int i = 0; i < world.GetNrOfParticleSystems(); i++) {
-            particleSystemRenderers[i].Draw(textureAtlas, textureAtlasRowNumber, viewProjectionMatrix, emitterSettings[i]);
-        }
+    for (Component::ParticleSystemComponent* comp : particleSystems.GetAll()) {
+        particleSystemRenderers[comp].Draw(textureAtlas, textureAtlasRowNumber, viewProjectionMatrix, emitterSettings[comp]);
     }
-
 }
 
 const Texture2D* ParticleManager::GetTextureAtlas() const {
@@ -100,14 +95,8 @@ Component::ParticleEmitter* ParticleManager::CreateParticleEmitter() {
 }
 
 Component::ParticleSystemComponent* ParticleManager::CreateAParticleSystem(World * world) {
-    ParticleSystemRenderer PS_Renderer;
-    ParticleSystemRenderer::EmitterSettings setting;
-    emitterSettings.push_back(setting);
-    particleSystemRenderers.push_back(PS_Renderer);
-    particleSystemRenderers[world->GetNrOfParticleSystems()].Init();
-    particleSystemRenderers[world->GetNrOfParticleSystems()].CreateStorageBuffers();
-    world->SetNrOfParticleSystems(world->GetNrOfParticleSystems() + 1);
-    return particleSystems.Create();
+
+    return InitParticleSystem(particleSystems.Create());
 }
 
 Component::ParticleEmitter* ParticleManager::CreateParticleEmitter(const Json::Value& node) {
@@ -135,14 +124,20 @@ Component::ParticleEmitter* ParticleManager::CreateParticleEmitter(const Json::V
 }
 
 Component::ParticleSystemComponent* ParticleManager::CreateParticleSystem(const Json::Value& node) {
-    Component::ParticleSystemComponent* particleSystem = particleSystems.Create();
 
+    Component::ParticleSystemComponent* particleSystem = InitParticleSystem(particleSystems.Create());
     // Load values from Json node.
     particleSystem->particleType.textureIndex = node.get("textureIndex", 0).asInt();
-    particleSystem->particleType.color = Json::LoadVec3(node["color"]);
-    particleSystem->size = Json::LoadVec3(node["size"]);
-    particleSystem->averageEmitTime = node.get("averageEmitTime", 0.03).asFloat();
-    particleSystem->emitTimeVariance = node.get("emitTimeVariance", 0.03).asFloat();
+    particleSystem->particleType.nr_new_particles = node.get("emitAmount", 8).asInt();
+    particleSystem->particleType.rate = node.get("rate", 0.3).asFloat();
+    particleSystem->particleType.lifetime = node.get("lifetime", 10.0).asFloat();
+    particleSystem->particleType.scale = node.get("scale", 10.0).asFloat();
+    particleSystem->particleType.velocity = Json::LoadVec3(node["velocity"]);
+    particleSystem->particleType.alpha_control = node.get("alphaControl", 10.0).asFloat();
+    particleSystem->particleType.mass = node.get("mass", 1.0).asFloat();
+    particleSystem->particleType.spread = node.get("spread", 1.0).asFloat();
+    particleSystem->particleType.randomVec = Json::LoadVec3(node["randomVelocity"]);
+    particleSystem->particleType.velocityMultiplier = node.get("speed", 10.0).asFloat();
 
     return particleSystem;
 }
@@ -153,6 +148,18 @@ const std::vector<Component::ParticleEmitter*>& ParticleManager::GetParticleEmit
 
 void ParticleManager::ClearKilledComponents() {
     particleEmitters.ClearKilled();
+    particleSystems.ClearKilled();
+}
+
+Component::ParticleSystemComponent* ParticleManager::InitParticleSystem(Component::ParticleSystemComponent* component) {
+    ParticleSystemRenderer PS_Renderer;
+    ParticleSystemRenderer::EmitterSettings setting;
+    emitterSettings[component] = setting;
+    particleSystemRenderers[component] = PS_Renderer;
+    particleSystemRenderers[component].Init();
+    particleSystemRenderers[component].CreateStorageBuffers();
+
+    return component;
 }
 
 void ParticleManager::EmitParticle(World& world, Component::ParticleEmitter* emitter) {

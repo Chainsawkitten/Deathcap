@@ -29,18 +29,19 @@ uniform float speed;
 uniform float alphaControl;
 uniform float mass;
 uniform vec3[32] randomVec;
+uniform vec3 worldPosition;
+uniform int nr_particles;
 
 void main(void)
 {
-
     const float DT = 0.1;
     const vec3 G = vec3(0.0, -9.8, 0.0);
 
 	uint index = gl_GlobalInvocationID.x;
 
-    if (index > 1024)
+    if (index > nr_particles)
         return;
-
+		
     float life = Velocities[index].w;
     float shot = Positions[index].w;
 
@@ -53,7 +54,7 @@ void main(void)
     {
         shot = 1.0;
 		v = vec3(speed * (randomVec[index - int(ShootIndex.x)] + Velocity));
-		p = vec3(0, 0, 0);
+		p = worldPosition;
 		color.w = 1.0;
     }
 
@@ -72,7 +73,7 @@ void main(void)
 		color.w = 0.0;
         life = 0.0;
         shot = 0.0;
-        p = vec3(0, 0, 0);
+        p = worldPosition;
         v = vec3(speed * (randomVec[0] + Velocity));
 		color.w = 0.0f;
     }

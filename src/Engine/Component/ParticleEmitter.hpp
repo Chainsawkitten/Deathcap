@@ -16,6 +16,9 @@ namespace Component {
             
             /// Defines a kind of particle.
             struct ParticleType {
+                /// Position of emitter.
+                glm::vec3 position = glm::vec3(0, 0, 0);
+
                 /// Index on texture atlas to apply to particles.
                 int textureIndex = 0;
                 

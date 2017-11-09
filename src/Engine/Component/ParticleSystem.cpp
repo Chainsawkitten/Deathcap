@@ -10,8 +10,16 @@ ENGINE_API Json::Value Component::ParticleSystemComponent::Save() const
     Json::Value component;
 
     component["textureIndex"] = particleType.textureIndex;
-    component["velocity"] = Json::SaveVec3(particleType.velocity);
-    component["color"] = Json::SaveVec3(particleType.color);
+    component["emitAmount"] = particleType.nr_new_particles;
+    component["rate"] = particleType.rate;
+    component["lifetime"] = particleType.lifetime;
+    component["scale"] = particleType.scale;
+    component["velocity"] = Json::SaveVec3(glm::vec3(particleType.velocity));
+    component["alphaControl"] = particleType.alpha_control;
+    component["mass"] = particleType.mass;
+    component["spread"] = particleType.spread;
+    component["randomVelocity"] = Json::SaveVec3(glm::vec3(particleType.randomVec));
+    component["speed"] = particleType.velocityMultiplier;
 
     return component;
 }

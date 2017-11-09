@@ -548,6 +548,7 @@ void GUI::EntityEditor::ParticleSystemEditor(Component::ParticleSystemComponent*
     float row = static_cast<float>(particleSystem->particleType.textureIndex / rows);
     ImGui::Image((void*)Managers().particleManager->GetTextureAtlas()->GetTextureID(), ImVec2(128, 128), ImVec2(column / rows, row / rows), ImVec2((column + 1.f) / rows, (row + 1.f) / rows));
     ImGui::InputInt("Texture index", &particleSystem->particleType.textureIndex);
+    ImGui::DragInt("Number of particles", &particleSystem->particleType.nr_particles, 1.0f, 1, 32768);
     ImGui::InputInt("Emit amount", &particleSystem->particleType.nr_new_particles);
     ImGui::DragFloat("Rate", &particleSystem->particleType.rate, 0.3f, 0.0001f, 10.0f);
     ImGui::DragFloat("Lifetime", &particleSystem->particleType.lifetime, 1.0f, 0.01f, 1000.0f);

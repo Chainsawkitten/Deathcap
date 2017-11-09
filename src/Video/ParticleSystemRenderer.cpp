@@ -99,8 +99,6 @@ void ParticleSystemRenderer::CreateStorageBuffers()
     }
 
     glGenBuffers(1, &posSSbo);
-    glBindBuffer(GL_ARRAY_BUFFER, posSSbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(ParticlePos) * nr_particles, &points[0], GL_STATIC_DRAW);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, posSSbo);
     glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(ParticlePos)*nr_particles, &points[0], GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, posSSbo);
@@ -164,6 +162,8 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
 {
     timer += dt;
 
+    nr_particles = settings.nr_particles;
+
     computeShaderProgram->Use();
 
     glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 0, posSSbo, 0, nr_particles * sizeof(ParticlePos));
@@ -178,6 +178,8 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     glUniform1f(computeShaderProgram->GetUniformLocation("speed"), settings.velocityMultiplier);
     glUniform1f(computeShaderProgram->GetUniformLocation("mass"), settings.mass);
     glUniform3fv(computeShaderProgram->GetUniformLocation("modColor"), 1, &settings.color[0]);
+    glUniform3fv(computeShaderProgram->GetUniformLocation("worldPosition"), 1, &settings.worldPos.x);
+    glUniform1i(computeShaderProgram->GetUniformLocation("nr_particles"), nr_particles);
 
     nr_new_particles = settings.nr_new_particles;
     particleShootIndex.y = settings.nr_new_particles - 1;
@@ -192,7 +194,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     glUniform3fv(computeShaderProgram->GetUniformLocation("randomVec"), 32, &randomVec[0].x);
     glUniform1f(computeShaderProgram->GetUniformLocation("alphaControl"), settings.alpha_control);
 
-    glDispatchCompute(nr_particles/128, 1, 1);
+    glDispatchCompute(std::ceil((float)nr_particles/128), 1, 1);
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
