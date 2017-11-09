@@ -97,8 +97,6 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         file.close();
     }
 
-
-
     // Free memory.
     aImporter.FreeScene();
 

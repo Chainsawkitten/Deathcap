@@ -35,7 +35,7 @@ void TextureAsset::Load(const std::string& name) {
     
     // Get properties from meta file.
     Json::Value root;
-    if(!FileSystem::FileExists(std::string(filename + ".json").c_str())) {
+    if (!FileSystem::FileExists(std::string(filename + ".json").c_str())) {
         Save();
     }
     std::ifstream file(filename + ".json");
