@@ -23,6 +23,7 @@ set(SRCS
         ShadowPass.cpp
         Texture/Texture.cpp
         Texture/Texture2D.cpp
+        VideoErrorCheck.cpp
     )
 
 set(HEADERS
@@ -31,7 +32,6 @@ set(HEADERS
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
-        ErrorVideoDebug.hpp
         ParticleRenderer.hpp
         Renderer.hpp
         RenderSurface.hpp
@@ -53,6 +53,7 @@ set(HEADERS
         ShadowPass.hpp
         Texture/Texture.hpp
         Texture/Texture2D.hpp
+        VideoErrorCheck.hpp
     )
 
 # Setup embedded source
