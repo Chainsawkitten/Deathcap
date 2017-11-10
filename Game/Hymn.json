@@ -31,17 +31,11 @@
 			},
 			"1" : 
 			{
-				"action" : "MouseOpen",
+				"action" : "Trigger",
 				"key" : 33,
 				"state" : 1
 			},
-			"2" : 
-			{
-				"action" : "Grip",
-				"key" : 2,
-				"state" : 1
-			},
-			"size" : 3
+			"size" : 2
 		}
 	],
 	"scripts" : 
@@ -50,8 +44,11 @@
 		"Resources/Opening Scene/Gate/Gates",
 		"Resources/Constant Scene/Minecart/Script/Minecart",
 		"Resources/Constant Scene/Minecart/Script/Camera",
-		"Resources/Opening Scene/Audio/scr_AudioManager",
 		"Resources/Constant Scene/Minecart/Script/Lantern",
+		"Resources/Opening Scene/Audio/scr_AudioManager",
+		"Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1",
+		"Resources/NewAssets/Scripts/Rock",
+		"Resources/NewAssets/Scripts/Bridge",
 		"Resources/Constant Scene/Minecart/Script/Controller"
 	],
 	"startupScene" : "Resources/Opening Scene/Opening Scene",
