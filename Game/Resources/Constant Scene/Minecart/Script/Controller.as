@@ -1,25 +1,28 @@
-class Controller{
+class Controller {
     Hub @hub;
     Entity @self;
-    Entity @testEntity;
+    Entity @rock;
     bool isPressed;
-    
+
     Controller(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        @testEntity = GetEntity(1509964911);
-        RegisterUpdate();
+        @rock = GetEntity(1510240479);
         isPressed = false;
+
+        // Remove this if updates are not desired.
+        RegisterUpdate();
     }
-    
-    void Update(float deltaTime){
-        if (Input(Grip) && !isPressed) {
+
+    // Called by the engine for each frame.
+    void Update(float deltaTime) {
+        if (Input(Trigger) && !isPressed) {
             print("Grip pressed" + self.GetUniqueIdentifier() + "\n");
-            SendMessage(testEntity, 2);
+            SendMessage(rock, 2);
             isPressed = true;
-        } else if (!Input(Grip) && isPressed) {
+        } else if (!Input(Trigger) && isPressed) {
             print("Grip unpressed\n");
-            SendMessage(testEntity, 1);
+            SendMessage(rock, 1);
             isPressed = false;
         }
     }

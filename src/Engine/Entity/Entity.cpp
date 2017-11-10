@@ -282,7 +282,7 @@ glm::quat Entity::GetWorldOrientation() const {
 }
 
 glm::vec3 Entity::GetDirection() const {
-    return glm::vec3(rotation * glm::vec3(0, 0, -1));
+    return glm::vec3(GetWorldOrientation() * glm::vec3(0, 0, -1));
 }
 
 glm::vec3 Entity::GetWorldPosition() const {
