@@ -1,23 +1,19 @@
 class Minecart_Puzzle_1{
     Hub @hub;
     Entity @self;
-    Rigidbody @selfBody;
-    Rigidbody @puzzleBody;
     float speed;
     bool trigger;
     float stopTime;
     float endTime;
-    bool hasHitPlane;
+    bool hasBridgeBeenLowered;
     
     Minecart_Puzzle_1(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        @selfBody = self.GetRigidBody();
-        @puzzleBody = self.GetParent().GetParent().GetChild("BreakCheck").GetRigidBody();
-        speed = 2.0f;
+        speed = 4.0f;
         stopTime = 0.0f;
         endTime = 7.5f;
-        hasHitPlane = false;
+        hasBridgeBeenLowered = false;
         
         trigger = false;
         RegisterUpdate();
@@ -25,9 +21,12 @@ class Minecart_Puzzle_1{
     
     //Update carts movements and send it's position to Player Script.
     void Update(float deltaTime){
-        self.position.z -= speed*deltaTime;
+            self.position.z -= speed*deltaTime;
         
-        // Braking phase
+        if (self.GetWorldPosition().x <= 5.4)
+            speed = 0.0f;
+        
+        /*// Braking phase
         if (hasHitPlane && stopTime < endTime){
             stopTime += deltaTime;
             speed -= 0.0056f;
@@ -45,7 +44,7 @@ class Minecart_Puzzle_1{
                 speed = 2.0f;
                 trigger = false;
             }
-        }
+        }*/
     }
     
     void ReceiveMessage(int signal){
