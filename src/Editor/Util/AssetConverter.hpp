@@ -47,8 +47,10 @@ class AssetConverter {
          * @param flipsUVs Flip UV/texture coordinates in y axis.
          * @param importMaterial Should materials be imported from the mesh?
          * @param materials Materials structure to store material paths in.
+         * @param CPU Whether the mesh should be stored on the CPU.
+         * @param GPU Whether the mesh should be stored on the GPU.
          */
-        void Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipsUVs, bool importMaterial, Material& materials);
+        void Convert(const char* filepath, const char* destination, const glm::vec3& scale, bool triangulate, bool importNormals, bool importTangents, bool flipsUVs, bool importMaterial, Material& materials, bool CPU, bool GPU);
 
         /// Check after conversion if everything went well.
         /**
@@ -63,10 +65,10 @@ class AssetConverter {
         std::string& GetErrorString();
     
     private:
-        void ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs);
-        void ConvertMesh(aiMesh * mesh, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs);
-        Video::Geometry::VertexType::StaticVertex * ConvertStaticVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, glm::vec3 scale, bool flipUVs);
-        Video::Geometry::VertexType::SkinVertex * ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, glm::vec3 scale, bool flipUVs);
+        void ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler* file, const glm::vec3& scale, bool flipUVs, bool CPU, bool GPU);
+        void ConvertMesh(aiMesh * mesh, Geometry::AssetFileHandler * file, const glm::vec3& scale, bool flipUVs, bool CPU, bool GPU);
+        Video::Geometry::VertexType::StaticVertex * ConvertStaticVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, const glm::vec3& scale, bool flipUVs);
+        Video::Geometry::VertexType::SkinVertex * ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, const glm::vec3& scale, bool flipUVs);
         void CalculateAABB(Geometry::AssetFileHandler::MeshData * meshData, unsigned int numVertices);
         void LoadMaterial(aiMaterial* material, aiTextureType type, std::string& path);
 
