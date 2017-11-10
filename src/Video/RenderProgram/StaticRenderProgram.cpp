@@ -23,13 +23,13 @@ StaticRenderProgram::StaticRenderProgram() {
     delete vertexShader;
     delete fragmentShader;
 
-    //Create shaders for early rejection pass
+    // Create shaders for early rejection pass
     vertexShader = new Shader(ZREJECTIONSTATIC_VERT, ZREJECTIONSTATIC_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = new Shader(ZREJECTION_FRAG, ZREJECTION_FRAG_LENGTH, GL_FRAGMENT_SHADER);
     zShaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
 
-    //Create shaders for shadowpass
+    // Create shaders for shadowpass
     vertexShader = new Shader(SHADOWSTATIC_VERT, SHADOWSTATIC_VERT_LENGTH, GL_VERTEX_SHADER);
     shadowProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;

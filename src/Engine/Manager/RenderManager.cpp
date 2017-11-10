@@ -335,14 +335,12 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { VIDEO_ERROR_CHECK("Update lights");
     { PROFILE("Update lights");
     { GPUPROFILE("Update lights", Video::Query::Type::TIME_ELAPSED);
-        if (lighting) {
+        if (lighting)
             // Cull lights and update light list.
             LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
-        }
-        else {
+        else
             // Use full ambient light and ignore lights in the scene.
             LightAmbient();
-        }
     }
     }
     }
