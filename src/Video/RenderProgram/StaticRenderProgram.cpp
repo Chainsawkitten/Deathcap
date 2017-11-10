@@ -8,9 +8,9 @@
 #include "../Shader/ShaderProgram.hpp"
 #include "Default3D.vert.hpp"
 #include "Default3D.frag.hpp"
-#include "Zrejection.vert.hpp"
+#include "ZrejectionStatic.vert.hpp"
 #include "Zrejection.frag.hpp"
-#include "Shadow.vert.hpp"
+#include "ShadowStatic.vert.hpp"
 #include "../Buffer/StorageBuffer.hpp"
 #include <chrono>
 
@@ -24,13 +24,13 @@ StaticRenderProgram::StaticRenderProgram() {
     delete fragmentShader;
 
     //Create shaders for early rejection pass
-    vertexShader = new Shader(ZREJECTION_VERT, ZREJECTION_VERT_LENGTH, GL_VERTEX_SHADER);
+    vertexShader = new Shader(ZREJECTIONSTATIC_VERT, ZREJECTIONSTATIC_VERT_LENGTH, GL_VERTEX_SHADER);
     fragmentShader = new Shader(ZREJECTION_FRAG, ZREJECTION_FRAG_LENGTH, GL_FRAGMENT_SHADER);
     zShaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
 
     //Create shaders for shadowpass
-    vertexShader = new Shader(SHADOW_VERT, SHADOW_VERT_LENGTH, GL_VERTEX_SHADER);
+    vertexShader = new Shader(SHADOWSTATIC_VERT, SHADOWSTATIC_VERT_LENGTH, GL_VERTEX_SHADER);
     shadowProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
     delete fragmentShader;
@@ -42,7 +42,7 @@ StaticRenderProgram::~StaticRenderProgram() {
     delete shadowProgram;
 }
 
-void Video::StaticRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
+void StaticRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
     // Cull front faces to avoid peter panning.
     glCullFace(GL_FRONT);
     glViewport(0, 0, shadowWidth, shadowHeight);
@@ -59,6 +59,18 @@ void Video::StaticRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, co
     glUniformMatrix4fv(shadowProgram->GetUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 }
 
+void StaticRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) const {
+    Frustum frustum(viewProjectionMatrix * modelMatrix);
+    if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
+        glBindVertexArray(geometry->GetVertexArray());
+
+        glUniformMatrix4fv(shadowProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+
+        glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+    }
+}
+
+
 void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     this->zShaderProgram->Use();
 
@@ -69,23 +81,12 @@ void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm:
     glUniformMatrix4fv(zShaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) const {
+void StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
 
         glUniformMatrix4fv(zShaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
-
-        glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-    }
-}
-
-void Video::StaticRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) const {
-    Frustum frustum(viewProjectionMatrix * modelMatrix);
-    if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
-        glBindVertexArray(geometry->GetVertexArray());
-
-        glUniformMatrix4fv(shadowProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }

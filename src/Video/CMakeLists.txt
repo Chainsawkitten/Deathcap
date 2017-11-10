@@ -73,10 +73,12 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostFXAA.frag
-    ../../shaders/Shadow.vert
+    ../../shaders/ShadowSkin.vert
+    ../../shaders/ShadowStatic.vert
     ../../shaders/Skinning.vert
-    ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag
+    ../../shaders/ZrejectionSkin.vert
+    ../../shaders/ZrejectionStatic.vert
 )
 
 foreach(item ${EMBEDDED_INPUT})
