@@ -56,11 +56,12 @@ Entity* Entity::SetParent(Entity* newParent) {
             parent->RemoveChild(this);
             Entity* lastParent = parent;
             parent = newParent;
+          
             newParent->children.push_back(this);      
+
             return lastParent;
         }
-    }
-    
+    } 
     return nullptr;
 }
 
