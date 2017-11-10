@@ -14,12 +14,13 @@ class Lever {
     }
     
     void Update(float deltaTime){
-        if (Input(MouseOpen)){
-            if(self.rotation.y <= -30.0f){
+        if (Input(Trigger)){
+            if (pitch(self.rotation) <= radians(-30.0f)){
                 SendMessage(sibling, 1);
             }
-            else
-                self.rotation.y -= 0.3;
+            else {
+                self.RotatePitch(radians(-1.0f));
+            }
         }
     }
 }

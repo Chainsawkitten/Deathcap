@@ -6,10 +6,13 @@
 #include "GUI/SettingsWindow.hpp"
 #include "GUI/FiltersWindow.hpp"
 #include "GUI/SavePromptWindow.hpp"
+#include "GUI/LogView.hpp"
+#include <Engine/Entity/World.hpp>
 #include <Engine/Util/MousePicking.hpp>
 #include <Engine/Util/RayIntersection.hpp>
 #include <string>
 #include <json/json.h>
+#include <ImGuizmo.h>
 
 struct GLFWcursor;
 
@@ -99,6 +102,7 @@ class Editor {
         GUI::SelectHymnWindow selectHymnWindow;
         GUI::InputWindow inputWindow;
         GUI::ResourceView resourceView;
+        GUI::LogView logView;
         GUI::SettingsWindow settingsWindow;
         GUI::FiltersWindow filtersWindow;
         GUI::SavePromptWindow savePromtWindow;
@@ -119,4 +123,6 @@ class Editor {
         double lastY = 0.0;
         
         GLFWcursor* cursors[5];
+
+        ImGuizmo::MODE imguizmoMode = ImGuizmo::MODE::WORLD;
 };

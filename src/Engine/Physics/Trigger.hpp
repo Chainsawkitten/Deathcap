@@ -21,12 +21,9 @@ namespace Physics {
             /**
              * @param transform The world transform of the trigger volume.
              */
-            ENGINE_API Trigger(const btTransform& transform);
+            ENGINE_API explicit Trigger(const btTransform& transform);
 
         private:
-            // Get the wrapped Bullet collision object.
-            btCollisionObject* GetCollisionObject() const;
-
             // Process observers against the trigger volume, passing the world
             // in which rigid bodies reside.
             void Process(btCollisionWorld& world);
@@ -39,7 +36,7 @@ namespace Physics {
             void SetCollisionShape(std::shared_ptr<Shape> shape);
 
         private:
-            btCollisionObject* trigger = nullptr;
+            std::unique_ptr<btCollisionObject> trigger = nullptr;
             std::shared_ptr<Shape> shape = nullptr;
             std::vector<std::unique_ptr<TriggerObserver>> observers;
     };

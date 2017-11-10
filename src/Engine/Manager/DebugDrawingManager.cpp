@@ -40,10 +40,10 @@ void DebugDrawingManager::AddLine(const glm::vec3& startPosition, const glm::vec
     lines.push_back(line);
 }
 
-void DebugDrawingManager::AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+void DebugDrawingManager::AddCuboid(const glm::vec3& dimensions, const glm::mat4& matrix, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
     DebugDrawing::Cuboid cuboid;
-    cuboid.minCoordinates = minCoordinates;
-    cuboid.maxCoordinates = maxCoordinates;
+    cuboid.dimensions = dimensions;
+    cuboid.matrix = matrix;
     cuboid.color = color;
     cuboid.lineWidth = lineWidth;
     cuboid.duration = duration;
@@ -63,6 +63,18 @@ void DebugDrawingManager::AddPlane(const glm::vec3& position, const glm::vec3& n
     planes.push_back(plane);
 }
 
+void DebugDrawingManager::AddCircle(const glm::vec3& position, const glm::vec3& normal, float radius, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Circle circle;
+    circle.position = position;
+    circle.normal = normal;
+    circle.radius = radius;
+    circle.color = color;
+    circle.lineWidth = lineWidth;
+    circle.duration = duration;
+    circle.depthTesting = depthTesting;
+    circles.push_back(circle);
+}
+
 void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
     DebugDrawing::Sphere sphere;
     sphere.position = position;
@@ -74,6 +86,30 @@ void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, con
     spheres.push_back(sphere);
 }
 
+void DebugDrawingManager::AddCylinder(float radius, float length, const glm::mat4& matrix, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Cylinder cylinder;
+    cylinder.radius = radius;
+    cylinder.length = length;
+    cylinder.matrix = matrix;
+    cylinder.color = color;
+    cylinder.lineWidth = lineWidth;
+    cylinder.duration = duration;
+    cylinder.depthTesting = depthTesting;
+    cylinders.push_back(cylinder);
+}
+
+void DebugDrawingManager::AddCone(float radius, float height, const glm::mat4& matrix, const glm::vec3& color, float lineWidth, float duration, bool depthTesting) {
+    DebugDrawing::Cone cone;
+    cone.radius = radius;
+    cone.height = height;
+    cone.matrix = matrix;
+    cone.color = color;
+    cone.lineWidth = lineWidth;
+    cone.duration = duration;
+    cone.depthTesting = depthTesting;
+    cones.push_back(cone);
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
@@ -81,9 +117,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             points[i] = points[points.size() - 1];
             points.pop_back();
             --i;
-        } else {
+        } else
             points[i].duration -= deltaTime;
-        }
     }
     
     // Lines.
@@ -92,9 +127,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             lines[i] = lines[lines.size() - 1];
             lines.pop_back();
             --i;
-        } else {
+        } else
             lines[i].duration -= deltaTime;
-        }
     }
     
     // Cuboids.
@@ -103,9 +137,8 @@ void DebugDrawingManager::Update(float deltaTime) {
             cuboids[i] = cuboids[cuboids.size() - 1];
             cuboids.pop_back();
             --i;
-        } else {
+        } else
             cuboids[i].duration -= deltaTime;
-        }
     }
     
     // Planes.
@@ -114,9 +147,18 @@ void DebugDrawingManager::Update(float deltaTime) {
             planes[i] = planes[planes.size() - 1];
             planes.pop_back();
             --i;
-        } else {
+        } else
             planes[i].duration -= deltaTime;
-        }
+    }
+    
+    // Circles.
+    for (std::size_t i=0; i < circles.size(); ++i) {
+        if (circles[i].duration < 0.f) {
+            circles[i] = circles[circles.size() - 1];
+            circles.pop_back();
+            --i;
+        } else
+            circles[i].duration -= deltaTime;
     }
     
     // Spheres.
@@ -125,14 +167,32 @@ void DebugDrawingManager::Update(float deltaTime) {
             spheres[i] = spheres[spheres.size() - 1];
             spheres.pop_back();
             --i;
-        } else {
+        } else
             spheres[i].duration -= deltaTime;
-        }
+    }
+    
+    // Cylinders.
+    for (std::size_t i=0; i < cylinders.size(); ++i) {
+        if (cylinders[i].duration < 0.f) {
+            cylinders[i] = cylinders[cylinders.size() - 1];
+            cylinders.pop_back();
+            --i;
+        } else
+            cylinders[i].duration -= deltaTime;
+    }
+    
+    // Cone.
+    for (std::size_t i=0; i < cones.size(); ++i) {
+        if (cones[i].duration < 0.f) {
+            cones[i] = cones[cones.size() - 1];
+            cones.pop_back();
+            --i;
+        } else
+            cones[i].duration -= deltaTime;
     }
 }
 
-void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {       
-
+void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
     // Bind render target.
     renderSurface->GetShadingFrameBuffer()->BindWrite();
     debugDrawing->StartDebugDrawing(projectionMatrix * viewMatrix);
@@ -152,11 +212,23 @@ void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& p
     // Planes.
     for (const DebugDrawing::Plane& plane : planes)
         debugDrawing->DrawPlane(plane);
-        
+    
+    // Circles.
+    for (const DebugDrawing::Circle& circle : circles)
+        debugDrawing->DrawCircle(circle);
+    
     // Spheres.
     for (const DebugDrawing::Sphere& sphere : spheres)
         debugDrawing->DrawSphere(sphere);
-        
+    
+    // Cylinders.
+    for (const DebugDrawing::Cylinder& cylinder : cylinders)
+        debugDrawing->DrawCylinder(cylinder);
+    
+    // Cones.
+    for (const DebugDrawing::Cone& cone : cones)
+        debugDrawing->DrawCone(cone);
+    
     debugDrawing->EndDebugDrawing();
     renderSurface->GetShadingFrameBuffer()->Unbind();
 }

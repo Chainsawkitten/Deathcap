@@ -45,6 +45,7 @@ Editor::Editor() {
 
     // Assign controls.
     Input()->AssignButton(InputHandler::PROFILE, InputHandler::KEYBOARD, GLFW_KEY_F2);
+    Input()->AssignButton(InputHandler::WINDOWMODE, InputHandler::KEYBOARD, GLFW_KEY_F4);
     Input()->AssignButton(InputHandler::PLAYTEST, InputHandler::KEYBOARD, GLFW_KEY_F5);
     Input()->AssignButton(InputHandler::CONTROL, InputHandler::KEYBOARD, GLFW_KEY_LEFT_CONTROL);
     Input()->AssignButton(InputHandler::NEW, InputHandler::KEYBOARD, GLFW_KEY_N);
@@ -156,10 +157,9 @@ void Editor::Show(float deltaTime) {
             resourceView.Show();
 
         // Show settings window.
-        if (settingsWindow.IsVisible()) {
+        if (settingsWindow.IsVisible())
             settingsWindow.Show();
-        }
-
+        
         // Show grid settings window.
         ShowGridSettings();
         CreateGrid(gridSettings.gridSize);
@@ -176,16 +176,14 @@ void Editor::Show(float deltaTime) {
         // Scroll zoom.
         if (Input()->GetScrollDown()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
-                glm::mat4 orientation = cameraEntity->GetOrientation();
-                glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+                glm::vec3 backward = cameraEntity->GetWorldOrientation() * glm::vec3(0, 0, 1);
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * backward;
             }
         }
         if (Input()->GetScrollUp()) {
             if (!ImGui::IsMouseHoveringAnyWindow()) {
-                glm::mat4 orientation = cameraEntity->GetOrientation();
-                glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+                glm::vec3 backward = cameraEntity->GetWorldOrientation() * glm::vec3(0, 0, 1);
                 float speed = 2.0f * deltaTime * glm::length(cameraEntity->position);
                 cameraEntity->position += speed * -backward;
             }
@@ -216,62 +214,62 @@ void Editor::Show(float deltaTime) {
     // Widget Controller for translation, rotation  and scale.
     ImGuizmo::BeginFrame();
     ImGuizmo::Enable(true);
-    //Widget operation is in local mode
-    ImGuizmo::MODE currentGizmoMode(ImGuizmo::LOCAL);
-    ImGuiIO& io = ImGui::GetIO();
-
-    // Check that there is an active Entity.
 
     // Get current active Entity.
-    glm::mat4 currentEntityMatrix = glm::mat4();
-
     Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
 
     if (currentEntity != nullptr) {
-        currentEntityMatrix = currentEntity->GetLocalMatrix();
+        glm::mat4 currentEntityMatrix = currentEntity->GetLocalMatrix();
 
         // Change operation based on key input.
         if (!ImGuizmo::IsUsing()) {
-            if (Input()->Triggered(InputHandler::W))
+            if (Input()->Triggered(InputHandler::W)) {
                 currentOperation = ImGuizmo::TRANSLATE;
-            else if (Input()->Triggered(InputHandler::E))
+                imguizmoMode = ImGuizmo::MODE::WORLD;
+            } else if (Input()->Triggered(InputHandler::E)) {
                 currentOperation = ImGuizmo::ROTATE;
-            else if (Input()->Triggered(InputHandler::R))
+                imguizmoMode = ImGuizmo::MODE::WORLD;
+            } else if (Input()->Triggered(InputHandler::R)) {
                 currentOperation = ImGuizmo::SCALE;
+                imguizmoMode = ImGuizmo::MODE::LOCAL;
+            }
         }
+
+        ImGuiIO& io = ImGui::GetIO();
 
         // Projection matrix.
         glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
 
         // View matrix.
-        glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
-
-        // Identity matrix.
-        float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
-        float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
-        float rotationValue[3] = { currentEntity->rotation.x, currentEntity->rotation.y, currentEntity->rotation.z };
+        glm::mat4 viewMatrix = glm::toMat4(glm::inverse(cameraEntity->GetWorldOrientation())) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
 
         // Draw the actual widget.
         ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
-        ImGuizmo::RecomposeMatrixFromComponents(translationValue, rotationValue, scaleValue, &currentEntityMatrix[0][0]);
-        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, currentGizmoMode, &currentEntityMatrix[0][0]);
-        ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translationValue, rotationValue, scaleValue);
-        glm::rotate(-90.0f, glm::vec3(rotationValue[0], rotationValue[1], rotationValue[2]));
+        glm::mat4 deltaMatrix = glm::mat4();
+        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, imguizmoMode, &currentEntityMatrix[0][0], &deltaMatrix[0][0]);
 
         if (ImGuizmo::IsUsing()) {
             switch (currentOperation) {
-            case ImGuizmo::TRANSLATE:
-                currentEntity->position.x = translationValue[0];
-                currentEntity->position.y = translationValue[1];
-                currentEntity->position.z = translationValue[2];
-            case ImGuizmo::ROTATE:
-                currentEntity->rotation.x = rotationValue[0];
-                currentEntity->rotation.y = rotationValue[1];
-                currentEntity->rotation.z = rotationValue[2];
-            case ImGuizmo::SCALE:
-                currentEntity->scale.x = scaleValue[0];
-                currentEntity->scale.y = scaleValue[1];
-                currentEntity->scale.z = scaleValue[2];
+                case ImGuizmo::TRANSLATE: {
+                    currentEntity->position.x = currentEntityMatrix[3][0];
+                    currentEntity->position.y = currentEntityMatrix[3][1];
+                    currentEntity->position.z = currentEntityMatrix[3][2];
+                    break;
+                }
+                case ImGuizmo::ROTATE: {
+                    currentEntity->SetLocalOrientation(glm::toQuat(deltaMatrix) * currentEntity->GetLocalOrientation());
+                    break;
+                }
+                case ImGuizmo::SCALE: {
+                    float translation[3];
+                    float rotation[3];
+                    float scale[3];
+                    ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translation, rotation, scale);
+                    currentEntity->scale.x = scale[0];
+                    currentEntity->scale.y = scale[1];
+                    currentEntity->scale.z = scale[2];
+                    break;
+                }
             }
         }
     }
@@ -427,6 +425,10 @@ void Editor::ShowMainMenuBar(bool& play) {
             static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
             ImGui::MenuItem("Physics", "", &physics);
             EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
+            
+            static bool lighting = EditorSettings::GetInstance().GetBool("Lighting");
+            ImGui::MenuItem("Lighting", "", &lighting);
+            EditorSettings::GetInstance().SetBool("Lighting", lighting);
 
             ImGui::EndMenu();
         }
@@ -454,8 +456,8 @@ void Editor::ShowMainMenuBar(bool& play) {
             if (Input()->Triggered(InputHandler::ZOOM)) {
                 if (resourceView.GetScene().entityEditor.GetEntity() != nullptr) {
                     const glm::vec3 tempPos = resourceView.GetScene().entityEditor.GetEntity()->GetWorldPosition();
-                    cameraEntity->position = tempPos + glm::vec3(0, 7.f, 7.f);
-                    cameraEntity->rotation = glm::vec3(0.f, 315.f, 0.f);
+                    cameraEntity->position = tempPos + glm::vec3(0, 7, 7);
+                    cameraEntity->SetLocalOrientation(glm::angleAxis(glm::radians(-45.0f), glm::vec3(1, 0, 0)));
                 }
             }
 
@@ -469,9 +471,10 @@ void Editor::ShowMainMenuBar(bool& play) {
 
 void Editor::ShowGridSettings() {
     if (showGridSettings) {
-        ImGui::SetNextWindowPos(ImVec2(1275, 25));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 150), ImVec2(255, 150));
-        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar);
+        glm::vec2 size(MainWindow::GetInstance()->GetSize());
+        ImGui::SetNextWindowPos(ImVec2((int)size.x - 255 - resourceView.GetEditorWidth(), 20));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(255, 105), ImVec2(255, 105));
+        ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
         ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
         EditorSettings::GetInstance().SetLong("Grid Size", gridSettings.gridSize);
         ImGui::DragInt("Line Width", &gridSettings.lineWidth, 0.1f, 1, 5);
@@ -512,17 +515,18 @@ void Editor::ControlEditorCamera(float deltaTime) {
             lastX = Input()->GetCursorX();
             lastY = Input()->GetCursorY();
         }
-
         float sensitivity = 0.3f;
-        cameraEntity->rotation.x -= sensitivity * (Input()->GetCursorX() - lastX);
-        cameraEntity->rotation.y -= sensitivity * (Input()->GetCursorY() - lastY);
+        float horizontal = glm::radians(sensitivity * static_cast<float>(lastX - Input()->GetCursorX()));
+        float vertical = glm::radians(sensitivity * static_cast<float>(lastY - Input()->GetCursorY()));
+        cameraEntity->RotatePitch(vertical);
+        cameraEntity->RotateAroundWorldAxis(horizontal, glm::vec3(0.0f, 1.0f, 0.0f));
 
         lastX = Input()->GetCursorX();
         lastY = Input()->GetCursorY();
 
-        glm::mat4 orientation = cameraEntity->GetOrientation();
-        glm::vec3 backward(orientation[2][0], orientation[2][1], orientation[2][2]);
-        glm::vec3 right(orientation[0][0], orientation[0][1], orientation[0][2]);
+        glm::mat4 orientation = glm::toMat4(glm::inverse(cameraEntity->GetWorldOrientation()));
+        glm::vec3 backward(orientation[0][2], orientation[1][2], orientation[2][2]);
+        glm::vec3 right(orientation[0][0], orientation[1][0], orientation[2][0]);
 
         // Move speed scaling.
         float speed = 10.0f * deltaTime * (glm::abs(cameraEntity->position.y) / 10.0f);
@@ -539,7 +543,7 @@ void Editor::ControlEditorCamera(float deltaTime) {
 }
 
 void Editor::Picking() {
-    if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+    if (Input()->Pressed(InputHandler::CONTROL) && Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
         mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
         mousePicker.Update();
         float lastDistance = INFINITY;
@@ -596,18 +600,18 @@ void Editor::Focus() {
             glm::normalize(camDirection);
 
             float yaw = std::atan2(camDirection.x, -camDirection.z);
-            cameraEntity->rotation.x = glm::degrees(yaw);
+            cameraEntity->RotateYaw(yaw);
 
             float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
             float pitch = std::atan2(-camDirection.y, xz);
-            cameraEntity->rotation.y = glm::degrees(pitch);
+            cameraEntity->RotateAroundWorldAxis(pitch, glm::vec3(1, 0, 0));
         }
     }
 }
 
 void Editor::Play() {
-
-    Hymn().saveState = Hymn().world.GetSaveJson();
+    Hymn().saveStateHymn = Hymn().ToJson();
+    Hymn().saveStateWorld = Hymn().world.GetSaveJson();
     SetVisible(false);
     resourceView.HideEditors();
 
@@ -616,7 +620,8 @@ void Editor::Play() {
 }
 
 void Editor::LoadSceneState() {
-    Hymn().world.Load(Hymn().saveState);
+    Hymn().FromJson(Hymn().saveStateHymn);
+    Hymn().world.Load(Hymn().saveStateWorld);
 }
 
 void Editor::NewHymn() {

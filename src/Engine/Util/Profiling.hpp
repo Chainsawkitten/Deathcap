@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include "../Manager/Managers.hpp"
 #include "../Manager/ProfilingManager.hpp"
 #include "../linking.hpp"
 
@@ -12,7 +11,7 @@ class Profiling {
         /**
          * @param name Name of the segment.
          */
-        ENGINE_API Profiling(const std::string& name);
+        ENGINE_API explicit Profiling(const std::string& name);
         
         /// End profiling.
         ENGINE_API ~Profiling();

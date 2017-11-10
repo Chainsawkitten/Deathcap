@@ -7,6 +7,7 @@
 namespace Video {
     class ShaderProgram;
     class Texture;
+    class RenderSurface;
     
     /// Renders particles.
     class ParticleRenderer {
@@ -42,7 +43,7 @@ namespace Video {
             /**
              * @param maxParticleCount The maximum amount of particles in the buffer.
              */
-            VIDEO_API ParticleRenderer(unsigned int maxParticleCount);
+            VIDEO_API explicit ParticleRenderer(unsigned int maxParticleCount);
             
             /// Destructor.
             VIDEO_API ~ParticleRenderer();
@@ -61,8 +62,9 @@ namespace Video {
              * @param cameraPosition The camera's position.
              * @param cameraUp The camera's up vector.
              * @param viewProjectionMatrix The camera's view projection matrix.
+             * @param renderSurface %RenderSurface to render particles to.
              */
-            VIDEO_API void Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix);
+            VIDEO_API void Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix, RenderSurface* renderSurface);
             
         private:
             ParticleRenderer(const ParticleRenderer & other) = delete;

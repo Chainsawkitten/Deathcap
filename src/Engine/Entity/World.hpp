@@ -7,9 +7,6 @@
 #include "../linking.hpp"
 
 class Entity;
-namespace Component {
-    class SuperComponent;
-}
 namespace Json {
     class Value;
 }

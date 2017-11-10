@@ -6,9 +6,12 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <imgui.h>
-#include "Util/AssetMetaData.hpp"
+#include "../../Util/AssetConverter.hpp"
+#include "../../Util/AssetConverterSkeleton.hpp"
+#include "../../Util/AssetMetaData.hpp"
 #include <Utility/Log.hpp>
-#include "../../Resources.hpp"
+#include <Engine/Animation/AnimationClip.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -28,15 +31,17 @@ void ModelEditor::Show() {
 
             // Rename all the files.
             if (FileSystem::FileExists((destination + ".fbx").c_str())) {
-                FileSystem::Rename(destination + ".fbx", std::string(name) + ".fbx");
+                std::string newDestination = Hymn().GetPath() + "/" + model->path + name;
+
+                rename((destination + ".fbx").c_str(), (newDestination + ".fbx").c_str());
 
                 if (FileSystem::FileExists((destination + ".asset").c_str()))
-                    FileSystem::Rename(destination + ".asset", std::string(name) + ".asset");
+                    rename((destination + ".asset").c_str(), (newDestination + ".asset").c_str());
 
                 if (FileSystem::FileExists((destination + ".asset.meta").c_str()))
-                    FileSystem::Rename(destination + ".asset.meta", std::string(name) + ".asset.meta");
+                    rename((destination + ".asset.meta").c_str(), (newDestination + ".asset.meta").c_str());
 
-                destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+                destination = newDestination;
             }
         }
 
@@ -51,8 +56,8 @@ void ModelEditor::Show() {
         }
 
         if (hasSourceFile) {
-            ImGui::Text("Mesh Data");
-            ImGui::Checkbox("Uniform Scaling", &uniformScaling);
+            ImGui::Text("Mesh data");
+            ImGui::Checkbox("Uniform scaling", &uniformScaling);
 
             if (uniformScaling) {
                 float uniScale = scale.x;
@@ -62,16 +67,16 @@ void ModelEditor::Show() {
                 ImGui::DragFloat3("Scale", &scale[0], 0.01f);
             
             ImGui::Checkbox("Triangulate", &triangulate);
-            ImGui::Checkbox("Import Normals", &importNormals);
-            ImGui::Checkbox("Import Tangents", &importTangents);
-            ImGui::Checkbox("Import Textures", &importTextures);
+            ImGui::Checkbox("Import normals", &importNormals);
+            ImGui::Checkbox("Import tangents", &importTangents);
+            ImGui::Checkbox("Import textures", &importTextures);
             ImGui::Checkbox("Flip UVs", &flipUVs);
             ImGui::Checkbox("Create scene", &createScene);
 
             std::string button = isImported ? "Re-import" : "Import";
 
             if (ImGui::Button(button.c_str())) {
-                AssetConverter::Materials materials;
+                AssetConverter::Material materials;
                 
                 // Convert to .asset format.
                 AssetConverter asset;
@@ -184,18 +189,6 @@ void ModelEditor::SetVisible(bool visible) {
 void ModelEditor::FileSelected(const std::string& file) {
     std::string name = FileSystem::GetName(file).c_str();
 
-    // Checking so that the file isn't imported twice.
-    /// @todo Overwrite option?
-    /// @todo Reimplement this.
-    /*for (int i = 0; i < Resources().models.size(); ++i) {
-        if (Resources().models[i]->name == name) {
-            Log() << "File " << name << " is already added to project.\n";
-            isImported = false;
-            hasSourceFile = false;
-            return;
-        }
-    }*/
-
     source = file;
 
     // Rename the model to the name of the source file.
@@ -231,9 +224,8 @@ void ModelEditor::RefreshImportSettings() {
 
         delete importData;
         isImported = true;
-    } else {
+    } else
         isImported = false;
-    }
 }
 
 TextureAsset* ModelEditor::LoadTexture(const std::string& path, const std::string& name) {

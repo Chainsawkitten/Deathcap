@@ -70,23 +70,13 @@ void VRManager::Update() {
             transform = GetHMDPoseMatrix();
         }
 
+        glm::quat tempQuat = glm::quat(transform);
+
         // Update position based on device position.
         glm::vec3 position = glm::vec3(transform[3][0], transform[3][1], transform[3][2]);
         entity->position = position * GetScale();
 
-        // Update rotation based on device rotation.
-        glm::vec3 forward = -glm::vec3(transform[2][0], transform[2][1], transform[2][2]);
-        float yaw = atan2(-forward.x, -forward.z);
-        float pitch = atan2(forward.y, sqrt(forward.x * forward.x + forward.z * forward.z));
-
-        glm::vec3 up = glm::vec3(transform[1][0], transform[1][1], transform[1][2]);
-        glm::vec3 r = glm::cross(forward, glm::vec3(0.f, 1.f, 0.f));
-        glm::vec3 u = glm::cross(r, forward);
-        float roll = atan2(-glm::dot(up, r), glm::dot(up, u));
-
-        entity->rotation.x = glm::degrees(yaw);
-        entity->rotation.y = glm::degrees(pitch);
-        entity->rotation.z = glm::degrees(roll);
+        entity->SetLocalOrientation(tempQuat);
     }
 }
 
@@ -138,15 +128,22 @@ void VRManager::SetScale(float scale) {
     this->scale = scale;
 }
 
-bool VRManager::GetInput(vr::EVRButtonId buttonID) {
-    for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++) {
-        vr::VRControllerState_t controllerState;
-        if (vrSystem->GetControllerState(unDevice, &controllerState, sizeof(controllerState))) {
-            pressedTrackedDevice[unDevice] = controllerState.ulButtonPressed == 0;
-            if (controllerState.ulButtonPressed & vr::ButtonMaskFromId(buttonID))
-                return true;
+bool VRManager::GetInput(vr::EVRButtonId buttonID, int ID) {
+    if (ID == 1 || ID == 2) {
+        vr::ETrackedControllerRole desiredRole = static_cast<vr::ETrackedControllerRole>(ID);
+        for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++) {
+            vr::ETrackedControllerRole role = vrSystem->GetControllerRoleForTrackedDeviceIndex(unDevice);
+            if (role == desiredRole) {
+                vr::VRControllerState_t controllerState;
+                if (vrSystem->GetControllerState(unDevice, &controllerState, sizeof(controllerState))) {
+                    pressedTrackedDevice[unDevice] = controllerState.ulButtonPressed == 0;
+                    if (controllerState.ulButtonPressed & vr::ButtonMaskFromId(buttonID))
+                        return true;
+                }
+            }
         }
     }
+
     return false;
 }
 

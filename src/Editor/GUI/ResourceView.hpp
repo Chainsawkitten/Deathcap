@@ -1,10 +1,14 @@
 #pragma once
 
+#include "Editors/AnimationClipEditor.hpp"
+#include "Editors/AnimationControllerEditor.hpp"
+#include "Editors/SkeletonEditor.hpp"
 #include "Editors/ModelEditor.hpp"
 #include "Editors/SceneEditor.hpp"
 #include "Editors/SoundEditor.hpp"
 #include "Editors/ScriptEditor.hpp"
 #include "Editors/TextureEditor.hpp"
+#include "Editors/AudioMaterialEditor.hpp"
 #include "SavePromptWindow.hpp"
 #include "FolderNameWindow.hpp"
 #include "../Resources.hpp"
@@ -61,6 +65,12 @@ namespace GUI {
              */
             SceneEditor& GetScene();
             
+            /// Get the width of the right-side editor (entity, script, etc.).
+            /**
+             * @return The width of the editor.
+             */
+            int GetEditorWidth() const;
+            
         private:
             bool ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path);
             bool ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path);
@@ -68,11 +78,15 @@ namespace GUI {
             
             bool visible = false;
             
-            ScriptEditor scriptEditor;
+            AnimationClipEditor animationClipEditor;
+            AnimationControllerEditor animationControllerEditor;
+            SkeletonEditor skeletonEditor;
+            ScriptEditor scriptEditor;  
             SceneEditor sceneEditor;
             ModelEditor modelEditor;
             TextureEditor textureEditor;
             SoundEditor soundEditor;
+            AudioMaterialEditor audioMaterialEditor;
             
             SavePromptWindow savePromptWindow;
             FolderNameWindow folderNameWindow;
@@ -92,9 +106,13 @@ namespace GUI {
             int editorWidth = 250;
             bool editorResize = false;
             
+            bool animationClipPressed;
+            bool animationControllerPressed;
+            bool skeletonPressed;
             bool scriptPressed;
             bool texturePressed;
             bool modelPressed;
             bool soundPressed;
+            bool audioMaterialPressed;
     };
 }

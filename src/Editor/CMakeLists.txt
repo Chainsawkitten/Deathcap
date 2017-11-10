@@ -18,16 +18,28 @@ set(SRCS
         GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
+        GUI/Editors/AnimationClipEditor.cpp
+        GUI/Editors/AnimationControllerEditor.cpp
+        GUI/LogView.cpp
+        GUI/Editors/AudioMaterialEditor.cpp
+        GUI/Editors/BoxShapeEditor.cpp
+        GUI/Editors/CapsuleShapeEditor.cpp
+        GUI/Editors/ConeShapeEditor.cpp
+        GUI/Editors/CylinderShapeEditor.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
+        GUI/Editors/NodeEditor.cpp
         GUI/Editors/PlaneShapeEditor.cpp
+        GUI/Editors/RigidBodyEditor.cpp
         GUI/Editors/SceneEditor.cpp
         GUI/Editors/ScriptEditor.cpp
+        GUI/Editors/SkeletonEditor.cpp
         GUI/Editors/SoundEditor.cpp
         GUI/Editors/SphereShapeEditor.cpp
         GUI/Editors/TextureEditor.cpp
         GUI/Editors/CurveEditor.cpp
         Util/AssetConverter.cpp
+        Util/AssetConverterSkeleton.cpp
         Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
     )
@@ -50,17 +62,29 @@ set(HEADERS
         GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
+        GUI/Editors/AnimationClipEditor.hpp
+        GUI/Editors/AnimationControllerEditor.hpp
+        GUI/LogView.hpp
+        GUI/Editors/AudioMaterialEditor.hpp
+        GUI/Editors/BoxShapeEditor.hpp
+        GUI/Editors/CapsuleShapeEditor.hpp
+        GUI/Editors/ConeShapeEditor.hpp
+        GUI/Editors/CylinderShapeEditor.hpp
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/IShapeEditor.hpp
         GUI/Editors/ModelEditor.hpp
+        GUI/Editors/NodeEditor.hpp
         GUI/Editors/PlaneShapeEditor.hpp
+        GUI/Editors/RigidBodyEditor.hpp
         GUI/Editors/SceneEditor.hpp
         GUI/Editors/ScriptEditor.hpp
+        GUI/Editors/SkeletonEditor.hpp
         GUI/Editors/SoundEditor.hpp
         GUI/Editors/SphereShapeEditor.hpp
         GUI/Editors/TextureEditor.hpp
         GUI/Editors/CurveEditor.hpp
         Util/AssetConverter.hpp
+        Util/AssetConverterSkeleton.hpp
         Util/AssetMetaData.hpp
         Util/EditorSettings.hpp
     )

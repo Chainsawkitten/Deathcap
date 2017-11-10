@@ -5,13 +5,18 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
         MainWindow.cpp
+        Animation/AnimationClip.cpp
+        Animation/AnimationController.cpp
+        Animation/Skeleton.cpp
+        Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
         Audio/SteamAudioIndirectRenderer.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
-        Component/Animation.cpp
+        Component/AnimationController.cpp
+        Component/AudioMaterial.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -29,12 +34,10 @@ set(SRCS
         Component/ParticleSystem.cpp
         Entity/Entity.cpp
         Entity/World.cpp
-        Geometry/Animation.cpp
         Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
-        Geometry/Skeleton.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
@@ -66,6 +69,10 @@ set(HEADERS
         linking.hpp
         Hymn.hpp
         MainWindow.hpp
+        Animation/AnimationClip.hpp
+        Animation/AnimationController.hpp
+        Animation/Skeleton.hpp
+        Audio/AudioMaterial.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/SteamAudio.hpp
@@ -73,7 +80,8 @@ set(HEADERS
         Audio/SteamAudioIndirectRenderer.hpp
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
-        Component/Animation.hpp
+        Component/AnimationController.hpp
+        Component/AudioMaterial.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp
@@ -92,12 +100,10 @@ set(HEADERS
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
-        Geometry/Animation.hpp
         Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
-        Geometry/Skeleton.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
@@ -117,6 +123,7 @@ set(HEADERS
         Util/Input.hpp
         Util/Json.hpp
         Util/MousePicking.hpp
+        Util/Node.hpp
         Util/RayIntersection.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
@@ -152,6 +159,7 @@ target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)
+    target_compile_definitions(Engine PRIVATE MEASURE_VRAM=1)
     target_link_libraries(Engine ${DirectX11_LIBRARIES})
     target_include_directories(Engine PRIVATE ${DirectX11_INCLUDE_DIRS})
 endif()
@@ -160,7 +168,7 @@ endif()
 if(WIN32)
     find_library(PSAPI Psapi)
     if(PSAPI)
-        add_definitions(-DMEASURE_RAM)
+        target_compile_definitions(Engine PRIVATE MEASURE_RAM=1)
         target_link_libraries(Engine ${PSAPI})
     endif()
 endif()

@@ -68,10 +68,6 @@ void ParticleManager::UpdateBuffer(World& world) {
     particleRenderer->SetBufferContents(world.GetParticleCount(), world.GetParticles());
 }
 
-void ParticleManager::Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix) {
-    particleRenderer->Render(textureAtlas, textureAtlasRowNumber, position, up, viewProjectionMatrix);
-}
-
 void ParticleManager::UpdateParticleSystem(World& world, Component::ParticleSystemComponent* particleSystem) {
 }
 
@@ -81,6 +77,7 @@ void ParticleManager::RenderParticleSystem(const glm::mat4& viewProjectionMatrix
         particleSystemRenderers[comp].Draw(textureAtlas, textureAtlasRowNumber, viewProjectionMatrix, emitterSettings[comp]);
     }
 }
+
 
 const Texture2D* ParticleManager::GetTextureAtlas() const {
     return textureAtlas;
