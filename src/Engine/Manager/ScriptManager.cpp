@@ -91,6 +91,7 @@ void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::str
 
 void print(const std::string& message) {
     Log() << message;
+    std::cout << message;
 }
 
 void RegisterUpdate() {

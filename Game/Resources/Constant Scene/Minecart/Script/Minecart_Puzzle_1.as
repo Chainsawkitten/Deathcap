@@ -2,10 +2,10 @@ class Minecart_Puzzle_1{
     Hub @hub;
     Entity @self;
     float speed;
-    bool trigger;
+    //bool trigger;
+    bool startAgain;
     float stopTime;
     float endTime;
-    bool hasBridgeBeenLowered;
     
     Minecart_Puzzle_1(Entity @entity){
         @hub = Managers();
@@ -13,18 +13,23 @@ class Minecart_Puzzle_1{
         speed = 4.0f;
         stopTime = 0.0f;
         endTime = 7.5f;
-        hasBridgeBeenLowered = false;
         
-        trigger = false;
+        //trigger = false;
+        startAgain = false;
         RegisterUpdate();
     }
     
     //Update carts movements and send it's position to Player Script.
-    void Update(float deltaTime){
-            self.position.z -= speed*deltaTime;
+    void Update(float deltaTime) {
+        self.position.z -= speed*deltaTime;
         
-        if (self.GetWorldPosition().x <= 5.4)
+        if (self.GetWorldPosition().x <= 5.4 && startAgain == false)
             speed = 0.0f;
+        else if (startAgain && speed < 4.0f)
+            speed += 0.00664f;
+        else if (speed >= 4.0f) {
+            speed == 4.0f;
+        }
         
         /*// Braking phase
         if (hasHitPlane && stopTime < endTime){
@@ -47,8 +52,11 @@ class Minecart_Puzzle_1{
         }*/
     }
     
-    void ReceiveMessage(int signal){
-        if (signal == 1)
-            trigger = true;
+    void ReceiveMessage(Entity @sender, int signal){
+        /*if (signal == 1 && trigger == false)
+            trigger = true;*/
+        if (signal == 3) {
+            startAgain = true;
+        }
     }
 }

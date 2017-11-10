@@ -2,11 +2,13 @@ class Rock {
     Hub @hub;
     Entity @self;
     Entity @originalParent;
+    Entity @bridgeParent;
 
     Rock(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @originalParent = self.GetParent();
+        @bridgeParent = GetEntity(1510240835);
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -14,7 +16,11 @@ class Rock {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-
+        if (self.GetWorldPosition().x <= 0.0f){
+            SendMessage(bridgeParent, 1);
+            hub.physicsManager.MakeKinematic(self.GetRigidBody());
+            self.SetWorldPosition(vec3(4.524f, -0.994f, -1.070f));
+        }
     }
     
     void ReceiveMessage(Entity @sender, int i)
