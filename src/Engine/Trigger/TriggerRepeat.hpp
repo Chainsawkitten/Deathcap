@@ -68,7 +68,7 @@ class TriggerRepeat : public SuperTrigger {
          */
         ENGINE_API bool GetStartActive();
 
-        /// Get if the trigger starts active or not.
+        /// Set if the trigger starts active or not.
         /**
          * @param value If the trigger starts active or not.
          */

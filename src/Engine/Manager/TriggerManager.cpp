@@ -69,7 +69,7 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
 
         repeat->eventVector.push_back(eventstruct);
 
-        repeat->triggered = node.get("triggerTriggered", 0).asBool();
+        repeat->triggered = node.get("triggerTriggered", false).asBool();
 
         repeat->triggerVolume = triggerVolume;
     }
