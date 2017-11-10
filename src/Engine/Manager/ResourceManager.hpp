@@ -90,10 +90,9 @@ class ResourceManager {
         /**
          * @param data Image file data.
          * @param dataLength Length of the image file data.
-         * @param srgb Whether the image is in SRGB space and should be converted to linear space.
          * @return The %Texture2D instance
          */
-        ENGINE_API Video::Texture2D* CreateTexture2D(const char* data, int dataLength, bool srgb = false);
+        ENGINE_API Video::Texture2D* CreateTexture2D(const char* data, int dataLength);
         
         /// Free the reference to the 2D texture.
         /**
