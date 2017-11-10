@@ -146,4 +146,4 @@ class Editor {
         GLFWcursor* cursors[5];
 
         ImGuizmo::MODE imguizmoMode = ImGuizmo::MODE::WORLD;
-    };
+};
