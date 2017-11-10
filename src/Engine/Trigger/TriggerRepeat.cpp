@@ -18,21 +18,6 @@ TriggerRepeat::~TriggerRepeat() {
 
 }
 
-Entity* GetEntity(int GUID) {
-
-    const std::vector<Entity*> entities = Hymn().world.GetEntities();
-    for (int i = 0; i < entities.size(); i++) {
-
-        if (entities[i]->GetUniqueIdentifier() == GUID) {
-
-            return entities[i];
-        }
-    }
-
-    return nullptr;
-}
-
-
 // ADD SUPPORT FOR VECTOR
 void TriggerRepeat::OnEnter() {
     if (!collidedEntity.empty() && collidedEntity.front()->GetComponent<Component::RigidBody>()) {
@@ -67,11 +52,11 @@ void TriggerRepeat::OnLeave() {
     }
 }
 
-std::string TriggerRepeat::GetName() {
+const std::string& TriggerRepeat::GetName() const {
     return name;
 }
 
-void TriggerRepeat::SetName(std::string value) {
+void TriggerRepeat::SetName(std::string& value) {
     name = value;
 }
 
@@ -137,12 +122,12 @@ void TriggerRepeat::SetOwningEntity(Entity* value) {
 
 void TriggerRepeat::InitTriggerUID() {
 
-    if (GetEntity(targetEntityUID) != nullptr)
-        targetEntity.push_back(GetEntity(targetEntityUID));
-    if (GetEntity(collidedEntityUID) != nullptr)
-        collidedEntity.push_back(GetEntity(collidedEntityUID));
-    if (GetEntity(owningEntityUID) != nullptr)
-        owningEntity = GetEntity(owningEntityUID);
+    if (Hymn().GetEntityByGUID(targetEntityUID) != nullptr)
+        targetEntity.push_back(Hymn().GetEntityByGUID(targetEntityUID));
+    if (Hymn().GetEntityByGUID(collidedEntityUID) != nullptr)
+        collidedEntity.push_back(Hymn().GetEntityByGUID(collidedEntityUID));
+    if (Hymn().GetEntityByGUID(owningEntityUID) != nullptr)
+        owningEntity = Hymn().GetEntityByGUID(owningEntityUID);
 
 }
 

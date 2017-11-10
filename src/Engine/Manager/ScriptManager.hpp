@@ -70,13 +70,6 @@ class ScriptManager {
          * @param type The type of message to send.
          */
         ENGINE_API void SendMessage(Entity* recipient, Entity* sender, int type);
-
-        /// Fetches an entity using its GUID.
-        /**
-         * @param GUID The entity to receive the message.
-         * @return The entity that has the correct GUID, or nullptr if it doesn't exist.
-         */
-        static ENGINE_API Entity* GetEntity(unsigned int GUID);
         
         /// Create script component.
         /**

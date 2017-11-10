@@ -12,6 +12,7 @@ class Entity;
 class TriggerManager;
 
 namespace triggerEvent {
+
     struct EventStruct {
         int m_eventID = 0;
         int m_shapeID = 0;
@@ -48,13 +49,13 @@ class TriggerRepeat : public SuperTrigger {
         /**
          * @return The name of the trigger.
          */
-        ENGINE_API std::string GetName();
+        ENGINE_API const std::string& GetName() const;
 
         /// Set the name of the trigger.
         /**
          * @param value The name of the trigger.
          */
-        ENGINE_API void SetName(std::string value);
+        ENGINE_API void SetName(std::string& value);
 
         /// Vector containing name of target functions.
         /**

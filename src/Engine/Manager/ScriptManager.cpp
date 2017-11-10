@@ -338,7 +338,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "uint GetUniqueIdentifier() const", asMETHOD(Entity, GetUniqueIdentifier), asCALL_THISCALL);
 
-    engine->RegisterGlobalFunction("Entity@ GetEntity(uint GUID)", asFUNCTIONPR(ScriptManager::GetEntity, (unsigned int), Entity*), asCALL_CDECL);
+    engine->RegisterGlobalFunction("Entity@ GetEntityByGUID(int GUID)", asFUNCTIONPR(ActiveHymn::GetEntityByGUID, (int), Entity*), asCALL_CDECL);
 
     engine->RegisterObjectMethod("Entity", "void RotateYaw(float angle)", asMETHOD(Entity, RotateYaw), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void RotatePitch(float angle)", asMETHOD(Entity, RotatePitch), asCALL_THISCALL);
@@ -659,7 +659,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
                 if (script->IsInPropertyMap(name, typeId)) {
 
                     if (typeId == engine->GetTypeIdByDecl("Entity@"))
-                        *reinterpret_cast<Entity*>(varPointer) = *GetEntity(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                        *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
                     else 
                         script->CopyDataFromPropertyMap(name, varPointer);
 
@@ -734,20 +734,6 @@ void ScriptManager::SendMessage(Entity* recipient, Entity* sender, int type) {
     messages.push_back(message);
 }
 
-Entity* ScriptManager::GetEntity(unsigned int GUID) {
-
-    const std::vector<Entity*> entities = Hymn().world.GetEntities();
-    for (std::size_t i = 0; i < entities.size(); ++i) {
-
-        if (entities[i]->GetUniqueIdentifier() == GUID) {
-
-            return entities[i];
-        }
-    }
-
-    return nullptr;
-}
-
 Component::Script* ScriptManager::CreateScript() {
     return scripts.Create();
 }
@@ -812,8 +798,6 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
 
     // Find method to call.
     std::string methodDecl;
-    //methodDecl.reserve(method.length() + 7); // additional `void ` and `()`
-    //methodDecl.append("void ").append(method).append("()");
     methodDecl.append(method);
     asIScriptFunction* scriptMethod = type->GetMethodByDecl(methodDecl.c_str());
     if (scriptMethod == nullptr)

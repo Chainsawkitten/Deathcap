@@ -72,10 +72,11 @@ namespace GUI {
                     memcpy(name.data(), repeat->GetName().c_str(), std::min(repeat->GetName().size(), name.size()));
                     name[std::min(repeat->GetName().size(), name.size() - 1)] = '\0';
 
-
+                    std::string nameString;
+                    nameString = name.data();
                     // NAME
                     if (ImGui::InputText("Name", name.data(), name.size()))
-                        repeat->SetName(name.data());
+                        repeat->SetName(nameString);
 
                     // DELAY
                     if (ImGui::InputFloat("Delay", &delay, 0.1f, 1.0f, 1)) {
