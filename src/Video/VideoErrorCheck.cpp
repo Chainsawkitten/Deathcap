@@ -18,7 +18,7 @@ VideoErrorCheck::VideoErrorCheck(const std::string& name) {
 VideoErrorCheck::~VideoErrorCheck() {
     GLenum err(glGetError());
     if (err != GL_NO_ERROR) {
-        Log() << "Catched GL errors: " << name << "\n";
+        Log() << "Caught GL errors: " << name << "\n";
         do {
             Log() << (const char*)gluErrorString(err) << "\n";
             err = glGetError();
