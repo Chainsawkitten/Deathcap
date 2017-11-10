@@ -15,7 +15,7 @@
 			},
 			"Script" : 
 			{
-				"scriptName" : "Resources/Constant Scene/Minecart/Script/Minecart"
+				"scriptName" : "Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1"
 			},
 			"children" : 
 			[
@@ -35,7 +35,7 @@
 							},
 							"Script" : 
 							{
-								"scriptName" : "Resources/Constant Scene/Minecart/Script/Player"
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Camera"
 							},
 							"VRDevice" : 
 							{
@@ -47,7 +47,7 @@
 							"position" : 
 							{
 								"x" : 0.0,
-								"y" : 0.0,
+								"y" : -0.27400001883506775,
 								"z" : 0.0
 							},
 							"rotation" : 
@@ -68,6 +68,10 @@
 							"uid" : 1508919707
 						},
 						{
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
 							"VRDevice" : 
 							{
 								"controllerID" : 1,
@@ -85,9 +89,9 @@
 									},
 									"rotation" : 
 									{
-										"w" : 1.0,
+										"w" : 0.70710676908493042,
 										"x" : 0.0,
-										"y" : 0.0,
+										"y" : -0.70710676908493042,
 										"z" : 0.0
 									},
 									"scale" : 
@@ -127,6 +131,10 @@
 							"uid" : 1508919751
 						},
 						{
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
 							"VRDevice" : 
 							{
 								"controllerID" : 2,
@@ -201,15 +209,50 @@
 									"z" : 1.0
 								},
 								"coneAngle" : 30.0,
-								"intensity" : 3.0,
+								"intensity" : 5.0,
 								"shadow" : true
 							},
-							"children" : null,
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "",
+										"metallic" : "",
+										"normal" : "",
+										"roughness" : ""
+									},
+									"children" : null,
+									"name" : "LanternMesh",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : -4.3711388286737929e-08,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 0.070000000298023224,
+										"y" : 0.070000000298023224,
+										"z" : 0.070000000298023224
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1509714156
+								}
+							],
 							"name" : "Lantern",
 							"position" : 
 							{
-								"x" : 0.0,
-								"y" : 0.0,
+								"x" : -0.21400392055511475,
+								"y" : 0.42907214164733887,
 								"z" : 0.0
 							},
 							"rotation" : 
@@ -227,14 +270,14 @@
 							},
 							"scene" : false,
 							"static" : false,
-							"uid" : 1509625199
+							"uid" : 1509711303
 						}
 					],
 					"name" : "Player",
 					"position" : 
 					{
-						"x" : 0.1510000079870224,
-						"y" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
 						"z" : 0.0
 					},
 					"rotation" : 
@@ -253,6 +296,52 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1508919503
+				},
+				{
+					"RigidBody" : 
+					{
+						"angularDamping" : 0.0,
+						"cor" : 0.0,
+						"friction" : 0.5,
+						"kinematic" : false,
+						"linearDamping" : 0.0,
+						"mass" : 1.0,
+						"rollingFriction" : 0.0,
+						"spinningFriction" : 0.0
+					},
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 1.0,
+							"height" : 1.0,
+							"width" : 1.0
+						}
+					},
+					"children" : null,
+					"name" : "MinecraftPhysicsComponent",
+					"position" : 
+					{
+						"x" : 0.19700001180171967,
+						"y" : 0.36900001764297485,
+						"z" : -0.44700002670288086
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1509959164
 				}
 			],
 			"name" : "Minecart",
@@ -271,9 +360,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
+				"x" : 5.0,
+				"y" : 5.0,
+				"z" : 5.0
 			},
 			"scene" : false,
 			"static" : false,

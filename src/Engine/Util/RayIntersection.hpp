@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Geometry/AssetFileHandler.hpp"
-#include "../Geometry/Model.hpp"
+#include <glm/glm.hpp>
+#include <Video/Culling/AxisAlignedBoundingBox.hpp>
 #include "../linking.hpp"
 
 /// The class handling intersection checks.

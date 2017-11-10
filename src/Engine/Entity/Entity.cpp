@@ -48,20 +48,21 @@ Entity* Entity::AddChild(const std::string& name) {
     return child;
 }
 
-bool Entity::SetParent(Entity* newParent) {
+Entity* Entity::SetParent(Entity* newParent) {
     //We make sure we're not trying to put the root as a child.
     if (parent != nullptr) {
         //We make sure we're not trying to set a parent as a child to one of it's own children.
         if (!HasChild(newParent)) {
             parent->RemoveChild(this);
+            Entity* lastParent = parent;
             parent = newParent;
             newParent->children.push_back(this);
             
-            return true;
+            return lastParent;
         }
     }
     
-    return false;
+    return nullptr;
 }
 
 bool Entity::HasChild(const Entity* check_child, bool deep) const {
@@ -251,7 +252,6 @@ void Entity::Load(const Json::Value& node) {
     rotation = Json::LoadQuaternion(node["rotation"]);
     uniqueIdentifier = node.get("uid", 0).asUInt();
     isStatic = node["static"].asBool();
-    
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
@@ -283,7 +283,7 @@ glm::quat Entity::GetWorldOrientation() const {
 }
 
 glm::vec3 Entity::GetDirection() const {
-    return glm::vec3(rotation * glm::vec3(0, 0, -1));
+    return glm::vec3(GetWorldOrientation() * glm::vec3(0, 0, -1));
 }
 
 glm::vec3 Entity::GetWorldPosition() const {

@@ -19,7 +19,7 @@ namespace Physics {
         public:
             /// Parameters used to create a sphere shape.
             struct Sphere {
-                Sphere(float radius) : radius(radius) {}
+                explicit Sphere(float radius) : radius(radius) {}
                 float radius;
             };
 

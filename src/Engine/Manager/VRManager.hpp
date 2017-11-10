@@ -74,9 +74,10 @@ class VRManager {
         /// Gets if certain button is pressed (Only trigger for now)
         /**
          * @param buttonID the button we want to check is pressed.
+         * @param ID the controller ID (1 is left, 2 is right).
          * @return whether certain button is pressed or not. 
          */
-        ENGINE_API bool GetInput(vr::EVRButtonId buttonID);
+        ENGINE_API bool GetInput(vr::EVRButtonId buttonID, int ID);
         
         /// Create VR device component.
         /**
