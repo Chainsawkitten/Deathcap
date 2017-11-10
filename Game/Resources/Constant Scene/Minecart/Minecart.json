@@ -68,6 +68,10 @@
 							"uid" : 1508919707
 						},
 						{
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
 							"VRDevice" : 
 							{
 								"controllerID" : 1,
@@ -127,6 +131,10 @@
 							"uid" : 1508919751
 						},
 						{
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
 							"VRDevice" : 
 							{
 								"controllerID" : 2,
