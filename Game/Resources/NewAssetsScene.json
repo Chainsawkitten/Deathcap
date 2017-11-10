@@ -395,6 +395,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510131173
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rocks/Rock_Albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rocks/Rock_Metallic",
+				"normal" : "Resources/NewAssets/Textures/Rocks/Rock_Normal",
+				"roughness" : "Resources/NewAssets/Textures/Rocks/Rock_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/PileOfRocks"
+			},
+			"children" : null,
+			"name" : "Rocks",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510314027
 		}
 	],
 	"name" : "Root",

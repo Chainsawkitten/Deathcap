@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Pussel-2/Pussel-2 scene",
+	"activeScene" : "Resources/NewAssetsScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 79,
+	"modelNumber" : 81,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -501,7 +501,32 @@
 								"type" : 2
 							}
 						],
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "Rocks",
+								"resources" : 
+								[
+									{
+										"texture" : "Rock_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Rock_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Rock_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Rock_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					},
 					{
 						"name" : "Models",
@@ -545,6 +570,10 @@
 							},
 							{
 								"model" : "Tracks",
+								"type" : 1
+							},
+							{
+								"model" : "PileOfRocks",
 								"type" : 1
 							}
 						],
@@ -618,5 +647,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 49
+	"textureNumber" : 53
 }
