@@ -5,40 +5,36 @@
 
 #include "linking.hpp"
 
-struct ParticlePos
-{
+struct ParticlePos {
     float x;
     float y;
     float z;
     float w;
 };
 
-struct ParticleVelocity
-{
+struct ParticleVelocity {
     float vx;
     float vy;
     float vz;
-    float life; 
+    float life;
 };
 
 struct ParticleColor {
     float cx;
     float cy;
     float cz;
-    float ca; 
+    float ca;
 };
 
 struct ParticleModelMatrix {
     glm::mat4 m = glm::mat4(1);
 };
 
-namespace Video
-{
+namespace Video {
     class Texture;
 
-    class ParticleSystemRenderer
-    {
-    public:
+    class ParticleSystemRenderer {
+        public:
         struct EmitterSettings {
             /// Number of particles.
             int nr_particles = 1024;
@@ -90,7 +86,6 @@ namespace Video
 
             /// Nr Of new particles per emitt, max is 32.
             int nr_new_particles = 31;
-
         };
 
         EmitterSettings emitterSettings;
@@ -108,25 +103,24 @@ namespace Video
         VIDEO_API void Update(float dt, EmitterSettings settings);
 
         //Render the particles.
-        VIDEO_API void Draw(Texture* textureAtlas, unsigned int textureAtlasRows , const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
+        VIDEO_API void Draw(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
 
-    private:
-
+        private:
         Video::ShaderProgram* computeShaderProgram;
 
         Video::ShaderProgram* shaderProgram;
 
         int WORK_GROUP_SIZE = 128;
 
-        unsigned int        nr_particles = 1024 * 32;
-        glm::vec2		    particleShootIndex = glm::vec2(0, 30);
-        int                 nr_new_particles = 31;
-        float               rate = 1000.0f;
-        float               delta_time = 0.0f;
-        ParticlePos *points;
-        ParticleVelocity *vels;
-        ParticleColor *col;
-        ParticleModelMatrix *rots;
+        unsigned int nr_particles = 1024 * 32;
+        glm::vec2 particleShootIndex = glm::vec2(0, 30);
+        int nr_new_particles = 31;
+        float rate = 1000.0f;
+        float delta_time = 0.0f;
+        ParticlePos* points;
+        ParticleVelocity* vels;
+        ParticleColor* col;
+        ParticleModelMatrix* rots;
         glm::mat4 rotMat;
 
         float timer = 0.0f;
@@ -136,7 +130,5 @@ namespace Video
         GLuint colSSbo;
         GLuint mmSSbo;
         GLuint m_glDrawVAO;
-
     };
-}
-
+} // namespace Video

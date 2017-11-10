@@ -6,10 +6,8 @@
 namespace Component {
     /// Emitter that emits particles.
     class ParticleSystemComponent : public SuperComponent {
-    public:
-
+        public:
         /// Defines a kind of particle.
-
 
         /// Create new particle emitter.
         ENGINE_API ParticleSystemComponent();
@@ -22,6 +20,5 @@ namespace Component {
 
         /// Particletype
         Video::ParticleSystemRenderer::EmitterSettings particleType;
-
     };
-}
+} // namespace Component

@@ -1,12 +1,10 @@
 #include "ParticleSystem.hpp"
 #include "../Util/Json.hpp"
 
-Component::ParticleSystemComponent::ParticleSystemComponent()
-{
+Component::ParticleSystemComponent::ParticleSystemComponent() {
 }
 
-ENGINE_API Json::Value Component::ParticleSystemComponent::Save() const
-{
+ENGINE_API Json::Value Component::ParticleSystemComponent::Save() const {
     Json::Value component;
 
     component["textureIndex"] = particleType.textureIndex;
