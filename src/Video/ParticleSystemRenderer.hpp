@@ -88,7 +88,7 @@ namespace Video
             /// Alpha control
             float alpha_control = 1.0f;
 
-            /// Nr Of new particles per emitt.
+            /// Nr Of new particles per emitt, max is 32.
             int nr_new_particles = 31;
 
         };
@@ -101,17 +101,14 @@ namespace Video
 
         VIDEO_API void Init();
 
+        // Creates storage buffers for particles.
         VIDEO_API void CreateStorageBuffers();
 
-        //Particles are sent to the compute shader and we compute there the new positions/velocities.
+        // Particles are sent to the compute shader and we compute there the new positions/velocities.
         VIDEO_API void Update(float dt, EmitterSettings settings);
 
         //Render the particles.
         VIDEO_API void Draw(Texture* textureAtlas, unsigned int textureAtlasRows , const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
-
-    private:
-        VIDEO_API void InitRender(const ParticlePos* particlesPos, const ParticleVelocity* particlesVelocity);
-
 
     private:
 
@@ -126,13 +123,6 @@ namespace Video
         int                 nr_new_particles = 31;
         float               rate = 1000.0f;
         float               delta_time = 0.0f;
-        float               speed = 1.0f;
-        float               variation = 2.0f;
-        float		        lifeLength = 10.0f;
-        bool                fade_alpha = true;
-        glm::vec4	        basecolor;
-        glm::vec3	        meshScale;
-        glm::vec3           velocity;
         ParticlePos *points;
         ParticleVelocity *vels;
         ParticleColor *col;

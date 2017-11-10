@@ -23,20 +23,5 @@ namespace Component {
         /// Particletype
         Video::ParticleSystemRenderer::EmitterSettings particleType;
 
-        /// Size of the emitter (area of effect).
-        glm::vec3 size;
-
-        /// Average time for emitting particle (in seconds).
-        float averageEmitTime = 0.04f;
-
-        /// Time variance for emitting particle (in seconds).
-        float emitTimeVariance = 0.01f;
-
-        /// Time to next emit (random value between min and max),
-        float timeToNext = 0.1f;
-
-        /// Whether to preview the emitter in the editor.
-        bool preview = false;
-
     };
 }

@@ -20,6 +20,7 @@ ENGINE_API Json::Value Component::ParticleSystemComponent::Save() const
     component["spread"] = particleType.spread;
     component["randomVelocity"] = Json::SaveVec3(glm::vec3(particleType.randomVec));
     component["speed"] = particleType.velocityMultiplier;
+    component["NrOfParticles"] = particleType.nr_particles;
 
     return component;
 }

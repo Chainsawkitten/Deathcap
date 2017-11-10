@@ -63,11 +63,12 @@ class ParticleManager {
         /**
         * Needs to be called before rendering (but only once a frame).
         * @param world The world to render.
+        * @param particleSystem Component to update with.
         */
         ENGINE_API void UpdateParticleSystem(World& world, Component::ParticleSystemComponent* particleSystem);
 
         /**
-        * @param world %World containing number of particle systems to render.
+        * @param viewProjectionMatrix The view-projection matrix from the camera.
         */
         ENGINE_API void RenderParticleSystem(const glm::mat4& viewProjectionMatrix);
         
@@ -125,6 +126,7 @@ class ParticleManager {
         ParticleManager(ParticleManager const&) = delete;
         void operator=(ParticleManager const&) = delete;
 
+        // Inits the particle emitter.
         Component::ParticleSystemComponent* InitParticleSystem(Component::ParticleSystemComponent* component);
         
         // Decide where the emitter should emit before rendering.

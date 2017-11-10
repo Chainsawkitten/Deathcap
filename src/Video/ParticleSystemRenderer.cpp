@@ -17,6 +17,7 @@ ParticleSystemRenderer::ParticleSystemRenderer()
     rots = new ParticleModelMatrix[nr_particles];
     srand(time(NULL));
 
+    // Temporary rotation matrix for future rotation of particles.
     rotMat[0][0] = cos(1);
     rotMat[0][1] = -sin(1);
     rotMat[0][2] = 0;
@@ -43,6 +44,7 @@ ParticleSystemRenderer::ParticleSystemRenderer(int count)
     rots = new ParticleModelMatrix[count];
     srand(time(NULL));
 
+    // Temporary rotation matrix for future rotation of particles.
     rotMat[0][0] = cos(10);
     rotMat[0][1] = -sin(10);
     rotMat[0][2] = 0;
@@ -63,11 +65,6 @@ ParticleSystemRenderer::ParticleSystemRenderer(int count)
 
 ParticleSystemRenderer::~ParticleSystemRenderer()
 {
-}
-
-void ParticleSystemRenderer::InitRender(const ParticlePos* particlesPos, const ParticleVelocity* particlesVelocity)
-{
-
 }
 
 void ParticleSystemRenderer::Init()
@@ -104,6 +101,7 @@ void ParticleSystemRenderer::CreateStorageBuffers()
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, posSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
 
+    // Binding vertex array to get position in vertexshader.
     glGenVertexArrays(1, &m_glDrawVAO);
     glBindVertexArray(m_glDrawVAO);
     glBindBuffer(GL_ARRAY_BUFFER, posSSbo);
@@ -146,6 +144,7 @@ void ParticleSystemRenderer::CreateStorageBuffers()
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, colSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
 
+    // Binding vertex array to get color in fragmentshader.
     glBindVertexArray(m_glDrawVAO);
     glBindBuffer(GL_ARRAY_BUFFER, colSSbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(ParticlePos) * nr_particles, &col[0], GL_STATIC_DRAW);
