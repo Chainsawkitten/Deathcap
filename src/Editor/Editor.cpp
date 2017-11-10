@@ -617,7 +617,7 @@ void Editor::PaintBrush(Entity* entity) {
             glm::vec3 p2;
 
             mousePicker.Update();
-            mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+            mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
 
             float intersectT = INFINITY;
 
@@ -724,26 +724,26 @@ void Editor::WidgetGizmo(Entity* entity) {
 
     if (ImGuizmo::IsUsing()) {
         switch (currentOperation) {
-        case ImGuizmo::TRANSLATE: {
-            entity->position.x = currentEntityMatrix[3][0];
-            entity->position.y = currentEntityMatrix[3][1];
-            entity->position.z = currentEntityMatrix[3][2];
-            break;
-        }
-        case ImGuizmo::ROTATE: {
-            entity->SetLocalOrientation(glm::toQuat(deltaMatrix) * entity->GetLocalOrientation());
-            break;
-        }
-        case ImGuizmo::SCALE: {
-            float translation[3];
-            float rotation[3];
-            float scale[3];
-            ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translation, rotation, scale);
-            entity->scale.x = scale[0];
-            entity->scale.y = scale[1];
-            entity->scale.z = scale[2];
-            break;
-        }
+            case ImGuizmo::TRANSLATE: {
+                entity->position.x = currentEntityMatrix[3][0];
+                entity->position.y = currentEntityMatrix[3][1];
+                entity->position.z = currentEntityMatrix[3][2];
+                break;
+            }
+            case ImGuizmo::ROTATE: {
+                entity->SetLocalOrientation(glm::toQuat(deltaMatrix) * entity->GetLocalOrientation());
+                break;
+            }
+            case ImGuizmo::SCALE: {
+                float translation[3];
+                float rotation[3];
+                float scale[3];
+                ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translation, rotation, scale);
+                entity->scale.x = scale[0];
+                entity->scale.y = scale[1];
+                entity->scale.z = scale[2];
+                break;
+            }
         }
     }
 }

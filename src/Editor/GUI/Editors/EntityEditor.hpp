@@ -6,8 +6,8 @@
 #include <functional>
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
-#include <Engine/Geometry/AssetFileHandler.hpp> 
 #include "../ResourceSelector.hpp"
+#include <Engine/Geometry/AssetFileHandler.hpp> 
 
 namespace Component {
     class AnimationController;
