@@ -79,7 +79,7 @@ class ActiveHymn {
          * @param GUID The Unique Identifier for what entity you want to find.
          * @return Entity found or nullptr if entity with this param does not exist.
          */
-        ENGINE_API static Entity* GetEntityByGUID(int GUID);
+        ENGINE_API static Entity* GetEntityByGUID(unsigned int GUID);
 
         /// Scene to start when playing the hymn.
         std::string startupScene;
