@@ -74,7 +74,7 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
         repeat->triggerVolume = triggerVolume;
     }
 
-    comp->superTrigger = repeat;
+    comp->SetTrigger(repeat);
 
     return comp;
 }
