@@ -15,7 +15,10 @@ TriggerManager::TriggerManager() {
 }
 
 TriggerManager::~TriggerManager() {
-
+    for (auto trigger : triggerComponents.GetAll()) {
+        trigger->Kill();
+    }
+    ClearKilledComponents();
 }
 
 void TriggerManager::ProcessTriggers() {
