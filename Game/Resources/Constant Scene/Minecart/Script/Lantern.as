@@ -15,6 +15,7 @@ class Lantern {
         self.position.x = controller.position.x;
         self.position.y = controller.position.y;
         self.position.z = controller.position.z;
+        //self.SetWorldOrientation(inverse(controller.GetWorldOrientation()));
         self.rotation = controller.rotation;
         
     }
