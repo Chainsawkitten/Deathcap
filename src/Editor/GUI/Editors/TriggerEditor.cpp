@@ -218,7 +218,6 @@ namespace GUI {
                         std::vector<std::string> entityName;
 
                         for (int i = 0; i < Hymn().world.GetEntities().size(); i++) {
-
                             if (Hymn().world.GetEntities().at(i)->GetComponent<Component::Script>() != nullptr && Hymn().world.GetEntities().at(i)->name != comp.entity->name)
                                 entityName.push_back(Hymn().world.GetEntities().at(i)->name);
                         }

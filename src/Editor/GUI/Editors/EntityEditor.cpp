@@ -31,7 +31,6 @@
 #include <Engine/Manager/PhysicsManager.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Hymn.hpp>
-#include <Engine/Trigger/TriggerRepeat.hpp>
 #include <angelscript.h>
 
 #include "../../Util/EditorSettings.hpp"
@@ -48,10 +47,6 @@
 #include "RigidBodyEditor.hpp"
 #include "SphereShapeEditor.hpp"
 #include "TriggerEditor.hpp"
-
-namespace Physics {
-    class Shape;
-}
 
 using namespace GUI;
 

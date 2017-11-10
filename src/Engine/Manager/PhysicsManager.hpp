@@ -14,7 +14,6 @@ namespace Component {
 }
 
 namespace Physics {
-    class RigidBody;
     class Shape;
     class Trigger;
 }

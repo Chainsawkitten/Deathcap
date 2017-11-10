@@ -26,11 +26,15 @@ namespace Physics {
     class Trigger;
 }
 
+/// %Trigger that can be executed multiple times.
 class TriggerRepeat : public SuperTrigger {
     friend class ::TriggerManager;
-    /// %Trigger that can be executed multiple times.
+
     public:
+        /// Constructor.
         ENGINE_API TriggerRepeat();
+
+        /// Destructor.
         ENGINE_API ~TriggerRepeat();
 
         /// Setup the trigger to listen for `enter` events on the trigger
@@ -69,7 +73,7 @@ class TriggerRepeat : public SuperTrigger {
          */
         ENGINE_API bool GetStartActive();
 
-        /// Get if the trigger starts active or not.
+        /// Set if the trigger starts active or not.
         /**
          * @param value If the trigger starts active or not.
          */

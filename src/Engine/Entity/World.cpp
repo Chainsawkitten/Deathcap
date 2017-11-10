@@ -6,7 +6,7 @@
 #include "../Manager/ParticleManager.hpp"
 #include "../Manager/TriggerManager.hpp"
 #include "../Util/FileSystem.hpp"
-#include "Hymn.hpp"
+#include "../Hymn.hpp"
 #include <fstream>
 #include <ctime>
 

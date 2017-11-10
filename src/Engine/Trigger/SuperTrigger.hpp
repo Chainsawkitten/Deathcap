@@ -4,10 +4,9 @@ namespace Json {
     class Value;
 }
 
+/// %Super class for triggers to inherit from.
 class SuperTrigger {
-    /// %Super class for triggers to inherit from.
     public:
-
         /// Create new %SuperTrigger.
         SuperTrigger();
 

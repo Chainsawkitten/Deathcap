@@ -10,6 +10,7 @@
 #include "Manager/TriggerManager.hpp"
 #include "Manager/DebugDrawingManager.hpp"
 #include "Manager/ResourceManager.hpp"
+#include "Manager/VRManager.hpp"
 #include "DefaultAlbedo.png.hpp"
 #include "DefaultNormal.png.hpp"
 #include "DefaultMetallic.png.hpp"

@@ -6,106 +6,105 @@
 
 class Entity;
 
+/// %Trigger that can be executed once before going inactive.
 class TriggerOnce : public SuperTrigger {
-    /// %Trigger that can be executed once before going inactive.
-public:
+    public:
+        /// PLEASE DO NOT USE THIS.
+        /// THIS CLASS IS STILL UNDER CONSTRUCTION.
+        /// PLEASE DO NOT USE THIS.
 
-    /// PLEASE DO NOT USE THIS.
-    /// THIS CLASS IS STILL UNDER CONSTRUCTION.
-    /// PLEASE DO NOT USE THIS.
+        ENGINE_API TriggerOnce();
+        ENGINE_API ~TriggerOnce();
 
-    ENGINE_API TriggerOnce();
-    ENGINE_API ~TriggerOnce();
+        /// Setup the trigger to listen for `enter` events on the trigger
+        /// volume, forgetting any previously set listener
+        ENGINE_API void OnEnter();
 
-    /// Setup the trigger to listen for `enter` events on the trigger
-    /// volume, forgetting any previously set listener
-    ENGINE_API void OnEnter();
+        /// Setup the trigger to listen for `retain` events on the trigger
+        /// volume, forgetting any previously set listener
+        ENGINE_API void OnLeave();
 
-    /// Setup the trigger to listen for `retain` events on the trigger
-    /// volume, forgetting any previously set listener
-    ENGINE_API void OnLeave();
+        /// Setup the trigger to listen for `leave` events on the trigger
+        /// volume, forgetting any previously set listener
+        ENGINE_API void OnRemain();
 
-    /// Setup the trigger to listen for `leave` events on the trigger
-    /// volume, forgetting any previously set listener
-    ENGINE_API void OnRemain();
+        /// Get the name of the trigger.
+        /**
+         * @return The name of the trigger.
+         */
+        ENGINE_API std::string GetName();
 
-    /// Get the name of the trigger.
-    /**
-     * @return The name of the trigger.
-     */
-    ENGINE_API std::string GetName();
+        /// Set the name of the trigger.
+        /**
+         * @param value The name of the trigger.
+         */
+        ENGINE_API void SetName(std::string value);
 
-    /// Set the name of the trigger.
-    /**
-     * @param value The name of the trigger.
-     */
-    ENGINE_API void SetName(std::string value);
+        /// Get name of target function.
+        /**
+         * @return Name of target function.
+         */
+        ENGINE_API std::string GetTargetFunction();
 
-    /// Get name of target function.
-    /**
-     * @return Name of target function.
-     */
-    ENGINE_API std::string GetTargetFunction();
+        /// Set name of target function.
+        /**
+         * @param value Name of target function.
+         */
+        ENGINE_API void SetTargetFunction(std::string value);
 
-    /// Set name of target function.
-    /**
-     * @param value Name of target function.
-     */
-    ENGINE_API void SetTargetFunction(std::string value);
+        /// If trigger is starting active or not.
+        /**
+         * @return If trigger is starting active or not.
+         */
+        ENGINE_API bool GetStartActive();
 
-    /// If trigger is starting active or not.
-    /**
-     * @return If trigger is starting active or not.
-     */
-    ENGINE_API bool GetStartActive();
+        /// Set if trigger is starting active or not.
+        /**
+         * @param value If trigger is starting active or not.
+         */
+        ENGINE_API void SetStartActive(bool value);
 
-    /// Set if trigger is starting active or not.
-    /**
-     * @param value If trigger is starting active or not.
-     */
-    ENGINE_API void SetStartActive(bool value);
+        /// Get the delay before the trigger gets active.
+        /**
+         * @return The delay before the trigger gets active.
+         */
+        ENGINE_API float GetDelay();
 
-    /// Get the delay before the trigger gets active.
-    /**
-     * @return The delay before the trigger gets active.
-     */
-    ENGINE_API float GetDelay();
+        /// Set the delay before the trigger gets active.
+        /**
+         * @param value The delay before the trigger gets active.
+         */
+        ENGINE_API void SetDelay(float value);
 
-    /// Set the delay before the trigger gets active.
-    /**
-     * @param value The delay before the trigger gets active.
-     */
-    ENGINE_API void SetDelay(float value);
+        /// Pointer to target entity.
+        /**
+         * @return Pointer to target entity.
+         */
+        ENGINE_API Entity* GetTargetEntity();
 
-    /// Pointer to target entity.
-    /**
-     * @return Pointer to target entity.
-     */
-    ENGINE_API Entity* GetTargetEntity();
+        /// Set pointer to target entity.
+        /**
+         * @param value Pointer to target entity.
+         */
+        ENGINE_API void SetTargetEntity(Entity* value);
 
-    /// Set pointer to target entity.
-    /**
-     * @param value Pointer to target entity.
-     */
-    ENGINE_API void SetTargetEntity(Entity* value);
+        /// Pointer to collided entity.
+        /**
+         * @return Pointer to collided entity.
+         */
+        ENGINE_API Entity* GetCollidedEntity();
 
-    /// Pointer to collided entity.
-    /**
-     * @return Pointer to collided entity.
-     */
-    ENGINE_API Entity* GetCollidedEntity();
+        /// Set pointer to collided entity.
+        /**
+         * @param value Pointer to collided entity.
+         */
+        ENGINE_API void SetCollidedEntity(Entity* value);
 
-    /// Set pointer to collided entity.
-    /**
-     * @param value Pointer to collided entity.
-     */
-    ENGINE_API void SetCollidedEntity(Entity* value);
-
-private:
-    std::string name = "DEBUG";
-    std::string targetFunction = "DEBUG";
-    bool startActive;
-    float delay = 0;
-    Entity* targetEntity = nullptr;
-    Entity* collidedEntity = nullptr;
+    private:
+        std::string name = "DEBUG";
+        std::string targetFunction = "DEBUG";
+        bool startActive;
+        float delay = 0;
+        Entity* targetEntity = nullptr;
+        Entity* collidedEntity = nullptr;
 };

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <typeinfo>
 #include "../linking.hpp"
 
 class ResourceManager;
@@ -14,17 +13,11 @@ class ProfilingManager;
 class VRManager;
 class TriggerManager;
 
-class World;
-
-namespace Component {
-    class SuperComponent;
-}
-
 /// Singleton class that holds all subsystems.
 class Hub {
-        ENGINE_API friend Hub& Managers();
+    ENGINE_API friend Hub& Managers();
 
-public:
+    public:
         /// The resource manager instance.
         ResourceManager* resourceManager;
 
@@ -64,12 +57,12 @@ public:
         /// Clears the killed components of all managers.
         ENGINE_API void ClearKilledComponents();
 
-private:
-    Hub();
-    Hub(const Hub&) = delete;
-    void operator=(const Hub&) = delete;
+    private:
+        Hub();
+        Hub(const Hub&) = delete;
+        void operator=(const Hub&) = delete;
 
-    bool shutdown = false;
+        bool shutdown = false;
 };
 
 /// Get a hub containing all the subsystems.

@@ -4,7 +4,7 @@
 #include "../FileSelector.hpp"
 #include <functional>
 #include <imgui.h>
-#include "ImGui/GuiHelpers.hpp"
+#include "../../ImGui/GuiHelpers.hpp"
 #include <Engine/Hymn.hpp>
 
 using namespace GUI;
