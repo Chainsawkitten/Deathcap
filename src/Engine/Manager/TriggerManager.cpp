@@ -15,7 +15,10 @@ TriggerManager::TriggerManager() {
 }
 
 TriggerManager::~TriggerManager() {
-
+    for (auto trigger : triggerComponents.GetAll()) {
+        trigger->Kill();
+    }
+    ClearKilledComponents();
 }
 
 void TriggerManager::ProcessTriggers() {
@@ -74,7 +77,7 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
         repeat->triggerVolume = triggerVolume;
     }
 
-    comp->superTrigger = repeat;
+    comp->SetTrigger(repeat);
 
     return comp;
 }

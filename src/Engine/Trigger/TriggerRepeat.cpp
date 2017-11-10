@@ -15,7 +15,13 @@ TriggerRepeat::TriggerRepeat() {
 }
 
 TriggerRepeat::~TriggerRepeat() {
-
+    /// @todo: Vector support
+    if (!collidedEntity.empty() && collidedEntity.front()->GetComponent<Component::RigidBody>()) {
+        Component::RigidBody* rigidBodyComp = collidedEntity.front()->GetComponent<Component::RigidBody>();
+        Managers().physicsManager->ForgetTriggerEnter(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
+        Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
+    }
 }
 
 // ADD SUPPORT FOR VECTOR
