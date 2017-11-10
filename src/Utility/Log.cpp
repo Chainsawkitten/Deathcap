@@ -17,6 +17,8 @@ Log::~Log() {
 
 Log& Log::operator<<(const string& text) {
     *streams[currentChannel] << text;
+    if (currentChannel != INFO)
+        std::cout << text;
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -28,6 +30,8 @@ Log& Log::operator<<(const string& text) {
 
 Log& Log::operator<<(const int value) {
     *streams[currentChannel] << value;
+    if (currentChannel != INFO)
+        std::cout << value;
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -39,6 +43,8 @@ Log& Log::operator<<(const int value) {
 
 Log& Log::operator<<(const unsigned int value) {
     *streams[currentChannel] << value;
+    if (currentChannel != INFO)
+        std::cout << value;
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -50,6 +56,8 @@ Log& Log::operator<<(const unsigned int value) {
 
 Log& Log::operator<<(const float value) {
     *streams[currentChannel] << value;
+    if (currentChannel != INFO)
+        std::cout << value;
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -61,6 +69,8 @@ Log& Log::operator<<(const float value) {
 
 Log& Log::operator<<(const double value) {
     *streams[currentChannel] << value;
+    if (currentChannel != INFO)
+        std::cout << value;
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -85,12 +95,16 @@ Log& Log::operator<<(const time_t value) {
 #endif
 
     *streams[currentChannel] << outString;
+    if (currentChannel != INFO)
+        std::cout << outString;
 
     return *this;
 }
 
 Log& Log::operator<<(const glm::vec2& value) {
     *streams[currentChannel] << "(" << value.x << "," << value.y << ")";
+    if (currentChannel != INFO)
+        std::cout << "(" << value.x << "," << value.y << ")";
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -102,6 +116,8 @@ Log& Log::operator<<(const glm::vec2& value) {
 
 Log& Log::operator<<(const glm::vec3& value) {
     *streams[currentChannel] << "(" << value.x << "," << value.y << "," << value.z << ")";
+    if (currentChannel != INFO)
+        std::cout << "(" << value.x << "," << value.y << "," << value.z << ")";
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -113,6 +129,8 @@ Log& Log::operator<<(const glm::vec3& value) {
 
 Log& Log::operator<<(const glm::vec4& value) {
     *streams[currentChannel] << "(" << value.x << "," << value.y << "," << value.z << "," << value.w << ")";
+    if (currentChannel != INFO)
+        std::cout << "(" << value.x << "," << value.y << "," << value.z << "," << value.w << ")";
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -138,11 +156,9 @@ bool Log::SetupStreams(
     std::ostream* defaultStream,
     std::ostream* info,
     std::ostream* warning,
-    std::ostream* error,
-    std::ostream* debug) {
+    std::ostream* error) {
     return SetupStream(DEFAULT, defaultStream) &&
            SetupStream(INFO, info) &&
            SetupStream(WARNING, warning) &&
-           SetupStream(ERR, error) &&
-           SetupStream(DEBUG, debug);
+           SetupStream(ERR, error);
 }
