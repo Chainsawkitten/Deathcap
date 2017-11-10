@@ -43,7 +43,7 @@ class AssetMetaData
          */
         static bool LoadMetaData(const char* filepath, MeshMetaData* metaData);
 
-    protected:
+    private:
         /// Constructor.
         AssetMetaData() {}
 

@@ -52,8 +52,7 @@ void Model::Load(const char* filename) {
                 GenerateVertexBuffer(vertexBuffer, meshData->skinnedVertices, meshData->numVertices);
                 GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
                 GenerateSkinVertexArray(vertexBuffer, indexBuffer, vertexArray);
-            }
-            else {
+            } else {
                 GenerateVertexBuffer(vertexBuffer, meshData->staticVertices, meshData->numVertices);
                 GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
                 GenerateStaticVertexArray(vertexBuffer, indexBuffer, vertexArray);
