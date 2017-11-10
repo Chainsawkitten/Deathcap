@@ -58,10 +58,10 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
         repeat->targetEntityUID = node.get("triggerTargetEntity", 0).asInt();
         repeat->owningEntityUID = node.get("triggerOwner", 0).asInt();
 
-        eventstruct.m_eventID = node.get("triggerEventStruct_EventID", 0).asInt();
-        eventstruct.m_shapeID = node.get("triggerEventStruct_ShapeID", 0).asInt();
-        eventstruct.m_targetID = node.get("triggerEventStruct_TargetID", 0).asInt();
-        eventstruct.m_scriptID = node.get("triggerEventStruct_ScriptID", 0).asInt();
+        eventstruct.eventID = node.get("triggerEventStruct_EventID", 0).asInt();
+        eventstruct.shapeID = node.get("triggerEventStruct_ShapeID", 0).asInt();
+        eventstruct.targetID = node.get("triggerEventStruct_TargetID", 0).asInt();
+        eventstruct.scriptID = node.get("triggerEventStruct_ScriptID", 0).asInt();
         eventstruct.check[0] = node.get("triggerEventStruct_Check_0", false).asBool();
         eventstruct.check[1] = node.get("triggerEventStruct_Check_1", false).asBool();
         eventstruct.check[2] = node.get("triggerEventStruct_Check_2", false).asBool();

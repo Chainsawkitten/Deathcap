@@ -11,14 +11,31 @@
 class Entity;
 class TriggerManager;
 
+
+
 namespace triggerEvent {
 
+    enum EventType {
+        OnEnter = 0,
+        OnRemain,
+        OnLeave,
+        NUMBER_OF_EVENTS
+    };
+
     struct EventStruct {
-        int m_eventID = 0;
-        int m_shapeID = 0;
-        int m_targetID = 0;
-        int m_scriptID = 0;
-        bool check[4] = { false }; /// Simple check, should probably be replaced soon.
+        int eventID = OnEnter;
+        int shapeID = 0;
+        int targetID = 0;
+        int scriptID = 0;        
+
+        std::string targetFunction = "Unknown";
+        Entity* targetEntity = nullptr;
+        Entity* collidedEntity = nullptr;    
+
+        int targetEntityUID = 0;
+        int collidedEntityUID = 0;
+
+        bool triggerCheck = false;
     };
 }
 
@@ -162,21 +179,16 @@ class TriggerRepeat : public SuperTrigger {
 
     private:
         void HandleTriggerEvent();
+        bool CheckVector(const triggerEvent::EventStruct& value) const;
 
         std::string name = "New Trigger";
         bool startActive = false;
         float delay = 0;
         float cooldown = 0;
         int triggerCharges = 0;
-        std::vector<std::string> targetFunction;
-        std::vector<Entity*> targetEntity;
-        std::vector<Entity*> collidedEntity;
-        std::vector<triggerEvent::EventStruct> eventVector;
         Utility::LockBox<Physics::Trigger> triggerVolume;
         bool triggered = false;
         Entity* owningEntity = nullptr;
-
-        int targetEntityUID = 0;
-        int collidedEntityUID = 0;
         int owningEntityUID = 0;
+        std::vector<triggerEvent::EventStruct> eventVector;
 };

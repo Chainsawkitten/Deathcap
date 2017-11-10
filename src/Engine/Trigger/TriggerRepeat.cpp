@@ -60,10 +60,6 @@ void TriggerRepeat::SetName(std::string& value) {
     name = value;
 }
 
-std::vector<std::string> *TriggerRepeat::GetTargetFunction() {
-    return &targetFunction;
-}
-
 bool TriggerRepeat::GetStartActive() {
     return startActive;
 }
@@ -96,14 +92,6 @@ void TriggerRepeat::SetTriggerCharges(int value) {
     triggerCharges = value;
 }
 
-std::vector<Entity*> *TriggerRepeat::GetTargetEntity() {
-    return &targetEntity;
-}
-
-std::vector<Entity*> *TriggerRepeat::GetCollidedEntity() {
-    return &collidedEntity;
-}
-
 void TriggerRepeat::HandleTriggerEvent() {
     triggered = true;
 }
@@ -122,12 +110,15 @@ void TriggerRepeat::SetOwningEntity(Entity* value) {
 
 void TriggerRepeat::InitTriggerUID() {
 
-    if (Hymn().GetEntityByGUID(targetEntityUID) != nullptr)
-        targetEntity.push_back(Hymn().GetEntityByGUID(targetEntityUID));
-    if (Hymn().GetEntityByGUID(collidedEntityUID) != nullptr)
-        collidedEntity.push_back(Hymn().GetEntityByGUID(collidedEntityUID));
-    if (Hymn().GetEntityByGUID(owningEntityUID) != nullptr)
-        owningEntity = Hymn().GetEntityByGUID(owningEntityUID);
+    for (int i = 0; i < eventVector.size(); i++) {
+
+        if (Hymn().GetEntityByGUID(eventVector.at(i).targetEntityUID) != nullptr)
+            eventVector.at(i).targetEntity = Hymn().GetEntityByGUID(eventVector.at(i).targetEntityUID);
+        if (Hymn().GetEntityByGUID(eventVector.at(i).targetEntityUID) != nullptr)
+            eventVector.at(i).collidedEntity = Hymn().GetEntityByGUID(eventVector.at(i).collidedEntityUID);
+        if (Hymn().GetEntityByGUID(eventVector.at(i).targetEntityUID) != nullptr)
+            owningEntity = Hymn().GetEntityByGUID(owningEntityUID);
+    }
 
 }
 
@@ -150,6 +141,18 @@ void TriggerRepeat::Update() {
     }
 }
 
+bool TriggerRepeat::CheckVector(const triggerEvent::EventStruct& value) const {
+
+    if (value.targetFunction.empty())
+        return false;
+    else if (value.targetEntity == nullptr)
+        return false;
+    else if (value.collidedEntity == nullptr)
+        return false;
+    else
+        return true;
+}
+
 Json::Value TriggerRepeat::Save() {
     Json::Value component;
 
@@ -159,47 +162,28 @@ Json::Value TriggerRepeat::Save() {
     component["triggerDelay"] = delay;
     component["triggerCooldown"] = cooldown;
     component["triggerCharges"] = triggerCharges;
-
-    if (!targetFunction.empty())
-        component["triggerFunction"] = targetFunction.front(); // ADD SUPPORT FOR VECTOR
-    if (!targetEntity.empty())
-        component["triggerTargetEntity"] = targetEntity.front()->GetUniqueIdentifier(); // ADD SUPPORT FOR VECTOR
-    if (!collidedEntity.empty())
-        component["triggerCollidedEntity"] = collidedEntity.front()->GetUniqueIdentifier(); // ADD SUPPORT FOR VECTOR
-
-    if (!eventVector.empty()) {
-        component["triggerEventStruct_EventID"] = eventVector.front().m_eventID; // ADD SUPPORT FOR VECTOR
-        component["triggerEventStruct_ShapeID"] = eventVector.front().m_shapeID; // ADD SUPPORT FOR VECTOR
-        component["triggerEventStruct_TargetID"] = eventVector.front().m_targetID; // ADD SUPPORT FOR VECTOR
-        component["triggerEventStruct_ScriptID"] = eventVector.front().m_scriptID; // ADD SUPPORT FOR VECTOR
-        component["triggerEventStruct_Check_0"] = eventVector.front().check[0]; // ADD SUPPORT FOR VECTOR
-        component["triggerEventStruct_Check_1"] = eventVector.front().check[1]; // ADD SUPPORT FOR VECTOR
-        component["triggerEventStruct_Check_2"] = eventVector.front().check[2]; // ADD SUPPORT FOR VECTOR
-        component["triggerEventStruct_Check_3"] = eventVector.front().check[3]; // ADD SUPPORT FOR VECTOR
-    }
-
-    if (GetEventVector()->front().check[0] == true &&
-        GetEventVector()->front().check[1] == true &&
-        GetEventVector()->front().check[2] == true &&
-        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 0) {
-        OnEnter();
-    } else if (GetEventVector()->front().check[0] == true &&
-        GetEventVector()->front().check[1] == true &&
-        GetEventVector()->front().check[2] == true &&
-        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 1) {
-        OnRetain();
-    } else if (GetEventVector()->front().check[0] == true &&
-        GetEventVector()->front().check[1] == true &&
-        GetEventVector()->front().check[2] == true &&
-        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 2) {
-        OnLeave();
-    }
-
     component["triggerTriggered"] = triggered;
+    component["triggerVectorSize"] = eventVector.size();
 
     if (owningEntity != nullptr)
         component["triggerOwner"] = owningEntity->GetUniqueIdentifier();
 
-    return component;
+    for (int i = 0; i < eventVector.size(); i++) {        
 
+        component["triggerFunction"] = eventVector.at(i).targetFunction;
+        component["triggerTargetEntity"] = eventVector.at(i).targetEntity->GetUniqueIdentifier();
+        component["triggerCollidedEntity"] = eventVector.at(i).collidedEntity->GetUniqueIdentifier();
+        component["triggerEventStruct_EventID"] = eventVector.at(i).eventID;
+        component["triggerEventStruct_ShapeID"] = eventVector.at(i).shapeID;
+        component["triggerEventStruct_TargetID"] = eventVector.at(i).targetID;
+        component["triggerEventStruct_ScriptID"] = eventVector.at(i).scriptID;
+
+        if (eventVector.at(i).triggerCheck && eventVector.at(i).eventID == triggerEvent::OnEnter)
+            OnEnter();
+        else if (eventVector.at(i).triggerCheck && eventVector.at(i).eventID == triggerEvent::OnRemain)
+            OnRetain();
+        else if (eventVector.at(i).triggerCheck && eventVector.at(i).eventID == triggerEvent::OnLeave)
+            OnLeave();
+    }
+    return component;
 }

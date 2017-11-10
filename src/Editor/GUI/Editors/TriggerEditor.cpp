@@ -185,16 +185,15 @@ namespace GUI {
                         labelScript.append(std::to_string(i));
 
                         // Event type
-                        int eventType = repeat->GetEventVector()->at(i).m_eventID;
+                        int eventType = repeat->GetEventVector()->at(i).eventID;
 
-                        if (ImGui::Combo(labelEvent.c_str(), &eventType, events.data(), events.size())) {
-                            repeat->GetEventVector()->at(i).m_eventID = eventType;
-                            repeat->GetEventVector()->at(i).check[0] = true;
-                        }
+                        if (ImGui::Combo(labelEvent.c_str(), &eventType, events.data(), events.size()))
+                            repeat->GetEventVector()->at(i).eventID = eventType;
+
 
                         // Subject
                         ImGui::NextColumn();
-                        int shapeID = repeat->GetEventVector()->at(i).m_shapeID;
+                        int shapeID = repeat->GetEventVector()->at(i).shapeID;
                         std::vector<std::string> entityWithShape;
                         for (int i = 0; i < Hymn().world.GetEntities().size(); i++) {
                             if (Hymn().world.GetEntities().at(i)->GetComponent<Component::RigidBody>() != nullptr)
@@ -202,19 +201,17 @@ namespace GUI {
                         }
 
                         if (ImGui::Combo(labelShape.c_str(), &shapeID, entityWithShape)) {
-                            repeat->GetEventVector()->at(i).m_shapeID = shapeID;
+                            repeat->GetEventVector()->at(i).shapeID = shapeID;
 
                             for (int j = 0; j < Hymn().world.GetEntities().size(); j++) {
-                                if (Hymn().world.GetEntities().at(j)->name == entityWithShape.at(shapeID)) {
+                                if (Hymn().world.GetEntities().at(j)->name == entityWithShape.at(shapeID))
                                     repeat->GetCollidedEntity()->push_back(Hymn().world.GetEntities().at(j));
-                                    repeat->GetEventVector()->at(i).check[1] = true;
-                                }
                             }
                         }
 
                         // Entity target
                         ImGui::NextColumn();
-                        int targetID = repeat->GetEventVector()->at(i).m_targetID;
+                        int targetID = repeat->GetEventVector()->at(i).targetID;
                         std::vector<std::string> entityName;
 
                         for (int i = 0; i < Hymn().world.GetEntities().size(); i++) {
@@ -223,20 +220,18 @@ namespace GUI {
                         }
 
                         if (ImGui::Combo(labelTarget.c_str(), &targetID, entityName)) {
-                            repeat->GetEventVector()->at(i).m_targetID = targetID;
+                            repeat->GetEventVector()->at(i).targetID = targetID;
 
                             for (int j = 0; j < Hymn().world.GetEntities().size(); j++) {
 
-                                if (Hymn().world.GetEntities().at(j)->name == entityName.at(targetID)) {
+                                if (Hymn().world.GetEntities().at(j)->name == entityName.at(targetID))
                                     repeat->GetTargetEntity()->push_back(Hymn().world.GetEntities().at(j));
-                                    repeat->GetEventVector()->at(i).check[2] = true;
-                                }
                             }
                         }
 
                         // Script name
                         ImGui::NextColumn();
-                        int scriptID = repeat->GetEventVector()->at(i).m_scriptID;
+                        int scriptID = repeat->GetEventVector()->at(i).scriptID;
 
                         std::vector<std::string> scriptVector;
 
@@ -256,9 +251,8 @@ namespace GUI {
 
                         if (!scriptVector.empty()) {
                             if (ImGui::Combo(labelScript.c_str(), &scriptID, scriptVector)) {
-                                repeat->GetEventVector()->at(i).m_scriptID = scriptID;
+                                repeat->GetEventVector()->at(i).scriptID = scriptID;
                                 repeat->GetTargetFunction()->push_back(scriptVector.at(scriptID));
-                                repeat->GetEventVector()->at(i).check[3] = true;
                             }
                         }
 
