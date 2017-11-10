@@ -21,6 +21,7 @@ out VertexData {
     vec3 normal;
     vec3 tangent;
     vec2 texCoords;
+    vec4 fragPosLightSpace;
 } vertexOut;
 
 void main () {
@@ -39,4 +40,5 @@ void main () {
     vertexOut.normal = normalize(normalMatrix * normal.xyz);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;
+    vertexOut.fragPosLightSpace = vec4(0,0,0,0);//lightSpaceMatrix * worldPosition;
 }
