@@ -10,9 +10,9 @@
 using namespace Video;
 
 ParticleSystemRenderer::ParticleSystemRenderer() {
-    points = new ParticlePos[nr_particles];
-    vels = new ParticleVelocity[nr_particles];
-    col = new ParticleColor[nr_particles];
+    points = new Particles::ParticlePos[nr_particles];
+    vels = new Particles::ParticleVelocity[nr_particles];
+    col = new Particles::ParticleColor[nr_particles];
     rots = new ParticleModelMatrix[nr_particles];
     srand(time(NULL));
 
@@ -36,9 +36,9 @@ ParticleSystemRenderer::ParticleSystemRenderer() {
 }
 
 ParticleSystemRenderer::ParticleSystemRenderer(int count) {
-    points = new ParticlePos[count];
-    vels = new ParticleVelocity[count];
-    col = new ParticleColor[count];
+    points = new Particles::ParticlePos[count];
+    vels = new Particles::ParticleVelocity[count];
+    col = new Particles::ParticleColor[count];
     rots = new ParticleModelMatrix[count];
     srand(time(NULL));
 
@@ -99,7 +99,7 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
 
     glGenBuffers(1, &posSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, posSSbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(ParticlePos) * nr_particles, &points[0], GL_STATIC_DRAW);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(Particles::ParticlePos) * nr_particles, &points[0], GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, posSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
 
@@ -107,7 +107,7 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
     glGenVertexArrays(1, &m_glDrawVAO);
     glBindVertexArray(m_glDrawVAO);
     glBindBuffer(GL_ARRAY_BUFFER, posSSbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(ParticlePos) * nr_particles, &points[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Particles::ParticlePos) * nr_particles, &points[0], GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
 
@@ -152,7 +152,7 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
 
     glEnableVertexAttribArray(1);
 
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(ParticleColor), 0);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Particles::ParticleColor), 0);
 
     glBindVertexArray(0);
 
@@ -169,9 +169,9 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
 
     computeShaderProgram->Use();
 
-    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 0, posSSbo, 0, nr_particles * sizeof(ParticlePos));
-    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 1, velSSbo, 0, nr_particles * sizeof(ParticleVelocity));
-    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 2, colSSbo, 0, nr_particles * sizeof(ParticleColor));
+    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 0, posSSbo, 0, nr_particles * sizeof(Particles::ParticlePos));
+    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 1, velSSbo, 0, nr_particles * sizeof(Particles::ParticleVelocity));
+    glBindBufferRange(GL_SHADER_STORAGE_BUFFER, 2, colSSbo, 0, nr_particles * sizeof(Particles::ParticleColor));
 
     glUniform3fv(computeShaderProgram->GetUniformLocation("Velocity"), 1, &glm::vec3(settings.velocity.x, settings.velocity.y, settings.velocity.z)[0]);
     glUniform1f(computeShaderProgram->GetUniformLocation("rate"), settings.rate);
