@@ -38,15 +38,13 @@ void AnimationController::Save(const std::string& path) {
 
     uint32_t numBools = boolMap.size();
     file.write(reinterpret_cast<char*>(&numBools), sizeof(uint32_t));
-    for (BoolItem* b : boolMap) {
+    for (BoolItem* b : boolMap)
         file.write(reinterpret_cast<char*>(b), sizeof(BoolItem));
-    }
 
     uint32_t numFloats = floatMap.size();
     file.write(reinterpret_cast<char*>(&numFloats), sizeof(uint32_t));
-    for (FloatItem* f : floatMap) {
+    for (FloatItem* f : floatMap)
         file.write(reinterpret_cast<char*>(f), sizeof(FloatItem));
-    }
 
     // Close file.
     file.close();
@@ -103,18 +101,15 @@ void AnimationController::Load(const std::string& name) {
 }
 
 void AnimationController::Clear() {
-    for (Node* node : animationNodes) {
+    for (Node* node : animationNodes)
         delete node;
-    }
     animationNodes.clear();
 
-    for (BoolItem* b : boolMap) {
+    for (BoolItem* b : boolMap)
         delete b;
-    }
     boolMap.clear();
 
-    for (FloatItem* f : floatMap) {
+    for (FloatItem* f : floatMap)
         delete f;
-    }
     floatMap.clear();
 }
