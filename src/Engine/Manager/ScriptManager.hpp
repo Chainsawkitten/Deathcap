@@ -14,7 +14,6 @@ class World;
 class Entity;
 class ScriptFile;
 namespace Component {
-    class RigidBody;
     class Script;
 }
 namespace Json {
@@ -62,33 +61,6 @@ class ScriptManager {
          */
         ENGINE_API void RegisterUpdate(Entity* entity);
         
-        /// Register an entity to receive an event when |object| enters |trigger|.
-        /**
-         * @param entity %Entity to register.
-         * @param trigger Trigger body to check for.
-         * @param object Object to check if it enters the trigger.
-         * @param methodName The name of the method to call when triggered.
-         */
-        ENGINE_API void RegisterTriggerEnter(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
-
-        /// Register an entity to receive an event when |object| is intersecting |trigger|.
-        /**
-         * @param entity %Entity to register.
-         * @param trigger Trigger body to check for.
-         * @param object Object to check if it intersects the trigger.
-         * @param methodName The name of the method to call when triggered.
-         */
-        ENGINE_API void RegisterTriggerRetain(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
-
-        /// Register an entity to receive an event when |object| leaves |trigger|.
-        /**
-         * @param entity %Entity to register.
-         * @param trigger Trigger body to check for.
-         * @param object Object to check if it leaves the trigger.
-         * @param methodName The name of the method to call when triggered.
-         */
-        ENGINE_API void RegisterTriggerLeave(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName);
-        
         /// Register the input enum.
         ENGINE_API void RegisterInput();
         
@@ -98,13 +70,6 @@ class ScriptManager {
          * @param type The type of message to send.
          */
         ENGINE_API void SendMessage(Entity* recipient, Entity* sender, int type);
-
-        /// Fetches an entity using its GUID.
-        /**
-         * @param GUID The entity to receive the message.
-         * @return The entity that has the correct GUID, or nullptr if it doesn't exist.
-         */
-        static ENGINE_API Entity* GetEntity(unsigned int GUID);
         
         /// Create script component.
         /**
@@ -158,13 +123,6 @@ class ScriptManager {
             int type;
         };
         
-        struct TriggerEvent {
-            Entity* scriptEntity;
-            std::string methodName;
-            Component::RigidBody* trigger;
-            Component::RigidBody* object;
-        };
-        
         ScriptManager();
         ~ScriptManager();
         ScriptManager(ScriptManager const&) = delete;
@@ -174,17 +132,14 @@ class ScriptManager {
         asIScriptContext* CreateContext();
         void CallMessageReceived(const Message& message);
         void CallUpdate(Entity* entity, float deltaTime);
-        void CallTrigger(const TriggerEvent& triggerEvent);
         void LoadScriptFile(const char* fileName, std::string& script);
         void ExecuteCall(asIScriptContext* context);
         asITypeInfo* GetClass(const std::string& moduleName, const std::string& className);
-        void HandleTrigger(TriggerEvent triggerEvent);
         
         asIScriptEngine* engine;
         
         std::vector<Entity*> updateEntities;
         std::vector<Message> messages;
-        std::vector<TriggerEvent> triggerEvents;
 
         void GetBreakpoints(const ScriptFile* script);
         void ClearBreakpoints();
