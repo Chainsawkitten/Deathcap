@@ -16,6 +16,7 @@
 #include "../Component/SoundSource.hpp"
 #include "../Component/ParticleEmitter.hpp"
 #include "../Component/VRDevice.hpp"
+#include "../Component/Trigger.hpp"
 #include "../Util/Json.hpp"
 #include "../Util/FileSystem.hpp"
 #include <Utility/Log.hpp>
@@ -28,6 +29,7 @@
 #include "../Manager/ScriptManager.hpp"
 #include "../Manager/SoundManager.hpp"
 #include "../Manager/VRManager.hpp"
+#include "../Manager/TriggerManager.hpp"
 
 Entity::Entity(World* world, const std::string& name) : name(name) {
     this->world = world;
@@ -56,12 +58,11 @@ Entity* Entity::SetParent(Entity* newParent) {
             parent->RemoveChild(this);
             Entity* lastParent = parent;
             parent = newParent;
-          
-            newParent->children.push_back(this);      
+            newParent->children.push_back(this);
 
             return lastParent;
         }
-    } 
+    }
     return nullptr;
 }
 
@@ -196,6 +197,7 @@ Json::Value Entity::Save() const {
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
         Save<Component::VRDevice>(entity, "VRDevice");
+        Save<Component::Trigger>(entity, "Trigger");
 
         // Save children.
         Json::Value childNodes;
@@ -238,6 +240,7 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::SoundSource>(node, "SoundSource");
         Load<Component::ParticleEmitter>(node, "ParticleEmitter");
         Load<Component::VRDevice>(node, "VRDevice");
+        Load<Component::Trigger>(node, "Trigger");
 
         // Load children.
         for (unsigned int i = 0; i < node["children"].size(); ++i) {
@@ -378,6 +381,8 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
         component = Managers().renderManager->CreateSpotLight();
     else if (componentType == typeid(Component::VRDevice*))
         component = Managers().vrManager->CreateVRDevice();
+    else if (componentType == typeid(Component::Trigger*))
+        component = Managers().triggerManager->CreateTrigger();
     else {
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return nullptr;
@@ -441,6 +446,8 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
         component = Managers().renderManager->CreateSpotLight(node);
     else if (componentType == typeid(Component::VRDevice*))
         component = Managers().vrManager->CreateVRDevice(node);
+    else if (componentType == typeid(Component::Trigger*))
+        component = Managers().triggerManager->CreateTrigger(node);
     else {
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return;

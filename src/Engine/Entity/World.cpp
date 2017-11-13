@@ -4,6 +4,7 @@
 #include "../Component/SuperComponent.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ParticleManager.hpp"
+#include "../Manager/TriggerManager.hpp"
 #include "../Util/FileSystem.hpp"
 #include "../Hymn.hpp"
 #include <fstream>
@@ -118,6 +119,7 @@ void World::Load(const std::string& filename) {
         file.close();
 
         root->Load(rootNode);
+        Managers().triggerManager->InitiateUID();
     }
 }
 
@@ -126,6 +128,6 @@ void World::Load(const Json::Value& node) {
     Clear();
     CreateRoot();
     root->Load(node);
-
+    Managers().triggerManager->InitiateUID();
 }
 
