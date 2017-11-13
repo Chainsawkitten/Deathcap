@@ -66,7 +66,7 @@ void TriggerRepeat::SetName(const std::string& value) {
     name = value;
 }
 
-const std::vector<std::string>* TriggerRepeat::GetTargetFunction() const {
+std::vector<std::string>* TriggerRepeat::GetTargetFunction() {
     return &targetFunction;
 }
 
@@ -102,11 +102,11 @@ void TriggerRepeat::SetTriggerCharges(int value) {
     triggerCharges = value;
 }
 
-const std::vector<Entity*>* TriggerRepeat::GetTargetEntity() const {
+std::vector<Entity*>* TriggerRepeat::GetTargetEntity() {
     return &targetEntity;
 }
 
-const std::vector<Entity*>* TriggerRepeat::GetCollidedEntity() const {
+std::vector<Entity*>* TriggerRepeat::GetCollidedEntity() {
     return &collidedEntity;
 }
 
@@ -114,11 +114,11 @@ void TriggerRepeat::HandleTriggerEvent() {
     triggered = true;
 }
 
-const std::vector<triggerEvent::EventStruct>* TriggerRepeat::GetEventVector() const {
+std::vector<triggerEvent::EventStruct>* TriggerRepeat::GetEventVector() {
     return &eventVector;
 }
 
-Entity* TriggerRepeat::GetOwningEntity() {
+const Entity* TriggerRepeat::GetOwningEntity() const{
     return owningEntity;
 }
 
