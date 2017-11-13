@@ -252,19 +252,19 @@ void SoundManager::CreateAudioEnvironment() {
                 if (meshVertices.size() > 0 && meshIndices.size() > 0) {
                     const glm::mat4 modelMatrix = entity->GetModelMatrix();
                     std::vector<IPLVector3> iplVertices;
-                    std::vector<IPLVector3> iplIndices;
-                    iplVertices.resize(meshVertices.size());
+                    std::vector<IPLTriangle> iplIndices;
 
                     // Convert and transform vertices.
+                    iplVertices.resize(meshVertices.size());
                     for (std::size_t i = 0; i < meshVertices.size(); ++i) {
                         const glm::vec4 transformedVector = modelMatrix * glm::vec4(meshVertices[i], 1.f);
                         iplVertices[i] = IPLVector3{ transformedVector.x, transformedVector.y, transformedVector.z };
                     }
 
                     // Convert indices.
-                    for (std::size_t i = 0; i < meshIndices.size(); i += 3) {
-                        assert(i+2 < meshIndices.size());
-                        iplIndices[i] = IPLVector3{ meshIndices[i], meshIndices[i+1], meshIndices[i+2] };
+                    iplIndices.resize(meshIndices.size());
+                    for (std::size_t i = 0; i < meshIndices.size(); ++i) {
+                        iplIndices[i] = IPLTriangle{ meshIndices[i] };
                     }
 
                     // Find material index and create ipl mesh.
