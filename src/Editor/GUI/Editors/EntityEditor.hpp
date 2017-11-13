@@ -8,6 +8,7 @@
 #include <imgui.h>
 #include "../ResourceSelector.hpp"
 #include "Editor/GUI/Editors/CurveEditor.hpp"
+#include <Engine/Geometry/AssetFileHandler.hpp> 
 
 namespace Component {
     class AnimationController;
@@ -26,11 +27,13 @@ namespace Component {
     class ParticleEmitter;
     class ParticleSystemComponent;
     class VRDevice;
+    class Trigger;
 }
 
 namespace GUI {
     class IShapeEditor;
     class RigidBodyEditor;
+    class TriggerEditor;
 
     /// Used to edit an entity.
     class EntityEditor {
@@ -97,12 +100,13 @@ namespace GUI {
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
             void ParticleSystemEditor(Component::ParticleSystemComponent* particleSystem);
             void VRDeviceEditor(Component::VRDevice* vrDevice);
-            
+            void TriggerEditor(Component::Trigger* trigger);
+
             Entity* entity = nullptr;
             bool visible = false;
             char name[128];
             char stringPropertyBuffer[128];
-            
+
             struct Editor {
                 std::function<void()> addFunction;
                 std::function<void()> editFunction;
@@ -112,8 +116,9 @@ namespace GUI {
             int selectedShape = -1;
 
             std::unique_ptr<GUI::RigidBodyEditor> rigidBodyEditor;
-            
+
             ResourceSelector resourceSelector;
+            std::unique_ptr<GUI::TriggerEditor> triggerEditor;     
 
             bool albedoShow = false;
             bool normalShow = false;
@@ -146,6 +151,7 @@ template<typename type> void GUI::EntityEditor::EditComponent(const std::string&
         
         if (ImGui::Button("Remove"))
             entity->KillComponent<type>();
+
         
         ImGui::PopID();
     }
