@@ -5,26 +5,29 @@
 
 #include "linking.hpp"
 
-struct ParticlePos {
-    float x;
-    float y;
-    float z;
-    float w;
-};
+namespace Particles {
+    struct ParticlePos {
+        float x;
+        float y;
+        float z;
+        float w;
+    };
 
-struct ParticleVelocity {
-    float vx;
-    float vy;
-    float vz;
-    float life;
-};
+    struct ParticleVelocity {
+        float vx;
+        float vy;
+        float vz;
+        float life;
+    };
 
-struct ParticleColor {
-    float cx;
-    float cy;
-    float cz;
-    float ca;
-};
+    struct ParticleColor {
+        float cx;
+        float cy;
+        float cz;
+        float ca;
+    };
+}
+
 
 struct ParticleModelMatrix {
     glm::mat4 m = glm::mat4(1);
@@ -117,9 +120,9 @@ namespace Video {
         int nr_new_particles = 31;
         float rate = 1000.0f;
         float delta_time = 0.0f;
-        ParticlePos* points;
-        ParticleVelocity* vels;
-        ParticleColor* col;
+        Particles::ParticlePos* points;
+        Particles::ParticleVelocity* vels;
+        Particles::ParticleColor* col;
         ParticleModelMatrix* rots;
         glm::mat4 rotMat;
 
