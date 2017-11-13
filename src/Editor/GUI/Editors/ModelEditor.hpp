@@ -72,5 +72,7 @@ namespace GUI {
             bool bindPose = false;
             bool flipUVs = false;
             bool createScene = false;
+            bool CPU = false;
+            bool GPU = true;
     };
 }
