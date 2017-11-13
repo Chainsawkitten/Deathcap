@@ -33,14 +33,34 @@ public:
     /// Show the editor.
     void Show();
 
+    /// If editor is visible.
     bool IsVisible() const;
 
+    /// Set visibility.
+    /**
+    * @param visible setting visibility on editor.
+    */
     void SetVisible(bool visible);
 
+    /// Adds a curve.
+    /**
+    * @param curve_name name of curve.
+    * @param uniqueId unique ID.
+    * @param item unique ID just set it to 0.
+    */
     void AddMyCurve(std::string& curve_name, ImGuiID uniqueId, int item);
+
+    /// Updates all curves.
+    /**
+    * @param deltaTime deltatime.
+    * @param totalTime total time for the curves.
+    */
     void UpdateCurves(float deltaTime, float totalTime);
+
+    /// Render the curve editor.
     void RenderCurveEditor();
 
+    /// Get all curves.
     const std::vector<MyCurve>& GetAllCurves() const;
 
 private:

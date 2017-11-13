@@ -15,7 +15,7 @@ namespace Component {
         ENGINE_API ~ParticleSystemComponent();
 
         /// Save the component.
-        /**
+       /**
         * @return JSON value to be stored on disk.
         */
         ENGINE_API Json::Value Save() const override;
