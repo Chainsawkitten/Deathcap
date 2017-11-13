@@ -77,16 +77,15 @@ void SoundManager::Update(float deltaTime) {
     std::vector<Component::Listener*> listeners = GetListeners();
     assert(listeners[0] != nullptr);
     Entity* player = listeners[0]->entity;
-    IPLVector3 pos;
-    pos.x = player->GetWorldPosition().x;
-    pos.y = player->GetWorldPosition().y;
-    pos.z = player->GetWorldPosition().z;
-    IPLVector3 dir;
-    dir.x = player->GetDirection().x;
-    dir.y = player->GetDirection().y;
-    dir.z = player->GetDirection().z;
-   
-    sAudio.SetPlayer(pos, dir, );
+    glm::vec3 glmPos = player->GetWorldPosition();
+    glm::quat orientation = player->GetWorldOrientation();
+    glm::vec3 glmDir = orientation * glm::vec3(0, 0, -1);
+    glm::vec3 glmUp = orientation * glm::vec3(0, 1, 0);
+    IPLVector3 pos = { glmPos.x, glmPos.y, glmPos.z };
+    IPLVector3 dir = { glmDir.x, glmDir.y, glmDir.z };
+    IPLVector3 up = { glmUp.x, glmUp.y, glmUp.z };
+
+    sAudio.SetPlayer(pos, dir, up);
 
 
     // Number of samples to process dependant on deltaTime
@@ -264,7 +263,7 @@ void SoundManager::CreateAudioEnvironment() {
                     // Convert indices.
                     iplIndices.resize(meshIndices.size());
                     for (std::size_t i = 0; i < meshIndices.size(); ++i) {
-                        iplIndices[i] = IPLTriangle{ meshIndices[i] };
+                        iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i] };
                     }
 
                     // Find material index and create ipl mesh.
