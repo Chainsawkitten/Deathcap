@@ -136,17 +136,16 @@ void SoundManager::Update(float deltaTime) {
 
     }
 
-    uint32_t* numProcessedSamples = new uint32_t;
-    float* processedSamples = sAudio.GetProcessed(numProcessedSamples);
+    uint32_t numProcessedSamples;
+    float* processedSamples = sAudio.GetProcessed(&numProcessedSamples);
 
     //If not playing anything, add silence
-    if (*numProcessedSamples == 0)
+    if (numProcessedSamples == 0)
         processedSamples = new float[numSamples] {0};
 
-    Pa_WriteStream(stream, processedSamples, *numProcessedSamples);
+    Pa_WriteStream(stream, processedSamples, numProcessedSamples);
 
-    if (*numProcessedSamples != 0)
-        delete[] processedSamples;
+    delete[] processedSamples;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
