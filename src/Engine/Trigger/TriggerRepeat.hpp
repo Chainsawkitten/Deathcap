@@ -64,7 +64,7 @@ class TriggerRepeat : public SuperTrigger {
         /**
          * @return Pointer to the vector containing name of target functions.
          */
-        ENGINE_API std::vector<std::string> *GetTargetFunction();
+        ENGINE_API const std::vector<std::string>* GetTargetFunction() const;
 
         /// Get if the trigger starts active or not.
         /**
@@ -118,19 +118,19 @@ class TriggerRepeat : public SuperTrigger {
         /**
          * @return Pointer to the vector containing target entities.
          */
-        ENGINE_API std::vector<Entity*> *GetTargetEntity();
+        ENGINE_API const std::vector<Entity*>* GetTargetEntity() const;
 
         /// Vector containing collided entities.
         /**
          * @return Pointer to the vector containing collided entities.
          */
-        ENGINE_API std::vector<Entity*> *GetCollidedEntity();
+        ENGINE_API const std::vector<Entity*>* GetCollidedEntity() const;
 
         /// Vector containing the event data.
         /**
          * @return Pointer to the vector containing event data.
          */
-        ENGINE_API std::vector<triggerEvent::EventStruct>* GetEventVector();
+        ENGINE_API const std::vector<triggerEvent::EventStruct>* GetEventVector() const;
 
         /// Get the entity this component belongs to.
         /**
