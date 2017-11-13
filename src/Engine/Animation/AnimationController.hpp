@@ -102,7 +102,6 @@ namespace Animation {
                 float value = 1.f;
             };
 
-
             /// Default constructor. 
             AnimationController() = default;
             

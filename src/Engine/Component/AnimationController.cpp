@@ -135,13 +135,11 @@ void AnimationController::Interpolate(float deltaTime) {
 
     if (activeAction1->animationClip->animation->numBones != bonesToInterpolate1.size()) {
         bonesToInterpolate1.clear();
-        bonesToInterpolate1.shrink_to_fit();
         bonesToInterpolate1.resize(activeAction1->animationClip->animation->numBones);
     }
 
     if (activeAction2->animationClip->animation->numBones != bonesToInterpolate2.size()) {
         bonesToInterpolate2.clear();
-        bonesToInterpolate2.shrink_to_fit();
         bonesToInterpolate2.resize(activeAction2->animationClip->animation->numBones);
     }
 
@@ -165,7 +163,7 @@ void AnimationController::Interpolate(float deltaTime) {
     }
 }
 
-void AnimationController::SetBool(std::string name, bool value) {
+void AnimationController::SetBool(const std::string& name, bool value) {
     for (auto i = 0; i < controller->boolMap.size(); ++i) {
         if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
             controller->boolMap[i]->value = value;
@@ -174,7 +172,7 @@ void AnimationController::SetBool(std::string name, bool value) {
     }
 }
 
-void AnimationController::SetFloat(std::string name, float value) {
+void AnimationController::SetFloat(const std::string& name, float value) {
     for (auto i = 0; i < controller->floatMap.size(); ++i) {
         if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
             controller->floatMap[i]->value = value;
@@ -183,7 +181,7 @@ void AnimationController::SetFloat(std::string name, float value) {
     }
 }
 
-bool AnimationController::GetBool(std::string name) {
+bool AnimationController::GetBool(const std::string& name) {
     for (auto i = 0; i < controller->boolMap.size(); ++i) {
         if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
             return controller->boolMap[i]->value;
@@ -191,7 +189,7 @@ bool AnimationController::GetBool(std::string name) {
     }
 }
 
-float AnimationController::GetFloat(std::string name) {
+float AnimationController::GetFloat(const std::string& name) {
     for (auto i = 0; i < controller->floatMap.size(); ++i) {
         if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
             return controller->floatMap[i]->value;

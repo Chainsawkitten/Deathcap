@@ -70,7 +70,6 @@ namespace GUI {
              */
             bool CanConnect(Node* output, Node* input) override;
 
-
         private:
             Animation::AnimationController* animationController = nullptr;
 

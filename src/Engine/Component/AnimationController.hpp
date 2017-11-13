@@ -26,31 +26,31 @@ namespace Component {
 
             /// Set a bool in the state machine.
             /**
-             * @name Name of the bool.
-             * @value Value to set.
+             * @param name Name of the bool.
+             * @param value Value to set.
              */
-            ENGINE_API void SetBool(std::string name, bool value);
+            ENGINE_API void SetBool(const std::string& name, bool value);
 
             /// Set a float in the state machine.
             /**
-             * @name Name of the float.
-             * @value Value to set.
+             * @param name Name of the float.
+             * @param value Value to set.
              */
-            ENGINE_API void SetFloat(std::string name, float value);
+            ENGINE_API void SetFloat(const std::string& name, float value);
 
             /// Get a bool in the state machine.
             /**
-             * @name Name of the bool.
-             * @return Value of the bool.
+             * @param name Name of the bool.
+             * @param return Value of the bool.
              */
-            ENGINE_API bool GetBool(std::string name);
+            ENGINE_API bool GetBool(const std::string& name);
 
             /// Get a float in the state machine.
             /**
-             * @name Name of the float.
-             * @return Value of the float.
+             * @param name Name of the float.
+             * @param return Value of the float.
              */
-            ENGINE_API float GetFloat(std::string name);
+            ENGINE_API float GetFloat(const std::string& name);
 
             /// Vector with the final calculated bones.
             std::vector<glm::mat4> bones;
