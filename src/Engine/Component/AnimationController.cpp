@@ -30,12 +30,9 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     if (skeleton == nullptr || controller == nullptr)
         return;
 
-    if (skeleton != nullptr) {
-        if (bones.size() != skeleton->skeletonBones.size()) {
-            bones.clear();
-            bones.shrink_to_fit();
-            bones.resize(skeleton->skeletonBones.size());
-        }
+    if (skeleton != nullptr && bones.size() != skeleton->skeletonBones.size()) {
+        bones.clear();
+        bones.resize(skeleton->skeletonBones.size());
     }
 
     // Select the first node in the animation controller.
@@ -64,7 +61,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
             }
         }
     }
-    
+
     if (activeTransition == nullptr)
         Animate(deltaTime, activeAction1);
     else {
@@ -72,14 +69,13 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         if (activeTransition->transitionProcess > activeTransition->transitionTime) {
             activeTransition->transitionProcess = 0.0f;
             activeTransition = nullptr;
-            
+
             // Set action 1 to action 2.
             activeAction1 = activeAction2;
             activeAction2 = nullptr;
 
             Animate(deltaTime, activeAction1);
-        }
-        else {
+        } else {
             Animate(deltaTime, activeAction1);
             Animate(deltaTime, activeAction2);
             Interpolate(deltaTime);
@@ -158,7 +154,7 @@ void AnimationController::Interpolate(float deltaTime) {
         glm::quat finalRot = glm::lerp(rotation1, rotation2, interpolation);
 
         glm::mat4 matrixRot = glm::mat4(finalRot);
-        
+
         bones[i] = matrixRot;
     }
 }
