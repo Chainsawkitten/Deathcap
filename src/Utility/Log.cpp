@@ -12,7 +12,7 @@ Log::Log(const Channel channel) {
 }
 
 Log::~Log() {
-    fflush(stderr);
+    streams[currentChannel]->flush();
 }
 
 Log& Log::operator<<(const string& text) {
