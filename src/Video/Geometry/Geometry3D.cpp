@@ -32,6 +32,14 @@ const Video::AxisAlignedBoundingBox& Geometry3D::GetAxisAlignedBoundingBox() con
     return axisAlignedBoundingBox;
 }
 
+const std::vector<glm::vec3>& Geometry3D::GetVertexPositionData() const {
+    return vertexPositionData;
+}
+
+const std::vector<uint32_t>& Geometry3D::GetVertexIndexData() const {
+    return vertexIndexData;
+}
+
 void Geometry3D::CreateAxisAlignedBoundingBox(const std::vector<glm::vec3*>& positions) {
     glm::vec3 minValues, maxValues, origin, dim;
     minValues = maxValues = origin = glm::vec3(0.f, 0.f, 0.f);

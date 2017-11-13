@@ -63,7 +63,6 @@ Entity* Entity::SetParent(Entity* newParent) {
             return lastParent;
         }
     }
-
     return nullptr;
 }
 

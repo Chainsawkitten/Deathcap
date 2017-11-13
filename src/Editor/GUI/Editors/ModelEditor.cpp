@@ -72,6 +72,8 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Import textures", &importTextures);
             ImGui::Checkbox("Flip UVs", &flipUVs);
             ImGui::Checkbox("Create scene", &createScene);
+            ImGui::Checkbox("CPU", &CPU);
+            ImGui::Checkbox("GPU", &GPU);
 
             std::string button = isImported ? "Re-import" : "Import";
 
@@ -80,17 +82,19 @@ void ModelEditor::Show() {
                 
                 // Convert to .asset format.
                 AssetConverter asset;
-                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs, importTextures, materials);
+                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs, importTextures, materials, CPU, GPU);
                 model->Load(destination.c_str());
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
 
                 // Generate meta data.
-                AssetMetaData::MeshImportData* importData = new AssetMetaData::MeshImportData;
-                importData->triangulate = triangulate;
-                importData->importNormals = importNormals;
-                importData->importTangents = importTangents;
-                AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
+                AssetMetaData::MeshMetaData metaData;
+                metaData.triangulate = triangulate;
+                metaData.importNormals = importNormals;
+                metaData.importTangents = importTangents;
+                metaData.CPU = CPU;
+                metaData.GPU = GPU;
+                AssetMetaData::SaveMetaData((destination + ".asset.meta").c_str(), &metaData);
                 
                 // Import textures.
                 TextureAsset* albedo = nullptr;
@@ -103,8 +107,6 @@ void ModelEditor::Show() {
                     roughness = LoadTexture(materials.roughness, "Roughness");
                     metallic = LoadTexture(materials.metallic, "Metallic");
                 }
-                
-                delete importData;
                 
                 // Create scene containing an entity with the model and textures.
                 if (createScene) {
@@ -217,12 +219,14 @@ void ModelEditor::RefreshImportSettings() {
     // Check if meta file already exists. If it does import the metadata.
     std::string filePath(destination + ".asset.meta");
     if (FileSystem::FileExists(filePath.c_str())) {
-        AssetMetaData::MeshImportData * importData = AssetMetaData::GetMetaData(filePath.c_str());
-        triangulate = importData->triangulate;
-        importNormals = importData->importNormals;
-        importTangents = importData->importTangents;
+        AssetMetaData::MeshMetaData metaData;
+        AssetMetaData::LoadMetaData(filePath.c_str(), &metaData);
+        triangulate = metaData.triangulate;
+        importNormals = metaData.importNormals;
+        importTangents = metaData.importTangents;
+        CPU = metaData.CPU;
+        GPU = metaData.GPU;
 
-        delete importData;
         isImported = true;
     } else
         isImported = false;

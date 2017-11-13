@@ -7,6 +7,7 @@
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
 #include "../ResourceSelector.hpp"
+#include <Engine/Geometry/AssetFileHandler.hpp> 
 
 namespace Component {
     class AnimationController;
@@ -97,12 +98,12 @@ namespace GUI {
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
             void VRDeviceEditor(Component::VRDevice* vrDevice);
             void TriggerEditor(Component::Trigger* trigger);
-            
+
             Entity* entity = nullptr;
             bool visible = false;
             char name[128];
             char stringPropertyBuffer[128];
-            
+
             struct Editor {
                 std::function<void()> addFunction;
                 std::function<void()> editFunction;
@@ -112,7 +113,7 @@ namespace GUI {
             int selectedShape = -1;
 
             std::unique_ptr<GUI::RigidBodyEditor> rigidBodyEditor;
-            
+
             ResourceSelector resourceSelector;
             std::unique_ptr<GUI::TriggerEditor> triggerEditor;     
 
