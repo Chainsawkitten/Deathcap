@@ -62,6 +62,14 @@ ParticleSystemRenderer::ParticleSystemRenderer(int count) {
 }
 
 ParticleSystemRenderer::~ParticleSystemRenderer() {
+
+    delete shaderProgram;
+    delete computeShaderProgram;
+
+    glDeleteBuffers(1, &posSSbo);
+    glDeleteBuffers(1, &velSSbo);
+    glDeleteBuffers(1, &colSSbo);
+    glDeleteVertexArrays(1, &m_glDrawVAO);
 }
 
 void ParticleSystemRenderer::Init() {
@@ -147,6 +155,11 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(ParticleColor), 0);
 
     glBindVertexArray(0);
+
+    delete[] points;
+    delete[] vels;
+    delete[] col;
+    delete[] rots;
 }
 
 void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSettings settings) {
@@ -200,7 +213,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
         timer = 0.0f;
     }
 }
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                // Lucas e fag
 void ParticleSystemRenderer::Draw(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings) {
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);

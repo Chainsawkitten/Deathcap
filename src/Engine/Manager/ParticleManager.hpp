@@ -116,6 +116,9 @@ class ParticleManager {
          * @return All particle emitter components.
          */
         ENGINE_API const std::vector<Component::ParticleEmitter*>& GetParticleEmitters() const;
+
+
+        ENGINE_API void RemoveParticleRenderer(Component::ParticleSystemComponent* component);
         
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
@@ -141,7 +144,7 @@ class ParticleManager {
         std::mt19937 randomEngine;
         
         Video::ParticleRenderer* particleRenderer;
-        std::map<Component::ParticleSystemComponent*, Video::ParticleSystemRenderer> particleSystemRenderers;
+        std::map<Component::ParticleSystemComponent*, Video::ParticleSystemRenderer*> particleSystemRenderers;
 
         std::map<Component::ParticleSystemComponent*, Video::ParticleSystemRenderer::EmitterSettings> emitterSettings;
 

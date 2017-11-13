@@ -12,6 +12,8 @@ namespace Component {
         /// Create new particle emitter.
         ENGINE_API ParticleSystemComponent();
 
+        ENGINE_API ~ParticleSystemComponent();
+
         /// Save the component.
         /**
         * @return JSON value to be stored on disk.

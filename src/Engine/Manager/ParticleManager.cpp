@@ -46,7 +46,7 @@ void ParticleManager::Update(World& world, float time, bool preview) {
 
     for (Component::ParticleSystemComponent* comp : particleSystems.GetAll()) {
         emitterSettings[comp].worldPos = comp->entity->GetModelMatrix() * glm::vec4(comp->entity->GetWorldPosition(), 1.0);
-        particleSystemRenderers[comp].Update(0.1f, emitterSettings[comp]);
+        particleSystemRenderers[comp]->Update(0.1f, emitterSettings[comp]);
         emitterSettings[comp] = comp->particleType;
     }
     
@@ -74,7 +74,7 @@ void ParticleManager::UpdateParticleSystem(World& world, Component::ParticleSyst
 void ParticleManager::RenderParticleSystem(const glm::mat4& viewProjectionMatrix) {
 
     for (Component::ParticleSystemComponent* comp : particleSystems.GetAll()) {
-        particleSystemRenderers[comp].Draw(textureAtlas, textureAtlasRowNumber, viewProjectionMatrix, emitterSettings[comp]);
+        particleSystemRenderers[comp]->Draw(textureAtlas, textureAtlasRowNumber, viewProjectionMatrix, emitterSettings[comp]);
     }
 }
 
@@ -144,18 +144,23 @@ const std::vector<Component::ParticleEmitter*>& ParticleManager::GetParticleEmit
     return particleEmitters.GetAll();
 }
 
+void ParticleManager::RemoveParticleRenderer(Component::ParticleSystemComponent * component) {
+    delete particleSystemRenderers[component];
+    particleSystemRenderers.erase(component);
+}
+
 void ParticleManager::ClearKilledComponents() {
     particleEmitters.ClearKilled();
     particleSystems.ClearKilled();
 }
 
 Component::ParticleSystemComponent* ParticleManager::InitParticleSystem(Component::ParticleSystemComponent* component) {
-    ParticleSystemRenderer PS_Renderer;
+    ParticleSystemRenderer* PS_Renderer = new ParticleSystemRenderer();
+    PS_Renderer->Init();
+    PS_Renderer->CreateStorageBuffers();
     ParticleSystemRenderer::EmitterSettings setting;
     emitterSettings[component] = setting;
     particleSystemRenderers[component] = PS_Renderer;
-    particleSystemRenderers[component].Init();
-    particleSystemRenderers[component].CreateStorageBuffers();
 
     return component;
 }
