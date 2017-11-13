@@ -12,7 +12,6 @@ class Entity;
 class TriggerManager;
 
 namespace triggerEvent {
-
     struct EventStruct {
         int m_eventID = 0;
         int m_shapeID = 0;
