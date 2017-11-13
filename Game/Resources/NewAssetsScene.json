@@ -487,6 +487,257 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510240835
+		},
+		{
+			"RigidBody" : 
+			{
+				"angularDamping" : 0.0,
+				"cor" : 0.0,
+				"friction" : 0.0,
+				"kinematic" : true,
+				"linearDamping" : 0.0,
+				"mass" : 1.0,
+				"rollingFriction" : 0.0,
+				"spinningFriction" : 0.0
+			},
+			"Shape" : 
+			{
+				"box" : 
+				{
+					"depth" : 1.0,
+					"height" : 0.5,
+					"width" : 1.0
+				}
+			},
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/PileOfRocks"
+					},
+					"children" : null,
+					"name" : "RockPile",
+					"position" : 
+					{
+						"x" : -4.624000072479248,
+						"y" : 1.1009999513626099,
+						"z" : 1.0590000152587891
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510317506
+				}
+			],
+			"name" : "RockPileParent",
+			"position" : 
+			{
+				"x" : 4.319000244140625,
+				"y" : -1.1010000705718994,
+				"z" : -1.0590000152587891
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510317739
+		},
+		{
+			"children" : 
+			[
+				{
+					"RigidBody" : 
+					{
+						"angularDamping" : 0.0,
+						"cor" : 0.0,
+						"friction" : 0.0,
+						"kinematic" : true,
+						"linearDamping" : 0.0,
+						"mass" : 0.0,
+						"rollingFriction" : 0.0,
+						"spinningFriction" : 0.0
+					},
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 0.75,
+							"height" : 0.75,
+							"width" : 0.75
+						}
+					},
+					"children" : null,
+					"name" : "Box 1",
+					"position" : 
+					{
+						"x" : 3.945000171661377,
+						"y" : -0.84000003337860107,
+						"z" : -3.8360002040863037
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510320549
+				},
+				{
+					"RigidBody" : 
+					{
+						"angularDamping" : 0.0,
+						"cor" : 0.0,
+						"friction" : 0.0,
+						"kinematic" : true,
+						"linearDamping" : 0.0,
+						"mass" : 0.0,
+						"rollingFriction" : 0.0,
+						"spinningFriction" : 0.0
+					},
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 0.75,
+							"height" : 0.75,
+							"width" : 0.75
+						}
+					},
+					"children" : null,
+					"name" : "Box 2",
+					"position" : 
+					{
+						"x" : 3.94100022315979,
+						"y" : -0.77600002288818359,
+						"z" : -4.7710003852844238
+					},
+					"rotation" : 
+					{
+						"w" : 0.98933815956115723,
+						"x" : 0.088172458112239838,
+						"y" : -0.11082504689693451,
+						"z" : 0.033944778144359589
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510320550
+				},
+				{
+					"RigidBody" : 
+					{
+						"angularDamping" : 0.0,
+						"cor" : 0.0,
+						"friction" : 0.0,
+						"kinematic" : true,
+						"linearDamping" : 0.0,
+						"mass" : 0.0,
+						"rollingFriction" : 0.0,
+						"spinningFriction" : 0.0
+					},
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 0.75,
+							"height" : 0.75,
+							"width" : 0.75
+						}
+					},
+					"children" : null,
+					"name" : "Box 3",
+					"position" : 
+					{
+						"x" : 5.0560002326965332,
+						"y" : -0.7850000262260437,
+						"z" : -4.4539999961853027
+					},
+					"rotation" : 
+					{
+						"w" : 0.91237324476242065,
+						"x" : 0.38801053166389465,
+						"y" : -0.12019084393978119,
+						"z" : 0.050766073167324066
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510320551
+				}
+			],
+			"name" : "Bodyless rigidbodies",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510320509
 		}
 	],
 	"name" : "Root",
