@@ -7,10 +7,6 @@
 #include <glm/glm.hpp>
 #include <imgui.h>
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 namespace GUI {
     void PlaneShapeEditor::Show(Component::Shape* comp) {
         ImGui::Indent();

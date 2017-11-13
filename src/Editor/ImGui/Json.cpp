@@ -1,9 +1,5 @@
 #include "Json.hpp"
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 namespace Json {
     Value SaveImVec2(const ImVec2& value) {
         Value node;

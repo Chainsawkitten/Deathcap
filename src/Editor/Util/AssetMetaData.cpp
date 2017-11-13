@@ -1,7 +1,7 @@
 #include "AssetMetaData.hpp"
 
 #ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
+#include <MemTrackInclude.hpp>
 #endif
 
 bool AssetMetaData::GenerateMetaData(const char * filepath, MeshImportData * meshImportData) {

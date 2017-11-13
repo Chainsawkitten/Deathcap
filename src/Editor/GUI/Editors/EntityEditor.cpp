@@ -46,10 +46,6 @@
 #include "RigidBodyEditor.hpp"
 #include "SphereShapeEditor.hpp"
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 namespace Physics {
     class Shape;
 }

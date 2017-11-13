@@ -5,10 +5,6 @@
 #include <Engine/Util/FileSystem.hpp>
 #include "Util/AssetConverterSkeleton.hpp"
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 using namespace GUI;
 
 SkeletonEditor::SkeletonEditor() {

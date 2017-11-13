@@ -5,10 +5,6 @@
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Hymn.hpp>
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 using namespace GUI;
 
 AnimationControllerEditor::AnimationControllerEditor() {

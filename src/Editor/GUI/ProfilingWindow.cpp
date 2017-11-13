@@ -4,10 +4,6 @@
 #include <imgui.h>
 #include <Utility/Log.hpp>
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 using namespace GUI;
 
 void ProfilingWindow::Show() {

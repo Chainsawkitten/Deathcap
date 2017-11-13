@@ -7,10 +7,6 @@
 #include <Engine/Manager/PhysicsManager.hpp>
 #include <imgui.h>
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 namespace GUI {
     void RigidBodyEditor::Show(Component::RigidBody* comp) {
         GetData(comp);

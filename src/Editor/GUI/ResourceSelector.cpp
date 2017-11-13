@@ -2,10 +2,6 @@
 
 #include <imgui.h>
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 using namespace GUI;
 
 std::string ResourceSelector::SelectedResource::GetPath() const {

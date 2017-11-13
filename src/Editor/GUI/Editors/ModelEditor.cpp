@@ -18,10 +18,6 @@
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Material.hpp>
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 using namespace GUI;
 
 ModelEditor::ModelEditor() {

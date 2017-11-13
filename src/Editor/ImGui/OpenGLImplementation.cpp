@@ -11,10 +11,6 @@
 #endif
 #include <Engine/Util/Input.hpp>
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 namespace ImGuiImplementation {
     // Forward declarations.
     void RenderDrawLists(ImDrawData* draw_data);

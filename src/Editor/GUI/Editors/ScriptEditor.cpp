@@ -8,10 +8,6 @@
 #include <Editor/Util/EditorSettings.hpp>
 #include <imgui.h>
 
-#ifdef USINGMEMTRACK
-#include <MemTrack.hpp>
-#endif
-
 using namespace GUI;
 
 void ScriptEditor::Show() {
