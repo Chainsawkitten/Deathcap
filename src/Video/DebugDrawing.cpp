@@ -7,6 +7,10 @@
 #include "DebugDrawing.frag.hpp"
 #include "glm/gtc/constants.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
 using namespace Video;

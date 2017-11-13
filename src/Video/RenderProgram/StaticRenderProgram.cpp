@@ -15,6 +15,10 @@
 #include <chrono>
 #include "Lighting/Light.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 StaticRenderProgram::StaticRenderProgram() {

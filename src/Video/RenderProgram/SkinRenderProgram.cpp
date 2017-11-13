@@ -12,6 +12,10 @@
 #include <chrono>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 SkinRenderProgram::SkinRenderProgram() {

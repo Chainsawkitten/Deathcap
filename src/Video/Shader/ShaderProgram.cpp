@@ -3,6 +3,10 @@
 #include "Shader.hpp"
 #include "Utility/Log.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 ShaderProgram::ShaderProgram(std::initializer_list<const Shader*> shaders) {

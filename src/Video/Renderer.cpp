@@ -17,6 +17,10 @@
 #include "Buffer/StorageBuffer.hpp"
 #include "Buffer/ReadWriteTexture.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 Renderer::Renderer() {
