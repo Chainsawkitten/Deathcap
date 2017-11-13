@@ -28,7 +28,6 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 
-
 ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
 Editor::Editor() {
     // Create Hymns directory.
@@ -69,6 +68,8 @@ Editor::Editor() {
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
     cameraEntity->GetComponent<Component::Lens>()->zFar = 1000.f;
+
+    currentEntity = nullptr;
 
     // Create cursors.
     cursors[0] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
@@ -159,7 +160,7 @@ void Editor::Show(float deltaTime) {
         // Show settings window.
         if (settingsWindow.IsVisible())
             settingsWindow.Show();
-        
+
         // Show grid settings window.
         ShowGridSettings();
         CreateGrid(gridSettings.gridSize);
@@ -211,69 +212,21 @@ void Editor::Show(float deltaTime) {
         glfwSetCursor(MainWindow::GetInstance()->GetGLFWWindow(), cursors[ImGui::GetMouseCursor()]);
     }
 
-    // Widget Controller for translation, rotation  and scale.
-    ImGuizmo::BeginFrame();
-    ImGuizmo::Enable(true);
-
     // Get current active Entity.
-    Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
+    if (resourceView.GetScene().entityEditor.IsVisible()) {
+        Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
 
-    if (currentEntity != nullptr) {
-        glm::mat4 currentEntityMatrix = currentEntity->GetLocalMatrix();
+        if (currentEntity != nullptr) {
+            paintTimer += deltaTime;
 
-        // Change operation based on key input.
-        if (!ImGuizmo::IsUsing()) {
-            if (Input()->Triggered(InputHandler::W)) {
-                currentOperation = ImGuizmo::TRANSLATE;
-                imguizmoMode = ImGuizmo::MODE::WORLD;
-            } else if (Input()->Triggered(InputHandler::E)) {
-                currentOperation = ImGuizmo::ROTATE;
-                imguizmoMode = ImGuizmo::MODE::WORLD;
-            } else if (Input()->Triggered(InputHandler::R)) {
-                currentOperation = ImGuizmo::SCALE;
-                imguizmoMode = ImGuizmo::MODE::LOCAL;
-            }
-        }
+            if (currentEntity->loadPaintModeClicked && currentEntity->GetComponent<Component::Mesh>() != nullptr) 
+                PaintBrush(currentEntity);
 
-        ImGuiIO& io = ImGui::GetIO();
-
-        // Projection matrix.
-        glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
-
-        // View matrix.
-        glm::mat4 viewMatrix = glm::toMat4(glm::inverse(cameraEntity->GetWorldOrientation())) * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
-
-        // Draw the actual widget.
-        ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
-        glm::mat4 deltaMatrix = glm::mat4();
-        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, imguizmoMode, &currentEntityMatrix[0][0], &deltaMatrix[0][0]);
-
-        if (ImGuizmo::IsUsing()) {
-            switch (currentOperation) {
-                case ImGuizmo::TRANSLATE: {
-                    currentEntity->position.x = currentEntityMatrix[3][0];
-                    currentEntity->position.y = currentEntityMatrix[3][1];
-                    currentEntity->position.z = currentEntityMatrix[3][2];
-                    break;
-                }
-                case ImGuizmo::ROTATE: {
-                    currentEntity->SetLocalOrientation(glm::toQuat(deltaMatrix) * currentEntity->GetLocalOrientation());
-                    break;
-                }
-                case ImGuizmo::SCALE: {
-                    float translation[3];
-                    float rotation[3];
-                    float scale[3];
-                    ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translation, rotation, scale);
-                    currentEntity->scale.x = scale[0];
-                    currentEntity->scale.y = scale[1];
-                    currentEntity->scale.z = scale[2];
-                    break;
-                }
-            }
+            WidgetGizmo(currentEntity);
         }
     }
 }
+
 
 void Editor::Save() const {
     resourceView.SaveScene();
@@ -425,7 +378,7 @@ void Editor::ShowMainMenuBar(bool& play) {
             static bool physics = EditorSettings::GetInstance().GetBool("Physics Volumes");
             ImGui::MenuItem("Physics", "", &physics);
             EditorSettings::GetInstance().SetBool("Physics Volumes", physics);
-            
+
             static bool lighting = EditorSettings::GetInstance().GetBool("Lighting");
             ImGui::MenuItem("Lighting", "", &lighting);
             EditorSettings::GetInstance().SetBool("Lighting", lighting);
@@ -605,6 +558,192 @@ void Editor::Focus() {
             float xz = std::sqrt(camDirection.x * camDirection.x + camDirection.z * camDirection.z);
             float pitch = std::atan2(-camDirection.y, xz);
             cameraEntity->RotateAroundWorldAxis(pitch, glm::vec3(1, 0, 0));
+        }
+    }
+}
+
+void Editor::PaintBrush(Entity* entity) {
+    
+    GUI::ResourceSelector rs;
+
+    // Read vertex data.
+    Geometry::Model* model = dynamic_cast<Geometry::Model*>(entity->GetComponent<Component::Mesh>()->geometry);
+    if (model != nullptr) {
+        std::string modelPath = Hymn().GetPath() + FileSystem::DELIMITER + model->path + model->name + ".asset";
+        Geometry::AssetFileHandler handler;
+        handler.Open(modelPath.c_str());
+        handler.LoadMeshData(0);
+        Geometry::AssetFileHandler::MeshData* data = handler.GetStaticMeshData();
+        nrOfIndices = data->numIndices;
+        nrOfVertices = data->numVertices;
+
+        // Which scene to draw.
+        if (entity->brushActive == false && entity->sceneChosen == false) {
+
+            ImGui::OpenPopup("Select scene to paint with.##Scene");
+
+            if (ImGui::BeginPopup("Select scene to paint with.##Scene")) {
+                ImGui::Text("Select scene to paint with.");
+                ImGui::Separator();
+
+                if (rs.Show(ResourceList::Resource::Type::SCENE)) {
+                    paintScene = rs.GetSelectedResource().resource->scene->c_str();
+                    entity->sceneChosen = true;
+                }
+                ImGui::EndPopup();
+            }
+        }
+        // Brush tool settings.
+        toolMenuPressed = false;
+        if (ImGui::IsMouseHoveringWindow())
+            toolMenuPressed = true;
+
+        ImGui::BeginPopupContextWindow("Paint Brush Tool");
+        ImGui::Indent();
+        ImGui::SliderFloat("Spawn rate.", paintSpawnRate, 0.02f, 1.0f);
+        ImGui::SliderFloat("Object scale.", paintObjScale, 1.0f, 100.0f);
+        ImGui::SliderInt("Scale randomness", paintScaleRandomness, 1, 10);
+        ImGui::Checkbox("Spread randomly", &spreadRand);
+
+        // Ray-Triangle intersection test.     
+        if (entity->brushActive) {
+
+            bool intersect = false;
+            glm::vec3 last_p0;
+            glm::vec3 last_p1;
+            glm::vec3 last_p2;
+            glm::vec3 p0;
+            glm::vec3 p1;
+            glm::vec3 p2;
+
+            mousePicker.Update();
+            mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
+
+            float intersectT = INFINITY;
+
+            // Loop through each triangle and check for intersection.
+            for (int i = 0; i < nrOfIndices;) {
+
+                p0 = data->staticVertices[data->indices[i++]].position;
+                p1 = data->staticVertices[data->indices[i++]].position;
+                p2 = data->staticVertices[data->indices[i++]].position;
+
+                // Calculate intersection.
+                if (rayIntersector.TriangleIntersect(cameraEntity->GetWorldPosition(), mousePicker.GetCurrentRay(), p0, p1, p2, intersectT)) {
+
+                    if (intersectT < lastIntersect && intersectT >= 0.0f) {
+                        lastIntersect = intersectT;
+                        last_p0 = p0;
+                        last_p1 = p1;
+                        last_p2 = p2;
+                        intersect = true;
+                    }
+                }
+            }
+            glm::vec3 e1 = last_p1 - last_p0;
+            glm::vec3 e2 = last_p2 - last_p0;
+            normal = glm::cross(e1, e2);
+            glm::normalize(normal);
+
+            // Get mousePosition in worldspace.
+            glm::vec3 mousePos = cameraEntity->GetWorldPosition() + intersectT * mousePicker.GetCurrentRay();
+            Managers().debugDrawingManager->AddCircle(mousePos, -normal, paintObjScale[0], glm::vec3(1.0, 1.0, 0.0), 0.5f, 0.0f, false);
+
+            // Paint objects (scenes).
+            // Draw them when mouse pressed.
+            if (Input()->Pressed(InputHandler::SELECT) && intersect &&paintTimer >= paintSpawnRate[0] && toolMenuPressed == false) {
+
+                if (entity->GetChild("foliage") == nullptr)
+                    parentEntity = entity->AddChild("foliage");
+
+                float randAngle = 0.0;
+                float randDistance = 0.0;
+
+                if (spreadRand) {
+                    randAngle = rand() % 360;
+                    randDistance = rand() % 10;
+                }
+                Entity* entity = parentEntity->AddChild("foliage_");
+                entity->InstantiateScene("Resources/" + paintScene, "Resources/" + Hymn().world.GetRoot()->name);
+                entity->SetWorldPosition(glm::vec3(mousePos.x + randDistance*cos(randAngle), mousePos.y, mousePos.z + randDistance*sin(randAngle)));
+                entity->scale *= paintObjScale[0];
+                entity->scale += rand() % paintScaleRandomness[0];
+
+                // Rotate the entity after the normal of the currentEntity.
+                glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
+                glm::vec3 axis = glm::cross(up, normal);
+                float angle = std::atan2(axis.length(), glm::dot(up, normal));
+                glm::normalize(axis);
+                entity->RotateAroundWorldAxis(angle, axis);
+
+                // Rotates the entity randomly around its yaw to create variation when painting.
+                entity->RotateYaw(rand() % 360);
+
+                paintTimer = 0.0f;
+            }
+            lastIntersect = INFINITY;
+        }
+        handler.Close();
+    }
+}
+
+void Editor::WidgetGizmo(Entity* entity) {
+  
+    // Widget Controller for translation, rotation  and scale.
+    ImGuizmo::BeginFrame();
+    ImGuizmo::Enable(true);
+
+    glm::mat4 currentEntityMatrix = entity->GetLocalMatrix();
+    currentEntityMatrix = entity->GetLocalMatrix();
+
+    // Projection matrix.
+    glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y));
+
+    // View matrix.
+    glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
+
+    // Change operation based on key input.
+    if (!ImGuizmo::IsUsing()) {
+        if (Input()->Triggered(InputHandler::W)) {
+            currentOperation = ImGuizmo::TRANSLATE;
+            imguizmoMode = ImGuizmo::MODE::WORLD;
+        } else if (Input()->Triggered(InputHandler::E)) {
+            currentOperation = ImGuizmo::ROTATE;
+            imguizmoMode = ImGuizmo::MODE::WORLD;
+        } else if (Input()->Triggered(InputHandler::R)) {
+            currentOperation = ImGuizmo::SCALE;
+            imguizmoMode = ImGuizmo::MODE::LOCAL;
+        }
+    }
+
+    ImGuiIO& io = ImGui::GetIO();
+    // Draw the actual widget.
+    ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
+    glm::mat4 deltaMatrix = glm::mat4();
+    ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, imguizmoMode, &currentEntityMatrix[0][0], &deltaMatrix[0][0]);
+
+    if (ImGuizmo::IsUsing()) {
+        switch (currentOperation) {
+            case ImGuizmo::TRANSLATE: {
+                entity->position.x = currentEntityMatrix[3][0];
+                entity->position.y = currentEntityMatrix[3][1];
+                entity->position.z = currentEntityMatrix[3][2];
+                break;
+            }
+            case ImGuizmo::ROTATE: {
+                entity->SetLocalOrientation(glm::toQuat(deltaMatrix) * entity->GetLocalOrientation());
+                break;
+            }
+            case ImGuizmo::SCALE: {
+                float translation[3];
+                float rotation[3];
+                float scale[3];
+                ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translation, rotation, scale);
+                entity->scale.x = scale[0];
+                entity->scale.y = scale[1];
+                entity->scale.z = scale[2];
+                break;
+            }
         }
     }
 }
