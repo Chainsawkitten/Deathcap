@@ -58,15 +58,6 @@ class ParticleManager {
          * @param renderSurface %RenderSurface to render particles to.
          */
 
-
-        /// Update particle buffer.
-        /**
-        * Needs to be called before rendering (but only once a frame).
-        * @param world The world to render.
-        * @param particleSystem Component to update with.
-        */
-        ENGINE_API void UpdateParticleSystem(World& world, Component::ParticleSystemComponent* particleSystem);
-
         /**
         * @param viewProjectionMatrix The view-projection matrix from the camera.
         */

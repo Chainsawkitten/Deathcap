@@ -26,7 +26,7 @@ ParticleManager::ParticleManager() {
 
 ParticleManager::~ParticleManager() {
     delete particleRenderer;
-    
+
     Managers().resourceManager->FreeTexture2D(textureAtlas);    
 }
 
@@ -66,9 +66,6 @@ void ParticleManager::Update(World& world, float time, bool preview) {
 
 void ParticleManager::UpdateBuffer(World& world) {
     particleRenderer->SetBufferContents(world.GetParticleCount(), world.GetParticles());
-}
-
-void ParticleManager::UpdateParticleSystem(World& world, Component::ParticleSystemComponent* particleSystem) {
 }
 
 void ParticleManager::RenderParticleSystem(const glm::mat4& viewProjectionMatrix) {

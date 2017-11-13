@@ -340,7 +340,7 @@ namespace ImGui {
     // key format (for dim == 3) is (t0,x0,y0,z0,t1,x1,y1,z1 ...)
     void spline(const float *key, int num, int dim, float t, float *v) {
         static signed char coefs[16] = {
-            -1, 2,-1, 0,
+            -1, 2, -1, 0,
             3,-5, 0, 2,
             -3, 4, 1, 0,
             1,-1, 0, 0 };
@@ -659,7 +659,7 @@ void CurveEditor::Show() {
     UpdateCurves(0.1f, 100.0f);
 
     if (ImGui::Begin("Curve editor")) {
-        ImGui::InputText("Unique curve name", curvename, 10);
+        ImGui::InputText("Unique curve name", curveBuf, 10);
         if (ImGui::Button("Add curve +")) {
             AddMyCurve(curvename, addedCurve, 0);
             addedCurve++;
@@ -680,7 +680,7 @@ void CurveEditor::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void CurveEditor::AddMyCurve(std::string curve_name, ImGuiID uniqueId, int item) {
+void CurveEditor::AddMyCurve(std::string& curve_name, ImGuiID uniqueId, int item) {
     MyCurve curve;
     curve.curve_name = curve_name;
     curve.value[0].x = -1;
@@ -709,8 +709,6 @@ void CurveEditor::UpdateCurves(float deltaTime, float totalTime) {
         time -= deltaTime;
     }
 
-
-
     float tempValue;
     for (unsigned int i = 0; i < curves.size(); i++) {
         tempValue = ImGui::CurveValue(time / totalTime, (int)totalTime, curves[i].value); // calculate value at position
@@ -722,11 +720,9 @@ void CurveEditor::UpdateCurves(float deltaTime, float totalTime) {
         }
         curves[i].value_you_care_about = tempValue;
     }
-
 }
 
 void CurveEditor::RenderCurveEditor( ) {
-    bool open = true;
     for (int i = 0; i < curves.size(); ++i) {
         ImGui::BeginChild(curves[i].curve_name.c_str(), ImVec2(500, 250), true);
         ImGui::Checkbox("Velocity X", &curves[i].editVelocityX);

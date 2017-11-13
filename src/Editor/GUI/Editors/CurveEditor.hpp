@@ -37,7 +37,7 @@ public:
 
     void SetVisible(bool visible);
 
-    void AddMyCurve(std::string curve_name, ImGuiID uniqueId, int item);
+    void AddMyCurve(std::string& curve_name, ImGuiID uniqueId, int item);
     void UpdateCurves(float deltaTime, float totalTime);
     void RenderCurveEditor();
 
@@ -46,7 +46,8 @@ public:
 private:
     bool visible = false;
     ImGuiID addedCurve = 0;
-    char curvename[10] = "Default";
+    std::string curvename = "Default";
+    char curveBuf[10];
     std::string editor_name;
     std::vector<MyCurve> curves;
     float time = 0.0f;
