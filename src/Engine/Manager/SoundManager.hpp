@@ -86,7 +86,10 @@ class SoundManager {
         /**
          * @return All audio material components.
          */
-        ENGINE_API const std::vector<Component::AudioMaterial*>& GetAudioMaterial() const;
+        ENGINE_API const std::vector<Component::AudioMaterial*>& GetAudioMaterials() const;
+
+        /// Creates the audio environment Steam Audio uses.
+        ENGINE_API void CreateAudioEnvironment();
         
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();

@@ -2,10 +2,6 @@
 
 
 SteamAudioInterface::SteamAudioInterface() {
-    playerDir = new IPLVector3{ 0, 0, 0 };
-    playerPos = new IPLVector3{ 0, 0, 0 };
-    playerUp = new IPLVector3{ 0, 0, 0 };
-
     simSettings.sceneType = IPL_SCENETYPE_PHONON;
     simSettings.numRays = 64000;
     simSettings.numDiffuseSamples = 32;
@@ -16,10 +12,7 @@ SteamAudioInterface::SteamAudioInterface() {
 }
 
 SteamAudioInterface::~SteamAudioInterface() {
-    // Might have to remove these depending on how the pointers are sent to this class
-    delete playerDir;
-    delete playerPos;
-    delete playerUp;
+
 }
 
 void SteamAudioInterface::SetContext(IPLLogFunction logCallback, IPLAllocateFunction allocCallback, IPLFreeFunction freeCallback) {
@@ -31,7 +24,7 @@ void SteamAudioInterface::CreateScene(uint32_t numMaterials) {
 }
 
 void SteamAudioInterface::FinalizeScene(IPLFinalizeSceneProgressCallback progressCallback) {
-    iplFinalizeScene(scene, NULL);
+    iplFinalizeScene(scene, progressCallback);
 }
 
 SteamAudioInterface::SaveData SteamAudioInterface::SaveFinalizedScene() {
@@ -67,15 +60,15 @@ IPLhandle * SteamAudioInterface::CreateStaticMesh(std::vector<IPLVector3> vertic
     return nullptr;
 }
 
-void SteamAudioInterface::CreateEnvironment(IPLSimulationSettings settings) {
+void SteamAudioInterface::CreateEnvironment() {
     iplCreateEnvironment(context, NULL, simSettings, scene, NULL, environment);
 }
 
-void SteamAudioInterface::SetPlayer(IPLVector3 * playerPos, IPLVector3 * playerDir, IPLVector3 * playerUp) {
+void SteamAudioInterface::SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp) {
 
 }
 
-void SteamAudioInterface::Process(float* input, uint32_t samples,  IPLVector3 * sourcePosition, float sourceRadius) {
+void SteamAudioInterface::Process(float* input, uint32_t samples,  IPLVector3 sourcePosition, float sourceRadius) {
 
     //Create a steam audio buffer
     IPLAudioFormat format;
@@ -91,7 +84,7 @@ void SteamAudioInterface::Process(float* input, uint32_t samples,  IPLVector3 * 
     buf.interleavedBuffer = input;
     buf.deinterleavedBuffer = NULL;
 
-    sAudio.Process(buf, 0, 0, 0, 0, 0);
+    sAudio.Process(buf, sourcePosition, sourceRadius);
 }
 
 float * SteamAudioInterface::GetProcessed(uint32_t* numSamples) {

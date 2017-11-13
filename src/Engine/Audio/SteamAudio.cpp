@@ -6,7 +6,9 @@ SteamAudio::SteamAudio() {
 }
 
 SteamAudio::SteamAudio(IPLContext * context, IPLhandle * environment) {
-
+    playerPos = IPLVector3{ 0,0,0 };
+    playerDir = IPLVector3{ 1,0,0 };
+    playerUp = IPLVector3{ 0,1,0 };
 }
 
 SteamAudio::~SteamAudio() {
@@ -14,14 +16,15 @@ SteamAudio::~SteamAudio() {
         delete context;
 }
 
-void SteamAudio::Process(IPLAudioBuffer input, IPLVector3 * playerPos, IPLVector3 * playerDir, IPLVector3 * playerUp, IPLVector3 * sourcePos, float sourceRadius) {
+void SteamAudio::Process(IPLAudioBuffer input, IPLVector3 sourcePos, float sourceRadius) {
     // Direct Processing
-
+    IPLAudioBuffer direct = directRenderer.Process(input, playerPos, playerDir, playerUp, sourcePos, sourceRadius);
+    
     // Indirect Processing
 
     //MixAudio(direct, indirect)
 
-    processedBuffers.push_back(input);
+    processedBuffers.push_back(input); //CHANGE TO DIRECT AFTER MAKING SURE NON-PROCESSED WORKS!!
 
 }
 
@@ -51,4 +54,10 @@ void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples) {
             delete[] buf.interleavedBuffer;
     }
     processedBuffers.clear();
+}
+
+void SteamAudio::SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up) {
+    playerPos = pos;
+    playerDir = dir;
+    playerUp = up;
 }

@@ -48,7 +48,7 @@ class SteamAudioInterface {
         /**
          * @return A struct containing everything needed to reconstruct the scene with LoadFinalizedScene().
          */
-        SaveData SaveFinalizedScene(); //Note to self: Should call iplSaveFinalizedScene with null data pointer first to figure out how big to make the data pointer for a second call
+        SaveData SaveFinalizedScene();
 
         /// Loads a finalized scene from a struct.
         /**
@@ -73,10 +73,7 @@ class SteamAudioInterface {
         IPLhandle* CreateStaticMesh(std::vector<IPLVector3> vertices, std::vector<IPLTriangle> indices, int materialIndex);
 
         /// Creates an Environment object for use by the audio engine internally.
-        /**
-         * @param settings Settings to use for simulation. Must be the same settings used when created the scene!
-         */
-        void CreateEnvironment(IPLSimulationSettings settings); //Should save the environment in the class
+        void CreateEnvironment();
 
         /// Give pointers to player positional data.
         /**
@@ -84,7 +81,7 @@ class SteamAudioInterface {
          * @param playerDir Player forward.
          * @param playerUp Player up.
          **/
-        void SetPlayer(IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp);
+        void SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp);
 
         /// Processes audio samples
         /**
@@ -92,7 +89,7 @@ class SteamAudioInterface {
          * @param sourcePosition The position of the sound source.
          * @param sourceRadius The radius of the source. To determine how much of the source is occluded rather than have it be on/off.
          **/
-        void Process(float* input, uint32_t samples, IPLVector3* sourcePosition, float sourceRadius); // Needs to be called in a way so that there's always at least one processed audio frame ready to go.
+        void Process(float* input, uint32_t samples, IPLVector3 sourcePosition, float sourceRadius); // Needs to be called in a way so that there's always at least one processed audio frame ready to go.
 
         /// Fetches the processed mix using all buffers sent through Process()
         /**
@@ -105,15 +102,10 @@ class SteamAudioInterface {
 
         IPLContext context;
 
-        IPLRenderingSettings renderSettings;
         IPLSimulationSettings simSettings;
 
         SteamAudio sAudio;
 
         IPLhandle* scene;
         IPLhandle* environment;
-
-        IPLVector3* playerPos;
-        IPLVector3* playerDir;
-        IPLVector3* playerUp;
 };

@@ -27,10 +27,13 @@ class SteamAudioDirectRenderer {
          * @param sourceRadius The radius of the source, for calculating occlusion.
          * @return The processed buffer.
          */
-        ENGINE_API IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
+        ENGINE_API IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius);
 
     private:
-        IPLDirectSoundPath GetDirectSoundPath();
+        IPLAudioFormat inputFormat;
+        IPLAudioFormat outputFormat;
         IPLhandle* environment;
         IPLContext* context;
+        IPLhandle* envRenderer;
+        IPLhandle* directEffect;
 };

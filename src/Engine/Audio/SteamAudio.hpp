@@ -29,7 +29,7 @@ class SteamAudio {
         * @param sourcePos The position of the audio source.
         * @param sourceRadius The radius of the source, for calculating occlusion.
         */
-        ENGINE_API void Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
+        ENGINE_API void Process(IPLAudioBuffer input, IPLVector3 sourcePos, float sourceRadius);
 
         /// Mixes and returns the final buffer, ready to be played.
         /**
@@ -37,6 +37,9 @@ class SteamAudio {
          * @param numSamples The number of samples in the final buffer.
          */
         ENGINE_API void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples);
+
+        /// Sets the current location and direction of the player, to be used for processing
+        ENGINE_API void SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up);
 
     private:
 
@@ -49,4 +52,8 @@ class SteamAudio {
         SteamAudioDirectRenderer directRenderer;
         SteamAudioIndirectRenderer indirectRenderer;
         IPLhandle* environmentalRenderer;
+
+        IPLVector3 playerPos;
+        IPLVector3 playerDir;
+        IPLVector3 playerUp;
 };

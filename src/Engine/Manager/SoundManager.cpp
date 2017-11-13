@@ -5,8 +5,11 @@
 #include "../Entity/Entity.hpp"
 #include "../Component/AudioMaterial.hpp"
 #include "../Component/Listener.hpp"
+#include "../Component/Mesh.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Audio/SoundBuffer.hpp"
+#include "../Audio/AudioMaterial.hpp"
+#include <Video/Geometry/Geometry3D.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "portaudio.h"
@@ -69,10 +72,25 @@ void SoundManager::CheckError(PaError err) {
 }
 
 void SoundManager::Update(float deltaTime) {
+    
+    // Set player transform
+    std::vector<Component::Listener*> listeners = GetListeners();
+    assert(listeners[0] != nullptr);
+    Entity* player = listeners[0]->entity;
+    IPLVector3 pos;
+    pos.x = player->GetWorldPosition().x;
+    pos.y = player->GetWorldPosition().y;
+    pos.z = player->GetWorldPosition().z;
+    IPLVector3 dir;
+    dir.x = player->GetDirection().x;
+    dir.y = player->GetDirection().y;
+    dir.z = player->GetDirection().z;
+   
+    sAudio.SetPlayer(pos, dir, );
+
 
     // Number of samples to process dependant on deltaTime
     int numSamples = int(SAMPLE_RATE * deltaTime);
-
 
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
@@ -102,7 +120,8 @@ void SoundManager::Update(float deltaTime) {
             for (int i = 0; i < numSamples; i++) {
                 soundBuf[i] *= sound->volume;
             }
-            sAudio.Process(soundBuf, numSamples, 0, 0);
+            IPLVector3 soundPos = IPLVector3{ sound->entity->GetWorldPosition().x, sound->entity->GetWorldPosition().y, sound->entity->GetWorldPosition().z };
+            sAudio.Process(soundBuf, numSamples, soundPos, 5);
         }
 
         // Pause it.
@@ -178,8 +197,68 @@ Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& n
     return audioMaterial;
 }
 
-const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterial() const {
+const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterials() const {
     return audioMaterials.GetAll();
+}
+
+void SoundManager::CreateAudioEnvironment() {
+
+    // Create new scene if no scene can be loaded
+    //if (NOSUCHFILE)
+    {
+        // Temporary list of all audio materials in use
+        std::vector<Audio::AudioMaterial*> audioMatRes;
+
+        int numMaterials = 0;
+        // Get all material resources in use
+        for (const Component::AudioMaterial* audioMatComp : GetAudioMaterials()) {
+
+            std::vector<Audio::AudioMaterial*>::iterator it;
+            it = std::find(audioMatRes.begin(), audioMatRes.end(), audioMatComp->material);
+            // Add the resource if it's not already in the list
+            if (it == audioMatRes.end()) {
+                audioMatRes.push_back(audioMatComp->material);
+                numMaterials++;
+            }
+        }
+
+        // Create Scene
+        sAudio.CreateScene(audioMatRes.size());
+
+        for (int i = 0; i < audioMatRes.size(); i++) {
+            IPLMaterial iplmat;
+            iplmat.highFreqAbsorption = audioMatRes[i]->highFreqAbsorption;
+            iplmat.midFreqAbsorption = audioMatRes[i]->midFreqAbsorption;
+            iplmat.lowFreqAbsorption = audioMatRes[i]->lowFreqAbsorption;
+            iplmat.highFreqTransmission = audioMatRes[i]->highFreqTransmission;
+            iplmat.midFreqTransmission = audioMatRes[i]->midFreqTransmission;
+            iplmat.lowFreqTransmission = audioMatRes[i]->lowFreqTransmission;
+            iplmat.scattering = audioMatRes[i]->scattering;
+
+            sAudio.SetSceneMaterial(i, iplmat);
+        }
+
+        // Create mesh
+        for (const Component::AudioMaterial* audioMatComp : GetAudioMaterials()) {
+            for (int i = 0; i < audioMatRes.size(); i++) {
+                if (audioMatRes[i] == audioMatComp->material) {
+                    //sAudio.CreateStaticMesh(, , i);
+                    break;
+                }
+            }
+        }
+
+        sAudio.FinalizeScene(NULL);
+
+        // Save scene
+        SteamAudioInterface::SaveData saveData = sAudio.SaveFinalizedScene();
+    }
+    //else {
+
+    //}
+
+    // Create Environment
+    sAudio.CreateEnvironment();
 }
 
 void SoundManager::ClearKilledComponents() {
