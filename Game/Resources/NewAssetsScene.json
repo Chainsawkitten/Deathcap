@@ -2,15 +2,16 @@
 	"children" : 
 	[
 		{
-			"DirectionalLight" : 
+			"PointLight" : 
 			{
-				"ambientCoefficient" : 0.0,
+				"attenuation" : 0.1380000114440918,
 				"color" : 
 				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				}
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 15.13900089263916
 			},
 			"children" : null,
 			"name" : "Sun",
