@@ -224,10 +224,8 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
 }
 
 Entity* ActiveHymn::GetEntityByGUID(unsigned int GUID) {
-
-    const std::vector<Entity*> &entities = Hymn().world.GetEntities();
+    const std::vector<Entity*>& entities = Hymn().world.GetEntities();
     for (int i = 0; i < entities.size(); i++) {
-
         if (entities[i]->GetUniqueIdentifier() == GUID)
             return entities[i];        
     }
