@@ -1,10 +1,23 @@
 {
-	"activeScene" : "Resources/Constant Scene/Controller/controller_fixScene",
-	"modelNumber" : 16,
+	"activeScene" : "Resources/NewAssetsScene",
+	"animationClipNumber" : 0,
+	"animationControllerNumber" : 0,
+	"audioMaterialNumber" : 0,
+	"modelNumber" : 78,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
-		"resources" : null,
+		"resources" : 
+		[
+			{
+				"scene" : "Combined Scene",
+				"type" : 0
+			},
+			{
+				"scene" : "NewAssetsScene",
+				"type" : 0
+			}
+		],
 		"subfolders" : 
 		[
 			{
@@ -205,6 +218,10 @@
 									{
 										"model" : "cart",
 										"type" : 1
+									},
+									{
+										"model" : "Lantern",
+										"type" : 1
 									}
 								],
 								"subfolders" : null
@@ -218,7 +235,19 @@
 										"type" : 4
 									},
 									{
-										"script" : "Player",
+										"script" : "Lantern",
+										"type" : 4
+									},
+									{
+										"script" : "Minecart_Puzzle_1",
+										"type" : 4
+									},
+									{
+										"script" : "Camera",
+										"type" : 4
+									},
+									{
+										"script" : "Controller",
 										"type" : 4
 									}
 								],
@@ -260,6 +289,371 @@
 							{
 								"scene" : "controller_fixScene",
 								"type" : 0
+							},
+							{
+								"model" : "Hands",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Rails",
+						"resources" : 
+						[
+							{
+								"scene" : "Rail Scene",
+								"type" : 0
+							},
+							{
+								"model" : "rails",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					}
+				]
+			},
+			{
+				"name" : "Bridge Puzzle Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Bridge Puzzle Scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Cave",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "cave_puzzle_01",
+										"type" : 1
+									},
+									{
+										"model" : "cave_puzzle_02",
+										"type" : 1
+									},
+									{
+										"model" : "cave",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "cave_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_roughness",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Bucket",
+						"resources" : null,
+						"subfolders" : null
+					},
+					{
+						"name" : "Bridge",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "Bridge",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "bridge_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Rock",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "rockscaled",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "rock_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Texture #38",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					}
+				]
+			},
+			{
+				"name" : "NewAssets",
+				"resources" : null,
+				"subfolders" : 
+				[
+					{
+						"name" : "Textures",
+						"resources" : 
+						[
+							{
+								"texture" : "CrateAlbedo",
+								"type" : 2
+							},
+							{
+								"texture" : "CreateNormal",
+								"type" : 2
+							},
+							{
+								"texture" : "CrateMetallic",
+								"type" : 2
+							},
+							{
+								"texture" : "CrateRoughness",
+								"type" : 2
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Rock",
+								"resources" : 
+								[
+									{
+										"texture" : "rock_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Models",
+						"resources" : 
+						[
+							{
+								"model" : "Barrels",
+								"type" : 1
+							},
+							{
+								"model" : "Cave-",
+								"type" : 1
+							},
+							{
+								"model" : "Cave",
+								"type" : 1
+							},
+							{
+								"model" : "crates",
+								"type" : 1
+							},
+							{
+								"model" : "Pick",
+								"type" : 1
+							},
+							{
+								"model" : "Platform",
+								"type" : 1
+							},
+							{
+								"model" : "Cave-2",
+								"type" : 1
+							},
+							{
+								"model" : "BridgeFbx",
+								"type" : 1
+							},
+							{
+								"model" : "TrackPlatform",
+								"type" : 1
+							},
+							{
+								"model" : "Tracks",
+								"type" : 1
+							},
+							{
+								"model" : "rockscaled",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "Rock",
+								"type" : 4
+							},
+							{
+								"script" : "Bridge",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					}
+				]
+			},
+			{
+				"name" : "Pussel-2",
+				"resources" : 
+				[
+					{
+						"scene" : "Pussel-2 scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Models",
+						"resources" : 
+						[
+							{
+								"model" : "Cave-2",
+								"type" : 1
+							},
+							{
+								"model" : "cave-2-",
+								"type" : 1
+							},
+							{
+								"model" : "barrels-2",
+								"type" : 1
+							},
+							{
+								"model" : "Crate-2",
+								"type" : 1
+							},
+							{
+								"model" : "lanterns-2",
+								"type" : 1
+							},
+							{
+								"model" : "Picks-2",
+								"type" : 1
+							},
+							{
+								"model" : "Platform-2",
+								"type" : 1
+							},
+							{
+								"model" : "table2",
+								"type" : 1
+							},
+							{
+								"model" : "Track-2",
+								"type" : 1
+							},
+							{
+								"model" : "TrackPlatform-2",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -268,8 +662,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 4,
+	"sceneNumber" : 11,
 	"scriptNumber" : 0,
+	"skeletonNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 24
+	"textureNumber" : 53
 }

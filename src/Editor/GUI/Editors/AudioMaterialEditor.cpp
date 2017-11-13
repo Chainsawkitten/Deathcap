@@ -4,7 +4,8 @@
 #include "../FileSelector.hpp"
 #include <functional>
 #include <imgui.h>
-#include "ImGui/GuiHelpers.hpp"
+#include "../../ImGui/GuiHelpers.hpp"
+#include <Engine/Hymn.hpp>
 
 using namespace GUI;
 
@@ -14,8 +15,13 @@ AudioMaterialEditor::AudioMaterialEditor() {
 
 void AudioMaterialEditor::Show() {
     if (ImGui::Begin(("Sound: " + audioMaterial->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(audioMaterial))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
-        ImGui::InputText("Name", name, 128);
-        audioMaterial->name = name;
+        if (ImGui::InputText("Name", name, 128)) {
+            // Rename audio material file.
+            std::string path = Hymn().GetPath() + "/" + audioMaterial->path;
+            rename((path + audioMaterial->name + ".json").c_str(), (path + name + ".json").c_str());
+            
+            audioMaterial->name = name;
+        }
         
         glm::vec3 freqAbsorption(audioMaterial->lowFreqAbsorption, audioMaterial->midFreqAbsorption, audioMaterial->highFreqAbsorption);
         ImGui::Text("Frequency absorption");

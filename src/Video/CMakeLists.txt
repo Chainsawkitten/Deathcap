@@ -20,8 +20,10 @@ set(SRCS
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
+        ShadowPass.cpp
         Texture/Texture.cpp
         Texture/Texture2D.cpp
+        VideoErrorCheck.cpp
     )
 
 set(HEADERS
@@ -30,7 +32,6 @@ set(HEADERS
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
-        ErrorVideoDebug.hpp
         ParticleRenderer.hpp
         Renderer.hpp
         RenderSurface.hpp
@@ -42,6 +43,7 @@ set(HEADERS
         Geometry/VertexType/SkinVertex.hpp
         Geometry/VertexType/StaticVertex.hpp
         Lighting/Light.hpp
+        PostProcessing/Filter.hpp
         PostProcessing/FXAAFilter.hpp
         PostProcessing/PostProcessing.hpp
         Profiling/Query.hpp
@@ -49,8 +51,10 @@ set(HEADERS
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
+        ShadowPass.hpp
         Texture/Texture.hpp
         Texture/Texture2D.hpp
+        VideoErrorCheck.hpp
     )
 
 # Setup embedded source
@@ -67,6 +71,7 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostFXAA.frag
+    ../../shaders/Shadow.vert
     ../../shaders/Skinning.vert
     ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag

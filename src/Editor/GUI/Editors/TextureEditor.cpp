@@ -16,8 +16,14 @@ TextureEditor::TextureEditor() {
 
 void TextureEditor::Show() {
     if (ImGui::Begin(("Texture: " + texture->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(texture))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
-        ImGui::InputText("Name", name, 128);
-        texture->name = name;
+        if (ImGui::InputText("Name", name, 128, ImGuiInputTextFlags_EnterReturnsTrue)) {
+            // Rename texture files.
+            std::string path = Hymn().GetPath() + "/" + texture->path;
+            rename((path + texture->name + ".png").c_str(), (path + name + ".png").c_str());
+            rename((path + texture->name + ".json").c_str(), (path + name + ".json").c_str());
+            
+            texture->name = name;
+        }
         
         if (texture->GetTexture()->IsLoaded()) {
             ImGui::Image((void*) texture->GetTexture()->GetTextureID(), ImVec2(128, 128));
@@ -30,8 +36,6 @@ void TextureEditor::Show() {
             fileSelector.SetFileSelectedCallback(std::bind(&TextureEditor::FileSelected, this, std::placeholders::_1));
             fileSelector.SetVisible(true);
         }
-        
-        ImGui::Checkbox("SRGB", &texture->srgb);
     }
     ImGui::End();
     
@@ -60,5 +64,5 @@ void TextureEditor::SetVisible(bool visible) {
 void TextureEditor::FileSelected(const std::string& file) {
     std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".png";
     FileSystem::Copy(file.c_str(), destination.c_str());
-    texture->GetTexture()->Load(file.c_str(), texture->srgb);
+    texture->GetTexture()->Load(file.c_str());
 }

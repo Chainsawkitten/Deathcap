@@ -9,6 +9,7 @@
 #include "Manager/SoundManager.hpp"
 #include "Manager/DebugDrawingManager.hpp"
 #include "Manager/ResourceManager.hpp"
+#include "Manager/VRManager.hpp"
 #include "DefaultAlbedo.png.hpp"
 #include "DefaultNormal.png.hpp"
 #include "DefaultMetallic.png.hpp"
@@ -24,19 +25,19 @@
 #include "Util/GPUProfiling.hpp"
 
 #include "Entity/Entity.hpp"
-#include "Component/Animation.hpp"
+
 
 using namespace std;
 
 ActiveHymn::ActiveHymn() {
     defaultAlbedo = new TextureAsset();
-    defaultAlbedo->GetTexture()->Load(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH, true);
+    defaultAlbedo->GetTexture()->Load(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH);
     defaultNormal = new TextureAsset();
-    defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH, false);
+    defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH);
     defaultMetallic= new TextureAsset();
-    defaultMetallic->GetTexture()->Load(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH, false);
+    defaultMetallic->GetTexture()->Load(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH);
     defaultRoughness = new TextureAsset();
-    defaultRoughness->GetTexture()->Load(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH, false);
+    defaultRoughness->GetTexture()->Load(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH);
     
     Clear();
 }
@@ -54,12 +55,11 @@ void ActiveHymn::Clear() {
     
     entityNumber = 1U;
     
-    filterSettings.color = false;
-    filterSettings.fog = false;
+    filterSettings.gamma = 2.2f;
+    filterSettings.colorFilterApply = false;
+    filterSettings.fogApply = false;
     filterSettings.fogDensity = 0.001f;
     filterSettings.fxaa = true;
-    filterSettings.glow = true;
-    filterSettings.glowBlurAmount = 1;
     
     for (ScriptFile* script : scripts) {
         Managers().resourceManager->FreeScriptFile(script);
@@ -111,14 +111,14 @@ Json::Value ActiveHymn::ToJson() const {
 
     // Filter settings.
     Json::Value filtersNode;
-    filtersNode["color"] = filterSettings.color;
-    filtersNode["colorColor"] = Json::SaveVec3(filterSettings.colorColor);
-    filtersNode["fog"] = filterSettings.fog;
+    filtersNode["gamma"] = filterSettings.gamma;
+    filtersNode["color"] = filterSettings.colorFilterApply;
+    filtersNode["colorColor"] = Json::SaveVec3(filterSettings.colorFilterColor);
+    filtersNode["fog"] = filterSettings.fogApply;
     filtersNode["fogDensity"] = filterSettings.fogDensity;
     filtersNode["fogColor"] = Json::SaveVec3(filterSettings.fogColor);
+    filtersNode["dither"] = filterSettings.ditherApply;
     filtersNode["fxaa"] = filterSettings.fxaa;
-    filtersNode["glow"] = filterSettings.glow;
-    filtersNode["glowBlurAmount"] = filterSettings.glowBlurAmount;
     root["filters"] = filtersNode;
     
     // Save scripts.
@@ -140,14 +140,14 @@ void ActiveHymn::FromJson(Json::Value root) {
     
     // Load filter settings.
     Json::Value filtersNode = root["filters"];
-    filterSettings.color = filtersNode["color"].asBool();
-    filterSettings.colorColor = Json::LoadVec3(filtersNode["colorColor"]);
-    filterSettings.fog = filtersNode["fog"].asBool();
+    filterSettings.gamma = filtersNode.get("gamma", 2.2f).asFloat();
+    filterSettings.colorFilterApply = filtersNode["color"].asBool();
+    filterSettings.colorFilterColor = Json::LoadVec3(filtersNode["colorColor"]);
+    filterSettings.fogApply = filtersNode["fog"].asBool();
     filterSettings.fogDensity = filtersNode["fogDensity"].asFloat();
     filterSettings.fogColor = Json::LoadVec3(filtersNode["fogColor"]);
+    filterSettings.ditherApply = filtersNode["dither"].asBool();
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
-    filterSettings.glow = filtersNode["glow"].asBool();
-    filterSettings.glowBlurAmount = filtersNode["glowBlurAmount"].asInt();
     
     // Load scripts.
     const Json::Value scriptNode = root["scripts"];
@@ -175,16 +175,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update animations");
-        for (Entity* entity : world.GetEntities()) {
-            if (entity->IsKilled() || !entity->enabled)
-                continue;
-            
-            Component::Animation* anim = entity->GetComponent<Component::Animation>();
-            if (anim != nullptr) {
-                Geometry::Model* model = anim->riggedModel;
-                /// @todo Fix animations.
-            }
-        }
+        Managers().renderManager->UpdateAnimations(deltaTime);
     }
     
     { PROFILE("Update particles");
@@ -209,16 +200,17 @@ void ActiveHymn::Update(float deltaTime) {
 
     if (restart) {
         restart = false;
-        world.Load(saveState);
+        FromJson(saveStateHymn);
+        world.Load(saveStateWorld);
         Managers().scriptManager->RegisterInput();
         Managers().scriptManager->BuildAllScripts();
     }
 }
 
-void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
+void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, bool lighting) {
     { PROFILE("Render world");
     { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
-        Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera);
+        Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera, lighting);
     }
     }
 }

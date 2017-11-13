@@ -14,6 +14,7 @@ class InputHandler {
         enum Button {
             PLAYTEST = 0, ///< Start/stop playtesting the game.
             PROFILE, ///< Show profiling information.
+            WINDOWMODE, ///< Toggle window mode.
             CONTROL, ///< Control key.
             NEW, ///< Create new hymn.
             OPEN, ///< Open existing hymn.
@@ -43,7 +44,7 @@ class InputHandler {
         /**
          * @param window %Window to get input for.
          */
-        ENGINE_API InputHandler(GLFWwindow* window);
+        ENGINE_API explicit InputHandler(GLFWwindow* window);
         
         /// Get currently active input handler.
         /**

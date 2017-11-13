@@ -1,14 +1,16 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <functional>
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
 #include "../ResourceSelector.hpp"
+#include <Engine/Geometry/AssetFileHandler.hpp> 
 
 namespace Component {
-    class Animation;
+    class AnimationController;
     class AudioMaterial;
     class Mesh;
     class Lens;
@@ -27,6 +29,7 @@ namespace Component {
 
 namespace GUI {
     class IShapeEditor;
+    class RigidBodyEditor;
 
     /// Used to edit an entity.
     class EntityEditor {
@@ -77,7 +80,7 @@ namespace GUI {
             template<typename type> void EditComponent(const std::string& name, std::function<void(type*)> editorFunction);
             
             // Editors
-            void AnimationEditor(Component::Animation* animation);
+            void AnimationControllerEditor(Component::AnimationController* animationController);
             void AudioMaterialEditor(Component::AudioMaterial* audioMaterial);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
@@ -92,7 +95,7 @@ namespace GUI {
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
             void VRDeviceEditor(Component::VRDevice* vrDevice);
-            
+
             Entity* entity = nullptr;
             bool visible = false;
             char name[128];
@@ -105,10 +108,10 @@ namespace GUI {
             std::vector<Editor> editors;
             std::vector<IShapeEditor*> shapeEditors;
             int selectedShape = -1;
+
+            std::unique_ptr<GUI::RigidBodyEditor> rigidBodyEditor;
             
             ResourceSelector resourceSelector;
-            
-            float rigidBodyMass = 1.0f;
 
             bool albedoShow = false;
             bool normalShow = false;

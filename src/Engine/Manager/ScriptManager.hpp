@@ -97,7 +97,7 @@ class ScriptManager {
          * @param recipient The entity to receive the message.
          * @param type The type of message to send.
          */
-        ENGINE_API void SendMessage(Entity* recipient, int type);
+        ENGINE_API void SendMessage(Entity* recipient, Entity* sender, int type);
 
         /// Fetches an entity using its GUID.
         /**
@@ -144,17 +144,17 @@ class ScriptManager {
         /// The entity currently being executed.
         Entity* currentEntity;
 
-        /// Gets the size in bytes for the ASType
+        /// Get the set of entities with a script component that accepts
+        /// update events.
         /**
-         * @param typeID The asTypeID for the type we want the size for.
-         * @param value The pointer to the value.
-         * @return The size in bytes for the provided typeID. -1 for unknown type.
+         * @return Entities with script updates.
          */
-        const int GetSizeOfASType(int typeID, void* value);
+        ENGINE_API const std::vector<Entity*>& GetUpdateEntities();
         
     private:
         struct Message {
             Entity* recipient;
+            Entity* sender;
             int type;
         };
         
