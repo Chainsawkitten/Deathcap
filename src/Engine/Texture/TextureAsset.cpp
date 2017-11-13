@@ -4,6 +4,7 @@
 #include "../Util/FileSystem.hpp"
 #include <DefaultAlbedo.png.hpp>
 #include <Video/Texture/TexturePNG.hpp>
+#include <Video/Texture/TextureHCT.hpp>
 
 using namespace Video;
 
@@ -34,7 +35,7 @@ void TextureAsset::Load(const std::string& name) {
         delete texture;
     
     // Load texture from disk.
-    texture = new TexturePNG((filename + ".png").c_str());
+    texture = new TextureHCT((filename + ".png").c_str());
 }
 
 Texture2D* TextureAsset::GetTexture() const {

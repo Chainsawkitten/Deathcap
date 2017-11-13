@@ -3,18 +3,21 @@
 #include "Texture2D.hpp"
 
 namespace Video {
-    /// Texture loaded from a PNG file.
-    class TexturePNG : public Texture2D {
+    /// Texture loaded from custom compressed texture format.
+    /**
+     * @todo DXT1 compression.
+     * @todo Mipmaps.
+     */
+    class TextureHCT : public Texture2D {
         public:
-        /// Create new PNG texture.
+        /// Load texture.
         /**
-         * @param source Source string containing the image file.
-         * @param sourceLength Length of the source string.
+         * @param filenameThe name of the HCT file to load.
          */
-        VIDEO_API TexturePNG(const char* source, int sourceLength);
+        VIDEO_API TextureHCT(const char* filename);
         
         /// Destructor.
-        VIDEO_API ~TexturePNG() override;
+        VIDEO_API ~TextureHCT() override;
         
         /// Get OpenGL texture ID.
         /**

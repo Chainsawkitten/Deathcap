@@ -1,23 +1,23 @@
-#include "TexturePNG.hpp"
+#include "TextureHCT.hpp"
 
-#define STB_IMAGE_IMPLEMENTATION
-#define STBI_ONLY_PNG
 #include <stb_image.h>
-
 #include <Utility/Log.hpp>
 
 using namespace Video;
 
-TexturePNG::TexturePNG(const char *source, int sourceLength) {
+TextureHCT::TextureHCT(const char* filename) {
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
     
     // Load texture from file.
     int components, width, height;
-    unsigned char* data = stbi_load_from_memory(reinterpret_cast<const unsigned char*>(source), sourceLength, &width, &height, &components, 0);
+    unsigned char* data = stbi_load(filename, &width, &height, &components, 0);
     
-    if (data == NULL)
-        Log() << "Couldn't load headerized image.\n";
+    if (data == NULL) {
+        Log() << "Couldn't load image " << filename << "\n";
+        loaded = false;
+        return;
+    }
     
     // Give the image to OpenGL.
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, Format(components), GL_UNSIGNED_BYTE, data);
@@ -34,21 +34,20 @@ TexturePNG::TexturePNG(const char *source, int sourceLength) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     
-    // Generate mipmaps, by the way.
+    // Generate mipmaps.
     glGenerateMipmap(GL_TEXTURE_2D);
     
     loaded = true;
 }
 
-TexturePNG::~TexturePNG() {
-    if (texID != 0)
-        glDeleteTextures(1, &texID);
+TextureHCT::~TextureHCT() {
+    
 }
 
-GLuint TexturePNG::GetTextureID() const {
+GLuint TextureHCT::GetTextureID() const {
     return texID;
 }
 
-bool TexturePNG::IsLoaded() const {
+bool TextureHCT::IsLoaded() const {
     return loaded;
 }
