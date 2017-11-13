@@ -64,5 +64,7 @@ void TextureEditor::SetVisible(bool visible) {
 void TextureEditor::FileSelected(const std::string& file) {
     std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".png";
     FileSystem::Copy(file.c_str(), destination.c_str());
-    texture->GetTexture()->Load(file.c_str());
+    
+    /// @todo Convert PNG texture to custom texture format.
+    //texture->GetTexture()->Load(file.c_str());
 }

@@ -44,6 +44,7 @@
 #include <Utility/Log.hpp>
 #include <Video/ShadowPass.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <Video/Texture/TexturePNG.hpp>
 
 using namespace Component;
 
@@ -62,17 +63,17 @@ RenderManager::RenderManager() {
     shadowPass = new Video::ShadowPass();
 
     // Init textures.
-    particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
-    lightTexture = Managers().resourceManager->CreateTexture2D(LIGHT_PNG, LIGHT_PNG_LENGTH);
-    soundSourceTexture = Managers().resourceManager->CreateTexture2D(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
-    cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
+    particleEmitterTexture = Managers().resourceManager->CreateTexturePNG(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
+    lightTexture = Managers().resourceManager->CreateTexturePNG(LIGHT_PNG, LIGHT_PNG_LENGTH);
+    soundSourceTexture = Managers().resourceManager->CreateTexturePNG(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
+    cameraTexture = Managers().resourceManager->CreateTexturePNG(CAMERA_PNG, CAMERA_PNG_LENGTH);
 }
 
 RenderManager::~RenderManager() {
-    Managers().resourceManager->FreeTexture2D(particleEmitterTexture);
-    Managers().resourceManager->FreeTexture2D(lightTexture);
-    Managers().resourceManager->FreeTexture2D(soundSourceTexture);
-    Managers().resourceManager->FreeTexture2D(cameraTexture);
+    Managers().resourceManager->FreeTexturePNG(particleEmitterTexture);
+    Managers().resourceManager->FreeTexturePNG(lightTexture);
+    Managers().resourceManager->FreeTexturePNG(soundSourceTexture);
+    Managers().resourceManager->FreeTexturePNG(cameraTexture);
 
     delete mainWindowRenderSurface;
     delete shadowPass;

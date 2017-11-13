@@ -1,0 +1,51 @@
+#pragma once
+
+#include "Texture2D.hpp"
+
+namespace Video {
+    /// Texture loaded from a PNG file.
+    class TexturePNG : public Texture2D {
+        public:
+        /// Create new unloaded texture.
+        VIDEO_API TexturePNG();
+        
+        /// Create new PNG texture from file.
+        /**
+         * @param filename The name of the PNG file to load.
+         */
+        VIDEO_API TexturePNG(const char* filename);
+        
+        /// Create new PNG texture.
+        /**
+         * @param source Source string containing the image file.
+         * @param sourceLength Length of the source string.
+         */
+        VIDEO_API TexturePNG(const char* source, int sourceLength);
+        
+        /// Destructor.
+        VIDEO_API ~TexturePNG() override;
+        
+        /// Get OpenGL texture ID.
+        /**
+         * Used when binding a texture before draw calls.
+         * @return The OpenGL texture identifier
+         */
+        VIDEO_API GLuint GetTextureID() const override;
+        
+        /// Get whether the texture has been loaded yet.
+        /**
+         * @return Whether the texture has been loaded yet.
+         */
+        VIDEO_API bool IsLoaded() const override;
+        
+        /// Load texture from file.
+        /**
+         * @param filename Filename (relative or absolute) of the image file.
+         */
+        VIDEO_API void Load(const char* filename);
+        
+        private:
+        GLuint texID = 0;
+        bool loaded = false;
+    };
+}
