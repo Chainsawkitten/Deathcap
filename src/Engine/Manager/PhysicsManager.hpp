@@ -14,7 +14,6 @@ namespace Component {
 }
 
 namespace Physics {
-    class RigidBody;
     class Shape;
     class Trigger;
 }
@@ -192,6 +191,12 @@ class PhysicsManager {
          * @param comp Rigid body to synchronize.
          */
         ENGINE_API void ForceTransformSync(Component::RigidBody* comp);
+
+        /// Halts movement of a kinematic rigid body.
+        /**
+         * @param comp Rigid body to halt.
+         */
+        ENGINE_API void HaltMovement(Component::RigidBody* comp);
 
         /// Get all shape components.
         /**

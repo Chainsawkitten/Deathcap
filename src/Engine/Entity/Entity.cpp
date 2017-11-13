@@ -29,12 +29,12 @@
 #include "../Manager/SoundManager.hpp"
 #include "../Manager/VRManager.hpp"
 
-Entity::Entity(World* world, const std::string& name) : name ( name ) {
+Entity::Entity(World* world, const std::string& name) : name(name) {
     this->world = world;
 }
 
 Entity::~Entity() {
-    
+
 }
 
 Entity* Entity::GetParent() const {
@@ -48,20 +48,21 @@ Entity* Entity::AddChild(const std::string& name) {
     return child;
 }
 
-bool Entity::SetParent(Entity* newParent) {
+Entity* Entity::SetParent(Entity* newParent) {
     //We make sure we're not trying to put the root as a child.
     if (parent != nullptr) {
         //We make sure we're not trying to set a parent as a child to one of it's own children.
         if (!HasChild(newParent)) {
             parent->RemoveChild(this);
+            Entity* lastParent = parent;
             parent = newParent;
-            newParent->children.push_back(this);
-            
-            return true;
+          
+            newParent->children.push_back(this);      
+
+            return lastParent;
         }
-    }
-    
-    return false;
+    } 
+    return nullptr;
 }
 
 bool Entity::HasChild(const Entity* check_child, bool deep) const {
@@ -117,7 +118,7 @@ void Entity::CheckIfSceneExists(const std::string& filename, bool& error, const 
 
             if (originScene == root["children"][i]["sceneName"].asString())
                 error = true;
-                
+
             if (error)
                 break;
         }
@@ -136,7 +137,7 @@ Entity* Entity::GetChild(const std::string& name) const {
         if (child->name == name)
             return child;
     }
-    
+
     return nullptr;
 }
 
@@ -147,7 +148,7 @@ bool Entity::RemoveChild(Entity* child) {
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -157,7 +158,7 @@ bool Entity::IsScene() const {
 
 void Entity::Kill() {
     KillHelper();
-    
+
     // Remove this entity from the parent's list of children.
     if (parent != nullptr)
         parent->RemoveChild(this);
@@ -195,23 +196,23 @@ Json::Value Entity::Save() const {
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
         Save<Component::VRDevice>(entity, "VRDevice");
-        
+
         // Save children.
         Json::Value childNodes;
         for (Entity* child : children)
             childNodes.append(child->Save());
         entity["children"] = childNodes;
     }
-    
+
     return entity;
 }
 
 void Entity::Load(const Json::Value& node) {
     scene = node["scene"].asBool();
-    
+
     if (scene) {
         sceneName = node["sceneName"].asString();
-        
+
         // Load scene.
         std::string filename = Hymn().GetPath() + "/" + sceneName + ".json";
         Json::Value root;
@@ -219,7 +220,7 @@ void Entity::Load(const Json::Value& node) {
         file >> root;
         file.close();
         Load(root);
-        
+
         scene = true;
     } else {
         // Load components.
@@ -237,29 +238,28 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::SoundSource>(node, "SoundSource");
         Load<Component::ParticleEmitter>(node, "ParticleEmitter");
         Load<Component::VRDevice>(node, "VRDevice");
-        
+
         // Load children.
-        for (unsigned int i=0; i < node["children"].size(); ++i) {
+        for (unsigned int i = 0; i < node["children"].size(); ++i) {
             Entity* entity = AddChild("");
             entity->Load(node["children"][i]);
         }
     }
-    
+
     name = node.get("name", "").asString();
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadQuaternion(node["rotation"]);
     uniqueIdentifier = node.get("uid", 0).asUInt();
     isStatic = node["static"].asBool();
-    
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
     glm::mat4 matrix = GetLocalMatrix();
-    
+
     if (parent != nullptr)
         matrix = parent->GetModelMatrix() * matrix;
-    
+
     return matrix;
 }
 
@@ -283,13 +283,13 @@ glm::quat Entity::GetWorldOrientation() const {
 }
 
 glm::vec3 Entity::GetDirection() const {
-    return glm::vec3(rotation * glm::vec3(0, 0, -1));
+    return glm::vec3(GetWorldOrientation() * glm::vec3(0, 0, -1));
 }
 
 glm::vec3 Entity::GetWorldPosition() const {
     if (parent != nullptr)
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
-    
+
     return position;
 }
 
@@ -346,7 +346,7 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
         return nullptr;
 
     Component::SuperComponent* component;
-    
+
     // Create a component in the correct manager.
     if (componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation();
@@ -382,13 +382,13 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return nullptr;
     }
-    
+
     // Add component to our map.
     components[componentType] = component;
-    
+
     // Set ourselves as the owner.
     component->entity = this;
-    
+
     return component;
 }
 
@@ -409,7 +409,7 @@ void Entity::KillComponent(std::type_index componentType) {
 
 void Entity::LoadComponent(std::type_index componentType, const Json::Value& node) {
     Component::SuperComponent* component;
-    
+
     // Create a component in the correct manager.
     if (componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation(node);
@@ -445,20 +445,20 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return;
     }
-    
+
     // Add component to our map.
     components[componentType] = component;
-    
+
     // Set ourselves as the owner.
     component->entity = this;
 }
 
 void Entity::KillHelper() {
     killed = true;
-    
+
     for (auto& it : components)
         it.second->Kill();
-    
+
     for (Entity* child : children) {
         child->KillHelper();
     }

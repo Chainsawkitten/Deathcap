@@ -7,7 +7,6 @@
 #include "../Entity/ComponentContainer.hpp"
 #include "../linking.hpp"
 
-class Entity;
 class World;
 namespace Video {
     class Texture2D;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <json/json.h>
 #include "../linking.hpp"
 
 namespace Video {
@@ -34,9 +33,6 @@ class TextureAsset {
         
         /// The name of the texture.
         std::string name;
-        
-        /// Whether to convert from SRGB space to linear space when loading.
-        bool srgb = false;
         
         /// The folder containing the texture files.
         std::string path;

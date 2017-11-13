@@ -4,12 +4,14 @@
 #include <Video/Renderer.hpp>
 #include <Video/RenderSurface.hpp>
 #include <Video/Buffer/ReadWriteTexture.hpp>
+#include <Video/VideoErrorCheck.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
 #include "SoundManager.hpp"
 #include "PhysicsManager.hpp"
 #include "DebugDrawingManager.hpp"
+#include "VRManager.hpp"
 #include "Light.png.hpp"
 #include "ParticleEmitter.png.hpp"
 #include "SoundSource.png.hpp"
@@ -36,12 +38,11 @@
 #include "../MainWindow.hpp"
 #include <Video/Lighting/Light.hpp>
 #include "../Hymn.hpp"
-#include "Util/Profiling.hpp"
-#include "Util/Json.hpp"
-#include "Util/GPUProfiling.hpp"
+#include "../Util/Profiling.hpp"
+#include "../Util/Json.hpp"
+#include "../Util/GPUProfiling.hpp"
 #include <Utility/Log.hpp>
 #include <Video/ShadowPass.hpp>
-#include "Manager/VRManager.hpp"
 #include <glm/gtc/quaternion.hpp>
 
 using namespace Component;
@@ -110,9 +111,11 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 const glm::vec3 position = camera->GetWorldPosition();
                 const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
 
+                { VIDEO_ERROR_CHECK("Render world entities");
                 { PROFILE("Render world entities");
                 { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
                     RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
+                }
                 }
                 }
 
@@ -237,7 +240,6 @@ void RenderManager::UpdateBufferSize() {
 
 void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting) {
     // Render from camera.
-    renderer->StartRendering(renderSurface);
     glm::mat4 lightViewMatrix;
     glm::mat4 lightProjection;
     float aspectRatio = static_cast<float>(shadowPass->GetShadowWidth()) / shadowPass->GetShadowHeight();
@@ -258,99 +260,98 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
     //Render shadows maps.
-    {
-        PROFILE("Render Shadows meshes");
-        {
-            GPUPROFILE("Render Shadows meshes", Video::Query::Type::TIME_ELAPSED);
-            {
-                GPUPROFILE("Render Shadows meshes", Video::Query::Type::SAMPLES_PASSED);
-                renderer->PrepareShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
-                for (Mesh* mesh : meshComponents) {
-                    if (mesh->IsKilled() || !mesh->entity->enabled)
-                        continue;
+    { VIDEO_ERROR_CHECK("Render shadows meshes");
+    { PROFILE("Render shadows meshes");
+    { GPUPROFILE("Render shadows meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render shadows meshes", Video::Query::Type::SAMPLES_PASSED);
+        renderer->PrepareShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
 
-                    if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                        Entity* entity = mesh->entity;
-                        // If entity does not have material, it won't be rendered.
-                        //if (entity->GetComponent<Material>() != nullptr)
-                        renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
-                    }
-                }
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
             }
         }
     }
-    renderer->StartRendering(renderSurface);
-    // Render z-pass meshes.
-    renderSurface->GetDepthFrameBuffer()->BindWrite();
-    {
-        PROFILE("Render z-pass meshes");
-        {
-            GPUPROFILE("Render z-pass meshes", Video::Query::Type::TIME_ELAPSED);
-            {
-                GPUPROFILE("Render z-pass meshes", Video::Query::Type::SAMPLES_PASSED);
-                renderer->PrepareStaticMeshDepthRendering(viewMatrix, projectionMatrix);
-                for (Mesh* mesh : meshComponents) {
-                    if (mesh->IsKilled() || !mesh->entity->enabled)
-                        continue;
+    }
+    }
+    }
 
-                    if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                        Entity* entity = mesh->entity;
-                        // If entity does not have material, it won't be rendered.
-                        if (entity->GetComponent<Material>() != nullptr)
-                            renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
-                    }
-                }
+    // Render z-pass meshes.
+    renderer->StartRendering(renderSurface);
+    renderSurface->GetDepthFrameBuffer()->BindWrite();
+    { VIDEO_ERROR_CHECK("Render z-pass meshes");
+    { PROFILE("Render z-pass meshes");
+    { GPUPROFILE("Render z-pass meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render z-pass meshes", Video::Query::Type::SAMPLES_PASSED);
+        renderer->PrepareStaticMeshDepthRendering(viewMatrix, projectionMatrix);
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
+
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                // If entity does not have material, it won't be rendered.
+                if (entity->GetComponent<Material>() != nullptr)
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
             }
         }
+    }
+    }
+    }
     }
     renderSurface->GetDepthFrameBuffer()->Unbind();
 
+    // Lights.
+    { VIDEO_ERROR_CHECK("Update lights");
+    { PROFILE("Update lights");
+    { GPUPROFILE("Update lights", Video::Query::Type::TIME_ELAPSED);
+        if (lighting) {
+            // Cull lights and update light list.
+            LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+        }
+        else {
+            // Use full ambient light and ignore lights in the scene.
+            LightAmbient();
+        }
+    }
+    }
+    }
+
     // Render static meshes.
     renderSurface->GetShadingFrameBuffer()->BindWrite();
-    {
-        PROFILE("Render static meshes");
-        {
-            GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
-            {
-                GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
+    { VIDEO_ERROR_CHECK("Render static meshes");
+    { PROFILE("Render static meshes");
+    { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
 
-                if (lighting) {
-                    // Cull lights and update light list.
-                    LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
-                } else {
-                    // Use full ambient light and ignore lights in the scene.
-                    LightAmbient();
-                }
-                    
+        // Push matricies and light buffer to the GPU.
+        renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
 
-                // Push matricies and light buffer to the GPU.
-                renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+        // Render meshes.
+        for (Mesh* mesh : meshComponents) {
+            if (mesh->IsKilled() || !mesh->entity->enabled)
+                continue;
 
-                // Render meshes.
-                for (Mesh* mesh : meshComponents) {
-                    if (mesh->IsKilled() || !mesh->entity->enabled)
-                        continue;
-
-                    if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                        Entity* entity = mesh->entity;
-                        Material* material = entity->GetComponent<Material>();
-                        if (material != nullptr)
-                            renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
-                    }
-                }
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                Entity* entity = mesh->entity;
+                Material* material = entity->GetComponent<Material>();
+                if (material != nullptr)
+                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
             }
         }
     }
-    renderSurface->GetShadingFrameBuffer()->Unbind();
+    }
+    }
+    }
 
     // Render skinned meshes.
-    renderSurface->GetShadingFrameBuffer()->BindWrite();
+    { VIDEO_ERROR_CHECK("Render skinned meshes");
     { PROFILE("Render skinned meshes");
     { GPUPROFILE("Render skinned meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render skinned meshes", Video::Query::Type::SAMPLES_PASSED);
-
-        // Cull lights and update light list.
-        LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
 
         // Push matricies and light buffer to the GPU.
         renderer->PrepareSkinnedMeshRendering(viewMatrix, projectionMatrix);
@@ -374,19 +375,19 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
     }
     }
+    }
     renderSurface->GetShadingFrameBuffer()->Unbind();
     
     // Anti-aliasing.
     if (Hymn().filterSettings.fxaa) {
-        {
-            PROFILE("Anti-aliasing(FXAA)");
-            {
-                GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-                {
-                    GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-                    renderer->AntiAlias(renderSurface);
-                }
-            }
+        { VIDEO_ERROR_CHECK("Anti-aliasing(FXAA)");
+        { PROFILE("Anti-aliasing(FXAA)");
+        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+            renderer->AntiAlias(renderSurface);
+        }
+        }
+        }
         }
     }
 }

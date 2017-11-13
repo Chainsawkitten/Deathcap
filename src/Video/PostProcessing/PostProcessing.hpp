@@ -17,7 +17,7 @@ namespace Video {
             /**
              * @param rectangle %Rectangle to use for rendering.
              */
-            PostProcessing(const Geometry::Rectangle* rectangle);
+            explicit PostProcessing(const Geometry::Rectangle* rectangle);
             
             /// Destructor.
             ~PostProcessing();

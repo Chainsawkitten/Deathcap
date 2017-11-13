@@ -24,7 +24,7 @@ class Log {
     };
 
     /// Constructor.
-    UTILITY_API Log(const Channel channel = DEFAULT);
+    UTILITY_API explicit Log(const Channel channel = DEFAULT);
 
     /// Destructor.
     UTILITY_API ~Log();
