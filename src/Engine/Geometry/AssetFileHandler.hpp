@@ -37,6 +37,8 @@ namespace Geometry {
                 Video::Geometry::VertexType::StaticVertex * staticVertices = nullptr;
                 Video::Geometry::VertexType::SkinVertex * skinnedVertices = nullptr;
                 uint32_t * indices = nullptr;
+                bool CPU;
+                bool GPU;
 
                 /// Destructor.
                 ~MeshData() {

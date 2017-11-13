@@ -19,7 +19,7 @@ namespace Physics {
         public:
             /// Parameters used to create a sphere shape.
             struct Sphere {
-                Sphere(float radius) : radius(radius) {}
+                explicit Sphere(float radius) : radius(radius) {}
                 float radius;
             };
 
@@ -78,37 +78,37 @@ namespace Physics {
             /**
              * @param params Sphere specific parameters.
              */
-            ENGINE_API Shape(const Sphere& params);
+            ENGINE_API explicit Shape(const Sphere& params);
 
             /// Construct a plane shape.
             /**
              * @param params Plane specific parameters.
              */
-            ENGINE_API Shape(const Plane& params);
+            ENGINE_API explicit Shape(const Plane& params);
 
             /// Construct a box shape.
             /**
              * @param params Box specific parameters.
              */
-            ENGINE_API Shape(const Box& params);
+            ENGINE_API explicit Shape(const Box& params);
 
             /// Construct a cylinder shape.
             /**
              * @param params Cylinder specific parameters.
              */
-            ENGINE_API Shape(const Cylinder& params);
+            ENGINE_API explicit Shape(const Cylinder& params);
 
             /// Construct a cone shape.
             /**
              * @param params Cone specific parameters.
              */
-            ENGINE_API Shape(const Cone& params);
+            ENGINE_API explicit Shape(const Cone& params);
 
             /// Construct a capsule shape.
             /**
              * @param params Capsule specific parameters.
              */
-            ENGINE_API Shape(const Capsule& params);
+            ENGINE_API explicit Shape(const Capsule& params);
 
             /// Destructor
             ENGINE_API ~Shape();

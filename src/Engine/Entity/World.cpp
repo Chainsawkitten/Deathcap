@@ -5,7 +5,7 @@
 #include "../Manager/Managers.hpp"
 #include "../Manager/ParticleManager.hpp"
 #include "../Util/FileSystem.hpp"
-#include "Hymn.hpp"
+#include "../Hymn.hpp"
 #include <fstream>
 #include <ctime>
 

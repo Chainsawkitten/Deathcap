@@ -1,0 +1,515 @@
+{
+	"children" : 
+	[
+		{
+			"DirectionalLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"color" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				}
+			},
+			"children" : null,
+			"name" : "Sun",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510049240
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Cave"
+			},
+			"children" : null,
+			"name" : "Cave",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510062348
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Cave-"
+			},
+			"children" : null,
+			"name" : "Cave-",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510062349
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/CrateAlbedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/CreateNormal",
+				"roughness" : "Resources/NewAssets/Textures/CrateRoughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/crates"
+			},
+			"children" : null,
+			"name" : "Crates",
+			"position" : 
+			{
+				"x" : -5.9604644775390625e-08,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510062352
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Platform"
+			},
+			"children" : null,
+			"name" : "Platform",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510062354
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Cave-2"
+			},
+			"children" : null,
+			"name" : "Cave-2",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.99984771013259888,
+				"x" : 0.0,
+				"y" : -0.017452405765652657,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510064094
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Tracks"
+			},
+			"children" : null,
+			"name" : "Track",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510064161
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Pick"
+			},
+			"children" : null,
+			"name" : "Pick",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.14000000059604645,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510064341
+		},
+		{
+			"name" : "Cart",
+			"position" : 
+			{
+				"x" : 32.950000762939453,
+				"y" : -0.98600006103515625,
+				"z" : 0.29500001668930054
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.20000000298023224,
+				"y" : 0.20000000298023224,
+				"z" : 0.20000000298023224
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/TrackPlatform"
+			},
+			"children" : null,
+			"name" : "TrackPlatform",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510131173
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"RigidBody" : 
+			{
+				"angularDamping" : 0.0,
+				"cor" : 0.0,
+				"friction" : 0.0,
+				"kinematic" : false,
+				"linearDamping" : 0.0,
+				"mass" : 1.0,
+				"rollingFriction" : 0.0,
+				"spinningFriction" : 0.0
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/NewAssets/Scripts/Rock"
+			},
+			"Shape" : 
+			{
+				"cone" : 
+				{
+					"height" : 0.10000000149011612,
+					"radius" : 0.10000000149011612
+				}
+			},
+			"children" : null,
+			"name" : "Rock",
+			"position" : 
+			{
+				"x" : 4.5240001678466797,
+				"y" : -0.99400001764297485,
+				"z" : -1.0700000524520874
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510240479
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/NewAssets/Scripts/Bridge"
+			},
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
+						"metallic" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_metallic",
+						"normal" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_normal",
+						"roughness" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/BridgeFbx"
+					},
+					"children" : null,
+					"name" : "Bridge",
+					"position" : 
+					{
+						"x" : -3.5740001201629639,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510064266
+				}
+			],
+			"name" : "BridgeParent",
+			"position" : 
+			{
+				"x" : 3.7530002593994141,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.92387950420379639,
+				"x" : 0.0,
+				"y" : -0.0,
+				"z" : -0.38268345594406128
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510240835
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1510049192
+}

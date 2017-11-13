@@ -65,6 +65,12 @@ namespace GUI {
              */
             SceneEditor& GetScene();
             
+            /// Get the width of the right-side editor (entity, script, etc.).
+            /**
+             * @return The width of the editor.
+             */
+            int GetEditorWidth() const;
+            
         private:
             bool ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path);
             bool ShowResource(ResourceList::ResourceFolder& folder, ResourceList::Resource& resource, const std::string& path);

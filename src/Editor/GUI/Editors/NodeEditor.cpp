@@ -27,7 +27,7 @@ void NodeEditor::Show() {
         ImGui::BeginChild("NodeList", ImVec2(150, 0), true);
         ImGui::Text("Nodes");
         ImGui::Separator();
-        for (int nodeId = 0; nodeId < GetNumNodes(); ++nodeId) {
+        for (unsigned int nodeId = 0; nodeId < GetNumNodes(); ++nodeId) {
             Node* node = GetNodeArray()[nodeId];
             ImGui::PushID(node->index);
             if (ImGui::Selectable(node->name, node->index == nodeSelected))

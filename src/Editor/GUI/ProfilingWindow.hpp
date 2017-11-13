@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Engine/Manager/ProfilingManager.hpp>
+#include <GUI/LogView.hpp>
 
 namespace GUI {
     class ProfilingWindow {
@@ -9,6 +10,7 @@ namespace GUI {
             void Show();
         
         private:
+            LogView logView;
             void ShowResult(ProfilingManager::Result* result);
     };
 }

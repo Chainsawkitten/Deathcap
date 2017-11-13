@@ -4,9 +4,7 @@
 #include "../ResourceSelector.hpp"
 
 namespace Animation {
-    class AnimationClip;
     class AnimationController;
-    class Skeleton;
 }
 
 namespace GUI {

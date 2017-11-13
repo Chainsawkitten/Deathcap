@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Skeleton.hpp"
 #include <string>
 #include <vector>
 #include <fstream>

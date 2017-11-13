@@ -10,7 +10,6 @@
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include <Utility/Log.hpp>
-#include <map>
 
 namespace Animation {
     class AnimationClip;
