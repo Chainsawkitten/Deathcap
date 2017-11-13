@@ -240,14 +240,43 @@ void SoundManager::CreateAudioEnvironment() {
             sAudio.SetSceneMaterial(i, iplmat);
         }
 
-        // Create mesh
+        // Create mesh.
         for (const Component::AudioMaterial* audioMatComp : GetAudioMaterials()) {
-            for (int i = 0; i < audioMatRes.size(); i++) {
-                if (audioMatRes[i] == audioMatComp->material) {
-                    //sAudio.CreateStaticMesh(, , i);
-                    break;
+            Entity* entity = audioMatComp->entity;
+            Component::Mesh* mesh = entity->GetComponent<Component::Mesh>();
+            if (mesh && mesh->geometry) {
+                const std::vector<glm::vec3>& meshVertices = mesh->geometry->GetVertexPositionData();
+                const std::vector<uint32_t>& meshIndices = mesh->geometry->GetVertexIndexData();
+
+                // Create ipl mesh if vertex data is valid.
+                if (meshVertices.size() > 0 && meshIndices.size() > 0) {
+                    const glm::mat4 modelMatrix = entity->GetModelMatrix();
+                    std::vector<IPLVector3> iplVertices;
+                    std::vector<IPLVector3> iplIndices;
+                    iplVertices.resize(meshVertices.size());
+
+                    // Convert and transform vertices.
+                    for (std::size_t i = 0; i < meshVertices.size(); ++i) {
+                        const glm::vec4 transformedVector = modelMatrix * glm::vec4(meshVertices[i], 1.f);
+                        iplVertices[i] = IPLVector3{ transformedVector.x, transformedVector.y, transformedVector.z };
+                    }
+
+                    // Convert indices.
+                    for (std::size_t i = 0; i < meshIndices.size(); i += 3) {
+                        assert(i+2 < meshIndices.size());
+                        iplIndices[i] = IPLVector3{ meshIndices[i], meshIndices[i+1], meshIndices[i+2] };
+                    }
+
+                    // Find material index and create ipl mesh.
+                    for (int i = 0; i < audioMatRes.size(); i++) {
+                        if (audioMatRes[i] == audioMatComp->material) {
+                            sAudio.CreateStaticMesh(iplVertices, iplIndices, i);
+                            break;
+                        }
+                    }
                 }
             }
+            
         }
 
         sAudio.FinalizeScene(NULL);
