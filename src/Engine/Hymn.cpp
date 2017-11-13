@@ -8,6 +8,7 @@
 #include "Manager/ScriptManager.hpp"
 #include "Manager/SoundManager.hpp"
 #include "Manager/VRManager.hpp"
+#include "Manager/TriggerManager.hpp"
 #include "Manager/DebugDrawingManager.hpp"
 #include "Manager/ResourceManager.hpp"
 #include "Manager/VRManager.hpp"
@@ -24,7 +25,6 @@
 #include <fstream>
 #include "Util/Profiling.hpp"
 #include "Util/GPUProfiling.hpp"
-
 #include "Entity/Entity.hpp"
 
 
@@ -166,6 +166,10 @@ void ActiveHymn::Update(float deltaTime) {
     { PROFILE("Run scripts.");
         Managers().scriptManager->Update(world, deltaTime);
     }
+
+    { PROFILE("Synchronize triggers.");
+        Managers().triggerManager->SynchronizeTriggers();    
+    }
     
     { PROFILE("Update VR devices");
         Managers().vrManager->Update();
@@ -194,6 +198,10 @@ void ActiveHymn::Update(float deltaTime) {
     { PROFILE("Synchronize transforms");
         Managers().physicsManager->UpdateEntityTransforms();
     }
+
+    { PROFILE("Process triggers");
+        Managers().triggerManager->ProcessTriggers();
+    }
     
     { PROFILE("Clear killed entities/components");
         world.ClearKilled();
@@ -214,6 +222,16 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
         Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera, lighting);
     }
     }
+}
+
+Entity* ActiveHymn::GetEntityByGUID(unsigned int GUID) {
+    const std::vector<Entity*>& entities = Hymn().world.GetEntities();
+    for (int i = 0; i < entities.size(); i++) {
+        if (entities[i]->GetUniqueIdentifier() == GUID)
+            return entities[i];        
+    }
+
+    return nullptr;
 }
 
 ActiveHymn& Hymn() {
