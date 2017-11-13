@@ -47,7 +47,7 @@
 #include "PlaneShapeEditor.hpp"
 #include "RigidBodyEditor.hpp"
 #include "SphereShapeEditor.hpp"
-#include "Editor\GUI\Editors\CurveEditor.hpp"
+#include "Editor/GUI/Editors/CurveEditor.hpp"
 #include "TriggerEditor.hpp"
 
 using namespace GUI;
