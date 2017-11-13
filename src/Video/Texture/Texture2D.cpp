@@ -14,10 +14,6 @@ Texture2D::Texture2D() {
     
 }
 
-Texture2D::Texture2D(const char* filename) {
-    Load(filename);
-}
-
 Texture2D::Texture2D(const char* source, int sourceLength) {
     Load(source, sourceLength);
 }

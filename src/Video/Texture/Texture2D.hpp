@@ -12,12 +12,6 @@ namespace Video {
         public:
             /// Create new unloaded texture.
             VIDEO_API Texture2D();
-
-            /// Create new texture from the given image file.
-            /**
-             * @param filename Filename (relative or absolute) of the image file.
-             */
-            VIDEO_API Texture2D(const char* filename);
             
             /// Create new texture from given source string.
             /**
