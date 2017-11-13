@@ -41,14 +41,14 @@ namespace Component {
             /// Get a bool in the state machine.
             /**
              * @param name Name of the bool.
-             * @param return Value of the bool.
+             * @return Value of the bool.
              */
             ENGINE_API bool GetBool(const std::string& name);
 
             /// Get a float in the state machine.
             /**
              * @param name Name of the float.
-             * @param return Value of the float.
+             * @return Value of the float.
              */
             ENGINE_API float GetFloat(const std::string& name);
 
