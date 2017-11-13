@@ -97,3 +97,16 @@ void Texture2D::Load(const char* source, int sourceLength) {
 bool Texture2D::IsLoaded() const {
     return loaded;
 }
+
+GLenum Texture2D::Format(int components) {
+    switch (components) {
+    case 1:
+        return GL_RED;
+    case 2:
+        return GL_RG;
+    case 3:
+        return GL_RGB;
+    default:
+        return GL_RGBA;
+    }
+}

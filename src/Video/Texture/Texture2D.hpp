@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Texture.hpp"
+#include <GL/glew.h>
 #include "../linking.hpp"
 
 namespace Video {
@@ -8,7 +8,7 @@ namespace Video {
     /**
      * Used to load a 2D texture from an image file.
      */
-    class Texture2D : public Video::Texture {
+    class Texture2D {
         public:
             /// Create new unloaded texture.
             VIDEO_API Texture2D();
@@ -21,14 +21,14 @@ namespace Video {
             VIDEO_API Texture2D(const char* source, int sourceLength);
             
             /// Destructor
-            VIDEO_API ~Texture2D() override;
+            VIDEO_API virtual ~Texture2D();
             
             /// Get OpenGL texture ID.
             /**
              * Used when binding a texture before draw calls.
              * @return The OpenGL texture identifier
              */
-            VIDEO_API GLuint GetTextureID() const override;
+            VIDEO_API GLuint GetTextureID() const;
             
             /// Set how coordinates outside 0..1 are handled.
             /**
@@ -55,6 +55,14 @@ namespace Video {
              * @return Whether the texture has been loaded yet.
              */
             VIDEO_API bool IsLoaded() const;
+            
+        protected:
+            /// Get image GL format based on color components.
+            /**
+             * @param components The amount of components in the image. (1, 2, 3, or 4.)
+             * @return One of GL_RED, GL_RG, GL_RGB or GL_RGBA
+             */
+            static GLenum Format(int components);
             
         private:
             Texture2D(const Texture2D & other) = delete;
