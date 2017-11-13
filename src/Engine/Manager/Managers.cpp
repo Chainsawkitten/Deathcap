@@ -14,6 +14,10 @@
 
 #include "../Component/Animation.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 Hub::Hub() {
     
 }

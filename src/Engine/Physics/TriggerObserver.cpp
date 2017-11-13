@@ -2,6 +2,10 @@
 #include <cassert>
 #include "TriggerObserver.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace Physics {
     TriggerObserver::TriggerObserver(btRigidBody& body)
     : btCollisionWorld::ContactResultCallback(), rigidBody(body) {

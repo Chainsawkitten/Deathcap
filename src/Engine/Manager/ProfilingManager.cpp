@@ -8,6 +8,10 @@
 
 #include "../Utility/Log.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 ProfilingManager::ProfilingManager() : active(false) {
     for (int i = 0; i < Type::COUNT; ++i) {
         root[i] = new Result("Root: " + TypeToString((Type)i), nullptr);

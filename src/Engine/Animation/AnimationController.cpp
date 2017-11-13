@@ -4,6 +4,10 @@
 #include <Utility/Log.hpp>
 #include "../Hymn.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Animation;
 
 AnimationController::~AnimationController() {

@@ -13,6 +13,10 @@
 #include <cstdint>
 #include <cstring>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 #define SAMPLE_RATE (44100)
 #define PA_SAMPLE_TYPE  paFloat32
 

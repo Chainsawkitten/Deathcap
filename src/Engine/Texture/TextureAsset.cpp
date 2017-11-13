@@ -6,6 +6,10 @@
 #include <Video/Texture/Texture2D.hpp>
 #include <fstream>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 TextureAsset::TextureAsset() {

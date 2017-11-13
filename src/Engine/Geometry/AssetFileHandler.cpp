@@ -1,6 +1,10 @@
 #include "AssetFileHandler.hpp"
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Geometry;
 
 AssetFileHandler::AssetFileHandler() {
