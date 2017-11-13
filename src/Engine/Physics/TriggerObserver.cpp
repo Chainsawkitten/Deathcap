@@ -90,12 +90,24 @@ namespace Physics {
         enterHandler = handler;
     }
 
+    void TriggerObserver::ForgetEnter() {
+        enterHandler = nullptr;
+    }
+
     void TriggerObserver::OnRetain(const std::function<void()>& handler) {
         retainHandler = handler;
     }
 
+    void TriggerObserver::ForgetRetain() {
+        retainHandler = nullptr;
+    }
+
     void TriggerObserver::OnLeave(const std::function<void()>& handler) {
         leaveHandler = handler;
+    }
+
+    void TriggerObserver::ForgetLeave() {
+        leaveHandler = nullptr;
     }
 
     // Called with each contact for our own processing. This is where we can
