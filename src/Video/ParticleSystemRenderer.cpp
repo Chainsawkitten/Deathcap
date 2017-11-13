@@ -111,7 +111,7 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
 
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(ParticlePos), 0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(Particles::ParticlePos), 0);
 
     glBindVertexArray(0);
 
@@ -126,7 +126,7 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
 
     glGenBuffers(1, &velSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, velSSbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(ParticlePos) * nr_particles, &vels[0], GL_STATIC_DRAW);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(Particles::ParticlePos) * nr_particles, &vels[0], GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, velSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
 
@@ -141,14 +141,14 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
 
     glGenBuffers(1, &colSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, colSSbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(ParticlePos) * nr_particles, &col[0], GL_STATIC_DRAW);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(Particles::ParticlePos) * nr_particles, &col[0], GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, colSSbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
 
     // Binding vertex array to get color in fragmentshader.
     glBindVertexArray(m_glDrawVAO);
     glBindBuffer(GL_ARRAY_BUFFER, colSSbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(ParticlePos) * nr_particles, &col[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Particles::ParticlePos) * nr_particles, &col[0], GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(1);
 
