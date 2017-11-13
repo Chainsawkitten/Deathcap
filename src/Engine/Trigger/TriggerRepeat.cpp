@@ -62,7 +62,7 @@ const std::string& TriggerRepeat::GetName() const {
     return name;
 }
 
-void TriggerRepeat::SetName(std::string& value) {
+void TriggerRepeat::SetName(const std::string& value) {
     name = value;
 }
 
@@ -182,23 +182,23 @@ Json::Value TriggerRepeat::Save() {
         component["triggerEventStruct_Check_1"] = eventVector.front().check[1]; // ADD SUPPORT FOR VECTOR
         component["triggerEventStruct_Check_2"] = eventVector.front().check[2]; // ADD SUPPORT FOR VECTOR
         component["triggerEventStruct_Check_3"] = eventVector.front().check[3]; // ADD SUPPORT FOR VECTOR
-    }
 
-    if (GetEventVector()->front().check[0] == true &&
-        GetEventVector()->front().check[1] == true &&
-        GetEventVector()->front().check[2] == true &&
-        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 0) {
-        OnEnter();
-    } else if (GetEventVector()->front().check[0] == true &&
-        GetEventVector()->front().check[1] == true &&
-        GetEventVector()->front().check[2] == true &&
-        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 1) {
-        OnRetain();
-    } else if (GetEventVector()->front().check[0] == true &&
-        GetEventVector()->front().check[1] == true &&
-        GetEventVector()->front().check[2] == true &&
-        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 2) {
-        OnLeave();
+        if (GetEventVector()->front().check[0] == true &&
+            GetEventVector()->front().check[1] == true &&
+            GetEventVector()->front().check[2] == true &&
+            GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 0) {
+            OnEnter();
+        } else if (GetEventVector()->front().check[0] == true &&
+            GetEventVector()->front().check[1] == true &&
+            GetEventVector()->front().check[2] == true &&
+            GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 1) {
+            OnRetain();
+        } else if (GetEventVector()->front().check[0] == true &&
+            GetEventVector()->front().check[1] == true &&
+            GetEventVector()->front().check[2] == true &&
+            GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 2) {
+            OnLeave();
+        }
     }
 
     component["triggerTriggered"] = triggered;

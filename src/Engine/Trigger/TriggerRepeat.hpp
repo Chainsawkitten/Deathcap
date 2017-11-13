@@ -58,7 +58,7 @@ class TriggerRepeat : public SuperTrigger {
         /**
          * @param value The name of the trigger.
          */
-        ENGINE_API void SetName(std::string& value);
+        ENGINE_API void SetName(const std::string& value);
 
         /// Vector containing name of target functions.
         /**
