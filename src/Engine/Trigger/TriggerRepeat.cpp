@@ -62,7 +62,7 @@ const std::string& TriggerRepeat::GetName() const {
     return name;
 }
 
-void TriggerRepeat::SetName(std::string& value) {
+void TriggerRepeat::SetName(const std::string& value) {
     name = value;
 }
 
