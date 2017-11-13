@@ -564,39 +564,3 @@ namespace MemTrack
     }
 
 }    // namespace MemTrack
-
-     /* ------------------------------------------------------------ */
-     /* ---------------------- new and delete ---------------------- */
-     /* ------------------------------------------------------------ */
-
-     /* ---------------------------------------- operator new */
-
-void *operator new(size_t size)
-{
-    void *p = MemTrack::TrackMalloc(size);
-    if (p == NULL) throw std::bad_alloc();
-    return p;
-}
-
-/* ---------------------------------------- operator delete */
-
-void operator delete(void *p)
-{
-    MemTrack::TrackFree(p);
-}
-
-/* ---------------------------------------- operator new[] */
-
-void *operator new[](size_t size)
-{
-    void *p = MemTrack::TrackMalloc(size);
-    if (p == NULL) throw std::bad_alloc();
-    return p;
-}
-
-/* ---------------------------------------- operator delete[] */
-
-void operator delete[](void *p)
-{
-    MemTrack::TrackFree(p);
-}
