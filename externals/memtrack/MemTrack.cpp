@@ -61,16 +61,16 @@ namespace MemTrack
     private:    // member variables
         BlockHeader *myPrevNode;
         BlockHeader *myNextNode;
-        size_t myRequestedSize;
+        std::size_t myRequestedSize;
         char const *myFilename;
         int myLineNum;
         char const *myTypeName;
 
     public:     // members
-        BlockHeader(size_t requestedSize);
+        BlockHeader(std::size_t requestedSize);
         ~BlockHeader();
 
-        size_t GetRequestedSize() const { return myRequestedSize; }
+        std::size_t GetRequestedSize() const { return myRequestedSize; }
         char const *GetFilename() const { return myFilename; }
         int GetLineNum() const { return myLineNum; }
         char const *GetTypeName() const { return myTypeName; }
@@ -79,7 +79,7 @@ namespace MemTrack
 
         static void AddNode(BlockHeader *node);
         static void RemoveNode(BlockHeader *node);
-        static size_t CountBlocks();
+        static std::size_t CountBlocks();
         static void GetBlocks(BlockHeader **blockHeaderPP);
         static bool TypeGreaterThan(BlockHeader *header1, BlockHeader *header2);
     };
@@ -90,7 +90,7 @@ namespace MemTrack
 
     /* ---------------------------------------- BlockHeader constructor */
 
-    BlockHeader::BlockHeader(size_t requestedSize)
+    BlockHeader::BlockHeader(std::size_t requestedSize)
     {
         myPrevNode = NULL;
         myNextNode = NULL;
@@ -172,9 +172,9 @@ namespace MemTrack
 
     /* ---------------------------------------- BlockHeader CountBlocks */
 
-    size_t BlockHeader::CountBlocks()
+    std::size_t BlockHeader::CountBlocks()
     {
-        size_t count = 0;
+        std::size_t count = 0;
         BlockHeader *currNode = ourFirstNode;
         while (currNode != NULL)
         {
@@ -201,7 +201,7 @@ namespace MemTrack
 
     bool BlockHeader::TypeGreaterThan(BlockHeader *header1, BlockHeader *header2)
     {
-        return (strcmp(header1->myTypeName, header2->myTypeName) > 0);
+        return (std::strcmp(header1->myTypeName, header2->myTypeName) > 0);
     }
 
     /* ------------------------------------------------------------ */
@@ -249,7 +249,7 @@ namespace MemTrack
 
     /* ---------------------------------------- alignment */
 
-    const size_t ALIGNMENT = 4;
+    const std::size_t ALIGNMENT = 4;
 
     /* If "value" (a memory size or offset) falls on an alignment boundary,
     * then just return it.  Otherwise return the smallest number larger
@@ -270,14 +270,14 @@ namespace MemTrack
 
     /* ---------------------------------------- chunk sizes and offsets */
 
-    const size_t SIZE_BlockHeader = PAD_TO_ALIGNMENT_BOUNDARY(sizeof(BlockHeader));
-    const size_t SIZE_Signature = PAD_TO_ALIGNMENT_BOUNDARY(sizeof(Signature));
+    const std::size_t SIZE_BlockHeader = PAD_TO_ALIGNMENT_BOUNDARY(sizeof(BlockHeader));
+    const std::size_t SIZE_Signature = PAD_TO_ALIGNMENT_BOUNDARY(sizeof(Signature));
 
-    const size_t OFFSET_BlockHeader = 0;
-    const size_t OFFSET_Signature = OFFSET_BlockHeader + SIZE_BlockHeader;
-    const size_t OFFSET_UserChunk = OFFSET_Signature + SIZE_Signature;
+    const std::size_t OFFSET_BlockHeader = 0;
+    const std::size_t OFFSET_Signature = OFFSET_BlockHeader + SIZE_BlockHeader;
+    const std::size_t OFFSET_UserChunk = OFFSET_Signature + SIZE_Signature;
 
-    const size_t SIZE_PrologChunk = OFFSET_UserChunk;
+    const std::size_t SIZE_PrologChunk = OFFSET_UserChunk;
 
     /* ---------------------------------------- GetUserAddress */
 
@@ -325,7 +325,7 @@ namespace MemTrack
 
     /* ---------------------------------------- TrackMalloc */
 
-    void *TrackMalloc(size_t size)
+    void *TrackMalloc(std::size_t size)
     {
         // Allocate the memory, including space for the prolog.
         PrologChunk *pProlog = (PrologChunk *)malloc(SIZE_PrologChunk + size);
@@ -399,7 +399,7 @@ namespace MemTrack
     void TrackDumpBlocks()
     {
         // Get an array of pointers to all extant blocks.
-        size_t numBlocks = BlockHeader::CountBlocks();
+        std::size_t numBlocks = BlockHeader::CountBlocks();
         BlockHeader **ppBlockHeader =
             (BlockHeader **)calloc(numBlocks, sizeof(*ppBlockHeader));
         BlockHeader::GetBlocks(ppBlockHeader);
@@ -410,11 +410,11 @@ namespace MemTrack
         printf("Current Memory Blocks\n");
         printf("=====================\n");
         printf("\n");
-        for (size_t i = 0; i < numBlocks; i++)
+        for (std::size_t i = 0; i < numBlocks; i++)
         {
             BlockHeader *pBlockHeader = ppBlockHeader[i];
             char const *typeName = pBlockHeader->GetTypeName();
-            size_t size = pBlockHeader->GetRequestedSize();
+            std::size_t size = pBlockHeader->GetRequestedSize();
             char const *fileName = pBlockHeader->GetFilename();
             int lineNum = pBlockHeader->GetLineNum();
             printf("*** #%-6d %5d bytes %-50s\n", i, size, typeName);
@@ -431,7 +431,7 @@ namespace MemTrack
     {
         char const *typeName;
         int blockCount;
-        size_t totalSize;
+        std::size_t totalSize;
 
         static bool TotalSizeGreaterThan(const MemDigest &md1, const MemDigest &md2)
         {
@@ -445,18 +445,18 @@ namespace MemTrack
     static void SummarizeMemoryUsageForType(
         MemDigest *pMemDigest,
         BlockHeader **ppBlockHeader,
-        size_t startPost,
-        size_t endPost
+        std::size_t startPost,
+        std::size_t endPost
     )
     {
         pMemDigest->typeName = ppBlockHeader[startPost]->GetTypeName();
         pMemDigest->blockCount = 0;
         pMemDigest->totalSize = 0;
-        for (size_t i = startPost; i < endPost; i++)
+        for (std::size_t i = startPost; i < endPost; i++)
         {
             pMemDigest->blockCount++;
             pMemDigest->totalSize += ppBlockHeader[i]->GetRequestedSize();
-            assert(strcmp(ppBlockHeader[i]->GetTypeName(), pMemDigest->typeName) == 0);
+            assert(std::strcmp(ppBlockHeader[i]->GetTypeName(), pMemDigest->typeName) == 0);
         }
     }
 
@@ -465,7 +465,7 @@ namespace MemTrack
     void TrackListMemoryUsage()
     {
         // If there are no allocated blocks, then return now.
-        size_t numBlocks = BlockHeader::CountBlocks();
+        std::size_t numBlocks = BlockHeader::CountBlocks();
         if (numBlocks == 0) return;
 
         // Get an array of pointers to all extant blocks.
@@ -481,26 +481,26 @@ namespace MemTrack
         );
 
         // Find out how many unique types we have.
-        size_t numUniqueTypes = 1;
-        for (size_t i = 1; i < numBlocks; i++)
+        std::size_t numUniqueTypes = 1;
+        for (std::size_t i = 1; i < numBlocks; i++)
         {
             char const *prevTypeName = ppBlockHeader[i - 1]->GetTypeName();
             char const *currTypeName = ppBlockHeader[i]->GetTypeName();
-            if (strcmp(prevTypeName, currTypeName) != 0) numUniqueTypes++;
+            if (std::strcmp(prevTypeName, currTypeName) != 0) numUniqueTypes++;
         }
 
         // Create an array of "digests" summarizing memory usage by type.
-        size_t startPost = 0;
-        size_t uniqueTypeIndex = 0;
+        std::size_t startPost = 0;
+        std::size_t uniqueTypeIndex = 0;
         MemDigest *pMemDigestArray =
             (MemDigest *)calloc(numUniqueTypes, sizeof(*pMemDigestArray));
-        for (size_t i = 1; i <= numBlocks; i++)    // yes, less than or *equal* to
+        for (std::size_t i = 1; i <= numBlocks; i++)    // yes, less than or *equal* to
         {
             char const *prevTypeName = ppBlockHeader[i - 1]->GetTypeName();
             char const *currTypeName = (i < numBlocks) ? ppBlockHeader[i]->GetTypeName() : "";
-            if (strcmp(prevTypeName, currTypeName) != 0)
+            if (std::strcmp(prevTypeName, currTypeName) != 0)
             {
-                size_t endPost = i;
+                std::size_t endPost = i;
                 SummarizeMemoryUsageForType(
                     pMemDigestArray + uniqueTypeIndex,
                     ppBlockHeader,
@@ -521,9 +521,9 @@ namespace MemTrack
         );
 
         // Compute the grand total memory usage.
-        size_t grandTotalNumBlocks = 0;
-        size_t grandTotalSize = 0;
-        for (size_t i = 0; i < numUniqueTypes; i++)
+        std::size_t grandTotalNumBlocks = 0;
+        std::size_t grandTotalSize = 0;
+        for (std::size_t i = 0; i < numUniqueTypes; i++)
         {
             grandTotalNumBlocks += pMemDigestArray[i].blockCount;
             grandTotalSize += pMemDigestArray[i].totalSize;
@@ -538,12 +538,12 @@ namespace MemTrack
         printf("%-50s%5s  %5s %7s %s \n", "allocated type", "blocks", "", "bytes", "");
         printf("%-50s%5s  %5s %7s %s \n", "--------------", "------", "", "-----", "");
 
-        for (size_t i = 0; i < numUniqueTypes; i++)
+        for (std::size_t i = 0; i < numUniqueTypes; i++)
         {
             MemDigest *pMD = pMemDigestArray + i;
-            size_t blockCount = pMD->blockCount;
+            std::size_t blockCount = pMD->blockCount;
             double blockCountPct = 100.0 * blockCount / grandTotalNumBlocks;
-            size_t totalSize = pMD->totalSize;
+            std::size_t totalSize = pMD->totalSize;
             double totalSizePct = 100.0 * totalSize / grandTotalSize;
 
             printf(

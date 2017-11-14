@@ -63,7 +63,7 @@ namespace MemTrack
 
     /* ---------------------------------------- memory allocation and stamping prototypes */
 
-    MEMTRACK_API void *TrackMalloc(size_t size);
+    MEMTRACK_API void *TrackMalloc(std::size_t size);
     MEMTRACK_API void TrackFree(void *p);
     MEMTRACK_API void TrackStamp(void *p, const MemStamp &stamp, char const *typeName);
     MEMTRACK_API void TrackDumpBlocks();
