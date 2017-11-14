@@ -23,10 +23,13 @@ namespace Animation {
             /// Animaiton action node.
             struct AnimationAction : public Node {
                 char animationClipName[512];
+                bool isPlaybackModifierStatic = true;
                 float playbackModifier = 1.0f;
+                int32_t playbackModifierFloatIndex = -1;
                 bool repeat = true;
                 Animation::AnimationClip* animationClip = nullptr;
 
+                /// Destructor.
                 virtual ~AnimationAction() {
                     if (animationClip != nullptr)
                         Managers().resourceManager->FreeAnimationClip(animationClip);
@@ -62,7 +65,10 @@ namespace Animation {
 
             /// Animation transition node.
             struct AnimationTransition : public Node {
-                float transitionTime;
+                bool isStatic = true;
+                int32_t transitionBoolIndex = -1;
+                float transitionTime = 1.0f;
+                float transitionProcess = 0.0f;
 
                 /// Save the animation transition node.
                 /**
@@ -81,6 +87,18 @@ namespace Animation {
                     Node::Load(file);
                     file->read(reinterpret_cast<char*>(&transitionTime), sizeof(float));
                 }
+            };
+
+            /// Used to map bools.
+            struct BoolItem {
+                char name[128] = "NewBool\0";
+                bool value = true;
+            };
+
+            /// Used to map floats.
+            struct FloatItem {
+                char name[128] = "NewFloat\0";
+                float value = 1.f;
             };
 
             /// Default constructor. 
@@ -104,6 +122,12 @@ namespace Animation {
             /// Vector with the animation nodes.
             std::vector<Node*> animationNodes;
 
+            /// Used to map bools for animation system.
+            std::vector<BoolItem*> boolMap;
+
+            /// Used to map floats for animation system.
+            std::vector<FloatItem*> floatMap;
+
             /// Skeleton.
             Skeleton* skeleton;
 
@@ -118,7 +142,6 @@ namespace Animation {
                 ACTION = 0,
                 TRANSITION = 1
             };
-
 
             void Clear();
     };
