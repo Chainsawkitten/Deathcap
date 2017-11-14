@@ -8,7 +8,7 @@
 
 using namespace Video;
 
-TexturePNG::TexturePNG(const char *source, int sourceLength) {
+TexturePNG::TexturePNG(const char* source, int sourceLength) {
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
     

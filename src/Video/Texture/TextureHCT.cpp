@@ -1,28 +1,56 @@
 #include "TextureHCT.hpp"
 
-#include <stb_image.h>
+#include <fstream>
 #include <Utility/Log.hpp>
 
 using namespace Video;
 
 TextureHCT::TextureHCT(const char* filename) {
-    glGenTextures(1, &texID);
-    glBindTexture(GL_TEXTURE_2D, texID);
-    
-    // Load texture from file.
-    int components, width, height;
-    unsigned char* data = stbi_load(filename, &width, &height, &components, 0);
-    
-    if (data == NULL) {
-        Log() << "Couldn't load image " << filename << "\n";
-        loaded = false;
+    // Open file for reading.
+    std::ifstream file(filename, std::ios::in | std::ios::binary);
+    if (!file) {
+        Log(Log::ERR) << "Couldn't open texture: " << filename << ".\n" <<
+                         "Try reimporting the texture.\n";
         return;
     }
     
-    // Give the image to OpenGL.
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, Format(components), GL_UNSIGNED_BYTE, data);
+    // Check that version number is correct.
+    uint16_t version;
+    file >> version;
+    if (version != VERSION) {
+        Log(Log::ERR) << filename << " has the wrong version number.\n" <<
+                         "Try reimporting the texture.\n";
+        file.close();
+        return;
+    }
     
-    stbi_image_free(data);
+    // Read other header information.
+    uint16_t width, height, mipLevels;
+    file >> width;
+    file >> height;
+    file >> mipLevels;
+    
+    // Read texture data.
+    uint32_t size = width * height * 3;
+    unsigned char* data = new unsigned char[size];
+    if (!file.read(reinterpret_cast<char*>(data), size)) {
+        Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";
+        file.close();
+        delete[] data;
+        return;
+    }
+    
+    // Close file when finished reading.
+    file.close();
+    
+    // Create image on GPU.
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+    
+    // Give the image to OpenGL.
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    
+    delete[] data;
     
     // When MAGnifying the image (no bigger mipmap available), use LINEAR filtering.
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -41,7 +69,8 @@ TextureHCT::TextureHCT(const char* filename) {
 }
 
 TextureHCT::~TextureHCT() {
-    
+    if (texID != 0)
+        glDeleteTextures(1, &texID);
 }
 
 GLuint TextureHCT::GetTextureID() const {

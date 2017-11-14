@@ -35,7 +35,7 @@ void TextureAsset::Load(const std::string& name) {
         delete texture;
     
     // Load texture from disk.
-    texture = new TextureHCT((filename + ".png").c_str());
+    texture = new TextureHCT((filename + ".hct").c_str());
 }
 
 Texture2D* TextureAsset::GetTexture() const {
