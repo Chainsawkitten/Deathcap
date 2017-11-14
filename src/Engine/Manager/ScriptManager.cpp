@@ -554,7 +554,7 @@ void ScriptManager::GetBreakpoints(const ScriptFile* scriptFile) {
     while (std::getline(f, line)) {
         if (line.length() >= 7) {
 
-            std::string end = line.substr(line.length() - 8, 7);
+            std::string end = line.substr(line.length() - 7, 7);
             if (end == "//break" || end == "//Break" || end == "//BREAK") {
 
                 breakpoints[scriptFile->name + ".as"].insert(lineNumber);

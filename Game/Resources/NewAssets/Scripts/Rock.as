@@ -8,7 +8,7 @@ class Rock {
         @hub = Managers();
         @self = @entity;
         @originalParent = self.GetParent();
-        @bridgeParent = GetEntity(1510240835);
+        @bridgeParent = GetEntityByGUID(1510240835);
 
         // Remove this if updates are not desired.
         RegisterUpdate();

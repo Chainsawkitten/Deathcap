@@ -739,6 +739,95 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510320509
+		},
+		{
+			"children" : 
+			[
+				{
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : 1.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"planeCoeff" : 0.0
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntity" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 1,
+						"triggerEventStruct_ShapeID" : 2,
+						"triggerEventStruct_TargetID" : 0,
+						"triggerFunction" : "void OnTrigger()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1510581348,
+						"triggerTargetEntity" : 1508919384,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "BreakTrigger",
+					"position" : 
+					{
+						"x" : 14.300000190734863,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510581348
+				}
+			],
+			"name" : "Triggers",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510581247
 		}
 	],
 	"name" : "Root",

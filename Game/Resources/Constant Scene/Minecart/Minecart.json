@@ -303,7 +303,7 @@
 						"angularDamping" : 0.0,
 						"cor" : 0.0,
 						"friction" : 0.5,
-						"kinematic" : false,
+						"kinematic" : true,
 						"linearDamping" : 0.0,
 						"mass" : 1.0,
 						"rollingFriction" : 0.0,
