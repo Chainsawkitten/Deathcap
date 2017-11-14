@@ -94,8 +94,6 @@ target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIB
 
 if(UseMemTrack)
     target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY} memtrack memtracknew)
-else()
-    target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY})
 endif()
 
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
