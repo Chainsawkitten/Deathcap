@@ -1,6 +1,6 @@
 #include "SoundEditor.hpp"
 
-#include <Engine/Audio/SoundBuffer.hpp>
+#include <Engine/Audio/SoundFile.hpp>
 #include <Engine/Audio/VorbisFile.hpp>
 #include "../FileSelector.hpp"
 #include <functional>
@@ -36,11 +36,11 @@ void SoundEditor::Show() {
         fileSelector.Show();
 }
 
-const Audio::SoundBuffer* SoundEditor::GetSound() const {
+const Audio::SoundFile* SoundEditor::GetSound() const {
     return sound;
 }
 
-void SoundEditor::SetSound(Audio::SoundBuffer* sound) {
+void SoundEditor::SetSound(Audio::SoundFile* sound) {
     this->sound = sound;
     
     strcpy(name, sound->name.c_str());
@@ -57,7 +57,4 @@ void SoundEditor::SetVisible(bool visible) {
 void SoundEditor::FileSelected(const std::string& file) {
     std::string destination = Hymn().GetPath() + "/" + sound->path + sound->name + ".ogg";
     FileSystem::Copy(file.c_str(), destination.c_str());
-    Audio::SoundFile* soundFile = new Audio::VorbisFile(file.c_str());
-    sound->Load(soundFile);
-    delete soundFile;
 }

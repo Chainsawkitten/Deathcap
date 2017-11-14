@@ -1,50 +1,48 @@
 #include "SoundBuffer.hpp"
 
+#include <algorithm>
 #include "../Manager/SoundManager.hpp"
 #include "SoundFile.hpp"
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
 #include "VorbisFile.hpp"
+#include <Utility/Log.hpp>
 
 using namespace Audio;
 
-SoundBuffer::SoundBuffer() {
-    
+Audio::SoundBuffer::SoundBuffer() {
+
 }
 
 SoundBuffer::SoundBuffer(SoundFile* soundFile) {
-    Load(soundFile);
+    SetSoundFile(soundFile);
 }
 
 SoundBuffer::~SoundBuffer() {
-    free(buffer);
+    if (buffer)
+        delete buffer;
 }
 
-float* SoundBuffer::GetBuffer() const {
-    return buffer;
+void SoundBuffer::GetBuffer(float* data, uint32_t& samples) {
+    if (!buffer) {
+        Log() << "SoundBuffer::GetBuffer: No sound loaded.\n";
+        data = nullptr;
+        samples = 0;
+        return;
+    }
+
+    soundFile->GetData(currentSample, samples, buffer);
+    data = &buffer[0];
+    currentSample += samples;
 }
 
-Json::Value SoundBuffer::Save() const {
-    Json::Value sound;
-    sound["name"] = name;
-    return sound;
+SoundFile* Audio::SoundBuffer::GetSoundFile() const {
+    return soundFile;
 }
 
-void SoundBuffer::Load(const std::string& name) {
-    std::size_t pos = name.find_last_of('/');
-    this->name = name.substr(pos + 1);
-    path = name.substr(0, pos + 1);
-    SoundFile* soundFile = new VorbisFile((Hymn().GetPath() + "/" + name + ".ogg").c_str());
-    Load(soundFile);
-    delete soundFile;
-}
-
-void SoundBuffer::Load(SoundFile* soundFile) {
-    buffer = soundFile->GetData();
-    size = soundFile->GetSize();
-    sampleRate = soundFile->GetSampleRate();
-}
-
-uint32_t Audio::SoundBuffer::GetSize() {
-    return size;
+void Audio::SoundBuffer::SetSoundFile(SoundFile* soundFile) {
+    this->soundFile = soundFile;
+    const float bufferTime = 1.f;
+    bufferSampleCount = soundFile->GetSampleRate() * soundFile->GetChannelCount() * bufferTime;
+    buffer = new float[bufferSampleCount];
 }

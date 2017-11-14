@@ -2,6 +2,7 @@
 
 #include "SuperComponent.hpp"
 #include <cstdint>
+#include "../Audio/SoundBuffer.hpp"
 #include "../linking.hpp"
 
 class SoundManager;
@@ -37,7 +38,7 @@ namespace Component {
             ENGINE_API void Stop();
             
             /// Sound buffer.
-            Audio::SoundBuffer* soundBuffer = nullptr;
+            Audio::SoundBuffer soundBuffer;
             
             /// Volume.
             float volume = 1.f;
@@ -52,7 +53,5 @@ namespace Component {
             bool shouldPlay = false;
             bool shouldPause = false;
             bool shouldStop = false;
-            
-            bool soundBufferSet = false;
     };
 }

@@ -5,7 +5,7 @@
 #include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
-#include <Engine/Audio/SoundBuffer.hpp>
+#include <Engine/Audio/VorbisFile.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Util/FileSystem.hpp>
@@ -318,7 +318,7 @@ bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         else if (ImGui::Selectable("Add sound")) {
             ResourceList::Resource resource;
             resource.type = ResourceList::Resource::SOUND;
-            resource.sound = new Audio::SoundBuffer();
+            resource.sound = new Audio::VorbisFile();
             resource.sound->path = path + "/";
             resource.sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
             folder.resources.push_back(resource);

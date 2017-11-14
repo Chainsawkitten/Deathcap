@@ -95,32 +95,31 @@ void SoundManager::Update(float deltaTime) {
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
         // Check if sound should play and is a valid resource.
-        if (sound->shouldPlay && sound->soundBuffer && sound->soundBuffer->GetBuffer()) {
+        if (sound->shouldPlay && sound->soundBuffer.GetSoundFile()) {
+            //float* soundBuf = new float[numSamples];
+            //if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
+            //    std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
+            //    sound->place += numSamples;
+            //}
+            //else {
+            //    // Only copy the end samples of the buffer
+            //    uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place) / sizeof(float);
+            //    std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
+            //    if (sound->loop) {
+            //        std::memcpy(soundBuf + numToCpy * sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
+            //        sound->place = numSamples - numToCpy;
+            //    }
+            //    else {
+            //        std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
+            //        sound->shouldPlay = false;
+            //    }
+            //}
 
-            float* soundBuf = new float[numSamples];
-            if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
-                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
-                sound->place += numSamples;
-            }
-            else {
-                // Only copy the end samples of the buffer
-                uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place) / sizeof(float);
-                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
-                if (sound->loop) {
-                    std::memcpy(soundBuf + numToCpy * sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
-                    sound->place = numSamples - numToCpy;
-                }
-                else {
-                    std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
-                    sound->shouldPlay = false;
-                }
-            }
-
-            for (int i = 0; i < numSamples; i++) {
-                soundBuf[i] *= sound->volume;
-            }
-            IPLVector3 soundPos = IPLVector3{ sound->entity->GetWorldPosition().x, sound->entity->GetWorldPosition().y, sound->entity->GetWorldPosition().z };
-            sAudio.Process(soundBuf, numSamples, soundPos, 5);
+            //for (int i = 0; i < numSamples; i++) {
+            //    soundBuf[i] *= sound->volume;
+            //}
+            //IPLVector3 soundPos = IPLVector3{ sound->entity->GetWorldPosition().x, sound->entity->GetWorldPosition().y, sound->entity->GetWorldPosition().z };
+            //sAudio.Process(soundBuf, numSamples, soundPos, 5);
         }
 
         // Pause it.
@@ -158,7 +157,7 @@ Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node)
     // Load values from Json node.
     std::string name = node.get("sound", "").asString();
     if (!name.empty())
-        soundSource->soundBuffer = Managers().resourceManager->CreateSound(name);
+        soundSource->soundBuffer.SetSoundFile(Managers().resourceManager->CreateSound(name));
 
     soundSource->volume = node.get("volume", 1.f).asFloat();
     soundSource->loop = node.get("loop", false).asBool();
