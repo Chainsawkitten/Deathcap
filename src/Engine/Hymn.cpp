@@ -150,6 +150,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
     
     // Load scripts.
+    scripts.clear();
     const Json::Value scriptNode = root["scripts"];
     for (unsigned int i = 0; i < scriptNode.size(); ++i) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
