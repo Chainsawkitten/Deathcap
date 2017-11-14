@@ -2,13 +2,6 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 
-#ifdef USINGMEMTRACK
-#include <MemTrackInclude.hpp>
-#endif
-
-bool AssetMetaData::GenerateMetaData(const char * filepath, MeshImportData * meshImportData) {
-    // Open file for writing.
-
 bool AssetMetaData::SaveMetaData(const char* filepath, MeshMetaData* metaData) {
     Json::Value node;
     ToJson(metaData, node);
@@ -41,7 +34,6 @@ void AssetMetaData::FromJson(const Json::Value& node, MeshMetaData* metaData) {
 
 bool AssetMetaData::Save(const char* filepath, Json::Value& node) {
     // Save to file.
->>>>>>> 34b1f061be4a1f3fb44319896f14cdd38e6223db
     std::ofstream file(filepath);
 
     // Return if file is not open.
