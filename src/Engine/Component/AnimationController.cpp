@@ -78,7 +78,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         glm::mat4 matrixRot = glm::mat4(finalRot);
         matrixRot[3][3] = 1.0f;
 
-        skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
+        skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * matrixRot;     //skeleton->skeletonBones[i]->localTx:
         bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
 }
