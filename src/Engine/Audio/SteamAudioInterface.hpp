@@ -4,7 +4,6 @@
 #include <vector>
 #include <cstdint>
 #include "SteamAudio.hpp"
-#include "../linking.hpp"
 
 /// Interface to set up and send data to/from Steam Audio from the rest of the engine.
 class SteamAudioInterface {

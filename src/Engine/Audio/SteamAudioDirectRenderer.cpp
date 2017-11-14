@@ -3,7 +3,8 @@
 SteamAudioDirectRenderer::SteamAudioDirectRenderer() {
     context = nullptr;
     environment = nullptr;
-
+    directEffect = nullptr;
+    envRenderer = nullptr;
 }
 
 SteamAudioDirectRenderer::SteamAudioDirectRenderer(IPLContext* context, IPLhandle* environment) {
@@ -33,8 +34,10 @@ SteamAudioDirectRenderer::SteamAudioDirectRenderer(IPLContext* context, IPLhandl
 }
 
 SteamAudioDirectRenderer::~SteamAudioDirectRenderer() {
-    iplDestroyDirectSoundEffect(directEffect);
-    iplDestroyEnvironmentalRenderer(envRenderer);
+    if (directEffect != nullptr)
+        iplDestroyDirectSoundEffect(directEffect);
+    if (envRenderer != nullptr)
+        iplDestroyEnvironmentalRenderer(envRenderer);
 }
 
 IPLAudioBuffer SteamAudioDirectRenderer::Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius)

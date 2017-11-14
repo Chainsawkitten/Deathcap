@@ -279,7 +279,7 @@ void SoundManager::CreateAudioEnvironment() {
         sAudio.FinalizeScene(NULL);
 
         // Save scene
-        SteamAudioInterface::SaveData saveData = sAudio.SaveFinalizedScene();
+        //SteamAudioInterface::SaveData saveData = sAudio.SaveFinalizedScene();
     }
     //else {
 

@@ -3,12 +3,14 @@
 
 SteamAudioInterface::SteamAudioInterface() {
     simSettings.sceneType = IPL_SCENETYPE_PHONON;
-    simSettings.numRays = 64000;
+    simSettings.numRays = 1024;
     simSettings.numDiffuseSamples = 32;
     simSettings.numBounces = 2;
     simSettings.irDuration = 1.0;
     simSettings.ambisonicsOrder = 0;
-    simSettings.maxConvolutionSources = 0;
+    simSettings.maxConvolutionSources = 1;
+    context = IPLContext{ nullptr, nullptr, nullptr };
+    scene = new IPLhandle;
 }
 
 SteamAudioInterface::~SteamAudioInterface() {
@@ -20,11 +22,11 @@ void SteamAudioInterface::SetContext(IPLLogFunction logCallback, IPLAllocateFunc
 }
 
 void SteamAudioInterface::CreateScene(uint32_t numMaterials) {
-    iplCreateScene(context, NULL, simSettings, numMaterials, scene);
+    IPLerror err = iplCreateScene(context, NULL, simSettings, numMaterials, scene);
 }
 
 void SteamAudioInterface::FinalizeScene(IPLFinalizeSceneProgressCallback progressCallback) {
-    iplFinalizeScene(scene, progressCallback);
+    iplFinalizeScene(scene, NULL);
 }
 
 SteamAudioInterface::SaveData SteamAudioInterface::SaveFinalizedScene() {
