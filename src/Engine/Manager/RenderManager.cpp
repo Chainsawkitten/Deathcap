@@ -135,12 +135,6 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     }
                 }
 
-                { PROFILE("Render particles");
-                { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-
-                }
-                }
-
                 if (soundSources || particleEmitters || lightSources || cameras || physics) {
                     { PROFILE("Render editor entities");
                     { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
