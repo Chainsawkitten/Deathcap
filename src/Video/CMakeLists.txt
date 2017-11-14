@@ -93,7 +93,7 @@ add_library(Video SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY})
 
 if(UseMemTrack)
-    target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY} memtrack memtracknew)
+    target_link_libraries(memtrack memtracknew)
 endif()
 
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
