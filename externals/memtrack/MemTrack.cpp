@@ -35,9 +35,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <assert.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <algorithm>
-#include <new>
+#include <cstring>
 
 #include "MemTrack.hpp"
 #undef new    // IMPORTANT!
