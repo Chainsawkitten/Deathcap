@@ -386,9 +386,11 @@ ScriptManager::ScriptManager() {
     // Register components.
     engine->SetDefaultNamespace("Component");
     
-//   engine->RegisterObjectType("AnimationController", 0, asOBJ_REF | asOBJ_NOCOUNT);
-//   engine->RegisterObjectMethod("AnimationController", "void SetBool(string name, bool value)", asMETHOD(AnimationController, SetBool), asCALL_THISCALL);
-//   engine->RegisterObjectMethod("AnimationController", "void SetFloat(string name, float value)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
+    engine->RegisterObjectType("AnimationController", 0, asOBJ_REF | asOBJ_NOCOUNT);
+    engine->RegisterObjectMethod("AnimationController", "void SetBool(string name, bool value)", asMETHOD(AnimationController, SetBool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "void SetFloat(string name, float value)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "bool GetBool(string name)", asMETHOD(AnimationController, GetBool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "float GetFloat(string name)", asMETHOD(AnimationController, GetFloat), asCALL_THISCALL);
 
     engine->RegisterObjectType("DirectionalLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("DirectionalLight", "vec3 color", asOFFSET(DirectionalLight, color));
@@ -425,6 +427,7 @@ ScriptManager::ScriptManager() {
     engine->SetDefaultNamespace("");
     
     // Register getting components.
+    engine->RegisterObjectMethod("Entity", "Component::AnimationController@ GetAnimationController()", asMETHODPR(Entity, GetComponent, () const, AnimationController*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::DirectionalLight@ GetDirectionalLight()", asMETHODPR(Entity, GetComponent, () const, DirectionalLight*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::Lens@ GetLens()", asMETHODPR(Entity, GetComponent, () const, Lens*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::Listener@ GetListener()", asMETHODPR(Entity, GetComponent, () const, Listener*), asCALL_THISCALL);
@@ -647,11 +650,8 @@ void ScriptManager::FillPropertyMap(Script* script) {
                 script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
 
             }
-
         }
-
     }
-
 }
 
 void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
@@ -659,13 +659,17 @@ void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
     scriptFile->functionList.clear();
 
     asITypeInfo* scriptClass = GetClass(scriptFile->name, scriptFile->name);
-    int functionCount = scriptClass->GetMethodCount();
-    for (int n = 0; n < functionCount; n++) {
+    if (scriptClass != nullptr) {
 
-        asIScriptFunction* func = scriptClass->GetMethodByIndex(n);
-        std::string decl = func->GetDeclaration(false);
+        int functionCount = scriptClass->GetMethodCount();
+        for (int n = 0; n < functionCount; n++) {
 
-        scriptFile->functionList.push_back(decl);
+            asIScriptFunction* func = scriptClass->GetMethodByIndex(n);
+            std::string decl = func->GetDeclaration(false);
+
+            scriptFile->functionList.push_back(decl);
+
+        }
 
     }
 
