@@ -163,10 +163,9 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
 if(UseMemTrack)
-    target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet memtrack memtracknew)
-else()
-    target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
+    target_link_libraries(memtrack memtracknew)
 endif()
 
 # Measure VRAM dependencies.
