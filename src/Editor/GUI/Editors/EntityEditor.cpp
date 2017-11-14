@@ -17,6 +17,7 @@
 #include <Engine/Component/ParticleEmitter.hpp>
 #include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Component/VRDevice.hpp>
+#include <Engine/Component/Trigger.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
@@ -45,6 +46,7 @@
 #include "PlaneShapeEditor.hpp"
 #include "RigidBodyEditor.hpp"
 #include "SphereShapeEditor.hpp"
+#include "TriggerEditor.hpp"
 
 using namespace GUI;
 
@@ -66,6 +68,7 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
     AddEditor<Component::VRDevice>("VR device", std::bind(&EntityEditor::VRDeviceEditor, this, std::placeholders::_1));
+    AddEditor<Component::Trigger>("Trigger", std::bind(&EntityEditor::TriggerEditor, this, std::placeholders::_1));
 
     shapeEditors.push_back(new SphereShapeEditor());
     shapeEditors.push_back(new PlaneShapeEditor());
@@ -76,6 +79,7 @@ EntityEditor::EntityEditor() {
     selectedShape = 0;
 
     rigidBodyEditor.reset(new GUI::RigidBodyEditor);
+    triggerEditor.reset(new GUI::TriggerEditor);
 }
 
 EntityEditor::~EntityEditor() {
@@ -268,8 +272,30 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
 
             mesh->geometry = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
-
         ImGui::EndPopup();
+    }
+    // Paint Mode. Load vertices and indices.
+    if (entity->GetComponent<Component::Mesh>()->geometry != nullptr) {
+        if (entity->loadPaintModeClicked == false) {
+            if (ImGui::Button("Load paint mode.")) {
+                entity->loadPaintModeClicked = true;
+                entity->vertsLoaded = true;
+            }
+        }
+        if (entity->loadPaintModeClicked) {
+            if (entity->brushActive == false) {
+                if (ImGui::Button("Activate paint brush")) {
+                    entity->brushActive = true;
+                }
+            }
+            if (entity->brushActive == true) {
+                if (ImGui::Button("Exit paint brush")) {
+                    entity->brushActive = false;
+                    entity->loadPaintModeClicked = false;
+                    entity->sceneChosen = false;
+                }
+            }
+        }
     }
     ImGui::Unindent();
 }
@@ -423,17 +449,16 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         ImGui::Text(script->scriptFile->name.c_str());
         ImGui::Separator();
 
-        if (ImGui::Button("Fetch properties")) {
+        if (ImGui::Button("Fetch properties"))
             Managers().scriptManager->FillPropertyMap(script);
-        }
 
         if (script->instance != nullptr) {
             int propertyCount = script->instance->GetPropertyCount();
 
             for (int n = 0; n < propertyCount; n++) {
-
                 std::string propertyName = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
+
                 if (typeId == asTYPEID_INT32)
                     ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 else if (typeId == asTYPEID_FLOAT)
@@ -483,7 +508,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 Managers().scriptManager->FillPropertyMap(script);
             }
         }
-
     } else
         ImGui::Text("No script loaded");
 
@@ -492,11 +516,11 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
 void EntityEditor::ShapeEditor(Component::Shape* shape) {
     if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
-            IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
-            *outText = editor->Label();
-            return true;
-        },
-            shapeEditors.data(), shapeEditors.size())) {
+        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
+        *outText = editor->Label();
+        return true;
+    },
+        shapeEditors.data(), shapeEditors.size())) {
         shapeEditors[selectedShape]->Apply(shape);
     }
 
@@ -586,4 +610,14 @@ void EntityEditor::VRDeviceEditor(Component::VRDevice* vrDevice) {
         ImGui::InputInt("Controller ID (1 = left, 2 = right)", &vrDevice->controllerID);
         ImGui::Unindent();
     }
+}
+
+void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
+    ImGui::Indent();
+
+    if (ImGui::Button("Edit"))
+        triggerEditor->Open();
+
+    triggerEditor->Show(*trigger);
+    ImGui::Unindent();
 }

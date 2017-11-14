@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 81,
+	"modelNumber" : 78,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -244,6 +244,10 @@
 									},
 									{
 										"script" : "Camera",
+										"type" : 4
+									},
+									{
+										"script" : "Controller",
 										"type" : 4
 									}
 								],
@@ -504,23 +508,24 @@
 						"subfolders" : 
 						[
 							{
-								"name" : "Rocks",
+
+								"name" : "Rock",
 								"resources" : 
 								[
 									{
-										"texture" : "Rock_Albedo",
+										"texture" : "rock_albedo",
 										"type" : 2
 									},
 									{
-										"texture" : "Rock_Normal",
+										"texture" : "rock_normal",
 										"type" : 2
 									},
 									{
-										"texture" : "Rock_Metallic",
+										"texture" : "rock_metallic",
 										"type" : 2
 									},
 									{
-										"texture" : "Rock_Roughness",
+										"texture" : "rock_roughness",
 										"type" : 2
 									}
 								],
@@ -573,8 +578,23 @@
 								"type" : 1
 							},
 							{
-								"model" : "PileOfRocks",
+								"model" : "rockscaled",
 								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "Rock",
+								"type" : 4
+							},
+							{
+								"script" : "Bridge",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

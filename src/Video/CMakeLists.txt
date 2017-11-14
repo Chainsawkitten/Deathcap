@@ -16,6 +16,7 @@ set(SRCS
         PostProcessing/FXAAFilter.cpp
         PostProcessing/PostProcessing.cpp
         Profiling/Query.cpp
+        RenderProgram/RenderProgram.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
@@ -23,6 +24,7 @@ set(SRCS
         ShadowPass.cpp
         Texture/Texture.cpp
         Texture/Texture2D.cpp
+        VideoErrorCheck.cpp
     )
 
 set(HEADERS
@@ -31,7 +33,6 @@ set(HEADERS
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
-        ErrorVideoDebug.hpp
         ParticleRenderer.hpp
         Renderer.hpp
         RenderSurface.hpp
@@ -47,6 +48,7 @@ set(HEADERS
         PostProcessing/FXAAFilter.hpp
         PostProcessing/PostProcessing.hpp
         Profiling/Query.hpp
+        RenderProgram/RenderProgram.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
@@ -54,6 +56,7 @@ set(HEADERS
         ShadowPass.hpp
         Texture/Texture.hpp
         Texture/Texture2D.hpp
+        VideoErrorCheck.hpp
     )
 
 # Setup embedded source
@@ -70,10 +73,12 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostFXAA.frag
-    ../../shaders/Shadow.vert
+    ../../shaders/ShadowSkin.vert
+    ../../shaders/ShadowStatic.vert
     ../../shaders/Skinning.vert
-    ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag
+    ../../shaders/ZrejectionSkin.vert
+    ../../shaders/ZrejectionStatic.vert
 )
 
 foreach(item ${EMBEDDED_INPUT})

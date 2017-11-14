@@ -262,43 +262,6 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
-				"metallic" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_metallic",
-				"normal" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_normal",
-				"roughness" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/NewAssets/Models/BridgeFbx"
-			},
-			"children" : null,
-			"name" : "Bridge",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510064266
-		},
-		{
-			"Material" : 
-			{
 				"albedo" : "",
 				"metallic" : "",
 				"normal" : "",
@@ -337,7 +300,7 @@
 			"name" : "Cart",
 			"position" : 
 			{
-				"x" : 33.430999755859375,
+				"x" : 32.950000762939453,
 				"y" : -0.98600006103515625,
 				"z" : 0.29500001668930054
 			},
@@ -399,22 +362,45 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/NewAssets/Textures/Rocks/Rock_Albedo",
-				"metallic" : "Resources/NewAssets/Textures/Rocks/Rock_Metallic",
-				"normal" : "Resources/NewAssets/Textures/Rocks/Rock_Normal",
-				"roughness" : "Resources/NewAssets/Textures/Rocks/Rock_Roughness"
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/NewAssets/Models/PileOfRocks"
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"RigidBody" : 
+			{
+				"angularDamping" : 0.0,
+				"cor" : 0.0,
+				"friction" : 0.0,
+				"kinematic" : false,
+				"linearDamping" : 0.0,
+				"mass" : 1.0,
+				"rollingFriction" : 0.0,
+				"spinningFriction" : 0.0
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/NewAssets/Scripts/Rock"
+			},
+			"Shape" : 
+			{
+				"cone" : 
+				{
+					"height" : 0.10000000149011612,
+					"radius" : 0.10000000149011612
+				}
 			},
 			"children" : null,
-			"name" : "Rocks",
+			"name" : "Rock",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : 4.5240001678466797,
+				"y" : -0.99400001764297485,
+				"z" : -1.0700000524520874
 			},
 			"rotation" : 
 			{
@@ -431,7 +417,76 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1510314027
+			"uid" : 1510240479
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/NewAssets/Scripts/Bridge"
+			},
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
+						"metallic" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_metallic",
+						"normal" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_normal",
+						"roughness" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/BridgeFbx"
+					},
+					"children" : null,
+					"name" : "Bridge",
+					"position" : 
+					{
+						"x" : -3.5740001201629639,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510064266
+				}
+			],
+			"name" : "BridgeParent",
+			"position" : 
+			{
+				"x" : 3.7530002593994141,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.92387950420379639,
+				"x" : 0.0,
+				"y" : -0.0,
+				"z" : -0.38268345594406128
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510240835
 		}
 	],
 	"name" : "Root",

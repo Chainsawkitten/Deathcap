@@ -1,8 +1,7 @@
 #include "Model.hpp"
 
-#include <glm/gtc/quaternion.hpp>
+#include <cstring>
 #include "../Hymn.hpp"
-#include "../Util/FileSystem.hpp"
 #include <Utility/Log.hpp>
 
 using namespace Geometry;
@@ -35,14 +34,29 @@ void Model::Load(const char* filename) {
         AssetFileHandler::MeshData * meshData = assetFile.GetStaticMeshData();
         type = meshData->isSkinned ? SKIN : STATIC;
 
-        if (meshData->isSkinned) {
-            GenerateVertexBuffer(vertexBuffer, meshData->skinnedVertices, meshData->numVertices);
-            GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
-            GenerateSkinVertexArray(vertexBuffer, indexBuffer, vertexArray);
-        } else {
-            GenerateVertexBuffer(vertexBuffer, meshData->staticVertices, meshData->numVertices);
-            GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
-            GenerateStaticVertexArray(vertexBuffer, indexBuffer, vertexArray);
+        if (meshData->CPU) {
+            vertexPositionData.resize(meshData->numVertices);
+            if (meshData->isSkinned)
+                for (std::size_t i = 0; i < meshData->numVertices; ++i)
+                    vertexPositionData[i] = meshData->skinnedVertices[i].position;
+            else
+                for (std::size_t i = 0; i < meshData->numVertices; ++i)
+                    vertexPositionData[i] = meshData->staticVertices[i].position;
+
+            vertexIndexData.resize(meshData->numIndices);
+            std::memcpy(vertexIndexData.data(), meshData->indices, sizeof(uint32_t) * meshData->numIndices);
+        }
+
+        if (meshData->GPU) {
+            if (meshData->isSkinned) {
+                GenerateVertexBuffer(vertexBuffer, meshData->skinnedVertices, meshData->numVertices);
+                GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
+                GenerateSkinVertexArray(vertexBuffer, indexBuffer, vertexArray);
+            } else {
+                GenerateVertexBuffer(vertexBuffer, meshData->staticVertices, meshData->numVertices);
+                GenerateIndexBuffer(meshData->indices, meshData->numIndices, indexBuffer);
+                GenerateStaticVertexArray(vertexBuffer, indexBuffer, vertexArray);
+            }
         }
 
         CreateAxisAlignedBoundingBox(meshData->aabbDim, meshData->aabbOrigin, meshData->aabbMinpos, meshData->aabbMaxpos);
