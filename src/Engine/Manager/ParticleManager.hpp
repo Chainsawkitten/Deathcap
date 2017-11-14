@@ -58,9 +58,10 @@ class ParticleManager {
          * @param renderSurface %RenderSurface to render particles to.
          */
 
+        /// Renders particlesystem.
         /**
-        * @param viewProjectionMatrix The view-projection matrix from the camera.
-        */
+         * @param viewProjectionMatrix The view-projection matrix from the camera.
+         */
         ENGINE_API void RenderParticleSystem(const glm::mat4& viewProjectionMatrix);
         
         /// Get the texture atlas.
@@ -108,7 +109,10 @@ class ParticleManager {
          */
         ENGINE_API const std::vector<Component::ParticleEmitter*>& GetParticleEmitters() const;
 
-
+        /// Get all particle emitter components.
+        /**
+         * @param component Component to remove.
+         */
         ENGINE_API void RemoveParticleRenderer(Component::ParticleSystemComponent* component);
         
         /// Remove all killed components.

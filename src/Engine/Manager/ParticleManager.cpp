@@ -45,9 +45,9 @@ void ParticleManager::Update(World& world, float time, bool preview) {
     }
 
     for (Component::ParticleSystemComponent* comp : particleSystems.GetAll()) {
-        emitterSettings[comp].worldPos = comp->entity->GetModelMatrix() * glm::vec4(comp->entity->GetWorldPosition(), 1.0);
-        particleSystemRenderers[comp]->Update(0.1f, emitterSettings[comp]);
         emitterSettings[comp] = comp->particleType;
+        emitterSettings[comp].worldPos = comp->entity->GetWorldPosition();
+        particleSystemRenderers[comp]->Update(0.1f, emitterSettings[comp]);
     }
     
     // Spawn new particles from emitters.

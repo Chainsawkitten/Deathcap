@@ -201,12 +201,6 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                         }
                     }
 
-                    { PROFILE("Render particles");
-                    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-                        
-                    }
-                    }
-
                     if (soundSources || particleEmitters || lightSources || cameras || physics) {
                         { PROFILE("Render editor entities");
                         { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
@@ -375,8 +369,11 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
     }
 
-    // Particles
-    Managers().particleManager->RenderParticleSystem(viewProjectionMatrix);
+    { PROFILE("Render particles");
+    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+        Managers().particleManager->RenderParticleSystem(viewProjectionMatrix);
+    }
+    }
 
     renderSurface->GetShadingFrameBuffer()->Unbind();
 

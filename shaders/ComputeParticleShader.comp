@@ -32,53 +32,49 @@ uniform vec3[32] randomVec;
 uniform vec3 worldPosition;
 uniform int nr_particles;
 
-void main(void)
-{
+void main(void) {
     const float DT = 0.1;
     const vec3 G = vec3(0.0, -9.8, 0.0);
-
-	uint index = gl_GlobalInvocationID.x;
-
+    
+    uint index = gl_GlobalInvocationID.x;
+    
     if (index > nr_particles)
         return;
-		
+    	
     float life = Velocities[index].w;
     float shot = Positions[index].w;
-
+    
     vec3 p = Positions[index].xyz;
     vec3 v = Velocities[index].xyz;
-	
-	vec4 color = Colors[index];
-
-    if (index >= ShootIndex.x && index <= ShootIndex.y)
-    {
+    
+    vec4 color = Colors[index];
+    
+    if (index >= ShootIndex.x && index <= ShootIndex.y) {
         shot = 1.0;
-		v = vec3(speed * (randomVec[index - int(ShootIndex.x)] + Velocity));
-		p = worldPosition;
-		color.w = 1.0;
+    	v = vec3(speed * (randomVec[index - int(ShootIndex.x)] + Velocity));
+    	p = worldPosition;
+    	color.w = 1.0;
     }
-
-    if (shot == 1.0)
-    {
-		color.w -= DT/alphaControl;
+    
+    if (shot == 1.0) {
+    	color.w -= DT/alphaControl;
         life += DT;
-		
+    	
         v += Velocity + mass * G * DT;
-
+    
         p += vec3(v) * DT;
     }
-
-    if (life > lifetime)
-    {
-		color.w = 0.0;
+    
+    if (life > lifetime) {
+    	color.w = 0.0;
         life = 0.0;
         shot = 0.0;
         p = worldPosition;
         v = vec3(speed * (randomVec[0] + Velocity));
-		color.w = 0.0f;
+    	color.w = 0.0f;
     }
-
+    
     Positions[index] = vec4(p, shot);
     Velocities[index] = vec4(v.xyz, life);
-	Colors[index] = color;
+    Colors[index] = color;
 }

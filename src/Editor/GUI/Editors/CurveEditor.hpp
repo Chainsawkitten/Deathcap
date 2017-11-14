@@ -38,23 +38,23 @@ public:
 
     /// Set visibility.
     /**
-    * @param visible setting visibility on editor.
-    */
+     * @param visible setting visibility on editor.
+     */
     void SetVisible(bool visible);
 
     /// Adds a curve.
     /**
-    * @param curve_name name of curve.
-    * @param uniqueId unique ID.
-    * @param item unique ID just set it to 0.
-    */
+     * @param curve_name name of curve.
+     * @param uniqueId unique ID.
+     * @param item unique ID just set it to 0.
+     */
     void AddMyCurve(std::string& curve_name, ImGuiID uniqueId, int item);
 
     /// Updates all curves.
     /**
-    * @param deltaTime deltatime.
-    * @param totalTime total time for the curves.
-    */
+     * @param deltaTime deltatime.
+     * @param totalTime total time for the curves.
+     */
     void UpdateCurves(float deltaTime, float totalTime);
 
     /// Render the curve editor.
