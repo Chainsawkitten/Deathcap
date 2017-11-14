@@ -13,7 +13,9 @@ create_directory_groups(${SRCS} ${HEADERS})
 # Logtesting define
 option(USELOGTESTING, "Log throws exceptions when logging to error channel." OFF)
 
-add_definitions(-DLOGTESTING)
+if(USELOGTESTING)
+    add_definitions(-DLOGTESTING)
+endif()
 
 add_library(Utility SHARED ${SRCS} ${HEADERS})
 target_link_libraries(Utility glm)
