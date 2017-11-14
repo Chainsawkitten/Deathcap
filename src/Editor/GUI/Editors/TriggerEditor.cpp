@@ -165,7 +165,7 @@ namespace GUI {
                     ImGui::Text("Script method");
                     ImGui::Separator();
 
-                    for (int i = 0; i < repeat->GetEventVector()->size(); i++) {
+                    for (std::size_t i = 0; i < repeat->GetEventVector()->size(); ++i) {
                         ImGui::Columns(4);
 
                         std::array<const char*, 3> events = {
@@ -195,7 +195,7 @@ namespace GUI {
                         ImGui::NextColumn();
                         int shapeID = repeat->GetEventVector()->at(i).m_shapeID;
                         std::vector<std::string> entityWithShape;
-                        for (int i = 0; i < Hymn().world.GetEntities().size(); i++) {
+                        for (std::size_t i = 0; i < Hymn().world.GetEntities().size(); ++i) {
                             if (Hymn().world.GetEntities().at(i)->GetComponent<Component::RigidBody>() != nullptr)
                                 entityWithShape.push_back(Hymn().world.GetEntities().at(i)->name);
                         }
@@ -203,7 +203,7 @@ namespace GUI {
                         if (ImGui::Combo(labelShape.c_str(), &shapeID, entityWithShape)) {
                             repeat->GetEventVector()->at(i).m_shapeID = shapeID;
 
-                            for (int j = 0; j < Hymn().world.GetEntities().size(); j++) {
+                            for (std::size_t j = 0; j < Hymn().world.GetEntities().size(); ++j) {
                                 if (Hymn().world.GetEntities().at(j)->name == entityWithShape.at(shapeID)) {
                                     repeat->GetCollidedEntity()->push_back(Hymn().world.GetEntities().at(j));
                                     repeat->GetEventVector()->at(i).check[1] = true;
@@ -216,7 +216,7 @@ namespace GUI {
                         int targetID = repeat->GetEventVector()->at(i).m_targetID;
                         std::vector<std::string> entityName;
 
-                        for (int i = 0; i < Hymn().world.GetEntities().size(); i++) {
+                        for (std::size_t i = 0; i < Hymn().world.GetEntities().size(); ++i) {
                             if (Hymn().world.GetEntities().at(i)->GetComponent<Component::Script>() != nullptr && Hymn().world.GetEntities().at(i)->name != comp.entity->name)
                                 entityName.push_back(Hymn().world.GetEntities().at(i)->name);
                         }
@@ -224,7 +224,7 @@ namespace GUI {
                         if (ImGui::Combo(labelTarget.c_str(), &targetID, entityName)) {
                             repeat->GetEventVector()->at(i).m_targetID = targetID;
 
-                            for (int j = 0; j < Hymn().world.GetEntities().size(); j++) {
+                            for (std::size_t j = 0; j < Hymn().world.GetEntities().size(); ++j) {
 
                                 if (Hymn().world.GetEntities().at(j)->name == entityName.at(targetID)) {
                                     repeat->GetTargetEntity()->push_back(Hymn().world.GetEntities().at(j));
@@ -240,11 +240,11 @@ namespace GUI {
                         std::vector<std::string> scriptVector;
 
                         if (!repeat->GetTargetEntity()->empty()) {
-                            for (int x = 0; x < repeat->GetTargetEntity()->size(); x++) {
+                            for (std::size_t x = 0; x < repeat->GetTargetEntity()->size(); ++x) {
 
                                 if (repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>() != nullptr && repeat->GetTargetEntity()->at(x)->name == entityName.at(targetID)) {
 
-                                    for (int j = 0; j < repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>()->scriptFile->functionList.size(); j++) {
+                                    for (std::size_t j = 0; j < repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>()->scriptFile->functionList.size(); ++j) {
 
                                         if (std::find(scriptVector.begin(), scriptVector.end(), repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>()->scriptFile->functionList.at(j)) == scriptVector.end())
                                             scriptVector.push_back(repeat->GetTargetEntity()->at(x)->GetComponent<Component::Script>()->scriptFile->functionList.at(j));
