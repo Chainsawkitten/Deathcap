@@ -184,4 +184,12 @@ namespace Component {
     void RigidBody::SetForceTransformSync(bool sync) {
         forceTransformSync = sync;
     }
+
+    bool RigidBody::GetHaltMovement() const {
+        return haltMovement;
+    }
+
+    void RigidBody::SetHaltMovement(bool halt) {
+        haltMovement = halt;
+    }
 }

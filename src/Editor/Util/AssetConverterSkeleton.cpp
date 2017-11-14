@@ -1,7 +1,9 @@
 #include "AssetConverterSkeleton.hpp"
+
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Engine/Geometry/MathFunctions.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 #include <Utility/Log.hpp>
 
 #ifdef USINGMEMTRACK
@@ -35,7 +37,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
     }
 
     // Push back the bones.
-    for (int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i)
+    for (unsigned int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i)
         bones.push_back(aScene->mAnimations[0]->mChannels[i]->mNodeName.C_Str());
 
     currentId = -1;
@@ -74,14 +76,14 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         anim.numBones = aScene->mAnimations[0]->mNumChannels;
         anim.bones = new Animation::AnimationClip::Bone[aScene->mAnimations[0]->mNumChannels];
 
-        for (int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
+        for (unsigned int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
             anim.bones[i].parent = (uint32_t)parents[i];
             anim.bones[i].numRotationKeys = channel->mNumRotationKeys;
             anim.bones[i].rotationKeys = new int32_t[anim.bones[i].numRotationKeys];
             anim.bones[i].rotations = new glm::mat4[anim.bones[i].numRotationKeys];
 
-            for (int j = 0; j < channel->mNumRotationKeys; ++j) {
+            for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
                 anim.bones[i].rotationKeys[j] = channel->mRotationKeys[j].mTime;
 
                 glm::quat rot;
@@ -98,8 +100,6 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         anim.Save(&file);
         file.close();
     }
-
-
 
     // Free memory.
     aImporter.FreeScene();

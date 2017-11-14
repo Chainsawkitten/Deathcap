@@ -111,9 +111,9 @@ void ResourceManager::FreeSkeleton(Animation::Skeleton* skeleton) {
     }
 }
 
-Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength, bool srgb) {
+Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength) {
     if (textures.find(data) == textures.end()) {
-        textures[data].texture = new Video::Texture2D(data, dataLength, srgb);
+        textures[data].texture = new Video::Texture2D(data, dataLength);
         texturesInverse[textures[data].texture] = data;
         textures[data].count = 1;
     } else

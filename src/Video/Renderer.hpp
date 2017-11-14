@@ -14,7 +14,6 @@ namespace Video {
     class FXAAFilter;
     class ShaderProgram;
     class RenderSurface;
-    class FrameBuffer;
     class StorageBuffer;
     namespace Geometry {
         class Geometry3D;

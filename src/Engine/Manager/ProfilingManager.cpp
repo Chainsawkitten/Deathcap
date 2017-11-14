@@ -6,7 +6,7 @@
 #include <psapi.h>
 #endif
 
-#include "../Utility/Log.hpp"
+#include <Utility/Log.hpp>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -27,7 +27,7 @@ ProfilingManager::ProfilingManager() : active(false) {
     if (SUCCEEDED(error)) {
         IDXGIAdapter* firstAdapter;
         dxgiFactory->EnumAdapters(0, &firstAdapter);
-        firstAdapter->QueryInterface(__uuidof(IDXGIAdapter3), (void**)&dxgiAdapter3);
+        firstAdapter->QueryInterface(__uuidof(IDXGIAdapter3), reinterpret_cast<void**>(&dxgiAdapter3));
     }
 #endif
 }
@@ -129,6 +129,25 @@ std::string ProfilingManager::TypeToString(ProfilingManager::Type type) {
         return "ProfilingWindow::TypeToString warning: No valid type to string";
         break;
     }
+}
+
+unsigned int ProfilingManager::MeasureRAM() {
+#ifdef MEASURE_RAM
+    PROCESS_MEMORY_COUNTERS_EX memoryCounters;
+    GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&memoryCounters), sizeof(memoryCounters));
+    return static_cast<unsigned int>(memoryCounters.PrivateUsage / 1024 / 1024);
+#endif
+    return 0;
+}
+
+unsigned int ProfilingManager::MeasureVRAM() {
+#ifdef MEASURE_VRAM
+    DXGI_QUERY_VIDEO_MEMORY_INFO info;
+    dxgiAdapter3->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &info);
+    unsigned int memoryUsage = info.CurrentUsage;
+    return (memoryUsage / 1024 / 1024);
+#endif
+    return 0;
 }
 
 ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name, Type type) {

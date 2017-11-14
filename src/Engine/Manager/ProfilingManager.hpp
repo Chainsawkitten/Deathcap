@@ -6,7 +6,6 @@
 
 #include <Video/Profiling/Query.hpp>
 #include "../linking.hpp"
-
 #ifdef MEASURE_VRAM
 #include <d3d11_3.h>
 #include <dxgi1_4.h>
@@ -87,6 +86,18 @@ class ProfilingManager {
          * @return The name.
          */
         ENGINE_API static std::string TypeToString(Type type);
+
+        /// Get current RAM usage.
+        /**
+         * @return The amount of ram used in Mebibytes.
+         */
+        ENGINE_API unsigned int MeasureRAM();
+    
+        /// Get current VRAM usage.
+        /**
+         * @return The amount of vram used in Mebibytes.
+         */
+        ENGINE_API unsigned int MeasureVRAM();
         
     private:
         ProfilingManager();

@@ -23,7 +23,7 @@ namespace Video {
              *
              * @param shaders List of shaders to link together.
              */
-            ShaderProgram(std::initializer_list<const Shader*> shaders);
+            explicit ShaderProgram(std::initializer_list<const Shader*> shaders);
             
             /// Destructor.
             ~ShaderProgram();

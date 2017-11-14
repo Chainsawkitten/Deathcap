@@ -44,7 +44,7 @@ class InputHandler {
         /**
          * @param window %Window to get input for.
          */
-        ENGINE_API InputHandler(GLFWwindow* window);
+        ENGINE_API explicit InputHandler(GLFWwindow* window);
         
         /// Get currently active input handler.
         /**

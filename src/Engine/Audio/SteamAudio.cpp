@@ -15,7 +15,7 @@ SteamAudio::SteamAudio(IPLContext * context, IPLhandle * environment) {
 }
 
 SteamAudio::~SteamAudio() {
-    if(context != nullptr)
+    if (context != nullptr)
         delete context;
 }
 

@@ -9,7 +9,7 @@
 #include "../Audio/SoundBuffer.hpp"
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
-#include "portaudio.h"
+#include <portaudio.h>
 #include <cstdint>
 #include <cstring>
 
@@ -130,7 +130,9 @@ void SoundManager::Update(float deltaTime) {
         processedSamples = new float[numSamples] {0};
 
     Pa_WriteStream(stream, processedSamples, *numProcessedSamples);
-    delete[] processedSamples;
+
+    if (*numProcessedSamples != 0)
+        delete[] processedSamples;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {

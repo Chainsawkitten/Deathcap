@@ -11,13 +11,13 @@
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"intensity" : 0.0
+				"intensity" : 1.0
 			},
 			"children" : null,
 			"name" : "Sun",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : -0.28283846378326416,
 				"y" : 0.0,
 				"z" : 0.0
 			},
@@ -55,7 +55,7 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -0.84567606449127197,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -415,6 +415,32 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1509626126
+		},
+		{
+			"name" : "Rails",
+			"position" : 
+			{
+				"x" : 0.1940000057220459,
+				"y" : -2.4790000915527344,
+				"z" : 14.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 0.99900007247924805
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Rails/Rail Scene",
+			"static" : false,
+			"uid" : 1509713057
 		}
 	],
 	"name" : "Root",

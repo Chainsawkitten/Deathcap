@@ -28,8 +28,11 @@ bool Input::CheckButton(int index) const{
 }
 
 bool Input::CheckVRButton(int index, Component::VRDevice *controller) const{
-    Button* button = buttons[index];
-    return controller->HandleInput(button->key);
+    if (controller != nullptr) {
+        Button* button = buttons[index];
+        return controller->HandleInput(button->key);
+    }
+    return false;
 }
 
 Json::Value Input::Save() const{

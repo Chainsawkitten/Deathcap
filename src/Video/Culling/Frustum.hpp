@@ -16,7 +16,7 @@ namespace Video {
             /**
              * @param matrix View-projection matrix to create frustum planes from.
              */
-            VIDEO_API Frustum(const glm::mat4& matrix);
+            VIDEO_API explicit Frustum(const glm::mat4& matrix);
             
             /// Check collision between frustum and an axis-aligned bounding box.
             /**

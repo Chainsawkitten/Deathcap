@@ -74,6 +74,13 @@ class ActiveHymn {
          */
         ENGINE_API void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false, bool lighting = true);
         
+        /// Find entity via GUID.
+        /**
+         * @param GUID The Unique Identifier for what entity you want to find.
+         * @return Entity found or nullptr if entity with this param does not exist.
+         */
+        ENGINE_API static Entity* GetEntityByGUID(unsigned int GUID);
+
         /// Scene to start when playing the hymn.
         std::string startupScene;
         

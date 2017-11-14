@@ -220,6 +220,10 @@ SceneEditor& ResourceView::GetScene() {
     return sceneEditor;
 }
 
+int ResourceView::GetEditorWidth() const {
+    return editorWidth;
+}
+
 bool ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const string& path) {
     string imguiName = folder.name + "##F--" + path;
     bool opened = ImGui::TreeNode(imguiName.c_str());
