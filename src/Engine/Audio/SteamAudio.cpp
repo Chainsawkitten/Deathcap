@@ -28,10 +28,10 @@ void SteamAudio::Process(IPLAudioBuffer input, IPLVector3 sourcePos, float sourc
 
 }
 
-void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples) {
+void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t& numSamples) {
     // No audio is playing, return emptiness, let SoundManager figure it out.
     if (processedBuffers.size() == 0) {
-        *numSamples = 0;
+        numSamples = 0;
         finalBuf = nullptr;
         return;
     }
@@ -46,7 +46,7 @@ void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples) {
     finalBuf->interleavedBuffer = new float[buffers[0].numSamples];
     finalBuf->numSamples = buffers[0].numSamples;
     iplMixAudioBuffers(processedBuffers.size(), buffers, *finalBuf);
-    *numSamples = finalBuf->numSamples;
+    numSamples = finalBuf->numSamples;
 
     // Clean up
     for (IPLAudioBuffer buf : processedBuffers) {

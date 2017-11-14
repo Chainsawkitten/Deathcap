@@ -23,26 +23,54 @@ SoundBuffer::~SoundBuffer() {
         delete buffer;
 }
 
-void SoundBuffer::GetBuffer(float* data, uint32_t& samples) {
+int SoundBuffer::GetData(float* data, unsigned int samples) {
     if (!buffer) {
         Log() << "SoundBuffer::GetBuffer: No sound loaded.\n";
         data = nullptr;
-        samples = 0;
-        return;
+        return 0;
     }
 
-    soundFile->GetData(currentSample, samples, buffer);
-    data = &buffer[0];
-    currentSample += samples;
+    assert(samples <= bufferSampleCount);
+
+    int validSamples = samples;
+    // Load slice if fetching data outside buffer.
+    if (currentSample + samples > endSample) {
+        // Reset buffer.
+        std::memset(buffer, 0, bufferSampleCount * sizeof(float));
+
+        // Fetch slice to put in buffer.
+        beginSample = currentSample;
+        validSamples = soundFile->GetData(beginSample, samples, buffer);
+        endSample = beginSample + validSamples;
+    }
+
+    // Set data pointer in buffer.
+    int index = currentSample - beginSample;
+    assert(index >= 0 && index < bufferSampleCount);
+    data = &buffer[index];
+
+    // Increment current sample.
+    currentSample += validSamples;
+
+    // Return number of valied samples.
+    return validSamples;
 }
 
-SoundFile* Audio::SoundBuffer::GetSoundFile() const {
+SoundFile* SoundBuffer::GetSoundFile() const {
     return soundFile;
 }
 
-void Audio::SoundBuffer::SetSoundFile(SoundFile* soundFile) {
+void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
     this->soundFile = soundFile;
     const float bufferTime = 1.f;
     bufferSampleCount = soundFile->GetSampleRate() * soundFile->GetChannelCount() * bufferTime;
+    if (buffer)
+        delete buffer;
     buffer = new float[bufferSampleCount];
+}
+
+void SoundBuffer::Restart() {
+    currentSample = 0;
+    beginSample = 0;
+    endSample = 0;
 }

@@ -70,7 +70,7 @@ void SteamAudioInterface::SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, 
 
 }
 
-void SteamAudioInterface::Process(float* input, uint32_t samples,  IPLVector3 sourcePosition, float sourceRadius) {
+void SteamAudioInterface::Process(float* input, uint32_t samples, IPLVector3 sourcePosition, float sourceRadius) {
 
     //Create a steam audio buffer
     IPLAudioFormat format;
@@ -89,7 +89,7 @@ void SteamAudioInterface::Process(float* input, uint32_t samples,  IPLVector3 so
     sAudio.Process(buf, sourcePosition, sourceRadius);
 }
 
-float * SteamAudioInterface::GetProcessed(uint32_t* numSamples) {
+float* SteamAudioInterface::GetProcessed(uint32_t& numSamples) {
     IPLAudioBuffer* finalBuf = new IPLAudioBuffer;
     sAudio.GetFinalMix(finalBuf, numSamples);
 

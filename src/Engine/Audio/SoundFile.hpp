@@ -21,7 +21,7 @@ namespace Audio {
             /**
              * @return Raw audio data.
              */
-            virtual void GetData(uint32_t offset, uint32_t& samples, float* data) const = 0;
+            virtual int GetData(uint32_t offset, uint32_t samples, float* data) const = 0;
             
             /// Get sample count.
             /**

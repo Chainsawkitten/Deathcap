@@ -14,9 +14,9 @@ VorbisFile::~VorbisFile() {
     stb_vorbis_close(stbFile);
 }
 
-void VorbisFile::GetData(uint32_t offset, uint32_t& samples, float* data) const {
+int VorbisFile::GetData(uint32_t offset, uint32_t samples, float* data) const {
     stb_vorbis_seek(stbFile, offset);
-    samples = stb_vorbis_get_samples_float_interleaved(stbFile, channelCount, data, samples);
+    return stb_vorbis_get_samples_float_interleaved(stbFile, channelCount, data, samples);
 }
 
 uint32_t VorbisFile::GetSampleCount() const {

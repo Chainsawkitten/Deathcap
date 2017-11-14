@@ -24,11 +24,11 @@ namespace Audio {
             ENGINE_API ~SoundBuffer();
             
             //TMPTODO
-            /// Get AL buffer.
+            /// Get sound data.
             /**
              * @return The OpenAL buffer ID.
              */
-            ENGINE_API void GetBuffer(float* data, uint32_t& samples);
+            ENGINE_API int GetData(float* data, unsigned int samples);
 
             // TMPTODO
             ENGINE_API SoundFile* GetSoundFile() const;
@@ -39,12 +39,22 @@ namespace Audio {
              * @return The OpenAL buffer ID.
              */
             ENGINE_API void SetSoundFile(SoundFile* soundFile);
+
+            //TMPTODO
+            /// Get AL buffer.
+            /**
+             * @return The OpenAL buffer ID.
+             */
+            ENGINE_API void Restart();
             
         private:
             SoundFile* soundFile = nullptr;
             float* buffer = nullptr;
-            uint32_t bufferStartSample = 0;
-            uint32_t bufferSampleCount;
-            uint32_t currentSample = 0;
+            int bufferSampleCount;
+
+            int beginSample = 0;
+            int endSample = 0;
+
+            int currentSample = 0;
     };
 }

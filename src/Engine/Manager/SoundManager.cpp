@@ -7,6 +7,7 @@
 #include "../Component/Listener.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/SoundSource.hpp"
+#include "../Audio/SoundFile.hpp"
 #include "../Audio/SoundBuffer.hpp"
 #include "../Audio/AudioMaterial.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
@@ -89,13 +90,28 @@ void SoundManager::Update(float deltaTime) {
 
 
     // Number of samples to process dependant on deltaTime
-    int numSamples = int(SAMPLE_RATE * deltaTime);
+    //int samplesFrame = int(SAMPLE_RATE * deltaTime);
+    //std::vector<float*> buffers;
 
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
+        Audio::SoundBuffer& soundBuffer = sound->soundBuffer;
+        Audio::SoundFile* soundFile = sound->soundBuffer.GetSoundFile();
         // Check if sound should play and is a valid resource.
-        if (sound->shouldPlay && sound->soundBuffer.GetSoundFile()) {
+        if (/*sound->shouldPlay &&*/ soundFile) {
+
+            //float* data = nullptr;
+            //int validSamples = soundBuffer.GetData(data, samplesFrame);
+
+            //if (validSamples < samplesFrame) {
+            //    
+            //}
+            //    soundBuffer.Restart();
+
+
+
+
             //float* soundBuf = new float[numSamples];
             //if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
             //    std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
@@ -135,16 +151,16 @@ void SoundManager::Update(float deltaTime) {
 
     }
 
-    uint32_t numProcessedSamples;
-    float* processedSamples = sAudio.GetProcessed(&numProcessedSamples);
+    //uint32_t numProcessedSamples;
+    //float* processedSamples = sAudio.GetProcessed(&numProcessedSamples);
 
-    //If not playing anything, add silence
-    if (numProcessedSamples == 0)
-        processedSamples = new float[numSamples] {0};
+    ////If not playing anything, add silence
+    //if (numProcessedSamples == 0)
+    //    processedSamples = new float[numSamples] {0};
 
-    Pa_WriteStream(stream, processedSamples, numProcessedSamples);
+    //Pa_WriteStream(stream, processedSamples, numProcessedSamples);
 
-    delete[] processedSamples;
+    //delete[] processedSamples;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
