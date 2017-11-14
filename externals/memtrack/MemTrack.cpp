@@ -201,7 +201,7 @@ namespace MemTrack
 
     bool BlockHeader::TypeGreaterThan(BlockHeader *header1, BlockHeader *header2)
     {
-        return (std::strcmp(header1->myTypeName, header2->myTypeName) > 0);
+        return (strcmp(header1->myTypeName, header2->myTypeName) > 0);
     }
 
     /* ------------------------------------------------------------ */
@@ -456,7 +456,7 @@ namespace MemTrack
         {
             pMemDigest->blockCount++;
             pMemDigest->totalSize += ppBlockHeader[i]->GetRequestedSize();
-            assert(std::strcmp(ppBlockHeader[i]->GetTypeName(), pMemDigest->typeName) == 0);
+            assert(strcmp(ppBlockHeader[i]->GetTypeName(), pMemDigest->typeName) == 0);
         }
     }
 
@@ -486,7 +486,7 @@ namespace MemTrack
         {
             char const *prevTypeName = ppBlockHeader[i - 1]->GetTypeName();
             char const *currTypeName = ppBlockHeader[i]->GetTypeName();
-            if (std::strcmp(prevTypeName, currTypeName) != 0) numUniqueTypes++;
+            if (strcmp(prevTypeName, currTypeName) != 0) numUniqueTypes++;
         }
 
         // Create an array of "digests" summarizing memory usage by type.
@@ -498,7 +498,7 @@ namespace MemTrack
         {
             char const *prevTypeName = ppBlockHeader[i - 1]->GetTypeName();
             char const *currTypeName = (i < numBlocks) ? ppBlockHeader[i]->GetTypeName() : "";
-            if (std::strcmp(prevTypeName, currTypeName) != 0)
+            if (strcmp(prevTypeName, currTypeName) != 0)
             {
                 std::size_t endPost = i;
                 SummarizeMemoryUsageForType(
