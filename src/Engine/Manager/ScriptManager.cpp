@@ -615,11 +615,8 @@ void ScriptManager::FillPropertyMap(Script* script) {
                 script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
 
             }
-
         }
-
     }
-
 }
 
 void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
@@ -627,13 +624,17 @@ void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
     scriptFile->functionList.clear();
 
     asITypeInfo* scriptClass = GetClass(scriptFile->name, scriptFile->name);
-    int functionCount = scriptClass->GetMethodCount();
-    for (int n = 0; n < functionCount; n++) {
+    if (scriptClass != nullptr) {
 
-        asIScriptFunction* func = scriptClass->GetMethodByIndex(n);
-        std::string decl = func->GetDeclaration(false);
+        int functionCount = scriptClass->GetMethodCount();
+        for (int n = 0; n < functionCount; n++) {
 
-        scriptFile->functionList.push_back(decl);
+            asIScriptFunction* func = scriptClass->GetMethodByIndex(n);
+            std::string decl = func->GetDeclaration(false);
+
+            scriptFile->functionList.push_back(decl);
+
+        }
 
     }
 
