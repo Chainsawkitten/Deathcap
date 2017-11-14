@@ -16,14 +16,10 @@ namespace Physics {
     class Trigger {
         friend class ::PhysicsManager;
 
-        public:
-            /// Constructor.
-            /**
-             * @param transform The world transform of the trigger volume.
-             */
-            ENGINE_API explicit Trigger(const btTransform& transform);
-
         private:
+            // Construct a trigger with world transform |transform|.
+            explicit Trigger(const btTransform& transform);
+
             // Process observers against the trigger volume, passing the world
             // in which rigid bodies reside.
             void Process(btCollisionWorld& world);
@@ -34,6 +30,7 @@ namespace Physics {
             void ForObserver(btRigidBody* body, const std::function<void(TriggerObserver&)>& fun);
 
             void SetCollisionShape(std::shared_ptr<Shape> shape);
+            void SetPosition(const btVector3& position);
 
         private:
             std::unique_ptr<btCollisionObject> trigger = nullptr;

@@ -94,18 +94,6 @@ void RegisterUpdate() {
     Managers().scriptManager->RegisterUpdate(Managers().scriptManager->currentEntity);
 }
 
-void RegisterTriggerEnterHelper(Component::RigidBody* triggerBody, Component::RigidBody* object, const std::string& methodName) {
-    Managers().scriptManager->RegisterTriggerEnter(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
-}
-
-void RegisterTriggerRetainHelper(Component::RigidBody* triggerBody, Component::RigidBody* object, const std::string& methodName) {
-    Managers().scriptManager->RegisterTriggerRetain(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
-}
-
-void RegisterTriggerLeaveHelper(Component::RigidBody* triggerBody, Component::RigidBody* object, const std::string& methodName) {
-    Managers().scriptManager->RegisterTriggerLeave(Managers().scriptManager->currentEntity, triggerBody, object, methodName);
-}
-
 bool ButtonInput(int buttonIndex) {
     if (Managers().vrManager->Active())
         return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<VRDevice>());
@@ -352,7 +340,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "uint GetUniqueIdentifier() const", asMETHOD(Entity, GetUniqueIdentifier), asCALL_THISCALL);
 
-    engine->RegisterGlobalFunction("Entity@ GetEntity(uint GUID)", asFUNCTIONPR(ScriptManager::GetEntity, (unsigned int), Entity*), asCALL_CDECL);
+    engine->RegisterGlobalFunction("Entity@ GetEntityByGUID(uint GUID)", asFUNCTIONPR(ActiveHymn::GetEntityByGUID, (unsigned int), Entity*), asCALL_CDECL);
 
     engine->RegisterObjectMethod("Entity", "void RotateYaw(float angle)", asMETHOD(Entity, RotateYaw), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void RotatePitch(float angle)", asMETHOD(Entity, RotatePitch), asCALL_THISCALL);
@@ -366,9 +354,11 @@ ScriptManager::ScriptManager() {
     // Register components.
     engine->SetDefaultNamespace("Component");
     
-//   engine->RegisterObjectType("AnimationController", 0, asOBJ_REF | asOBJ_NOCOUNT);
-//   engine->RegisterObjectMethod("AnimationController", "void SetBool(string name, bool value)", asMETHOD(AnimationController, SetBool), asCALL_THISCALL);
-//   engine->RegisterObjectMethod("AnimationController", "void SetFloat(string name, float value)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
+    engine->RegisterObjectType("AnimationController", 0, asOBJ_REF | asOBJ_NOCOUNT);
+    engine->RegisterObjectMethod("AnimationController", "void SetBool(string name, bool value)", asMETHOD(AnimationController, SetBool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "void SetFloat(string name, float value)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "bool GetBool(string name)", asMETHOD(AnimationController, GetBool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "float GetFloat(string name)", asMETHOD(AnimationController, GetFloat), asCALL_THISCALL);
 
     engine->RegisterObjectType("DirectionalLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("DirectionalLight", "vec3 color", asOFFSET(DirectionalLight, color));
@@ -405,6 +395,7 @@ ScriptManager::ScriptManager() {
     engine->SetDefaultNamespace("");
     
     // Register getting components.
+    engine->RegisterObjectMethod("Entity", "Component::AnimationController@ GetAnimationController()", asMETHODPR(Entity, GetComponent, () const, AnimationController*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::DirectionalLight@ GetDirectionalLight()", asMETHODPR(Entity, GetComponent, () const, DirectionalLight*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::Lens@ GetLens()", asMETHODPR(Entity, GetComponent, () const, Lens*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::Listener@ GetListener()", asMETHODPR(Entity, GetComponent, () const, Listener*), asCALL_THISCALL);
@@ -452,9 +443,6 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RestartScene()", asFUNCTION(RestartScene), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
-    engine->RegisterGlobalFunction("void RegisterTriggerEnter(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerEnterHelper), asCALL_CDECL);
-    engine->RegisterGlobalFunction("void RegisterTriggerRetain(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerRetainHelper), asCALL_CDECL);
-    engine->RegisterGlobalFunction("void RegisterTriggerLeave(Component::RigidBody@, Component::RigidBody@, const string &in)", asFUNCTION(RegisterTriggerLeaveHelper), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
@@ -676,7 +664,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
                 if (script->IsInPropertyMap(name, typeId)) {
 
                     if (typeId == engine->GetTypeIdByDecl("Entity@"))
-                        *reinterpret_cast<Entity*>(varPointer) = *GetEntity(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                        *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
                     else 
                         script->CopyDataFromPropertyMap(name, varPointer);
 
@@ -704,46 +692,10 @@ void ScriptManager::Update(World& world, float deltaTime) {
     for (Entity* entity : updateEntities)
         world.RegisterUpdate(entity);
     updateEntities.clear();
-    
-    // Handle physics triggers.
-    for (const TriggerEvent& triggerEvent : triggerEvents) {
-        CallTrigger(triggerEvent);
-    }
-    triggerEvents.clear();
 }
 
 void ScriptManager::RegisterUpdate(Entity* entity) {
     updateEntities.push_back(entity);
-}
-
-void ScriptManager::RegisterTriggerEnter(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName) {
-    TriggerEvent triggerEvent;
-    triggerEvent.trigger = trigger;
-    triggerEvent.object = object;
-    triggerEvent.scriptEntity = entity;
-    triggerEvent.methodName = methodName;
-    
-    Managers().physicsManager->OnTriggerEnter(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
-}
-
-void ScriptManager::RegisterTriggerRetain(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName) {
-    TriggerEvent triggerEvent;
-    triggerEvent.trigger = trigger;
-    triggerEvent.object = object;
-    triggerEvent.scriptEntity = entity;
-    triggerEvent.methodName = methodName;
-
-    Managers().physicsManager->OnTriggerRetain(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
-}
-
-void ScriptManager::RegisterTriggerLeave(Entity* entity, Component::RigidBody* trigger, Component::RigidBody* object, const std::string& methodName) {
-    TriggerEvent triggerEvent;
-    triggerEvent.trigger = trigger;
-    triggerEvent.object = object;
-    triggerEvent.scriptEntity = entity;
-    triggerEvent.methodName = methodName;
-
-    Managers().physicsManager->OnTriggerLeave(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
 }
 
 void ScriptManager::RegisterInput() {
@@ -785,23 +737,6 @@ void ScriptManager::SendMessage(Entity* recipient, Entity* sender, int type) {
     message.sender = sender;
     message.type = type;
     messages.push_back(message);
-}
-
-Entity* ScriptManager::GetEntity(unsigned int GUID) {
-
-    const std::vector<Entity*> entities = Hymn().world.GetEntities();
-    for (std::size_t i = 0; i < entities.size(); ++i) {
-
-        if (entities[i]->GetUniqueIdentifier() == GUID) {
-
-            return entities[i];
-
-        }
-
-    }
-
-    return nullptr;
-
 }
 
 Component::Script* ScriptManager::CreateScript() {
@@ -868,8 +803,7 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
 
     // Find method to call.
     std::string methodDecl;
-    methodDecl.reserve(method.length() + 7); // additional `void ` and `()`
-    methodDecl.append("void ").append(method).append("()");
+    methodDecl.append(method);
     asIScriptFunction* scriptMethod = type->GetMethodByDecl(methodDecl.c_str());
     if (scriptMethod == nullptr)
         Log() << "Can't find method void " << method << "()\n";
@@ -978,31 +912,6 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
     context->Release();
 }
 
-void ScriptManager::CallTrigger(const TriggerEvent& triggerEvent) {
-    Component::Script* script = triggerEvent.scriptEntity->GetComponent<Component::Script>();
-    ScriptFile* scriptFile = script->scriptFile;
-    
-    // Get class.
-    asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
-    
-    // Find method to call.
-    std::string methodDeclaration = "void " + triggerEvent.methodName + "(Component::RigidBody@, Component::RigidBody@)";
-    asIScriptFunction* method = type->GetMethodByDecl(methodDeclaration.c_str());
-    if (method == nullptr)
-        Log() << "Can't find method " << methodDeclaration << "\n";
-    
-    // Create context, prepare it and execute.
-    asIScriptContext* context = CreateContext();
-    context->Prepare(method);
-    context->SetObject(script->instance);
-    context->SetArgAddress(0, triggerEvent.trigger);
-    context->SetArgAddress(1, triggerEvent.object);
-    ExecuteCall(context);
-    
-    // Clean up.
-    context->Release();
-}
-
 void ScriptManager::LoadScriptFile(const char* fileName, std::string& script){
     // Open the file in binary mode
     FILE* f = fopen(fileName, "rb");
@@ -1048,10 +957,6 @@ asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::s
     
     Log() << "Couldn't find class \"" << className << "\".\n";
     return nullptr;
-}
-
-void ScriptManager::HandleTrigger(TriggerEvent triggerEvent) {
-    triggerEvents.push_back(triggerEvent);
 }
 
 const std::vector<Entity*>& ScriptManager::GetUpdateEntities() {
