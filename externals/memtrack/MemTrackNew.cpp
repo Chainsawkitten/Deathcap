@@ -6,7 +6,7 @@
 #include <typeinfo>
 #include <new>
 
-void *operator new(size_t size)
+void *operator new(std::size_t size)
 {
     void *p = MemTrack::TrackMalloc(size);
     if (p == NULL) throw std::bad_alloc();
@@ -22,7 +22,7 @@ void operator delete(void *p)
 
 /* ---------------------------------------- operator new[] */
 
-void *operator new[](size_t size)
+void *operator new[](std::size_t size)
 {
     void *p = MemTrack::TrackMalloc(size);
     if (p == NULL) throw std::bad_alloc();
