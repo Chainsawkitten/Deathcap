@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <cstring>
 
-#include "VideoErrorCheck.hpp"
+#include "../VideoErrorCheck.hpp"
 #include <Utility/Log.hpp>
 
 using namespace Video;

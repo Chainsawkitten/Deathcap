@@ -11,8 +11,20 @@ NodeEditor::~NodeEditor() {
 
 void NodeEditor::Show() {
     if (ImGui::Begin("Animation controller", &visible)) {
+        // Draw exposed values to the left of the screen.
+        ImGui::BeginChild("ValueList", ImVec2(150, 0), true);
+        ImGui::Text("Values");
+        ImGui::Separator();
+        ImGui::NewLine();
+
+        ShowValues();
+
+        ImGui::EndChild();
+
+        ImGui::SameLine();
+
         // Draw a list of nodes on the left side.
-        ImGui::BeginChild("NodeList", ImVec2(200, 0), true);
+        ImGui::BeginChild("NodeList", ImVec2(150, 0), true);
         ImGui::Text("Nodes");
         ImGui::Separator();
         for (unsigned int nodeId = 0; nodeId < GetNumNodes(); ++nodeId) {
