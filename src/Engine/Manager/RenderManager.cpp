@@ -263,20 +263,33 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     // Camera matrices.
     const glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
+    const std::vector<AnimationController*>& controllerComponents = animationControllers.GetAll();
+
     //Render shadows maps.
     { VIDEO_ERROR_CHECK("Render shadows meshes");
     { PROFILE("Render shadows meshes");
     { GPUPROFILE("Render shadows meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render shadows meshes", Video::Query::Type::SAMPLES_PASSED);
-        renderer->PrepareShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        // Static meshes.
+        renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
         for (Mesh* mesh : meshComponents) {
-            if (mesh->IsKilled() || !mesh->entity->enabled)
+            Entity* entity = mesh->entity;
+            if (entity->IsKilled() || !entity->enabled)
                 continue;
 
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                Entity* entity = mesh->entity;
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
-            }
+        }
+        // Skin meshes.
+        renderer->PrepareSkinShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        for (AnimationController* controller : controllerComponents) {
+            Entity* entity = controller->entity;
+            if (entity->IsKilled() || !entity->enabled)
+                continue;
+
+            Mesh* mesh = entity->GetComponent<Mesh>();
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
+                renderer->ShadowRenderSkinMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix(), controller->bones);
         }
     }
     }
@@ -290,16 +303,30 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { PROFILE("Render z-pass meshes");
     { GPUPROFILE("Render z-pass meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render z-pass meshes", Video::Query::Type::SAMPLES_PASSED);
+        // Static meshes.
         renderer->PrepareStaticMeshDepthRendering(viewMatrix, projectionMatrix);
         for (Mesh* mesh : meshComponents) {
-            if (mesh->IsKilled() || !mesh->entity->enabled)
+            Entity* entity = mesh->entity;
+            if (entity->IsKilled() || !entity->enabled)
                 continue;
 
             if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-                Entity* entity = mesh->entity;
-                // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
+            }
+        }
+
+        // Skin meshes.
+        renderer->PrepareSkinMeshDepthRendering(viewMatrix, projectionMatrix);
+        for (AnimationController* controller : controllerComponents) {
+            Entity* entity = controller->entity;
+            if (entity->IsKilled() || !entity->enabled)
+                continue;
+
+            Mesh* mesh = entity->GetComponent<Mesh>();
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                if (entity->GetComponent<Material>() != nullptr)
+                    renderer->DepthRenderSkinMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix(), controller->bones);
             }
         }
     }
@@ -312,88 +339,71 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { VIDEO_ERROR_CHECK("Update lights");
     { PROFILE("Update lights");
     { GPUPROFILE("Update lights", Video::Query::Type::TIME_ELAPSED);
-        if (lighting) {
+        if (lighting)
             // Cull lights and update light list.
             LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
-        }
-        else {
+        else
             // Use full ambient light and ignore lights in the scene.
             LightAmbient();
-        }
     }
     }
     }
 
-    // Render static meshes.
+    // Render meshes.
     renderSurface->GetShadingFrameBuffer()->BindWrite();
-    { VIDEO_ERROR_CHECK("Render static meshes");
-    { PROFILE("Render static meshes");
-    { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
-    { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
-
-        // Push matricies and light buffer to the GPU.
-        renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
-
-        // Render meshes.
-        for (Mesh* mesh : meshComponents) {
-            if (mesh->IsKilled() || !mesh->entity->enabled)
-                continue;
-
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+    { VIDEO_ERROR_CHECK("Render meshes");
+    { PROFILE("Render meshes");
+    { GPUPROFILE("Render meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render meshes", Video::Query::Type::SAMPLES_PASSED);
+        // Static meshes.
+        { VIDEO_ERROR_CHECK("Static meshes");
+        { PROFILE("Static meshes");
+        { GPUPROFILE("Static meshes", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Static meshes", Video::Query::Type::SAMPLES_PASSED);
+            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+            for (Mesh* mesh : meshComponents) {
                 Entity* entity = mesh->entity;
-                Material* material = entity->GetComponent<Material>();
-                if (material != nullptr)
-                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
-            }
-        }
-    }
-    }
-    }
-    }
+                if (entity->IsKilled() || !entity->enabled)
+                    continue;
 
-    // Render skinned meshes.
-    { VIDEO_ERROR_CHECK("Render skinned meshes");
-    { PROFILE("Render skinned meshes");
-    { GPUPROFILE("Render skinned meshes", Video::Query::Type::TIME_ELAPSED);
-    { GPUPROFILE("Render skinned meshes", Video::Query::Type::SAMPLES_PASSED);
-
-        // Push matricies and light buffer to the GPU.
-        renderer->PrepareSkinnedMeshRendering(viewMatrix, projectionMatrix);
-
-        // Render meshes
-        /// @todo Sort meshes after animation controller instead of
-        /// meshes would be better.
-        for (Mesh* mesh : meshComponents) {
-            if (mesh->IsKilled() || !mesh->entity->enabled)
-                continue;
-
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
-                Entity* entity = mesh->entity;
-                Material* material = entity->GetComponent<Material>();
-                AnimationController* controller = entity->GetComponent<AnimationController>();
-                if (material != nullptr && controller != nullptr && controller->skeleton != nullptr) {
-                    renderer->RenderSkinnedMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones, false);
+                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                    Material* material = entity->GetComponent<Material>();
+                    if (material != nullptr)
+                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
                 }
             }
+        }
+        }
+        }
+        }
+
+        // Skin meshes.
+        { VIDEO_ERROR_CHECK("Skin meshes");
+        { PROFILE("Skin meshes");
+        { GPUPROFILE("Skin meshes", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Skin meshes", Video::Query::Type::SAMPLES_PASSED);
+            renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix);
+            for (AnimationController* controller : controllerComponents) {
+                Entity* entity = controller->entity;
+                if (entity->IsKilled() || !entity->enabled)
+                    continue;
+
+                Mesh* mesh = entity->GetComponent<Mesh>();
+                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                    Material* material = entity->GetComponent<Material>();
+                    if (material != nullptr)
+                        renderer->RenderSkinMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones, false);
+                }
+            }
+        }
+        }
+        }
         }
     }
     }
     }
     }
     renderSurface->GetShadingFrameBuffer()->Unbind();
-    
-    // Anti-aliasing.
-    if (Hymn().filterSettings.fxaa) {
-        { VIDEO_ERROR_CHECK("Anti-aliasing(FXAA)");
-        { PROFILE("Anti-aliasing(FXAA)");
-        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-            renderer->AntiAlias(renderSurface);
-        }
-        }
-        }
-        }
-    }
 }
 
 

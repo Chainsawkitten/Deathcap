@@ -7,6 +7,7 @@
 #include "Manager/ParticleManager.hpp"
 #include "Manager/ScriptManager.hpp"
 #include "Manager/SoundManager.hpp"
+#include "Manager/VRManager.hpp"
 #include "Manager/TriggerManager.hpp"
 #include "Manager/DebugDrawingManager.hpp"
 #include "Manager/ResourceManager.hpp"
