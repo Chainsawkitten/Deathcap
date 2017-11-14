@@ -8,5 +8,5 @@ in vec4 finalColor;
 
 void main()
 {
-    FragColor = vec4(texture(baseImage, UV).rgb + finalColor.xyz, finalColor.a);
+    FragColor = vec4(texture(baseImage, UV).rgb, texture(baseImage, UV).a * finalColor.w);
 }

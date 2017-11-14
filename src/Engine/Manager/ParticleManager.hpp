@@ -144,7 +144,7 @@ class ParticleManager {
         std::map<Component::ParticleSystemComponent*, Video::ParticleSystemRenderer::EmitterSettings> emitterSettings;
 
         // The number of rows in the texture atlas.
-        int textureAtlasRowNumber = 4;
+        int textureAtlasRowNumber = 6;
 
         // Texture atlas containing the particle textures.
         Video::Texture2D* textureAtlas;

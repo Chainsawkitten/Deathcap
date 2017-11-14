@@ -23,19 +23,19 @@ void main(void) {
     
     finalColor = myColor[i];
     
-    gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(-scale, -scale, 0.0, 1.0));
+    gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(-scale - 0.9, -scale - 0.9, 0.0, 1.0));
     UV = vec2(atlasCoordOffset.x+atlasIndexOffset, atlasCoordOffset.y);
     EmitVertex();
     
-    gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(-scale, scale, 0.0, 1.0));
+    gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(-scale - 0.9, scale + 0.9, 0.0, 1.0));
     UV = vec2(atlasCoordOffset.x, atlasCoordOffset.y);
     EmitVertex();
     
-    gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(scale, -scale, 0.0, 1.0));
+    gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(scale + 0.9, -scale - 0.9, 0.0, 1.0));
     UV = vec2(atlasCoordOffset.x+atlasIndexOffset, atlasCoordOffset.y+atlasIndexOffset);
     EmitVertex();
     
-    gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(scale, scale, 0.0, 1.0));
+    gl_Position = viewProjectionMatrix * (gl_in[i].gl_Position + vec4(scale + 0.9, scale + 0.9, 0.0, 1.0));
     UV = vec2(atlasCoordOffset.x + atlasIndexOffset, atlasCoordOffset.y);
     EmitVertex();
     
