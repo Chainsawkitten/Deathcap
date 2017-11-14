@@ -70,7 +70,7 @@ class TriggerRepeat : public SuperTrigger {
         /**
          * @return If the trigger starts active or not.
          */
-        ENGINE_API bool GetStartActive();
+        ENGINE_API bool GetStartActive() const;
 
         /// Set if the trigger starts active or not.
         /**
@@ -82,7 +82,7 @@ class TriggerRepeat : public SuperTrigger {
         /**
          * @return The delay before the trigger gets active.
          */
-        ENGINE_API float GetDelay();
+        ENGINE_API float GetDelay() const;
 
         /// Set the delay before the trigger gets active.
         /**
@@ -94,7 +94,7 @@ class TriggerRepeat : public SuperTrigger {
         /**
          * @return The cooldown before the trigger can get activated again.
          */
-        ENGINE_API float GetCooldown();
+        ENGINE_API float GetCooldown() const;
 
         /// Set the cooldown before the trigger can get activated again.
         /**
@@ -106,7 +106,7 @@ class TriggerRepeat : public SuperTrigger {
         /**
          * @return The amount of times a trigger can be activated before it is no longer active.
          */
-        ENGINE_API int GetTriggerCharges();
+        ENGINE_API int GetTriggerCharges() const;
 
         /// Set the amount of times a trigger can be activated before it is no longer active.
         /**
