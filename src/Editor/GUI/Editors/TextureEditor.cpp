@@ -20,7 +20,6 @@ void TextureEditor::Show() {
             // Rename texture files.
             std::string path = Hymn().GetPath() + "/" + texture->path;
             rename((path + texture->name + ".png").c_str(), (path + name + ".png").c_str());
-            rename((path + texture->name + ".json").c_str(), (path + name + ".json").c_str());
             
             texture->name = name;
         }
