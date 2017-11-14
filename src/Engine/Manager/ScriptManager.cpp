@@ -87,8 +87,8 @@ void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::str
 }
 
 void print(const std::string& message) {
-    Log() << message;
     std::cout << message;
+    Log() << message;
 }
 
 void RegisterUpdate() {
@@ -552,9 +552,9 @@ void ScriptManager::GetBreakpoints(const ScriptFile* scriptFile) {
     std::string line;
     int lineNumber = 1;
     while (std::getline(f, line)) {
-        if (line.length() >= 7) {
+        if (line.length() >= 8) {
 
-            std::string end = line.substr(line.length() - 7, 7);
+            std::string end = line.substr(line.length() - 8, 7);
             if (end == "//break" || end == "//Break" || end == "//BREAK") {
 
                 breakpoints[scriptFile->name + ".as"].insert(lineNumber);
@@ -661,9 +661,11 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 if (script->IsInPropertyMap(name, typeId)) {
 
-                    if (typeId == engine->GetTypeIdByDecl("Entity@"))
+                    if (typeId == engine->GetTypeIdByDecl("Entity@")) {
+                        Entity* whatever = Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
                         *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
-                    else 
+                    }
+                    else
                         script->CopyDataFromPropertyMap(name, varPointer);
 
                 } 

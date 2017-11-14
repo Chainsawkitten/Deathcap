@@ -7,9 +7,9 @@
 				"attenuation" : 0.1380000114440918,
 				"color" : 
 				{
-					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
+					"x" : 0.0,
+					"y" : 0.729411780834198,
+					"z" : 0.0
 				},
 				"intensity" : 15.13900089263916
 			},
@@ -17,8 +17,8 @@
 			"name" : "Sun",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
+				"x" : -1.4540001153945923,
+				"y" : -6.7240004539489746,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -468,16 +468,16 @@
 			"name" : "BridgeParent",
 			"position" : 
 			{
-				"x" : 3.7530002593994141,
+				"x" : -5.0,
 				"y" : 0.0,
 				"z" : 0.0
 			},
 			"rotation" : 
 			{
-				"w" : 0.92387950420379639,
-				"x" : 0.0,
-				"y" : -0.0,
-				"z" : -0.38268345594406128
+				"w" : 1.9305197440644406e-09,
+				"x" : 0.30070579051971436,
+				"y" : -0.9537169337272644,
+				"z" : -4.5223973899055636e-08
 			},
 			"scale" : 
 			{
@@ -509,6 +509,28 @@
 					"height" : 0.5,
 					"width" : 1.0
 				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntity" : 1508919758,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 1,
+				"triggerEventStruct_ShapeID" : 2,
+				"triggerEventStruct_TargetID" : 3,
+				"triggerFunction" : "void OnRockTrigger()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1510317739,
+				"triggerTargetEntity" : 1508919758,
+				"triggerTriggered" : false
 			},
 			"children" : 
 			[
@@ -553,9 +575,9 @@
 			"name" : "RockPileParent",
 			"position" : 
 			{
-				"x" : 4.319000244140625,
-				"y" : -1.1010000705718994,
-				"z" : -1.0590000152587891
+				"x" : 4.2473526000976563,
+				"y" : -0.95246875286102295,
+				"z" : -1.352247953414917
 			},
 			"rotation" : 
 			{
@@ -828,6 +850,101 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510581247
+		},
+		{
+			"Shape" : 
+			{
+				"cylinder" : 
+				{
+					"length" : 0.80000001192092896,
+					"radius" : 0.25
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntity" : 1510240479,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 2,
+				"triggerEventStruct_ShapeID" : 3,
+				"triggerEventStruct_TargetID" : 5,
+				"triggerFunction" : "void HitBucket()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1510652592,
+				"triggerTargetEntity" : 1510240479,
+				"triggerTriggered" : false
+			},
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/The Bucket/bucket_albedo",
+						"metallic" : "Resources/NewAssets/Textures/The Bucket/bucket_metallic",
+						"normal" : "Resources/NewAssets/Textures/The Bucket/bucket_normal",
+						"roughness" : "Resources/NewAssets/Textures/The Bucket/bucket_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/The Bucket/TheBucket"
+					},
+					"children" : null,
+					"name" : "ShitBucket",
+					"position" : 
+					{
+						"x" : 0.01100000087171793,
+						"y" : -0.37700000405311584,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510651716
+				}
+			],
+			"name" : "BucketParent",
+			"position" : 
+			{
+				"x" : -0.015341401100158691,
+				"y" : -0.011506080627441406,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510652592
 		}
 	],
 	"name" : "Root",

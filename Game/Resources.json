@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 79,
+	"modelNumber" : 81,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -529,6 +529,29 @@
 									}
 								],
 								"subfolders" : null
+							},
+							{
+								"name" : "The Bucket",
+								"resources" : 
+								[
+									{
+										"texture" : "bucket_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
 							}
 						]
 					},
@@ -581,7 +604,20 @@
 								"type" : 1
 							}
 						],
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "The Bucket",
+								"resources" : 
+								[
+									{
+										"model" : "TheBucket",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					},
 					{
 						"name" : "Scripts",
@@ -666,5 +702,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 53
+	"textureNumber" : 57
 }
