@@ -17,6 +17,10 @@ namespace TextureConverter {
             Log(Log::ERR) << "Couldn't load image: " << inFilename << "\n";
             return;
         }
+        if (width % 4 != 0 || height % 4 != 0) {
+            Log(Log::ERR) << inFilename << " does not have dimensions multiple of 4.\n";
+            return;
+        }
         
         // Convert to RGB (in case it's not already).
         unsigned char* rgbData = new unsigned char[width * height * 3];
