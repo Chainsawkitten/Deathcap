@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Texture2D.hpp"
+#include <cstdint>
 
 namespace Video {
     /// Texture loaded from custom compressed texture format.
