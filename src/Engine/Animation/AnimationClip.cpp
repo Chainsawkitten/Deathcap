@@ -3,6 +3,10 @@
 #include "../Hymn.hpp"
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Animation;
 
 void AnimationClip::Load(const std::string& name) {
