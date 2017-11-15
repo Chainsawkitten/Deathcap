@@ -1,3 +1,5 @@
+#pragma once
+
 #include <Engine/Component/SuperComponent.hpp>
 #include <glm/glm.hpp>
 #include <Video/ParticleSystemRenderer.hpp>
