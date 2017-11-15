@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 96,
+	"modelNumber" : 97,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -601,6 +601,24 @@
 									{
 										"texture" : "Texture #38",
 										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "PileOfRocks",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Model",
+								"resources" : 
+								[
+									{
+										"model" : "PileOfRocks",
+										"type" : 1
 									}
 								],
 								"subfolders" : null
