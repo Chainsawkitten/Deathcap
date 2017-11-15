@@ -1,7 +1,10 @@
 #pragma once
 
 #include <cstdint>
-#include <AL/al.h>
+#include <string>
+#include <json\json.h>
+#include "../linking.hpp"
+#include "../Hymn.hpp"
 
 namespace Audio {
     /// Interface for sound files of various formats.
@@ -11,24 +14,51 @@ namespace Audio {
     class SoundFile {
         public:
             /// Destructor.
-            virtual ~SoundFile() { }
+            ENGINE_API virtual ~SoundFile();
             
+            // TMPTODO
             /// Get raw audio data.
             /**
              * @return Raw audio data.
              */
-            virtual float* GetData() const = 0;
+            virtual int GetData(uint32_t offset, uint32_t samples, float* data) const = 0;
             
-            /// Get data size.
+            /// Get sample count.
             /**
-             * @return The length of the raw audio data.
+             * @return The number of samples in the raw audio data.
              */
-            virtual uint32_t GetSize() const = 0;
+            virtual uint32_t GetSampleCount() const = 0;
             
             /// Get sample rate.
             /**
              * @return The sound file's sample rate (Hz).
              */
             virtual uint32_t GetSampleRate() const = 0;
+
+            /// Get channel count.
+            /**
+             * @return The number of channels in audio.
+             */
+            virtual uint32_t GetChannelCount() const = 0;
+
+            // TMPTODO
+            /// Save the sound.
+            /**
+             * @return JSON value to be stored on disk.
+             */
+            ENGINE_API Json::Value Save() const;
+
+            // TMPTODO
+            ENGINE_API void Load(const std::string& name);
+
+            /// The name of the sound.
+            std::string name;
+
+            /// The folder containing the sound file.
+            std::string path;
+
+        private:
+            virtual void Load(const char* filename) = 0;
+
     };
 }

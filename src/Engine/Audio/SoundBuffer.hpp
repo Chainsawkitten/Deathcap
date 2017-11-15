@@ -8,12 +8,12 @@
 namespace Audio {
     class SoundFile;
     
-    /// Wrapper for OpenAL buffers.
+    /// Wrapper for sound file.
     class SoundBuffer {
         public:
-            /// Create new unloaded sound buffer.
+            /// Constructor.
             ENGINE_API SoundBuffer();
-            
+
             /// Create a sound buffer from a sound file.
             /**
              * @param soundFile The sound file containing the sound.
@@ -23,45 +23,38 @@ namespace Audio {
             /// Destructor.
             ENGINE_API ~SoundBuffer();
             
+            //TMPTODO
+            /// Get sound data.
+            /**
+             * @return The OpenAL buffer ID.
+             */
+            ENGINE_API int GetData(float* data, unsigned int samples);
+
+            // TMPTODO
+            ENGINE_API SoundFile* GetSoundFile() const;
+
+            //TMPTODO
             /// Get AL buffer.
             /**
              * @return The OpenAL buffer ID.
              */
-            ENGINE_API float* GetBuffer() const;
-            
-            /// Save the sound.
-            /**
-             * @return JSON value to be stored on disk.
-             */
-            ENGINE_API Json::Value Save() const;
-            
-            /// Load sound from file.
-            /**
-             * @param name Name of the sound to load.
-             */
-            ENGINE_API void Load(const std::string& name);
-            
-            /// Load sound buffer from a sound file.
-            /**
-             * @param soundFile The sound file containing the sound.
-             */
-            ENGINE_API void Load(SoundFile* soundFile);
+            ENGINE_API void SetSoundFile(SoundFile* soundFile);
 
-            /// Get size of buffer.
+            //TMPTODO
+            /// Get AL buffer.
             /**
-             * @return The size of the buffer.
+             * @return The OpenAL buffer ID.
              */
-            ENGINE_API uint32_t GetSize();
-
-            /// The name of the sound.
-            std::string name;
-            
-            /// The folder containing the sound file.
-            std::string path;
+            ENGINE_API void Restart();
             
         private:
-            float* buffer;
-            uint32_t size;
-            uint32_t sampleRate;
+            SoundFile* soundFile = nullptr;
+            float* buffer = nullptr;
+            int bufferSampleCount;
+
+            int beginSample = 0;
+            int endSample = 0;
+
+            int currentSample = 0;
     };
 }

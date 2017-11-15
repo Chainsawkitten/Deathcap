@@ -102,8 +102,7 @@ class SoundManager {
         
         SteamAudioInterface sAudio;
         PaStream* stream;
-        float* processedFrameSamples;
-        
+
         float volume = 1.f;
         
         ComponentContainer<Component::SoundSource> soundSources;

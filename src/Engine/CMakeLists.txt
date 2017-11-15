@@ -10,6 +10,7 @@ set(SRCS
         Animation/Skeleton.cpp
         Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
+        Audio/SoundFile.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
         Audio/SteamAudioIndirectRenderer.cpp

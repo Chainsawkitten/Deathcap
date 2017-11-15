@@ -30,7 +30,7 @@ class SteamAudio {
          * @param finalBuf Pointer to an empty buffer.
          * @param numSamples The number of samples in the final buffer.
          */
-        ENGINE_API void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples);
+        ENGINE_API void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t& numSamples);
 
         /// Sets the current location and direction of the player, to be used for processing
         /**

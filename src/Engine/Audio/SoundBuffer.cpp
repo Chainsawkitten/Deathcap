@@ -1,50 +1,76 @@
 #include "SoundBuffer.hpp"
 
+#include <algorithm>
 #include "../Manager/SoundManager.hpp"
 #include "SoundFile.hpp"
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
 #include "VorbisFile.hpp"
+#include <Utility/Log.hpp>
 
 using namespace Audio;
 
-SoundBuffer::SoundBuffer() {
-    
+Audio::SoundBuffer::SoundBuffer() {
+
 }
 
 SoundBuffer::SoundBuffer(SoundFile* soundFile) {
-    Load(soundFile);
+    SetSoundFile(soundFile);
 }
 
 SoundBuffer::~SoundBuffer() {
-    free(buffer);
+    if (buffer)
+        delete buffer;
 }
 
-float* SoundBuffer::GetBuffer() const {
-    return buffer;
+int SoundBuffer::GetData(float* data, unsigned int samples) {
+    if (!buffer) {
+        Log() << "SoundBuffer::GetBuffer: No sound loaded.\n";
+        data = nullptr;
+        return 0;
+    }
+
+    assert(samples <= bufferSampleCount);
+
+    int validSamples = samples;
+    // Load slice if fetching data outside buffer.
+    if (currentSample + samples > endSample) {
+        // Reset buffer.
+        std::memset(buffer, 0, bufferSampleCount * sizeof(float));
+
+        // Fetch slice to put in buffer.
+        beginSample = currentSample;
+        validSamples = soundFile->GetData(beginSample, samples, buffer);
+        endSample = beginSample + validSamples;
+    }
+
+    // Set data pointer in buffer.
+    int index = currentSample - beginSample;
+    assert(index >= 0 && index < bufferSampleCount);
+    data = &buffer[index];
+
+    // Increment current sample.
+    currentSample += validSamples;
+
+    // Return number of valied samples.
+    return validSamples;
 }
 
-Json::Value SoundBuffer::Save() const {
-    Json::Value sound;
-    sound["name"] = name;
-    return sound;
+SoundFile* SoundBuffer::GetSoundFile() const {
+    return soundFile;
 }
 
-void SoundBuffer::Load(const std::string& name) {
-    std::size_t pos = name.find_last_of('/');
-    this->name = name.substr(pos + 1);
-    path = name.substr(0, pos + 1);
-    SoundFile* soundFile = new VorbisFile((Hymn().GetPath() + "/" + name + ".ogg").c_str());
-    Load(soundFile);
-    delete soundFile;
+void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
+    this->soundFile = soundFile;
+    const float bufferTime = 1.f;
+    bufferSampleCount = soundFile->GetSampleRate() * soundFile->GetChannelCount() * bufferTime;
+    if (buffer)
+        delete buffer;
+    buffer = new float[bufferSampleCount];
 }
 
-void SoundBuffer::Load(SoundFile* soundFile) {
-    buffer = soundFile->GetData();
-    size = soundFile->GetSize();
-    sampleRate = soundFile->GetSampleRate();
-}
-
-uint32_t Audio::SoundBuffer::GetSize() {
-    return size;
+void SoundBuffer::Restart() {
+    currentSample = 0;
+    beginSample = 0;
+    endSample = 0;
 }

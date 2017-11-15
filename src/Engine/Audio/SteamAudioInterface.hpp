@@ -87,7 +87,7 @@ class SteamAudioInterface {
          * @param numSamples The number of samples in the final buffer.
          * @return A pointer to the processed buffer.
          **/
-        float* GetProcessed(uint32_t* numSamples);
+        float* GetProcessed(uint32_t& numSamples);
 
     private:
 

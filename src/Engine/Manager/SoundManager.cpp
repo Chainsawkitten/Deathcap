@@ -7,6 +7,7 @@
 #include "../Component/Listener.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/SoundSource.hpp"
+#include "../Audio/SoundFile.hpp"
 #include "../Audio/SoundBuffer.hpp"
 #include "../Audio/AudioMaterial.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
@@ -49,15 +50,12 @@ SoundManager::SoundManager() {
     );
     CheckError(err);
 
-    processedFrameSamples = new float[1]{ 0 };
-
     err = Pa_StartStream(stream);
     CheckError(err);
 }
 
 
 SoundManager::~SoundManager() {
-    delete processedFrameSamples;
     Pa_CloseStream(stream);
     Pa_Terminate();
 }
@@ -90,37 +88,53 @@ void SoundManager::Update(float deltaTime) {
 
     // Number of samples to process dependant on deltaTime
     int numSamples = 1024;// int(SAMPLE_RATE * deltaTime);
+    //int samplesFrame = int(SAMPLE_RATE * deltaTime);
+    //std::vector<float*> buffers;
 
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
+        Audio::SoundBuffer& soundBuffer = sound->soundBuffer;
+        Audio::SoundFile* soundFile = sound->soundBuffer.GetSoundFile();
         // Check if sound should play and is a valid resource.
-        if (sound->shouldPlay && sound->soundBuffer && sound->soundBuffer->GetBuffer()) {
+        //if (sound->shouldPlay && soundFile) {
+        if (soundFile) {
 
-            float* soundBuf = new float[numSamples];
-            if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
-                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
-                sound->place += numSamples;
-            }
-            else {
-                // Only copy the end samples of the buffer
-                uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place) / sizeof(float);
-                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
-                if (sound->loop) {
-                    std::memcpy(soundBuf + numToCpy * sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
-                    sound->place = numSamples - numToCpy;
-                }
-                else {
-                    std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
-                    sound->shouldPlay = false;
-                }
-            }
+            //float* data = nullptr;
+            //int validSamples = soundBuffer.GetData(data, samplesFrame);
 
-            for (int i = 0; i < numSamples; i++) {
-                soundBuf[i] *= sound->volume;
-            }
-            IPLVector3 soundPos = IPLVector3{ sound->entity->GetWorldPosition().x, sound->entity->GetWorldPosition().y, sound->entity->GetWorldPosition().z };
-            sAudio.Process(soundBuf, numSamples, soundPos, 5);
+            //if (validSamples < samplesFrame) {
+            //    
+            //}
+            //    soundBuffer.Restart();
+
+
+
+
+            //float* soundBuf = new float[numSamples];
+            //if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
+            //    std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
+            //    sound->place += numSamples;
+            //}
+            //else {
+            //    // Only copy the end samples of the buffer
+            //    uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place) / sizeof(float);
+            //    std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
+            //    if (sound->loop) {
+            //        std::memcpy(soundBuf + numToCpy * sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
+            //        sound->place = numSamples - numToCpy;
+            //    }
+            //    else {
+            //        std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
+            //        sound->shouldPlay = false;
+            //    }
+            //}
+
+            //for (int i = 0; i < numSamples; i++) {
+            //    soundBuf[i] *= sound->volume;
+            //}
+            //IPLVector3 soundPos = IPLVector3{ sound->entity->GetWorldPosition().x, sound->entity->GetWorldPosition().y, sound->entity->GetWorldPosition().z };
+            //sAudio.Process(soundBuf, numSamples, soundPos, 5);
         }
 
         // Pause it.
@@ -136,20 +150,21 @@ void SoundManager::Update(float deltaTime) {
 
     }
 
-    uint32_t numProcessedSamples;
-    float* processedSamples = sAudio.GetProcessed(&numProcessedSamples);
+    //uint32_t numProcessedSamples;
+    //float* processedSamples = sAudio.GetProcessed(&numProcessedSamples);
 
-    //If not playing anything, add silence
-    if (numProcessedSamples == 0)
-        processedSamples = new float[numSamples] {0};
+    ////If not playing anything, add silence
+    //if (numProcessedSamples == 0)
+    //    processedSamples = new float[numSamples] {0};
 
-    Pa_WriteStream(stream, processedSamples, numProcessedSamples);
+    //Pa_WriteStream(stream, processedSamples, numProcessedSamples);
 
-    delete[] processedSamples;
+    //delete[] processedSamples;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
-    return soundSources.Create();
+    Component::SoundSource* soundSource = soundSources.Create();
+    return soundSource;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node) {
@@ -158,7 +173,7 @@ Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node)
     // Load values from Json node.
     std::string name = node.get("sound", "").asString();
     if (!name.empty())
-        soundSource->soundBuffer = Managers().resourceManager->CreateSound(name);
+        soundSource->soundBuffer.SetSoundFile(Managers().resourceManager->CreateSound(name));
 
     soundSource->volume = node.get("volume", 1.f).asFloat();
     soundSource->loop = node.get("loop", false).asBool();
@@ -171,11 +186,13 @@ const std::vector<Component::SoundSource*>& SoundManager::GetSoundSources() cons
 }
 
 Component::Listener* SoundManager::CreateListener() {
-    return listeners.Create();
+    Component::Listener* listener = listeners.Create();
+    return listener;
 }
 
 Component::Listener* SoundManager::CreateListener(const Json::Value& node) {
-    return listeners.Create();
+    Component::Listener* listener = listeners.Create();
+    return listener;
 }
 
 const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
@@ -183,7 +200,8 @@ const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
 }
 
 Component::AudioMaterial* SoundManager::CreateAudioMaterial() {
-    return audioMaterials.Create();
+    Component::AudioMaterial* audioMaterial = audioMaterials.Create();
+    return audioMaterial;
 }
 
 Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& node) {
