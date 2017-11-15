@@ -48,10 +48,10 @@ void LogView::Show() {
         const char* bufferBegin = textBuffer.begin();
         const char* line = bufferBegin;
         for (int lineNumber = 0; line != NULL; lineNumber++) {
-            const char* line_end = (lineNumber < lineOffsets.Size) ? bufferBegin + lineOffsets[lineNumber] : NULL;
-            if (textFilter.PassFilter(line, line_end))
-                ImGui::TextUnformatted(line, line_end);
-            line = line_end && line_end[1] ? line_end + 1 : NULL;
+            const char* lineEnd = (lineNumber < lineOffsets.Size) ? bufferBegin + lineOffsets[lineNumber] : NULL;
+            if (textFilter.PassFilter(line, lineEnd))
+                ImGui::TextUnformatted(line, lineEnd);
+            line = lineEnd && lineEnd[1] ? lineEnd + 1 : NULL;
         }
     } else
         ImGui::TextUnformatted(textBuffer.begin());
@@ -75,13 +75,13 @@ void LogView::UpdateLog() {
         output += "[Error] " + errorStringstream.str();
 
     // Add new lines to text buffer.
-    int old_size = textBuffer.size();
+    int oldSize = textBuffer.size();
 
     textBuffer.appendv(output.c_str(), nullptr);
 
-    for (int newSize = textBuffer.size(); old_size < newSize; old_size++)
-        if (textBuffer[old_size] == '\n')
-            lineOffsets.push_back(old_size);
+    for (int newSize = textBuffer.size(); oldSize < newSize; oldSize++)
+        if (textBuffer[oldSize] == '\n')
+            lineOffsets.push_back(oldSize);
 
     // Clear streams.
     defaultStringstream.str(std::string());
