@@ -32,31 +32,31 @@ class TriggerOnce : public SuperTrigger {
         /**
          * @return The name of the trigger.
          */
-        ENGINE_API std::string GetName();
+        ENGINE_API const std::string& GetName() const;
 
         /// Set the name of the trigger.
         /**
          * @param value The name of the trigger.
          */
-        ENGINE_API void SetName(std::string value);
+        ENGINE_API void SetName(const std::string& value);
 
         /// Get name of target function.
         /**
          * @return Name of target function.
          */
-        ENGINE_API std::string GetTargetFunction();
+        ENGINE_API const std::string& GetTargetFunction() const;
 
         /// Set name of target function.
         /**
          * @param value Name of target function.
          */
-        ENGINE_API void SetTargetFunction(std::string value);
+        ENGINE_API void SetTargetFunction(const std::string& value);
 
         /// If trigger is starting active or not.
         /**
          * @return If trigger is starting active or not.
          */
-        ENGINE_API bool GetStartActive();
+        ENGINE_API bool GetStartActive() const;
 
         /// Set if trigger is starting active or not.
         /**
@@ -68,7 +68,7 @@ class TriggerOnce : public SuperTrigger {
         /**
          * @return The delay before the trigger gets active.
          */
-        ENGINE_API float GetDelay();
+        ENGINE_API float GetDelay() const;
 
         /// Set the delay before the trigger gets active.
         /**
