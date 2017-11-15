@@ -193,6 +193,7 @@ void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
 }
 
 void Renderer::StopRenderingIcons() {
+    currentIcon = nullptr;
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
 }
