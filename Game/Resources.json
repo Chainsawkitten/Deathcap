@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Opening Scene/Opening Scene",
+	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 97,
+	"modelNumber" : 98,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -772,6 +772,10 @@
 							},
 							{
 								"model" : "rockscaled",
+								"type" : 1
+							},
+							{
+								"model" : "PileOfRocks",
 								"type" : 1
 							}
 						],
