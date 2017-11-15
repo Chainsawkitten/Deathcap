@@ -809,7 +809,7 @@
 				"model" : "Resources/Opening Scene/Model/StarterScene_CavePlatform"
 			},
 			"children" : null,
-			"name" : "Entity #3",
+			"name" : "StarterPlatform",
 			"position" : 
 			{
 				"x" : 0.0,

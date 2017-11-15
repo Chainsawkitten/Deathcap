@@ -785,6 +785,10 @@
 							{
 								"model" : "Tracks",
 								"type" : 1
+							},
+							{
+								"model" : "PileOfRocks",
+								"type" : 1
 							}
 						],
 						"subfolders" : 

@@ -4,6 +4,10 @@
 #include <Utility/Log.hpp>
 #include <Engine/Hymn.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Animation;
 
 Animation::Skeleton::Skeleton() {

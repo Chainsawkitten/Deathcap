@@ -20,7 +20,7 @@ class Minecart_Puzzle_1{
     Minecart_Puzzle_1(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        speed = 4.0f;
+        speed = 2.0f;
         stopTime = 0.0f;
         endTime = 5.0f;
         planePos = 0.0f;
@@ -45,20 +45,20 @@ class Minecart_Puzzle_1{
             tempPos.x = planePos - s;
             self.SetWorldPosition(tempPos);
         }
-        // Stopping phase
-        else
-            speed = 0.0f;
         // Start again after puzzle has been solved
-        if (puzzleSolved){
-            if (speed < 4.0f)
-                speed += 0.664f * deltaTime;
-            else if (speed > 4.0f){
-                speed = 4.0f;
+        else if (puzzleSolved){
+            if (speed < 2.0f)
+                speed += 0.5f * deltaTime;
+            else if (speed > 2.0f){
+                speed = 2.0f;
             }
             tempPos = self.GetWorldPosition();
             tempPos.x -= speed * deltaTime;
             self.SetWorldPosition(tempPos);
         }
+        // Stopping phase
+        else
+            speed = 0.0f;
     }
     
     void OnTrigger(){

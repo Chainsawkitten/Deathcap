@@ -2,43 +2,6 @@
 	"children" : 
 	[
 		{
-			"PointLight" : 
-			{
-				"attenuation" : 0.1380000114440918,
-				"color" : 
-				{
-					"x" : 0.0,
-					"y" : 0.729411780834198,
-					"z" : 0.0
-				},
-				"intensity" : 15.13900089263916
-			},
-			"children" : null,
-			"name" : "Sun",
-			"position" : 
-			{
-				"x" : -1.4540001153945923,
-				"y" : -6.7240004539489746,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510049240
-		},
-		{
 			"Material" : 
 			{
 				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
@@ -226,10 +189,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 			},
 			"Mesh" : 
 			{
@@ -362,8 +325,8 @@
 			"name" : "Rock",
 			"position" : 
 			{
-				"x" : 4.5240001678466797,
-				"y" : -0.99400001764297485,
+				"x" : 4.1550002098083496,
+				"y" : -1.1880000829696655,
 				"z" : -1.0700000524520874
 			},
 			"rotation" : 
@@ -485,7 +448,7 @@
 				"triggerEventStruct_Check_1" : true,
 				"triggerEventStruct_Check_2" : true,
 				"triggerEventStruct_Check_3" : true,
-				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_EventID" : 1,
 				"triggerEventStruct_ScriptID" : 1,
 				"triggerEventStruct_ShapeID" : 2,
 				"triggerEventStruct_TargetID" : 3,
@@ -501,7 +464,7 @@
 					"Material" : 
 					{
 						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
-						"metallic" : "",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
 						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
 						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
 					},
@@ -513,9 +476,9 @@
 					"name" : "RockPile",
 					"position" : 
 					{
-						"x" : -4.624000072479248,
-						"y" : 1.1009999513626099,
-						"z" : 1.0590000152587891
+						"x" : -4.639000415802002,
+						"y" : 0.94900006055831909,
+						"z" : 1.1440000534057617
 					},
 					"rotation" : 
 					{
@@ -532,21 +495,21 @@
 					},
 					"scene" : false,
 					"static" : false,
-					"uid" : 1510317506
+					"uid" : 1510739814
 				}
 			],
 			"name" : "RockPileParent",
 			"position" : 
 			{
-				"x" : 4.2473526000976563,
-				"y" : -0.95246875286102295,
-				"z" : -1.352247953414917
+				"x" : 4.324000358581543,
+				"y" : -0.98100006580352783,
+				"z" : -1.1000000238418579
 			},
 			"rotation" : 
 			{
-				"w" : 1.0,
+				"w" : 0.70706576108932495,
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -0.70714718103408813,
 				"z" : 0.0
 			},
 			"scale" : 
@@ -888,9 +851,9 @@
 			"name" : "BucketParent",
 			"position" : 
 			{
-				"x" : -0.015341401100158691,
-				"y" : -0.011506080627441406,
-				"z" : 0.0
+				"x" : -0.010000000707805157,
+				"y" : 0.0,
+				"z" : 2.8510000705718994
 			},
 			"rotation" : 
 			{

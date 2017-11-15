@@ -11,6 +11,10 @@
 #include "../Physics/TriggerObserver.hpp"
 #include "../Util/Json.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 PhysicsManager::PhysicsManager() {
     // The broadphase is used to quickly cull bodies that will not collide with
     // each other, normally by leveraging some simpler (and rough) test such as
@@ -58,6 +62,9 @@ void PhysicsManager::Update(float deltaTime) {
         if (rigidBodyComp->IsKinematic()) {
             rigidBodyComp->SetPosition(worldPos);
             rigidBodyComp->SetOrientation(worldOrientation);
+            // Wake up from sleeping state. Apparently kinematic objects also
+            // goes inactive, but are not woken up when we set position.
+            rigidBodyComp->GetBulletRigidBody()->activate(true);
 
             if (rigidBodyComp->GetHaltMovement()) {
                 btTransform trans;

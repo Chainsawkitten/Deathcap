@@ -14,7 +14,7 @@ int main() {
     if (!glfwInit())
         return 1;
     
-    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr, &std::cout);
+    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr);
 
     Log() << "Game started - " << time(nullptr) << "\n";
     

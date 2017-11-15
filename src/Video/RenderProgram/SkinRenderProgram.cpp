@@ -9,8 +9,15 @@
 #include "../Buffer/StorageBuffer.hpp"
 #include "Skinning.vert.hpp"
 #include "Default3D.frag.hpp"
+#include "ZrejectionSkin.vert.hpp"
+#include "Zrejection.frag.hpp"
+#include "ShadowSkin.vert.hpp"
 #include <chrono>
 #include <Utility/Log.hpp>
+
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 using namespace Video;
 
@@ -20,10 +27,78 @@ SkinRenderProgram::SkinRenderProgram() {
     shaderProgram = new ShaderProgram({ vertexShader, fragmentShader} );
     delete vertexShader;
     delete fragmentShader;
+
+    // Create shaders for early rejection pass
+    vertexShader = new Shader(ZREJECTIONSKIN_VERT, ZREJECTIONSKIN_VERT_LENGTH, GL_VERTEX_SHADER);
+    fragmentShader = new Shader(ZREJECTION_FRAG, ZREJECTION_FRAG_LENGTH, GL_FRAGMENT_SHADER);
+    zShaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
+    delete vertexShader;
+
+    // Create shaders for shadowpass
+    vertexShader = new Shader(SHADOWSKIN_VERT, SHADOWSKIN_VERT_LENGTH, GL_VERTEX_SHADER);
+    shadowProgram = new ShaderProgram({ vertexShader, fragmentShader });
+    delete vertexShader;
+    delete fragmentShader;
 }
 
 SkinRenderProgram::~SkinRenderProgram() {
     delete shaderProgram;
+    delete zShaderProgram;
+    delete shadowProgram;
+}
+
+void SkinRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
+    // Cull front faces to avoid peter panning.
+    glCullFace(GL_FRONT);
+    glViewport(0, 0, shadowWidth, shadowHeight);
+    glBindFramebuffer(GL_FRAMEBUFFER, depthFbo);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    this->shadowProgram->Use();
+
+    this->viewMatrix = viewMatrix;
+    this->projectionMatrix = projectionMatrix;
+    this->lightSpaceMatrix = projectionMatrix * viewMatrix;
+    this->viewProjectionMatrix = projectionMatrix * viewMatrix;
+    this->shadowId = shadowId;
+
+    glUniformMatrix4fv(shadowProgram->GetUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
+}
+
+void SkinRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const {
+    Frustum frustum(viewProjectionMatrix * modelMatrix);
+    if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
+        glBindVertexArray(geometry->GetVertexArray());
+
+        glUniformMatrix4fv(shadowProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+        assert(bones.size() <= 50);
+        glUniformMatrix4fv(shadowProgram->GetUniformLocation("bones"), bones.size(), GL_FALSE, &bones[0][0][0]);
+
+        glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+    }
+}
+
+
+void SkinRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+    this->zShaderProgram->Use();
+
+    this->viewMatrix = viewMatrix;
+    this->projectionMatrix = projectionMatrix;
+    this->viewProjectionMatrix = projectionMatrix * viewMatrix;
+
+    glUniformMatrix4fv(zShaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+}
+
+void SkinRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const {
+    Frustum frustum(viewProjectionMatrix * modelMatrix);
+    if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
+        glBindVertexArray(geometry->GetVertexArray());
+
+        glUniformMatrix4fv(zShaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+        assert(bones.size() <= 50);
+        glUniformMatrix4fv(zShaderProgram->GetUniformLocation("bones"), bones.size(), GL_FALSE, &bones[0][0][0]);
+
+        glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+    }
 }
 
 void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount) {
@@ -68,7 +143,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     }
 }
 
-void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const {
+void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glDepthFunc(GL_LEQUAL);
@@ -101,6 +176,13 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("bones"), bones.size(), GL_FALSE, &bones[0][0][0]);
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+
+        if (isSelected) {
+            glUniform1i(shaderProgram->GetUniformLocation("isSelected"), true);
+            glLineWidth(2.0f);
+            for (int i = 0; i < geometry->GetIndexCount(); i += 3)
+                glDrawArrays(GL_LINE_LOOP, i, 3);
+        }
 
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LESS);

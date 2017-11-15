@@ -1,6 +1,10 @@
 #include "ShadowPass.hpp"
 #include <GL/glew.h>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace Video {
     ShadowPass::ShadowPass() {
         InitDepthMap();
