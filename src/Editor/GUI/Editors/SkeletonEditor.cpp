@@ -17,9 +17,7 @@ void SkeletonEditor::Show() {
         if (ImGui::Button("Open skeleton model")) {
             // Currently only fbx is tested.
             fileSelector.AddExtensions("fbx");
-    
-            // Set the initial path to the models directory.
-            fileSelector.SetInitialPath((Hymn().GetPath()).c_str());
+            fileSelector.SetInitialPath(Hymn().GetPath().c_str());
             fileSelector.SetFileSelectedCallback(std::bind(&SkeletonEditor::FileSelected, this, std::placeholders::_1));
             fileSelector.SetVisible(true);
         }
