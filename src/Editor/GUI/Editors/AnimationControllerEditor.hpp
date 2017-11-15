@@ -45,6 +45,9 @@ namespace GUI {
              */
             void ShowNode(Node* node) override;
 
+            /// Show global values exposed to scripting.
+            void ShowValues() override;
+
             /// Return a node array of animation related nodes.
             /**
              * @return The node array.
@@ -69,5 +72,8 @@ namespace GUI {
             Animation::AnimationController* animationController = nullptr;
 
             ResourceSelector resourceSelector;
+
+            int boolEditIndex = -1;
+            int floatEditIndex = -1;
     };
 }
