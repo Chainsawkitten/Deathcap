@@ -20,17 +20,17 @@ class Controller {
         //    print("Controller position: (" + self.GetWorldPosition().x + ", " + self.GetWorldPosition().y + ", " + self.GetWorldPosition().z + ")\n");
         //}
             
-        //if (!Input(Trigger) && isPressed){
-        //    isPressed = false;
-        //    SendMessage(rock, 2);
-        //}
+        if (!Input(Trigger) && isPressed) {
+            isPressed = false;
+            SendMessage(rock, 2);
+        }
     }
     
     void OnRockTrigger() {
-        print("OnRockTrigger\n");
-        //if (Input(Trigger) && !isPressed) {
-        //    isPressed = true;
-        //    SendMessage(rock, 1);
-        //} 
+        //print("Rock trigger\n");
+        if (Input(Trigger) && !isPressed) {
+            isPressed = true;
+            SendMessage(rock, 1);
+        } 
     }
 }
