@@ -601,7 +601,7 @@ void Editor::PaintBrush(Entity* entity) {
         ImGui::BeginPopupContextWindow("Paint Brush Tool");
         ImGui::Indent();
         ImGui::SliderFloat("Spawn rate.", paintSpawnRate, 0.02f, 1.0f);
-        ImGui::SliderFloat("Object scale.", paintObjScale, 1.0f, 100.0f);
+        ImGui::SliderFloat("Object scale.", paintObjScale, 0.0f, 10.0f);
         ImGui::SliderInt("Scale randomness", paintScaleRandomness, 1, 10);
         ImGui::Checkbox("Spread randomly", &spreadRand);
 
