@@ -8,6 +8,10 @@
 #include <Utility/Log.hpp>
 #include <stdio.h>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 // Platform-dependent includes.
 #if defined(_WIN32) || defined(WIN32)
 #include <direct.h>

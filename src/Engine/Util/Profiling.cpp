@@ -3,6 +3,10 @@
 #include <GLFW/glfw3.h>
 #include "../Manager/Managers.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace std;
 
 Profiling::Profiling(const std::string& name) {

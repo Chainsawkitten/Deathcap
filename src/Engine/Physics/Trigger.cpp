@@ -5,6 +5,10 @@
 #include "Trigger.hpp"
 #include "TriggerObserver.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace Physics {
     Trigger::Trigger(const btTransform& transform) {
         trigger.reset(new btCollisionObject());

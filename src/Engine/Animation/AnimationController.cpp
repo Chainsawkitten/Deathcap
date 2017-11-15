@@ -4,6 +4,10 @@
 #include <Utility/Log.hpp>
 #include "../Hymn.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Animation;
 
 AnimationController::~AnimationController() {
@@ -36,6 +40,16 @@ void AnimationController::Save(const std::string& path) {
         node->Save(&file);
     }
 
+    uint32_t numBools = boolMap.size();
+    file.write(reinterpret_cast<char*>(&numBools), sizeof(uint32_t));
+    for (BoolItem* b : boolMap)
+        file.write(reinterpret_cast<char*>(b), sizeof(BoolItem));
+
+    uint32_t numFloats = floatMap.size();
+    file.write(reinterpret_cast<char*>(&numFloats), sizeof(uint32_t));
+    for (FloatItem* f : floatMap)
+        file.write(reinterpret_cast<char*>(f), sizeof(FloatItem));
+
     // Close file.
     file.close();
 }
@@ -55,6 +69,9 @@ void AnimationController::Load(const std::string& name) {
         return;
     }
 
+    // Clear if anything is loaded.
+    Clear();
+
     uint32_t numNodes = 0;
     file.read(reinterpret_cast<char*>(&numNodes), sizeof(uint32_t));
     for (unsigned int i = 0; i < numNodes; ++i)  {
@@ -71,14 +88,44 @@ void AnimationController::Load(const std::string& name) {
         }
     }
 
+    for (auto i = 0; i < boolMap.size(); ++i) {
+        delete boolMap[i];
+    }
+
+    for (auto i = 0; i < floatMap.size(); ++i) {
+        delete floatMap[i];
+    }
+
+    uint32_t numBools;
+    file.read(reinterpret_cast<char*>(&numBools), sizeof(uint32_t));
+    boolMap.resize(numBools);
+    for (auto i = 0; i < numBools; ++i) {
+        boolMap[i] = new BoolItem;
+        file.read(reinterpret_cast<char*>(boolMap[i]), sizeof(BoolItem));
+    }
+
+    uint32_t numFloats;
+    file.read(reinterpret_cast<char*>(&numFloats), sizeof(uint32_t));
+    floatMap.resize(numFloats);
+    for (auto i = 0; i < numFloats; ++i) {
+        floatMap[i] = new FloatItem;
+        file.read(reinterpret_cast<char*>(floatMap[i]), sizeof(FloatItem));
+    }
+
     // Close file.
     file.close();
 }
 
-void Animation::AnimationController::Clear() {
-    for (Node* node : animationNodes) {
+void AnimationController::Clear() {
+    for (Node* node : animationNodes)
         delete node;
-    }
-
     animationNodes.clear();
+
+    for (BoolItem* b : boolMap)
+        delete b;
+    boolMap.clear();
+
+    for (FloatItem* f : floatMap)
+        delete f;
+    floatMap.clear();
 }
