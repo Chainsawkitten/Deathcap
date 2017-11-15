@@ -6,6 +6,10 @@
 #include <Engine/Animation/Skeleton.hpp>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 AssetConverterSkeleton::AssetConverterSkeleton() {
 }
 

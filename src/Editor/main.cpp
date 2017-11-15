@@ -21,6 +21,10 @@
 #include "GUI/ProfilingWindow.hpp"
 #include <iostream>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 int main() {
     Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr);
 
@@ -145,7 +149,9 @@ int main() {
             std::this_thread::sleep_for(std::chrono::microseconds(wait));
         lastTimeRender = glfwGetTime();
     }
-    
+#ifdef USINGMEMTRACK
+    MemTrack::TrackListMemoryUsage();
+#endif
     // Save editor settings.
     EditorSettings::GetInstance().Save();
     

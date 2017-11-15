@@ -1,5 +1,9 @@
 #include "GuiHelpers.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace ImGui {
     void ShowHelpMarker(const char* description, const float sameLineOffset) {
         if (sameLineOffset > 0.0f)

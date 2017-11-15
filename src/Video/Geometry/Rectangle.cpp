@@ -1,5 +1,9 @@
 #include "Rectangle.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 using namespace Geometry;
 

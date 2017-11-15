@@ -1,5 +1,8 @@
 #include "SteamAudioInterface.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 SteamAudioInterface::SteamAudioInterface() {
     context = nullptr;
