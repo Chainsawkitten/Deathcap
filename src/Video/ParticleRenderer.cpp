@@ -9,6 +9,10 @@
 #include "Particle.geom.hpp"
 #include "Particle.frag.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
 using namespace Video;

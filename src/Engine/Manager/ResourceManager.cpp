@@ -13,6 +13,10 @@
 #include <Utility/Log.hpp>
 #include "../Audio/AudioMaterial.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace std;
 
 Geometry::Model* ResourceManager::CreateModel(const std::string& name) {

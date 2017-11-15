@@ -1,5 +1,9 @@
 #include "Texture.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 GLenum Texture::Format(int components) {

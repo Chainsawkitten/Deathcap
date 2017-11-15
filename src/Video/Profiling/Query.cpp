@@ -3,6 +3,10 @@
 #include <GL/glew.h>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 Query::Query(Type type) : active(false) {

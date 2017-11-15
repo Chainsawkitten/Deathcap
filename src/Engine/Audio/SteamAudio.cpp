@@ -1,5 +1,9 @@
 #include "SteamAudio.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 SteamAudio::SteamAudio() {
     context = nullptr;
     environmentalRenderer = nullptr;
