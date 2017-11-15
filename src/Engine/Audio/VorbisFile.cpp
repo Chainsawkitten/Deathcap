@@ -3,6 +3,10 @@
 #include <Utility/Log.hpp>
 #include <stb_vorbis.c>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Audio;
 
 VorbisFile::VorbisFile(const char* filename) {

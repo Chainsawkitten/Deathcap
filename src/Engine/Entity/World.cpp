@@ -10,6 +10,10 @@
 #include <fstream>
 #include <ctime>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 World::World() {
     particles = new Video::ParticleRenderer::Particle[Managers().particleManager->GetMaxParticleCount()];
 }

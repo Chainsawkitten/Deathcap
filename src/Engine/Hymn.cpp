@@ -27,6 +27,9 @@
 #include "Util/GPUProfiling.hpp"
 #include "Entity/Entity.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 using namespace std;
 
@@ -226,8 +229,8 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
 }
 
 Entity* ActiveHymn::GetEntityByGUID(unsigned int GUID) {
-    const std::vector<Entity*>& entities = Hymn().world.GetEntities();
-    for (int i = 0; i < entities.size(); i++) {
+    const vector<Entity*>& entities = Hymn().world.GetEntities();
+    for (size_t i = 0; i < entities.size(); ++i) {
         if (entities[i]->GetUniqueIdentifier() == GUID)
             return entities[i];        
     }

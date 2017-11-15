@@ -34,6 +34,12 @@ add_library(imguizmo STATIC ImGuizmo/ImGuizmo.cpp)
 target_link_libraries(imguizmo imgui)
 target_include_directories(imguizmo INTERFACE ImGuizmo)
 
+# MemTrack
+add_library(memtrack SHARED memtrack/MemTrack.cpp)
+add_library(memtracknew STATIC memtrack/MemTrackNew.cpp)
+target_include_directories(memtrack INTERFACE memtrack)
+target_include_directories(memtracknew INTERFACE memtracknew)
+
 # OpenAL Soft
 set(ALSOFT_UTILS OFF CACHE BOOL "Don't build OpenAL Soft utility programs" FORCE)
 set(ALSOFT_EXAMPLES OFF CACHE BOOL "Don't build OpenAL Soft examples" FORCE)
