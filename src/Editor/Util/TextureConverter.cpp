@@ -10,14 +10,14 @@
 namespace TextureConverter {
     void Convert(const char* inFilename, const char* outFilename) {
         // Load PNG file.
-        /*int components, width, height;
+        int components, width, height;
         unsigned char* data = stbi_load(inFilename, &width, &height, &components, 0);
         if (data == NULL) {
             Log(Log::ERR) << "Couldn't load image: " << inFilename << "\n";
             return;
         }
         
-        stbi_image_free(data);*/
+        stbi_image_free(data);
         
         /// @todo Convert to HCT.
         
