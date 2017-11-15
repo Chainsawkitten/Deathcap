@@ -532,8 +532,8 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
     ImGui::Text("Sound");
     ImGui::Indent();
 
-    if (soundSource->soundBuffer.GetSoundFile()) {
-        ImGui::Text(soundSource->soundBuffer.GetSoundFile()->name.c_str());
+    if (soundSource->soundBuffer->GetSoundFile()) {
+        ImGui::Text(soundSource->soundBuffer->GetSoundFile()->name.c_str());
     }
 
     if (ImGui::Button("Select sound"))
@@ -544,12 +544,12 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::SOUND)) {
-            Audio::SoundFile* soundFile = soundSource->soundBuffer.GetSoundFile();
+            Audio::SoundFile* soundFile = soundSource->soundBuffer->GetSoundFile();
             if (soundFile)
                 Managers().resourceManager->FreeSound(soundFile);
 
             soundFile = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
-            soundSource->soundBuffer.SetSoundFile(soundFile);
+            soundSource->soundBuffer->SetSoundFile(soundFile);
         }
 
         ImGui::EndPopup();

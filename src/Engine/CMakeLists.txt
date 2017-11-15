@@ -11,6 +11,7 @@ set(SRCS
         Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
         Audio/SoundFile.cpp
+        Audio/SoundStreamer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
         Audio/SteamAudioIndirectRenderer.cpp
@@ -75,6 +76,7 @@ set(HEADERS
         Audio/AudioMaterial.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
+        Audio/SoundStreamer.hpp
         Audio/SteamAudio.hpp
         Audio/SteamAudioDirectRenderer.hpp
         Audio/SteamAudioIndirectRenderer.hpp

@@ -2,7 +2,6 @@
 
 #include "SuperComponent.hpp"
 #include <cstdint>
-#include "../Audio/SoundBuffer.hpp"
 #include "../linking.hpp"
 
 class SoundManager;
@@ -38,16 +37,13 @@ namespace Component {
             ENGINE_API void Stop();
             
             /// Sound buffer.
-            Audio::SoundBuffer soundBuffer;
+            Audio::SoundBuffer* soundBuffer;
             
             /// Volume.
             float volume = 1.f;
             
             /// Whether the sound should loop.
             bool loop = false;
-
-            /// Place in buffer
-            uint32_t place = 0;
             
         private:            
             bool shouldPlay = false;

@@ -94,8 +94,8 @@ void SoundManager::Update(float deltaTime) {
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
-        Audio::SoundBuffer& soundBuffer = sound->soundBuffer;
-        Audio::SoundFile* soundFile = sound->soundBuffer.GetSoundFile();
+        Audio::SoundBuffer* soundBuffer = sound->soundBuffer;
+        Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
         // Check if sound should play and is a valid resource.
         //if (sound->shouldPlay && soundFile) {
         if (soundFile) {
@@ -145,7 +145,6 @@ void SoundManager::Update(float deltaTime) {
         // Stop it.
         if (sound->shouldStop) {
             sound->shouldPlay = false;
-            sound->place = 0;
         }
 
     }
@@ -173,7 +172,7 @@ Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node)
     // Load values from Json node.
     std::string name = node.get("sound", "").asString();
     if (!name.empty())
-        soundSource->soundBuffer.SetSoundFile(Managers().resourceManager->CreateSound(name));
+        soundSource->soundBuffer->SetSoundFile(Managers().resourceManager->CreateSound(name));
 
     soundSource->volume = node.get("volume", 1.f).asFloat();
     soundSource->loop = node.get("loop", false).asBool();

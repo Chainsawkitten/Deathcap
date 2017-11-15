@@ -11,14 +11,10 @@ namespace Audio {
     /// Wrapper for sound file.
     class SoundBuffer {
         public:
+            friend class SoundStreamer;
             /// Constructor.
-            ENGINE_API SoundBuffer();
-
-            /// Create a sound buffer from a sound file.
-            /**
-             * @param soundFile The sound file containing the sound.
-             */
-            ENGINE_API explicit SoundBuffer(SoundFile* soundFile);
+            //TMPTODO
+            ENGINE_API SoundBuffer(unsigned int samplesPerChunk = 512, unsigned int chunkCount = 5);
             
             /// Destructor.
             ENGINE_API ~SoundBuffer();
@@ -26,7 +22,7 @@ namespace Audio {
             //TMPTODO
             /// Get sound data.
             /**
-             * @return The OpenAL buffer ID.
+             * @return The sound file containing the sound.
              */
             ENGINE_API int GetData(float* data, unsigned int samples);
 
@@ -36,7 +32,7 @@ namespace Audio {
             //TMPTODO
             /// Get AL buffer.
             /**
-             * @return The OpenAL buffer ID.
+             * @param soundFile The sound file containing the sound.
              */
             ENGINE_API void SetSoundFile(SoundFile* soundFile);
 
@@ -50,11 +46,12 @@ namespace Audio {
         private:
             SoundFile* soundFile = nullptr;
             float* buffer = nullptr;
-            int bufferSampleCount;
+            unsigned int bufferSampleCount;
 
-            int beginSample = 0;
-            int endSample = 0;
+            unsigned int samplesPerChunk;
+            unsigned int chunkCount;
 
-            int currentSample = 0;
+            unsigned int begin = 0;
+            unsigned int end = 0;
     };
 }

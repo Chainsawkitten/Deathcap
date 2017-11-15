@@ -9,19 +9,20 @@
 using namespace Component;
 
 SoundSource::SoundSource() {
-    
+    soundBuffer = new Audio::SoundBuffer();
 }
 
 SoundSource::~SoundSource() {
-    Audio::SoundFile* soundFile = soundBuffer.GetSoundFile();
+    Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
     if (soundFile)
         Managers().resourceManager->FreeSound(soundFile);
+    delete soundBuffer;
 }
 
 Json::Value SoundSource::Save() const {
     Json::Value component;
     
-    Audio::SoundFile* soundFile = soundBuffer.GetSoundFile();
+    Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
     if (soundFile) {
         component["sound"] = soundFile->path + soundFile->name;
     }
