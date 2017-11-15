@@ -796,6 +796,8 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
     Component::Script* script = entity->GetComponent<Component::Script>();
     if (!script)
         return;
+    currentEntity = script->entity;
+
     ScriptFile* scriptFile = script->scriptFile;
 
     // Get class.
