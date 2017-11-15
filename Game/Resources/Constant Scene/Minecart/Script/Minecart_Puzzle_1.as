@@ -45,13 +45,10 @@ class Minecart_Puzzle_1{
             tempPos.x = planePos - s;
             self.SetWorldPosition(tempPos);
         }
-        // Stopping phase
-        else
-            speed = 0.0f;
         // Start again after puzzle has been solved
-        if (puzzleSolved){
+        else if (puzzleSolved){
             if (speed < 4.0f)
-                speed += 0.664f * deltaTime;
+                speed += 2.0f * deltaTime;
             else if (speed > 4.0f){
                 speed = 4.0f;
             }
@@ -59,6 +56,9 @@ class Minecart_Puzzle_1{
             tempPos.x -= speed * deltaTime;
             self.SetWorldPosition(tempPos);
         }
+        // Stopping phase
+        else
+            speed = 0.0f;
     }
     
     void OnTrigger(){

@@ -38,6 +38,9 @@ class Rock {
     }
     
     void HitBucket() {
-        print("Moddafakka");
+        SendMessage(bridgeParent, 1);
+        hub.physicsManager.MakeKinematic(self.GetRigidBody());
+        self.position = vec3(0.0f, 0.0f, 0.0f);
+        self.SetParent(bucketParent);
     }
 }

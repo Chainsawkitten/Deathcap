@@ -2,43 +2,6 @@
 	"children" : 
 	[
 		{
-			"PointLight" : 
-			{
-				"attenuation" : 0.1380000114440918,
-				"color" : 
-				{
-					"x" : 0.0,
-					"y" : 0.729411780834198,
-					"z" : 0.0
-				},
-				"intensity" : 15.13900089263916
-			},
-			"children" : null,
-			"name" : "Sun",
-			"position" : 
-			{
-				"x" : -1.4540001153945923,
-				"y" : -6.7240004539489746,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510049240
-		},
-		{
 			"Material" : 
 			{
 				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
@@ -68,7 +31,7 @@
 			"scale" : 
 			{
 				"x" : 1.0,
-				"y" : 1.0,
+				"y" : 2.0,
 				"z" : 1.0
 			},
 			"scene" : false,
@@ -925,9 +888,9 @@
 			"name" : "BucketParent",
 			"position" : 
 			{
-				"x" : -0.015341401100158691,
-				"y" : -0.011506080627441406,
-				"z" : 0.0
+				"x" : -0.010000000707805157,
+				"y" : 0.0,
+				"z" : 2.8510000705718994
 			},
 			"rotation" : 
 			{
