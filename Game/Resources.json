@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
+	"activeScene" : "Resources/NewAssetsScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -767,11 +767,11 @@
 								"type" : 1
 							},
 							{
-								"model" : "Tracks",
+								"model" : "rockscaled",
 								"type" : 1
 							},
 							{
-								"model" : "rockscaled",
+								"model" : "Tracks",
 								"type" : 1
 							},
 							{
