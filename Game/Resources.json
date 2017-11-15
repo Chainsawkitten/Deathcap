@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/NewAssetsScene",
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 98,
+	"modelNumber" : 101,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -227,6 +227,18 @@
 							},
 							{
 								"model" : "StarterScene_Carts",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_StraightCave",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Platform",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_CavePlatform",
 								"type" : 1
 							}
 						],

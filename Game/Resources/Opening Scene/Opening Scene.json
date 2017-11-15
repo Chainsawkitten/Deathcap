@@ -156,8 +156,8 @@
 			"name" : "Gates",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : -1.8520001173019409,
+				"x" : 0.13600000739097595,
+				"y" : -4.9940004348754883,
 				"z" : -1.0
 			},
 			"rotation" : 
@@ -258,8 +258,8 @@
 			"name" : "Lever",
 			"position" : 
 			{
-				"x" : -0.8330000638961792,
-				"y" : -2.1640000343322754,
+				"x" : -33.019416809082031,
+				"y" : 1.9443953037261963,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -721,6 +721,117 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510736596
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_StraightCave"
+			},
+			"children" : null,
+			"name" : "StarterStrightCave",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510746273
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
+				"metallic" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_metallic",
+				"normal" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_Platform"
+			},
+			"children" : null,
+			"name" : "StarterCavePlatform",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510746355
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Pillars/Pillars_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_CavePlatform"
+			},
+			"children" : null,
+			"name" : "Entity #3",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510746438
 		}
 	],
 	"name" : "Root",
