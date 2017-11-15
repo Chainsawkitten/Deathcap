@@ -6,6 +6,10 @@
 #include "Manager/RenderManager.hpp"
 #include "Util/Input.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 MainWindow* MainWindow::instance = nullptr;
 void WindowSizeCallback(GLFWwindow* window, int width, int height);
 void ErrorCallback(int error, const char* description);

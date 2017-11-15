@@ -2,6 +2,10 @@
 #include "../Physics/GlmConversion.hpp"
 #include "RigidBody.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace Component {
     RigidBody::~RigidBody() {
         Destroy();

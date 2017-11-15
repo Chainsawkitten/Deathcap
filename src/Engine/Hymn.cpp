@@ -7,6 +7,7 @@
 #include "Manager/ParticleManager.hpp"
 #include "Manager/ScriptManager.hpp"
 #include "Manager/SoundManager.hpp"
+#include "Manager/VRManager.hpp"
 #include "Manager/TriggerManager.hpp"
 #include "Manager/DebugDrawingManager.hpp"
 #include "Manager/ResourceManager.hpp"
@@ -26,6 +27,9 @@
 #include "Util/GPUProfiling.hpp"
 #include "Entity/Entity.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 using namespace std;
 
@@ -150,6 +154,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
     
     // Load scripts.
+    scripts.clear();
     const Json::Value scriptNode = root["scripts"];
     for (unsigned int i = 0; i < scriptNode.size(); ++i) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
@@ -224,8 +229,8 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
 }
 
 Entity* ActiveHymn::GetEntityByGUID(unsigned int GUID) {
-    const std::vector<Entity*>& entities = Hymn().world.GetEntities();
-    for (int i = 0; i < entities.size(); i++) {
+    const vector<Entity*>& entities = Hymn().world.GetEntities();
+    for (size_t i = 0; i < entities.size(); ++i) {
         if (entities[i]->GetUniqueIdentifier() == GUID)
             return entities[i];        
     }
