@@ -189,10 +189,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 			},
 			"Mesh" : 
 			{
