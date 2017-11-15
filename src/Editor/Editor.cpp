@@ -28,6 +28,10 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
 Editor::Editor() {
     // Create Hymns directory.
