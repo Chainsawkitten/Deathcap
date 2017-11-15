@@ -233,43 +233,6 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/NewAssets/Models/Tracks"
-			},
-			"children" : null,
-			"name" : "Track",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510064161
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
-			},
-			"Mesh" : 
-			{
 				"model" : "Resources/NewAssets/Models/Pick"
 			},
 			"children" : null,
@@ -945,6 +908,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510652592
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Tracks"
+			},
+			"children" : null,
+			"name" : "Entity #1",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510740427
 		}
 	],
 	"name" : "Root",

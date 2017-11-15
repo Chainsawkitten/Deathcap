@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Opening Scene/Opening Scene",
+	"activeScene" : "Resources/NewAssetsScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 97,
+	"modelNumber" : 98,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -767,11 +767,11 @@
 								"type" : 1
 							},
 							{
-								"model" : "Tracks",
+								"model" : "rockscaled",
 								"type" : 1
 							},
 							{
-								"model" : "rockscaled",
+								"model" : "Tracks",
 								"type" : 1
 							}
 						],
