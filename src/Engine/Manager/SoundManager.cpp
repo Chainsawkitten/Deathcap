@@ -52,15 +52,10 @@ SoundManager::SoundManager() {
 
     err = Pa_StartStream(stream);
     CheckError(err);
-
-    worker.Start(this);
 }
 
 
 SoundManager::~SoundManager() {
-    stopWorker = true;
-    worker.Join();
-
     Pa_CloseStream(stream);
     Pa_Terminate();
 }
@@ -76,7 +71,6 @@ void SoundManager::CheckError(PaError err) {
 
 void SoundManager::Update(float deltaTime) {
     
-    /*
     // Set player transform
     std::vector<Component::Listener*> listeners = GetListeners();
     assert(listeners[0] != nullptr);
@@ -165,22 +159,15 @@ void SoundManager::Update(float deltaTime) {
     //Pa_WriteStream(stream, processedSamples, numProcessedSamples);
 
     //delete[] processedSamples;
-    */
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
-    std::unique_lock<std::mutex> lock(lock, std::defer_lock);
-    lock.lock();
     Component::SoundSource* soundSource = soundSources.Create();
-    lock.unlock();
     return soundSource;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node) {
-    std::unique_lock<std::mutex> lock(lock, std::defer_lock);
-    lock.lock();
     Component::SoundSource* soundSource = soundSources.Create();
-    lock.unlock();
 
     // Load values from Json node.
     std::string name = node.get("sound", "").asString();
@@ -198,18 +185,12 @@ const std::vector<Component::SoundSource*>& SoundManager::GetSoundSources() cons
 }
 
 Component::Listener* SoundManager::CreateListener() {
-    std::unique_lock<std::mutex> lock(lock, std::defer_lock);
-    lock.lock();
     Component::Listener* listener = listeners.Create();
-    lock.unlock();
     return listener;
 }
 
 Component::Listener* SoundManager::CreateListener(const Json::Value& node) {
-    std::unique_lock<std::mutex> lock(lock, std::defer_lock);
-    lock.lock();
     Component::Listener* listener = listeners.Create();
-    lock.unlock();
     return listener;
 }
 
@@ -218,18 +199,12 @@ const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
 }
 
 Component::AudioMaterial* SoundManager::CreateAudioMaterial() {
-    std::unique_lock<std::mutex> lock(lock, std::defer_lock);
-    lock.lock();
     Component::AudioMaterial* audioMaterial = audioMaterials.Create();
-    lock.unlock();
     return audioMaterial;
 }
 
 Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& node) {
-    std::unique_lock<std::mutex> lock(lock, std::defer_lock);
-    lock.lock();
     Component::AudioMaterial* audioMaterial = audioMaterials.Create();
-    lock.unlock();
 
     // Load values from Json node.
     std::string name = node.get("audio material", "").asString();
@@ -333,29 +308,6 @@ void SoundManager::CreateAudioEnvironment() {
 }
 
 void SoundManager::ClearKilledComponents() {
-    std::unique_lock<std::mutex> lock(lock, std::defer_lock);
-    lock.lock();
     soundSources.ClearKilled();
     listeners.ClearKilled();
-    lock.unlock();
-}
-
-void SoundManager::Worker::Start(SoundManager* manager) {
-    workThread = std::thread(std::bind(&SoundManager::Worker::Execute, this, manager));
-}
-
-void SoundManager::Worker::Execute(SoundManager* manager) {
-    std::unique_lock<std::mutex> lock(manager->lock, std::defer_lock);
-    while (!manager->stopWorker) {
-        lock.lock();
-
-        // Update sound.
-
-        lock.unlock();
-        std::this_thread::yield();
-    }
-}
-
-void SoundManager::Worker::Join() {
-    workThread.join();
 }

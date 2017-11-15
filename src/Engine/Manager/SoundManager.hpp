@@ -4,8 +4,6 @@
 #include <portaudio.h>
 #include "../Audio/SteamAudioInterface.hpp"
 #include "../linking.hpp"
-#include <thread>
-#include <mutex>
 
 namespace Component {
     class AudioMaterial;
@@ -106,18 +104,6 @@ class SoundManager {
         PaStream* stream;
 
         float volume = 1.f;
-
-        class Worker {
-            public:
-                void Start(SoundManager* manager);
-                void Execute(SoundManager* manager);
-                void Join();
-
-            private:
-                std::thread workThread;
-        } worker;
-        std::mutex lock;
-        bool stopWorker = false;
         
         ComponentContainer<Component::SoundSource> soundSources;
         ComponentContainer<Component::Listener> listeners;
