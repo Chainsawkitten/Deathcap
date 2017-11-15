@@ -17,10 +17,22 @@ namespace TextureConverter {
             return;
         }
         
+        // Convert to RGB (in case it's not already).
+        unsigned char* rgbData = new unsigned char[width * height * 3];
+        
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                int index = y * width + x;
+                rgbData[index * 3 + 0] = data[index * components + 0];
+                rgbData[index * 3 + 1] = (components >= 2) ? data[index * components + 1] : 0;
+                rgbData[index * 3 + 2] = (components >= 3) ? data[index * components + 2] : 0;
+            }
+        }
+        
         stbi_image_free(data);
         
-        /// @todo Convert to HCT.
-        
         /// @todo Store results to file.
+        
+        delete[] rgbData;
     }
 }
