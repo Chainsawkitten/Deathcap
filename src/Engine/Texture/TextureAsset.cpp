@@ -6,6 +6,10 @@
 #include <Video/Texture/TexturePNG.hpp>
 #include <Video/Texture/TextureHCT.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 TextureAsset::TextureAsset() {

@@ -11,6 +11,10 @@
 #include "../Physics/TriggerObserver.hpp"
 #include "../Util/Json.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 PhysicsManager::PhysicsManager() {
     // The broadphase is used to quickly cull bodies that will not collide with
     // each other, normally by leveraging some simpler (and rough) test such as

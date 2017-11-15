@@ -128,5 +128,8 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_executable(Editor ${SRCS} ${HEADERS})
 target_link_libraries(Editor Engine imgui imguizmo)
+if(UseMemTrack)
+    target_link_libraries(Editor memtrack memtracknew)
+endif()
 set_property(TARGET Editor PROPERTY CXX_STANDARD 11)
 set_property(TARGET Editor PROPERTY CXX_STANDARD_REQUIRED ON)

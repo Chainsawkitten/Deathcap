@@ -27,6 +27,10 @@
 #include "Util/GPUProfiling.hpp"
 #include "Entity/Entity.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace std;
 
 ActiveHymn::ActiveHymn() {

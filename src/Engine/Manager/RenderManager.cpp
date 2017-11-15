@@ -46,6 +46,10 @@
 #include <glm/gtc/quaternion.hpp>
 #include <Video/Texture/TexturePNG.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Component;
 
 RenderManager::RenderManager() {

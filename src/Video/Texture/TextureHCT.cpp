@@ -3,6 +3,10 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 TextureHCT::TextureHCT(const char* filename) {

@@ -19,7 +19,6 @@ class Log {
         INFO,              ///< Information.
         WARNING,           ///< Warnings.
         ERR,               ///< Error.
-        DEBUG,             ///< Debug messages.
         NUMBER_OF_CHANNELS ///< Maximum number of channels, ensure this is the last element of the enum if adding channels.
     };
 
@@ -107,10 +106,9 @@ class Log {
      * @param info The stream for information.
      * @param warning The stream for warnings.
      * @param error The stream for errors.
-     * @param debug The stream for debug messages.
      * @return Whether the operation succeeded or not.
      */
-    UTILITY_API static bool SetupStreams(std::ostream* defaultStream, std::ostream* info, std::ostream* warning, std::ostream* error, std::ostream* debug);
+    UTILITY_API static bool SetupStreams(std::ostream* defaultStream, std::ostream* info, std::ostream* warning, std::ostream* error);
 
     private:
     Channel currentChannel;
