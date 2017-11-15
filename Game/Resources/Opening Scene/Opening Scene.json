@@ -698,7 +698,7 @@
 				"model" : "Resources/Opening Scene/Model/StarterScene_Carts"
 			},
 			"children" : null,
-			"name" : "Entity #3",
+			"name" : "Minecarts",
 			"position" : 
 			{
 				"x" : 0.0,
