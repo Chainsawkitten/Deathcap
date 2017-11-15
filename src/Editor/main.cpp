@@ -26,7 +26,7 @@
 #endif
 
 int main() {
-    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr, &std::cout);
+    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr);
 
     // Enable logging if requested.
     if (EditorSettings::GetInstance().GetBool("Logging")){
