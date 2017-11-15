@@ -5,6 +5,10 @@
 #include "../Audio/SteamAudioInterface.hpp"
 #include "../linking.hpp"
 
+namespace Audio {
+    class SoundStreamer;
+}
+
 namespace Component {
     class AudioMaterial;
     class Listener;
@@ -93,6 +97,9 @@ class SoundManager {
         
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
+
+        //TMPTODO
+        Audio::SoundStreamer* soundStreamer;
         
     private:
         SoundManager();

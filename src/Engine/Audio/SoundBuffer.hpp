@@ -4,6 +4,8 @@
 #include <json/json.h>
 #include <cstdint>
 #include "../linking.hpp"
+#include <queue>
+#include "SoundStreamer.hpp"
 
 namespace Audio {
     class SoundFile;
@@ -24,7 +26,10 @@ namespace Audio {
             /**
              * @return The sound file containing the sound.
              */
-            ENGINE_API int GetData(float* data, unsigned int samples);
+            ENGINE_API void GetCurrentChunk(float* data);
+
+            //TMPTODO
+            ENGINE_API void ConsumeChunk();
 
             // TMPTODO
             ENGINE_API SoundFile* GetSoundFile() const;
@@ -53,5 +58,7 @@ namespace Audio {
 
             unsigned int begin = 0;
             unsigned int end = 0;
+
+            std::queue<SoundStreamer::DataHandle> chunkQueue;
     };
 }

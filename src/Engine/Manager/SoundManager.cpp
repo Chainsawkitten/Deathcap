@@ -9,6 +9,7 @@
 #include "../Component/SoundSource.hpp"
 #include "../Audio/SoundFile.hpp"
 #include "../Audio/SoundBuffer.hpp"
+#include "../Audio/SoundStreamer.hpp"
 #include "../Audio/AudioMaterial.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
 #include "Managers.hpp"
@@ -52,12 +53,15 @@ SoundManager::SoundManager() {
 
     err = Pa_StartStream(stream);
     CheckError(err);
+
+    soundStreamer = new Audio::SoundStreamer();
 }
 
 
 SoundManager::~SoundManager() {
     Pa_CloseStream(stream);
     Pa_Terminate();
+    delete soundStreamer;
 }
 
 void SoundManager::CheckError(PaError err) {
@@ -87,9 +91,7 @@ void SoundManager::Update(float deltaTime) {
 
 
     // Number of samples to process dependant on deltaTime
-    int numSamples = 1024;// int(SAMPLE_RATE * deltaTime);
-    //int samplesFrame = int(SAMPLE_RATE * deltaTime);
-    //std::vector<float*> buffers;
+    int samplesThisFrame = int(SAMPLE_RATE * deltaTime);
 
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
@@ -100,16 +102,8 @@ void SoundManager::Update(float deltaTime) {
         //if (sound->shouldPlay && soundFile) {
         if (soundFile) {
 
-            //float* data = nullptr;
-            //int validSamples = soundBuffer.GetData(data, samplesFrame);
-
-            //if (validSamples < samplesFrame) {
-            //    
-            //}
-            //    soundBuffer.Restart();
-
-
-
+            float* data = nullptr;
+            soundBuffer->GetCurrentChunk(data);
 
             //float* soundBuf = new float[numSamples];
             //if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
