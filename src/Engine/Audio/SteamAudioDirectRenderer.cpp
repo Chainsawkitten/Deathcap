@@ -1,15 +1,14 @@
 #include "SteamAudioDirectRenderer.hpp"
 
 SteamAudioDirectRenderer::SteamAudioDirectRenderer() {
-    context = nullptr;
-    environment = nullptr;
     directEffect = nullptr;
     envRenderer = nullptr;
 }
 
-SteamAudioDirectRenderer::SteamAudioDirectRenderer(IPLContext* context, IPLhandle* environment) {
-    this->context = context;
+SteamAudioDirectRenderer::SteamAudioDirectRenderer(IPLhandle environment) {
     this->environment = environment;
+    this->envRenderer = new IPLhandle;
+    this->directEffect = new IPLhandle;
 
     IPLRenderingSettings settings;
     settings.frameSize = 1024;
@@ -28,9 +27,9 @@ SteamAudioDirectRenderer::SteamAudioDirectRenderer(IPLContext* context, IPLhandl
     outputFormat.speakerDirections = NULL;
     outputFormat.channelOrder = IPL_CHANNELORDER_INTERLEAVED;
 
-    iplCreateEnvironmentalRenderer(*context, environment, settings, outputFormat, NULL, NULL, envRenderer);
+    IPLerror err = iplCreateEnvironmentalRenderer(IPLContext{ nullptr,nullptr,nullptr }, environment, settings, outputFormat, NULL, NULL, envRenderer);
 
-    iplCreateDirectSoundEffect(envRenderer, inputFormat, outputFormat, directEffect);
+    iplCreateDirectSoundEffect(*envRenderer, inputFormat, outputFormat, directEffect);
 }
 
 SteamAudioDirectRenderer::~SteamAudioDirectRenderer() {
@@ -51,7 +50,10 @@ IPLAudioBuffer SteamAudioDirectRenderer::Process(IPLAudioBuffer input, IPLVector
 
     IPLAudioBuffer outputBuffer;
     outputBuffer.format = outputFormat;
+    outputBuffer.numSamples = 1024;
+    outputBuffer.interleavedBuffer = new float[2048];
+    outputBuffer.deinterleavedBuffer = NULL;
 
-    iplApplyDirectSoundEffect(directEffect, input, soundPath, options, outputBuffer);
+    iplApplyDirectSoundEffect(*directEffect, input, soundPath, options, outputBuffer);
     return outputBuffer;
 }

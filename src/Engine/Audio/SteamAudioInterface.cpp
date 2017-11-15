@@ -1,28 +1,24 @@
 #include "SteamAudioInterface.hpp"
 
 
+
 SteamAudioInterface::SteamAudioInterface() {
     simSettings.sceneType = IPL_SCENETYPE_PHONON;
-    simSettings.numRays = 1024;
+    simSettings.numRays = 12400;
     simSettings.numDiffuseSamples = 32;
-    simSettings.numBounces = 2;
+    simSettings.numBounces = 1;
     simSettings.irDuration = 1.0;
     simSettings.ambisonicsOrder = 0;
-    simSettings.maxConvolutionSources = 1;
+    simSettings.maxConvolutionSources = 0;
     context = IPLContext{ nullptr, nullptr, nullptr };
-    scene = new IPLhandle;
 }
 
 SteamAudioInterface::~SteamAudioInterface() {
 
 }
 
-void SteamAudioInterface::SetContext(IPLLogFunction logCallback, IPLAllocateFunction allocCallback, IPLFreeFunction freeCallback) {
-
-}
-
 void SteamAudioInterface::CreateScene(uint32_t numMaterials) {
-    IPLerror err = iplCreateScene(context, NULL, simSettings, numMaterials, scene);
+    IPLerror err = iplCreateScene(context, NULL, simSettings, numMaterials, &scene);
 }
 
 void SteamAudioInterface::FinalizeScene(IPLFinalizeSceneProgressCallback progressCallback) {
@@ -43,7 +39,7 @@ SteamAudioInterface::SaveData SteamAudioInterface::SaveFinalizedScene() {
 }
 
 void SteamAudioInterface::LoadFinalizedScene(SaveData data) {
-    iplLoadFinalizedScene(context, simSettings, data.scene, data.sceneSize, NULL, NULL, scene);
+    iplLoadFinalizedScene(context, simSettings, data.scene, data.sceneSize, NULL, NULL, &scene);
 }
 
 void SteamAudioInterface::SetSceneMaterial(uint32_t matIndex, IPLMaterial material) {
@@ -63,7 +59,8 @@ IPLhandle * SteamAudioInterface::CreateStaticMesh(std::vector<IPLVector3> vertic
 }
 
 void SteamAudioInterface::CreateEnvironment() {
-    iplCreateEnvironment(context, NULL, simSettings, scene, NULL, environment);
+    IPLerror err = iplCreateEnvironment(context, NULL, simSettings, scene, NULL, &environment);
+    sAudio.CreateRenderers(environment);
 }
 
 void SteamAudioInterface::SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp) {
@@ -91,6 +88,9 @@ void SteamAudioInterface::Process(float* input, uint32_t samples,  IPLVector3 so
 
 float * SteamAudioInterface::GetProcessed(uint32_t* numSamples) {
     IPLAudioBuffer* finalBuf = new IPLAudioBuffer;
+    finalBuf->numSamples = 1024;
+    finalBuf->interleavedBuffer = new float[2048];
+    finalBuf->deinterleavedBuffer = NULL;
     sAudio.GetFinalMix(finalBuf, numSamples);
 
     return finalBuf->interleavedBuffer;

@@ -10,10 +10,9 @@ class SteamAudioDirectRenderer {
         ENGINE_API SteamAudioDirectRenderer();
 
         /**
-         * @param context The Steam Audio context.
          * @param environment Handle to the Environment object to use.
          */
-        ENGINE_API SteamAudioDirectRenderer(IPLContext* context, IPLhandle* environment);
+        ENGINE_API SteamAudioDirectRenderer(IPLhandle environment);
 
         ENGINE_API ~SteamAudioDirectRenderer();
 
@@ -32,8 +31,7 @@ class SteamAudioDirectRenderer {
     private:
         IPLAudioFormat inputFormat;
         IPLAudioFormat outputFormat;
-        IPLhandle* environment;
-        IPLContext* context;
+        IPLhandle environment;
         IPLhandle* envRenderer;
         IPLhandle* directEffect;
 };

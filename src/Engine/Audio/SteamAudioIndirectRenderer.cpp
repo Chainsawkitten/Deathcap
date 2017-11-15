@@ -2,11 +2,9 @@
 
 SteamAudioIndirectRenderer::SteamAudioIndirectRenderer() {
     environment = nullptr;
-    context = nullptr;
 }
 
-SteamAudioIndirectRenderer::SteamAudioIndirectRenderer(IPLContext* context, IPLhandle* environment) {
-    this->context = context;
+SteamAudioIndirectRenderer::SteamAudioIndirectRenderer(IPLhandle environment) {
     this->environment = environment;
 }
 

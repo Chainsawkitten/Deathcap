@@ -14,14 +14,6 @@ class SteamAudioInterface {
 
         /// Destructor.
         ~SteamAudioInterface();
-
-        /// Sets the main context used by Steam Audio.
-        /**
-         * @param logCallback Callback for logging messages. Can be NULL. Default uses stdout.
-         * @param allocCallback Callback for allocating memory. Can be NULL. Default uses malloc.
-         * @param freeCallback Callback for freeing memory. Can be NULL. Default uses free.
-         */
-        void SetContext(IPLLogFunction logCallback, IPLAllocateFunction allocCallback, IPLFreeFunction freeCallback);
     
         /// Creates the scene object, to be populated with meshes.
         /**
@@ -105,6 +97,6 @@ class SteamAudioInterface {
 
         SteamAudio sAudio;
 
-        IPLhandle* scene;
-        IPLhandle* environment;
+        IPLhandle scene;
+        IPLhandle environment;
 };

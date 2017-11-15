@@ -12,12 +12,6 @@ class SteamAudio {
 
         ENGINE_API SteamAudio();
 
-        /**
-        * @param context The Steam Audio context.
-        * @param environment Handle to the Environment object to use.
-        */
-        ENGINE_API SteamAudio(IPLContext* context, IPLhandle* environment);
-
         ENGINE_API ~SteamAudio();
 
         /// Processes the audio with both indirect and direct methods and mixes them together.
@@ -39,7 +33,18 @@ class SteamAudio {
         ENGINE_API void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples);
 
         /// Sets the current location and direction of the player, to be used for processing
+        /**
+         * @param pos Vector representing the player's position in world space.
+         * @param dir Vector representing the player's forward direction.
+         * @param up Vector representing the player's up direction.
+         */
         ENGINE_API void SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up);
+
+        /// Creates the direct and indirect renderer.
+        /**
+         * @param environment Handle to a created environment.
+         */
+        ENGINE_API void CreateRenderers(IPLhandle environment);
 
     private:
 
@@ -49,9 +54,8 @@ class SteamAudio {
 
         IPLContext* context;
 
-        SteamAudioDirectRenderer directRenderer;
-        SteamAudioIndirectRenderer indirectRenderer;
-        IPLhandle* environmentalRenderer;
+        SteamAudioDirectRenderer* directRenderer;
+        SteamAudioIndirectRenderer* indirectRenderer;
 
         IPLVector3 playerPos;
         IPLVector3 playerDir;

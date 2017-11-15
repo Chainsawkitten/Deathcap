@@ -30,7 +30,7 @@ SoundManager::SoundManager() {
 
     outputParams.device = Pa_GetDefaultOutputDevice();
     if (outputParams.device >= 0) {
-        outputParams.channelCount = 1;
+        outputParams.channelCount = 2;
         outputParams.sampleFormat = PA_SAMPLE_TYPE;
         outputParams.hostApiSpecificStreamInfo = NULL;
         outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultHighOutputLatency;
@@ -89,7 +89,7 @@ void SoundManager::Update(float deltaTime) {
 
 
     // Number of samples to process dependant on deltaTime
-    int numSamples = int(SAMPLE_RATE * deltaTime);
+    int numSamples = 1024;// int(SAMPLE_RATE * deltaTime);
 
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
