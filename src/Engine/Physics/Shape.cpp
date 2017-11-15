@@ -2,6 +2,10 @@
 #include "GlmConversion.hpp"
 #include "Shape.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace Physics {
     Shape::Shape(const Shape::Sphere& params) {
         // Collision shapes are only used to determine collisions and have no
