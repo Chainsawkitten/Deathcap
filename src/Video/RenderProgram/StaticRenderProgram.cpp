@@ -14,6 +14,10 @@
 #include "../Buffer/StorageBuffer.hpp"
 #include <chrono>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 StaticRenderProgram::StaticRenderProgram() {

@@ -5,6 +5,10 @@
 #include <DefaultAlbedo.png.hpp>
 #include <Video/Texture/Texture2D.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 TextureAsset::TextureAsset() {

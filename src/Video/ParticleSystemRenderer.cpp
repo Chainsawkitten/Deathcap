@@ -213,13 +213,16 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
 }
 
 void ParticleSystemRenderer::Draw(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings) {
+
+    // Blending
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    // Blending
+    glDepthMask(GL_TRUE);
     glEnablei(GL_BLEND, 0);
     glEnablei(GL_BLEND, 1);
     glBlendFunci(0, GL_SRC_ALPHA, GL_ONE);
     glBlendFunci(1, GL_SRC_ALPHA, GL_ONE);
+
     shaderProgram->Use();
     glBindVertexArray(m_glDrawVAO);
 

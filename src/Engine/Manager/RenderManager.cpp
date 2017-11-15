@@ -45,6 +45,10 @@
 #include <Video/ShadowPass.hpp>
 #include <glm/gtc/quaternion.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Component;
 
 RenderManager::RenderManager() {

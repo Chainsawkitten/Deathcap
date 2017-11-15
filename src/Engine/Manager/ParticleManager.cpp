@@ -13,6 +13,10 @@
 #include "../Util/Json.hpp"
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 ParticleManager::ParticleManager() {
