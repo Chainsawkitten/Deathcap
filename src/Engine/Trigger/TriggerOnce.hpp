@@ -103,7 +103,7 @@ class TriggerOnce : public SuperTrigger {
     private:
         std::string name = "DEBUG";
         std::string targetFunction = "DEBUG";
-        bool startActive;
+        bool startActive = false;
         float delay = 0;
         Entity* targetEntity = nullptr;
         Entity* collidedEntity = nullptr;
