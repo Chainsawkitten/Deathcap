@@ -3,7 +3,6 @@ set(SRCS
         Buffer/ReadWriteTexture.cpp
         Buffer/StorageBuffer.cpp
         DebugDrawing.cpp  
-        ParticleRenderer.cpp
         ParticleSystemRenderer.cpp
         Renderer.cpp
         RenderSurface.cpp
@@ -17,6 +16,7 @@ set(SRCS
         PostProcessing/FXAAFilter.cpp
         PostProcessing/PostProcessing.cpp
         Profiling/Query.cpp
+        RenderProgram/RenderProgram.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
@@ -33,7 +33,6 @@ set(HEADERS
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
-        ParticleRenderer.hpp
         ParticleSystemRenderer.hpp
         Renderer.hpp
         RenderSurface.hpp
@@ -49,6 +48,7 @@ set(HEADERS
         PostProcessing/FXAAFilter.hpp
         PostProcessing/PostProcessing.hpp
         Profiling/Query.hpp
+        RenderProgram/RenderProgram.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
@@ -68,19 +68,18 @@ set(EMBEDDED_INPUT
     ../../shaders/EditorEntity.vert
     ../../shaders/EditorEntity.geom
     ../../shaders/EditorEntity.frag
-    ../../shaders/Particle.vert
-    ../../shaders/Particle.geom
-    ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostFXAA.frag
-    ../../shaders/Shadow.vert
+    ../../shaders/ShadowSkin.vert
+    ../../shaders/ShadowStatic.vert
     ../../shaders/Skinning.vert
-    ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag
     ../../shaders/DefaultParticleShader.frag
     ../../shaders/DefaultParticleShader.geom
     ../../shaders/DefaultParticleShader.vert
     ../../shaders/ComputeParticleShader.comp
+    ../../shaders/ZrejectionSkin.vert
+    ../../shaders/ZrejectionStatic.vert
 )
 
 foreach(item ${EMBEDDED_INPUT})

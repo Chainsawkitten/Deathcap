@@ -88,7 +88,6 @@ int main() {
             if (editor->IsVisible()) {
                 Hymn().world.ClearKilled();
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
-                Managers().particleManager->UpdateBuffer(Hymn().world);
 
                 Managers().debugDrawingManager->Update(deltaTime);
                 Hymn().Render(editor->GetCamera(),

@@ -7,6 +7,7 @@
 #include "Manager/ParticleManager.hpp"
 #include "Manager/ScriptManager.hpp"
 #include "Manager/SoundManager.hpp"
+#include "Manager/VRManager.hpp"
 #include "Manager/TriggerManager.hpp"
 #include "Manager/DebugDrawingManager.hpp"
 #include "Manager/ResourceManager.hpp"
@@ -150,6 +151,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
     
     // Load scripts.
+    scripts.clear();
     const Json::Value scriptNode = root["scripts"];
     for (unsigned int i = 0; i < scriptNode.size(); ++i) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
@@ -184,7 +186,6 @@ void ActiveHymn::Update(float deltaTime) {
     
     { PROFILE("Update particles");
         Managers().particleManager->Update(world, deltaTime);
-        Managers().particleManager->UpdateBuffer(world);
     }
     
     { PROFILE("Update sounds");

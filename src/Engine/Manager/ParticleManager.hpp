@@ -11,12 +11,10 @@
 class World;
 namespace Video {
     class Texture2D;
-    class ParticleRenderer;
     class ParticleSystemRenderer;
     class RenderSurface;
 }
 namespace Component {
-    class ParticleEmitter;
     class ParticleSystemComponent;
 }
 namespace Json {
@@ -41,13 +39,6 @@ class ParticleManager {
          * @param preview Whether to only update particle emitters that are being previewed.
          */
         ENGINE_API void Update(World& world, float time, bool preview = false);
-        
-        /// Update particle buffer.
-        /**
-         * Needs to be called before rendering (but only once a frame).
-         * @param world The world to render.
-         */
-        ENGINE_API void UpdateBuffer(World& world);
 
         /// Render the particles in a world.
         /**
@@ -75,12 +66,6 @@ class ParticleManager {
          * @return The number of rows in the texture atlas.
          */
         ENGINE_API int GetTextureAtlasRows() const;
-        
-        /// Create particle emitter component.
-        /**
-         * @return The created component.
-         */
-        ENGINE_API Component::ParticleEmitter* CreateParticleEmitter();
 
         /// Create particle emitter component.
         /**
@@ -88,13 +73,6 @@ class ParticleManager {
          * @return The created component.
          */
         ENGINE_API Component::ParticleSystemComponent* CreateAParticleSystem(World * world);
-        
-        /// Create particle emitter component.
-        /**
-         * @param node Json node to load the component from.
-         * @return The created component.
-         */
-        ENGINE_API Component::ParticleEmitter* CreateParticleEmitter(const Json::Value& node);
 
         /// Create particle System component.
         /**
@@ -102,12 +80,6 @@ class ParticleManager {
          * @return The created component.
          */
         ENGINE_API Component::ParticleSystemComponent* CreateParticleSystem(const Json::Value& node);
-        
-        /// Get all particle emitter components.
-        /**
-         * @return All particle emitter components.
-         */
-        ENGINE_API const std::vector<Component::ParticleEmitter*>& GetParticleEmitters() const;
 
         /// Get all particle emitter components.
         /**
@@ -127,18 +99,11 @@ class ParticleManager {
         // Inits the particle emitter.
         Component::ParticleSystemComponent* InitParticleSystem(Component::ParticleSystemComponent* component);
         
-        // Decide where the emitter should emit before rendering.
-        void EmitParticle(World& world, Component::ParticleEmitter* emitter);
-        
-        // Emit a particle at the given position.
-        void EmitParticle(World& world, const glm::vec3& position, Component::ParticleEmitter* emitter);
-        
         unsigned int maxParticleCount = 10000;
         
         std::random_device randomDevice;
         std::mt19937 randomEngine;
-        
-        Video::ParticleRenderer* particleRenderer;
+
         std::map<Component::ParticleSystemComponent*, Video::ParticleSystemRenderer*> particleSystemRenderers;
 
         std::map<Component::ParticleSystemComponent*, Video::ParticleSystemRenderer::EmitterSettings> emitterSettings;
@@ -149,6 +114,5 @@ class ParticleManager {
         // Texture atlas containing the particle textures.
         Video::Texture2D* textureAtlas;
         
-        ComponentContainer<Component::ParticleEmitter> particleEmitters;
         ComponentContainer<Component::ParticleSystemComponent> particleSystems;
 };

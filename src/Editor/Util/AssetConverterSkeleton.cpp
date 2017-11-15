@@ -71,6 +71,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         Animation::AnimationClip::Animation anim;
         anim.numBones = aScene->mAnimations[0]->mNumChannels;
         anim.bones = new Animation::AnimationClip::Bone[aScene->mAnimations[0]->mNumChannels];
+        anim.length = (uint32_t)aScene->mAnimations[0]->mChannels[aScene->mAnimations[0]->mChannels[0]->mNumRotationKeys - 1]->mRotationKeys->mTime;
 
         for (unsigned int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[i];
