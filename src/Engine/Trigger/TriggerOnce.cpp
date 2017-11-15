@@ -20,23 +20,23 @@ void TriggerOnce::OnRemain() {
 
 }
 
-std::string TriggerOnce::GetName() {
+const std::string& TriggerOnce::GetName() const {
     return name;
 }
 
-void TriggerOnce::SetName(std::string value) {
+void TriggerOnce::SetName(const std::string& value) {
     name = value;
 }
 
-std::string TriggerOnce::GetTargetFunction() {
+const std::string& TriggerOnce::GetTargetFunction() const {
     return targetFunction;
 }
 
-void TriggerOnce::SetTargetFunction(std::string value) {
+void TriggerOnce::SetTargetFunction(const std::string& value) {
     targetFunction = value;
 }
 
-bool TriggerOnce::GetStartActive() {
+bool TriggerOnce::GetStartActive() const {
     return startActive;
 }
 
@@ -44,7 +44,7 @@ void TriggerOnce::SetStartActive(bool value) {
     startActive = value;
 }
 
-float TriggerOnce::GetDelay() {
+float TriggerOnce::GetDelay() const {
     return delay;
 }
 
