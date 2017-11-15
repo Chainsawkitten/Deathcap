@@ -16,9 +16,10 @@ TextureHCT::TextureHCT(const char* filename) {
     
     // Check that version number is correct.
     uint16_t version;
-    file >> version;
+    file.read(reinterpret_cast<char*>(&version), sizeof(uint16_t));
     if (version != VERSION) {
         Log(Log::ERR) << filename << " has the wrong version number.\n" <<
+                         "Has " << version << ", should be " << VERSION << "\n" <<
                          "Try reimporting the texture.\n";
         file.close();
         return;
@@ -26,9 +27,9 @@ TextureHCT::TextureHCT(const char* filename) {
     
     // Read other header information.
     uint16_t width, height, mipLevels;
-    file >> width;
-    file >> height;
-    file >> mipLevels;
+    file.read(reinterpret_cast<char*>(&width), sizeof(uint16_t));
+    file.read(reinterpret_cast<char*>(&height), sizeof(uint16_t));
+    file.read(reinterpret_cast<char*>(&mipLevels), sizeof(uint16_t));
     
     // Read texture data.
     uint32_t size = width * height * 3;

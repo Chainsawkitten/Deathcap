@@ -4,6 +4,7 @@
 #define STBI_ONLY_PNG
 #include <stb_image.h>
 
+#include <fstream>
 #include <Utility/Log.hpp>
 #include <Video/Texture/TextureHCT.hpp>
 
@@ -31,7 +32,25 @@ namespace TextureConverter {
         
         stbi_image_free(data);
         
-        /// @todo Store results to file.
+        // Store results to file.
+        std::ofstream file(outFilename, std::ios::out | std::ios::binary);
+        if (!file) {
+            Log(Log::ERR) << "Couldn't open file: " << outFilename << "\n";
+            return;
+        }
+        
+        // Write header.
+        uint16_t version = Video::TextureHCT::VERSION;
+        uint16_t mipLevels = 1;
+        file.write(reinterpret_cast<const char*>(&version), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&width), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&height), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&mipLevels), sizeof(uint16_t));
+        
+        // Write data.
+        file.write(reinterpret_cast<char*>(rgbData), width * height * 3);
+        
+        file.close();
         
         delete[] rgbData;
     }

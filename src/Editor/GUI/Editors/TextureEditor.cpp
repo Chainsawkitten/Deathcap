@@ -66,7 +66,7 @@ void TextureEditor::FileSelected(const std::string& file) {
     std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".hct";
     
     // Convert PNG texture to custom texture format.
-    //TextureConverter::Convert(file.c_str(), destination.c_str());
+    TextureConverter::Convert(file.c_str(), destination.c_str());
     
-    //texture->Load(texture->path + texture->name);
+    texture->Load(texture->path + texture->name);
 }
