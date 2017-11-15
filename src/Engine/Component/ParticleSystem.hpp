@@ -1,4 +1,4 @@
-#include "SuperComponent.hpp"
+#include <Engine/Component/SuperComponent.hpp>
 #include <glm/glm.hpp>
 #include <Video/ParticleSystemRenderer.hpp>
 #include "../linking.hpp"

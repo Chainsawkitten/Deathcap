@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
-#include "Shader/Shader.hpp"
-#include "Shader/ShaderProgram.hpp"
+#include <Video/Shader/Shader.hpp>
+#include <Video/Shader/ShaderProgram.hpp>
 
 #include "linking.hpp"
 
