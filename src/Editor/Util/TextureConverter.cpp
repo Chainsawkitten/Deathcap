@@ -40,6 +40,7 @@ namespace TextureConverter {
         std::ofstream file(outFilename, std::ios::out | std::ios::binary);
         if (!file) {
             Log(Log::ERR) << "Couldn't open file: " << outFilename << "\n";
+            delete[] rgbData;
             return;
         }
         
