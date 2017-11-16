@@ -59,6 +59,10 @@ namespace Component {
         return rigidBody;
     }
 
+    btCollisionObject* RigidBody::GetBulletCollisionObject() {
+        return ghost ? ghostObject : static_cast<btCollisionObject*>(rigidBody);
+    }
+
     void RigidBody::NewBulletRigidBody(float mass) {
         Destroy();
 

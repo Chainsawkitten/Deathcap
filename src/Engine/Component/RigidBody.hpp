@@ -5,6 +5,7 @@
 #include "SuperComponent.hpp"
 #include "../linking.hpp"
 
+class btCollisionObject;
 class btGhostObject;
 class btRigidBody;
 class PhysicsManager;
@@ -83,6 +84,11 @@ namespace Component {
             // Get the underlying Bullet rigid body. If none has been set,
             // nullptr is returned.
             btRigidBody* GetBulletRigidBody();
+
+            // Get the underlying Bullet collision object. If none has been
+            // set, nullptr is returned. If the rigid body is not a ghost,
+            // the returned collision object is the rigid body.
+            btCollisionObject* GetBulletCollisionObject();
 
             // Creates the underlying Bullet rigid body. Mass is provided in
             // units of kilograms.
