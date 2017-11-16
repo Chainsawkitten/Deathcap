@@ -219,6 +219,15 @@ class PhysicsManager {
          */
         ENGINE_API void MakeDynamic(Component::RigidBody* comp);
 
+        /// Enables/disables ghost functionality on a rigid body.
+        /**
+         * @param comp Rigid body to alter state of.
+         * @param ghost True: makes the rigid object a ghost, disregarding all
+         * collisions. False: disables ghost state, reverting to kinematic or
+         * dynamic as before.
+         */
+        ENGINE_API void SetGhost(Component::RigidBody* comp, bool ghost);
+
         /// Forces a dynamic rigid body to synchronize its transform with that
         /// of its owning entity during the next simulation iteration.
         /**
