@@ -111,7 +111,7 @@ void PhysicsManager::UpdateEntityTransforms() {
 void PhysicsManager::OnTriggerEnter(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
     trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
-        trigger.ForObserver(object->GetBulletRigidBody(), [&callback](Physics::TriggerObserver& observer) {
+        trigger.ForObserver(object->GetBulletCollisionObject(), [&callback](Physics::TriggerObserver& observer) {
             observer.OnEnter(callback);
         });
     });
@@ -119,7 +119,7 @@ void PhysicsManager::OnTriggerEnter(Utility::LockBox<Physics::Trigger> trigger, 
 
 void PhysicsManager::ForgetTriggerEnter(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object) {
     trigger.Open(triggerLockBoxKey, [object](Physics::Trigger& trigger) {
-        trigger.ForObserver(object->GetBulletRigidBody(), [](Physics::TriggerObserver& observer) {
+        trigger.ForObserver(object->GetBulletCollisionObject(), [](Physics::TriggerObserver& observer) {
             observer.ForgetEnter();
         });
     });
@@ -128,7 +128,7 @@ void PhysicsManager::ForgetTriggerEnter(Utility::LockBox<Physics::Trigger> trigg
 void PhysicsManager::OnTriggerRetain(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
     trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
-        trigger.ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        trigger.ForObserver(object->GetBulletCollisionObject(), [&callback](::Physics::TriggerObserver& observer) {
             observer.OnRetain(callback);
         });
     });
@@ -136,7 +136,7 @@ void PhysicsManager::OnTriggerRetain(Utility::LockBox<Physics::Trigger> trigger,
 
 void PhysicsManager::ForgetTriggerRetain(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object) {
     trigger.Open(triggerLockBoxKey, [object](Physics::Trigger& trigger) {
-        trigger.ForObserver(object->GetBulletRigidBody(), [](Physics::TriggerObserver& observer) {
+        trigger.ForObserver(object->GetBulletCollisionObject(), [](Physics::TriggerObserver& observer) {
             observer.ForgetRetain();
         });
     });
@@ -145,7 +145,7 @@ void PhysicsManager::ForgetTriggerRetain(Utility::LockBox<Physics::Trigger> trig
 void PhysicsManager::OnTriggerLeave(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
     trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
-        trigger.ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
+        trigger.ForObserver(object->GetBulletCollisionObject(), [&callback](::Physics::TriggerObserver& observer) {
             observer.OnLeave(callback);
         });
     });
@@ -153,7 +153,7 @@ void PhysicsManager::OnTriggerLeave(Utility::LockBox<Physics::Trigger> trigger, 
 
 void PhysicsManager::ForgetTriggerLeave(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object) {
     trigger.Open(triggerLockBoxKey, [object](Physics::Trigger& trigger) {
-        trigger.ForObserver(object->GetBulletRigidBody(), [](Physics::TriggerObserver& observer) {
+        trigger.ForObserver(object->GetBulletCollisionObject(), [](Physics::TriggerObserver& observer) {
             observer.ForgetLeave();
         });
     });
