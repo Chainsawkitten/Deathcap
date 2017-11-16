@@ -832,6 +832,69 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510746438
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/EnterSign/EnterSign_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/EnterSign/EnterSign_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/EnterSign/EnterSign_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/EnterSign/EnterSign_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/Sign_01_fixed_position"
+			},
+			"children" : null,
+			"name" : "EnterSign",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510833915
+		},
+		{
+			"children" : null,
+			"name" : "Entity #3",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510834202
 		}
 	],
 	"name" : "Root",
