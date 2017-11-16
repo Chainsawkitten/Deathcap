@@ -75,10 +75,10 @@ namespace TextureConverter {
                     for (int x = 0; x < width; ++x) {
                         for (int component = 0; component < 3; ++component) {
                             uint16_t sum = 0;
-                            sum += rgbData[(y * width + x) * 3 + component];
-                            sum += rgbData[(y * width + x + 1) * 3 + component];
-                            sum += rgbData[((y + 1) * width + x) * 3 + component];
-                            sum += rgbData[((y + 1) * width + x + 1) * 3 + component];
+                            sum += rgbData[(y * 2 * width + x * 2) * 3 + component];
+                            sum += rgbData[(y * 2 * width + x * 2 + 1) * 3 + component];
+                            sum += rgbData[((y * 2 + 1) * width + x * 2) * 3 + component];
+                            sum += rgbData[((y * 2 + 1) * width + x * 2 + 1) * 3 + component];
                             rgbData[(y * width + x) * 3 + component] = sum / 4 + (sum % 4 > 1);
                         }
                     }
