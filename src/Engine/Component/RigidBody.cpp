@@ -175,11 +175,13 @@ namespace Component {
     void RigidBody::MakeKinematic() {
         rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
         kinematic = true;
+        ghost = false;
     }
 
     void RigidBody::MakeDynamic() {
         rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() & ~btCollisionObject::CF_KINEMATIC_OBJECT);
         kinematic = false;
+        ghost = false;
     }
 
     void RigidBody::SetGhost(bool ghost) {
