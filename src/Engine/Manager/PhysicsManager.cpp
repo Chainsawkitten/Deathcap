@@ -1,6 +1,7 @@
 #include "PhysicsManager.hpp"
 
 #include <btBulletDynamicsCommon.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <glm/gtx/quaternion.hpp>
 #include "../Component/RigidBody.hpp"
 #include "../Component/Shape.hpp"
@@ -59,7 +60,12 @@ void PhysicsManager::Update(float deltaTime) {
 
         auto worldPos = rigidBodyComp->entity->GetWorldPosition();
         auto worldOrientation = rigidBodyComp->entity->GetWorldOrientation();
-        if (rigidBodyComp->IsKinematic()) {
+        if (rigidBodyComp->ghost) {
+            rigidBodyComp->SetPosition(worldPos);
+            rigidBodyComp->SetOrientation(worldOrientation);
+            rigidBodyComp->ghostObject->activate(true);
+        }
+        else if (rigidBodyComp->IsKinematic()) {
             rigidBodyComp->SetPosition(worldPos);
             rigidBodyComp->SetOrientation(worldOrientation);
 
@@ -95,7 +101,7 @@ void PhysicsManager::UpdateEntityTransforms() {
 
         Entity* entity = rigidBodyComp->entity;
         auto trans = rigidBodyComp->GetBulletRigidBody()->getWorldTransform();
-        if (!rigidBodyComp->IsKinematic()) {
+        if (!rigidBodyComp->ghost && !rigidBodyComp->IsKinematic()) {
             entity->SetWorldPosition(Physics::btToGlm(trans.getOrigin()));
             entity->SetWorldOrientation(Physics::btToGlm(trans.getRotation()));
         }
