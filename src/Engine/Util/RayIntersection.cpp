@@ -1,5 +1,9 @@
 #include "RayIntersection.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 RayIntersection::RayIntersection() {
     
 }
@@ -8,7 +12,7 @@ RayIntersection::~RayIntersection() {
     
 }
 
-bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix, float &outputDistance) const {
+bool RayIntersection::RayOBBIntersect(const glm::vec3& rayOrigin, const glm::vec3& rayDirection, const Video::AxisAlignedBoundingBox& meshData, const glm::mat4& modelMatrix, float &outputDistance) const {
 
     float tMin = -INFINITY;
     float tMax = INFINITY;
@@ -16,12 +20,15 @@ bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirectio
     glm::vec3 worldPos = glm::vec3(modelMatrix[3].x, modelMatrix[3].y, modelMatrix[3].z);
     glm::vec3 delta = worldPos - rayOrigin;
 
-    float minValue[3] = { meshData.minVertex.x, meshData.minVertex.y, meshData.minVertex.z };
-    float maxValue[3] = { meshData.maxVertex.x, meshData.maxVertex.y, meshData.maxVertex.z };
+    glm::vec3 minVec = modelMatrix * glm::vec4(meshData.minVertex, 0.f);
+    glm::vec3 maxVec = modelMatrix * glm::vec4(meshData.maxVertex, 0.f);
+
+    float minValue[3] = { minVec.x, minVec.y, minVec.z };
+    float maxValue[3] = { maxVec.x, maxVec.y, maxVec.z };
 
     for (int i = 0; i < 3; i++) {
 
-        glm::vec3 currentAxis = glm::vec3(modelMatrix[i].x, modelMatrix[i].y, modelMatrix[i].z);
+        glm::vec3 currentAxis(i == 0, i == 1, i == 2);
         float e = glm::dot(currentAxis, delta);
         float f = glm::dot(rayDirection, currentAxis);
 
@@ -57,4 +64,42 @@ bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirectio
     else
         outputDistance = tMax;
     return true;
+}
+
+bool RayIntersection::TriangleIntersect(glm::vec3 origin, glm::vec3 direction, glm::vec3 p0, glm::vec3 p1, glm::vec3 p2, float& distance) {
+
+    glm::vec3 e1, e2;
+    glm::vec3 q;
+    glm::vec3 r;
+    glm::vec3 s;
+    float epsilon = pow(10, -5);
+    float a;
+    float f;
+    float u;
+    float v;
+    float t = 0;
+    bool returnValue = false;
+
+    e1 = p1 - p0;
+    e2 = p2 - p0;
+    q = glm::cross(direction, e2);
+    a = glm::dot(e1, q);
+
+    if (a > -epsilon && a < epsilon)
+        return false;
+
+    f = 1 / a;
+    s = origin - p0;
+    u = f*(glm::dot(s, q));
+    if (u < 0.0)
+        return false;
+    r = glm::cross(s, e1);
+    v = f*(glm::dot(direction, r));
+    if (v<0.0 || u + v>1.0)
+        return false;
+    t = f*(glm::dot(e2, r));
+    distance = t;
+    returnValue = true;
+    return returnValue;
+
 }

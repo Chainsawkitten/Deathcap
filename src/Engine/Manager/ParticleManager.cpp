@@ -11,6 +11,11 @@
 #include "ParticleAtlas.png.hpp"
 #include <Video/ParticleRenderer.hpp>
 #include "../Util/Json.hpp"
+#include <Utility/Log.hpp>
+
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 using namespace Video;
 
@@ -60,9 +65,10 @@ void ParticleManager::UpdateBuffer(World& world) {
     particleRenderer->SetBufferContents(world.GetParticleCount(), world.GetParticles());
 }
 
-void ParticleManager::Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix) {
+void ParticleManager::Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix, RenderSurface* renderSurface) {
     if (world.GetParticleCount() > 0) {
-        particleRenderer->Render(textureAtlas, textureAtlasRowNumber, position, up, viewProjectionMatrix);
+        UpdateBuffer(world);
+        particleRenderer->Render(textureAtlas, textureAtlasRowNumber, position, up, viewProjectionMatrix, renderSurface);
     }
 }
 
@@ -147,5 +153,7 @@ void ParticleManager::EmitParticle(World& world, const glm::vec3& position, Comp
         
         world.GetParticles()[world.GetParticleCount()] = particle;
         world.SetParticleCount(world.GetParticleCount() + 1);
+    } else {
+        Log() << "ParticleManager:EmitParticle: Warning: Exceeding max number of particles.\n";
     }
 }

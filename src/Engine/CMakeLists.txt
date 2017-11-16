@@ -3,20 +3,20 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptbuilder/scriptbuilder.cpp
         ../../externals/AngelScript/sdk/add_on/scriptmath/scriptmath.cpp
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
-        ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring_utils.cpp
-        ../../externals/imgui/imgui.cpp
-        ../../externals/imgui/imgui_demo.cpp
-        ../../externals/imgui/imgui_draw.cpp
         Hymn.cpp
         MainWindow.cpp
+        Animation/AnimationClip.cpp
+        Animation/AnimationController.cpp
+        Animation/Skeleton.cpp
+        Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
         Audio/SteamAudioIndirectRenderer.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
-        Component/Animation.cpp
-        Component/Controller.cpp
+        Component/AnimationController.cpp
+        Component/AudioMaterial.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -30,14 +30,14 @@ set(SRCS
         Component/SoundSource.cpp
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
+        Component/VRDevice.cpp
+        Component/Trigger.cpp
         Entity/Entity.cpp
         Entity/World.cpp
-        Geometry/Animation.cpp
         Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
-        Geometry/Skeleton.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
@@ -47,11 +47,15 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
+        Manager/TriggerManager.cpp
         Manager/VRManager.cpp
         Physics/GlmConversion.cpp
         Physics/Shape.cpp
         Physics/Trigger.cpp
         Physics/TriggerObserver.cpp
+        Trigger/SuperTrigger.cpp
+        Trigger/TriggerRepeat.cpp
+        Trigger/TriggerOnce.cpp	
         Util/FileSystem.cpp
         Util/GPUProfiling.cpp
         Util/Input.cpp
@@ -66,8 +70,13 @@ set(SRCS
     )
 
 set(HEADERS
+        linking.hpp
         Hymn.hpp
         MainWindow.hpp
+        Animation/AnimationClip.hpp
+        Animation/AnimationController.hpp
+        Animation/Skeleton.hpp
+        Audio/AudioMaterial.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/SteamAudio.hpp
@@ -75,8 +84,8 @@ set(HEADERS
         Audio/SteamAudioIndirectRenderer.hpp
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
-        Component/Animation.hpp
-        Component/Controller.hpp
+        Component/AnimationController.hpp
+        Component/AudioMaterial.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp
@@ -90,15 +99,15 @@ set(HEADERS
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
+        Component/VRDevice.hpp
+        Component/Trigger.hpp
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
-        Geometry/Animation.hpp
         Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
-        Geometry/Skeleton.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
@@ -108,16 +117,21 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
+        Manager/TriggerManager.hpp
         Manager/VRManager.hpp
         Physics/GlmConversion.hpp
         Physics/Shape.hpp
         Physics/Trigger.hpp
         Physics/TriggerObserver.hpp
+        Trigger/SuperTrigger.hpp
+        Trigger/TriggerRepeat.hpp
+        Trigger/TriggerOnce.hpp	
         Util/FileSystem.hpp
         Util/GPUProfiling.hpp
         Util/Input.hpp
         Util/Json.hpp
         Util/MousePicking.hpp
+        Util/Node.hpp
         Util/RayIntersection.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
@@ -147,12 +161,16 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 create_directory_groups(${SRCS} ${HEADERS})
 
-add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
+add_library(Engine SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} imgui stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
+if(UseMemTrack)
+    target_link_libraries(Engine memtrack memtracknew)
+endif()
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)
+    target_compile_definitions(Engine PRIVATE MEASURE_VRAM=1)
     target_link_libraries(Engine ${DirectX11_LIBRARIES})
     target_include_directories(Engine PRIVATE ${DirectX11_INCLUDE_DIRS})
 endif()
@@ -161,7 +179,7 @@ endif()
 if(WIN32)
     find_library(PSAPI Psapi)
     if(PSAPI)
-        add_definitions(-DMEASURE_RAM)
+        target_compile_definitions(Engine PRIVATE MEASURE_RAM=1)
         target_link_libraries(Engine ${PSAPI})
     endif()
 endif()

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <typeinfo>
+#include "../linking.hpp"
 
 class ResourceManager;
 class RenderManager;
@@ -11,59 +11,57 @@ class ScriptManager;
 class DebugDrawingManager;
 class ProfilingManager;
 class VRManager;
-
-class World;
-
-namespace Component {
-    class SuperComponent;
-}
+class TriggerManager;
 
 /// Singleton class that holds all subsystems.
 class Hub {
-    friend Hub& Managers();
-    
+    ENGINE_API friend Hub& Managers();
+
     public:
         /// The resource manager instance.
         ResourceManager* resourceManager;
-        
+
         /// The render manager instance.
         RenderManager* renderManager;
-        
+
         /// The particle manager instance.
         ParticleManager* particleManager;
-        
+
         /// The physics manager instance.
         PhysicsManager* physicsManager;
-        
+
         /// The sound manager instance.
         SoundManager* soundManager;
-        
+
         /// The script manager instance.
         ScriptManager* scriptManager;
-        
+
         /// The debug drawing manager instance.
         DebugDrawingManager* debugDrawingManager;
-        
+
         /// The profiling manager instance.
         ProfilingManager* profilingManager;
 
+        /// The trigger manager instance.
+        TriggerManager* triggerManager;
+
         /// The VR manager instance.
         VRManager* vrManager;
-        
+
         /// Initialize all subsystems.
-        void StartUp();
-        
+        ENGINE_API void StartUp();
+
         /// Deinitialize all subsystems.
-        void ShutDown();
-        
+        ENGINE_API void ShutDown();
+
         /// Clears the killed components of all managers.
-        void ClearKilledComponents();
-        
+        ENGINE_API void ClearKilledComponents();
+
     private:
         Hub();
         Hub(const Hub&) = delete;
         void operator=(const Hub&) = delete;
-        
+
         bool shutdown = false;
 };
 
@@ -71,4 +69,4 @@ class Hub {
 /**
  * @return A hub containing all the subsystems.
  */
-Hub& Managers();
+ENGINE_API Hub& Managers();

@@ -65,10 +65,16 @@ if(WIN32)
     if(MeasureVRAM)
         set(CMAKE_MODULE_PATH "${HymnToBeauty_SOURCE_DIR}/CMake/Packages")
         find_package(DirectX11)
-        
-        add_definitions(-DMEASURE_VRAM)
     endif()
 endif()
+
+option(UseMemTrack "Activates the memtrack library across solution." OFF)
+if(UseMemTrack)
+	add_definitions(-DUSINGMEMTRACK)
+endif()
+
+option(TestMemory "Enables memory testing in the game project." OFF)
+option(TestFrames "Enables frame testing in the game project." OFF)
 
 # Source files
 add_subdirectory(src)

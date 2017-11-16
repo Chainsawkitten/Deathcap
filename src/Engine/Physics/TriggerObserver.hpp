@@ -2,6 +2,7 @@
 
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <functional>
+#include "../linking.hpp"
 
 class btRigidBody;
 
@@ -32,45 +33,57 @@ namespace Physics {
             /**
              * @param body Rigid body listening to trigger.
              */
-            TriggerObserver(btRigidBody& body);
+            ENGINE_API explicit TriggerObserver(btRigidBody& body);
 
             /// Get the Bullet collision object of the observing body.
             /**
              * @return Bullet collision object.
              */
-            btCollisionObject* GetBulletCollisionObject();
+            ENGINE_API btCollisionObject* GetBulletCollisionObject();
 
             /// Get the intersection phase of the observer.
             /**
              * @return IntersectionPhase indicating the intersection phase
              * relative to the trigger volume.
              */
-            IntersectionPhase GetPhase() const;
+            ENGINE_API IntersectionPhase GetPhase() const;
 
             /// Determine new intersection phase after collision test has been
             /// applied.
-            void PostIntersectionTest();
+            ENGINE_API void PostIntersectionTest();
 
             /// Set up a handler for when the observer begins intersecting its
             /// associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            void OnEnter(const std::function<void()>& handler);
+            ENGINE_API void OnEnter(const std::function<void()>& handler);
+
+            /// Remove handler for when the observer begins intersecting its
+            /// associated trigger volume.
+            ENGINE_API void ForgetEnter();
 
             /// Set up a handler for when the observer continues intersecting
             /// its associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            void OnRetain(const std::function<void()>& handler);
+            ENGINE_API void OnRetain(const std::function<void()>& handler);
+
+            /// Remove handler for when the observer continues intersecting
+            /// its associated trigger volume.
+            ENGINE_API void ForgetRetain();
 
             /// Set up a handler for when the observer stops intersecting its
             /// associated trigger volume.
             /**
              * @param handler Handler function to call.
              */
-            void OnLeave(const std::function<void()>& handler);
+            ENGINE_API void OnLeave(const std::function<void()>& handler);
+
+            /// Remove handler for when the observer stops intersecting its
+            /// associated trigger volume.
+            ENGINE_API void ForgetLeave();
 
         private:
             /// Overridden from btCollisionWorld::ContactResultCallback for

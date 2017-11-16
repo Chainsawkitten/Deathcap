@@ -3,9 +3,8 @@
 #include <assert.h>
 #include <cstring>
 
-
+#include "../VideoErrorCheck.hpp"
 #include <Utility/Log.hpp>
-#define ERROR_CHECK_VIDEO { GLenum __err(glGetError()); while (__err != GL_NO_ERROR) { Log() << "GL error: " << (const char*)gluErrorString(__err) << "\n"; __err = glGetError(); assert(false); } }
 
 using namespace Video;
 
@@ -26,8 +25,7 @@ StorageBuffer::~StorageBuffer() {
 void StorageBuffer::Write(void* data, unsigned int offset, unsigned int length) {
     assert(bound);
     assert(this->size >= offset + length);
-
-    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, length, data); ERROR_CHECK_VIDEO
+    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, length, data); 
 }
 
 void StorageBuffer::Bind() {
@@ -51,7 +49,9 @@ void StorageBuffer::Unbind() {
 }
 
 void StorageBuffer::BindBase(unsigned int binding) const {
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, (GLuint)binding, ssbo); ERROR_CHECK_VIDEO
+    { VIDEO_ERROR_CHECK("StorageBuffer::BindBase");
+        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, (GLuint)binding, ssbo);
+    }
 }
 
 unsigned int StorageBuffer::GetSize() const {

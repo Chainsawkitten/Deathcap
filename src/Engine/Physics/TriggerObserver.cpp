@@ -2,6 +2,10 @@
 #include <cassert>
 #include "TriggerObserver.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace Physics {
     TriggerObserver::TriggerObserver(btRigidBody& body)
     : btCollisionWorld::ContactResultCallback(), rigidBody(body) {
@@ -90,12 +94,24 @@ namespace Physics {
         enterHandler = handler;
     }
 
+    void TriggerObserver::ForgetEnter() {
+        enterHandler = nullptr;
+    }
+
     void TriggerObserver::OnRetain(const std::function<void()>& handler) {
         retainHandler = handler;
     }
 
+    void TriggerObserver::ForgetRetain() {
+        retainHandler = nullptr;
+    }
+
     void TriggerObserver::OnLeave(const std::function<void()>& handler) {
         leaveHandler = handler;
+    }
+
+    void TriggerObserver::ForgetLeave() {
+        leaveHandler = nullptr;
     }
 
     // Called with each contact for our own processing. This is where we can

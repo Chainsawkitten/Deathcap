@@ -3,6 +3,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include "../linking.hpp"
 
 class PhysicsManager;
 
@@ -15,16 +16,9 @@ namespace Physics {
     class Trigger {
         friend class ::PhysicsManager;
 
-        public:
-            /// Constructor.
-            /**
-             * @param transform The world transform of the trigger volume.
-             */
-            Trigger(const btTransform& transform);
-
         private:
-            // Get the wrapped Bullet collision object.
-            btCollisionObject* GetCollisionObject() const;
+            // Construct a trigger with world transform |transform|.
+            explicit Trigger(const btTransform& transform);
 
             // Process observers against the trigger volume, passing the world
             // in which rigid bodies reside.
@@ -36,9 +30,10 @@ namespace Physics {
             void ForObserver(btRigidBody* body, const std::function<void(TriggerObserver&)>& fun);
 
             void SetCollisionShape(std::shared_ptr<Shape> shape);
+            void SetPosition(const btVector3& position);
 
         private:
-            btCollisionObject* trigger = nullptr;
+            std::unique_ptr<btCollisionObject> trigger = nullptr;
             std::shared_ptr<Shape> shape = nullptr;
             std::vector<std::unique_ptr<TriggerObserver>> observers;
     };

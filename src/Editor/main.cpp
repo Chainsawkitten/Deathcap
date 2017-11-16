@@ -18,8 +18,16 @@
 #include <thread>
 #include "ImGui/OpenGLImplementation.hpp"
 #include <imgui.h>
+#include "GUI/ProfilingWindow.hpp"
+#include <iostream>
+
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 int main() {
+    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr);
+
     // Enable logging if requested.
     if (EditorSettings::GetInstance().GetBool("Logging")){
         FILE* file = freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
@@ -46,6 +54,7 @@ int main() {
     ImGuiImplementation::Init(window->GetGLFWWindow());
     
     bool profiling = false;
+    GUI::ProfilingWindow profilingWindow;
     
     // Main loop.
     double targetFPS = 60.0;
@@ -66,6 +75,12 @@ int main() {
 
             glfwPollEvents();
 
+            if (Input()->Triggered(InputHandler::WINDOWMODE)) {
+                bool fullscreen, borderless;
+                window->GetWindowMode(fullscreen, borderless);
+                window->SetWindowMode(!fullscreen, borderless);
+            }
+
             if (Input()->Triggered(InputHandler::PROFILE))
                 profiling = !profiling;
 
@@ -79,7 +94,13 @@ int main() {
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
 
                 Managers().debugDrawingManager->Update(deltaTime);
-                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"));
+                Hymn().Render(editor->GetCamera(),
+                              EditorSettings::GetInstance().GetBool("Sound Source Icons"),
+                              EditorSettings::GetInstance().GetBool("Particle Emitter Icons"),
+                              EditorSettings::GetInstance().GetBool("Light Source Icons"),
+                              EditorSettings::GetInstance().GetBool("Camera Icons"),
+                              EditorSettings::GetInstance().GetBool("Physics Volumes"),
+                              EditorSettings::GetInstance().GetBool("Lighting"));
 
                 if (window->ShouldClose())
                     editor->Close();
@@ -112,9 +133,11 @@ int main() {
             }
         }
         }
-
-        if (Managers().profilingManager->Active())
-            Managers().profilingManager->ShowResults();
+        
+        if (Managers().profilingManager->Active()) {
+            Managers().profilingManager->EndFrame();
+            profilingWindow.Show();
+        }
         
         ImGui::Render();
         
@@ -126,7 +149,9 @@ int main() {
             std::this_thread::sleep_for(std::chrono::microseconds(wait));
         lastTimeRender = glfwGetTime();
     }
-    
+#ifdef USINGMEMTRACK
+    MemTrack::TrackListMemoryUsage();
+#endif
     // Save editor settings.
     EditorSettings::GetInstance().Save();
     

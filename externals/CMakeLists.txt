@@ -1,3 +1,6 @@
+# Build libraries as shared.
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries." FORCE)
+
 # GLFW
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "Don't build GLFW docs" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Don't build GLFW examples" FORCE)
@@ -23,13 +26,19 @@ add_library(stb INTERFACE)
 target_include_directories(stb INTERFACE stb)
 
 # Imgui
-add_library(imgui INTERFACE)
+add_library(imgui STATIC imgui/imgui.cpp imgui/imgui_demo.cpp imgui/imgui_draw.cpp)
 target_include_directories(imgui INTERFACE imgui)
 
 # Imguizmo
 add_library(imguizmo STATIC ImGuizmo/ImGuizmo.cpp)
 target_link_libraries(imguizmo imgui)
 target_include_directories(imguizmo INTERFACE ImGuizmo)
+
+# MemTrack
+add_library(memtrack SHARED memtrack/MemTrack.cpp)
+add_library(memtracknew STATIC memtrack/MemTrackNew.cpp)
+target_include_directories(memtrack INTERFACE memtrack)
+target_include_directories(memtracknew INTERFACE memtracknew)
 
 # OpenAL Soft
 set(ALSOFT_UTILS OFF CACHE BOOL "Don't build OpenAL Soft utility programs" FORCE)
@@ -45,11 +54,12 @@ target_include_directories(${OPENAL_LIB} INTERFACE openal-soft/include)
 set(OPENAL_LIB ${OPENAL_LIB} PARENT_SCOPE)
 
 # JsonCpp
+set(BUILD_STATIC_LIBS OFF CACHE BOOL "Don't build statis JsonCpp" FORCE)
 set(JSONCPP_WITH_TESTS OFF CACHE BOOL "Don't build JsonCpp tests" FORCE)
 set(JSONCPP_WITH_POST_BUILD_UNITTEST OFF CACHE BOOL "Don't build JsonCpp unit tests" FORCE)
 set(JSONCPP_WITH_PKGCONFIG_SUPPORT OFF CACHE BOOL "Don't build JsonCpp with pkgconfig support" FORCE)
 add_subdirectory(jsoncpp)
-target_include_directories(jsoncpp_lib_static INTERFACE jsoncpp/include)
+target_include_directories(jsoncpp_lib INTERFACE jsoncpp/include)
 
 # Assimp
 set(ENABLE_BOOST_WORKAROUND ON CACHE BOOL "Building Assimp without boost" FORCE)
@@ -145,6 +155,7 @@ target_link_libraries(bullet INTERFACE BulletDynamics BulletCollision LinearMath
 target_include_directories(bullet INTERFACE bullet3/src)
 
 # OpenVR
+set(BUILD_SHARED ON CACHE BOOL "Build OpenVR as shared library." FORCE)
 add_subdirectory(openvr)
 
 set(OpenVR_LIBRARY "openvr_api")

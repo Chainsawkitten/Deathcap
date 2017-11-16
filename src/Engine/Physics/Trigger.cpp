@@ -5,19 +5,19 @@
 #include "Trigger.hpp"
 #include "TriggerObserver.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace Physics {
     Trigger::Trigger(const btTransform& transform) {
-        trigger = new btCollisionObject();
+        trigger.reset(new btCollisionObject());
         trigger->setWorldTransform(transform);
-    }
-
-    btCollisionObject* Trigger::GetCollisionObject() const {
-        return trigger;
     }
 
     void Trigger::Process(btCollisionWorld& world) {
         for (auto& observer : observers) {
-            world.contactPairTest(trigger, observer->GetBulletCollisionObject(), *observer);
+            world.contactPairTest(trigger.get(), observer->GetBulletCollisionObject(), *observer);
             observer->PostIntersectionTest();
         }
     }
@@ -37,5 +37,11 @@ namespace Physics {
     void Trigger::SetCollisionShape(std::shared_ptr<Shape> shape) {
         this->shape = shape;
         trigger->setCollisionShape(shape->GetShape());
+    }
+
+    void Trigger::SetPosition(const btVector3& position) {
+        auto trans = this->trigger->getWorldTransform();
+        trans.setOrigin(position);
+        this->trigger->setWorldTransform(trans);
     }
 }

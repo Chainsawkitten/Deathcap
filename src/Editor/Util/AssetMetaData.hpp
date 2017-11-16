@@ -1,7 +1,7 @@
 #pragma once
 
-#include <fstream>
 #include <ctime>
+#include <json/json.h>
 
 /// Static class for metadata generation.
 /**
@@ -19,34 +19,42 @@ class AssetMetaData
 {
     public:
         /// Metadata for mesh asset.
-        struct MeshImportData {
-            char assetPath[128];
-            char sourcePath[128];
-            time_t saveTime;
+        struct MeshMetaData {
             bool triangulate;
             bool importNormals;
             bool importTangents;
+            bool CPU;
+            bool GPU;
         };
 
-        /// Generate metadata for a mesh.
+        /// Save metadata for a mesh.
         /**
          * @param filepath Filepath with extensions.
          * @param metaData Metadata to be exported.
-         * @return False if file could not be opened.
+         * @return Whether the file could be opened.
          */
-        static bool GenerateMetaData(const char * filepath, MeshImportData * metaData);
+        static bool SaveMetaData(const char* filepath, MeshMetaData* metaData);
 
-        /// Get metadata from a mesh.
+        /// Load metadata for a mesh.
         /**
          * @param filepath Filepath with extensions.
-         * @return Metadata pointer with info about the file. You will have to delete it yourself.
+         * @param metaData Metadata to be imported.
+         * @return Whether the file could be opened.
          */
-        static MeshImportData * GetMetaData(const char * filepath);
+        static bool LoadMetaData(const char* filepath, MeshMetaData* metaData);
 
-    protected:
+    private:
         /// Constructor.
         AssetMetaData() {}
 
         /// Destructor.
         ~AssetMetaData() {}
+
+        static void ToJson(const MeshMetaData* metaData, Json::Value& node);
+
+        static void FromJson(const Json::Value& node, MeshMetaData* metaData);
+
+        static bool Save(const char* filepath, Json::Value& node);
+
+        static bool Load(const char* filepath, Json::Value& node);
 };

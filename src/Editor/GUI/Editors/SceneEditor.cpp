@@ -23,9 +23,13 @@ SceneEditor::SceneEditor() {
 
 void SceneEditor::Show() {
     if (ImGui::Begin(("Scene: " + *scene + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
-        ImGui::InputText("Name", name, 128);
-        *scene = name;
-        Resources().activeScene = path + "/" + name;
+        if (ImGui::InputText("Name", name, 128, ImGuiInputTextFlags_EnterReturnsTrue)) {
+            // Rename scene file.
+            rename((Hymn().GetPath() + "/" + path + "/" + *scene + ".json").c_str(), (Hymn().GetPath() + "/" + path + "/" + name + ".json").c_str());
+            
+            *scene = name;
+            Resources().activeScene = path + "/" + name;
+        }
         
         // Entities.
         entityPressed = false;
@@ -141,10 +145,11 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::EndPopup();
     }
     
+    std::string popupName = "Select scene##" + std::to_string(entity->GetUniqueIdentifier());
     if (instantiate)
-        ImGui::OpenPopup("Select scene");
+        ImGui::OpenPopup(popupName.c_str());
     
-    if (ImGui::BeginPopup("Select scene")) {
+    if (ImGui::BeginPopup(popupName.c_str())) {
         ImGui::Text("Scenes");
         ImGui::Separator();
         

@@ -1,11 +1,17 @@
 #include "Script.hpp"
 
 #include <angelscript.h>
+#include <cstring>
+
 #include "../Manager/Managers.hpp"
 #include "../Manager/ScriptManager.hpp"
 #include "../Manager/ResourceManager.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Script/ScriptFile.hpp"
+
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 using namespace Component;
 
@@ -29,49 +35,47 @@ Json::Value Script::Save() const {
     if (scriptFile != nullptr)
         component["scriptName"] = scriptFile->path + scriptFile->name;
     
-    for (auto &name_pair : propertyMap) {
+    for (auto& nameProperty : propertyMap) {
 
-        const std::string& name = name_pair.first;
+        const std::string& name = nameProperty.first;
+        int typeId = nameProperty.second->typeID;
+        void* varPointer = nameProperty.second->data;
+        int size = nameProperty.second->size;
 
-        int typeId = name_pair.second.first;
-        void* varPointer = name_pair.second.second;
-        if (typeId == asTYPEID_INT32){
-            component["propertyMap"][name][std::to_string(typeId)] = *(int*)varPointer;
-        }
-        else if (typeId == asTYPEID_FLOAT){
-            component["propertyMap"][name][std::to_string(typeId)] = *(float*)varPointer;
-        }
-        else if (typeId == Managers().scriptManager->GetStringDeclarationID()){
-            std::string *str = (std::string*)varPointer;
-            component["propertyMap"][name][std::to_string(typeId)] = *str;
-        }
+        for (int i = 0; i < size; i++)
+            component["propertyMap"][name][std::to_string(typeId)][i] = ((unsigned char*)varPointer)[i];
+
     }
-
     return component;
+}
+
+void Script::AddToPropertyMap(const std::string& name, int type, int size, void* data) {
+
+    if (!IsInPropertyMap(name, type))
+        propertyMap[name] = new Property(type, size, data);
+
+}
+
+void Script::CopyDataFromPropertyMap(const std::string& name, void* target){
+
+    std::memcpy(target, propertyMap[name]->data, propertyMap[name]->size);
+    
+}
+
+void* Script::GetDataFromPropertyMap(const std::string& name){
+
+    return propertyMap[name]->data;
+
+}
+
+bool Script::IsInPropertyMap(const std::string& name, int type) {
+    auto it = propertyMap.find(name);
+    return it != propertyMap.end() && it->second->typeID == type;
 }
 
 /// Clears the property map.
 void Script::ClearPropertyMap() {
-
-    for (auto pair : propertyMap) {
-
-        int typeId = pair.second.first;
-        void* varPointer = pair.second.second;
-
-        if (typeId == asTYPEID_INT32) {
-
-            delete (int*)varPointer;
-
-        }
-        else if (typeId == asTYPEID_FLOAT) {
-            delete (float*)varPointer;
-        }
-        else if (typeId == Managers().scriptManager->GetStringDeclarationID()) {
-            delete (std::string*)varPointer;
-        }
-
-    }
-
+    for (auto pair : propertyMap)
+        delete pair.second;
     propertyMap.clear();
-
 }

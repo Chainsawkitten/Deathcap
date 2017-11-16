@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
+#include <glm/glm.hpp>
 #include "../FileSelector.hpp"
-#include "Util/AssetConverter.hpp"
 #include "../../Resources.hpp"
 
 namespace Geometry {
@@ -69,7 +69,10 @@ namespace GUI {
             bool importNormals = true;
             bool importTangents = true;
             bool importTextures = false;
+            bool bindPose = false;
             bool flipUVs = false;
             bool createScene = false;
+            bool CPU = false;
+            bool GPU = true;
     };
 }

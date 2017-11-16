@@ -3,13 +3,17 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 AssetConverter::AssetConverter() {
 }
 
 AssetConverter::~AssetConverter() {
 }
 
-void AssetConverter::Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs, bool importMaterial, Materials& materials) {
+void AssetConverter::Convert(const char* filepath, const char* destination, const glm::vec3& scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs, bool importMaterial, Material& materials, bool CPU, bool GPU) {
     success = true;
     errorString.clear();
 
@@ -27,12 +31,13 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
     if (aScene == nullptr) {
         Log() << "Error importing mesh: " << filepath << "\n";
         Log() << aImporter.GetErrorString() << "\n";
+        aImporter.FreeScene();
+        aScene = aImporter.ReadFile("ErrorSign.fbx", flags);
     }
 
     if (importMaterial) {
         if (aScene->mMeshes[0]->mMaterialIndex >= 0) {
             aiMaterial* material = aScene->mMaterials[aScene->mMeshes[0]->mMaterialIndex];
-            
             LoadMaterial(material, aiTextureType_DIFFUSE, materials.albedo);
             LoadMaterial(material, aiTextureType_NORMALS, materials.normal);
             LoadMaterial(material, aiTextureType_SPECULAR, materials.roughness);
@@ -40,7 +45,7 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
         }
     }
 
-    ConvertMeshes(aScene, &file, scale, flipUVs);
+    ConvertMeshes(aScene, &file, scale, flipUVs, CPU, GPU);
 
     aImporter.FreeScene();
 
@@ -55,14 +60,17 @@ std::string& AssetConverter::GetErrorString() {
     return errorString;
 }
 
-void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
+void AssetConverter::ConvertMeshes(const aiScene* aScene, Geometry::AssetFileHandler* file, const glm::vec3& scale, bool flipUVs, bool CPU, bool GPU) {
     for (unsigned int i = 0; i < aScene->mNumMeshes; ++i)
-        ConvertMesh(aScene->mMeshes[i], file, scale, flipUVs);
+        ConvertMesh(aScene->mMeshes[i], file, scale, flipUVs, CPU, GPU);
 }
 
-void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
-    Geometry::AssetFileHandler::MeshData * meshData = new Geometry::AssetFileHandler::MeshData;
-    
+void AssetConverter::ConvertMesh(aiMesh* aMesh, Geometry::AssetFileHandler* file, const glm::vec3& scale, bool flipUVs, bool CPU, bool GPU) {
+    Geometry::AssetFileHandler::MeshData* meshData = new Geometry::AssetFileHandler::MeshData;
+
+    meshData->CPU = CPU;
+    meshData->GPU = GPU;
+
     meshData->parent = 0;
 
     // Convert vertices.
@@ -81,7 +89,7 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
 
     // Convert indicies. 3 indicies for a face/triangle.
     unsigned int numIndicies = aMesh->mNumFaces * 3;
-    uint32_t * indices = new uint32_t[numIndicies];
+    uint32_t* indices = new uint32_t[numIndicies];
     unsigned int indexCounter = 0;
     for (unsigned int i = 0; i < aMesh->mNumFaces; ++i) {
         const aiFace& aFace = aMesh->mFaces[i];
@@ -103,14 +111,14 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     
     CalculateAABB(meshData, meshData->numVertices);
 
-    file->SaveStaticMesh(meshData);
+    file->SaveMesh(meshData);
 
     delete meshData;
     meshData = nullptr;
 }
 
-Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertices(aiMesh* aMesh, Geometry::AssetFileHandler* file, unsigned int numVertices, glm::vec3 scale, bool flipUVs) {
-    Video::Geometry::VertexType::StaticVertex * vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
+Video::Geometry::VertexType::StaticVertex* AssetConverter::ConvertStaticVertices(aiMesh* aMesh, Geometry::AssetFileHandler* file, unsigned int numVertices, const glm::vec3& scale, bool flipUVs) {
+    Video::Geometry::VertexType::StaticVertex* vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
 
     // Positions.
     if (aMesh->HasNormals()) {
@@ -165,8 +173,8 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
     return vertices;
 }
 
-Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, glm::vec3 scale, bool flipUVs) {
-    Video::Geometry::VertexType::SkinVertex * vertices = new Video::Geometry::VertexType::SkinVertex[numVertices];
+Video::Geometry::VertexType::SkinVertex* AssetConverter::ConvertSkinnedVertices(aiMesh* aMesh, Geometry::AssetFileHandler* file, unsigned int numVertices, const glm::vec3& scale, bool flipUVs) {
+    Video::Geometry::VertexType::SkinVertex* vertices = new Video::Geometry::VertexType::SkinVertex[numVertices];
 
     // Positions.
     if (aMesh->HasNormals()) {
@@ -220,12 +228,12 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
     std::vector<unsigned int> weightCounter(numVertices, 0);
 
     for (unsigned int b = 0; b < aMesh->mNumBones; ++b) {
-        const aiBone * aBone = aMesh->mBones[b];
+        const aiBone* aBone = aMesh->mBones[b];
         for (unsigned int i = 0; i < aBone->mNumWeights; ++i) {
             unsigned int vertexID = aBone->mWeights[i].mVertexId;
             unsigned int& count = weightCounter[vertexID];
             vertices[vertexID].weights[count] = aBone->mWeights[i].mWeight;
-            vertices[vertexID].boneIDs[count] = i;
+            vertices[vertexID].boneIDs[count] = b;
             ++count;
         }
     }
@@ -235,7 +243,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
     return vertices;
 }
 
-void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData * meshData, unsigned int numVertices) {
+void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData* meshData, unsigned int numVertices) {
     glm::vec3 minValues, maxValues, origin, dim;
     minValues = maxValues = origin = glm::vec3(0.f, 0.f, 0.f);
 

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "linking.hpp"
+
 namespace Video {
     
     class FrameBuffer;
@@ -13,52 +15,52 @@ namespace Video {
             /**
              * @param size Size of the new render surface.
              */
-            RenderSurface(const glm::vec2& size);
+            VIDEO_API explicit RenderSurface(const glm::vec2& size);
             
             /// Destructor.
-            ~RenderSurface();
+            VIDEO_API ~RenderSurface();
             
             /// Get size of the render target.
             /**
             * @return The size of the render target in pixels.
             */
-            glm::vec2 GetSize() const;
+            VIDEO_API glm::vec2 GetSize() const;
 
             /// Get depth frame buffer.
             /**
              * @return Depth frame buffer.
              */
-            FrameBuffer* GetDepthFrameBuffer() const;
+            VIDEO_API FrameBuffer* GetDepthFrameBuffer() const;
 
             /// Get shading frame buffer.
             /**
              * @return Shading frame buffer.
              */
-            FrameBuffer* GetShadingFrameBuffer() const;
+            VIDEO_API FrameBuffer* GetShadingFrameBuffer() const;
 
             /// Get color frame buffer.
             /**
              * @return Color rendering frame buffer.
              */
-            FrameBuffer* GetColorFrameBuffer() const;
+            VIDEO_API FrameBuffer* GetColorFrameBuffer() const;
 
             /// Get texture contaning depth pixel data.
             /**
              * @return The depth texture.
              */
-            ReadWriteTexture* GetDepthTexture() const;
+            VIDEO_API ReadWriteTexture* GetDepthTexture() const;
 
             /// Get texture contaning color pixel data.
             /**
              * @return The color texture.
              */
-            ReadWriteTexture* GetColorTexture() const;
+            VIDEO_API ReadWriteTexture* GetColorTexture() const;
 
             /// Swap active texture set.
-            void Swap();
+            VIDEO_API void Swap();
 
             /// Clear all textures in RenderSurface.
-            void Clear() const;
+            VIDEO_API void Clear() const;
             
         private:
             RenderSurface(const RenderSurface & other) = delete;

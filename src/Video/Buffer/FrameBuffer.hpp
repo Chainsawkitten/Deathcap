@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <vector>
+#include "../linking.hpp"
 
 namespace Video {
     class ReadWriteTexture;
@@ -13,22 +14,22 @@ namespace Video {
             /**
              * @param textures Vector of %ReadWriteTexture to create a frame buffer object.
              */
-            FrameBuffer(const std::vector<ReadWriteTexture*>& textures);
+            VIDEO_API explicit FrameBuffer(const std::vector<ReadWriteTexture*>& textures);
             
             /// Destructor.
-            ~FrameBuffer();
+            VIDEO_API ~FrameBuffer();
 
             /// Bind this framebuffer as render target.
-            void BindWrite();
+            VIDEO_API void BindWrite();
 
             /// Bind this framebuffer as render source.
-            void BindRead();
+            VIDEO_API void BindRead();
 
             /// Unbind this framebuffer as render target.
-            void Unbind();
+            VIDEO_API void Unbind();
 
             /// Clear this framebuffer.
-            void Clear() const;
+            VIDEO_API void Clear() const;
 
         private:
             std::vector<ReadWriteTexture*> textures;

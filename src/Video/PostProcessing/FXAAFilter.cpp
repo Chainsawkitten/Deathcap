@@ -5,6 +5,10 @@
 #include "Post.vert.hpp"
 #include "PostFXAA.frag.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 FXAAFilter::FXAAFilter() {

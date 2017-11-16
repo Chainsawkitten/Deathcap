@@ -2,6 +2,7 @@
 
 #include "SuperComponent.hpp"
 #include <cstdint>
+#include "../linking.hpp"
 
 class SoundManager;
 namespace Audio {
@@ -15,34 +16,31 @@ namespace Component {
         
         public:
             /// Create new sound source.
-            SoundSource();
+            ENGINE_API SoundSource();
             
             /// Destructor.
-            ~SoundSource();
+            ENGINE_API ~SoundSource();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Play the sound.
-            void Play();
+            ENGINE_API void Play();
             
             /// Pause the sound.
-            void Pause();
+            ENGINE_API void Pause();
             
             /// Stop the sound.
-            void Stop();
+            ENGINE_API void Stop();
             
             /// Sound buffer.
             Audio::SoundBuffer* soundBuffer = nullptr;
             
-            /// Pitch.
-            float pitch = 1.f;
-            
-            /// Gain.
-            float gain = 1.f;
+            /// Volume.
+            float volume = 1.f;
             
             /// Whether the sound should loop.
             bool loop = false;
@@ -51,7 +49,7 @@ namespace Component {
             uint32_t place = 0;
             
         private:            
-            bool shouldPlay = true;
+            bool shouldPlay = false;
             bool shouldPause = false;
             bool shouldStop = false;
             

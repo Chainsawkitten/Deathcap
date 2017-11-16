@@ -1,14 +1,17 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <functional>
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
 #include "../ResourceSelector.hpp"
+#include <Engine/Geometry/AssetFileHandler.hpp> 
 
 namespace Component {
-    class Animation;
+    class AnimationController;
+    class AudioMaterial;
     class Mesh;
     class Lens;
     class Material;
@@ -21,11 +24,14 @@ namespace Component {
     class Shape;
     class SoundSource;
     class ParticleEmitter;
-    class Controller;
+    class VRDevice;
+    class Trigger;
 }
 
 namespace GUI {
     class IShapeEditor;
+    class RigidBodyEditor;
+    class TriggerEditor;
 
     /// Used to edit an entity.
     class EntityEditor {
@@ -76,7 +82,8 @@ namespace GUI {
             template<typename type> void EditComponent(const std::string& name, std::function<void(type*)> editorFunction);
             
             // Editors
-            void AnimationEditor(Component::Animation* animation);
+            void AnimationControllerEditor(Component::AnimationController* animationController);
+            void AudioMaterialEditor(Component::AudioMaterial* audioMaterial);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
             void MaterialEditor(Component::Material* material);
@@ -89,13 +96,14 @@ namespace GUI {
             void ShapeEditor(Component::Shape* shape);
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
-            void ControllerEditor(Component::Controller* controller);
-            
+            void VRDeviceEditor(Component::VRDevice* vrDevice);
+            void TriggerEditor(Component::Trigger* trigger);
+
             Entity* entity = nullptr;
             bool visible = false;
             char name[128];
             char stringPropertyBuffer[128];
-            
+
             struct Editor {
                 std::function<void()> addFunction;
                 std::function<void()> editFunction;
@@ -103,10 +111,16 @@ namespace GUI {
             std::vector<Editor> editors;
             std::vector<IShapeEditor*> shapeEditors;
             int selectedShape = -1;
-            
+
+            std::unique_ptr<GUI::RigidBodyEditor> rigidBodyEditor;
+
             ResourceSelector resourceSelector;
-            
-            float rigidBodyMass = 1.0f;
+            std::unique_ptr<GUI::TriggerEditor> triggerEditor;     
+
+            bool albedoShow = false;
+            bool normalShow = false;
+            bool metallicShow = false;
+            bool roughnessShow = false;
     };
 }
 
@@ -132,6 +146,7 @@ template<typename type> void GUI::EntityEditor::EditComponent(const std::string&
         
         if (ImGui::Button("Remove"))
             entity->KillComponent<type>();
+
         
         ImGui::PopID();
     }

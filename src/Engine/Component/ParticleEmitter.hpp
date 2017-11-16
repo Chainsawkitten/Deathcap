@@ -2,6 +2,7 @@
 
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Component {
     /// Emitter that emits particles.
@@ -53,13 +54,13 @@ namespace Component {
             };
             
             /// Create new particle emitter.
-            ParticleEmitter();
+            ENGINE_API ParticleEmitter();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
-            Json::Value Save() const override;
+            ENGINE_API Json::Value Save() const override;
             
             /// Particletype
             ParticleType particleType;

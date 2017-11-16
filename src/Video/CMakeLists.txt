@@ -16,15 +16,19 @@ set(SRCS
         PostProcessing/FXAAFilter.cpp
         PostProcessing/PostProcessing.cpp
         Profiling/Query.cpp
+        RenderProgram/RenderProgram.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
+        ShadowPass.cpp
         Texture/Texture.cpp
         Texture/Texture2D.cpp
+        VideoErrorCheck.cpp
     )
 
 set(HEADERS
+        linking.hpp
         Buffer/FrameBuffer.hpp
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
@@ -40,15 +44,19 @@ set(HEADERS
         Geometry/VertexType/SkinVertex.hpp
         Geometry/VertexType/StaticVertex.hpp
         Lighting/Light.hpp
+        PostProcessing/Filter.hpp
         PostProcessing/FXAAFilter.hpp
         PostProcessing/PostProcessing.hpp
         Profiling/Query.hpp
+        RenderProgram/RenderProgram.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
+        ShadowPass.hpp
         Texture/Texture.hpp
         Texture/Texture2D.hpp
+        VideoErrorCheck.hpp
     )
 
 # Setup embedded source
@@ -65,9 +73,12 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostFXAA.frag
+    ../../shaders/ShadowSkin.vert
+    ../../shaders/ShadowStatic.vert
     ../../shaders/Skinning.vert
-    ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag
+    ../../shaders/ZrejectionSkin.vert
+    ../../shaders/ZrejectionStatic.vert
 )
 
 foreach(item ${EMBEDDED_INPUT})
@@ -78,7 +89,12 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 
 create_directory_groups(${SRCS} ${HEADERS})
 
-add_library(Video STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Video Utility glew glm assimp jsoncpp_lib_static stb ${OpenVR_LIBRARY})
+add_library(Video SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
+target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY})
+
+if(UseMemTrack)
+    target_link_libraries(Video memtrack memtracknew)
+endif()
+
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
 set_property(TARGET Video PROPERTY CXX_STANDARD_REQUIRED ON)

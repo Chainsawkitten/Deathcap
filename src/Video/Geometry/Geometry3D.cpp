@@ -3,6 +3,10 @@
 using namespace Video;
 using namespace Geometry;
 
+Geometry3D::Geometry3D() {
+    
+}
+
 Geometry3D::~Geometry3D() {
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteBuffers(1, &indexBuffer);
@@ -26,6 +30,14 @@ void Geometry3D::GenerateIndexBuffer(unsigned int* indexData, unsigned int index
 
 const Video::AxisAlignedBoundingBox& Geometry3D::GetAxisAlignedBoundingBox() const {
     return axisAlignedBoundingBox;
+}
+
+const std::vector<glm::vec3>& Geometry3D::GetVertexPositionData() const {
+    return vertexPositionData;
+}
+
+const std::vector<uint32_t>& Geometry3D::GetVertexIndexData() const {
+    return vertexIndexData;
 }
 
 void Geometry3D::CreateAxisAlignedBoundingBox(const std::vector<glm::vec3*>& positions) {

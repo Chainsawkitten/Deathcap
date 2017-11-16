@@ -6,6 +6,10 @@
 
 #include <imgui.h>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace GUI;
 using namespace std;
 

@@ -8,18 +8,22 @@
 
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 Texture2D::Texture2D() {
     
 }
 
-Texture2D::Texture2D(const char* filename, bool srgb) {
-    Load(filename, srgb);
+Texture2D::Texture2D(const char* filename) {
+    Load(filename);
 }
 
-Texture2D::Texture2D(const char* source, int sourceLength, bool srgb) {
-    Load(source, sourceLength, srgb);
+Texture2D::Texture2D(const char* source, int sourceLength) {
+    Load(source, sourceLength);
 }
 
 Texture2D::~Texture2D() {
@@ -31,7 +35,7 @@ GLuint Texture2D::GetTextureID() const {
     return texID;
 }
 
-void Texture2D::Load(const char* filename, bool srgb) {
+void Texture2D::Load(const char* filename) {
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
     
@@ -39,11 +43,14 @@ void Texture2D::Load(const char* filename, bool srgb) {
     int components;
     unsigned char* data = stbi_load(filename, &width, &height, &components, 0);
     
-    if (data == NULL)
+    if (data == NULL) {
         Log() << "Couldn't load image " << filename << "\n";
+        loaded = false;
+        return;
+    }
     
     // Give the image to OpenGL.
-    glTexImage2D(GL_TEXTURE_2D, 0, srgb ? GL_SRGB_ALPHA : GL_RGBA, width, height, 0, Format(components), GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, Format(components), GL_UNSIGNED_BYTE, data);
     
     stbi_image_free(data);
     
@@ -63,7 +70,7 @@ void Texture2D::Load(const char* filename, bool srgb) {
     loaded = true;
 }
 
-void Texture2D::Load(const char* source, int sourceLength, bool srgb) {
+void Texture2D::Load(const char* source, int sourceLength) {
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
     
@@ -75,7 +82,7 @@ void Texture2D::Load(const char* source, int sourceLength, bool srgb) {
         Log() << "Couldn't load headerized image.\n";
     
     // Give the image to OpenGL.
-    glTexImage2D(GL_TEXTURE_2D, 0, srgb ? GL_SRGB_ALPHA : GL_RGBA, width, height, 0, Format(components), GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, Format(components), GL_UNSIGNED_BYTE, data);
     
     stbi_image_free(data);
     
