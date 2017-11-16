@@ -4,6 +4,7 @@
 #include "SuperComponent.hpp"
 #include "../linking.hpp"
 
+class btGhostObject;
 class btRigidBody;
 class PhysicsManager;
 
@@ -117,6 +118,7 @@ namespace Component {
 
             void MakeKinematic();
             void MakeDynamic();
+            void SetGhost(bool ghost);
 
             // Get/set whether a dynamic rigid body should synchronize its
             // transform against the owning entity during the next simulation.
@@ -130,6 +132,7 @@ namespace Component {
 
             float mass = 1.0f;
             btRigidBody* rigidBody = nullptr;
+            btGhostObject* ghostObject = nullptr;
             bool kinematic = false;
             bool forceTransformSync = true; // For first frame
             bool haltMovement = true; // True for first frame
@@ -139,5 +142,6 @@ namespace Component {
             float restitution = 0.0f;
             float linearDamping = 0.0f;
             float angularDamping = 0.0f;
+            bool ghost = false;
     };
 }

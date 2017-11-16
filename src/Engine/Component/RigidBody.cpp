@@ -1,4 +1,5 @@
 #include <btBulletDynamicsCommon.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include "../Physics/GlmConversion.hpp"
 #include "RigidBody.hpp"
 
@@ -69,6 +70,8 @@ namespace Component {
         btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, nullptr, btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
         rigidBody->setUserPointer(this);
+
+        ghostObject = new btGhostObject();
     }
 
     void RigidBody::Destroy() {
@@ -76,6 +79,8 @@ namespace Component {
             delete rigidBody->getMotionState();
             delete rigidBody;
         }
+
+        delete ghostObject;
     }
 
     glm::vec3 RigidBody::GetPosition() const {
@@ -175,6 +180,10 @@ namespace Component {
     void RigidBody::MakeDynamic() {
         rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() & ~btCollisionObject::CF_KINEMATIC_OBJECT);
         kinematic = false;
+    }
+
+    void RigidBody::SetGhost(bool ghost) {
+        this->ghost = ghost;
     }
 
     bool RigidBody::GetForceTransformSync() const {
