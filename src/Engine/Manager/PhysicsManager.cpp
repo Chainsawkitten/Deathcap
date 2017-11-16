@@ -212,7 +212,10 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     if (shapeComp) {
         comp->SetCollisionShape(shapeComp->GetShape());
         comp->SetMass(mass);
-        dynamicsWorld->addRigidBody(comp->GetBulletRigidBody());
+        if (ghost)
+            dynamicsWorld->addCollisionObject(comp->GetBulletCollisionObject());
+        else
+            dynamicsWorld->addRigidBody(comp->GetBulletRigidBody());
     }
 
     return comp;
@@ -229,7 +232,10 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner) {
     if (rigidBodyComp) {
         rigidBodyComp->SetCollisionShape(comp->GetShape());
         rigidBodyComp->SetMass(rigidBodyComp->GetMass());
-        dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
+        if (rigidBodyComp->ghost)
+            dynamicsWorld->addCollisionObject(rigidBodyComp->GetBulletCollisionObject());
+        else
+            dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
     }
 
     return comp;
@@ -281,7 +287,10 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     if (rigidBodyComp) {
         rigidBodyComp->SetCollisionShape(comp->GetShape());
         rigidBodyComp->SetMass(rigidBodyComp->GetMass());
-        dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
+        if (rigidBodyComp->ghost)
+            dynamicsWorld->addCollisionObject(rigidBodyComp->GetBulletCollisionObject());
+        else
+            dynamicsWorld->addRigidBody(rigidBodyComp->GetBulletRigidBody());
     }
 
     return comp;
@@ -373,7 +382,10 @@ const std::vector<Component::Shape*>& PhysicsManager::GetShapeComponents() const
 void PhysicsManager::ClearKilledComponents() {
     rigidBodyComponents.ClearKilled(
         [this](Component::RigidBody* body) {
-            dynamicsWorld->removeRigidBody(body->GetBulletRigidBody());
+            if (body->ghost)
+                dynamicsWorld->removeCollisionObject(body->GetBulletCollisionObject());
+            else
+                dynamicsWorld->removeRigidBody(body->GetBulletRigidBody());
         });
     shapeComponents.ClearKilled();
 }
