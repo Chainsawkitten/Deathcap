@@ -92,7 +92,9 @@ namespace Component {
 
     glm::vec3 RigidBody::GetPosition() const {
         btTransform trans;
-        if (IsKinematic())
+        if (ghost)
+            trans = ghostObject->getWorldTransform();
+        else if (IsKinematic())
             rigidBody->getMotionState()->getWorldTransform(trans);
         else
             trans = rigidBody->getWorldTransform();
@@ -101,6 +103,10 @@ namespace Component {
     }
 
     void RigidBody::SetPosition(const glm::vec3& pos) {
+        btTransform trans = ghostObject->getWorldTransform();
+        trans.setOrigin(Physics::glmToBt(pos));
+        ghostObject->setWorldTransform(trans);
+
         if (IsKinematic()) {
             btTransform trans;
             rigidBody->getMotionState()->getWorldTransform(trans);
@@ -115,7 +121,9 @@ namespace Component {
 
     glm::quat RigidBody::GetOrientation() const {
         btTransform trans;
-        if (IsKinematic())
+        if (ghost)
+            trans = ghostObject->getWorldTransform();
+        else if (IsKinematic())
             rigidBody->getMotionState()->getWorldTransform(trans);
         else
             trans = rigidBody->getWorldTransform();
@@ -124,6 +132,10 @@ namespace Component {
     }
 
     void RigidBody::SetOrientation(const glm::quat& rotation) {
+        btTransform trans = ghostObject->getWorldTransform();
+        trans.setRotation(Physics::glmToBt(rotation));
+        ghostObject->setWorldTransform(trans);
+
         if (IsKinematic()) {
             btTransform trans;
             rigidBody->getMotionState()->getWorldTransform(trans);
