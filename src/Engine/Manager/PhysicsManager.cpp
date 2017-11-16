@@ -204,6 +204,10 @@ Component::RigidBody* PhysicsManager::CreateRigidBody(Entity* owner, const Json:
     if (kinematic)
         comp->MakeKinematic();
 
+    auto ghost = node.get("ghost", false).asBool();
+    if (ghost)
+        comp->SetGhost(ghost);
+
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
         comp->SetCollisionShape(shapeComp->GetShape());

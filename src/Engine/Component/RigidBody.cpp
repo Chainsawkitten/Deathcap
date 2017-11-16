@@ -23,6 +23,7 @@ namespace Component {
         component["linearDamping"] = linearDamping;
         component["angularDamping"] = angularDamping;
         component["kinematic"] = kinematic;
+        component["ghost"] = ghost;
         return component;
     }
 
