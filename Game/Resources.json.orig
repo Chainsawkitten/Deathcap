@@ -1,5 +1,9 @@
 {
-	"activeScene" : "Resources/NewAssetsScene",
+<<<<<<< HEAD
+	"activeScene" : "Resources/Foliage/Fern_scene",
+=======
+	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
+>>>>>>> master
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
