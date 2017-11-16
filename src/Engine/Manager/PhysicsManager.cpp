@@ -360,11 +360,34 @@ void PhysicsManager::SetAngularDamping(Component::RigidBody* comp, float damping
 }
 
 void PhysicsManager::MakeKinematic(Component::RigidBody* comp) {
+    bool wasGhost = comp->ghost;
+
+    if (wasGhost)
+        dynamicsWorld->removeCollisionObject(comp->GetBulletCollisionObject());
+
     comp->MakeKinematic();
+
+    if (wasGhost)
+        dynamicsWorld->addRigidBody(comp->GetBulletRigidBody());
 }
 
 void PhysicsManager::MakeDynamic(Component::RigidBody* comp) {
+    bool wasGhost = comp->ghost;
+    if (wasGhost)
+        dynamicsWorld->removeCollisionObject(comp->GetBulletCollisionObject());
+
     comp->MakeDynamic();
+
+    if (wasGhost)
+        dynamicsWorld->addRigidBody(comp->GetBulletRigidBody());
+}
+
+void PhysicsManager::SetGhost(Component::RigidBody* comp, bool ghost) {
+    if (!comp->ghost) {
+        dynamicsWorld->removeRigidBody(comp->GetBulletRigidBody());
+        comp->SetGhost(ghost);
+        dynamicsWorld->addCollisionObject(comp->GetBulletCollisionObject());
+    }
 }
 
 void PhysicsManager::ForceTransformSync(Component::RigidBody* comp) {
