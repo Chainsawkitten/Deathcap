@@ -383,10 +383,14 @@ void PhysicsManager::MakeDynamic(Component::RigidBody* comp) {
 }
 
 void PhysicsManager::SetGhost(Component::RigidBody* comp, bool ghost) {
-    if (!comp->ghost) {
+    if (ghost && !comp->ghost) {
         dynamicsWorld->removeRigidBody(comp->GetBulletRigidBody());
         comp->SetGhost(ghost);
         dynamicsWorld->addCollisionObject(comp->GetBulletCollisionObject());
+    } else if (!ghost && comp->ghost) {
+        dynamicsWorld->removeCollisionObject(comp->GetBulletCollisionObject());
+        comp->SetGhost(ghost);
+        dynamicsWorld->addRigidBody(comp->GetBulletRigidBody());
     }
 }
 
