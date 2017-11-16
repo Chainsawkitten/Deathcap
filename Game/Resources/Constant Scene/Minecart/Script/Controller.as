@@ -7,7 +7,7 @@ class Controller {
     Controller(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        @rock = GetEntity(1510240479);
+        @rock = GetEntityByGUID(1510240479);
         isPressed = false;
 
         // Remove this if updates are not desired.
