@@ -21,7 +21,6 @@ void TextureEditor::Show() {
             // Rename texture files.
             std::string path = Hymn().GetPath() + "/" + texture->path;
             rename((path + texture->name + ".png").c_str(), (path + name + ".png").c_str());
-            rename((path + texture->name + ".json").c_str(), (path + name + ".json").c_str());
             
             texture->name = name;
         }
@@ -34,6 +33,7 @@ void TextureEditor::Show() {
         
         if (ImGui::Button("Load PNG image")) {
             fileSelector.AddExtensions("png");
+            fileSelector.SetInitialPath(Hymn().GetPath().c_str());
             fileSelector.SetFileSelectedCallback(std::bind(&TextureEditor::FileSelected, this, std::placeholders::_1));
             fileSelector.SetVisible(true);
         }

@@ -50,7 +50,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     }
 
     if (activeTransition == nullptr) {
-        for (auto i = 0; i < activeAction1->numOutputSlots; ++i) {
+        for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
             Animation::AnimationController::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationController::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
             if (tmpTransition != nullptr) {
                 // If the bool in the boolMap is true then set this to the activeTransition.
@@ -86,7 +86,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
 
 void AnimationController::Animate(float deltaTime, Animation::AnimationController::AnimationAction* action) {
     Animation::AnimationClip::Animation* anim = action->animationClip->animation;
-    auto size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
+    std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
     anim->currentFrame += deltaTime * 1.0f;
     if (anim->currentFrame > 15.0f) {
@@ -99,7 +99,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
     skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
     bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
 
-    for (auto i = 1; i < size; ++i) {
+    for (std::size_t i = 1; i < size; ++i) {
         Animation::AnimationClip::Bone* bone = &anim->bones[i];
 
         if ((float)bone->rotationKeys[bone->currentKeyIndex + 1] > anim->currentFrame)
@@ -128,7 +128,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
 }
 
 void AnimationController::Interpolate(float deltaTime) {
-    auto size = activeAction1->animationClip->animation->numBones > activeAction2->animationClip->animation->numBones ? activeAction2->animationClip->animation->numBones : activeAction1->animationClip->animation->numBones;
+    uint32_t size = activeAction1->animationClip->animation->numBones > activeAction2->animationClip->animation->numBones ? activeAction2->animationClip->animation->numBones : activeAction1->animationClip->animation->numBones;
 
     if (activeAction1->animationClip->animation->numBones != bonesToInterpolate1.size()) {
         bonesToInterpolate1.clear();
@@ -140,7 +140,7 @@ void AnimationController::Interpolate(float deltaTime) {
         bonesToInterpolate2.resize(activeAction2->animationClip->animation->numBones);
     }
 
-    for (auto i = 0; i < size; ++i) {
+    for (uint32_t i = 0; i < size; ++i) {
         float interpolation = activeTransition->transitionProcess / activeTransition->transitionTime;
 
         // Clamp interpolation.
@@ -161,7 +161,7 @@ void AnimationController::Interpolate(float deltaTime) {
 }
 
 void AnimationController::SetBool(const std::string& name, bool value) {
-    for (auto i = 0; i < controller->boolMap.size(); ++i) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i) {
         if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
             controller->boolMap[i]->value = value;
             return;
@@ -170,7 +170,7 @@ void AnimationController::SetBool(const std::string& name, bool value) {
 }
 
 void AnimationController::SetFloat(const std::string& name, float value) {
-    for (auto i = 0; i < controller->floatMap.size(); ++i) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i) {
         if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
             controller->floatMap[i]->value = value;
             return;
@@ -179,7 +179,7 @@ void AnimationController::SetFloat(const std::string& name, float value) {
 }
 
 bool AnimationController::GetBool(const std::string& name) {
-    for (auto i = 0; i < controller->boolMap.size(); ++i) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i) {
         if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
             return controller->boolMap[i]->value;
         }
@@ -187,7 +187,7 @@ bool AnimationController::GetBool(const std::string& name) {
 }
 
 float AnimationController::GetFloat(const std::string& name) {
-    for (auto i = 0; i < controller->floatMap.size(); ++i) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i) {
         if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
             return controller->floatMap[i]->value;
         }
