@@ -223,8 +223,8 @@ class PhysicsManager {
         /**
          * @param comp Rigid body to alter state of.
          * @param ghost True: makes the rigid object a ghost, disregarding all
-         collisions. False: disables ghost state, reverting to kinematic or
-         dynamic as before.
+         * collisions. False: disables ghost state, reverting to kinematic or
+         * dynamic as before.
          */
         ENGINE_API void SetGhost(Component::RigidBody* comp, bool ghost);
 
