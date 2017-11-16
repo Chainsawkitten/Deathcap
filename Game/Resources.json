@@ -411,6 +411,10 @@
 									{
 										"script" : "Controller",
 										"type" : 4
+									},
+									{
+										"script" : "Player",
+										"type" : 4
 									}
 								],
 								"subfolders" : null
@@ -987,6 +991,37 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "Foliage",
+				"resources" : 
+				[
+					{
+						"model" : "fernscale",
+						"type" : 1
+					},
+					{
+						"scene" : "Fern_scene",
+						"type" : 0
+					},
+					{
+						"texture" : "fern_albedo",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_normal",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_metallic",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_roughnes",
+						"type" : 2
+					}
+				],
+				"subfolders" : null
 			}
 		]
 	},

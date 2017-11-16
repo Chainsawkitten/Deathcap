@@ -27,7 +27,7 @@ namespace Physics {
             // Get access to a particular observer of the trigger to work with
             // it in a user-defined way. If the observer is not present, one
             // will be created.
-            void ForObserver(btRigidBody* body, const std::function<void(TriggerObserver&)>& fun);
+            void ForObserver(btCollisionObject* body, const std::function<void(TriggerObserver&)>& fun);
 
             void SetCollisionShape(std::shared_ptr<Shape> shape);
             void SetPosition(const btVector3& position);

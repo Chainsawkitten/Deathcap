@@ -50,6 +50,10 @@ namespace GUI {
                     Managers().physicsManager->MakeDynamic(comp);
             }
 
+            bool ghost = comp->IsGhost();
+            if (ImGui::Checkbox("Ghost", &ghost))
+                Managers().physicsManager->SetGhost(comp, ghost);
+
             ImGui::Unindent();
         }
         else {
