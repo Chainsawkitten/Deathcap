@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/NewAssetsScene",
+	"activeScene" : "Resources/Foliage/Fern_scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 103,
+	"modelNumber" : 105,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -955,12 +955,43 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "Foliage",
+				"resources" : 
+				[
+					{
+						"model" : "fernscale",
+						"type" : 1
+					},
+					{
+						"scene" : "Fern_scene",
+						"type" : 0
+					},
+					{
+						"texture" : "fern_albedo",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_normal",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_metallic",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_roughnes",
+						"type" : 2
+					}
+				],
+				"subfolders" : null
 			}
 		]
 	},
-	"sceneNumber" : 12,
+	"sceneNumber" : 14,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 88
+	"textureNumber" : 92
 }
