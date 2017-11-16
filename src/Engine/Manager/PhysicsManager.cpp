@@ -1,5 +1,6 @@
 #include "PhysicsManager.hpp"
 
+#include <algorithm>
 #include <btBulletDynamicsCommon.h>
 #include <glm/gtx/quaternion.hpp>
 #include "../Component/RigidBody.hpp"
