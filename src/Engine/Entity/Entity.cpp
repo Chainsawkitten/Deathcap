@@ -14,7 +14,6 @@
 #include "../Component/Script.hpp"
 #include "../Component/Shape.hpp"
 #include "../Component/SoundSource.hpp"
-#include "../Component/ParticleEmitter.hpp"
 #include "../Component/ParticleSystem.hpp"
 #include "../Component/VRDevice.hpp"
 #include "../Component/Trigger.hpp"
@@ -196,7 +195,6 @@ Json::Value Entity::Save() const {
         Save<Component::Script>(entity, "Script");
         Save<Component::Shape>(entity, "Shape");
         Save<Component::SoundSource>(entity, "SoundSource");
-        Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
         Save<Component::ParticleSystemComponent>(entity, "ParticleSystem");
         Save<Component::VRDevice>(entity, "VRDevice");
         Save<Component::Trigger>(entity, "Trigger");
@@ -240,7 +238,6 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::Script>(node, "Script");
         Load<Component::Shape>(node, "Shape");
         Load<Component::SoundSource>(node, "SoundSource");
-        Load<Component::ParticleEmitter>(node, "ParticleEmitter");
         Load<Component::ParticleSystemComponent>(node, "ParticleSystem");
         Load<Component::VRDevice>(node, "VRDevice");
         Load<Component::Trigger>(node, "Trigger");

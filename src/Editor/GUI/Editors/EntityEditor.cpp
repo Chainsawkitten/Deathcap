@@ -14,7 +14,6 @@
 #include <Engine/Component/Script.hpp>
 #include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
-#include <Engine/Component/ParticleEmitter.hpp>
 #include <Engine/Component/ParticleSystem.hpp>
 #include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Component/VRDevice.hpp>
@@ -68,7 +67,6 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::Script>("Script", std::bind(&EntityEditor::ScriptEditor, this, std::placeholders::_1));
     AddEditor<Component::Shape>("Shape", std::bind(&EntityEditor::ShapeEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
-    AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleSystemComponent>("Particle System", std::bind(&EntityEditor::ParticleSystemEditor, this, std::placeholders::_1));
     AddEditor<Component::VRDevice>("VR device", std::bind(&EntityEditor::VRDeviceEditor, this, std::placeholders::_1));
     AddEditor<Component::Trigger>("Trigger", std::bind(&EntityEditor::TriggerEditor, this, std::placeholders::_1));
@@ -563,48 +561,6 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
     ImGui::Indent();
     ImGui::DraggableFloat("Volume", soundSource->volume, 0.0f, 1.0f);
     ImGui::Checkbox("Loop", &soundSource->loop);
-    ImGui::Unindent();
-}
-
-void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter) {
-    ImGui::Text("Particle");
-    ImGui::Indent();
-    int rows = Managers().particleManager->GetTextureAtlasRows();
-    float column = static_cast<float>(particleEmitter->particleType.textureIndex % rows);
-    float row = static_cast<float>(particleEmitter->particleType.textureIndex / rows);
-    ImGui::Image((void*)Managers().particleManager->GetTextureAtlas()->GetTextureID(), ImVec2(128, 128), ImVec2(column / rows, row / rows), ImVec2((column + 1.f) / rows, (row + 1.f) / rows));
-    ImGui::InputInt("Texture index", &particleEmitter->particleType.textureIndex);
-    ImGui::ColorEdit3("Color", &particleEmitter->particleType.color[0]);
-    ImGui::DraggableVec3("Min velocity", particleEmitter->particleType.minVelocity);
-    ImGui::DraggableVec3("Max velocity", particleEmitter->particleType.maxVelocity);
-    ImGui::DraggableFloat("Average lifetime", particleEmitter->particleType.averageLifetime, 0.0f);
-    ImGui::DraggableFloat("Lifetime variance", particleEmitter->particleType.lifetimeVariance, 0.0f);
-    ImGui::DraggableVec2("Average size", particleEmitter->particleType.averageSize, 0.0f);
-    ImGui::DraggableVec2("Size variance", particleEmitter->particleType.sizeVariance, 0.0f);
-    ImGui::Checkbox("Uniform scaling", &particleEmitter->particleType.uniformScaling);
-    ImGui::DraggableFloat("Start alpha", particleEmitter->particleType.startAlpha, 0.0f, 1.0f);
-    ImGui::DraggableFloat("Mid alpha", particleEmitter->particleType.midAlpha, 0.0f, 1.0f);
-    ImGui::DraggableFloat("End alpha", particleEmitter->particleType.endAlpha, 0.0f, 1.0f);
-    ImGui::Unindent();
-
-    ImGui::Text("Emitter");
-    ImGui::Indent();
-    ImGui::DraggableFloat("Average emit time", particleEmitter->averageEmitTime, 0.001f);
-    ImGui::DraggableFloat("Emit time variance", particleEmitter->emitTimeVariance, 0.0f);
-
-    const char* items[] = { "Point", "Cuboid" };
-    int item = static_cast<int>(particleEmitter->emitterType);
-    if (ImGui::Combo("Emitter type", &item, items, 2))
-        particleEmitter->emitterType = static_cast<Component::ParticleEmitter::EmitterType>(item);
-
-    if (particleEmitter->emitterType == Component::ParticleEmitter::CUBOID)
-        ImGui::DraggableVec3("Size", particleEmitter->size);
-
-    ImGui::Unindent();
-
-    ImGui::Text("Preview");
-    ImGui::Indent();
-    ImGui::Checkbox("Simulate", &particleEmitter->preview);
     ImGui::Unindent();
 }
 

@@ -4,7 +4,6 @@
 #include <glm/gtc/matrix_inverse.hpp>
 #include "../Entity/World.hpp"
 #include "../Entity/Entity.hpp"
-#include "../Component/ParticleEmitter.hpp"
 #include "../Component/ParticleSystem.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"

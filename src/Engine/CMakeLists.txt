@@ -22,7 +22,6 @@ set(SRCS
         Component/Listener.cpp
         Component/Material.cpp
         Component/Mesh.cpp
-        Component/ParticleEmitter.cpp
         Component/PointLight.cpp
         Component/RigidBody.cpp
         Component/Script.cpp
@@ -92,7 +91,6 @@ set(HEADERS
         Component/Listener.hpp
         Component/Material.hpp
         Component/Mesh.hpp
-        Component/ParticleEmitter.hpp
         Component/PointLight.hpp
         Component/RigidBody.hpp
         Component/Script.hpp
