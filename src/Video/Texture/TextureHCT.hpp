@@ -34,7 +34,7 @@ namespace Video {
         VIDEO_API bool IsLoaded() const override;
         
         /// The version of the texture format.
-        static const uint16_t VERSION = 2;
+        static const uint16_t VERSION = 3;
         
         private:
         GLuint texID = 0;
