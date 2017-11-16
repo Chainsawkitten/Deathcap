@@ -7,7 +7,7 @@
 #endif
 
 namespace Physics {
-    TriggerObserver::TriggerObserver(btRigidBody& body)
+    TriggerObserver::TriggerObserver(btCollisionObject& body)
     : btCollisionWorld::ContactResultCallback(), rigidBody(body) {
 
     }
