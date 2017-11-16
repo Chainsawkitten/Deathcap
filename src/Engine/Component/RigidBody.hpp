@@ -42,6 +42,15 @@ namespace Component {
              */
             ENGINE_API bool IsKinematic() const;
 
+            /// Return a value indicating whether the rigid body is a ghost
+            /// object, meaning that it disregards all collisions and only act
+            /// as a collider for trigger purposes. Similar to a kinematic
+            /// rigid body, movement is determined from the owning entity.
+            /**
+             * @return True if ghost, false otherwise.
+             */
+            ENGINE_API bool IsGhost() const;
+
             /// Get the friction coefficient of the rigid body. Note that this
             /// does not necessarily match the real world as objects don't have
             /// one single value for friction.

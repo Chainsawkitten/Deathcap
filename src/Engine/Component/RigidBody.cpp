@@ -31,6 +31,10 @@ namespace Component {
         return kinematic;
     }
 
+    bool RigidBody::IsGhost() const {
+        return ghost;
+    }
+
     float RigidBody::GetFriction() const {
         return friction;
     }
