@@ -216,8 +216,10 @@ void ParticleSystemRenderer::Draw(Texture* textureAtlas, unsigned int textureAtl
 
     // Blending
     glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
+    glAlphaFunc(GL_GREATER, 0.0001);
+    glEnable(GL_ALPHA_TEST);
     glEnablei(GL_BLEND, 0);
     glEnablei(GL_BLEND, 1);
     glBlendFunci(0, GL_SRC_ALPHA, GL_ONE);
