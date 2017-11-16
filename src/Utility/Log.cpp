@@ -17,8 +17,11 @@ Log::~Log() {
 
 Log& Log::operator<<(const string& text) {
     *streams[currentChannel] << text;
+
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << text;
+#endif
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -30,8 +33,11 @@ Log& Log::operator<<(const string& text) {
 
 Log& Log::operator<<(const int value) {
     *streams[currentChannel] << value;
+
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << value;
+#endif
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -43,8 +49,11 @@ Log& Log::operator<<(const int value) {
 
 Log& Log::operator<<(const unsigned int value) {
     *streams[currentChannel] << value;
+
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << value;
+#endif
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -56,8 +65,11 @@ Log& Log::operator<<(const unsigned int value) {
 
 Log& Log::operator<<(const float value) {
     *streams[currentChannel] << value;
+
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << value;
+#endif
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -69,8 +81,11 @@ Log& Log::operator<<(const float value) {
 
 Log& Log::operator<<(const double value) {
     *streams[currentChannel] << value;
+
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << value;
+#endif
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -95,17 +110,21 @@ Log& Log::operator<<(const time_t value) {
 #endif
 
     *streams[currentChannel] << outString;
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << outString;
-
+#endif
     return *this;
 }
 
 Log& Log::operator<<(const glm::vec2& value) {
     string outString = "(" + std::to_string(value.x) + "," + std::to_string(value.y) + ")";
     *streams[currentChannel] << outString;
+
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << outString;
+#endif
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -118,8 +137,11 @@ Log& Log::operator<<(const glm::vec2& value) {
 Log& Log::operator<<(const glm::vec3& value) {
     string outString = "(" + std::to_string(value.x) + "," + std::to_string(value.y) + "," + std::to_string(value.z) + ")";
     *streams[currentChannel] << outString;
+
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << outString;
+#endif
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
@@ -132,8 +154,11 @@ Log& Log::operator<<(const glm::vec3& value) {
 Log& Log::operator<<(const glm::vec4& value) {
     string outString = "(" + std::to_string(value.x) + "," + std::to_string(value.y) + "," + std::to_string(value.z) + "," + std::to_string(value.w) + ")";
     *streams[currentChannel] << outString;
+
+#ifdef USINGDOUBLELOGGING
     if (currentChannel != INFO)
         std::cout << outString;
+#endif
 
 #ifdef LOGTESTING
     if (currentChannel == ERR)
