@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <memory>
 #include "SuperComponent.hpp"
 #include "../linking.hpp"
 
@@ -9,6 +10,7 @@ class btRigidBody;
 class PhysicsManager;
 
 namespace Physics {
+    class Shape;
     class Trigger;
 }
 
@@ -89,6 +91,8 @@ namespace Component {
             // Destroy resources completely.
             void Destroy();
 
+            void SetCollisionShape(std::shared_ptr<Physics::Shape> shape);
+
             // Get the position of a rigid body.
             glm::vec3 GetPosition() const;
 
@@ -143,5 +147,6 @@ namespace Component {
             float linearDamping = 0.0f;
             float angularDamping = 0.0f;
             bool ghost = false;
+            std::shared_ptr<Physics::Shape> shape;
     };
 }

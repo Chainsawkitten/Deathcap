@@ -1,6 +1,7 @@
 #include <btBulletDynamicsCommon.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include "../Physics/GlmConversion.hpp"
+#include "../Physics/Shape.hpp"
 #include "RigidBody.hpp"
 
 #ifdef USINGMEMTRACK
@@ -81,6 +82,12 @@ namespace Component {
         }
 
         delete ghostObject;
+    }
+
+    void RigidBody::SetCollisionShape(std::shared_ptr<Physics::Shape> shape) {
+        this->shape = shape;
+        rigidBody->setCollisionShape(shape->GetShape());
+        ghostObject->setCollisionShape(shape->GetShape());
     }
 
     glm::vec3 RigidBody::GetPosition() const {
