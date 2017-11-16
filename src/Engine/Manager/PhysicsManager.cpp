@@ -285,6 +285,21 @@ Utility::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(std::shared_ptr
     return Utility::LockBox<Physics::Trigger>(triggerLockBoxKey, trigger);
 }
 
+void PhysicsManager::ReleaseTriggerVolume(Utility::LockBox<Physics::Trigger>&& trigger) {
+    // If the trigger is the last one standing as was created by us, we find
+    // the underlying trigger object and remove it.
+    if (trigger.RefCount() == 1) {
+        trigger.Open(triggerLockBoxKey, [this](Physics::Trigger& t) {
+            auto it = std::find(triggers.begin(), triggers.end(), &t);
+            if (it != triggers.end()) {
+                delete *it;
+                std::swap(*it, *triggers.rbegin());
+                triggers.pop_back();
+            }
+        });
+    }
+}
+
 void PhysicsManager::SetPosition(Utility::LockBox<Physics::Trigger> trigger, const glm::vec3& position) {
     trigger.Open(triggerLockBoxKey, [&position](Physics::Trigger& trigger) {
         trigger.SetPosition(Physics::glmToBt(position));
