@@ -53,8 +53,6 @@ namespace TextureConverter {
             height /= 2;
         }
         
-        Log(Log::INFO) << "Miplevels: " << mipLevels << "\n";
-        
         // Write header.
         uint16_t version = Video::TextureHCT::VERSION;
         file.write(reinterpret_cast<const char*>(&version), sizeof(uint16_t));
@@ -63,7 +61,30 @@ namespace TextureConverter {
         file.write(reinterpret_cast<const char*>(&mipLevels), sizeof(uint16_t));
         
         // Write data.
-        file.write(reinterpret_cast<char*>(rgbData), static_cast<uint32_t>(uWidth) * uHeight * 3);
+        width = uWidth;
+        height = uHeight;
+        for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
+            file.write(reinterpret_cast<char*>(rgbData), width * height * 3);
+            
+            // Calculate mipmap.
+            if (mipLevel < mipLevels - 1) {
+                width /= 2;
+                height /= 2;
+                
+                for (int y = 0; y < height; ++y) {
+                    for (int x = 0; x < width; ++x) {
+                        for (int component = 0; component < 3; ++component) {
+                            uint16_t sum = 0;
+                            sum += rgbData[(y * width + x) * 3 + component];
+                            sum += rgbData[(y * width + x + 1) * 3 + component];
+                            sum += rgbData[((y + 1) * width + x) * 3 + component];
+                            sum += rgbData[((y + 1) * width + x + 1) * 3 + component];
+                            rgbData[(y * width + x) * 3 + component] = sum / 4 + (sum % 4 > 1);
+                        }
+                    }
+                }
+            }
+        }
         
         file.close();
         
