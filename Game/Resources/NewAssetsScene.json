@@ -908,6 +908,247 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510740427
+		},
+		{
+			"children" : null,
+			"name" : "Entity #1",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510754740
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/horizontal_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/horizontal_metall",
+				"normal" : "Resources/Constant Scene/WoodenStructure/horizontal_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/horizontal_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/WoodenStructure/vertical_pillars"
+			},
+			"children" : null,
+			"name" : "vert_wood",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510754743
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/WoodenStructure/horizontal_pillars"
+			},
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Bridge Puzzle Scene/Cables/wires"
+					},
+					"children" : 
+					[
+						{
+							"PointLight" : 
+							{
+								"attenuation" : 2.0110001564025879,
+								"color" : 
+								{
+									"x" : 1.0,
+									"y" : 0.45882353186607361,
+									"z" : 0.15686275064945221
+								},
+								"intensity" : 4.9470000267028809
+							},
+							"children" : null,
+							"name" : "Entity #3",
+							"position" : 
+							{
+								"x" : 14.476000785827637,
+								"y" : 2.4090001583099365,
+								"z" : 0.15400001406669617
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1510815546
+						}
+					],
+					"name" : "Cables",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510815442
+				}
+			],
+			"name" : "horizontal_wood",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0054621696472168,
+				"z" : 2.6850509643554688
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510754934
+		},
+		{
+			"children" : null,
+			"name" : "Entity #1",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510755270
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/Ore/goldalbedo",
+				"metallic" : "Resources/Constant Scene/Ore/goldmetal",
+				"normal" : "Resources/Constant Scene/Ore/goldnormal",
+				"roughness" : "Resources/Constant Scene/Ore/goldroughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/Ore/goldores"
+			},
+			"children" : null,
+			"name" : "goldore",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510755288
 		}
 	],
 	"name" : "Root",

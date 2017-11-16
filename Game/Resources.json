@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 98,
+	"modelNumber" : 103,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -441,6 +441,80 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "WoodenStructure",
+						"resources" : 
+						[
+							{
+								"model" : "horizontal_pillars",
+								"type" : 1
+							},
+							{
+								"texture" : "horizontal_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_metall",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_roughness",
+								"type" : 2
+							},
+							{
+								"model" : "vertical_pillars",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Ore",
+						"resources" : 
+						[
+							{
+								"model" : "goldores",
+								"type" : 1
+							},
+							{
+								"texture" : "goldalbedo",
+								"type" : 2
+							},
+							{
+								"texture" : "goldmetal",
+								"type" : 2
+							},
+							{
+								"texture" : "goldroughness",
+								"type" : 2
+							},
+							{
+								"texture" : "goldnormal",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -624,6 +698,17 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "Cables",
+						"resources" : 
+						[
+							{
+								"model" : "wires",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -877,5 +962,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 76
+	"textureNumber" : 88
 }
