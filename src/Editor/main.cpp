@@ -158,9 +158,9 @@ int main() {
     // Shut down and cleanup.
     ImGuiImplementation::Shutdown();
     delete editor;
-    
-    Managers().ShutDown();
     Hymn().world.Clear();
+
+    Managers().ShutDown();
     
     delete window;
     glfwTerminate();
