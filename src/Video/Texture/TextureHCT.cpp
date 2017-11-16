@@ -36,7 +36,7 @@ TextureHCT::TextureHCT(const char* filename) {
     file.read(reinterpret_cast<char*>(&mipLevels), sizeof(uint16_t));
     
     // Read texture data.
-    uint32_t size = width * height * 3;
+    uint32_t size = static_cast<uint32_t>(width) * height * 3;
     unsigned char* data = new unsigned char[size];
     if (!file.read(reinterpret_cast<char*>(data), size)) {
         Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";

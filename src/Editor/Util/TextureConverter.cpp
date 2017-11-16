@@ -44,16 +44,26 @@ namespace TextureConverter {
             return;
         }
         
+        // Calculate the levels of mipmapping.
+        uint16_t uWidth = width;
+        uint16_t uHeight = height;
+        uint16_t mipLevels;
+        for (mipLevels = 0; width >= 4 && height >= 4; ++mipLevels) {
+            width /= 2;
+            height /= 2;
+        }
+        
+        Log(Log::INFO) << "Miplevels: " << mipLevels << "\n";
+        
         // Write header.
         uint16_t version = Video::TextureHCT::VERSION;
-        uint16_t mipLevels = 1;
         file.write(reinterpret_cast<const char*>(&version), sizeof(uint16_t));
-        file.write(reinterpret_cast<const char*>(&width), sizeof(uint16_t));
-        file.write(reinterpret_cast<const char*>(&height), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&uWidth), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&uHeight), sizeof(uint16_t));
         file.write(reinterpret_cast<const char*>(&mipLevels), sizeof(uint16_t));
         
         // Write data.
-        file.write(reinterpret_cast<char*>(rgbData), width * height * 3);
+        file.write(reinterpret_cast<char*>(rgbData), static_cast<uint32_t>(uWidth) * uHeight * 3);
         
         file.close();
         
