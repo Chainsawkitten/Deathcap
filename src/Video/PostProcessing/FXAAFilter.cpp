@@ -19,6 +19,7 @@ FXAAFilter::FXAAFilter() {
     delete fragmentShader;
     
     screenSizeLocation = shaderProgram->GetUniformLocation("screenSize");
+    diffuseLocation = shaderProgram->GetUniformLocation("tDiffuse");
 }
 
 FXAAFilter::~FXAAFilter() {
@@ -27,6 +28,10 @@ FXAAFilter::~FXAAFilter() {
 
 ShaderProgram* FXAAFilter::GetShaderProgram() const {
     return shaderProgram;
+}
+
+GLuint FXAAFilter::GetDiffuseLocation() const {
+    return diffuseLocation;
 }
 
 void FXAAFilter::SetUniforms() {

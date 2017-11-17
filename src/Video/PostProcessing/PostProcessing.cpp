@@ -31,7 +31,7 @@ void PostProcessing::ApplyFilter(Video::RenderSurface* renderSurface, Video::Fil
     // Bind shaders.
     filter->GetShaderProgram()->Use();
     
-    glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tDiffuse"), 0);
+    glUniform1i(filter->GetDiffuseLocation(), 0);
     renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE0);
     
     glBindVertexArray(rectangle->GetVertexArray());
