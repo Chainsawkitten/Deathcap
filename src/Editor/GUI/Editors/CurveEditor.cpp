@@ -703,22 +703,21 @@ void CurveEditor::UpdateCurves(float deltaTime, float totalTime) {
         goBack = false;
     }
     
-    if (!goBack) {
+    if (!goBack)
         time += deltaTime;
-    }
-    if (goBack) {
+
+    if (goBack)
         time -= deltaTime;
-    }
 
     float tempValue;
     for (unsigned int i = 0; i < curves.size(); i++) {
         tempValue = ImGui::CurveValue(time / totalTime, (int)totalTime, curves[i].value); // calculate value at position
-        if (tempValue < 0.5f) {
+        if (tempValue < 0.5f) 
             tempValue -= 1.0f;
-        }
-        if (tempValue == 0.5f) {
+
+        if (tempValue <= 0.5f && tempValue >= 0.49f)
             tempValue = 0.0f;
-        }
+
         curves[i].value_you_care_about = tempValue;
     }
 }

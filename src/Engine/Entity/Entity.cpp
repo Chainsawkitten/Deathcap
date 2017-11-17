@@ -366,7 +366,7 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
     else if (componentType == typeid(Component::Mesh*))
         component = Managers().renderManager->CreateMesh();
     else if (componentType == typeid(Component::ParticleSystemComponent*))
-        component = Managers().particleManager->CreateAParticleSystem(world);
+        component = Managers().particleManager->CreateAParticleSystem();
     else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight();
     else if (componentType == typeid(Component::RigidBody*))

@@ -51,7 +51,7 @@ int ParticleManager::GetTextureAtlasRows() const {
     return textureAtlasRowNumber;
 }
 
-Component::ParticleSystemComponent* ParticleManager::CreateAParticleSystem(World * world) {
+Component::ParticleSystemComponent* ParticleManager::CreateAParticleSystem() {
 
     return InitParticleSystem(particleSystems.Create());
 }

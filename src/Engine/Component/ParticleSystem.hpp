@@ -14,6 +14,7 @@ namespace Component {
         /// Create new particle emitter.
         ENGINE_API ParticleSystemComponent();
 
+        /// Destructor.
         ENGINE_API ~ParticleSystemComponent();
 
         /// Save the component.

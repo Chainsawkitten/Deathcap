@@ -69,7 +69,7 @@ class ParticleManager {
          * @param World to create particle system in.
          * @return The created component.
          */
-        ENGINE_API Component::ParticleSystemComponent* CreateAParticleSystem(World * world);
+        ENGINE_API Component::ParticleSystemComponent* CreateAParticleSystem();
 
         /// Create particle System component.
         /**
@@ -78,7 +78,7 @@ class ParticleManager {
          */
         ENGINE_API Component::ParticleSystemComponent* CreateParticleSystem(const Json::Value& node);
 
-        /// Get all particle emitter components.
+        /// Remove a component.
         /**
          * @param component Component to remove.
          */

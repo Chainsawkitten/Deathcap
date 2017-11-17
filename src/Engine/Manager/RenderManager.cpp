@@ -110,22 +110,22 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
         if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-            const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
-            const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
-            const glm::vec3 position = camera->GetWorldPosition();
-            const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+                const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
+                const glm::vec3 position = camera->GetWorldPosition();
+                const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
 
             { VIDEO_ERROR_CHECK("Render world entities");
             { PROFILE("Render world entities");
             { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
+                RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
             }
             }
             }
 
             { PROFILE("Render debug entities");
             { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-            Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
             }
             }
 
@@ -133,7 +133,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 { PROFILE("Anti-aliasing(FXAA)");
                 { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
                 { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-                renderer->AntiAlias(mainWindowRenderSurface);
+                    renderer->AntiAlias(mainWindowRenderSurface);
                 }
                 }
                 }
@@ -141,17 +141,17 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
             { PROFILE("Render particles");
             { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-            mainWindowRenderSurface->GetShadingFrameBuffer()->BindWrite();
-            glm::mat4 viewProjection = projectionMatrix * viewMatrix;
-            Managers().particleManager->RenderParticleSystem(viewProjection);
-            mainWindowRenderSurface->GetShadingFrameBuffer()->Unbind();
+                mainWindowRenderSurface->GetShadingFrameBuffer()->BindWrite();
+                glm::mat4 viewProjection = projectionMatrix * viewMatrix;
+                Managers().particleManager->RenderParticleSystem(viewProjection);
+                mainWindowRenderSurface->GetShadingFrameBuffer()->Unbind();
             }
             }
 
             if (soundSources || particleEmitters || lightSources || cameras || physics) {
                 { PROFILE("Render editor entities");
                 { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                    RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
                 }
                 }
             }
@@ -159,7 +159,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
             { PROFILE("Present to back buffer");
             { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
             { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
-            renderer->Present(mainWindowRenderSurface);
+                renderer->Present(mainWindowRenderSurface);
             }
             }
             }
@@ -188,13 +188,13 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
                 { PROFILE("Render world entities");
                 { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting);
+                    RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting);
                 }
                 }
 
                 { PROFILE("Render debug entities");
                 { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-                Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
+                    Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
                 }
                 }
 
@@ -202,7 +202,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                     { PROFILE("Anti-aliasing(FXAA)");
                     { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
                     { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-                    renderer->AntiAlias(hmdRenderSurface);
+                        renderer->AntiAlias(hmdRenderSurface);
                     }
                     }
                     }
@@ -210,17 +210,17 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
                 { PROFILE("Render particles");
                 { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-                hmdRenderSurface->GetShadingFrameBuffer()->BindWrite();
-                glm::mat4 viewProjection = projectionMatrix * eyeViewMatrix;
-                Managers().particleManager->RenderParticleSystem(viewProjection);
-                hmdRenderSurface->GetShadingFrameBuffer()->Unbind();
+                    hmdRenderSurface->GetShadingFrameBuffer()->BindWrite();
+                    glm::mat4 viewProjection = projectionMatrix * eyeViewMatrix;
+                    Managers().particleManager->RenderParticleSystem(viewProjection);
+                    hmdRenderSurface->GetShadingFrameBuffer()->Unbind();
                 }
                 }
 
                 if (soundSources || particleEmitters || lightSources || cameras || physics) {
                     { PROFILE("Render editor entities");
                     { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                    RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
+                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
                     }
                     }
                 }
@@ -236,7 +236,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
             { PROFILE("Sync hmd");
             { GPUPROFILE("Sync hmd", Video::Query::Type::TIME_ELAPSED);
-            Managers().vrManager->Sync();
+                Managers().vrManager->Sync();
             }
             }
         }
@@ -345,12 +345,12 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { VIDEO_ERROR_CHECK("Update lights");
     { PROFILE("Update lights");
     { GPUPROFILE("Update lights", Video::Query::Type::TIME_ELAPSED);
-    if (lighting)
-        // Cull lights and update light list.
-        LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
-    else
-        // Use full ambient light and ignore lights in the scene.
-        LightAmbient();
+        if (lighting)
+            // Cull lights and update light list.
+            LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+        else
+            // Use full ambient light and ignore lights in the scene.
+            LightAmbient();
     }
     }
     }

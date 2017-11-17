@@ -9,8 +9,7 @@
 #include <vector>
 #include <Video/ParticleSystemRenderer.hpp>
 
-struct MyCurve
-{
+struct MyCurve {
     std::string curve_name;
     float maxTime = 1.0f;
     ImVec2 value[10];
@@ -24,8 +23,7 @@ struct MyCurve
     bool editVelocityZ = false;
 };
 
-class CurveEditor
-{
+class CurveEditor {
 public:
     CurveEditor();
     ~CurveEditor();
@@ -62,8 +60,8 @@ public:
 
     /// Get all curves.
     /**
-    * @return All curves.
-    */
+     * @return All curves.
+     */
     const std::vector<MyCurve>& GetAllCurves() const;
 
 private:

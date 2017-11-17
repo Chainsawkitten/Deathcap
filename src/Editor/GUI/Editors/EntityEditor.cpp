@@ -563,8 +563,7 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
     ImGui::Unindent();
 }
 
-void GUI::EntityEditor::ParticleSystemEditor(Component::ParticleSystemComponent* particleSystem)
-{
+void GUI::EntityEditor::ParticleSystemEditor(Component::ParticleSystemComponent* particleSystem) {
     ImGui::Text("Particle System");
     ImGui::Indent();
     if (ImGui::Button("Curve editor"))
