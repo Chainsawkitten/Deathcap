@@ -17,6 +17,10 @@
 #include "Buffer/StorageBuffer.hpp"
 #include "Buffer/ReadWriteTexture.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 Renderer::Renderer() {
@@ -74,8 +78,18 @@ Renderer::~Renderer() {
     glDeleteVertexArrays(1, &vertexArray);
 }
 
-VIDEO_API void Video::Renderer::PrepareShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
+void Renderer::StartRendering(RenderSurface* renderSurface) {
+    renderSurface->Clear();
+    glCullFace(GL_BACK);
+    glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
+}
+
+void Renderer::PrepareStaticShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
     staticRenderProgram->PreShadowRender(lightView, lightProjection, shadowId, shadowWidth, shadowHeight, depthFbo);
+}
+
+void Renderer::ShadowRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) {
+    staticRenderProgram->ShadowRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
 }
 
 void Renderer::PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
@@ -85,14 +99,37 @@ void Renderer::PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, cons
 void Renderer::DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) {
     staticRenderProgram->DepthRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
 }
-void Renderer::ShadowRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) {
-    staticRenderProgram->ShadowRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
+
+void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+    staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
 }
 
-void Renderer::StartRendering(RenderSurface* renderSurface) {
-    renderSurface->Clear();
-    glCullFace(GL_BACK);
-    glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
+void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {
+    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, isSelected);
+}
+
+void Renderer::PrepareSkinShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
+    skinRenderProgram->PreShadowRender(lightView, lightProjection, shadowId, shadowWidth, shadowHeight, depthFbo);
+}
+
+void Renderer::ShadowRenderSkinMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) {
+    skinRenderProgram->ShadowRender(geometry, viewMatrix, projectionMatrix, modelMatrix, bones);
+}
+
+void Renderer::PrepareSkinMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+    skinRenderProgram->PreDepthRender(viewMatrix, projectionMatrix);
+}
+
+void Renderer::DepthRenderSkinMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) {
+    skinRenderProgram->DepthRender(geometry, viewMatrix, projectionMatrix, modelMatrix, bones);
+}
+
+void Renderer::PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+    skinRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
+}
+
+void Renderer::RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) {
+    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones, isSelected);
 }
 
 void Renderer::SetLights(const std::vector<Video::Light>& lights) {
@@ -113,22 +150,6 @@ void Renderer::SetLights(const std::vector<Video::Light>& lights) {
     lightBuffer->Bind();
     lightBuffer->Write((void*)lights.data(), 0, byteSize);
     lightBuffer->Unbind();
-}
-
-void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
-}
-
-void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {
-    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, isSelected);
-}
-
-void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    skinRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
-}
-
-void Renderer::RenderSkinnedMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) {
-    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones);
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
@@ -172,6 +193,7 @@ void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
 }
 
 void Renderer::StopRenderingIcons() {
+    currentIcon = nullptr;
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
 }

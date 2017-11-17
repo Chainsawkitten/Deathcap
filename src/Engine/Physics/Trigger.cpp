@@ -5,6 +5,10 @@
 #include "Trigger.hpp"
 #include "TriggerObserver.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 namespace Physics {
     Trigger::Trigger(const btTransform& transform) {
         trigger.reset(new btCollisionObject());
@@ -18,7 +22,7 @@ namespace Physics {
         }
     }
 
-    void Trigger::ForObserver(btRigidBody* body, const std::function<void(TriggerObserver& observer)>& fun) {
+    void Trigger::ForObserver(btCollisionObject* body, const std::function<void(TriggerObserver& observer)>& fun) {
         auto obs = std::find_if(observers.begin(), observers.end(), [body](std::unique_ptr<Physics::TriggerObserver>& ptr) {
             return body == ptr->GetBulletCollisionObject();
         });
@@ -33,5 +37,11 @@ namespace Physics {
     void Trigger::SetCollisionShape(std::shared_ptr<Shape> shape) {
         this->shape = shape;
         trigger->setCollisionShape(shape->GetShape());
+    }
+
+    void Trigger::SetPosition(const btVector3& position) {
+        auto trans = this->trigger->getWorldTransform();
+        trans.setOrigin(position);
+        this->trigger->setWorldTransform(trans);
     }
 }

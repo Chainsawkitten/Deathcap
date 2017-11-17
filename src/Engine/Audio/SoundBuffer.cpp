@@ -10,6 +10,10 @@
 #include "../Audio/SoundStreamer.hpp"
 #include "../Manager/Managers.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Audio;
 
 SoundBuffer::SoundBuffer() {

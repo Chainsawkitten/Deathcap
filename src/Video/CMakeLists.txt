@@ -16,13 +16,15 @@ set(SRCS
         PostProcessing/FXAAFilter.cpp
         PostProcessing/PostProcessing.cpp
         Profiling/Query.cpp
+        RenderProgram/RenderProgram.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         ShadowPass.cpp
-        Texture/Texture.cpp
         Texture/Texture2D.cpp
+        Texture/TextureHCT.cpp
+        Texture/TexturePNG.cpp
         VideoErrorCheck.cpp
     )
 
@@ -47,13 +49,15 @@ set(HEADERS
         PostProcessing/FXAAFilter.hpp
         PostProcessing/PostProcessing.hpp
         Profiling/Query.hpp
+        RenderProgram/RenderProgram.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         ShadowPass.hpp
-        Texture/Texture.hpp
         Texture/Texture2D.hpp
+        Texture/TextureHCT.hpp
+        Texture/TexturePNG.hpp
         VideoErrorCheck.hpp
     )
 
@@ -71,10 +75,12 @@ set(EMBEDDED_INPUT
     ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostFXAA.frag
-    ../../shaders/Shadow.vert
+    ../../shaders/ShadowSkin.vert
+    ../../shaders/ShadowStatic.vert
     ../../shaders/Skinning.vert
-    ../../shaders/Zrejection.vert
     ../../shaders/Zrejection.frag
+    ../../shaders/ZrejectionSkin.vert
+    ../../shaders/ZrejectionStatic.vert
 )
 
 foreach(item ${EMBEDDED_INPUT})
@@ -87,5 +93,10 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Video SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY})
+
+if(UseMemTrack)
+    target_link_libraries(Video memtrack memtracknew)
+endif()
+
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
 set_property(TARGET Video PROPERTY CXX_STANDARD_REQUIRED ON)

@@ -68,6 +68,16 @@ if(WIN32)
     endif()
 endif()
 
+option(UseMemTrack "Activates the memtrack library across solution." OFF)
+if(UseMemTrack)
+	add_definitions(-DUSINGMEMTRACK)
+endif()
+
+option(UseDoubleLogging "Log messages will be duplicated and sent to standard out." ON)
+if(UseDoubleLogging)
+    add_definitions(-DUSINGDOUBLELOGGING)
+endif()
+
 option(TestMemory "Enables memory testing in the game project." OFF)
 option(TestFrames "Enables frame testing in the game project." OFF)
 

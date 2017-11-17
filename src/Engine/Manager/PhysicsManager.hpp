@@ -50,7 +50,14 @@ class PhysicsManager {
          * @param object Body that is to enter the trigger volume.
          * @param callback Function to call when resolving event.
          */
-        ENGINE_API void OnTriggerEnter(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
+        ENGINE_API void OnTriggerEnter(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
+
+        /// Stop listening for when |object| has entered |trigger|.
+        /**
+         * @param trigger What trigger to stop listening on.
+         * @param object Body that is to be forgotten.
+         */
+        ENGINE_API void ForgetTriggerEnter(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object);
 
         /// Set up listener for when |object| is intersecting |trigger|.
         /**
@@ -58,7 +65,14 @@ class PhysicsManager {
          * @param object Body that is to cause trigger to fire.
          * @param callback Function to call when resolving event.
          */
-        ENGINE_API void OnTriggerRetain(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
+        ENGINE_API void OnTriggerRetain(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
+
+        /// Stop listening for when |object| is intersecting |trigger|.
+        /**
+         * @param trigger What trigger to stop listening on.
+         * @param object Body that is to be forgotten.
+         */
+        ENGINE_API void ForgetTriggerRetain(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object);
 
         /// Set up listener for when |object| has left |trigger|.
         /**
@@ -66,7 +80,14 @@ class PhysicsManager {
          * @param object Body that is to cause trigger to fire.
          * @param callback Function to call when resolving event.
          */
-        ENGINE_API void OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
+        ENGINE_API void OnTriggerLeave(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
+
+        /// Stop listening for when |object| has left |trigger|.
+        /**
+         * @param trigger What trigger to stop listening on.
+         * @param object Body that is to be forgotten.
+         */
+        ENGINE_API void ForgetTriggerLeave(Utility::LockBox<Physics::Trigger> trigger, Component::RigidBody* object);
 
         /// Create rigid body component.
         /**
@@ -101,16 +122,29 @@ class PhysicsManager {
         /// Create a trigger volume that can be used to check intersection
         /// events against physics bodies.
         /**
-         * @param comp Rigid body that represents the volume. This is intended
-         * to be changed to a pure shape in the future.
+         * @param shape Shape of the trigger volume.
          * @return A reference to the internal trigger.
          */
-        ENGINE_API Utility::LockBox<Physics::Trigger> CreateTrigger(Component::RigidBody* comp);
+        ENGINE_API Utility::LockBox<Physics::Trigger> CreateTrigger(std::shared_ptr<Physics::Shape> shape);
+
+        /// Inform the physics manager that a given trigger volume will no
+        /// longer be used so that it can be freed from memory.
+        /**
+         * @param trigger Trigger volume to release.
+         */
+        ENGINE_API void ReleaseTriggerVolume(Utility::LockBox<Physics::Trigger>&& trigger);
+
+        /// Set the position of a trigger volume.
+        /**
+         * @param trigger Volume to reposition.
+         * @param position New position in world space.
+         */
+        ENGINE_API void SetPosition(Utility::LockBox<Physics::Trigger> trigger, const glm::vec3& position);
 
         /// Set the shape of a given Component::Shape component.
         /**
          * @param comp The component on which to set the shape.
-         * @param A Physics::Shape object that holds the shape definition.
+         * @param shape A Physics::Shape object that holds the shape definition.
          */
         ENGINE_API void SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape);
 
@@ -120,6 +154,13 @@ class PhysicsManager {
          * @return Mass in kilograms.
          */
         ENGINE_API float GetMass(Component::RigidBody* comp);
+
+        /// Set the volume shape of a trigger.
+        /**
+         * @param trigger Trigger to alter shape of.
+         * @param shape Shape definition.
+         */
+        ENGINE_API void SetShape(Utility::LockBox<Physics::Trigger> trigger, std::shared_ptr<Physics::Shape> shape);
 
         /// Set the mass of a Component::RigidBody component.
         /**
@@ -184,6 +225,15 @@ class PhysicsManager {
          * @param comp Rigid body to make dynamic.
          */
         ENGINE_API void MakeDynamic(Component::RigidBody* comp);
+
+        /// Enables/disables ghost functionality on a rigid body.
+        /**
+         * @param comp Rigid body to alter state of.
+         * @param ghost True: makes the rigid object a ghost, disregarding all
+         * collisions. False: disables ghost state, reverting to kinematic or
+         * dynamic as before.
+         */
+        ENGINE_API void SetGhost(Component::RigidBody* comp, bool ghost);
 
         /// Forces a dynamic rigid body to synchronize its transform with that
         /// of its owning entity during the next simulation iteration.

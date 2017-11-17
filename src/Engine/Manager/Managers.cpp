@@ -9,10 +9,15 @@
 #include "DebugDrawingManager.hpp"
 #include "ProfilingManager.hpp"
 #include "VRManager.hpp"
+#include "TriggerManager.hpp"
 
 #include "Utility/Log.hpp"
 
 #include "../Component/Animation.hpp"
+
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 Hub::Hub() {
     
@@ -34,9 +39,11 @@ void Hub::StartUp() {
     scriptManager = new ScriptManager();
     debugDrawingManager = new DebugDrawingManager();
     profilingManager = new ProfilingManager();
+    triggerManager = new TriggerManager();
 }
 
 void Hub::ShutDown() {
+    delete triggerManager;
     delete profilingManager;
     delete debugDrawingManager;
     delete scriptManager;
@@ -52,6 +59,7 @@ void Hub::ShutDown() {
 
 void Hub::ClearKilledComponents() {
     if (!shutdown) {
+        triggerManager->ClearKilledComponents();
         renderManager->ClearKilledComponents();
         particleManager->ClearKilledComponents();
         physicsManager->ClearKilledComponents();

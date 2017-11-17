@@ -3,6 +3,10 @@
 #include "Buffer/FrameBuffer.hpp"
 #include "Buffer/ReadWriteTexture.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 RenderSurface::RenderSurface(const glm::vec2& size) {

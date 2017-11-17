@@ -32,6 +32,7 @@ set(SRCS
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
         Component/VRDevice.cpp
+        Component/Trigger.cpp
         Entity/Entity.cpp
         Entity/World.cpp
         Geometry/AssetFileHandler.cpp
@@ -47,11 +48,15 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
+        Manager/TriggerManager.cpp
         Manager/VRManager.cpp
         Physics/GlmConversion.cpp
         Physics/Shape.cpp
         Physics/Trigger.cpp
         Physics/TriggerObserver.cpp
+        Trigger/SuperTrigger.cpp
+        Trigger/TriggerRepeat.cpp
+        Trigger/TriggerOnce.cpp	
         Util/FileSystem.cpp
         Util/GPUProfiling.cpp
         Util/Input.cpp
@@ -96,6 +101,7 @@ set(HEADERS
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
         Component/VRDevice.hpp
+        Component/Trigger.hpp
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
@@ -112,11 +118,15 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
+        Manager/TriggerManager.hpp
         Manager/VRManager.hpp
         Physics/GlmConversion.hpp
         Physics/Shape.hpp
         Physics/Trigger.hpp
         Physics/TriggerObserver.hpp
+        Trigger/SuperTrigger.hpp
+        Trigger/TriggerRepeat.hpp
+        Trigger/TriggerOnce.hpp	
         Util/FileSystem.hpp
         Util/GPUProfiling.hpp
         Util/Input.hpp
@@ -155,6 +165,9 @@ create_directory_groups(${SRCS} ${HEADERS})
 add_library(Engine SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
 target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
+if(UseMemTrack)
+    target_link_libraries(Engine memtrack memtracknew)
+endif()
 
 # Measure VRAM dependencies.
 if(MeasureVRAM)

@@ -8,11 +8,10 @@ TEST_CASE("Log check", "[Log]") {
         REQUIRE(Log().SetupStream(Log::INFO, &std::cout));
         REQUIRE(Log().SetupStream(Log::WARNING, &std::cout));
         REQUIRE(Log().SetupStream(Log::ERR, &std::cerr));
-        REQUIRE(Log().SetupStream(Log::DEBUG, &std::cout));
     }
 
     SECTION("Setup all logs at once.") {
-        REQUIRE(Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr, &std::cout ));
+        REQUIRE(Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr));
     }
 
     SECTION("Try to setup log with wrong value.") {

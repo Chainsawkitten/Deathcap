@@ -14,8 +14,8 @@ namespace Animation {
         public:
             /// Bone data.
             struct Bone {
-                uint32_t parent;
-                uint32_t numRotationKeys;
+                uint32_t parent = 0;
+                uint32_t numRotationKeys = 0;
                 int32_t* rotationKeys = nullptr;
                 glm::mat4* rotations = nullptr;
                 uint32_t currentKeyIndex = 0;
@@ -69,8 +69,9 @@ namespace Animation {
 
             /// Animation data.
             struct Animation {
-                uint32_t numBones;
+                uint32_t numBones = 0;
                 Bone* bones = nullptr;
+                int32_t length = 0;
                 float currentFrame = 0.0f;
                 
                 /// Save animation data.
@@ -78,6 +79,7 @@ namespace Animation {
                  * @param file File to save to.
                  */
                 void Save(std::ofstream* file) {
+                    file->write(reinterpret_cast<char*>(&length), sizeof(int32_t));
                     file->write(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));
                     
                     for (unsigned int i = 0; i < numBones; ++i)
@@ -89,6 +91,7 @@ namespace Animation {
                  * @param file File to load from.
                  */
                 void Load(std::ifstream* file) {
+                    file->read(reinterpret_cast<char*>(&length), sizeof(int32_t));
                     file->read(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));
 
                     if (bones != nullptr)
