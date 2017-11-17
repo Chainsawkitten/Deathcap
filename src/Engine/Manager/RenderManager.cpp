@@ -273,7 +273,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
             if (entity->IsKilled() || !entity->enabled)
                 continue;
 
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
+            if (mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
         }
         // Skin meshes.
@@ -284,7 +284,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 continue;
 
             Mesh* mesh = entity->GetComponent<Mesh>();
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
+            if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
                 renderer->ShadowRenderSkinMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix(), controller->bones);
         }
     }
@@ -306,7 +306,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
             if (entity->IsKilled() || !entity->enabled)
                 continue;
 
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+            if (mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
             }
@@ -320,7 +320,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 continue;
 
             Mesh* mesh = entity->GetComponent<Mesh>();
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+            if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderSkinMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix(), controller->bones);
             }
@@ -385,7 +385,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                     continue;
 
                 Mesh* mesh = entity->GetComponent<Mesh>();
-                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
                     Material* material = entity->GetComponent<Material>();
                     if (material != nullptr)
                         renderer->RenderSkinMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones, false);

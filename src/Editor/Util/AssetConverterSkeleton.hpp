@@ -35,6 +35,7 @@ class AssetConverterSkeleton {
         const std::string& GetErrorString();
     
     private:
+        void SceneRecursive(aiNode* node, int parent);
         void BoneRecursive(aiNode* node, int parent);
 
         Assimp::Importer aImporter;
