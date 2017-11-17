@@ -53,6 +53,8 @@ SoundFile* SoundBuffer::GetSoundFile() const {
 }
 
 void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
+    begin = 0;
+    Managers().soundManager->Flush(chunkQueue);
     this->soundFile = soundFile;
     assert(chunkQueue.empty());
     for (int i = 0; i < CHUNK_COUNT; ++i)
@@ -61,8 +63,7 @@ void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
 
 void SoundBuffer::Restart() {
     begin = 0;
-    for (int i = 0; i < CHUNK_COUNT; ++i)
-        ConsumeChunk();
+    Managers().soundManager->Flush(chunkQueue);
     for (int i = 0; i < CHUNK_COUNT; ++i)
         ProduceChunk();
 }

@@ -68,7 +68,6 @@ void SoundManager::CheckError(PaError err) {
 }
 
 void SoundManager::Update(float deltaTime) {
-    
     // Number of samples to process dependant on deltaTime
     unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
     if (frameSamples > CHUNK_SIZE) {
@@ -320,4 +319,8 @@ void SoundManager::ClearKilledComponents() {
 
 void SoundManager::Load(Audio::SoundStreamer::DataHandle& dataHandle) {
     soundStreamer.Load(dataHandle);
+}
+
+void SoundManager::Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue) {
+    soundStreamer.Flush(queue);
 }

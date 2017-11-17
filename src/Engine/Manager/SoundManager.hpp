@@ -6,7 +6,7 @@
 #include "../linking.hpp"
 #include "../Audio/SoundStreamer.hpp"
 
-#define CHUNK_COUNT (3)
+#define CHUNK_COUNT (15)
 
 namespace Audio {
     class SoundStreamer;
@@ -103,6 +103,9 @@ class SoundManager {
 
         // TMPTODP
         ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
+
+        // TMPTODP
+        ENGINE_API void Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue);
         
     private:
         SoundManager();

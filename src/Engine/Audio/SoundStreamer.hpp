@@ -36,9 +36,8 @@ namespace Audio {
                 public:
                     friend class Worker;
                     friend class SoundBuffer;
+                    friend class SoundStreamer;
                     DataHandle(SoundFile* soundFile, uint32_t offset, uint32_t samples, float* data);
-
-                    bool Done() const;
 
                 private:
                     SoundFile* soundFile = nullptr;
@@ -46,17 +45,22 @@ namespace Audio {
                     uint32_t samples = 0;
                     float* data = nullptr;
                     bool done = false;
+                    bool abort = false;
             };
 
             // TMPTODP
             ENGINE_API void Load(SoundStreamer::DataHandle& dataHandle);
+
+            // TMPTODP
+            ENGINE_API void Flush(std::queue<DataHandle>& queue);
            
         private:
             Worker worker;
 
             std::queue<DataHandle*> loadQueue;
 
-            std::mutex mutex;
+            std::mutex queueMutex;
+            std::mutex flushMutex;
 
             bool stopWorker = false;
     };
