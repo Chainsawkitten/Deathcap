@@ -356,6 +356,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("float yaw(const quat &in)", asFUNCTIONPR(glm::yaw, (const glm::quat&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float roll(const quat &in)", asFUNCTIONPR(glm::roll, (const glm::quat&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float radians(float)", asFUNCTIONPR(glm::radians, (float), float), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float degrees(float)", asFUNCTIONPR(glm::degrees, (float), float), asCALL_CDECL);
 
     // Register Entity.
     engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT);

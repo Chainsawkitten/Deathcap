@@ -2,15 +2,15 @@ class Rock {
     Hub @hub;
     Entity @self;
     Entity @originalParent;
-    Entity @bridgeParent;
+    Entity @bigBalkPivot;
     Entity @bucketParent;
 
     Rock(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @originalParent = self.GetParent();
-        @bridgeParent = GetEntityByGUID(1510240835);
-        @bucketParent = GetEntityByGUID(1510652592);
+        @bigBalkPivot = GetEntityByGUID(1510912841);
+        @bucketParent = GetEntityByGUID(1510911323);
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -23,6 +23,7 @@ class Rock {
     void ReceiveMessage(Entity @sender, int i)
     {
         if (i == 1) {
+            SendMessage(bigBalkPivot, 2);
             hub.physicsManager.MakeKinematic(self.GetRigidBody());
             self.position = vec3(0.0f,0.0f,0.0f);
             self.SetParent(sender);
@@ -38,9 +39,9 @@ class Rock {
     }
     
     void HitBucket() {
-        SendMessage(bridgeParent, 1);
+        SendMessage(bigBalkPivot, 1);
         hub.physicsManager.MakeKinematic(self.GetRigidBody());
-        self.position = vec3(0.0f, 0.0f, 0.0f);
+        self.SetWorldPosition(bucketParent.GetWorldPosition());
         self.SetParent(bucketParent);
     }
 }

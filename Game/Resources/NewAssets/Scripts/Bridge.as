@@ -7,7 +7,7 @@ class Bridge {
     Bridge(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        @cart = GetEntityByGUID(1508919384);
+        @cart = GetEntityByGUID(1510920517);
         trigger = false;
 
         // Remove this if updates are not desired.
