@@ -226,15 +226,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "Floor",
-								"type" : 1
-							},
-							{
 								"model" : "StarterScene_Cave",
-								"type" : 1
-							},
-							{
-								"model" : "room",
 								"type" : 1
 							},
 							{
@@ -243,10 +235,6 @@
 							},
 							{
 								"model" : "StarterScene_tracks",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Bridge",
 								"type" : 1
 							},
 							{
@@ -259,6 +247,62 @@
 							},
 							{
 								"model" : "StarterScene_Carts",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_StraightCave",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Platform",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_CavePlatform",
+								"type" : 1
+							},
+							{
+								"model" : "Sign_01_fixed_position",
+								"type" : 1
+							},
+							{
+								"model" : "warningSign_02_fixed_position",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Bridge",
+								"type" : 1
+							},
+							{
+								"model" : "Room",
+								"type" : 1
+							},
+							{
+								"model" : "Floor",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Backroom",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_TrackStop",
+								"type" : 1
+							},
+							{
+								"model" : "Stairs",
+								"type" : 1
+							},
+							{
+								"model" : "Starter_WoodenBeams",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_WoodenBeamsVertical",
+								"type" : 1
+							},
+							{
+								"model" : "StarterRoof",
 								"type" : 1
 							}
 						],
@@ -348,6 +392,144 @@
 									},
 									{
 										"texture" : "Rail_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "EnterSign",
+								"resources" : 
+								[
+									{
+										"texture" : "EnterSign_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "EnterSign_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "EnterSign_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "EnterSign_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "WarningSign",
+								"resources" : 
+								[
+									{
+										"texture" : "SignClosed_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "SignClosed_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "SignClosed_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "SignClosed_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Room",
+								"resources" : 
+								[
+									{
+										"texture" : "StarterRoom_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterRoom_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterRoom_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterRoom_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Floor",
+								"resources" : 
+								[
+									{
+										"texture" : "StarterFloor_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterFloor_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterFloor_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterFloor_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Stairs",
+								"resources" : 
+								[
+									{
+										"texture" : "StarterStair_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterStair_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterStair_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterStair_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "WoodenBeam",
+								"resources" : 
+								[
+									{
+										"texture" : "WoodenBeamH_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "WoodenBeamH_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "WoodenBeamH_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "WoodenBeamH_Roughness",
 										"type" : 2
 									}
 								],

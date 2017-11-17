@@ -235,7 +235,7 @@ Entity* ActiveHymn::GetEntityByGUID(unsigned int GUID) {
 =======
     const vector<Entity*>& entities = Hymn().world.GetEntities();
     for (size_t i = 0; i < entities.size(); ++i) {
->>>>>>> master
+>>>>>>> origin/StarterScene
         if (entities[i]->GetUniqueIdentifier() == GUID)
             return entities[i];        
     }
