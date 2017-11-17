@@ -6,13 +6,17 @@
 #include <Video/Geometry/Rectangle.hpp>
 #include "../Geometry/Cube.hpp"
 #include "../Geometry/Model.hpp"
-#include <Video/Texture/Texture2D.hpp>
+#include <Video/Texture/TexturePNG.hpp>
 #include "../Audio/SoundBuffer.hpp"
 #include "../Texture/TextureAsset.hpp"
 #include "../Script/ScriptFile.hpp"
 #include <Utility/Log.hpp>
 #include "../Audio/AudioMaterial.hpp"
 #include "../Audio/VorbisFile.hpp"
+
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 using namespace std;
 
@@ -108,9 +112,9 @@ void ResourceManager::FreeSkeleton(Animation::Skeleton* skeleton) {
     }
 }
 
-Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength) {
+Video::TexturePNG* ResourceManager::CreateTexturePNG(const char* data, int dataLength) {
     if (textures.find(data) == textures.end()) {
-        textures[data].texture = new Video::Texture2D(data, dataLength);
+        textures[data].texture = new Video::TexturePNG(data, dataLength);
         texturesInverse[textures[data].texture] = data;
         textures[data].count = 1;
     } else
@@ -119,7 +123,7 @@ Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLen
     return textures[data].texture;
 }
 
-void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
+void ResourceManager::FreeTexturePNG(Video::TexturePNG* texture) {
     const char* data = texturesInverse[texture];
     
     if (textures[data].count-- <= 1) {

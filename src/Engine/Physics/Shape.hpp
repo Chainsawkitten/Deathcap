@@ -7,6 +7,10 @@
 class btCollisionShape;
 class PhysicsManager;
 
+namespace Component {
+    class RigidBody;
+}
+
 namespace Physics {
     class Trigger;
 
@@ -14,6 +18,7 @@ namespace Physics {
     /// underlying types.
     class Shape {
         friend class ::PhysicsManager;
+        friend class ::Component::RigidBody;
         friend class Trigger;
 
         public:

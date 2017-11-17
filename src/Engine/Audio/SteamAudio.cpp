@@ -1,6 +1,10 @@
 #include "SteamAudio.hpp"
 #include <assert.h>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 SteamAudio::SteamAudio() {
     playerPos = IPLVector3{ 0,0,0 };
     playerDir = IPLVector3{ 1,0,0 };

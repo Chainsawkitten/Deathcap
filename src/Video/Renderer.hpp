@@ -29,7 +29,13 @@ namespace Video {
             /// Destructor.
             VIDEO_API ~Renderer();
 
-            ///Prepare for shadow rendering
+            /// Start rendering the frame.
+            /**
+             * @param renderSurface %RenderSurface to render to.
+             */
+            VIDEO_API void StartRendering(RenderSurface* renderSurface);
+
+            /// Prepare for shadow rendering static meshes.
             /**
              * @param lightView The lights view matrix
              * @param lightProjection the Lights projection matrix
@@ -38,13 +44,22 @@ namespace Video {
              * @param shadowHeight size y of shadowMap
              * @param depthFbo framebuffer object for shadowMap
              */
-            VIDEO_API void PrepareShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int dephtFbo);
+            VIDEO_API void PrepareStaticShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int dephtFbo);
 
+            /// Render a static shadow mesh.
+            /**
+             * @param geometry The geometry to render.
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             * @param modelMatrix Model matrix.
+             */
+            VIDEO_API void ShadowRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix);
+        
             /// Prepare for depth rendering static meshes.
             /**
-                 * @param viewMatrix The camera's view matrix.
-                 * @param projectionMatrix The camera's projection matrix.
-                 */
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             */
             VIDEO_API void PrepareStaticMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
             /// Render a static mesh.
@@ -55,21 +70,6 @@ namespace Video {
              * @param modelMatrix Model matrix.
              */
             VIDEO_API void DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix);
-
-            /// Render a Shadow mesh.
-            /**
-             * @param geometry The geometry to render.
-             * @param viewMatrix The camera's view matrix.
-             * @param projectionMatrix The camera's projection matrix.
-             * @param modelMatrix Model matrix.
-             */
-            VIDEO_API void ShadowRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix);
-
-            /// Start rendering the frame.
-            /**
-             * @param renderSurface %RenderSurface to render to.
-             */
-            VIDEO_API void StartRendering(RenderSurface* renderSurface);
 
             /// Prepare for rendering static meshes.
             /**
@@ -90,14 +90,52 @@ namespace Video {
              */
             VIDEO_API void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
 
-            /// Prepare for rendering skinned meshes.
+            /// Prepare for shadow rendering skin meshes.
+            /**
+             * @param lightView The lights view matrix
+             * @param lightProjection the Lights projection matrix
+             * @param shadowId the texture ID for the shadowMap
+             * @param shadowWidth size x of shadowMap
+             * @param shadowHeight size y of shadowMap
+             * @param depthFbo framebuffer object for shadowMap
+            */
+            VIDEO_API void PrepareSkinShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int dephtFbo);
+
+            /// Prepare for depth rendering skin meshes.
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
              */
-            VIDEO_API void PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            VIDEO_API void PrepareSkinMeshDepthRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
-            /// Render a skinned mesh.
+            /// Render a skin mesh.
+            /**
+             * @param geometry The geometry to render.
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             * @param modelMatrix Model matrix.
+             * @param bones Bones array.
+             */
+            VIDEO_API void DepthRenderSkinMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones);
+
+            /// Prepare for rendering skin meshes.
+            /**
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             */
+            VIDEO_API void PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+
+            /// Render a skin shadow mesh.
+            /**
+             * @param geometry The geometry to render.
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
+             * @param modelMatrix Model matrix.
+             * @param bones Bones array.
+             */
+            VIDEO_API void ShadowRenderSkinMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones);
+
+            /// Render a skin mesh.
             /**
              * @param geometry The geometry to render.
              * @param albedo Albedo texture.
@@ -106,10 +144,9 @@ namespace Video {
              * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              * @param bones Bones array.
-             * @param numBones The number of bones in array.
              * @param isSelected Whether model is selected(should be highlighted) or not.
              */
-            VIDEO_API void RenderSkinnedMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected);
+            VIDEO_API void RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected);
 
             /// Update light buffer.
             /**

@@ -1,5 +1,9 @@
 #include "Settings.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace std;
 
 bool Settings::GetBool(const string& settingName) {

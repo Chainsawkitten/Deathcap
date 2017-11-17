@@ -20,6 +20,10 @@
 			"children" : 
 			[
 				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/Constant Scene/Minecart/Script/Player"
+					},
 					"children" : 
 					[
 						{

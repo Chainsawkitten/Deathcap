@@ -1,5 +1,9 @@
 #include "RayIntersection.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 RayIntersection::RayIntersection() {
     
 }

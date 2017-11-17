@@ -42,7 +42,7 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
     iplCreateBinauralEffect(*binauralRenderer, inputFormat, outputFormat, binauralEffect);
 
     // Convolution Effect
-    iplCreateConvolutionEffect(*envRenderer, "", IPL_SIMTYPE_REALTIME, inputFormat, outputFormat, convEffect);
+    err = iplCreateConvolutionEffect(*envRenderer, "", IPL_SIMTYPE_REALTIME, inputFormat, outputFormat, convEffect);
 }
 
 SteamAudioRenderers::~SteamAudioRenderers() {
@@ -67,8 +67,8 @@ IPLAudioBuffer SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 pla
 
     // Calculate direct effect (occlusion & attenuation)
     IPLDirectSoundEffectOptions options;
-    options.applyAirAbsorption = (IPLbool)false;
-    options.applyDistanceAttenuation = (IPLbool)false;
+    options.applyAirAbsorption = (IPLbool)true;
+    options.applyDistanceAttenuation = (IPLbool)true;
     options.directOcclusionMode = IPL_DIRECTOCCLUSION_TRANSMISSIONBYFREQUENCY;
 
     IPLAudioBuffer effectBuffer;
@@ -78,7 +78,6 @@ IPLAudioBuffer SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 pla
     effectBuffer.deinterleavedBuffer = NULL;
 
     iplApplyDirectSoundEffect(*directEffect, input, soundPath, options, effectBuffer);
-    delete[] effectBuffer.interleavedBuffer;
 
     // Spatialize the direct audio
     finalBuffers[0].format = outputFormat;
@@ -86,10 +85,11 @@ IPLAudioBuffer SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 pla
     finalBuffers[0].interleavedBuffer = new float[CHUNK_SIZE*2];
     finalBuffers[0].deinterleavedBuffer = NULL;
 
-    iplApplyBinauralEffect(*binauralEffect, input, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, finalBuffers[0]);
-    
+    iplApplyBinauralEffect(*binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, finalBuffers[0]);
+    delete[] effectBuffer.interleavedBuffer;
+
     // TMPTODO
-    //// Indirect Audio
+    // Indirect Audio
     //iplSetDryAudioForConvolutionEffect(*convEffect, sourcePos, input);
     //finalBuffers[1].format = outputFormat;
     //finalBuffers[1].numSamples = CHUNK_SIZE;
@@ -105,7 +105,7 @@ IPLAudioBuffer SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 pla
     //mixedBuffer.deinterleavedBuffer = NULL;
 
     //iplMixAudioBuffers(2, finalBuffers, mixedBuffer);
-       
+    //   
     //delete[] finalBuffers[0].interleavedBuffer;
     //delete[] finalBuffers[1].interleavedBuffer;
     //delete[] finalBuffers;
