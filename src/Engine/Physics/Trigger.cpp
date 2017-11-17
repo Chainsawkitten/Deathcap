@@ -22,7 +22,7 @@ namespace Physics {
         }
     }
 
-    void Trigger::ForObserver(btRigidBody* body, const std::function<void(TriggerObserver& observer)>& fun) {
+    void Trigger::ForObserver(btCollisionObject* body, const std::function<void(TriggerObserver& observer)>& fun) {
         auto obs = std::find_if(observers.begin(), observers.end(), [body](std::unique_ptr<Physics::TriggerObserver>& ptr) {
             return body == ptr->GetBulletCollisionObject();
         });

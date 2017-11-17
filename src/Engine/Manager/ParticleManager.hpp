@@ -12,6 +12,8 @@ class World;
 namespace Video {
     class Texture2D;
     class ParticleSystemRenderer;
+    class TexturePNG;
+    class ParticleRenderer;
     class RenderSurface;
 }
 namespace Component {
@@ -112,7 +114,7 @@ class ParticleManager {
         int textureAtlasRowNumber = 4;
 
         // Texture atlas containing the particle textures.
-        Video::Texture2D* textureAtlas;
+        Video::TexturePNG* textureAtlas;
         
         ComponentContainer<Component::ParticleSystemComponent> particleSystems;
 };

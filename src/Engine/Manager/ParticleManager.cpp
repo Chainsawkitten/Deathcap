@@ -7,7 +7,7 @@
 #include "../Component/ParticleSystem.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include <Video/Texture/Texture2D.hpp>
+#include <Video/Texture/TexturePNG.hpp>
 #include "ParticleAtlas.png.hpp"
 #include "../Util/Json.hpp"
 #include <Utility/Log.hpp>
@@ -20,13 +20,14 @@ using namespace Video;
 
 ParticleManager::ParticleManager() {
     randomEngine.seed(randomDevice());
-    
-    textureAtlas = Managers().resourceManager->CreateTexture2D(PARTICLEATLAS_PNG, PARTICLEATLAS_PNG_LENGTH);
+    textureAtlas = Managers().resourceManager->CreateTexturePNG(PARTICLEATLAS_PNG, PARTICLEATLAS_PNG_LENGTH);
 }
 
 ParticleManager::~ParticleManager() {
 
-    Managers().resourceManager->FreeTexture2D(textureAtlas);    
+    Managers().resourceManager->FreeTexturePNG(textureAtlas);    
+    
+    
 }
 
 unsigned int ParticleManager::GetMaxParticleCount() const {

@@ -4,7 +4,7 @@
 #include "DefaultParticleShader.vert.hpp"
 #include "DefaultParticleShader.geom.hpp"
 #include "DefaultParticleShader.frag.hpp"
-#include "Texture/Texture.hpp"
+#include "Texture/Texture2D.hpp"
 #include <time.h>
 #include <Utility/Log.hpp>
 
@@ -212,7 +212,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     }
 }
 
-void ParticleSystemRenderer::Draw(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings) {
+void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings) {
 
     // Blending
     glDisable(GL_CULL_FACE);

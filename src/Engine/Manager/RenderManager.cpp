@@ -43,6 +43,7 @@
 #include <Utility/Log.hpp>
 #include <Video/ShadowPass.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <Video/Texture/TexturePNG.hpp>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -65,17 +66,17 @@ RenderManager::RenderManager() {
     shadowPass = new Video::ShadowPass();
 
     // Init textures.
-    particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
-    lightTexture = Managers().resourceManager->CreateTexture2D(LIGHT_PNG, LIGHT_PNG_LENGTH);
-    soundSourceTexture = Managers().resourceManager->CreateTexture2D(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
-    cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
+    particleEmitterTexture = Managers().resourceManager->CreateTexturePNG(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
+    lightTexture = Managers().resourceManager->CreateTexturePNG(LIGHT_PNG, LIGHT_PNG_LENGTH);
+    soundSourceTexture = Managers().resourceManager->CreateTexturePNG(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
+    cameraTexture = Managers().resourceManager->CreateTexturePNG(CAMERA_PNG, CAMERA_PNG_LENGTH);
 }
 
 RenderManager::~RenderManager() {
-    Managers().resourceManager->FreeTexture2D(particleEmitterTexture);
-    Managers().resourceManager->FreeTexture2D(lightTexture);
-    Managers().resourceManager->FreeTexture2D(soundSourceTexture);
-    Managers().resourceManager->FreeTexture2D(cameraTexture);
+    Managers().resourceManager->FreeTexturePNG(particleEmitterTexture);
+    Managers().resourceManager->FreeTexturePNG(lightTexture);
+    Managers().resourceManager->FreeTexturePNG(soundSourceTexture);
+    Managers().resourceManager->FreeTexturePNG(cameraTexture);
 
     delete mainWindowRenderSurface;
     delete shadowPass;
@@ -359,55 +360,54 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { VIDEO_ERROR_CHECK("Render meshes");
     { PROFILE("Render meshes");
     { GPUPROFILE("Render meshes", Video::Query::Type::TIME_ELAPSED);
-    { GPUPROFILE("Render meshes", Video::Query::Type::SAMPLES_PASSED);
-    // Static meshes.
-    { VIDEO_ERROR_CHECK("Static meshes");
-    { PROFILE("Static meshes");
-    { GPUPROFILE("Static meshes", Video::Query::Type::TIME_ELAPSED);
-    { GPUPROFILE("Static meshes", Video::Query::Type::SAMPLES_PASSED);
-    renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
-    for (Mesh* mesh : meshComponents) {
-        Entity* entity = mesh->entity;
-        if (entity->IsKilled() || !entity->enabled)
-            continue;
+        // Static meshes.
+        { VIDEO_ERROR_CHECK("Static meshes");
+        { PROFILE("Static meshes");
+        { GPUPROFILE("Static meshes", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Static meshes", Video::Query::Type::SAMPLES_PASSED);
+            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+            for (Mesh* mesh : meshComponents) {
+                Entity* entity = mesh->entity;
+                if (entity->IsKilled() || !entity->enabled)
+                    continue;
 
-        if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-            Material* material = entity->GetComponent<Material>();
-            if (material != nullptr)
-                renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
+                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                    Material* material = entity->GetComponent<Material>();
+                    if (material != nullptr)
+                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
+                }
+            }
+        }
+        }
+        }
+        }
+
+        // Skin meshes.
+        { VIDEO_ERROR_CHECK("Skin meshes");
+        { PROFILE("Skin meshes");
+        { GPUPROFILE("Skin meshes", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Skin meshes", Video::Query::Type::SAMPLES_PASSED);
+            renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix);
+            for (AnimationController* controller : controllerComponents) {
+                Entity* entity = controller->entity;
+                if (entity->IsKilled() || !entity->enabled)
+                    continue;
+
+                Mesh* mesh = entity->GetComponent<Mesh>();
+                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                    Material* material = entity->GetComponent<Material>();
+                    if (material != nullptr)
+                        renderer->RenderSkinMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones, false);
+                }
+            }
+        }
+        }
+        }
         }
     }
     }
     }
-    }
-    }
 
-    // Skin meshes.
-    { VIDEO_ERROR_CHECK("Skin meshes");
-    { PROFILE("Skin meshes");
-    { GPUPROFILE("Skin meshes", Video::Query::Type::TIME_ELAPSED);
-    { GPUPROFILE("Skin meshes", Video::Query::Type::SAMPLES_PASSED);
-    renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix);
-    for (AnimationController* controller : controllerComponents) {
-        Entity* entity = controller->entity;
-        if (entity->IsKilled() || !entity->enabled)
-            continue;
-
-        Mesh* mesh = entity->GetComponent<Mesh>();
-        if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
-            Material* material = entity->GetComponent<Material>();
-            if (material != nullptr)
-                renderer->RenderSkinMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones, false);
-        }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
     renderSurface->GetShadingFrameBuffer()->Unbind();
 }
 

@@ -34,7 +34,7 @@ struct ParticleModelMatrix {
 };
 
 namespace Video {
-    class Texture;
+    class Texture2D;
 
     class ParticleSystemRenderer {
         public:
@@ -117,7 +117,7 @@ namespace Video {
         * @param viewProjectionMatrix The camera's view and projection matrix.
         * @param settings Settings for the emitter.
         */
-        VIDEO_API void Draw(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
+        VIDEO_API void Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
 
         private:
         Video::ShaderProgram* computeShaderProgram;

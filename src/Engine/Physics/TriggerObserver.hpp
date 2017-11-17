@@ -4,7 +4,7 @@
 #include <functional>
 #include "../linking.hpp"
 
-class btRigidBody;
+class btCollisionObject;
 
 namespace Physics {
     /// Represents an object that listens to intersections against a trigger
@@ -33,7 +33,7 @@ namespace Physics {
             /**
              * @param body Rigid body listening to trigger.
              */
-            ENGINE_API explicit TriggerObserver(btRigidBody& body);
+            ENGINE_API explicit TriggerObserver(btCollisionObject& body);
 
             /// Get the Bullet collision object of the observing body.
             /**
@@ -93,7 +93,7 @@ namespace Physics {
                 const btCollisionObjectWrapper* colObj1, int partId1, int index1) override;
 
             IntersectionPhase phase = IntersectionPhase::None;
-            btRigidBody& rigidBody;
+            btCollisionObject& rigidBody;
             // Control value to determine whether an intersection happened
             // during this frame. This is used to determine the new phase.
             bool didCallback = false;

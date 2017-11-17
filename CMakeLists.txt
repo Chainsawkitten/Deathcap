@@ -73,6 +73,11 @@ if(UseMemTrack)
 	add_definitions(-DUSINGMEMTRACK)
 endif()
 
+option(UseDoubleLogging "Log messages will be duplicated and sent to standard out." ON)
+if(UseDoubleLogging)
+    add_definitions(-DUSINGDOUBLELOGGING)
+endif()
+
 option(TestMemory "Enables memory testing in the game project." OFF)
 option(TestFrames "Enables frame testing in the game project." OFF)
 
