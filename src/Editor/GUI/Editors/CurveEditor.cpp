@@ -649,6 +649,7 @@ namespace ImGui {
 
 CurveEditor::CurveEditor() {
     curves.clear();
+    memset(curveBuf, 0, sizeof(curveBuf));
 }
 
 CurveEditor::~CurveEditor() {
