@@ -721,9 +721,8 @@ void CurveEditor::UpdateCurves(float deltaTime, float totalTime) {
     if (goBack)
         time -= deltaTime;
 
-    float tempValue;
     for (unsigned int i = 0; i < curves.size(); i++) {
-        tempValue = ImGui::CurveValue(time / totalTime, (int)totalTime, curves[i].value); // calculate value at position
+        float tempValue = ImGui::CurveValue(time / totalTime, (int)totalTime, curves[i].value); // calculate value at position
         if (tempValue < 0.5f) 
             tempValue -= 1.0f;
 
