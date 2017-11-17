@@ -3,7 +3,7 @@
 #include <phonon.h>
 #include "../linking.hpp"
 #define SAMPLE_RATE (44100)
-#define CHUNK_SIZE (SAMPLE_RATE * 2)
+#define CHUNK_SIZE (SAMPLE_RATE / 30)
 
 /// Class responsible for calculating direct audio.
 class SteamAudioRenderers {

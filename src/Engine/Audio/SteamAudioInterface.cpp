@@ -8,7 +8,7 @@ SteamAudioInterface::SteamAudioInterface() {
     simSettings.numBounces = 1;
     simSettings.irDuration = 1.0;
     simSettings.ambisonicsOrder = 0;
-    simSettings.maxConvolutionSources = 0;
+    simSettings.maxConvolutionSources = 5;
     context = IPLContext{ nullptr, nullptr, nullptr };
 }
 
@@ -46,13 +46,18 @@ void SteamAudioInterface::SetSceneMaterial(uint32_t matIndex, IPLMaterial materi
 }
 
 IPLhandle * SteamAudioInterface::CreateStaticMesh(std::vector<IPLVector3> vertices, std::vector<IPLTriangle> indices, int materialIndex) {
-    IPLhandle* mesh;
+    IPLhandle mesh;
 
     // Create mesh
-    iplCreateStaticMesh(scene, vertices.size(), indices.size() / 3, mesh);
+    iplCreateStaticMesh(scene, vertices.size(), indices.size() / 3, &mesh);
     iplSetStaticMeshVertices(scene, mesh, vertices.data());
     iplSetStaticMeshTriangles(scene, mesh, indices.data());
-    iplSetStaticMeshMaterials(scene, mesh, &materialIndex);
+
+    IPLint32* matArray = new IPLint32[indices.size() / 3];
+    for (int i = 0; i < indices.size() / 3; i++)
+        matArray[i] = materialIndex;
+
+    iplSetStaticMeshMaterials(scene, mesh, matArray);
 
     return nullptr;
 }
