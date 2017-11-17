@@ -68,7 +68,7 @@ void SteamAudioInterface::CreateEnvironment() {
 }
 
 void SteamAudioInterface::SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp) {
-
+    sAudio.SetPlayer(playerPos, playerDir, playerUp);
 }
 
 void SteamAudioInterface::Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, float* output) {

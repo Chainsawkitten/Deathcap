@@ -21,21 +21,18 @@ void SteamAudio::Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAu
     audioBuffers.resize(inputs.size());
     for (std::size_t i = 0; i < inputs.size(); ++i) {
         SteamAudio::SoundSourceInfo& input = inputs[i];
-        audioBuffers[i] = renderers->Process(input.buffer, playerPos, playerDir, playerUp, input.position, input.radius);
+        renderers->Process(input.buffer, playerPos, playerDir, playerUp, input.position, input.radius, audioBuffers[i]);
     }
 
     GetFinalMix(audioBuffers, output);
+
+    for (std::size_t i = 0; i < inputs.size(); ++i) {
+        delete[] audioBuffers[i].interleavedBuffer;
+    }
 }
 
 void SteamAudio::GetFinalMix(std::vector<IPLAudioBuffer>& audioBuffers, IPLAudioBuffer& output) {
-    //// No audio is playing, return emptiness, let SoundManager figure it out.
-    //if (processedBuffers.size() == 0) {
-    //    numSamples = 0;
-    //    finalBuf = nullptr;
-    //    return;
-    //}
     assert(!audioBuffers.empty());
-
     output.format = audioBuffers[0].format;
     iplMixAudioBuffers(audioBuffers.size(), audioBuffers.data(), output);
 }
