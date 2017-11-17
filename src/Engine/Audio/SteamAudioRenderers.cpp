@@ -16,8 +16,8 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
     this->convEffect = new IPLhandle;
 
     IPLRenderingSettings settings;
-    settings.frameSize = 1024;
-    settings.samplingRate = 44100;
+    settings.frameSize = CHUNK_SIZE;
+    settings.samplingRate = SAMPLE_RATE;
     settings.convolutionType = IPL_CONVOLUTIONTYPE_PHONON;
 
     inputFormat.channelLayoutType = IPL_CHANNELLAYOUTTYPE_SPEAKERS;
@@ -67,14 +67,14 @@ IPLAudioBuffer SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 pla
 
     // Calculate direct effect (occlusion & attenuation)
     IPLDirectSoundEffectOptions options;
-    options.applyAirAbsorption = (IPLbool)true;
-    options.applyDistanceAttenuation = (IPLbool)true;
+    options.applyAirAbsorption = (IPLbool)false;
+    options.applyDistanceAttenuation = (IPLbool)false;
     options.directOcclusionMode = IPL_DIRECTOCCLUSION_TRANSMISSIONBYFREQUENCY;
 
     IPLAudioBuffer effectBuffer;
     effectBuffer.format = inputFormat;
-    effectBuffer.numSamples = 1024;
-    effectBuffer.interleavedBuffer = new float[1024];
+    effectBuffer.numSamples = CHUNK_SIZE;
+    effectBuffer.interleavedBuffer = new float[CHUNK_SIZE];
     effectBuffer.deinterleavedBuffer = NULL;
 
     iplApplyDirectSoundEffect(*directEffect, input, soundPath, options, effectBuffer);
@@ -82,33 +82,33 @@ IPLAudioBuffer SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 pla
 
     // Spatialize the direct audio
     finalBuffers[0].format = outputFormat;
-    finalBuffers[0].numSamples = 1024;
-    finalBuffers[0].interleavedBuffer = new float[2048];
+    finalBuffers[0].numSamples = CHUNK_SIZE;
+    finalBuffers[0].interleavedBuffer = new float[CHUNK_SIZE*2];
     finalBuffers[0].deinterleavedBuffer = NULL;
 
-    iplApplyBinauralEffect(*binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, finalBuffers[0]);
+    iplApplyBinauralEffect(*binauralEffect, input, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, finalBuffers[0]);
     
+    // TMPTODO
+    //// Indirect Audio
+    //iplSetDryAudioForConvolutionEffect(*convEffect, sourcePos, input);
+    //finalBuffers[1].format = outputFormat;
+    //finalBuffers[1].numSamples = CHUNK_SIZE;
+    //finalBuffers[1].interleavedBuffer = new float[CHUNK_SIZE*2];
+    //finalBuffers[1].deinterleavedBuffer = NULL;
+    //iplGetWetAudioForConvolutionEffect(*convEffect, playerPos, playerDir, playerUp, finalBuffers[1]);
 
-    // Indirect Audio
-    iplSetDryAudioForConvolutionEffect(*convEffect, sourcePos, input);
-    finalBuffers[1].format = outputFormat;
-    finalBuffers[1].numSamples = 1024;
-    finalBuffers[1].interleavedBuffer = new float[2048];
-    finalBuffers[1].deinterleavedBuffer = NULL;
-    iplGetWetAudioForConvolutionEffect(*convEffect, playerPos, playerDir, playerUp, finalBuffers[1]);
+    //// Mix Direct and Indirect
+    //IPLAudioBuffer mixedBuffer;
+    //mixedBuffer.format = outputFormat;
+    //mixedBuffer.numSamples = CHUNK_SIZE;
+    //mixedBuffer.interleavedBuffer = new float[CHUNK_SIZE*2];
+    //mixedBuffer.deinterleavedBuffer = NULL;
 
-    // Mix Direct and Indirect
-    IPLAudioBuffer mixedBuffer;
-    mixedBuffer.format = outputFormat;
-    mixedBuffer.numSamples = 1024;
-    mixedBuffer.interleavedBuffer = new float[2048];
-    mixedBuffer.deinterleavedBuffer = NULL;
-
-    iplMixAudioBuffers(2, finalBuffers, mixedBuffer);
+    //iplMixAudioBuffers(2, finalBuffers, mixedBuffer);
        
-    delete[] finalBuffers[0].interleavedBuffer;
-    delete[] finalBuffers[1].interleavedBuffer;
-    delete[] finalBuffers;
+    //delete[] finalBuffers[0].interleavedBuffer;
+    //delete[] finalBuffers[1].interleavedBuffer;
+    //delete[] finalBuffers;
     // NEEED TOOO DELEEETE BUFFEEEERS THAAAT ARRRE NOOOOT UUUSED ANNYYYY MOOORREE
-    return mixedBuffer;
+    return finalBuffers[0];
 }

@@ -1,6 +1,5 @@
 #include "SteamAudioInterface.hpp"
-
-
+#include <assert.h>
 
 SteamAudioInterface::SteamAudioInterface() {
     simSettings.sceneType = IPL_SCENETYPE_PHONON;
@@ -67,8 +66,11 @@ void SteamAudioInterface::SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, 
 
 }
 
-void SteamAudioInterface::Process(float* input, uint32_t samples, IPLVector3 sourcePosition, float sourceRadius) {
-
+void SteamAudioInterface::Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, float* output) {
+    assert(buffers.size() == positions.size() == radii.size());
+    std::size_t size = buffers.size();
+    std::vector<SteamAudio::SoundSourceInfo> inputs;
+    inputs.resize(size);
     //Create a steam audio buffer
     IPLAudioFormat format;
     format.channelLayoutType = IPL_CHANNELLAYOUTTYPE_SPEAKERS;
@@ -76,22 +78,34 @@ void SteamAudioInterface::Process(float* input, uint32_t samples, IPLVector3 sou
     format.numSpeakers = 1;
     format.speakerDirections = NULL;
     format.channelOrder = IPL_CHANNELORDER_INTERLEAVED;
+    for (std::size_t i = 0; i < size; ++i) {
+        SteamAudio::SoundSourceInfo& input = inputs[i];
+        IPLAudioBuffer& buf = input.buffer;
+        buf.format = format;
+        buf.numSamples = CHUNK_SIZE;
+        buf.interleavedBuffer = buffers[i];
+        buf.deinterleavedBuffer = NULL;
+        input.position = positions[i];
+        input.radius = radii[i];
+    }
 
-    IPLAudioBuffer buf;
-    buf.format = format;
-    buf.numSamples = samples;
-    buf.interleavedBuffer = input;
-    buf.deinterleavedBuffer = NULL;
+    IPLAudioBuffer finalBuffer;
+    format.channelLayout = IPL_CHANNELLAYOUT_STEREO;
+    format.numSpeakers = 2;
+    finalBuffer.format = format;
+    finalBuffer.numSamples = CHUNK_SIZE;
+    finalBuffer.interleavedBuffer = output;
+    finalBuffer.deinterleavedBuffer = NULL;
 
-    sAudio.Process(buf, sourcePosition, sourceRadius);
+    sAudio.Process(inputs, finalBuffer);
 }
 
-float* SteamAudioInterface::GetProcessed(uint32_t& numSamples) {
-    IPLAudioBuffer* finalBuf = new IPLAudioBuffer;
-    finalBuf->numSamples = 1024;
-    finalBuf->interleavedBuffer = new float[2048];
-    finalBuf->deinterleavedBuffer = NULL;
-    sAudio.GetFinalMix(finalBuf, numSamples);
-
-    return finalBuf->interleavedBuffer;
-}
+//float* SteamAudioInterface::GetProcessed(uint32_t& numSamples) {
+//    IPLAudioBuffer* finalBuf = new IPLAudioBuffer;
+//    finalBuf->numSamples = CHUNK_SIZE;
+//    finalBuf->interleavedBuffer = new float[CHUNK_SIZE*2];
+//    finalBuf->deinterleavedBuffer = NULL;
+//    sAudio.GetFinalMix(finalBuf, numSamples);
+//
+//    return finalBuf->interleavedBuffer;
+//}

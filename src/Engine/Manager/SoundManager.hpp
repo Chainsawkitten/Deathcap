@@ -5,8 +5,6 @@
 #include "../Audio/SteamAudioInterface.hpp"
 #include "../linking.hpp"
 
-#define SAMPLE_RATE (44100) 
-#define CHUNK_SIZE (SAMPLE_RATE / 30)
 #define CHUNK_COUNT (15)
 
 namespace Audio {
@@ -119,7 +117,7 @@ class SoundManager {
         unsigned int targetSample = 0;
         unsigned int processedSamples = 0;
         unsigned int currentSample = 0;
-        float processedBuffer[CHUNK_SIZE];
+        float processedBuffer[CHUNK_SIZE * 2];
 
         float volume = 1.f;
         

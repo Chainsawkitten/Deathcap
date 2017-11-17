@@ -13,6 +13,14 @@ class SteamAudio {
 
         ENGINE_API ~SteamAudio();
 
+        //TMPTODO
+        struct SoundSourceInfo {
+            IPLVector3 position;
+            float radius;
+            IPLAudioBuffer buffer;
+        };
+
+        //TMPTODO
         /// Processes the audio with both indirect and direct methods and mixes them together.
         /**
         * @param input The audiobuffer to be processed.
@@ -22,14 +30,15 @@ class SteamAudio {
         * @param sourcePos The position of the audio source.
         * @param sourceRadius The radius of the source, for calculating occlusion.
         */
-        ENGINE_API void Process(IPLAudioBuffer input, IPLVector3 sourcePos, float sourceRadius);
+        ENGINE_API void Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAudioBuffer& output);
 
+        //TMPTODO
         /// Mixes and returns the final buffer, ready to be played.
         /**
          * @param finalBuf Pointer to an empty buffer.
          * @param numSamples The number of samples in the final buffer.
          */
-        ENGINE_API void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t& numSamples);
+        ENGINE_API void GetFinalMix(std::vector<IPLAudioBuffer>& inputs, IPLAudioBuffer& output);
 
         /// Sets the current location and direction of the player, to be used for processing
         /**
@@ -48,8 +57,6 @@ class SteamAudio {
     private:
 
         IPLAudioBuffer MixAudio(IPLAudioBuffer direct, IPLAudioBuffer indirect);
-
-        std::vector<IPLAudioBuffer> processedBuffers;
 
         IPLContext* context;
 

@@ -29,7 +29,7 @@ SoundManager::SoundManager() {
 
     outputParams.device = Pa_GetDefaultOutputDevice();
     if (outputParams.device >= 0) {
-        outputParams.channelCount = 1; // TMPTODO 2
+        outputParams.channelCount = 2;
         outputParams.sampleFormat = paFloat32;
         outputParams.hostApiSpecificStreamInfo = NULL;
         outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultHighOutputLatency;
@@ -72,21 +72,6 @@ void SoundManager::CheckError(PaError err) {
 
 void SoundManager::Update(float deltaTime) {
     
-    // Set player transform
-    std::vector<Component::Listener*> listeners = GetListeners();
-    assert(listeners[0] != nullptr);
-    Entity* player = listeners[0]->entity;
-    glm::vec3 glmPos = player->GetWorldPosition();
-    glm::quat orientation = player->GetWorldOrientation();
-    glm::vec3 glmDir = orientation * glm::vec3(0, 0, -1);
-    glm::vec3 glmUp = orientation * glm::vec3(0, 1, 0);
-    IPLVector3 pos = { glmPos.x, glmPos.y, glmPos.z };
-    IPLVector3 dir = { glmDir.x, glmDir.y, glmDir.z };
-    IPLVector3 up = { glmUp.x, glmUp.y, glmUp.z };
-
-    sAudio.SetPlayer(pos, dir, up);
-
-
     // Number of samples to process dependant on deltaTime
     unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
     if (frameSamples > CHUNK_SIZE) {
@@ -103,7 +88,8 @@ void SoundManager::Update(float deltaTime) {
         }
 
         unsigned int sampleCount = std::min(targetSample - currentSample, processedSamples);
-        Pa_WriteStream(stream, &processedBuffer[CHUNK_SIZE - processedSamples], sampleCount);
+        unsigned int index = (CHUNK_SIZE - processedSamples) * 2;
+        Pa_WriteStream(stream, &processedBuffer[index], sampleCount);
         processedSamples -= sampleCount;
         currentSample += sampleCount;
     }
@@ -179,6 +165,25 @@ void SoundManager::Update(float deltaTime) {
 }
 
 void SoundManager::ProcessSamples() {
+
+    // Set player transform
+    std::vector<Component::Listener*> listeners = GetListeners();
+    assert(listeners[0] != nullptr);
+    Entity* player = listeners[0]->entity;
+    glm::vec3 glmPos = player->GetWorldPosition();
+    glm::quat orientation = player->GetWorldOrientation();
+    glm::vec3 glmDir = orientation * glm::vec3(0, 0, -1);
+    glm::vec3 glmUp = orientation * glm::vec3(0, 1, 0);
+    IPLVector3 pos = { glmPos.x, glmPos.y, glmPos.z };
+    IPLVector3 dir = { glmDir.x, glmDir.y, glmDir.z };
+    IPLVector3 up = { glmUp.x, glmUp.y, glmUp.z };
+
+    sAudio.SetPlayer(pos, dir, up);
+
+    std::vector<Audio::SoundBuffer*> soundBuffers;
+    std::vector<float*> buffers;
+    std::vector<IPLVector3> positions;
+    std::vector<float> radii;
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
@@ -188,13 +193,13 @@ void SoundManager::ProcessSamples() {
         //if (sound->shouldPlay && soundFile) {
         if (soundFile) {
 
-            //float* data = nullptr;
-            float* data = soundBuffer->GetCurrentChunk();
+            soundBuffers.push_back(soundBuffer);
+            buffers.push_back(soundBuffer->GetCurrentChunk());
+            glm::vec3 position = sound->entity->GetWorldPosition();
+            positions.push_back(IPLVector3{ position.x, position.y, position.z });
+            radii.push_back(5.f);
 
-            // MIX SOUND
-            std::memcpy(processedBuffer, data, sizeof(float) * CHUNK_SIZE);
-
-            soundBuffer->ConsumeChunk();
+            //soundBuffer->ConsumeChunk();
 
             //walker += samplesThisFrame;
             //if (walker >= CHUNK_SIZE) {
@@ -229,17 +234,26 @@ void SoundManager::ProcessSamples() {
             //sAudio.Process(soundBuf, numSamples, soundPos, 5);
         }
 
-        // Pause it.
-        if (sound->shouldPause) {
-            sound->shouldPlay = false;
-        }
+        //// Pause it.
+        //if (sound->shouldPause) {
+        //    sound->shouldPlay = false;
+        //}
 
-        // Stop it.
-        if (sound->shouldStop) {
-            sound->shouldPlay = false;
-        }
+        //// Stop it.
+        //if (sound->shouldStop) {
+        //    sound->shouldPlay = false;
+        //}
 
     }
+
+    // Process sound.
+    if (!soundBuffers.empty())
+        sAudio.Process(buffers, positions, radii, processedBuffer);
+    //std::memcpy(processedBuffer, data, sizeof(float) * CHUNK_SIZE);
+
+    // Consome used buffers.
+    for (Audio::SoundBuffer* soundBuffer : soundBuffers)
+        soundBuffer->ConsumeChunk();
 }
 
 
