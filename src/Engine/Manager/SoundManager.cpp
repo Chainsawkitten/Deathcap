@@ -129,11 +129,20 @@ void SoundManager::ProcessSamples() {
         //if (sound->shouldPlay && soundFile) {
         if (soundFile) {
             soundBuffers[i] = soundBuffer;
+
+            // Get samples from streamed buffer.
             int samples;
             buffers[i] = soundBuffer->GetChunkData(samples);
+
+            // Volume.
+            for (int m = 0; m < samples; ++m)
+                buffers[i][m] *= sound->volume;
+
             glm::vec3 position = sound->entity->GetWorldPosition();
             positions[i] = IPLVector3{ position.x, position.y, position.z };
             radii[i] = 5.f;
+
+            // If end of file, check if sound repeat.
             if (samples < CHUNK_SIZE)
                 if (sound->loop)
                     soundBuffer->Restart();
