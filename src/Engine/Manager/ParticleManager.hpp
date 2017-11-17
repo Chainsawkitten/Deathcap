@@ -66,7 +66,6 @@ class ParticleManager {
 
         /// Create particle emitter component.
         /**
-         * @param World to create particle system in.
          * @return The created component.
          */
         ENGINE_API Component::ParticleSystemComponent* CreateAParticleSystem();
