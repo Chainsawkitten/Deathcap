@@ -561,6 +561,10 @@
 									{
 										"script" : "Controller",
 										"type" : 4
+									},
+									{
+										"script" : "Player",
+										"type" : 4
 									}
 								],
 								"subfolders" : null
