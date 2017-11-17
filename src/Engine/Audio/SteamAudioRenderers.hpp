@@ -4,17 +4,17 @@
 #include "../linking.hpp"
 
 /// Class responsible for calculating direct audio.
-class SteamAudioDirectRenderer {
+class SteamAudioRenderers {
     public:
 
-        ENGINE_API SteamAudioDirectRenderer();
+        ENGINE_API SteamAudioRenderers();
 
         /**
          * @param environment Handle to the Environment object to use.
          */
-        ENGINE_API SteamAudioDirectRenderer(IPLhandle environment);
+        ENGINE_API SteamAudioRenderers(IPLhandle environment);
 
-        ENGINE_API ~SteamAudioDirectRenderer();
+        ENGINE_API ~SteamAudioRenderers();
 
         /// Processes the direct path portion of the audio
         /**
@@ -34,4 +34,7 @@ class SteamAudioDirectRenderer {
         IPLhandle environment;
         IPLhandle* envRenderer;
         IPLhandle* directEffect;
+        IPLhandle* binauralRenderer;
+        IPLhandle* binauralEffect;
+        IPLhandle* convEffect;
 };

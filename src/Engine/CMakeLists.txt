@@ -13,8 +13,7 @@ set(SRCS
         Audio/SoundFile.cpp
         Audio/SoundStreamer.cpp
         Audio/SteamAudio.cpp
-        Audio/SteamAudioDirectRenderer.cpp
-        Audio/SteamAudioIndirectRenderer.cpp
+        Audio/SteamAudioRenderers.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/AnimationController.cpp
@@ -78,8 +77,7 @@ set(HEADERS
         Audio/SoundFile.hpp
         Audio/SoundStreamer.hpp
         Audio/SteamAudio.hpp
-        Audio/SteamAudioDirectRenderer.hpp
-        Audio/SteamAudioIndirectRenderer.hpp
+        Audio/SteamAudioRenderers.hpp
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/AnimationController.hpp

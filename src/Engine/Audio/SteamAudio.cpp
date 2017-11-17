@@ -11,15 +11,8 @@ SteamAudio::~SteamAudio() {
 }
 
 void SteamAudio::Process(IPLAudioBuffer input, IPLVector3 sourcePos, float sourceRadius) {
-    // Direct Processing
-    IPLAudioBuffer direct = directRenderer->Process(input, playerPos, playerDir, playerUp, sourcePos, sourceRadius);
-    
-    // Indirect Processing
-
-    //MixAudio(direct, indirect)
-
-    processedBuffers.push_back(direct); //CHANGE TO DIRECT AFTER MAKING SURE NON-PROCESSED WORKS!!
-
+    IPLAudioBuffer processedFrame = renderers->Process(input, playerPos, playerDir, playerUp, sourcePos, sourceRadius);
+    processedBuffers.push_back(processedFrame);
 }
 
 void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t& numSamples) {

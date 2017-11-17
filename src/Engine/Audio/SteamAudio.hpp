@@ -1,6 +1,5 @@
 #pragma once
-#include "SteamAudioDirectRenderer.hpp"
-#include "SteamAudioIndirectRenderer.hpp"
+#include "SteamAudioRenderers.hpp"
 #include <vector>
 #include <cstdint>
 #include "../linking.hpp"
@@ -54,8 +53,7 @@ class SteamAudio {
 
         IPLContext* context;
 
-        SteamAudioDirectRenderer* directRenderer;
-        SteamAudioIndirectRenderer* indirectRenderer;
+        SteamAudioRenderers* renderers;
 
         IPLVector3 playerPos;
         IPLVector3 playerDir;
