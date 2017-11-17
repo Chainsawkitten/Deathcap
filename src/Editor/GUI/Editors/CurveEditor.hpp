@@ -50,7 +50,7 @@ class CurveEditor {
          * @param uniqueId unique ID.
          * @param item unique ID just set it to 0.
          */
-        void AddMyCurve(std::string& curve_name, ImGuiID uniqueId, int item);
+        void AddMyCurve(const std::string& curve_name, ImGuiID uniqueId, int item);
 
         /// Updates all curves.
         /**

@@ -693,7 +693,7 @@ void CurveEditor::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void CurveEditor::AddMyCurve(std::string& curve_name, ImGuiID uniqueId, int item) {
+void CurveEditor::AddMyCurve(const std::string& curve_name, ImGuiID uniqueId, int item) {
     MyCurve curve;
     curve.curve_name = curve_name;
     curve.value[0].x = -1;
