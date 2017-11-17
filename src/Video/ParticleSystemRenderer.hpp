@@ -94,17 +94,25 @@ namespace Video {
 
             EmitterSettings emitterSettings;
 
+            /// Constructor.
             VIDEO_API ParticleSystemRenderer();
+
+            /// Construct a particle system with a given number of particles.
+            /**
+             * @param count Number of particles.
+             */
             VIDEO_API ParticleSystemRenderer(int count);
+
+            /// Destructor.
             VIDEO_API ~ParticleSystemRenderer();
 
+            /// Initialize the particle system.
             VIDEO_API void Init();
 
             /// Creates storage buffers for particles.
             VIDEO_API void CreateStorageBuffers();
 
             /// Particles are sent to the compute shader and we compute their the new positions/velocities.
-            //Render the particles.
             /**
              * @param dt Deltatime.
              * @param settings Emitter settings.
