@@ -652,6 +652,7 @@ CurveEditor::CurveEditor() {
 }
 
 CurveEditor::~CurveEditor() {
+    curves.clear();
 }
 
 void CurveEditor::Show() {

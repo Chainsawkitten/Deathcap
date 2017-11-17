@@ -99,13 +99,24 @@ namespace Video {
 
         VIDEO_API void Init();
 
-        // Creates storage buffers for particles.
+        /// Creates storage buffers for particles.
         VIDEO_API void CreateStorageBuffers();
 
-        // Particles are sent to the compute shader and we compute there the new positions/velocities.
+        /// Particles are sent to the compute shader and we compute there the new positions/velocities.
+        //Render the particles.
+        /**
+        * @param dt Deltatime.
+        * @param settings Emitter settings.
+        */
         VIDEO_API void Update(float dt, EmitterSettings settings);
 
-        //Render the particles.
+        ///Render the particles.
+        /**
+        * @param textureAtlas The texture atlas for the particles.
+        * @param textureAtlasRows how many rows in texture atlas.
+        * @param viewProjectionMatrix The camera's view and projection matrix.
+        * @param settings Settings for the emitter.
+        */
         VIDEO_API void Draw(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
 
         private:

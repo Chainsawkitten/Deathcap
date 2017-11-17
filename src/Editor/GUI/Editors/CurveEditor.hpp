@@ -61,6 +61,9 @@ public:
     void RenderCurveEditor();
 
     /// Get all curves.
+    /**
+    * @return All curves.
+    */
     const std::vector<MyCurve>& GetAllCurves() const;
 
 private:
