@@ -82,6 +82,8 @@ namespace Component {
         rigidBody->setUserPointer(this);
 
         ghostObject = new btGhostObject();
+        ghostObject->setWorldTransform(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
+        ghostObject->setCollisionFlags(ghostObject->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     }
 
     void RigidBody::Destroy() {
