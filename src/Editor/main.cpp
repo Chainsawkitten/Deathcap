@@ -21,8 +21,12 @@
 #include "GUI/ProfilingWindow.hpp"
 #include <iostream>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 int main() {
-    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr, &std::cout);
+    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr);
 
     // Enable logging if requested.
     if (EditorSettings::GetInstance().GetBool("Logging")){
@@ -145,7 +149,9 @@ int main() {
             std::this_thread::sleep_for(std::chrono::microseconds(wait));
         lastTimeRender = glfwGetTime();
     }
-    
+#ifdef USINGMEMTRACK
+    MemTrack::TrackListMemoryUsage();
+#endif
     // Save editor settings.
     EditorSettings::GetInstance().Save();
     
@@ -153,7 +159,7 @@ int main() {
     ImGuiImplementation::Shutdown();
     delete editor;
     Hymn().world.Clear();
-    
+
     Managers().ShutDown();
     
     delete window;

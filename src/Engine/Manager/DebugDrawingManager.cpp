@@ -9,6 +9,10 @@
 
 #include "RenderManager.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 DebugDrawingManager::DebugDrawingManager() {

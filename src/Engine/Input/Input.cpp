@@ -4,6 +4,10 @@
 #include "../Component/VRDevice.hpp"
 #include <GLFW/glfw3.h> // Must be included at the end to make sure gl.h is included AFTER glew.h
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 Input& Input::GetInstance() {
     static Input instance;
     return instance;

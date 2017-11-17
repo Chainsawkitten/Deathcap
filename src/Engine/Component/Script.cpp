@@ -9,6 +9,10 @@
 #include "../Entity/Entity.hpp"
 #include "../Script/ScriptFile.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Component;
 
 Script::Script() {
