@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 103,
+	"modelNumber" : 116,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -194,15 +194,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "Floor",
-								"type" : 1
-							},
-							{
 								"model" : "StarterScene_Cave",
-								"type" : 1
-							},
-							{
-								"model" : "room",
 								"type" : 1
 							},
 							{
@@ -211,10 +203,6 @@
 							},
 							{
 								"model" : "StarterScene_tracks",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Bridge",
 								"type" : 1
 							},
 							{
@@ -247,6 +235,42 @@
 							},
 							{
 								"model" : "warningSign_02_fixed_position",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Bridge",
+								"type" : 1
+							},
+							{
+								"model" : "Room",
+								"type" : 1
+							},
+							{
+								"model" : "Floor",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Backroom",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_TrackStop",
+								"type" : 1
+							},
+							{
+								"model" : "Stairs",
+								"type" : 1
+							},
+							{
+								"model" : "Starter_WoodenBeams",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_WoodenBeamsVertical",
+								"type" : 1
+							},
+							{
+								"model" : "StarterRoof",
 								"type" : 1
 							}
 						],
@@ -382,6 +406,98 @@
 									},
 									{
 										"texture" : "SignClosed_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Room",
+								"resources" : 
+								[
+									{
+										"texture" : "StarterRoom_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterRoom_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterRoom_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterRoom_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Floor",
+								"resources" : 
+								[
+									{
+										"texture" : "StarterFloor_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterFloor_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterFloor_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterFloor_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Stairs",
+								"resources" : 
+								[
+									{
+										"texture" : "StarterStair_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterStair_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterStair_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "StarterStair_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "WoodenBeam",
+								"resources" : 
+								[
+									{
+										"texture" : "WoodenBeamH_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "WoodenBeamH_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "WoodenBeamH_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "WoodenBeamH_Roughness",
 										"type" : 2
 									}
 								],
@@ -943,5 +1059,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 84
+	"textureNumber" : 105
 }
