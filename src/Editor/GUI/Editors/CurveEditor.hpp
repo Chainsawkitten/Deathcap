@@ -26,7 +26,10 @@ struct MyCurve {
 /// Graphical editor for curves.
 class CurveEditor {
     public:
+        /// Constructor.
         CurveEditor();
+
+        /// Destructor.
         ~CurveEditor();
 
         /// Show the editor.
