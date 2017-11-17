@@ -83,13 +83,6 @@ class SteamAudioInterface {
          **/
         void Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, float* output); // Needs to be called in a way so that there's always at least one processed audio frame ready to go.
 
-        /// Fetches the processed mix using all buffers sent through Process()
-        /**
-         * @param numSamples The number of samples in the final buffer.
-         * @return A pointer to the processed buffer.
-         **/
-        //float* GetProcessed(uint32_t& numSamples);
-
     private:
 
         IPLContext context;

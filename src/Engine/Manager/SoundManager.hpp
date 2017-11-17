@@ -4,8 +4,9 @@
 #include <portaudio.h>
 #include "../Audio/SteamAudioInterface.hpp"
 #include "../linking.hpp"
+#include "../Audio/SoundStreamer.hpp"
 
-#define CHUNK_COUNT (15)
+#define CHUNK_COUNT (3)
 
 namespace Audio {
     class SoundStreamer;
@@ -100,8 +101,8 @@ class SoundManager {
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
 
-        //TMPTODO
-        Audio::SoundStreamer* soundStreamer;
+        // TMPTODP
+        ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
         
     private:
         SoundManager();
@@ -113,6 +114,7 @@ class SoundManager {
         
         SteamAudioInterface sAudio;
         PaStream* stream;
+        Audio::SoundStreamer soundStreamer;
 
         unsigned int targetSample = 0;
         unsigned int processedSamples = 0;

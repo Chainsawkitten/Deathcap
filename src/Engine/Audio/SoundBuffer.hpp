@@ -27,10 +27,13 @@ namespace Audio {
             /**
              * @return The sound file containing the sound.
              */
-            ENGINE_API float* GetCurrentChunk();
+            ENGINE_API float* GetChunkData(int& samples);
 
             //TMPTODO
             ENGINE_API void ConsumeChunk();
+
+            //TMPTODO
+            ENGINE_API void ProduceChunk();
 
             // TMPTODO
             ENGINE_API SoundFile* GetSoundFile() const;
@@ -54,7 +57,6 @@ namespace Audio {
             float buffer[CHUNK_SIZE * CHUNK_COUNT];
 
             unsigned int begin = 0;
-            unsigned int end = 0;
 
             std::queue<SoundStreamer::DataHandle> chunkQueue;
     };

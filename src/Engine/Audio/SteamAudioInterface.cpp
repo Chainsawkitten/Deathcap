@@ -99,13 +99,3 @@ void SteamAudioInterface::Process(std::vector<float*>& buffers, std::vector<IPLV
 
     sAudio.Process(inputs, finalBuffer);
 }
-
-//float* SteamAudioInterface::GetProcessed(uint32_t& numSamples) {
-//    IPLAudioBuffer* finalBuf = new IPLAudioBuffer;
-//    finalBuf->numSamples = CHUNK_SIZE;
-//    finalBuf->interleavedBuffer = new float[CHUNK_SIZE*2];
-//    finalBuf->deinterleavedBuffer = NULL;
-//    sAudio.GetFinalMix(finalBuf, numSamples);
-//
-//    return finalBuf->interleavedBuffer;
-//}
