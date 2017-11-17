@@ -3,8 +3,7 @@
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
 #include <DefaultAlbedo.png.hpp>
-#include <Video/Texture/TexturePNG.hpp>
-#include <Video/Texture/TextureHCT.hpp>
+#include <Video/Texture/Texture2D.hpp>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -13,11 +12,7 @@
 using namespace Video;
 
 TextureAsset::TextureAsset() {
-    texture = new TexturePNG(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH);
-}
-
-TextureAsset::TextureAsset(const char* source, int sourceLength) {
-    texture = new TexturePNG(source, sourceLength);
+    texture = new Texture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH);
 }
 
 TextureAsset::~TextureAsset() {
@@ -34,12 +29,8 @@ void TextureAsset::Load(const std::string& name) {
     path = name.substr(0, pos + 1);
     std::string filename = Hymn().GetPath() + "/" + name;
     
-    // Delete old texture.
-    if (texture != nullptr)
-        delete texture;
-    
     // Load texture from disk.
-    texture = new TextureHCT((filename + ".hct").c_str());
+    texture->Load((filename + ".png").c_str());
 }
 
 Texture2D* TextureAsset::GetTexture() const {

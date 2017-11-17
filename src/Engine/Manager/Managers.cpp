@@ -59,7 +59,6 @@ void Hub::ShutDown() {
 
 void Hub::ClearKilledComponents() {
     if (!shutdown) {
-        triggerManager->ClearKilledComponents();
         renderManager->ClearKilledComponents();
         particleManager->ClearKilledComponents();
         physicsManager->ClearKilledComponents();

@@ -22,9 +22,8 @@ set(SRCS
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         ShadowPass.cpp
+        Texture/Texture.cpp
         Texture/Texture2D.cpp
-        Texture/TextureHCT.cpp
-        Texture/TexturePNG.cpp
         VideoErrorCheck.cpp
     )
 
@@ -55,9 +54,8 @@ set(HEADERS
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         ShadowPass.hpp
+        Texture/Texture.hpp
         Texture/Texture2D.hpp
-        Texture/TextureHCT.hpp
-        Texture/TexturePNG.hpp
         VideoErrorCheck.hpp
     )
 

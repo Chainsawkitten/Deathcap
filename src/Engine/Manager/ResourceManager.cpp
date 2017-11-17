@@ -6,7 +6,7 @@
 #include <Video/Geometry/Rectangle.hpp>
 #include "../Geometry/Cube.hpp"
 #include "../Geometry/Model.hpp"
-#include <Video/Texture/TexturePNG.hpp>
+#include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
 #include "../Texture/TextureAsset.hpp"
 #include "../Script/ScriptFile.hpp"
@@ -111,9 +111,9 @@ void ResourceManager::FreeSkeleton(Animation::Skeleton* skeleton) {
     }
 }
 
-Video::TexturePNG* ResourceManager::CreateTexturePNG(const char* data, int dataLength) {
+Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength) {
     if (textures.find(data) == textures.end()) {
-        textures[data].texture = new Video::TexturePNG(data, dataLength);
+        textures[data].texture = new Video::Texture2D(data, dataLength);
         texturesInverse[textures[data].texture] = data;
         textures[data].count = 1;
     } else
@@ -122,7 +122,7 @@ Video::TexturePNG* ResourceManager::CreateTexturePNG(const char* data, int dataL
     return textures[data].texture;
 }
 
-void ResourceManager::FreeTexturePNG(Video::TexturePNG* texture) {
+void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
     const char* data = texturesInverse[texture];
     
     if (textures[data].count-- <= 1) {

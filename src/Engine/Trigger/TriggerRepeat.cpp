@@ -22,8 +22,6 @@ TriggerRepeat::~TriggerRepeat() {
         Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
         Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
     }
-
-    Managers().physicsManager->ReleaseTriggerVolume(std::move(triggerVolume));
 }
 
 // ADD SUPPORT FOR VECTOR

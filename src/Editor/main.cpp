@@ -159,7 +159,7 @@ int main() {
     ImGuiImplementation::Shutdown();
     delete editor;
     Hymn().world.Clear();
-
+    
     Managers().ShutDown();
     
     delete window;

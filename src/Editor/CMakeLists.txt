@@ -42,7 +42,6 @@ set(SRCS
         Util/AssetConverterSkeleton.cpp
         Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
-        Util/TextureConverter.cpp
     )
 
 set(HEADERS
@@ -88,7 +87,6 @@ set(HEADERS
         Util/AssetConverterSkeleton.hpp
         Util/AssetMetaData.hpp
         Util/EditorSettings.hpp
-        Util/TextureConverter.hpp
     )
 
 # Setup embedded source

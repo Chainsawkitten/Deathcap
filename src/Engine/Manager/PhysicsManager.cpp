@@ -1,6 +1,5 @@
 #include "PhysicsManager.hpp"
 
-#include <algorithm>
 #include <btBulletDynamicsCommon.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <glm/gtx/quaternion.hpp>
@@ -306,21 +305,6 @@ Utility::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(std::shared_ptr
     trigger->SetCollisionShape(shape);
     triggers.push_back(trigger);
     return Utility::LockBox<Physics::Trigger>(triggerLockBoxKey, trigger);
-}
-
-void PhysicsManager::ReleaseTriggerVolume(Utility::LockBox<Physics::Trigger>&& trigger) {
-    // If the trigger is the last one standing as was created by us, we find
-    // the underlying trigger object and remove it.
-    if (trigger.RefCount() == 1) {
-        trigger.Open(triggerLockBoxKey, [this](Physics::Trigger& t) {
-            auto it = std::find(triggers.begin(), triggers.end(), &t);
-            if (it != triggers.end()) {
-                delete *it;
-                std::swap(*it, *triggers.rbegin());
-                triggers.pop_back();
-            }
-        });
-    }
 }
 
 void PhysicsManager::SetPosition(Utility::LockBox<Physics::Trigger> trigger, const glm::vec3& position) {
