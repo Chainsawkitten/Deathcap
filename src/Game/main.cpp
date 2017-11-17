@@ -90,6 +90,7 @@ int main() {
 #endif
     }
     
+    Hymn().world.Clear();
     Managers().ShutDown();
     
     delete window;
