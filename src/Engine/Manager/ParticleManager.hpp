@@ -28,11 +28,6 @@ class ParticleManager {
     friend class Hub;
     
     public:
-        /// Get the maximum amount of particles.
-        /**
-         * @return Maximum amount of particles.
-         */
-        ENGINE_API unsigned int GetMaxParticleCount() const;
         
         /// Update all the system's particles, spawn new particles etc.
         /**
@@ -100,8 +95,6 @@ class ParticleManager {
 
         // Inits the particle emitter.
         Component::ParticleSystemComponent* InitParticleSystem(Component::ParticleSystemComponent* component);
-        
-        unsigned int maxParticleCount = 10000;
         
         std::random_device randomDevice;
         std::mt19937 randomEngine;

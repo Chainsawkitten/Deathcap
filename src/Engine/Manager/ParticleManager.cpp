@@ -24,14 +24,7 @@ ParticleManager::ParticleManager() {
 }
 
 ParticleManager::~ParticleManager() {
-
-    Managers().resourceManager->FreeTexturePNG(textureAtlas);    
-    
-    
-}
-
-unsigned int ParticleManager::GetMaxParticleCount() const {
-    return maxParticleCount;
+    Managers().resourceManager->FreeTexturePNG(textureAtlas);
 }
 
 void ParticleManager::Update(World& world, float time, bool preview) {
