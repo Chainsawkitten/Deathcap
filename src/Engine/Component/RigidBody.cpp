@@ -1,5 +1,7 @@
 #include <btBulletDynamicsCommon.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include "../Physics/GlmConversion.hpp"
+#include "../Physics/Shape.hpp"
 #include "RigidBody.hpp"
 
 #ifdef USINGMEMTRACK
@@ -21,11 +23,16 @@ namespace Component {
         component["linearDamping"] = linearDamping;
         component["angularDamping"] = angularDamping;
         component["kinematic"] = kinematic;
+        component["ghost"] = ghost;
         return component;
     }
 
     bool RigidBody::IsKinematic() const {
         return kinematic;
+    }
+
+    bool RigidBody::IsGhost() const {
+        return ghost;
     }
 
     float RigidBody::GetFriction() const {
@@ -56,6 +63,10 @@ namespace Component {
         return rigidBody;
     }
 
+    btCollisionObject* RigidBody::GetBulletCollisionObject() {
+        return ghost ? ghostObject : static_cast<btCollisionObject*>(rigidBody);
+    }
+
     void RigidBody::NewBulletRigidBody(float mass) {
         Destroy();
 
@@ -69,6 +80,10 @@ namespace Component {
         btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, nullptr, btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
         rigidBody->setUserPointer(this);
+
+        ghostObject = new btGhostObject();
+        ghostObject->setWorldTransform(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
+        ghostObject->setCollisionFlags(ghostObject->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     }
 
     void RigidBody::Destroy() {
@@ -76,11 +91,21 @@ namespace Component {
             delete rigidBody->getMotionState();
             delete rigidBody;
         }
+
+        delete ghostObject;
+    }
+
+    void RigidBody::SetCollisionShape(std::shared_ptr<Physics::Shape> shape) {
+        this->shape = shape;
+        rigidBody->setCollisionShape(shape->GetShape());
+        ghostObject->setCollisionShape(shape->GetShape());
     }
 
     glm::vec3 RigidBody::GetPosition() const {
         btTransform trans;
-        if (IsKinematic())
+        if (ghost)
+            trans = ghostObject->getWorldTransform();
+        else if (IsKinematic())
             rigidBody->getMotionState()->getWorldTransform(trans);
         else
             trans = rigidBody->getWorldTransform();
@@ -89,6 +114,10 @@ namespace Component {
     }
 
     void RigidBody::SetPosition(const glm::vec3& pos) {
+        btTransform trans = ghostObject->getWorldTransform();
+        trans.setOrigin(Physics::glmToBt(pos));
+        ghostObject->setWorldTransform(trans);
+
         if (IsKinematic()) {
             btTransform trans;
             rigidBody->getMotionState()->getWorldTransform(trans);
@@ -103,7 +132,9 @@ namespace Component {
 
     glm::quat RigidBody::GetOrientation() const {
         btTransform trans;
-        if (IsKinematic())
+        if (ghost)
+            trans = ghostObject->getWorldTransform();
+        else if (IsKinematic())
             rigidBody->getMotionState()->getWorldTransform(trans);
         else
             trans = rigidBody->getWorldTransform();
@@ -112,6 +143,10 @@ namespace Component {
     }
 
     void RigidBody::SetOrientation(const glm::quat& rotation) {
+        btTransform trans = ghostObject->getWorldTransform();
+        trans.setRotation(Physics::glmToBt(rotation));
+        ghostObject->setWorldTransform(trans);
+
         if (IsKinematic()) {
             btTransform trans;
             rigidBody->getMotionState()->getWorldTransform(trans);
@@ -170,11 +205,17 @@ namespace Component {
     void RigidBody::MakeKinematic() {
         rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
         kinematic = true;
+        ghost = false;
     }
 
     void RigidBody::MakeDynamic() {
         rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() & ~btCollisionObject::CF_KINEMATIC_OBJECT);
         kinematic = false;
+        ghost = false;
+    }
+
+    void RigidBody::SetGhost(bool ghost) {
+        this->ghost = ghost;
     }
 
     bool RigidBody::GetForceTransformSync() const {

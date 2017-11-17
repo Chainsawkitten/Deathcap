@@ -1,13 +1,17 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <memory>
 #include "SuperComponent.hpp"
 #include "../linking.hpp"
 
+class btCollisionObject;
+class btGhostObject;
 class btRigidBody;
 class PhysicsManager;
 
 namespace Physics {
+    class Shape;
     class Trigger;
 }
 
@@ -37,6 +41,15 @@ namespace Component {
              * @return True if kinematic, false if dynamic.
              */
             ENGINE_API bool IsKinematic() const;
+
+            /// Return a value indicating whether the rigid body is a ghost
+            /// object, meaning that it disregards all collisions and only act
+            /// as a collider for trigger purposes. Similar to a kinematic
+            /// rigid body, movement is determined from the owning entity.
+            /**
+             * @return True if ghost, false otherwise.
+             */
+            ENGINE_API bool IsGhost() const;
 
             /// Get the friction coefficient of the rigid body. Note that this
             /// does not necessarily match the real world as objects don't have
@@ -81,12 +94,19 @@ namespace Component {
             // nullptr is returned.
             btRigidBody* GetBulletRigidBody();
 
+            // Get the underlying Bullet collision object. If none has been
+            // set, nullptr is returned. If the rigid body is not a ghost,
+            // the returned collision object is the rigid body.
+            btCollisionObject* GetBulletCollisionObject();
+
             // Creates the underlying Bullet rigid body. Mass is provided in
             // units of kilograms.
             void NewBulletRigidBody(float mass);
 
             // Destroy resources completely.
             void Destroy();
+
+            void SetCollisionShape(std::shared_ptr<Physics::Shape> shape);
 
             // Get the position of a rigid body.
             glm::vec3 GetPosition() const;
@@ -117,6 +137,7 @@ namespace Component {
 
             void MakeKinematic();
             void MakeDynamic();
+            void SetGhost(bool ghost);
 
             // Get/set whether a dynamic rigid body should synchronize its
             // transform against the owning entity during the next simulation.
@@ -130,6 +151,7 @@ namespace Component {
 
             float mass = 1.0f;
             btRigidBody* rigidBody = nullptr;
+            btGhostObject* ghostObject = nullptr;
             bool kinematic = false;
             bool forceTransformSync = true; // For first frame
             bool haltMovement = true; // True for first frame
@@ -139,5 +161,7 @@ namespace Component {
             float restitution = 0.0f;
             float linearDamping = 0.0f;
             float angularDamping = 0.0f;
+            bool ghost = false;
+            std::shared_ptr<Physics::Shape> shape;
     };
 }
