@@ -12,26 +12,26 @@
 
 using namespace Audio;
 
-SoundBuffer::SoundBuffer(unsigned int samplesPerChunk, unsigned int chunkCount) : samplesPerChunk(samplesPerChunk), chunkCount(chunkCount) {
-    bufferSampleCount = samplesPerChunk * chunkCount;
-    buffer = new float[samplesPerChunk * chunkCount];
+SoundBuffer::SoundBuffer() {
+
 }
 
 SoundBuffer::~SoundBuffer() {
-    delete buffer;
+
 }
 
-void SoundBuffer::GetCurrentChunk(float* data) {
+float* SoundBuffer::GetCurrentChunk() {
     if (!soundFile) {
         Log() << "SoundBuffer::GetBuffer: No sound loaded.\n";
-        return;
+        return nullptr;
     }
 
     assert(!chunkQueue.empty());
 
     SoundStreamer::DataHandle& handle = chunkQueue.front();
-    while (!handle.done) {}
-    data = handle.data;
+    while (!handle.done);
+    return handle.data;
+    // TMPTODO ADD SILENCE.
 
 
     //const std::vector<Component::SoundSource*>& soundSources = soundManager->GetSoundSources();
@@ -80,16 +80,16 @@ void SoundBuffer::GetCurrentChunk(float* data) {
 
 void SoundBuffer::ConsumeChunk() {
     chunkQueue.pop();
-    begin += samplesPerChunk;
+    begin += CHUNK_SIZE;
     
     Audio::SoundStreamer::DataHandle dataHandle;
     dataHandle.soundFile = soundFile;
-    dataHandle.data = &buffer[begin % bufferSampleCount];
+    dataHandle.data = &buffer[begin % (CHUNK_SIZE * CHUNK_COUNT)];
     dataHandle.offset = end;
-    dataHandle.samples = samplesPerChunk;
+    dataHandle.samples = CHUNK_SIZE;
     chunkQueue.push(dataHandle);
     Managers().soundManager->soundStreamer->Load(chunkQueue.back());
-    end += samplesPerChunk;
+    end += CHUNK_SIZE;
 }
 
 SoundFile* SoundBuffer::GetSoundFile() const {
@@ -99,12 +99,12 @@ SoundFile* SoundBuffer::GetSoundFile() const {
 void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
     this->soundFile = soundFile;
     assert(chunkQueue.empty());
-    for (int i = 0; i < chunkCount; ++i) {
+    for (int i = 0; i < CHUNK_COUNT; ++i) {
         Audio::SoundStreamer::DataHandle dataHandle;
         dataHandle.soundFile = soundFile;
-        dataHandle.data = &buffer[i * samplesPerChunk];
-        dataHandle.offset = i * samplesPerChunk;
-        dataHandle.samples = samplesPerChunk;
+        dataHandle.data = &buffer[i * CHUNK_SIZE];
+        dataHandle.offset = i * CHUNK_SIZE;
+        dataHandle.samples = CHUNK_SIZE;
         chunkQueue.push(dataHandle);
         Managers().soundManager->soundStreamer->Load(chunkQueue.back());
     }

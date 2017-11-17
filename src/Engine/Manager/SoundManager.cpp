@@ -18,9 +18,6 @@
 #include <cstdint>
 #include <cstring>
 
-#define SAMPLE_RATE (44100)
-#define PA_SAMPLE_TYPE  paFloat32
-
 SoundManager::SoundManager() {
     PaError err;
 
@@ -32,8 +29,8 @@ SoundManager::SoundManager() {
 
     outputParams.device = Pa_GetDefaultOutputDevice();
     if (outputParams.device >= 0) {
-        outputParams.channelCount = 2;
-        outputParams.sampleFormat = PA_SAMPLE_TYPE;
+        outputParams.channelCount = 1; // TMPTODO 2
+        outputParams.sampleFormat = paFloat32;
         outputParams.hostApiSpecificStreamInfo = NULL;
         outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultHighOutputLatency;
     }
@@ -91,8 +88,97 @@ void SoundManager::Update(float deltaTime) {
 
 
     // Number of samples to process dependant on deltaTime
-    int samplesThisFrame = int(SAMPLE_RATE * deltaTime);
+    unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
+    if (frameSamples > CHUNK_SIZE) {
+        Log() << "AJAJAJA!\n";
+        frameSamples = CHUNK_SIZE;
+    }
+    targetSample += frameSamples;
 
+    while (currentSample < targetSample) {
+        // Process Samples.
+        if (processedSamples == 0) {
+            ProcessSamples();
+            processedSamples = CHUNK_SIZE;
+        }
+
+        unsigned int sampleCount = std::min(targetSample - currentSample, processedSamples);
+        Pa_WriteStream(stream, &processedBuffer[CHUNK_SIZE - processedSamples], sampleCount);
+        processedSamples -= sampleCount;
+        currentSample += sampleCount;
+    }
+
+    // Update sound sources.
+    //for (Component::SoundSource* sound : soundSources.GetAll()) {
+
+    //    Audio::SoundBuffer* soundBuffer = sound->soundBuffer;
+    //    Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
+    //    // Check if sound should play and is a valid resource.
+    //    //if (sound->shouldPlay && soundFile) {
+    //    if (soundFile) {
+
+    //        //float* data = nullptr;
+    //        soundBuffer->GetCurrentChunk(processedBuffer);
+
+    //        walker += samplesThisFrame;
+    //        if (walker >= CHUNK_SIZE) {
+    //            walker % CHUNK_SIZE;
+    //            soundBuffer->ConsumeChunk();
+    //        }
+    //            
+
+    //        //float* soundBuf = new float[numSamples];
+    //        //if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
+    //        //    std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
+    //        //    sound->place += numSamples;
+    //        //}
+    //        //else {
+    //        //    // Only copy the end samples of the buffer
+    //        //    uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place) / sizeof(float);
+    //        //    std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
+    //        //    if (sound->loop) {
+    //        //        std::memcpy(soundBuf + numToCpy * sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
+    //        //        sound->place = numSamples - numToCpy;
+    //        //    }
+    //        //    else {
+    //        //        std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
+    //        //        sound->shouldPlay = false;
+    //        //    }
+    //        //}
+
+    //        //for (int i = 0; i < numSamples; i++) {
+    //        //    soundBuf[i] *= sound->volume;
+    //        //}
+    //        //IPLVector3 soundPos = IPLVector3{ sound->entity->GetWorldPosition().x, sound->entity->GetWorldPosition().y, sound->entity->GetWorldPosition().z };
+    //        //sAudio.Process(soundBuf, numSamples, soundPos, 5);
+    //    }
+
+    //    // Pause it.
+    //    if (sound->shouldPause) {
+    //        sound->shouldPlay = false;
+    //    }
+
+    //    // Stop it.
+    //    if (sound->shouldStop) {
+    //        sound->shouldPlay = false;
+    //    }
+
+    //}
+
+    //uint32_t numProcessedSamples;
+    //float* processedSamples = sAudio.GetProcessed(&numProcessedSamples);
+
+    ////If not playing anything, add silence
+    //if (numProcessedSamples == 0)
+    //    processedSamples = new float[numSamples] {0};
+
+    //std::memset(processedBuffer, 1000, sizeof(float) * samplesThisFrame);
+    //Pa_WriteStream(stream, &processedBuffer[walker], samplesThisFrame);
+
+    //delete[] processedSamples;
+}
+
+void SoundManager::ProcessSamples() {
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
 
@@ -102,8 +188,20 @@ void SoundManager::Update(float deltaTime) {
         //if (sound->shouldPlay && soundFile) {
         if (soundFile) {
 
-            float* data = nullptr;
-            soundBuffer->GetCurrentChunk(data);
+            //float* data = nullptr;
+            float* data = soundBuffer->GetCurrentChunk();
+
+            // MIX SOUND
+            std::memcpy(processedBuffer, data, sizeof(float) * CHUNK_SIZE);
+
+            soundBuffer->ConsumeChunk();
+
+            //walker += samplesThisFrame;
+            //if (walker >= CHUNK_SIZE) {
+            //    walker % CHUNK_SIZE;
+            //    soundBuffer->ConsumeChunk();
+            //}
+                
 
             //float* soundBuf = new float[numSamples];
             //if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
@@ -142,18 +240,8 @@ void SoundManager::Update(float deltaTime) {
         }
 
     }
-
-    //uint32_t numProcessedSamples;
-    //float* processedSamples = sAudio.GetProcessed(&numProcessedSamples);
-
-    ////If not playing anything, add silence
-    //if (numProcessedSamples == 0)
-    //    processedSamples = new float[numSamples] {0};
-
-    //Pa_WriteStream(stream, processedSamples, numProcessedSamples);
-
-    //delete[] processedSamples;
 }
+
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
     Component::SoundSource* soundSource = soundSources.Create();

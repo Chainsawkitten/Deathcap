@@ -6,6 +6,7 @@
 #include "../linking.hpp"
 #include <queue>
 #include "SoundStreamer.hpp"
+#include "../Manager/SoundManager.hpp"
 
 namespace Audio {
     class SoundFile;
@@ -16,7 +17,7 @@ namespace Audio {
             friend class SoundStreamer;
             /// Constructor.
             //TMPTODO
-            ENGINE_API SoundBuffer(unsigned int samplesPerChunk = 512, unsigned int chunkCount = 5);
+            ENGINE_API SoundBuffer();
             
             /// Destructor.
             ENGINE_API ~SoundBuffer();
@@ -26,7 +27,7 @@ namespace Audio {
             /**
              * @return The sound file containing the sound.
              */
-            ENGINE_API void GetCurrentChunk(float* data);
+            ENGINE_API float* GetCurrentChunk();
 
             //TMPTODO
             ENGINE_API void ConsumeChunk();
@@ -50,11 +51,7 @@ namespace Audio {
             
         private:
             SoundFile* soundFile = nullptr;
-            float* buffer = nullptr;
-            unsigned int bufferSampleCount;
-
-            unsigned int samplesPerChunk;
-            unsigned int chunkCount;
+            float buffer[CHUNK_SIZE * CHUNK_COUNT];
 
             unsigned int begin = 0;
             unsigned int end = 0;
