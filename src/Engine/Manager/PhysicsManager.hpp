@@ -127,6 +127,13 @@ class PhysicsManager {
          */
         ENGINE_API Utility::LockBox<Physics::Trigger> CreateTrigger(std::shared_ptr<Physics::Shape> shape);
 
+        /// Inform the physics manager that a given trigger volume will no
+        /// longer be used so that it can be freed from memory.
+        /**
+         * @param trigger Trigger volume to release.
+         */
+        ENGINE_API void ReleaseTriggerVolume(Utility::LockBox<Physics::Trigger>&& trigger);
+
         /// Set the position of a trigger volume.
         /**
          * @param trigger Volume to reposition.
@@ -218,6 +225,15 @@ class PhysicsManager {
          * @param comp Rigid body to make dynamic.
          */
         ENGINE_API void MakeDynamic(Component::RigidBody* comp);
+
+        /// Enables/disables ghost functionality on a rigid body.
+        /**
+         * @param comp Rigid body to alter state of.
+         * @param ghost True: makes the rigid object a ghost, disregarding all
+         * collisions. False: disables ghost state, reverting to kinematic or
+         * dynamic as before.
+         */
+        ENGINE_API void SetGhost(Component::RigidBody* comp, bool ghost);
 
         /// Forces a dynamic rigid body to synchronize its transform with that
         /// of its owning entity during the next simulation iteration.

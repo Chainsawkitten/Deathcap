@@ -22,6 +22,8 @@ TriggerRepeat::~TriggerRepeat() {
         Managers().physicsManager->ForgetTriggerRetain(triggerVolume, rigidBodyComp);
         Managers().physicsManager->ForgetTriggerLeave(triggerVolume, rigidBodyComp);
     }
+
+    Managers().physicsManager->ReleaseTriggerVolume(std::move(triggerVolume));
 }
 
 // ADD SUPPORT FOR VECTOR
@@ -70,7 +72,7 @@ std::vector<std::string>* TriggerRepeat::GetTargetFunction() {
     return &targetFunction;
 }
 
-bool TriggerRepeat::GetStartActive() {
+bool TriggerRepeat::GetStartActive() const {
     return startActive;
 }
 
@@ -78,7 +80,7 @@ void TriggerRepeat::SetStartActive(bool value) {
     startActive = value;
 }
 
-float TriggerRepeat::GetDelay() {
+float TriggerRepeat::GetDelay() const {
     return delay;
 }
 
@@ -86,7 +88,7 @@ void TriggerRepeat::SetDelay(float value) {
     delay = value;
 }
 
-float TriggerRepeat::GetCooldown() {
+float TriggerRepeat::GetCooldown() const {
     return cooldown;
 }
 
@@ -94,7 +96,7 @@ void TriggerRepeat::SetCooldown(float value) {
     cooldown = value;
 }
 
-int TriggerRepeat::GetTriggerCharges() {
+int TriggerRepeat::GetTriggerCharges() const {
     return triggerCharges;
 }
 

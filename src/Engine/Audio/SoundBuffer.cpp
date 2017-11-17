@@ -6,6 +6,10 @@
 #include "../Util/FileSystem.hpp"
 #include "VorbisFile.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Audio;
 
 SoundBuffer::SoundBuffer() {

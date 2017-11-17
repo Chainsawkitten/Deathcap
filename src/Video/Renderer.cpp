@@ -17,6 +17,10 @@
 #include "Buffer/StorageBuffer.hpp"
 #include "Buffer/ReadWriteTexture.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 Renderer::Renderer() {
@@ -189,6 +193,7 @@ void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
 }
 
 void Renderer::StopRenderingIcons() {
+    currentIcon = nullptr;
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
 }

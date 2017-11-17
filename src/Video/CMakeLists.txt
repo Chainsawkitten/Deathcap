@@ -22,8 +22,9 @@ set(SRCS
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         ShadowPass.cpp
-        Texture/Texture.cpp
         Texture/Texture2D.cpp
+        Texture/TextureHCT.cpp
+        Texture/TexturePNG.cpp
         VideoErrorCheck.cpp
     )
 
@@ -54,8 +55,9 @@ set(HEADERS
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         ShadowPass.hpp
-        Texture/Texture.hpp
         Texture/Texture2D.hpp
+        Texture/TextureHCT.hpp
+        Texture/TexturePNG.hpp
         VideoErrorCheck.hpp
     )
 
@@ -91,5 +93,10 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Video SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY})
+
+if(UseMemTrack)
+    target_link_libraries(Video memtrack memtracknew)
+endif()
+
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
 set_property(TARGET Video PROPERTY CXX_STANDARD_REQUIRED ON)

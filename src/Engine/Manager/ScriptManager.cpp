@@ -61,9 +61,48 @@ void AngelScriptMessageCallback(const asSMessageInfo* message, void* param) {
     Log() << " : " << message->message << "\n";
 }
 
+std::string CallstackToString(asIScriptContext* ctx) {
+
+    std::string callstack = "Callstack:\n";
+    for (asUINT n = 0; n < ctx->GetCallstackSize(); n++) {
+        asIScriptFunction* func;
+        const char* scriptSection;
+        int line, column;
+        func = ctx->GetFunction(n);
+        line = ctx->GetLineNumber(n, &column, &scriptSection);
+        callstack.append(func->GetDeclaration());
+        callstack.append(":");
+        callstack.append(std::to_string(line));
+        callstack.append(",");
+        callstack.append(std::to_string(column));
+        callstack.append("\n");
+    }
+    return callstack;
+}
+std::string VariablesToString(asIScriptContext* ctx, asUINT stackLevel) {
+    // Print the value of each variable, including parameters
+    int numVars = ctx->GetVarCount(stackLevel);
+    std::string variables = "Variables:\n";
+    for (int n = 0; n < numVars; n++) {
+        int typeId = ctx->GetVarTypeId(n, stackLevel);
+        void* varPointer = ctx->GetAddressOfVar(n, stackLevel);
+        if (typeId == asTYPEID_INT32) {
+            variables.append(ctx->GetVarDeclaration(n, stackLevel));
+            variables.append(" = ");
+            variables.append(std::to_string(*(int*)varPointer));
+            variables.append("\n");
+        } else if (typeId == asTYPEID_FLOAT) {
+            variables.append(ctx->GetVarDeclaration(n, stackLevel));
+            variables.append(" = ");
+            variables.append(std::to_string(*(float*)varPointer));
+            variables.append("\n");
+        }
+    }
+    return variables;
+}
 // An example line callback
-void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::string, std::set<int>>* breakpoints){
-    const char *scriptSection;
+void AngelScriptDebugLineCallback(asIScriptContext* ctx, const std::map<std::string, std::set<int>>* breakpoints){
+    const char* scriptSection;
     int line = ctx->GetLineNumber(0, 0, &scriptSection);
 
     std::string fileName(scriptSection);
@@ -73,16 +112,9 @@ void AngelScriptDebugLineCallback(asIScriptContext *ctx, const std::map<std::str
     if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end()) {
         // A break point has been reached so the execution of the script should be suspended
         // Show the call stack
-        for (asUINT n = 0; n < ctx->GetCallstackSize(); n++) {
-            asIScriptFunction *func;
-            const char *scriptSection;
-            int line, column;
-            func = ctx->GetFunction(n);
-            line = ctx->GetLineNumber(n, &column, &scriptSection);
-            printf("%s:%s:%d,%d\n", scriptSection,
-                func->GetDeclaration(),
-                line, column);
-        }
+        std::string callstack = CallstackToString(ctx);
+        std::string variables = VariablesToString(ctx, 0);
+
     }
 }
 
@@ -618,11 +650,8 @@ void ScriptManager::FillPropertyMap(Script* script) {
                 script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
 
             }
-
         }
-
     }
-
 }
 
 void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
@@ -630,13 +659,17 @@ void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
     scriptFile->functionList.clear();
 
     asITypeInfo* scriptClass = GetClass(scriptFile->name, scriptFile->name);
-    int functionCount = scriptClass->GetMethodCount();
-    for (int n = 0; n < functionCount; n++) {
+    if (scriptClass != nullptr) {
 
-        asIScriptFunction* func = scriptClass->GetMethodByIndex(n);
-        std::string decl = func->GetDeclaration(false);
+        int functionCount = scriptClass->GetMethodCount();
+        for (int n = 0; n < functionCount; n++) {
 
-        scriptFile->functionList.push_back(decl);
+            asIScriptFunction* func = scriptClass->GetMethodByIndex(n);
+            std::string decl = func->GetDeclaration(false);
+
+            scriptFile->functionList.push_back(decl);
+
+        }
 
     }
 
@@ -659,7 +692,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 std::string name = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
-                void *varPointer = script->instance->GetAddressOfProperty(n);
+                void* varPointer = script->instance->GetAddressOfProperty(n);
 
                 if (script->IsInPropertyMap(name, typeId)) {
 

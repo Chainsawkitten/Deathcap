@@ -27,18 +27,17 @@
 #include "Util/GPUProfiling.hpp"
 #include "Entity/Entity.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
 
 using namespace std;
 
 ActiveHymn::ActiveHymn() {
-    defaultAlbedo = new TextureAsset();
-    defaultAlbedo->GetTexture()->Load(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH);
-    defaultNormal = new TextureAsset();
-    defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH);
-    defaultMetallic= new TextureAsset();
-    defaultMetallic->GetTexture()->Load(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH);
-    defaultRoughness = new TextureAsset();
-    defaultRoughness->GetTexture()->Load(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH);
+    defaultAlbedo = new TextureAsset(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH);
+    defaultNormal = new TextureAsset(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH);
+    defaultMetallic= new TextureAsset(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH);
+    defaultRoughness = new TextureAsset(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH);
     
     Clear();
 }
@@ -151,6 +150,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
     
     // Load scripts.
+    scripts.clear();
     const Json::Value scriptNode = root["scripts"];
     for (unsigned int i = 0; i < scriptNode.size(); ++i) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
@@ -225,8 +225,8 @@ void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters
 }
 
 Entity* ActiveHymn::GetEntityByGUID(unsigned int GUID) {
-    const std::vector<Entity*>& entities = Hymn().world.GetEntities();
-    for (int i = 0; i < entities.size(); i++) {
+    const vector<Entity*>& entities = Hymn().world.GetEntities();
+    for (size_t i = 0; i < entities.size(); ++i) {
         if (entities[i]->GetUniqueIdentifier() == GUID)
             return entities[i];        
     }

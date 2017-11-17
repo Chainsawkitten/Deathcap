@@ -3,6 +3,10 @@
 #include <vector>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 using namespace Video;
 
 Shader::Shader(const char* source, int sourceLength, GLenum shaderType) {

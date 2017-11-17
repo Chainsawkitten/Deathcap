@@ -28,6 +28,10 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
 Editor::Editor() {
     // Create Hymns directory.
@@ -601,7 +605,7 @@ void Editor::PaintBrush(Entity* entity) {
         ImGui::BeginPopupContextWindow("Paint Brush Tool");
         ImGui::Indent();
         ImGui::SliderFloat("Spawn rate.", paintSpawnRate, 0.02f, 1.0f);
-        ImGui::SliderFloat("Object scale.", paintObjScale, 1.0f, 100.0f);
+        ImGui::SliderFloat("Object scale.", paintObjScale, 0.0f, 10.0f);
         ImGui::SliderInt("Scale randomness", paintScaleRandomness, 1, 10);
         ImGui::Checkbox("Spread randomly", &spreadRand);
 
@@ -697,8 +701,8 @@ void Editor::WidgetGizmo(Entity* entity) {
     currentEntityMatrix = entity->GetLocalMatrix();
 
     // Projection matrix.
-    glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y));
-
+    glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y));
+   
     // View matrix.
     glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
 
