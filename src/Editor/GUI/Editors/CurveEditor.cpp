@@ -740,9 +740,7 @@ void CurveEditor::RenderCurveEditor( ) {
         ImGui::Checkbox("Velocity X", &curves[i].editVelocityX);
         ImGui::Checkbox("Velocity Y", &curves[i].editVelocityY);
         ImGui::Checkbox("Velocity Z", &curves[i].editVelocityZ);
-        if (ImGui::Curve((curves[i].curve_name + std::to_string(i)).c_str(), ImVec2(500, 200), 10, curves[i].value, curves[i].item)) {
-            // curve changed
-        }
+        ImGui::Curve((curves[i].curve_name + std::to_string(i)).c_str(), ImVec2(500, 200), 10, curves[i].value, curves[i].item);
         ImGui::EndChild();
     }
 }
