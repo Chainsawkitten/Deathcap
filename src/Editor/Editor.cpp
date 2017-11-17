@@ -700,8 +700,8 @@ void Editor::WidgetGizmo(Entity* entity) {
     currentEntityMatrix = entity->GetLocalMatrix();
 
     // Projection matrix.
-    glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y));
-
+    glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y));
+   
     // View matrix.
     glm::mat4 viewMatrix = glm::inverse(cameraEntity->GetModelMatrix());
 
