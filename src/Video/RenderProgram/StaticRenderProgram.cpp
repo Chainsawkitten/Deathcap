@@ -140,8 +140,8 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glUniform1i(shaderProgram->GetUniformLocation("isSelected"), false);
         glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
         glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
-        glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
-        glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
+       // glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
+        //glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
         glUniform1i(shaderProgram->GetUniformLocation("mapShadow"), 4);
 
         // Textures
@@ -149,10 +149,10 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glBindTexture(GL_TEXTURE_2D, textureAlbedo->GetTextureID());
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, normalTexture->GetTextureID());
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, textureMetallic->GetTextureID());
-        glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, textureRoughness->GetTextureID());
+        //glActiveTexture(GL_TEXTURE2);
+        //glBindTexture(GL_TEXTURE_2D, textureMetallic->GetTextureID());
+        //glActiveTexture(GL_TEXTURE3);
+        //glBindTexture(GL_TEXTURE_2D, textureRoughness->GetTextureID());
         glActiveTexture(GL_TEXTURE4);
         glBindTexture(GL_TEXTURE_2D, shadowId);
 
