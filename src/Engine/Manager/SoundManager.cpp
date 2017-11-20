@@ -68,10 +68,11 @@ void SoundManager::CheckError(PaError err) {
 }
 
 void SoundManager::Update(float deltaTime) {
+
     // Number of samples to process dependant on deltaTime
     unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
     if (frameSamples > CHUNK_SIZE) {
-        Log() << "AJAJAJA!\n";
+        Log() << "SoundManager::Update: Frame drop!\n";
         frameSamples = CHUNK_SIZE;
     }
     targetSample += frameSamples;
@@ -125,8 +126,9 @@ void SoundManager::ProcessSamples() {
         Component::SoundSource* sound = soundSources.GetAll()[i];
         Audio::SoundBuffer* soundBuffer = sound->soundBuffer;
         Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
+
         // Check if sound should play and is a valid resource.
-        //if (sound->shouldPlay && soundFile) {
+        //if (sound->shouldPlay && soundFile) { //TMPTODO
         if (soundFile) {
             soundBuffers[i] = soundBuffer;
 
@@ -143,7 +145,7 @@ void SoundManager::ProcessSamples() {
             radii[i] = 5.f;
 
             // If end of file, check if sound repeat.
-            if (samples < CHUNK_SIZE)
+            if (samples == 0)
                 if (sound->loop)
                     soundBuffer->Restart();
                 else

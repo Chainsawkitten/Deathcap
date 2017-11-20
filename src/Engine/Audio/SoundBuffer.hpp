@@ -15,41 +15,39 @@ namespace Audio {
     class SoundBuffer {
         public:
             friend class SoundStreamer;
+
             /// Constructor.
-            //TMPTODO
             ENGINE_API SoundBuffer();
             
             /// Destructor.
             ENGINE_API ~SoundBuffer();
             
-            //TMPTODO
             /// Get sound data.
             /**
-             * @return The sound file containing the sound.
+             * @param [OUT] Number of valid samples fetched from file.
+             * @return Pointer to raw audio data.
              */
             ENGINE_API float* GetChunkData(int& samples);
 
-            //TMPTODO
+            /// Release used sound data from stream.
             ENGINE_API void ConsumeChunk();
 
-            //TMPTODO
+            /// Request new sound data to stream.
             ENGINE_API void ProduceChunk();
 
-            // TMPTODO
+            /// Get sound file.
+            /**
+             * @return The %SoundFile containing the sound.
+             */
             ENGINE_API SoundFile* GetSoundFile() const;
 
-            //TMPTODO
-            /// Get AL buffer.
+            /// Set sound file.
             /**
-             * @param soundFile The sound file containing the sound.
+             * @param soundFile The %SoundFile containing the sound.
              */
             ENGINE_API void SetSoundFile(SoundFile* soundFile);
 
-            //TMPTODO
-            /// Get AL buffer.
-            /**
-             * @return The OpenAL buffer ID.
-             */
+            /// Reset file.
             ENGINE_API void Restart();
             
         private:

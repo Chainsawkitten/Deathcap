@@ -18,10 +18,12 @@ namespace Audio {
             /// Destructor.
             ENGINE_API ~VorbisFile() final;
             
-            // TMPTODO
             /// Get raw audio data.
             /**
-             * @return Raw audio data.
+             * @param offset Number of samples from start of file.
+             * @param samples Number of samples to read.
+             * @param data Address to store raw audio data.
+             * @return Number of valid samples loaded from file.
              */
             ENGINE_API int GetData(uint32_t offset, uint32_t samples, float* data) const final;
             

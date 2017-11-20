@@ -24,17 +24,13 @@ void SteamAudio::Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAu
         renderers->Process(input.buffer, playerPos, playerDir, playerUp, input.position, input.radius, audioBuffers[i]);
     }
 
-    GetFinalMix(audioBuffers, output);
+    assert(!audioBuffers.empty());
+    output.format = audioBuffers[0].format;
+    iplMixAudioBuffers(audioBuffers.size(), audioBuffers.data(), output);
 
     for (std::size_t i = 0; i < inputs.size(); ++i) {
         delete[] audioBuffers[i].interleavedBuffer;
     }
-}
-
-void SteamAudio::GetFinalMix(std::vector<IPLAudioBuffer>& audioBuffers, IPLAudioBuffer& output) {
-    assert(!audioBuffers.empty());
-    output.format = audioBuffers[0].format;
-    iplMixAudioBuffers(audioBuffers.size(), audioBuffers.data(), output);
 }
 
 void SteamAudio::SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up) {

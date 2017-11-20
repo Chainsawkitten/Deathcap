@@ -14,29 +14,47 @@ namespace Audio {
     class SoundStreamer {
         public:
             /// Constructor.
-            //TMPTODO
             ENGINE_API SoundStreamer();
             
             /// Destructor.
             ENGINE_API ~SoundStreamer();
 
-            // TMPTODO
+            /// Worker class used to wrapp threaded sound streaming.
             class Worker {
-            public:
-                void Start(SoundStreamer* soundStreamer);
-                void Execute(SoundStreamer* soundStreamer);
-                void Join();
+                public:
+                    /// Create thread.
+                    /**
+                     * @param soundStreamer The Soundstreamer to get work from.
+                     */
 
-            private:
-                std::thread workThread;
+                    void Start(SoundStreamer* soundStreamer);
+                    /// Start thread.
+                    /**
+                     * @param soundStreamer The Soundstreamer to get work from.
+                     */
+                    void Execute(SoundStreamer* soundStreamer);
+
+                    /// Finalize thread.
+                    void Join();
+
+                private:
+                    std::thread workThread;
             };
 
-            // TMPTODO
+            /// Data handle to assign work to streaming thread, and check whether the work is done.
             struct DataHandle {
                 public:
                     friend class Worker;
                     friend class SoundBuffer;
                     friend class SoundStreamer;
+
+                    /// Constructor.
+                    /**
+                     * @param soundFile %SoundFile to stream read data.
+                     * @param offset Number of samples from start of file to read from.
+                     * @param samples Number of samples to read.
+                     * @param data Address to store data from file.
+                     */
                     DataHandle(SoundFile* soundFile, uint32_t offset, uint32_t samples, float* data);
 
                 private:
@@ -48,10 +66,16 @@ namespace Audio {
                     bool abort = false;
             };
 
-            // TMPTODP
+            /// Add work to streaming thread.
+            /**
+             * @param dataHandle %DataHandle containing information about the work that should be done.
+             */
             ENGINE_API void Load(SoundStreamer::DataHandle& dataHandle);
 
-            // TMPTODP
+            /// Remove all work for this queue in the streaming thread.
+            /**
+             * @param queue Queue to be flushed.
+             */
             ENGINE_API void Flush(std::queue<DataHandle>& queue);
            
         private:

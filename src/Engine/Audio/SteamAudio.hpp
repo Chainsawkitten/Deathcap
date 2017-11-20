@@ -13,32 +13,22 @@ class SteamAudio {
 
         ENGINE_API ~SteamAudio();
 
-        //TMPTODO
+        /// Sound source data structure used for Steam Audio.
         struct SoundSourceInfo {
+            /// World position of the sound source.
             IPLVector3 position;
+            /// Radius sound source for calculating occlusion. (in meters),
             float radius;
+            /// Steam Audio buffer containing raw sound data.
             IPLAudioBuffer buffer;
         };
 
-        //TMPTODO
         /// Processes the audio with both indirect and direct methods and mixes them together.
         /**
-        * @param input The audiobuffer to be processed.
-        * @param playerPos The position of the player in world space.
-        * @param playerDir The forward direction of the player.
-        * @param playerUp The up direction of the player.
-        * @param sourcePos The position of the audio source.
-        * @param sourceRadius The radius of the source, for calculating occlusion.
-        */
-        ENGINE_API void Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAudioBuffer& output);
-
-        //TMPTODO
-        /// Mixes and returns the final buffer, ready to be played.
-        /**
-         * @param finalBuf Pointer to an empty buffer.
-         * @param numSamples The number of samples in the final buffer.
+         * @param inputs Vector of sound sources to be processed.
+         * @param output The final processed sound.
          */
-        ENGINE_API void GetFinalMix(std::vector<IPLAudioBuffer>& inputs, IPLAudioBuffer& output);
+        ENGINE_API void Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAudioBuffer& output);
 
         /// Sets the current location and direction of the player, to be used for processing
         /**
@@ -55,9 +45,6 @@ class SteamAudio {
         ENGINE_API void CreateRenderers(IPLhandle environment);
 
     private:
-
-        IPLAudioBuffer MixAudio(IPLAudioBuffer direct, IPLAudioBuffer indirect);
-
         IPLContext* context;
 
         SteamAudioRenderers* renderers;

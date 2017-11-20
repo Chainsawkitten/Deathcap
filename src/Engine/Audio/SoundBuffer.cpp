@@ -27,6 +27,7 @@ SoundBuffer::~SoundBuffer() {
 float* SoundBuffer::GetChunkData(int& samples) {
     if (!soundFile) {
         Log() << "SoundBuffer::GetBuffer: No sound loaded.\n";
+        samples = 0;
         return nullptr;
     }
 
