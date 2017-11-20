@@ -19,8 +19,7 @@ class AssetConverterSkeleton {
          * @param destination Filepath of the destination inculding name and extension.
          * @param bindpose Is it the skeleton of the animation?
          */
-        bool Convert(const char* filepath, const char* destination,
-            bool bindpose);
+        bool Convert(const char* filepath, const char* destination, bool bindpose);
     
         /// Check after conversion if everything went well.
         /**

@@ -36,10 +36,9 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
     }
 
     // Push back the bones.
-    for (unsigned int i = 0; i < aScene->mMeshes[0]->mNumBones; ++i) {
+    for (unsigned int i = 0; i < aScene->mMeshes[0]->mNumBones; ++i)
         if (aScene->mMeshes[0]->mBones[i]->mName.C_Str() != aScene->mMeshes[0]->mName.C_Str())
             bones.push_back(aScene->mMeshes[0]->mBones[i]->mName.C_Str());
-    }
 
     currentId = -1;
     SceneRecursive(aScene->mRootNode, -1);
@@ -48,12 +47,11 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         Animation::Skeleton skeleton;
         for (unsigned int i = 0; i < aScene->mAnimations[0]->mNumChannels; ++i) {
             auto boneIndex = 0;
-            for (auto j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j) {
+            for (auto j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
                 if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i]) {
                     boneIndex = j;
                     break;
                 }
-            }
 
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[boneIndex];
             Animation::Skeleton::SkeletonBone* bone = new Animation::Skeleton::SkeletonBone;
@@ -95,10 +93,10 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         for (unsigned int i = 0; i < bones.size(); ++i) {
             auto boneIndex = 0;
             bool foundMatch = false;
-            for (auto j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j) {
+            for (auto j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
                 if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i])
                     boneIndex = j;
-            }
+
 
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[boneIndex];
             anim.bones[i].parent = (uint32_t)parents[i];
@@ -157,7 +155,7 @@ void AssetConverterSkeleton::SceneRecursive(aiNode* node, int parent) {
     for (auto i = 0; i < node->mNumChildren; ++i) {
         aiNode* child = node->mChildren[i];
         bool foundBone = false;
-        for (auto j = 0; j < bones.size(); ++j) {
+        for (auto j = 0; j < bones.size(); ++j)
             if (child->mName.C_Str() == bones[j]) {
                 children.push_back(child->mName.C_Str());
                 ids.push_back(0);
@@ -165,7 +163,6 @@ void AssetConverterSkeleton::SceneRecursive(aiNode* node, int parent) {
                 parents.push_back(-1);
                 BoneRecursive(child, 0);
             }
-        }
 
         if (!foundBone)
             SceneRecursive(child, thisId);
@@ -186,12 +183,11 @@ void AssetConverterSkeleton::BoneRecursive(aiNode* node, int parent) {
                 children.push_back(child->mName.C_Str());
                 ids.push_back(thisId);
 
-                for (auto k = 0; k < bones.size(); ++k) {
+                for (auto k = 0; k < bones.size(); ++k)
                     if (bones[k] == child->mParent->mName.C_Str()) {
                         parents.push_back(k);
                         break;
                     }
-                }
 
                 ++currentId;
                 foundBone = true;
