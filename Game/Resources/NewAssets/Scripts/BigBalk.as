@@ -20,7 +20,6 @@ class BigBalk {
     }
     
     void Update(float deltaTime) {
-        print("" + degrees(pitch(self.rotation)) + "\n");
         if (pitch(self.rotation) < rotateLimit) {
             float amountOfRotation = radians(2.5f) * deltaTime;
             self.RotatePitch(amountOfRotation);
