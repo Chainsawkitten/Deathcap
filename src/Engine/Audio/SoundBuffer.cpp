@@ -21,7 +21,7 @@ SoundBuffer::SoundBuffer() {
 }
 
 SoundBuffer::~SoundBuffer() {
-
+    SetSoundFile(nullptr);
 }
 
 float* SoundBuffer::GetChunkData(int& samples) {
@@ -44,10 +44,12 @@ float* SoundBuffer::GetChunkData(int& samples) {
 }
 
 void SoundBuffer::ConsumeChunk() {
+    assert(soundFile);
     chunkQueue.pop();
 }
 
 void SoundBuffer::ProduceChunk() {
+    assert(soundFile);
     chunkQueue.push(Audio::SoundStreamer::DataHandle(soundFile, begin, CHUNK_SIZE, &buffer[begin % (CHUNK_SIZE * CHUNK_COUNT)]));
     Managers().soundManager->Load(chunkQueue.back());
     begin += CHUNK_SIZE;
@@ -58,15 +60,26 @@ SoundFile* SoundBuffer::GetSoundFile() const {
 }
 
 void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
-    begin = 0;
-    Managers().soundManager->Flush(chunkQueue);
+
+    // Remove old sound file.
+    if (this->soundFile) {
+        begin = 0;
+        Managers().soundManager->Flush(chunkQueue);
+    }
+
+    // Update sound file.
     this->soundFile = soundFile;
     assert(chunkQueue.empty());
-    for (int i = 0; i < CHUNK_COUNT; ++i)
-        ProduceChunk();
+
+    // Set new sound file.
+    if (soundFile)
+        for (int i = 0; i < CHUNK_COUNT; ++i)
+            ProduceChunk();
+
 }
 
 void SoundBuffer::Restart() {
+    assert(soundFile);
     begin = 0;
     Managers().soundManager->Flush(chunkQueue);
     for (int i = 0; i < CHUNK_COUNT; ++i)
