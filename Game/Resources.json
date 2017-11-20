@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 125,
+	"modelNumber" : 126,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -894,6 +894,10 @@
 								[
 									{
 										"model" : "Bridge",
+										"type" : 1
+									},
+									{
+										"model" : "bridgeNewUV",
 										"type" : 1
 									}
 								],
