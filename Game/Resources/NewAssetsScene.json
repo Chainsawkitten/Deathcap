@@ -1291,9 +1291,9 @@
 											"Material" : 
 											{
 												"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
-												"metallic" : "Resources/NewAssets/Textures/CrateMetallic",
+												"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
 												"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
-												"roughness" : "Resources/NewAssets/Textures/CrateRoughness"
+												"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
 											},
 											"Mesh" : 
 											{
