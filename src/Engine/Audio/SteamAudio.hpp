@@ -1,6 +1,5 @@
 #pragma once
-#include "SteamAudioDirectRenderer.hpp"
-#include "SteamAudioIndirectRenderer.hpp"
+#include "SteamAudioRenderers.hpp"
 #include <vector>
 #include <cstdint>
 #include "../linking.hpp"
@@ -12,41 +11,45 @@ class SteamAudio {
 
         ENGINE_API SteamAudio();
 
-        /**
-        * @param context The Steam Audio context.
-        * @param environment Handle to the Environment object to use.
-        */
-        ENGINE_API SteamAudio(IPLContext* context, IPLhandle* environment);
-
         ENGINE_API ~SteamAudio();
+
+        /// Sound source data structure used for Steam Audio.
+        struct SoundSourceInfo {
+            /// World position of the sound source.
+            IPLVector3 position;
+            /// Radius sound source for calculating occlusion. (in meters),
+            float radius;
+            /// Steam Audio buffer containing raw sound data.
+            IPLAudioBuffer buffer;
+        };
 
         /// Processes the audio with both indirect and direct methods and mixes them together.
         /**
-        * @param input The audiobuffer to be processed.
-        * @param playerPos The position of the player in world space.
-        * @param playerDir The forward direction of the player.
-        * @param playerUp The up direction of the player.
-        * @param sourcePos The position of the audio source.
-        * @param sourceRadius The radius of the source, for calculating occlusion.
-        */
-        ENGINE_API void Process(IPLAudioBuffer input, IPLVector3* playerPos, IPLVector3* playerDir, IPLVector3* playerUp, IPLVector3* sourcePos, float sourceRadius);
-
-        /// Mixes and returns the final buffer, ready to be played.
-        /**
-         * @param finalBuf Pointer to an empty buffer.
-         * @param numSamples The number of samples in the final buffer.
+         * @param inputs Vector of sound sources to be processed.
+         * @param output The final processed sound.
          */
-        ENGINE_API void GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples);
+        ENGINE_API void Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAudioBuffer& output);
+
+        /// Sets the current location and direction of the player, to be used for processing
+        /**
+         * @param pos Vector representing the player's position in world space.
+         * @param dir Vector representing the player's forward direction.
+         * @param up Vector representing the player's up direction.
+         */
+        ENGINE_API void SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up);
+
+        /// Creates the direct and indirect renderer.
+        /**
+         * @param environment Handle to a created environment.
+         */
+        ENGINE_API void CreateRenderers(IPLhandle environment);
 
     private:
-
-        IPLAudioBuffer MixAudio(IPLAudioBuffer direct, IPLAudioBuffer indirect);
-
-        std::vector<IPLAudioBuffer> processedBuffers;
-
         IPLContext* context;
 
-        SteamAudioDirectRenderer directRenderer;
-        SteamAudioIndirectRenderer indirectRenderer;
-        IPLhandle* environmentalRenderer;
+        SteamAudioRenderers* renderers;
+
+        IPLVector3 playerPos;
+        IPLVector3 playerDir;
+        IPLVector3 playerUp;
 };

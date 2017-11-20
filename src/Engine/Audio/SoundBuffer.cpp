@@ -1,10 +1,14 @@
 #include "SoundBuffer.hpp"
 
+#include <algorithm>
 #include "../Manager/SoundManager.hpp"
 #include "SoundFile.hpp"
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
 #include "VorbisFile.hpp"
+#include <Utility/Log.hpp>
+#include "../Audio/SoundStreamer.hpp"
+#include "../Manager/Managers.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -13,42 +17,71 @@
 using namespace Audio;
 
 SoundBuffer::SoundBuffer() {
-    
-}
 
-SoundBuffer::SoundBuffer(SoundFile* soundFile) {
-    Load(soundFile);
 }
 
 SoundBuffer::~SoundBuffer() {
-    free(buffer);
+    SetSoundFile(nullptr);
 }
 
-float* SoundBuffer::GetBuffer() const {
-    return buffer;
+float* SoundBuffer::GetChunkData(int& samples) {
+    if (!soundFile) {
+        Log() << "SoundBuffer::GetBuffer: No sound loaded.\n";
+        samples = 0;
+        return nullptr;
+    }
+
+    assert(!chunkQueue.empty());
+
+    SoundStreamer::DataHandle& handle = chunkQueue.front();
+    while (!handle.done);
+
+    if (handle.samples < CHUNK_SIZE)
+        std::memset(&handle.data[(handle.offset + handle.samples) % (CHUNK_SIZE * CHUNK_COUNT)], 0, sizeof(CHUNK_SIZE - handle.samples));
+
+    samples = handle.samples;
+    return handle.data;
 }
 
-Json::Value SoundBuffer::Save() const {
-    Json::Value sound;
-    sound["name"] = name;
-    return sound;
+void SoundBuffer::ConsumeChunk() {
+    assert(soundFile);
+    chunkQueue.pop();
 }
 
-void SoundBuffer::Load(const std::string& name) {
-    std::size_t pos = name.find_last_of('/');
-    this->name = name.substr(pos + 1);
-    path = name.substr(0, pos + 1);
-    SoundFile* soundFile = new VorbisFile((Hymn().GetPath() + "/" + name + ".ogg").c_str());
-    Load(soundFile);
-    delete soundFile;
+void SoundBuffer::ProduceChunk() {
+    assert(soundFile);
+    chunkQueue.push(Audio::SoundStreamer::DataHandle(soundFile, begin, CHUNK_SIZE, &buffer[begin % (CHUNK_SIZE * CHUNK_COUNT)]));
+    Managers().soundManager->Load(chunkQueue.back());
+    begin += CHUNK_SIZE;
 }
 
-void SoundBuffer::Load(SoundFile* soundFile) {
-    buffer = soundFile->GetData();
-    size = soundFile->GetSize();
-    sampleRate = soundFile->GetSampleRate();
+SoundFile* SoundBuffer::GetSoundFile() const {
+    return soundFile;
 }
 
-uint32_t Audio::SoundBuffer::GetSize() {
-    return size;
+void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
+
+    // Remove old sound file.
+    if (this->soundFile) {
+        begin = 0;
+        Managers().soundManager->Flush(chunkQueue);
+    }
+
+    // Update sound file.
+    this->soundFile = soundFile;
+    assert(chunkQueue.empty());
+
+    // Set new sound file.
+    if (soundFile)
+        for (int i = 0; i < CHUNK_COUNT; ++i)
+            ProduceChunk();
+
+}
+
+void SoundBuffer::Restart() {
+    assert(soundFile);
+    begin = 0;
+    Managers().soundManager->Flush(chunkQueue);
+    for (int i = 0; i < CHUNK_COUNT; ++i)
+        ProduceChunk();
 }

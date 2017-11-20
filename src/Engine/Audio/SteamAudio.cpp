@@ -1,59 +1,44 @@
 #include "SteamAudio.hpp"
+#include <assert.h>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
 #endif
 
 SteamAudio::SteamAudio() {
-    context = nullptr;
-    environmentalRenderer = nullptr;
-}
-
-SteamAudio::SteamAudio(IPLContext * context, IPLhandle * environment) {
-    this->context = context;
-    this->environmentalRenderer = environment;
+    playerPos = IPLVector3{ 0,0,0 };
+    playerDir = IPLVector3{ 1,0,0 };
+    playerUp = IPLVector3{ 0,1,0 };
 }
 
 SteamAudio::~SteamAudio() {
-    if (context != nullptr)
-        delete context;
+    delete renderers;
 }
 
-void SteamAudio::Process(IPLAudioBuffer input, IPLVector3 * playerPos, IPLVector3 * playerDir, IPLVector3 * playerUp, IPLVector3 * sourcePos, float sourceRadius) {
-    // Direct Processing
+void SteamAudio::Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAudioBuffer& output) {
 
-    // Indirect Processing
+    std::vector<IPLAudioBuffer> audioBuffers;
+    audioBuffers.resize(inputs.size());
+    for (std::size_t i = 0; i < inputs.size(); ++i) {
+        SteamAudio::SoundSourceInfo& input = inputs[i];
+        renderers->Process(input.buffer, playerPos, playerDir, playerUp, input.position, input.radius, audioBuffers[i]);
+    }
 
-    //MixAudio(direct, indirect)
+    assert(!audioBuffers.empty());
+    output.format = audioBuffers[0].format;
+    iplMixAudioBuffers(audioBuffers.size(), audioBuffers.data(), output);
 
-    processedBuffers.push_back(input);
-
+    for (std::size_t i = 0; i < inputs.size(); ++i) {
+        delete[] audioBuffers[i].interleavedBuffer;
+    }
 }
 
-void SteamAudio::GetFinalMix(IPLAudioBuffer* finalBuf, uint32_t* numSamples) {
-    // No audio is playing, return emptiness, let SoundManager figure it out.
-    if (processedBuffers.size() == 0) {
-        *numSamples = 0;
-        finalBuf = nullptr;
-        return;
-    }
+void SteamAudio::SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up) {
+    playerPos = pos;
+    playerDir = dir;
+    playerUp = up;
+}
 
-    // Move the buffers into an array (needed for steam audios mixing)
-    IPLAudioBuffer* buffers = new IPLAudioBuffer[processedBuffers.size()];
-    for (std::size_t i = 0; i < processedBuffers.size(); i++) {
-        buffers[i] = processedBuffers[i];
-    }
-
-    finalBuf->format = buffers[0].format;
-    finalBuf->interleavedBuffer = new float[buffers[0].numSamples];
-    finalBuf->numSamples = buffers[0].numSamples;
-    iplMixAudioBuffers(processedBuffers.size(), buffers, *finalBuf);
-    *numSamples = finalBuf->numSamples;
-
-    // Clean up
-    for (IPLAudioBuffer buf : processedBuffers) {
-        if (buf.interleavedBuffer != nullptr)
-            delete[] buf.interleavedBuffer;
-    }
-    processedBuffers.clear();
+void SteamAudio::CreateRenderers(IPLhandle environment) {
+    renderers = new SteamAudioRenderers{ environment };
 }

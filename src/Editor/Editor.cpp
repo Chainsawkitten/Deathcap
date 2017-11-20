@@ -7,6 +7,7 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
+#include <Engine/Manager/SoundManager.hpp>
 #include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/MainWindow.hpp>
@@ -195,7 +196,10 @@ void Editor::Show(float deltaTime) {
         }
 
         if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "")
+        {
+            Managers().soundManager->CreateAudioEnvironment();
             play = true;
+        }
 
         if (Input()->Triggered(InputHandler::NEW) && Input()->Pressed(InputHandler::CONTROL))
             NewHymn();

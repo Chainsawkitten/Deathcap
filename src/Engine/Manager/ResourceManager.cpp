@@ -12,6 +12,7 @@
 #include "../Script/ScriptFile.hpp"
 #include <Utility/Log.hpp>
 #include "../Audio/AudioMaterial.hpp"
+#include "../Audio/VorbisFile.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -160,25 +161,25 @@ int ResourceManager::GetTextureAssetInstanceCount(TextureAsset* textureAsset) {
     return textureAssets[name].count;
 }
 
-Audio::SoundBuffer* ResourceManager::CreateSound(const string& name) {
+Audio::SoundFile* ResourceManager::CreateSound(const string& name) {
     if (sounds.find(name) == sounds.end()) {
-        Audio::SoundBuffer* soundBuffer = new Audio::SoundBuffer();
-        soundBuffer->Load(name);
-        sounds[name].soundBuffer = soundBuffer;
-        soundsInverse[soundBuffer] = name;
+        Audio::SoundFile* soundFile = new Audio::VorbisFile();
+        soundFile->Load(name);
+        sounds[name].sound = soundFile;
+        soundsInverse[soundFile] = name;
         sounds[name].count = 1;
     } else
         sounds[name].count++;
     
-    return sounds[name].soundBuffer;
+    return sounds[name].sound;
 }
 
-void ResourceManager::FreeSound(Audio::SoundBuffer* soundBuffer) {
-    string name = soundsInverse[soundBuffer];
+void ResourceManager::FreeSound(Audio::SoundFile* soundFile) {
+    string name = soundsInverse[soundFile];
     
     if (sounds[name].count-- <= 1) {
-        soundsInverse.erase(soundBuffer);
-        delete soundBuffer;
+        soundsInverse.erase(soundFile);
+        delete soundFile;
         sounds.erase(name);
     }
 }
