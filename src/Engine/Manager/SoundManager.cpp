@@ -145,11 +145,10 @@ void SoundManager::ProcessSamples() {
             radii[i] = 5.f;
 
             // If end of file, check if sound repeat.
-            if (samples == 0)
-                if (sound->loop)
-                    soundBuffer->Restart();
-                else
-                    sound->shouldStop = true;
+            if (samples == 0) {
+                soundBuffer->Restart();
+                sound->shouldStop = !sound->loop;
+            }
         }
 
         // Pause it.
@@ -159,6 +158,7 @@ void SoundManager::ProcessSamples() {
 
         // Stop it.
         if (sound->shouldStop) {
+            soundBuffer->Restart();
             sound->shouldPlay = false;
         }
 
