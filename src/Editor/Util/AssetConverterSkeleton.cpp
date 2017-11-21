@@ -17,7 +17,6 @@ AssetConverterSkeleton::~AssetConverterSkeleton() {
 }
 
 bool AssetConverterSkeleton::Convert(const char* filepath, const char* destination, bool isSkeleton) {
-
     success = true;
     errorString = "";
 
@@ -57,7 +56,8 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
             Animation::Skeleton::SkeletonBone* bone = new Animation::Skeleton::SkeletonBone;
             bone->parentId = (uint32_t)parents[i];
 
-            glm::mat4 modelMatrix(1.0f);
+            glm::mat4 scaleMatrix(1.f);
+            glm::mat4 posMatrix(1.0f);
 
             glm::quat rot;
             rot.x = channel->mRotationKeys[0].mValue.x;
@@ -71,13 +71,12 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
             pos.x = channel->mPositionKeys[0].mValue.x;
             pos.y = channel->mPositionKeys[0].mValue.y;
             pos.z = channel->mPositionKeys[0].mValue.z;
-            modelMatrix = glm::translate(modelMatrix, pos);
+            posMatrix = glm::translate(posMatrix, pos);
 
-            glm::mat4 scaleMatrix(1.f);
             glm::vec3 scale(1.f, 1.f, 1.f);
             scaleMatrix = glm::scale(scaleMatrix, scale);
 
-            bone->localTx = modelMatrix * (matRot * scaleMatrix);
+            bone->localTx = posMatrix * (matRot * scaleMatrix);
 
             skeleton.skeletonBones.push_back(bone);
         }
@@ -92,7 +91,6 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
 
         for (unsigned int i = 0; i < bones.size(); ++i) {
             auto boneIndex = 0;
-            bool foundMatch = false;
             for (auto j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
                 if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i])
                     boneIndex = j;
@@ -106,6 +104,10 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
 
             for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
                 anim.bones[i].rotationKeys[j] = channel->mRotationKeys[j].mTime;
+
+                glm::mat4 posMatrix(1.0f);
+                glm::mat4 scaleMatrix(1.0f);
+
                 glm::quat rot;
                 rot.x = channel->mRotationKeys[j].mValue.x;
                 rot.y = channel->mRotationKeys[j].mValue.y;
@@ -117,12 +119,11 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
                 pos.y = channel->mPositionKeys[j].mValue.y;
                 pos.z = channel->mPositionKeys[j].mValue.z;
 
-                glm::mat4 posMatrix(1.0f);
                 posMatrix = glm::translate(posMatrix, pos);
 
-                glm::mat4 scaleMatrix(1.0f);
                 glm::vec3 scale(1.f, 1.f, 1.f);
                 scaleMatrix = glm::scale(scaleMatrix, scale);
+
                 anim.bones[i].rotations[j] = posMatrix * (glm::mat4(rot) * scaleMatrix);
             }
         }
