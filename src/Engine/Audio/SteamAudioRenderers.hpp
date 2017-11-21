@@ -9,8 +9,6 @@
 class SteamAudioRenderers {
     public:
 
-        ENGINE_API SteamAudioRenderers();
-
         /**
          * @param environment Handle to the Environment object to use.
          */
@@ -35,11 +33,11 @@ class SteamAudioRenderers {
         IPLAudioFormat inputFormat;
         IPLAudioFormat outputFormat;
         IPLhandle environment;
-        IPLhandle* envRenderer;
-        IPLhandle* directEffect;
-        IPLhandle* binauralRenderer;
-        IPLhandle* binauralEffect;
-        IPLhandle* convEffect;
+        IPLhandle envRenderer;
+        IPLhandle directEffect;
+        IPLhandle binauralRenderer;
+        IPLhandle binauralEffect;
+        IPLhandle convEffect;
         IPLAudioBuffer effectBuffer;
         IPLAudioBuffer finalBuffers[2];
 };
