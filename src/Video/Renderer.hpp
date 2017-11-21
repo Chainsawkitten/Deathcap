@@ -334,6 +334,13 @@ namespace Video {
             GLuint vertexBuffer;
             GLuint vertexArray;
             const Texture2D* currentIcon = nullptr;
+            
+            // Uniform locations.
+            GLuint viewProjectionLocation;
+            GLuint cameraPositionLocation;
+            GLuint cameraUpLocation;
+            GLuint baseImageLocation;
+            GLuint positionLocation;
 
             Geometry::Rectangle* rectangle;
     };

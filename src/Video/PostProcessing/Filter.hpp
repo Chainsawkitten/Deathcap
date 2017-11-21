@@ -1,5 +1,7 @@
 #pragma once
 
+#include <GL/glew.h>
+
 namespace Video {
     class ShaderProgram;
     
@@ -17,6 +19,12 @@ namespace Video {
              * @return Shader program
              */
             virtual ShaderProgram* GetShaderProgram() const = 0;
+            
+            /// Get the location of the diffuse uniform.
+            /**
+             * @return The location of the diffuse uniform.
+             */
+            virtual GLuint GetDiffuseLocation() const = 0;
             
             /// Set uniforms.
             virtual void SetUniforms() = 0;

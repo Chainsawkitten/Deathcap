@@ -108,7 +108,6 @@ void TriggerManager::SynchronizeTriggers() {
             continue;
 
         trigger->superTrigger->Update();
-
     }
 }
 
@@ -122,6 +121,16 @@ void TriggerManager::InitiateUID() {
             continue;
 
         trigger->superTrigger->InitTriggerUID();
+
+    }
+}
+
+void TriggerManager::InitiateVolumes() {
+    for (auto trigger : triggerComponents.GetAll()) {
+        if (trigger->IsKilled() || !trigger->entity->enabled)
+            continue;
+
+        trigger->superTrigger->InitiateVolumes();
 
     }
 }

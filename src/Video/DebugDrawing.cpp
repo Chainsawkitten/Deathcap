@@ -22,6 +22,12 @@ DebugDrawing::DebugDrawing() {
     delete vertexShader;
     delete fragmentShader;
     
+    // Get uniform locations.
+    viewProjectionLocation = shaderProgram->GetUniformLocation("viewProjection");
+    modelLocation = shaderProgram->GetUniformLocation("model");
+    colorLocation = shaderProgram->GetUniformLocation("color");
+    sizeLocation = shaderProgram->GetUniformLocation("size");
+    
     // Create point vertex array.
     glBindVertexArray(0);
     
@@ -132,7 +138,7 @@ DebugDrawing::~DebugDrawing() {
 
 void DebugDrawing::StartDebugDrawing(const glm::mat4& viewProjectionMatrix) {
     shaderProgram->Use();
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniformMatrix4fv(viewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
 void DebugDrawing::DrawPoint(const Point& point) {
@@ -140,10 +146,10 @@ void DebugDrawing::DrawPoint(const Point& point) {
     
     glm::mat4 model(glm::translate(glm::mat4(), point.position));
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &model[0][0]);
     point.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &point.color[0]);
-    glUniform1f(shaderProgram->GetUniformLocation("size"), point.size);
+    glUniform3fv(colorLocation, 1, &point.color[0]);
+    glUniform1f(sizeLocation, point.size);
     glDrawArrays(GL_POINTS, 0, 1);
 }
 
@@ -152,9 +158,9 @@ void DebugDrawing::DrawLine(const Line& line) {
     
     glm::mat4 model(glm::translate(glm::mat4(), line.startPosition) * glm::scale(glm::mat4(), line.endPosition - line.startPosition));
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &model[0][0]);
     line.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &line.color[0]);
+    glUniform3fv(colorLocation, 1, &line.color[0]);
     glLineWidth(line.width);
     glDrawArrays(GL_LINES, 0, 2);
 }
@@ -164,10 +170,10 @@ void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
     
     glm::mat4 model(cuboid.matrix * glm::scale(glm::mat4(), cuboid.dimensions));
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &model[0][0]);
     cuboid.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cuboid.color[0]);
-    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glUniform3fv(colorLocation, 1, &cuboid.color[0]);
+    glUniform1f(sizeLocation, 10.f);
     glLineWidth(cuboid.lineWidth);
     glDrawArrays(GL_LINES, 0, 24);
 }
@@ -182,10 +188,10 @@ void DebugDrawing::DrawPlane(const Plane& plane) {
     model = glm::rotate(glm::mat4(), pitch, glm::vec3(1.f, 0.f, 0.f)) * model;
     model = glm::translate(glm::mat4(), plane.position) * model;
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &model[0][0]);
     plane.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &plane.color[0]);
-    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glUniform3fv(colorLocation, 1, &plane.color[0]);
+    glUniform1f(sizeLocation, 10.f);
     glLineWidth(plane.lineWidth);
     glDrawArrays(GL_LINES, 0, 8);
 }
@@ -200,10 +206,10 @@ void DebugDrawing::DrawCircle(const Circle& circle) {
     model = glm::rotate(glm::mat4(), pitch, glm::vec3(1.f, 0.f, 0.f)) * model;
     model = glm::translate(glm::mat4(), circle.position) * model;
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &model[0][0]);
     circle.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &circle.color[0]);
-    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glUniform3fv(colorLocation, 1, &circle.color[0]);
+    glUniform1f(sizeLocation, 10.f);
     glLineWidth(circle.lineWidth);
     glDrawArrays(GL_LINES, 0, circleVertexCount);
 }
@@ -214,10 +220,10 @@ void DebugDrawing::DrawSphere(const Sphere& sphere) {
     glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(sphere.radius, sphere.radius, sphere.radius)));
     model = glm::translate(glm::mat4(), sphere.position) * model;
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &model[0][0]);
     sphere.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &sphere.color[0]);
-    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glUniform3fv(colorLocation, 1, &sphere.color[0]);
+    glUniform1f(sizeLocation, 10.f);
     glLineWidth(sphere.lineWidth);
     glDrawArrays(GL_LINES, 0, sphereVertexCount);
 }
@@ -228,10 +234,10 @@ void DebugDrawing::DrawCylinder(const Cylinder& cylinder) {
     glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(cylinder.radius, cylinder.length, cylinder.radius)));
     model = cylinder.matrix * model;
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &model[0][0]);
     cylinder.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cylinder.color[0]);
-    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glUniform3fv(colorLocation, 1, &cylinder.color[0]);
+    glUniform1f(sizeLocation, 10.f);
     glLineWidth(cylinder.lineWidth);
     glDrawArrays(GL_LINES, 0, cylinderVertexCount);
 }
@@ -242,10 +248,10 @@ void DebugDrawing::DrawCone(const Cone& cone) {
     glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(cone.radius, cone.height, cone.radius)));
     model = cone.matrix * model;
     
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &model[0][0]);
     cone.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &cone.color[0]);
-    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glUniform3fv(colorLocation, 1, &cone.color[0]);
+    glUniform1f(sizeLocation, 10.f);
     glLineWidth(cone.lineWidth);
     glDrawArrays(GL_LINES, 0, coneVertexCount);
 }
