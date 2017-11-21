@@ -406,6 +406,36 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511257883
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/final_event/MainScript"
+			},
+			"children" : null,
+			"name" : "FinalSceneScriptEntity",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511260476
 		}
 	],
 	"name" : "Root",

@@ -1221,6 +1221,10 @@
 					{
 						"model" : "wires",
 						"type" : 1
+					},
+					{
+						"script" : "MainScript",
+						"type" : 4
 					}
 				],
 				"subfolders" : 
