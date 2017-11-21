@@ -37,7 +37,7 @@ float* SoundBuffer::GetChunkData(int& samples) {
     while (!handle.done);
 
     if (handle.samples < CHUNK_SIZE)
-        std::memset(&handle.data[(handle.offset + handle.samples) % (CHUNK_SIZE * CHUNK_COUNT)], 0, sizeof(CHUNK_SIZE - handle.samples));
+        std::memset(&handle.data[(handle.offset + handle.samples) % (CHUNK_SIZE * chunkCount)], 0, sizeof(CHUNK_SIZE - handle.samples));
 
     samples = handle.samples;
     return handle.data;
@@ -50,7 +50,7 @@ void SoundBuffer::ConsumeChunk() {
 
 void SoundBuffer::ProduceChunk() {
     assert(soundFile);
-    chunkQueue.push(Audio::SoundStreamer::DataHandle(soundFile, begin, CHUNK_SIZE, &buffer[begin % (CHUNK_SIZE * CHUNK_COUNT)]));
+    chunkQueue.push(Audio::SoundStreamer::DataHandle(soundFile, begin, CHUNK_SIZE, &buffer[begin % (CHUNK_SIZE * chunkCount)]));
     Managers().soundManager->Load(chunkQueue.back());
     begin += CHUNK_SIZE;
 }
@@ -65,6 +65,7 @@ void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
     if (this->soundFile) {
         begin = 0;
         Managers().soundManager->Flush(chunkQueue);
+        delete[] buffer;
     }
 
     // Update sound file.
@@ -72,16 +73,18 @@ void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
     assert(chunkQueue.empty());
 
     // Set new sound file.
-    if (soundFile)
-        for (int i = 0; i < CHUNK_COUNT; ++i)
+    if (soundFile) {
+        chunkCount = soundFile->GetCached() ? 1 : CHUNK_COUNT;
+        buffer = new float[CHUNK_SIZE * chunkCount];
+        for (int i = 0; i < chunkCount; ++i)
             ProduceChunk();
-
+    }
 }
 
 void SoundBuffer::Restart() {
     assert(soundFile);
     begin = 0;
     Managers().soundManager->Flush(chunkQueue);
-    for (int i = 0; i < CHUNK_COUNT; ++i)
+    for (int i = 0; i < chunkCount; ++i)
         ProduceChunk();
 }
