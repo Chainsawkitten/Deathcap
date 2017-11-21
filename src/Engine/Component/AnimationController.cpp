@@ -53,8 +53,16 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
             Animation::AnimationController::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationController::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
             if (tmpTransition != nullptr) {
-                // If the bool in the boolMap is true then set this to the activeTransition.
-                if (controller->boolMap[tmpTransition->transitionBoolIndex]) {
+                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0) {
+                    Animation::AnimationController::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationController::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
+                    if (tmpAction != nullptr) {
+                        activeTransition = tmpTransition;
+                        activeTransition->transitionProcess = 0.0f;
+                        activeAction2 = tmpAction;
+                    }
+
+                } else if (!controller->boolMap.empty() && controller->boolMap[tmpTransition->transitionBoolIndex]) {
+                    // If the bool in the boolMap is true then set this to the activeTransition.
                     activeTransition = tmpTransition;
                     activeTransition->transitionProcess = 0.0f;
                     break;
@@ -63,25 +71,27 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         }
     }
 
-    if (activeTransition == nullptr)
-        Animate(deltaTime, activeAction1);
-    else {
-        activeTransition->transitionProcess += deltaTime;
-        if (activeTransition->transitionProcess > activeTransition->transitionTime) {
-            activeTransition->transitionProcess = 0.0f;
-            activeTransition = nullptr;
+//    if (activeTransition == nullptr)
+//        Animate(deltaTime, activeAction1);
+//    else {
+//        activeTransition->transitionProcess += deltaTime;
+//        if (activeTransition->transitionProcess > activeTransition->transitionTime) {
+//            activeTransition->transitionProcess = 0.0f;
+//            activeTransition = nullptr;
+//
+//            // Set action 1 to action 2.
+//            activeAction1 = activeAction2;
+//            activeAction2 = nullptr;
+//
+//            Animate(deltaTime, activeAction1);
+//        } else {
+//            Animate(deltaTime, activeAction1);
+//            Animate(deltaTime, activeAction2);
+//            Interpolate(deltaTime);
+//        }
+//    }
 
-            // Set action 1 to action 2.
-            activeAction1 = activeAction2;
-            activeAction2 = nullptr;
-
-            Animate(deltaTime, activeAction1);
-        } else {
-            Animate(deltaTime, activeAction1);
-            Animate(deltaTime, activeAction2);
-            Interpolate(deltaTime);
-        }
-    }
+    Animate(deltaTime, activeAction1);
 }
 
 void AnimationController::Animate(float deltaTime, Animation::AnimationController::AnimationAction* action) {
@@ -89,7 +99,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
     anim->currentFrame += deltaTime * 30.0f;
-    if (anim->currentFrame > anim->length) {
+    if (anim->currentFrame > 29.0f) {
         anim->currentFrame = 0;
 
         for (unsigned int i = 0; i < size; ++i)
@@ -115,16 +125,26 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
             interpolation = 0.001f;
 
         // Convert to quaternion to interpolate animation then back to matrix.
-        glm::quat rotation1 = glm::quat_cast(bone->rotations[bone->currentKeyIndex]);
-        glm::quat rotation2 = glm::quat_cast(bone->rotations[bone->currentKeyIndex + 1]);
+        glm::mat4 rot1 = bone->rotations[bone->currentKeyIndex];
+        glm::mat4 rot2 = bone->rotations[bone->currentKeyIndex + 1];
+
+        rot1[0][3] = 0.0f;
+        rot1[1][3] = 0.0f;
+        rot1[2][3] = 0.0f;
+        rot1[3][3] = 1.0f;
+
+        rot2[0][3] = 0.0f;
+        rot2[1][3] = 0.0f;
+        rot2[2][3] = 0.0f;
+        rot2[3][3] = 1.0f;
+
+        glm::quat rotation1 = glm::quat_cast(rot1);
+        glm::quat rotation2 = glm::quat_cast(rot2);
         glm::quat finalRot = glm::slerp(rotation1, rotation2, interpolation);
 
         glm::mat4 matrixRot = glm::mat4(finalRot);
 
-        if (skeleton->skeletonBones[i]->parentId == -1)
-            continue;
-
-        skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;     //skeleton->skeletonBones[i]->localTx:
+        skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
         bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
 }

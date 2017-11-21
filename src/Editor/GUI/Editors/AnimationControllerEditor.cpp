@@ -12,6 +12,8 @@ AnimationControllerEditor::AnimationControllerEditor() {
 }
 
 AnimationControllerEditor::~AnimationControllerEditor() {
+    if (this->animationController != nullptr)
+        animationController->Save(Hymn().GetPath() + "/" + animationController->path + animationController->name + ".asset");
 }
 
 void AnimationControllerEditor::SetAnimationController(Animation::AnimationController* animationController) {
@@ -69,6 +71,12 @@ void AnimationControllerEditor::ShowContextMenu() {
         memcpy(newFloat->name, name.c_str(), name.size() + 1);
         animationController->floatMap.push_back(newFloat);
     }
+
+    ImGui::Separator();
+
+    if (ImGui::MenuItem("Delete")) {
+        /// @todo
+    }
 }
 
 void AnimationControllerEditor::ShowNode(Node* node) {
@@ -102,12 +110,11 @@ void AnimationControllerEditor::ShowNode(Node* node) {
             if (ImGui::BeginPopup("Select float##float")) {
                 ImGui::Text("Select float");
 
-                for (std::size_t i = 0; i < animationController->boolMap.size(); ++i) {
+                for (std::size_t i = 0; i < animationController->boolMap.size(); ++i)
                     if (ImGui::Selectable(animationController->floatMap[i]->name)) {
                         action->playbackModifierFloatIndex = i;
                         break;
                     }
-                }
 
                 ImGui::EndPopup();
             }
@@ -179,15 +186,32 @@ void GUI::AnimationControllerEditor::ShowValues() {
         if (boolEditIndex == i) {
             ImGui::BeginChild(item->name, ImVec2(0, 98), true);
             ImGui::Text("Bool: %s", item->name);
-            ImGui::InputText("Name", item->name, 128, ImGuiInputTextFlags_CharsNoBlank);
-            ImGui::Checkbox("Value", &item->value);
-            if (ImGui::Button("Remove")) {
-                delete item;
-                item = nullptr;
-                animationController->boolMap.erase(animationController->boolMap.begin() + i);
-                ImGui::EndChild();
-                break;
-            }
+
+            // A unique id needs to be pushed here because the id "Name" is used on several places.
+            std::string nameId = "BoolName" + std::to_string(i);
+            ImGui::PushID(nameId.c_str()); {
+                ImGui::InputText("Name", item->name, 128);
+            } ImGui::PopID();
+
+            // A unique id needs to be pushed here because the id "Value" is used on several places.
+            std::string valueId = "BoolValue" + std::to_string(i);
+            ImGui::PushID(valueId.c_str()); {
+                ImGui::Checkbox("Value", &item->value);
+            } ImGui::PopID();
+
+            // A unique id needs to be pushed here because the id "Remove" is used on several places.
+            std::string removeId = "BoolRemove" + std::to_string(i);
+            ImGui::PushID(removeId.c_str()); {
+                if (ImGui::Button("Remove")) {
+                    delete item;
+                    item = nullptr;
+                    animationController->boolMap.erase(animationController->boolMap.begin() + i);
+                    ImGui::PopID();
+                    ImGui::EndChild();
+                    break;
+                }
+            } ImGui::PopID();
+
             ImGui::EndChild();
         } else {
             ImGui::BeginChild(item->name, ImVec2(0, 72), true);

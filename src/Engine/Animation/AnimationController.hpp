@@ -39,7 +39,7 @@ namespace Animation {
                 /**
                  * @param file File to save to.
                  */
-                virtual void Save(std::ofstream* file) override {
+                void Save(std::ofstream* file) override {
                     Node::Save(file);
                     file->write(reinterpret_cast<char*>(animationClipName), 512);
                     file->write(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));
@@ -50,7 +50,7 @@ namespace Animation {
                 /**
                  * @param file File to load from.
                  */
-                virtual void Load(std::ifstream* file) override {
+                void Load(std::ifstream* file) override {
                     Node::Load(file);
                     file->read(reinterpret_cast<char*>(animationClipName), 512);
                     file->read(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));

@@ -32,12 +32,18 @@ void AnimationController::Save(const std::string& path) {
         if (typeid(*node) == typeid(AnimationAction)) {
             NodeType nodetype = ACTION;
             file.write(reinterpret_cast<char*>(&nodetype), sizeof(NodeType));
+            AnimationAction * animationAction = dynamic_cast<AnimationAction *>(node);
+            if (animationAction != nullptr) {
+                animationAction->Save(&file);
+            }
         } else {
             NodeType nodetype = TRANSITION;
             file.write(reinterpret_cast<char*>(&nodetype), sizeof(NodeType));
+            AnimationTransition * animationTransition = dynamic_cast<AnimationTransition *>(node);
+            if (animationTransition != nullptr) {
+                animationTransition->Save(&file);
+            }
         }
-
-        node->Save(&file);
     }
 
     uint32_t numBools = boolMap.size();
@@ -88,13 +94,11 @@ void AnimationController::Load(const std::string& name) {
         }
     }
 
-    for (std::size_t i = 0; i < boolMap.size(); ++i) {
+    for (std::size_t i = 0; i < boolMap.size(); ++i)
         delete boolMap[i];
-    }
 
-    for (std::size_t i = 0; i < floatMap.size(); ++i) {
+    for (std::size_t i = 0; i < floatMap.size(); ++i)
         delete floatMap[i];
-    }
 
     uint32_t numBools;
     file.read(reinterpret_cast<char*>(&numBools), sizeof(uint32_t));

@@ -16,6 +16,7 @@ AssetConverterSkeleton::AssetConverterSkeleton() {
 AssetConverterSkeleton::~AssetConverterSkeleton() {
 }
 
+#include <iostream>
 bool AssetConverterSkeleton::Convert(const char* filepath, const char* destination, bool isSkeleton) {
     success = true;
     errorString = "";
@@ -58,7 +59,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
 
             // Build bindpose.
             glm::mat4 scaleMatrix(1.f);
-            glm::mat4 posMatrix(1.0f);
+            glm::mat4 posMatrix(1.f);
 
             glm::quat rot;
             rot.x = channel->mRotationKeys[0].mValue.x;
@@ -107,26 +108,13 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
             for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
                 anim.bones[i].rotationKeys[j] = channel->mRotationKeys[j].mTime;
 
-                glm::mat4 posMatrix(1.0f);
-                glm::mat4 scaleMatrix(1.0f);
-
                 glm::quat rot;
                 rot.x = channel->mRotationKeys[j].mValue.x;
                 rot.y = channel->mRotationKeys[j].mValue.y;
                 rot.z = channel->mRotationKeys[j].mValue.z;
                 rot.w = channel->mRotationKeys[j].mValue.w;
 
-                glm::vec3 pos;
-                pos.x = channel->mPositionKeys[j].mValue.x;
-                pos.y = channel->mPositionKeys[j].mValue.y;
-                pos.z = channel->mPositionKeys[j].mValue.z;
-
-                posMatrix = glm::translate(posMatrix, pos);
-
-                glm::vec3 scale(1.f, 1.f, 1.f);
-                scaleMatrix = glm::scale(scaleMatrix, scale);
-
-                anim.bones[i].rotations[j] = posMatrix * (glm::mat4(rot) * scaleMatrix);
+                anim.bones[i].rotations[j] = glm::mat4(rot);
             }
         }
 
