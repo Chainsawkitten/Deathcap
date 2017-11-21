@@ -68,6 +68,9 @@ class TriggerManager {
         /// Find and set entity with Unique ID.
         ENGINE_API void InitiateUID();
 
+        /// Set trigger volumes.
+        ENGINE_API void InitiateVolumes();
+
         /// Remove all killed components.
         void ClearKilledComponents();
 
