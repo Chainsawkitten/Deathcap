@@ -89,7 +89,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
     anim->currentFrame += deltaTime * 30.0f;
-    if (anim->currentFrame > 119.0f) {
+    if (anim->currentFrame > anim->length) {
         anim->currentFrame = 0;
 
         for (unsigned int i = 0; i < size; ++i)
