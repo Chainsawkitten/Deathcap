@@ -52,7 +52,6 @@ void SkinRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm::
     glCullFace(GL_FRONT);
     glViewport(0, 0, shadowWidth, shadowHeight);
     glBindFramebuffer(GL_FRAMEBUFFER, depthFbo);
-    glClear(GL_DEPTH_BUFFER_BIT);
     this->shadowProgram->Use();
 
     this->viewMatrix = viewMatrix;
