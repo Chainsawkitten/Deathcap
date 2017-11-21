@@ -2,12 +2,14 @@ class Controller {
     Hub @hub;
     Entity @self;
     Entity @rock;
+    Entity @cart;
     bool isPressed;
 
     Controller(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @rock = GetEntityByGUID(1510240479);
+        @cart = GetEntityByGUID(1508919384);
         isPressed = false;
 
         // Remove this if updates are not desired.

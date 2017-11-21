@@ -1267,6 +1267,10 @@
 							{
 								"script" : "BigBalk",
 								"type" : 4
+							},
+							{
+								"script" : "Cart_debug_script",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

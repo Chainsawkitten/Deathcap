@@ -29,7 +29,7 @@ class Camera{
     void Update(float deltaTime){
         // Only control camera with mouse if we're not running in VR.
         if (!IsVRActive())
-            MouseUpdate();
+            //MouseUpdate();
             
         deathTimer += 0.001;
         //if(deathTimer > 10)

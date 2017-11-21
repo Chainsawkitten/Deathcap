@@ -158,7 +158,7 @@
 											"z" : 1.0
 										},
 										"coneAngle" : 30.0,
-										"intensity" : 5.0,
+										"intensity" : 30.0,
 										"shadow" : true
 									},
 									"children" : 

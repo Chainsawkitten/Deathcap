@@ -9,6 +9,8 @@
 #include <Utility/Log.hpp>
 #include <thread>
 #include <iostream>
+#include <fstream>
+#include <ctime>
 
 int main() {
     if (!glfwInit())
@@ -26,7 +28,8 @@ int main() {
     double averageFrameTime = 0.0;
 #endif
 
-    MainWindow* window = new MainWindow(640, 480, false, false, "Hymn to Beauty", false);
+    MainWindow* window = new MainWindow(1280, 720, false, false, "Hymn to Beauty", false);
+    //MainWindow* window = new MainWindow(1920, 1080, false, false, "Hymn to Beauty", false);
     glewInit();
     window->Init(false);
 
@@ -44,14 +47,18 @@ int main() {
     // Main loop.
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
-    double lastTimeRender = glfwGetTime();
-    while (!window->ShouldClose()) {
+    double lastTimeRender = glfwGetTime(); 
+    while (!window->ShouldClose() && numberOfFrames < 600) {
         double deltaTime = glfwGetTime() - lastTime;
         lastTime = glfwGetTime();
 
         window->Update();
         Hymn().Update(static_cast<float>(deltaTime));
         Hymn().Render();
+
+#ifdef TESTFRAMES
+        glFinish();
+#endif
         
         // Swap buffers and wait until next frame.
         window->SwapBuffers();
@@ -90,14 +97,17 @@ int main() {
 #endif
     }
     
-    Hymn().world.Clear();
-    Managers().ShutDown();
-    
-    delete window;
-    
-    glfwTerminate();
-    
 #ifdef TESTFRAMES
+    std::fstream myfile("Logw720.txt", std::ios::out);
+    if (myfile) {
+        myfile << "Frame rundown:\n";
+        myfile << "Frames: " << numberOfFrames << "\n";
+        myfile << "Bad frames: " << numberOfBadFrames << "\n";
+        myfile << "Percentage of bad frames: " << (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 << "%\n";
+        myfile << "Average frame time: " << averageFrameTime << " ms\n";
+        myfile << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
+        myfile.close();
+    }
     Log() << "Frame rundown:\n";
     Log() << "Frames: " << numberOfFrames << "\n";
     Log() << "Bad frames: " << numberOfBadFrames << "\n";
@@ -105,6 +115,14 @@ int main() {
     Log() << "Average frame time: " << averageFrameTime << " ms\n";
     Log() << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
 #endif
+
+
+    Hymn().world.Clear();
+    Managers().ShutDown();
+    
+    delete window;
+    
+    glfwTerminate();
 
     Log() << "Game ended - " << time(nullptr) << "\n";
     

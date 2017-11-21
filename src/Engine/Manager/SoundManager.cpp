@@ -70,7 +70,7 @@ void SoundManager::CheckError(PaError err) {
 void SoundManager::Update(float deltaTime) {
 
     // Number of samples to process dependant on deltaTime
-    unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
+    /*unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
     if (frameSamples > CHUNK_SIZE) {
         Log() << "SoundManager::Update: Frame drop!\n";
         frameSamples = CHUNK_SIZE;
@@ -91,7 +91,7 @@ void SoundManager::Update(float deltaTime) {
         Pa_WriteStream(stream, &processedBuffer[index], sampleCount);
         processedSamples -= sampleCount;
         currentSample += sampleCount;
-    }
+    }*/
 }
 
 void SoundManager::ProcessSamples() {
