@@ -514,7 +514,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
 				"metallic" : "",
 				"normal" : "",
 				"roughness" : ""
