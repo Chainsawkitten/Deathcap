@@ -56,6 +56,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
             Animation::Skeleton::SkeletonBone* bone = new Animation::Skeleton::SkeletonBone;
             bone->parentId = (uint32_t)parents[i];
 
+            // Build bindpose.
             glm::mat4 scaleMatrix(1.f);
             glm::mat4 posMatrix(1.0f);
 
@@ -102,6 +103,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
             anim.bones[i].rotationKeys = new int32_t[channel->mNumRotationKeys];
             anim.bones[i].rotations = new glm::mat4[channel->mNumRotationKeys];
 
+            // Build keyframes for the bone.
             for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
                 anim.bones[i].rotationKeys[j] = channel->mRotationKeys[j].mTime;
 
@@ -128,6 +130,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
             }
         }
 
+        // Save.
         std::ofstream file((std::string(destination)).c_str(), std::ios::binary);
         anim.Save(&file);
         file.close();

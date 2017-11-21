@@ -311,10 +311,9 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
             if (entity->IsKilled() || !entity->enabled)
                 continue;
 
-            if (mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+            if (mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
-            }
         }
 
         // Skin meshes.
@@ -325,10 +324,9 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 continue;
 
             Mesh* mesh = entity->GetComponent<Mesh>();
-            if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+            if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderSkinMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix(), controller->bones);
-            }
         }
     }
     }

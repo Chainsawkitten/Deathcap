@@ -74,9 +74,6 @@ void Skeleton::InitSkeleton() {
 
     // Setup rest of skeleton.
     for (unsigned int i = 1; i < skeletonBones.size(); ++i) {
-        if (skeletonBones[i]->parentId > 100)
-            continue;
-
         skeletonBones[i]->globalTx = skeletonBones[i]->localTx * skeletonBones[skeletonBones[i]->parentId]->globalTx;
         skeletonBones[i]->inversed = glm::inverse(skeletonBones[i]->globalTx);
     }
