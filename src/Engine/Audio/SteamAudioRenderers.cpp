@@ -1,19 +1,7 @@
 #include "SteamAudioRenderers.hpp"
 
-SteamAudioRenderers::SteamAudioRenderers() {
-    directEffect = nullptr;
-    envRenderer = nullptr;
-    binauralRenderer = nullptr;
-    binauralEffect = nullptr;
-}
-
 SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
     this->environment = environment;
-    this->envRenderer = new IPLhandle;
-    this->directEffect = new IPLhandle;
-    this->binauralRenderer = new IPLhandle;
-    this->binauralEffect = new IPLhandle;
-    this->convEffect = new IPLhandle;
 
     IPLRenderingSettings settings;
     settings.frameSize = CHUNK_SIZE;
@@ -33,16 +21,16 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
     outputFormat.channelOrder = IPL_CHANNELORDER_INTERLEAVED;
 
     // Environmental Renderer and Direct Sound Effect
-    IPLerror err = iplCreateEnvironmentalRenderer(IPLContext{ nullptr,nullptr,nullptr }, environment, settings, outputFormat, NULL, NULL, envRenderer);
-    iplCreateDirectSoundEffect(*envRenderer, inputFormat, inputFormat, directEffect);
+    IPLerror err = iplCreateEnvironmentalRenderer(IPLContext{ nullptr,nullptr,nullptr }, environment, settings, outputFormat, NULL, NULL, &envRenderer);
+    iplCreateDirectSoundEffect(envRenderer, inputFormat, inputFormat, &directEffect);
 
     // Binaural Renderer and Effect
     IPLHrtfParams params{IPL_HRTFDATABASETYPE_DEFAULT, NULL, 0, nullptr, nullptr, nullptr };    //Might not work
-    err = iplCreateBinauralRenderer(IPLContext{ nullptr, nullptr, nullptr }, settings, params, binauralRenderer);
-    iplCreateBinauralEffect(*binauralRenderer, inputFormat, outputFormat, binauralEffect);
+    err = iplCreateBinauralRenderer(IPLContext{ nullptr, nullptr, nullptr }, settings, params, &binauralRenderer);
+    iplCreateBinauralEffect(binauralRenderer, inputFormat, outputFormat, &binauralEffect);
 
     // Convolution Effect
-    err = iplCreateConvolutionEffect(*envRenderer, "", IPL_SIMTYPE_REALTIME, inputFormat, outputFormat, convEffect);
+    err = iplCreateConvolutionEffect(envRenderer, "", IPL_SIMTYPE_REALTIME, inputFormat, outputFormat, &convEffect);
 
     effectBuffer.format = inputFormat;
     effectBuffer.numSamples = CHUNK_SIZE;
@@ -61,26 +49,12 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
 }
 
 SteamAudioRenderers::~SteamAudioRenderers() {
-    if (directEffect != nullptr) {
-        iplDestroyDirectSoundEffect(directEffect);
-        delete directEffect;
-    }   
-    if (envRenderer != nullptr) {
-        iplDestroyEnvironmentalRenderer(envRenderer);
-        delete envRenderer;
-    }
-    if (binauralRenderer != nullptr) {
-        iplDestroyBinauralRenderer(binauralRenderer);
-        delete binauralRenderer;
-    }
-    if (binauralEffect != nullptr) {
-        iplDestroyBinauralEffect(binauralEffect);
-        delete binauralEffect;
-    }
-    if (convEffect != nullptr) {
-        iplDestroyConvolutionEffect(convEffect);
-        delete convEffect;
-    }
+    iplDestroyDirectSoundEffect(&directEffect);
+    iplDestroyEnvironmentalRenderer(&envRenderer);
+    iplDestroyBinauralRenderer(&binauralRenderer);
+    iplDestroyBinauralEffect(&binauralEffect);
+    iplDestroyConvolutionEffect(&convEffect);
+
     delete[] effectBuffer.interleavedBuffer;
     delete[] finalBuffers[0].interleavedBuffer;
     delete[] finalBuffers[1].interleavedBuffer;
@@ -96,14 +70,14 @@ void SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 playerPos, IP
     options.applyDistanceAttenuation = (IPLbool)true;
     options.directOcclusionMode = IPL_DIRECTOCCLUSION_TRANSMISSIONBYFREQUENCY;
 
-    iplApplyDirectSoundEffect(*directEffect, input, soundPath, options, effectBuffer);
+    iplApplyDirectSoundEffect(directEffect, input, soundPath, options, effectBuffer);
 
     // Spatialize the direct audio
-    iplApplyBinauralEffect(*binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, finalBuffers[0]);
+    iplApplyBinauralEffect(binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, finalBuffers[0]);
 
     // Indirect Audio
-    iplSetDryAudioForConvolutionEffect(*convEffect, sourcePos, input);
-    iplGetWetAudioForConvolutionEffect(*convEffect, playerPos, playerDir, playerUp, finalBuffers[1]);
+    iplSetDryAudioForConvolutionEffect(convEffect, sourcePos, input);
+    iplGetWetAudioForConvolutionEffect(convEffect, playerPos, playerDir, playerUp, finalBuffers[1]);
 
     // Mix Direct and Indirect
     output.format = outputFormat;
