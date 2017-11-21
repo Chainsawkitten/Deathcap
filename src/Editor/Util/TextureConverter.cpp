@@ -44,16 +44,47 @@ namespace TextureConverter {
             return;
         }
         
+        // Calculate the levels of mipmapping.
+        uint16_t uWidth = width;
+        uint16_t uHeight = height;
+        uint16_t mipLevels;
+        for (mipLevels = 0; width >= 4 && height >= 4; ++mipLevels) {
+            width /= 2;
+            height /= 2;
+        }
+        
         // Write header.
         uint16_t version = Video::TextureHCT::VERSION;
-        uint16_t mipLevels = 1;
         file.write(reinterpret_cast<const char*>(&version), sizeof(uint16_t));
-        file.write(reinterpret_cast<const char*>(&width), sizeof(uint16_t));
-        file.write(reinterpret_cast<const char*>(&height), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&uWidth), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&uHeight), sizeof(uint16_t));
         file.write(reinterpret_cast<const char*>(&mipLevels), sizeof(uint16_t));
         
         // Write data.
-        file.write(reinterpret_cast<char*>(rgbData), width * height * 3);
+        width = uWidth;
+        height = uHeight;
+        for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
+            file.write(reinterpret_cast<char*>(rgbData), width * height * 3);
+            
+            // Calculate mipmap.
+            if (mipLevel < mipLevels - 1) {
+                width /= 2;
+                height /= 2;
+                
+                for (int y = 0; y < height; ++y) {
+                    for (int x = 0; x < width; ++x) {
+                        for (int component = 0; component < 3; ++component) {
+                            uint16_t sum = 0;
+                            sum += rgbData[(y * 2 * width * 2 + x * 2) * 3 + component];
+                            sum += rgbData[(y * 2 * width * 2 + x * 2 + 1) * 3 + component];
+                            sum += rgbData[((y * 2 + 1) * width * 2 + x * 2) * 3 + component];
+                            sum += rgbData[((y * 2 + 1) * width * 2 + x * 2 + 1) * 3 + component];
+                            rgbData[(y * width + x) * 3 + component] = sum / 4 + (sum % 4 > 1);
+                        }
+                    }
+                }
+            }
+        }
         
         file.close();
         
