@@ -354,7 +354,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { VIDEO_ERROR_CHECK("Render meshes");
     { PROFILE("Render meshes");
     { GPUPROFILE("Render meshes", Video::Query::Type::TIME_ELAPSED);
-    { GPUPROFILE("Render meshes", Video::Query::Type::SAMPLES_PASSED);
         // Static meshes.
         { VIDEO_ERROR_CHECK("Static meshes");
         { PROFILE("Static meshes");
@@ -399,7 +398,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         }
         }
         }
-    }
     }
     }
     }
