@@ -112,13 +112,9 @@ void SoundManager::ProcessSamples() {
 
     std::size_t size = soundSources.GetAll().size();
     std::vector<Audio::SoundBuffer*> soundBuffers;
-    soundBuffers.resize(size);
     std::vector<float*> buffers;
-    buffers.resize(size);
     std::vector<IPLVector3> positions;
-    positions.resize(size);
     std::vector<float> radii;
-    radii.resize(size);
 
     // Update sound sources.
     for (std::size_t i = 0; i < size; ++i) {
@@ -130,19 +126,21 @@ void SoundManager::ProcessSamples() {
         // Check if sound should play and is a valid resource.
         //if (sound->shouldPlay && soundFile) { //TMPTODO
         if (soundFile) {
-            soundBuffers[i] = soundBuffer;
+            soundBuffers.push_back(soundBuffer);
 
             // Get samples from streamed buffer.
             int samples;
-            buffers[i] = soundBuffer->GetChunkData(samples);
+            float* buffer = soundBuffer->GetChunkData(samples);
 
             // Volume.
             for (int m = 0; m < samples; ++m)
-                buffers[i][m] *= sound->volume;
+                buffer[m] *= sound->volume;
+
+            buffers.push_back(buffer);
 
             glm::vec3 position = sound->entity->GetWorldPosition();
-            positions[i] = IPLVector3{ position.x, position.y, position.z };
-            radii[i] = 5.f;
+            positions.push_back(IPLVector3{ position.x, position.y, position.z });
+            radii.push_back(5.f);
 
             // If end of file, check if sound repeat.
             if (samples == 0) {
