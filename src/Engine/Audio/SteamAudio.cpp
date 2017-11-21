@@ -12,7 +12,8 @@ SteamAudio::SteamAudio() {
 }
 
 SteamAudio::~SteamAudio() {
-    delete renderers;
+    if (renderers)
+        delete renderers;
 }
 
 void SteamAudio::Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAudioBuffer& output) {
@@ -40,5 +41,5 @@ void SteamAudio::SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up) {
 }
 
 void SteamAudio::CreateRenderers(IPLhandle environment) {
-    renderers = new SteamAudioRenderers{ environment };
+    renderers = new SteamAudioRenderers(environment);
 }

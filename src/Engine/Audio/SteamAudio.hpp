@@ -47,7 +47,7 @@ class SteamAudio {
     private:
         IPLContext* context;
 
-        SteamAudioRenderers* renderers;
+        SteamAudioRenderers* renderers = nullptr;
 
         IPLVector3 playerPos;
         IPLVector3 playerDir;
