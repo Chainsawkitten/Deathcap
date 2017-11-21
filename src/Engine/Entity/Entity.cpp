@@ -97,6 +97,8 @@ Entity* Entity::InstantiateScene(const std::string& name, const std::string& ori
             child->Load(root);
             child->scene = true;
             child->sceneName = name;
+            Managers().triggerManager->InitiateUID();
+            Managers().triggerManager->InitiateVolumes();
         }
     } else {
         child->name = "Error loading scene";
