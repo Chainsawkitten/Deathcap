@@ -43,5 +43,6 @@ class Rock {
         hub.physicsManager.MakeKinematic(self.GetRigidBody());
         self.SetWorldPosition(bucketParent.GetWorldPosition());
         self.SetParent(bucketParent);
+        self.GetSoundSource().Play();
     }
 }

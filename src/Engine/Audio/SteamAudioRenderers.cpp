@@ -98,19 +98,21 @@ void SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 playerPos, IP
 
     iplApplyDirectSoundEffect(*directEffect, input, soundPath, options, effectBuffer);
 
-    // Spatialize the direct audio
-    iplApplyBinauralEffect(*binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, finalBuffers[0]);
-
+    // Spatialize the direct audio    
+    output.format = outputFormat;
+    output.numSamples = CHUNK_SIZE;
+    output.interleavedBuffer = new float[CHUNK_SIZE * 2];
+    output.deinterleavedBuffer = NULL;
+    iplApplyBinauralEffect(*binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, output);
+    /*
     // Indirect Audio
     iplSetDryAudioForConvolutionEffect(*convEffect, sourcePos, input);
     iplGetWetAudioForConvolutionEffect(*convEffect, playerPos, playerDir, playerUp, finalBuffers[1]);
 
     // Mix Direct and Indirect
-    output.format = outputFormat;
-    output.numSamples = CHUNK_SIZE;
-    output.interleavedBuffer = new float[CHUNK_SIZE * 2];
-    output.deinterleavedBuffer = NULL;
 
+    
     // Mix Direct and Indirect
     iplMixAudioBuffers(2, finalBuffers, output);
+    */
 }

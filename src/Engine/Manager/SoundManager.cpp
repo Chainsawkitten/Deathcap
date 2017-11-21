@@ -72,7 +72,7 @@ void SoundManager::Update(float deltaTime) {
     // Number of samples to process dependant on deltaTime
     /*unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
     if (frameSamples > CHUNK_SIZE) {
-        Log() << "SoundManager::Update: Frame drop!\n";
+        //Log() << "SoundManager::Update: Frame drop!\n";
         frameSamples = CHUNK_SIZE;
     }
     targetSample += frameSamples;

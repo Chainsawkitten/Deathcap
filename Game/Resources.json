@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 126,
+	"modelNumber" : 129,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -15,22 +15,6 @@
 			},
 			{
 				"scene" : "NewAssetsScene",
-				"type" : 0
-			},
-			{
-				"model" : "fernPhong",
-				"type" : 1
-			},
-			{
-				"texture" : "fern_albedo",
-				"type" : 2
-			},
-			{
-				"texture" : "fern_normal",
-				"type" : 2
-			},
-			{
-				"scene" : "fern_scene",
 				"type" : 0
 			},
 			{
@@ -303,6 +287,10 @@
 							},
 							{
 								"model" : "StarterRoof",
+								"type" : 1
+							},
+							{
+								"model" : "platformForStarterScene_01",
 								"type" : 1
 							}
 						],
@@ -1142,6 +1130,17 @@
 									}
 								],
 								"subfolders" : null
+							},
+							{
+								"name" : "Signs",
+								"resources" : 
+								[
+									{
+										"texture" : "sign_text",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
 							}
 						]
 					},
@@ -1245,6 +1244,17 @@
 									}
 								],
 								"subfolders" : null
+							},
+							{
+								"name" : "Signs",
+								"resources" : 
+								[
+									{
+										"model" : "start_end_sign_01",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
 							}
 						]
 					},
@@ -1271,6 +1281,25 @@
 							{
 								"script" : "Cart_debug_script",
 								"type" : 4
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "RockHit",
+								"type" : 3
+							},
+							{
+								"sound" : "BridgeDown",
+								"type" : 3
+							},
+							{
+								"sound" : "RailSound",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -1373,6 +1402,6 @@
 	"sceneNumber" : 21,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
-	"soundNumber" : 2,
-	"textureNumber" : 113
+	"soundNumber" : 5,
+	"textureNumber" : 114
 }
