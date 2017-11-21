@@ -20,8 +20,14 @@ void SoundEditor::Show() {
             // Rename sound file.
             std::string path = Hymn().GetPath() + "/" + sound->path;
             rename((path + sound->name + ".ogg").c_str(), (path + name + ".ogg").c_str());
-            
+            rename((path + sound->name + ".json").c_str(), (path + name + ".json").c_str());
+
             sound->name = name;
+        }
+
+        bool cache = sound->GetCached();
+        if (ImGui::Checkbox("Cache", &cache)) {
+            sound->Cache(cache);
         }
         
         if (ImGui::Button("Load Ogg Vorbis")) {

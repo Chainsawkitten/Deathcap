@@ -25,7 +25,7 @@ namespace Audio {
              * @param data Address to store raw audio data.
              * @return Number of valid samples loaded from file.
              */
-            ENGINE_API int GetData(uint32_t offset, uint32_t samples, float* data) const final;
+            ENGINE_API int GetData(uint32_t offset, uint32_t samples, float*& data) const final;
             
             /// Get sample count.
             /**
@@ -44,14 +44,15 @@ namespace Audio {
              * @return The number of channels in audio.
              */
             ENGINE_API uint32_t GetChannelCount() const final;
+
+            /// Whether sound file should be cached or streamed.
+            /**
+             * @param cache Whether to cache file.
+             */
+            ENGINE_API void Cache(bool cache) final;
             
         private:
-
-            /// Loads the specified ogg-file.
-            /**
-             * @param filename Filename (relative or absolute) to ogg-file.
-             */
-            ENGINE_API void Load(const char* filename);
+            void Load(const char* filename);
 
             stb_vorbis* stbFile = nullptr;
             int sampleCount = 0;
