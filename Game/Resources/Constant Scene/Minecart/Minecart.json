@@ -371,12 +371,23 @@
 							{
 								"model" : "Resources/Constant Scene/Lantern/Lantern"
 							},
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : false,
+								"kinematic" : true,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
 							"Shape" : 
 							{
-								"cylinder" : 
+								"sphere" : 
 								{
-									"length" : 1.3999999761581421,
-									"radius" : 0.059999998658895493
+									"radius" : 0.95000004768371582
 								}
 							},
 							"Trigger" : 
@@ -392,13 +403,13 @@
 								"triggerEventStruct_Check_2" : true,
 								"triggerEventStruct_Check_3" : true,
 								"triggerEventStruct_EventID" : 1,
-								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ScriptID" : 2,
 								"triggerEventStruct_ShapeID" : 0,
-								"triggerEventStruct_TargetID" : 3,
-								"triggerFunction" : "void OnTrigger()",
+								"triggerEventStruct_TargetID" : 2,
+								"triggerFunction" : "void OnLanternTrigger()",
 								"triggerName" : "New Trigger",
 								"triggerOwner" : 1509714156,
-								"triggerTargetEntity" : 1509711303,
+								"triggerTargetEntity" : 1508919751,
 								"triggerTriggered" : false
 							},
 							"children" : null,

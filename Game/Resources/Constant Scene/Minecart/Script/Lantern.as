@@ -12,18 +12,22 @@ class Lantern {
         @originalParent = self.GetParent();
         
         pickup = false;
+        
+        RegisterUpdate();
     }
     
-    void OnTrigger(){
-        if(Input(Grip) && pickup == false){
-            self.SetParent(controller);
+    void Update(float deltaTime) {
+        //float position = self.GetChild(
+    }
+    
+    void ReceiveMessage(Entity @sender, int i) {
+        if (i == 1) {
+            self.SetParent(sender);
             self.position = vec3(0.0f, -0.18f, 0.013f);
-            pickup = true;
         }
-        else if(Input(Grip) == false && pickup == true) {
+        else if (i == 2) {
             self.SetParent(originalParent);
             self.position = vec3(-0.105f, 0.137f, -0.547f);
-            pickup = false;
         }
     }
 }
