@@ -103,9 +103,8 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
         Animation::AnimationClip::Bone* bone = &anim->bones[i];
 
         // Loop if the animation is very fast.
-        while ((float)bone->rotationKeys[bone->currentKeyIndex + 1] < anim->currentFrame) {
+        while ((float)bone->rotationKeys[bone->currentKeyIndex + 1] < anim->currentFrame)
             ++bone->currentKeyIndex;
-        }
 
         float interpolation = (anim->currentFrame - (float)bone->rotationKeys[bone->currentKeyIndex]) / ((float)bone->rotationKeys[bone->currentKeyIndex + 1] - (float)bone->rotationKeys[bone->currentKeyIndex]);
 
