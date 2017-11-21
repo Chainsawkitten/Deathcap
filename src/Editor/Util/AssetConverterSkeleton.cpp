@@ -182,7 +182,7 @@ void AssetConverterSkeleton::BoneRecursive(aiNode* node, int parent) {
     for (auto i = 0; i < node->mNumChildren; ++i) {
         aiNode* child = node->mChildren[i];
         bool foundBone = false;
-        for (auto j = 0; j < bones.size() && !foundBone; ++j) {
+        for (auto j = 0; j < bones.size() && !foundBone; ++j)
             if (child->mName.C_Str() == bones[j]) {
                 children.push_back(child->mName.C_Str());
                 ids.push_back(thisId);
@@ -197,7 +197,6 @@ void AssetConverterSkeleton::BoneRecursive(aiNode* node, int parent) {
                 foundBone = true;
                 BoneRecursive(child, thisId);
             }
-        }
 
         if (!foundBone)
             return;
