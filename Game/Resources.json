@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 137,
+	"modelNumber" : 142,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1220,6 +1220,10 @@
 					},
 					{
 						"model" : "wires",
+						"type" : 1
+					},
+					{
+						"model" : "knife2",
 						"type" : 1
 					}
 				],
