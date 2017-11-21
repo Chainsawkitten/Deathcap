@@ -58,7 +58,8 @@
 		"Resources/Constant Scene/Minecart/Script/Player",
 		"Resources/NewAssets/Scripts/Cart_Puzzle_1",
 		"Resources/NewAssets/Scripts/BigBalk",
-		"Resources/final_event/MainScript"
+		"Resources/final_event/MainScript",
+		"Resources/final_event/MonsterScript"
 	],
 	"startupScene" : "Resources/Opening Scene/Opening Scene",
 	"vrScale" : 1.5

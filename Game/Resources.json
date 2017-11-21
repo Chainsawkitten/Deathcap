@@ -1225,6 +1225,10 @@
 					{
 						"script" : "MainScript",
 						"type" : 4
+					},
+					{
+						"script" : "MonsterScript",
+						"type" : 4
 					}
 				],
 				"subfolders" : 
