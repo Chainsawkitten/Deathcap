@@ -551,6 +551,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511261389
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/knife2"
+			},
+			"children" : null,
+			"name" : "knife",
+			"position" : 
+			{
+				"x" : -16.212139129638672,
+				"y" : -0.42523172497749329,
+				"z" : 0.99431264400482178
+			},
+			"rotation" : 
+			{
+				"w" : 0.70131456851959229,
+				"x" : 0.70131456851959229,
+				"y" : -0.090320922434329987,
+				"z" : 0.090320922434329987
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511264657
 		}
 	],
 	"name" : "Root",
