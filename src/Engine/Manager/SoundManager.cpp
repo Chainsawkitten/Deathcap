@@ -42,7 +42,7 @@ SoundManager::SoundManager() {
         &outputParams,
         SAMPLE_RATE,
         paFramesPerBufferUnspecified,
-        paClipOff,
+        NULL,
         NULL,
         NULL
     );
