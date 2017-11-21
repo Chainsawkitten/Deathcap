@@ -38,6 +38,34 @@ StaticRenderProgram::StaticRenderProgram() {
     shadowProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
     delete fragmentShader;
+    
+    // Get uniform locations.
+    shadowLightSpaceLocation = shadowProgram->GetUniformLocation("lightSpaceMatrix");
+    shadowModelLocation = shadowProgram->GetUniformLocation("model");
+    zViewProjectionLocation = zShaderProgram->GetUniformLocation("viewProjection");
+    zModelLocation = zShaderProgram->GetUniformLocation("model");
+    viewProjectionLocation = shaderProgram->GetUniformLocation("viewProjection");
+    inverseProjectionLocation = shaderProgram->GetUniformLocation("inverseProjectionMatrix");
+    lightSpaceLocation = shaderProgram->GetUniformLocation("lightSpaceMatrix");
+    lightCountLocation = shaderProgram->GetUniformLocation("lightCount");
+    gammaLocation = shaderProgram->GetUniformLocation("gamma");
+    fogApplyLocation = shaderProgram->GetUniformLocation("fogApply");
+    fogDensityLocation = shaderProgram->GetUniformLocation("fogDensity");
+    fogColorLocation = shaderProgram->GetUniformLocation("fogColor");
+    colorFilterApplyLocation = shaderProgram->GetUniformLocation("colorFilterApply");
+    colorFilterColorLocation = shaderProgram->GetUniformLocation("colorFilterColor");
+    ditherLocation = shaderProgram->GetUniformLocation("ditherApply");
+    timeLocation = shaderProgram->GetUniformLocation("time");
+    frameSizeLocation = shaderProgram->GetUniformLocation("frameSize");
+    isSelectedLocation = shaderProgram->GetUniformLocation("isSelected");
+    mapAlbedoLocation = shaderProgram->GetUniformLocation("mapAlbedo");
+    mapNormalLocation = shaderProgram->GetUniformLocation("mapNormal");
+    mapMetallicLocation = shaderProgram->GetUniformLocation("mapMetallic");
+    mapRoughnessLocation = shaderProgram->GetUniformLocation("mapRoughness");
+    mapShadowLocation = shaderProgram->GetUniformLocation("mapShadow");
+    modelLocation = shaderProgram->GetUniformLocation("model");
+    viewLocation = shaderProgram->GetUniformLocation("viewMatrix");
+    normalLocation = shaderProgram->GetUniformLocation("normalMatrix");
 }
 
 StaticRenderProgram::~StaticRenderProgram() {
@@ -60,7 +88,7 @@ void StaticRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
     this->shadowId = shadowId;
 
-    glUniformMatrix4fv(shadowProgram->GetUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
+    glUniformMatrix4fv(shadowLightSpaceLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 }
 
 void StaticRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) const {
@@ -68,7 +96,7 @@ void StaticRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
 
-        glUniformMatrix4fv(shadowProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(shadowModelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
@@ -82,7 +110,7 @@ void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm:
     this->projectionMatrix = projectionMatrix;
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
 
-    glUniformMatrix4fv(zShaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniformMatrix4fv(zViewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
 void StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) const {
@@ -90,7 +118,7 @@ void StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm:
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());
 
-        glUniformMatrix4fv(zShaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(zModelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
@@ -104,28 +132,28 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glm::mat4 inverseProjectionMatrix = glm::inverse(projectionMatrix);
 
     // Matrices.
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
+    glUniformMatrix4fv(viewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniformMatrix4fv(inverseProjectionLocation, 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
+    glUniformMatrix4fv(lightSpaceLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 
     // Lights.
-    glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
+    glUniform1i(lightCountLocation, lightCount);
     lightBuffer->BindBase(5);
 
     // Image processing.
-    glUniform1fv(shaderProgram->GetUniformLocation("gamma"), 1, &gamma);
+    glUniform1fv(gammaLocation, 1, &gamma);
 
-    glUniform1iv(shaderProgram->GetUniformLocation("fogApply"), 1, &fogApply);
-    glUniform1fv(shaderProgram->GetUniformLocation("fogDensity"), 1, &fogDensity);
-    glUniform3fv(shaderProgram->GetUniformLocation("fogColor"), 1, &fogColor[0]);
+    glUniform1iv(fogApplyLocation, 1, &fogApply);
+    glUniform1fv(fogDensityLocation, 1, &fogDensity);
+    glUniform3fv(fogColorLocation, 1, &fogColor[0]);
 
-    glUniform1iv(shaderProgram->GetUniformLocation("colorFilterApply"), 1, &colorFilterApply);
-    glUniform3fv(shaderProgram->GetUniformLocation("colorFilterColor"), 1, &colorFilterColor[0]);
+    glUniform1iv(colorFilterApplyLocation, 1, &colorFilterApply);
+    glUniform3fv(colorFilterColorLocation, 1, &colorFilterColor[0]);
 
     float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0;
-    glUniform1iv(shaderProgram->GetUniformLocation("ditherApply"), 1, &ditherApply);
-    glUniform1fv(shaderProgram->GetUniformLocation("time"), 1, &time);
-    glUniform2fv(shaderProgram->GetUniformLocation("frameSize"), 1, &frameSize[0]);
+    glUniform1iv(ditherLocation, 1, &ditherApply);
+    glUniform1fv(timeLocation, 1, &time);
+    glUniform2fv(frameSizeLocation, 1, &frameSize[0]);
 }
 
 void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, bool isSelected) const {
@@ -137,12 +165,12 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glBindVertexArray(geometry->GetVertexArray());
 
         // Set texture locations
-        glUniform1i(shaderProgram->GetUniformLocation("isSelected"), false);
-        glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
-        glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
-        glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
-        glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
-        glUniform1i(shaderProgram->GetUniformLocation("mapShadow"), 4);
+        glUniform1i(isSelectedLocation, false);
+        glUniform1i(mapAlbedoLocation, 0);
+        glUniform1i(mapNormalLocation, 1);
+        glUniform1i(mapMetallicLocation, 2);
+        glUniform1i(mapRoughnessLocation, 3);
+        glUniform1i(mapShadowLocation, 4);
 
         // Textures
         glActiveTexture(GL_TEXTURE0);
@@ -157,17 +185,17 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glBindTexture(GL_TEXTURE_2D, shadowId);
 
         // Render model.
-        glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
-        glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewMatrix"), 1, GL_FALSE, &viewMatrix[0][0]);
+        glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &viewMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
-        glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
+        glUniformMatrix3fv(normalLocation, 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
 
-        glUniform1i(shaderProgram->GetUniformLocation("isSelected"), false);
+        glUniform1i(isSelectedLocation, false);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
 
         if (isSelected) {
-            glUniform1i(shaderProgram->GetUniformLocation("isSelected"), true);
+            glUniform1i(isSelectedLocation, true);
             glLineWidth(2.0f);
             for (int i = 0; i < geometry->GetIndexCount(); i += 3)
                 glDrawArrays(GL_LINE_LOOP, i, 3);
