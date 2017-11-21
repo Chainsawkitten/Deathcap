@@ -24,6 +24,7 @@ class Minecart_Puzzle_1{
         stopTime = 0.0f;
         endTime = 5.0f;
         planePos = 0.0f;
+        audioTimer = 0.0f;
         puzzleSolved = false;
         //trigger = false;
         hasHitPlane = false;
@@ -44,6 +45,7 @@ class Minecart_Puzzle_1{
             float s = a * stopTime * stopTime * stopTime / 3 + b * stopTime * stopTime / 2 + c * stopTime;
             tempPos.x = planePos - s;
             self.SetWorldPosition(tempPos);
+            speed -= deltaTime * 2/5;
         }
         // Start again after puzzle has been solved
         else if (puzzleSolved){
@@ -59,6 +61,13 @@ class Minecart_Puzzle_1{
         // Stopping phase
         else
             speed = 0.0f;
+            
+        // Play rail audio
+        audioTimer += deltaTime;
+        if(audioTimer > 1){
+            self.GetSoundSource().Play();
+            audioTimer = 0;
+        }
     }
     
     void OnTrigger(){

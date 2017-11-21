@@ -16,6 +16,8 @@ class Cart_Puzzle_1{
     float b;
     float c;
     float brakeDistance;
+    bool audioPlaying;
+    bool startRolling;
     
     Cart_Puzzle_1(Entity @entity){
         @hub = Managers();
@@ -27,6 +29,8 @@ class Cart_Puzzle_1{
         puzzleSolved = false;
         //trigger = false;
         hasHitPlane = false;
+        audioPlaying = false;
+        startRolling = false;
         RegisterUpdate();
     }
     
@@ -59,6 +63,18 @@ class Cart_Puzzle_1{
         // Stopping phase
         else
             speed = 0.0f;
+            
+        // Play rail audio
+        if(!audioPlaying && speed > 0.1f){
+            self.GetSoundSource().Play();
+            audioPlaying = true;
+        }
+        else if (speed < 0.1f){
+            self.GetSoundSource().Stop();
+            audioPlaying = false;
+        }
+        
+        
     }
     
     void OnTrigger(){

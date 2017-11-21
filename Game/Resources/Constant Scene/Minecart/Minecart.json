@@ -13,6 +13,12 @@
 			{
 				"model" : "Resources/Constant Scene/Minecart/Model/cart"
 			},
+			"SoundSource" : 
+			{
+				"loop" : true,
+				"sound" : "Resources/NewAssets/Audio/RailSound",
+				"volume" : 1.0
+			},
 			"children" : 
 			[
 				{

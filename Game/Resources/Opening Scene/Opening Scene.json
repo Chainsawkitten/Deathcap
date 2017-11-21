@@ -259,7 +259,7 @@
 			"position" : 
 			{
 				"x" : -33.019416809082031,
-				"y" : 1.9443953037261963,
+				"y" : 1.7912873029708862,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -695,7 +695,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Model/StarterScene_CavePlatform"
+				"model" : "Resources/Opening Scene/Model/platformForStarterScene_01"
 			},
 			"children" : null,
 			"name" : "StarterPlatform",
@@ -775,7 +775,7 @@
 			"name" : "StopSign",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : -7.9923315048217773,
 				"y" : 0.0,
 				"z" : 0.0
 			},
@@ -806,15 +806,15 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Model/StarterScene_Bridge"
+				"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/bridgeNewUV"
 			},
 			"children" : null,
 			"name" : "StarterBridge",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -24.215915679931641,
+				"y" : 1.4449901580810547,
+				"z" : 0.32208216190338135
 			},
 			"rotation" : 
 			{
@@ -825,7 +825,7 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
+				"x" : 1.1386063098907471,
 				"y" : 1.0,
 				"z" : 1.0
 			},

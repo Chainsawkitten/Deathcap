@@ -72,7 +72,8 @@ void SteamAudioInterface::SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, 
 }
 
 void SteamAudioInterface::Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, float* output) {
-    assert(buffers.size() == positions.size() == radii.size());
+    assert(buffers.size() == positions.size());
+    assert(positions.size() == radii.size());
     std::size_t size = buffers.size();
     std::vector<SteamAudio::SoundSourceInfo> inputs;
     inputs.resize(size);
