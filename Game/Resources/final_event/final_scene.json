@@ -490,7 +490,7 @@
 			"name" : "ExposeMonsterTrigger",
 			"position" : 
 			{
-				"x" : -34.262771606445313,
+				"x" : -41.879722595214844,
 				"y" : 0.0,
 				"z" : 0.0
 			},
@@ -523,9 +523,28 @@
 			{
 				"model" : "Resources/Constant Scene/Minecart/Model/cart"
 			},
+			"RigidBody" : 
+			{
+				"angularDamping" : 0.0,
+				"cor" : 0.0,
+				"friction" : 0.0,
+				"ghost" : true,
+				"kinematic" : true,
+				"linearDamping" : 0.0,
+				"mass" : 1.0,
+				"rollingFriction" : 0.0,
+				"spinningFriction" : 0.0
+			},
 			"Script" : 
 			{
 				"scriptName" : "Resources/final_event/MonsterScript"
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
 			},
 			"children" : null,
 			"name" : "Monster",
@@ -568,7 +587,7 @@
 			"name" : "knife",
 			"position" : 
 			{
-				"x" : -16.212139129638672,
+				"x" : -6.7576127052307129,
 				"y" : -0.42523172497749329,
 				"z" : 0.99431264400482178
 			},
@@ -588,6 +607,67 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511264657
+		},
+		{
+			"Shape" : 
+			{
+				"plane" : 
+				{
+					"normal" : 
+					{
+						"x" : 1.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"planeCoeff" : 0.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntity" : 1511261389,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 2,
+				"triggerEventStruct_ShapeID" : 1,
+				"triggerEventStruct_TargetID" : 1,
+				"triggerFunction" : "void StopCharging()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1511277360,
+				"triggerTargetEntity" : 1511261389,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "MonsterStopChargeTrigger",
+			"position" : 
+			{
+				"x" : -4.75,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511277360
 		}
 	],
 	"name" : "Root",

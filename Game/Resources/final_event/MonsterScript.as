@@ -37,4 +37,9 @@ class MonsterScript {
 		print("I am becoming exposed now!\n");
 		phase = 1;
 	}
+
+	void StopCharging() {
+		print("Stopping my charge\n");
+		phase = 3;
+	}
 }
