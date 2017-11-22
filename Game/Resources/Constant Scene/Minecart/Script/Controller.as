@@ -20,7 +20,7 @@ class Controller {
         //    print("Controller position: (" + self.GetWorldPosition().x + ", " + self.GetWorldPosition().y + ", " + self.GetWorldPosition().z + ")\n");
         //}
             
-        if (!Input(Trigger) && isPressed) {
+        if (!Input(Trigger, self) && isPressed) {
             isPressed = false;
             SendMessage(rock, 2);
         }
@@ -28,7 +28,7 @@ class Controller {
     
     void OnRockTrigger() {
         //print("Rock trigger\n");
-        if (Input(Trigger) && !isPressed) {
+        if (Input(Trigger, self) && !isPressed) {
             isPressed = true;
             SendMessage(rock, 1);
         } 
