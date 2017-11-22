@@ -572,31 +572,78 @@
 			"uid" : 1511261389
 		},
 		{
-			"Material" : 
+			"Shape" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"box" : 
+				{
+					"depth" : 0.05000000074505806,
+					"height" : 0.10000000149011612,
+					"width" : 0.52999997138977051
+				}
 			},
-			"Mesh" : 
+			"Trigger" : 
 			{
-				"model" : "Resources/final_event/knife2"
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerName" : "New Trigger",
+				"triggerTriggered" : false
 			},
-			"children" : null,
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/final_event/knife2"
+					},
+					"children" : null,
+					"name" : "Mesh",
+					"position" : 
+					{
+						"x" : -0.12186551094055176,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511337961
+				}
+			],
 			"name" : "knife",
 			"position" : 
 			{
 				"x" : -6.7576127052307129,
-				"y" : -0.42523172497749329,
+				"y" : -0.44330587983131409,
 				"z" : 0.99431264400482178
 			},
 			"rotation" : 
 			{
-				"w" : 0.70131456851959229,
-				"x" : 0.70131456851959229,
-				"y" : -0.090320922434329987,
-				"z" : 0.090320922434329987
+				"w" : 0.70116895437240601,
+				"x" : 0.70116895437240601,
+				"y" : -0.091442205011844635,
+				"z" : 0.091442205011844635
 			},
 			"scale" : 
 			{

@@ -4,12 +4,14 @@ class MainScript {
 	Entity @minecart;
 	int phase;
 	float speed;
+	Entity @knife;
 
     MainScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
 
 		@minecart = GetEntityByGUID(1511257883);
+		@knife = GetEntityByGUID(1511264657);
 		phase = 0;
 		speed = 4.0f;
 
@@ -31,5 +33,9 @@ class MainScript {
 
 	void StopBeforeMonster() {
 		phase = 1;
+	}
+
+	void HoveringKnife() {
+		// Check input, pick up knife if clicked.
 	}
 }
