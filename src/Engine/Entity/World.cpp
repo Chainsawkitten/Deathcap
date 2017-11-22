@@ -15,13 +15,11 @@
 #endif
 
 World::World() {
-    particles = new Video::ParticleRenderer::Particle[Managers().particleManager->GetMaxParticleCount()];
 }
 
 World::~World() {
     Clear();
-    
-    delete[] particles;
+   
 }
 
 Entity* World::CreateEntity(const std::string& name) {
@@ -65,7 +63,6 @@ void World::Clear() {
     entities.clear();
     root = nullptr;
 
-    particleCount = 0;
     updateEntities.clear();
 }
 
@@ -84,18 +81,6 @@ void World::ClearKilled() {
             ++i;
         }
     }
-}
-
-Video::ParticleRenderer::Particle* World::GetParticles() const {
-    return particles;
-}
-
-unsigned int World::GetParticleCount() const {
-    return particleCount;
-}
-
-void World::SetParticleCount(unsigned int particleCount) {
-    this->particleCount = particleCount;
 }
 
 void World::Save(const std::string& filename) const {
