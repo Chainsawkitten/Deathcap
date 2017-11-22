@@ -1223,6 +1223,14 @@
 						"type" : 1
 					},
 					{
+						"script" : "MainScript",
+						"type" : 4
+					},
+					{
+						"script" : "MonsterScript",
+						"type" : 4
+					},
+					{
 						"model" : "knife2",
 						"type" : 1
 					}
