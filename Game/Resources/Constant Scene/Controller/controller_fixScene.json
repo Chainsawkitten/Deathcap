@@ -50,26 +50,8 @@
 				},
 				"intensity" : 1.0
 			},
-			"RigidBody" : 
-			{
-				"angularDamping" : 0.0,
-				"cor" : 0.0,
-				"friction" : 0.0,
-				"kinematic" : false,
-				"linearDamping" : 0.0,
-				"mass" : 1.0,
-				"rollingFriction" : 0.0,
-				"spinningFriction" : 0.0
-			},
-			"Shape" : 
-			{
-				"sphere" : 
-				{
-					"radius" : 1.0
-				}
-			},
 			"children" : null,
-			"name" : "Entity #1",
+			"name" : "Flashlight",
 			"position" : 
 			{
 				"x" : 0.0,

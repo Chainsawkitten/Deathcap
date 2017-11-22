@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
+	"activeScene" : "Resources/NewAssetsScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 78,
+	"modelNumber" : 125,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -15,6 +15,38 @@
 			},
 			{
 				"scene" : "NewAssetsScene",
+				"type" : 0
+			},
+			{
+				"model" : "fernPhong",
+				"type" : 1
+			},
+			{
+				"texture" : "fern_albedo",
+				"type" : 2
+			},
+			{
+				"texture" : "fern_normal",
+				"type" : 2
+			},
+			{
+				"scene" : "fern_scene",
+				"type" : 0
+			},
+			{
+				"model" : "grass_fbx",
+				"type" : 1
+			},
+			{
+				"scene" : "grass_scene",
+				"type" : 0
+			},
+			{
+				"scene" : "mushroom_cluster_scene",
+				"type" : 0
+			},
+			{
+				"scene" : "stone_scene",
 				"type" : 0
 			}
 		],
@@ -74,13 +106,7 @@
 					},
 					{
 						"name" : "Lever",
-						"resources" : 
-						[
-							{
-								"script" : "Lever",
-								"type" : 4
-							}
-						],
+						"resources" : null,
 						"subfolders" : 
 						[
 							{
@@ -129,13 +155,7 @@
 					},
 					{
 						"name" : "Gate",
-						"resources" : 
-						[
-							{
-								"script" : "Gates",
-								"type" : 4
-							}
-						],
+						"resources" : null,
 						"subfolders" : 
 						[
 							{
@@ -192,6 +212,148 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "Model",
+						"resources" : 
+						[
+							{
+								"model" : "Pillars",
+								"type" : 1
+							},
+							{
+								"model" : "Walls",
+								"type" : 1
+							},
+							{
+								"model" : "Floor",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Cave",
+								"type" : 1
+							},
+							{
+								"model" : "room",
+								"type" : 1
+							},
+							{
+								"model" : "ElevatorFrame",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_tracks",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Bridge",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Barrels",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Crates",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Carts",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Textures",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Walls",
+								"resources" : 
+								[
+									{
+										"texture" : "Walls_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Walls_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Walls_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Pillars",
+								"resources" : 
+								[
+									{
+										"texture" : "Pillars_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Pillars_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Pillars_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "ElevatorFrame",
+								"resources" : 
+								[
+									{
+										"texture" : "Elevator_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Tracks",
+								"resources" : 
+								[
+									{
+										"texture" : "Rail_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			},
@@ -239,10 +401,6 @@
 										"type" : 4
 									},
 									{
-										"script" : "Minecart_Puzzle_1",
-										"type" : 4
-									},
-									{
 										"script" : "Camera",
 										"type" : 4
 									},
@@ -284,22 +442,56 @@
 					},
 					{
 						"name" : "Controller",
-						"resources" : 
+						"resources" : null,
+						"subfolders" : 
 						[
 							{
-								"model" : "controller_fix",
-								"type" : 1
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "hand_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "hand_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "hand_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "hand_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
 							},
 							{
-								"scene" : "controller_fixScene",
-								"type" : 0
-							},
-							{
-								"model" : "Hands",
-								"type" : 1
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "HandClosed",
+										"type" : 1
+									},
+									{
+										"model" : "HandClosedRight",
+										"type" : 1
+									},
+									{
+										"model" : "HandOpen",
+										"type" : 1
+									},
+									{
+										"model" : "HandOpenRight",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
 							}
-						],
-						"subfolders" : null
+						]
 					},
 					{
 						"name" : "Rails",
@@ -315,6 +507,116 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "WoodenStructure",
+						"resources" : 
+						[
+							{
+								"model" : "horizontal_pillars",
+								"type" : 1
+							},
+							{
+								"texture" : "horizontal_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_metall",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_roughness",
+								"type" : 2
+							},
+							{
+								"model" : "vertical_pillars",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Ore",
+						"resources" : 
+						[
+							{
+								"model" : "goldores",
+								"type" : 1
+							},
+							{
+								"texture" : "goldalbedo",
+								"type" : 2
+							},
+							{
+								"texture" : "goldmetal",
+								"type" : 2
+							},
+							{
+								"texture" : "goldroughness",
+								"type" : 2
+							},
+							{
+								"texture" : "goldnormal",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Lantern",
+						"resources" : 
+						[
+							{
+								"model" : "Lantern",
+								"type" : 1
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "lanter_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "lantern_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "lanter_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "lantern_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			},
@@ -480,6 +782,35 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "PileOfRocks",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Model",
+								"resources" : 
+								[
+									{
+										"model" : "PileOfRocks",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Cables",
+						"resources" : 
+						[
+							{
+								"model" : "wires",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -533,6 +864,98 @@
 									}
 								],
 								"subfolders" : null
+							},
+							{
+								"name" : "The Bucket",
+								"resources" : 
+								[
+									{
+										"texture" : "bucket_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Barrels",
+								"resources" : 
+								[
+									{
+										"texture" : "Barrels_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Scale",
+								"resources" : 
+								[
+									{
+										"texture" : "scale_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "scale_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "scale_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "scale_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Rails",
+								"resources" : 
+								[
+									{
+										"texture" : "rail_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rail_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rail_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "rail_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
 							}
 						]
 					},
@@ -577,15 +1000,67 @@
 								"type" : 1
 							},
 							{
+								"model" : "rockscaled",
+								"type" : 1
+							},
+							{
 								"model" : "Tracks",
 								"type" : 1
 							},
 							{
-								"model" : "rockscaled",
+								"model" : "PileOfRocks",
+								"type" : 1
+							},
+							{
+								"model" : "Track",
 								"type" : 1
 							}
 						],
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "The Bucket",
+								"resources" : 
+								[
+									{
+										"model" : "TheBucket",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Puzzle Scale",
+								"resources" : 
+								[
+									{
+										"model" : "bigBalk_01",
+										"type" : 1
+									},
+									{
+										"model" : "bucketFixedHandle_01",
+										"type" : 1
+									},
+									{
+										"model" : "chainForBucket_01",
+										"type" : 1
+									},
+									{
+										"model" : "chainForRock_01",
+										"type" : 1
+									},
+									{
+										"model" : "rock_for_puzzleAttrap",
+										"type" : 1
+									},
+									{
+										"model" : "smallBalk_01",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					},
 					{
 						"name" : "Scripts",
@@ -597,6 +1072,14 @@
 							},
 							{
 								"script" : "Bridge",
+								"type" : 4
+							},
+							{
+								"script" : "Cart_Puzzle_1",
+								"type" : 4
+							},
+							{
+								"script" : "BigBalk",
 								"type" : 4
 							}
 						],
@@ -663,12 +1146,43 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "Foliage",
+				"resources" : 
+				[
+					{
+						"model" : "fernscale",
+						"type" : 1
+					},
+					{
+						"scene" : "Fern_scene",
+						"type" : 0
+					},
+					{
+						"texture" : "fern_albedo",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_normal",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_metallic",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_roughnes",
+						"type" : 2
+					}
+				],
+				"subfolders" : null
 			}
 		]
 	},
-	"sceneNumber" : 11,
+	"sceneNumber" : 21,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 53
+	"textureNumber" : 113
 }

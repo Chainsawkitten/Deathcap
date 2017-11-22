@@ -16,14 +16,21 @@ class Controller {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-        if (Input(Trigger) && !isPressed) {
-            print("Grip pressed" + self.GetUniqueIdentifier() + "\n");
-            SendMessage(rock, 2);
-            isPressed = true;
-        } else if (!Input(Trigger) && isPressed) {
-            print("Grip unpressed\n");
-            SendMessage(rock, 1);
+        //if (self.name == "Right Controller") {
+        //    print("Controller position: (" + self.GetWorldPosition().x + ", " + self.GetWorldPosition().y + ", " + self.GetWorldPosition().z + ")\n");
+        //}
+            
+        if (!Input(Trigger) && isPressed) {
             isPressed = false;
+            SendMessage(rock, 2);
         }
+    }
+    
+    void OnRockTrigger() {
+        //print("Rock trigger\n");
+        if (Input(Trigger) && !isPressed) {
+            isPressed = true;
+            SendMessage(rock, 1);
+        } 
     }
 }

@@ -69,6 +69,9 @@ void PhysicsManager::Update(float deltaTime) {
         else if (rigidBodyComp->IsKinematic()) {
             rigidBodyComp->SetPosition(worldPos);
             rigidBodyComp->SetOrientation(worldOrientation);
+            // Wake up from sleeping state. Apparently kinematic objects also
+            // goes inactive, but are not woken up when we set position.
+            rigidBodyComp->GetBulletRigidBody()->activate(true);
 
             if (rigidBodyComp->GetHaltMovement()) {
                 btTransform trans;

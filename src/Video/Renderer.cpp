@@ -43,6 +43,13 @@ Renderer::Renderer() {
     delete iconVertexShader;
     delete iconGeometryShader;
     delete iconFragmentShader;
+    
+    // Get uniform locations.
+    viewProjectionLocation = iconShaderProgram->GetUniformLocation("viewProjectionMatrix");
+    cameraPositionLocation = iconShaderProgram->GetUniformLocation("cameraPosition");
+    cameraUpLocation = iconShaderProgram->GetUniformLocation("cameraUp");
+    baseImageLocation = iconShaderProgram->GetUniformLocation("baseImage");
+    positionLocation = iconShaderProgram->GetUniformLocation("position");
 
     // Create icon geometry.
     float vertex;
@@ -175,10 +182,10 @@ void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, cons
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
     // Set camera uniforms.
-    glUniformMatrix4fv(iconShaderProgram->GetUniformLocation("viewProjectionMatrix"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
-    glUniform3fv(iconShaderProgram->GetUniformLocation("cameraPosition"), 1, &cameraPosition[0]);
-    glUniform3fv(iconShaderProgram->GetUniformLocation("cameraUp"), 1, &cameraUp[0]);
-    glUniform1i(iconShaderProgram->GetUniformLocation("baseImage"), 0);
+    glUniformMatrix4fv(viewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniform3fv(cameraPositionLocation, 1, &cameraPosition[0]);
+    glUniform3fv(cameraUpLocation, 1, &cameraUp[0]);
+    glUniform1i(baseImageLocation, 0);
     glActiveTexture(GL_TEXTURE0);
 }
 
@@ -188,7 +195,7 @@ void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
         glBindTexture(GL_TEXTURE_2D, icon->GetTextureID());
     }
 
-    glUniform3fv(iconShaderProgram->GetUniformLocation("position"), 1, &position[0]);
+    glUniform3fv(positionLocation, 1, &position[0]);
     glDrawArrays(GL_POINTS, 0, 1);
 }
 

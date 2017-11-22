@@ -108,8 +108,10 @@ void World::Load(const std::string& filename) {
         file.close();
 
         root->Load(rootNode);
-        Managers().triggerManager->InitiateUID();
+       
     }
+        Managers().triggerManager->InitiateUID();
+        Managers().triggerManager->InitiateVolumes();
 }
 
 void World::Load(const Json::Value& node) {
@@ -118,5 +120,6 @@ void World::Load(const Json::Value& node) {
     CreateRoot();
     root->Load(node);
     Managers().triggerManager->InitiateUID();
+    Managers().triggerManager->InitiateVolumes();
 }
 
