@@ -13,7 +13,6 @@ namespace Video {
     class Texture2D;
     class ParticleSystemRenderer;
     class TexturePNG;
-    class ParticleRenderer;
     class RenderSurface;
 }
 namespace Component {
