@@ -70,6 +70,13 @@ namespace Video {
             ParticleRenderer(const ParticleRenderer & other) = delete;
             ShaderProgram* shaderProgram;
             
+            // Uniform locations.
+            GLuint baseImageLocation;
+            GLuint cameraPositionLocation;
+            GLuint cameraUpLocation;
+            GLuint viewProjectionLocation;
+            GLuint textureAtlasRowsLocation;
+            
             // Vertex buffer.
             GLuint vertexBuffer = 0;
             GLuint vertexArray = 0;

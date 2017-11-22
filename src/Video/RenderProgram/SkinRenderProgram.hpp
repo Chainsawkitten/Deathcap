@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
 #include "RenderProgram.hpp"
@@ -86,6 +87,32 @@ namespace Video {
             ShaderProgram* shadowProgram;
             ShaderProgram* zShaderProgram;
             ShaderProgram* shaderProgram;
+            
+            // Uniform locations.
+            GLuint shadowLightSpaceLocation;
+            GLuint shadowModelLocation;
+            GLuint shadowBonesLocation;
+            GLuint zViewProjectionLocation;
+            GLuint zModelLocation;
+            GLuint zBonesLocation;
+            GLuint viewProjectionLocation;
+            GLuint lightCountLocation;
+            GLuint gammaLocation;
+            GLuint fogApplyLocation;
+            GLuint fogDensityLocation;
+            GLuint fogColorLocation;
+            GLuint colorFilterApplyLocation;
+            GLuint colorFilterColorLocation;
+            GLuint ditherApplyLocation;
+            GLuint timeLocation;
+            GLuint isSelectedLocation;
+            GLuint mapAlbedoLocation;
+            GLuint mapNormalLocation;
+            GLuint mapMetallicLocation;
+            GLuint mapRoughnessLocation;
+            GLuint modelLocation;
+            GLuint normalLocation;
+            GLuint bonesLocation;
 
             bool first = true;
 

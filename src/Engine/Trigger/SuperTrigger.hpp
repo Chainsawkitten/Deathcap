@@ -27,4 +27,7 @@ class SuperTrigger {
 
         /// Initialize entity references for triggers via entity UIDs.
         virtual void InitTriggerUID() = 0;
+
+        /// Initialize volumes for triggers.
+        virtual void InitiateVolumes() = 0;
 };

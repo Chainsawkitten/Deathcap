@@ -27,6 +27,13 @@ ParticleRenderer::ParticleRenderer(unsigned int maxParticleCount) {
     delete geometryShader;
     delete fragmentShader;
     
+    // Get uniform locations.
+    baseImageLocation = shaderProgram->GetUniformLocation("baseImage");
+    cameraPositionLocation = shaderProgram->GetUniformLocation("cameraPosition");
+    cameraUpLocation = shaderProgram->GetUniformLocation("cameraUp");
+    viewProjectionLocation = shaderProgram->GetUniformLocation("viewProjectionMatrix");
+    textureAtlasRowsLocation = shaderProgram->GetUniformLocation("textureAtlasRows");
+    
     // Vertex buffer
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -90,17 +97,17 @@ void ParticleRenderer::Render(Texture2D* textureAtlas, unsigned int textureAtlas
     
     glBindVertexArray(vertexArray);
     
-    glUniform1i(shaderProgram->GetUniformLocation("baseImage"), 0);
+    glUniform1i(baseImageLocation, 0);
     
     // Base image texture
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureAtlas->GetTextureID());
     
     // Send the matrices to the shader.
-    glUniform3fv(shaderProgram->GetUniformLocation("cameraPosition"), 1, &cameraPosition[0]);
-    glUniform3fv(shaderProgram->GetUniformLocation("cameraUp"), 1, &cameraUp[0]);
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjectionMatrix"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
-    glUniform1f(shaderProgram->GetUniformLocation("textureAtlasRows"), textureAtlasRows);
+    glUniform3fv(cameraPositionLocation, 1, &cameraPosition[0]);
+    glUniform3fv(cameraUpLocation, 1, &cameraUp[0]);
+    glUniformMatrix4fv(viewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniform1f(textureAtlasRowsLocation, textureAtlasRows);
     
     // Draw the triangles
     glDrawArrays(GL_POINTS, 0, particleCount);

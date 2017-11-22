@@ -263,6 +263,13 @@ namespace Video {
             
             Video::ShaderProgram* shaderProgram;
             
+            // Uniform locations.
+            GLuint viewProjectionLocation;
+            GLuint modelLocation;
+            GLuint colorLocation;
+            GLuint sizeLocation;
+            
+            // Geometry.
             GLuint pointVertexBuffer;
             GLuint pointVertexArray;
             

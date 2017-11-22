@@ -26,13 +26,6 @@ namespace Video {
         protected:
         /// Create new texture.
         Texture2D();
-        
-        /// Get image GL format based on color components.
-        /**
-         * @param components The amount of components in the image. (1, 2, 3, or 4.)
-         * @return One of GL_RED, GL_RG, GL_RGB or GL_RGBA
-         */
-        static GLenum Format(int components);
             
         private:
         Texture2D(const Texture2D & other) = delete;
