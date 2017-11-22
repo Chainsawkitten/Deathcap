@@ -3,6 +3,7 @@ class MonsterScript {
     Entity @self;
 	int phase = 0;
 	float fallspeed = 0.0f;
+	float waitTimer = 0.0f;
 
     MonsterScript(Entity @entity){
         @hub = Managers();
@@ -26,7 +27,14 @@ class MonsterScript {
 				}
 				break;
 			}
-			case 2: { // Approach player
+			case 2: { // Landing
+				waitTimer += deltaTime;
+				if (waitTimer >= 1.0f) {
+					phase = 3;
+				}
+				break;
+			}
+			case 3: { // Approach player
 				self.position.x -= 6.0f * deltaTime;
 				break;
 			}
@@ -40,6 +48,6 @@ class MonsterScript {
 
 	void StopCharging() {
 		print("Stopping my charge\n");
-		phase = 3;
+		phase = 4;
 	}
 }
