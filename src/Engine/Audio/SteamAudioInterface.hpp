@@ -115,6 +115,7 @@ class SteamAudioInterface {
         float* GetProcessed(uint32_t* numSamples);
 
     private:
+        SteamAudioInterface(const SteamAudioInterface &other) = delete;
 
         IPLContext* context;
 
