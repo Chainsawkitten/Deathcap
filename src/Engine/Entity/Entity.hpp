@@ -210,6 +210,19 @@ class Entity {
          */
         ENGINE_API void RotateAroundWorldAxis(float angle, const glm::vec3& axis);
         
+        /// Set whether the entity should be enabled.
+        /**
+         * @param enabled Whether the entity should be enabled.
+         * @param recursive Whether to set all children recursively.
+         */
+        ENGINE_API void SetEnabled(bool enabled, bool recursive = false);
+        
+        /// Get whether the entity is enabled.
+        /**
+         * @return Whether the entity is enabled.
+         */
+        ENGINE_API bool IsEnabled() const;
+        
         /// Name of the entity.
         std::string name;
         
@@ -243,9 +256,6 @@ class Entity {
          */
         ENGINE_API void SetUniqueIdentifier(unsigned int UID);
 
-        /// Whether the entity is active.
-        bool enabled = true;
-
         /// Whether the entity is static.
         bool isStatic = false;
 
@@ -275,6 +285,7 @@ class Entity {
         std::map<std::type_index, Component::SuperComponent*> components;
         
         bool killed = false;
+        bool enabled = true;
         unsigned int uniqueIdentifier = 0;
 };
 

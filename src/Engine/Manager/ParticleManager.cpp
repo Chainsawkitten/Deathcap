@@ -29,6 +29,9 @@ ParticleManager::~ParticleManager() {
 
 void ParticleManager::Update(World& world, float time, bool preview) {
     for (Component::ParticleSystemComponent* comp : particleSystems.GetAll()) {
+        if (comp->IsKilled() || !comp->entity->IsEnabled())
+            continue;
+        
         emitterSettings[comp] = comp->particleType;
         emitterSettings[comp].worldPos = comp->entity->GetWorldPosition();
         particleSystemRenderers[comp]->Update(0.1f, emitterSettings[comp]);
@@ -36,8 +39,10 @@ void ParticleManager::Update(World& world, float time, bool preview) {
 }
 
 void ParticleManager::RenderParticleSystem(const glm::mat4& viewProjectionMatrix) {
-
     for (Component::ParticleSystemComponent* comp : particleSystems.GetAll()) {
+        if (comp->IsKilled() || !comp->entity->IsEnabled())
+            continue;
+        
         particleSystemRenderers[comp]->Draw(textureAtlas, textureAtlasRowNumber, viewProjectionMatrix, emitterSettings[comp]);
     }
 }
