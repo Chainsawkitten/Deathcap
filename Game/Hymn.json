@@ -9,14 +9,14 @@
 			"z" : 1.0
 		},
 		"dither" : false,
-		"fog" : false,
+		"fog" : true,
 		"fogColor" : 
 		{
-			"x" : 1.0,
-			"y" : 1.0,
-			"z" : 1.0
+			"x" : 0.0,
+			"y" : 0.0,
+			"z" : 0.0
 		},
-		"fogDensity" : 0.00099999993108212948,
+		"fogDensity" : 0.30000001192092896,
 		"fxaa" : true,
 		"gamma" : 2.2000000476837158
 	},

@@ -1484,7 +1484,7 @@
 		{
 			"Script" : 
 			{
-				"scriptName" : "Resources/NewAssets/Scripts/Cart_debug_script"
+				"scriptName" : "Resources/NewAssets/Scripts/Cart_Puzzle_1"
 			},
 			"children" : null,
 			"name" : "CartScript",

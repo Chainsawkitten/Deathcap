@@ -48,7 +48,7 @@ int main() {
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
     double lastTimeRender = glfwGetTime(); 
-    while (!window->ShouldClose() && numberOfFrames < 600) {
+    while (!window->ShouldClose()/* && numberOfFrames < 600*/) {
         double deltaTime = glfwGetTime() - lastTime;
         lastTime = glfwGetTime();
 
@@ -98,7 +98,7 @@ int main() {
     }
     
 #ifdef TESTFRAMES
-    std::fstream myfile("Log1080_Far25_Bucket.txt", std::ios::out);
+    std::fstream myfile("Log1080_FullGame.txt", std::ios::out);
     if (myfile) {
         myfile << "Frame rundown:\n";
         myfile << "Frames: " << numberOfFrames << "\n";

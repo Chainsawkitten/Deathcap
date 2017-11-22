@@ -32,7 +32,7 @@
 							"Lens" : 
 							{
 								"fieldOfView" : 45.0,
-								"zFar" : 25.0,
+								"zFar" : 15.0,
 								"zNear" : 0.5
 							},
 							"Listener" : 
