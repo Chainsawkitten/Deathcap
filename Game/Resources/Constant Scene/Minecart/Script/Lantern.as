@@ -12,12 +12,6 @@ class Lantern {
         @originalParent = self.GetParent();
         
         pickup = false;
-        
-        RegisterUpdate();
-    }
-    
-    void Update(float deltaTime) {
-        //float position = self.GetChild(
     }
     
     void ReceiveMessage(Entity @sender, int i) {
