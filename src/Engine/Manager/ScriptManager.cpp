@@ -355,6 +355,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("float yaw(const quat &in)", asFUNCTIONPR(glm::yaw, (const glm::quat&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float roll(const quat &in)", asFUNCTIONPR(glm::roll, (const glm::quat&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float radians(float)", asFUNCTIONPR(glm::radians, (float), float), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float degrees(float)", asFUNCTIONPR(glm::degrees, (float), float), asCALL_CDECL);
 
     // Register Entity.
     engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT);
@@ -586,7 +587,7 @@ void ScriptManager::GetBreakpoints(const ScriptFile* scriptFile) {
     std::string line;
     int lineNumber = 1;
     while (std::getline(f, line)) {
-        if (line.length() >= 7) {
+        if (line.length() >= 8) {
 
             std::string end = line.substr(line.length() - 8, 7);
             if (end == "//break" || end == "//Break" || end == "//BREAK") {
@@ -698,7 +699,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                     if (typeId == engine->GetTypeIdByDecl("Entity@"))
                         *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
-                    else 
+                    else
                         script->CopyDataFromPropertyMap(name, varPointer);
 
                 } 
@@ -829,6 +830,8 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
     Component::Script* script = entity->GetComponent<Component::Script>();
     if (!script)
         return;
+    currentEntity = script->entity;
+
     ScriptFile* scriptFile = script->scriptFile;
 
     // Get class.
