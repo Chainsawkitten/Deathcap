@@ -46,6 +46,7 @@ class MainScript {
 				vec3 pos = minecart.GetWorldPosition();
 				pos.x += speed * deltaTime;
 				minecart.SetWorldPosition(pos);
+                // Fade here
 				break;
 			}
 		}

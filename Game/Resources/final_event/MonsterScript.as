@@ -48,6 +48,10 @@ class MonsterScript {
 				}
 				break;
 			}
+            case 6: { // Dying
+                self.RotateYaw(3.141592f * deltaTime);
+                break;
+            }
 		}
 	}
 
