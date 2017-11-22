@@ -218,8 +218,8 @@ void main() {
         albedo = pow(albedo, vec3(gamma)); // Apply if texture not in sRGB
         //vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
         vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
-        float metallic = texture(mapMetallic, vertexIn.texCoords).r;
-        float roughness = texture(mapRoughness, vertexIn.texCoords).r;
+        float metallic = 1;//texture(mapMetallic, vertexIn.texCoords).r;
+        float roughness = 1;//texture(mapRoughness, vertexIn.texCoords).r;
         vec3 pos = vertexIn.pos;
 
         // Shade fragment.

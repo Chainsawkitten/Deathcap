@@ -28,8 +28,8 @@ int main() {
     double averageFrameTime = 0.0;
 #endif
 
-    MainWindow* window = new MainWindow(1280, 720, false, false, "Hymn to Beauty", false);
-    //MainWindow* window = new MainWindow(1920, 1080, false, false, "Hymn to Beauty", false);
+    //MainWindow* window = new MainWindow(1280, 720, true, false, "Hymn to Beauty", false);
+    MainWindow* window = new MainWindow(1920, 1080, true, false, "Hymn to Beauty", false);
     glewInit();
     window->Init(false);
 
@@ -98,7 +98,7 @@ int main() {
     }
     
 #ifdef TESTFRAMES
-    std::fstream myfile("Logw720.txt", std::ios::out);
+    std::fstream myfile("Log1080_BakedAlpha.txt", std::ios::out);
     if (myfile) {
         myfile << "Frame rundown:\n";
         myfile << "Frames: " << numberOfFrames << "\n";

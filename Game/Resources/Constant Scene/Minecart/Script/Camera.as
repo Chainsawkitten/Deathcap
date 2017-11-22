@@ -30,6 +30,7 @@ class Camera{
         // Only control camera with mouse if we're not running in VR.
         if (!IsVRActive())
             //MouseUpdate();
+            self.RotateYaw(0.02f);
             
         deathTimer += 0.001;
         //if(deathTimer > 10)
