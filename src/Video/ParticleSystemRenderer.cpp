@@ -218,7 +218,7 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     glDisable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
-    glAlphaFunc(GL_GREATER, 0.0001);
+    glAlphaFunc(GL_GREATER, 0.00001);
     glEnable(GL_ALPHA_TEST);
     glEnablei(GL_BLEND, 0);
     glEnablei(GL_BLEND, 1);

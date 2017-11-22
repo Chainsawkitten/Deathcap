@@ -153,7 +153,7 @@ namespace tween {
                 return 16 * p * p * p * p * p;
             } else {
                 double f = ((2 * p) - 2);
-                return  0.5 * f * f * f * f * f + 1;
+                return 0.5 * f * f * f * f * f + 1;
             }
         }
 
