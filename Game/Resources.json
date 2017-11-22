@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/NewAssetsScene",
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -354,6 +354,17 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "CartScript_0",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
