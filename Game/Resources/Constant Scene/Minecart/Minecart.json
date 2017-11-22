@@ -145,85 +145,6 @@
 									"scene" : false,
 									"static" : false,
 									"uid" : 1510937666
-								},
-								{
-									"SpotLight" : 
-									{
-										"ambientCoefficient" : 0.0,
-										"attenuation" : 1.0,
-										"color" : 
-										{
-											"x" : 1.0,
-											"y" : 1.0,
-											"z" : 1.0
-										},
-										"coneAngle" : 30.0,
-										"intensity" : 5.0,
-										"shadow" : true
-									},
-									"children" : 
-									[
-										{
-											"Material" : 
-											{
-												"albedo" : "Resources/Constant Scene/Lantern/Textures/lanter_albedo",
-												"metallic" : "Resources/Constant Scene/Lantern/Textures/lanter_metallic",
-												"normal" : "Resources/Constant Scene/Lantern/Textures/lantern_normal",
-												"roughness" : "Resources/Constant Scene/Lantern/Textures/lantern_roughness"
-											},
-											"Mesh" : 
-											{
-												"model" : "Resources/Constant Scene/Lantern/Lantern"
-											},
-											"children" : null,
-											"name" : "LanternMesh",
-											"position" : 
-											{
-												"x" : 0.0,
-												"y" : 0.0,
-												"z" : 0.0
-											},
-											"rotation" : 
-											{
-												"w" : 1.910685465164705e-15,
-												"x" : -4.3711388286737929e-08,
-												"y" : 1.0,
-												"z" : -4.3711388286737929e-08
-											},
-											"scale" : 
-											{
-												"x" : 0.070000000298023224,
-												"y" : 0.070000000298023224,
-												"z" : 0.070000000298023224
-											},
-											"scene" : false,
-											"static" : false,
-											"uid" : 1509714156
-										}
-									],
-									"name" : "Lantern",
-									"position" : 
-									{
-										"x" : 0.0,
-										"y" : -0.18000000715255737,
-										"z" : 0.013000000268220901
-									},
-									"rotation" : 
-									{
-										"w" : 1.0,
-										"x" : 0.0,
-										"y" : 0.0,
-										"z" : 0.0
-									},
-									"scale" : 
-									{
-										"x" : 1.0,
-										"y" : 1.0,
-										"z" : 1.0
-									},
-									"scene" : false,
-									"static" : false,
-									"uid" : 1509711303
 								}
 							],
 							"name" : "Left Controller",
@@ -416,6 +337,130 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1509959164
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/Constant Scene/Minecart/Script/Lantern"
+					},
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 30.0,
+						"intensity" : 5.0,
+						"shadow" : true
+					},
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/Constant Scene/Lantern/Textures/lanter_albedo",
+								"metallic" : "Resources/Constant Scene/Lantern/Textures/lanter_metallic",
+								"normal" : "Resources/Constant Scene/Lantern/Textures/lantern_normal",
+								"roughness" : "Resources/Constant Scene/Lantern/Textures/lantern_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Constant Scene/Lantern/Lantern"
+							},
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : false,
+								"kinematic" : true,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"sphere" : 
+								{
+									"radius" : 0.95000004768371582
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntity" : 1508919751,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 2,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 2,
+								"triggerFunction" : "void OnLanternTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1509714156,
+								"triggerTargetEntity" : 1508919751,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "LanternMesh",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.910685465164705e-15,
+								"x" : -4.3711388286737929e-08,
+								"y" : 1.0,
+								"z" : -4.3711388286737929e-08
+							},
+							"scale" : 
+							{
+								"x" : 0.070000000298023224,
+								"y" : 0.070000000298023224,
+								"z" : 0.070000000298023224
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1509714156
+						}
+					],
+					"name" : "Lantern",
+					"position" : 
+					{
+						"x" : -0.10500000417232513,
+						"y" : 0.13700000941753387,
+						"z" : -0.54700005054473877
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1509711303
 				}
 			],
 			"name" : "Minecart",
