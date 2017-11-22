@@ -210,6 +210,13 @@ class Entity {
          */
         ENGINE_API void RotateAroundWorldAxis(float angle, const glm::vec3& axis);
         
+        /// Set whether the entity should be enabled.
+        /**
+         * @param enabled Whether the entity should be enabled.
+         * @param recursive Whether to set all children recursively.
+         */
+        ENGINE_API void SetEnabled(bool enabled, bool recursive = false);
+        
         /// Get whether the entity is enabled.
         /**
          * @return Whether the entity is enabled.
