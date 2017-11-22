@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <string>
-#include <json\json.h>
+#include <json/json.h>
 #include "../linking.hpp"
 #include "../Hymn.hpp"
 
