@@ -12,7 +12,7 @@ class MainScript {
         @hub = Managers();
         @self = @entity;
 
-		@minecart = GetEntityByGUID(1511257883);
+		@minecart = GetEntityByGUID(1508919163);
 		@knife = GetEntityByGUID(1511264657);
 		@monster = GetEntityByGUID(1511261389);
 		phase = 0;
@@ -52,7 +52,7 @@ class MainScript {
 		switch (signal) {
 			case 0: { // When monster has successfully eaten the player
 				phase = 4; // Lost phase
-				print("Monster: I'm losing.\n");
+				print("Player: I'm losing.\n");
 				break;
 			}
 		}

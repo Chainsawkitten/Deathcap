@@ -371,62 +371,6 @@
 			"uid" : 1511257857
 		},
 		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
-				"metallic" : "Resources/Constant Scene/Minecart/Textures/cart_metallic",
-				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
-				"roughness" : "Resources/Constant Scene/Minecart/Textures/cart_roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/Constant Scene/Minecart/Model/cart"
-			},
-			"RigidBody" : 
-			{
-				"angularDamping" : 0.0,
-				"cor" : 0.0,
-				"friction" : 0.0,
-				"ghost" : false,
-				"kinematic" : true,
-				"linearDamping" : 0.0,
-				"mass" : 1.0,
-				"rollingFriction" : 0.0,
-				"spinningFriction" : 0.0
-			},
-			"Shape" : 
-			{
-				"sphere" : 
-				{
-					"radius" : 1.0
-				}
-			},
-			"children" : null,
-			"name" : "minecart",
-			"position" : 
-			{
-				"x" : -65.742584228515625,
-				"y" : -0.27337902784347534,
-				"z" : -0.39984488487243652
-			},
-			"rotation" : 
-			{
-				"w" : 0.70710676908493042,
-				"x" : 0.0,
-				"y" : -0.70710676908493042,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1511257883
-		},
-		{
 			"Script" : 
 			{
 				"scriptName" : "Resources/final_event/MainScript"
@@ -469,7 +413,7 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
-				"triggerCollidedEntity" : 1511257883,
+				"triggerCollidedEntity" : 1509959164,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
 				"triggerEventStruct_Check_0" : true,
@@ -477,8 +421,8 @@
 				"triggerEventStruct_Check_2" : true,
 				"triggerEventStruct_Check_3" : true,
 				"triggerEventStruct_EventID" : 0,
-				"triggerEventStruct_ScriptID" : 1,
-				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_ScriptID" : 2,
+				"triggerEventStruct_ShapeID" : 4,
 				"triggerEventStruct_TargetID" : 1,
 				"triggerFunction" : "void BecomeExposed()",
 				"triggerName" : "New Trigger",
@@ -571,8 +515,8 @@
 						"triggerEventStruct_Check_2" : true,
 						"triggerEventStruct_Check_3" : true,
 						"triggerEventStruct_EventID" : 0,
-						"triggerEventStruct_ScriptID" : 3,
-						"triggerEventStruct_ShapeID" : 2,
+						"triggerEventStruct_ScriptID" : 4,
+						"triggerEventStruct_ShapeID" : 1,
 						"triggerEventStruct_TargetID" : 0,
 						"triggerFunction" : "void KnifeHitMonster()",
 						"triggerName" : "New Trigger",
@@ -657,18 +601,21 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
+				"triggerCollidedEntity" : 1508919758,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
-				"triggerEventStruct_Check_0" : false,
-				"triggerEventStruct_Check_1" : false,
-				"triggerEventStruct_Check_2" : false,
-				"triggerEventStruct_Check_3" : false,
-				"triggerEventStruct_EventID" : 0,
-				"triggerEventStruct_ScriptID" : 0,
-				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 1,
+				"triggerEventStruct_ScriptID" : 3,
+				"triggerEventStruct_ShapeID" : 3,
 				"triggerEventStruct_TargetID" : 0,
-				"triggerFunction" : "",
+				"triggerFunction" : "void HoveringKnife()",
 				"triggerName" : "New Trigger",
+				"triggerOwner" : 1511264657,
+				"triggerTargetEntity" : 1511260476,
 				"triggerTriggered" : false
 			},
 			"children" : 
@@ -762,8 +709,8 @@
 				"triggerEventStruct_Check_2" : true,
 				"triggerEventStruct_Check_3" : true,
 				"triggerEventStruct_EventID" : 0,
-				"triggerEventStruct_ScriptID" : 2,
-				"triggerEventStruct_ShapeID" : 1,
+				"triggerEventStruct_ScriptID" : 3,
+				"triggerEventStruct_ShapeID" : 0,
 				"triggerEventStruct_TargetID" : 1,
 				"triggerFunction" : "void StopCharging()",
 				"triggerName" : "New Trigger",
@@ -792,7 +739,7 @@
 						"trigger" : "A Trigger",
 						"triggerActive" : false,
 						"triggerCharges" : 0,
-						"triggerCollidedEntity" : 1511257883,
+						"triggerCollidedEntity" : 1509959164,
 						"triggerCooldown" : 0.0,
 						"triggerDelay" : 0.0,
 						"triggerEventStruct_Check_0" : true,
@@ -800,8 +747,8 @@
 						"triggerEventStruct_Check_2" : true,
 						"triggerEventStruct_Check_3" : true,
 						"triggerEventStruct_EventID" : 0,
-						"triggerEventStruct_ScriptID" : 1,
-						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_ScriptID" : 2,
+						"triggerEventStruct_ShapeID" : 4,
 						"triggerEventStruct_TargetID" : 0,
 						"triggerFunction" : "void StopBeforeMonster()",
 						"triggerName" : "New Trigger",
@@ -858,6 +805,32 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511277360
+		},
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : -63.82147216796875,
+				"y" : 0.0,
+				"z" : -0.40094846487045288
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : -0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.20000000298023224,
+				"y" : 0.20000000298023224,
+				"z" : 0.20000000298023224
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
 		}
 	],
 	"name" : "Root",
