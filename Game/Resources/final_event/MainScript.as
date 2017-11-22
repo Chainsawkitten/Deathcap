@@ -38,4 +38,9 @@ class MainScript {
 	void HoveringKnife() {
 		// Check input, pick up knife if clicked.
 	}
+
+	void KnifeHitMonster() {
+		// Enter a phase to wait for monster to collapse before we start rolling
+		// Send a message to the monster so that it collapses
+	}
 }
