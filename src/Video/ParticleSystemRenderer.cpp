@@ -214,7 +214,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
 
 void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, ParticleSystemRenderer::EmitterSettings settings) {
 
-    // Blending
+    // Blending.
     glDisable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
@@ -234,7 +234,7 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     glUniform1i(shaderProgram->GetUniformLocation("textureIndex"), settings.textureIndex);
     glUniform1f(shaderProgram->GetUniformLocation("scale"), settings.scale);
 
-    // Base image texture
+    // Base image texture.
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureAtlas->GetTextureID());
 
@@ -246,7 +246,7 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     glDisablei(GL_BLEND, 0);
     glDisablei(GL_BLEND, 1);
 
-    //Cleanup
+    //Cleanup.
     glBindVertexArray(0);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
