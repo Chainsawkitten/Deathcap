@@ -123,10 +123,11 @@ namespace Video {
             /**
              * @param textureAtlas The texture atlas for the particles.
              * @param textureAtlasRows how many rows in texture atlas.
-             * @param viewProjectionMatrix The camera's view and projection matrix.
+             * @param viewMatrix The camera's view matrix.
+             * @param projectionMatrix The camera's projection matrix.
              * @param settings Settings for the emitter.
              */
-            VIDEO_API void Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
+            VIDEO_API void Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewMatrix, const glm::mat4& ProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
 
         private:
             Video::ShaderProgram* computeShaderProgram;

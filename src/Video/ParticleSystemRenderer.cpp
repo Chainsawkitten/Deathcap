@@ -212,7 +212,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     }
 }
 
-void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings) {
+void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, ParticleSystemRenderer::EmitterSettings settings) {
 
     // Blending
     glDisable(GL_CULL_FACE);
@@ -228,7 +228,8 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     shaderProgram->Use();
     glBindVertexArray(m_glDrawVAO);
 
-    glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjectionMatrix"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewMatrix"), 1, GL_FALSE, &viewMatrix[0][0]);
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("projMatrix"), 1, GL_FALSE, &projectionMatrix[0][0]);
     glUniform1i(shaderProgram->GetUniformLocation("baseImage"), 0);
     glUniform1i(shaderProgram->GetUniformLocation("textureIndex"), settings.textureIndex);
     glUniform1f(shaderProgram->GetUniformLocation("scale"), settings.scale);
