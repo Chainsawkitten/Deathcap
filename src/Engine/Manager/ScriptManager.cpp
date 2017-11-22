@@ -712,7 +712,8 @@ void ScriptManager::Update(World& world, float deltaTime) {
     // Update.
     for (Entity* entity : world.GetUpdateEntities()) {
         this->currentEntity = entity;
-        CallUpdate(entity, deltaTime);
+        if (currentEntity->IsEnabled())
+            CallUpdate(entity, deltaTime);
     }
     
     // Handle messages.

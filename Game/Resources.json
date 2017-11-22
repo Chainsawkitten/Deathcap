@@ -10,10 +10,6 @@
 		"resources" : 
 		[
 			{
-				"scene" : "Combined Scene",
-				"type" : 0
-			},
-			{
 				"scene" : "NewAssetsScene",
 				"type" : 0
 			},
@@ -1188,10 +1184,21 @@
 					}
 				],
 				"subfolders" : null
+			},
+			{
+				"name" : "Super Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Super Scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : null
 			}
 		]
 	},
-	"sceneNumber" : 21,
+	"sceneNumber" : 22,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
