@@ -21,7 +21,6 @@ int main() {
     Log() << "Game started - " << time(nullptr) << "\n";
     
 #ifdef TESTFRAMES
-    unsigned int numberOfFrames = 1;
     int numberOfBadFrames = 0;
     double maxFrameTime = 0.0;
     double totalFrameTime = 0.0;
@@ -32,7 +31,7 @@ int main() {
     MainWindow* window = new MainWindow(1920, 1080, true, false, "Hymn to Beauty", false);
     glewInit();
     window->Init(false);
-
+    unsigned int numberOfFrames = 1;
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
     
     Managers().StartUp();
