@@ -6,7 +6,9 @@ class MainScript {
 	float speed;
 	Entity @knife;
 	Entity @monster;
+    Entity @rightHand;
 	float waitForMonsterTimer = 0.0f;
+    bool knifePickedUp = false;
 
     MainScript(Entity @entity){
         @hub = Managers();
@@ -15,6 +17,7 @@ class MainScript {
 		@minecart = GetEntityByGUID(1508919163);
 		@knife = GetEntityByGUID(1511264657);
 		@monster = GetEntityByGUID(1511261389);
+        @rightHand = GetEntityByGUID(1508919758);
 		phase = 0;
 		speed = 4.0f;
 
@@ -64,11 +67,17 @@ class MainScript {
 	}
 
 	void HoveringKnife() {
-		// Check input, pick up knife if clicked.
+        if (Input(Trigger, rightHand) && !knifePickedUp) {
+            knife.SetParent(rightHand);
+            knife.position = vec3(0, 0, 0);
+            knife.SetLocalOrientation(quat(1.0f, 0.0f, 0.0f, 0.0f));
+            knife.RotateYaw(radians(90.0f));
+            knifePickedUp = true;
+        }
 	}
 
 	void KnifeHitMonster() {
-		if (phase != 4) {
+		if (phase != 4 && knifePickedUp) {
 			SendMessage(monster, 1); // Die
 			phase = 2; // Wait for collapse
 			print("Player: I'm going to wait for the monster to collapse now.\n");
