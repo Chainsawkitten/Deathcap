@@ -119,7 +119,6 @@ void AngelScriptDebugLineCallback(asIScriptContext* ctx, const std::map<std::str
 }
 
 void print(const std::string& message) {
-    std::cout << message;
     Log() << message;
 }
 
