@@ -1,6 +1,6 @@
 Frame rundown:
-Frames: 600
-Bad frames: 3
-Percentage of bad frames: 0.5%
-Average frame time: 9.827 ms
-Max frame time: 84.8383 ms
+Frames: 2400
+Bad frames: 22
+Percentage of bad frames: 0.916667%
+Average frame time: 17.7055 ms
+Max frame time: 47.8371 ms
