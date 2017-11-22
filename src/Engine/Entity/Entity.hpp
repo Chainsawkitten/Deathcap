@@ -256,9 +256,6 @@ class Entity {
          */
         ENGINE_API void SetUniqueIdentifier(unsigned int UID);
 
-        /// Whether the entity is active.
-        bool enabled = true;
-
         /// Whether the entity is static.
         bool isStatic = false;
 
@@ -288,6 +285,7 @@ class Entity {
         std::map<std::type_index, Component::SuperComponent*> components;
         
         bool killed = false;
+        bool enabled = true;
         unsigned int uniqueIdentifier = 0;
 };
 
