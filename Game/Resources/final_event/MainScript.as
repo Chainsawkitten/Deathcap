@@ -6,6 +6,7 @@ class MainScript {
 	float speed;
 	Entity @knife;
 	Entity @monster;
+	float waitForMonsterTimer = 0.0f;
 
     MainScript(Entity @entity){
         @hub = Managers();
@@ -30,11 +31,36 @@ class MainScript {
 				minecart.SetWorldPosition(pos);
 				break;
 			}
+			case 2: { // Wait for monster to collapse
+				waitForMonsterTimer += deltaTime;
+				if (waitForMonsterTimer >= 3.0f) {
+					phase = 3;
+					print("Player: Honk honk, motherfucker! I'm free!\n");
+				}
+				break;
+			}
+			case 3: { // Continue after monster has been killed
+				vec3 pos = minecart.GetWorldPosition();
+				pos.x += speed * deltaTime;
+				minecart.SetWorldPosition(pos);
+				break;
+			}
+		}
+	}
+
+	void ReceiveMessage(Entity @sender, int signal) {
+		switch (signal) {
+			case 0: { // When monster has successfully eaten the player
+				phase = 4; // Lost phase
+				print("Monster: I'm losing.\n");
+				break;
+			}
 		}
 	}
 
 	void StopBeforeMonster() {
 		phase = 1;
+		SendMessage(monster, 0); // Player was stopped
 	}
 
 	void HoveringKnife() {
@@ -42,8 +68,10 @@ class MainScript {
 	}
 
 	void KnifeHitMonster() {
-		SendMessage(monster, 1); // Die
-		phase = 2; // Wait for collapse
-		print("Player: I'm going to wait for the monster to collapse now.\n");
+		if (phase != 4) {
+			SendMessage(monster, 1); // Die
+			phase = 2; // Wait for collapse
+			print("Player: I'm going to wait for the monster to collapse now.\n");
+		}
 	}
 }

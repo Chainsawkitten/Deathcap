@@ -4,6 +4,8 @@ class MonsterScript {
 	int phase = 0;
 	float fallspeed = 0.0f;
 	float waitTimer = 0.0f;
+	float eatingTimer = 0.0f;
+	Entity @cart;
 
     MonsterScript(Entity @entity){
         @hub = Managers();
@@ -38,13 +40,30 @@ class MonsterScript {
 				self.position.x -= 6.0f * deltaTime;
 				break;
 			}
+			case 5: { // Eating
+				eatingTimer += deltaTime;
+				if (eatingTimer >= 4.0f) {
+					SendMessage(cart, 0); // Player was eaten
+					phase = 7;
+				}
+				break;
+			}
 		}
 	}
 
-	void ReceiveMessage(Entity @sender, int signal){
-		if (signal == 1) { // Die
-			phase = 5; // Collapse
-			print("Monster: I'm dying now.\n");
+	void ReceiveMessage(Entity @sender, int signal) {
+		switch (signal) {
+			case 0: { // Player was stopped by monster
+				@cart = @sender;
+				phase = 5; // Start eating
+				print("Monster: I'm going to eat you now.\n");
+				break;
+			}
+			case 1: { // Die
+				phase = 6; // Collapse
+				print("Monster: I'm dying now.\n");
+				break;
+			}
 		}
 	}
 
