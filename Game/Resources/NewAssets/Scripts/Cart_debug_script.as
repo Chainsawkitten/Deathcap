@@ -40,16 +40,17 @@ class Cart_debug_script{
             //tempPos = self.GetWorldPosition();
             //print("\n");
             //tempPos.y -= speed * deltaTime;
-            self.position.z -= speed * 0.1f;
-            //self.SetWorldPosition(tempPos);
+            //self.position.z -= speed * 0.1f; //From start
+            self.SetWorldPosition(vec3(5.0f, -0.9f,0.02949f)); //first puzzel
+            //print("Self position: (" + self.GetWorldPosition().x + ", " + self.GetWorldPosition().y + ", " + self.GetWorldPosition().z + ")\n");
         }
         // Braking phase
         else if (hasHitPlane && stopTime < endTime){
-            stopTime += deltaTime;
-            tempPos = self.GetWorldPosition();
-            float s = a * stopTime * stopTime * stopTime / 3 + b * stopTime * stopTime / 2 + c * stopTime;
-            tempPos.x = planePos - s;
-            self.SetWorldPosition(tempPos);
+           // stopTime += deltaTime;
+           // tempPos = self.GetWorldPosition();
+           // float s = a * stopTime * stopTime * stopTime / 3 + b * stopTime * stopTime / 2 + c * stopTime;
+           // tempPos.x = planePos - s;
+           // self.SetWorldPosition(tempPos);
         }/*
         // Start again after puzzle has been solved
         else if (puzzleSolved){

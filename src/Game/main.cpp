@@ -98,7 +98,7 @@ int main() {
     }
     
 #ifdef TESTFRAMES
-    std::fstream myfile("Log1080_BakedAlpha.txt", std::ios::out);
+    std::fstream myfile("Log1080_Far25_Bucket.txt", std::ios::out);
     if (myfile) {
         myfile << "Frame rundown:\n";
         myfile << "Frames: " << numberOfFrames << "\n";

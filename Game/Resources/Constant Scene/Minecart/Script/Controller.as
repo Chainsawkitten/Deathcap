@@ -21,7 +21,10 @@ class Controller {
         //if (self.name == "Right Controller") {
         //    print("Controller position: (" + self.GetWorldPosition().x + ", " + self.GetWorldPosition().y + ", " + self.GetWorldPosition().z + ")\n");
         //}
-            
+        if(!IsVRActive()){
+            self.position.y = -3;
+            self.position.x = -1;
+        }
         if (!Input(Trigger) && isPressed) {
             isPressed = false;
             SendMessage(rock, 2);

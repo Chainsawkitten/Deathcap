@@ -365,7 +365,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectProperty("Entity", "vec3 position", asOFFSET(Entity, position));
     engine->RegisterObjectProperty("Entity", "vec3 scale", asOFFSET(Entity, scale));
     engine->RegisterObjectMethod("Entity", "vec3 GetWorldPosition() const", asMETHOD(Entity, GetWorldPosition), asCALL_THISCALL);
-    engine->RegisterObjectMethod("Entity", "void SetWorldPosition(vec3)", asMETHOD(Entity, SetWorldPosition), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetWorldPosition(const vec3 &in)", asMETHOD(Entity, SetWorldPosition), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
