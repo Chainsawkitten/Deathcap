@@ -50,7 +50,7 @@ void ParticleManager::Update(World& world, float time, bool preview) {
     // Spawn new particles from emitters.
     std::uniform_real_distribution<float> minusOneToOne(-1.f, 1.f);
     for (Component::ParticleEmitter* emitter : particleEmitters.GetAll()) {
-        if (emitter->IsKilled() || (preview && !emitter->preview) || !emitter->entity->enabled)
+        if (emitter->IsKilled() || (preview && !emitter->preview) || !emitter->entity->IsEnabled())
             continue;
         
         emitter->timeToNext -= time;

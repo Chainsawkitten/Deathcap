@@ -680,7 +680,7 @@ void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
     for (Script* script : scripts.GetAll()) {
-        if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
+        if (!script->initialized && !script->IsKilled() && script->entity->IsEnabled()) {
             CreateInstance(script);
 
             // Skip if not initialized

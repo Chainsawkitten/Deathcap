@@ -337,6 +337,10 @@ void Entity::RotateAroundWorldAxis(float angle, const glm::vec3& axis) {
     rotation = glm::rotate(rotation, angle, tempVec);
 }
 
+bool Entity::IsEnabled() const {
+    return enabled;
+}
+
 unsigned int Entity::GetUniqueIdentifier() const {
     return uniqueIdentifier;
 }

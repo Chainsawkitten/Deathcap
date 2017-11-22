@@ -210,6 +210,12 @@ class Entity {
          */
         ENGINE_API void RotateAroundWorldAxis(float angle, const glm::vec3& axis);
         
+        /// Get whether the entity is enabled.
+        /**
+         * @return Whether the entity is enabled.
+         */
+        ENGINE_API bool IsEnabled() const;
+        
         /// Name of the entity.
         std::string name;
         
