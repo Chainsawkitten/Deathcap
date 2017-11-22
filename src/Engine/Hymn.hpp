@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <json/json.h>
+#include <glm/glm.hpp>
 #include "Entity/World.hpp"
 #include "linking.hpp"
 
