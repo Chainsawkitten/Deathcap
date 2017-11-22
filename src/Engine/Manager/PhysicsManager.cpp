@@ -319,8 +319,7 @@ void PhysicsManager::ReleaseTriggerVolume(Utility::LockBox<Physics::Trigger>&& t
                     std::swap(*it, *triggers.rbegin());
                     triggers.pop_back();
                 }
-            }
-        );
+        });
     }
 }
 

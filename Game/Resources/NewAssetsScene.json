@@ -386,10 +386,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -423,10 +423,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -460,10 +460,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -497,10 +497,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -534,10 +534,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -571,10 +571,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -880,10 +880,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Constant Scene/WoodenStructure/horizontal_albedo",
-				"metallic" : "Resources/Constant Scene/WoodenStructure/horizontal_metall",
-				"normal" : "Resources/Constant Scene/WoodenStructure/horizontal_normal",
-				"roughness" : "Resources/Constant Scene/WoodenStructure/horizontal_roughness"
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
 			},
 			"Mesh" : 
 			{
@@ -917,10 +917,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
-				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
-				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
-				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
 			},
 			"Mesh" : 
 			{

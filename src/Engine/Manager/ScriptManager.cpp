@@ -119,7 +119,6 @@ void AngelScriptDebugLineCallback(asIScriptContext* ctx, const std::map<std::str
 }
 
 void print(const std::string& message) {
-    std::cout << message;
     Log() << message;
 }
 
@@ -698,10 +697,8 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 if (script->IsInPropertyMap(name, typeId)) {
 
-                    if (typeId == engine->GetTypeIdByDecl("Entity@")) {
-                        Entity* whatever = Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                    if (typeId == engine->GetTypeIdByDecl("Entity@"))
                         *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
-                    }
                     else
                         script->CopyDataFromPropertyMap(name, varPointer);
 

@@ -159,6 +159,9 @@ class TriggerRepeat : public SuperTrigger {
         /// Initialize entity references for triggers via entity UIDs.
         ENGINE_API void InitTriggerUID() override;
 
+        /// Initialize trigger volumes.
+        ENGINE_API void InitiateVolumes() override;
+
     private:
         void HandleTriggerEvent();
 

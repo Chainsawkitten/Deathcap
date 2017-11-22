@@ -3,7 +3,7 @@ set(SRCS
         Buffer/ReadWriteTexture.cpp
         Buffer/StorageBuffer.cpp
         DebugDrawing.cpp  
-        ParticleRenderer.cpp
+        ParticleSystemRenderer.cpp
         Renderer.cpp
         RenderSurface.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -22,8 +22,9 @@ set(SRCS
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         ShadowPass.cpp
-        Texture/Texture.cpp
         Texture/Texture2D.cpp
+        Texture/TextureHCT.cpp
+        Texture/TexturePNG.cpp
         VideoErrorCheck.cpp
     )
 
@@ -33,7 +34,7 @@ set(HEADERS
         Buffer/ReadWriteTexture.hpp
         Buffer/StorageBuffer.hpp
         DebugDrawing.hpp
-        ParticleRenderer.hpp
+        ParticleSystemRenderer.hpp
         Renderer.hpp
         RenderSurface.hpp
         Culling/AxisAlignedBoundingBox.hpp
@@ -54,8 +55,9 @@ set(HEADERS
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         ShadowPass.hpp
-        Texture/Texture.hpp
         Texture/Texture2D.hpp
+        Texture/TextureHCT.hpp
+        Texture/TexturePNG.hpp
         VideoErrorCheck.hpp
     )
 
@@ -68,15 +70,16 @@ set(EMBEDDED_INPUT
     ../../shaders/EditorEntity.vert
     ../../shaders/EditorEntity.geom
     ../../shaders/EditorEntity.frag
-    ../../shaders/Particle.vert
-    ../../shaders/Particle.geom
-    ../../shaders/Particle.frag
     ../../shaders/Post.vert
     ../../shaders/PostFXAA.frag
     ../../shaders/ShadowSkin.vert
     ../../shaders/ShadowStatic.vert
     ../../shaders/Skinning.vert
     ../../shaders/Zrejection.frag
+    ../../shaders/DefaultParticleShader.frag
+    ../../shaders/DefaultParticleShader.geom
+    ../../shaders/DefaultParticleShader.vert
+    ../../shaders/ComputeParticleShader.comp
     ../../shaders/ZrejectionSkin.vert
     ../../shaders/ZrejectionStatic.vert
 )

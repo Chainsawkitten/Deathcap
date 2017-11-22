@@ -37,11 +37,13 @@ set(SRCS
         GUI/Editors/SoundEditor.cpp
         GUI/Editors/SphereShapeEditor.cpp
         GUI/Editors/TextureEditor.cpp
+        GUI/Editors/CurveEditor.cpp
         GUI/Editors/TriggerEditor.cpp
         Util/AssetConverter.cpp
         Util/AssetConverterSkeleton.cpp
         Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
+        Util/TextureConverter.cpp
     )
 
 set(HEADERS
@@ -82,11 +84,13 @@ set(HEADERS
         GUI/Editors/SoundEditor.hpp
         GUI/Editors/SphereShapeEditor.hpp
         GUI/Editors/TextureEditor.hpp
+        GUI/Editors/CurveEditor.hpp
         GUI/Editors/TriggerEditor.hpp
         Util/AssetConverter.hpp
         Util/AssetConverterSkeleton.hpp
         Util/AssetMetaData.hpp
         Util/EditorSettings.hpp
+        Util/TextureConverter.hpp
     )
 
 # Setup embedded source

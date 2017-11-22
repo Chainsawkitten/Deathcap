@@ -21,7 +21,6 @@
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/Material.hpp"
-#include "../Component/ParticleEmitter.hpp"
 #include "../Component/DirectionalLight.hpp"
 #include "../Component/PointLight.hpp"
 #include "../Component/Shape.hpp"
@@ -44,6 +43,7 @@
 #include <Utility/Log.hpp>
 #include <Video/ShadowPass.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <Video/Texture/TexturePNG.hpp>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -66,17 +66,17 @@ RenderManager::RenderManager() {
     shadowPass = new Video::ShadowPass();
 
     // Init textures.
-    particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
-    lightTexture = Managers().resourceManager->CreateTexture2D(LIGHT_PNG, LIGHT_PNG_LENGTH);
-    soundSourceTexture = Managers().resourceManager->CreateTexture2D(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
-    cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
+    particleEmitterTexture = Managers().resourceManager->CreateTexturePNG(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
+    lightTexture = Managers().resourceManager->CreateTexturePNG(LIGHT_PNG, LIGHT_PNG_LENGTH);
+    soundSourceTexture = Managers().resourceManager->CreateTexturePNG(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
+    cameraTexture = Managers().resourceManager->CreateTexturePNG(CAMERA_PNG, CAMERA_PNG_LENGTH);
 }
 
 RenderManager::~RenderManager() {
-    Managers().resourceManager->FreeTexture2D(particleEmitterTexture);
-    Managers().resourceManager->FreeTexture2D(lightTexture);
-    Managers().resourceManager->FreeTexture2D(soundSourceTexture);
-    Managers().resourceManager->FreeTexture2D(cameraTexture);
+    Managers().resourceManager->FreeTexturePNG(particleEmitterTexture);
+    Managers().resourceManager->FreeTexturePNG(lightTexture);
+    Managers().resourceManager->FreeTexturePNG(soundSourceTexture);
+    Managers().resourceManager->FreeTexturePNG(cameraTexture);
 
     delete mainWindowRenderSurface;
     delete shadowPass;
@@ -115,51 +115,54 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 const glm::vec3 position = camera->GetWorldPosition();
                 const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
 
-                { VIDEO_ERROR_CHECK("Render world entities");
-                { PROFILE("Render world entities");
-                { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                    RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
-                }
-                }
-                }
+            { VIDEO_ERROR_CHECK("Render world entities");
+            { PROFILE("Render world entities");
+            { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
+                RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
+            }
+            }
+            }
 
-                { PROFILE("Render debug entities");
-                { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-                    Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
-                }
-                }
+            { PROFILE("Render debug entities");
+            { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
+            }
+            }
 
-                if (fxaa) {
-                    { PROFILE("Anti-aliasing(FXAA)");
-                    { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-                    { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-                        renderer->AntiAlias(mainWindowRenderSurface);
-                    }
-                    }   
-                    }
+            if (fxaa) {
+                { PROFILE("Anti-aliasing(FXAA)");
+                { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+                { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+                    renderer->AntiAlias(mainWindowRenderSurface);
                 }
+                }
+                }
+            }
 
-                { PROFILE("Render particles");
-                { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-                    Managers().particleManager->Render(world, position, up, projectionMatrix * viewMatrix, mainWindowRenderSurface);
-                }
-                }
+            { PROFILE("Render particles");
+            { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                mainWindowRenderSurface->GetShadingFrameBuffer()->BindWrite();
+                glm::mat4 viewProjection = projectionMatrix * viewMatrix;
+                Managers().particleManager->RenderParticleSystem(viewProjection);
+                mainWindowRenderSurface->GetShadingFrameBuffer()->Unbind();
+            }
+            }
 
-                if (soundSources || particleEmitters || lightSources || cameras || physics) {
-                    { PROFILE("Render editor entities");
-                    { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
-                    }
-                    }
+            if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                { PROFILE("Render editor entities");
+                { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                    RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
                 }
+                }
+            }
 
-                { PROFILE("Present to back buffer");
-                { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
-                { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
-                    renderer->Present(mainWindowRenderSurface);
-                }
-                }
-                }
+            { PROFILE("Present to back buffer");
+            { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
+            { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
+                renderer->Present(mainWindowRenderSurface);
+            }
+            }
+            }
             }
             }
         }
@@ -169,62 +172,65 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
 
-                for (int i = 0; i < 2; ++i) {
-                    vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
+            for (int i = 0; i < 2; ++i) {
+                vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
-                    Lens* lens = camera->GetComponent<Lens>();
+                Lens* lens = camera->GetComponent<Lens>();
 
-                    VRDevice* headset = camera->GetComponent<VRDevice>();
+                VRDevice* headset = camera->GetComponent<VRDevice>();
 
-                    const glm::mat4 lensViewMatrix = glm::inverse(camera->GetModelMatrix());
-                    const glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
-                    const glm::mat4 eyeViewMatrix = eyeTranslation * lensViewMatrix;
-                    const glm::mat4 projectionMatrix = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
-                    const glm::vec3 position = camera->GetWorldPosition();
-                    const glm::vec3 up(lensViewMatrix[0][1], lensViewMatrix[1][1], lensViewMatrix[2][1]);
+                const glm::mat4 lensViewMatrix = glm::inverse(camera->GetModelMatrix());
+                const glm::mat4 eyeTranslation = Managers().vrManager->GetHMDHeadToEyeMatrix(nEye);
+                const glm::mat4 eyeViewMatrix = eyeTranslation * lensViewMatrix;
+                const glm::mat4 projectionMatrix = headset->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
+                const glm::vec3 position = camera->GetWorldPosition();
+                const glm::vec3 up(lensViewMatrix[0][1], lensViewMatrix[1][1], lensViewMatrix[2][1]);
 
-                    { PROFILE("Render world entities");
-                    { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                        RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting);
-                    }
-                    }
-
-                    { PROFILE("Render debug entities");
-                    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-                        Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
-                    }
-                    }
-
-                    if (fxaa) {
-                        { PROFILE("Anti-aliasing(FXAA)");
-                        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-                        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-                        renderer->AntiAlias(hmdRenderSurface);
-                        }
-                        }
-                        }
-                    }
-
-                    { PROFILE("Render particles");
-                    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-                        Managers().particleManager->Render(world, position, up, projectionMatrix * lensViewMatrix, hmdRenderSurface);
-                    }
-                    }
-
-                    if (soundSources || particleEmitters || lightSources || cameras || physics) {
-                        { PROFILE("Render editor entities");
-                        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
-                        }
-                        }
-                    }
-
-                    hmdRenderSurface->Swap();
-                    vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
-
-                    // Submit texture to HMD.
-                    Managers().vrManager->Submit(nEye, &texture);
+                { PROFILE("Render world entities");
+                { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
+                    RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting);
                 }
+                }
+
+                { PROFILE("Render debug entities");
+                { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                    Managers().debugDrawingManager->Render(eyeViewMatrix, projectionMatrix, hmdRenderSurface);
+                }
+                }
+
+                if (fxaa) {
+                    { PROFILE("Anti-aliasing(FXAA)");
+                    { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+                    { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+                        renderer->AntiAlias(hmdRenderSurface);
+                    }
+                    }
+                    }
+                }
+
+                { PROFILE("Render particles");
+                { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                    hmdRenderSurface->GetShadingFrameBuffer()->BindWrite();
+                    glm::mat4 viewProjection = projectionMatrix * eyeViewMatrix;
+                    Managers().particleManager->RenderParticleSystem(viewProjection);
+                    hmdRenderSurface->GetShadingFrameBuffer()->Unbind();
+                }
+                }
+
+                if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                    { PROFILE("Render editor entities");
+                    { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                        RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, lensViewMatrix, projectionMatrix, hmdRenderSurface);
+                    }
+                    }
+                }
+
+                hmdRenderSurface->Swap();
+                vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+
+                // Submit texture to HMD.
+                Managers().vrManager->Submit(nEye, &texture);
+            }
             }
             }
 
@@ -410,7 +416,7 @@ void RenderManager::UpdateAnimations(float deltaTime) {
     for (Component::AnimationController* animationController : animationControllers.GetAll()) {
         if (animationController->IsKilled() || !animationController->entity->enabled)
             continue;
-    
+
         animationController->UpdateAnimation(deltaTime);
     }
 }
@@ -427,12 +433,6 @@ void RenderManager::RenderEditorEntities(World& world, bool soundSources, bool p
     if (soundSources) {
         for (SoundSource* soundSource : Managers().soundManager->GetSoundSources())
             renderer->RenderIcon(soundSource->entity->GetWorldPosition(), soundSourceTexture);
-    }
-
-    // Render particle emitters.
-    if (particleEmitters) {
-        for (ParticleEmitter* emitter : Managers().particleManager->GetParticleEmitters())
-            renderer->RenderIcon(emitter->entity->GetWorldPosition(), particleEmitterTexture);
     }
 
     // Render light sources.
@@ -492,14 +492,14 @@ Component::AnimationController* RenderManager::CreateAnimation() {
 
 Component::AnimationController* RenderManager::CreateAnimation(const Json::Value& node) {
     Component::AnimationController* animationController = animationControllers.Create();
-    
+
     std::string skeletonName = node.get("skeleton", "").asString();
     if (!skeletonName.empty())
-        animationController->skeleton =  Managers().resourceManager->CreateSkeleton(skeletonName);
+        animationController->skeleton = Managers().resourceManager->CreateSkeleton(skeletonName);
 
     std::string controllerName = node.get("animationController", "").asString();
     if (!controllerName.empty())
-        animationController->controller =  Managers().resourceManager->CreateAnimationController(controllerName);
+        animationController->controller = Managers().resourceManager->CreateAnimationController(controllerName);
 
     return animationController;
 }
@@ -766,7 +766,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
 
 void RenderManager::LightAmbient() {
     std::vector<Video::Light> lights;
-    
+
     Video::Light light;
     light.position = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
     light.intensities = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -776,7 +776,7 @@ void RenderManager::LightAmbient() {
     light.direction = glm::vec3(0.f, 0.f, 0.f);
     light.shadow = 0.f;
     lights.push_back(light);
-    
+
     // Update light buffer.
     renderer->SetLights(lights);
 }

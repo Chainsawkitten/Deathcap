@@ -3,7 +3,6 @@
 #include <vector>
 #include <map>
 #include <typeinfo>
-#include <Video/ParticleRenderer.hpp>
 #include "../linking.hpp"
 
 class Entity;
@@ -62,12 +61,6 @@ class World {
         /// Removes all killed entities and components in the world.
         ENGINE_API void ClearKilled();
         
-        /// Get all the particles in the world.
-        /**
-         * @return Array of all the particles in the world.
-         */
-        ENGINE_API Video::ParticleRenderer::Particle* GetParticles() const;
-        
         /// Get the number of particles in the world.
         /**
          * @return The number of particles in the world.
@@ -111,10 +104,6 @@ class World {
         // List of all entities in this world.
         std::vector<Entity*> entities;
         Entity* root = nullptr;
-                
-        // All particles in the world.
-        Video::ParticleRenderer::Particle* particles;
-        unsigned int particleCount = 0;
         
         // Entities registered for update event.
         std::vector<Entity*> updateEntities;
