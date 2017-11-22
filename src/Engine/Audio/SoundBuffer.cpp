@@ -37,7 +37,7 @@ float* SoundBuffer::GetChunkData(int& samples) {
     while (!handle.done);
 
     if (handle.samples < CHUNK_SIZE)
-        std::memset(&handle.data[(handle.offset + handle.samples) % (CHUNK_SIZE * CHUNK_COUNT)], 0, sizeof(CHUNK_SIZE - handle.samples));
+        memset(&handle.data[(handle.offset + handle.samples) % (CHUNK_SIZE * CHUNK_COUNT)], 0, sizeof(CHUNK_SIZE - handle.samples));
 
     samples = handle.samples;
     return handle.data;
