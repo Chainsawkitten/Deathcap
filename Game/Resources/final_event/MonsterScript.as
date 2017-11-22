@@ -39,7 +39,14 @@ class MonsterScript {
 				break;
 			}
 		}
-    }
+	}
+
+	void ReceiveMessage(Entity @sender, int signal){
+		if (signal == 1) { // Die
+			phase = 5; // Collapse
+			print("Monster: I'm dying now.\n");
+		}
+	}
 
 	void BecomeExposed() {
 		print("I am becoming exposed now!\n");

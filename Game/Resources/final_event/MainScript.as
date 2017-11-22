@@ -5,6 +5,7 @@ class MainScript {
 	int phase;
 	float speed;
 	Entity @knife;
+	Entity @monster;
 
     MainScript(Entity @entity){
         @hub = Managers();
@@ -12,6 +13,7 @@ class MainScript {
 
 		@minecart = GetEntityByGUID(1511257883);
 		@knife = GetEntityByGUID(1511264657);
+		@monster = GetEntityByGUID(1511261389);
 		phase = 0;
 		speed = 4.0f;
 
@@ -29,7 +31,7 @@ class MainScript {
 				break;
 			}
 		}
-    }
+	}
 
 	void StopBeforeMonster() {
 		phase = 1;
@@ -40,7 +42,8 @@ class MainScript {
 	}
 
 	void KnifeHitMonster() {
-		// Enter a phase to wait for monster to collapse before we start rolling
-		// Send a message to the monster so that it collapses
+		SendMessage(monster, 1); // Die
+		phase = 2; // Wait for collapse
+		print("Player: I'm going to wait for the monster to collapse now.\n");
 	}
 }
