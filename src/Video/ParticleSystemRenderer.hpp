@@ -36,113 +36,122 @@ struct ParticleModelMatrix {
 namespace Video {
     class Texture2D;
 
+    /// Represents a particle system that can be simulated and rendered.
     class ParticleSystemRenderer {
         public:
-        struct EmitterSettings {
-            /// Number of particles.
-            int nr_particles = 1024;
+            struct EmitterSettings {
+                /// Number of particles.
+                int nr_particles = 1024;
 
-            /// Position.
-            glm::vec3 worldPos;
+                /// Position.
+                glm::vec3 worldPos;
 
-            /// Size.
-            glm::vec2 size;
+                /// Size.
+                glm::vec2 size;
 
-            /// Life (in seconds).
-            float life;
+                /// Life (in seconds).
+                float life;
 
-            /// Lifetime (in seconds).
-            float lifetime = 10;
+                /// Lifetime (in seconds).
+                float lifetime = 10;
 
-            /// Initial velocity.
-            glm::vec3 velocity;
+                /// Initial velocity.
+                glm::vec3 velocity;
 
-            /// Start, mid and end of life alpha of particle.
-            glm::vec3 alpha;
+                /// Start, mid and end of life alpha of particle.
+                glm::vec3 alpha;
 
-            /// Color of the particle.
-            glm::vec3 color = glm::vec3(0, 0, 0);
+                /// Color of the particle.
+                glm::vec3 color = glm::vec3(0, 0, 0);
 
-            /// Fire rate.
-            float rate = 1.0f;
+                /// Fire rate.
+                float rate = 1.0f;
 
-            /// Texture index (for the texture atlas, left to right, top to bottom indexing)
-            int textureIndex = 0;
+                /// Texture index (for the texture atlas, left to right, top to bottom indexing)
+                int textureIndex = 0;
 
-            /// Multiply velocity.
-            float velocityMultiplier = 10.0f;
+                /// Multiply velocity.
+                float velocityMultiplier = 10.0f;
 
-            /// Gives spread to the particles
-            int spread = 1;
+                /// Gives spread to the particles
+                int spread = 1;
 
-            /// Used to give random velocity to particles at all time.
-            glm::vec3 randomVec = glm::vec3(1, 1, 1);
+                /// Used to give random velocity to particles at all time.
+                glm::vec3 randomVec = glm::vec3(1, 1, 1);
 
-            /// Scale.
-            float scale = 1.0f;
+                /// Scale.
+                float scale = 1.0f;
 
-            /// Particle mass.
-            float mass = 0.01f;
+                /// Particle mass.
+                float mass = 0.01f;
 
-            /// Alpha control
-            float alpha_control = 1.0f;
+                /// Alpha control
+                float alpha_control = 1.0f;
 
-            /// Nr Of new particles per emitt, max is 32.
-            int nr_new_particles = 31;
-        };
+                /// Nr Of new particles per emitt, max is 32.
+                int nr_new_particles = 31;
+            };
 
-        EmitterSettings emitterSettings;
+            EmitterSettings emitterSettings;
 
-        VIDEO_API ParticleSystemRenderer();
-        VIDEO_API ParticleSystemRenderer(int count);
-        VIDEO_API ~ParticleSystemRenderer();
+            /// Constructor.
+            VIDEO_API ParticleSystemRenderer();
 
-        VIDEO_API void Init();
+            /// Construct a particle system with a given number of particles.
+            /**
+             * @param count Number of particles.
+             */
+            VIDEO_API ParticleSystemRenderer(int count);
 
-        /// Creates storage buffers for particles.
-        VIDEO_API void CreateStorageBuffers();
+            /// Destructor.
+            VIDEO_API ~ParticleSystemRenderer();
 
-        /// Particles are sent to the compute shader and we compute their the new positions/velocities.
-        //Render the particles.
-        /**
-         * @param dt Deltatime.
-         * @param settings Emitter settings.
-         */
-        VIDEO_API void Update(float dt, EmitterSettings settings);
+            /// Initialize the particle system.
+            VIDEO_API void Init();
 
-        ///Render the particles.
-        /**
-         * @param textureAtlas The texture atlas for the particles.
-         * @param textureAtlasRows how many rows in texture atlas.
-         * @param viewProjectionMatrix The camera's view and projection matrix.
-         * @param settings Settings for the emitter.
-         */
-        VIDEO_API void Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
+            /// Creates storage buffers for particles.
+            VIDEO_API void CreateStorageBuffers();
+
+            /// Particles are sent to the compute shader and we compute their the new positions/velocities.
+            /**
+             * @param dt Deltatime.
+             * @param settings Emitter settings.
+             */
+            VIDEO_API void Update(float dt, EmitterSettings settings);
+
+            ///Render the particles.
+            /**
+             * @param textureAtlas The texture atlas for the particles.
+             * @param textureAtlasRows how many rows in texture atlas.
+             * @param viewProjectionMatrix The camera's view and projection matrix.
+             * @param settings Settings for the emitter.
+             */
+            VIDEO_API void Draw(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::mat4& viewProjectionMatrix, ParticleSystemRenderer::EmitterSettings settings);
 
         private:
-        Video::ShaderProgram* computeShaderProgram;
+            Video::ShaderProgram* computeShaderProgram;
 
-        Video::ShaderProgram* shaderProgram;
+            Video::ShaderProgram* shaderProgram;
 
-        int WORK_GROUP_SIZE = 128;
+            int WORK_GROUP_SIZE = 128;
 
-        unsigned int nr_particles = 1024 * 32;
-        glm::vec2 particleShootIndex = glm::vec2(0, 30);
-        int nr_new_particles = 31;
-        float rate = 1000.0f;
-        float delta_time = 0.0f;
-        Particles::ParticlePos* points;
-        Particles::ParticleVelocity* vels;
-        Particles::ParticleColor* col;
-        ParticleModelMatrix* rots;
-        glm::mat4 rotMat;
+            unsigned int nr_particles = 1024 * 32;
+            glm::vec2 particleShootIndex = glm::vec2(0, 30);
+            int nr_new_particles = 31;
+            float rate = 1000.0f;
+            float delta_time = 0.0f;
+            Particles::ParticlePos* points;
+            Particles::ParticleVelocity* vels;
+            Particles::ParticleColor* col;
+            ParticleModelMatrix* rots;
+            glm::mat4 rotMat;
 
-        float timer = 0.0f;
+            float timer = 0.0f;
 
-        GLuint posSSbo;
-        GLuint velSSbo;
-        GLuint colSSbo;
-        GLuint mmSSbo;
-        GLuint m_glDrawVAO;
+            GLuint posSSbo;
+            GLuint velSSbo;
+            GLuint colSSbo;
+            GLuint mmSSbo;
+            GLuint m_glDrawVAO;
     };
 } // namespace Video

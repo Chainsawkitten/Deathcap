@@ -23,57 +23,60 @@ struct MyCurve {
     bool editVelocityZ = false;
 };
 
+/// Graphical editor for curves.
 class CurveEditor {
-public:
-    CurveEditor();
-    ~CurveEditor();
+    public:
+        /// Constructor.
+        CurveEditor();
 
-    /// Show the editor.
-    void Show();
+        /// Destructor.
+        ~CurveEditor();
 
-    /// If editor is visible.
-    bool IsVisible() const;
+        /// Show the editor.
+        void Show();
 
-    /// Set visibility.
-    /**
-     * @param visible setting visibility on editor.
-     */
-    void SetVisible(bool visible);
+        /// If editor is visible.
+        bool IsVisible() const;
 
-    /// Adds a curve.
-    /**
-     * @param curve_name name of curve.
-     * @param uniqueId unique ID.
-     * @param item unique ID just set it to 0.
-     */
-    void AddMyCurve(std::string& curve_name, ImGuiID uniqueId, int item);
+        /// Set visibility.
+        /**
+         * @param visible setting visibility on editor.
+         */
+        void SetVisible(bool visible);
 
-    /// Updates all curves.
-    /**
-     * @param deltaTime deltatime.
-     * @param totalTime total time for the curves.
-     */
-    void UpdateCurves(float deltaTime, float totalTime);
+        /// Adds a curve.
+        /**
+         * @param curve_name name of curve.
+         * @param uniqueId unique ID.
+         * @param item unique ID just set it to 0.
+         */
+        void AddMyCurve(const std::string& curve_name, ImGuiID uniqueId, int item);
 
-    /// Render the curve editor.
-    void RenderCurveEditor();
+        /// Updates all curves.
+        /**
+         * @param deltaTime deltatime.
+         * @param totalTime total time for the curves.
+         */
+        void UpdateCurves(float deltaTime, float totalTime);
 
-    /// Get all curves.
-    /**
-     * @return All curves.
-     */
-    const std::vector<MyCurve>& GetAllCurves() const;
+        /// Render the curve editor.
+        void RenderCurveEditor();
 
-private:
-    bool visible = false;
-    ImGuiID addedCurve = 0;
-    std::string curvename = "Default";
-    char curveBuf[10];
-    std::string editor_name;
-    std::vector<MyCurve> curves;
-    float time = 0.0f;
-    Video::ParticleSystemRenderer::EmitterSettings emitterSettings;
-    bool goBack = false;
-    bool play = false;
+        /// Get all curves.
+        /**
+         * @return All curves.
+         */
+        const std::vector<MyCurve>& GetAllCurves() const;
 
+    private:
+        bool visible = false;
+        ImGuiID addedCurve = 0;
+        std::string curvename = "Default";
+        char curveBuf[10];
+        std::string editor_name;
+        std::vector<MyCurve> curves;
+        float time = 0.0f;
+        Video::ParticleSystemRenderer::EmitterSettings emitterSettings;
+        bool goBack = false;
+        bool play = false;
 };

@@ -9,21 +9,19 @@ namespace Component {
     /// Emitter that emits particles.
     class ParticleSystemComponent : public SuperComponent {
         public:
-        /// Defines a kind of particle.
+            /// Create new particle emitter.
+            ENGINE_API ParticleSystemComponent();
 
-        /// Create new particle emitter.
-        ENGINE_API ParticleSystemComponent();
+            /// Destructor.
+            ENGINE_API ~ParticleSystemComponent();
 
-        /// Destructor.
-        ENGINE_API ~ParticleSystemComponent();
+            /// Save the component.
+            /**
+             * @return JSON value to be stored on disk.
+             */
+            ENGINE_API Json::Value Save() const override;
 
-        /// Save the component.
-        /**
-         * @return JSON value to be stored on disk.
-         */
-        ENGINE_API Json::Value Save() const override;
-
-        /// Particletype
-        Video::ParticleSystemRenderer::EmitterSettings particleType;
+            /// Particletype
+            Video::ParticleSystemRenderer::EmitterSettings particleType;
     };
 } // namespace Component

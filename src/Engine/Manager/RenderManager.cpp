@@ -276,27 +276,27 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { PROFILE("Render shadows meshes");
     { GPUPROFILE("Render shadows meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render shadows meshes", Video::Query::Type::SAMPLES_PASSED);
-    // Static meshes.
-    renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
-    for (Mesh* mesh : meshComponents) {
-        Entity* entity = mesh->entity;
-        if (entity->IsKilled() || !entity->enabled)
-            continue;
+        // Static meshes.
+        renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        for (Mesh* mesh : meshComponents) {
+            Entity* entity = mesh->entity;
+            if (entity->IsKilled() || !entity->enabled)
+                continue;
 
-        if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
-            renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
-    }
-    // Skin meshes.
-    renderer->PrepareSkinShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
-    for (AnimationController* controller : controllerComponents) {
-        Entity* entity = controller->entity;
-        if (entity->IsKilled() || !entity->enabled)
-            continue;
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
+                renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
+        }
+        // Skin meshes.
+        renderer->PrepareSkinShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        for (AnimationController* controller : controllerComponents) {
+            Entity* entity = controller->entity;
+            if (entity->IsKilled() || !entity->enabled)
+                continue;
 
-        Mesh* mesh = entity->GetComponent<Mesh>();
-        if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
-            renderer->ShadowRenderSkinMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix(), controller->bones);
-    }
+            Mesh* mesh = entity->GetComponent<Mesh>();
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
+                renderer->ShadowRenderSkinMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix(), controller->bones);
+        }
     }
     }
     }
@@ -309,32 +309,32 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { PROFILE("Render z-pass meshes");
     { GPUPROFILE("Render z-pass meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render z-pass meshes", Video::Query::Type::SAMPLES_PASSED);
-    // Static meshes.
-    renderer->PrepareStaticMeshDepthRendering(viewMatrix, projectionMatrix);
-    for (Mesh* mesh : meshComponents) {
-        Entity* entity = mesh->entity;
-        if (entity->IsKilled() || !entity->enabled)
-            continue;
+        // Static meshes.
+        renderer->PrepareStaticMeshDepthRendering(viewMatrix, projectionMatrix);
+        for (Mesh* mesh : meshComponents) {
+            Entity* entity = mesh->entity;
+            if (entity->IsKilled() || !entity->enabled)
+                continue;
 
-        if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
-            if (entity->GetComponent<Material>() != nullptr)
-                renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                if (entity->GetComponent<Material>() != nullptr)
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
+            }
         }
-    }
 
-    // Skin meshes.
-    renderer->PrepareSkinMeshDepthRendering(viewMatrix, projectionMatrix);
-    for (AnimationController* controller : controllerComponents) {
-        Entity* entity = controller->entity;
-        if (entity->IsKilled() || !entity->enabled)
-            continue;
+        // Skin meshes.
+        renderer->PrepareSkinMeshDepthRendering(viewMatrix, projectionMatrix);
+        for (AnimationController* controller : controllerComponents) {
+            Entity* entity = controller->entity;
+            if (entity->IsKilled() || !entity->enabled)
+                continue;
 
-        Mesh* mesh = entity->GetComponent<Mesh>();
-        if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
-            if (entity->GetComponent<Material>() != nullptr)
-                renderer->DepthRenderSkinMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix(), controller->bones);
+            Mesh* mesh = entity->GetComponent<Mesh>();
+            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                if (entity->GetComponent<Material>() != nullptr)
+                    renderer->DepthRenderSkinMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix(), controller->bones);
+            }
         }
-    }
     }
     }
     }
