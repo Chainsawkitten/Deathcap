@@ -367,6 +367,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "void SetWorldPosition(vec3)", asMETHOD(Entity, SetWorldPosition), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetEnabled(bool, bool)", asMETHOD(Entity, SetEnabled), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "bool IsEnabled() const", asMETHOD(Entity, IsEnabled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
