@@ -28,4 +28,8 @@ class MainScript {
 			}
 		}
     }
+
+	void StopBeforeMonster() {
+		phase = 1;
+	}
 }

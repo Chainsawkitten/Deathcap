@@ -644,11 +644,74 @@
 				"triggerTargetEntity" : 1511261389,
 				"triggerTriggered" : false
 			},
-			"children" : null,
+			"children" : 
+			[
+				{
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : -1.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"planeCoeff" : 0.0
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntity" : 1511257883,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 1,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 0,
+						"triggerFunction" : "void StopBeforeMonster()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511337030,
+						"triggerTargetEntity" : 1511260476,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "CartStopTrigger",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511337030
+				}
+			],
 			"name" : "MonsterStopChargeTrigger",
 			"position" : 
 			{
-				"x" : -4.75,
+				"x" : -5.6184730529785156,
 				"y" : 0.0,
 				"z" : 0.0
 			},
