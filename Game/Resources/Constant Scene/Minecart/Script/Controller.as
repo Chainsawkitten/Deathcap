@@ -24,12 +24,12 @@ class Controller {
         //    print("Controller position: (" + self.GetWorldPosition().x + ", " + self.GetWorldPosition().y + ", " + self.GetWorldPosition().z + ")\n");
         //}
             
-        if (!Input(Trigger) && isPressed) {
+        if (!Input(Trigger, self) && isPressed) {
             isPressed = false;
             SendMessage(rock, 2);
         }
         
-        if (!Input(Trigger) && pickUp) {
+        if (!Input(Trigger, self) && pickUp) {
             pickUp = false;
             SendMessage(lantern, 2);
         }
@@ -37,7 +37,7 @@ class Controller {
     
     void OnRockTrigger() {
         //print("Rock trigger\n");
-        if (Input(Trigger) && !isPressed) {
+        if (Input(Trigger, self) && !isPressed) {
             isPressed = true;
             SendMessage(rock, 1);
         } 
@@ -45,7 +45,7 @@ class Controller {
     
     void OnLanternTrigger() {
         print("Lantern Trigger\n");
-        if(Input(Trigger) && pickUp == false){
+        if(Input(Trigger, self) && pickUp == false){
             pickUp = true;
             SendMessage(lantern, 1);
         }
