@@ -2,14 +2,12 @@ class Controller {
     Hub @hub;
     Entity @self;
     Entity @lantern;
-    bool isPressed;
     bool pickUp;
 
     Controller(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @lantern = GetEntityByGUID(1509711303);
-        isPressed = false;
         pickUp = false;
 
         // Remove this if updates are not desired.

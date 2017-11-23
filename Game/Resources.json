@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
+	"activeScene" : "Resources/final_event/final_scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 125,
+	"modelNumber" : 142,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1186,6 +1186,72 @@
 				"subfolders" : null
 			},
 			{
+				"name" : "final_event",
+				"resources" : 
+				[
+					{
+						"model" : "final_cave",
+						"type" : 1
+					},
+					{
+						"model" : "final_hills",
+						"type" : 1
+					},
+					{
+						"model" : "final_plane",
+						"type" : 1
+					},
+					{
+						"model" : "final_rail",
+						"type" : 1
+					},
+					{
+						"model" : "final_skullsandbones",
+						"type" : 1
+					},
+					{
+						"model" : "final_wood_structures",
+						"type" : 1
+					},
+					{
+						"model" : "sand_piles",
+						"type" : 1
+					},
+					{
+						"scene" : "final_scene",
+						"type" : 0
+					},
+					{
+						"model" : "sacks",
+						"type" : 1
+					},
+					{
+						"model" : "wires",
+						"type" : 1
+					},
+					{
+						"script" : "MainScript",
+						"type" : 4
+					},
+					{
+						"script" : "MonsterScript",
+						"type" : 4
+					},
+					{
+						"model" : "knife2",
+						"type" : 1
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "textures",
+						"resources" : null,
+						"subfolders" : null
+					}
+				]
+			},
+			{
 				"name" : "Super Scene",
 				"resources" : 
 				[
@@ -1211,7 +1277,7 @@
 			}
 		]
 	},
-	"sceneNumber" : 22,
+	"sceneNumber" : 24,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
