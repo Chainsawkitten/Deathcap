@@ -99,7 +99,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
     anim->currentFrame += deltaTime * 30.0f;
-    if (anim->currentFrame > 29.0f) {
+    if (anim->currentFrame > 119.0f) {
         anim->currentFrame = 0;
 
         for (unsigned int i = 0; i < size; ++i)
@@ -144,6 +144,9 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
 
         glm::mat4 matrixRot = glm::mat4(finalRot);
 
+        if (skeleton->skeletonBones[i]->parentId == -1)
+            continue;
+        
         skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
         bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
