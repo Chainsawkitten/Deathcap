@@ -40,7 +40,7 @@ namespace Animation {
                         file->write(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
                     
                     for (unsigned int i = 0; i < numRotationKeys; ++i) 
-                        file->write(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::mat4));
+                        file->write(reinterpret_cast<char*>(&rotations[i]), sizeof(float) * 16);
                 }
 
                 /// Load bone data.
@@ -63,7 +63,7 @@ namespace Animation {
 
                     rotations = new glm::mat4[numRotationKeys];
                     for (unsigned int i = 0; i < numRotationKeys; ++i)
-                        file->read(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::mat4));
+                        file->read(reinterpret_cast<char*>(&rotations[i]), sizeof(float) * 16);
                 }
             };
 
