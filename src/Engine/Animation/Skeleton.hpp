@@ -21,9 +21,9 @@ namespace Animation {
                  * @param file File to save to.
                  */
                 void Save(std::ofstream* file) {
-                    file->write(reinterpret_cast<char*>(&localTx), sizeof(glm::mat4));
-                    file->write(reinterpret_cast<char*>(&globalTx), sizeof(glm::mat4));
-                    file->write(reinterpret_cast<char*>(&inversed), sizeof(glm::mat4));
+                    file->write(reinterpret_cast<char*>(&localTx), sizeof(float) * 16);
+                    file->write(reinterpret_cast<char*>(&globalTx), sizeof(float) * 16);
+                    file->write(reinterpret_cast<char*>(&inversed), sizeof(float) * 16);
                     file->write(reinterpret_cast<char*>(&parentId), sizeof(uint32_t));
                 }
 
@@ -32,9 +32,9 @@ namespace Animation {
                 * @param file File to load from.
                 */
                 void Load(std::ifstream* file) {
-                    file->read(reinterpret_cast<char*>(&localTx), sizeof(glm::mat4));
-                    file->read(reinterpret_cast<char*>(&globalTx), sizeof(glm::mat4));
-                    file->read(reinterpret_cast<char*>(&inversed), sizeof(glm::mat4));
+                    file->read(reinterpret_cast<char*>(&localTx), sizeof(float) * 16);
+                    file->read(reinterpret_cast<char*>(&globalTx), sizeof(float) * 16);
+                    file->read(reinterpret_cast<char*>(&inversed), sizeof(float) * 16);
                     file->read(reinterpret_cast<char*>(&parentId), sizeof(uint32_t));
                 }
             };
