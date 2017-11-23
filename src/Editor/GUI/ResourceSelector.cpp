@@ -1,5 +1,6 @@
 #include "ResourceSelector.hpp"
 
+#include <Engine/Audio/SoundBuffer.hpp>
 #include <imgui.h>
 
 using namespace GUI;
@@ -30,6 +31,11 @@ bool ResourceSelector::ShowHelper(ResourceList::Resource::Type type, const Resou
     // Show resources.
     for (const ResourceList::Resource& resource : folder.resources) {
         if (resource.type == type) {
+            if (resource.type == ResourceList::Resource::Type::SOUND) {
+                if (!resource.sound->GetBuffer())
+                    continue;
+            }
+
             if (ImGui::Selectable(resource.GetName().c_str())) {
                 selectedResource.resource = &resource;
                 selectedResource.path = path;
