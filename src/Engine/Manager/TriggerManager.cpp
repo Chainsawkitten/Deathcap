@@ -69,7 +69,6 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
 
         repeat->eventVector.push_back(eventstruct);
 
-        repeat->collidedEntityUID = node.get("triggerCollidedEntityUID", 0).asInt();
         repeat->triggered = node.get("triggerTriggered", false).asBool();
 
         repeat->triggerVolume = triggerVolume;
