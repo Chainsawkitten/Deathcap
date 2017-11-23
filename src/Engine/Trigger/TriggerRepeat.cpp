@@ -206,7 +206,6 @@ Json::Value TriggerRepeat::Save() {
                 
     }
 
-    component["triggerCollidedEntityUID"] = collidedEntityUID;
     component["triggerTriggered"] = triggered;
 
     if (owningEntity != nullptr)
