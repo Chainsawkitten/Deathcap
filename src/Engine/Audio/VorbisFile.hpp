@@ -47,10 +47,6 @@ namespace Audio {
             
         private:
 
-            /// Loads the specified ogg-file.
-            /**
-             * @param filename Filename (relative or absolute) to ogg-file.
-             */
             ENGINE_API void Load(const char* filename);
 
             stb_vorbis* stbFile = nullptr;

@@ -115,4 +115,7 @@ void SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 playerPos, IP
     // Mix Direct and Indirect
     iplMixAudioBuffers(2, finalBuffers, output);
     */
+    delete[] effectBuffer.interleavedBuffer;
+    delete[] finalBuffers[0].interleavedBuffer;
+    delete[] finalBuffers[1].interleavedBuffer;
 }

@@ -45,7 +45,7 @@ class SteamAudioInterface {
         /**
          * @param data Struct containing all data relevant to reconstructing a scene
          */
-        void LoadFinalizedScene(SaveData data);
+        void LoadFinalizedScene(SaveData const data);
 
         /// Specifies a single material used by the scene
         /**

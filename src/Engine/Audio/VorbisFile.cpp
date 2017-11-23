@@ -9,8 +9,7 @@
 
 using namespace Audio;
 
-Audio::VorbisFile::VorbisFile()
-{
+Audio::VorbisFile::VorbisFile(){
 
 }
 

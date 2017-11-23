@@ -314,10 +314,10 @@ void PhysicsManager::ReleaseTriggerVolume(Utility::LockBox<Physics::Trigger>&& t
     if (trigger.RefCount() == 1) {
         trigger.Open(triggerLockBoxKey, [this](Physics::Trigger& t) {
             auto it = std::find(triggers.begin(), triggers.end(), &t);
-                if (it != triggers.end()) {
-                    delete *it;
-                    std::swap(*it, *triggers.rbegin());
-                    triggers.pop_back();
+            if (it != triggers.end()) {
+                delete *it;
+                std::swap(*it, *triggers.rbegin());
+                triggers.pop_back();
                 }
         });
     }
