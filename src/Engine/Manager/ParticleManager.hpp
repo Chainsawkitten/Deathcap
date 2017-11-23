@@ -47,9 +47,10 @@ class ParticleManager {
 
         /// Renders particlesystem.
         /**
-         * @param viewProjectionMatrix The view-projection matrix from the camera.
+         * @param viewMatrix The view matrix from the camera.
+         * @param projectionMatrix The projection matrix from the camera.
          */
-        ENGINE_API void RenderParticleSystem(const glm::mat4& viewProjectionMatrix);
+        ENGINE_API void RenderParticleSystem(const glm::mat4& viewMatrix, const glm::mat4&  projectionMatrix);
         
         /// Get the texture atlas.
         /**
