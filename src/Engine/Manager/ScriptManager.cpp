@@ -641,14 +641,10 @@ void ScriptManager::FillPropertyMap(Script* script) {
                 
                 const std::vector<Entity*> entities = Hymn().world.GetEntities();
                 
+                //We start with setting the GUID to 0, which means it's uninitialized.
                 unsigned int GUID = 0;
-                if (entities.size() != 0)
-                    GUID = 0;
-                else 
-                    GUID = entities[0]->GetUniqueIdentifier();
-                
                 script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
-
+                
             }
         }
     }
@@ -696,8 +692,17 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 if (script->IsInPropertyMap(name, typeId)) {
 
-                    if (typeId == engine->GetTypeIdByDecl("Entity@"))
-                        *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                    if (typeId == engine->GetTypeIdByDecl("Entity@")) {
+
+                        unsigned int* GUID = (unsigned int*)script->GetDataFromPropertyMap(name);
+
+                        //We make sure it is initialized.
+                        if (GUID != 0)
+                            *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                        else
+                            Log() << "Property " << name << " is not initialized" << "\n";
+
+                    }
                     else 
                         script->CopyDataFromPropertyMap(name, varPointer);
 
