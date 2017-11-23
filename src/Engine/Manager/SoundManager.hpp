@@ -101,10 +101,10 @@ class SoundManager {
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
 
-        // TMPTODP
+        //TMPTODO
         ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
 
-        // TMPTODP
+        //TMPTODO
         ENGINE_API void Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue);
         
     private:

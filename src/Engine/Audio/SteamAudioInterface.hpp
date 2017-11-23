@@ -74,6 +74,7 @@ class SteamAudioInterface {
          **/
         void SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp);
 
+        //TMPTODO
         /// Processes audio samples.
         /// Needs to be called in a way so that there's always at least one processed audio frame ready to go.
         /**
@@ -82,7 +83,7 @@ class SteamAudioInterface {
          * @param radii The radius of the source. To determine how much of the source is occluded rather than have it be on/off.
          * @param output Final mixed raw auido data.
          **/
-        void Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, float* output);
+        void Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, std::vector<unsigned int>& guids, float* output);
 
     private:
 

@@ -1,12 +1,7 @@
 #include "SteamAudioRenderers.hpp"
 
-SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
+SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment, IPLhandle envRenderer, IPLhandle binauralRenderer) {
     this->environment = environment;
-
-    IPLRenderingSettings settings;
-    settings.frameSize = CHUNK_SIZE;
-    settings.samplingRate = SAMPLE_RATE;
-    settings.convolutionType = IPL_CONVOLUTIONTYPE_PHONON;
 
     inputFormat.channelLayoutType = IPL_CHANNELLAYOUTTYPE_SPEAKERS;
     inputFormat.channelLayout = IPL_CHANNELLAYOUT_MONO; //Only take mono input
@@ -20,17 +15,14 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
     outputFormat.speakerDirections = NULL;
     outputFormat.channelOrder = IPL_CHANNELORDER_INTERLEAVED;
 
-    // Environmental Renderer and Direct Sound Effect
-    IPLerror err = iplCreateEnvironmentalRenderer(IPLContext{ nullptr,nullptr,nullptr }, environment, settings, outputFormat, NULL, NULL, &envRenderer);
+    // Direct Sound Effect.
     iplCreateDirectSoundEffect(envRenderer, inputFormat, inputFormat, &directEffect);
 
-    // Binaural Renderer and Effect
-    IPLHrtfParams params{IPL_HRTFDATABASETYPE_DEFAULT, NULL, 0, nullptr, nullptr, nullptr };
-    err = iplCreateBinauralRenderer(IPLContext{ nullptr, nullptr, nullptr }, settings, params, &binauralRenderer);
+    // Binaural Renderer and Effect.
     iplCreateBinauralEffect(binauralRenderer, inputFormat, outputFormat, &binauralEffect);
 
     // Convolution Effect
-    err = iplCreateConvolutionEffect(envRenderer, "", IPL_SIMTYPE_REALTIME, inputFormat, outputFormat, &convEffect);
+    iplCreateConvolutionEffect(envRenderer, "", IPL_SIMTYPE_REALTIME, inputFormat, outputFormat, &convEffect);
 
     effectBuffer.format = inputFormat;
     effectBuffer.numSamples = CHUNK_SIZE;
@@ -50,8 +42,6 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
 
 SteamAudioRenderers::~SteamAudioRenderers() {
     iplDestroyDirectSoundEffect(&directEffect);
-    iplDestroyEnvironmentalRenderer(&envRenderer);
-    iplDestroyBinauralRenderer(&binauralRenderer);
     iplDestroyBinauralEffect(&binauralEffect);
     iplDestroyConvolutionEffect(&convEffect);
 

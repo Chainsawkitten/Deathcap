@@ -8,11 +8,12 @@
 /// Class responsible for calculating direct audio.
 class SteamAudioRenderers {
     public:
+        //TMPTODO
         /// Constructor.
         /**
          * @param environment Handle to the Environment object to use.
          */
-        ENGINE_API explicit SteamAudioRenderers(IPLhandle environment);
+        ENGINE_API explicit SteamAudioRenderers(IPLhandle environment, IPLhandle envRenderer, IPLhandle binauralRenderer);
 
         /// Destructor.
         ENGINE_API ~SteamAudioRenderers();
@@ -33,9 +34,7 @@ class SteamAudioRenderers {
         IPLAudioFormat inputFormat;
         IPLAudioFormat outputFormat;
         IPLhandle environment;
-        IPLhandle envRenderer;
         IPLhandle directEffect;
-        IPLhandle binauralRenderer;
         IPLhandle binauralEffect;
         IPLhandle convEffect;
         IPLAudioBuffer effectBuffer;

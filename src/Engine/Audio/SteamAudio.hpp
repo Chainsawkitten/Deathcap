@@ -3,8 +3,8 @@
 #include <vector>
 #include <cstdint>
 #include "../linking.hpp"
+#include <map>
 
-//Note to self: Might just merge this shit with the interface class.
 /// Main Steam Audio class for processing audio samples
 class SteamAudio {
     public:
@@ -22,6 +22,8 @@ class SteamAudio {
             float radius;
             /// Steam Audio buffer containing raw sound data.
             IPLAudioBuffer buffer;
+            /// GUID
+            unsigned int GUID;
         };
 
         /// Processes the audio with both indirect and direct methods and mixes them together.
@@ -39,6 +41,7 @@ class SteamAudio {
          */
         ENGINE_API void SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up);
 
+        //TMPTODO
         /// Creates the direct and indirect renderer.
         /**
          * @param environment Handle to a created environment.
@@ -48,7 +51,10 @@ class SteamAudio {
     private:
         IPLContext* context;
 
-        SteamAudioRenderers* renderers = nullptr;
+        std::map<unsigned int, SteamAudioRenderers*> rendererMap;
+        IPLhandle environment;
+        IPLhandle envRenderer;
+        IPLhandle binauralRenderer;
 
         IPLVector3 playerPos;
         IPLVector3 playerDir;
