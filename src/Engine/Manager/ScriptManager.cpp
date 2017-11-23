@@ -371,6 +371,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "void SetWorldPosition(vec3)", asMETHOD(Entity, SetWorldPosition), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetEnabled(bool, bool)", asMETHOD(Entity, SetEnabled), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "bool IsEnabled() const", asMETHOD(Entity, IsEnabled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
@@ -684,7 +686,7 @@ void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
     for (Script* script : scripts.GetAll()) {
-        if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
+        if (!script->initialized && !script->IsKilled() && script->entity->IsEnabled()) {
             CreateInstance(script);
 
             // Skip if not initialized
@@ -701,10 +703,8 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 if (script->IsInPropertyMap(name, typeId)) {
 
-                    if (typeId == engine->GetTypeIdByDecl("Entity@")) {
-                        Entity* whatever = Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                    if (typeId == engine->GetTypeIdByDecl("Entity@"))
                         *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
-                    }
                     else
                         script->CopyDataFromPropertyMap(name, varPointer);
 

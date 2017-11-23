@@ -2,13 +2,17 @@ class Controller {
     Hub @hub;
     Entity @self;
     Entity @rock;
+    Entity @lantern;
     bool isPressed;
+    bool pickUp;
 
     Controller(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @rock = GetEntityByGUID(1510240479);
+        @lantern = GetEntityByGUID(1509711303);
         isPressed = false;
+        pickUp = false;
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -24,6 +28,11 @@ class Controller {
             isPressed = false;
             SendMessage(rock, 2);
         }
+        
+        if (!Input(Trigger) && pickUp) {
+            pickUp = false;
+            SendMessage(lantern, 2);
+        }
     }
     
     void OnRockTrigger() {
@@ -32,5 +41,13 @@ class Controller {
             isPressed = true;
             SendMessage(rock, 1);
         } 
+    }
+    
+    void OnLanternTrigger() {
+        print("Lantern Trigger\n");
+        if(Input(Trigger) && pickUp == false){
+            pickUp = true;
+            SendMessage(lantern, 1);
+        }
     }
 }

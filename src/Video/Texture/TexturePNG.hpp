@@ -30,6 +30,9 @@ namespace Video {
         VIDEO_API bool IsLoaded() const override;
         
         private:
+        // Get image GL format based on color components.
+        static GLenum Format(int components);
+        
         GLuint texID = 0;
         bool loaded = false;
     };
