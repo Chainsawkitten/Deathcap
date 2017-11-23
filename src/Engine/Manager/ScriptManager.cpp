@@ -639,7 +639,8 @@ void ScriptManager::FillPropertyMap(Script* script) {
             } else if (typeId == asTYPEID_FLOAT) {
                 int size = sizeof(float);
                 script->AddToPropertyMap(name, typeId, size, varPointer);
-            } else if (typeId == engine->GetTypeIdByDecl("Entity@")) {
+            } else if (typeId == engine->GetTypeIdByDecl("Entity@") && name != "self") {
+                  
                 int size = sizeof(unsigned int);
                 
                 Entity* pointer = *(Entity**)varPointer;
@@ -662,7 +663,6 @@ void ScriptManager::FillPropertyMap(Script* script) {
 
                     unsigned int GUID = pointer->GetUniqueIdentifier();
                     script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
-
 
                 } else {
 
@@ -726,8 +726,8 @@ void ScriptManager::Update(World& world, float deltaTime) {
                         unsigned int* GUID = (unsigned int*)script->GetDataFromPropertyMap(name);
 
                         //We make sure it is initialized.
-                        if (GUID != 0)
-                            *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
+                        if (*GUID != 0)
+                            *reinterpret_cast<Entity**>(varPointer) = Hymn().GetEntityByGUID(*GUID);
                         else
                             Log() << "Property " << name << " is not initialized" << "\n";
 
