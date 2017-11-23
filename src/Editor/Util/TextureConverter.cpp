@@ -7,6 +7,7 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 #include <Video/Texture/TextureHCT.hpp>
+#include <Codec_DXTC.h>
 
 namespace TextureConverter {
     void Convert(const char* inFilename, const char* outFilename) {
@@ -36,7 +37,7 @@ namespace TextureConverter {
         
         stbi_image_free(data);
         
-        // Store results to file.
+        // Open output file.
         std::ofstream file(outFilename, std::ios::out | std::ios::binary);
         if (!file) {
             Log(Log::ERR) << "Couldn't open file: " << outFilename << "\n";
@@ -64,7 +65,32 @@ namespace TextureConverter {
         width = uWidth;
         height = uHeight;
         for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
-            file.write(reinterpret_cast<char*>(rgbData), width * height * 3);
+            // Compress using DXT1.
+            uint16_t blocksX = width / 4;
+            uint16_t blocksY = height / 4;
+            for (uint16_t blockY = 0; blockY < blocksY; ++blockY) {
+                for (uint16_t blockX = 0; blockX < blocksX; ++blockX) {
+                    // Get uncompressed block.
+                    uint8_t uncompressed[4 * 4 * 4];
+                    for (uint8_t y=0; y < 4; ++y) {
+                        for (uint8_t x=0; x < 4; ++x) {
+                            for (uint8_t channel = 0; channel < 3; ++channel) {
+                                uint32_t rgbY = blockY * 4 + y;
+                                uint32_t rgbX = blockX * 4 + x;
+                                uncompressed[(y * 4 + x) * 4 + channel] = rgbData[(rgbY * width + rgbX) * 3 + channel];
+                            }
+                            uncompressed[(y * 4 + x) * 4 + 3] = 255;
+                        }
+                    }
+                    
+                    // Convert block
+                    uint32_t block[2];
+                    CompressRGBBlock(uncompressed, block, CalculateColourWeightings(uncompressed), true, false, 255);
+                    
+                    // Write block to file.
+                    file.write(reinterpret_cast<char*>(block), 8);
+                }
+            }
             
             // Calculate mipmap.
             if (mipLevel < mipLevels - 1) {
