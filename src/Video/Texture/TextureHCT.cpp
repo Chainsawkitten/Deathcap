@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <Utility/Log.hpp>
+#include <cstring>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -38,13 +39,13 @@ TextureHCT::TextureHCT(const char* filename) {
     // Create image on GPU.
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
-    glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGB8, width, height);
+    glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_COMPRESSED_RGB_S3TC_DXT1_EXT, width, height);
     
     // Read texture data.
-    uint32_t size = static_cast<uint32_t>(width) * height * 3;
+    uint32_t size = static_cast<uint32_t>(width) * height / 2;
     unsigned char* data = new unsigned char[size];
     for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
-        size = static_cast<uint32_t>(width) * height * 3;
+        size = static_cast<uint32_t>(width) * height / 2;
         if (!file.read(reinterpret_cast<char*>(data), size)) {
             Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";
             file.close();
@@ -52,7 +53,7 @@ TextureHCT::TextureHCT(const char* filename) {
             return;
         }
         
-        glTexSubImage2D(GL_TEXTURE_2D, mipLevel, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glCompressedTexSubImage2D(GL_TEXTURE_2D, mipLevel, 0, 0, width, height, GL_COMPRESSED_RGB_S3TC_DXT1_EXT, size, data);
         width /= 2;
         height /= 2;
     }
