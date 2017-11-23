@@ -15,13 +15,11 @@
 #endif
 
 World::World() {
-    particles = new Video::ParticleRenderer::Particle[Managers().particleManager->GetMaxParticleCount()];
 }
 
 World::~World() {
     Clear();
-    
-    delete[] particles;
+   
 }
 
 Entity* World::CreateEntity(const std::string& name) {
@@ -65,7 +63,6 @@ void World::Clear() {
     entities.clear();
     root = nullptr;
 
-    particleCount = 0;
     updateEntities.clear();
 }
 
@@ -84,18 +81,6 @@ void World::ClearKilled() {
             ++i;
         }
     }
-}
-
-Video::ParticleRenderer::Particle* World::GetParticles() const {
-    return particles;
-}
-
-unsigned int World::GetParticleCount() const {
-    return particleCount;
-}
-
-void World::SetParticleCount(unsigned int particleCount) {
-    this->particleCount = particleCount;
 }
 
 void World::Save(const std::string& filename) const {
@@ -123,8 +108,10 @@ void World::Load(const std::string& filename) {
         file.close();
 
         root->Load(rootNode);
-        Managers().triggerManager->InitiateUID();
+       
     }
+        Managers().triggerManager->InitiateUID();
+        Managers().triggerManager->InitiateVolumes();
 }
 
 void World::Load(const Json::Value& node) {
@@ -133,5 +120,6 @@ void World::Load(const Json::Value& node) {
     CreateRoot();
     root->Load(node);
     Managers().triggerManager->InitiateUID();
+    Managers().triggerManager->InitiateVolumes();
 }
 

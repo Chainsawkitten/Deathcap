@@ -7,6 +7,7 @@
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
 #include "../ResourceSelector.hpp"
+#include "Editor/GUI/Editors/CurveEditor.hpp"
 #include <Engine/Geometry/AssetFileHandler.hpp> 
 
 namespace Component {
@@ -24,6 +25,7 @@ namespace Component {
     class Shape;
     class SoundSource;
     class ParticleEmitter;
+    class ParticleSystemComponent;
     class VRDevice;
     class Trigger;
 }
@@ -96,6 +98,7 @@ namespace GUI {
             void ShapeEditor(Component::Shape* shape);
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
+            void ParticleSystemEditor(Component::ParticleSystemComponent* particleSystem);
             void VRDeviceEditor(Component::VRDevice* vrDevice);
             void TriggerEditor(Component::Trigger* trigger);
 
@@ -121,6 +124,8 @@ namespace GUI {
             bool normalShow = false;
             bool metallicShow = false;
             bool roughnessShow = false;
+
+            CurveEditor curveEditor;
     };
 }
 

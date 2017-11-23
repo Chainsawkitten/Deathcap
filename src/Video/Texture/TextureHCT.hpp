@@ -15,7 +15,7 @@ namespace Video {
         /**
          * @param filenameThe name of the HCT file to load.
          */
-        VIDEO_API TextureHCT(const char* filename);
+        VIDEO_API explicit TextureHCT(const char* filename);
         
         /// Destructor.
         VIDEO_API ~TextureHCT() override;
@@ -34,7 +34,7 @@ namespace Video {
         VIDEO_API bool IsLoaded() const override;
         
         /// The version of the texture format.
-        static const uint16_t VERSION = 1;
+        static const uint16_t VERSION = 2;
         
         private:
         GLuint texID = 0;
