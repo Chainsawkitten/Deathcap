@@ -142,8 +142,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
             { PROFILE("Render particles");
             { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
                 mainWindowRenderSurface->GetShadingFrameBuffer()->BindWrite();
-                glm::mat4 viewProjection = projectionMatrix * viewMatrix;
-                Managers().particleManager->RenderParticleSystem(viewProjection);
+                Managers().particleManager->RenderParticleSystem(viewMatrix, projectionMatrix);
                 mainWindowRenderSurface->GetShadingFrameBuffer()->Unbind();
             }
             }
@@ -211,8 +210,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 { PROFILE("Render particles");
                 { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
                     hmdRenderSurface->GetShadingFrameBuffer()->BindWrite();
-                    glm::mat4 viewProjection = projectionMatrix * eyeViewMatrix;
-                    Managers().particleManager->RenderParticleSystem(viewProjection);
+                    Managers().particleManager->RenderParticleSystem(eyeViewMatrix, projectionMatrix);
                     hmdRenderSurface->GetShadingFrameBuffer()->Unbind();
                 }
                 }
