@@ -55,6 +55,9 @@ class SteamAudio {
         IPLhandle environment;
         IPLhandle envRenderer;
         IPLhandle binauralRenderer;
+        IPLAudioFormat outputFormat;
+        IPLAudioBuffer indirectBuffer;
+        IPLAudioBuffer directBuffer;
 
         IPLVector3 playerPos;
         IPLVector3 playerDir;

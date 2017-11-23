@@ -38,5 +38,4 @@ class SteamAudioRenderers {
         IPLhandle binauralEffect;
         IPLhandle convEffect;
         IPLAudioBuffer effectBuffer;
-        IPLAudioBuffer finalBuffers[2];
 };

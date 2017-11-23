@@ -28,16 +28,6 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment, IPLhandle envRen
     effectBuffer.numSamples = CHUNK_SIZE;
     effectBuffer.interleavedBuffer = new float[CHUNK_SIZE];
     effectBuffer.deinterleavedBuffer = NULL;
-
-    finalBuffers[0].format = outputFormat;
-    finalBuffers[0].numSamples = CHUNK_SIZE;
-    finalBuffers[0].interleavedBuffer = new float[CHUNK_SIZE * 2];
-    finalBuffers[0].deinterleavedBuffer = NULL;
-
-    finalBuffers[1].format = outputFormat;
-    finalBuffers[1].numSamples = CHUNK_SIZE;
-    finalBuffers[1].interleavedBuffer = new float[CHUNK_SIZE * 2];
-    finalBuffers[1].deinterleavedBuffer = NULL;
 }
 
 SteamAudioRenderers::~SteamAudioRenderers() {
@@ -46,8 +36,6 @@ SteamAudioRenderers::~SteamAudioRenderers() {
     iplDestroyConvolutionEffect(&convEffect);
 
     delete[] effectBuffer.interleavedBuffer;
-    delete[] finalBuffers[0].interleavedBuffer;
-    delete[] finalBuffers[1].interleavedBuffer;
 }
 
 void SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius, IPLAudioBuffer& output) {
@@ -62,19 +50,14 @@ void SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 playerPos, IP
 
     iplApplyDirectSoundEffect(directEffect, input, soundPath, options, effectBuffer);
 
-    // Spatialize the direct audio
-    iplApplyBinauralEffect(binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, finalBuffers[0]);
-
-    // Indirect Audio
-    iplSetDryAudioForConvolutionEffect(convEffect, sourcePos, input);
-    iplGetWetAudioForConvolutionEffect(convEffect, playerPos, playerDir, playerUp, finalBuffers[1]);
-
-    // Mix Direct and Indirect
     output.format = outputFormat;
     output.numSamples = CHUNK_SIZE;
     output.interleavedBuffer = new float[CHUNK_SIZE * 2];
     output.deinterleavedBuffer = NULL;
 
-    // Mix Direct and Indirect
-    iplMixAudioBuffers(2, finalBuffers, output);
+    // Spatialize the direct audio
+    iplApplyBinauralEffect(binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, output);
+
+    // Indirect Audio
+    iplSetDryAudioForConvolutionEffect(convEffect, sourcePos, input);
 }
