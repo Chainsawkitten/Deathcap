@@ -17,6 +17,7 @@
 #include <portaudio.h>
 #include <cstdint>
 #include <cstring>
+#include <algorithm>
 
 SoundManager::SoundManager() {
     PaError err;
