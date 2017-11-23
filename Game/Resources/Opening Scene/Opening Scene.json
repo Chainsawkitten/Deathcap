@@ -482,32 +482,6 @@
 			"uid" : 1510736596
 		},
 		{
-			"name" : "Minecart",
-			"position" : 
-			{
-				"x" : 13.790403366088867,
-				"y" : 1.9311840534210205,
-				"z" : -1.2180876731872559
-			},
-			"rotation" : 
-			{
-				"w" : 0.70710676908493042,
-				"x" : 0.0,
-				"y" : 0.70710676908493042,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.20000000298023224,
-				"y" : 0.20000000298023224,
-				"z" : 0.20000000298023224
-			},
-			"scene" : true,
-			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
-			"static" : false,
-			"uid" : 1508919163
-		},
-		{
 			"Script" : 
 			{
 				"scriptName" : "Resources/Opening Scene/Scripts/CartScript_0"

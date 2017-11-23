@@ -224,32 +224,6 @@
 			"uid" : 1510064341
 		},
 		{
-			"name" : "Cart",
-			"position" : 
-			{
-				"x" : 32.950000762939453,
-				"y" : -0.98600006103515625,
-				"z" : 0.29500001668930054
-			},
-			"rotation" : 
-			{
-				"w" : 0.70710676908493042,
-				"x" : 0.0,
-				"y" : 0.70710676908493042,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.20000000298023224,
-				"y" : 0.20000000298023224,
-				"z" : 0.20000000298023224
-			},
-			"scene" : true,
-			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
-			"static" : false,
-			"uid" : 1508919163
-		},
-		{
 			"Material" : 
 			{
 				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
@@ -695,7 +669,7 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
-				"triggerCollidedEntity" : 1508919758,
+				"triggerCollidedEntityUID" : 1508919758,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
 				"triggerEventStruct_Check_0" : true,
@@ -703,13 +677,13 @@
 				"triggerEventStruct_Check_2" : true,
 				"triggerEventStruct_Check_3" : true,
 				"triggerEventStruct_EventID" : 1,
-				"triggerEventStruct_ScriptID" : 1,
-				"triggerEventStruct_ShapeID" : 1,
-				"triggerEventStruct_TargetID" : 3,
-				"triggerFunction" : "void OnRockTrigger()",
+				"triggerEventStruct_ScriptID" : 2,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 0,
+				"triggerFunction" : "void PickedUp()",
 				"triggerName" : "New Trigger",
 				"triggerOwner" : 1510317739,
-				"triggerTargetEntity" : 1508919758,
+				"triggerTargetEntity" : 1510240479,
 				"triggerTriggered" : false
 			},
 			"children" : 
@@ -967,7 +941,7 @@
 						"trigger" : "A Trigger",
 						"triggerActive" : false,
 						"triggerCharges" : 0,
-						"triggerCollidedEntity" : 1509959164,
+						"triggerCollidedEntityUID" : 1509959164,
 						"triggerCooldown" : 0.0,
 						"triggerDelay" : 0.0,
 						"triggerEventStruct_Check_0" : true,
@@ -976,8 +950,8 @@
 						"triggerEventStruct_Check_3" : true,
 						"triggerEventStruct_EventID" : 0,
 						"triggerEventStruct_ScriptID" : 1,
-						"triggerEventStruct_ShapeID" : 2,
-						"triggerEventStruct_TargetID" : 8,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 3,
 						"triggerFunction" : "void OnTrigger()",
 						"triggerName" : "New Trigger",
 						"triggerOwner" : 1510581348,
@@ -1112,7 +1086,7 @@
 								"intensity" : 4.9470000267028809
 							},
 							"children" : null,
-							"name" : "Entity #3",
+							"name" : "cableLight",
 							"position" : 
 							{
 								"x" : 14.476000785827637,
@@ -1329,7 +1303,7 @@
 																"trigger" : "A Trigger",
 																"triggerActive" : false,
 																"triggerCharges" : 0,
-																"triggerCollidedEntity" : 1510240479,
+																"triggerCollidedEntityUID" : 1510240479,
 																"triggerCooldown" : 0.0,
 																"triggerDelay" : 0.0,
 																"triggerEventStruct_Check_0" : true,
@@ -1337,9 +1311,9 @@
 																"triggerEventStruct_Check_2" : true,
 																"triggerEventStruct_Check_3" : true,
 																"triggerEventStruct_EventID" : 0,
-																"triggerEventStruct_ScriptID" : 2,
-																"triggerEventStruct_ShapeID" : 3,
-																"triggerEventStruct_TargetID" : 5,
+																"triggerEventStruct_ScriptID" : 1,
+																"triggerEventStruct_ShapeID" : 0,
+																"triggerEventStruct_TargetID" : 0,
 																"triggerFunction" : "void HitBucket()",
 																"triggerName" : "New Trigger",
 																"triggerOwner" : 1510911855,
@@ -1579,8 +1553,8 @@
 					"name" : "BigBalkPivot",
 					"position" : 
 					{
-						"x" : 0.0,
-						"y" : 2.9500000476837158,
+						"x" : 1.1920928955078125e-07,
+						"y" : 2.9499998092651367,
 						"z" : 0.0
 					},
 					"rotation" : 

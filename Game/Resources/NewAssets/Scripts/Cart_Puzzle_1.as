@@ -3,7 +3,6 @@ class Cart_Puzzle_1{
     Entity @self;
     Entity @actualSelf;
     float speed;
-    bool first;
     bool hasHitPlane;
     float planePos;
     float stopTime;
@@ -27,22 +26,16 @@ class Cart_Puzzle_1{
         stopTime = 0.0f;
         endTime = 5.0f;
         planePos = 0.0f;
-        first = true;
         puzzleSolved = false;
         //trigger = false;
         hasHitPlane = false;
+        
+        actualSelf.SetEnabled(false, true);
         RegisterUpdate();
     }
     
     //Update carts movements and send it's position to Player Script.
     void Update(float deltaTime) {
-        activateTimer += deltaTime;
-        if (first){
-            self.SetEnabled(false, true);
-            actualSelf.SetEnabled(false, true);
-            first = false;
-        }
-        
         if (!hasHitPlane) {
             tempPos = self.GetWorldPosition();
             tempPos.x -= speed * deltaTime;

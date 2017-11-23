@@ -2,6 +2,7 @@ class CartScript_0 {
     Hub @hub;
     Entity @self;
     float speed;
+    vec3 tempPos;
 
     CartScript_0(Entity @entity){
         @hub = Managers();
@@ -15,6 +16,8 @@ class CartScript_0 {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-        self.position.z -= speed * deltaTime;
+        tempPos = self.GetWorldPosition();
+        tempPos.x -= speed * deltaTime;
+        self.SetWorldPosition(tempPos);
     }
 }

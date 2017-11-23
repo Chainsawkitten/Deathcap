@@ -126,9 +126,9 @@ void RegisterUpdate() {
     Managers().scriptManager->RegisterUpdate(Managers().scriptManager->currentEntity);
 }
 
-bool ButtonInput(int buttonIndex) {
+bool ButtonInput(int buttonIndex, Entity* controller) {
     if (Managers().vrManager->Active())
-        return Input::GetInstance().CheckVRButton(buttonIndex, Managers().scriptManager->currentEntity->GetComponent<VRDevice>());
+        return Input::GetInstance().CheckVRButton(buttonIndex, controller->GetComponent<VRDevice>());
     else
         return Input::GetInstance().CheckButton(buttonIndex);
 }
@@ -478,7 +478,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RestartScene()", asFUNCTION(RestartScene), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
-    engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
+    engine->RegisterGlobalFunction("bool Input(input button, Entity@)", asFUNCTION(ButtonInput), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
     engine->RegisterGlobalFunction("Hub@ Managers()", asFUNCTION(Managers), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);

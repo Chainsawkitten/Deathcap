@@ -14,6 +14,7 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <imgui.h>
+#include <iostream>
 
 // This is necessary to use std::string in ImGui::Combo(). Taken from https://github.com/ocornut/imgui/issues/1180
 namespace ImGui {
@@ -194,14 +195,7 @@ namespace GUI {
                         // Subject
                         ImGui::NextColumn();
                         int collidedEntityUID = repeat->GetCollidedEntityUID();
-                        if (ImGui::InputInt("Input UID: ", &collidedEntityUID)) {
-
-                            for (std::size_t i = 0; i < Hymn().world.GetEntities().size(); ++i) {
-                                if (Hymn().world.GetEntities().at(i)->GetUniqueIdentifier() == collidedEntityUID && Hymn().world.GetEntities().at(i)->GetComponent<Component::RigidBody>()) {
-                                    repeat->GetCollidedEntity()->push_back(Hymn().world.GetEntities().at(i));
-                                }
-                                    
-                            }
+                        if (ImGui::InputInt("Input UID: ", &collidedEntityUID)) {                            
                             repeat->SetCollidedEntityUID(collidedEntityUID);
                             repeat->GetEventVector()->at(i).check[1] = true;
                         }
