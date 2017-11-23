@@ -385,9 +385,10 @@
 							},
 							"Shape" : 
 							{
-								"sphere" : 
+								"cylinder" : 
 								{
-									"radius" : 0.95000004768371582
+									"length" : 1.3999999761581421,
+									"radius" : 0.059999998658895493
 								}
 							},
 							"Trigger" : 
@@ -409,7 +410,7 @@
 								"triggerFunction" : "void OnLanternTrigger()",
 								"triggerName" : "New Trigger",
 								"triggerOwner" : 1509714156,
-								"triggerTargetEntity" : 1509711303,
+								"triggerTargetEntity" : 1508919751,
 								"triggerTriggered" : false
 							},
 							"children" : null,
