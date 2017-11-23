@@ -8,15 +8,15 @@
 /// Class responsible for calculating direct audio.
 class SteamAudioRenderers {
     public:
-
+        /// Constructor.
         /**
          * @param environment Handle to the Environment object to use.
          */
-        ENGINE_API SteamAudioRenderers(IPLhandle environment);
+        ENGINE_API explicit SteamAudioRenderers(IPLhandle environment);
 
+        /// Destructor.
         ENGINE_API ~SteamAudioRenderers();
 
-        ///
         /// Processes the direct path portion of the audio
         /**
          * @param input The audiobuffer to be processed.

@@ -8,9 +8,10 @@
 /// Main Steam Audio class for processing audio samples
 class SteamAudio {
     public:
-
+        /// Constructor.
         ENGINE_API SteamAudio();
 
+        /// Destructor.
         ENGINE_API ~SteamAudio();
 
         /// Sound source data structure used for Steam Audio.

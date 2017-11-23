@@ -25,7 +25,7 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment) {
     iplCreateDirectSoundEffect(envRenderer, inputFormat, inputFormat, &directEffect);
 
     // Binaural Renderer and Effect
-    IPLHrtfParams params{IPL_HRTFDATABASETYPE_DEFAULT, NULL, 0, nullptr, nullptr, nullptr };    //Might not work
+    IPLHrtfParams params{IPL_HRTFDATABASETYPE_DEFAULT, NULL, 0, nullptr, nullptr, nullptr };
     err = iplCreateBinauralRenderer(IPLContext{ nullptr, nullptr, nullptr }, settings, params, &binauralRenderer);
     iplCreateBinauralEffect(binauralRenderer, inputFormat, outputFormat, &binauralEffect);
 
