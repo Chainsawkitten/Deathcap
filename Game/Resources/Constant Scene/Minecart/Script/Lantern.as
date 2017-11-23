@@ -1,22 +1,27 @@
 class Lantern {
     DebugDrawingManager @debugDrawingManager;
-    Entity @controller;
     Entity @self;
+    Entity @controller;
+    Entity @originalParent;
+    bool pickup;
     
     Lantern(Entity @entity){
         @debugDrawingManager = Managers().debugDrawingManager;
-        
         @self = entity;
         @controller = GetEntityByGUID(1508919751);
-        RegisterUpdate();
+        @originalParent = self.GetParent();
+        
+        pickup = false;
     }
     
-    void Update(float deltaTime){
-        self.position.x = controller.position.x;
-        self.position.y = controller.position.y;
-        self.position.z = controller.position.z;
-        //self.SetWorldOrientation(inverse(controller.GetWorldOrientation()));
-        self.rotation = controller.rotation;
-        
+    void ReceiveMessage(Entity @sender, int i) {
+        if (i == 1) {
+            self.SetParent(sender);
+            self.position = vec3(0.0f, -0.18f, 0.013f);
+        }
+        else if (i == 2) {
+            self.SetParent(originalParent);
+            self.position = vec3(-0.105f, 0.137f, -0.547f);
+        }
     }
 }

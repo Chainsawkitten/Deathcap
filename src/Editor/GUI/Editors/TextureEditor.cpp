@@ -20,7 +20,7 @@ void TextureEditor::Show() {
         if (ImGui::InputText("Name", name, 128, ImGuiInputTextFlags_EnterReturnsTrue)) {
             // Rename texture files.
             std::string path = Hymn().GetPath() + "/" + texture->path;
-            rename((path + texture->name + ".png").c_str(), (path + name + ".png").c_str());
+            rename((path + texture->name + ".hct").c_str(), (path + name + ".hct").c_str());
             
             texture->name = name;
         }

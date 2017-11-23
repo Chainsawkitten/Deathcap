@@ -20,7 +20,7 @@ TriggerManager::~TriggerManager() {
 
 void TriggerManager::ProcessTriggers() {
     for (auto trigger : triggerComponents.GetAll()) {
-        if (trigger->IsKilled() || !trigger->entity->enabled)
+        if (trigger->IsKilled() || !trigger->entity->IsEnabled())
             continue;
 
         trigger->superTrigger->Process();
@@ -104,11 +104,10 @@ const std::vector<Component::Trigger*>& TriggerManager::GetTriggerComponents() c
 void TriggerManager::SynchronizeTriggers() {
 
     for (auto trigger : triggerComponents.GetAll()) {
-        if (trigger->IsKilled() || !trigger->entity->enabled)
+        if (trigger->IsKilled() || !trigger->entity->IsEnabled())
             continue;
 
         trigger->superTrigger->Update();
-
     }
 }
 
@@ -118,10 +117,20 @@ void TriggerManager::ClearKilledComponents() {
 
 void TriggerManager::InitiateUID() {
     for (auto trigger : triggerComponents.GetAll()) {
-        if (trigger->IsKilled() || !trigger->entity->enabled)
+        if (trigger->IsKilled() || !trigger->entity->IsEnabled())
             continue;
 
         trigger->superTrigger->InitTriggerUID();
+
+    }
+}
+
+void TriggerManager::InitiateVolumes() {
+    for (auto trigger : triggerComponents.GetAll()) {
+        if (trigger->IsKilled() || !trigger->entity->IsEnabled())
+            continue;
+
+        trigger->superTrigger->InitiateVolumes();
 
     }
 }

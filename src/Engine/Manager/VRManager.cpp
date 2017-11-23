@@ -57,7 +57,7 @@ void VRManager::Update() {
     
     // Update VR devices.
     for (Component::VRDevice* vrDevice : vrDevices.GetAll()) {
-        if (vrDevice->IsKilled() || !vrDevice->entity->enabled)
+        if (vrDevice->IsKilled() || !vrDevice->entity->IsEnabled())
             continue;
         
         Entity* entity = vrDevice->entity;

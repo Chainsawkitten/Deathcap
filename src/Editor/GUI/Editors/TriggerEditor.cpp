@@ -193,22 +193,17 @@ namespace GUI {
 
                         // Subject
                         ImGui::NextColumn();
-                        int shapeID = repeat->GetEventVector()->at(i).m_shapeID;
-                        std::vector<std::string> entityWithShape;
-                        for (std::size_t i = 0; i < Hymn().world.GetEntities().size(); ++i) {
-                            if (Hymn().world.GetEntities().at(i)->GetComponent<Component::RigidBody>() != nullptr)
-                                entityWithShape.push_back(Hymn().world.GetEntities().at(i)->name);
-                        }
+                        int collidedEntityUID = repeat->GetCollidedEntityUID();
+                        if (ImGui::InputInt("Input UID: ", &collidedEntityUID)) {
 
-                        if (ImGui::Combo(labelShape.c_str(), &shapeID, entityWithShape)) {
-                            repeat->GetEventVector()->at(i).m_shapeID = shapeID;
-
-                            for (std::size_t j = 0; j < Hymn().world.GetEntities().size(); ++j) {
-                                if (Hymn().world.GetEntities().at(j)->name == entityWithShape.at(shapeID)) {
-                                    repeat->GetCollidedEntity()->push_back(Hymn().world.GetEntities().at(j));
-                                    repeat->GetEventVector()->at(i).check[1] = true;
+                            for (std::size_t i = 0; i < Hymn().world.GetEntities().size(); ++i) {
+                                if (Hymn().world.GetEntities().at(i)->GetUniqueIdentifier() == collidedEntityUID && Hymn().world.GetEntities().at(i)->GetComponent<Component::RigidBody>()) {
+                                    repeat->GetCollidedEntity()->push_back(Hymn().world.GetEntities().at(i));
                                 }
+                                    
                             }
+                            repeat->SetCollidedEntityUID(collidedEntityUID);
+                            repeat->GetEventVector()->at(i).check[1] = true;
                         }
 
                         // Entity target

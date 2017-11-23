@@ -355,6 +355,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("float yaw(const quat &in)", asFUNCTIONPR(glm::yaw, (const glm::quat&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float roll(const quat &in)", asFUNCTIONPR(glm::roll, (const glm::quat&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float radians(float)", asFUNCTIONPR(glm::radians, (float), float), asCALL_CDECL);
+    engine->RegisterGlobalFunction("float degrees(float)", asFUNCTIONPR(glm::degrees, (float), float), asCALL_CDECL);
 
     // Register Entity.
     engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT);
@@ -366,6 +367,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "void SetWorldPosition(vec3)", asMETHOD(Entity, SetWorldPosition), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetEnabled(bool, bool)", asMETHOD(Entity, SetEnabled), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "bool IsEnabled() const", asMETHOD(Entity, IsEnabled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
@@ -586,7 +589,7 @@ void ScriptManager::GetBreakpoints(const ScriptFile* scriptFile) {
     std::string line;
     int lineNumber = 1;
     while (std::getline(f, line)) {
-        if (line.length() >= 7) {
+        if (line.length() >= 8) {
 
             std::string end = line.substr(line.length() - 8, 7);
             if (end == "//break" || end == "//Break" || end == "//BREAK") {
@@ -698,7 +701,7 @@ void ScriptManager::FillFunctionVector(ScriptFile* scriptFile) {
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
     for (Script* script : scripts.GetAll()) {
-        if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
+        if (!script->initialized && !script->IsKilled() && script->entity->IsEnabled()) {
             CreateInstance(script);
 
             // Skip if not initialized
@@ -860,6 +863,8 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
     Component::Script* script = entity->GetComponent<Component::Script>();
     if (!script)
         return;
+    currentEntity = script->entity;
+
     ScriptFile* scriptFile = script->scriptFile;
 
     // Get class.
