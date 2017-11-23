@@ -29,7 +29,7 @@ class Controller {
             SendMessage(rock, 2);
         }
         
-        if (!Input(Trigger) && pickUp) {
+        if (!Input(Trigger, self) && pickUp) {
             pickUp = false;
             SendMessage(lantern, 2);
         }
@@ -45,7 +45,7 @@ class Controller {
     
     void OnLanternTrigger() {
         print("Lantern Trigger\n");
-        if(Input(Trigger) && pickUp == false){
+        if(Input(Trigger, self) && pickUp == false){
             pickUp = true;
             SendMessage(lantern, 1);
         }
