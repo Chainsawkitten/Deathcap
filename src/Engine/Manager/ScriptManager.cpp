@@ -639,12 +639,35 @@ void ScriptManager::FillPropertyMap(Script* script) {
             } else if (typeId == engine->GetTypeIdByDecl("Entity@")) {
                 int size = sizeof(unsigned int);
                 
+                Entity* pointer = *(Entity**)varPointer;
+
                 const std::vector<Entity*> entities = Hymn().world.GetEntities();
                 
-                //We start with setting the GUID to 0, which means it's uninitialized.
-                unsigned int GUID = 0;
-                script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
-                
+                bool initialized = false;
+                for (int i = 0; i < entities.size(); i++) {
+
+                    if (entities[i] == pointer) {
+
+                        initialized = true;
+                        break;
+
+                    }
+
+                }
+
+                if (initialized) {
+
+                    unsigned int GUID = pointer->GetUniqueIdentifier();
+                    script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
+
+
+                } else {
+
+                    //We start with setting the GUID to 0, which means it's uninitialized.
+                    unsigned int GUID = 0;
+                    script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
+
+                }                
             }
         }
     }
@@ -682,6 +705,8 @@ void ScriptManager::Update(World& world, float deltaTime) {
             if (!script->initialized)
                 continue;
 
+            FillPropertyMap(script);
+
             int propertyCount = script->instance->GetPropertyCount();
 
             for (int n = 0; n < propertyCount; n++) {
@@ -689,6 +714,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
                 std::string name = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void* varPointer = script->instance->GetAddressOfProperty(n);
+                std::string a = script->scriptFile->name;
 
                 if (script->IsInPropertyMap(name, typeId)) {
 
