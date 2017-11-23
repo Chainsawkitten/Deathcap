@@ -69,7 +69,7 @@ namespace Component {
             ENGINE_API void ClearPropertyMap();
 
         private:
-            Script(const Script & other) = delete;
+            Script(const Script& other) = delete;
 
             class Property {
                 
