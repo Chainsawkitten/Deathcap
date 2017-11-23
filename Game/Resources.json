@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Opening Scene/Opening Scene",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -1194,7 +1194,20 @@
 						"type" : 0
 					}
 				],
-				"subfolders" : null
+				"subfolders" : 
+				[
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "SwitcherScript_1",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					}
+				]
 			}
 		]
 	},

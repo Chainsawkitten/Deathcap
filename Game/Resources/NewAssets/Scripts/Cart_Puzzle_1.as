@@ -40,6 +40,7 @@ class Cart_Puzzle_1{
         if (first){
             self.SetEnabled(false, true);
             actualSelf.SetEnabled(false, true);
+            first = false;
         }
         
         if (!hasHitPlane) {
