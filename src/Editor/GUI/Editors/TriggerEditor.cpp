@@ -14,7 +14,6 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <imgui.h>
-#include <iostream>
 
 // This is necessary to use std::string in ImGui::Combo(). Taken from https://github.com/ocornut/imgui/issues/1180
 namespace ImGui {
