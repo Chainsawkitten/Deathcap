@@ -39,6 +39,7 @@ void AnimationControllerEditor::ShowContextMenu() {
         return;
     }
 
+    // Create menu item for animation actions.
     if (ImGui::MenuItem("Add animation action")) {
         Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
         std::string name = "Action #" + std::to_string(animationController->animationNodes.size() + 1);
@@ -48,11 +49,13 @@ void AnimationControllerEditor::ShowContextMenu() {
         animationController->animationNodes.push_back(newAction);
     }
 
+    // Create menu item for animation transitions.
     if (ImGui::MenuItem("Add animation transition")) {
         Animation::AnimationController::AnimationTransition* newTransition = new Animation::AnimationController::AnimationTransition;
-        std::string name = "Animation transition: " + std::to_string(animationController->animationNodes.size() + 1);
+        std::string name = "Transition #" + std::to_string(animationController->animationNodes.size() + 1);
         unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
         memcpy(newTransition->name, name.c_str(), size);
+        newTransition->index = animationController->animationNodes.size();
         animationController->animationNodes.push_back(newTransition);
     }
 
@@ -60,14 +63,14 @@ void AnimationControllerEditor::ShowContextMenu() {
 
     if (ImGui::MenuItem("Add bool")) {
         Animation::AnimationController::BoolItem* newBool = new Animation::AnimationController::BoolItem;
-        std::string name = "NewBool" + std::to_string(animationController->boolMap.size() + 1);
+        std::string name = "NewBool #" + std::to_string(animationController->boolMap.size() + 1);
         memcpy(newBool->name, name.c_str(), name.size() + 1);
         animationController->boolMap.push_back(newBool);
     }
 
     if (ImGui::MenuItem("Add float")) {
         Animation::AnimationController::FloatItem* newFloat = new Animation::AnimationController::FloatItem;
-        std::string name = "NewFloat" + std::to_string(animationController->floatMap.size() + 1);
+        std::string name = "NewFloat #" + std::to_string(animationController->floatMap.size() + 1);
         memcpy(newFloat->name, name.c_str(), name.size() + 1);
         animationController->floatMap.push_back(newFloat);
     }
@@ -80,12 +83,12 @@ void AnimationControllerEditor::ShowContextMenu() {
 }
 
 void AnimationControllerEditor::ShowNode(Node* node) {
-    ImGui::Text("Action: %s", node->name);
-    ImGui::InputText("Name", node->name, 128);
-
     // Dynamic cast to AnimationAction.
     Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
     if (action) {
+        ImGui::Text("Action: %s", node->name);
+        ImGui::InputText("Name", node->name, 128);
+
         if (ImGui::Button("Select animation clip##Clip"))
             ImGui::OpenPopup("Select animation clip##Clip");
 
@@ -217,18 +220,28 @@ void GUI::AnimationControllerEditor::ShowValues() {
             ImGui::BeginChild(item->name, ImVec2(0, 72), true);
             ImGui::Text("Bool: %s", item->name);
 
-            if (ImGui::Button("Edit")) {
-                boolEditIndex = i;
-                floatEditIndex = -1;
-            }
+            // A unique id needs to be pushed here because the id "Edit" is used on several places.
+            std::string editId = "Edit" + std::string(item->name);
+            ImGui::PushID(editId.c_str()); {
+                if (ImGui::Button("Edit")) {
+                    boolEditIndex = i;
+                    floatEditIndex = -1;
+                }
+            } ImGui::PopID();
 
-            if (ImGui::Button("Remove")) {
-                delete item;
-                item = nullptr;
-                animationController->boolMap.erase(animationController->boolMap.begin() + i);
-                ImGui::EndChild();
-                break;
-            }
+            ImGui::SameLine();
+
+            // A unique id needs to be pushed here because the id "Remove" is used on several places.
+            std::string removeId = "Remove" + std::string(item->name);
+            ImGui::PushID(removeId.c_str()); {
+                if (ImGui::Button("Remove")) {
+                    delete item;
+                    item = nullptr;
+                    animationController->boolMap.erase(animationController->boolMap.begin() + i);
+                    ImGui::EndChild();
+                    break;
+                }
+            } ImGui::PopID();
 
             ImGui::EndChild();
         }
@@ -265,6 +278,8 @@ void GUI::AnimationControllerEditor::ShowValues() {
                 floatEditIndex = i;
                 boolEditIndex = -1;
             }
+
+            ImGui::SameLine();
 
             if (ImGui::Button("Remove")) {
                 delete item;
