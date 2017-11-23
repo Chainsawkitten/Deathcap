@@ -18,6 +18,7 @@ class SteamAudioRenderers {
         /// Destructor.
         ENGINE_API ~SteamAudioRenderers();
 
+        //TMPTODO
         /// Processes the direct path portion of the audio
         /**
          * @param input The audiobuffer to be processed.
@@ -28,7 +29,7 @@ class SteamAudioRenderers {
          * @param sourceRadius The radius of the source, for calculating occlusion.
          * @param The processed buffer.
          */
-        ENGINE_API void Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius, IPLAudioBuffer& output);
+        ENGINE_API IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius);
 
     private:
         IPLAudioFormat inputFormat;
@@ -38,4 +39,5 @@ class SteamAudioRenderers {
         IPLhandle binauralEffect;
         IPLhandle convEffect;
         IPLAudioBuffer effectBuffer;
+        IPLAudioBuffer directBuffer;
 };

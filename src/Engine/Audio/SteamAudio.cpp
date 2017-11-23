@@ -47,7 +47,7 @@ void SteamAudio::Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAu
         if (it == rendererMap.end())
             rendererMap[input.GUID] = new SteamAudioRenderers(environment, envRenderer, binauralRenderer); //TMPTODO REMOVE UNUSED
 
-        rendererMap[input.GUID]->Process(input.buffer, playerPos, playerDir, playerUp, input.position, input.radius, audioBuffers[i]);
+        audioBuffers[i] = rendererMap[input.GUID]->Process(input.buffer, playerPos, playerDir, playerUp, input.position, input.radius);
     }
 
     assert(!audioBuffers.empty());
@@ -56,8 +56,6 @@ void SteamAudio::Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAu
     iplGetMixedEnvironmentalAudio(envRenderer, playerPos, playerDir, playerUp, indirectBuffer);
     std::vector<IPLAudioBuffer> mixBuffers{ directBuffer, indirectBuffer };
     iplMixAudioBuffers(mixBuffers.size(), mixBuffers.data(), output);
-    for (std::size_t i = 0; i < inputs.size(); ++i)
-        delete[] audioBuffers[i].interleavedBuffer;
 }
 
 void SteamAudio::SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up) {

@@ -28,6 +28,11 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment, IPLhandle envRen
     effectBuffer.numSamples = CHUNK_SIZE;
     effectBuffer.interleavedBuffer = new float[CHUNK_SIZE];
     effectBuffer.deinterleavedBuffer = NULL;
+
+    directBuffer.format = outputFormat;
+    directBuffer.numSamples = CHUNK_SIZE;
+    directBuffer.interleavedBuffer = new float[CHUNK_SIZE * 2];
+    directBuffer.deinterleavedBuffer = NULL;
 }
 
 SteamAudioRenderers::~SteamAudioRenderers() {
@@ -36,9 +41,10 @@ SteamAudioRenderers::~SteamAudioRenderers() {
     iplDestroyConvolutionEffect(&convEffect);
 
     delete[] effectBuffer.interleavedBuffer;
+    delete[] directBuffer.interleavedBuffer;
 }
 
-void SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius, IPLAudioBuffer& output) {
+IPLAudioBuffer SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius) {
     // Calculate direct sound path
     IPLDirectSoundPath soundPath = iplGetDirectSoundPath(environment, playerPos, playerDir, playerUp, sourcePos, sourceRadius, IPL_DIRECTOCCLUSION_TRANSMISSIONBYFREQUENCY, IPL_DIRECTOCCLUSION_VOLUMETRIC);
 
@@ -50,14 +56,11 @@ void SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 playerPos, IP
 
     iplApplyDirectSoundEffect(directEffect, input, soundPath, options, effectBuffer);
 
-    output.format = outputFormat;
-    output.numSamples = CHUNK_SIZE;
-    output.interleavedBuffer = new float[CHUNK_SIZE * 2];
-    output.deinterleavedBuffer = NULL;
-
     // Spatialize the direct audio
-    iplApplyBinauralEffect(binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, output);
+    iplApplyBinauralEffect(binauralEffect, effectBuffer, soundPath.direction, IPL_HRTFINTERPOLATION_BILINEAR, directBuffer);
 
     // Indirect Audio
     iplSetDryAudioForConvolutionEffect(convEffect, sourcePos, input);
+
+    return directBuffer;
 }
