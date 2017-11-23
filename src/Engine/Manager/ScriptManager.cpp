@@ -717,19 +717,18 @@ void ScriptManager::Update(World& world, float deltaTime) {
                 std::string name = script->instance->GetPropertyName(n);
                 int typeId = script->instance->GetPropertyTypeId(n);
                 void* varPointer = script->instance->GetAddressOfProperty(n);
-                std::string a = script->scriptFile->name;
 
                 if (script->IsInPropertyMap(name, typeId)) {
 
                     if (typeId == engine->GetTypeIdByDecl("Entity@")) {
-
+                        
                         unsigned int* GUID = (unsigned int*)script->GetDataFromPropertyMap(name);
 
                         //We make sure it is initialized.
                         if (*GUID != 0)
                             *reinterpret_cast<Entity**>(varPointer) = Hymn().GetEntityByGUID(*GUID);
                         else
-                            Log() << "Property " << name << " is not initialized" << "\n";
+                            Log() << "Property " << name << " of script " << script->scriptFile->name << " on entity " << script->entity->name << " is not initialized" << "\n";
 
                     }
                     else 
