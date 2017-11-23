@@ -47,7 +47,7 @@ uint32_t VorbisFile::GetChannelCount() const {
 
 void VorbisFile::Cache(bool cache) {
     if (!stbFile) {
-        Log() << "No OGG Vorbis file loaded to cache\n.";
+        Log() << "No OGG Vorbis file loaded to cache.\n";
         return;
     }
 

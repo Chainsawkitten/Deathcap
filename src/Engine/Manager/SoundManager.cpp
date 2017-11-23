@@ -136,8 +136,6 @@ void SoundManager::ProcessSamples() {
             for (int m = 0; m < samples; ++m)
                 buffer[m] *= sound->volume;
 
-            buffers.push_back(buffer);
-
             glm::vec3 position = sound->entity->GetWorldPosition();
             positions.push_back(IPLVector3{ position.x, position.y, position.z });
             radii.push_back(5.f);
@@ -163,7 +161,9 @@ void SoundManager::ProcessSamples() {
     }
 
     // Process sound.
-    if (!soundBuffers.empty())
+    if (soundBuffers.empty())
+        memset(processedBuffer, 0, CHUNK_SIZE * 2 * sizeof(float));
+    else
         sAudio.Process(buffers, positions, radii, processedBuffer);
 
     // Consume used chunk and produce new chunk.
