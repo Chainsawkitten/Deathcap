@@ -175,3 +175,7 @@ add_subdirectory(SteamAudio)
 
 # PortAudio
 add_subdirectory(portaudio)
+
+# Compressonator
+add_subdirectory(Compressonator)
+target_include_directories(Compressonator INTERFACE Compressonator)
