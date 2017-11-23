@@ -16,8 +16,6 @@ class Cart_Puzzle_1{
     float b;
     float c;
     float brakeDistance;
-    bool audioPlaying;
-    bool startRolling;
     
     Cart_Puzzle_1(Entity @entity){
         @hub = Managers();
@@ -29,8 +27,6 @@ class Cart_Puzzle_1{
         puzzleSolved = false;
         //trigger = false;
         hasHitPlane = false;
-        audioPlaying = false;
-        startRolling = false;
         RegisterUpdate();
     }
     
