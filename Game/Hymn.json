@@ -64,6 +64,6 @@
 		"Resources/Super Scene/Scripts/SwitcherScript_1",
 		"Resources/NewAssets/Scripts/Cart_debug_script"
 	],
-	"startupScene" : "Resources/NewAssetsScene",
+	"startupScene" : "Resources/VoltageScene/VoltageScene",
 	"vrScale" : 1.5
 }
