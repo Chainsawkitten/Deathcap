@@ -60,8 +60,8 @@ namespace Audio {
             std::string path;
             
         private:
-            float* buffer;
-            uint32_t size;
-            uint32_t sampleRate;
+            float* buffer = nullptr;
+            uint32_t size = 0;
+            uint32_t sampleRate = 0;
     };
 }
