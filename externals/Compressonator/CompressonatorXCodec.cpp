@@ -110,6 +110,7 @@ DWORD ConstructColor(BYTE R, BYTE nRedBits, BYTE G, BYTE nGreenBits, BYTE B, BYT
                 ((B & nByteBitsMask[nBlueBits]) >> ((PIX_GRID - nBlueBits))));
 }
 
+#ifdef USE_SSE
 inline CODECFLOAT HorSum(__m128 in) {
 #if defined(__GNU_C__) or defined(__MINGW32__)
     // http://stackoverflow.com/questions/6996764/fastest-way-to-do-horizontal-float-vector-sum-on-x86
@@ -122,6 +123,7 @@ inline CODECFLOAT HorSum(__m128 in) {
     return in.m128_f32[0] + in.m128_f32[1] + in.m128_f32[2] + in.m128_f32[3];
 #endif
 }
+#endif // USE_SSE
 
 /*--------------------------------------------------------------------------
  3 DIM VECTOR CASE
