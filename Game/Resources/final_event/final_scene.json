@@ -391,7 +391,7 @@
 				"triggerFunction" : "void BecomeExposed()",
 				"triggerName" : "New Trigger",
 				"triggerOwner" : 1511261108,
-				"triggerTargetEntity" : 1511260476,
+				"triggerTargetEntity" : 1511261389,
 				"triggerTriggered" : false
 			},
 			"children" : null,
