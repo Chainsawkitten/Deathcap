@@ -4,64 +4,56 @@
 #include <json/json.h>
 #include <cstdint>
 #include "../linking.hpp"
+#include <queue>
+#include "SoundStreamer.hpp"
+#include "../Manager/SoundManager.hpp"
 
 namespace Audio {
     class SoundFile;
     
-    /// Wrapper for OpenAL buffers.
+    /// Wrapper for sound file.
     class SoundBuffer {
         public:
-            /// Create new unloaded sound buffer.
+            friend class SoundStreamer;
+
+            /// Constructor.
             ENGINE_API SoundBuffer();
-            
-            /// Create a sound buffer from a sound file.
-            /**
-             * @param soundFile The sound file containing the sound.
-             */
-            ENGINE_API explicit SoundBuffer(SoundFile* soundFile);
             
             /// Destructor.
             ENGINE_API ~SoundBuffer();
             
-            /// Get AL buffer.
+            /// Get sound data.
             /**
-             * @return The OpenAL buffer ID.
+             * @param samples Number of valid samples fetched from file.
+             * @return Pointer to raw audio data.
              */
-            ENGINE_API float* GetBuffer() const;
-            
-            /// Save the sound.
-            /**
-             * @return JSON value to be stored on disk.
-             */
-            ENGINE_API Json::Value Save() const;
-            
-            /// Load sound from file.
-            /**
-             * @param name Name of the sound to load.
-             */
-            ENGINE_API void Load(const std::string& name);
-            
-            /// Load sound buffer from a sound file.
-            /**
-             * @param soundFile The sound file containing the sound.
-             */
-            ENGINE_API void Load(SoundFile* soundFile);
+            ENGINE_API float* GetChunkData(int& samples);
 
-            /// Get size of buffer.
-            /**
-             * @return The size of the buffer.
-             */
-            ENGINE_API uint32_t GetSize();
+            /// Release used sound data from stream.
+            ENGINE_API void ConsumeChunk();
 
-            /// The name of the sound.
-            std::string name;
-            
-            /// The folder containing the sound file.
-            std::string path;
+            /// Request new sound data to stream.
+            ENGINE_API void ProduceChunk();
+
+            /// Get sound file.
+            /**
+             * @return The %SoundFile containing the sound.
+             */
+            ENGINE_API SoundFile* GetSoundFile() const;
+
+            /// Set sound file.
+            /**
+             * @param soundFile The %SoundFile containing the sound.
+             */
+            ENGINE_API void SetSoundFile(SoundFile* soundFile);
+
+            /// Reset file.
+            ENGINE_API void Restart();
             
         private:
-            float* buffer = nullptr;
-            uint32_t size = 0;
-            uint32_t sampleRate = 0;
+            SoundFile* soundFile = nullptr;
+            float buffer[CHUNK_SIZE * CHUNK_COUNT];
+            unsigned int begin = 0;
+            std::queue<SoundStreamer::DataHandle> chunkQueue;
     };
 }
