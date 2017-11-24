@@ -50,4 +50,28 @@ CODECFLOAT CompRGBBlock(CMP_DWORD* block_32,
                         bool _bUseAlpha = false, 
                         CMP_BYTE _nAlphaThreshold = 128);
 
+/*--------------------------------------------------------------------------------------------
+// input [0,255]
+void CompBlock1X(CMP_BYTE* _Blk,                [IN] scalar data block (alphas or normals) in 8 bits format 
+                 CMP_DWORD blockCompressed[2],    [OUT] compressed data in DXT5 alpha foramt
+                 int _NbrClrs,                        [IN] actual number of elements in the block
+                 int _intPrec,                        [IN] integer precision; it applies both to the input data and
+                                                         to the ramp points
+                 int _fracPrec,                        [IN] fractional precision of the ramp points
+                 bool _bFixedRamp,                    [IN] always true at this point
+                 bool _bUseSSE2                        [IN] forces to switch to the SSE2 implementation
+                )
+---------------------------------------------------------------------------------------------*/
+
+CODECFLOAT CompBlock1X(CMP_BYTE* _Blk,
+                       CMP_WORD dwBlockSize, 
+                       CMP_BYTE nEndpoints[2],
+                       CMP_BYTE* pcIndices,
+                       CMP_BYTE dwNumPoints,
+                       bool bFixedRampPoints,
+                       bool _bUseSSE2 = true,
+                       int _intPrec = 8,
+                       int _fracPrec = 0,
+                       bool _bFixedRamp = true);
+
 #endif

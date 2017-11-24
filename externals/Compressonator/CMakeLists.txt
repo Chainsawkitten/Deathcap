@@ -1,4 +1,5 @@
 set(SRCS
+        Codec_DXTC_Alpha.cpp
         Codec_DXTC_RGBA.cpp
         CompressonatorXCodec.cpp
     )

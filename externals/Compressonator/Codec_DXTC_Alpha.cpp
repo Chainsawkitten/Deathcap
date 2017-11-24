@@ -21,20 +21,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-//  File Name:   Codec_DXTC.h
-//  Description: interface for the CCodec_DXTC class
+//
+//  File Name:   Codec_DXTC.cpp
+//  Description: implementation of the CCodec_DXTC class
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CODEC_DXTC_H_INCLUDED_
-#define _CODEC_DXTC_H_INCLUDED_
-
 #include "Common.h"
+#include "Codec_DXTC.h"
+#include "CompressonatorXCodec.h"
 
-void CompressRGBBlock(CMP_BYTE rgbBlock[BLOCK_SIZE_4X4X4], CMP_DWORD compressedBlock[2], CODECFLOAT* pfChannelWeights, bool slow, bool bDXT1UseAlpha, CMP_BYTE nDXT1AlphaThreshold);
-CODECFLOAT* CalculateColourWeightings(CMP_BYTE block[BLOCK_SIZE_4X4X4]);
+void CompressAlphaBlock(CMP_BYTE alphaBlock[BLOCK_SIZE_4X4], CMP_DWORD compressedBlock[2])
+{
+    bool m_bUseSSE2 = true;
+    
+    CMP_BYTE nEndpoints[2][2];
+    CMP_BYTE nIndices[2][BLOCK_SIZE_4X4];
+    float fError8 = CompBlock1X(alphaBlock, BLOCK_SIZE_4X4, nEndpoints[0], nIndices[0], 8, false, m_bUseSSE2, 8, 0, true);
+    float fError6 = (fError8 == 0.f) ? FLT_MAX : CompBlock1X(alphaBlock, BLOCK_SIZE_4X4, nEndpoints[1], nIndices[1], 6, true, m_bUseSSE2, 8, 0, true);
+    if(fError8 <= fError6)
+        EncodeAlphaBlock(compressedBlock, nEndpoints[0], nIndices[0]);
+    else
+        EncodeAlphaBlock(compressedBlock, nEndpoints[1], nIndices[1]);
+}
 
-void CompressAlphaBlock(CMP_BYTE alphaBlock[BLOCK_SIZE_4X4], CMP_DWORD compressedBlock[2]);
-void EncodeAlphaBlock(CMP_DWORD compressedBlock[2], CMP_BYTE nEndpoints[2], CMP_BYTE nIndices[BLOCK_SIZE_4X4]);
+void EncodeAlphaBlock(CMP_DWORD compressedBlock[2], CMP_BYTE nEndpoints[2], CMP_BYTE nIndices[BLOCK_SIZE_4X4])
+{
+    compressedBlock[0] = ((int)nEndpoints[0]) | (((int)nEndpoints[1])<<8);
+    compressedBlock[1] = 0;
 
-#endif // !defined(_CODEC_DXTC_H_INCLUDED_)
+    for(int i = 0; i < BLOCK_SIZE_4X4; i++)
+    {
+        if(i < 5)
+            compressedBlock[0] |= (nIndices[i] & 0x7) << (16 + (i * 3));
+        else if(i > 5)
+            compressedBlock[1] |= (nIndices[i] & 0x7) << (2 + (i-6) * 3);
+        else
+        {
+            compressedBlock[0] |= (nIndices[i] & 0x1) << 31;
+            compressedBlock[1] |= (nIndices[i] & 0x6) >> 1;
+        }
+    }
+}
