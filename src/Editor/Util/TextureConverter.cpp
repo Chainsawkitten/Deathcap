@@ -53,6 +53,7 @@ namespace TextureConverter {
             width /= 2;
             height /= 2;
         }
+        uint16_t compressionType = Video::TextureHCT::BC1;
         
         // Write header.
         uint16_t version = Video::TextureHCT::VERSION;
@@ -60,6 +61,7 @@ namespace TextureConverter {
         file.write(reinterpret_cast<const char*>(&uWidth), sizeof(uint16_t));
         file.write(reinterpret_cast<const char*>(&uHeight), sizeof(uint16_t));
         file.write(reinterpret_cast<const char*>(&mipLevels), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&compressionType), sizeof(uint16_t));
         
         // Write data.
         width = uWidth;

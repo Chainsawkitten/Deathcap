@@ -11,6 +11,13 @@ namespace Video {
      */
     class TextureHCT : public Texture2D {
         public:
+        /// The type of compression the texture uses.
+        enum CompressionType {
+            BC1 = 0,
+            BC4,
+            BC5
+        };
+        
         /// Load texture.
         /**
          * @param filenameThe name of the HCT file to load.
