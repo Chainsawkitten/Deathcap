@@ -1,18 +1,14 @@
 {
-	"activeScene" : "Resources/NewAssetsScene",
+	"activeScene" : "Resources/final_event/final_scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 125,
+	"modelNumber" : 142,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
 		"resources" : 
 		[
-			{
-				"scene" : "Combined Scene",
-				"type" : 0
-			},
 			{
 				"scene" : "NewAssetsScene",
 				"type" : 0
@@ -354,6 +350,17 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "CartScript_0",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -1177,10 +1184,100 @@
 					}
 				],
 				"subfolders" : null
+			},
+			{
+				"name" : "final_event",
+				"resources" : 
+				[
+					{
+						"model" : "final_cave",
+						"type" : 1
+					},
+					{
+						"model" : "final_hills",
+						"type" : 1
+					},
+					{
+						"model" : "final_plane",
+						"type" : 1
+					},
+					{
+						"model" : "final_rail",
+						"type" : 1
+					},
+					{
+						"model" : "final_skullsandbones",
+						"type" : 1
+					},
+					{
+						"model" : "final_wood_structures",
+						"type" : 1
+					},
+					{
+						"model" : "sand_piles",
+						"type" : 1
+					},
+					{
+						"scene" : "final_scene",
+						"type" : 0
+					},
+					{
+						"model" : "sacks",
+						"type" : 1
+					},
+					{
+						"model" : "wires",
+						"type" : 1
+					},
+					{
+						"script" : "MainScript",
+						"type" : 4
+					},
+					{
+						"script" : "MonsterScript",
+						"type" : 4
+					},
+					{
+						"model" : "knife2",
+						"type" : 1
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "textures",
+						"resources" : null,
+						"subfolders" : null
+					}
+				]
+			},
+			{
+				"name" : "Super Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Super Scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "SwitcherScript_1",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					}
+				]
 			}
 		]
 	},
-	"sceneNumber" : 21,
+	"sceneNumber" : 24,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,

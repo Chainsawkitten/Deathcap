@@ -191,8 +191,6 @@ Json::Value TriggerRepeat::Save() {
         component["triggerFunction"] = targetFunction.front(); // ADD SUPPORT FOR VECTOR
     if (!targetEntity.empty())
         component["triggerTargetEntity"] = targetEntity.front()->GetUniqueIdentifier(); // ADD SUPPORT FOR VECTOR
-    if (!collidedEntity.empty())
-        component["triggerCollidedEntity"] = collidedEntity.front()->GetUniqueIdentifier(); // ADD SUPPORT FOR VECTOR
 
     if (!eventVector.empty()) {
         component["triggerEventStruct_EventID"] = eventVector.front().m_eventID; // ADD SUPPORT FOR VECTOR
@@ -206,6 +204,7 @@ Json::Value TriggerRepeat::Save() {
                 
     }
 
+    component["triggerCollidedEntityUID"] = collidedEntityUID;
     component["triggerTriggered"] = triggered;
 
     if (owningEntity != nullptr)
