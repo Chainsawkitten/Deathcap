@@ -4,11 +4,11 @@
 SteamAudioInterface::SteamAudioInterface() {
     simSettings.sceneType = IPL_SCENETYPE_PHONON;
     simSettings.numRays = 12400;
-    simSettings.numDiffuseSamples = 32;
-    simSettings.numBounces = 1;
+    simSettings.numDiffuseSamples = 1024;
+    simSettings.numBounces = 3;
     simSettings.irDuration = 1.0;
-    simSettings.ambisonicsOrder = 0;
-    simSettings.maxConvolutionSources = 5;
+    simSettings.ambisonicsOrder = 1;
+    simSettings.maxConvolutionSources = 10;
     context = IPLContext{ nullptr, nullptr, nullptr };
 }
 
