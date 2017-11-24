@@ -21,6 +21,7 @@ class MainScript {
         phase = 0;
         speed = 4.0f;
 
+        self.SetEnabled(false, true);
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -30,7 +31,7 @@ class MainScript {
         switch (phase) {
             case 0: { // Entering final scene
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 break;
             }
@@ -44,7 +45,7 @@ class MainScript {
             }
             case 3: { // Continue after monster has been killed
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 // Fade here
                 break;

@@ -169,6 +169,108 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511358480
+		},
+		{
+			"name" : "Final Scene",
+			"position" : 
+			{
+				"x" : -193.82101440429688,
+				"y" : 2.1600000858306885,
+				"z" : -1.628000020980835
+			},
+			"rotation" : 
+			{
+				"w" : 1.910685465164705e-15,
+				"x" : -4.3711388286737929e-08,
+				"y" : 1.0,
+				"z" : -4.3711388286737929e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/final_event/final_scene",
+			"static" : false,
+			"uid" : 1511256681
+		},
+		{
+			"Shape" : 
+			{
+				"plane" : 
+				{
+					"normal" : 
+					{
+						"x" : 1.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"planeCoeff" : 0.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 0,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerName" : "New Trigger",
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "Switcher Final",
+			"position" : 
+			{
+				"x" : -143.16600036621094,
+				"y" : 2.4289999008178711,
+				"z" : -1.3400000333786011
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511513186
+		},
+		{
+			"children" : null,
+			"name" : "SwitcherScript Final",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511513188
 		}
 	],
 	"name" : "Root",
