@@ -44,10 +44,9 @@ namespace Audio {
          */
         ENGINE_API void SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up);
 
-        //TMPTODO
         /// Creates the direct and indirect renderer.
         /**
-         * @param environment Handle to a created environment.
+         * @param environment Handle to Environment used by the object.
          */
         ENGINE_API void CreateRenderers(IPLhandle environment);
 

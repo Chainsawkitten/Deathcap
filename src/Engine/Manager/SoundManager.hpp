@@ -99,10 +99,16 @@ class SoundManager {
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
 
-        //TMPTODO
+        /// Load audio from file.
+        /**
+         * @param dataHandle %DataHandle to load.
+         */
         ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
 
-        //TMPTODO
+        /// Abort loading from file.
+        /**
+         * @param queue Queue of %DataHandle to flush from load queue.
+         */
         ENGINE_API void Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue);
         
     private:

@@ -11,17 +11,17 @@ namespace Audio {
     /// Class responsible for calculating direct audio.
     class SteamAudioRenderers {
         public:
-            //TMPTODO
             /// Constructor.
             /**
              * @param environment Handle to the Environment object to use.
+             * @param envRenderer Handle to the Environment Renderer object to use.
+             * @param binauralRenderer Handle to the Binaural Renderer object to use.
              */
-            ENGINE_API explicit SteamAudioRenderers(IPLhandle environment, IPLhandle envRenderer, IPLhandle binauralRenderer);
+            ENGINE_API SteamAudioRenderers(IPLhandle environment, IPLhandle envRenderer, IPLhandle binauralRenderer);
 
             /// Destructor.
             ENGINE_API ~SteamAudioRenderers();
 
-            //TMPTODO
             /// Processes the direct path portion of the audio
             /**
              * @param input The audiobuffer to be processed.
@@ -30,7 +30,7 @@ namespace Audio {
              * @param playerUp The up direction of the player.
              * @param sourcePos The position of the audio source.
              * @param sourceRadius The radius of the source, for calculating occlusion.
-             * @param The processed buffer.
+             * @return The processed buffer.
              */
             ENGINE_API IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius);
 

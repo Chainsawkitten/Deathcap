@@ -132,8 +132,7 @@ void SoundManager::ProcessSamples() {
         Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
 
         // Check if sound should play and is a valid resource.
-        //if (sound->shouldPlay && soundFile) { //TMPTODO
-        if (soundFile) {
+        if (sound->shouldPlay && soundFile && soundFile->IsLoaded()) {
             soundBuffers.push_back(soundBuffer);
 
             // Get samples from streamed buffer.
