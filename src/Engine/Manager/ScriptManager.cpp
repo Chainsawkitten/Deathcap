@@ -734,8 +734,7 @@ void ScriptManager::Update(World& world, float deltaTime) {
                         else
                             Log() << "Property " << name << " of script " << script->scriptFile->name << " on entity " << script->entity->name << " is not initialized" << "\n";
 
-                    }
-                    else 
+                    } else 
                         script->CopyDataFromPropertyMap(name, varPointer);
 
                 } 
