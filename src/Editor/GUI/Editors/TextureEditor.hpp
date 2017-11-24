@@ -51,5 +51,6 @@ namespace GUI {
             
             std::string path;
             bool selected = false;
+            int compressionType = 0;
     };
 }

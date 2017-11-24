@@ -1,7 +1,7 @@
 #include "TextureEditor.hpp"
 
 #include <Engine/Texture/TextureAsset.hpp>
-#include <Video/Texture/Texture2D.hpp>
+#include <Video/Texture/TextureHCT.hpp>
 #include "../FileSelector.hpp"
 #include <functional>
 #include <Engine/Hymn.hpp>
@@ -39,6 +39,21 @@ void TextureEditor::Show() {
         }
         
         if (selected) {
+            const char* items[3] = { "BC1", "BC4", "BC5" };
+            ImGui::Combo("Compression", &compressionType, items, 3);
+            
+            switch (compressionType) {
+            case Video::TextureHCT::BC1:
+                ImGui::Text("Suitable for albedo textures.\n4 bits per pixel.");
+                break;
+            case Video::TextureHCT::BC4:
+                ImGui::Text("Suitable for metallic and roughness textures.\n4 bits per pixels.\nNOT YET IMPLEMENTED");
+                break;
+            case Video::TextureHCT::BC5:
+                ImGui::Text("Suitable for normal maps.\n8 bits per pixel.\nNOT YET IMPLEMENTED");
+                break;
+            }
+            
             if (ImGui::Button("Import")) {
                 std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".hct";
                 
