@@ -30,7 +30,7 @@
 #include "Common.h"
 #include "Codec_DXTC.h"
 #include "CompressonatorXCodec.h"
-//#include "dxtc_v11_compress.h"
+#include <algorithm>
 
 #define ConstructColour(r, g, b)  (((r) << 11) | ((g) << 5) | (b))
 
@@ -54,7 +54,7 @@ void CompressRGBBlock(CMP_BYTE rgbBlock[BLOCK_SIZE_4X4X4], CMP_DWORD compressedB
     
     bool m_b3DRefinement = false;
     CMP_BYTE m_nRefinementSteps = 0;
-    bool m_bUseSSE2 = false;
+    bool m_bUseSSE2 = true;
 
     if(slow)
     {
