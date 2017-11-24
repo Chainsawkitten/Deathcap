@@ -473,21 +473,45 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
 
                     // Find method to call.
-                    std::string entityName = script->instance->GetPropertyName(n);
+                    std::string propertyName = script->instance->GetPropertyName(n);
 
-                    if (entityName != "self") {
+                    if (propertyName != "self") {
 
-                        std::string entityGUID = std::to_string(*(unsigned int*)script->GetDataFromPropertyMap(propertyName));
-                        std::string propertyText;
-                        propertyText.reserve(entityName.length() + entityGUID.length() + 2); // additional `: `
-                        propertyText.append(entityName).append(": ").append(entityGUID);
+                        unsigned int GUID = *(unsigned int*)script->GetDataFromPropertyMap(propertyName);
 
-                        ImGui::Separator();
+                        if (GUID != 0) {
 
-                        // Choosing other entity references
-                        ImGui::Text(propertyText.c_str());
-                        if (ImGui::Button("Change entity reference"))
-                            ImGui::OpenPopup("Add entity reference");
+                            std::string entityGUID = std::to_string(GUID);
+                            std::string entityName = Hymn().GetEntityByGUID(GUID)->name;
+                            std::string propertyText;
+                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 2); // additional `:  ()`
+                            propertyText.append(propertyName).append(": ").append(entityName).append("(").append(entityGUID).append(")");
+
+                            ImGui::Separator();
+
+                            // Choosing other entity references
+                            ImGui::Text(propertyText.c_str());
+
+                            if (ImGui::Button("Change entity reference"))
+                                ImGui::OpenPopup("Add entity reference");
+
+                        } else {
+
+                            std::string entityGUID = "???";
+                            std::string entityName = "Uninitialized";
+                            std::string propertyText;
+                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 2); // additional `:  ()`
+                            propertyText.append(propertyName).append(": ").append(entityName).append("(").append(entityGUID).append(")");
+
+                            ImGui::Separator();
+
+                            // Choosing other entity references
+                            ImGui::Text(propertyText.c_str());
+
+                            if (ImGui::Button("Add entity reference"))
+                                ImGui::OpenPopup("Add entity reference");
+
+                        }
 
                         if (ImGui::BeginPopup("Add entity reference")) {
                             ImGui::Text("Entities");
