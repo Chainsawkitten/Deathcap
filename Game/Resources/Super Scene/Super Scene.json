@@ -1,0 +1,197 @@
+{
+	"children" : 
+	[
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 13.117710113525391,
+				"y" : 1.9472404718399048,
+				"z" : -1.1825543642044067
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.20000000298023224,
+				"y" : 0.20000000298023224,
+				"z" : 0.20000000298023224
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		},
+		{
+			"name" : "Opening Scene",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Opening Scene/Opening Scene",
+			"static" : false,
+			"uid" : 1508399850
+		},
+		{
+			"name" : "Puzzle 1 Scene",
+			"position" : 
+			{
+				"x" : -81.803001403808594,
+				"y" : 2.7240002155303955,
+				"z" : -1.5360000133514404
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/NewAssetsScene",
+			"static" : false,
+			"uid" : 1510049192
+		},
+		{
+			"Shape" : 
+			{
+				"plane" : 
+				{
+					"normal" : 
+					{
+						"x" : 1.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"planeCoeff" : 0.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 0,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 11,
+				"triggerFunction" : "void SwitchPuzzle0()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1511358324,
+				"triggerTargetEntity" : 1511358480,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "Switcher 1",
+			"position" : 
+			{
+				"x" : -50.147071838378906,
+				"y" : 2.4288828372955322,
+				"z" : -1.3402185440063477
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.0033700000494718552,
+				"y" : 3.369999885559082,
+				"z" : 3.369999885559082
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511358324
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Super Scene/Scripts/SwitcherScript_1"
+			},
+			"children" : null,
+			"name" : "SwitcherScript 1",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511358480
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1511356937
+}
