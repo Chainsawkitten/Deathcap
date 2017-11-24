@@ -37,22 +37,17 @@ namespace Component {
             ENGINE_API void Stop();
             
             /// Sound buffer.
-            Audio::SoundBuffer* soundBuffer = nullptr;
+            Audio::SoundBuffer* soundBuffer;
             
             /// Volume.
             float volume = 1.f;
             
             /// Whether the sound should loop.
             bool loop = false;
-
-            /// Place in buffer
-            uint32_t place = 0;
             
         private:            
             bool shouldPlay = false;
             bool shouldPause = false;
             bool shouldStop = false;
-            
-            bool soundBufferSet = false;
     };
 }

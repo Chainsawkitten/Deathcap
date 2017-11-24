@@ -1,6 +1,6 @@
 #include "ResourceSelector.hpp"
 
-#include <Engine/Audio/SoundBuffer.hpp>
+#include <Engine/Audio/SoundFile.hpp>
 #include <imgui.h>
 #include <Engine/Geometry/Model.hpp>
 
@@ -38,11 +38,6 @@ bool ResourceSelector::ShowHelper(ResourceList::Resource::Type type, const Resou
                 if (geometry && geometry->GetIndexCount() == 0)
                     continue;
             }
-
-            if (resource.type == ResourceList::Resource::Type::SOUND) {
-                if (!resource.sound->GetBuffer())
-                    continue;
-            }            
 
             if (ImGui::Selectable(resource.GetName().c_str())) {
                 selectedResource.resource = &resource;

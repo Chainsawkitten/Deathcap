@@ -403,7 +403,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
     }
     }
-
     renderSurface->GetShadingFrameBuffer()->Unbind();
 }
 
