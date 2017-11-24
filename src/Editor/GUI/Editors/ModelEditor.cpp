@@ -81,7 +81,7 @@ void ModelEditor::Show() {
                 // Convert to .asset format.
                 AssetConverter asset;
                 asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs, importTextures, materials, CPU, GPU);
-                model->Load(destination.c_str());
+                model->Load((destination + ".asset").c_str());
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
 
