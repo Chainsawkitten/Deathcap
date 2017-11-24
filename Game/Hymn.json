@@ -61,7 +61,8 @@
 		"Resources/final_event/MainScript",
 		"Resources/final_event/MonsterScript",
 		"Resources/Opening Scene/Scripts/CartScript_0",
-		"Resources/Super Scene/Scripts/SwitcherScript_1"
+		"Resources/Super Scene/Scripts/SwitcherScript_1",
+		"Resources/Super Scene/Scripts/SwitcherScript_Final"
 	],
 	"startupScene" : "Resources/Opening Scene/Opening Scene",
 	"vrScale" : 1.5

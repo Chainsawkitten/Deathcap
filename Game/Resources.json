@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/final_event/final_scene",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -1268,6 +1268,10 @@
 						[
 							{
 								"script" : "SwitcherScript_1",
+								"type" : 4
+							},
+							{
+								"script" : "SwitcherScript_Final",
 								"type" : 4
 							}
 						],

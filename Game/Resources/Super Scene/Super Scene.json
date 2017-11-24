@@ -215,19 +215,30 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
-				"triggerCollidedEntityUID" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 0,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 14,
+				"triggerFunction" : "void SwitchToFinalScene()",
 				"triggerName" : "New Trigger",
+				"triggerOwner" : 1511513186,
+				"triggerTargetEntity" : 1511513188,
 				"triggerTriggered" : false
 			},
 			"children" : null,
 			"name" : "Switcher Final",
 			"position" : 
 			{
-				"x" : -143.16600036621094,
-				"y" : 2.4289999008178711,
-				"z" : -1.3400000333786011
+				"x" : -141.87771606445313,
+				"y" : 2.5108616352081299,
+				"z" : -1.3400001525878906
 			},
 			"rotation" : 
 			{
@@ -247,6 +258,10 @@
 			"uid" : 1511513186
 		},
 		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Super Scene/Scripts/SwitcherScript_Final"
+			},
 			"children" : null,
 			"name" : "SwitcherScript Final",
 			"position" : 
