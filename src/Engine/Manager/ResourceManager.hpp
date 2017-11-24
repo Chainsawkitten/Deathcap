@@ -15,7 +15,7 @@ namespace Geometry {
     class Model;
 }
 namespace Audio {
-    class SoundBuffer;
+    class SoundFile;
     class AudioMaterial;
 }
 
@@ -127,14 +127,14 @@ class ResourceManager {
          * @param name Name of the sound.
          * @return The %SoundBuffer instance.
          */
-        ENGINE_API Audio::SoundBuffer* CreateSound(const std::string& name);
+        ENGINE_API Audio::SoundFile* CreateSound(const std::string& name);
         
         /// Free the reference to the sound.
         /**
          * Deletes the instance if no more references exist.
-         * @param soundBuffer %SoundBuffer to dereference.
+         * @param soundFile %SoundFile to dereference.
          */
-        ENGINE_API void FreeSound(Audio::SoundBuffer* soundBuffer);
+        ENGINE_API void FreeSound(Audio::SoundFile* soundFile);
         
         /// Create a script file if it doesn't already exist.
         /**
@@ -227,11 +227,11 @@ class ResourceManager {
         
         // Sound.
         struct SoundInstance {
-            Audio::SoundBuffer* soundBuffer;
+            Audio::SoundFile* sound;
             int count;
         };
         std::map<std::string, SoundInstance> sounds;
-        std::map<Audio::SoundBuffer*, std::string> soundsInverse;
+        std::map<Audio::SoundFile*, std::string> soundsInverse;
         
         // ScriptFile.
         struct ScriptFileInstance {

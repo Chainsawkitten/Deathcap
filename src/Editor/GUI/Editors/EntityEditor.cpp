@@ -21,6 +21,7 @@
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
+#include <Engine/Audio/SoundFile.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Script/ScriptFile.hpp>
@@ -563,6 +564,11 @@ void EntityEditor::ShapeEditor(Component::Shape* shape) {
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
     ImGui::Text("Sound");
     ImGui::Indent();
+
+    if (soundSource->soundBuffer->GetSoundFile()) {
+        ImGui::Text(soundSource->soundBuffer->GetSoundFile()->name.c_str());
+    }
+
     if (ImGui::Button("Select sound"))
         ImGui::OpenPopup("Select sound");
 
@@ -571,10 +577,12 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::SOUND)) {
-            if (soundSource->soundBuffer != nullptr)
-                Managers().resourceManager->FreeSound(soundSource->soundBuffer);
+            Audio::SoundFile* soundFile = soundSource->soundBuffer->GetSoundFile();
+            if (soundFile)
+                Managers().resourceManager->FreeSound(soundFile);
 
-            soundSource->soundBuffer = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
+            soundFile = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
+            soundSource->soundBuffer->SetSoundFile(soundFile);
         }
 
         ImGui::EndPopup();

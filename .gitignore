@@ -37,3 +37,4 @@ DocumentationGame
 
 # In-source build
 build/
+*.orig

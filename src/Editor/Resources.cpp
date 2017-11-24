@@ -5,7 +5,7 @@
 #include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Geometry/Model.hpp>
-#include <Engine/Audio/SoundBuffer.hpp>
+#include <Engine/Audio/SoundFile.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Hymn.hpp>
