@@ -444,6 +444,99 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511525516
+		},
+		{
+			"name" : "Cart",
+			"position" : 
+			{
+				"x" : -3.4010002613067627,
+				"y" : -0.16200000047683716,
+				"z" : 2.5430002212524414
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : -0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.20000000298023224,
+				"y" : 0.20000000298023224,
+				"z" : 0.20000000298023224
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/NewAssets/Scripts/Cart_debug_script"
+			},
+			"children" : null,
+			"name" : "MinecartScript",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511528317
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 7.8220005035400391
+			},
+			"children" : null,
+			"name" : "JensLampa",
+			"position" : 
+			{
+				"x" : 30.733001708984375,
+				"y" : 4.1410002708435059,
+				"z" : -6.6590003967285156
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511528947
 		}
 	],
 	"name" : "Root",
@@ -455,10 +548,10 @@
 	},
 	"rotation" : 
 	{
-		"w" : 1.0,
-		"x" : 0.0,
-		"y" : 0.0,
-		"z" : 0.0
+		"w" : -4.371138473402425e-08,
+		"x" : 4.3711391839451608e-08,
+		"y" : 1.0,
+		"z" : 4.3711391839451608e-08
 	},
 	"scale" : 
 	{
@@ -467,6 +560,6 @@
 		"z" : 1.0
 	},
 	"scene" : false,
-	"static" : false,
+	"static" : true,
 	"uid" : 1511523963
 }

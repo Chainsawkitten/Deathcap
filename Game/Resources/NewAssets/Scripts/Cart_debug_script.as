@@ -19,7 +19,8 @@ class Cart_debug_script{
     
     Cart_debug_script(Entity @entity) {
         @hub = Managers();
-        @self = GetEntityByGUID(1508919384);
+        //@self = GetEntityByGUID(1508919384);//Megascene
+        @self = GetEntityByGUID(1508919163);
         speed = 2.0f;
         stopTime = 0.0f;
         endTime = 5.0f;
@@ -40,8 +41,8 @@ class Cart_debug_script{
             //tempPos = self.GetWorldPosition();
             //print("\n");
             //tempPos.y -= speed * deltaTime;
-            //self.position.z -= speed * 0.1f; //From start
-            self.SetWorldPosition(vec3(5.0f, -0.9f,0.02949f)); //first puzzel
+            self.position.x += speed * deltaTime; //From start
+            //self.SetWorldPosition(vec3(5.0f, -0.9f,0.02949f)); //first puzzel
             //print("Self position: (" + self.GetWorldPosition().x + ", " + self.GetWorldPosition().y + ", " + self.GetWorldPosition().z + ")\n");
         }
         // Braking phase
