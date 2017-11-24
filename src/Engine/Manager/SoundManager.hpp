@@ -6,8 +6,6 @@
 #include "../linking.hpp"
 #include "../Audio/SoundStreamer.hpp"
 
-#define CHUNK_COUNT (15)
-
 namespace Audio {
     class SoundStreamer;
 }
