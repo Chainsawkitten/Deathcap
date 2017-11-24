@@ -31,7 +31,7 @@
 
 #include "Common.h"
 
-void CompressRGBBlock(CMP_BYTE rgbBlock[BLOCK_SIZE_4X4X4], CMP_DWORD compressedBlock[2], CODECFLOAT* pfChannelWeights, bool bDXT1, bool bDXT1UseAlpha, CMP_BYTE nDXT1AlphaThreshold);
+void CompressRGBBlock(CMP_BYTE rgbBlock[BLOCK_SIZE_4X4X4], CMP_DWORD compressedBlock[2], CODECFLOAT* pfChannelWeights, bool slow, bool bDXT1UseAlpha, CMP_BYTE nDXT1AlphaThreshold);
 CODECFLOAT* CalculateColourWeightings(CMP_BYTE block[BLOCK_SIZE_4X4X4]);
 
 #endif // !defined(_CODEC_DXTC_H_INCLUDED_)

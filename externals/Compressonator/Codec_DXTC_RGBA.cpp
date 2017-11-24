@@ -41,7 +41,7 @@ Channel Bits
 #define GG 6
 #define BG 5
 
-void CompressRGBBlock(CMP_BYTE rgbBlock[BLOCK_SIZE_4X4X4], CMP_DWORD compressedBlock[2], CODECFLOAT* pfChannelWeights, bool bDXT1, bool bDXT1UseAlpha, CMP_BYTE nDXT1AlphaThreshold)
+void CompressRGBBlock(CMP_BYTE rgbBlock[BLOCK_SIZE_4X4X4], CMP_DWORD compressedBlock[2], CODECFLOAT* pfChannelWeights, bool slow, bool bDXT1UseAlpha, CMP_BYTE nDXT1AlphaThreshold)
 {
     /*
     ARGB Channel indexes
@@ -56,20 +56,41 @@ void CompressRGBBlock(CMP_BYTE rgbBlock[BLOCK_SIZE_4X4X4], CMP_DWORD compressedB
     CMP_BYTE m_nRefinementSteps = 0;
     bool m_bUseSSE2 = false;
 
-    double fError3 = CompRGBBlock((CMP_DWORD*)rgbBlock, BLOCK_SIZE_4X4, RG, GG, BG, nEndpoints[0], nIndices[0], 3, m_bUseSSE2, m_b3DRefinement, m_nRefinementSteps, pfChannelWeights, bDXT1UseAlpha, nDXT1AlphaThreshold);
-    double fError4 = (fError3 == 0.0) ? FLT_MAX : CompRGBBlock((CMP_DWORD*)rgbBlock, BLOCK_SIZE_4X4, RG, GG, BG, nEndpoints[1], nIndices[1], 4, m_bUseSSE2, m_b3DRefinement, m_nRefinementSteps, pfChannelWeights, bDXT1UseAlpha, nDXT1AlphaThreshold);
-    
-    unsigned int nMethod = (fError3 <= fError4) ? 0 : 1;
-    unsigned int c0 = ConstructColour((nEndpoints[nMethod][RC][0] >> (8-RG)), (nEndpoints[nMethod][GC][0] >> (8-GG)), (nEndpoints[nMethod][BC][0] >> (8-BG)));
-    unsigned int c1 = ConstructColour((nEndpoints[nMethod][RC][1] >> (8-RG)), (nEndpoints[nMethod][GC][1] >> (8-GG)), (nEndpoints[nMethod][BC][1] >> (8-BG)));
-    if(nMethod == 1 && c0 <= c1 || nMethod == 0 && c0 > c1)
-        compressedBlock[0] = c1 | (c0<<16);
+    if(slow)
+    {
+        double fError3 = CompRGBBlock((CMP_DWORD*)rgbBlock, BLOCK_SIZE_4X4, RG, GG, BG, nEndpoints[0], nIndices[0], 3, m_bUseSSE2, m_b3DRefinement, m_nRefinementSteps, pfChannelWeights, bDXT1UseAlpha, nDXT1AlphaThreshold);
+        double fError4 = (fError3 == 0.0) ? FLT_MAX : CompRGBBlock((CMP_DWORD*)rgbBlock, BLOCK_SIZE_4X4, RG, GG, BG, nEndpoints[1], nIndices[1], 4, m_bUseSSE2, m_b3DRefinement, m_nRefinementSteps, pfChannelWeights, bDXT1UseAlpha, nDXT1AlphaThreshold);
+        
+        unsigned int nMethod = (fError3 <= fError4) ? 0 : 1;
+        unsigned int c0 = ConstructColour((nEndpoints[nMethod][RC][0] >> (8-RG)), (nEndpoints[nMethod][GC][0] >> (8-GG)), (nEndpoints[nMethod][BC][0] >> (8-BG)));
+        unsigned int c1 = ConstructColour((nEndpoints[nMethod][RC][1] >> (8-RG)), (nEndpoints[nMethod][GC][1] >> (8-GG)), (nEndpoints[nMethod][BC][1] >> (8-BG)));
+        if(nMethod == 1 && c0 <= c1 || nMethod == 0 && c0 > c1)
+            compressedBlock[0] = c1 | (c0<<16);
+        else
+            compressedBlock[0] = c0 | (c1<<16);
+        
+        compressedBlock[1] = 0;
+        for(int i=0; i<16; i++)
+            compressedBlock[1] |= (nIndices[nMethod][i] << (2*i));
+    }
     else
-        compressedBlock[0] = c0 | (c1<<16);
-
-    compressedBlock[1] = 0;
-    for(int i=0; i<16; i++)
-        compressedBlock[1] |= (nIndices[nMethod][i] << (2*i));
+    {
+        CMP_BYTE nEndpoints[3][2];
+        CMP_BYTE nIndices[BLOCK_SIZE_4X4];
+        
+        CompRGBBlock((CMP_DWORD*)rgbBlock, BLOCK_SIZE_4X4, RG, GG, BG, nEndpoints, nIndices, 4, m_bUseSSE2, m_b3DRefinement, m_nRefinementSteps, pfChannelWeights, bDXT1UseAlpha, nDXT1AlphaThreshold);
+        
+        unsigned int c0 = ConstructColour((nEndpoints[RC][0] >> (8-RG)), (nEndpoints[GC][0] >> (8-GG)), (nEndpoints[BC][0] >> (8-BG)));
+        unsigned int c1 = ConstructColour((nEndpoints[RC][1] >> (8-RG)), (nEndpoints[GC][1] >> (8-GG)), (nEndpoints[BC][1] >> (8-BG)));
+        if(c0 <= c1)
+            compressedBlock[0] = c1 | (c0<<16);
+        else
+            compressedBlock[0] = c0 | (c1<<16);
+        
+        compressedBlock[1] = 0;
+        for(int i=0; i<16; i++)
+            compressedBlock[1] |= (nIndices[i] << (2*i));
+    }
 }
 
 CODECFLOAT m_fBaseChannelWeights[3] = { 0.3086f, 0.6094f, 0.0820f };
