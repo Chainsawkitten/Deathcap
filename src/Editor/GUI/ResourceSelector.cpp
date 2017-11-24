@@ -20,6 +20,7 @@ const ResourceSelector::SelectedResource& ResourceSelector::GetSelectedResource(
 
 bool ResourceSelector::ShowHelper(ResourceList::Resource::Type type, const ResourceList::ResourceFolder& folder, const std::string& path) {
     // Show subfolders.
+
     for (const ResourceList::ResourceFolder& subfolder : folder.subfolders) {
         if (ImGui::TreeNode(subfolder.name.c_str())) {
             bool subfolderSelected = ShowHelper(type, subfolder, path + "/" + subfolder.name);

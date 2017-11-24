@@ -1,0 +1,472 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageBeamsH"
+			},
+			"children" : null,
+			"name" : "VoltageBeamsH",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524822
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageBeamsV"
+			},
+			"children" : null,
+			"name" : "VoltageBeamsV",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524883
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/ElevatorFrame/Elevator_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageElevator"
+			},
+			"children" : null,
+			"name" : "VoltageElevator",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524903
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageFloor"
+			},
+			"children" : null,
+			"name" : "VoltageFloor",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524926
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageRoundAbout"
+			},
+			"children" : null,
+			"name" : "VoltageRoundAbout",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524965
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageRoundAboutStonePIle"
+			},
+			"children" : null,
+			"name" : "VoltageRoundAboutStonePile",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524985
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageRoundAboutTrack"
+			},
+			"children" : null,
+			"name" : "VoltageRoundAboutTrack",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525011
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageTrack"
+			},
+			"children" : null,
+			"name" : "VoltageTrack",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525032
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageTube"
+			},
+			"children" : null,
+			"name" : "VoltageTube",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525085
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageWalls"
+			},
+			"children" : null,
+			"name" : "VoltageWalls",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525128
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageWallSupport"
+			},
+			"children" : null,
+			"name" : "VoltageWallSupport",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525211
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageCavein"
+			},
+			"children" : null,
+			"name" : "VoltageCaveIn",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525516
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1511523963
+}
