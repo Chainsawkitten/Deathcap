@@ -30,10 +30,7 @@ SteamAudio::SteamAudio() {
 }
 
 SteamAudio::~SteamAudio() {
-    if (envRenderer)
-        iplDestroyEnvironmentalRenderer(&envRenderer);
-    if (binauralRenderer)
-        iplDestroyBinauralRenderer(&binauralRenderer);
+    Clear();
 
     delete[] indirectBuffer.interleavedBuffer;
     delete[] directBuffer.interleavedBuffer;
@@ -63,6 +60,8 @@ void SteamAudio::SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up) {
 }
 
 void SteamAudio::CreateRenderers(IPLhandle environment) {
+    Clear();
+
     this->environment = environment;
 
     IPLRenderingSettings settings;
@@ -73,4 +72,16 @@ void SteamAudio::CreateRenderers(IPLhandle environment) {
     IPLerror err = iplCreateEnvironmentalRenderer(IPLContext{ nullptr,nullptr,nullptr }, environment, settings, outputFormat, NULL, NULL, &envRenderer);
     IPLHrtfParams params{ IPL_HRTFDATABASETYPE_DEFAULT, NULL, 0, nullptr, nullptr, nullptr };
     err = iplCreateBinauralRenderer(IPLContext{ nullptr, nullptr, nullptr }, settings, params, &binauralRenderer);
+}
+
+void SteamAudio::Clear() {
+    if (envRenderer) {
+        iplDestroyEnvironmentalRenderer(&envRenderer);
+        envRenderer = NULL;
+    }
+        
+    if (binauralRenderer) {
+        iplDestroyBinauralRenderer(&binauralRenderer);
+        binauralRenderer = NULL;
+    }
 }

@@ -97,7 +97,6 @@ namespace Audio {
             void Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, std::vector<SteamAudioRenderers*>& renderers, float* output);
 
         private:
-
             IPLContext context;
 
             IPLSimulationSettings simSettings;

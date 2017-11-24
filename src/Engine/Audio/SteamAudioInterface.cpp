@@ -22,11 +22,16 @@ SteamAudioInterface::~SteamAudioInterface() {
 }
 
 void SteamAudioInterface::CreateScene(uint32_t numMaterials) {
+    if (scene) {
+        iplDestroyScene(&scene);
+        scene = NULL;
+    }
     IPLerror err = iplCreateScene(context, NULL, simSettings, numMaterials, &scene);
 }
 
 void SteamAudioInterface::FinalizeScene(IPLFinalizeSceneProgressCallback progressCallback) {
-    iplFinalizeScene(scene, NULL);
+    if (scene)
+        iplFinalizeScene(scene, NULL);
 }
 
 void SteamAudioInterface::CreateRenderers(SteamAudioRenderers*& renderers) {
@@ -72,6 +77,11 @@ IPLhandle* SteamAudioInterface::CreateStaticMesh(std::vector<IPLVector3> vertice
 }
 
 void SteamAudioInterface::CreateEnvironment() {
+    if (environment) {
+        iplDestroyEnvironment(&environment);
+        environment = NULL;
+    }
+
     IPLerror err = iplCreateEnvironment(context, NULL, simSettings, scene, NULL, &environment);
     sAudio.CreateRenderers(environment);
 }

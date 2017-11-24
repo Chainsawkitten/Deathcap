@@ -324,8 +324,8 @@ void SoundManager::ClearKilledComponents() {
     listeners.ClearKilled();
 }
 
-void SoundManager::Load(Audio::SoundStreamer::DataHandle& dataHandle) {
-    soundStreamer.Load(dataHandle);
+void SoundManager::Load(Audio::SoundStreamer::DataHandle& handle) {
+    soundStreamer.Load(handle);
 }
 
 void SoundManager::Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue) {

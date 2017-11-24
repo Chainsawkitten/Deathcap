@@ -51,6 +51,9 @@ namespace Audio {
         ENGINE_API void CreateRenderers(IPLhandle environment);
 
     private:
+
+        void Clear();
+
         IPLContext* context;
 
         IPLhandle environment;
