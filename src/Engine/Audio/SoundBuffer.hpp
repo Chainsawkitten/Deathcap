@@ -51,8 +51,9 @@ namespace Audio {
             ENGINE_API void Restart();
             
         private:
-            float* buffer = nullptr;
-            uint32_t size = 0;
-            uint32_t sampleRate = 0;
+            SoundFile* soundFile = nullptr;
+            float buffer[CHUNK_SIZE * CHUNK_COUNT];
+            unsigned int begin = 0;
+            std::queue<SoundStreamer::DataHandle> chunkQueue;
     };
 }

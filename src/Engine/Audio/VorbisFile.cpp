@@ -18,6 +18,9 @@ VorbisFile::~VorbisFile() {
 }
 
 int VorbisFile::GetData(uint32_t offset, uint32_t samples, float* data) const {
+    if (stbFile == nullptr)
+        return 0;
+
     stb_vorbis_seek(stbFile, offset);
     return stb_vorbis_get_samples_float_interleaved(stbFile, channelCount, data, samples);
 }
@@ -39,9 +42,10 @@ void VorbisFile::Load(const char* filename) {
     // Open OGG file
     int error;
     stbFile = stb_vorbis_open_filename(filename, &error, NULL);
-    if (error == VORBIS_file_open_failure)
+    if (error == VORBIS_file_open_failure) {
         Log() << "Couldn't load OGG Vorbis file: " << filename << "\n";
-    else {
+        stbFile = nullptr;
+    } else {
         stb_vorbis_info stbInfo = stb_vorbis_get_info(stbFile);
         channelCount = stbInfo.channels;
         sampleRate = stbInfo.sample_rate;

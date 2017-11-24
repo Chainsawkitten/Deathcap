@@ -31,7 +31,6 @@ class Camera{
             self.RotateYaw(0.02f);
             self.position.y = -2;
         }    
-        deathTimer += 0.001;
         //if(deathTimer > 10)
         //    RestartScene();
 

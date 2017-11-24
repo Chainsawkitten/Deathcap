@@ -250,7 +250,6 @@
 			"uid" : 1508919163
 		},
 		{
-
 			"Material" : 
 			{
 				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
@@ -1161,7 +1160,7 @@
 																		"trigger" : "A Trigger",
 																		"triggerActive" : false,
 																		"triggerCharges" : 0,
-																		"triggerCollidedEntity" : 1510240479,
+																		"triggerCollidedEntityUID" : 0,
 																		"triggerCooldown" : 0.0,
 																		"triggerDelay" : 0.0,
 																		"triggerEventStruct_Check_0" : true,
@@ -1485,7 +1484,7 @@
 		{
 			"Script" : 
 			{
-				"scriptName" : "Resources/NewAssets/Scripts/Cart_Puzzle_1"
+				"scriptName" : "Resources/NewAssets/Scripts/Cart_debug_script"
 			},
 			"children" : null,
 			"name" : "CartScript",
