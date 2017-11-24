@@ -7,6 +7,7 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 #include <Codec_DXTC.h>
+#include <GLFW/glfw3.h>
 
 namespace TextureConverter {
     void Convert(const char* inFilename, const char* outFilename, Video::TextureHCT::CompressionType compressionType) {
@@ -66,7 +67,9 @@ namespace TextureConverter {
         file.write(reinterpret_cast<const char*>(&uWidth), sizeof(uint16_t));
         file.write(reinterpret_cast<const char*>(&uHeight), sizeof(uint16_t));
         file.write(reinterpret_cast<const char*>(&mipLevels), sizeof(uint16_t));
-        file.write(reinterpret_cast<const char*>(&compressionType), sizeof(uint16_t));
+        file.write(reinterpret_cast<const char*>(&type), sizeof(uint16_t));
+        
+        double time = glfwGetTime();
         
         // Write data.
         width = uWidth;
@@ -118,6 +121,9 @@ namespace TextureConverter {
                 }
             }
         }
+        
+        time = glfwGetTime() - time;
+        Log(Log::INFO) << "Time to convert: " << time << "s\n";
         
         file.close();
         
