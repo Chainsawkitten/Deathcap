@@ -48,6 +48,10 @@
 			{
 				"scene" : "stone_scene",
 				"type" : 0
+			},
+			{
+				"script" : "StressScript",
+				"type" : 4
 			}
 		],
 		"subfolders" : 
