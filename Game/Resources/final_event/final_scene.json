@@ -399,7 +399,7 @@
 			"position" : 
 			{
 				"x" : -41.595119476318359,
-				"y" : 0.41522389650344849,
+				"y" : 0.41499999165534973,
 				"z" : -0.24598860740661621
 			},
 			"rotation" : 
@@ -485,7 +485,7 @@
 						"triggerFunction" : "void KnifeHitMonster()",
 						"triggerName" : "New Trigger",
 						"triggerOwner" : 1511338734,
-						"triggerTargetEntity" : 1511261389,
+						"triggerTargetEntity" : 1511260476,
 						"triggerTriggered" : false
 					},
 					"children" : null,
