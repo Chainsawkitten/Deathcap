@@ -1144,25 +1144,6 @@
 															"Mesh" : 
 															{
 																"model" : "Resources/NewAssets/Models/Puzzle Scale/bucketFixedHandle_01"
-																"trigger" : "A Trigger",
-																"triggerActive" : false,
-																"triggerCharges" : 0,
-																"triggerCollidedEntityUID" : 1510240479,
-																"triggerCooldown" : 0.0,
-																"triggerDelay" : 0.0,
-																"triggerEventStruct_Check_0" : true,
-																"triggerEventStruct_Check_1" : true,
-																"triggerEventStruct_Check_2" : true,
-																"triggerEventStruct_Check_3" : true,
-																"triggerEventStruct_EventID" : 0,
-																"triggerEventStruct_ScriptID" : 1,
-																"triggerEventStruct_ShapeID" : 0,
-																"triggerEventStruct_TargetID" : 0,
-																"triggerFunction" : "void HitBucket()",
-																"triggerName" : "New Trigger",
-																"triggerOwner" : 1510911855,
-																"triggerTargetEntity" : 1510240479,
-																"triggerTriggered" : false
 															},
 															"children" : 
 															[
