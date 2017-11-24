@@ -17,6 +17,7 @@
 #include <portaudio.h>
 #include <cstdint>
 #include <cstring>
+#include <algorithm>
 
 using namespace Audio;
 
@@ -79,6 +80,7 @@ void SoundManager::Update(float deltaTime) {
     unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
     if (frameSamples > CHUNK_SIZE) {
         Log() << "SoundManager::Update: Frame drop!\n";
+      
         frameSamples = CHUNK_SIZE;
     }
     targetSample += frameSamples;
@@ -105,7 +107,7 @@ void SoundManager::ProcessSamples() {
     std::vector<Component::Listener*> listeners = GetListeners();
     if (listeners.size() == 0)
         return;
-
+  
     Entity* player = listeners[0]->entity;
     glm::vec3 glmPos = player->GetWorldPosition();
     glm::quat orientation = player->GetWorldOrientation();
@@ -126,8 +128,7 @@ void SoundManager::ProcessSamples() {
     std::vector<SteamAudioRenderers*> renderers;
 
     // Update sound sources.
-    for (Component::SoundSource* sound : soundSources.GetAll()) {
-
+    for (std::size_t i = 0; i < size; ++i) {
         Audio::SoundBuffer* soundBuffer = sound->soundBuffer;
         Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
 
@@ -182,6 +183,7 @@ void SoundManager::ProcessSamples() {
         soundBuffer->ProduceChunk();
     }
 }
+
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
     Component::SoundSource* soundSource = soundSources.Create();

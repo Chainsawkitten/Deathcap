@@ -9,6 +9,7 @@
 #include <Utility/Log.hpp>
 #include "../Audio/SoundStreamer.hpp"
 #include "../Manager/Managers.hpp"
+#include <cstring>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>

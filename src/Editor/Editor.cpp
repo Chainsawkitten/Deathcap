@@ -194,8 +194,7 @@ void Editor::Show(float deltaTime) {
             }
         }
 
-        if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "")
-        {
+        if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "") {
             Managers().soundManager->CreateAudioEnvironment();
             play = true;
         }

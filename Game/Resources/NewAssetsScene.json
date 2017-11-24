@@ -31,7 +31,7 @@
 			"scale" : 
 			{
 				"x" : 1.0,
-				"y" : 1.0,
+				"y" : 1.5,
 				"z" : 1.0
 			},
 			"scene" : false,
@@ -224,6 +224,32 @@
 			"uid" : 1510064341
 		},
 		{
+			"name" : "Cart",
+			"position" : 
+			{
+				"x" : 94.314002990722656,
+				"y" : -0.89999997615814209,
+				"z" : 0.29500001668930054
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.20000000298023224,
+				"y" : 0.20000000298023224,
+				"z" : 0.20000000298023224
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		},
+		{
 			"Material" : 
 			{
 				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
@@ -296,6 +322,12 @@
 					"radius" : 0.10000000149011612
 				}
 			},
+			"SoundSource" : 
+			{
+				"loop" : false,
+				"sound" : "Resources/NewAssets/Audio/RockHit",
+				"volume" : 0.69999998807907104
+			},
 			"children" : null,
 			"name" : "Rock",
 			"position" : 
@@ -326,6 +358,12 @@
 			{
 				"scriptName" : "Resources/NewAssets/Scripts/Bridge"
 			},
+			"SoundSource" : 
+			{
+				"loop" : false,
+				"sound" : "Resources/NewAssets/Audio/BridgeDown",
+				"volume" : 0.69999998807907104
+			},
 			"children" : 
 			[
 				{
@@ -338,7 +376,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/NewAssets/Models/BridgeFbx"
+						"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/bridgeNewUV"
 					},
 					"children" : 
 					[
@@ -348,10 +386,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -385,10 +423,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -422,10 +460,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -459,10 +497,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -496,10 +534,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -533,10 +571,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
-										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
-										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
-										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
 									{
@@ -571,9 +609,9 @@
 							"name" : "BridgeTracks",
 							"position" : 
 							{
-								"x" : -0.23400001227855682,
-								"y" : -0.20000000298023224,
-								"z" : -0.091000005602836609
+								"x" : -0.60600000619888306,
+								"y" : 1.3610000610351563,
+								"z" : -0.16300000250339508
 							},
 							"rotation" : 
 							{
@@ -584,9 +622,9 @@
 							},
 							"scale" : 
 							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
+								"x" : 1.7250000238418579,
+								"y" : 0.97700005769729614,
+								"z" : 1.9310001134872437
 							},
 							"scene" : false,
 							"static" : false,
@@ -596,7 +634,7 @@
 					"name" : "Bridge",
 					"position" : 
 					{
-						"x" : -3.5740001201629639,
+						"x" : -4.2512044906616211,
 						"y" : 0.0,
 						"z" : 0.0
 					},
@@ -609,9 +647,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.66058534383773804,
+						"y" : 0.5,
+						"z" : 0.5
 					},
 					"scene" : false,
 					"static" : false,
@@ -621,16 +659,16 @@
 			"name" : "BridgeParent",
 			"position" : 
 			{
-				"x" : -5.0,
-				"y" : 0.0,
+				"x" : -4.8324337005615234,
+				"y" : -1.3085739612579346,
 				"z" : 0.0
 			},
 			"rotation" : 
 			{
-				"w" : 1.9305197440644406e-09,
-				"x" : 0.30070579051971436,
-				"y" : -0.9537169337272644,
-				"z" : -4.5223973899055636e-08
+				"w" : 2.9845963922525698e-08,
+				"x" : 0.2778325080871582,
+				"y" : -0.96062946319580078,
+				"z" : 5.4134883242795695e-08
 			},
 			"scale" : 
 			{
@@ -705,7 +743,7 @@
 					"position" : 
 					{
 						"x" : -4.639000415802002,
-						"y" : 0.94900006055831909,
+						"y" : 1.093000054359436,
 						"z" : 1.1440000534057617
 					},
 					"rotation" : 
@@ -730,7 +768,7 @@
 			"position" : 
 			{
 				"x" : 4.324000358581543,
-				"y" : -0.98100006580352783,
+				"y" : -1.0150001049041748,
 				"z" : -1.1000000238418579
 			},
 			"rotation" : 
@@ -749,6 +787,959 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510317739
+		},
+		{
+			"children" : 
+			[
+				{
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : 1.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"planeCoeff" : 0.0
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 1,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 3,
+						"triggerFunction" : "void OnTrigger()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1510581348,
+						"triggerTargetEntity" : 1510920517,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "BreakTrigger",
+					"position" : 
+					{
+						"x" : 14.300000190734863,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 0.0010000000474974513,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510581348
+				}
+			],
+			"name" : "Triggers",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510581247
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/WoodenStructure/vertical_pillars"
+			},
+			"children" : null,
+			"name" : "vert_wood",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510754743
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/WoodenStructure/horizontal_pillars"
+			},
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Bridge Puzzle Scene/Cables/wires"
+					},
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/Constant Scene/Lantern/Textures/lanter_albedo",
+								"metallic" : "Resources/Constant Scene/Lantern/Textures/lanter_metallic",
+								"normal" : "Resources/Constant Scene/Lantern/Textures/lantern_normal",
+								"roughness" : "Resources/Constant Scene/Lantern/Textures/lantern_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Constant Scene/Lantern/Lantern"
+							},
+							"PointLight" : 
+							{
+								"attenuation" : 2.0110001564025879,
+								"color" : 
+								{
+									"x" : 1.0,
+									"y" : 0.45882353186607361,
+									"z" : 0.15686275064945221
+								},
+								"intensity" : 4.9470000267028809
+							},
+							"children" : null,
+							"name" : "CableLight",
+							"position" : 
+							{
+								"x" : 14.476000785827637,
+								"y" : 1.5790001153945923,
+								"z" : 0.0020000000949949026
+							},
+							"rotation" : 
+							{
+								"w" : 0.7726169228553772,
+								"x" : 0.0,
+								"y" : -0.63487255573272705,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 0.05000000074505806,
+								"y" : 0.10000000149011612,
+								"z" : 0.10000000149011612
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1510815546
+						}
+					],
+					"name" : "Cables",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510815442
+				}
+			],
+			"name" : "horizontal_wood",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0054621696472168,
+				"z" : 2.6850509643554688
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510754934
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Tracks"
+			},
+			"children" : 
+			[
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
+								"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
+								"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
+								"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/NewAssets/Models/Puzzle Scale/smallBalk_01"
+							},
+							"children" : null,
+							"name" : "SmallBalk",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1510910808
+						},
+						{
+							"Script" : 
+							{
+								"scriptName" : "Resources/NewAssets/Scripts/BigBalk"
+							},
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
+										"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
+										"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
+										"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
+									},
+									"Mesh" : 
+									{
+										"model" : "Resources/NewAssets/Models/Puzzle Scale/bigBalk_01"
+									},
+									"children" : 
+									[
+										{
+											"children" : 
+											[
+												{
+													"Material" : 
+													{
+														"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
+														"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
+														"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
+														"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
+													},
+													"Mesh" : 
+													{
+														"model" : "Resources/NewAssets/Models/Puzzle Scale/chainForBucket_01"
+													},
+													"children" : 
+													[
+														{
+															"Material" : 
+															{
+																"albedo" : "Resources/NewAssets/Textures/The Bucket/bucket_albedo",
+																"metallic" : "Resources/NewAssets/Textures/The Bucket/bucket_metallic",
+																"normal" : "",
+																"roughness" : ""
+															},
+															"Mesh" : 
+															{
+																"model" : "Resources/NewAssets/Models/Puzzle Scale/bucketFixedHandle_01"
+															},
+															"children" : 
+															[
+																{
+																	"Shape" : 
+																	{
+																		"cylinder" : 
+																		{
+																			"length" : 0.85000002384185791,
+																			"radius" : 0.40000000596046448
+																		}
+																	},
+																	"Trigger" : 
+																	{
+																		"trigger" : "A Trigger",
+																		"triggerActive" : false,
+																		"triggerCharges" : 0,
+																		"triggerCollidedEntityUID" : 0,
+																		"triggerCooldown" : 0.0,
+																		"triggerDelay" : 0.0,
+																		"triggerEventStruct_Check_0" : true,
+																		"triggerEventStruct_Check_1" : true,
+																		"triggerEventStruct_Check_2" : true,
+																		"triggerEventStruct_Check_3" : true,
+																		"triggerEventStruct_EventID" : 0,
+																		"triggerEventStruct_ScriptID" : 2,
+																		"triggerEventStruct_ShapeID" : 3,
+																		"triggerEventStruct_TargetID" : 5,
+																		"triggerFunction" : "void HitBucket()",
+																		"triggerName" : "New Trigger",
+																		"triggerOwner" : 1510911855,
+																		"triggerTargetEntity" : 1510240479,
+																		"triggerTriggered" : false
+																	},
+																	"children" : null,
+																	"name" : "BucketShape",
+																	"position" : 
+																	{
+																		"x" : 0.0,
+																		"y" : -0.18200001120567322,
+																		"z" : -2.439000129699707
+																	},
+																	"rotation" : 
+																	{
+																		"w" : 1.0,
+																		"x" : 0.0,
+																		"y" : 0.0,
+																		"z" : 0.0
+																	},
+																	"scale" : 
+																	{
+																		"x" : 1.0,
+																		"y" : 1.0,
+																		"z" : 1.0
+																	},
+																	"scene" : false,
+																	"static" : false,
+																	"uid" : 1510911855
+																}
+															],
+															"name" : "Bucket",
+															"position" : 
+															{
+																"x" : -0.16500000655651093,
+																"y" : -0.078000001609325409,
+																"z" : -0.71700000762939453
+															},
+															"rotation" : 
+															{
+																"w" : 1.0,
+																"x" : 0.0,
+																"y" : 0.0,
+																"z" : 0.0
+															},
+															"scale" : 
+															{
+																"x" : 1.0,
+																"y" : 1.0,
+																"z" : 1.0
+															},
+															"scene" : false,
+															"static" : false,
+															"uid" : 1510911323
+														}
+													],
+													"name" : "BucketChain",
+													"position" : 
+													{
+														"x" : 0.0,
+														"y" : -2.570000171661377,
+														"z" : 3.1740000247955322
+													},
+													"rotation" : 
+													{
+														"w" : 1.0,
+														"x" : 0.0,
+														"y" : 0.0,
+														"z" : 0.0
+													},
+													"scale" : 
+													{
+														"x" : 1.0,
+														"y" : 1.0,
+														"z" : 1.0
+													},
+													"scene" : false,
+													"static" : false,
+													"uid" : 1510910898
+												}
+											],
+											"name" : "BucketChainPivot",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 2.5730001926422119,
+												"z" : 3.1740000247955322
+											},
+											"rotation" : 
+											{
+												"w" : 0.99619472026824951,
+												"x" : 0.087155736982822418,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1510911321
+										},
+										{
+											"children" : 
+											[
+												{
+													"Material" : 
+													{
+														"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
+														"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
+														"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
+														"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
+													},
+													"Mesh" : 
+													{
+														"model" : "Resources/NewAssets/Models/Puzzle Scale/chainForRock_01"
+													},
+													"children" : 
+													[
+														{
+															"Material" : 
+															{
+																"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+																"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+																"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+																"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+															},
+															"Mesh" : 
+															{
+																"model" : "Resources/NewAssets/Models/Attraption/Models/rock_for_puzzleAttrap"
+															},
+															"children" : null,
+															"name" : "Stone",
+															"position" : 
+															{
+																"x" : 0.0,
+																"y" : 0.0,
+																"z" : 0.0
+															},
+															"rotation" : 
+															{
+																"w" : 1.0,
+																"x" : 0.0,
+																"y" : 0.0,
+																"z" : 0.0
+															},
+															"scale" : 
+															{
+																"x" : 1.0,
+																"y" : 1.0,
+																"z" : 1.0
+															},
+															"scene" : false,
+															"static" : false,
+															"uid" : 1510911211
+														}
+													],
+													"name" : "StoneChain",
+													"position" : 
+													{
+														"x" : 0.0,
+														"y" : -2.5699999332427979,
+														"z" : -3.1740000247955322
+													},
+													"rotation" : 
+													{
+														"w" : 1.0,
+														"x" : 0.0,
+														"y" : 0.0,
+														"z" : 0.0
+													},
+													"scale" : 
+													{
+														"x" : 1.0,
+														"y" : 1.0,
+														"z" : 1.0
+													},
+													"scene" : false,
+													"static" : false,
+													"uid" : 1510910936
+												}
+											],
+											"name" : "StoneChainPivot",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 2.5729999542236328,
+												"z" : -3.1740000247955322
+											},
+											"rotation" : 
+											{
+												"w" : 0.99619472026824951,
+												"x" : 0.087155736982822418,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1510911538
+										}
+									],
+									"name" : "BigBalk",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : -2.7999999523162842,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1510910857
+								}
+							],
+							"name" : "BigBalkPivot",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 2.9500000476837158,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 0.99619472026824951,
+								"x" : -0.087155736982822418,
+								"y" : -0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1510912841
+						}
+					],
+					"name" : "ScaleParent",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1510910799
+				}
+			],
+			"name" : "Tracks",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510840309
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/NewAssets/Scripts/Cart_debug_script"
+			},
+			"children" : null,
+			"name" : "CartScript",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510920517
+		},
+		{
+			"name" : "Opening Scene",
+			"position" : 
+			{
+				"x" : 81.278007507324219,
+				"y" : -2.7430000305175781,
+				"z" : 1.5460001230239868
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Opening Scene/Opening Scene",
+			"static" : false,
+			"uid" : 1508399850
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "Rock1",
+					"position" : 
+					{
+						"x" : 31.349176406860352,
+						"y" : -0.25810480117797852,
+						"z" : 3.0974550247192383
+					},
+					"rotation" : 
+					{
+						"w" : 0.92712467908859253,
+						"x" : 0.37475374341011047,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 15.0,
+						"y" : 15.0,
+						"z" : 15.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511166514
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "Rock2",
+					"position" : 
+					{
+						"x" : 31.302467346191406,
+						"y" : -1.8580621480941772,
+						"z" : 2.8887093067169189
+					},
+					"rotation" : 
+					{
+						"w" : -0.99662882089614868,
+						"x" : 0.082041420042514801,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 15.0,
+						"y" : 15.0,
+						"z" : 15.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511166515
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "Rock3",
+					"position" : 
+					{
+						"x" : 30.985284805297852,
+						"y" : -1.3026566505432129,
+						"z" : -2.0748434066772461
+					},
+					"rotation" : 
+					{
+						"w" : 0.80434989929199219,
+						"x" : 0.59415602684020996,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 15.0,
+						"y" : 15.0,
+						"z" : 15.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511166517
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/Constant Scene/Ore/goldalbedo",
+								"metallic" : "Resources/Constant Scene/Ore/goldmetal",
+								"normal" : "Resources/Constant Scene/Ore/goldnormal",
+								"roughness" : "Resources/Constant Scene/Ore/goldroughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Constant Scene/Ore/goldores"
+							},
+							"children" : null,
+							"name" : "Ore 1",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511169305
+						}
+					],
+					"name" : "Ores",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511169296
+				}
+			],
+			"name" : "PrettyRocks",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511166505
 		},
 		{
 			"children" : 
@@ -918,716 +1909,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510320509
-		},
-		{
-			"children" : 
-			[
-				{
-					"Shape" : 
-					{
-						"plane" : 
-						{
-							"normal" : 
-							{
-								"x" : 1.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"planeCoeff" : 0.0
-						}
-					},
-					"Trigger" : 
-					{
-						"trigger" : "A Trigger",
-						"triggerActive" : false,
-						"triggerCharges" : 0,
-						"triggerCollidedEntityUID" : 1509959164,
-						"triggerCooldown" : 0.0,
-						"triggerDelay" : 0.0,
-						"triggerEventStruct_Check_0" : true,
-						"triggerEventStruct_Check_1" : true,
-						"triggerEventStruct_Check_2" : true,
-						"triggerEventStruct_Check_3" : true,
-						"triggerEventStruct_EventID" : 0,
-						"triggerEventStruct_ScriptID" : 1,
-						"triggerEventStruct_ShapeID" : 0,
-						"triggerEventStruct_TargetID" : 3,
-						"triggerFunction" : "void OnTrigger()",
-						"triggerName" : "New Trigger",
-						"triggerOwner" : 1510581348,
-						"triggerTargetEntity" : 1510920517,
-						"triggerTriggered" : false
-					},
-					"children" : null,
-					"name" : "BreakTrigger",
-					"position" : 
-					{
-						"x" : 14.300000190734863,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 0.0010000000474974513,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1510581348
-				}
-			],
-			"name" : "Triggers",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510581247
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Constant Scene/WoodenStructure/horizontal_albedo",
-				"metallic" : "Resources/Constant Scene/WoodenStructure/horizontal_metall",
-				"normal" : "Resources/Constant Scene/WoodenStructure/horizontal_normal",
-				"roughness" : "Resources/Constant Scene/WoodenStructure/horizontal_roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/Constant Scene/WoodenStructure/vertical_pillars"
-			},
-			"children" : null,
-			"name" : "vert_wood",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510754743
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
-				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
-				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
-				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/Constant Scene/WoodenStructure/horizontal_pillars"
-			},
-			"children" : 
-			[
-				{
-					"Material" : 
-					{
-						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
-						"metallic" : "",
-						"normal" : "",
-						"roughness" : ""
-					},
-					"Mesh" : 
-					{
-						"model" : "Resources/Bridge Puzzle Scene/Cables/wires"
-					},
-					"children" : 
-					[
-						{
-							"PointLight" : 
-							{
-								"attenuation" : 2.0110001564025879,
-								"color" : 
-								{
-									"x" : 1.0,
-									"y" : 0.45882353186607361,
-									"z" : 0.15686275064945221
-								},
-								"intensity" : 4.9470000267028809
-							},
-							"children" : null,
-							"name" : "cableLight",
-							"position" : 
-							{
-								"x" : 14.476000785827637,
-								"y" : 2.4090001583099365,
-								"z" : 0.15400001406669617
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1510815546
-						}
-					],
-					"name" : "Cables",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1510815442
-				}
-			],
-			"name" : "horizontal_wood",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0054621696472168,
-				"z" : 2.6850509643554688
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510754934
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
-				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
-				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
-				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/NewAssets/Models/Tracks"
-			},
-			"children" : null,
-			"name" : "Tracks",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510840309
-		},
-		{
-			"children" : 
-			[
-				{
-					"Material" : 
-					{
-						"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
-						"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
-						"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
-						"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
-					},
-					"Mesh" : 
-					{
-						"model" : "Resources/NewAssets/Models/Puzzle Scale/smallBalk_01"
-					},
-					"children" : null,
-					"name" : "SmallBalk",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1510910808
-				},
-				{
-					"Script" : 
-					{
-						"scriptName" : "Resources/NewAssets/Scripts/BigBalk"
-					},
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
-								"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
-								"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
-								"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/NewAssets/Models/Puzzle Scale/bigBalk_01"
-							},
-							"children" : 
-							[
-								{
-									"children" : 
-									[
-										{
-											"Material" : 
-											{
-												"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
-												"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
-												"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
-												"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
-											},
-											"Mesh" : 
-											{
-												"model" : "Resources/NewAssets/Models/Puzzle Scale/chainForBucket_01"
-											},
-											"children" : 
-											[
-												{
-													"Material" : 
-													{
-														"albedo" : "Resources/NewAssets/Textures/The Bucket/bucket_albedo",
-														"metallic" : "Resources/NewAssets/Textures/The Bucket/bucket_metallic",
-														"normal" : "",
-														"roughness" : ""
-													},
-													"Mesh" : 
-													{
-														"model" : "Resources/NewAssets/Models/Puzzle Scale/bucketFixedHandle_01"
-													},
-													"children" : 
-													[
-														{
-															"Shape" : 
-															{
-																"cylinder" : 
-																{
-																	"length" : 0.85000002384185791,
-																	"radius" : 0.40000000596046448
-																}
-															},
-															"Trigger" : 
-															{
-																"trigger" : "A Trigger",
-																"triggerActive" : false,
-																"triggerCharges" : 0,
-																"triggerCollidedEntityUID" : 1510240479,
-																"triggerCooldown" : 0.0,
-																"triggerDelay" : 0.0,
-																"triggerEventStruct_Check_0" : true,
-																"triggerEventStruct_Check_1" : true,
-																"triggerEventStruct_Check_2" : true,
-																"triggerEventStruct_Check_3" : true,
-																"triggerEventStruct_EventID" : 0,
-																"triggerEventStruct_ScriptID" : 1,
-																"triggerEventStruct_ShapeID" : 0,
-																"triggerEventStruct_TargetID" : 0,
-																"triggerFunction" : "void HitBucket()",
-																"triggerName" : "New Trigger",
-																"triggerOwner" : 1510911855,
-																"triggerTargetEntity" : 1510240479,
-																"triggerTriggered" : false
-															},
-															"children" : null,
-															"name" : "BucketShape",
-															"position" : 
-															{
-																"x" : 0.0,
-																"y" : -0.18200001120567322,
-																"z" : -2.439000129699707
-															},
-															"rotation" : 
-															{
-																"w" : 1.0,
-																"x" : 0.0,
-																"y" : 0.0,
-																"z" : 0.0
-															},
-															"scale" : 
-															{
-																"x" : 1.0,
-																"y" : 1.0,
-																"z" : 1.0
-															},
-															"scene" : false,
-															"static" : false,
-															"uid" : 1510911855
-														}
-													],
-													"name" : "Bucket",
-													"position" : 
-													{
-														"x" : -0.16500000655651093,
-														"y" : -0.078000001609325409,
-														"z" : -0.71700000762939453
-													},
-													"rotation" : 
-													{
-														"w" : 1.0,
-														"x" : 0.0,
-														"y" : 0.0,
-														"z" : 0.0
-													},
-													"scale" : 
-													{
-														"x" : 1.0,
-														"y" : 1.0,
-														"z" : 1.0
-													},
-													"scene" : false,
-													"static" : false,
-													"uid" : 1510911323
-												}
-											],
-											"name" : "BucketChain",
-											"position" : 
-											{
-												"x" : 0.0,
-												"y" : -2.570000171661377,
-												"z" : 3.1740000247955322
-											},
-											"rotation" : 
-											{
-												"w" : 1.0,
-												"x" : 0.0,
-												"y" : 0.0,
-												"z" : 0.0
-											},
-											"scale" : 
-											{
-												"x" : 1.0,
-												"y" : 1.0,
-												"z" : 1.0
-											},
-											"scene" : false,
-											"static" : false,
-											"uid" : 1510910898
-										}
-									],
-									"name" : "BucketChainPivot",
-									"position" : 
-									{
-										"x" : 0.0,
-										"y" : 2.5730001926422119,
-										"z" : 3.1740000247955322
-									},
-									"rotation" : 
-									{
-										"w" : 0.99619472026824951,
-										"x" : 0.087155736982822418,
-										"y" : 0.0,
-										"z" : 0.0
-									},
-									"scale" : 
-									{
-										"x" : 1.0,
-										"y" : 1.0,
-										"z" : 1.0
-									},
-									"scene" : false,
-									"static" : false,
-									"uid" : 1510911321
-								},
-								{
-									"children" : 
-									[
-										{
-											"Material" : 
-											{
-												"albedo" : "Resources/NewAssets/Textures/Scale/scale_albedo",
-												"metallic" : "Resources/NewAssets/Textures/Scale/scale_metallic",
-												"normal" : "Resources/NewAssets/Textures/Scale/scale_normal",
-												"roughness" : "Resources/NewAssets/Textures/Scale/scale_roughness"
-											},
-											"Mesh" : 
-											{
-												"model" : "Resources/NewAssets/Models/Puzzle Scale/chainForRock_01"
-											},
-											"children" : 
-											[
-												{
-													"Material" : 
-													{
-														"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
-														"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
-														"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
-														"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
-													},
-													"Mesh" : 
-													{
-														"model" : "Resources/NewAssets/Models/Attraption/Models/rock_for_puzzleAttrap"
-													},
-													"children" : null,
-													"name" : "Stone",
-													"position" : 
-													{
-														"x" : 0.0,
-														"y" : 0.0,
-														"z" : 0.0
-													},
-													"rotation" : 
-													{
-														"w" : 1.0,
-														"x" : 0.0,
-														"y" : 0.0,
-														"z" : 0.0
-													},
-													"scale" : 
-													{
-														"x" : 1.0,
-														"y" : 1.0,
-														"z" : 1.0
-													},
-													"scene" : false,
-													"static" : false,
-													"uid" : 1510911211
-												}
-											],
-											"name" : "StoneChain",
-											"position" : 
-											{
-												"x" : 0.0,
-												"y" : -2.5699999332427979,
-												"z" : -3.1740000247955322
-											},
-											"rotation" : 
-											{
-												"w" : 1.0,
-												"x" : 0.0,
-												"y" : 0.0,
-												"z" : 0.0
-											},
-											"scale" : 
-											{
-												"x" : 1.0,
-												"y" : 1.0,
-												"z" : 1.0
-											},
-											"scene" : false,
-											"static" : false,
-											"uid" : 1510910936
-										}
-									],
-									"name" : "StoneChainPivot",
-									"position" : 
-									{
-										"x" : 0.0,
-										"y" : 2.5729999542236328,
-										"z" : -3.1740000247955322
-									},
-									"rotation" : 
-									{
-										"w" : 0.99619472026824951,
-										"x" : 0.087155736982822418,
-										"y" : 0.0,
-										"z" : 0.0
-									},
-									"scale" : 
-									{
-										"x" : 1.0,
-										"y" : 1.0,
-										"z" : 1.0
-									},
-									"scene" : false,
-									"static" : false,
-									"uid" : 1510911538
-								}
-							],
-							"name" : "BigBalk",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : -2.7999999523162842,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1510910857
-						}
-					],
-					"name" : "BigBalkPivot",
-					"position" : 
-					{
-						"x" : 1.1920928955078125e-07,
-						"y" : 2.9499998092651367,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 0.99619472026824951,
-						"x" : -0.087155736982822418,
-						"y" : -0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1510912841
-				}
-			],
-			"name" : "ScaleParent",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510910799
-		},
-		{
-			"Script" : 
-			{
-				"scriptName" : "Resources/NewAssets/Scripts/Cart_Puzzle_1"
-			},
-			"children" : null,
-			"name" : "CartScript",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510920517
 		}
 	],
 	"name" : "Root",
