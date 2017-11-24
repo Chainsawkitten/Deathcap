@@ -1,6 +1,8 @@
 #include "SteamAudioInterface.hpp"
 #include <assert.h>
 
+using namespace Audio;
+
 SteamAudioInterface::SteamAudioInterface() {
     simSettings.sceneType = IPL_SCENETYPE_PHONON;
     simSettings.numRays = 12400;
@@ -13,8 +15,10 @@ SteamAudioInterface::SteamAudioInterface() {
 }
 
 SteamAudioInterface::~SteamAudioInterface() {
-    iplDestroyEnvironment(&environment);
-    iplDestroyScene(&scene);
+    if (environment)
+        iplDestroyEnvironment(&environment);
+    if (scene)
+        iplDestroyScene(&scene);
 }
 
 void SteamAudioInterface::CreateScene(uint32_t numMaterials) {
@@ -23,6 +27,10 @@ void SteamAudioInterface::CreateScene(uint32_t numMaterials) {
 
 void SteamAudioInterface::FinalizeScene(IPLFinalizeSceneProgressCallback progressCallback) {
     iplFinalizeScene(scene, NULL);
+}
+
+void SteamAudioInterface::CreateRenderers(SteamAudioRenderers*& renderers) {
+    renderers = new SteamAudioRenderers(environment, sAudio.envRenderer, sAudio.binauralRenderer);
 }
 
 SteamAudioInterface::SaveData SteamAudioInterface::SaveFinalizedScene() {
@@ -46,7 +54,7 @@ void SteamAudioInterface::SetSceneMaterial(uint32_t matIndex, IPLMaterial materi
     iplSetSceneMaterial(scene, matIndex, material);
 }
 
-IPLhandle * SteamAudioInterface::CreateStaticMesh(std::vector<IPLVector3> vertices, std::vector<IPLTriangle> indices, int materialIndex) {
+IPLhandle* SteamAudioInterface::CreateStaticMesh(std::vector<IPLVector3> vertices, std::vector<IPLTriangle> indices, int materialIndex) {
     IPLhandle mesh;
 
     // Create mesh
@@ -72,10 +80,10 @@ void SteamAudioInterface::SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, 
     sAudio.SetPlayer(playerPos, playerDir, playerUp);
 }
 
-void SteamAudioInterface::Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, std::vector<unsigned int>& guids, float* output) {
+void SteamAudioInterface::Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, std::vector<SteamAudioRenderers*>& renderers, float* output) {
     assert(buffers.size() == positions.size());
     assert(positions.size() == radii.size());
-    assert(radii.size() == guids.size());
+    assert(radii.size() == renderers.size());
     std::size_t size = buffers.size();
     std::vector<SteamAudio::SoundSourceInfo> inputs;
     inputs.resize(size);
@@ -95,7 +103,7 @@ void SteamAudioInterface::Process(std::vector<float*>& buffers, std::vector<IPLV
         buf.deinterleavedBuffer = NULL;
         input.position = positions[i];
         input.radius = radii[i];
-        input.GUID = guids[i];
+        input.renderers = renderers[i];
     }
 
     IPLAudioBuffer finalBuffer;

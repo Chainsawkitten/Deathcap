@@ -1,5 +1,7 @@
 #include "SteamAudioRenderers.hpp"
 
+using namespace Audio;
+
 SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment, IPLhandle envRenderer, IPLhandle binauralRenderer) {
     this->environment = environment;
 

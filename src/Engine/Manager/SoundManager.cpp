@@ -18,6 +18,8 @@
 #include <cstdint>
 #include <cstring>
 
+using namespace Audio;
+
 SoundManager::SoundManager() {
     PaError err;
 
@@ -111,11 +113,11 @@ void SoundManager::ProcessSamples() {
     sAudio.SetPlayer(pos, dir, up);
 
     std::size_t size = soundSources.GetAll().size();
-    std::vector<Audio::SoundBuffer*> soundBuffers;
+    std::vector<SoundBuffer*> soundBuffers;
     std::vector<float*> buffers;
     std::vector<IPLVector3> positions;
     std::vector<float> radii;
-    std::vector<unsigned int> guids;
+    std::vector<SteamAudioRenderers*> renderers;
 
     // Update sound sources.
     for (std::size_t i = 0; i < size; ++i) {
@@ -141,7 +143,9 @@ void SoundManager::ProcessSamples() {
             glm::vec3 position = sound->entity->GetWorldPosition();
             positions.push_back(IPLVector3{ position.x, position.y, position.z });
             radii.push_back(5.f);
-            guids.push_back(sound->entity->GetUniqueIdentifier());
+            if (!sound->renderers)
+                sAudio.CreateRenderers(sound->renderers);
+            renderers.push_back(sound->renderers);
 
             // If end of file, check if sound repeat.
             if (samples == 0) {
@@ -167,7 +171,7 @@ void SoundManager::ProcessSamples() {
     if (soundBuffers.empty())
         memset(processedBuffer, 0, CHUNK_SIZE * 2 * sizeof(float));
     else
-        sAudio.Process(buffers, positions, radii, guids, processedBuffer);
+        sAudio.Process(buffers, positions, radii, renderers, processedBuffer);
 
     // Consume used chunk and produce new chunk.
     for (Audio::SoundBuffer* soundBuffer : soundBuffers) {
@@ -180,6 +184,7 @@ void SoundManager::ProcessSamples() {
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
     Component::SoundSource* soundSource = soundSources.Create();
+
     return soundSource;
 }
 
@@ -237,7 +242,7 @@ const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterials() 
 
 void SoundManager::CreateAudioEnvironment() {
 
-    // Create new scene if no scene can be loaded
+    // Create new scene if no scene can be loaded //TMPTODO
     //if (NOSUCHFILE)
     {
         // Temporary list of all audio materials in use

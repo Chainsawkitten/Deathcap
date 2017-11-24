@@ -5,8 +5,11 @@
 #include <cstdint>
 #include "SteamAudio.hpp"
 
-/// Interface to set up and send data to/from Steam Audio from the rest of the engine.
-class SteamAudioInterface {
+namespace Audio {
+    class SteamAudioRenderers;
+
+    /// Interface to set up and send data to/from Steam Audio from the rest of the engine.
+    class SteamAudioInterface {
     public:
 
         /// Create default.
@@ -14,7 +17,7 @@ class SteamAudioInterface {
 
         /// Destructor.
         ~SteamAudioInterface();
-    
+
         /// Creates the scene object, to be populated with meshes.
         /**
          * @param settings The settings to use for simulation.
@@ -26,8 +29,12 @@ class SteamAudioInterface {
         /**
          * @param progressCallback Callback to check the progress of the finalization. Can be NULL.
          */
-        void FinalizeScene(IPLFinalizeSceneProgressCallback progressCallback); //Can also create Environment (until we start using multiple scenes)
-    
+        void FinalizeScene(IPLFinalizeSceneProgressCallback progressCallback); //Can also create Environment (until we start using multiple scenes) //TMPTODO
+
+        //TMPTODO
+        void CreateRenderers(SteamAudioRenderers*& renderers);
+
+        //TMPTODO
         /// Everything needed to load a previously finalized scene stored in a byte array.
         struct SaveData {
             IPLSimulationSettings settings;
@@ -51,7 +58,7 @@ class SteamAudioInterface {
         /**
          * @param matIndex Index of the material to set. Between 0 and N-1 where N is the value of numMaterials passed to CreateScene().
          * @param material The material properties to set.
-         **/
+         */
         void SetSceneMaterial(uint32_t matIndex, IPLMaterial material);
 
         /// Creates a static mesh and adds it to the non-finalized scene.
@@ -71,7 +78,7 @@ class SteamAudioInterface {
          * @param playerPos Player position.
          * @param playerDir Player forward.
          * @param playerUp Player up.
-         **/
+         */
         void SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp);
 
         //TMPTODO
@@ -82,8 +89,8 @@ class SteamAudioInterface {
          * @param positions The position of the sound source.
          * @param radii The radius of the source. To determine how much of the source is occluded rather than have it be on/off.
          * @param output Final mixed raw auido data.
-         **/
-        void Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, std::vector<unsigned int>& guids, float* output);
+         */
+        void Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, std::vector<SteamAudioRenderers*>& renderers, float* output);
 
     private:
 
@@ -93,6 +100,7 @@ class SteamAudioInterface {
 
         SteamAudio sAudio;
 
-        IPLhandle scene;
-        IPLhandle environment;
-};
+        IPLhandle scene = NULL;
+        IPLhandle environment = NULL;
+    };
+}

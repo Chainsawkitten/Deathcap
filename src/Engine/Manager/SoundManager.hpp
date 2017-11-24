@@ -115,14 +115,14 @@ class SoundManager {
 
         void ProcessSamples();
         
-        SteamAudioInterface sAudio;
+        Audio::SteamAudioInterface sAudio;
         PaStream* stream;
         Audio::SoundStreamer soundStreamer;
 
         unsigned int targetSample = 0;
         unsigned int processedSamples = 0;
         unsigned int currentSample = 0;
-        float processedBuffer[CHUNK_SIZE * 2];
+        float processedBuffer[Audio::CHUNK_SIZE * 2];
 
         float volume = 1.f;
         

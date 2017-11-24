@@ -5,9 +5,12 @@
 #include "../linking.hpp"
 #include <map>
 
-/// Main Steam Audio class for processing audio samples
-class SteamAudio {
+namespace Audio {
+    /// Main Steam Audio class for processing audio samples
+    class SteamAudio {
     public:
+        friend class SteamAudioInterface;
+
         /// Constructor.
         ENGINE_API SteamAudio();
 
@@ -22,8 +25,8 @@ class SteamAudio {
             float radius;
             /// Steam Audio buffer containing raw sound data.
             IPLAudioBuffer buffer;
-            /// GUID
-            unsigned int GUID;
+            /// Steam Audio renderers.
+            SteamAudioRenderers* renderers;
         };
 
         /// Processes the audio with both indirect and direct methods and mixes them together.
@@ -51,10 +54,9 @@ class SteamAudio {
     private:
         IPLContext* context;
 
-        std::map<unsigned int, SteamAudioRenderers*> rendererMap;
         IPLhandle environment;
-        IPLhandle envRenderer;
-        IPLhandle binauralRenderer;
+        IPLhandle envRenderer = NULL;
+        IPLhandle binauralRenderer = NULL;
         IPLAudioFormat outputFormat;
         IPLAudioBuffer indirectBuffer;
         IPLAudioBuffer directBuffer;
@@ -62,4 +64,5 @@ class SteamAudio {
         IPLVector3 playerPos;
         IPLVector3 playerDir;
         IPLVector3 playerUp;
-};
+    };
+}

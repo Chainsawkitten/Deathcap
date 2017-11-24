@@ -5,6 +5,8 @@
 #include <MemTrackInclude.hpp>
 #endif
 
+using namespace Audio;
+
 SteamAudio::SteamAudio() {
     playerPos = IPLVector3{ 0,0,0 };
     playerDir = IPLVector3{ 1,0,0 };
@@ -28,10 +30,10 @@ SteamAudio::SteamAudio() {
 }
 
 SteamAudio::~SteamAudio() {
-    iplDestroyEnvironmentalRenderer(&envRenderer);
-    iplDestroyBinauralRenderer(&binauralRenderer);
-    for (auto& it : rendererMap)
-        delete it.second;
+    if (envRenderer)
+        iplDestroyEnvironmentalRenderer(&envRenderer);
+    if (binauralRenderer)
+        iplDestroyBinauralRenderer(&binauralRenderer);
 
     delete[] indirectBuffer.interleavedBuffer;
     delete[] directBuffer.interleavedBuffer;
@@ -43,11 +45,7 @@ void SteamAudio::Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAu
     audioBuffers.resize(inputs.size());
     for (std::size_t i = 0; i < inputs.size(); ++i) {
         SteamAudio::SoundSourceInfo& input = inputs[i];
-        std::map<unsigned int, SteamAudioRenderers*>::iterator it = rendererMap.find(input.GUID);
-        if (it == rendererMap.end())
-            rendererMap[input.GUID] = new SteamAudioRenderers(environment, envRenderer, binauralRenderer); //TMPTODO REMOVE UNUSED
-
-        audioBuffers[i] = rendererMap[input.GUID]->Process(input.buffer, playerPos, playerDir, playerUp, input.position, input.radius);
+        audioBuffers[i] = input.renderers->Process(input.buffer, playerPos, playerDir, playerUp, input.position, input.radius);
     }
 
     assert(!audioBuffers.empty());
