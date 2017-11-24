@@ -120,9 +120,8 @@ void SoundManager::ProcessSamples() {
     std::vector<SteamAudioRenderers*> renderers;
 
     // Update sound sources.
-    for (std::size_t i = 0; i < size; ++i) {
+    for (Component::SoundSource* sound : soundSources.GetAll()) {
 
-        Component::SoundSource* sound = soundSources.GetAll()[i];
         Audio::SoundBuffer* soundBuffer = sound->soundBuffer;
         Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
 
