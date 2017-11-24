@@ -58,7 +58,7 @@ void TextureEditor::Show() {
                 std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".hct";
                 
                 // Convert PNG texture to custom texture format.
-                TextureConverter::Convert(path.c_str(), destination.c_str());
+                TextureConverter::Convert(path.c_str(), destination.c_str(), static_cast<Video::TextureHCT::CompressionType>(compressionType));
                 
                 texture->Load(texture->path + texture->name);
             }

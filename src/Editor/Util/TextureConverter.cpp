@@ -6,11 +6,10 @@
 
 #include <fstream>
 #include <Utility/Log.hpp>
-#include <Video/Texture/TextureHCT.hpp>
 #include <Codec_DXTC.h>
 
 namespace TextureConverter {
-    void Convert(const char* inFilename, const char* outFilename) {
+    void Convert(const char* inFilename, const char* outFilename, Video::TextureHCT::CompressionType compressionType) {
         // Load PNG file.
         int components, width, height;
         unsigned char* data = stbi_load(inFilename, &width, &height, &components, 0);
@@ -20,6 +19,12 @@ namespace TextureConverter {
         }
         if (width % 4 != 0 || height % 4 != 0) {
             Log(Log::ERR) << inFilename << " does not have dimensions multiple of 4.\n";
+            return;
+        }
+        
+        // Error on unsupported format.
+        if (compressionType == Video::TextureHCT::BC4 || compressionType == Video::TextureHCT::BC5) {
+            Log(Log::ERR) << "Unsupported compression type.\n";
             return;
         }
         
@@ -53,7 +58,7 @@ namespace TextureConverter {
             width /= 2;
             height /= 2;
         }
-        uint16_t compressionType = Video::TextureHCT::BC1;
+        uint16_t type = Video::TextureHCT::BC1;
         
         // Write header.
         uint16_t version = Video::TextureHCT::VERSION;
