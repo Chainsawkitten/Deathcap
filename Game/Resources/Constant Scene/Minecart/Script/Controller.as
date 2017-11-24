@@ -4,6 +4,7 @@ class Controller {
     Entity @rock;
     Entity @cart;
     bool isPressed;
+    Entity @lantern;
     bool pickUp;
 
     Controller(Entity @entity){
@@ -12,6 +13,7 @@ class Controller {
         @rock = GetEntityByGUID(1510240479);
         @cart = GetEntityByGUID(1508919384);
         isPressed = false;
+        @lantern = GetEntityByGUID(1509711303);
         pickUp = false;
 
         // Remove this if updates are not desired.
@@ -38,16 +40,7 @@ class Controller {
         }
     }
     
-    void OnRockTrigger() {
-        //print("Rock trigger\n");
-        if (Input(Trigger, self) && !isPressed) {
-            isPressed = true;
-            SendMessage(rock, 1);
-        } 
-    }
-    
     void OnLanternTrigger() {
-        print("Lantern Trigger\n");
         if(Input(Trigger, self) && pickUp == false){
             pickUp = true;
             SendMessage(lantern, 1);

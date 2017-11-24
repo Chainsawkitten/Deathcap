@@ -10,10 +10,6 @@
 		"resources" : 
 		[
 			{
-				"scene" : "Combined Scene",
-				"type" : 0
-			},
-			{
 				"scene" : "NewAssetsScene",
 				"type" : 0
 			},
@@ -524,6 +520,17 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "CartScript_0",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -1462,10 +1469,34 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "Super Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Super Scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "SwitcherScript_1",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					}
+				]
 			}
 		]
 	},
-	"sceneNumber" : 23,
+	"sceneNumber" : 24,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,

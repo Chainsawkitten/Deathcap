@@ -250,6 +250,7 @@
 			"uid" : 1508919163
 		},
 		{
+
 			"Material" : 
 			{
 				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
@@ -707,7 +708,7 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
-				"triggerCollidedEntity" : 1508919758,
+				"triggerCollidedEntityUID" : 1508919758,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
 				"triggerEventStruct_Check_0" : true,
@@ -715,13 +716,13 @@
 				"triggerEventStruct_Check_2" : true,
 				"triggerEventStruct_Check_3" : true,
 				"triggerEventStruct_EventID" : 1,
-				"triggerEventStruct_ScriptID" : 1,
-				"triggerEventStruct_ShapeID" : 1,
-				"triggerEventStruct_TargetID" : 3,
-				"triggerFunction" : "void OnRockTrigger()",
+				"triggerEventStruct_ScriptID" : 2,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 0,
+				"triggerFunction" : "void PickedUp()",
 				"triggerName" : "New Trigger",
 				"triggerOwner" : 1510317739,
-				"triggerTargetEntity" : 1508919758,
+				"triggerTargetEntity" : 1510240479,
 				"triggerTriggered" : false
 			},
 			"children" : 
@@ -810,7 +811,7 @@
 						"trigger" : "A Trigger",
 						"triggerActive" : false,
 						"triggerCharges" : 0,
-						"triggerCollidedEntity" : 1509959164,
+						"triggerCollidedEntityUID" : 1509959164,
 						"triggerCooldown" : 0.0,
 						"triggerDelay" : 0.0,
 						"triggerEventStruct_Check_0" : true,
@@ -819,8 +820,8 @@
 						"triggerEventStruct_Check_3" : true,
 						"triggerEventStruct_EventID" : 0,
 						"triggerEventStruct_ScriptID" : 1,
-						"triggerEventStruct_ShapeID" : 2,
-						"triggerEventStruct_TargetID" : 8,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 3,
 						"triggerFunction" : "void OnTrigger()",
 						"triggerName" : "New Trigger",
 						"triggerOwner" : 1510581348,
@@ -1143,6 +1144,25 @@
 															"Mesh" : 
 															{
 																"model" : "Resources/NewAssets/Models/Puzzle Scale/bucketFixedHandle_01"
+																"trigger" : "A Trigger",
+																"triggerActive" : false,
+																"triggerCharges" : 0,
+																"triggerCollidedEntityUID" : 1510240479,
+																"triggerCooldown" : 0.0,
+																"triggerDelay" : 0.0,
+																"triggerEventStruct_Check_0" : true,
+																"triggerEventStruct_Check_1" : true,
+																"triggerEventStruct_Check_2" : true,
+																"triggerEventStruct_Check_3" : true,
+																"triggerEventStruct_EventID" : 0,
+																"triggerEventStruct_ScriptID" : 1,
+																"triggerEventStruct_ShapeID" : 0,
+																"triggerEventStruct_TargetID" : 0,
+																"triggerFunction" : "void HitBucket()",
+																"triggerName" : "New Trigger",
+																"triggerOwner" : 1510911855,
+																"triggerTargetEntity" : 1510240479,
+																"triggerTriggered" : false
 															},
 															"children" : 
 															[
