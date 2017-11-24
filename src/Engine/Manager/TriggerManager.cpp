@@ -54,7 +54,7 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
         repeat->triggerCharges = node.get("triggerCharges", 0).asInt();
         repeat->targetFunction.push_back(node.get("triggerFunction", "").asString());
 
-        repeat->collidedEntityUID = node.get("triggerCollidedEntity", 0).asInt();
+        repeat->collidedEntityUID = node.get("triggerCollidedEntityUID", 0).asInt();
         repeat->targetEntityUID = node.get("triggerTargetEntity", 0).asInt();
         repeat->owningEntityUID = node.get("triggerOwner", 0).asInt();
 
