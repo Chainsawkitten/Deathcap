@@ -35,25 +35,30 @@ TextureHCT::TextureHCT(const char* filename) {
     file.read(reinterpret_cast<char*>(&height), sizeof(uint16_t));
     file.read(reinterpret_cast<char*>(&mipLevels), sizeof(uint16_t));
     
+    // Create image on GPU.
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+    glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGB8, width, height);
+    
     // Read texture data.
-    uint32_t size = width * height * 3;
+    uint32_t size = static_cast<uint32_t>(width) * height * 3;
     unsigned char* data = new unsigned char[size];
-    if (!file.read(reinterpret_cast<char*>(data), size)) {
-        Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";
-        file.close();
-        delete[] data;
-        return;
+    for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
+        size = static_cast<uint32_t>(width) * height * 3;
+        if (!file.read(reinterpret_cast<char*>(data), size)) {
+            Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";
+            file.close();
+            delete[] data;
+            return;
+        }
+        
+        glTexSubImage2D(GL_TEXTURE_2D, mipLevel, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+        width /= 2;
+        height /= 2;
     }
     
     // Close file when finished reading.
     file.close();
-    
-    // Create image on GPU.
-    glGenTextures(1, &texID);
-    glBindTexture(GL_TEXTURE_2D, texID);
-    
-    // Give the image to OpenGL.
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     
     delete[] data;
     
@@ -66,9 +71,6 @@ TextureHCT::TextureHCT(const char* filename) {
     // Repeat texture when texture coordinates outside 0.0-1.0.
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    
-    // Generate mipmaps.
-    glGenerateMipmap(GL_TEXTURE_2D);
     
     loaded = true;
 }

@@ -158,6 +158,25 @@ void TriggerRepeat::Update() {
     }
 }
 
+void TriggerRepeat::InitiateVolumes() {
+    if (GetEventVector()->front().check[0] == true &&
+        GetEventVector()->front().check[1] == true &&
+        GetEventVector()->front().check[2] == true &&
+        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 0) {
+        OnEnter();
+    } else if (GetEventVector()->front().check[0] == true &&
+        GetEventVector()->front().check[1] == true &&
+        GetEventVector()->front().check[2] == true &&
+        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 1) {
+        OnRetain();
+    } else if (GetEventVector()->front().check[0] == true &&
+        GetEventVector()->front().check[1] == true &&
+        GetEventVector()->front().check[2] == true &&
+        GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 2) {
+        OnLeave();
+    }
+}
+
 Json::Value TriggerRepeat::Save() {
     Json::Value component;
 
@@ -172,8 +191,6 @@ Json::Value TriggerRepeat::Save() {
         component["triggerFunction"] = targetFunction.front(); // ADD SUPPORT FOR VECTOR
     if (!targetEntity.empty())
         component["triggerTargetEntity"] = targetEntity.front()->GetUniqueIdentifier(); // ADD SUPPORT FOR VECTOR
-    if (!collidedEntity.empty())
-        component["triggerCollidedEntity"] = collidedEntity.front()->GetUniqueIdentifier(); // ADD SUPPORT FOR VECTOR
 
     if (!eventVector.empty()) {
         component["triggerEventStruct_EventID"] = eventVector.front().m_eventID; // ADD SUPPORT FOR VECTOR
@@ -184,25 +201,10 @@ Json::Value TriggerRepeat::Save() {
         component["triggerEventStruct_Check_1"] = eventVector.front().check[1]; // ADD SUPPORT FOR VECTOR
         component["triggerEventStruct_Check_2"] = eventVector.front().check[2]; // ADD SUPPORT FOR VECTOR
         component["triggerEventStruct_Check_3"] = eventVector.front().check[3]; // ADD SUPPORT FOR VECTOR
-
-        if (GetEventVector()->front().check[0] == true &&
-            GetEventVector()->front().check[1] == true &&
-            GetEventVector()->front().check[2] == true &&
-            GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 0) {
-            OnEnter();
-        } else if (GetEventVector()->front().check[0] == true &&
-            GetEventVector()->front().check[1] == true &&
-            GetEventVector()->front().check[2] == true &&
-            GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 1) {
-            OnRetain();
-        } else if (GetEventVector()->front().check[0] == true &&
-            GetEventVector()->front().check[1] == true &&
-            GetEventVector()->front().check[2] == true &&
-            GetEventVector()->front().check[3] == true && GetEventVector()->front().m_eventID == 2) {
-            OnLeave();
-        }
+                
     }
 
+    component["triggerCollidedEntityUID"] = collidedEntityUID;
     component["triggerTriggered"] = triggered;
 
     if (owningEntity != nullptr)
@@ -210,4 +212,12 @@ Json::Value TriggerRepeat::Save() {
 
     return component;
 
+}
+
+void TriggerRepeat::SetCollidedEntityUID(int value) {
+    collidedEntityUID = value;
+}
+
+int TriggerRepeat::GetCollidedEntityUID() {
+    return collidedEntityUID;
 }

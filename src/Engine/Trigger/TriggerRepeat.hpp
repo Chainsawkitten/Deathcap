@@ -159,6 +159,21 @@ class TriggerRepeat : public SuperTrigger {
         /// Initialize entity references for triggers via entity UIDs.
         ENGINE_API void InitTriggerUID() override;
 
+        /// Initialize trigger volumes.
+        ENGINE_API void InitiateVolumes() override;
+
+        /// Set UID for this triggers collided entity.
+        /**
+         * @param value Set UID for collided entity.
+         */
+        ENGINE_API void SetCollidedEntityUID(int value);
+
+        /// Get UID for this triggers collided entity.
+        /**
+         * @return int unique identifier for collided entity.
+         */
+        ENGINE_API int GetCollidedEntityUID();
+
     private:
         void HandleTriggerEvent();
 

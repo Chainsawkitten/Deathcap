@@ -13,10 +13,6 @@
 			{
 				"model" : "Resources/Constant Scene/Minecart/Model/cart"
 			},
-			"Script" : 
-			{
-				"scriptName" : "Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1"
-			},
 			"children" : 
 			[
 				{
@@ -36,6 +32,17 @@
 							"Listener" : 
 							{
 								"placeholderValue" : ""
+							},
+							"PointLight" : 
+							{
+								"attenuation" : 1.0,
+								"color" : 
+								{
+									"x" : 1.0,
+									"y" : 1.0,
+									"z" : 1.0
+								},
+								"intensity" : 0.10000000149011612
 							},
 							"Script" : 
 							{
@@ -72,9 +79,28 @@
 							"uid" : 1508919707
 						},
 						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
 							"Script" : 
 							{
 								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
+							"Shape" : 
+							{
+								"sphere" : 
+								{
+									"radius" : 0.25
+								}
 							},
 							"VRDevice" : 
 							{
@@ -84,7 +110,19 @@
 							"children" : 
 							[
 								{
-									"name" : "Controller Model",
+									"Material" : 
+									{
+										"albedo" : "Resources/Constant Scene/Controller/Textures/hand_albedo",
+										"metallic" : "Resources/Constant Scene/Controller/Textures/hand_metallic",
+										"normal" : "Resources/Constant Scene/Controller/Textures/hand_normal",
+										"roughness" : "Resources/Constant Scene/Controller/Textures/hand_roughness"
+									},
+									"Mesh" : 
+									{
+										"model" : "Resources/Constant Scene/Controller/Models/HandClosed"
+									},
+									"children" : null,
+									"name" : "LeftCtrlModel",
 									"position" : 
 									{
 										"x" : 0.0,
@@ -93,21 +131,20 @@
 									},
 									"rotation" : 
 									{
-										"w" : 0.70710676908493042,
+										"w" : 1.0,
 										"x" : 0.0,
-										"y" : -0.70710676908493042,
+										"y" : 0.0,
 										"z" : 0.0
 									},
 									"scale" : 
 									{
-										"x" : 1.0,
-										"y" : 1.0,
-										"z" : 1.0
+										"x" : 0.10000000149011612,
+										"y" : 0.10000000149011612,
+										"z" : 0.10000000149011612
 									},
-									"scene" : true,
-									"sceneName" : "Resources/Constant Scene/Controller/controller_fixScene",
+									"scene" : false,
 									"static" : false,
-									"uid" : 1508918923
+									"uid" : 1510937666
 								}
 							],
 							"name" : "Left Controller",
@@ -135,9 +172,30 @@
 							"uid" : 1508919751
 						},
 						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
 							"Script" : 
 							{
 								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
+							"Shape" : 
+							{
+								"box" : 
+								{
+									"depth" : 1.5,
+									"height" : 0.5,
+									"width" : 0.89999997615814209
+								}
 							},
 							"VRDevice" : 
 							{
@@ -147,7 +205,19 @@
 							"children" : 
 							[
 								{
-									"name" : "Controller Model",
+									"Material" : 
+									{
+										"albedo" : "Resources/Constant Scene/Controller/Textures/hand_albedo",
+										"metallic" : "Resources/Constant Scene/Controller/Textures/hand_metallic",
+										"normal" : "Resources/Constant Scene/Controller/Textures/hand_normal",
+										"roughness" : "Resources/Constant Scene/Controller/Textures/hand_roughness"
+									},
+									"Mesh" : 
+									{
+										"model" : "Resources/Constant Scene/Controller/Models/HandOpenRight"
+									},
+									"children" : null,
+									"name" : "RightCtrlModel",
 									"position" : 
 									{
 										"x" : 0.0,
@@ -163,14 +233,13 @@
 									},
 									"scale" : 
 									{
-										"x" : 1.0,
-										"y" : 1.0,
-										"z" : 1.0
+										"x" : 0.10000000149011612,
+										"y" : 0.10000000149011612,
+										"z" : 0.10000000149011612
 									},
-									"scene" : true,
-									"sceneName" : "Resources/Constant Scene/Controller/controller_fixScene",
+									"scene" : false,
 									"static" : false,
-									"uid" : 1508918923
+									"uid" : 1510937667
 								}
 							],
 							"name" : "Right Controller",
@@ -196,85 +265,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1508919758
-						},
-						{
-							"Script" : 
-							{
-								"scriptName" : "Resources/Constant Scene/Minecart/Script/Lantern"
-							},
-							"SpotLight" : 
-							{
-								"ambientCoefficient" : 0.0,
-								"attenuation" : 1.0,
-								"color" : 
-								{
-									"x" : 1.0,
-									"y" : 1.0,
-									"z" : 1.0
-								},
-								"coneAngle" : 30.0,
-								"intensity" : 5.0,
-								"shadow" : true
-							},
-							"children" : 
-							[
-								{
-									"Material" : 
-									{
-										"albedo" : "",
-										"metallic" : "",
-										"normal" : "",
-										"roughness" : ""
-									},
-									"children" : null,
-									"name" : "LanternMesh",
-									"position" : 
-									{
-										"x" : 0.0,
-										"y" : 0.0,
-										"z" : 0.0
-									},
-									"rotation" : 
-									{
-										"w" : 1.0,
-										"x" : 0.0,
-										"y" : -4.3711388286737929e-08,
-										"z" : 0.0
-									},
-									"scale" : 
-									{
-										"x" : 0.070000000298023224,
-										"y" : 0.070000000298023224,
-										"z" : 0.070000000298023224
-									},
-									"scene" : false,
-									"static" : false,
-									"uid" : 1509714156
-								}
-							],
-							"name" : "Lantern",
-							"position" : 
-							{
-								"x" : -0.21400392055511475,
-								"y" : 0.42907214164733887,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1509711303
 						}
 					],
 					"name" : "Player",
@@ -307,7 +297,8 @@
 						"angularDamping" : 0.0,
 						"cor" : 0.0,
 						"friction" : 0.5,
-						"kinematic" : false,
+						"ghost" : false,
+						"kinematic" : true,
 						"linearDamping" : 0.0,
 						"mass" : 1.0,
 						"rollingFriction" : 0.0,
@@ -346,6 +337,131 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1509959164
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/Constant Scene/Minecart/Script/Lantern"
+					},
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 30.0,
+						"intensity" : 5.0,
+						"shadow" : true
+					},
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/Constant Scene/Lantern/Textures/lanter_albedo",
+								"metallic" : "Resources/Constant Scene/Lantern/Textures/lanter_metallic",
+								"normal" : "Resources/Constant Scene/Lantern/Textures/lantern_normal",
+								"roughness" : "Resources/Constant Scene/Lantern/Textures/lantern_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Constant Scene/Lantern/Lantern"
+							},
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : false,
+								"kinematic" : true,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 1.3999999761581421,
+									"radius" : 0.059999998658895493
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919751,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 2,
+								"triggerFunction" : "void OnLanternTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1509714156,
+								"triggerTargetEntity" : 1508919751,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "LanternMesh",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.910685465164705e-15,
+								"x" : -4.3711388286737929e-08,
+								"y" : 1.0,
+								"z" : -4.3711388286737929e-08
+							},
+							"scale" : 
+							{
+								"x" : 0.070000000298023224,
+								"y" : 0.070000000298023224,
+								"z" : 0.070000000298023224
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1509714156
+						}
+					],
+					"name" : "Lantern",
+					"position" : 
+					{
+						"x" : -0.10500000417232513,
+						"y" : 0.13700000941753387,
+						"z" : -0.54700005054473877
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1509711303
 				}
 			],
 			"name" : "Minecart",

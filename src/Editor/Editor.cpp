@@ -17,7 +17,6 @@
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/SpotLight.hpp>
-#include <Engine/Component/ParticleEmitter.hpp>
 #include <Engine/Component/PointLight.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
@@ -69,7 +68,7 @@ Editor::Editor() {
 
     // Create editor camera.
     cameraEntity = cameraWorld.CreateEntity("Editor Camera");
-    cameraEntity->enabled = false;
+    cameraEntity->SetEnabled(false);
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
     cameraEntity->GetComponent<Component::Lens>()->zFar = 1000.f;
@@ -522,7 +521,7 @@ void Editor::Picking() {
         for (Entity* entity : entities) {
             // Check if entity has pickable component.
             if (entity->GetComponent<Component::SpotLight>() || entity->GetComponent<Component::DirectionalLight>() || entity->GetComponent<Component::PointLight>() ||
-                entity->GetComponent<Component::Mesh>() || entity->GetComponent<Component::Lens>() || entity->GetComponent<Component::SoundSource>() || entity->GetComponent<Component::ParticleEmitter>()) {
+                entity->GetComponent<Component::Mesh>() || entity->GetComponent<Component::Lens>() || entity->GetComponent<Component::SoundSource>()) {
                 // Get aabo.
                 Component::Mesh* mesh = entity->GetComponent<Component::Mesh>();
                 const Video::AxisAlignedBoundingBox aabo = mesh != nullptr && mesh->geometry != nullptr ?

@@ -50,6 +50,12 @@ namespace Audio {
              * @param cache Whether to cache file.
              */
             ENGINE_API void Cache(bool cache) final;
+
+            /// Check whether sound if loaded.
+            /**
+             * @return Whether sound is loaded or not.
+             */
+            ENGINE_API bool IsLoaded() const final;
             
         private:
             void Load(const char* filename);

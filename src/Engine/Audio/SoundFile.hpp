@@ -48,6 +48,12 @@ namespace Audio {
              */
             virtual void Cache(bool cache) = 0;
 
+            /// Check whether sound if loaded.
+            /**
+             * @return Whether sound is loaded or not.
+             */
+            virtual bool IsLoaded() const = 0;
+
             /// Whether sound file is cached or streamed.
             /**
              * @return Whether file is cached.

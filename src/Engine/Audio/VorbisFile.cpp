@@ -10,8 +10,7 @@
 
 using namespace Audio;
 
-Audio::VorbisFile::VorbisFile()
-{
+VorbisFile::VorbisFile() {
 
 }
 
@@ -24,6 +23,9 @@ VorbisFile::~VorbisFile() {
 }
 
 int VorbisFile::GetData(uint32_t offset, uint32_t samples, float*& data) const {
+    if (!IsLoaded())
+        return 0;
+
     if (buffer) {
         data = &buffer[offset];
         return std::min(std::max(sampleCount - (int)(offset + samples), 0), (int)samples);
@@ -46,7 +48,7 @@ uint32_t VorbisFile::GetChannelCount() const {
 }
 
 void VorbisFile::Cache(bool cache) {
-    if (!stbFile) {
+    if (!IsLoaded()) {
         Log() << "No OGG Vorbis file loaded to cache.\n";
         return;
     }
@@ -61,7 +63,6 @@ void VorbisFile::Cache(bool cache) {
 }
 
 void VorbisFile::Load(const char* filename) {
-
     // Open OGG file
     int error;
     stbFile = stb_vorbis_open_filename(filename, &error, NULL);
@@ -74,4 +75,8 @@ void VorbisFile::Load(const char* filename) {
     channelCount = stbInfo.channels;
     sampleRate = stbInfo.sample_rate;
     sampleCount = stb_vorbis_stream_length_in_samples(stbFile) * stbInfo.channels;
+}
+
+bool VorbisFile::IsLoaded() const {
+    return (stbFile != nullptr);
 }
