@@ -48,6 +48,10 @@
 			{
 				"script" : "StressScript",
 				"type" : 4
+			},
+			{
+				"script" : "TestScript",
+				"type" : 4
 			}
 		],
 		"subfolders" : 

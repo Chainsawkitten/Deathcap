@@ -8,7 +8,6 @@ class StressScript {
 	float voulumeAmplification;
 	float lightAmplification;
 	
-	float minDistance;
 	float maxDistance;
 	
 	private float startVolume;
@@ -17,6 +16,9 @@ class StressScript {
     StressScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
+		@lantern = GetEntityByGUID(1508402678);
+		@audioSource = GetEntityByGUID(1509010103);
+		@alien = GetEntityByGUID(1510736518);
 		
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -32,13 +34,17 @@ class StressScript {
 			first = false;
 		
 		}
-		float distanceToAlien = 0;
+		float distanceToAlien = sqrt(pow(self.position.x - alien.position.x, 2) + pow(self.position.y - alien.position.y, 2) + pow(self.position.z - alien.position.z, 2));
+		float mDist = maxDistance;
 		if(distanceToAlien < maxDistance){
 		
-			audioSource.GetSoundSource().volume = startVolume + (startVolume * voulumeAmplification * (1 - distanceToAlien / maxDistance));
-			lantern.GetPointLight().intensity = startIntensity + (startIntensity * lightAmplification * (1 - distanceToAlien / maxDistance));
+			float newVolume = startVolume + (startVolume * voulumeAmplification * (1 - distanceToAlien / maxDistance));
+			audioSource.GetSoundSource().volume = newVolume;
+			
+			float newIntensity = startIntensity + (startIntensity * lightAmplification * (1 - distanceToAlien / maxDistance));
+			lantern.GetPointLight().intensity = newIntensity;
 		
-		}
+		} 
 		
     }
 }
