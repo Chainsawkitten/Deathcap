@@ -12,6 +12,7 @@
 namespace TextureConverter {
     void CompressBlockBC1(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]);
     void CompressBlockBC4(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]);
+    void CompressBlockBC5(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[4]);
     
     void Convert(const char* inFilename, const char* outFilename, Video::TextureHCT::CompressionType compressionType) {
         // Load PNG file.
@@ -23,12 +24,6 @@ namespace TextureConverter {
         }
         if (width % 4 != 0 || height % 4 != 0) {
             Log(Log::ERR) << inFilename << " does not have dimensions multiple of 4.\n";
-            return;
-        }
-        
-        // Error on unsupported format.
-        if (compressionType == Video::TextureHCT::BC5) {
-            Log(Log::ERR) << "Unsupported compression type.\n";
             return;
         }
         
@@ -92,6 +87,10 @@ namespace TextureConverter {
                         uint32_t block[2];
                         CompressBlockBC4(rgbData, blockX, blockY, width, block);
                         file.write(reinterpret_cast<char*>(block), 8);
+                    } else if (compressionType == Video::TextureHCT::BC5) {
+                        uint32_t block[4];
+                        CompressBlockBC5(rgbData, blockX, blockY, width, block);
+                        file.write(reinterpret_cast<char*>(block), 16);
                     }
                 }
             }
@@ -155,5 +154,32 @@ namespace TextureConverter {
         
         // Convert block
         CompressAlphaBlock(uncompressed, block);
+    }
+    
+    void CompressBlockBC5(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[4]) {
+        // Get uncompressed block.
+        uint8_t uncompressed[4 * 4];
+        for (uint8_t y=0; y < 4; ++y) {
+            for (uint8_t x=0; x < 4; ++x) {
+                uint32_t rgbY = blockY * 4 + y;
+                uint32_t rgbX = blockX * 4 + x;
+                uncompressed[y * 4 + x] = rgbData[(rgbY * width + rgbX) * 3];
+            }
+        }
+        
+        // Convert block
+        CompressAlphaBlock(uncompressed, &block[0]);
+        
+        // Get uncompressed block.
+        for (uint8_t y=0; y < 4; ++y) {
+            for (uint8_t x=0; x < 4; ++x) {
+                uint32_t rgbY = blockY * 4 + y;
+                uint32_t rgbX = blockX * 4 + x;
+                uncompressed[y * 4 + x] = rgbData[(rgbY * width + rgbX) * 3 + 1];
+            }
+        }
+        
+        // Convert block
+        CompressAlphaBlock(uncompressed, &block[2]);
     }
 }

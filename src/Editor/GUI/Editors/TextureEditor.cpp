@@ -50,7 +50,7 @@ void TextureEditor::Show() {
                 ImGui::Text("Suitable for metallic and roughness textures.\n4 bits per pixels.");
                 break;
             case Video::TextureHCT::BC5:
-                ImGui::Text("Suitable for normal maps.\n8 bits per pixel.\nNOT YET IMPLEMENTED");
+                ImGui::Text("Suitable for normal maps.\n8 bits per pixel.");
                 break;
             }
             
