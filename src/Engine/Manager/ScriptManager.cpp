@@ -885,7 +885,7 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
     asIScriptContext* context = engine->CreateContext();
     context->Prepare(scriptMethod);
     context->SetObject(script->instance);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
 
     // Clean up.
     context->Release();
@@ -916,7 +916,7 @@ void ScriptManager::CreateInstance(Component::Script* script) {
     asIScriptContext* context = CreateContext();
     context->Prepare(factoryFunction);
     context->SetArgObject(0, script->entity);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Get the newly created object.
     script->instance = *(static_cast<asIScriptObject**>(context->GetAddressOfReturnValue()));
@@ -956,7 +956,7 @@ void ScriptManager::CallMessageReceived(const Message& message) {
     context->SetObject(script->instance);
     context->SetArgAddress(0, message.sender);
     context->SetArgDWord(1, message.type);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Clean up.
     context->Release();
@@ -979,7 +979,7 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgFloat(0, deltaTime);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Clean up.
     context->Release();
@@ -1001,13 +1001,13 @@ void ScriptManager::LoadScriptFile(const char* fileName, std::string& script){
     fclose(f);
 }
 
-void ScriptManager::ExecuteCall(asIScriptContext* context) {
+void ScriptManager::ExecuteCall(asIScriptContext* context, std::string scriptName) {
     int r = context->Execute();
     if (r != asEXECUTION_FINISHED) {
         // The execution didn't complete as expected. Determine what happened.
         if (r == asEXECUTION_EXCEPTION) {
             // An exception occurred, let the script writer know what happened so it can be corrected.
-            Log() << "An exception '" << context->GetExceptionString() << "' occurred. Please correct the code and try again.\n";
+            Log() << "An exception '" << context->GetExceptionString() << "' occurred in " << scriptName << ". Please correct the code and try again.\n";
         }
     }
 }
