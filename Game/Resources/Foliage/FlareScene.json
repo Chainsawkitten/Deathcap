@@ -1,0 +1,178 @@
+{
+	"Material" : 
+	{
+		"albedo" : "",
+		"metallic" : "",
+		"normal" : "",
+		"roughness" : ""
+	},
+	"Mesh" : 
+	{
+		"model" : "Resources/Foliage/FlareModel"
+	},
+	"children" : 
+	[
+		{
+			"ParticleSystem" : 
+			{
+				"NrOfParticles" : 840,
+				"alphaControl" : 1.5,
+				"emitAmount" : 6,
+				"lifetime" : 15.010001182556152,
+				"mass" : 0.023000001907348633,
+				"randomVelocity" : 
+				{
+					"x" : 0.05000000074505806,
+					"y" : 3.5,
+					"z" : 0.05000000074505806
+				},
+				"rate" : 0.0,
+				"scale" : 0.20000000298023224,
+				"speed" : 1.0,
+				"spread" : 3,
+				"textureIndex" : 3,
+				"velocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.10000000149011612,
+					"z" : 0.0
+				}
+			},
+			"children" : null,
+			"name" : "FlareParticles",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.38029366731643677,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511784504
+		},
+		{
+			"ParticleSystem" : 
+			{
+				"NrOfParticles" : 512,
+				"alphaControl" : 2.1000001430511475,
+				"emitAmount" : 16,
+				"lifetime" : 2.0,
+				"mass" : 0.0099999997764825821,
+				"randomVelocity" : 
+				{
+					"x" : 0.0,
+					"y" : 1.0,
+					"z" : 0.0
+				},
+				"rate" : 0.10000000149011612,
+				"scale" : 0.15000000596046448,
+				"speed" : 0.10999999940395355,
+				"spread" : 5,
+				"textureIndex" : 3,
+				"velocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.20000000298023224,
+					"z" : 0.0
+				}
+			},
+			"children" : null,
+			"name" : "FlareParticles2",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.52147579193115234,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511787775
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 7.3680005073547363,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.12549020349979401,
+					"z" : 0.12549020349979401
+				},
+				"intensity" : 10.0
+			},
+			"children" : null,
+			"name" : "Light",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.74500006437301636,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511788198
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 0.25,
+		"y" : 1.5,
+		"z" : 0.25
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1511784197
+}
