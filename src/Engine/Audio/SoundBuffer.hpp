@@ -24,7 +24,7 @@ namespace Audio {
             
             /// Get sound data.
             /**
-             * @param [OUT] Number of valid samples fetched from file.
+             * @param samples Number of valid samples fetched from file.
              * @return Pointer to raw audio data.
              */
             ENGINE_API float* GetChunkData(int& samples);
@@ -52,6 +52,7 @@ namespace Audio {
             
         private:
             SoundFile* soundFile = nullptr;
+
             float* buffer = nullptr;
 
             unsigned int chunkCount = 0;

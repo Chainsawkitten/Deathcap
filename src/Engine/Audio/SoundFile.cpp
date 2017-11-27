@@ -1,4 +1,5 @@
 #include "SoundFile.hpp"
+
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
 #include <fstream>
@@ -30,6 +31,7 @@ void SoundFile::Load(const std::string& name) {
     std::size_t pos = name.find_last_of('/');
     this->name = name.substr(pos + 1);
     path = name.substr(0, pos + 1);
+  
     std::string filename = Hymn().GetPath() + "/" + name;
     Load(std::string(filename + ".ogg").c_str());
 

@@ -81,7 +81,6 @@ void SteamAudioInterface::CreateEnvironment() {
         iplDestroyEnvironment(&environment);
         environment = NULL;
     }
-
     IPLerror err = iplCreateEnvironment(context, NULL, simSettings, scene, NULL, &environment);
     sAudio.CreateRenderers(environment);
 }
