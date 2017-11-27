@@ -473,9 +473,6 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
 
-                    // Find method to call.
-                    std::string propertyName = script->instance->GetPropertyName(n);
-
                     if (propertyName != "self") {
 
                         unsigned int GUID = *(unsigned int*)script->GetDataFromPropertyMap(propertyName);
@@ -485,7 +482,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                             std::string entityGUID = std::to_string(GUID);
                             std::string entityName = Hymn().GetEntityByGUID(GUID)->name;
                             std::string propertyText;
-                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 2); // additional `:  ()`
+                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 4); // additional `:  ()`
                             propertyText.append(propertyName).append(": ").append(entityName).append("(").append(entityGUID).append(")");
 
                             ImGui::Separator();
@@ -501,7 +498,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                             std::string entityGUID = "???";
                             std::string entityName = "Uninitialized";
                             std::string propertyText;
-                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 2); // additional `:  ()`
+                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 4); // additional `:  ()`
                             propertyText.append(propertyName).append(": ").append(entityName).append("(").append(entityGUID).append(")");
 
                             ImGui::Separator();
