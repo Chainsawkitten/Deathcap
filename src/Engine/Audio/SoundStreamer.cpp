@@ -26,10 +26,15 @@ SoundStreamer::DataHandle::DataHandle(SoundFile* soundFile, uint32_t offset, uin
 
 
 void SoundStreamer::Load(SoundStreamer::DataHandle& dataHandle) {
-    std::unique_lock<std::mutex> lock(queueMutex, std::defer_lock);
-    lock.lock();
-    loadQueue.push(&dataHandle);
-    lock.unlock();
+    if (dataHandle.soundFile->GetCached()) {
+        dataHandle.samples = dataHandle.soundFile->GetData(dataHandle.offset, dataHandle.samples, dataHandle.data);
+        dataHandle.done = true;
+    } else {
+        std::unique_lock<std::mutex> lock(queueMutex, std::defer_lock);
+        lock.lock();
+        loadQueue.push(&dataHandle);
+        lock.unlock();
+    }
 }
 
 void SoundStreamer::Flush(std::queue<DataHandle>& queue) {
@@ -62,7 +67,6 @@ void SoundStreamer::Worker::Execute(SoundStreamer* soundStreamer) {
             if (!handle->abort) {
                 // Load data from file.
                 handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
-
                 handle->done = true;
             }
         }

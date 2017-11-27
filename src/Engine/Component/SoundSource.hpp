@@ -7,6 +7,7 @@
 class SoundManager;
 namespace Audio {
     class SoundBuffer;
+    class SteamAudioRenderers;
 }
 
 namespace Component {
@@ -37,7 +38,10 @@ namespace Component {
             ENGINE_API void Stop();
             
             /// Sound buffer.
-            Audio::SoundBuffer* soundBuffer;
+            Audio::SoundBuffer* soundBuffer = nullptr;
+
+            /// Steam audio renderers.
+            Audio::SteamAudioRenderers* renderers = nullptr;
             
             /// Volume.
             float volume = 1.f;
