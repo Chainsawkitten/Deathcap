@@ -1,4 +1,4 @@
-class TestScript {
+class MonsterTestScript {
     Hub @hub;
     Entity @self;
 	float speed;
@@ -7,7 +7,7 @@ class TestScript {
 	float maxTimer;
 	float timer;
 	
-    TestScript(Entity @entity){
+    MonsterTestScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
 
