@@ -8,9 +8,9 @@
 using namespace Audio;
 
 SteamAudio::SteamAudio() {
-    playerPos = IPLVector3{ 0,0,0 };
-    playerDir = IPLVector3{ 1,0,0 };
-    playerUp = IPLVector3{ 0,1,0 };
+    playerPos = IPLVector3{ 0, 0, 0 };
+    playerDir = IPLVector3{ 1, 0, 0 };
+    playerUp = IPLVector3{ 0, 1, 0 };
 
     outputFormat.channelLayoutType = IPL_CHANNELLAYOUTTYPE_SPEAKERS;
     outputFormat.channelLayout = IPL_CHANNELLAYOUT_STEREO;
@@ -69,7 +69,7 @@ void SteamAudio::CreateRenderers(IPLhandle environment) {
     settings.samplingRate = SAMPLE_RATE;
     settings.convolutionType = IPL_CONVOLUTIONTYPE_PHONON;
 
-    IPLerror err = iplCreateEnvironmentalRenderer(IPLContext{ nullptr,nullptr,nullptr }, environment, settings, outputFormat, NULL, NULL, &envRenderer);
+    IPLerror err = iplCreateEnvironmentalRenderer(IPLContext{ nullptr, nullptr, nullptr }, environment, settings, outputFormat, NULL, NULL, &envRenderer);
     IPLHrtfParams params{ IPL_HRTFDATABASETYPE_DEFAULT, NULL, 0, nullptr, nullptr, nullptr };
     err = iplCreateBinauralRenderer(IPLContext{ nullptr, nullptr, nullptr }, settings, params, &binauralRenderer);
 }
