@@ -72,7 +72,7 @@ void SoundManager::CheckError(PaError err) {
 
 void SoundManager::Update(float deltaTime) {
 
-    std::vector<Component::Listener*> listeners = GetListeners();
+    const std::vector<Component::Listener*>& listeners = GetListeners();
     if (listeners.size() == 0)
         return;
 
@@ -104,7 +104,7 @@ void SoundManager::Update(float deltaTime) {
 
 void SoundManager::ProcessSamples() {
 
-    std::vector<Component::Listener*> listeners = GetListeners();
+    const std::vector<Component::Listener*>& listeners = GetListeners();
     if (listeners.size() == 0)
         return;
   

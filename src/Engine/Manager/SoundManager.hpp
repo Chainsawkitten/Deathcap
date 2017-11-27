@@ -101,13 +101,13 @@ class SoundManager {
 
         /// Load audio from file.
         /**
-         * @param dataHandle %DataHandle to load.
+         * @param dataHandle DataHandle to load.
          */
         ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
 
         /// Abort loading from file.
         /**
-         * @param queue Queue of %DataHandle to flush from load queue.
+         * @param queue Queue of DataHandle to flush from load queue.
          */
         ENGINE_API void Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue);
         

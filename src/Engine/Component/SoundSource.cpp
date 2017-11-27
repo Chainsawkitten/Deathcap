@@ -18,8 +18,7 @@ SoundSource::~SoundSource() {
     if (soundFile)
         Managers().resourceManager->FreeSound(soundFile);
     delete soundBuffer;
-    if (renderers)
-        delete renderers;
+    delete renderers;
 }
 
 Json::Value SoundSource::Save() const {
