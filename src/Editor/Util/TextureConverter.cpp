@@ -22,6 +22,13 @@ namespace TextureConverter {
             Log(Log::ERR) << "Couldn't load image: " << inFilename << "\n";
             return;
         }
+        
+        uint16_t uWidth = width;
+        uint16_t uHeight = height;
+        if ((uWidth & (uWidth - 1)) != 0 || (uHeight & (uHeight - 1)) != 0) {
+            Log(Log::ERR) << inFilename << "'s dimensions are not a power of two.\n";
+            return;
+        }
         if (width % 4 != 0 || height % 4 != 0) {
             Log(Log::ERR) << inFilename << " does not have dimensions multiple of 4.\n";
             return;
@@ -50,8 +57,6 @@ namespace TextureConverter {
         }
         
         // Calculate the levels of mipmapping.
-        uint16_t uWidth = width;
-        uint16_t uHeight = height;
         uint16_t mipLevels;
         for (mipLevels = 0; width >= 4 && height >= 4; ++mipLevels) {
             width /= 2;
