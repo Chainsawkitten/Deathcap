@@ -85,6 +85,7 @@ class SteamAudioInterface {
         void Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, float* output);
 
     private:
+        SteamAudioInterface(const SteamAudioInterface& other) = delete;
 
         IPLContext context;
 
