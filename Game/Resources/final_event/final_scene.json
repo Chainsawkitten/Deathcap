@@ -413,7 +413,7 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
-				"triggerCollidedEntity" : 1509959164,
+				"triggerCollidedEntityUID" : 1509959164,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
 				"triggerEventStruct_Check_0" : true,
@@ -422,7 +422,7 @@
 				"triggerEventStruct_Check_3" : true,
 				"triggerEventStruct_EventID" : 0,
 				"triggerEventStruct_ScriptID" : 2,
-				"triggerEventStruct_ShapeID" : 4,
+				"triggerEventStruct_ShapeID" : 0,
 				"triggerEventStruct_TargetID" : 1,
 				"triggerFunction" : "void BecomeExposed()",
 				"triggerName" : "New Trigger",
@@ -434,9 +434,9 @@
 			"name" : "ExposeMonsterTrigger",
 			"position" : 
 			{
-				"x" : -41.879722595214844,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -41.894157409667969,
+				"y" : 0.37365445494651794,
+				"z" : -0.30674630403518677
 			},
 			"rotation" : 
 			{
@@ -507,7 +507,7 @@
 						"trigger" : "A Trigger",
 						"triggerActive" : false,
 						"triggerCharges" : 0,
-						"triggerCollidedEntity" : 1511264657,
+						"triggerCollidedEntityUID" : 1511264657,
 						"triggerCooldown" : 0.0,
 						"triggerDelay" : 0.0,
 						"triggerEventStruct_Check_0" : true,
@@ -516,7 +516,7 @@
 						"triggerEventStruct_Check_3" : true,
 						"triggerEventStruct_EventID" : 0,
 						"triggerEventStruct_ScriptID" : 4,
-						"triggerEventStruct_ShapeID" : 1,
+						"triggerEventStruct_ShapeID" : 0,
 						"triggerEventStruct_TargetID" : 0,
 						"triggerFunction" : "void KnifeHitMonster()",
 						"triggerName" : "New Trigger",
@@ -529,8 +529,8 @@
 					"position" : 
 					{
 						"x" : 0.0,
-						"y" : 0.26800000667572021,
-						"z" : -0.99800002574920654
+						"y" : 1.0563101768493652,
+						"z" : -0.9980003833770752
 					},
 					"rotation" : 
 					{
@@ -601,7 +601,7 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
-				"triggerCollidedEntity" : 1508919758,
+				"triggerCollidedEntityUID" : 1508919758,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
 				"triggerEventStruct_Check_0" : true,
@@ -610,7 +610,7 @@
 				"triggerEventStruct_Check_3" : true,
 				"triggerEventStruct_EventID" : 1,
 				"triggerEventStruct_ScriptID" : 3,
-				"triggerEventStruct_ShapeID" : 3,
+				"triggerEventStruct_ShapeID" : 0,
 				"triggerEventStruct_TargetID" : 0,
 				"triggerFunction" : "void HoveringKnife()",
 				"triggerName" : "New Trigger",
@@ -701,7 +701,7 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
-				"triggerCollidedEntity" : 1511261389,
+				"triggerCollidedEntityUID" : 1511261389,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
 				"triggerEventStruct_Check_0" : true,
@@ -739,7 +739,7 @@
 						"trigger" : "A Trigger",
 						"triggerActive" : false,
 						"triggerCharges" : 0,
-						"triggerCollidedEntity" : 1509959164,
+						"triggerCollidedEntityUID" : 1509959164,
 						"triggerCooldown" : 0.0,
 						"triggerDelay" : 0.0,
 						"triggerEventStruct_Check_0" : true,
@@ -748,7 +748,7 @@
 						"triggerEventStruct_Check_3" : true,
 						"triggerEventStruct_EventID" : 0,
 						"triggerEventStruct_ScriptID" : 2,
-						"triggerEventStruct_ShapeID" : 4,
+						"triggerEventStruct_ShapeID" : 0,
 						"triggerEventStruct_TargetID" : 0,
 						"triggerFunction" : "void StopBeforeMonster()",
 						"triggerName" : "New Trigger",
@@ -760,9 +760,9 @@
 					"name" : "CartStopTrigger",
 					"position" : 
 					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
+						"x" : 12.106182098388672,
+						"y" : -9.5374882221221924e-05,
+						"z" : 0.22953414916992188
 					},
 					"rotation" : 
 					{
@@ -805,32 +805,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511277360
-		},
-		{
-			"name" : "Minecart",
-			"position" : 
-			{
-				"x" : -63.82147216796875,
-				"y" : 0.0,
-				"z" : -0.40094846487045288
-			},
-			"rotation" : 
-			{
-				"w" : 0.70710676908493042,
-				"x" : 0.0,
-				"y" : -0.70710676908493042,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.20000000298023224,
-				"y" : 0.20000000298023224,
-				"z" : 0.20000000298023224
-			},
-			"scene" : true,
-			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
-			"static" : false,
-			"uid" : 1508919163
 		}
 	],
 	"name" : "Root",
@@ -842,10 +816,10 @@
 	},
 	"rotation" : 
 	{
-		"w" : 1.0,
-		"x" : 0.0,
-		"y" : 0.0,
-		"z" : 0.0
+		"w" : -4.371138473402425e-08,
+		"x" : -4.3711391839451608e-08,
+		"y" : 1.0,
+		"z" : -4.3711391839451608e-08
 	},
 	"scale" : 
 	{

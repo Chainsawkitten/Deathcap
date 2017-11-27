@@ -65,14 +65,14 @@ class Cart_Puzzle_1{
             speed = 0.0f;
             
         // Play rail audio
-        if(!audioPlaying && speed > 0.1f){
+        /*if(!audioPlaying && speed > 0.1f){
             self.GetSoundSource().Play();
             audioPlaying = true;
         }
         else if (speed < 0.1f){
             self.GetSoundSource().Stop();
             audioPlaying = false;
-        }
+        }*/
         
         
     }

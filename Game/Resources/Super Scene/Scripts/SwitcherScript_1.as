@@ -7,7 +7,7 @@ class SwitcherScript_1 {
     SwitcherScript_1(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        @puzzle0Script = GetEntityByGUID(1511352103);
+        @puzzle0Script = GetEntityByGUID(1511787032);
         @puzzle1Script = GetEntityByGUID(1510920517);
     }
 

@@ -21,6 +21,7 @@ class MainScript {
         phase = 0;
         speed = 4.0f;
 
+        self.SetEnabled(false, true);
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
