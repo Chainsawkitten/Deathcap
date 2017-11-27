@@ -1000,7 +1000,7 @@ void ScriptManager::LoadScriptFile(const char* fileName, std::string& script){
     fclose(f);
 }
 
-void ScriptManager::ExecuteCall(asIScriptContext* context, std::string scriptName) {
+void ScriptManager::ExecuteCall(asIScriptContext* context, std::string& scriptName) {
     int r = context->Execute();
     if (r != asEXECUTION_FINISHED) {
         // The execution didn't complete as expected. Determine what happened.
