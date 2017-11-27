@@ -18,17 +18,17 @@ AnimationController::AnimationController() {
 Json::Value AnimationController::Save() const {
     Json::Value component;
 
-    if (controller != nullptr)
+    if (controller)
         component["animationController"] = controller->path + controller->name;
 
-    if (skeleton != nullptr)
+    if (skeleton)
         component["skeleton"] = skeleton->path + skeleton->name;
 
     return component;
 }
 
 void Component::AnimationController::UpdateAnimation(float deltaTime) {
-    if (skeleton == nullptr || controller == nullptr)
+    if (!skeleton || !controller)
         return;
 
     if (skeleton != nullptr && bones.size() != skeleton->skeletonBones.size()) {
@@ -55,13 +55,13 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
             return;
     }
 
-    if (activeTransition == nullptr) {
+    if (!activeTransition) {
         for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
             Animation::AnimationController::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationController::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
-            if (tmpTransition != nullptr) {
+            if (tmpTransition) {
                 if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && tmpTransition->isStatic) {
                     Animation::AnimationController::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationController::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
-                    if (tmpAction != nullptr) {
+                    if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
                         activeTransition = tmpTransition;
                         activeTransition->transitionProcess = 0.f;
                         activeAction2 = tmpAction;
@@ -80,8 +80,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     if (!isBlending)
         Animate(deltaTime, activeAction1);
     else {
-        activeTransition->transitionProcess += deltaTime * 1.f;
-        activeTransition->transitionTime = 0.3f;
+        activeTransition->transitionProcess += (deltaTime * 24.f) / activeAction1->animationClip->animation->length;
         if (activeTransition->transitionProcess > activeTransition->transitionTime) {
             activeTransition->transitionProcess = 0.f;
             activeTransition = nullptr;
@@ -121,8 +120,6 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
         bonesToInterpolate1[0] = glm::mat4(1.f);
     else if (isBlending && skeletonId == 2)
         bonesToInterpolate2[0] = glm::mat4(1.f);
-    else
-        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
 
     for (std::size_t i = 1; i < size; ++i) {
         Animation::AnimationClip::Bone* bone = &anim->bones[i];
@@ -177,7 +174,6 @@ void AnimationController::Blend(float deltaTime) {
 
     for (uint32_t i = 1; i < size; ++i) {
         float interpolation = activeTransition->transitionProcess / activeTransition->transitionTime;
-        std::cout << interpolation << std::endl;
 
         // Clamp interpolation.
         if (interpolation > 0.999f)
@@ -188,7 +184,7 @@ void AnimationController::Blend(float deltaTime) {
         // Convert to quaternion to interpolate animation then back to matrix.
         glm::quat rotation1 = glm::quat_cast(bonesToInterpolate1[i]);
         glm::quat rotation2 = glm::quat_cast(bonesToInterpolate2[i]);
-        glm::quat finalRot = glm::lerp(rotation1, rotation2, interpolation);
+        glm::quat finalRot = glm::slerp(rotation1, rotation2, interpolation);
 
         glm::mat4 matrixRot = glm::mat4(finalRot);
 

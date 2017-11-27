@@ -74,12 +74,6 @@ void AnimationControllerEditor::ShowContextMenu() {
         memcpy(newFloat->name, name.c_str(), name.size() + 1);
         animationController->floatMap.push_back(newFloat);
     }
-
-    ImGui::Separator();
-
-    if (ImGui::MenuItem("Delete")) {
-        /// @todo
-    }
 }
 
 void AnimationControllerEditor::ShowNode(Node* node) {
@@ -190,58 +184,38 @@ void GUI::AnimationControllerEditor::ShowValues() {
             ImGui::BeginChild(item->name, ImVec2(0, 98), true);
             ImGui::Text("Bool: %s", item->name);
 
-            // A unique id needs to be pushed here because the id "Name" is used on several places.
-            std::string nameId = "BoolName" + std::to_string(i);
-            ImGui::PushID(nameId.c_str()); {
-                ImGui::InputText("Name", item->name, 128);
-            } ImGui::PopID();
+            ImGui::InputText("Name", item->name, 128);
 
-            // A unique id needs to be pushed here because the id "Value" is used on several places.
-            std::string valueId = "BoolValue" + std::to_string(i);
-            ImGui::PushID(valueId.c_str()); {
-                ImGui::Checkbox("Value", &item->value);
-            } ImGui::PopID();
+            ImGui::Checkbox("Value", &item->value);
 
-            // A unique id needs to be pushed here because the id "Remove" is used on several places.
-            std::string removeId = "BoolRemove" + std::to_string(i);
-            ImGui::PushID(removeId.c_str()); {
-                if (ImGui::Button("Remove")) {
-                    delete item;
-                    item = nullptr;
-                    animationController->boolMap.erase(animationController->boolMap.begin() + i);
-                    ImGui::PopID();
-                    ImGui::EndChild();
-                    break;
-                }
-            } ImGui::PopID();
+            if (ImGui::Button("Remove")) {
+                delete item;
+                item = nullptr;
+                animationController->boolMap.erase(animationController->boolMap.begin() + i);
+                ImGui::PopID();
+                ImGui::EndChild();
+                break;
+            }
 
             ImGui::EndChild();
         } else {
             ImGui::BeginChild(item->name, ImVec2(0, 72), true);
             ImGui::Text("Bool: %s", item->name);
 
-            // A unique id needs to be pushed here because the id "Edit" is used on several places.
-            std::string editId = "Edit" + std::string(item->name);
-            ImGui::PushID(editId.c_str()); {
-                if (ImGui::Button("Edit")) {
-                    boolEditIndex = i;
-                    floatEditIndex = -1;
-                }
-            } ImGui::PopID();
+            if (ImGui::Button("Edit")) {
+                boolEditIndex = i;
+                floatEditIndex = -1;
+            }
 
             ImGui::SameLine();
 
-            // A unique id needs to be pushed here because the id "Remove" is used on several places.
-            std::string removeId = "Remove" + std::string(item->name);
-            ImGui::PushID(removeId.c_str()); {
-                if (ImGui::Button("Remove")) {
-                    delete item;
-                    item = nullptr;
-                    animationController->boolMap.erase(animationController->boolMap.begin() + i);
-                    ImGui::EndChild();
-                    break;
-                }
-            } ImGui::PopID();
+            if (ImGui::Button("Remove")) {
+                delete item;
+                item = nullptr;
+                animationController->boolMap.erase(animationController->boolMap.begin() + i);
+                ImGui::EndChild();
+                break;
+            }
 
             ImGui::EndChild();
         }
