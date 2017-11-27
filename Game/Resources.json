@@ -1593,6 +1593,17 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "Mastermind",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			}
