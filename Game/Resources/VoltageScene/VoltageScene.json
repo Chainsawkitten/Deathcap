@@ -449,7 +449,7 @@
 			"name" : "Cart",
 			"position" : 
 			{
-				"x" : -3.4010002613067627,
+				"x" : 23.803001403808594,
 				"y" : -0.16200000047683716,
 				"z" : 2.5430002212524414
 			},
@@ -472,10 +472,6 @@
 			"uid" : 1508919163
 		},
 		{
-			"Script" : 
-			{
-				"scriptName" : "Resources/NewAssets/Scripts/Cart_debug_script"
-			},
 			"children" : null,
 			"name" : "MinecartScript",
 			"position" : 
@@ -537,6 +533,80 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511528947
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltagePanelBeam"
+			},
+			"children" : null,
+			"name" : "VoltagePanelBeam",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511788523
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/VoltageScene/Textures/VoltagePanel/VoltagePanel_Albedo",
+				"metallic" : "Resources/VoltageScene/Textures/VoltagePanel/VoltagePanel_Metallic",
+				"normal" : "Resources/VoltageScene/Textures/VoltagePanel/VoltagePanel_Normal",
+				"roughness" : "Resources/VoltageScene/Textures/VoltagePanel/VoltagePanel_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltagePanel"
+			},
+			"children" : null,
+			"name" : "VoltagePanel",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511788524
 		}
 	],
 	"name" : "Root",
