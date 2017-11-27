@@ -53,7 +53,7 @@ using namespace CMP;
 #define BLOCK_SIZE MAX_BLOCK
 
 #ifdef USE_SSE
-#   if defined(__GNU_C__) or defined(__MINGW32__)
+#   if defined(__GNUC__) or defined(__MINGW32__)
 #       include <x86intrin.h>
 #   else
 #       include <intrin.h>
