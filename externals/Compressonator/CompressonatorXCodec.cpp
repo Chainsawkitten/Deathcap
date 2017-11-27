@@ -112,7 +112,7 @@ DWORD ConstructColor(BYTE R, BYTE nRedBits, BYTE G, BYTE nGreenBits, BYTE B, BYT
 
 #ifdef USE_SSE
 inline CODECFLOAT HorSum(__m128 in) {
-#if defined(__GNU_C__) or defined(__MINGW32__)
+#if defined(__GNUC__) or defined(__MINGW32__)
     // http://stackoverflow.com/questions/6996764/fastest-way-to-do-horizontal-float-vector-sum-on-x86
     __m128 a = _mm_shuffle_ps(in, in, _MM_SHUFFLE(2, 3, 0, 1));
     __m128 b = _mm_add_ps(in, a);
