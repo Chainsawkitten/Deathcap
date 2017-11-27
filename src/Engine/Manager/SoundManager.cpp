@@ -120,7 +120,6 @@ void SoundManager::ProcessSamples() {
     // Set player transform
     sAudio.SetPlayer(pos, dir, up);
 
-    std::size_t size = soundSources.GetAll().size();
     std::vector<SoundBuffer*> soundBuffers;
     std::vector<float*> buffers;
     std::vector<IPLVector3> positions;
@@ -128,7 +127,7 @@ void SoundManager::ProcessSamples() {
     std::vector<SteamAudioRenderers*> renderers;
 
     // Update sound sources.
-    for (std::size_t i = 0; i < size; ++i) {
+    for (Component::SoundSource* sound : soundSources.GetAll()) {
         Audio::SoundBuffer* soundBuffer = sound->soundBuffer;
         Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
 
