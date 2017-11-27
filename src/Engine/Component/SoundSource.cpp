@@ -2,25 +2,30 @@
 
 #include "../Entity/Entity.hpp"
 #include "../Audio/SoundBuffer.hpp"
+#include "../Audio/SoundFile.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 
 using namespace Component;
 
 SoundSource::SoundSource() {
-    
+    soundBuffer = new Audio::SoundBuffer();
 }
 
 SoundSource::~SoundSource() {
-    if (soundBuffer != nullptr)
-        Managers().resourceManager->FreeSound(soundBuffer);
+    Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
+    if (soundFile)
+        Managers().resourceManager->FreeSound(soundFile);
+    delete soundBuffer;
 }
 
 Json::Value SoundSource::Save() const {
     Json::Value component;
     
-    if (soundBuffer != nullptr)
-        component["sound"] = soundBuffer->path + soundBuffer->name;
+    Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
+    if (soundFile) {
+        component["sound"] = soundFile->path + soundFile->name;
+    }
     
     component["volume"] = volume;
     component["loop"] = loop;

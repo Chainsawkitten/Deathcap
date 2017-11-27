@@ -55,7 +55,7 @@ PhysicsManager::~PhysicsManager() {
 
 void PhysicsManager::Update(float deltaTime) {
     for (auto rigidBodyComp : rigidBodyComponents.GetAll()) {
-        if (rigidBodyComp->IsKilled() || !rigidBodyComp->entity->enabled) {
+        if (rigidBodyComp->IsKilled() || !rigidBodyComp->entity->IsEnabled()) {
             continue;
         }
 
@@ -100,7 +100,7 @@ void PhysicsManager::Update(float deltaTime) {
 
 void PhysicsManager::UpdateEntityTransforms() {
     for (auto rigidBodyComp : rigidBodyComponents.GetAll()) {
-        if (rigidBodyComp->IsKilled() || !rigidBodyComp->entity->enabled)
+        if (rigidBodyComp->IsKilled() || !rigidBodyComp->entity->IsEnabled())
             continue;
 
         Entity* entity = rigidBodyComp->entity;
@@ -318,7 +318,7 @@ void PhysicsManager::ReleaseTriggerVolume(Utility::LockBox<Physics::Trigger>&& t
                 delete *it;
                 std::swap(*it, *triggers.rbegin());
                 triggers.pop_back();
-            }
+                }
         });
     }
 }

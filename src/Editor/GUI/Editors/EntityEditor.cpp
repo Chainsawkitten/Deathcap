@@ -21,6 +21,7 @@
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
+#include <Engine/Audio/SoundFile.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Script/ScriptFile.hpp>
@@ -472,22 +473,43 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
 
-                    // Find method to call.
-                    std::string entityName = script->instance->GetPropertyName(n);
+                    if (propertyName != "self") {
 
-                    if (entityName != "self") {
+                        unsigned int GUID = *(unsigned int*)script->GetDataFromPropertyMap(propertyName);
 
-                        std::string entityGUID = std::to_string(*(unsigned int*)script->GetDataFromPropertyMap(propertyName));
-                        std::string propertyText;
-                        propertyText.reserve(entityName.length() + entityGUID.length() + 2); // additional `: `
-                        propertyText.append(entityName).append(": ").append(entityGUID);
+                        if (GUID != 0) {
 
-                        ImGui::Separator();
+                            std::string entityGUID = std::to_string(GUID);
+                            std::string entityName = Hymn().GetEntityByGUID(GUID)->name;
+                            std::string propertyText;
+                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 4); // additional `:  ()`
+                            propertyText.append(propertyName).append(": ").append(entityName).append("(").append(entityGUID).append(")");
 
-                        // Choosing other entity references
-                        ImGui::Text(propertyText.c_str());
-                        if (ImGui::Button("Change entity reference"))
-                            ImGui::OpenPopup("Add entity reference");
+                            ImGui::Separator();
+
+                            // Choosing other entity references
+                            ImGui::Text(propertyText.c_str());
+
+                            if (ImGui::Button("Change entity reference"))
+                                ImGui::OpenPopup("Add entity reference");
+
+                        } else {
+
+                            std::string entityGUID = "???";
+                            std::string entityName = "Uninitialized";
+                            std::string propertyText;
+                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 4); // additional `:  ()`
+                            propertyText.append(propertyName).append(": ").append(entityName).append("(").append(entityGUID).append(")");
+
+                            ImGui::Separator();
+
+                            // Choosing other entity references
+                            ImGui::Text(propertyText.c_str());
+
+                            if (ImGui::Button("Add entity reference"))
+                                ImGui::OpenPopup("Add entity reference");
+
+                        }
 
                         if (ImGui::BeginPopup("Add entity reference")) {
                             ImGui::Text("Entities");
@@ -539,6 +561,11 @@ void EntityEditor::ShapeEditor(Component::Shape* shape) {
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
     ImGui::Text("Sound");
     ImGui::Indent();
+
+    if (soundSource->soundBuffer->GetSoundFile()) {
+        ImGui::Text(soundSource->soundBuffer->GetSoundFile()->name.c_str());
+    }
+
     if (ImGui::Button("Select sound"))
         ImGui::OpenPopup("Select sound");
 
@@ -547,10 +574,12 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::SOUND)) {
-            if (soundSource->soundBuffer != nullptr)
-                Managers().resourceManager->FreeSound(soundSource->soundBuffer);
+            Audio::SoundFile* soundFile = soundSource->soundBuffer->GetSoundFile();
+            if (soundFile)
+                Managers().resourceManager->FreeSound(soundFile);
 
-            soundSource->soundBuffer = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
+            soundFile = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
+            soundSource->soundBuffer->SetSoundFile(soundFile);
         }
 
         ImGui::EndPopup();

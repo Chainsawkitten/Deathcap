@@ -1,6 +1,7 @@
 class Cart_Puzzle_1{
     Hub @hub;
     Entity @self;
+    Entity @actualSelf;
     float speed;
     bool hasHitPlane;
     float planePos;
@@ -20,6 +21,7 @@ class Cart_Puzzle_1{
     Cart_Puzzle_1(Entity @entity){
         @hub = Managers();
         @self = GetEntityByGUID(1508919384);
+        @actualSelf = @entity;
         speed = 2.0f;
         stopTime = 0.0f;
         endTime = 5.0f;
@@ -27,6 +29,8 @@ class Cart_Puzzle_1{
         puzzleSolved = false;
         //trigger = false;
         hasHitPlane = false;
+        
+        actualSelf.SetEnabled(false, true);
         RegisterUpdate();
     }
     
@@ -59,6 +63,18 @@ class Cart_Puzzle_1{
         // Stopping phase
         else
             speed = 0.0f;
+            
+        // Play rail audio
+        if(!audioPlaying && speed > 0.1f){
+            self.GetSoundSource().Play();
+            audioPlaying = true;
+        }
+        else if (speed < 0.1f){
+            self.GetSoundSource().Stop();
+            audioPlaying = false;
+        }
+        
+        
     }
     
     void OnTrigger(){

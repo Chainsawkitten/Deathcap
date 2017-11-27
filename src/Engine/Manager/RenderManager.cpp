@@ -142,8 +142,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
             { PROFILE("Render particles");
             { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
                 mainWindowRenderSurface->GetShadingFrameBuffer()->BindWrite();
-                glm::mat4 viewProjection = projectionMatrix * viewMatrix;
-                Managers().particleManager->RenderParticleSystem(viewProjection);
+                Managers().particleManager->RenderParticleSystem(viewMatrix, projectionMatrix);
                 mainWindowRenderSurface->GetShadingFrameBuffer()->Unbind();
             }
             }
@@ -211,8 +210,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 { PROFILE("Render particles");
                 { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
                     hmdRenderSurface->GetShadingFrameBuffer()->BindWrite();
-                    glm::mat4 viewProjection = projectionMatrix * eyeViewMatrix;
-                    Managers().particleManager->RenderParticleSystem(viewProjection);
+                    Managers().particleManager->RenderParticleSystem(eyeViewMatrix, projectionMatrix);
                     hmdRenderSurface->GetShadingFrameBuffer()->Unbind();
                 }
                 }
@@ -255,7 +253,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     float aspectRatio = static_cast<float>(shadowPass->GetShadowWidth()) / shadowPass->GetShadowHeight();
 
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
-        if (spotLight->IsKilled() || !spotLight->entity->enabled)
+        if (spotLight->IsKilled() || !spotLight->entity->IsEnabled())
             continue;
 
         if (spotLight->shadow) {
@@ -280,21 +278,21 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
         for (Mesh* mesh : meshComponents) {
             Entity* entity = mesh->entity;
-            if (entity->IsKilled() || !entity->enabled)
+            if (entity->IsKilled() || !entity->IsEnabled())
                 continue;
 
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
+            if (mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
         }
         // Skin meshes.
         renderer->PrepareSkinShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
         for (AnimationController* controller : controllerComponents) {
             Entity* entity = controller->entity;
-            if (entity->IsKilled() || !entity->enabled)
+            if (entity->IsKilled() || !entity->IsEnabled())
                 continue;
 
             Mesh* mesh = entity->GetComponent<Mesh>();
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
+            if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
                 renderer->ShadowRenderSkinMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix(), controller->bones);
         }
     }
@@ -313,27 +311,25 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         renderer->PrepareStaticMeshDepthRendering(viewMatrix, projectionMatrix);
         for (Mesh* mesh : meshComponents) {
             Entity* entity = mesh->entity;
-            if (entity->IsKilled() || !entity->enabled)
+            if (entity->IsKilled() || !entity->IsEnabled())
                 continue;
 
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+            if (mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
-            }
         }
 
         // Skin meshes.
         renderer->PrepareSkinMeshDepthRendering(viewMatrix, projectionMatrix);
         for (AnimationController* controller : controllerComponents) {
             Entity* entity = controller->entity;
-            if (entity->IsKilled() || !entity->enabled)
+            if (entity->IsKilled() || !entity->IsEnabled())
                 continue;
 
             Mesh* mesh = entity->GetComponent<Mesh>();
-            if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+            if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderSkinMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix(), controller->bones);
-            }
         }
     }
     }
@@ -368,7 +364,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
             renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
             for (Mesh* mesh : meshComponents) {
                 Entity* entity = mesh->entity;
-                if (entity->IsKilled() || !entity->enabled)
+                if (entity->IsKilled() || !entity->IsEnabled())
                     continue;
 
                 if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
@@ -390,11 +386,11 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
             renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix);
             for (AnimationController* controller : controllerComponents) {
                 Entity* entity = controller->entity;
-                if (entity->IsKilled() || !entity->enabled)
+                if (entity->IsKilled() || !entity->IsEnabled())
                     continue;
 
                 Mesh* mesh = entity->GetComponent<Mesh>();
-                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
                     Material* material = entity->GetComponent<Material>();
                     if (material != nullptr)
                         renderer->RenderSkinMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones, false);
@@ -407,7 +403,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     }
     }
     }
-
     renderSurface->GetShadingFrameBuffer()->Unbind();
 }
 
@@ -415,7 +410,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
 void RenderManager::UpdateAnimations(float deltaTime) {
     // Update all enabled animation controllers.
     for (Component::AnimationController* animationController : animationControllers.GetAll()) {
-        if (animationController->IsKilled() || !animationController->entity->enabled)
+        if (animationController->IsKilled() || !animationController->entity->IsEnabled())
             continue;
 
         animationController->UpdateAnimation(deltaTime);
@@ -699,7 +694,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
 
     // Add all directional lights.
     for (Component::DirectionalLight* directionalLight : directionalLights.GetAll()) {
-        if (directionalLight->IsKilled() || !directionalLight->entity->enabled)
+        if (directionalLight->IsKilled() || !directionalLight->entity->IsEnabled())
             continue;
 
         Entity* lightEntity = directionalLight->entity;
@@ -717,7 +712,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
 
     // Add all spot lights.
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
-        if (spotLight->IsKilled() || !spotLight->entity->enabled)
+        if (spotLight->IsKilled() || !spotLight->entity->IsEnabled())
             continue;
 
         Entity* lightEntity = spotLight->entity;
@@ -739,7 +734,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
 
     // Add all point lights.
     for (Component::PointLight* pointLight : pointLights.GetAll()) {
-        if (pointLight->IsKilled() || !pointLight->entity->enabled)
+        if (pointLight->IsKilled() || !pointLight->entity->IsEnabled())
             continue;
 
         Entity* lightEntity = pointLight->entity;

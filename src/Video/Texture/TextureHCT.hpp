@@ -22,7 +22,7 @@ namespace Video {
         /**
          * @param filenameThe name of the HCT file to load.
          */
-        VIDEO_API TextureHCT(const char* filename);
+        VIDEO_API explicit TextureHCT(const char* filename);
         
         /// Destructor.
         VIDEO_API ~TextureHCT() override;

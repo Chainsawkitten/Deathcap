@@ -7,6 +7,7 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
+#include <Engine/Manager/SoundManager.hpp>
 #include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/MainWindow.hpp>
@@ -67,7 +68,7 @@ Editor::Editor() {
 
     // Create editor camera.
     cameraEntity = cameraWorld.CreateEntity("Editor Camera");
-    cameraEntity->enabled = false;
+    cameraEntity->SetEnabled(false);
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
     cameraEntity->GetComponent<Component::Lens>()->zFar = 1000.f;
@@ -193,8 +194,10 @@ void Editor::Show(float deltaTime) {
             }
         }
 
-        if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "")
+        if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != ""){
+            Managers().soundManager->CreateAudioEnvironment();
             play = true;
+        }
 
         if (Input()->Triggered(InputHandler::NEW) && Input()->Pressed(InputHandler::CONTROL))
             NewHymn();

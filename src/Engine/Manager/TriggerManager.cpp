@@ -20,7 +20,7 @@ TriggerManager::~TriggerManager() {
 
 void TriggerManager::ProcessTriggers() {
     for (auto trigger : triggerComponents.GetAll()) {
-        if (trigger->IsKilled() || !trigger->entity->enabled)
+        if (trigger->IsKilled() || !trigger->entity->IsEnabled())
             continue;
 
         trigger->superTrigger->Process();
@@ -54,7 +54,7 @@ Component::Trigger* TriggerManager::CreateTrigger(const Json::Value& node) {
         repeat->triggerCharges = node.get("triggerCharges", 0).asInt();
         repeat->targetFunction.push_back(node.get("triggerFunction", "").asString());
 
-        repeat->collidedEntityUID = node.get("triggerCollidedEntity", 0).asInt();
+        repeat->collidedEntityUID = node.get("triggerCollidedEntityUID", 0).asInt();
         repeat->targetEntityUID = node.get("triggerTargetEntity", 0).asInt();
         repeat->owningEntityUID = node.get("triggerOwner", 0).asInt();
 
@@ -104,7 +104,7 @@ const std::vector<Component::Trigger*>& TriggerManager::GetTriggerComponents() c
 void TriggerManager::SynchronizeTriggers() {
 
     for (auto trigger : triggerComponents.GetAll()) {
-        if (trigger->IsKilled() || !trigger->entity->enabled)
+        if (trigger->IsKilled() || !trigger->entity->IsEnabled())
             continue;
 
         trigger->superTrigger->Update();
@@ -117,7 +117,7 @@ void TriggerManager::ClearKilledComponents() {
 
 void TriggerManager::InitiateUID() {
     for (auto trigger : triggerComponents.GetAll()) {
-        if (trigger->IsKilled() || !trigger->entity->enabled)
+        if (trigger->IsKilled() || !trigger->entity->IsEnabled())
             continue;
 
         trigger->superTrigger->InitTriggerUID();
@@ -127,7 +127,7 @@ void TriggerManager::InitiateUID() {
 
 void TriggerManager::InitiateVolumes() {
     for (auto trigger : triggerComponents.GetAll()) {
-        if (trigger->IsKilled() || !trigger->entity->enabled)
+        if (trigger->IsKilled() || !trigger->entity->IsEnabled())
             continue;
 
         trigger->superTrigger->InitiateVolumes();
