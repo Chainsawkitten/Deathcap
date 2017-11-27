@@ -24,12 +24,39 @@ class Mastermind {
     // Called by the engine for each frame.
     void Update(float deltaTime) {
 
-	
-	
+		if(correctCount > 0)
+			light1.GetPointLight().intensity = 100;
+		else
+			light1.GetPointLight().intensity = 0;
+			
+		if(correctCount > 1)
+			light2.GetPointLight().intensity = 100;
+		else
+			light2.GetPointLight().intensity = 0;
+			
+		if(correctCount > 2)
+			light3.GetPointLight().intensity = 100;
+		else
+			light3.GetPointLight().intensity = 0;
+			
+		if(correctCount > 3)
+			light4.GetPointLight().intensity = 100;
+		else
+			light4.GetPointLight().intensity = 0;
+			
+		if(puzzleSolved){
+		
+			light1.GetPointLight().intensity = 200;
+			light2.GetPointLight().intensity = 200;
+			light3.GetPointLight().intensity = 200;
+			light4.GetPointLight().intensity = 200;
+		
+		}
+			
     }
 		
-	bool puzzleSolved;
-	int correctCount;
+	bool puzzleSolved = false;
+	int correctCount = 0;
 	void CheckSolution(){
 	
 		correctCount = 0;

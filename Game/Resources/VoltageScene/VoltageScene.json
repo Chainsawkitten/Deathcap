@@ -500,14 +500,14 @@
 		{
 			"PointLight" : 
 			{
-				"attenuation" : 1.0,
+				"attenuation" : 0.0099999997764825821,
 				"color" : 
 				{
 					"x" : 1.0,
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"intensity" : 7.8220005035400391
+				"intensity" : 1.3570001125335693
 			},
 			"children" : null,
 			"name" : "JensLampa",
@@ -587,7 +587,7 @@
 			"name" : "VoltagePanel",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : 0.38200002908706665,
 				"y" : 0.0,
 				"z" : 0.50800001621246338
 			},
@@ -607,6 +607,395 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511788524
+		},
+		{
+			"Script" : 
+			{
+				"propertyMap" : 
+				{
+					"correctCount" : 
+					{
+						"4" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"light1" : 
+					{
+						"1140850707" : 
+						[
+							45,
+							29,
+							28,
+							90
+						]
+					},
+					"light2" : 
+					{
+						"1140850707" : 
+						[
+							26,
+							30,
+							28,
+							90
+						]
+					},
+					"light3" : 
+					{
+						"1140850707" : 
+						[
+							40,
+							30,
+							28,
+							90
+						]
+					},
+					"light4" : 
+					{
+						"1140850707" : 
+						[
+							53,
+							30,
+							28,
+							90
+						]
+					},
+					"slot1" : 
+					{
+						"1140850707" : 
+						[
+							89,
+							28,
+							28,
+							90
+						]
+					},
+					"slot2" : 
+					{
+						"1140850707" : 
+						[
+							106,
+							28,
+							28,
+							90
+						]
+					},
+					"slot3" : 
+					{
+						"1140850707" : 
+						[
+							116,
+							28,
+							28,
+							90
+						]
+					},
+					"slot4" : 
+					{
+						"1140850707" : 
+						[
+							128,
+							28,
+							28,
+							90
+						]
+					}
+				},
+				"scriptName" : "Resources/VoltageScene/Scripts/Mastermind"
+			},
+			"children" : 
+			[
+				{
+					"children" : null,
+					"name" : "Slot1",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791705
+				},
+				{
+					"children" : null,
+					"name" : "Slot2",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791722
+				},
+				{
+					"children" : null,
+					"name" : "Slot3",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791732
+				},
+				{
+					"children" : null,
+					"name" : "Slot4",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791744
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 0.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 15.0,
+						"intensity" : 487.6610107421875,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "Light1",
+					"position" : 
+					{
+						"x" : 55.0,
+						"y" : 0.20000000298023224,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 0.70710676908493042,
+						"x" : -0.70710676908493042,
+						"y" : -0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791917
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 15.0,
+						"intensity" : 350.11203002929688,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "Light2",
+					"position" : 
+					{
+						"x" : 55.0,
+						"y" : 0.20000000298023224,
+						"z" : 1.0
+					},
+					"rotation" : 
+					{
+						"w" : 0.70710676908493042,
+						"x" : -0.70710676908493042,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511792154
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 15.0,
+						"intensity" : 435.39901733398438,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "Light3",
+					"position" : 
+					{
+						"x" : 55.0,
+						"y" : 0.20000000298023224,
+						"z" : 2.0
+					},
+					"rotation" : 
+					{
+						"w" : 0.70710676908493042,
+						"x" : -0.70710676908493042,
+						"y" : -0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511792168
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 15.0,
+						"intensity" : 344.05502319335938,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "Light4",
+					"position" : 
+					{
+						"x" : 55.0,
+						"y" : 0.20000000298023224,
+						"z" : 3.0
+					},
+					"rotation" : 
+					{
+						"w" : 0.70710676908493042,
+						"x" : -0.70710676908493042,
+						"y" : -0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511792181
+				}
+			],
+			"name" : "Mastermind",
+			"position" : 
+			{
+				"x" : -24.464786529541016,
+				"y" : 1.9073486328125e-06,
+				"z" : 0.7599714994430542
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511791235
 		}
 	],
 	"name" : "Root",
