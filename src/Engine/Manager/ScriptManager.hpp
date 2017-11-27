@@ -133,7 +133,7 @@ class ScriptManager {
         void CallMessageReceived(const Message& message);
         void CallUpdate(Entity* entity, float deltaTime);
         void LoadScriptFile(const char* fileName, std::string& script);
-        void ExecuteCall(asIScriptContext* context, std::string& scriptName);
+        void ExecuteCall(asIScriptContext* context, const std::string& scriptName);
         asITypeInfo* GetClass(const std::string& moduleName, const std::string& className);
         
         asIScriptEngine* engine;
