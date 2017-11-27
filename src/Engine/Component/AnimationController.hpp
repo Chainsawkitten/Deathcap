@@ -63,7 +63,7 @@ namespace Component {
 
         private:
             void Animate(float deltaTime, Animation::AnimationController::AnimationAction* action, unsigned int skeletonId = 0);
-            void Interpolate(float deltaTime);
+            void Blend(float deltaTime);
 
             Animation::AnimationController::AnimationAction* activeAction1 = nullptr;
             Animation::AnimationController::AnimationAction* activeAction2 = nullptr;

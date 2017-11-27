@@ -33,16 +33,16 @@ void AnimationController::Save(const std::string& path) {
             NodeType nodetype = ACTION;
             file.write(reinterpret_cast<char*>(&nodetype), sizeof(NodeType));
             AnimationAction * animationAction = dynamic_cast<AnimationAction *>(node);
-            if (animationAction != nullptr) {
+
+            if (animationAction)
                 animationAction->Save(&file);
-            }
         } else {
             NodeType nodetype = TRANSITION;
             file.write(reinterpret_cast<char*>(&nodetype), sizeof(NodeType));
             AnimationTransition * animationTransition = dynamic_cast<AnimationTransition *>(node);
-            if (animationTransition != nullptr) {
+
+            if (animationTransition)
                 animationTransition->Save(&file);
-            }
         }
     }
 

@@ -34,8 +34,10 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     if (skeleton != nullptr && bones.size() != skeleton->skeletonBones.size()) {
         bones.clear();
         bones.resize(skeleton->skeletonBones.size());
+
         bonesToInterpolate1.clear();
         bonesToInterpolate1.resize(skeleton->skeletonBones.size());
+
         bonesToInterpolate2.clear();
         bonesToInterpolate2.resize(skeleton->skeletonBones.size());
     }
@@ -61,26 +63,27 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
                     Animation::AnimationController::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationController::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
                     if (tmpAction != nullptr) {
                         activeTransition = tmpTransition;
-                        activeTransition->transitionProcess = 0.0f;
+                        activeTransition->transitionProcess = 0.f;
                         activeAction2 = tmpAction;
                         isBlending = true;
                     }
                 } else if (!tmpTransition->isStatic && !controller->boolMap.empty() && controller->boolMap[tmpTransition->transitionBoolIndex]) {
                     // If the bool in the boolMap is true then set this to the activeTransition.
                     activeTransition = tmpTransition;
-                    activeTransition->transitionProcess = 0.0f;
+                    activeTransition->transitionProcess = 0.f;
                     break;
                 }
             }
         }
     }
 
-    if (activeTransition == nullptr)
+    if (!isBlending)
         Animate(deltaTime, activeAction1);
     else {
-        activeTransition->transitionProcess += deltaTime;
+        activeTransition->transitionProcess += deltaTime * 1.f;
+        activeTransition->transitionTime = 0.3f;
         if (activeTransition->transitionProcess > activeTransition->transitionTime) {
-            activeTransition->transitionProcess = 0.0f;
+            activeTransition->transitionProcess = 0.f;
             activeTransition = nullptr;
 
             // Set action 1 to action 2.
@@ -93,19 +96,17 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         } else {
             Animate(deltaTime, activeAction1, 1);
             Animate(deltaTime, activeAction2, 2);
-            Interpolate(deltaTime);
+            Blend(deltaTime);
         }
     }
-
-    Animate(deltaTime, activeAction1);
 }
 
 void AnimationController::Animate(float deltaTime, Animation::AnimationController::AnimationAction* action, unsigned int skeletonId) {
     Animation::AnimationClip::Animation* anim = action->animationClip->animation;
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
-    anim->currentFrame += deltaTime * 30.0f;
-    if (anim->currentFrame > 15.0f) {
+    anim->currentFrame += deltaTime * 24.0f;
+    if (anim->currentFrame > anim->length) {
         anim->currentFrame = 0;
 
         for (unsigned int i = 0; i < size; ++i)
@@ -114,6 +115,14 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
 
     skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
     bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
+
+    // If is interpolating.
+    if (isBlending && skeletonId == 1)
+        bonesToInterpolate1[0] = glm::mat4(1.f);
+    else if (isBlending && skeletonId == 2)
+        bonesToInterpolate2[0] = glm::mat4(1.f);
+    else
+        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
 
     for (std::size_t i = 1; i < size; ++i) {
         Animation::AnimationClip::Bone* bone = &anim->bones[i];
@@ -139,20 +148,21 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
 
         if (skeleton->skeletonBones[i]->parentId == -1)
             continue;
-        
-        skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
-        
+         
         // If is interpolating.
         if (isBlending && skeletonId == 1)
-            bonesToInterpolate1[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
+            bonesToInterpolate1[i] = matrixRot;
         else if (isBlending && skeletonId == 2)
-            bonesToInterpolate2[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
-        else
+            bonesToInterpolate2[i] = matrixRot;
+        else {
+            skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
             bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
+        }
     }
 }
 
-void AnimationController::Interpolate(float deltaTime) {
+#include <iostream>
+void AnimationController::Blend(float deltaTime) {
     uint32_t size = activeAction1->animationClip->animation->numBones > activeAction2->animationClip->animation->numBones ? activeAction2->animationClip->animation->numBones : activeAction1->animationClip->animation->numBones;
 
     if (activeAction1->animationClip->animation->numBones != bonesToInterpolate1.size()) {
@@ -165,8 +175,9 @@ void AnimationController::Interpolate(float deltaTime) {
         bonesToInterpolate2.resize(activeAction2->animationClip->animation->numBones);
     }
 
-    for (uint32_t i = 0; i < size; ++i) {
+    for (uint32_t i = 1; i < size; ++i) {
         float interpolation = activeTransition->transitionProcess / activeTransition->transitionTime;
+        std::cout << interpolation << std::endl;
 
         // Clamp interpolation.
         if (interpolation > 0.999f)
@@ -181,7 +192,8 @@ void AnimationController::Interpolate(float deltaTime) {
 
         glm::mat4 matrixRot = glm::mat4(finalRot);
 
-        bones[i] = matrixRot;
+        skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
+        bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
 }
 
