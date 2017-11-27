@@ -115,10 +115,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Albedo",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/VoltageScene/Textures/Floor/Sand_Albedo",
+				"metallic" : "Resources/VoltageScene/Textures/Floor/Sandy_Metall",
+				"normal" : "Resources/VoltageScene/Textures/Floor/Sand_Normal",
+				"roughness" : "Resources/VoltageScene/Textures/Floor/Sandy_Roughness"
 			},
 			"Mesh" : 
 			{
@@ -351,7 +351,7 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -0.55500000715255737,
 				"z" : 0.0
 			},
 			"rotation" : 

@@ -1563,6 +1563,36 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "Textures",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Floor",
+								"resources" : 
+								[
+									{
+										"texture" : "Sand_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Sand_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Sandy_Metall",
+										"type" : 2
+									},
+									{
+										"texture" : "Sandy_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			}
@@ -1572,5 +1602,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 114
+	"textureNumber" : 119
 }
