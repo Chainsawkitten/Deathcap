@@ -1,0 +1,1175 @@
+{
+	"children" : 
+	[
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+						"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
+						"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Models/lightsOut_board"
+					},
+					"children" : null,
+					"name" : "board",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : -0.22900001704692841
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 0.77000004053115845
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511530403
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511530433
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511530425
+						}
+					],
+					"name" : "button_0",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511530844
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511531105
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511531178
+						}
+					],
+					"name" : "button_1",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.25
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511531080
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511531390
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511531392
+						}
+					],
+					"name" : "button_2",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.5
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511531383
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511531526
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511531532
+						}
+					],
+					"name" : "button_3",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.75
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511531517
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511531824
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511531825
+						}
+					],
+					"name" : "button_4",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 1.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511531798
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532020
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532022
+						}
+					],
+					"name" : "button_5",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.20000000298023224,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511532014
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532139
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532143
+						}
+					],
+					"name" : "button_6",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.20000000298023224,
+						"z" : 0.25
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511532127
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532248
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532249
+						}
+					],
+					"name" : "button_7",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.20000000298023224,
+						"z" : 0.5
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511532242
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532391
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532392
+						}
+					],
+					"name" : "button_8",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.20000000298023224,
+						"z" : 0.75
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511532349
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button"
+							},
+							"children" : null,
+							"name" : "button",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532541
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
+							},
+							"children" : null,
+							"name" : "button_frame",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511532542
+						}
+					],
+					"name" : "button_9",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.20000000298023224,
+						"z" : 1.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511532534
+				},
+				{
+					"children" : null,
+					"name" : "button_10",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511532718
+				}
+			],
+			"name" : "puzzleBoard",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511530025
+		},
+		{
+			"DirectionalLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			},
+			"children" : null,
+			"name" : "sun",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511530590
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1511530010
+}
