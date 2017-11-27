@@ -10,9 +10,9 @@
 #include <GLFW/glfw3.h>
 
 namespace TextureConverter {
-    void CompressBlockBC1(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]);
-    void CompressBlockBC4(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]);
-    void CompressBlockBC5(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[4]);
+    static void CompressBlockBC1(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]);
+    static void CompressBlockBC4(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]);
+    static void CompressBlockBC5(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[4]);
     
     void Convert(const char* inFilename, const char* outFilename, Video::TextureHCT::CompressionType compressionType) {
         // Load PNG file.
@@ -123,7 +123,7 @@ namespace TextureConverter {
         delete[] rgbData;
     }
     
-    void CompressBlockBC1(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]) {
+    static void CompressBlockBC1(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]) {
         // Get uncompressed block.
         uint8_t uncompressed[4 * 4 * 4];
         for (uint8_t y=0; y < 4; ++y) {
@@ -141,7 +141,7 @@ namespace TextureConverter {
         CompressRGBBlock(uncompressed, block, CalculateColourWeightings(uncompressed), true, false, 255);
     }
     
-    void CompressBlockBC4(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]) {
+    static void CompressBlockBC4(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]) {
         // Get uncompressed block.
         uint8_t uncompressed[4 * 4];
         for (uint8_t y=0; y < 4; ++y) {
@@ -156,7 +156,7 @@ namespace TextureConverter {
         CompressAlphaBlock(uncompressed, block);
     }
     
-    void CompressBlockBC5(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[4]) {
+    static void CompressBlockBC5(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[4]) {
         // Get uncompressed block.
         uint8_t uncompressed[4 * 4];
         for (uint8_t y=0; y < 4; ++y) {
