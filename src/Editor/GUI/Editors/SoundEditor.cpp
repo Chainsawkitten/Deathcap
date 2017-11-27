@@ -26,9 +26,8 @@ void SoundEditor::Show() {
         }
 
         bool cache = sound->GetCached();
-        if (ImGui::Checkbox("Cache", &cache)) {
+        if (ImGui::Checkbox("Cache", &cache))
             sound->Cache(cache);
-        }
         
         if (ImGui::Button("Load Ogg Vorbis")) {
             fileSelector.AddExtensions("ogg");
