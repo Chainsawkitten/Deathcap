@@ -9,6 +9,16 @@ class MainScript {
     Entity @rightHand;
     float waitForMonsterTimer = 0.0f;
     bool knifePickedUp = false;
+    float fogTimer = 0.0f;
+    // Time for fog to reach 1.0 density. This essentially gives an inverse
+    // measure of how fast the darkness approaches the player.
+    float fogApexDuration = 10.0f;
+    // Time after fog start that fade will begin. Things close to us will be
+    // visible through fog even in high density, so we use a color filter to
+    // fade the entire screen to black.
+    float fadeStartTime = 3.0f;
+    float fadeTimer = 0.0f;
+    float fadeApexDuration = 3.0f; // Time for fade to reach zero
 
     MainScript(Entity @entity){
         @hub = Managers();
@@ -39,6 +49,9 @@ class MainScript {
                 if (waitForMonsterTimer >= 3.0f) {
                     phase = 3;
                     print("Player: Honk honk, motherfucker! I'm free!\n");
+                    hub.renderManager.SetFogApply(true);
+                    hub.renderManager.SetColorFilterApply(true);
+                    hub.renderManager.SetFogColor(vec3(0, 0, 0));
                 }
                 break;
             }
@@ -46,7 +59,33 @@ class MainScript {
                 vec3 pos = minecart.GetWorldPosition();
                 pos.x += speed * deltaTime;
                 minecart.SetWorldPosition(pos);
-                // Fade here
+
+                // The idea of fading is that we start with fog to begin fading
+                // with distance. However, with fog we can generally see things
+                // close to us. To finish of the fade, a color filter approaching
+                // zero is used when the fog has darkened most of the view. The
+                // color filter applies to the entire screen uniformly which is
+                // why it's not used exclusively, but works nicely when fog has
+                // consumed most of the scene.
+
+                // Cube curve to get a density function that grows slowly at
+                // first and faster later to darken things close to us as well.
+                fogTimer += deltaTime;
+                float fogRatio = fogTimer / fogApexDuration;
+                fogRatio = fogRatio * fogRatio * fogRatio;
+
+                if (fogTimer >= fadeStartTime) {
+                    fadeTimer += deltaTime;
+                    float fadeRatio = fadeTimer / fadeApexDuration;
+                    if (fadeRatio >= 1.0f) {
+                        fadeRatio = 1.0f;
+                        // Game is over
+                    }
+                    hub.renderManager.SetColorFilterColor(vec3(1.0f - fadeRatio, 1.0f - fadeRatio, 1.0f - fadeRatio));
+                }
+
+                hub.renderManager.SetFogDensity(fogRatio);
+
                 break;
             }
         }
