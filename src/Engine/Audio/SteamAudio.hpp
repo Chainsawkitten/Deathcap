@@ -54,7 +54,6 @@ namespace Audio {
 
             void Clear();
 
-        private:
             IPLContext* context = nullptr;
 
             IPLhandle environment;

@@ -1,8 +1,11 @@
 #pragma once
 
 #include "SuperComponent.hpp"
-#include "../Audio/AudioMaterial.hpp"
 #include "../linking.hpp"
+
+namespace Audio {
+    class AudioMaterial;
+}
 
 namespace Component {
     /// %Component providing an audio material to Entity.
