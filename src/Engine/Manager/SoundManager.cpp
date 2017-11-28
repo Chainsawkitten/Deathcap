@@ -19,6 +19,8 @@
 #include <cstring>
 #include <algorithm>
 
+using namespace Audio;
+
 SoundManager::SoundManager() {
     PaError err;
 
@@ -43,7 +45,7 @@ SoundManager::SoundManager() {
         &outputParams,
         SAMPLE_RATE,
         paFramesPerBufferUnspecified,
-        paClipOff,
+        NULL,
         NULL,
         NULL
     );
@@ -70,10 +72,15 @@ void SoundManager::CheckError(PaError err) {
 
 void SoundManager::Update(float deltaTime) {
 
+    const std::vector<Component::Listener*>& listeners = GetListeners();
+    if (listeners.size() == 0)
+        return;
+
     // Number of samples to process dependant on deltaTime
-    /*unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
+    unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
     if (frameSamples > CHUNK_SIZE) {
-        //Log() << "SoundManager::Update: Frame drop!\n";
+        Log() << "SoundManager::Update: Frame drop!\n";
+      
         frameSamples = CHUNK_SIZE;
     }
     targetSample += frameSamples;
@@ -92,14 +99,15 @@ void SoundManager::Update(float deltaTime) {
         Pa_WriteStream(stream, &processedBuffer[index], sampleCount);
         processedSamples -= sampleCount;
         currentSample += sampleCount;
-    }*/
+    }
 }
 
 void SoundManager::ProcessSamples() {
 
-    // Set player transform
-    std::vector<Component::Listener*> listeners = GetListeners();
-    assert(listeners[0] != nullptr);
+    const std::vector<Component::Listener*>& listeners = GetListeners();
+    if (listeners.size() == 0)
+        return;
+  
     Entity* player = listeners[0]->entity;
     glm::vec3 glmPos = player->GetWorldPosition();
     glm::quat orientation = player->GetWorldOrientation();
@@ -109,48 +117,45 @@ void SoundManager::ProcessSamples() {
     IPLVector3 dir = { glmDir.x, glmDir.y, glmDir.z };
     IPLVector3 up = { glmUp.x, glmUp.y, glmUp.z };
 
+    // Set player transform
     sAudio.SetPlayer(pos, dir, up);
 
-    std::size_t size = soundSources.GetAll().size();
-    std::vector<Audio::SoundBuffer*> soundBuffers;
-    soundBuffers.resize(size);
+    std::vector<SoundBuffer*> soundBuffers;
     std::vector<float*> buffers;
-    buffers.resize(size);
     std::vector<IPLVector3> positions;
-    positions.resize(size);
     std::vector<float> radii;
-    radii.resize(size);
+    std::vector<SteamAudioRenderers*> renderers;
 
     // Update sound sources.
-    for (std::size_t i = 0; i < size; ++i) {
-
-        Component::SoundSource* sound = soundSources.GetAll()[i];
+    for (Component::SoundSource* sound : soundSources.GetAll()) {
         Audio::SoundBuffer* soundBuffer = sound->soundBuffer;
         Audio::SoundFile* soundFile = soundBuffer->GetSoundFile();
 
         // Check if sound should play and is a valid resource.
-        //if (sound->shouldPlay && soundFile) { //TMPTODO
-        if (soundFile) {
-            soundBuffers[i] = soundBuffer;
+        if (sound->shouldPlay && soundFile && soundFile->IsLoaded()) {
+            soundBuffers.push_back(soundBuffer);
 
             // Get samples from streamed buffer.
             int samples;
-            buffers[i] = soundBuffer->GetChunkData(samples);
+            float* buffer = soundBuffer->GetChunkData(samples);
+            buffers.push_back(buffer);
 
             // Volume.
             for (int m = 0; m < samples; ++m)
-                buffers[i][m] *= sound->volume;
+                buffer[m] *= sound->volume;
 
             glm::vec3 position = sound->entity->GetWorldPosition();
-            positions[i] = IPLVector3{ position.x, position.y, position.z };
-            radii[i] = 5.f;
+            positions.push_back(IPLVector3{ position.x, position.y, position.z });
+            radii.push_back(0.5f);
+            if (!sound->renderers)
+                sAudio.CreateRenderers(sound->renderers);
+            renderers.push_back(sound->renderers);
 
             // If end of file, check if sound repeat.
-            if (samples == 0)
-                if (sound->loop)
-                    soundBuffer->Restart();
-                else
-                    sound->shouldStop = true;
+            if (samples == 0) {
+                soundBuffer->Restart();
+                sound->shouldStop = !sound->loop;
+            }
         }
 
         // Pause it.
@@ -160,21 +165,22 @@ void SoundManager::ProcessSamples() {
 
         // Stop it.
         if (sound->shouldStop) {
+            soundBuffer->Restart();
             sound->shouldPlay = false;
         }
-
     }
 
     // Process sound.
-    if (!soundBuffers.empty())
-        sAudio.Process(buffers, positions, radii, processedBuffer);
+    if (soundBuffers.empty())
+        memset(processedBuffer, 0, CHUNK_SIZE * 2 * sizeof(float));
+    else
+        sAudio.Process(buffers, positions, radii, renderers, processedBuffer);
 
     // Consume used chunk and produce new chunk.
     for (Audio::SoundBuffer* soundBuffer : soundBuffers) {
         soundBuffer->ConsumeChunk();
         soundBuffer->ProduceChunk();
     }
-
 }
 
 
@@ -237,90 +243,80 @@ const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterials() 
 
 void SoundManager::CreateAudioEnvironment() {
 
-    // Create new scene if no scene can be loaded
-    //if (NOSUCHFILE)
-    {
-        // Temporary list of all audio materials in use
-        std::vector<Audio::AudioMaterial*> audioMatRes;
+    // Temporary list of all audio materials in use
+    std::vector<Audio::AudioMaterial*> audioMatRes;
 
-        int numMaterials = 0;
-        // Get all material resources in use
-        for (const Component::AudioMaterial* audioMatComp : GetAudioMaterials()) {
+    int numMaterials = 0;
+    // Get all material resources in use
+    for (const Component::AudioMaterial* audioMatComp : GetAudioMaterials()) {
 
-            std::vector<Audio::AudioMaterial*>::iterator it;
-            it = std::find(audioMatRes.begin(), audioMatRes.end(), audioMatComp->material);
-            // Add the resource if it's not already in the list
-            if (it == audioMatRes.end()) {
-                audioMatRes.push_back(audioMatComp->material);
-                numMaterials++;
-            }
+        std::vector<Audio::AudioMaterial*>::iterator it;
+        it = std::find(audioMatRes.begin(), audioMatRes.end(), audioMatComp->material);
+        // Add the resource if it's not already in the list
+        if (it == audioMatRes.end()) {
+            audioMatRes.push_back(audioMatComp->material);
+            numMaterials++;
         }
+    }
 
-        // Create Scene
-        sAudio.CreateScene(audioMatRes.size());
+    // Create Scene
+    sAudio.CreateScene(audioMatRes.size());
 
-        for (int i = 0; i < audioMatRes.size(); i++) {
-            IPLMaterial iplmat;
-            iplmat.highFreqAbsorption = audioMatRes[i]->highFreqAbsorption;
-            iplmat.midFreqAbsorption = audioMatRes[i]->midFreqAbsorption;
-            iplmat.lowFreqAbsorption = audioMatRes[i]->lowFreqAbsorption;
-            iplmat.highFreqTransmission = audioMatRes[i]->highFreqTransmission;
-            iplmat.midFreqTransmission = audioMatRes[i]->midFreqTransmission;
-            iplmat.lowFreqTransmission = audioMatRes[i]->lowFreqTransmission;
-            iplmat.scattering = audioMatRes[i]->scattering;
+    for (int i = 0; i < audioMatRes.size(); i++) {
+        IPLMaterial iplmat;
+        iplmat.highFreqAbsorption = audioMatRes[i]->highFreqAbsorption;
+        iplmat.midFreqAbsorption = audioMatRes[i]->midFreqAbsorption;
+        iplmat.lowFreqAbsorption = audioMatRes[i]->lowFreqAbsorption;
+        iplmat.highFreqTransmission = audioMatRes[i]->highFreqTransmission;
+        iplmat.midFreqTransmission = audioMatRes[i]->midFreqTransmission;
+        iplmat.lowFreqTransmission = audioMatRes[i]->lowFreqTransmission;
+        iplmat.scattering = audioMatRes[i]->scattering;
 
-            sAudio.SetSceneMaterial(i, iplmat);
-        }
+        sAudio.SetSceneMaterial(i, iplmat);
+    }
 
-        // Create mesh.
-        for (const Component::AudioMaterial* audioMatComp : GetAudioMaterials()) {
-            Entity* entity = audioMatComp->entity;
-            Component::Mesh* mesh = entity->GetComponent<Component::Mesh>();
-            if (mesh && mesh->geometry) {
-                const std::vector<glm::vec3>& meshVertices = mesh->geometry->GetVertexPositionData();
-                const std::vector<uint32_t>& meshIndices = mesh->geometry->GetVertexIndexData();
+    // Create mesh.
+    for (const Component::AudioMaterial* audioMatComp : GetAudioMaterials()) {
+        Entity* entity = audioMatComp->entity;
+        Component::Mesh* mesh = entity->GetComponent<Component::Mesh>();
+        if (mesh && mesh->geometry) {
+            const std::vector<glm::vec3>& meshVertices = mesh->geometry->GetVertexPositionData();
+            const std::vector<uint32_t>& meshIndices = mesh->geometry->GetVertexIndexData();
 
-                // Create ipl mesh if vertex data is valid.
-                if (meshVertices.size() > 0 && meshIndices.size() > 0) {
-                    const glm::mat4 modelMatrix = entity->GetModelMatrix();
-                    std::vector<IPLVector3> iplVertices;
-                    std::vector<IPLTriangle> iplIndices;
+            // Create ipl mesh if vertex data is valid.
+            if (meshVertices.size() > 0 && meshIndices.size() > 0) {
+                const glm::mat4 modelMatrix = entity->GetModelMatrix();
+                std::vector<IPLVector3> iplVertices;
+                std::vector<IPLTriangle> iplIndices;
 
-                    // Convert and transform vertices.
-                    iplVertices.resize(meshVertices.size());
-                    for (std::size_t i = 0; i < meshVertices.size(); ++i) {
-                        const glm::vec4 transformedVector = modelMatrix * glm::vec4(meshVertices[i], 1.f);
-                        iplVertices[i] = IPLVector3{ transformedVector.x, transformedVector.y, transformedVector.z };
-                    }
+                // Convert and transform vertices.
+                iplVertices.resize(meshVertices.size());
+                for (std::size_t i = 0; i < meshVertices.size(); ++i) {
+                    const glm::vec4 transformedVector = modelMatrix * glm::vec4(meshVertices[i], 1.f);
+                    iplVertices[i] = IPLVector3{ transformedVector.x, transformedVector.y, transformedVector.z };
+                }
 
-                    // Convert indices.
-                    iplIndices.resize(meshIndices.size());
-                    for (std::size_t i = 0; i < meshIndices.size(); ++i) {
-                        iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i] };
-                    }
+                // Convert indices.
+                iplIndices.resize(meshIndices.size());
+                for (std::size_t i = 0; i < meshIndices.size(); ++i) {
+                    iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i] };
+                }
 
-                    // Find material index and create ipl mesh.
-                    for (int i = 0; i < audioMatRes.size(); i++) {
-                        if (audioMatRes[i] == audioMatComp->material) {
-                            sAudio.CreateStaticMesh(iplVertices, iplIndices, i);
-                            break;
-                        }
+                // Find material index and create ipl mesh.
+                for (int i = 0; i < audioMatRes.size(); i++) {
+                    if (audioMatRes[i] == audioMatComp->material) {
+                        sAudio.CreateStaticMesh(iplVertices, iplIndices, i);
+                        break;
                     }
                 }
             }
-            
         }
-
-        sAudio.FinalizeScene(NULL);
-
-        // Save scene
-        //SteamAudioInterface::SaveData saveData = sAudio.SaveFinalizedScene();
+            
     }
-    //else {
 
-    //}
+    sAudio.FinalizeScene(NULL);
 
-    // Create Environment
+    // Create Environment.
     sAudio.CreateEnvironment();
 }
 
@@ -329,8 +325,8 @@ void SoundManager::ClearKilledComponents() {
     listeners.ClearKilled();
 }
 
-void SoundManager::Load(Audio::SoundStreamer::DataHandle& dataHandle) {
-    soundStreamer.Load(dataHandle);
+void SoundManager::Load(Audio::SoundStreamer::DataHandle& handle) {
+    soundStreamer.Load(handle);
 }
 
 void SoundManager::Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue) {
