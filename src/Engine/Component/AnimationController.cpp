@@ -10,7 +10,7 @@ using namespace Component;
 
 AnimationController::AnimationController() {
     // Push back identity matrices.
-    for (unsigned int i = 0; i < 50; ++i) {
+    for (unsigned int i = 0; i < 100; ++i) {
         bones.push_back(glm::mat4(1.0f));
     }
 }
@@ -55,7 +55,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
             return;
     }
 
-    if (!activeTransition) {
+    if (!activeTransition && !activeAction1->repeat) {
         for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
             Animation::AnimationController::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationController::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
             if (tmpTransition) {
@@ -80,7 +80,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     if (!isBlending)
         Animate(deltaTime, activeAction1);
     else {
-        activeTransition->transitionProcess += (deltaTime * 24.f) / activeAction1->animationClip->animation->length;
+        activeTransition->transitionProcess += (deltaTime * 24.f * activeAction1->playbackModifier) / activeAction1->animationClip->animation->length;
         if (activeTransition->transitionProcess > activeTransition->transitionTime) {
             activeTransition->transitionProcess = 0.f;
             activeTransition = nullptr;
@@ -104,7 +104,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
     Animation::AnimationClip::Animation* anim = action->animationClip->animation;
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
-    anim->currentFrame += deltaTime * 24.0f;
+    anim->currentFrame += deltaTime * 24.0f * activeAction1->playbackModifier;
     if (anim->currentFrame > anim->length) {
         anim->currentFrame = 0;
 
@@ -129,7 +129,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
             ++bone->currentKeyIndex;
 
         float interpolation = (anim->currentFrame - (float)bone->rotationKeys[bone->currentKeyIndex]) / ((float)bone->rotationKeys[bone->currentKeyIndex + 1] - (float)bone->rotationKeys[bone->currentKeyIndex]);
-
+        interpolation = glm::sin(interpolation);
         // Clamp interpolation.
         if (interpolation > 0.999f)
             interpolation = 0.999f;
@@ -137,22 +137,17 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
             interpolation = 0.001f;
 
         // Convert to quaternion to interpolate animation then back to matrix.
-        glm::quat rotation1 = glm::quat_cast(bone->rotations[bone->currentKeyIndex]);
-        glm::quat rotation2 = glm::quat_cast(bone->rotations[bone->currentKeyIndex + 1]);
-        glm::quat finalRot = glm::slerp(rotation1, rotation2, interpolation);
-
-        glm::mat4 matrixRot = glm::mat4(finalRot);
-
+        glm::mat4 finalRot = glm::mat4(glm::lerp(bone->rotations[bone->currentKeyIndex], bone->rotations[bone->currentKeyIndex + 1], interpolation));
         if (skeleton->skeletonBones[i]->parentId == -1)
             continue;
          
         // If is interpolating.
         if (isBlending && skeletonId == 1)
-            bonesToInterpolate1[i] = matrixRot;
+            bonesToInterpolate1[i] = finalRot;
         else if (isBlending && skeletonId == 2)
-            bonesToInterpolate2[i] = matrixRot;
+            bonesToInterpolate2[i] = finalRot;
         else {
-            skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
+            skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * finalRot;
             bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
         }
     }

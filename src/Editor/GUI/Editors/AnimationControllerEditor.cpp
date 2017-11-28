@@ -150,6 +150,7 @@ void AnimationControllerEditor::ShowNode(Node* node) {
         // Dynamic cast to AnimationAction.
         Animation::AnimationController::AnimationTransition* transition = dynamic_cast<Animation::AnimationController::AnimationTransition*>(node);
 
+        ImGui::DragFloat("Time", &transition->transitionTime, 0.001f, 0.f, 1.f);
         ImGui::Checkbox("Is static", &transition->isStatic);
 
         // If is not static.

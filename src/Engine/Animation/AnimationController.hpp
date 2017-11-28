@@ -74,7 +74,7 @@ namespace Animation {
                 /**
                  * @param file File to save to.
                  */
-                virtual void Save(std::ofstream* file) override {
+                void Save(std::ofstream* file) override {
                     Node::Save(file);
                     file->write(reinterpret_cast<char*>(&isStatic), sizeof(bool));
                     file->write(reinterpret_cast<char*>(&transitionBoolIndex), sizeof(int32_t));
@@ -85,9 +85,9 @@ namespace Animation {
                 /**
                  * @param file File to load from.
                  */
-                virtual void Load(std::ifstream* file) override {
+                void Load(std::ifstream* file) override {
                     Node::Load(file);
-                    file->read(reinterpret_cast<char*>(&isStatic), sizeof(float));
+                    file->read(reinterpret_cast<char*>(&isStatic), sizeof(bool));
                     file->read(reinterpret_cast<char*>(&transitionBoolIndex), sizeof(int32_t));
                     file->read(reinterpret_cast<char*>(&transitionTime), sizeof(float));
                 }

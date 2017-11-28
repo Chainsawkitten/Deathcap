@@ -409,7 +409,7 @@ void RenderManager::UpdateAnimations(float deltaTime) {
     for (Component::AnimationController* animationController : animationControllers.GetAll()) {
         if (animationController->IsKilled() || !animationController->entity->enabled)
             continue;
-    
+
         animationController->UpdateAnimation(deltaTime);
     }
 }

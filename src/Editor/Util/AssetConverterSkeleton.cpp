@@ -102,7 +102,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
             anim.bones[i].parent = (uint32_t)parents[i];
             anim.bones[i].numRotationKeys = channel->mNumRotationKeys;
             anim.bones[i].rotationKeys = new int32_t[channel->mNumRotationKeys];
-            anim.bones[i].rotations = new glm::mat4[channel->mNumRotationKeys];
+            anim.bones[i].rotations = new glm::quat[channel->mNumRotationKeys];
 
             // Build keyframes for the bone.
             for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
@@ -117,7 +117,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
                 rot.z = channel->mRotationKeys[j].mValue.z;
                 rot.w = channel->mRotationKeys[j].mValue.w;
 
-                anim.bones[i].rotations[j] = glm::mat4(rot);
+                anim.bones[i].rotations[j] = rot;
             }
         }
 

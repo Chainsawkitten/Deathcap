@@ -9,7 +9,7 @@ layout(location = 3) in vec3 vertexTangent;
 layout(location = 4) in ivec4 vertexBoneIDs;
 layout(location = 5) in vec4 vertexWeights;
 
-const int MAX_BONES = 50;
+const int MAX_BONES = 100;
 
 uniform mat4 viewProjection;
 uniform mat4 model;
@@ -35,9 +35,9 @@ void main () {
     normal += (bones[vertexBoneIDs[2]] * vec4(vertexNormal, 0.0)) * vertexWeights[2];
     normal += (bones[vertexBoneIDs[3]] * vec4(vertexNormal, 0.0)) * vertexWeights[3];
     
-    gl_Position = viewProjection * (model * position);
-    vertexOut.pos = (model * position).xyz;
-    vertexOut.normal = normalize(normalMatrix * normal.xyz);
+    gl_Position = viewProjection * (model * vec4(position.xyz, 1.0));
+    vertexOut.pos = (model * vec4(position.xyz, 1.0)).xyz;
+    vertexOut.normal = normalize(normal.xyz);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;
     vertexOut.fragPosLightSpace = vec4(0,0,0,0);//lightSpaceMatrix * worldPosition;
