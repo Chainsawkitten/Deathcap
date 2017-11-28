@@ -54,12 +54,12 @@ class Mastermind {
 		puzzleSolved = false;
         TurnOffLights();
 
-		if(true){//slot1.GetChildFromIndex(0) != null && slot2.GetChildFromIndex(0) != null && slot3.GetChildFromIndex(0) != null && slot4.GetChildFromIndex(0) != null){
+		if(slot1.GetChildFromIndex(0) != null && slot2.GetChildFromIndex(0) != null && slot3.GetChildFromIndex(0) != null && slot4.GetChildFromIndex(0) != null){
 		
-			string trans1 = "Green";//slot1.GetChildFromIndex(0).name;
-			string trans2 = "Red";//slot2.GetChildFromIndex(0).name;
-			string trans3 = "Yellow";//slot3.GetChildFromIndex(0).name;
-			string trans4 = "Purple";//slot4.GetChildFromIndex(0).name;
+			string trans1 = slot1.GetChildFromIndex(0).name;
+			string trans2 = slot2.GetChildFromIndex(0).name;
+			string trans3 = slot3.GetChildFromIndex(0).name;
+			string trans4 = slot4.GetChildFromIndex(0).name;
 			
 			if(trans1 == "Green")
 				correct = correct + 1;
