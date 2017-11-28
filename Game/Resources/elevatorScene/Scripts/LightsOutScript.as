@@ -5,6 +5,7 @@ class LightsOutScript {
     array<Entity@> buttons(25);
     array<bool> buttonStates(25);
     int numPressedButtons = 0;
+    bool gameWon = false;
 
     LightsOutScript(Entity @entity){
         @hub = Managers();
@@ -41,6 +42,10 @@ class LightsOutScript {
 
     // Index goes first row 0 -> 4, second row 5 -> 9 etc.
     void ButtonPress(int index) {
+        if (gameWon) {
+            return;
+        }
+
         print("Pressed button nr `" + index + "`\n");
 
         int left = index - 1;
@@ -64,6 +69,11 @@ class LightsOutScript {
         }
 
         Toggle(index);
+
+        if (numPressedButtons == 25) {
+            gameWon = true;
+            //SendMessage(somewhere);
+        }
     }
 
     void b_0_0() {
