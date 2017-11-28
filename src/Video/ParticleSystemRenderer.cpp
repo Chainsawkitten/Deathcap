@@ -246,4 +246,5 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     glBindVertexArray(0);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
 }
