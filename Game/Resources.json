@@ -1625,6 +1625,10 @@
 							{
 								"script" : "elevator_backDoorCon",
 								"type" : 4
+							},
+							{
+								"script" : "LightsOutScript",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

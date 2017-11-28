@@ -760,6 +760,10 @@
 			"uid" : 1511878089
 		},
 		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/elevatorScene/Scripts/LightsOutScript"
+			},			
 			"children" : 
 			[
 				{
