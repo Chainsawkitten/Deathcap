@@ -13,12 +13,6 @@
 			{
 				"model" : "Resources/Constant Scene/Minecart/Model/cart"
 			},
-			"SoundSource" : 
-			{
-				"loop" : true,
-				"sound" : "Resources/NewAssets/Audio/RailSound",
-				"volume" : 1.0
-			},
 			"children" : 
 			[
 				{
@@ -495,6 +489,42 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1509711303
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/Constant Scene/Minecart/Script/RailAudioPlayer"
+					},
+					"SoundSource" : 
+					{
+						"loop" : true,
+						"sound" : "Resources/NewAssets/Audio/RailSound",
+						"volume" : 1.0
+					},
+					"children" : null,
+					"name" : "RailAudioPlayer",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : -0.8859485387802124,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511874076
 				}
 			],
 			"name" : "Minecart",

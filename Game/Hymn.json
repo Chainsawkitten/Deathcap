@@ -58,7 +58,8 @@
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
 		"Resources/MonsterTestScript",
-		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup"
+		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
+		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer"
 	],
 	"startupScene" : "Resources/NewAssetsScene",
 	"vrScale" : 1.5
