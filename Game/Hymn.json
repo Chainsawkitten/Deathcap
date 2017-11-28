@@ -60,8 +60,10 @@
 		"Resources/NewAssets/Scripts/BigBalk",
 		"Resources/final_event/MainScript",
 		"Resources/final_event/MonsterScript",
+		"Resources/StressScript",
 		"Resources/Opening Scene/Scripts/CartScript_0",
 		"Resources/Super Scene/Scripts/SwitcherScript_1",
+		"Resources/MonsterTestScript",
 		"Resources/NewAssets/Scripts/Cart_debug_script"
 	],
 	"startupScene" : "Resources/NewAssetsScene",
