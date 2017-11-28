@@ -1,5 +1,4 @@
 class MainScript {
-    Hub @hub;
     Entity @self;
     Entity @minecart;
     int phase;
@@ -7,11 +6,10 @@ class MainScript {
     Entity @knife;
     Entity @monster;
     Entity @rightHand;
-    float waitForMonsterTimer = 0.0f;
-    bool knifePickedUp = false;
+    float waitForMonsterTimer;
+    bool knifePickedUp;
 
     MainScript(Entity @entity){
-        @hub = Managers();
         @self = @entity;
 
         @minecart = GetEntityByGUID(1508919163);
@@ -19,7 +17,9 @@ class MainScript {
         @monster = GetEntityByGUID(1511261389);
         @rightHand = GetEntityByGUID(1508919758);
         phase = 0;
-        speed = 4.0f;
+        speed = 2.0f;
+        waitForMonsterTimer = 0.0f;
+        knifePickedUp = false;
 
         self.SetEnabled(false, true);
         // Remove this if updates are not desired.
@@ -31,7 +31,7 @@ class MainScript {
         switch (phase) {
             case 0: { // Entering final scene
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 break;
             }
@@ -45,7 +45,7 @@ class MainScript {
             }
             case 3: { // Continue after monster has been killed
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 // Fade here
                 break;

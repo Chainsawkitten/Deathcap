@@ -570,10 +570,6 @@
 								"resources" : 
 								[
 									{
-										"script" : "Minecart",
-										"type" : 4
-									},
-									{
 										"script" : "Lantern",
 										"type" : 4
 									},

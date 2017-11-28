@@ -1,14 +1,10 @@
 class Lantern {
-    DebugDrawingManager @debugDrawingManager;
     Entity @self;
-    Entity @controller;
     Entity @originalParent;
     bool pickup;
     
     Lantern(Entity @entity){
-        @debugDrawingManager = Managers().debugDrawingManager;
         @self = entity;
-        @controller = GetEntityByGUID(1508919751);
         @originalParent = self.GetParent();
         
         pickup = false;

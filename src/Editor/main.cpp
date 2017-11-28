@@ -114,6 +114,9 @@ int main() {
                 { PROFILE("Update");
                 { GPUPROFILE("Update", Video::Query::Type::TIME_ELAPSED);
                     Hymn().Update(deltaTime);
+                    static float hest = 0;
+                    hest += deltaTime;
+                    //printf("\r%f", hest);
                 }
                 }
 

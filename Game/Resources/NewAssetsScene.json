@@ -1574,7 +1574,7 @@
 																"triggerFunction" : "void HitBucket()",
 																"triggerName" : "New Trigger",
 																"triggerOwner" : 1510911855,
-																"triggerTargetEntity" : 1510912841,
+																"triggerTargetEntity" : 1510240479,
 																"triggerTriggered" : false
 															},
 															"children" : null,
@@ -1582,8 +1582,8 @@
 															"position" : 
 															{
 																"x" : 0.0,
-																"y" : -0.18200001120567322,
-																"z" : -2.439000129699707
+																"y" : -0.15376156568527222,
+																"z" : -2.451432466506958
 															},
 															"rotation" : 
 															{

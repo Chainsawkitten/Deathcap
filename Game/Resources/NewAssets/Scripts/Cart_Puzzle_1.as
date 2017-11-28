@@ -1,5 +1,4 @@
 class Cart_Puzzle_1{
-    Hub @hub;
     Entity @self;
     Entity @actualSelf;
     float speed;
@@ -19,7 +18,6 @@ class Cart_Puzzle_1{
     float brakeDistance;
     
     Cart_Puzzle_1(Entity @entity){
-        @hub = Managers();
         @self = GetEntityByGUID(1508919384);
         @actualSelf = @entity;
         speed = 2.0f;
@@ -27,7 +25,6 @@ class Cart_Puzzle_1{
         endTime = 5.0f;
         planePos = 0.0f;
         puzzleSolved = false;
-        //trigger = false;
         hasHitPlane = false;
         
         actualSelf.SetEnabled(false, true);

@@ -1,10 +1,8 @@
 class Camera{
-    Hub @hub;
     Entity @self;
     vec2 Cursor;
     
     Camera(Entity @entity){
-        @hub = Managers();
         @self = @entity;
         Cursor = vec2(0,0);
         
@@ -30,9 +28,6 @@ class Camera{
             //MouseUpdate();
             self.RotateYaw(0.02f);
             self.position.y = -2;
-        }    
-        //if(deathTimer > 10)
-        //    RestartScene();
-
+        }
     }
 }
