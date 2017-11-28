@@ -30,6 +30,7 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [assimp](https://github.com/assimp/assimp) | Modified BSD |
 | [Bullet](https://github.com/bulletphysics/bullet3) | zlib |
 | [Catch](https://github.com/philsquared/Catch) | BSL |
+| [Compressonator](https://github.com/GPUOpen-Tools/Compressonator) | MIT |
 | [Headerize](https://github.com/Chainsawkitten/Headerize) | Public domain |
 | [GLEW](https://github.com/Perlmint/glew-cmake) | Modified BSD / MIT |
 | [GLFW](https://github.com/glfw/glfw) | zlib / libpng |
