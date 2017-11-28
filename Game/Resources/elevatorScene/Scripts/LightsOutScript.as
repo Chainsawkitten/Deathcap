@@ -1,10 +1,20 @@
 class LightsOutScript {
     Hub @hub;
     Entity @self;
+    Entity @board;
+    array<Entity@> buttons(25);
 
     LightsOutScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
+        @board = GetEntityByGUID(1511530025);
+        
+        for (int row = 0; row < 5; ++row) {
+            for (int column = 0; column < 5; ++column) {
+                Entity @btn = board.GetChild("btn-" + row + "-" + column);
+                @buttons[row * 5 + column] = btn.GetChild("btn-" + row + "-" + column).GetChild("button");
+            }
+        }
     }
 
     // Index goes first row 0 -> 4, second row 5 -> 9 etc.
