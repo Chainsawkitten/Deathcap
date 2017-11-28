@@ -1546,7 +1546,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "VoltageTube",
+								"model" : "VoltageTubes",
 								"type" : 1
 							},
 							{
@@ -1618,6 +1618,29 @@
 									}
 								],
 								"subfolders" : null
+							},
+							{
+								"name" : "VoltageTube",
+								"resources" : 
+								[
+									{
+										"texture" : "VoltageTube_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageTube_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageTube_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageTube_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
 							}
 						]
 					},
@@ -1644,5 +1667,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 123
+	"textureNumber" : 127
 }

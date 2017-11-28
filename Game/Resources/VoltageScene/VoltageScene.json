@@ -300,10 +300,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/VoltageScene/Textures/VoltageTube/VoltageTube_Albedo",
+				"metallic" : "Resources/VoltageScene/Textures/VoltageTube/VoltageTube_Metallic",
+				"normal" : "Resources/VoltageScene/Textures/VoltageTube/VoltageTube_Normal",
+				"roughness" : "Resources/VoltageScene/Textures/VoltageTube/VoltageTube_Roughness"
 			},
 			"Mesh" : 
 			{
