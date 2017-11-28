@@ -2,7 +2,9 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <vector>
 #include "linking.hpp"
+#include "Geometry/Geometry3D.hpp"
 
 namespace Video {
     class ShaderProgram;
@@ -186,6 +188,39 @@ namespace Video {
                 /// Whether to enable depth testing.
                 bool depthTesting;
             };
+
+            /// A debug drawing mesh.
+            struct Mesh {
+                /// Reference count.
+                int referenceCount;
+
+                /// The matrix used to transform the cone.
+                glm::mat4 matrix;
+
+                /// Color.
+                glm::vec3 color;
+
+                /// Draw wire framed.
+                bool wireFrame;
+
+                /// Duration (in seconds).
+                float duration;
+
+                /// Whether to enable depth testing.
+                bool depthTesting;
+
+                /// Vertex count.
+                unsigned int vertexCount = 0;
+
+                /// Vertex buffer.
+                GLuint vertexBuffer = NULL;
+
+                /// Index buffer.
+                GLuint indexBuffer = NULL;
+
+                /// Vertex array.
+                GLuint vertexArray = NULL;
+            };
             
             /// Create new debug primitive renderer.
             VIDEO_API DebugDrawing();
@@ -247,6 +282,16 @@ namespace Video {
              * @param cone The cone to draw.
              */
             VIDEO_API void DrawCone(const Cone& cone);
+
+            /// Draw a mesh.
+            /**
+             * @param mesh The mesh to draw.
+             */
+            VIDEO_API void DrawMesh(const Mesh& mesh);
+
+            //TMPTODO
+            VIDEO_API void GenerateBuffers(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices, Mesh& mesh);
+            VIDEO_API void DeleteBuffers(Mesh& mesh);
             
             /// Stop debug drawing.
             VIDEO_API void EndDebugDrawing();

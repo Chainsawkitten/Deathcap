@@ -9,6 +9,7 @@
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/SoundManager.hpp>
 #include <Engine/Manager/DebugDrawingManager.hpp>
+#include <Engine/Manager/RenderManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/MainWindow.hpp>
 #include <Engine/Component/DirectionalLight.hpp>
@@ -228,7 +229,13 @@ void Editor::Show(float deltaTime) {
             if (currentEntity->loadPaintModeClicked && currentEntity->GetComponent<Component::Mesh>() != nullptr) 
                 PaintBrush(currentEntity);
 
+            // Widgets.
             WidgetGizmo(currentEntity);
+
+            // Highlight selected.
+            Component::Mesh* mesh = currentEntity->GetComponent<Component::Mesh>();
+            if (mesh && mesh->geometry)
+                Managers().debugDrawingManager->AddMesh(mesh->entity->GetUniqueIdentifier(), mesh, mesh->entity->GetModelMatrix(), glm::vec3(0.2f, 0.72f, 0.2f));
         }
     }
 }
@@ -509,7 +516,6 @@ void Editor::Picking() {
 
         // Deselect last entity.
         if (selectedEntity != nullptr && selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
-            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
             resourceView.GetScene().entityEditor.SetVisible(false);
         }
         selectedEntity = nullptr;
@@ -538,8 +544,6 @@ void Editor::Picking() {
         if (selectedEntity != nullptr) {
             resourceView.GetScene().entityEditor.SetEntity(selectedEntity);
             resourceView.GetScene().entityEditor.SetVisible(true);
-            if (selectedEntity->GetComponent<Component::Mesh>() != nullptr)
-                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
         }
     }
 }

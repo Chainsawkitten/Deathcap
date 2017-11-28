@@ -6,6 +6,7 @@
 #include "Shader/ShaderProgram.hpp"
 #include "DebugDrawing.vert.hpp"
 #include "DebugDrawing.frag.hpp"
+#include "VideoErrorCheck.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -256,6 +257,22 @@ void DebugDrawing::DrawCone(const Cone& cone) {
     glDrawArrays(GL_LINES, 0, coneVertexCount);
 }
 
+void DebugDrawing::DrawMesh(const Mesh& mesh) {
+    VIDEO_ERROR_CHECK("DrawMesh");
+    assert(mesh.vertexArray);
+
+    glBindVertexArray(mesh.vertexArray);
+
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &mesh.matrix[0][0]);
+    mesh.wireFrame ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    mesh.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(colorLocation, 1, &mesh.color[0]);
+    glUniform1f(sizeLocation, 10.f);
+    glDrawArrays(GL_TRIANGLES, 0, mesh.vertexCount);
+
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
     BindVertexArray(0);
@@ -368,4 +385,38 @@ void DebugDrawing::CreateCone(glm::vec3*& positions, unsigned int& vertexCount, 
         angle = 2.0f * glm::pi<float>() * static_cast<float>(j + 1) / detail;
         positions[i++] = glm::vec3(cos(angle), -0.5f, sin(angle));
     }
+}
+
+void DebugDrawing::GenerateBuffers(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices, Mesh& mesh) {
+    glGenBuffers(1, &mesh.vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, mesh.vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), vertices.data(), GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &mesh.indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+    mesh.vertexCount = indices.size();
+
+    glGenVertexArrays(1, &mesh.vertexArray);
+    glBindVertexArray(mesh.vertexArray);
+    glBindBuffer(GL_ARRAY_BUFFER, mesh.vertexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
+
+    glBindVertexArray(0);
+}
+
+void DebugDrawing::DeleteBuffers(Mesh& mesh) {
+    if (mesh.vertexArray != NULL)
+        glDeleteVertexArrays(1, &mesh.vertexArray);
+    if(mesh.vertexBuffer != NULL)
+        glDeleteBuffers(1, &mesh.vertexBuffer);
+    if(mesh.indexBuffer != NULL)
+        glDeleteBuffers(1, &mesh.indexBuffer);
+
+    mesh.vertexArray = NULL;
+    mesh.vertexBuffer = NULL;
+    mesh.indexBuffer = NULL;
 }
