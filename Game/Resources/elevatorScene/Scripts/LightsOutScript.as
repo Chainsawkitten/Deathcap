@@ -35,10 +35,35 @@ class LightsOutScript {
         }
     }
 
+    bool IsValid(int index) {
+        return index >= 0 && index <= 24;
+    }
+
     // Index goes first row 0 -> 4, second row 5 -> 9 etc.
     void ButtonPress(int index) {
-        // Check if button is not pressed, in which case we invert its neighbors (check for out of bounds)
         print("Pressed button nr `" + index + "`\n");
+
+        int left = index - 1;
+        if (IsValid(left)) {
+            Toggle(left);
+        }
+
+        int right = index + 1;
+        if (IsValid(right)) {
+            Toggle(right);
+        }
+
+        int up = index - 5;
+        if (IsValid(up)) {
+            Toggle(up);
+        }
+
+        int down = index + 5;
+        if (IsValid(down)) {
+            Toggle(down);
+        }
+
+        Toggle(index);
     }
 
     void b_0_0() {
