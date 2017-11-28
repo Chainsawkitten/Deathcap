@@ -75,9 +75,9 @@ SkinRenderProgram::~SkinRenderProgram() {
 
 void SkinRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
     // Cull front faces to avoid peter panning.
-    glCullFace(GL_FRONT);
-    glViewport(0, 0, shadowWidth, shadowHeight);
-    glBindFramebuffer(GL_FRAMEBUFFER, depthFbo);
+    //glCullFace(GL_FRONT);
+    //glViewport(0, 0, shadowWidth, shadowHeight);
+    //glBindFramebuffer(GL_FRAMEBUFFER, depthFbo);
     this->shadowProgram->Use();
 
     this->viewMatrix = viewMatrix;
@@ -133,6 +133,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     glUniformMatrix4fv(viewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniformMatrix4fv(lightSpaceLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 
     // Lights.
     glUniform1i(lightCountLocation, lightCount);
@@ -172,7 +173,7 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glDepthFunc(GL_LEQUAL);
-        glDepthMask(GL_FALSE);
+        glDepthMask(GL_TRUE);
 
         glBindVertexArray(geometry->GetVertexArray());
         
@@ -182,6 +183,9 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glUniform1i(mapNormalLocation, 1);
         glUniform1i(mapMetallicLocation, 2);
         glUniform1i(mapRoughnessLocation, 3);
+        glUniform1i(mapShadowLocation, 4);
+        glActiveTexture(GL_TEXTURE4);
+        glBindTexture(GL_TEXTURE_2D, shadowId);
         
         // Textures.
         glActiveTexture(GL_TEXTURE0);
@@ -192,6 +196,7 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glBindTexture(GL_TEXTURE_2D, textureMetallic->GetTextureID());
         glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, textureRoughness->GetTextureID());
+
         
         // Render model.
         glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);

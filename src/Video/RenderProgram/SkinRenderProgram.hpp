@@ -96,6 +96,7 @@ namespace Video {
             GLuint zModelLocation;
             GLuint zBonesLocation;
             GLuint viewProjectionLocation;
+            GLuint lightSpaceLocation;
             GLuint lightCountLocation;
             GLuint gammaLocation;
             GLuint fogApplyLocation;
@@ -110,6 +111,7 @@ namespace Video {
             GLuint mapNormalLocation;
             GLuint mapMetallicLocation;
             GLuint mapRoughnessLocation;
+            GLuint mapShadowLocation;
             GLuint modelLocation;
             GLuint normalLocation;
             GLuint bonesLocation;

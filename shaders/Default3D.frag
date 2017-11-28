@@ -216,7 +216,7 @@ void main() {
         float depth = texture(tDepth, vertexIn.texCoords).r;
         vec3 albedo = texture(mapAlbedo, vertexIn.texCoords).rgb;
         albedo = pow(albedo, vec3(gamma)); // Apply if texture not in sRGB
-        //vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
+        //vec3 normal =//normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
         vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
         float metallic = texture(mapMetallic, vertexIn.texCoords).r;
         float roughness = texture(mapRoughness, vertexIn.texCoords).r;
