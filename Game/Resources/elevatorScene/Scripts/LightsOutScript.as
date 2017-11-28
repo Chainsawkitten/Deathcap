@@ -3,6 +3,7 @@ class LightsOutScript {
     Entity @self;
     Entity @board;
     array<Entity@> buttons(25);
+    array<bool> buttonStates(25);
 
     LightsOutScript(Entity @entity){
         @hub = Managers();
@@ -13,7 +14,21 @@ class LightsOutScript {
             for (int column = 0; column < 5; ++column) {
                 Entity @btn = board.GetChild("btn-" + row + "-" + column);
                 @buttons[row * 5 + column] = btn.GetChild("btn-" + row + "-" + column).GetChild("button");
+                buttonStates[row * 5 + column] = false;
             }
+        }
+
+        Toggle(0);
+    }
+
+    void Toggle(int index) {
+        bool pressed = !buttonStates[index];
+        buttonStates[index] = pressed;
+
+        if (pressed) {
+            buttons[index].position.x = -0.06f;
+        } else {
+            buttons[index].position.x = 0.0f;
         }
     }
 
