@@ -37,7 +37,6 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [dear imgui](https://github.com/ocornut/imgui) | MIT |
 | [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo) | MIT |
 | [JsonCpp](https://github.com/open-source-parsers/jsoncpp) | MIT / Public domain |
-| [OpenAL Soft](https://github.com/kcat/openal-soft) | LGPL |
 | [OpenVR](https://github.com/ValveSoftware/openvr) | BSD |
 | [SimpleIni](https://github.com/brofield/simpleini) | MIT |
 | [stb](https://github.com/nothings/stb) | Public domain |

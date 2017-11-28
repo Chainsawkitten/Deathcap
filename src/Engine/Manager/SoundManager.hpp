@@ -4,6 +4,11 @@
 #include <portaudio.h>
 #include "../Audio/SteamAudioInterface.hpp"
 #include "../linking.hpp"
+#include "../Audio/SoundStreamer.hpp"
+
+namespace Audio {
+    class SoundStreamer;
+}
 
 namespace Component {
     class AudioMaterial;
@@ -86,21 +91,43 @@ class SoundManager {
         /**
          * @return All audio material components.
          */
-        ENGINE_API const std::vector<Component::AudioMaterial*>& GetAudioMaterial() const;
+        ENGINE_API const std::vector<Component::AudioMaterial*>& GetAudioMaterials() const;
+
+        /// Creates the audio environment Steam Audio uses.
+        ENGINE_API void CreateAudioEnvironment();
         
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
+
+        /// Load audio from file.
+        /**
+         * @param dataHandle DataHandle to load.
+         */
+        ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
+
+        /// Abort loading from file.
+        /**
+         * @param queue Queue of DataHandle to flush from load queue.
+         */
+        ENGINE_API void Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue);
         
     private:
         SoundManager();
         ~SoundManager();
         SoundManager(SoundManager const&) = delete;
         void operator=(SoundManager const&) = delete;
+
+        void ProcessSamples();
         
-        SteamAudioInterface sAudio;
+        Audio::SteamAudioInterface sAudio;
         PaStream* stream;
-        float* processedFrameSamples;
-        
+        Audio::SoundStreamer soundStreamer;
+
+        unsigned int targetSample = 0;
+        unsigned int processedSamples = 0;
+        unsigned int currentSample = 0;
+        float processedBuffer[Audio::CHUNK_SIZE * 2];
+
         float volume = 1.f;
         
         ComponentContainer<Component::SoundSource> soundSources;

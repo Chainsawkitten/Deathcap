@@ -14,13 +14,14 @@
 #include <Engine/Component/Script.hpp>
 #include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
-#include <Engine/Component/ParticleEmitter.hpp>
+#include <Engine/Component/ParticleSystem.hpp>
 #include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Component/VRDevice.hpp>
 #include <Engine/Component/Trigger.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
+#include <Engine/Audio/SoundFile.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Audio/AudioMaterial.hpp>
 #include <Engine/Script/ScriptFile.hpp>
@@ -66,7 +67,7 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::Script>("Script", std::bind(&EntityEditor::ScriptEditor, this, std::placeholders::_1));
     AddEditor<Component::Shape>("Shape", std::bind(&EntityEditor::ShapeEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
-    AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
+    AddEditor<Component::ParticleSystemComponent>("Particle System", std::bind(&EntityEditor::ParticleSystemEditor, this, std::placeholders::_1));
     AddEditor<Component::VRDevice>("VR device", std::bind(&EntityEditor::VRDeviceEditor, this, std::placeholders::_1));
     AddEditor<Component::Trigger>("Trigger", std::bind(&EntityEditor::TriggerEditor, this, std::placeholders::_1));
 
@@ -77,6 +78,8 @@ EntityEditor::EntityEditor() {
     shapeEditors.push_back(new ConeShapeEditor());
     shapeEditors.push_back(new CapsuleShapeEditor());
     selectedShape = 0;
+
+    curveEditor.SetVisible(false);
 
     rigidBodyEditor.reset(new GUI::RigidBodyEditor);
     triggerEditor.reset(new GUI::TriggerEditor);
@@ -89,6 +92,7 @@ EntityEditor::~EntityEditor() {
 }
 
 void EntityEditor::Show() {
+
     if (ImGui::Begin(("Entity: " + entity->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(entity))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
         entity->name = name;
@@ -160,6 +164,10 @@ void EntityEditor::Show() {
     }
 
     ImGui::End();
+
+    // Show external editors.
+    if (curveEditor.IsVisible())
+        curveEditor.Show();
 }
 
 void EntityEditor::SetEntity(Entity* entity) {
@@ -465,22 +473,43 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
 
-                    // Find method to call.
-                    std::string entityName = script->instance->GetPropertyName(n);
+                    if (propertyName != "self") {
 
-                    if (entityName != "self") {
+                        unsigned int GUID = *(unsigned int*)script->GetDataFromPropertyMap(propertyName);
 
-                        std::string entityGUID = std::to_string(*(unsigned int*)script->GetDataFromPropertyMap(propertyName));
-                        std::string propertyText;
-                        propertyText.reserve(entityName.length() + entityGUID.length() + 2); // additional `: `
-                        propertyText.append(entityName).append(": ").append(entityGUID);
+                        if (GUID != 0) {
 
-                        ImGui::Separator();
+                            std::string entityGUID = std::to_string(GUID);
+                            std::string entityName = Hymn().GetEntityByGUID(GUID)->name;
+                            std::string propertyText;
+                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 4); // additional `:  ()`
+                            propertyText.append(propertyName).append(": ").append(entityName).append("(").append(entityGUID).append(")");
 
-                        // Choosing other entity references
-                        ImGui::Text(propertyText.c_str());
-                        if (ImGui::Button("Change entity reference"))
-                            ImGui::OpenPopup("Add entity reference");
+                            ImGui::Separator();
+
+                            // Choosing other entity references
+                            ImGui::Text(propertyText.c_str());
+
+                            if (ImGui::Button("Change entity reference"))
+                                ImGui::OpenPopup("Add entity reference");
+
+                        } else {
+
+                            std::string entityGUID = "???";
+                            std::string entityName = "Uninitialized";
+                            std::string propertyText;
+                            propertyText.reserve(propertyName.length() + entityName.length() + entityGUID.length() + 4); // additional `:  ()`
+                            propertyText.append(propertyName).append(": ").append(entityName).append("(").append(entityGUID).append(")");
+
+                            ImGui::Separator();
+
+                            // Choosing other entity references
+                            ImGui::Text(propertyText.c_str());
+
+                            if (ImGui::Button("Add entity reference"))
+                                ImGui::OpenPopup("Add entity reference");
+
+                        }
 
                         if (ImGui::BeginPopup("Add entity reference")) {
                             ImGui::Text("Entities");
@@ -532,6 +561,11 @@ void EntityEditor::ShapeEditor(Component::Shape* shape) {
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
     ImGui::Text("Sound");
     ImGui::Indent();
+
+    if (soundSource->soundBuffer->GetSoundFile()) {
+        ImGui::Text(soundSource->soundBuffer->GetSoundFile()->name.c_str());
+    }
+
     if (ImGui::Button("Select sound"))
         ImGui::OpenPopup("Select sound");
 
@@ -540,10 +574,12 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Separator();
 
         if (resourceSelector.Show(ResourceList::Resource::Type::SOUND)) {
-            if (soundSource->soundBuffer != nullptr)
-                Managers().resourceManager->FreeSound(soundSource->soundBuffer);
+            Audio::SoundFile* soundFile = soundSource->soundBuffer->GetSoundFile();
+            if (soundFile)
+                Managers().resourceManager->FreeSound(soundFile);
 
-            soundSource->soundBuffer = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
+            soundFile = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
+            soundSource->soundBuffer->SetSoundFile(soundFile);
         }
 
         ImGui::EndPopup();
@@ -556,46 +592,43 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
     ImGui::Unindent();
 }
 
-void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter) {
-    ImGui::Text("Particle");
+void GUI::EntityEditor::ParticleSystemEditor(Component::ParticleSystemComponent* particleSystem) {
+    ImGui::Text("Particle System");
     ImGui::Indent();
+    if (ImGui::Button("Curve editor"))
+        curveEditor.SetVisible(!curveEditor.IsVisible());
+
     int rows = Managers().particleManager->GetTextureAtlasRows();
-    float column = static_cast<float>(particleEmitter->particleType.textureIndex % rows);
-    float row = static_cast<float>(particleEmitter->particleType.textureIndex / rows);
+    float column = static_cast<float>(particleSystem->particleType.textureIndex % rows);
+    float row = static_cast<float>(particleSystem->particleType.textureIndex / rows);
     ImGui::Image((void*)Managers().particleManager->GetTextureAtlas()->GetTextureID(), ImVec2(128, 128), ImVec2(column / rows, row / rows), ImVec2((column + 1.f) / rows, (row + 1.f) / rows));
-    ImGui::InputInt("Texture index", &particleEmitter->particleType.textureIndex);
-    ImGui::ColorEdit3("Color", &particleEmitter->particleType.color[0]);
-    ImGui::DraggableVec3("Min velocity", particleEmitter->particleType.minVelocity);
-    ImGui::DraggableVec3("Max velocity", particleEmitter->particleType.maxVelocity);
-    ImGui::DraggableFloat("Average lifetime", particleEmitter->particleType.averageLifetime, 0.0f);
-    ImGui::DraggableFloat("Lifetime variance", particleEmitter->particleType.lifetimeVariance, 0.0f);
-    ImGui::DraggableVec2("Average size", particleEmitter->particleType.averageSize, 0.0f);
-    ImGui::DraggableVec2("Size variance", particleEmitter->particleType.sizeVariance, 0.0f);
-    ImGui::Checkbox("Uniform scaling", &particleEmitter->particleType.uniformScaling);
-    ImGui::DraggableFloat("Start alpha", particleEmitter->particleType.startAlpha, 0.0f, 1.0f);
-    ImGui::DraggableFloat("Mid alpha", particleEmitter->particleType.midAlpha, 0.0f, 1.0f);
-    ImGui::DraggableFloat("End alpha", particleEmitter->particleType.endAlpha, 0.0f, 1.0f);
-    ImGui::Unindent();
+    ImGui::InputInt("Texture index", &particleSystem->particleType.textureIndex);
+    ImGui::DragInt("Number of particles", &particleSystem->particleType.nr_particles, 1.0f, 1, 32768);
+    ImGui::InputInt("Emit amount", &particleSystem->particleType.nr_new_particles);
+    ImGui::DragFloat("Rate", &particleSystem->particleType.rate, 0.3f, 0.0001f, 10.0f);
+    ImGui::DragFloat("Lifetime", &particleSystem->particleType.lifetime, 1.0f, 0.01f, 1000.0f);
+    ImGui::DragFloat("Scale", &particleSystem->particleType.scale, 0.2f, 0.1f, 5.0f);
+    ImGui::DragFloat3("Velocity", &particleSystem->particleType.velocity[0], 1.0f, -1.0f, 1.0f);
+    ImGui::DragFloat("Alpha Control", &particleSystem->particleType.alpha_control, 1.0f, 0.1f, 10.0f);
+    ImGui::DragFloat("Mass", &particleSystem->particleType.mass, 0.001f, 0.001f, 1.0f);
+    ImGui::DragInt("Spread", &particleSystem->particleType.spread, 1.0f, 1, 100);
+    ImGui::DragFloat3("Random Velocity", &particleSystem->particleType.randomVec[0], 1.0f, -10.0f, 10.0f);
+    ImGui::DragFloat("Speed", &particleSystem->particleType.velocityMultiplier, 1.0f, 0.01f, 100.0f);
 
-    ImGui::Text("Emitter");
-    ImGui::Indent();
-    ImGui::DraggableFloat("Average emit time", particleEmitter->averageEmitTime, 0.001f);
-    ImGui::DraggableFloat("Emit time variance", particleEmitter->emitTimeVariance, 0.0f);
+    for (unsigned int i = 0; i < curveEditor.GetAllCurves().size(); i++) {
+        if (curveEditor.GetAllCurves()[i].editVelocityX) 
+            particleSystem->particleType.velocity.x = curveEditor.GetAllCurves()[i].value_you_care_about;
 
-    const char* items[] = { "Point", "Cuboid" };
-    int item = static_cast<int>(particleEmitter->emitterType);
-    if (ImGui::Combo("Emitter type", &item, items, 2))
-        particleEmitter->emitterType = static_cast<Component::ParticleEmitter::EmitterType>(item);
+        if (curveEditor.GetAllCurves()[i].editVelocityY)
+            particleSystem->particleType.velocity.y = curveEditor.GetAllCurves()[i].value_you_care_about;
 
-    if (particleEmitter->emitterType == Component::ParticleEmitter::CUBOID)
-        ImGui::DraggableVec3("Size", particleEmitter->size);
+        if (curveEditor.GetAllCurves()[i].editVelocityZ)
+            particleSystem->particleType.velocity.z = curveEditor.GetAllCurves()[i].value_you_care_about;
+
+    }
 
     ImGui::Unindent();
 
-    ImGui::Text("Preview");
-    ImGui::Indent();
-    ImGui::Checkbox("Simulate", &particleEmitter->preview);
-    ImGui::Unindent();
 }
 
 void EntityEditor::VRDeviceEditor(Component::VRDevice* vrDevice) {

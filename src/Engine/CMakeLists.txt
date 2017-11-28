@@ -10,9 +10,10 @@ set(SRCS
         Animation/Skeleton.cpp
         Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
+        Audio/SoundFile.cpp
+        Audio/SoundStreamer.cpp
         Audio/SteamAudio.cpp
-        Audio/SteamAudioDirectRenderer.cpp
-        Audio/SteamAudioIndirectRenderer.cpp
+        Audio/SteamAudioRenderers.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/AnimationController.cpp
@@ -22,7 +23,6 @@ set(SRCS
         Component/Listener.cpp
         Component/Material.cpp
         Component/Mesh.cpp
-        Component/ParticleEmitter.cpp
         Component/PointLight.cpp
         Component/RigidBody.cpp
         Component/Script.cpp
@@ -31,6 +31,7 @@ set(SRCS
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
         Component/VRDevice.cpp
+        Component/ParticleSystem.cpp
         Component/Trigger.cpp
         Entity/Entity.cpp
         Entity/World.cpp
@@ -79,9 +80,9 @@ set(HEADERS
         Audio/AudioMaterial.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
+        Audio/SoundStreamer.hpp
         Audio/SteamAudio.hpp
-        Audio/SteamAudioDirectRenderer.hpp
-        Audio/SteamAudioIndirectRenderer.hpp
+        Audio/SteamAudioRenderers.hpp
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/AnimationController.hpp
@@ -91,7 +92,6 @@ set(HEADERS
         Component/Listener.hpp
         Component/Material.hpp
         Component/Mesh.hpp
-        Component/ParticleEmitter.hpp
         Component/PointLight.hpp
         Component/RigidBody.hpp
         Component/Script.hpp
@@ -100,6 +100,7 @@ set(HEADERS
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
         Component/VRDevice.hpp
+        Component/ParticleSystem.hpp
         Component/Trigger.hpp
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
@@ -163,7 +164,7 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 
-target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini ${OPENAL_LIB} angelscript SteamAudio portaudio glm bullet)
+target_link_libraries(Engine Video catch glfw ${GLFW_LIBRARIES} stb simpleini angelscript SteamAudio portaudio glm bullet)
 if(UseMemTrack)
     target_link_libraries(Engine memtrack memtracknew)
 endif()

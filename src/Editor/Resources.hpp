@@ -10,7 +10,7 @@ namespace Geometry {
     class Model;
 }
 namespace Audio {
-    class SoundBuffer;
+    class SoundFile;
     class AudioMaterial;
 }
 
@@ -69,7 +69,7 @@ class ResourceList {
             TextureAsset* texture;
             
             /// Sound.
-            Audio::SoundBuffer* sound;
+            Audio::SoundFile* sound;
             
             /// Script.
             ScriptFile* script;

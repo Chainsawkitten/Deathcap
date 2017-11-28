@@ -1,10 +1,8 @@
 class Player {
-    Hub @hub;
     Entity @self;
     bool first;
 
     Player(Entity @entity){
-        @hub = Managers();
         @self = @entity;
         first = true;
         // Remove this if updates are not desired.

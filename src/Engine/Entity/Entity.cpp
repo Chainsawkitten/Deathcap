@@ -14,7 +14,7 @@
 #include "../Component/Script.hpp"
 #include "../Component/Shape.hpp"
 #include "../Component/SoundSource.hpp"
-#include "../Component/ParticleEmitter.hpp"
+#include "../Component/ParticleSystem.hpp"
 #include "../Component/VRDevice.hpp"
 #include "../Component/Trigger.hpp"
 #include "../Util/Json.hpp"
@@ -97,6 +97,8 @@ Entity* Entity::InstantiateScene(const std::string& name, const std::string& ori
             child->Load(root);
             child->scene = true;
             child->sceneName = name;
+            Managers().triggerManager->InitiateUID();
+            Managers().triggerManager->InitiateVolumes();
         }
     } else {
         child->name = "Error loading scene";
@@ -184,6 +186,7 @@ Json::Value Entity::Save() const {
     } else {
         // Save components.
         Save<Component::AnimationController>(entity, "AnimationController");
+        Save<Component::AudioMaterial>(entity, "AudioMaterial");
         Save<Component::Lens>(entity, "Lens");
         Save<Component::Mesh>(entity, "Mesh");
         Save<Component::Material>(entity, "Material");
@@ -195,7 +198,7 @@ Json::Value Entity::Save() const {
         Save<Component::Script>(entity, "Script");
         Save<Component::Shape>(entity, "Shape");
         Save<Component::SoundSource>(entity, "SoundSource");
-        Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
+        Save<Component::ParticleSystemComponent>(entity, "ParticleSystem");
         Save<Component::VRDevice>(entity, "VRDevice");
         Save<Component::Trigger>(entity, "Trigger");
 
@@ -227,6 +230,7 @@ void Entity::Load(const Json::Value& node) {
     } else {
         // Load components.
         Load<Component::AnimationController>(node, "AnimationController");
+        Load<Component::AudioMaterial>(node, "AudioMaterial");
         Load<Component::Lens>(node, "Lens");
         Load<Component::Mesh>(node, "Mesh");
         Load<Component::Material>(node, "Material");
@@ -238,7 +242,7 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::Script>(node, "Script");
         Load<Component::Shape>(node, "Shape");
         Load<Component::SoundSource>(node, "SoundSource");
-        Load<Component::ParticleEmitter>(node, "ParticleEmitter");
+        Load<Component::ParticleSystemComponent>(node, "ParticleSystem");
         Load<Component::VRDevice>(node, "VRDevice");
         Load<Component::Trigger>(node, "Trigger");
 
@@ -335,6 +339,19 @@ void Entity::RotateAroundWorldAxis(float angle, const glm::vec3& axis) {
     rotation = glm::rotate(rotation, angle, tempVec);
 }
 
+void Entity::SetEnabled(bool enabled, bool recursive) {
+    this->enabled = enabled;
+    
+    if (recursive) {
+        for (Entity* child : children)
+            child->SetEnabled(enabled, true);
+    }
+}
+
+bool Entity::IsEnabled() const {
+    return enabled;
+}
+
 unsigned int Entity::GetUniqueIdentifier() const {
     return uniqueIdentifier;
 }
@@ -365,8 +382,8 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
         component = Managers().renderManager->CreateMaterial();
     else if (componentType == typeid(Component::Mesh*))
         component = Managers().renderManager->CreateMesh();
-    else if (componentType == typeid(Component::ParticleEmitter*))
-        component = Managers().particleManager->CreateParticleEmitter();
+    else if (componentType == typeid(Component::ParticleSystemComponent*))
+        component = Managers().particleManager->CreateAParticleSystem();
     else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight();
     else if (componentType == typeid(Component::RigidBody*))
@@ -430,8 +447,8 @@ void Entity::LoadComponent(std::type_index componentType, const Json::Value& nod
         component = Managers().renderManager->CreateMaterial(node);
     else if (componentType == typeid(Component::Mesh*))
         component = Managers().renderManager->CreateMesh(node);
-    else if (componentType == typeid(Component::ParticleEmitter*))
-        component = Managers().particleManager->CreateParticleEmitter(node);
+    else if (componentType == typeid(Component::ParticleSystemComponent*))
+        component = Managers().particleManager->CreateParticleSystem(node);
     else if (componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight(node);
     else if (componentType == typeid(Component::RigidBody*))

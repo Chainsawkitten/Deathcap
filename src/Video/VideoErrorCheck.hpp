@@ -10,7 +10,7 @@ class VideoErrorCheck {
         /**
          * @param name Name the scope to check for errors.
          */
-        VIDEO_API VideoErrorCheck(const std::string& name);
+        VIDEO_API explicit VideoErrorCheck(const std::string& name);
 
         /// End video error check.
         VIDEO_API ~VideoErrorCheck();

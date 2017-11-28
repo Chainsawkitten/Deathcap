@@ -4,7 +4,7 @@
 #include "../FileSelector.hpp"
 
 namespace Audio {
-    class SoundBuffer;
+    class SoundFile;
 }
 
 namespace GUI {
@@ -21,13 +21,13 @@ namespace GUI {
             /**
              * @return The sound being edited.
              */
-            const Audio::SoundBuffer* GetSound() const;
+            const Audio::SoundFile* GetSound() const;
             
             /// Set the sound to edit.
             /**
              * @param sound Sound to edit.
              */
-            void SetSound(Audio::SoundBuffer* sound);
+            void SetSound(Audio::SoundFile* sound);
             
             /// Get whether the window is visible.
             /**
@@ -45,7 +45,7 @@ namespace GUI {
             void LoadPressed();
             void FileSelected(const std::string& file);
             
-            Audio::SoundBuffer* sound = nullptr;
+            Audio::SoundFile* sound = nullptr;
             bool visible = false;
             
             FileSelector fileSelector;

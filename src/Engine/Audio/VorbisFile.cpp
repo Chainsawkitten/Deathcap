@@ -1,7 +1,8 @@
 #include "VorbisFile.hpp"
 
-#include <Utility/Log.hpp>
+#include <algorithm>
 #include <stb_vorbis.c>
+#include <Utility/Log.hpp>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -9,40 +10,73 @@
 
 using namespace Audio;
 
-VorbisFile::VorbisFile(const char* filename) {
+VorbisFile::VorbisFile() {
 
-    // Open OGG file
-    int error;
-    stb_vorbis* stbfile = stb_vorbis_open_filename(filename, &error, NULL);
-    if (error == VORBIS_file_open_failure)
-        Log() << "Couldn't load OGG Vorbis file: " << filename << "\n";
-    else {
-        stb_vorbis_info info = stb_vorbis_get_info(stbfile);
-        const int samples = stb_vorbis_stream_length_in_samples(stbfile) * info.channels;
-        sampleRate = info.sample_rate;
-
-        // Get data
-        data = new float[samples * sizeof(float)];
-        stb_vorbis_get_samples_float_interleaved(stbfile, info.channels, data, samples);
-
-        dataSize = samples;
-        
-        stb_vorbis_close(stbfile);
-    }
 }
 
 VorbisFile::~VorbisFile() {
+    if (stbFile)
+        stb_vorbis_close(stbFile);
 
+    if (buffer)
+        delete[] buffer;
 }
 
-float* VorbisFile::GetData() const {
-    return data;
+int VorbisFile::GetData(uint32_t offset, uint32_t samples, float*& data) const {
+    if (!IsLoaded())
+        return 0;
+
+    if (buffer) {
+        data = &buffer[offset];
+        return std::min(std::max(sampleCount - (int)(offset + samples), 0), (int)samples);
+    } else {
+        stb_vorbis_seek(stbFile, offset);
+        return stb_vorbis_get_samples_float_interleaved(stbFile, channelCount, data, samples);
+    }
 }
 
-uint32_t VorbisFile::GetSize() const {
-    return dataSize;
+uint32_t VorbisFile::GetSampleCount() const {
+    return sampleCount;
 }
 
 uint32_t VorbisFile::GetSampleRate() const {
     return sampleRate;
+}
+
+uint32_t VorbisFile::GetChannelCount() const {
+    return channelCount;
+}
+
+void VorbisFile::Cache(bool cache) {
+    if (!IsLoaded()) {
+        Log() << "No OGG Vorbis file loaded to cache.\n";
+        return;
+    }
+
+    if (cache && !buffer) {
+        buffer = new float[sampleCount];
+        stb_vorbis_get_samples_float_interleaved(stbFile, channelCount, buffer, sampleCount);
+    } else if (!cache && buffer) {
+        delete[] buffer;
+        buffer = nullptr;
+    }
+}
+
+void VorbisFile::Load(const char* filename) {
+    // Open OGG file
+    int error;
+    stbFile = stb_vorbis_open_filename(filename, &error, NULL);
+    if (!stbFile) {
+        Log() << "Couldn't load OGG Vorbis file: " << filename << "\n";
+        return;
+    }
+
+    stb_vorbis_info stbInfo = stb_vorbis_get_info(stbFile);
+    channelCount = stbInfo.channels;
+    sampleRate = stbInfo.sample_rate;
+    sampleCount = stb_vorbis_stream_length_in_samples(stbFile) * stbInfo.channels;
+}
+
+bool VorbisFile::IsLoaded() const {
+    return (stbFile != nullptr);
 }

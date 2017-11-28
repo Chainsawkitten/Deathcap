@@ -1,4 +1,5 @@
 #include "AudioMaterial.hpp"
+#include "../Audio/AudioMaterial.hpp"
 
 using namespace Component;
 
@@ -8,6 +9,6 @@ AudioMaterial::AudioMaterial() {
 
 Json::Value AudioMaterial::Save() const {
     Json::Value component;
-    component["placeholderValue"] = "";
+    component["audio material"] = material->name;
     return component;
 }

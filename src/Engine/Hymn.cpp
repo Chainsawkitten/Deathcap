@@ -230,7 +230,6 @@ Entity* ActiveHymn::GetEntityByGUID(unsigned int GUID) {
         if (entities[i]->GetUniqueIdentifier() == GUID)
             return entities[i];        
     }
-
     return nullptr;
 }
 

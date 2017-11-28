@@ -129,7 +129,6 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
             ++bone->currentKeyIndex;
 
         float interpolation = (anim->currentFrame - (float)bone->rotationKeys[bone->currentKeyIndex]) / ((float)bone->rotationKeys[bone->currentKeyIndex + 1] - (float)bone->rotationKeys[bone->currentKeyIndex]);
-        interpolation = glm::sin(interpolation);
         // Clamp interpolation.
         if (interpolation > 0.999f)
             interpolation = 0.999f;
@@ -137,7 +136,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
             interpolation = 0.001f;
 
         // Convert to quaternion to interpolate animation then back to matrix.
-        glm::mat4 finalRot = glm::mat4(glm::lerp(bone->rotations[bone->currentKeyIndex], bone->rotations[bone->currentKeyIndex + 1], interpolation));
+        glm::mat4 finalRot = glm::mat4(glm::slerp(bone->rotations[bone->currentKeyIndex], bone->rotations[bone->currentKeyIndex + 1], interpolation));
         if (skeleton->skeletonBones[i]->parentId == -1)
             continue;
          
