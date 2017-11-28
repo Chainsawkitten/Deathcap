@@ -618,7 +618,6 @@ void ScriptManager::ClearBreakpoints() {
 }
 
 void ScriptManager::FillPropertyMap(Script* script) {
-
     int r = BuildScript(script->scriptFile);
     if (r < 0) {
 
@@ -626,7 +625,8 @@ void ScriptManager::FillPropertyMap(Script* script) {
 
     } else {
 
-        CreateInstance(script);
+        if (!script->initialized)
+            CreateInstance(script);
 
         int propertyCount = script->instance->GetPropertyCount();
 
