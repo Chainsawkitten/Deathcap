@@ -73,6 +73,7 @@ class LightsOutScript {
         if (numPressedButtons == 25) {
             gameWon = true;
             //SendMessage(somewhere);
+            print("Won the game of lights out.\n");
         }
     }
 
