@@ -4,6 +4,7 @@ class LightsOutScript {
     Entity @board;
     array<Entity@> buttons(25);
     array<bool> buttonStates(25);
+    int numPressedButtons = 0;
 
     LightsOutScript(Entity @entity){
         @hub = Managers();
@@ -27,8 +28,10 @@ class LightsOutScript {
 
         if (pressed) {
             buttons[index].position.x = -0.06f;
+            numPressedButtons += 1;
         } else {
             buttons[index].position.x = 0.0f;
+            numPressedButtons -= 1;
         }
     }
 
