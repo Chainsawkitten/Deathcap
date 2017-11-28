@@ -6,8 +6,6 @@
 #include "../linking.hpp"
 #include "../Audio/SoundStreamer.hpp"
 
-#define CHUNK_COUNT (15)
-
 namespace Audio {
     class SoundStreamer;
 }
@@ -101,10 +99,16 @@ class SoundManager {
         /// Remove all killed components.
         ENGINE_API void ClearKilledComponents();
 
-        /// Add work to streaming thread.
+        /// Load audio from file.
+        /**
+         * @param dataHandle DataHandle to load.
+         */
         ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
 
-        /// Remove all work for this queue in the streaming thread.
+        /// Abort loading from file.
+        /**
+         * @param queue Queue of DataHandle to flush from load queue.
+         */
         ENGINE_API void Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue);
         
     private:
@@ -115,14 +119,14 @@ class SoundManager {
 
         void ProcessSamples();
         
-        SteamAudioInterface sAudio;
+        Audio::SteamAudioInterface sAudio;
         PaStream* stream;
         Audio::SoundStreamer soundStreamer;
 
         unsigned int targetSample = 0;
         unsigned int processedSamples = 0;
         unsigned int currentSample = 0;
-        float processedBuffer[CHUNK_SIZE * 2];
+        float processedBuffer[Audio::CHUNK_SIZE * 2];
 
         float volume = 1.f;
         
