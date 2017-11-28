@@ -11,6 +11,13 @@ namespace Video {
      */
     class TextureHCT : public Texture2D {
         public:
+        /// The type of compression the texture uses.
+        enum CompressionType {
+            BC1 = 0,
+            BC4,
+            BC5
+        };
+        
         /// Load texture.
         /**
          * @param filenameThe name of the HCT file to load.
@@ -34,7 +41,7 @@ namespace Video {
         VIDEO_API bool IsLoaded() const override;
         
         /// The version of the texture format.
-        static const uint16_t VERSION = 2;
+        static const uint16_t VERSION = 3;
         
         private:
         GLuint texID = 0;
