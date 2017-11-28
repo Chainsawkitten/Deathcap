@@ -4,6 +4,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
+#include <Engine/Manager/RenderManager.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Input/Input.hpp>
 #include <Utility/Log.hpp>
@@ -42,6 +43,7 @@ int main() {
     
     // Load game settings from ini file.
     GameSettings::GetInstance().Load();
+    Managers().renderManager->SetTextureReduction(GameSettings::GetInstance().GetLong("Texture Reduction"));
     
     // Load world.
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");

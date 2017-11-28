@@ -9,7 +9,7 @@
 
 using namespace Video;
 
-TextureHCT::TextureHCT(const char* filename) {
+TextureHCT::TextureHCT(const char* filename, uint16_t textureReduction) {
     // Open file for reading.
     std::ifstream file(filename, std::ios::in | std::ios::binary);
     if (!file) {
@@ -35,10 +35,14 @@ TextureHCT::TextureHCT(const char* filename) {
     file.read(reinterpret_cast<char*>(&height), sizeof(uint16_t));
     file.read(reinterpret_cast<char*>(&mipLevels), sizeof(uint16_t));
     
+    // We can't load a smaller mip level if there are none.
+    if (textureReduction >= mipLevels)
+        textureReduction = mipLevels - 1;
+    
     // Create image on GPU.
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
-    glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGB8, width, height);
+    glTexStorage2D(GL_TEXTURE_2D, mipLevels - textureReduction, GL_RGB8, width >> textureReduction, height >> textureReduction);
     
     // Read texture data.
     uint32_t size = static_cast<uint32_t>(width) * height * 3;
@@ -52,7 +56,8 @@ TextureHCT::TextureHCT(const char* filename) {
             return;
         }
         
-        glTexSubImage2D(GL_TEXTURE_2D, mipLevel, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+        if (mipLevel >= textureReduction)
+            glTexSubImage2D(GL_TEXTURE_2D, mipLevel - textureReduction, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
         width /= 2;
         height /= 2;
     }
