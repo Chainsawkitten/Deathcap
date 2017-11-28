@@ -847,19 +847,21 @@
 								"trigger" : "A Trigger",
 								"triggerActive" : false,
 								"triggerCharges" : 0,
-								"triggerCollidedEntityUID" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
 								"triggerCooldown" : 0.0,
 								"triggerDelay" : 0.0,
-								"triggerEventStruct_Check_0" : false,
-								"triggerEventStruct_Check_1" : false,
-								"triggerEventStruct_Check_2" : false,
-								"triggerEventStruct_Check_3" : false,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
 								"triggerEventStruct_EventID" : 0,
-								"triggerEventStruct_ScriptID" : 0,
+								"triggerEventStruct_ScriptID" : 1,
 								"triggerEventStruct_ShapeID" : 0,
 								"triggerEventStruct_TargetID" : 0,
 								"triggerFunction" : "",
 								"triggerName" : "New Trigger",
+								"triggerOwner" : 1511862451,
+								"triggerTargetEntity" : 1511530025,
 								"triggerTriggered" : false
 							},
 							"children" : null,
@@ -951,6 +953,28 @@
 									"width" : 0.059999998658895493
 								}
 							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 0,
+								"triggerEventStruct_ScriptID" : 2,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 0,
+								"triggerFunction" : "void b_0_1()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1511862830,
+								"triggerTargetEntity" : 1511530025,
+								"triggerTriggered" : false
+							},
 							"children" : null,
 							"name" : "Trigger",
 							"position" : 
@@ -1039,6 +1063,28 @@
 									"height" : 0.090000003576278687,
 									"width" : 0.059999998658895493
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 0,
+								"triggerEventStruct_ScriptID" : 3,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 0,
+								"triggerFunction" : "void b_0_2()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1511863525,
+								"triggerTargetEntity" : 1511530025,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "Trigger",
@@ -1129,6 +1175,28 @@
 									"width" : 0.059999998658895493
 								}
 							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 0,
+								"triggerEventStruct_ScriptID" : 4,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 0,
+								"triggerFunction" : "void b_0_3()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1511863536,
+								"triggerTargetEntity" : 1511530025,
+								"triggerTriggered" : false
+							},
 							"children" : null,
 							"name" : "Trigger",
 							"position" : 
@@ -1217,6 +1285,28 @@
 									"height" : 0.090000003576278687,
 									"width" : 0.059999998658895493
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 0,
+								"triggerEventStruct_ScriptID" : 5,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 0,
+								"triggerFunction" : "void b_0_4()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1511863545,
+								"triggerTargetEntity" : 1511530025,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "Trigger",
