@@ -17,9 +17,9 @@
 			{
 				"NrOfParticles" : 840,
 				"alphaControl" : 1.5,
-				"emitAmount" : 6,
+				"emitAmount" : 16,
 				"lifetime" : 15.010001182556152,
-				"mass" : 0.023000001907348633,
+				"mass" : 0.065000005066394806,
 				"randomVelocity" : 
 				{
 					"x" : 0.05000000074505806,
@@ -28,9 +28,9 @@
 				},
 				"rate" : 0.0,
 				"scale" : 0.20000000298023224,
-				"speed" : 1.0,
+				"speed" : 0.5,
 				"spread" : 3,
-				"textureIndex" : 3,
+				"textureIndex" : 0,
 				"velocity" : 
 				{
 					"x" : 0.0,
@@ -43,7 +43,7 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.38029366731643677,
+				"y" : 0.5,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -68,9 +68,9 @@
 			{
 				"NrOfParticles" : 512,
 				"alphaControl" : 1.5,
-				"emitAmount" : 8,
+				"emitAmount" : 16,
 				"lifetime" : 2.0,
-				"mass" : 0.0099999997764825821,
+				"mass" : 0.082000002264976501,
 				"randomVelocity" : 
 				{
 					"x" : 0.0,
@@ -81,7 +81,7 @@
 				"scale" : 0.10000000149011612,
 				"speed" : 0.10999999940395355,
 				"spread" : 5,
-				"textureIndex" : 3,
+				"textureIndex" : 0,
 				"velocity" : 
 				{
 					"x" : 0.0,
@@ -94,7 +94,7 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.52147579193115234,
+				"y" : 0.5,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -117,14 +117,18 @@
 		{
 			"PointLight" : 
 			{
-				"attenuation" : 50.0,
+				"attenuation" : 1.0,
 				"color" : 
 				{
-					"x" : 1.0,
+					"x" : 1.0039216279983521,
 					"y" : 0.12549020349979401,
 					"z" : 0.12549020349979401
 				},
-				"intensity" : 500.0
+				"intensity" : 100.0
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/Foliage/FlareScript"
 			},
 			"children" : null,
 			"name" : "Light",
