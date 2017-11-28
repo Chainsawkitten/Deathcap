@@ -3,15 +3,17 @@ class Mastermind {
     Hub @hub;
     Entity @self;
 
-	Entity @slot1;
-	Entity @slot2;
-	Entity @slot3;
-	Entity @slot4;
+	string slot1;
+	string slot2;
+	string slot3;
+	string slot4;
 	
 	Entity @light1;
 	Entity @light2;
 	Entity @light3;
 	Entity @light4;
+    
+    
 	
     Mastermind(Entity @entity){
         @hub = Managers();
@@ -54,31 +56,26 @@ class Mastermind {
 		puzzleSolved = false;
         TurnOffLights();
 
-		if(slot1.GetChildFromIndex(0) != null && slot2.GetChildFromIndex(0) != null && slot3.GetChildFromIndex(0) != null && slot4.GetChildFromIndex(0) != null){
-		
-			string trans1 = slot1.GetChildFromIndex(0).name;
-			string trans2 = slot2.GetChildFromIndex(0).name;
-			string trans3 = slot3.GetChildFromIndex(0).name;
-			string trans4 = slot4.GetChildFromIndex(0).name;
+		if(slot1 != "" && slot2 != "" && slot3 != "" && slot4 != ""){
 			
-			if(trans1 == "Green")
+			if(slot1 == "Green")
 				correct = correct + 1;
-			else if(trans1 == "Red" || trans1 == "Yellow" || trans1 == "Purple")
+			else if(slot1 == "Red" || slot1 == "Yellow" || slot1 == "Purple")
 				rightColors = rightColors + 1;
 				
-			if(trans2 == "Red")
+			if(slot2 == "Red")
 				correct = correct + 1;
-			else if(trans2 == "Green" || trans2 == "Yellow" || trans2 == "Purple")
+			else if(slot2 == "Green" || slot2 == "Yellow" || slot2 == "Purple")
 				rightColors = rightColors + 1;
 				
-			if(trans3 == "Yellow")
+			if(slot3 == "Yellow")
 				correct = correct + 1;
-			else if(trans3 == "Red" || trans3 == "Green" || trans3 == "Purple")
+			else if(slot3 == "Red" || slot3 == "Green" || slot3 == "Purple")
 				rightColors = rightColors + 1;
 				
-			if(trans4 == "Purple")
+			if(slot4 == "Purple")
 				correct = correct + 1;
-			else if(trans4 == "Red" || trans4 == "Yellow" || trans4 == "Green")
+			else if(slot4 == "Red" || slot4 == "Yellow" || slot4 == "Green")
 				rightColors = rightColors + 1;
 				
 			if(correct == 4)
@@ -115,6 +112,102 @@ class Mastermind {
         light3.GetSpotLight().intensity = 0;
         light4.GetSpotLight().intensity = 0;
 
+    }
+
+    void ReceiveMessage(Entity @sender, int signal) {
+        
+        if(signal < 32){
+        
+            AddToSlot(signal / 8, GetColorFromID(signal % 8));
+        
+        } else {
+        
+            RemoveFromSlot(signal - 32);
+        
+        }
+        
+    }
+    
+    string GetColorFromID(int colorID){
+    
+        switch(colorID){
+        
+            case 0:{
+                return "Red";
+            }
+            case 1:{
+                return "Green";
+            }
+            case 2:{
+                return "Blue";
+            }
+            case 3:{
+                return "Black";
+            }
+            case 4:{
+                return "White";
+            }
+            case 5:{
+                return "Yellow";
+            }
+            case 6:{
+                return "Orange";
+            }
+            case 7:{
+                return "Brown";
+            }
+        
+        }
+    
+    }
+
+    void AddToSlot(int slot, string transistorColor){
+    
+        switch(slot){
+        
+            case 1: {
+                slot1 = transistorColor;
+                break;
+            }
+            case 2: {
+                slot2 = transistorColor;
+                break;
+            }
+            case 3: {
+                slot3 = transistorColor;
+                break;
+            }
+            case 4: {
+                slot4 = transistorColor;
+                break;
+            }
+        
+        }
+    
+    }
+    void RemoveFromSlot(int slot){
+    
+        switch(slot){
+        
+            case 1: {
+                slot1 = "";
+                break;
+            }
+            case 2: {
+                slot2 = "";
+                break;
+            }
+            case 3: {
+                slot3 = "";
+                break;
+            }
+            case 4: {
+                slot4 = "";
+                break;
+            }
+        
+        }
+    
     }
     
 }
