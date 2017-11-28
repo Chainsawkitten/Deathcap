@@ -169,6 +169,117 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511358480
+		},
+		{
+			"name" : "Final Scene",
+			"position" : 
+			{
+				"x" : -199.5360107421875,
+				"y" : 2.1630001068115234,
+				"z" : -1.6230000257492065
+			},
+			"rotation" : 
+			{
+				"w" : -4.371138473402425e-08,
+				"x" : -4.3711391839451608e-08,
+				"y" : 1.0,
+				"z" : -4.3711391839451608e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/final_event/final_scene",
+			"static" : false,
+			"uid" : 1511256681
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 0,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 14,
+				"triggerFunction" : "void SwitchPuzzleFinal()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1511788811,
+				"triggerTargetEntity" : 1511788813,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "Switcher Final",
+			"position" : 
+			{
+				"x" : -117.54300689697266,
+				"y" : 2.2920000553131104,
+				"z" : -1.6050000190734863
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511788811
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Super Scene/Scripts/SwitcherScript_Final"
+			},
+			"children" : null,
+			"name" : "SwitcherScript Final",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511788813
 		}
 	],
 	"name" : "Root",
