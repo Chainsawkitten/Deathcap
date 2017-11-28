@@ -1,4 +1,4 @@
-class MastermindTransistor {
+class MMTransistor {
     Hub @hub;
     Entity @self;
     Entity @mastermind;
@@ -6,7 +6,7 @@ class MastermindTransistor {
     string transistorColor;
     int colorCount = 8;
     
-    MastermindTransistor(Entity @entity){
+    MMTransistor(Entity @entity){
         @hub = Managers();
         @self = @entity;
 
