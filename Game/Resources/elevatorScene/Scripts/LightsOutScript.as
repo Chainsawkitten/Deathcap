@@ -5,14 +5,6 @@ class LightsOutScript {
     LightsOutScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
-
-        // Remove this if updates are not desired.
-        RegisterUpdate();
-    }
-
-    // Called by the engine for each frame.
-    void Update(float deltaTime) {
-
     }
 
 	// Index goes first row 0 -> 4, second row 5 -> 9 etc.
