@@ -1628,6 +1628,10 @@
 							{
 								"script" : "Mastermind",
 								"type" : 4
+							},
+							{
+								"script" : "MastermindSlot",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

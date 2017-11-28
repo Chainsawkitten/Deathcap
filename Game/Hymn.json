@@ -63,7 +63,8 @@
 		"Resources/Opening Scene/Scripts/CartScript_0",
 		"Resources/Super Scene/Scripts/SwitcherScript_1",
 		"Resources/NewAssets/Scripts/Cart_debug_script",
-		"Resources/VoltageScene/Scripts/Mastermind"
+		"Resources/VoltageScene/Scripts/Mastermind",
+		"Resources/VoltageScene/Scripts/MastermindSlot"
 	],
 	"startupScene" : "Resources/VoltageScene/VoltageScene",
 	"vrScale" : 1.5
