@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <string>
-#include <json/json.h>
 #include "../linking.hpp"
 #include "../Hymn.hpp"
 
@@ -23,7 +22,7 @@ namespace Audio {
              * @param data Address to store raw audio data.
              * @return Number of valid samples loaded from file.
              */
-            virtual int GetData(uint32_t offset, uint32_t samples, float* data) const = 0;
+            virtual int GetData(uint32_t offset, uint32_t samples, float*& data) const = 0;
             
             /// Get sample count.
             /**
@@ -43,15 +42,30 @@ namespace Audio {
              */
             virtual uint32_t GetChannelCount() const = 0;
 
-            /// Save sound.
+            /// Whether sound file should be cached or streamed.
             /**
-             * @return JSON value to be stored on disk.
+             * @param cache Whether to cache file.
              */
-            ENGINE_API Json::Value Save() const;
+            virtual void Cache(bool cache) = 0;
+
+            /// Check whether sound if loaded.
+            /**
+             * @return Whether sound is loaded or not.
+             */
+            virtual bool IsLoaded() const = 0;
+
+            /// Whether sound file is cached or streamed.
+            /**
+             * @return Whether file is cached.
+             */
+            ENGINE_API bool GetCached() const;
+
+            /// Save sound.
+            ENGINE_API void Save() const;
 
             /// Load sound.
             /**
-             * @return name Name of the sound file on disk.
+             * @param name Name of the sound file on disk.
              */
             ENGINE_API void Load(const std::string& name);
 
@@ -60,6 +74,10 @@ namespace Audio {
 
             /// The folder containing the sound file.
             std::string path;
+
+        protected:
+            /// Pointer to cached sound data.
+            float* buffer = nullptr;
 
         private:
             virtual void Load(const char* filename) = 0;
