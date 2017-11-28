@@ -735,7 +735,7 @@ void CurveEditor::UpdateCurves(float deltaTime, float totalTime) {
 }
 
 void CurveEditor::RenderCurveEditor( ) {
-    for (int i = 0; i < curves.size(); ++i) {
+    for (std::size_t i = 0; i < curves.size(); ++i) {
         ImGui::BeginChild(curves[i].curve_name.c_str(), ImVec2(500, 250), true);
         ImGui::Checkbox("Velocity X", &curves[i].editVelocityX);
         ImGui::Checkbox("Velocity Y", &curves[i].editVelocityY);
