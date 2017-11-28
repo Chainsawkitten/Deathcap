@@ -28,6 +28,14 @@
 			{
 				"scene" : "stone_scene",
 				"type" : 0
+			},
+			{
+				"script" : "StressScript",
+				"type" : 4
+			},
+			{
+				"script" : "MonsterTestScript",
+				"type" : 4
 			}
 		],
 		"subfolders" : 
@@ -569,10 +577,6 @@
 								"name" : "Script",
 								"resources" : 
 								[
-									{
-										"script" : "Minecart",
-										"type" : 4
-									},
 									{
 										"script" : "Lantern",
 										"type" : 4
@@ -1499,6 +1503,10 @@
 						[
 							{
 								"script" : "SwitcherScript_1",
+								"type" : 4
+							},
+							{
+								"script" : "SwitcherScript_Final",
 								"type" : 4
 							}
 						],

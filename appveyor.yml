@@ -29,7 +29,7 @@ after_build:
         
         $env:BUILD_NAME = $BUILD_NAME
         
-        7z a -tzip $BUILD_NAME .\bin\Release\angelscript.dll .\bin\Release\assimp-vc140-mt.dll .\bin\Release\Editor.exe .\bin\Release\Engine.dll .\bin\Release\Game.exe .\bin\Release\glew32.dll .\bin\Release\glfw3.dll .\bin\Release\jsoncpp.dll .\bin\Release\OpenAL32.dll .\bin\Release\openvr_api64.dll .\bin\Release\phonon.dll .\bin\Release\portaudio_x64.dll .\bin\Release\Utility.dll .\bin\Release\Video.dll
+        7z a -tzip $BUILD_NAME .\bin\Release\angelscript.dll .\bin\Release\assimp-vc140-mt.dll .\bin\Release\Editor.exe .\bin\Release\Engine.dll .\bin\Release\Game.exe .\bin\Release\glew32.dll .\bin\Release\glfw3.dll .\bin\Release\jsoncpp.dll .\bin\Release\openvr_api64.dll .\bin\Release\phonon.dll .\bin\Release\portaudio_x64.dll .\bin\Release\Utility.dll .\bin\Release\Video.dll
 
 artifacts:
   - path: $(BUILD_NAME)

@@ -8,7 +8,7 @@ class CartScript_0 {
         @hub = Managers();
         @self = GetEntityByGUID(1508919384);
         
-        speed = 4.0f;
+        speed = 2.0f;
 
         // Remove this if updates are not desired.
         RegisterUpdate();
