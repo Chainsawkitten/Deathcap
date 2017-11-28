@@ -262,7 +262,7 @@ void SoundManager::CreateAudioEnvironment() {
     // Create Scene
     sAudio.CreateScene(audioMatRes.size());
 
-    for (int i = 0; i < audioMatRes.size(); i++) {
+    for (std::size_t i = 0; i < audioMatRes.size(); ++i) {
         IPLMaterial iplmat;
         iplmat.highFreqAbsorption = audioMatRes[i]->highFreqAbsorption;
         iplmat.midFreqAbsorption = audioMatRes[i]->midFreqAbsorption;
@@ -303,7 +303,7 @@ void SoundManager::CreateAudioEnvironment() {
                 }
 
                 // Find material index and create ipl mesh.
-                for (int i = 0; i < audioMatRes.size(); i++) {
+                for (std::size_t i = 0; i < audioMatRes.size(); ++i) {
                     if (audioMatRes[i] == audioMatComp->material) {
                         sAudio.CreateStaticMesh(iplVertices, iplIndices, i);
                         break;
