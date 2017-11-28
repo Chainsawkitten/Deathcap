@@ -8,7 +8,7 @@
 
 namespace Audio {
 
-    const unsigned int CHUNK_COUNT = 15U;
+    const unsigned int CHUNK_COUNT = 5U;
     class SoundFile;
 
     /// Streams sound data from file.

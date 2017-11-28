@@ -6,7 +6,7 @@
 namespace Audio {
 
     const unsigned int SAMPLE_RATE = 44100U;
-    const unsigned int CHUNK_SIZE = SAMPLE_RATE / 30;
+    const unsigned int CHUNK_SIZE = SAMPLE_RATE / 20;
 
     /// Class responsible for calculating direct audio.
     class SteamAudioRenderers {
