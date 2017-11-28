@@ -110,14 +110,13 @@ class DebugDrawingManager {
          */
         ENGINE_API void AddCone(float radius, float height, const glm::mat4& matrix, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
 
-        //TMPTODO
         /// Add a mesh to the world.
         /**
-         * @param radius The radius of the cone.
-         * @param height The height of the cone.
-         * @param matrix Matrix to transform the cone with.
+         * @param id The entity's UID.
+         * @param meshComponent The mesh component.
+         * @param matrix Matrix to transform the mesh with.
          * @param color Color of the lines.
-         * @param lineWidth The width of the lines used to draw the cone.
+         * @param wireFrame Whether to wireframe the mesh.
          * @param duration How long the cone should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */

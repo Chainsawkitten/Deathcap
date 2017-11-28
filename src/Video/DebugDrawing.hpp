@@ -289,8 +289,18 @@ namespace Video {
              */
             VIDEO_API void DrawMesh(const Mesh& mesh);
 
-            //TMPTODO
+            /// Generate mesh buffers.
+            /**
+             * @param vertices Vector of vertices.
+             * @param indices Vector of indices.
+             * @param mesh The mesh containing the buffers.
+             */
             VIDEO_API void GenerateBuffers(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices, Mesh& mesh);
+
+            /// Delete mesh buffers.
+            /**
+             * @param mesh The mesh containing the buffers.
+             */
             VIDEO_API void DeleteBuffers(Mesh& mesh);
             
             /// Stop debug drawing.
