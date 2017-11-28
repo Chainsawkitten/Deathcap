@@ -798,6 +798,24 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "Audio",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Scripts",
+								"resources" : 
+								[
+									{
+										"script" : "PlayAudioOnStartup",
+										"type" : 4
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			},
@@ -1507,6 +1525,6 @@
 	"sceneNumber" : 24,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
-	"soundNumber" : 5,
+	"soundNumber" : 6,
 	"textureNumber" : 114
 }

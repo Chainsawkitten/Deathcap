@@ -48,7 +48,45 @@
 								"controllerID" : 1,
 								"type" : "headset"
 							},
-							"children" : null,
+							"children" : 
+							[
+								{
+									"Script" : 
+									{
+										"scriptName" : "Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup"
+									},
+									"SoundSource" : 
+									{
+										"loop" : true,
+										"sound" : "Resources/Opening Scene/Audio/Ambient",
+										"volume" : 0.5
+									},
+									"children" : null,
+									"name" : "AmbientAudio",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511871322
+								}
+							],
 							"name" : "Camera",
 							"position" : 
 							{
