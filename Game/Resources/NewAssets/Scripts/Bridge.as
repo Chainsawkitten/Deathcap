@@ -1,12 +1,10 @@
 class Bridge {
-    Hub @hub;
     Entity @self;
     Entity @cart;
     bool trigger;
     bool playingAudio;
 
     Bridge(Entity @entity){
-        @hub = Managers();
         @self = @entity;
         @cart = GetEntityByGUID(1510920517);
         trigger = false;
@@ -22,12 +20,11 @@ class Bridge {
                 playingAudio = true;
                 self.GetSoundSource().Play();
             }
-            self.RotateRoll(radians(0.25f));
+            self.RotateRoll(radians(0.12f));
         }
         else if (roll(self.rotation) > 0.0f) {
             trigger = false;
             SendMessage(cart, 3);
-            //self.rotation.x = 0.0f;
         }
     }
     

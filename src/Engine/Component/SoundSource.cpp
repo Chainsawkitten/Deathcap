@@ -3,6 +3,7 @@
 #include "../Entity/Entity.hpp"
 #include "../Audio/SoundBuffer.hpp"
 #include "../Audio/SoundFile.hpp"
+#include "../Audio/SoundBuffer.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 
@@ -17,6 +18,7 @@ SoundSource::~SoundSource() {
     if (soundFile)
         Managers().resourceManager->FreeSound(soundFile);
     delete soundBuffer;
+    delete renderers;
 }
 
 Json::Value SoundSource::Save() const {

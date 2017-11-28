@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/elevatorScene/elevatorScene_01",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -28,6 +28,14 @@
 			{
 				"scene" : "stone_scene",
 				"type" : 0
+			},
+			{
+				"script" : "StressScript",
+				"type" : 4
+			},
+			{
+				"script" : "MonsterTestScript",
+				"type" : 4
 			},
 			{
 				"scene" : "buttonScene",
@@ -573,10 +581,6 @@
 								"name" : "Script",
 								"resources" : 
 								[
-									{
-										"script" : "Minecart",
-										"type" : 4
-									},
 									{
 										"script" : "Lantern",
 										"type" : 4
@@ -1491,6 +1495,10 @@
 						[
 							{
 								"script" : "SwitcherScript_1",
+								"type" : 4
+							},
+							{
+								"script" : "SwitcherScript_Final",
 								"type" : 4
 							}
 						],

@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <Utility/Log.hpp>
+#include <cstring>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -30,21 +31,39 @@ TextureHCT::TextureHCT(const char* filename) {
     }
     
     // Read other header information.
-    uint16_t width, height, mipLevels;
+    uint16_t width, height, mipLevels, compressionType;
     file.read(reinterpret_cast<char*>(&width), sizeof(uint16_t));
     file.read(reinterpret_cast<char*>(&height), sizeof(uint16_t));
     file.read(reinterpret_cast<char*>(&mipLevels), sizeof(uint16_t));
+    file.read(reinterpret_cast<char*>(&compressionType), sizeof(uint16_t));
+    
+    GLenum format = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
+    uint32_t blockSize = 8;
+    switch (compressionType) {
+    case BC1:
+        format = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
+        blockSize = 8;
+        break;
+    case BC4:
+        format = GL_COMPRESSED_RED_RGTC1;
+        blockSize = 8;
+        break;
+    case BC5:
+        format = GL_COMPRESSED_RG_RGTC2;
+        blockSize = 16;
+        break;
+    }
     
     // Create image on GPU.
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
-    glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGB8, width, height);
+    glTexStorage2D(GL_TEXTURE_2D, mipLevels, format, width, height);
     
     // Read texture data.
-    uint32_t size = static_cast<uint32_t>(width) * height * 3;
+    uint32_t size = static_cast<uint32_t>(width) * height / 16 * blockSize;
     unsigned char* data = new unsigned char[size];
     for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
-        size = static_cast<uint32_t>(width) * height * 3;
+        size = static_cast<uint32_t>(width) * height / 16 * blockSize;
         if (!file.read(reinterpret_cast<char*>(data), size)) {
             Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";
             file.close();
@@ -52,7 +71,7 @@ TextureHCT::TextureHCT(const char* filename) {
             return;
         }
         
-        glTexSubImage2D(GL_TEXTURE_2D, mipLevel, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glCompressedTexSubImage2D(GL_TEXTURE_2D, mipLevel, 0, 0, width, height, format, size, data);
         width /= 2;
         height /= 2;
     }

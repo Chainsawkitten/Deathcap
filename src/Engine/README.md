@@ -12,6 +12,5 @@ Contains the world, entities, components and the managers that handle them.
 - DirectX (if measuring VRAM)
 - GLFW
 - ImGui
-- OpenAL Soft
 - SimpleIni
 - STB

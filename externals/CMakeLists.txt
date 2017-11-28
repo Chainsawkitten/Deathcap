@@ -40,19 +40,6 @@ add_library(memtracknew STATIC memtrack/MemTrackNew.cpp)
 target_include_directories(memtrack INTERFACE memtrack)
 target_include_directories(memtracknew INTERFACE memtracknew)
 
-# OpenAL Soft
-set(ALSOFT_UTILS OFF CACHE BOOL "Don't build OpenAL Soft utility programs" FORCE)
-set(ALSOFT_EXAMPLES OFF CACHE BOOL "Don't build OpenAL Soft examples" FORCE)
-set(ALSOFT_TESTS OFF CACHE BOOL "Don't build OpenAL Soft tests" FORCE)
-add_subdirectory(openal-soft)
-if(WIN32)
-    set(OPENAL_LIB OpenAL32)
-else()
-    set(OPENAL_LIB openal)
-endif()
-target_include_directories(${OPENAL_LIB} INTERFACE openal-soft/include)
-set(OPENAL_LIB ${OPENAL_LIB} PARENT_SCOPE)
-
 # JsonCpp
 set(BUILD_STATIC_LIBS OFF CACHE BOOL "Don't build statis JsonCpp" FORCE)
 set(JSONCPP_WITH_TESTS OFF CACHE BOOL "Don't build JsonCpp tests" FORCE)
@@ -175,3 +162,7 @@ add_subdirectory(SteamAudio)
 
 # PortAudio
 add_subdirectory(portaudio)
+
+# Compressonator
+add_subdirectory(Compressonator)
+target_include_directories(Compressonator INTERFACE Compressonator)
