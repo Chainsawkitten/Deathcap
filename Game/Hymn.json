@@ -9,7 +9,7 @@
 			"z" : 1.0
 		},
 		"dither" : false,
-		"fog" : false,
+		"fog" : true,
 		"fogColor" : 
 		{
 			"x" : 0.0,
