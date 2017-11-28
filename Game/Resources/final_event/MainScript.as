@@ -1,4 +1,5 @@
 class MainScript {
+    Hub @hub;
     Entity @self;
     Entity @minecart;
     int phase;
@@ -20,14 +21,14 @@ class MainScript {
     float fadeApexDuration = 3.0f; // Time for fade to reach zero
 
     MainScript(Entity @entity){
+        @hub = Managers();
         @self = @entity;
-
         @minecart = GetEntityByGUID(1508919163);
         @knife = GetEntityByGUID(1511264657);
         @monster = GetEntityByGUID(1511261389);
         @rightHand = GetEntityByGUID(1508919758);
         phase = 0;
-        speed = 2.0f;
+        speed = 4.0f;
         waitForMonsterTimer = 0.0f;
         knifePickedUp = false;
 
