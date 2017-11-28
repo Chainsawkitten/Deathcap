@@ -48,11 +48,13 @@ void AnimationController::Save(const std::string& path) {
 
     uint32_t numBools = boolMap.size();
     file.write(reinterpret_cast<char*>(&numBools), sizeof(uint32_t));
+
     for (BoolItem* b : boolMap)
         file.write(reinterpret_cast<char*>(b), sizeof(BoolItem));
 
     uint32_t numFloats = floatMap.size();
     file.write(reinterpret_cast<char*>(&numFloats), sizeof(uint32_t));
+
     for (FloatItem* f : floatMap)
         file.write(reinterpret_cast<char*>(f), sizeof(FloatItem));
 

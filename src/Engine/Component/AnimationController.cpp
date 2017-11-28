@@ -129,6 +129,13 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
             ++bone->currentKeyIndex;
 
         float interpolation = (anim->currentFrame - (float)bone->rotationKeys[bone->currentKeyIndex]) / ((float)bone->rotationKeys[bone->currentKeyIndex + 1] - (float)bone->rotationKeys[bone->currentKeyIndex]);
+
+        interpolation *= 2.f;
+        interpolation -= 1.f;
+        interpolation = glm::sin(interpolation * (glm::pi<float>() / 2.f));
+        interpolation += 1.f;
+        interpolation /= 2.f;
+
         // Clamp interpolation.
         if (interpolation > 0.999f)
             interpolation = 0.999f;
