@@ -2,6 +2,7 @@
 
 #include <angelscript.h>
 #include <scriptbuilder/scriptbuilder.h>
+#include <scriptarray/scriptarray.h>
 #include <scriptmath/scriptmath.h>
 #include <scriptstdstring/scriptstdstring.h>
 #include <Utility/Log.hpp>
@@ -239,6 +240,7 @@ ScriptManager::ScriptManager() {
   
     // Register add-ons.
     RegisterStdString(engine);
+    RegisterScriptArray(engine, true);
     RegisterScriptMath(engine);
 
     engine->RegisterEnum("input");
