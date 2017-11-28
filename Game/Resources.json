@@ -35,7 +35,7 @@
 			},
 			{
 				"script" : "MonsterTestScript",
-				"type" : 4			
+				"type" : 4
 			}
 		],
 		"subfolders" : 
@@ -1509,6 +1509,10 @@
 					{
 						"scene" : "elevatorScene_01",
 						"type" : 0
+					},
+					{
+						"scene" : "buttonScene",
+						"type" : 0
 					}
 				],
 				"subfolders" : 
@@ -1519,6 +1523,18 @@
 						[
 							{
 								"model" : "elevatorCave_01",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_board",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_button",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_button_frame",
 								"type" : 1
 							}
 						],
@@ -1617,7 +1633,7 @@
 			}
 		]
 	},
-	"sceneNumber" : 28,
+	"sceneNumber" : 29,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
