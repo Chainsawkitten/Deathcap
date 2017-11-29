@@ -2,1117 +2,6 @@
 	"children" : 
 	[
 		{
-			"children" : 
-			[
-				{
-					"Material" : 
-					{
-						"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-						"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
-						"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
-						"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-					},
-					"Mesh" : 
-					{
-						"model" : "Resources/elevatorScene/Models/lightsOut_board"
-					},
-					"children" : null,
-					"name" : "board",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : -0.22900001704692841
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 0.77000004053115845
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511530403
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
-								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511530433
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
-								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511530425
-						}
-					],
-					"name" : "button_0",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511530844
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
-								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511531105
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
-								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511531178
-						}
-					],
-					"name" : "button_1",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.25
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511531080
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511531390
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511531392
-						}
-					],
-					"name" : "button_2",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.5
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511531383
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511531526
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511531532
-						}
-					],
-					"name" : "button_3",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.75
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511531517
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511531824
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511531825
-						}
-					],
-					"name" : "button_4",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 1.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511531798
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532020
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532022
-						}
-					],
-					"name" : "button_5",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.20000000298023224,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511532014
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532139
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532143
-						}
-					],
-					"name" : "button_6",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.20000000298023224,
-						"z" : 0.25
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511532127
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532248
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532249
-						}
-					],
-					"name" : "button_7",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.20000000298023224,
-						"z" : 0.5
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511532242
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532391
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532392
-						}
-					],
-					"name" : "button_8",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.20000000298023224,
-						"z" : 0.75
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511532349
-				},
-				{
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button"
-							},
-							"children" : null,
-							"name" : "button",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532541
-						},
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-								"metallic" : "",
-								"normal" : "",
-								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
-							},
-							"children" : null,
-							"name" : "button_frame",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511532542
-						}
-					],
-					"name" : "button_9",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.20000000298023224,
-						"z" : 1.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511532534
-				},
-				{
-					"children" : null,
-					"name" : "button_10",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511532718
-				}
-			],
-			"name" : "puzzleBoard",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1511530025
-		},
-		{
 			"DirectionalLight" : 
 			{
 				"ambientCoefficient" : 0.0,
@@ -1147,6 +36,846 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511530590
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/elevatorScene/Models/elevatorCave_01"
+			},
+			"children" : null,
+			"name" : "Cave",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511864673
+		},
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : -31.168783187866211,
+				"y" : -10.475735664367676,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : -0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.20000000298023224,
+				"y" : 0.20000000298023224,
+				"z" : 0.20000000298023224
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/frontDoorWithX"
+					},
+					"children" : null,
+					"name" : "frontDoorWithX",
+					"position" : 
+					{
+						"x" : 0.023000000044703484,
+						"y" : 0.0,
+						"z" : -1.6240622997283936
+					},
+					"rotation" : 
+					{
+						"w" : 1.910685465164705e-15,
+						"x" : -4.3711388286737929e-08,
+						"y" : 1.0,
+						"z" : -4.3711388286737929e-08
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870049
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/elevatorCage"
+					},
+					"children" : null,
+					"name" : "cage",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : -0.065000005066394806,
+						"z" : -1.6319649219512939
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870172
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/frontDoorWithOutOfService"
+					},
+					"children" : null,
+					"name" : "frontDoorWithOutOfService",
+					"position" : 
+					{
+						"x" : -0.023000000044703484,
+						"y" : 0.0,
+						"z" : -1.6239999532699585
+					},
+					"rotation" : 
+					{
+						"w" : 1.910685465164705e-15,
+						"x" : 4.3711388286737929e-08,
+						"y" : 1.0,
+						"z" : 4.3711388286737929e-08
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870278
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/backDoorWithX"
+					},
+					"children" : null,
+					"name" : "backDoorWithX",
+					"position" : 
+					{
+						"x" : -0.023000000044703484,
+						"y" : 0.0,
+						"z" : 0.47699999809265137
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870598
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/backDoorOutOfService"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"sphere" : 
+								{
+									"radius" : 0.30000001192092896
+								}
+							},
+							"children" : null,
+							"name" : "backdoorServiceTrigger",
+							"position" : 
+							{
+								"x" : -0.071000002324581146,
+								"y" : 0.6940000057220459,
+								"z" : -1.0860000848770142
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511959499
+						}
+					],
+					"name" : "backkDoorOutOfService",
+					"position" : 
+					{
+						"x" : 0.023000000044703484,
+						"y" : 0.0,
+						"z" : 0.47699999809265137
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870668
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/mineElevator_wheel"
+					},
+					"children" : null,
+					"name" : "elevatorWheel",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : -0.061000004410743713,
+						"z" : -1.6273430585861206
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511871150
+				}
+			],
+			"name" : "Elevator",
+			"position" : 
+			{
+				"x" : 3.0337355136871338,
+				"y" : -10.62399959564209,
+				"z" : 0.16364002227783203
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.9528131484985352,
+				"y" : 1.3799999952316284,
+				"z" : 1.5794018507003784
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511870044
+		},
+		{
+			"children" : 
+			[
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 0.30000001192092896
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 1,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 5,
+						"triggerFunction" : "void MoveUpward()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511872744,
+						"triggerTargetEntity" : 1511874401,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "EnterElevatorTrigger",
+					"position" : 
+					{
+						"x" : 1.7642042636871338,
+						"y" : -9.7701959609985352,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511872744
+				},
+				{
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 4.0,
+							"height" : 1.0,
+							"width" : 1.0
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 3,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 5,
+						"triggerFunction" : "void StopCart()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511945035,
+						"triggerTargetEntity" : 1511874401,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "ExitElevatorTrigger",
+					"position" : 
+					{
+						"x" : 0.49100607633590698,
+						"y" : 13.987106323242188,
+						"z" : 0.16709530353546143
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511945035
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 1.4000000953674316
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 1,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 6,
+						"triggerFunction" : "void OpenDoor()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511946540,
+						"triggerTargetEntity" : 1511946590,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "OpenFrontDoorTrigger",
+					"position" : 
+					{
+						"x" : -10.439712524414063,
+						"y" : -9.9051427841186523,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511946540
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 0.30000001192092896
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 2,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 6,
+						"triggerFunction" : "void CloseDoor()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511948057,
+						"triggerTargetEntity" : 1511946590,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "CloseFrontDoorTrigger",
+					"position" : 
+					{
+						"x" : 1.7680014371871948,
+						"y" : -9.7720804214477539,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511948057
+				},
+				{
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 4.0,
+							"height" : 1.0,
+							"width" : 1.0
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 1,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 7,
+						"triggerFunction" : "void OpenDoor()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511951155,
+						"triggerTargetEntity" : 1511958482,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "OpenBackDoorTrigger",
+					"position" : 
+					{
+						"x" : 0.4151991605758667,
+						"y" : 13.935922622680664,
+						"z" : 0.014921724796295166
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511951155
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 1.4000000953674316
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1511959499,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 2,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 5,
+						"triggerFunction" : "void MoveForward()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511958017,
+						"triggerTargetEntity" : 1511874401,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "CheckDoorStatusTrigger",
+					"position" : 
+					{
+						"x" : 1.9215497970581055,
+						"y" : 12.181638717651367,
+						"z" : 2.7772500514984131
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511958017
+				}
+			],
+			"name" : "Triggers",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511878089
+		},
+		{
+			"children" : 
+			[
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/elevatorScene/Scripts/elevator_moveCart"
+					},
+					"children" : null,
+					"name" : "elevatorCartScript",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511874401
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/elevatorScene/Scripts/elevator_frontDoorCon"
+					},
+					"children" : null,
+					"name" : "elevatorFrontDoorScript",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511946590
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/elevatorScene/Scripts/elevator_backDoorCon"
+					},
+					"children" : null,
+					"name" : "elevatorBackDoorScript",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511958482
+				}
+			],
+			"name" : "Scripts",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511878105
 		}
 	],
 	"name" : "Root",

@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 145,
+	"modelNumber" : 156,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -27,10 +27,6 @@
 			},
 			{
 				"scene" : "stone_scene",
-				"type" : 0
-			},
-			{
-				"scene" : "buttonScene",
 				"type" : 0
 			}
 		],
@@ -1514,15 +1510,7 @@
 						"resources" : 
 						[
 							{
-								"model" : "lightsOut_board",
-								"type" : 1
-							},
-							{
-								"model" : "lightsOut_button",
-								"type" : 1
-							},
-							{
-								"model" : "lightsOut_button_frame",
+								"model" : "elevatorCave_01",
 								"type" : 1
 							}
 						],
@@ -1547,6 +1535,72 @@
 							{
 								"texture" : "lightsOut_roughness",
 								"type" : 2
+							},
+							{
+								"texture" : "elevator_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_roughness",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Elevator Parts",
+						"resources" : 
+						[
+							{
+								"model" : "frontDoorWithX",
+								"type" : 1
+							},
+							{
+								"model" : "elevatorCage",
+								"type" : 1
+							},
+							{
+								"model" : "frontDoorWithOutOfService",
+								"type" : 1
+							},
+							{
+								"model" : "backDoorWithX",
+								"type" : 1
+							},
+							{
+								"model" : "backDoorOutOfService",
+								"type" : 1
+							},
+							{
+								"model" : "mineElevator_wheel",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "elevator_moveCart",
+								"type" : 4
+							},
+							{
+								"script" : "elevator_frontDoorCon",
+								"type" : 4
+							},
+							{
+								"script" : "elevator_backDoorCon",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
@@ -1559,5 +1613,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 119
+	"textureNumber" : 123
 }
