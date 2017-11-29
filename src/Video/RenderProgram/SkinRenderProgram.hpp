@@ -78,9 +78,8 @@ namespace Video {
              * @param textureRoughness Roughness texture.
              * @param modelMatrix Model matrix.
              * @param bones Transformations of skeleton.
-             * @param isSelected Whether mesh should be highlighted.
              */
-            void Render(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) const;
+            void Render(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const;
             
         private:
             SkinRenderProgram(const SkinRenderProgram & other) = delete;
@@ -105,7 +104,6 @@ namespace Video {
             GLuint colorFilterColorLocation;
             GLuint ditherApplyLocation;
             GLuint timeLocation;
-            GLuint isSelectedLocation;
             GLuint mapAlbedoLocation;
             GLuint mapNormalLocation;
             GLuint mapMetallicLocation;

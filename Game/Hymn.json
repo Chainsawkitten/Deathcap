@@ -38,6 +38,7 @@
 			"size" : 2
 		}
 	],
+	"name" : "Deathcap",
 	"scripts" : 
 	[
 		"Resources/Constant Scene/Minecart/Script/Camera",

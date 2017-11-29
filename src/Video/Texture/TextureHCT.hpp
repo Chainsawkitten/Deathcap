@@ -21,8 +21,9 @@ namespace Video {
         /// Load texture.
         /**
          * @param filenameThe name of the HCT file to load.
+         * @param textureReduction The mip-level to start loading.
          */
-        VIDEO_API explicit TextureHCT(const char* filename);
+        VIDEO_API TextureHCT(const char* filename, uint16_t textureReduction);
         
         /// Destructor.
         VIDEO_API ~TextureHCT() override;
