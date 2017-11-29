@@ -27,8 +27,8 @@ namespace Audio {
                     /**
                      * @param soundStreamer The Soundstreamer to get work from.
                      */
-
                     void Start(SoundStreamer* soundStreamer);
+
                     /// Start thread.
                     /**
                      * @param soundStreamer The Soundstreamer to get work from.
