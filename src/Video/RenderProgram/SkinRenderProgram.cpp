@@ -57,7 +57,6 @@ SkinRenderProgram::SkinRenderProgram() {
     colorFilterColorLocation = shaderProgram->GetUniformLocation("colorFilterColor");
     ditherApplyLocation = shaderProgram->GetUniformLocation("ditherApply");
     timeLocation = shaderProgram->GetUniformLocation("time");
-    isSelectedLocation = shaderProgram->GetUniformLocation("isSelected");
     mapAlbedoLocation = shaderProgram->GetUniformLocation("mapAlbedo");
     mapNormalLocation = shaderProgram->GetUniformLocation("mapNormal");
     mapMetallicLocation = shaderProgram->GetUniformLocation("mapMetallic");
@@ -168,7 +167,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     }
 }
 
-void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) const {
+void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glDepthFunc(GL_LEQUAL);
@@ -177,7 +176,6 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glBindVertexArray(geometry->GetVertexArray());
         
         // Set texture locations.
-        glUniform1i(isSelectedLocation, false);
         glUniform1i(mapAlbedoLocation, 0);
         glUniform1i(mapNormalLocation, 1);
         glUniform1i(mapMetallicLocation, 2);
@@ -201,13 +199,6 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glUniformMatrix4fv(bonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-
-        if (isSelected) {
-            glUniform1i(isSelectedLocation, true);
-            glLineWidth(2.0f);
-            for (unsigned int i = 0; i < geometry->GetIndexCount(); i += 3)
-                glDrawArrays(GL_LINE_LOOP, i, 3);
-        }
 
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LESS);
