@@ -117,7 +117,7 @@ class DebugDrawingManager {
          * @param matrix Matrix to transform the mesh with.
          * @param color Color of the lines.
          * @param wireFrame Whether to wireframe the mesh.
-         * @param duration How long the cone should stay in the world (in seconds).
+         * @param duration How long the mesh should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
         ENGINE_API void AddMesh(unsigned int id, Component::Mesh* meshComponent, const glm::mat4& matrix, const glm::vec3& color, bool wireFrame = true, float duration = 0.f, bool depthTesting = true);
