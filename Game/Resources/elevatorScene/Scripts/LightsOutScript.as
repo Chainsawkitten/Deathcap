@@ -49,22 +49,22 @@ class LightsOutScript {
         print("Pressed button nr `" + index + "`\n");
 
         int left = index - 1;
-        if (IsValid(left)) {
+        if (index % 5 != 0 && IsValid(left)) {
             Toggle(left);
         }
 
         int right = index + 1;
-        if (IsValid(right)) {
+        if (index % 5 != 4 && IsValid(right)) {
             Toggle(right);
         }
 
         int up = index - 5;
-        if (IsValid(up)) {
+        if (index > 4 && IsValid(up)) {
             Toggle(up);
         }
 
         int down = index + 5;
-        if (IsValid(down)) {
+        if (index < 20 && IsValid(down)) {
             Toggle(down);
         }
 
