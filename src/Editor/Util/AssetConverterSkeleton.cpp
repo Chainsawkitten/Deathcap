@@ -47,7 +47,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         Animation::Skeleton skeleton;
         for (unsigned int i = 0; i < bones.size(); ++i) {
             auto boneIndex = 0;
-            for (auto j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
+            for (unsigned int j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
                 if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i]) {
                     boneIndex = j;
                     break;
@@ -93,7 +93,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
 
         for (unsigned int i = 0; i < bones.size(); ++i) {
             auto boneIndex = 0;
-            for (auto j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
+            for (unsigned int j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
                 if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i])
                     boneIndex = j;
 
@@ -147,10 +147,10 @@ void AssetConverterSkeleton::SceneRecursive(aiNode* node, int parent) {
 
     int thisId = currentId;
 
-    for (auto i = 0; i < node->mNumChildren; ++i) {
+    for (unsigned int i = 0; i < node->mNumChildren; ++i) {
         aiNode* child = node->mChildren[i];
         bool foundBone = false;
-        for (auto j = 0; j < bones.size(); ++j)
+        for (std::size_t j = 0; j < bones.size(); ++j)
             if (child->mName.C_Str() == bones[j]) {
                 children.push_back(child->mName.C_Str());
                 ids.push_back(0);
@@ -170,15 +170,15 @@ void AssetConverterSkeleton::BoneRecursive(aiNode* node, int parent) {
 
     int thisId = currentId;
 
-    for (auto i = 0; i < node->mNumChildren; ++i) {
+    for (unsigned int i = 0; i < node->mNumChildren; ++i) {
         aiNode* child = node->mChildren[i];
         bool foundBone = false;
-        for (auto j = 0; j < bones.size() && !foundBone; ++j)
+        for (std::size_t j = 0; j < bones.size() && !foundBone; ++j)
             if (child->mName.C_Str() == bones[j]) {
                 children.push_back(child->mName.C_Str());
                 ids.push_back(thisId);
 
-                for (auto k = 0; k < bones.size(); ++k)
+                for (std::size_t k = 0; k < bones.size(); ++k)
                     if (bones[k] == child->mParent->mName.C_Str()) {
                         parents.push_back(k);
                         break;
