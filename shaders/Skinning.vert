@@ -14,7 +14,9 @@ const int MAX_BONES = 100;
 uniform mat4 viewProjection;
 uniform mat4 model;
 uniform mat3 normalMatrix;
+uniform mat4 viewMatrix;
 uniform mat4 bones[MAX_BONES];
+uniform mat4 lightSpaceMatrix;
 
 out VertexData {
     vec3 pos;
@@ -35,10 +37,11 @@ void main () {
     normal += (bones[vertexBoneIDs[2]] * vec4(vertexNormal, 0.0)) * vertexWeights[2];
     normal += (bones[vertexBoneIDs[3]] * vec4(vertexNormal, 0.0)) * vertexWeights[3];
     
-    gl_Position = viewProjection * (model * vec4(position.xyz, 1.0));
-    vertexOut.pos = (model * vec4(position.xyz, 1.0)).xyz;
-    vertexOut.normal = normalize(normal.xyz);
+    vec4 worldPosition = model * vec4(position.xyz, 1.0);
+    gl_Position = viewProjection * worldPosition;
+    vertexOut.pos = vec3(viewMatrix * worldPosition);
+    vertexOut.normal = normalize(normalMatrix * normal.xyz);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;
-    vertexOut.fragPosLightSpace = vec4(0,0,0,0);//lightSpaceMatrix * worldPosition;
+    vertexOut.fragPosLightSpace = lightSpaceMatrix * worldPosition;
 }
