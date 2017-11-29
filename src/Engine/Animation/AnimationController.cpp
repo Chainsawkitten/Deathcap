@@ -32,21 +32,29 @@ void AnimationController::Save(const std::string& path) {
         if (typeid(*node) == typeid(AnimationAction)) {
             NodeType nodetype = ACTION;
             file.write(reinterpret_cast<char*>(&nodetype), sizeof(NodeType));
+            AnimationAction* animationAction = dynamic_cast<AnimationAction*>(node);
+
+            if (animationAction)
+                animationAction->Save(&file);
         } else {
             NodeType nodetype = TRANSITION;
             file.write(reinterpret_cast<char*>(&nodetype), sizeof(NodeType));
-        }
+            AnimationTransition* animationTransition = dynamic_cast<AnimationTransition*>(node);
 
-        node->Save(&file);
+            if (animationTransition)
+                animationTransition->Save(&file);
+        }
     }
 
     uint32_t numBools = boolMap.size();
     file.write(reinterpret_cast<char*>(&numBools), sizeof(uint32_t));
+
     for (BoolItem* b : boolMap)
         file.write(reinterpret_cast<char*>(b), sizeof(BoolItem));
 
     uint32_t numFloats = floatMap.size();
     file.write(reinterpret_cast<char*>(&numFloats), sizeof(uint32_t));
+
     for (FloatItem* f : floatMap)
         file.write(reinterpret_cast<char*>(f), sizeof(FloatItem));
 
@@ -88,13 +96,11 @@ void AnimationController::Load(const std::string& name) {
         }
     }
 
-    for (std::size_t i = 0; i < boolMap.size(); ++i) {
+    for (std::size_t i = 0; i < boolMap.size(); ++i)
         delete boolMap[i];
-    }
 
-    for (std::size_t i = 0; i < floatMap.size(); ++i) {
+    for (std::size_t i = 0; i < floatMap.size(); ++i)
         delete floatMap[i];
-    }
 
     uint32_t numBools;
     file.read(reinterpret_cast<char*>(&numBools), sizeof(uint32_t));
