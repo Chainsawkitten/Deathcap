@@ -1,0 +1,10 @@
+{
+	"highFreqAbsorption" : 0.059999998658895493,
+	"highFreqTransmission" : 0.004999999888241291,
+	"lowFreqAbsorption" : 0.10999999940395355,
+	"lowFreqTransmission" : 0.070000000298023224,
+	"midFreqAbsorption" : 0.070000000298023224,
+	"midFreqTransmission" : 0.014000000432133675,
+	"name" : "AudioMaterialWood",
+	"scattering" : 0.05000000074505806
+}
