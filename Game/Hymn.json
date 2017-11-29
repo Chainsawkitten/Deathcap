@@ -38,6 +38,7 @@
 			"size" : 2
 		}
 	],
+	"name" : "Deathcap",
 	"scripts" : 
 	[
 		"Resources/Constant Scene/Minecart/Script/Camera",
@@ -61,6 +62,6 @@
 		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
 		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer"
 	],
-	"startupScene" : "Resources/NewAssetsScene",
+	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5
 }
