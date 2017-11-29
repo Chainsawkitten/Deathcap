@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Opening Scene/Opening Scene",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 3,
-	"modelNumber" : 144,
+	"modelNumber" : 146,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1362,7 +1362,24 @@
 								"type" : 3
 							}
 						],
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "Meshes",
+								"resources" : 
+								[
+									{
+										"model" : "StoneAudioMesh",
+										"type" : 1
+									},
+									{
+										"model" : "WoodAudioMesh",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			},
