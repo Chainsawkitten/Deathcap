@@ -13,7 +13,7 @@ DocumentationEditor
 DocumentationGame
 
 # Log from testing
-Game\Log*.txt
+Game/Log*.txt
 
 # Precompiled Headers
 *.gch
