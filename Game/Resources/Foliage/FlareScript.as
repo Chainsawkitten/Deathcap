@@ -18,7 +18,7 @@ class FlareScript {
     // Called by the engine for each frame.
     void Update(float deltaTime) {
         auto light = self.GetPointLight();
-        time += deltaTime*3;
+        time += deltaTime*4;
         light.intensity = intensity + ((sin(2*time/3.5) + sin((3.5*time)/3) + sin(2*time/5))/3)*50;
     }
 }
