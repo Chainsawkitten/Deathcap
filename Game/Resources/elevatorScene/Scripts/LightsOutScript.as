@@ -2,15 +2,18 @@ class LightsOutScript {
     Hub @hub;
     Entity @self;
     Entity @board;
+    Entity @rightController;
     array<Entity@> buttons(25);
     array<bool> buttonStates(25);
     int numPressedButtons = 0;
     bool gameWon = false;
+    bool isPressed = false;
 
     LightsOutScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @board = GetEntityByGUID(1511530025);
+        @rightController = GetEntityByGUID(1508919758);
         
         for (int row = 0; row < 5; ++row) {
             for (int column = 0; column < 5; ++column) {
@@ -20,7 +23,13 @@ class LightsOutScript {
             }
         }
 
-        Toggle(0);
+        RegisterUpdate();
+    }
+
+    void Update(float deltaTime) {
+        if (isPressed && !Input(Trigger, rightController)) {
+            isPressed = false;
+        }
     }
 
     void Toggle(int index) {
@@ -46,34 +55,36 @@ class LightsOutScript {
             return;
         }
 
-        print("Pressed button nr `" + index + "`\n");
+        if (!isPressed && Input(Trigger, rightController)) {
+            isPressed = true;
 
-        int left = index - 1;
-        if (index % 5 != 0 && IsValid(left)) {
-            Toggle(left);
-        }
+            int left = index - 1;
+            if (index % 5 != 0 && IsValid(left)) {
+                Toggle(left);
+            }
 
-        int right = index + 1;
-        if (index % 5 != 4 && IsValid(right)) {
-            Toggle(right);
-        }
+            int right = index + 1;
+            if (index % 5 != 4 && IsValid(right)) {
+                Toggle(right);
+            }
 
-        int up = index - 5;
-        if (index > 4 && IsValid(up)) {
-            Toggle(up);
-        }
+            int up = index - 5;
+            if (index > 4 && IsValid(up)) {
+                Toggle(up);
+            }
 
-        int down = index + 5;
-        if (index < 20 && IsValid(down)) {
-            Toggle(down);
-        }
+            int down = index + 5;
+            if (index < 20 && IsValid(down)) {
+                Toggle(down);
+            }
 
-        Toggle(index);
+            Toggle(index);
 
-        if (numPressedButtons == 25) {
-            gameWon = true;
-            //SendMessage(somewhere);
-            print("Won the game of lights out.\n");
+            if (numPressedButtons == 25) {
+                gameWon = true;
+                //SendMessage(somewhere);
+                print("Won the game of lights out.\n");
+            }
         }
     }
 
