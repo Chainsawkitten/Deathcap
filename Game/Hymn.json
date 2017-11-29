@@ -60,6 +60,6 @@
 		"Resources/StressScript",
 		"Resources/MonsterTestScript"
 	],
-	"startupScene" : "Resources/NewAssetsScene",
+	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5
 }

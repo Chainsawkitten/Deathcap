@@ -197,7 +197,7 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         if (isSelected) {
             glUniform1i(isSelectedLocation, true);
             glLineWidth(2.0f);
-            for (int i = 0; i < geometry->GetIndexCount(); i += 3)
+            for (unsigned int i = 0; i < geometry->GetIndexCount(); i += 3)
                 glDrawArrays(GL_LINE_LOOP, i, 3);
         }
 

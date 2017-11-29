@@ -3,14 +3,15 @@ Contains the world, entities, components and the managers that handle them.
 
 ## Dependencies
 ### Modules
-- Physics
 - Video
 
 ### External libraries
 - Angelscript
+- Bullet
 - Catch
 - DirectX (if measuring VRAM)
 - GLFW
-- ImGui
+- PortAudio
 - SimpleIni
 - STB
+- SteamAudio

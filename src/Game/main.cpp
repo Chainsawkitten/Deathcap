@@ -5,6 +5,7 @@
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Manager/RenderManager.hpp>
+#include <Engine/Manager/SoundManager.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Input/Input.hpp>
 #include <Utility/Log.hpp>
@@ -51,6 +52,7 @@ int main() {
     // Compile scripts.
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
+    Managers().soundManager->CreateAudioEnvironment();
     
     // Main loop.
     double targetFPS = 60.0;
