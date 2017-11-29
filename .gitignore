@@ -12,6 +12,9 @@ DocumentationEngine
 DocumentationEditor
 DocumentationGame
 
+# Log from testing
+Game\Log*.txt
+
 # Precompiled Headers
 *.gch
 *.pch
