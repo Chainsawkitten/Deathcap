@@ -858,7 +858,7 @@
 								"triggerEventStruct_ScriptID" : 1,
 								"triggerEventStruct_ShapeID" : 0,
 								"triggerEventStruct_TargetID" : 0,
-								"triggerFunction" : "",
+								"triggerFunction" : "void b_0_0()",
 								"triggerName" : "New Trigger",
 								"triggerOwner" : 1511862451,
 								"triggerTargetEntity" : 1511530025,
