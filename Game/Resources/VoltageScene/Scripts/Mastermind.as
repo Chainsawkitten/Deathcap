@@ -13,7 +13,7 @@ class Mastermind {
 	Entity @light3;
 	Entity @light4;
     
-    
+    Entity @flickeringLights;
 	
     Mastermind(Entity @entity){
         @hub = Managers();
@@ -43,6 +43,11 @@ class Mastermind {
 		
 		
 		}
+        else{
+        
+            SendMessage(flickeringLights, 1);
+        
+        }
 			
     }
 		

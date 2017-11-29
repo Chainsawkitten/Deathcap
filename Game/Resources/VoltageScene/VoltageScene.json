@@ -507,7 +507,64 @@
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"intensity" : 1.3570001125335693
+				"intensity" : 2.064000129699707
+			},
+			"Script" : 
+			{
+				"propertyMap" : 
+				{
+					"flickSpeed" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							32,
+							65
+						]
+					},
+					"flickTime" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							128,
+							63
+						]
+					},
+					"light" : 
+					{
+						"1140850707" : 
+						[
+							243,
+							25,
+							24,
+							90
+						]
+					},
+					"originalIntensity" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"timer" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"scriptName" : "Resources/VoltageScene/Scripts/FlickeringLights"
 			},
 			"children" : null,
 			"name" : "JensLampa",
@@ -631,6 +688,16 @@
 							0,
 							0,
 							0
+						]
+					},
+					"flickeringLights" : 
+					{
+						"1140850707" : 
+						[
+							243,
+							25,
+							24,
+							90
 						]
 					},
 					"light1" : 

@@ -4,6 +4,7 @@ class FlickeringLights {
     Entity @light;
     
     float flickTime;
+    float flickSpeed;
     
     FlickeringLights(Entity @entity){
         @hub = Managers();
@@ -23,7 +24,8 @@ class FlickeringLights {
         if(first){
         
             originalIntensity = light.GetPointLight().intensity;
-        
+            first = false;
+            
         }
         if(flick){
         
@@ -42,14 +44,14 @@ class FlickeringLights {
     }
     
     void ReceiveMessage(Entity @sender, int signal) {
-    
+        
         flick = true;
     
     }
  
     void FlickLight(Entity @light, float t){
     
-        if(sin(t) < 0)
+        if(sin(t * flickSpeed) < 0)
             light.GetPointLight().intensity = 0;
         else
             light.GetPointLight().intensity = originalIntensity;
