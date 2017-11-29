@@ -62,7 +62,8 @@
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
 		"Resources/MonsterTestScript",
-		"Resources/VoltageScene/Scripts/RoundaboutScript"
+		"Resources/VoltageScene/Scripts/RoundaboutScript",
+		"Resources/VoltageScene/Scripts/ElevatorSoundScript"
 	],
 	"startupScene" : "Resources/VoltageScene/VoltageScene",
 	"vrScale" : 1.5

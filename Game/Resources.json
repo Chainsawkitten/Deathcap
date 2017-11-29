@@ -1671,6 +1671,10 @@
 							{
 								"script" : "RoundaboutScript",
 								"type" : 4
+							},
+							{
+								"script" : "ElevatorSoundScript",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
