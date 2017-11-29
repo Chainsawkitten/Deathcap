@@ -74,9 +74,8 @@ namespace Video {
              * @param textureMetallic Metallic texture.
              * @param textureRoughness Roughness texture.
              * @param modelMatrix Model matrix.
-             * @param isSelected Whether mesh should be highlighted.
              */
-            void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, bool isSelected) const;
+            void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix) const;
 
         private:
             StaticRenderProgram(const StaticRenderProgram& other) = delete;
@@ -102,7 +101,6 @@ namespace Video {
             GLuint ditherLocation;
             GLuint timeLocation;
             GLuint frameSizeLocation;
-            GLuint isSelectedLocation;
             GLuint mapAlbedoLocation;
             GLuint mapNormalLocation;
             GLuint mapMetallicLocation;

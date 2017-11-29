@@ -57,7 +57,6 @@ StaticRenderProgram::StaticRenderProgram() {
     ditherLocation = shaderProgram->GetUniformLocation("ditherApply");
     timeLocation = shaderProgram->GetUniformLocation("time");
     frameSizeLocation = shaderProgram->GetUniformLocation("frameSize");
-    isSelectedLocation = shaderProgram->GetUniformLocation("isSelected");
     mapAlbedoLocation = shaderProgram->GetUniformLocation("mapAlbedo");
     mapNormalLocation = shaderProgram->GetUniformLocation("mapNormal");
     mapMetallicLocation = shaderProgram->GetUniformLocation("mapMetallic");
@@ -156,7 +155,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glUniform2fv(frameSizeLocation, 1, &frameSize[0]);
 }
 
-void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, bool isSelected) const {
+void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glDepthFunc(GL_LEQUAL);
@@ -165,7 +164,6 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glBindVertexArray(geometry->GetVertexArray());
 
         // Set texture locations
-        glUniform1i(isSelectedLocation, false);
         glUniform1i(mapAlbedoLocation, 0);
         glUniform1i(mapNormalLocation, 1);
         glUniform1i(mapMetallicLocation, 2);
@@ -190,16 +188,7 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
         glUniformMatrix3fv(normalLocation, 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
 
-        glUniform1i(isSelectedLocation, false);
-
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-
-        if (isSelected) {
-            glUniform1i(isSelectedLocation, true);
-            glLineWidth(2.0f);
-            for (int i = 0; i < geometry->GetIndexCount(); i += 3)
-                glDrawArrays(GL_LINE_LOOP, i, 3);
-        }
 
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LESS);
