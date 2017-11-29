@@ -51,6 +51,7 @@ ActiveHymn& ActiveHymn::GetInstance() {
 void ActiveHymn::Clear() {
     path = "";
     startupScene = "";
+    name = "";
     world.Clear();
     
     entityNumber = 1U;
@@ -130,6 +131,7 @@ Json::Value ActiveHymn::ToJson() const {
 
     root["vrScale"] = vrScale;
     root["startupScene"] = startupScene;
+    root["name"] = name;
     
     return root;
 }
@@ -160,6 +162,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     vrScale = root["vrScale"].asFloat();
     Managers().vrManager->SetScale(vrScale);
     startupScene = root["startupScene"].asString();
+    name = root["name"].asString();
 }
 
 void ActiveHymn::Update(float deltaTime) {

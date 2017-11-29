@@ -686,6 +686,14 @@ bool RenderManager::GetDitherApply() const {
     return Hymn().filterSettings.ditherApply;
 }
 
+void RenderManager::SetTextureReduction(uint16_t textureReduction) {
+    this->textureReduction = textureReduction;
+}
+
+uint16_t RenderManager::GetTextureReduction() const {
+    return textureReduction;
+}
+
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
     std::vector<Video::Light> lights;
 
