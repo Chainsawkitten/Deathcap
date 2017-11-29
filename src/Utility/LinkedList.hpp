@@ -1,7 +1,5 @@
 #pragma once
 
-#include <assert.h>
-
 namespace Utility {
     //TMPTODO
     template<typename T> class LinkedList {
