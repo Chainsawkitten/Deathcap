@@ -12,6 +12,8 @@ class RoundaboutScript {
         RegisterUpdate();
     }
 
+    float currentAngle = 0;
+    
     bool rotate = false;
     float rotateAngle;
     float amountRotated;
@@ -20,15 +22,17 @@ class RoundaboutScript {
     void Update(float deltaTime) {
 
         if(rotate){
-        
-            self.rotation.y += direction * rotateSpeed * deltaTime;            
+            print("test");
+            self.RotateAroundWorldAxis(direction * rotateSpeed * deltaTime, vec3(0,1,0));            
             if(amountRotated + rotateSpeed * deltaTime > rotateAngle){
-            
-                self.rotation += direction * (rotateAngle - amountRotated);
+                self.RotateAroundWorldAxis(direction * (rotateAngle - amountRotated), vec3(0,1,0));    
+                amountRotated = 0;
                 rotate = false;
                 
             } else            
                 amountRotated += rotateSpeed * deltaTime;
+            
+            currentAngle += direction * rotateSpeed * deltaTime;
             
         }
     
@@ -53,7 +57,7 @@ class RoundaboutScript {
                 }
                 case 2:{ //Rotate to correct angle
                     
-                    rotateAngle = correctAngle - self.rotation.y;
+                    rotateAngle = correctAngle - currentAngle;
                     direction = 1;
                     rotate = true;
                     

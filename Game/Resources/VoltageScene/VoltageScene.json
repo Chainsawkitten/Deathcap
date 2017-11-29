@@ -161,6 +161,73 @@
 			{
 				"model" : "Resources/VoltageScene/Models/VoltageRoundAbout"
 			},
+			"Script" : 
+			{
+				"propertyMap" : 
+				{
+					"amountRotated" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"correctAngle" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"currentAngle" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"direction" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"rotateAngle" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"rotateSpeed" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							128,
+							63
+						]
+					}
+				},
+				"scriptName" : "Resources/VoltageScene/Scripts/RoundaboutScript"
+			},
 			"children" : null,
 			"name" : "VoltageRoundAbout",
 			"position" : 
@@ -748,6 +815,16 @@
 							0,
 							0,
 							0
+						]
+					},
+					"roundabout" : 
+					{
+						"1140850707" : 
+						[
+							101,
+							10,
+							24,
+							90
 						]
 					},
 					"slot1" : 

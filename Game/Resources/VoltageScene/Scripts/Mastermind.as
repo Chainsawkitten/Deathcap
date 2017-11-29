@@ -14,7 +14,8 @@ class Mastermind {
 	Entity @light4;
     
     Entity @flickeringLights;
-	
+	Entity @roundabout;
+    
     Mastermind(Entity @entity){
         @hub = Managers();
         @self = @entity;
@@ -45,7 +46,7 @@ class Mastermind {
 		}
         else{
         
-            SendMessage(flickeringLights, 1);
+            SendMessage(roundabout, 1);
         
         }
 			
