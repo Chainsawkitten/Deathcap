@@ -151,6 +151,9 @@ class ActiveHymn {
         /// Input scaling when playing in VR.
         float vrScale = 1.0f;
         
+        /// The name of the hymn.
+        std::string name;
+        
     private:
         static ActiveHymn& GetInstance();
         

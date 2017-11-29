@@ -1,9 +1,10 @@
 set(SRCS
         main.cpp
+        Util/GameSettings.cpp
     )
 
 set(HEADERS
-
+        Util/GameSettings.hpp
     )
 
 create_directory_groups(${SRCS} ${HEADERS})
