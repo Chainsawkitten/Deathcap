@@ -1667,6 +1667,10 @@
 							{
 								"script" : "MMTransistor",
 								"type" : 4
+							},
+							{
+								"script" : "RoundaboutScript",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

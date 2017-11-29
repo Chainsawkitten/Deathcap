@@ -61,7 +61,8 @@
 		"Resources/VoltageScene/Scripts/MMTransistor",
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
-		"Resources/MonsterTestScript"
+		"Resources/MonsterTestScript",
+		"Resources/VoltageScene/Scripts/RoundaboutScript"
 	],
 	"startupScene" : "Resources/VoltageScene/VoltageScene",
 	"vrScale" : 1.5
