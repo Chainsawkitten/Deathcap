@@ -7,8 +7,8 @@ class MainScript {
     Entity @knife;
     Entity @monster;
     Entity @rightHand;
-    float waitForMonsterTimer = 0.0f;
-    bool knifePickedUp = false;
+    float waitForMonsterTimer;
+    bool knifePickedUp;
     float fogTimer = 0.0f;
     // Time for fog to reach 1.0 density. This essentially gives an inverse
     // measure of how fast the darkness approaches the player.
@@ -23,14 +23,16 @@ class MainScript {
     MainScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
-
         @minecart = GetEntityByGUID(1508919163);
         @knife = GetEntityByGUID(1511264657);
         @monster = GetEntityByGUID(1511261389);
         @rightHand = GetEntityByGUID(1508919758);
         phase = 0;
         speed = 4.0f;
+        waitForMonsterTimer = 0.0f;
+        knifePickedUp = false;
 
+        self.SetEnabled(false, true);
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -40,7 +42,7 @@ class MainScript {
         switch (phase) {
             case 0: { // Entering final scene
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 break;
             }
@@ -57,7 +59,7 @@ class MainScript {
             }
             case 3: { // Continue after monster has been killed
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
 
                 // The idea of fading is that we start with fog to begin fading

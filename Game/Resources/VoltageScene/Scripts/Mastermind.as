@@ -159,6 +159,8 @@ class Mastermind {
         
         }
     
+        return "";
+    
     }
 
     void AddToSlot(int slot, string transistorColor){

@@ -22,25 +22,25 @@ class MMTransistor {
     void PutInSlot1(){
     
         int base = 0;
-        SendMessage(mastermind, base + GetColorID);
+        SendMessage(mastermind, base + GetColorID());
     
     }
     void PutInSlot2(){
     
         int base = colorCount;
-        SendMessage(mastermind, base + GetColorID);
+        SendMessage(mastermind, base + GetColorID());
     
     }
     void PutInSlot3(){
     
         int base = colorCount * 2;
-        SendMessage(mastermind, base + GetColorID);
+        SendMessage(mastermind, base + GetColorID());
     
     }
     void PutInSlot4(){
     
         int base = colorCount * 3;
-        SendMessage(mastermind, base + GetColorID);
+        SendMessage(mastermind, base + GetColorID());
     
     }
     
@@ -58,36 +58,34 @@ class MMTransistor {
     }
     
     int GetColorID(){
-    
-        switch(colorID){
-        
-            case "red":{
-                return 0;
-            }
-            case "green":{
-                return 1;
-            }
-            case "blue":{
-                return 2;
-            }
-            case "black":{
-                return 3;
-            }
-            case "white":{
-                return 4;
-            }
-            case "yellow":{
-                return 5;
-            }
-            case "orange":{
-                return 6;
-            }
-            case "brown":{
-                return 7;
-            }
-        
+            
+        if(transistorColor == "Red"){
+            return 0;
         }
-    
+        else if(transistorColor == "Green"){
+            return 1;
+        }
+        else if(transistorColor == "Blue"){
+            return 2;
+        }
+        else if(transistorColor == "Black"){
+            return 3;
+        }
+        else if(transistorColor == "White"){
+            return 4;
+        }
+        else if(transistorColor == "Yellow"){
+            return 5;
+        }
+        else if(transistorColor == "Orange"){
+            return 6;
+        }
+        else if(transistorColor == "Brown"){
+            return 7;
+        }
+         
+        return -1;
+         
     }
     
 }
