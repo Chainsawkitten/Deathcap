@@ -1,5 +1,4 @@
 class BigBalk {
-    Hub @hub;
     Entity @self;
     Entity @bucketChain;
     Entity @stoneChain;
@@ -8,7 +7,6 @@ class BigBalk {
     float rotateLimit;
 
     BigBalk(Entity @entity){
-        @hub = Managers();
         @self = @entity;
         @bucketChain = GetEntityByGUID(1510911321);
         @stoneChain = GetEntityByGUID(1510911538);
@@ -38,5 +36,4 @@ class BigBalk {
         else if (i == 2 && rotateCheck == false)
             rotateCheck = true;
     }
-    
 }

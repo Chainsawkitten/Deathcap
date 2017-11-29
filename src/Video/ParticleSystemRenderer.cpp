@@ -217,13 +217,9 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     // Blending.
     glDisable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
-    glDepthMask(GL_TRUE);
-    glAlphaFunc(GL_GREATER, 0.00001);
-    glEnable(GL_ALPHA_TEST);
+    glDepthMask(GL_FALSE);
     glEnablei(GL_BLEND, 0);
-    glEnablei(GL_BLEND, 1);
     glBlendFunci(0, GL_SRC_ALPHA, GL_ONE);
-    glBlendFunci(1, GL_SRC_ALPHA, GL_ONE);
 
     shaderProgram->Use();
     glBindVertexArray(m_glDrawVAO);
@@ -250,4 +246,5 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     glBindVertexArray(0);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
 }

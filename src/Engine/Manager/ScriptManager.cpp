@@ -463,6 +463,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("RenderManager", "void SetFogColor(const vec3 &in)", asMETHOD(RenderManager, SetFogColor), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "vec3 GetFogColor()", asMETHOD(RenderManager, GetFogColor), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "void SetColorFilterApply(bool)", asMETHOD(RenderManager, SetColorFilterApply), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "bool GetColorFilterApply()", asMETHOD(RenderManager, GetColorFilterApply), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "void SetColorFilterColor(const vec3 &in)", asMETHOD(RenderManager, SetColorFilterColor), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "vec3 GetColorFilterColor()", asMETHOD(RenderManager, GetColorFilterColor), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "void SetDitherApply(bool)", asMETHOD(RenderManager, SetDitherApply), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "bool GetDitherApply()", asMETHOD(RenderManager, GetDitherApply), asCALL_THISCALL);
@@ -616,7 +618,6 @@ void ScriptManager::ClearBreakpoints() {
 }
 
 void ScriptManager::FillPropertyMap(Script* script) {
-
     int r = BuildScript(script->scriptFile);
     if (r < 0) {
 
@@ -624,7 +625,8 @@ void ScriptManager::FillPropertyMap(Script* script) {
 
     } else {
 
-        CreateInstance(script);
+        if (!script->initialized)
+            CreateInstance(script);
 
         int propertyCount = script->instance->GetPropertyCount();
 
@@ -643,19 +645,38 @@ void ScriptManager::FillPropertyMap(Script* script) {
             } else if (typeId == asTYPEID_FLOAT) {
                 int size = sizeof(float);
                 script->AddToPropertyMap(name, typeId, size, varPointer);
-            } else if (typeId == engine->GetTypeIdByDecl("Entity@")) {
+            } else if (typeId == engine->GetTypeIdByDecl("Entity@") && name != "self") {
+                  
                 int size = sizeof(unsigned int);
                 
+                Entity* pointer = *(Entity**)varPointer;
+
                 const std::vector<Entity*> entities = Hymn().world.GetEntities();
                 
-                unsigned int GUID = 0;
-                if (entities.size() != 0)
-                    GUID = 0;
-                else 
-                    GUID = entities[0]->GetUniqueIdentifier();
-                
-                script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
+                bool initialized = false;
+                for (int i = 0; i < entities.size(); i++) {
 
+                    if (entities[i] == pointer) {
+
+                        initialized = true;
+                        break;
+
+                    }
+
+                }
+
+                if (initialized) {
+
+                    unsigned int GUID = pointer->GetUniqueIdentifier();
+                    script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
+
+                } else {
+
+                    //We start with setting the GUID to 0, which means it's uninitialized.
+                    unsigned int GUID = 0;
+                    script->AddToPropertyMap(name, typeId, size, (void*)(&GUID));
+
+                }                
             }
         }
     }
@@ -693,6 +714,8 @@ void ScriptManager::Update(World& world, float deltaTime) {
             if (!script->initialized)
                 continue;
 
+            FillPropertyMap(script);
+
             int propertyCount = script->instance->GetPropertyCount();
 
             for (int n = 0; n < propertyCount; n++) {
@@ -703,9 +726,17 @@ void ScriptManager::Update(World& world, float deltaTime) {
 
                 if (script->IsInPropertyMap(name, typeId)) {
 
-                    if (typeId == engine->GetTypeIdByDecl("Entity@"))
-                        *reinterpret_cast<Entity*>(varPointer) = *Hymn().GetEntityByGUID(*(unsigned int*)script->GetDataFromPropertyMap(name));
-                    else
+                    if (typeId == engine->GetTypeIdByDecl("Entity@")) {
+                        
+                        unsigned int* GUID = (unsigned int*)script->GetDataFromPropertyMap(name);
+
+                        //We make sure it is initialized.
+                        if (*GUID != 0)
+                            *reinterpret_cast<Entity**>(varPointer) = Hymn().GetEntityByGUID(*GUID);
+                        else
+                            Log() << "Property " << name << " of script " << script->scriptFile->name << " on entity " << script->entity->name << " is not initialized" << "\n";
+
+                    } else 
                         script->CopyDataFromPropertyMap(name, varPointer);
 
                 } 
@@ -855,7 +886,7 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
     asIScriptContext* context = engine->CreateContext();
     context->Prepare(scriptMethod);
     context->SetObject(script->instance);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
 
     // Clean up.
     context->Release();
@@ -886,7 +917,7 @@ void ScriptManager::CreateInstance(Component::Script* script) {
     asIScriptContext* context = CreateContext();
     context->Prepare(factoryFunction);
     context->SetArgObject(0, script->entity);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Get the newly created object.
     script->instance = *(static_cast<asIScriptObject**>(context->GetAddressOfReturnValue()));
@@ -926,7 +957,7 @@ void ScriptManager::CallMessageReceived(const Message& message) {
     context->SetObject(script->instance);
     context->SetArgAddress(0, message.sender);
     context->SetArgDWord(1, message.type);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Clean up.
     context->Release();
@@ -949,7 +980,7 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgFloat(0, deltaTime);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Clean up.
     context->Release();
@@ -971,13 +1002,13 @@ void ScriptManager::LoadScriptFile(const char* fileName, std::string& script){
     fclose(f);
 }
 
-void ScriptManager::ExecuteCall(asIScriptContext* context) {
+void ScriptManager::ExecuteCall(asIScriptContext* context, const std::string& scriptName) {
     int r = context->Execute();
     if (r != asEXECUTION_FINISHED) {
         // The execution didn't complete as expected. Determine what happened.
         if (r == asEXECUTION_EXCEPTION) {
             // An exception occurred, let the script writer know what happened so it can be corrected.
-            Log() << "An exception '" << context->GetExceptionString() << "' occurred. Please correct the code and try again.\n";
+            Log() << "An exception '" << context->GetExceptionString() << "' occurred in " << scriptName << ". Please correct the code and try again.\n";
         }
     }
 }

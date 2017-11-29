@@ -52,8 +52,12 @@ namespace Audio {
             
         private:
             SoundFile* soundFile = nullptr;
-            float buffer[CHUNK_SIZE * CHUNK_COUNT];
+
+            float* buffer = nullptr;
+
+            unsigned int chunkCount = 0;
             unsigned int begin = 0;
+
             std::queue<SoundStreamer::DataHandle> chunkQueue;
     };
 }

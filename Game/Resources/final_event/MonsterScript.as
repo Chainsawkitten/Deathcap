@@ -1,15 +1,21 @@
 class MonsterScript {
     Hub @hub;
     Entity @self;
-    int phase = 0;
-    float fallspeed = 0.0f;
-    float waitTimer = 0.0f;
-    float eatingTimer = 0.0f;
     Entity @cart;
+    float fallspeed;
+    float waitTimer;
+    float eatingTimer;
+    int phase;
 
     MonsterScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
+        @cart = GetEntityByGUID(1511260476);
+        
+        phase = 0;
+        fallspeed = 0.0f;
+        waitTimer = 0.0f;
+        eatingTimer = 0.0f;
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -58,7 +64,6 @@ class MonsterScript {
     void ReceiveMessage(Entity @sender, int signal) {
         switch (signal) {
             case 0: { // Player was stopped by monster
-                @cart = @sender;
                 phase = 5; // Start eating
                 print("Monster: I'm going to eat you now.\n");
                 break;

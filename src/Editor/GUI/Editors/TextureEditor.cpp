@@ -1,7 +1,7 @@
 #include "TextureEditor.hpp"
 
 #include <Engine/Texture/TextureAsset.hpp>
-#include <Video/Texture/Texture2D.hpp>
+#include <Video/Texture/TextureHCT.hpp>
 #include "../FileSelector.hpp"
 #include <functional>
 #include <Engine/Hymn.hpp>
@@ -37,6 +37,32 @@ void TextureEditor::Show() {
             fileSelector.SetFileSelectedCallback(std::bind(&TextureEditor::FileSelected, this, std::placeholders::_1));
             fileSelector.SetVisible(true);
         }
+        
+        if (selected) {
+            const char* items[3] = { "BC1", "BC4", "BC5" };
+            ImGui::Combo("Compression", &compressionType, items, 3);
+            
+            switch (compressionType) {
+            case Video::TextureHCT::BC1:
+                ImGui::Text("Suitable for albedo textures.\n4 bits per pixel.");
+                break;
+            case Video::TextureHCT::BC4:
+                ImGui::Text("Suitable for metallic and roughness textures.\n4 bits per pixels.");
+                break;
+            case Video::TextureHCT::BC5:
+                ImGui::Text("Suitable for normal maps.\n8 bits per pixel.");
+                break;
+            }
+            
+            if (ImGui::Button("Import")) {
+                std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".hct";
+                
+                // Convert PNG texture to custom texture format.
+                TextureConverter::Convert(path.c_str(), destination.c_str(), static_cast<Video::TextureHCT::CompressionType>(compressionType));
+                
+                texture->Load(texture->path + texture->name);
+            }
+        }
     }
     ImGui::End();
     
@@ -50,6 +76,7 @@ const TextureAsset* TextureEditor::GetTexture() const {
 
 void TextureEditor::SetTexture(TextureAsset* texture) {
     this->texture = texture;
+    selected = false;
     
     strcpy(name, texture->name.c_str());
 }
@@ -63,10 +90,6 @@ void TextureEditor::SetVisible(bool visible) {
 }
 
 void TextureEditor::FileSelected(const std::string& file) {
-    std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".hct";
-    
-    // Convert PNG texture to custom texture format.
-    TextureConverter::Convert(file.c_str(), destination.c_str());
-    
-    texture->Load(texture->path + texture->name);
+    path = file;
+    selected = true;
 }
