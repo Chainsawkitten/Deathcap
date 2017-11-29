@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
-	"audioMaterialNumber" : 0,
-	"modelNumber" : 142,
+	"audioMaterialNumber" : 3,
+	"modelNumber" : 144,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -197,6 +197,14 @@
 							{
 								"script" : "scr_AudioManager",
 								"type" : 4
+							},
+							{
+								"model" : "metal-soundmesh",
+								"type" : 1
+							},
+							{
+								"model" : "stone-soundmesh",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -815,6 +823,25 @@
 									{
 										"script" : "PlayAudioOnStartup",
 										"type" : 4
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Materials",
+								"resources" : 
+								[
+									{
+										"audioMaterial" : "AudioMaterialMetal",
+										"type" : 5
+									},
+									{
+										"audioMaterial" : "AudioMaterialRock",
+										"type" : 5
+									},
+									{
+										"audioMaterial" : "AudioMaterialWood",
+										"type" : 5
 									}
 								],
 								"subfolders" : null
