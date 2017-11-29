@@ -163,35 +163,29 @@ void AnimationController::Interpolate(float deltaTime) {
 }
 
 void AnimationController::SetBool(const std::string& name, bool value) {
-    for (std::size_t i = 0; i < controller->boolMap.size(); ++i) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
         if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
             controller->boolMap[i]->value = value;
             return;
         }
-    }
 }
 
 void AnimationController::SetFloat(const std::string& name, float value) {
-    for (std::size_t i = 0; i < controller->floatMap.size(); ++i) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
         if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
             controller->floatMap[i]->value = value;
             return;
         }
-    }
 }
 
 bool AnimationController::GetBool(const std::string& name) {
-    for (std::size_t i = 0; i < controller->boolMap.size(); ++i) {
-        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0)
             return controller->boolMap[i]->value;
-        }
-    }
 }
 
 float AnimationController::GetFloat(const std::string& name) {
-    for (std::size_t i = 0; i < controller->floatMap.size(); ++i) {
-        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0)
             return controller->floatMap[i]->value;
-        }
-    }
 }
