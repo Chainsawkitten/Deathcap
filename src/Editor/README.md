@@ -4,3 +4,8 @@ The editor used to edit hymns. Resources can be added, edited or removed. The sc
 ## Dependencies
 ### Modules
 - Engine
+
+### External libraries
+- Compressonator
+- ImGui
+- ImGuizmo

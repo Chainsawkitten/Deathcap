@@ -90,7 +90,7 @@ void ParticleSystemRenderer::Init() {
 
 void ParticleSystemRenderer::CreateStorageBuffers() {
     // Positions.
-    for (int i = 0; i < this->nr_particles; i++) {
+    for (unsigned int i = 0; i < this->nr_particles; ++i) {
         points[i].x = 0.0f;
         points[i].y = 0.0f;
         points[i].z = 0.0f;
@@ -116,7 +116,7 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
     glBindVertexArray(0);
 
     // Velocity.
-    for (int i = 0; i < this->nr_particles; i++) {
+    for (unsigned int i = 0; i < this->nr_particles; ++i) {
         vels[i].vx = 0.0f;
         vels[i].vy = 0.0f;
         vels[i].vz = 0.0f;
@@ -130,7 +130,7 @@ void ParticleSystemRenderer::CreateStorageBuffers() {
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // unbind
 
     // Color.
-    for (int i = 0; i < this->nr_particles; i++) {
+    for (unsigned int i = 0; i < this->nr_particles; ++i) {
         col[i].cx = 0.0f;
         col[i].cy = 0.0f;
         col[i].cz = 0.0f;
@@ -246,4 +246,5 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     glBindVertexArray(0);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
 }
