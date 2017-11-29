@@ -48,5 +48,9 @@ namespace GUI {
             FileSelector fileSelector;
             
             char name[128];
+            
+            std::string path;
+            bool selected = false;
+            int compressionType = 0;
     };
 }
