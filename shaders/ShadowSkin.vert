@@ -6,7 +6,7 @@ layout(location = 0) in vec3 vertexPosition;
 layout(location = 4) in ivec4 vertexBoneIDs;
 layout(location = 5) in vec4 vertexWeights;
 
-const int MAX_BONES = 50;
+const int MAX_BONES = 100;
 
 uniform mat4 model;
 uniform mat4 lightSpaceMatrix;

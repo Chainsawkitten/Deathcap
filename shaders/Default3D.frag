@@ -248,6 +248,8 @@ void main() {
         // Final color.
         finalColor = color;
     }
-    //fragmentColor = vec4(finalColor, 1.0f);
-    fragmentColor = vec4(texture(mapShadow, vertexIn.texCoords).rgb, 1);
+    //vec3 projCoords = vertexIn.fragPosLightSpace.xyz / vertexIn.fragPosLightSpace.w;
+    fragmentColor = vec4(finalColor, 1.0f);
+    //fragmentColor = vec4(texture(mapShadow, projCoords.xy).rgb, 1);
+    //fragmentColor = vec4(projCoords.xy, 0,1);
 }

@@ -48,6 +48,7 @@ SkinRenderProgram::SkinRenderProgram() {
     zModelLocation = zShaderProgram->GetUniformLocation("model");
     zBonesLocation = zShaderProgram->GetUniformLocation("bones");
     viewProjectionLocation = shaderProgram->GetUniformLocation("viewProjection");
+    lightSpaceLocation = shaderProgram->GetUniformLocation("lightSpaceMatrix");
     lightCountLocation = shaderProgram->GetUniformLocation("lightCount");
     gammaLocation = shaderProgram->GetUniformLocation("gamma");
     fogApplyLocation = shaderProgram->GetUniformLocation("fogApply");
