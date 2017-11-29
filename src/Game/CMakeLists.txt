@@ -20,3 +20,7 @@ endif()
 
 set_property(TARGET Game PROPERTY CXX_STANDARD 11)
 set_property(TARGET Game PROPERTY CXX_STANDARD_REQUIRED ON)
+
+if(MSVC)
+    set_target_properties(Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Game")
+endif()
