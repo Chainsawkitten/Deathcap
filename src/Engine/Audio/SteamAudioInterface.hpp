@@ -29,7 +29,6 @@ namespace Audio {
 
             /// Creates the scene object, to be populated with meshes.
             /**
-             * @param settings The settings to use for simulation.
              * @param numMaterials Number of different materials used. May not be added or removed after Scene is created.
              */
             void CreateScene(uint32_t numMaterials);
@@ -42,7 +41,7 @@ namespace Audio {
 
             /// Create a new SteamAudioRenderers,
             /**
-             * @param renderers New %SteamAudioRenderers to be created.
+             * @param renderers New SteamAudioRenderers to be created.
              */
             void CreateRenderers(SteamAudioRenderers*& renderers);
 
@@ -56,7 +55,7 @@ namespace Audio {
             /**
              * @param data Struct containing all data relevant to reconstructing a scene
              */
-            void LoadFinalizedScene(SaveData data);
+            void LoadFinalizedScene(const SaveData& data);
 
             /// Specifies a single material used by the scene
             /**
@@ -89,12 +88,12 @@ namespace Audio {
             /// Needs to be called in a way so that there's always at least one processed audio frame ready to go.
             /**
              * @param buffers The raw audio data.
-             * @param positions The position of the sound source.
-             * @param radii The radius of the source. To determine how much of the source is occluded rather than have it be on/off.
-             * @param renderers The %SteamAudioRenderers for this audio source.
+             * @param positions The positions of the sound sources.
+             * @param radii The radii of the sources. To determine how much of a source is occluded rather than have it be on/off.
+             * @param renderers The SteamAudioRenderers for the audio sources.
              * @param output Final mixed raw audio data.
              */
-            void Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, std::vector<SteamAudioRenderers*>& renderers, float* output);
+            void Process(const std::vector<float*>& buffers, const std::vector<IPLVector3>& positions, const std::vector<float>& radii, const std::vector<SteamAudioRenderers*>& renderers, float* output);
 
         private:
             IPLContext context;

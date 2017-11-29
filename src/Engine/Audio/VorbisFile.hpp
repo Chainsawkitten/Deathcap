@@ -51,7 +51,7 @@ namespace Audio {
              */
             ENGINE_API void Cache(bool cache) final;
 
-            /// Check whether sound if loaded.
+            /// Check whether sound is loaded.
             /**
              * @return Whether sound is loaded or not.
              */

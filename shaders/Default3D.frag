@@ -65,7 +65,9 @@ vec3 calculateNormal(in vec3 normal, in vec3 tangent, in vec3 normalFromMap) {
     if (dot(cross(n, t), b) < 0.0)
         t = -t;
     
-    vec3 mn = normalize(2.0 * normalFromMap - vec3(1.0, 1.0, 1.0));
+    vec3 mn = 2.0 * normalFromMap - vec3(1.0, 1.0, 1.0);
+    // Calculate Z component since we only store X and Y in the texture.
+    mn.b = sqrt(mn.r * mn.r + mn.g * mn.g);
     mat3 TBN = mat3(t, b, n);
     return TBN * mn;
 }

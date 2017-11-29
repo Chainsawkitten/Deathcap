@@ -51,7 +51,7 @@ SteamAudioInterface::SaveData SteamAudioInterface::SaveFinalizedScene() {
     return saveData;
 }
 
-void SteamAudioInterface::LoadFinalizedScene(SaveData data) {
+void SteamAudioInterface::LoadFinalizedScene(const SaveData& data) {
     iplLoadFinalizedScene(context, simSettings, data.scene, data.sceneSize, NULL, NULL, &scene);
 }
 
@@ -89,7 +89,7 @@ void SteamAudioInterface::SetPlayer(IPLVector3 playerPos, IPLVector3 playerDir, 
     sAudio.SetPlayer(playerPos, playerDir, playerUp);
 }
 
-void SteamAudioInterface::Process(std::vector<float*>& buffers, std::vector<IPLVector3>& positions, std::vector<float>& radii, std::vector<SteamAudioRenderers*>& renderers, float* output) {
+void SteamAudioInterface::Process(const std::vector<float*>& buffers, const std::vector<IPLVector3>& positions, const std::vector<float>& radii, const std::vector<SteamAudioRenderers*>& renderers, float* output) {
     assert(buffers.size() == positions.size());
     assert(positions.size() == radii.size());
     assert(radii.size() == renderers.size());

@@ -72,7 +72,7 @@ void SoundManager::CheckError(PaError err) {
 
 void SoundManager::Update(float deltaTime) {
 
-    std::vector<Component::Listener*> listeners = GetListeners();
+    const std::vector<Component::Listener*>& listeners = GetListeners();
     if (listeners.size() == 0)
         return;
 
@@ -104,7 +104,7 @@ void SoundManager::Update(float deltaTime) {
 
 void SoundManager::ProcessSamples() {
 
-    std::vector<Component::Listener*> listeners = GetListeners();
+    const std::vector<Component::Listener*>& listeners = GetListeners();
     if (listeners.size() == 0)
         return;
   
@@ -262,7 +262,7 @@ void SoundManager::CreateAudioEnvironment() {
     // Create Scene
     sAudio.CreateScene(audioMatRes.size());
 
-    for (int i = 0; i < audioMatRes.size(); i++) {
+    for (std::size_t i = 0; i < audioMatRes.size(); ++i) {
         IPLMaterial iplmat;
         iplmat.highFreqAbsorption = audioMatRes[i]->highFreqAbsorption;
         iplmat.midFreqAbsorption = audioMatRes[i]->midFreqAbsorption;
@@ -303,7 +303,7 @@ void SoundManager::CreateAudioEnvironment() {
                 }
 
                 // Find material index and create ipl mesh.
-                for (int i = 0; i < audioMatRes.size(); i++) {
+                for (std::size_t i = 0; i < audioMatRes.size(); ++i) {
                     if (audioMatRes[i] == audioMatComp->material) {
                         sAudio.CreateStaticMesh(iplVertices, iplIndices, i);
                         break;

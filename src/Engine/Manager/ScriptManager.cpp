@@ -463,6 +463,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("RenderManager", "void SetFogColor(const vec3 &in)", asMETHOD(RenderManager, SetFogColor), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "vec3 GetFogColor()", asMETHOD(RenderManager, GetFogColor), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "void SetColorFilterApply(bool)", asMETHOD(RenderManager, SetColorFilterApply), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "bool GetColorFilterApply()", asMETHOD(RenderManager, GetColorFilterApply), asCALL_THISCALL);
+    engine->RegisterObjectMethod("RenderManager", "void SetColorFilterColor(const vec3 &in)", asMETHOD(RenderManager, SetColorFilterColor), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "vec3 GetColorFilterColor()", asMETHOD(RenderManager, GetColorFilterColor), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "void SetDitherApply(bool)", asMETHOD(RenderManager, SetDitherApply), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderManager", "bool GetDitherApply()", asMETHOD(RenderManager, GetDitherApply), asCALL_THISCALL);
@@ -616,7 +618,6 @@ void ScriptManager::ClearBreakpoints() {
 }
 
 void ScriptManager::FillPropertyMap(Script* script) {
-
     int r = BuildScript(script->scriptFile);
     if (r < 0) {
 
@@ -624,7 +625,8 @@ void ScriptManager::FillPropertyMap(Script* script) {
 
     } else {
 
-        CreateInstance(script);
+        if (!script->initialized)
+            CreateInstance(script);
 
         int propertyCount = script->instance->GetPropertyCount();
 
@@ -652,7 +654,7 @@ void ScriptManager::FillPropertyMap(Script* script) {
                 const std::vector<Entity*> entities = Hymn().world.GetEntities();
                 
                 bool initialized = false;
-                for (int i = 0; i < entities.size(); i++) {
+                for (std::size_t i = 0; i < entities.size(); ++i) {
 
                     if (entities[i] == pointer) {
 
@@ -884,7 +886,7 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
     asIScriptContext* context = engine->CreateContext();
     context->Prepare(scriptMethod);
     context->SetObject(script->instance);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
 
     // Clean up.
     context->Release();
@@ -915,7 +917,7 @@ void ScriptManager::CreateInstance(Component::Script* script) {
     asIScriptContext* context = CreateContext();
     context->Prepare(factoryFunction);
     context->SetArgObject(0, script->entity);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Get the newly created object.
     script->instance = *(static_cast<asIScriptObject**>(context->GetAddressOfReturnValue()));
@@ -955,7 +957,7 @@ void ScriptManager::CallMessageReceived(const Message& message) {
     context->SetObject(script->instance);
     context->SetArgAddress(0, message.sender);
     context->SetArgDWord(1, message.type);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Clean up.
     context->Release();
@@ -978,7 +980,7 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgFloat(0, deltaTime);
-    ExecuteCall(context);
+    ExecuteCall(context, scriptFile->name);
     
     // Clean up.
     context->Release();
@@ -1000,13 +1002,13 @@ void ScriptManager::LoadScriptFile(const char* fileName, std::string& script){
     fclose(f);
 }
 
-void ScriptManager::ExecuteCall(asIScriptContext* context) {
+void ScriptManager::ExecuteCall(asIScriptContext* context, const std::string& scriptName) {
     int r = context->Execute();
     if (r != asEXECUTION_FINISHED) {
         // The execution didn't complete as expected. Determine what happened.
         if (r == asEXECUTION_EXCEPTION) {
             // An exception occurred, let the script writer know what happened so it can be corrected.
-            Log() << "An exception '" << context->GetExceptionString() << "' occurred. Please correct the code and try again.\n";
+            Log() << "An exception '" << context->GetExceptionString() << "' occurred in " << scriptName << ". Please correct the code and try again.\n";
         }
     }
 }

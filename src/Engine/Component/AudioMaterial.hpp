@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SuperComponent.hpp"
-#include "../Audio/AudioMaterial.hpp"
 #include "../linking.hpp"
 
 namespace Audio {

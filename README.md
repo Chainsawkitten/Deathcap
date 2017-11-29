@@ -30,6 +30,7 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [assimp](https://github.com/assimp/assimp) | Modified BSD |
 | [Bullet](https://github.com/bulletphysics/bullet3) | zlib |
 | [Catch](https://github.com/philsquared/Catch) | BSL |
+| [Compressonator](https://github.com/GPUOpen-Tools/Compressonator) | MIT |
 | [Headerize](https://github.com/Chainsawkitten/Headerize) | Public domain |
 | [GLEW](https://github.com/Perlmint/glew-cmake) | Modified BSD / MIT |
 | [GLFW](https://github.com/glfw/glfw) | zlib / libpng |
@@ -37,7 +38,6 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [dear imgui](https://github.com/ocornut/imgui) | MIT |
 | [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo) | MIT |
 | [JsonCpp](https://github.com/open-source-parsers/jsoncpp) | MIT / Public domain |
-| [OpenAL Soft](https://github.com/kcat/openal-soft) | LGPL |
 | [OpenVR](https://github.com/ValveSoftware/openvr) | BSD |
 | [SimpleIni](https://github.com/brofield/simpleini) | MIT |
 | [stb](https://github.com/nothings/stb) | Public domain |

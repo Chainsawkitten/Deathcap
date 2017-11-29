@@ -129,7 +129,7 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_executable(Editor ${SRCS} ${HEADERS})
-target_link_libraries(Editor Engine imgui imguizmo)
+target_link_libraries(Editor Engine Compressonator imgui imguizmo)
 if(UseMemTrack)
     target_link_libraries(Editor memtrack memtracknew)
 endif()
