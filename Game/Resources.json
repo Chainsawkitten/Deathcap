@@ -1675,6 +1675,10 @@
 							{
 								"script" : "ElevatorSoundScript",
 								"type" : 4
+							},
+							{
+								"script" : "FlickeringLights",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

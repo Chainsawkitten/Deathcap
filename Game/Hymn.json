@@ -63,7 +63,8 @@
 		"Resources/StressScript",
 		"Resources/MonsterTestScript",
 		"Resources/VoltageScene/Scripts/RoundaboutScript",
-		"Resources/VoltageScene/Scripts/ElevatorSoundScript"
+		"Resources/VoltageScene/Scripts/ElevatorSoundScript",
+		"Resources/VoltageScene/Scripts/FlickeringLights"
 	],
 	"startupScene" : "Resources/VoltageScene/VoltageScene",
 	"vrScale" : 1.5
