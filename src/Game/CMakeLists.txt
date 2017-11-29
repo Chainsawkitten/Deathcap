@@ -1,9 +1,10 @@
 set(SRCS
         main.cpp
+        Util/GameSettings.cpp
     )
 
 set(HEADERS
-
+        Util/GameSettings.hpp
     )
 
 create_directory_groups(${SRCS} ${HEADERS})
@@ -21,6 +22,6 @@ endif()
 set_property(TARGET Game PROPERTY CXX_STANDARD 11)
 set_property(TARGET Game PROPERTY CXX_STANDARD_REQUIRED ON)
 
-if(MSVC)
+if(MSVC AND NOT (${CMAKE_VERSION} VERSION_LESS "3.8.0"))
     set_target_properties(Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Game")
 endif()
