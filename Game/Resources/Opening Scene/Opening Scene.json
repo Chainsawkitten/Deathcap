@@ -880,6 +880,174 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511787032
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 2.6860001087188721
+			},
+			"children" : null,
+			"name" : "lever_light",
+			"position" : 
+			{
+				"x" : 12.142992973327637,
+				"y" : 3.368706226348877,
+				"z" : -2.1227564811706543
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511964388
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Pillars/Pillars_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Lever/Models/leverbox"
+			},
+			"children" : null,
+			"name" : "lever_box",
+			"position" : 
+			{
+				"x" : 12.118196487426758,
+				"y" : 3.0481278896331787,
+				"z" : -2.4430725574493408
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.70710676908493042,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511964541
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Pillars/Pillars_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Lever/Models/leverhandle"
+			},
+			"children" : null,
+			"name" : "lever_handle",
+			"position" : 
+			{
+				"x" : 12.075788497924805,
+				"y" : 3.0827879905700684,
+				"z" : -2.4580228328704834
+			},
+			"rotation" : 
+			{
+				"w" : 0.90405368804931641,
+				"x" : 0.42741769552230835,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.23652511835098267,
+				"y" : 0.23652453720569611,
+				"z" : 0.23652453720569611
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511964666
+		},
+		{
+			"Shape" : 
+			{
+				"box" : 
+				{
+					"depth" : 1.0,
+					"height" : 2.0,
+					"width" : 2.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1508919758,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 1,
+				"triggerEventStruct_ScriptID" : 0,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 1,
+				"triggerFunction" : "void PullLever()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1511964800,
+				"triggerTargetEntity" : 1511787032,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "lever_trigger",
+			"position" : 
+			{
+				"x" : 12.231081008911133,
+				"y" : 3.2128622531890869,
+				"z" : -2.0747048854827881
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511964800
 		}
 	],
 	"name" : "Root",
