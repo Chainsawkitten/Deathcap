@@ -175,7 +175,7 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glDepthFunc(GL_LEQUAL);
-        glDepthMask(GL_TRUE);
+        glDepthMask(GL_FALSE);
 
         glBindVertexArray(geometry->GetVertexArray());
         
