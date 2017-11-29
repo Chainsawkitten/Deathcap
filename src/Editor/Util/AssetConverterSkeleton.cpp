@@ -91,12 +91,32 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         anim.bones = new Animation::AnimationClip::Bone[aScene->mAnimations[0]->mNumChannels];
         anim.length = 0;
 
+        // Positions for root positions.
+        auto rootIndex = 0;
+        for (unsigned int index = 0; index < aScene->mAnimations[0]->mNumChannels; ++index)
+            if (aScene->mAnimations[0]->mChannels[index]->mNodeName.C_Str() == bones[0]) {
+                rootIndex = index;
+                break;
+            }
+
+        anim.numRootPositions = aScene->mAnimations[0]->mChannels[rootIndex]->mNumPositionKeys;
+        anim.rootPositionKeys = new int32_t[anim.numRootPositions];
+        anim.rootPositions = new glm::vec3[anim.numRootPositions];
+
+        for (unsigned int i = 0; i < anim.numRootPositions; ++i) {
+            anim.rootPositionKeys[i] = (int32_t)aScene->mAnimations[0]->mChannels[rootIndex]->mPositionKeys[i].mTime;
+            std::cout << anim.rootPositionKeys[i] << "\n";
+            aiVector3D position = aScene->mAnimations[0]->mChannels[rootIndex]->mPositionKeys[i].mValue;
+            anim.rootPositions[i] = glm::vec3(position.x, position.y, position.z);
+        }
+
         for (unsigned int i = 0; i < bones.size(); ++i) {
             auto boneIndex = 0;
             for (unsigned int j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
-                if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i])
+                if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i]) {
                     boneIndex = j;
-
+                    break;
+                }
 
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[boneIndex];
             anim.bones[i].parent = (uint32_t)parents[i];
