@@ -763,7 +763,7 @@
 			"Script" : 
 			{
 				"scriptName" : "Resources/elevatorScene/Scripts/LightsOutScript"
-			},			
+			},
 			"children" : 
 			[
 				{
