@@ -97,7 +97,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
     if (camera != nullptr) {
         // Set image processing variables.
         renderer->SetGamma(Hymn().filterSettings.gamma);
-        renderer->SetFogApply(Hymn().filterSettings.fogApply);
+        renderer->SetFogApply(Hymn().filterSettings.fogApply && lighting);
         renderer->SetFogDensity(Hymn().filterSettings.fogDensity);
         renderer->SetFogColor(Hymn().filterSettings.fogColor);
         renderer->SetColorFilterApply(Hymn().filterSettings.colorFilterApply);
