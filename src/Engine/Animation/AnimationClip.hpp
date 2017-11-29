@@ -17,7 +17,7 @@ namespace Animation {
                 uint32_t parent = 0;
                 uint32_t numRotationKeys = 0;
                 int32_t* rotationKeys = nullptr;
-                glm::mat4* rotations = nullptr;
+                glm::quat* rotations = nullptr;
                 uint32_t currentKeyIndex = 0;
 
                 ~Bone() {
@@ -40,7 +40,7 @@ namespace Animation {
                         file->write(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
                     
                     for (unsigned int i = 0; i < numRotationKeys; ++i) 
-                        file->write(reinterpret_cast<char*>(&rotations[i]), sizeof(float) * 16);
+                        file->write(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::quat));
                 }
 
                 /// Load bone data.
@@ -61,9 +61,9 @@ namespace Animation {
                     for (unsigned int i = 0; i < numRotationKeys; ++i) 
                         file->read(reinterpret_cast<char*>(&rotationKeys[i]), sizeof(int32_t));
 
-                    rotations = new glm::mat4[numRotationKeys];
+                    rotations = new glm::quat[numRotationKeys];
                     for (unsigned int i = 0; i < numRotationKeys; ++i)
-                        file->read(reinterpret_cast<char*>(&rotations[i]), sizeof(float) * 16);
+                        file->read(reinterpret_cast<char*>(&rotations[i]), sizeof(glm::quat));
                 }
             };
 
