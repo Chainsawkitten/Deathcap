@@ -140,12 +140,8 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationAction* a
 
     if (skeletonId == 1) {
         position1 = pos1 + pos2;
-        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
-        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
     } else if (skeletonId == 2) {
         position2 = pos1 + pos2;
-        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
-        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
     } else {
         glm::vec3 finalPos = pos1 + pos2;
         glm::mat4 matrixPos = glm::mat4(1.f);
