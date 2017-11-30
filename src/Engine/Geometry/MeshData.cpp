@@ -1,4 +1,6 @@
 #include "MeshData.hpp"
+#include <Video/Geometry/VertexType/StaticVertex.hpp>
+#include <Video/Geometry/VertexType/SkinVertex.hpp>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
