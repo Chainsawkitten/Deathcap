@@ -5,18 +5,18 @@
 #include "../linking.hpp"
 
 namespace Animation {
-    /// 
-	struct SkeletonBone {
-		/// Save skeleton bone.
-		/**
-		 * @param file File to save to.
-		 */
+    /// Bone in bindpose.
+    struct SkeletonBone {
+        /// Save skeleton bone.
+        /**
+         * @param file File to save to.
+         */
         ENGINE_API void Save(std::ofstream* file);
-	
-		/// Load skeleton bone.
-		/**
-		 * @param file File to load from.
-		 */
+
+        /// Load skeleton bone.
+        /**
+         * @param file File to load from.
+         */
         ENGINE_API void Load(std::ifstream* file);
 
         /// Local transformation of skeleton bone.
@@ -30,5 +30,5 @@ namespace Animation {
 
         /// Id of bone parent.
         uint32_t parentId;
-	};
+    };
 }
