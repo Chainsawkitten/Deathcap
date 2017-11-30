@@ -22,7 +22,7 @@ class RoundaboutScript {
     void Update(float deltaTime) {
 
         if(rotate){
-            print("test");
+
             self.RotateAroundWorldAxis(direction * rotateSpeed * deltaTime, vec3(0,1,0));            
             if(amountRotated + rotateSpeed * deltaTime > rotateAngle){
                 self.RotateAroundWorldAxis(direction * (rotateAngle - amountRotated), vec3(0,1,0));    

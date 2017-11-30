@@ -46,7 +46,7 @@ class Mastermind {
 		}
         else{
         
-            SendMessage(roundabout, 1);
+            
         
         }
 			

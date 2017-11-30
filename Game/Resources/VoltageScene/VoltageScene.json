@@ -873,35 +873,7 @@
 			"children" : 
 			[
 				{
-					"children" : 
-					[
-						{
-							"children" : null,
-							"name" : "Green",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511860851
-						}
-					],
+					"children" : null,
 					"name" : "Slot1",
 					"position" : 
 					{
@@ -927,35 +899,7 @@
 					"uid" : 1511791705
 				},
 				{
-					"children" : 
-					[
-						{
-							"children" : null,
-							"name" : "Red",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511860862
-						}
-					],
+					"children" : null,
 					"name" : "Slot2",
 					"position" : 
 					{
@@ -981,35 +925,7 @@
 					"uid" : 1511791722
 				},
 				{
-					"children" : 
-					[
-						{
-							"children" : null,
-							"name" : "Yellow",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511860874
-						}
-					],
+					"children" : null,
 					"name" : "Slot3",
 					"position" : 
 					{
@@ -1035,35 +951,7 @@
 					"uid" : 1511791732
 				},
 				{
-					"children" : 
-					[
-						{
-							"children" : null,
-							"name" : "Purple",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1511860887
-						}
-					],
+					"children" : null,
 					"name" : "Slot4",
 					"position" : 
 					{
