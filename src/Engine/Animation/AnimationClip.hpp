@@ -20,6 +20,7 @@ namespace Animation {
                 glm::quat* rotations = nullptr;
                 uint32_t currentKeyIndex = 0;
 
+                /// Destructor.
                 ~Bone() {
                     if (rotationKeys)
                         delete[] rotationKeys;
@@ -78,6 +79,7 @@ namespace Animation {
                 glm::vec3* rootPositions = nullptr;
                 int32_t currentRootKeyIndex = 0;
                 
+                /// Destructor.
                 ~Animation() {
                     if (bones)
                         delete[] bones;
