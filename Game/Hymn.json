@@ -60,7 +60,6 @@
 		"Resources/StressScript",
 		"Resources/MonsterTestScript",
 		"Resources/elevatorScene/Scripts/elevator_moveCart",
-		"Resources/elevatorScene/Scripts/elevator_frontDoors",
 		"Resources/elevatorScene/Scripts/elevator_frontDoorCon",
 		"Resources/elevatorScene/Scripts/elevator_backDoorCon"
 	],

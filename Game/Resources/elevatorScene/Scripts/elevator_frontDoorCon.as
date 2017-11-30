@@ -49,6 +49,7 @@ class elevator_frontDoorCon {
 	
 	void OpenDoor() {
 		openDoor = true;
+		print("Opened");
 	}
 	
 	void CloseDoor() {
