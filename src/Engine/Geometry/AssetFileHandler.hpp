@@ -9,6 +9,10 @@
 #include "../linking.hpp"
 
 namespace Geometry {
+    struct MeshData;
+}
+
+namespace Geometry {
     /// Handler for .asset format.
     /**
      * Start by using the Open() function.

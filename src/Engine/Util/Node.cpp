@@ -4,7 +4,8 @@
 #include <MemTrackInclude.hpp>
 #endif
 
-Node::~Node() {}
+Node::~Node() {
+}
 
 void Node::Save(std::ofstream* file) {
     file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));

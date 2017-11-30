@@ -2,32 +2,31 @@
 #include <fstream>
 #include "../Util/Node.hpp"
 
-/// Animation transition node.
-struct AnimationTransition : public Node {
-    bool isStatic = true;
-    int32_t transitionBoolIndex = -1;
-    float transitionTime = 0.5f;
-    float transitionProcess = 0.0f;
+namespace Animation {
+    /// Animation transition node.
+    struct AnimationTransition : public Node {
+        /// Save the animation transition node.
+        /**
+         * @param file File to save to.
+         */
+        ENGINE_API void Save(std::ofstream* file) override;
 
-    /// Save the animation transition node.
-    /**
-     * @param file File to save to.
-     */
-    void Save(std::ofstream* file) override {
-        Node::Save(file);
-        file->write(reinterpret_cast<char*>(&isStatic), sizeof(bool));
-        file->write(reinterpret_cast<char*>(&transitionBoolIndex), sizeof(int32_t));
-        file->write(reinterpret_cast<char*>(&transitionTime), sizeof(float));
-    }
+        /// Load the animation transition node.
+        /**
+         * @param file File to load from.
+         */
+        ENGINE_API void Load(std::ifstream* file) override;
 
-    /// Load the animation transition node.
-    /**
-     * @param file File to load from.
-     */
-    void Load(std::ifstream* file) override {
-        Node::Load(file);
-        file->read(reinterpret_cast<char*>(&isStatic), sizeof(bool));
-        file->read(reinterpret_cast<char*>(&transitionBoolIndex), sizeof(int32_t));
-        file->read(reinterpret_cast<char*>(&transitionTime), sizeof(float));
-    }
-};
+        /// Is the bool static.
+        bool isStatic = true;
+
+        /// Index of the transition bool.
+        int32_t transitionBoolIndex = -1;
+
+        /// The transition time.
+        float transitionTime = 0.5f;
+
+        /// Process of the transition.
+        float transitionProcess = 0.0f;
+    };
+}

@@ -3,24 +3,25 @@
 #include <fstream>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include "../linking.hpp"
 
 namespace Animation {
     /// Bone data.
     struct Bone {
         /// Destructor.
-        ~Bone();
+        ENGINE_API ~Bone();
 
         /// Save bone data.
         /**
          * @param file File to save to.
          */
-        void Save(std::ofstream* file);
+        ENGINE_API void Save(std::ofstream* file);
 
         /// Load bone data.
         /**
          * @param file File to load from.
          */
-        void Load(std::ifstream* file);
+        ENGINE_API void Load(std::ifstream* file);
 
         /// Parent id of bone.
         uint32_t parent = 0;

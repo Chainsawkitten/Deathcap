@@ -2,6 +2,7 @@
 #include <fstream>
 #include "../Hymn.hpp"
 #include <Utility/Log.hpp>
+#include "Animation.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -21,7 +22,7 @@ void AnimationClip::Load(const std::string& name) {
         return;
     }
     
-    animation = new AnimationClip::Animation;
+    animation = new Animation;
     animation->Load(&file);
     file.close();
 }

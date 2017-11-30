@@ -3,78 +3,46 @@
 #include <fstream>
 #include <glm/glm.hpp>
 #include "../Util/Node.hpp"
+#include "../linking.hpp"
+
+namespace Animation {
+    class AnimationClip;
+}
 
 namespace Animation {
     /// Animaiton action node.
     struct AnimationAction : public Node {
-        char animationClipName[512];
-        bool isPlaybackModifierStatic = true;
-        float playbackModifier = 1.0f;
-        int32_t playbackModifierFloatIndex = -1;
-        bool repeat = true;
-        Animation::AnimationClip* animationClip = nullptr;
-
         /// Destructor.
-        virtual ~AnimationAction() {
-            if (animationClip != nullptr)
-                Managers().resourceManager->FreeAnimationClip(animationClip);
-        }
+        ENGINE_API virtual ~AnimationAction();
 
         /// Save the animation action node.
         /**
-        * @param file File to save to.
-        */
-        void Save(std::ofstream* file) override {
-            Node::Save(file);
-            file->write(reinterpret_cast<char*>(animationClipName), 512);
-            file->write(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));
-            file->write(reinterpret_cast<char*>(&repeat), sizeof(bool));
-        }
+         * @param file File to save to.
+         */
+        ENGINE_API void Save(std::ofstream* file) override;
 
         /// Load the animation action node.
         /**
-        * @param file File to load from.
-        */
-        void Load(std::ifstream* file) override {
-            Node::Load(file);
-            file->read(reinterpret_cast<char*>(animationClipName), 512);
-            file->read(reinterpret_cast<char*>(&playbackModifier), sizeof(uint32_t));
-            file->read(reinterpret_cast<char*>(&repeat), sizeof(bool));
+         * @param file File to load from.
+         */
+        ENGINE_API void Load(std::ifstream* file) override;
 
-            if (animationClip != nullptr)
-                Managers().resourceManager->FreeAnimationClip(animationClip);
+        /// Name of animation.
+        char animationClipName[512];
 
-            animationClip = Managers().resourceManager->CreateAnimationClip(animationClipName);
-        }
-    };
+        /// Can the playback speed be changed with scripting.
+        bool isPlaybackModifierStatic = true;
 
-    /// Animation transition node.
-    struct AnimationTransition : public Node {
-        bool isStatic = true;
-        int32_t transitionBoolIndex = -1;
-        float transitionTime = 0.5f;
-        float transitionProcess = 0.0f;
+        /// Static playback speed.
+        float playbackModifier = 1.f;
 
-        /// Save the animation transition node.
-        /**
-        * @param file File to save to.
-        */
-        void Save(std::ofstream* file) override {
-            Node::Save(file);
-            file->write(reinterpret_cast<char*>(&isStatic), sizeof(bool));
-            file->write(reinterpret_cast<char*>(&transitionBoolIndex), sizeof(int32_t));
-            file->write(reinterpret_cast<char*>(&transitionTime), sizeof(float));
-        }
+        /// Dynamic playback modifier.
+        int32_t playbackModifierFloatIndex = -1;
 
-        /// Load the animation transition node.
-        /**
-        * @param file File to load from.
-        */
-        void Load(std::ifstream* file) override {
-            Node::Load(file);
-            file->read(reinterpret_cast<char*>(&isStatic), sizeof(bool));
-            file->read(reinterpret_cast<char*>(&transitionBoolIndex), sizeof(int32_t));
-            file->read(reinterpret_cast<char*>(&transitionTime), sizeof(float));
-        }
+        /// Shall the animation repeat?
+        bool repeat = true;
+
+        /// Linked animation clip.
+        AnimationClip* animationClip = nullptr;
     };
 }

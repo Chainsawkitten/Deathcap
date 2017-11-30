@@ -43,7 +43,7 @@ set(SRCS
         Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
-        Geometry/MeshData.hpp
+        Geometry/MeshData.cpp
         Geometry/Model.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp

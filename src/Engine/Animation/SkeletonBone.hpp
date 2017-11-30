@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Animation {
     /// 
@@ -10,13 +11,13 @@ namespace Animation {
 		/**
 		 * @param file File to save to.
 		 */
-        void Save(std::ofstream* file);
+        ENGINE_API void Save(std::ofstream* file);
 	
 		/// Load skeleton bone.
 		/**
 		 * @param file File to load from.
 		 */
-        void Load(std::ifstream* file);
+        ENGINE_API void Load(std::ifstream* file);
 
         /// Local transformation of skeleton bone.
         glm::mat4 localTx;

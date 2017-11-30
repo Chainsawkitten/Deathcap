@@ -20,6 +20,7 @@
 #include <Engine/Component/SpotLight.hpp>
 #include <Engine/Component/PointLight.hpp>
 #include <Engine/Geometry/Model.hpp>
+#include <Engine/Geometry/MeshData.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
 #include <ImGuizmo.h>
@@ -583,7 +584,7 @@ void Editor::PaintBrush(Entity* entity) {
         Geometry::AssetFileHandler handler;
         handler.Open(modelPath.c_str());
         handler.LoadMeshData(0);
-        Geometry::AssetFileHandler::MeshData* data = handler.GetStaticMeshData();
+        Geometry::MeshData* data = handler.GetStaticMeshData();
         nrOfIndices = data->numIndices;
         nrOfVertices = data->numVertices;
 

@@ -2,23 +2,24 @@
 
 #include <fstream>
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 /// Base node.
 struct Node {
     /// Destructor.
-    virtual ~Node();
+    ENGINE_API virtual ~Node();
 
     /// Save node data.
     /**
      * @param file File to save to.
      */
-    virtual void Save(std::ofstream* file);
+    ENGINE_API virtual void Save(std::ofstream* file);
 
     /// Load node data.
     /**
      * @param file File to load from.
      */
-    virtual void Load(std::ifstream* file);
+    ENGINE_API virtual void Load(std::ifstream* file);
 
     /// Node index.
     uint32_t index;

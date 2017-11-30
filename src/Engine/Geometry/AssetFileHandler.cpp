@@ -1,5 +1,6 @@
 #include "AssetFileHandler.hpp"
 #include <Utility/Log.hpp>
+#include "../Geometry/MeshData.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -107,11 +108,11 @@ void AssetFileHandler::LoadMeshData(int meshID) {
     rFile.read(reinterpret_cast<char*>(meshData->indices), sizeof(uint32_t) * meshData->numIndices);
 }
 
-AssetFileHandler::MeshData* AssetFileHandler::GetStaticMeshData() {
+MeshData* AssetFileHandler::GetStaticMeshData() {
     return meshData;
 }
 
-void AssetFileHandler::SaveMesh(AssetFileHandler::MeshData* meshData) {
+void AssetFileHandler::SaveMesh(MeshData* meshData) {
     // Write header.
     wFile.write(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
     wFile.write(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));

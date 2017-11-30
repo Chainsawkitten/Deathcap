@@ -1,5 +1,8 @@
+#pragma once
+
 #include <cinttypes>
 #include <glm/glm.hpp>
+#include "../linking.hpp"
 
 namespace Video {
     namespace Geometry {
@@ -13,29 +16,40 @@ namespace Geometry {
     /// Mesh data.
     struct MeshData {
         /// Destructor.
-        ~MeshData();
+        ENGINE_API ~MeshData();
 
+        /// Parent id of mesh.
         uint32_t parent;
         
+        /// Number of vertices.
         uint32_t numVertices;
         
+        /// Number of indicies.
         uint32_t numIndices;
         
+        /// Axis aligned bound box dimensions.
         glm::vec3 aabbDim;
         
+        /// Axis aligned bound box origin.
         glm::vec3 aabbOrigin;
         
+        /// Minimum position of axis aligned bound box.
         glm::vec3 aabbMinpos;
         
+        /// Maximum position of axis aligned bound box.
         glm::vec3 aabbMaxpos;
         
+        /// Is skinned.
         bool isSkinned = false;
         
-        Video::Geometry::VertexType::StaticVertex * staticVertices = nullptr;
+        /// Static vertices.
+        Video::Geometry::VertexType::StaticVertex* staticVertices = nullptr;
         
-        Video::Geometry::VertexType::SkinVertex * skinnedVertices = nullptr;
+        /// Skinned vertices.
+        Video::Geometry::VertexType::SkinVertex* skinnedVertices = nullptr;
         
-        uint32_t * indices = nullptr;
+        /// Array of indices.
+        uint32_t* indices = nullptr;
         
         /// Store in cpu?
         bool CPU;

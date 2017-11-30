@@ -7,6 +7,10 @@
 #include "../linking.hpp"
 
 namespace Animation {
+    struct SkeletonBone;
+}
+
+namespace Animation {
     /// Skeleton, bindpose of animation.
     class Skeleton {
         public:

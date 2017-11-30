@@ -1,10 +1,16 @@
 #include "AnimationController.hpp"
 
-#include "../Animation/Skeleton.hpp"
-#include "../Animation/AnimationClip.hpp"
 #include <Utility/Log.hpp>
-#include "glm/gtc/quaternion.hpp"
 #include <cstring>
+#include <glm/gtc/quaternion.hpp>
+#include "../Animation/Animation.hpp"
+#include "../Animation/AnimationAction.hpp"
+#include "../Animation/AnimationController.hpp"
+#include "../Animation/AnimationClip.hpp"
+#include "../Animation/AnimationTransition.hpp"
+#include "../Animation/Bone.hpp"
+#include "../Animation/Skeleton.hpp"
+#include "../Animation/SkeletonBone.hpp"
 
 using namespace Component;
 
@@ -46,7 +52,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     // This will work as the entry point for the animation.
     if (activeAction1 == nullptr) {
         if (controller->animationNodes.size() > 0) {
-            Animation::AnimationController::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationController::AnimationAction*>(controller->animationNodes[0]);
+            Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[0]);
             if (tmpAction != nullptr)
                 activeAction1 = tmpAction;
             else
@@ -57,10 +63,10 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
 
     if (!activeTransition && !activeAction1->repeat) {
         for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
-            Animation::AnimationController::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationController::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
+            Animation::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
             if (tmpTransition) {
                 if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && tmpTransition->isStatic) {
-                    Animation::AnimationController::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationController::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
+                    Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
                     if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
                         activeTransition = tmpTransition;
                         activeTransition->transitionProcess = 0.f;
@@ -100,8 +106,8 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     }
 }
 
-void AnimationController::Animate(float deltaTime, Animation::AnimationController::AnimationAction* action, unsigned int skeletonId) {
-    Animation::AnimationClip::Animation* anim = action->animationClip->animation;
+void AnimationController::Animate(float deltaTime, Animation::AnimationAction* action, unsigned int skeletonId) {
+    Animation::Animation* anim = action->animationClip->animation;
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
     anim->currentFrame += deltaTime * 24.0f * activeAction1->playbackModifier;
@@ -122,7 +128,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
         bonesToInterpolate2[0] = glm::mat4(1.f);
 
     for (std::size_t i = 1; i < size; ++i) {
-        Animation::AnimationClip::Bone* bone = &anim->bones[i];
+        Animation::Bone* bone = &anim->bones[i];
 
         // Loop if the animation is very fast.
         while ((float)bone->rotationKeys[bone->currentKeyIndex + 1] < anim->currentFrame)
@@ -158,7 +164,6 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
     }
 }
 
-#include <iostream>
 void AnimationController::Blend(float deltaTime) {
     uint32_t size = activeAction1->animationClip->animation->numBones > activeAction2->animationClip->animation->numBones ? activeAction2->animationClip->animation->numBones : activeAction1->animationClip->animation->numBones;
 
@@ -222,6 +227,8 @@ bool AnimationController::GetBool(const std::string& name) {
             return controller->boolMap[i]->value;
         }
     }
+
+    return false;
 }
 
 float AnimationController::GetFloat(const std::string& name) {
@@ -230,4 +237,6 @@ float AnimationController::GetFloat(const std::string& name) {
             return controller->floatMap[i]->value;
         }
     }
+
+    return -1.f;
 }

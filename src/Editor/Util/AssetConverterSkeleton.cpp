@@ -3,7 +3,6 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Engine/Geometry/MathFunctions.hpp>
-#include <Engine/Animation/Skeleton.hpp>
 #include <Utility/Log.hpp>
 
 #ifdef USINGMEMTRACK
@@ -16,7 +15,6 @@ AssetConverterSkeleton::AssetConverterSkeleton() {
 AssetConverterSkeleton::~AssetConverterSkeleton() {
 }
 
-#include <iostream>
 bool AssetConverterSkeleton::Convert(const char* filepath, const char* destination, bool isSkeleton) {
     success = true;
     errorString = "";
@@ -54,7 +52,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
                 }
 
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[boneIndex];
-            Animation::Skeleton::SkeletonBone* bone = new Animation::Skeleton::SkeletonBone;
+            Animation::SkeletonBone* bone = new Animation::SkeletonBone;
             bone->parentId = (uint32_t)parents[i];
 
             // Build bindpose.
@@ -86,9 +84,9 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         // Save to file.
         skeleton.Save((std::string(destination)).c_str());
     } else {
-        Animation::AnimationClip::Animation anim;
+        Animation::Animation anim;
         anim.numBones = bones.size();
-        anim.bones = new Animation::AnimationClip::Bone[aScene->mAnimations[0]->mNumChannels];
+        anim.bones = new Animation::Bone[aScene->mAnimations[0]->mNumChannels];
         anim.length = 0;
 
         for (unsigned int i = 0; i < bones.size(); ++i) {
@@ -106,7 +104,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
 
             // Build keyframes for the bone.
             for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
-                anim.bones[i].rotationKeys[j] = channel->mRotationKeys[j].mTime;
+                anim.bones[i].rotationKeys[j] = (int32_t)channel->mRotationKeys[j].mTime;
 
                 if (anim.bones[i].rotationKeys[j] > anim.length)
                     anim.length = anim.bones[i].rotationKeys[j];

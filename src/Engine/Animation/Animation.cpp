@@ -1,6 +1,10 @@
 #include "Animation.hpp"
 #include "Bone.hpp"
 
+#ifdef USINGMEMTRACK
+#include <MemTrackInclude.hpp>
+#endif
+
 Animation::Animation::~Animation() {
     if (bones)
         delete[] bones;
@@ -12,10 +16,6 @@ Animation::Animation::~Animation() {
         delete[] rootPositions;
 }
 
-/// Save animation data.
-/**
-* @param file File to save to.
-*/
 void Animation::Animation::Save(std::ofstream* file) {
     file->write(reinterpret_cast<char*>(&length), sizeof(int32_t));
     file->write(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));
@@ -28,10 +28,6 @@ void Animation::Animation::Save(std::ofstream* file) {
         bones[i].Save(file);
 }
 
-/// Load animation data.
-/**
-* @param file File to load from.
-*/
 void Animation::Animation::Load(std::ifstream* file) {
     file->read(reinterpret_cast<char*>(&length), sizeof(int32_t));
     file->read(reinterpret_cast<char*>(&numBones), sizeof(uint32_t));

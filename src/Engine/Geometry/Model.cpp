@@ -3,6 +3,7 @@
 #include <cstring>
 #include "../Hymn.hpp"
 #include <Utility/Log.hpp>
+#include "MeshData.hpp"
 
 using namespace Geometry;
 
@@ -31,7 +32,7 @@ void Model::Load(const std::string& name) {
 void Model::Load(const char* filename) {
     if (assetFile.Open(filename, AssetFileHandler::READ)) {
         assetFile.LoadMeshData(0);
-        AssetFileHandler::MeshData * meshData = assetFile.GetStaticMeshData();
+        MeshData * meshData = assetFile.GetStaticMeshData();
         type = meshData->isSkinned ? SKIN : STATIC;
 
         if (meshData->CPU) {

@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <fstream>
+#include "../linking.hpp"
 
 namespace Animation {
     struct Bone;
@@ -11,13 +12,13 @@ namespace Animation {
     /// Animation data.
     struct Animation {
         /// Destructor.
-        ~Animation();
+        ENGINE_API ~Animation();
 
         /// Save animation data.
-        void Save(std::ofstream* file);
+        ENGINE_API void Save(std::ofstream* file);
 
         /// Load animation data.
-        void Load(std::ifstream* file);
+        ENGINE_API void Load(std::ifstream* file);
 
         /// Number of bones.
         uint32_t numBones = 0;
@@ -29,7 +30,7 @@ namespace Animation {
         int32_t length = 0;
 
         /// Current keyframe.
-        float currentFrame = 0.0f;
+        float currentFrame = 0.f;
 
         /// Number of root positions.
         uint32_t numRootPositions = 0;

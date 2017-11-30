@@ -4,6 +4,8 @@
 #include <MemTrackInclude.hpp>
 #endif
 
+using namespace Animation;
+
 void AnimationTransition::Save(std::ofstream* file) {
     Node::Save(file);
     file->write(reinterpret_cast<char*>(&isStatic), sizeof(bool));
