@@ -19,7 +19,8 @@ class CartScript_0 {
         RegisterUpdate();
     }
     void PullLever(){
-        leverHandle.RotatePitch(0.01f);
+        if(Input(Trigger, rightHand))
+            leverHandle.RotatePitch(0.01f);
     }
 
     // Called by the engine for each frame.

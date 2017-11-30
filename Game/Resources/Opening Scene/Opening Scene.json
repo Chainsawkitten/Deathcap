@@ -934,7 +934,7 @@
 			"name" : "lever_box",
 			"position" : 
 			{
-				"x" : 12.118196487426758,
+				"x" : 13.180844306945801,
 				"y" : 3.0481278896331787,
 				"z" : -2.4430725574493408
 			},
@@ -967,11 +967,70 @@
 			{
 				"model" : "Resources/Opening Scene/Lever/Models/leverhandle"
 			},
-			"children" : null,
+			"children" : 
+			[
+				{
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 0.05000000074505806,
+							"height" : 0.05000000074505806,
+							"width" : 0.05000000074505806
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1508919758,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 1,
+						"triggerEventStruct_ScriptID" : 0,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 1,
+						"triggerFunction" : "void PullLever()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1512030359,
+						"triggerTargetEntity" : 1511787032,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "lever_trigger",
+					"position" : 
+					{
+						"x" : 0.090000003576278687,
+						"y" : 2.4728724956512451,
+						"z" : 0.047218859195709229
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512030359
+				}
+			],
 			"name" : "lever_handle",
 			"position" : 
 			{
-				"x" : 12.075788497924805,
+				"x" : 13.152196884155273,
 				"y" : 3.0827879905700684,
 				"z" : -2.4580228328704834
 			},
@@ -991,63 +1050,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511964666
-		},
-		{
-			"Shape" : 
-			{
-				"box" : 
-				{
-					"depth" : 1.0,
-					"height" : 2.0,
-					"width" : 2.0
-				}
-			},
-			"Trigger" : 
-			{
-				"trigger" : "A Trigger",
-				"triggerActive" : false,
-				"triggerCharges" : 0,
-				"triggerCollidedEntityUID" : 1508919758,
-				"triggerCooldown" : 0.0,
-				"triggerDelay" : 0.0,
-				"triggerEventStruct_Check_0" : true,
-				"triggerEventStruct_Check_1" : true,
-				"triggerEventStruct_Check_2" : true,
-				"triggerEventStruct_Check_3" : true,
-				"triggerEventStruct_EventID" : 1,
-				"triggerEventStruct_ScriptID" : 0,
-				"triggerEventStruct_ShapeID" : 0,
-				"triggerEventStruct_TargetID" : 1,
-				"triggerFunction" : "void PullLever()",
-				"triggerName" : "New Trigger",
-				"triggerOwner" : 1511964800,
-				"triggerTargetEntity" : 1511787032,
-				"triggerTriggered" : false
-			},
-			"children" : null,
-			"name" : "lever_trigger",
-			"position" : 
-			{
-				"x" : 12.231081008911133,
-				"y" : 3.2128622531890869,
-				"z" : -2.0747048854827881
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1511964800
 		}
 	],
 	"name" : "Root",
