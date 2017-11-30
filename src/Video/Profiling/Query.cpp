@@ -34,8 +34,8 @@ Query::Query(Type type) : active(false) {
 
 Query::~Query() {
     glDeleteQueries(queryCount, queries);
-    delete queries;
-    delete results;
+    delete[] queries;
+    delete[] results;
 }
 
 void Query::Begin() {

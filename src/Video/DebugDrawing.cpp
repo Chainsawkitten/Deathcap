@@ -409,14 +409,14 @@ void DebugDrawing::GenerateBuffers(const std::vector<glm::vec3>& vertices, const
 }
 
 void DebugDrawing::DeleteBuffers(Mesh& mesh) {
-    if (mesh.vertexArray != NULL)
+    if (mesh.vertexArray != 0)
         glDeleteVertexArrays(1, &mesh.vertexArray);
-    if(mesh.vertexBuffer != NULL)
+    if(mesh.vertexBuffer != 0)
         glDeleteBuffers(1, &mesh.vertexBuffer);
-    if(mesh.indexBuffer != NULL)
+    if(mesh.indexBuffer != 0)
         glDeleteBuffers(1, &mesh.indexBuffer);
 
-    mesh.vertexArray = NULL;
-    mesh.vertexBuffer = NULL;
-    mesh.indexBuffer = NULL;
+    mesh.vertexArray = 0;
+    mesh.vertexBuffer = 0;
+    mesh.indexBuffer = 0;
 }
