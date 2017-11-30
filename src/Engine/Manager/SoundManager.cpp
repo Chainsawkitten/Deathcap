@@ -298,8 +298,8 @@ void SoundManager::CreateAudioEnvironment() {
 
                 // Convert indices.
                 iplIndices.resize(meshIndices.size());
-                for (std::size_t i = 0; i < meshIndices.size(); ++i) {
-                    iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i] };
+                for (std::size_t i = 0; i < meshIndices.size(); i+=3) {
+                    iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i], (IPLint32)meshIndices[i+1], (IPLint32)meshIndices[i+2] };
                 }
 
                 // Find material index and create ipl mesh.
@@ -321,6 +321,7 @@ void SoundManager::CreateAudioEnvironment() {
 }
 
 void SoundManager::ClearKilledComponents() {
+    audioMaterials.ClearKilled();
     soundSources.ClearKilled();
     listeners.ClearKilled();
 }

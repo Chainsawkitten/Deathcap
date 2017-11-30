@@ -1706,7 +1706,54 @@
 													{
 														"model" : "Resources/NewAssets/Models/Attraption/Models/rock_for_puzzleAttrap"
 													},
-													"children" : null,
+													"children" : 
+													[
+														{
+															"RigidBody" : 
+															{
+																"angularDamping" : 0.0,
+																"cor" : 0.0,
+																"friction" : 0.0,
+																"ghost" : false,
+																"kinematic" : true,
+																"linearDamping" : 0.0,
+																"mass" : 0.0,
+																"rollingFriction" : 0.0,
+																"spinningFriction" : 0.0
+															},
+															"Shape" : 
+															{
+																"sphere" : 
+																{
+																	"radius" : 0.5
+																}
+															},
+															"children" : null,
+															"name" : "CounterweightCollider",
+															"position" : 
+															{
+																"x" : -0.18200001120567322,
+																"y" : 0.1080000028014183,
+																"z" : 3.1780002117156982
+															},
+															"rotation" : 
+															{
+																"w" : 1.0,
+																"x" : 0.0,
+																"y" : 0.0,
+																"z" : 0.0
+															},
+															"scale" : 
+															{
+																"x" : 1.0,
+																"y" : 1.0,
+																"z" : 1.0
+															},
+															"scene" : false,
+															"static" : false,
+															"uid" : 1511956230
+														}
+													],
 													"name" : "Stone",
 													"position" : 
 													{
@@ -1855,6 +1902,102 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510910799
+		},
+		{
+			"children" : 
+			[
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialWood"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Audio/Meshes/WoodAudioMesh"
+					},
+					"children" : null,
+					"name" : "Wood",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511960462
+				},
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialRock"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Audio/Meshes/StoneAudioMesh"
+					},
+					"children" : null,
+					"name" : "Rock",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511960471
+				}
+			],
+			"name" : "AudioMeshes",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511960453
 		}
 	],
 	"name" : "Root",

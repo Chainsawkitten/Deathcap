@@ -9,6 +9,6 @@ AudioMaterial::AudioMaterial() {
 
 Json::Value AudioMaterial::Save() const {
     Json::Value component;
-    component["audio material"] = material->name;
+    component["audio material"] = material->path + material->name;
     return component;
 }
