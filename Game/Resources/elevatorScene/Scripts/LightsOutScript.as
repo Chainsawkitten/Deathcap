@@ -1,6 +1,4 @@
 class LightsOutScript {
-    Hub @hub;
-    Entity @self;
     Entity @board;
     Entity @rightController;
     array<Entity@> buttons(25);
@@ -10,8 +8,6 @@ class LightsOutScript {
     bool isPressed = false;
 
     LightsOutScript(Entity @entity){
-        @hub = Managers();
-        @self = @entity;
         @board = GetEntityByGUID(1511530025);
         @rightController = GetEntityByGUID(1508919758);
         
