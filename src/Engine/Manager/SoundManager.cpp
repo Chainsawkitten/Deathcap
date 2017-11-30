@@ -321,6 +321,7 @@ void SoundManager::CreateAudioEnvironment() {
 }
 
 void SoundManager::ClearKilledComponents() {
+    audioMaterials.ClearKilled();
     soundSources.ClearKilled();
     listeners.ClearKilled();
 }
