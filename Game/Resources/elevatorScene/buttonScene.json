@@ -5,8 +5,8 @@
 			"Material" : 
 			{
 				"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-				"metallic" : "",
-				"normal" : "",
+				"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+				"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
 				"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
 			},
 			"Mesh" : 
@@ -36,14 +36,14 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1511532746
+			"uid" : 1511860713
 		},
 		{
 			"Material" : 
 			{
 				"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
-				"metallic" : "",
-				"normal" : "",
+				"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+				"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
 				"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
 			},
 			"Mesh" : 
@@ -51,7 +51,7 @@
 				"model" : "Resources/elevatorScene/Models/lightsOut_button_frame"
 			},
 			"children" : null,
-			"name" : "button_frame",
+			"name" : "buttonFrame",
 			"position" : 
 			{
 				"x" : 0.0,
@@ -73,7 +73,7 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1511532752
+			"uid" : 1511860720
 		}
 	],
 	"name" : "Root",
@@ -98,5 +98,5 @@
 	},
 	"scene" : false,
 	"static" : false,
-	"uid" : 1511532737
+	"uid" : 1511860704
 }
