@@ -5,6 +5,7 @@ class Propp {
     Entity @originalParent;
     Entity @S1T1;
     bool isPressed;
+    vec3 worldPos;
 
     Propp(Entity @entity){
         @hub = Managers();
@@ -13,6 +14,7 @@ class Propp {
         @originalParent = self.GetParent();
         @S1T1 = GetEntityByGUID(1905121);
         
+        worldPos = S1T1.GetWorldPosition();
         isPressed = false;
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -20,20 +22,17 @@ class Propp {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-        if(Input(OpenGate, self)) {
-            self.position = vec3(2.422f, 6.817f, -2.762f);
-        }
-        /*if (!Input(Trigger, rightCtrl) && isPressed) {
+        if (!Input(Trigger, rightCtrl) && isPressed) {
             isPressed = false;
             self.SetParent(originalParent);
-        }*/
+        }
     }
     
-   /* void PickupTrigger() {
+    void PickupTrigger() {
         if (Input(Trigger, rightCtrl) && !isPressed) {
             isPressed = true;
             self.position = (0.0f, 0.0f, 0.0f);
             self.SetParent(rightCtrl);
         }
-    }*/
+    }
 }

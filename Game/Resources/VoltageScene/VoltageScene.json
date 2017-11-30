@@ -763,19 +763,40 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
-                                    "children" : null,
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046530,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905121,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
+									"children" : null,
 									"name" : "S1T1",
 									"position" : 
 									{
 										"x" : 48.560001373291016,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -797,11 +818,32 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046531,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905122,
+										"triggerTargetEntity" : 1511964701,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S1T2",
@@ -809,7 +851,7 @@
 									{
 										"x" : 48.560001373291016,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -831,11 +873,32 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1513046532,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905123,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S1T3",
@@ -843,7 +906,7 @@
 									{
 										"x" : 48.560001373291016,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -865,17 +928,17 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
 									"Trigger" : 
 									{
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964701,
+										"triggerCollidedEntityUID" : 1512044625,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -897,8 +960,8 @@
 									"position" : 
 									{
 										"x" : 48.560001373291016,
-										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"y" : 1.0709999799728394,
+										"z" : 0.78700006008148193
 									},
 									"rotation" : 
 									{
@@ -920,11 +983,32 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046533,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905125,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S1T5",
@@ -932,7 +1016,7 @@
 									{
 										"x" : 48.560001373291016,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -954,11 +1038,32 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046534,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 19051236,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S1T6",
@@ -966,7 +1071,7 @@
 									{
 										"x" : 48.560001373291016,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -988,11 +1093,32 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046535,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 19051237,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S1T7",
@@ -1000,7 +1126,7 @@
 									{
 										"x" : 48.560001373291016,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1022,11 +1148,32 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046536,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 19051238,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S1T8",
@@ -1034,7 +1181,7 @@
 									{
 										"x" : 48.560001373291016,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1052,7 +1199,7 @@
 									"scene" : false,
 									"static" : false,
 									"uid" : 19051238
-                                }
+								}
 							],
 							"name" : "Slot1Triggers",
 							"position" : 
@@ -1138,9 +1285,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1149,7 +1295,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964566,
+										"triggerCollidedEntityUID" : 1512046530,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1172,7 +1318,7 @@
 									{
 										"x" : 48.676002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1194,9 +1340,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1205,7 +1350,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964615,
+										"triggerCollidedEntityUID" : 1512046531,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1228,7 +1373,7 @@
 									{
 										"x" : 48.676002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1250,9 +1395,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1261,7 +1405,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964661,
+										"triggerCollidedEntityUID" : 1512046532,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1284,7 +1428,7 @@
 									{
 										"x" : 48.676002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1306,9 +1450,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1317,7 +1460,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964701,
+										"triggerCollidedEntityUID" : 1512044625,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1340,7 +1483,7 @@
 									{
 										"x" : 48.676002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1362,9 +1505,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1373,7 +1515,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964754,
+										"triggerCollidedEntityUID" : 1512046533,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1396,7 +1538,7 @@
 									{
 										"x" : 48.676002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1418,9 +1560,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1429,7 +1570,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964823,
+										"triggerCollidedEntityUID" : 1512046534,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1452,7 +1593,7 @@
 									{
 										"x" : 48.676002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1474,9 +1615,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1485,7 +1625,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964862,
+										"triggerCollidedEntityUID" : 1512046535,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1508,7 +1648,7 @@
 									{
 										"x" : 48.676002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1530,9 +1670,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1541,7 +1680,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964915,
+										"triggerCollidedEntityUID" : 1512046536,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1564,7 +1703,7 @@
 									{
 										"x" : 48.676002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1668,9 +1807,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1679,7 +1817,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964566,
+										"triggerCollidedEntityUID" : 1512046530,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1702,7 +1840,7 @@
 									{
 										"x" : 48.926002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1724,9 +1862,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1735,7 +1872,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964615,
+										"triggerCollidedEntityUID" : 1512046531,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1758,7 +1895,7 @@
 									{
 										"x" : 48.926002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1780,9 +1917,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1791,7 +1927,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964661,
+										"triggerCollidedEntityUID" : 1512046532,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1814,7 +1950,7 @@
 									{
 										"x" : 48.926002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1836,9 +1972,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1847,7 +1982,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964701,
+										"triggerCollidedEntityUID" : 1512044625,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1870,7 +2005,7 @@
 									{
 										"x" : 48.926002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1892,9 +2027,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1903,7 +2037,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964754,
+										"triggerCollidedEntityUID" : 1512046533,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1926,7 +2060,7 @@
 									{
 										"x" : 48.926002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -1948,9 +2082,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -1959,7 +2092,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964823,
+										"triggerCollidedEntityUID" : 1512046534,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -1982,7 +2115,7 @@
 									{
 										"x" : 48.926002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2004,9 +2137,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2015,7 +2147,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964862,
+										"triggerCollidedEntityUID" : 1512046535,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2038,7 +2170,7 @@
 									{
 										"x" : 48.926002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2060,9 +2192,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2071,7 +2202,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964915,
+										"triggerCollidedEntityUID" : 1512046536,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2094,7 +2225,7 @@
 									{
 										"x" : 48.926002502441406,
 										"y" : 1.0710000991821289,
-										"z" : 0.73300004005432129
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2198,9 +2329,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2209,7 +2339,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964566,
+										"triggerCollidedEntityUID" : 1512046530,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2232,7 +2362,7 @@
 									{
 										"x" : 49.024002075195313,
 										"y" : 1.0709999799728394,
-										"z" : 0.73299998044967651
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2254,9 +2384,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2265,7 +2394,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964615,
+										"triggerCollidedEntityUID" : 1512046531,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2288,7 +2417,7 @@
 									{
 										"x" : 49.024002075195313,
 										"y" : 1.0709999799728394,
-										"z" : 0.73299998044967651
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2310,9 +2439,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2321,7 +2449,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964661,
+										"triggerCollidedEntityUID" : 1512046532,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2344,7 +2472,7 @@
 									{
 										"x" : 49.024002075195313,
 										"y" : 1.0709999799728394,
-										"z" : 0.73299998044967651
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2366,9 +2494,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2377,7 +2504,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964701,
+										"triggerCollidedEntityUID" : 1512044625,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2400,7 +2527,7 @@
 									{
 										"x" : 49.024002075195313,
 										"y" : 1.0709999799728394,
-										"z" : 0.73299998044967651
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2422,9 +2549,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2433,7 +2559,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964754,
+										"triggerCollidedEntityUID" : 1512046533,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2456,7 +2582,7 @@
 									{
 										"x" : 49.024002075195313,
 										"y" : 1.0709999799728394,
-										"z" : 0.73299998044967651
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2478,9 +2604,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2489,7 +2614,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964823,
+										"triggerCollidedEntityUID" : 1512046534,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2512,7 +2637,7 @@
 									{
 										"x" : 49.024002075195313,
 										"y" : 1.0709999799728394,
-										"z" : 0.73299998044967651
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2534,9 +2659,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2545,7 +2669,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964862,
+										"triggerCollidedEntityUID" : 1512046535,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2568,7 +2692,7 @@
 									{
 										"x" : 49.024002075195313,
 										"y" : 1.0709999799728394,
-										"z" : 0.73299998044967651
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2590,9 +2714,8 @@
 								{
 									"Shape" : 
 									{
-										"cylinder" : 
+										"sphere" : 
 										{
-											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
 									},
@@ -2601,7 +2724,7 @@
 										"trigger" : "A Trigger",
 										"triggerActive" : false,
 										"triggerCharges" : 0,
-										"triggerCollidedEntityUID" : 1511964915,
+										"triggerCollidedEntityUID" : 1512046536,
 										"triggerCooldown" : 0.0,
 										"triggerDelay" : 0.0,
 										"triggerEventStruct_Check_0" : true,
@@ -2624,7 +2747,7 @@
 									{
 										"x" : 49.024002075195313,
 										"y" : 1.0709999799728394,
-										"z" : 0.73299998044967651
+										"z" : 0.78700000047683716
 									},
 									"rotation" : 
 									{
@@ -2893,15 +3016,47 @@
 					{
 						"model" : "Resources/VoltageScene/Models/elpropp"
 					},
-					"Shape" : 
+					"Script" : 
 					{
-						"cylinder" : 
-						{
-							"length" : 0.15000000596046448,
-							"radius" : 0.15000000596046448
-						}
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.20000000298023224,
+									"radius" : 0.15000000596046448
+								}
+							},
+							"children" : null,
+							"name" : "BlackShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046530
+						}
+					],
 					"name" : "BlackPropp",
 					"position" : 
 					{
@@ -2938,15 +3093,47 @@
 					{
 						"model" : "Resources/VoltageScene/Models/elpropp"
 					},
-					"Shape" : 
+					"Script" : 
 					{
-						"cylinder" : 
-						{
-							"length" : 0.15000000596046448,
-							"radius" : 0.15000000596046448
-						}
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.20000000298023224,
+									"radius" : 0.15000000596046448
+								}
+							},
+							"children" : null,
+							"name" : "BlueShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046531
+						}
+					],
 					"name" : "BluePropp",
 					"position" : 
 					{
@@ -2983,15 +3170,47 @@
 					{
 						"model" : "Resources/VoltageScene/Models/elpropp"
 					},
-					"Shape" : 
+					"Script" : 
 					{
-						"cylinder" : 
-						{
-							"length" : 0.15000000596046448,
-							"radius" : 0.15000000596046448
-						}
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.20000000298023224,
+									"radius" : 0.15000000596046448
+								}
+							},
+							"children" : null,
+							"name" : "BrownShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046532
+						}
+					],
 					"name" : "BrownPropp",
 					"position" : 
 					{
@@ -3019,7 +3238,7 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/green_albedo",
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/pink_albedo",
 						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
 						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
 						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
@@ -3032,60 +3251,43 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
-					"Shape" : 
-					{
-						"cylinder" : 
+					"children" : 
+					[
 						{
-							"length" : 0.15000000596046448,
-							"radius" : 0.15000000596046448
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.20000000298023224,
+									"radius" : 0.15000000596046448
+								}
+							},
+							"children" : null,
+							"name" : "PinkShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046533
 						}
-					},
-					"children" : null,
-					"name" : "GreenPropp",
-					"position" : 
-					{
-						"x" : 3.5469999313354492,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511964701
-				},
-				{
-					"Material" : 
-					{
-						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/pink_albedo",
-						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
-						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
-						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
-					},
-					"Mesh" : 
-					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
-					},
-					"Shape" : 
-					{
-						"cylinder" : 
-						{
-							"length" : 0.15000000596046448,
-							"radius" : 0.15000000596046448
-						}
-					},
-					"children" : null,
+					],
 					"name" : "PinkPropp",
 					"position" : 
 					{
@@ -3122,15 +3324,47 @@
 					{
 						"model" : "Resources/VoltageScene/Models/elpropp"
 					},
-					"Shape" : 
+					"Script" : 
 					{
-						"cylinder" : 
-						{
-							"length" : 0.15000000596046448,
-							"radius" : 0.15000000596046448
-						}
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.20000000298023224,
+									"radius" : 0.15000000596046448
+								}
+							},
+							"children" : null,
+							"name" : "RedShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046534
+						}
+					],
 					"name" : "RedPropp",
 					"position" : 
 					{
@@ -3167,15 +3401,47 @@
 					{
 						"model" : "Resources/VoltageScene/Models/elpropp"
 					},
-					"Shape" : 
+					"Script" : 
 					{
-						"cylinder" : 
-						{
-							"length" : 0.15000000596046448,
-							"radius" : 0.15000000596046448
-						}
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.20000000298023224,
+									"radius" : 0.15000000596046448
+								}
+							},
+							"children" : null,
+							"name" : "WhiteShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046535
+						}
+					],
 					"name" : "WhitePropp",
 					"position" : 
 					{
@@ -3212,15 +3478,47 @@
 					{
 						"model" : "Resources/VoltageScene/Models/elpropp"
 					},
-					"Shape" : 
+					"Script" : 
 					{
-						"cylinder" : 
-						{
-							"length" : 0.15000000596046448,
-							"radius" : 0.15000000596046448
-						}
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.20000000298023224,
+									"radius" : 0.15000000596046448
+								}
+							},
+							"children" : null,
+							"name" : "YellowShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046536
+						}
+					],
 					"name" : "YellowPropp",
 					"position" : 
 					{
@@ -3244,6 +3542,95 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511964915
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/green_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.20000000298023224,
+									"radius" : 0.15000000596046448
+								}
+							},
+							"children" : null,
+							"name" : "GreenShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512044625
+						}
+					],
+					"name" : "GreenPropp",
+					"position" : 
+					{
+						"x" : 3.5469999313354492,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964701
 				}
 			],
 			"name" : "Propps",
