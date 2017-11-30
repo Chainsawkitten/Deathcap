@@ -84,13 +84,13 @@ namespace Video {
                 VIDEO_API void CreateAxisAlignedBoundingBox(glm::vec3 dim, glm::vec3 origin, glm::vec3 minValues, glm::vec3 maxValues);
                 
                 /// Vertex buffer.
-                GLuint vertexBuffer = NULL;
+                GLuint vertexBuffer = 0;
                 
                 /// Index buffer.
-                GLuint indexBuffer = NULL;
+                GLuint indexBuffer = 0;
                 
                 /// Vertex array.
-                GLuint vertexArray = NULL;
+                GLuint vertexArray = 0;
 
                 /// Vertex position data.
                 std::vector<glm::vec3> vertexPositionData;
