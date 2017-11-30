@@ -769,7 +769,7 @@
 											"radius" : 0.05000000074505806
 										}
 									},
-									"children" : null,
+                                    "children" : null,
 									"name" : "S1T1",
 									"position" : 
 									{
@@ -870,6 +870,27 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964701,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 0,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905124,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S1T4",
@@ -1031,7 +1052,7 @@
 									"scene" : false,
 									"static" : false,
 									"uid" : 19051238
-								}
+                                }
 							],
 							"name" : "Slot1Triggers",
 							"position" : 
@@ -1123,6 +1144,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964566,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909217,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S2T1",
 									"position" : 
@@ -1156,6 +1199,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964615,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909218,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S2T2",
@@ -1191,6 +1256,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964661,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909219,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S2T3",
 									"position" : 
@@ -1224,6 +1311,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964701,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909220,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S2T4",
@@ -1259,6 +1368,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964754,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909221,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S2T5",
 									"position" : 
@@ -1292,6 +1423,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964823,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909222,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S2T6",
@@ -1327,6 +1480,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964862,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909223,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S2T7",
 									"position" : 
@@ -1360,6 +1535,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964915,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909224,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S2T8",
@@ -1477,6 +1674,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964566,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913313,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S3T1",
 									"position" : 
@@ -1510,6 +1729,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964615,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913314,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S3T2",
@@ -1545,6 +1786,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964661,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913315,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S3T3",
 									"position" : 
@@ -1578,6 +1841,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964701,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913316,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S3T4",
@@ -1613,6 +1898,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964754,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913317,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S3T5",
 									"position" : 
@@ -1646,6 +1953,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964823,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913318,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S3T6",
@@ -1681,6 +2010,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964862,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913319,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S3T7",
 									"position" : 
@@ -1714,6 +2065,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964915,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913320,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S3T8",
@@ -1831,6 +2204,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964566,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void TurnOnLight(int, vec3)",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917409,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S4T1",
 									"position" : 
@@ -1864,6 +2259,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964615,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917410,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S4T2",
@@ -1899,6 +2316,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964661,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917411,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S4T3",
 									"position" : 
@@ -1932,6 +2371,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964701,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917412,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S4T4",
@@ -1967,6 +2428,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964754,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917413,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S4T5",
 									"position" : 
@@ -2000,6 +2483,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964823,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917414,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S4T6",
@@ -2035,6 +2540,28 @@
 											"radius" : 0.05000000074505806
 										}
 									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964862,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917415,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
+									},
 									"children" : null,
 									"name" : "S4T7",
 									"position" : 
@@ -2068,6 +2595,28 @@
 											"length" : 0.20000000298023224,
 											"radius" : 0.05000000074505806
 										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1511964915,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void CheckSolution()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917416,
+										"triggerTargetEntity" : 1511791235,
+										"triggerTriggered" : false
 									},
 									"children" : null,
 									"name" : "S4T8",
@@ -2328,6 +2877,460 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511791235
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/black_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Shape" : 
+					{
+						"cylinder" : 
+						{
+							"length" : 0.15000000596046448,
+							"radius" : 0.15000000596046448
+						}
+					},
+					"children" : null,
+					"name" : "BlackPropp",
+					"position" : 
+					{
+						"x" : -0.45500001311302185,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964566
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/blue_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Shape" : 
+					{
+						"cylinder" : 
+						{
+							"length" : 0.15000000596046448,
+							"radius" : 0.15000000596046448
+						}
+					},
+					"children" : null,
+					"name" : "BluePropp",
+					"position" : 
+					{
+						"x" : 0.91900002956390381,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964615
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/brown_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Shape" : 
+					{
+						"cylinder" : 
+						{
+							"length" : 0.15000000596046448,
+							"radius" : 0.15000000596046448
+						}
+					},
+					"children" : null,
+					"name" : "BrownPropp",
+					"position" : 
+					{
+						"x" : 2.2220001220703125,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964661
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/green_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"Shape" : 
+					{
+						"cylinder" : 
+						{
+							"length" : 0.15000000596046448,
+							"radius" : 0.15000000596046448
+						}
+					},
+					"children" : null,
+					"name" : "GreenPropp",
+					"position" : 
+					{
+						"x" : 3.5469999313354492,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964701
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/pink_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Shape" : 
+					{
+						"cylinder" : 
+						{
+							"length" : 0.15000000596046448,
+							"radius" : 0.15000000596046448
+						}
+					},
+					"children" : null,
+					"name" : "PinkPropp",
+					"position" : 
+					{
+						"x" : 4.9280004501342773,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964754
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/red_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Shape" : 
+					{
+						"cylinder" : 
+						{
+							"length" : 0.15000000596046448,
+							"radius" : 0.15000000596046448
+						}
+					},
+					"children" : null,
+					"name" : "RedPropp",
+					"position" : 
+					{
+						"x" : 6.3160004615783691,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964823
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/white_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Shape" : 
+					{
+						"cylinder" : 
+						{
+							"length" : 0.15000000596046448,
+							"radius" : 0.15000000596046448
+						}
+					},
+					"children" : null,
+					"name" : "WhitePropp",
+					"position" : 
+					{
+						"x" : 7.6040005683898926,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964862
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/yellow_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Shape" : 
+					{
+						"cylinder" : 
+						{
+							"length" : 0.15000000596046448,
+							"radius" : 0.15000000596046448
+						}
+					},
+					"children" : null,
+					"name" : "YellowPropp",
+					"position" : 
+					{
+						"x" : 8.8489999771118164,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964915
+				}
+			],
+			"name" : "Propps",
+			"position" : 
+			{
+				"x" : 23.829000473022461,
+				"y" : 0.34700000286102295,
+				"z" : 1.8330000638961792
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.10000000149011612,
+				"y" : 0.10000000149011612,
+				"z" : 0.10000000149011612
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511964555
+		},
+		{
+			"children" : null,
+			"name" : "Box",
+			"position" : 
+			{
+				"x" : 0.1510000079870224,
+				"y" : 3.8270001411437988,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512038087
+		},
+		{
+			"DirectionalLight" : 
+			{
+				"ambientCoefficient" : 10.921000480651855,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			},
+			"children" : null,
+			"name" : "Sun",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512041289
 		}
 	],
 	"name" : "Root",

@@ -25,8 +25,6 @@ class Mastermind {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-
-		CheckSolution();
         
 		for(int i = 0; i < correct; i++){
 		
@@ -49,8 +47,9 @@ class Mastermind {
 	bool puzzleSolved = false;
 	int correct = 0;
 	int rightColors = 0;
+    
 	void CheckSolution(){
-	
+        print("WHOA\n");
 		correct = 0;
 		rightColors = 0;
 		puzzleSolved = false;
