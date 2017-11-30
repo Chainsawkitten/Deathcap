@@ -213,13 +213,13 @@ namespace Video {
                 unsigned int vertexCount = 0;
 
                 /// Vertex buffer.
-                GLuint vertexBuffer = NULL;
+                GLuint vertexBuffer = 0;
 
                 /// Index buffer.
-                GLuint indexBuffer = NULL;
+                GLuint indexBuffer = 0;
 
                 /// Vertex array.
-                GLuint vertexArray = NULL;
+                GLuint vertexArray = 0;
             };
             
             /// Create new debug primitive renderer.
