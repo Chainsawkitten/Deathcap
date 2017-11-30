@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Foliage/FlareScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 142,
+	"modelNumber" : 143,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1388,6 +1388,34 @@
 					{
 						"texture" : "fern_roughnes",
 						"type" : 2
+					},
+					{
+						"scene" : "FlareScene",
+						"type" : 0
+					},
+					{
+						"model" : "FlareModel",
+						"type" : 1
+					},
+					{
+						"script" : "FlareScript",
+						"type" : 4
+					},
+					{
+						"texture" : "FlareAlbedo",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareNormal",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareMetallic",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareRoughness",
+						"type" : 2
 					}
 				],
 				"subfolders" : null
@@ -1488,9 +1516,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 24,
+	"sceneNumber" : 25,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 114
+	"textureNumber" : 118
 }
