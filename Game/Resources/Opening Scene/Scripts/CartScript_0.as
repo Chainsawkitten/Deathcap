@@ -11,7 +11,7 @@ class CartScript_0 {
         @hub = Managers();
         @self = GetEntityByGUID(1508919384);
         @rightHand = GetEntityByGUID(1508919758);
-        @leverHandle=GetEntityByGUID(1511964666);
+        @leverHandle=GetEntityByGUID(1512032656);
         
         speed = 2.0f;
      

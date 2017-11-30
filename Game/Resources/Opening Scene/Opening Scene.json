@@ -958,10 +958,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Opening Scene/Textures/Pillars/Pillars_Albedo",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
 			},
 			"Mesh" : 
 			{
@@ -972,11 +972,9 @@
 				{
 					"Shape" : 
 					{
-						"box" : 
+						"sphere" : 
 						{
-							"depth" : 0.05000000074505806,
-							"height" : 0.05000000074505806,
-							"width" : 0.05000000074505806
+							"radius" : 0.0099999997764825821
 						}
 					},
 					"Trigger" : 
@@ -1006,8 +1004,8 @@
 					"position" : 
 					{
 						"x" : 0.090000003576278687,
-						"y" : 2.4728724956512451,
-						"z" : 0.047218859195709229
+						"y" : 2.5108428001403809,
+						"z" : 0.091232955455780029
 					},
 					"rotation" : 
 					{
@@ -1030,26 +1028,26 @@
 			"name" : "lever_handle",
 			"position" : 
 			{
-				"x" : 13.152196884155273,
-				"y" : 3.0827879905700684,
-				"z" : -2.4580228328704834
+				"x" : 13.143906593322754,
+				"y" : 3.0932772159576416,
+				"z" : -2.3734416961669922
 			},
 			"rotation" : 
 			{
-				"w" : 0.90405368804931641,
-				"x" : 0.42741769552230835,
+				"w" : 0.96838504076004028,
+				"x" : 0.24945901334285736,
 				"y" : 0.0,
 				"z" : 0.0
 			},
 			"scale" : 
 			{
-				"x" : 0.23652511835098267,
-				"y" : 0.23652453720569611,
-				"z" : 0.23652453720569611
+				"x" : 0.16429999470710754,
+				"y" : 0.16429997980594635,
+				"z" : 0.16429997980594635
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1511964666
+			"uid" : 1512032656
 		}
 	],
 	"name" : "Root",
