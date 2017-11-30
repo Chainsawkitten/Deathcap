@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/final_event/final_scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
@@ -1541,6 +1541,29 @@
 						"name" : "textures",
 						"resources" : null,
 						"subfolders" : null
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "snd_monsterShriek",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_monsterDeath",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_monsterFalling",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_landing",
+								"type" : 3
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -1577,6 +1600,6 @@
 	"sceneNumber" : 24,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
-	"soundNumber" : 7,
+	"soundNumber" : 12,
 	"textureNumber" : 114
 }
