@@ -48,6 +48,7 @@ SkinRenderProgram::SkinRenderProgram() {
     zModelLocation = zShaderProgram->GetUniformLocation("model");
     zBonesLocation = zShaderProgram->GetUniformLocation("bones");
     viewProjectionLocation = shaderProgram->GetUniformLocation("viewProjection");
+    lightSpaceLocation = shaderProgram->GetUniformLocation("lightSpaceMatrix");
     lightCountLocation = shaderProgram->GetUniformLocation("lightCount");
     gammaLocation = shaderProgram->GetUniformLocation("gamma");
     fogApplyLocation = shaderProgram->GetUniformLocation("fogApply");
@@ -61,7 +62,9 @@ SkinRenderProgram::SkinRenderProgram() {
     mapNormalLocation = shaderProgram->GetUniformLocation("mapNormal");
     mapMetallicLocation = shaderProgram->GetUniformLocation("mapMetallic");
     mapRoughnessLocation = shaderProgram->GetUniformLocation("mapRoughness");
+    mapShadowLocation = shaderProgram->GetUniformLocation("mapShadow");
     modelLocation = shaderProgram->GetUniformLocation("model");
+    viewLocation = shaderProgram->GetUniformLocation("viewMatrix");
     normalLocation = shaderProgram->GetUniformLocation("normalMatrix");
     bonesLocation = shaderProgram->GetUniformLocation("bones");
 }
@@ -94,7 +97,7 @@ void SkinRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::
         glBindVertexArray(geometry->GetVertexArray());
 
         glUniformMatrix4fv(shadowModelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
-        assert(bones.size() <= 50);
+        assert(bones.size() <= 100);
         glUniformMatrix4fv(shadowBonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
@@ -118,7 +121,7 @@ void SkinRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::m
         glBindVertexArray(geometry->GetVertexArray());
 
         glUniformMatrix4fv(zModelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
-        assert(bones.size() <= 50);
+        assert(bones.size() <= 100);
         glUniformMatrix4fv(zBonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
@@ -132,6 +135,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
 
     glUniformMatrix4fv(viewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+    glUniformMatrix4fv(lightSpaceLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 
     // Lights.
     glUniform1i(lightCountLocation, lightCount);
@@ -180,6 +184,7 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glUniform1i(mapNormalLocation, 1);
         glUniform1i(mapMetallicLocation, 2);
         glUniform1i(mapRoughnessLocation, 3);
+        glUniform1i(mapShadowLocation, 4);
         
         // Textures.
         glActiveTexture(GL_TEXTURE0);
@@ -190,12 +195,17 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glBindTexture(GL_TEXTURE_2D, textureMetallic->GetTextureID());
         glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, textureRoughness->GetTextureID());
+        glActiveTexture(GL_TEXTURE4);
+        glBindTexture(GL_TEXTURE_2D, shadowId);
+
         
         // Render model.
         glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &viewMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
+
         glUniformMatrix3fv(normalLocation, 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
-        assert(bones.size() <= 50);
+        assert(bones.size() <= 100);
         glUniformMatrix4fv(bonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
