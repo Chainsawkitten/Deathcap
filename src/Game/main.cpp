@@ -154,17 +154,17 @@ int main(int argc, char* argv[]) {
     int returnValue = 0;
 
     if ( maxRamUsed > maxRamLimit ) {
-        Log() << "Ram limit violated.";
+        Log() << "Ram limit violated.\n";
         returnValue = returnValue | 1;
     }
     
     if ( maxVramUsed > maxVramLimit ) {
-        Log() << "Vram limit violated.";
+        Log() << "Vram limit violated.\n";
         returnValue = returnValue | 2;
     }
 
     if ( (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 > 5 ) {
-        Log() << "Frame limit exceeded.";
+        Log() << "Frame limit exceeded.\n";
         returnValue = returnValue | 4;
     }
 
