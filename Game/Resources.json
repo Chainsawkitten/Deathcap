@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Opening Scene/Opening Scene",
+	"activeScene" : "Resources/final_event/final_scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -1469,7 +1469,25 @@
 				[
 					{
 						"name" : "textures",
-						"resources" : null,
+						"resources" : 
+						[
+							{
+								"texture" : "burlap_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "burlap_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "burlap_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "burlap_roughness",
+								"type" : 2
+							}
+						],
 						"subfolders" : null
 					}
 				]
@@ -1508,5 +1526,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 114
+	"textureNumber" : 118
 }

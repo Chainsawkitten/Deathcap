@@ -115,10 +115,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/final_event/textures/burlap_albedo",
+				"metallic" : "Resources/final_event/textures/burlap_metallic",
+				"normal" : "Resources/final_event/textures/burlap_normal",
+				"roughness" : "Resources/final_event/textures/burlap_roughness"
 			},
 			"Mesh" : 
 			{
@@ -152,7 +152,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/final_event/textures/burlap_albedo",
 				"metallic" : "",
 				"normal" : "",
 				"roughness" : ""
@@ -226,10 +226,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
 			},
 			"Mesh" : 
 			{
@@ -769,6 +769,68 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511277360
+		},
+		{
+			"children" : null,
+			"name" : "Entity #1",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512050851
+		},
+		{
+			"DirectionalLight" : 
+			{
+				"ambientCoefficient" : 150.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			},
+			"children" : null,
+			"name" : "Entity #2",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512050870
 		}
 	],
 	"name" : "Root",
