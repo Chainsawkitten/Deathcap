@@ -5,10 +5,12 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
         MainWindow.cpp
+        Animation/Animation.cpp
         Animation/AnimationAction.cpp
         Animation/AnimationClip.cpp
         Animation/AnimationController.cpp
         Animation/AnimationTransition.cpp
+        Animation/Bone.cpp
         Animation/Skeleton.cpp
         Animation/SkeletonBone.cpp
         Audio/AudioMaterial.cpp
@@ -41,6 +43,7 @@ set(SRCS
         Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
+        Geometry/MeshData.hpp
         Geometry/Model.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
@@ -78,10 +81,12 @@ set(HEADERS
         linking.hpp
         Hymn.hpp
         MainWindow.hpp
+        Animation/Animation.hpp
         Animation/AnimationAction.hpp
         Animation/AnimationClip.hpp
         Animation/AnimationController.hpp
         Animation/AnimationTransition.hpp
+        Animation/Bone.hpp
         Animation/Skeleton.hpp
         Animation/SkeletonBone.hpp
         Audio/AudioMaterial.hpp
@@ -115,6 +120,7 @@ set(HEADERS
         Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
+        Geometry/MeshData.hpp
         Geometry/Model.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp

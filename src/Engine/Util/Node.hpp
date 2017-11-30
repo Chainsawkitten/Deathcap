@@ -1,46 +1,46 @@
 #pragma once
 
-/// Default node for node editor.
+#include <fstream>
+#include <glm/glm.hpp>
+
+/// Base node.
 struct Node {
-    uint32_t index;
-    char name[128];
-    uint32_t numInputSlots = 0;
-    uint32_t inputIndex[8];
-    uint32_t numOutputSlots = 0;
-    uint32_t outputIndex[8];
-    glm::vec2 pos = glm::vec2(0.0f);
-    glm::vec2 size = glm::vec2(250, 100);
-    
     /// Destructor.
-    virtual ~Node() {}
+    virtual ~Node();
 
     /// Save node data.
     /**
      * @param file File to save to.
      */
-    virtual void Save(std::ofstream* file) {
-        file->write(reinterpret_cast<char*>(&index), sizeof(uint32_t));
-        file->write(reinterpret_cast<char*>(name), 128);
-        file->write(reinterpret_cast<char*>(&numInputSlots), sizeof(uint32_t));
-        file->write(reinterpret_cast<char*>(inputIndex), sizeof(uint32_t) * numInputSlots);
-        file->write(reinterpret_cast<char*>(&numOutputSlots), sizeof(uint32_t));
-        file->write(reinterpret_cast<char*>(outputIndex), sizeof(uint32_t) * numOutputSlots);
-        file->write(reinterpret_cast<char*>(&pos), sizeof(glm::vec2));
-        file->write(reinterpret_cast<char*>(&size), sizeof(glm::vec2));
-    }
+    virtual void Save(std::ofstream* file);
 
     /// Load node data.
     /**
      * @param file File to load from.
      */
-    virtual void Load(std::ifstream* file) {
-        file->read(reinterpret_cast<char*>(&index), sizeof(uint32_t));
-        file->read(reinterpret_cast<char*>(name), 128);
-        file->read(reinterpret_cast<char*>(&numInputSlots), sizeof(uint32_t));
-        file->read(reinterpret_cast<char*>(inputIndex), sizeof(uint32_t) * numInputSlots);
-        file->read(reinterpret_cast<char*>(&numOutputSlots), sizeof(uint32_t));
-        file->read(reinterpret_cast<char*>(outputIndex), sizeof(uint32_t) * numOutputSlots);
-        file->read(reinterpret_cast<char*>(&pos), sizeof(glm::vec2));
-        file->read(reinterpret_cast<char*>(&size), sizeof(glm::vec2));
-    }
+    virtual void Load(std::ifstream* file);
+
+    /// Node index.
+    uint32_t index;
+
+    /// Name of the node, only used in editor.
+    char name[128];
+    
+    /// The number of input slots.
+    uint32_t numInputSlots = 0;
+    
+    /// Input slot index.
+    uint32_t inputIndex[8];
+    
+    /// Number of output slots.
+    uint32_t numOutputSlots = 0;
+    
+    /// Output slot index.
+    uint32_t outputIndex[8];
+    
+    /// Position of the node, only used in editor. 
+    glm::vec2 pos = glm::vec2(0.0f);
+    
+    /// Size of the node, only used in editor.
+    glm::vec2 size = glm::vec2(250, 100);
 };
