@@ -655,7 +655,7 @@ void ScriptManager::FillPropertyMap(Script* script) {
                 const std::vector<Entity*> entities = Hymn().world.GetEntities();
                 
                 bool initialized = false;
-                for (int i = 0; i < entities.size(); i++) {
+                for (std::size_t i = 0; i < entities.size(); ++i) {
 
                     if (entities[i] == pointer) {
 

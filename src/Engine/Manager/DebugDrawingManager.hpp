@@ -1,9 +1,14 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <map>
 #include <vector>
 #include <Video/DebugDrawing.hpp>
 #include "../linking.hpp"
+
+namespace Component {
+    class Mesh;
+}
 
 namespace Video {
     class RenderSurface;
@@ -104,7 +109,19 @@ class DebugDrawingManager {
          * @param depthTesting Whether to enable depth testing.
          */
         ENGINE_API void AddCone(float radius, float height, const glm::mat4& matrix, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
-        
+
+        /// Add a mesh to the world.
+        /**
+         * @param id The entity's UID.
+         * @param meshComponent The mesh component.
+         * @param matrix Matrix to transform the mesh with.
+         * @param color Color of the lines.
+         * @param wireFrame Whether to wireframe the mesh.
+         * @param duration How long the mesh should stay in the world (in seconds).
+         * @param depthTesting Whether to enable depth testing.
+         */
+        ENGINE_API void AddMesh(unsigned int id, Component::Mesh* meshComponent, const glm::mat4& matrix, const glm::vec3& color, bool wireFrame = true, float duration = 0.f, bool depthTesting = true);
+
         /// Update the debug geometry.
         /**
          * @param deltaTime Time since last frame (in seconds).
@@ -133,6 +150,7 @@ class DebugDrawingManager {
         std::vector<Video::DebugDrawing::Sphere> spheres;
         std::vector<Video::DebugDrawing::Cylinder> cylinders;
         std::vector<Video::DebugDrawing::Cone> cones;
+        std::map<unsigned int, Video::DebugDrawing::Mesh> meshMap;
         
         Video::DebugDrawing* debugDrawing;
 };

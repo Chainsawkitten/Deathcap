@@ -1,7 +1,7 @@
 #include "DebugDrawingManager.hpp"
 
 #include "../Entity/World.hpp"
-#include "../Component/Lens.hpp"
+#include "../Component/Mesh.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Managers.hpp"
 #include <Video/RenderSurface.hpp>
@@ -114,6 +114,31 @@ void DebugDrawingManager::AddCone(float radius, float height, const glm::mat4& m
     cones.push_back(cone);
 }
 
+void DebugDrawingManager::AddMesh(unsigned int id, Component::Mesh* meshComponent, const glm::mat4& matrix, const glm::vec3& color, bool wireFrame, float duration, bool depthTesting) {
+    assert(meshComponent);
+    assert(meshComponent->geometry);
+
+    if (meshMap.find(id) == meshMap.end()) {
+        DebugDrawing::Mesh mesh;
+        if (meshComponent->geometry->GetVertexArray() == NULL)
+            debugDrawing->GenerateBuffers(meshComponent->geometry->GetVertexPositionData(), meshComponent->geometry->GetVertexIndexData(), mesh);
+        else {
+            mesh.vertexArray = meshComponent->geometry->GetVertexArray();
+            mesh.vertexCount = meshComponent->geometry->GetIndexCount();
+        }  
+        mesh.referenceCount = 0;
+        meshMap[id] = mesh;
+    }
+
+    DebugDrawing::Mesh& mesh = meshMap[id];
+    mesh.referenceCount++;
+    mesh.matrix = matrix;
+    mesh.color = color;
+    mesh.wireFrame = wireFrame;
+    mesh.duration = duration;
+    mesh.depthTesting = depthTesting;
+}
+
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
     for (std::size_t i=0; i < points.size(); ++i) {
@@ -194,6 +219,23 @@ void DebugDrawingManager::Update(float deltaTime) {
         } else
             cones[i].duration -= deltaTime;
     }
+
+    // Mesh.
+    for (auto& it : meshMap) {
+        DebugDrawing::Mesh& mesh = it.second;
+        if (mesh.duration <= 0.f) {
+            if (--mesh.referenceCount < 0)
+                if (mesh.vertexBuffer || mesh.indexBuffer)
+                    debugDrawing->DeleteBuffers(mesh);
+        } else
+            mesh.duration -= deltaTime;
+    }
+    for (auto it = meshMap.cbegin(); it != meshMap.cend();) {
+        if (it->second.referenceCount < 0)
+            meshMap.erase(it++);
+        else
+            ++it;
+    }
 }
 
 void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface) {
@@ -232,6 +274,10 @@ void DebugDrawingManager::Render(const glm::mat4& viewMatrix, const glm::mat4& p
     // Cones.
     for (const DebugDrawing::Cone& cone : cones)
         debugDrawing->DrawCone(cone);
+
+    // Meshes.
+    for (const std::pair<unsigned int, DebugDrawing::Mesh>& it : meshMap)
+        debugDrawing->DrawMesh(it.second);
     
     debugDrawing->EndDebugDrawing();
     renderSurface->GetShadingFrameBuffer()->Unbind();

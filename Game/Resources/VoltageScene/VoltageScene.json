@@ -161,6 +161,73 @@
 			{
 				"model" : "Resources/VoltageScene/Models/VoltageRoundAbout"
 			},
+			"Script" : 
+			{
+				"propertyMap" : 
+				{
+					"amountRotated" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"correctAngle" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"currentAngle" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"direction" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"rotateAngle" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"rotateSpeed" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							128,
+							63
+						]
+					}
+				},
+				"scriptName" : "Resources/VoltageScene/Scripts/RoundaboutScript"
+			},
 			"children" : null,
 			"name" : "VoltageRoundAbout",
 			"position" : 
@@ -507,7 +574,64 @@
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"intensity" : 1.3570001125335693
+				"intensity" : 2.064000129699707
+			},
+			"Script" : 
+			{
+				"propertyMap" : 
+				{
+					"flickSpeed" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							32,
+							65
+						]
+					},
+					"flickTime" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							128,
+							63
+						]
+					},
+					"light" : 
+					{
+						"1140850707" : 
+						[
+							243,
+							25,
+							24,
+							90
+						]
+					},
+					"originalIntensity" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"timer" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"scriptName" : "Resources/VoltageScene/Scripts/FlickeringLights"
 			},
 			"children" : null,
 			"name" : "JensLampa",
@@ -633,6 +757,16 @@
 							0
 						]
 					},
+					"flickeringLights" : 
+					{
+						"1140850707" : 
+						[
+							243,
+							25,
+							24,
+							90
+						]
+					},
 					"light1" : 
 					{
 						"1140850707" : 
@@ -681,6 +815,16 @@
 							0,
 							0,
 							0
+						]
+					},
+					"roundabout" : 
+					{
+						"1140850707" : 
+						[
+							101,
+							10,
+							24,
+							90
 						]
 					},
 					"slot1" : 

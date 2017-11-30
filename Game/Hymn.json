@@ -8,15 +8,15 @@
 			"y" : 1.0,
 			"z" : 1.0
 		},
-		"dither" : false,
-		"fog" : false,
+		"dither" : true,
+		"fog" : true,
 		"fogColor" : 
 		{
 			"x" : 0.0,
 			"y" : 0.0,
 			"z" : 0.0
 		},
-		"fogDensity" : 0.20000000298023224,
+		"fogDensity" : 0.30000001192092896,
 		"fxaa" : true,
 		"gamma" : 2.2000000476837158
 	},
@@ -38,6 +38,7 @@
 			"size" : 2
 		}
 	],
+	"name" : "Deathcap",
 	"scripts" : 
 	[
 		"Resources/Constant Scene/Minecart/Script/Camera",
@@ -55,15 +56,11 @@
 		"Resources/final_event/MainScript",
 		"Resources/final_event/MonsterScript",
 		"Resources/Super Scene/Scripts/SwitcherScript_1",
-		"Resources/NewAssets/Scripts/Cart_debug_script",
-		"Resources/VoltageScene/Scripts/Mastermind",
-		"Resources/VoltageScene/Scripts/MastermindSlot",
-		"Resources/VoltageScene/Scripts/MMTransistor",
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
 		"Resources/MonsterTestScript",
 		"Resources/VoltageScene/Scripts/Propp"
 	],
-	"startupScene" : "Resources/VoltageScene/VoltageScene",
+	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5
 }

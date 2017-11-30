@@ -36,7 +36,7 @@ bool ResourceSelector::ShowHelper(ResourceList::Resource::Type type, const Resou
             // Validity check for model resources.
             if (resource.type == ResourceList::Resource::Type::MODEL) {
                 auto geometry = dynamic_cast<Video::Geometry::Geometry3D*>(resource.model);
-                if (geometry && geometry->GetIndexCount() == 0)
+                if (geometry && (geometry->GetIndexCount() == 0 && geometry->GetVertexIndexData().size() == 0))
                     continue;
             }
 

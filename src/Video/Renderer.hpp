@@ -86,9 +86,8 @@ namespace Video {
              * @param metallic Metallic map.
              * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
-             * @param isSelected Whether model is selected(should be highlighted) or not.
              */
-            VIDEO_API void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
+            VIDEO_API void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix);
 
             /// Prepare for shadow rendering skin meshes.
             /**
@@ -144,9 +143,8 @@ namespace Video {
              * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              * @param bones Bones array.
-             * @param isSelected Whether model is selected(should be highlighted) or not.
              */
-            VIDEO_API void RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected);
+            VIDEO_API void RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones);
 
             /// Update light buffer.
             /**

@@ -57,7 +57,6 @@ SkinRenderProgram::SkinRenderProgram() {
     colorFilterColorLocation = shaderProgram->GetUniformLocation("colorFilterColor");
     ditherApplyLocation = shaderProgram->GetUniformLocation("ditherApply");
     timeLocation = shaderProgram->GetUniformLocation("time");
-    isSelectedLocation = shaderProgram->GetUniformLocation("isSelected");
     mapAlbedoLocation = shaderProgram->GetUniformLocation("mapAlbedo");
     mapNormalLocation = shaderProgram->GetUniformLocation("mapNormal");
     mapMetallicLocation = shaderProgram->GetUniformLocation("mapMetallic");
@@ -95,7 +94,7 @@ void SkinRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::
         glBindVertexArray(geometry->GetVertexArray());
 
         glUniformMatrix4fv(shadowModelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
-        assert(bones.size() <= 50);
+        assert(bones.size() <= 100);
         glUniformMatrix4fv(shadowBonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
@@ -119,7 +118,7 @@ void SkinRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::m
         glBindVertexArray(geometry->GetVertexArray());
 
         glUniformMatrix4fv(zModelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
-        assert(bones.size() <= 50);
+        assert(bones.size() <= 100);
         glUniformMatrix4fv(zBonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
@@ -168,7 +167,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     }
 }
 
-void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) const {
+void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glDepthFunc(GL_LEQUAL);
@@ -177,7 +176,6 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glBindVertexArray(geometry->GetVertexArray());
         
         // Set texture locations.
-        glUniform1i(isSelectedLocation, false);
         glUniform1i(mapAlbedoLocation, 0);
         glUniform1i(mapNormalLocation, 1);
         glUniform1i(mapMetallicLocation, 2);
@@ -196,18 +194,12 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         // Render model.
         glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
+
         glUniformMatrix3fv(normalLocation, 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
-        assert(bones.size() <= 50);
+        assert(bones.size() <= 100);
         glUniformMatrix4fv(bonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-
-        if (isSelected) {
-            glUniform1i(isSelectedLocation, true);
-            glLineWidth(2.0f);
-            for (int i = 0; i < geometry->GetIndexCount(); i += 3)
-                glDrawArrays(GL_LINE_LOOP, i, 3);
-        }
 
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LESS);

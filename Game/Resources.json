@@ -1751,7 +1751,19 @@
 								"type" : 4
 							},
 							{
+								"script" : "RoundaboutScript",
+								"type" : 4
+							},
+							{
+								"script" : "ElevatorSoundScript",
+								"type" : 4
+							},
+							{
 								"script" : "Propp",
+								"type" : 4
+							},
+							{
+								"script" : "FlickeringLights",
 								"type" : 4
 							}
 						],

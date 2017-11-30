@@ -4,6 +4,8 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
+#include <Engine/Manager/RenderManager.hpp>
+#include <Engine/Manager/SoundManager.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Input/Input.hpp>
 #include <Utility/Log.hpp>
@@ -11,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include "Util/GameSettings.hpp"
 
 int main() {
     if (!glfwInit())
@@ -36,12 +39,20 @@ int main() {
     
     Managers().StartUp();
 
+    // Load hymn from json file.
     Hymn().Load(".");
+    
+    // Load game settings from ini file.
+    GameSettings::GetInstance().Load();
+    Managers().renderManager->SetTextureReduction(GameSettings::GetInstance().GetLong("Texture Reduction"));
+    
+    // Load world.
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");
 
     // Compile scripts.
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
+    Managers().soundManager->CreateAudioEnvironment();
     
     // Main loop.
     double targetFPS = 60.0;
@@ -115,6 +126,8 @@ int main() {
     Log() << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
 #endif
 
+    // Save game settings.
+    GameSettings::GetInstance().Save();
 
     Hymn().world.Clear();
     Managers().ShutDown();
