@@ -1862,7 +1862,7 @@
 				{
 					"AudioMaterial" : 
 					{
-						"audio material" : "AudioMaterialWood"
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialWood"
 					},
 					"Mesh" : 
 					{
@@ -1896,7 +1896,7 @@
 				{
 					"AudioMaterial" : 
 					{
-						"audio material" : "AudioMaterialRock"
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialRock"
 					},
 					"Mesh" : 
 					{

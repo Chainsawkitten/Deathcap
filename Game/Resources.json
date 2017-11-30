@@ -2,7 +2,7 @@
 	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
-	"audioMaterialNumber" : 3,
+	"audioMaterialNumber" : 4,
 	"modelNumber" : 146,
 	"resourceFolder" : 
 	{
@@ -205,6 +205,10 @@
 							{
 								"model" : "stone-soundmesh",
 								"type" : 1
+							},
+							{
+								"sound" : "Testtone",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -832,15 +836,15 @@
 								"resources" : 
 								[
 									{
-										"audioMaterial" : "AudioMaterialMetal",
-										"type" : 5
-									},
-									{
 										"audioMaterial" : "AudioMaterialRock",
 										"type" : 5
 									},
 									{
 										"audioMaterial" : "AudioMaterialWood",
+										"type" : 5
+									},
+									{
+										"audioMaterial" : "AudioMaterialMetal",
 										"type" : 5
 									}
 								],
@@ -1573,6 +1577,6 @@
 	"sceneNumber" : 24,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
-	"soundNumber" : 6,
+	"soundNumber" : 7,
 	"textureNumber" : 114
 }
