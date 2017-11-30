@@ -1,10 +1,10 @@
 {
 	"Material" : 
 	{
-		"albedo" : "",
-		"metallic" : "",
-		"normal" : "",
-		"roughness" : ""
+		"albedo" : "Resources/Foliage/FlareAlbedo",
+		"metallic" : "Resources/Foliage/FlareMetallic",
+		"normal" : "Resources/Foliage/FlareNormal",
+		"roughness" : "Resources/Foliage/FlareRoughness"
 	},
 	"Mesh" : 
 	{
