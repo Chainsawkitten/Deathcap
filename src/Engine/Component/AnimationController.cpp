@@ -101,8 +101,6 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     }
 }
 
-#include <iostream>
-
 void AnimationController::Animate(float deltaTime, Animation::AnimationController::AnimationAction* action, unsigned int skeletonId) {
     Animation::AnimationClip::Animation* anim = action->animationClip->animation;
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
@@ -128,9 +126,10 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
     interpolation = glm::sin(interpolation * (glm::pi<float>() / 2.f));
     interpolation += 1.f;
     interpolation /= 2.f;
- 
+     
     glm::vec3 pos1 = anim->rootPositions[anim->currentRootKeyIndex] * (1.f - interpolation);
     glm::vec3 pos2 = anim->rootPositions[anim->currentRootKeyIndex + 1] * interpolation;
+    glm::vec3 skeletonPos = glm::vec3(skeleton->skeletonBones[0]->localTx[0][3], skeleton->skeletonBones[1]->localTx[0][3], skeleton->skeletonBones[2]->localTx[0][3]);
 
     if (skeletonId == 1) {
         position1 = pos1 + pos2;
@@ -141,16 +140,11 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationControlle
         skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
         bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
     } else {
-        glm::vec3 finalPos = pos1 - pos2;
-        glm::mat4 matrixPos1 = glm::mat4(1.f);
-        matrixPos1 = glm::translate(matrixPos1, anim->rootPositions[anim->currentRootKeyIndex]);
+        glm::vec3 finalPos = pos1 + pos2;
+        glm::mat4 matrixPos = glm::mat4(1.f);
+        matrixPos = glm::translate(matrixPos, finalPos);
 
-        glm::mat4 matrixPos2 = glm::mat4(1.f);
-        matrixPos2 = glm::translate(matrixPos2, pos2);
-
-        std::cout << anim->currentRootKeyIndex << "\n";
-
-        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx * matrixPos1;
+        skeleton->skeletonBones[0]->globalTx = matrixPos;
         bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
     }
 
@@ -217,13 +211,14 @@ void AnimationController::Blend(float deltaTime) {
     interpolation += 1.f;
     interpolation /= 2.f;
 
-    glm::vec3 finalPos = position1 + position1;
-    glm::mat4 matrixPos = glm::mat4(1.f);
-    matrixPos[3].x = finalPos.x;
-    matrixPos[3].y = finalPos.y;
-    matrixPos[3].z = finalPos.z;
+    glm::vec3 pos1 = position1 * (1.f - interpolation);
+    glm::vec3 pos2 = position2 * interpolation;
 
-    skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx * matrixPos;
+    glm::vec3 finalPos = pos1 + pos2;
+    glm::mat4 matrixPos = glm::mat4(1.f);
+    matrixPos = glm::translate(matrixPos, finalPos);
+
+    skeleton->skeletonBones[0]->globalTx = matrixPos;
     bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
 
     for (uint32_t i = 1; i < size; ++i) {

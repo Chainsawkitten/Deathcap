@@ -16,7 +16,6 @@ AssetConverterSkeleton::AssetConverterSkeleton() {
 AssetConverterSkeleton::~AssetConverterSkeleton() {
 }
 
-#include <iostream>
 bool AssetConverterSkeleton::Convert(const char* filepath, const char* destination, bool isSkeleton) {
     success = true;
     errorString = "";
@@ -105,7 +104,6 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
 
         for (unsigned int i = 0; i < anim.numRootPositions; ++i) {
             anim.rootPositionKeys[i] = (int32_t)aScene->mAnimations[0]->mChannels[rootIndex]->mPositionKeys[i].mTime;
-            std::cout << anim.rootPositionKeys[i] << "\n";
             aiVector3D position = aScene->mAnimations[0]->mChannels[rootIndex]->mPositionKeys[i].mValue;
             anim.rootPositions[i] = glm::vec3(position.x, position.y, position.z);
         }
