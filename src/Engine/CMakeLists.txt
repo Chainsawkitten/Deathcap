@@ -5,9 +5,12 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
         MainWindow.cpp
+        Animation/AnimationAction.cpp
         Animation/AnimationClip.cpp
         Animation/AnimationController.cpp
+        Animation/AnimationTransition.cpp
         Animation/Skeleton.cpp
+        Animation/SkeletonBone.cpp
         Audio/AudioMaterial.cpp
         Audio/SoundBuffer.cpp
         Audio/SoundFile.cpp
@@ -62,6 +65,7 @@ set(SRCS
         Util/Input.cpp
         Util/Json.cpp
         Util/MousePicking.cpp
+        Util/Node.cpp
         Util/RayIntersection.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
@@ -74,9 +78,12 @@ set(HEADERS
         linking.hpp
         Hymn.hpp
         MainWindow.hpp
+        Animation/AnimationAction.hpp
         Animation/AnimationClip.hpp
         Animation/AnimationController.hpp
+        Animation/AnimationTransition.hpp
         Animation/Skeleton.hpp
+        Animation/SkeletonBone.hpp
         Audio/AudioMaterial.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
