@@ -62,8 +62,8 @@ namespace Component {
             Animation::Skeleton* skeleton = nullptr;
 
         private:
-            void Animate(float deltaTime, Animation::AnimationController::AnimationAction* action);
-            void Interpolate(float deltaTime);
+            void Animate(float deltaTime, Animation::AnimationController::AnimationAction* action, unsigned int skeletonId = 0);
+            void Blend(float deltaTime);
 
             Animation::AnimationController::AnimationAction* activeAction1 = nullptr;
             Animation::AnimationController::AnimationAction* activeAction2 = nullptr;
@@ -71,5 +71,10 @@ namespace Component {
 
             std::vector<glm::mat4> bonesToInterpolate1;
             std::vector<glm::mat4> bonesToInterpolate2;
+
+            glm::vec3 position1 = glm::vec3(0.f);
+            glm::vec3 position2 = glm::vec3(0.f);
+
+            bool isBlending = false;
     };
 }

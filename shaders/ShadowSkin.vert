@@ -6,7 +6,7 @@ layout(location = 0) in vec3 vertexPosition;
 layout(location = 4) in ivec4 vertexBoneIDs;
 layout(location = 5) in vec4 vertexWeights;
 
-const int MAX_BONES = 50;
+const int MAX_BONES = 100;
 
 uniform mat4 model;
 uniform mat4 lightSpaceMatrix;
@@ -18,5 +18,5 @@ void main () {
     position += (bones[vertexBoneIDs[2]] * vec4(vertexPosition, 1.0)) * vertexWeights[2];
     position += (bones[vertexBoneIDs[3]] * vec4(vertexPosition, 1.0)) * vertexWeights[3];
     
-    gl_Position = lightSpaceMatrix * (model * position);
+    gl_Position = lightSpaceMatrix * (model * vec4(position.xyz, 1.0));
 }

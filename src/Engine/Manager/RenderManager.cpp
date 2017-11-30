@@ -97,7 +97,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
     if (camera != nullptr) {
         // Set image processing variables.
         renderer->SetGamma(Hymn().filterSettings.gamma);
-        renderer->SetFogApply(Hymn().filterSettings.fogApply);
+        renderer->SetFogApply(Hymn().filterSettings.fogApply && lighting);
         renderer->SetFogDensity(Hymn().filterSettings.fogDensity);
         renderer->SetFogColor(Hymn().filterSettings.fogColor);
         renderer->SetColorFilterApply(Hymn().filterSettings.colorFilterApply);
@@ -684,6 +684,14 @@ void RenderManager::SetDitherApply(bool ditherApply) {
 
 bool RenderManager::GetDitherApply() const {
     return Hymn().filterSettings.ditherApply;
+}
+
+void RenderManager::SetTextureReduction(uint16_t textureReduction) {
+    this->textureReduction = textureReduction;
+}
+
+uint16_t RenderManager::GetTextureReduction() const {
+    return textureReduction;
 }
 
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {

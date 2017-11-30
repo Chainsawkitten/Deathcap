@@ -10,7 +10,7 @@
 
 using namespace Video;
 
-TextureHCT::TextureHCT(const char* filename) {
+TextureHCT::TextureHCT(const char* filename, uint16_t textureReduction) {
     // Open file for reading.
     std::ifstream file(filename, std::ios::in | std::ios::binary);
     if (!file) {
@@ -54,10 +54,14 @@ TextureHCT::TextureHCT(const char* filename) {
         break;
     }
     
+    // We can't load a smaller mip level if there are none.
+    if (textureReduction >= mipLevels)
+        textureReduction = mipLevels - 1;
+    
     // Create image on GPU.
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
-    glTexStorage2D(GL_TEXTURE_2D, mipLevels, format, width, height);
+    glTexStorage2D(GL_TEXTURE_2D, mipLevels - textureReduction, format, width >> textureReduction, height >> textureReduction);
     
     // Read texture data.
     uint32_t size = static_cast<uint32_t>(width) * height / 16 * blockSize;
@@ -71,7 +75,8 @@ TextureHCT::TextureHCT(const char* filename) {
             return;
         }
         
-        glCompressedTexSubImage2D(GL_TEXTURE_2D, mipLevel, 0, 0, width, height, format, size, data);
+        if (mipLevel >= textureReduction)
+            glCompressedTexSubImage2D(GL_TEXTURE_2D, mipLevel - textureReduction, 0, 0, width, height, format, size, data);
         width /= 2;
         height /= 2;
     }
