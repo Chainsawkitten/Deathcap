@@ -1,6 +1,8 @@
 #include "AnimationController.hpp"
 
 #include <Utility/Log.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <cstring>
 #include <glm/gtc/quaternion.hpp>
 #include "../Animation/Animation.hpp"
@@ -113,13 +115,45 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationAction* a
     anim->currentFrame += deltaTime * 24.0f * activeAction1->playbackModifier;
     if (anim->currentFrame > anim->length) {
         anim->currentFrame = 0;
+        anim->currentRootKeyIndex = 0;
 
         for (unsigned int i = 0; i < size; ++i)
             anim->bones[i].currentKeyIndex = 0;
     }
 
-    skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
-    bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
+    // Animate root bone positions.
+    // Loop if the animation is very fast.
+    while ((float)anim->rootPositionKeys[anim->currentRootKeyIndex + 1] < anim->currentFrame)
+        ++anim->currentRootKeyIndex;
+
+    // Interpolation of position keys.
+    float interpolation = (anim->currentFrame - (float)anim->rootPositionKeys[anim->currentRootKeyIndex]) / ((float)anim->rootPositionKeys[anim->currentRootKeyIndex + 1] - (float)anim->rootPositionKeys[anim->currentRootKeyIndex]);
+    interpolation *= 2.f;
+    interpolation -= 1.f;
+    interpolation = glm::sin(interpolation * (glm::pi<float>() / 2.f));
+    interpolation += 1.f;
+    interpolation /= 2.f;
+     
+    glm::vec3 pos1 = anim->rootPositions[anim->currentRootKeyIndex] * (1.f - interpolation);
+    glm::vec3 pos2 = anim->rootPositions[anim->currentRootKeyIndex + 1] * interpolation;
+    glm::vec3 skeletonPos = glm::vec3(skeleton->skeletonBones[0]->localTx[0][3], skeleton->skeletonBones[1]->localTx[0][3], skeleton->skeletonBones[2]->localTx[0][3]);
+
+    if (skeletonId == 1) {
+        position1 = pos1 + pos2;
+        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
+        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
+    } else if (skeletonId == 2) {
+        position2 = pos1 + pos2;
+        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
+        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
+    } else {
+        glm::vec3 finalPos = pos1 + pos2;
+        glm::mat4 matrixPos = glm::mat4(1.f);
+        matrixPos = glm::translate(matrixPos, finalPos);
+
+        skeleton->skeletonBones[0]->globalTx = matrixPos;
+        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
+    }
 
     // If is interpolating.
     if (isBlending && skeletonId == 1)
@@ -151,7 +185,7 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationAction* a
         glm::mat4 finalRot = glm::mat4(glm::slerp(bone->rotations[bone->currentKeyIndex], bone->rotations[bone->currentKeyIndex + 1], interpolation));
         if (skeleton->skeletonBones[i]->parentId == -1)
             continue;
-         
+
         // If is interpolating.
         if (isBlending && skeletonId == 1)
             bonesToInterpolate1[i] = finalRot;
@@ -176,6 +210,23 @@ void AnimationController::Blend(float deltaTime) {
         bonesToInterpolate2.clear();
         bonesToInterpolate2.resize(activeAction2->animationClip->animation->numBones);
     }
+
+    float interpolation = activeTransition->transitionProcess / activeTransition->transitionTime;
+    interpolation *= 2.f;
+    interpolation -= 1.f;
+    interpolation = glm::sin(interpolation * (glm::pi<float>() / 2.f));
+    interpolation += 1.f;
+    interpolation /= 2.f;
+
+    glm::vec3 pos1 = position1 * (1.f - interpolation);
+    glm::vec3 pos2 = position2 * interpolation;
+
+    glm::vec3 finalPos = pos1 + pos2;
+    glm::mat4 matrixPos = glm::mat4(1.f);
+    matrixPos = glm::translate(matrixPos, finalPos);
+
+    skeleton->skeletonBones[0]->globalTx = matrixPos;
+    bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
 
     for (uint32_t i = 1; i < size; ++i) {
         float interpolation = activeTransition->transitionProcess / activeTransition->transitionTime;
@@ -204,39 +255,33 @@ void AnimationController::Blend(float deltaTime) {
 }
 
 void AnimationController::SetBool(const std::string& name, bool value) {
-    for (std::size_t i = 0; i < controller->boolMap.size(); ++i) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
         if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
             controller->boolMap[i]->value = value;
             return;
         }
-    }
 }
 
 void AnimationController::SetFloat(const std::string& name, float value) {
-    for (std::size_t i = 0; i < controller->floatMap.size(); ++i) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
         if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
             controller->floatMap[i]->value = value;
             return;
         }
-    }
 }
 
 bool AnimationController::GetBool(const std::string& name) {
-    for (std::size_t i = 0; i < controller->boolMap.size(); ++i) {
-        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0)
             return controller->boolMap[i]->value;
-        }
-    }
 
     return false;
 }
 
 float AnimationController::GetFloat(const std::string& name) {
-    for (std::size_t i = 0; i < controller->floatMap.size(); ++i) {
-        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0)
             return controller->floatMap[i]->value;
-        }
-    }
 
     return -1.f;
 }

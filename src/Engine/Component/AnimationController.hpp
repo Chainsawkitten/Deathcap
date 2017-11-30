@@ -78,6 +78,9 @@ namespace Component {
             std::vector<glm::mat4> bonesToInterpolate1;
             std::vector<glm::mat4> bonesToInterpolate2;
 
+            glm::vec3 position1 = glm::vec3(0.f);
+            glm::vec3 position2 = glm::vec3(0.f);
+
             bool isBlending = false;
     };
 }

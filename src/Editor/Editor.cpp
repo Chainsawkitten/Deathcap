@@ -251,12 +251,12 @@ void Editor::Save() const {
 bool Editor::HasMadeChanges() const {
 
     {
-        std::string* sceneFilename = new std::string();
-        Json::Value sceneJson = resourceView.GetSceneJson(sceneFilename);
+        std::string sceneFilename;
+        Json::Value sceneJson = resourceView.GetSceneJson(&sceneFilename);
 
         // Load Json document from file.
         Json::Value reference;
-        std::ifstream file(*sceneFilename);
+        std::ifstream file(sceneFilename);
 
         if (!file.good())
             return true;
