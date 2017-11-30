@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/NewAssetsScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 142,
+	"modelNumber" : 143,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
