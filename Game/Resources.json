@@ -891,22 +891,6 @@
 								"resources" : 
 								[
 									{
-										"texture" : "cave_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "cave_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "cave_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "cave_roughness",
-										"type" : 2
-									},
-									{
 										"texture" : "rock_albedo",
 										"type" : 2
 									},
