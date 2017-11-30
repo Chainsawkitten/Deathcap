@@ -661,10 +661,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
 			},
 			"Mesh" : 
 			{
@@ -674,7 +674,7 @@
 			"name" : "VoltagePanelBeam",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : 0.33800002932548523,
 				"y" : 0.0,
 				"z" : 0.52900004386901855
 			},
