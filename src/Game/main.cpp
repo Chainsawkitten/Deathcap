@@ -109,8 +109,8 @@ int main(int argc, char* argv[]) {
         glfwPollEvents();
 
         if(testing) {
-        ramUsed = Managers().profilingManager->MeasureRAM();
-        vramUsed = Managers().profilingManager->MeasureVRAM();
+            ramUsed = Managers().profilingManager->MeasureRAM();
+            vramUsed = Managers().profilingManager->MeasureVRAM();
 
         if (ramUsed > maxRamLimit) {
             if (ramUsed > maxRamUsed)
