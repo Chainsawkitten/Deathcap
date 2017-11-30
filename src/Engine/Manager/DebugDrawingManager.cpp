@@ -120,7 +120,7 @@ void DebugDrawingManager::AddMesh(unsigned int id, Component::Mesh* meshComponen
 
     if (meshMap.find(id) == meshMap.end()) {
         DebugDrawing::Mesh mesh;
-        if (meshComponent->geometry->GetVertexArray() == NULL)
+        if (meshComponent->geometry->GetVertexArray() == 0)
             debugDrawing->GenerateBuffers(meshComponent->geometry->GetVertexPositionData(), meshComponent->geometry->GetVertexIndexData(), mesh);
         else {
             mesh.vertexArray = meshComponent->geometry->GetVertexArray();
