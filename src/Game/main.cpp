@@ -154,12 +154,12 @@ int main(int argc, char* argv[]) {
     int returnValue = 0;
 
     if ( maxRamUsed > maxRamLimit ) {
-        Log() << "Ram limit violated.\n";
+        Log() << "Ram limit exceeded.\n";
         returnValue = returnValue | 1;
     }
     
     if ( maxVramUsed > maxVramLimit ) {
-        Log() << "Vram limit violated.\n";
+        Log() << "Vram limit exceeded.\n";
         returnValue = returnValue | 2;
     }
 
