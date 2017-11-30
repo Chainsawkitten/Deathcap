@@ -32,29 +32,36 @@ float* SoundBuffer::GetChunkData(int& samples) {
         return nullptr;
     }
 
-    assert(!chunkQueue.empty());
+    assert(!chunkQueue.Empty());
+    SoundStreamer::DataHandle* handle = chunkQueue.Front();
+    while (handle->abort) {
+        while (!handle->done)
+            Log() << "SoundBuffer::GetChunkData is blocking waiting to pop queue!\n";
+        chunkQueue.Pop();
+        assert(!chunkQueue.Empty());
+        handle = chunkQueue.Front();
+    }
 
-    SoundStreamer::DataHandle& handle = chunkQueue.front();
-    while (!handle.done)
+    while (!handle->done)
         Log() << "SoundBuffer::GetChunkData is blocking!\n";
-
-    if (handle.samples < CHUNK_SIZE)
-        memset(&handle.data[(handle.offset + handle.samples) % (CHUNK_SIZE * chunkCount)], 0, (CHUNK_SIZE - handle.samples) * sizeof(float));
-
-    samples = handle.samples;
-    return handle.data;
+    
+    samples = handle->samples;
+    return handle->data;
 }
 
 void SoundBuffer::ConsumeChunk() {
     assert(soundFile);
-    chunkQueue.pop();
+    assert(!chunkQueue.Empty());
+    chunkQueue.Pop();
 }
 
 void SoundBuffer::ProduceChunk() {
     assert(soundFile);
-    chunkQueue.push(Audio::SoundStreamer::DataHandle(soundFile, begin, CHUNK_SIZE, &buffer[begin % (CHUNK_SIZE * chunkCount)]));
-    Managers().soundManager->Load(chunkQueue.back());
-    begin += CHUNK_SIZE;
+    if (begin < soundFile->GetSampleCount()) {
+        chunkQueue.Push(SoundStreamer::DataHandle(soundFile, begin, CHUNK_SIZE, &buffer[begin % (CHUNK_SIZE * chunkCount)]));
+        Managers().soundManager->Load(chunkQueue.Back());
+        begin += CHUNK_SIZE;
+    }
 }
 
 SoundFile* SoundBuffer::GetSoundFile() const {
@@ -75,7 +82,6 @@ void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
 
     // Update sound file.
     this->soundFile = soundFile;
-    assert(chunkQueue.empty());
 
     // Set new sound file.
     if (soundFile) {
@@ -90,6 +96,6 @@ void SoundBuffer::Restart() {
     assert(soundFile);
     begin = 0;
     Managers().soundManager->Flush(chunkQueue);
-    for (int i = 0; i < chunkCount; ++i)
+    for (int i = 0; i < chunkCount - 1; ++i)
         ProduceChunk();
 }

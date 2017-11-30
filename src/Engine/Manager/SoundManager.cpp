@@ -103,7 +103,6 @@ void SoundManager::Update(float deltaTime) {
 }
 
 void SoundManager::ProcessSamples() {
-
     const std::vector<Component::Listener*>& listeners = GetListeners();
     if (listeners.size() == 0)
         return;
@@ -152,16 +151,17 @@ void SoundManager::ProcessSamples() {
             renderers.push_back(sound->renderers);
 
             // If end of file, check if sound repeat.
-            if (samples == 0) {
+            if (samples < CHUNK_SIZE) {
                 soundBuffer->Restart();
                 sound->shouldStop = !sound->loop;
+                // Set silence (zero) at end of buffer.
+                memset(&buffer[samples], 0, (CHUNK_SIZE - samples) * sizeof(float));
             }
         }
 
         // Pause it.
-        if (sound->shouldPause) {
+        if (sound->shouldPause)
             sound->shouldPlay = false;
-        }
 
         // Stop it.
         if (sound->shouldStop) {
@@ -325,10 +325,18 @@ void SoundManager::ClearKilledComponents() {
     listeners.ClearKilled();
 }
 
-void SoundManager::Load(Audio::SoundStreamer::DataHandle& handle) {
-    soundStreamer.Load(handle);
+void SoundManager::Load(SoundStreamer::DataHandle* handle) {
+    if (handle->soundFile->GetCached()) {
+        handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
+        handle->done = true;
+    } else
+        soundStreamer.Load(handle);
 }
 
-void SoundManager::Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue) {
-    soundStreamer.Flush(queue);
+void SoundManager::Flush(Utility::Queue<SoundStreamer::DataHandle>& queue) {
+    while (SoundStreamer::DataHandle* handle = queue.Iterate()) {
+        handle->abort = true;
+        if (handle->soundFile->GetCached())
+            handle->done = true;
+    }
 }
