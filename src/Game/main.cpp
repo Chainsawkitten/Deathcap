@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     
     Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr);
 
-    Log() << "Game started - " << time(nullptr) << "\n";
+    Log() << "qGame started - " << time(nullptr) << "\n";
 
     bool testing = false;
 
