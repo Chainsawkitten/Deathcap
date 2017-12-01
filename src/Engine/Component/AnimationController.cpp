@@ -54,32 +54,42 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     // This will work as the entry point for the animation.
     if (activeAction1 == nullptr) {
         if (controller->animationNodes.size() > 0) {
-            Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[0]);
-            if (tmpAction != nullptr)
-                activeAction1 = tmpAction;
-            else
-                return;
+            for (std::size_t i = 0; i < controller->animationNodes.size(); ++i) {
+                Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[i]);
+                if (tmpAction != nullptr) {
+                    activeAction1 = tmpAction;
+                    break;
+                }
+                else
+                    return;                
+            }
         } else
             return;
     }
 
-    if (!activeTransition && !activeAction1->repeat) {
+    if (!activeTransition) {
         for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
             Animation::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
             if (tmpTransition) {
-                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && tmpTransition->isStatic) {
+                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && tmpTransition->isStatic && !activeAction1->repeat) {
                     Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
                     if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
                         activeTransition = tmpTransition;
                         activeTransition->transitionProcess = 0.f;
                         activeAction2 = tmpAction;
                         isBlending = true;
+                        break;
                     }
                 } else if (!tmpTransition->isStatic && !controller->boolMap.empty() && controller->boolMap[tmpTransition->transitionBoolIndex]) {
-                    // If the bool in the boolMap is true then set this to the activeTransition.
-                    activeTransition = tmpTransition;
-                    activeTransition->transitionProcess = 0.f;
-                    break;
+                    Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
+
+                    if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
+                        activeTransition = tmpTransition;
+                        activeTransition->transitionProcess = 0.f;
+                        activeAction2 = tmpAction;
+                        isBlending = true;
+                        break;
+                    }
                 }
             }
         }
@@ -140,12 +150,8 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationAction* a
 
     if (skeletonId == 1) {
         position1 = pos1 + pos2;
-        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
-        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
     } else if (skeletonId == 2) {
         position2 = pos1 + pos2;
-        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
-        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
     } else {
         glm::vec3 finalPos = pos1 + pos2;
         glm::mat4 matrixPos = glm::mat4(1.f);
