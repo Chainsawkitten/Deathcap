@@ -25,8 +25,8 @@ class elevator_backDoorCon {
 				tempPosWithX = doorWithX.GetWorldPosition();
 				tempPosWithService = doorWithService.GetWorldPosition();
 			
-				tempPosWithX.z -= speed * deltaTime;
-				tempPosWithService.z += speed * deltaTime;
+				tempPosWithX.z += speed * deltaTime;
+				tempPosWithService.z -= speed * deltaTime;
 				
 				doorWithX.SetWorldPosition(tempPosWithX);
 				doorWithService.SetWorldPosition(tempPosWithService);
@@ -38,8 +38,8 @@ class elevator_backDoorCon {
 				tempPosWithX = doorWithX.GetWorldPosition();
 				tempPosWithService = doorWithService.GetWorldPosition();
 			
-				tempPosWithX.z += speed * deltaTime;
-				tempPosWithService.z -= speed * deltaTime;
+				tempPosWithX.z -= speed * deltaTime;
+				tempPosWithService.z += speed * deltaTime;
 				
 				doorWithX.SetWorldPosition(tempPosWithX);
 				doorWithService.SetWorldPosition(tempPosWithService);

@@ -4,6 +4,7 @@ class elevator_moveCart {
 	Entity @elevator;
 	Entity @board;
     Entity @puzzleBoard;
+    Entity @realSelf;
     float speed;
     vec3 tempPos;
 	vec3 elevatorPos;
@@ -19,9 +20,12 @@ class elevator_moveCart {
 		@board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
         
+        @realSelf = @entity;
+        realSelf.SetEnabled(false, true);
+        
 		moveForward = true;
 		moveUpward = false;
-        speed = 4.0f;
+        speed = 2.0f;
         phase = 0;
         uniformScale = 1.0f;
 
@@ -31,43 +35,40 @@ class elevator_moveCart {
 
 	void ReceiveMessage(Entity @sender, int message) {
 		if(message == 0) {
-            phase = 1;			
+            phase = 1;
 		}
 	}
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-	
-    switch(phase) {
+        switch(phase) {
+            case 0:
+                tempPos = self.GetWorldPosition();
+                tempPos.x -= speed * deltaTime;
+                self.SetWorldPosition(tempPos);
+                break;
 
-    case 0:
-            tempPos = self.GetWorldPosition();
-		    tempPos.x += speed * deltaTime;
-		    self.SetWorldPosition(tempPos);
-    break;
+            case 1: 
+                uniformScale -= (1.0f / 3.5f) * deltaTime;
+                if (uniformScale < 0.0f) {
+                    uniformScale = 0.0f;
+                    phase = 2;
+                }
 
-    case 1: 
-            uniformScale -= (1.0f / 3.5f) * deltaTime;
-            if (uniformScale < 0.0f) {
-                uniformScale = 0.0f;
-                phase = 2;
-            }
+                puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
+                break;
 
-            puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
-        break;
-
-    case 2:
-            elevatorPos = elevator.GetWorldPosition();
-		    elevatorPos.y += speed * deltaTime;
-		    elevator.SetWorldPosition(elevatorPos);
-		    
-		    tempPos = self.GetWorldPosition();
-		    tempPos.y += speed * deltaTime;
-		    self.SetWorldPosition(tempPos);
-    break;    
-
+            case 2:
+                elevatorPos = elevator.GetWorldPosition();
+                elevatorPos.y += speed * deltaTime;
+                elevator.SetWorldPosition(elevatorPos);
+                
+                tempPos = self.GetWorldPosition();
+                tempPos.y += speed * deltaTime;
+                self.SetWorldPosition(tempPos);
+                break;
+        }
     }
-}
 	
 	void MoveForward() {
 		phase = 0;

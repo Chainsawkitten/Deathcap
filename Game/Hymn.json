@@ -61,7 +61,8 @@
 		"Resources/MonsterTestScript",
 		"Resources/elevatorScene/Scripts/elevator_moveCart",
 		"Resources/elevatorScene/Scripts/elevator_frontDoorCon",
-		"Resources/elevatorScene/Scripts/elevator_backDoorCon"
+		"Resources/elevatorScene/Scripts/elevator_backDoorCon",
+		"Resources/Super Scene/Scripts/SwitcherScript_2"
 	],
 	"startupScene" : "Resources/NewAssetsScene",
 	"vrScale" : 1.5

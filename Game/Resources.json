@@ -1496,6 +1496,10 @@
 							{
 								"script" : "SwitcherScript_Final",
 								"type" : 4
+							},
+							{
+								"script" : "SwitcherScript_2",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

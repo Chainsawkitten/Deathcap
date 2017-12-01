@@ -2,42 +2,6 @@
 	"children" : 
 	[
 		{
-			"DirectionalLight" : 
-			{
-				"ambientCoefficient" : 0.0,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
-				}
-			},
-			"children" : null,
-			"name" : "sun",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1511530590
-		},
-		{
 			"Material" : 
 			{
 				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
@@ -73,32 +37,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511864673
-		},
-		{
-			"name" : "Minecart",
-			"position" : 
-			{
-				"x" : -31.168783187866211,
-				"y" : -10.475735664367676,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 0.70710676908493042,
-				"x" : 0.0,
-				"y" : -0.70710676908493042,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.20000000298023224,
-				"y" : 0.20000000298023224,
-				"z" : 0.20000000298023224
-			},
-			"scene" : true,
-			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
-			"static" : false,
-			"uid" : 1508919163
 		},
 		{
 			"children" : 
@@ -423,7 +361,7 @@
 						"triggerEventStruct_EventID" : 0,
 						"triggerEventStruct_ScriptID" : 3,
 						"triggerEventStruct_ShapeID" : 0,
-						"triggerEventStruct_TargetID" : 5,
+						"triggerEventStruct_TargetID" : 0,
 						"triggerFunction" : "void StopCart()",
 						"triggerName" : "New Trigger",
 						"triggerOwner" : 1511872744,
@@ -434,9 +372,9 @@
 					"name" : "EnterElevatorTrigger",
 					"position" : 
 					{
-						"x" : 1.9006426334381104,
-						"y" : -9.7326641082763672,
-						"z" : 0.23947441577911377
+						"x" : 1.8858587741851807,
+						"y" : -9.754791259765625,
+						"z" : 0.20131103694438934
 					},
 					"rotation" : 
 					{
@@ -2730,7 +2668,7 @@
 			"position" : 
 			{
 				"x" : 1.5328683853149414,
-				"y" : -8.9368686676025391,
+				"y" : -9.0889110565185547,
 				"z" : 0.15000000596046448
 			},
 			"rotation" : 
