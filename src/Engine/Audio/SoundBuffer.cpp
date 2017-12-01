@@ -32,12 +32,21 @@ float* SoundBuffer::GetChunkData(int& samples) {
         return nullptr;
     }
 
+    if (chunkQueue.Empty()) {
+        samples = 0;
+        return nullptr;
+    }
+
     assert(!chunkQueue.Empty());
     SoundStreamer::DataHandle* handle = chunkQueue.Front();
     while (handle->abort) {
         while (!handle->done)
             Log() << "SoundBuffer::GetChunkData is blocking waiting to pop queue!\n";
         chunkQueue.Pop();
+        if (chunkQueue.Empty()) {
+            samples = 0;
+            return nullptr;
+        }
         assert(!chunkQueue.Empty());
         handle = chunkQueue.Front();
     }
@@ -96,6 +105,6 @@ void SoundBuffer::Restart() {
     assert(soundFile);
     begin = 0;
     Managers().soundManager->Flush(chunkQueue);
-    for (int i = 0; i < chunkCount - 1; ++i)
+    for (int i = 0; i < chunkCount; ++i)
         ProduceChunk();
 }

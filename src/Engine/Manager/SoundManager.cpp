@@ -132,30 +132,32 @@ void SoundManager::ProcessSamples() {
 
         // Check if sound should play and is a valid resource.
         if (sound->shouldPlay && soundFile && soundFile->IsLoaded()) {
-            soundBuffers.push_back(soundBuffer);
-
             // Get samples from streamed buffer.
             int samples;
             float* buffer = soundBuffer->GetChunkData(samples);
-            buffers.push_back(buffer);
+            if (buffer) {
+                buffers.push_back(buffer);
+                soundBuffers.push_back(soundBuffer);
 
-            // Volume.
-            for (int m = 0; m < samples; ++m)
-                buffer[m] *= sound->volume;
+                // Volume.
+                for (int m = 0; m < samples; ++m)
+                    buffer[m] *= sound->volume;
 
-            glm::vec3 position = sound->entity->GetWorldPosition();
-            positions.push_back(IPLVector3{ position.x, position.y, position.z });
-            radii.push_back(3.0f);
-            if (!sound->renderers)
-                sAudio.CreateRenderers(sound->renderers);
-            renderers.push_back(sound->renderers);
+                glm::vec3 position = sound->entity->GetWorldPosition();
+                positions.push_back(IPLVector3{ position.x, position.y, position.z });
+                radii.push_back(3.0f);
+                if (!sound->renderers)
+                    sAudio.CreateRenderers(sound->renderers);
+                renderers.push_back(sound->renderers);
+            }
 
             // If end of file, check if sound repeat.
             if (samples < CHUNK_SIZE) {
                 soundBuffer->Restart();
                 sound->shouldStop = !sound->loop;
                 // Set silence (zero) at end of buffer.
-                memset(&buffer[samples], 0, (CHUNK_SIZE - samples) * sizeof(float));
+                if (buffer) 
+                    memset(&buffer[samples], 0, (CHUNK_SIZE - samples) * sizeof(float));
             }
         }
 

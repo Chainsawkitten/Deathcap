@@ -40,6 +40,12 @@ namespace Utility {
              */
             T* Iterate();
 
+            /// Get the number of elements in queue.
+            /**
+             * @return Number of elements in queue.
+             */
+            unsigned int Count();
+
         private:
             struct Node {
                 Node() = default;
@@ -99,5 +105,10 @@ namespace Utility {
         else
             iterator = iterator->backward;
         return iterator ? &iterator->val : nullptr;
+    }
+
+
+    template<typename T> unsigned int Queue<T>::Count() {
+        return count;
     }
 }
