@@ -8,6 +8,12 @@ namespace Animation {
     /// Animation transition node.
     class AnimationTransition : public Node {
         public:
+        /// Create new animation transition.
+        ENGINE_API AnimationTransition();
+        
+        /// Destructor.
+        ENGINE_API ~AnimationTransition() override;
+        
         /// Save the animation transition node.
         /**
          * @param file File to save to.
