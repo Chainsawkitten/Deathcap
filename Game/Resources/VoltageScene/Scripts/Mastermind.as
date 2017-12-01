@@ -122,70 +122,30 @@ class Mastermind {
 
     void ReceiveMessage(Entity @sender, int signal) {
         
-        if(signal < 32){
-        
-            AddToSlot(signal / 8, GetColorFromID(signal % 8));
-        
-        } else {
-        
-            RemoveFromSlot(signal - 32);
-        
-        }
-        
-    }
-    
-    string GetColorFromID(int colorID){
-    
-        switch(colorID){
-        
-            case 0:{
-                return "Red";
-            }
-            case 1:{
-                return "Green";
-            }
-            case 2:{
-                return "Blue";
-            }
-            case 3:{
-                return "Black";
-            }
-            case 4:{
-                return "White";
-            }
-            case 5:{
-                return "Yellow";
-            }
-            case 6:{
-                return "Orange";
-            }
-            case 7:{
-                return "Brown";
-            }
-        
-        }
-    
-        return "";
-    
+        if(signal < 4)
+            AddToSlot(signal, sender.name);
+        else
+            RemoveFromSlot(signal - 4);
+            
     }
 
     void AddToSlot(int slot, string transistorColor){
     
         switch(slot){
         
-            case 1: {
+            case 0: {
                 slot1 = transistorColor;
                 break;
             }
-            case 2: {
+            case 1: {
                 slot2 = transistorColor;
                 break;
             }
-            case 3: {
+            case 2: {
                 slot3 = transistorColor;
                 break;
             }
-            case 4: {
+            case 3: {
                 slot4 = transistorColor;
                 break;
             }
@@ -197,19 +157,19 @@ class Mastermind {
     
         switch(slot){
         
-            case 1: {
+            case 0: {
                 slot1 = "";
                 break;
             }
-            case 2: {
+            case 1: {
                 slot2 = "";
                 break;
             }
-            case 3: {
+            case 2: {
                 slot3 = "";
                 break;
             }
-            case 4: {
+            case 3: {
                 slot4 = "";
                 break;
             }
