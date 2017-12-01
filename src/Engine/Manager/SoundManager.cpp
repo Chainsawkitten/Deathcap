@@ -145,7 +145,7 @@ void SoundManager::ProcessSamples() {
 
             glm::vec3 position = sound->entity->GetWorldPosition();
             positions.push_back(IPLVector3{ position.x, position.y, position.z });
-            radii.push_back(0.5f);
+            radii.push_back(3.0f);
             if (!sound->renderers)
                 sAudio.CreateRenderers(sound->renderers);
             renderers.push_back(sound->renderers);
