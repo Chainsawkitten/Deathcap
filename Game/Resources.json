@@ -195,10 +195,6 @@
 								"type" : 3
 							},
 							{
-								"script" : "scr_AudioManager",
-								"type" : 4
-							},
-							{
 								"model" : "metal-soundmesh",
 								"type" : 1
 							},
