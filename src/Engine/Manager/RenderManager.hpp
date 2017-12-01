@@ -241,7 +241,6 @@ class RenderManager {
          */
         ENGINE_API glm::vec3 GetFogColor() const;
 
-
         /// Set whether color filter is applied.
         /**
          * @param colorFilterApply Whether to apply color filter.

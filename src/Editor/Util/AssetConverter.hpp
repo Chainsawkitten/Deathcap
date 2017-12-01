@@ -69,7 +69,7 @@ class AssetConverter {
         void ConvertMesh(aiMesh * mesh, Geometry::AssetFileHandler * file, const glm::vec3& scale, bool flipUVs, bool CPU, bool GPU);
         Video::Geometry::VertexType::StaticVertex * ConvertStaticVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, const glm::vec3& scale, bool flipUVs);
         Video::Geometry::VertexType::SkinVertex * ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, const glm::vec3& scale, bool flipUVs);
-        void CalculateAABB(Geometry::AssetFileHandler::MeshData * meshData, unsigned int numVertices);
+        void CalculateAABB(Geometry::MeshData * meshData, unsigned int numVertices);
         void LoadMaterial(aiMaterial* material, aiTextureType type, std::string& path);
 
         Assimp::Importer aImporter;
