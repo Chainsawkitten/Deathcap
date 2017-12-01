@@ -24,12 +24,14 @@ class Propp {
     void Update(float deltaTime) {
         if (!Input(Trigger, rightCtrl) && isPressed) {
             isPressed = false;
+            vec3 tempPos = self.GetWorldPosition();
             self.SetParent(originalParent);
+            self.SetWorldPosition(tempPos);
         }
     }
     
     void PickupTrigger() {
-        if (Input(Trigger, rightCtrl) && !isPressed) {
+        if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) == null &&!isPressed) {
             isPressed = true;
             self.position = vec3(0.0f, 0.0f, 0.0f);
             self.SetParent(rightCtrl);
