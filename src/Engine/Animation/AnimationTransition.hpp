@@ -6,7 +6,8 @@
 
 namespace Animation {
     /// Animation transition node.
-    struct AnimationTransition : public Node {
+    class AnimationTransition : public Node {
+        public:
         /// Save the animation transition node.
         /**
          * @param file File to save to.

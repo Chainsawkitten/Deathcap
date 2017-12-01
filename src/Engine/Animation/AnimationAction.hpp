@@ -11,7 +11,8 @@ namespace Animation {
 
 namespace Animation {
     /// Animaiton action node.
-    struct AnimationAction : public Node {
+    class AnimationAction : public Node {
+        public:
         /// Destructor.
         ENGINE_API virtual ~AnimationAction();
 
