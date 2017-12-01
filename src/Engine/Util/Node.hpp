@@ -5,7 +5,8 @@
 #include "../linking.hpp"
 
 /// Base node.
-struct Node {
+class Node {
+    public:
     /// Destructor.
     ENGINE_API virtual ~Node();
 

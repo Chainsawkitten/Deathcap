@@ -6,6 +6,14 @@
 
 using namespace Animation;
 
+AnimationTransition::AnimationTransition() {
+    
+}
+
+AnimationTransition::~AnimationTransition() {
+    
+}
+
 void AnimationTransition::Save(std::ofstream* file) {
     Node::Save(file);
     file->write(reinterpret_cast<char*>(&isStatic), sizeof(bool));

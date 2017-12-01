@@ -1537,12 +1537,12 @@
 													{
 														"albedo" : "Resources/NewAssets/Textures/The Bucket/bucket_albedo",
 														"metallic" : "Resources/NewAssets/Textures/The Bucket/bucket_metallic",
-														"normal" : "",
-														"roughness" : ""
+														"normal" : "Resources/NewAssets/Textures/The Bucket/bucket_normal",
+														"roughness" : "Resources/NewAssets/Textures/The Bucket/bucket_roughness"
 													},
 													"Mesh" : 
 													{
-														"model" : "Resources/NewAssets/Models/Puzzle Scale/bucketFixedHandle_01"
+														"model" : "Resources/NewAssets/Models/The Bucket/TheBucket"
 													},
 													"children" : 
 													[
@@ -1606,22 +1606,22 @@
 													"name" : "Bucket",
 													"position" : 
 													{
-														"x" : -0.16500000655651093,
-														"y" : -0.078000001609325409,
-														"z" : -0.71700000762939453
+														"x" : -0.14610970020294189,
+														"y" : -1.5018868446350098,
+														"z" : -3.2162940502166748
 													},
 													"rotation" : 
 													{
-														"w" : 1.0,
+														"w" : 0.70710676908493042,
 														"x" : 0.0,
-														"y" : 0.0,
+														"y" : 0.70710676908493042,
 														"z" : 0.0
 													},
 													"scale" : 
 													{
-														"x" : 1.0,
-														"y" : 1.0,
-														"z" : 1.0
+														"x" : 0.20000000298023224,
+														"y" : 0.20000000298023224,
+														"z" : 0.20000000298023224
 													},
 													"scene" : false,
 													"static" : false,

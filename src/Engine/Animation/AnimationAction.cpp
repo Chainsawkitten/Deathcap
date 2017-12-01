@@ -8,6 +8,10 @@
 
 using namespace Animation;
 
+AnimationAction::AnimationAction() {
+    
+}
+
 AnimationAction::~AnimationAction() {
     if (animationClip != nullptr)
         Managers().resourceManager->FreeAnimationClip(animationClip);
