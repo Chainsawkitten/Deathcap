@@ -3175,6 +3175,28 @@
 									"radius" : 0.15000000596046448
 								}
 							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 8,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046530,
+								"triggerTargetEntity" : 1511964566,
+								"triggerTriggered" : false
+							},
 							"children" : null,
 							"name" : "BlackShape",
 							"position" : 
@@ -3217,9 +3239,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
 					},
 					"scene" : false,
 					"static" : false,
@@ -3251,6 +3273,28 @@
 									"length" : 0.20000000298023224,
 									"radius" : 0.15000000596046448
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 9,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046531,
+								"triggerTargetEntity" : 1511964615,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "BlueShape",
@@ -3294,9 +3338,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
 					},
 					"scene" : false,
 					"static" : false,
@@ -3328,6 +3372,28 @@
 									"length" : 0.20000000298023224,
 									"radius" : 0.15000000596046448
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 10,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046532,
+								"triggerTargetEntity" : 1511964661,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "BrownShape",
@@ -3371,9 +3437,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
 					},
 					"scene" : false,
 					"static" : false,
@@ -3405,6 +3471,28 @@
 									"length" : 0.20000000298023224,
 									"radius" : 0.15000000596046448
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : false,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 0,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 11,
+								"triggerFunction" : "",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046533,
+								"triggerTargetEntity" : 1511964754,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "PinkShape",
@@ -3448,9 +3536,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
 					},
 					"scene" : false,
 					"static" : false,
@@ -3482,6 +3570,28 @@
 									"length" : 0.20000000298023224,
 									"radius" : 0.15000000596046448
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 12,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046534,
+								"triggerTargetEntity" : 1511964823,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "RedShape",
@@ -3525,9 +3635,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
 					},
 					"scene" : false,
 					"static" : false,
@@ -3559,6 +3669,28 @@
 									"length" : 0.20000000298023224,
 									"radius" : 0.15000000596046448
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 13,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046535,
+								"triggerTargetEntity" : 1511964862,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "WhiteShape",
@@ -3602,9 +3734,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
 					},
 					"scene" : false,
 					"static" : false,
@@ -3636,6 +3768,28 @@
 									"length" : 0.20000000298023224,
 									"radius" : 0.15000000596046448
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 14,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046536,
+								"triggerTargetEntity" : 1511964915,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "YellowShape",
@@ -3679,9 +3833,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
 					},
 					"scene" : false,
 					"static" : false,
@@ -3706,18 +3860,6 @@
 					"children" : 
 					[
 						{
-							"RigidBody" : 
-							{
-								"angularDamping" : 0.0,
-								"cor" : 0.0,
-								"friction" : 0.0,
-								"ghost" : true,
-								"kinematic" : false,
-								"linearDamping" : 0.0,
-								"mass" : 1.0,
-								"rollingFriction" : 0.0,
-								"spinningFriction" : 0.0
-							},
 							"Shape" : 
 							{
 								"cylinder" : 
@@ -3725,6 +3867,28 @@
 									"length" : 0.20000000298023224,
 									"radius" : 0.15000000596046448
 								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 15,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512044625,
+								"triggerTargetEntity" : 1511964701,
+								"triggerTriggered" : false
 							},
 							"children" : null,
 							"name" : "GreenShape",
@@ -3768,9 +3932,9 @@
 					},
 					"scale" : 
 					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
 					},
 					"scene" : false,
 					"static" : false,
@@ -3793,9 +3957,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 0.10000000149011612,
-				"y" : 0.10000000149011612,
-				"z" : 0.10000000149011612
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
 			},
 			"scene" : false,
 			"static" : false,
