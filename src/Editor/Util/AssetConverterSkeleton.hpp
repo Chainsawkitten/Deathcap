@@ -1,8 +1,14 @@
+#pragma once
+
 #include <string>
+#include <vector>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/anim.h>
-#include <Engine/Animation/AnimationClip.hpp>
+#include <Engine/Animation/Animation.hpp>
+#include <Engine/Animation/Bone.hpp>
+#include <Engine/Animation/Skeleton.hpp>
+#include <Engine/Animation/SkeletonBone.hpp>
 
 /// Class used to convert fbx to .asset format for skeleton and animation.
 class AssetConverterSkeleton {

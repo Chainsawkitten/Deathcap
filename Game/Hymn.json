@@ -8,8 +8,8 @@
 			"y" : 1.0,
 			"z" : 1.0
 		},
-		"dither" : false,
-		"fog" : false,
+		"dither" : true,
+		"fog" : true,
 		"fogColor" : 
 		{
 			"x" : 0.0,
@@ -38,6 +38,7 @@
 			"size" : 2
 		}
 	],
+	"name" : "Deathcap",
 	"scripts" : 
 	[
 		"Resources/Constant Scene/Minecart/Script/Camera",
@@ -55,6 +56,7 @@
 		"Resources/final_event/MainScript",
 		"Resources/final_event/MonsterScript",
 		"Resources/Super Scene/Scripts/SwitcherScript_1",
+		"Resources/Foliage/FlareScript",
 		"Resources/elevatorScene/Scripts/LightsOutScript",
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
@@ -64,6 +66,6 @@
 		"Resources/elevatorScene/Scripts/elevator_backDoorCon",
 		"Resources/Super Scene/Scripts/SwitcherScript_2"
 	],
-	"startupScene" : "Resources/NewAssetsScene",
+	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5
 }

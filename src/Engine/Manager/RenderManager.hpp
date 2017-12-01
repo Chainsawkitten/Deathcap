@@ -241,7 +241,6 @@ class RenderManager {
          */
         ENGINE_API glm::vec3 GetFogColor() const;
 
-
         /// Set whether color filter is applied.
         /**
          * @param colorFilterApply Whether to apply color filter.
@@ -279,6 +278,18 @@ class RenderManager {
          * @return Whether dithering is applied.
          */
         ENGINE_API bool GetDitherApply() const;
+        
+        /// Set the level of texture reduction to use.
+        /**
+         * @param textureReduction Which mip-level to start loading.
+         */
+        ENGINE_API void SetTextureReduction(uint16_t textureReduction);
+        
+        /// Get the level of texture reduction to use.
+        /**
+         * @return Which mip-level to start loading.
+         */
+        ENGINE_API uint16_t GetTextureReduction() const;
 
     private:
         RenderManager();
@@ -316,4 +327,6 @@ class RenderManager {
         ComponentContainer<Component::Mesh> meshes;
         ComponentContainer<Component::PointLight> pointLights;
         ComponentContainer<Component::SpotLight> spotLights;
+        
+        uint8_t textureReduction = 0;
 };

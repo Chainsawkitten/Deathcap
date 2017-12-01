@@ -51,16 +51,6 @@ void NodeEditor::Show() {
         ImDrawList* drawList = ImGui::GetWindowDrawList();
         drawList->ChannelsSplit(2);
 
-        ImU32 gridColorRight = ImColor(150, 150, 150, 200);
-        ImU32 gridColorUp = ImColor(110, 110, 110, 200);
-        float gridSquareSize = 64.0f;
-        ImVec2 winPos = ImGui::GetCursorScreenPos();
-        ImVec2 canvasSize = ImGui::GetWindowSize();
-        for (float x = fmodf(offset.x, gridSquareSize); x < canvasSize.x; x += gridSquareSize)
-            drawList->AddLine(ImVec2(x, winPos.y), ImVec2(x, canvasSize.y + winPos.y), gridColorRight);
-        for (float y = fmodf(offset.y, gridSquareSize); y < canvasSize.y; y += gridSquareSize)
-            drawList->AddLine(ImVec2(winPos.x, y), ImVec2(canvasSize.x + winPos.x, y), gridColorUp);
-
         // Draw connection.
         if (isDragingConnection) {
             Node* node = GetNodeArray()[dragNodeIndex];

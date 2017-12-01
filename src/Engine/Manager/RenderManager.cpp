@@ -97,7 +97,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
     if (camera != nullptr) {
         // Set image processing variables.
         renderer->SetGamma(Hymn().filterSettings.gamma);
-        renderer->SetFogApply(Hymn().filterSettings.fogApply);
+        renderer->SetFogApply(Hymn().filterSettings.fogApply && lighting);
         renderer->SetFogDensity(Hymn().filterSettings.fogDensity);
         renderer->SetFogColor(Hymn().filterSettings.fogColor);
         renderer->SetColorFilterApply(Hymn().filterSettings.colorFilterApply);
@@ -270,10 +270,10 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     const std::vector<AnimationController*>& controllerComponents = animationControllers.GetAll();
 
     //Render shadows maps.
-    { VIDEO_ERROR_CHECK("Render shadows meshes");
-    { PROFILE("Render shadows meshes");
-    { GPUPROFILE("Render shadows meshes", Video::Query::Type::TIME_ELAPSED);
-    { GPUPROFILE("Render shadows meshes", Video::Query::Type::SAMPLES_PASSED);
+    { VIDEO_ERROR_CHECK("Render shadow meshes");
+    { PROFILE("Render shadow meshes");
+    { GPUPROFILE("Render shadow meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render shadow meshes", Video::Query::Type::SAMPLES_PASSED);
         // Static meshes.
         renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
         for (Mesh* mesh : meshComponents) {
@@ -281,7 +281,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
             if (entity->IsKilled() || !entity->IsEnabled())
                 continue;
 
-            if (mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
+            if (mesh->geometry && mesh->geometry->GetIndexCount() != 0 && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
         }
         // Skin meshes.
@@ -292,7 +292,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 continue;
 
             Mesh* mesh = entity->GetComponent<Mesh>();
-            if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
+            if (mesh && mesh->geometry && mesh->geometry->GetIndexCount() != 0 && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
                 renderer->ShadowRenderSkinMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix(), controller->bones);
         }
     }
@@ -314,7 +314,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
             if (entity->IsKilled() || !entity->IsEnabled())
                 continue;
 
-            if (mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
+            if (mesh->geometry && mesh->geometry->GetIndexCount() != 0 && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC)
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
         }
@@ -327,7 +327,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 continue;
 
             Mesh* mesh = entity->GetComponent<Mesh>();
-            if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
+            if (mesh && mesh->geometry && mesh->geometry->GetIndexCount() != 0 && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN)
                 if (entity->GetComponent<Material>() != nullptr)
                     renderer->DepthRenderSkinMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix(), controller->bones);
         }
@@ -367,10 +367,10 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 if (entity->IsKilled() || !entity->IsEnabled())
                     continue;
 
-                if (mesh->geometry != nullptr && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
+                if (mesh->geometry && mesh->geometry->GetIndexCount() != 0 && mesh->geometry->GetType() == Video::Geometry::Geometry3D::STATIC) {
                     Material* material = entity->GetComponent<Material>();
                     if (material != nullptr)
-                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), false);
+                        renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
                 }
             }
         }
@@ -390,10 +390,10 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                     continue;
 
                 Mesh* mesh = entity->GetComponent<Mesh>();
-                if (mesh && mesh->geometry && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
+                if (mesh && mesh->geometry && mesh->geometry->GetIndexCount() != 0 && mesh->geometry->GetType() == Video::Geometry::Geometry3D::SKIN) {
                     Material* material = entity->GetComponent<Material>();
-                    if (material != nullptr)
-                        renderer->RenderSkinMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones, false);
+                    if (material)
+                        renderer->RenderSkinMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), controller->bones);
                 }
             }
         }
@@ -684,6 +684,14 @@ void RenderManager::SetDitherApply(bool ditherApply) {
 
 bool RenderManager::GetDitherApply() const {
     return Hymn().filterSettings.ditherApply;
+}
+
+void RenderManager::SetTextureReduction(uint16_t textureReduction) {
+    this->textureReduction = textureReduction;
+}
+
+uint16_t RenderManager::GetTextureReduction() const {
+    return textureReduction;
 }
 
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {

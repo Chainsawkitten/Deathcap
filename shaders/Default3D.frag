@@ -41,7 +41,6 @@ uniform sampler2D tDepth;
 uniform sampler2D mapShadow;
 uniform mat4 inverseProjectionMatrix;
 // Image processing uniforms.
-uniform bool isSelected;
 uniform float gamma;
 uniform bool fogApply;
 uniform float fogDensity;
@@ -68,7 +67,7 @@ vec3 calculateNormal(in vec3 normal, in vec3 tangent, in vec3 normalFromMap) {
     
     vec3 mn = 2.0 * normalFromMap - vec3(1.0, 1.0, 1.0);
     // Calculate Z component since we only store X and Y in the texture.
-    mn.b = sqrt(mn.r * mn.r + mn.g * mn.g);
+    mn.b = sqrt(1.0 - mn.r * mn.r - mn.g * mn.g);
     mat3 TBN = mat3(t, b, n);
     return TBN * mn;
 }
@@ -115,9 +114,10 @@ float ShadowCalculation(vec4 fragPosLightSpace){
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     // to range [0,1]
     projCoords = projCoords * 0.5 + vec3(0.5);
+    float bias = 0.005;
     float closestDepth = texture(mapShadow, projCoords.xy).r;
     float currentDepth = projCoords.z;
-    float shadow = currentDepth  > closestDepth ? 1.0 : 0.0;
+    float shadow = currentDepth - bias  > closestDepth ? 1.0 : 0.0;
 
     return shadow;
 }
@@ -212,44 +212,40 @@ void main() {
 
     vec3 finalColor = vec3(0.f, 0.f, 0.f);
     
-    if(isSelected) {
-        finalColor = vec3(0.0f, 0.7f, 0.0f);
-    } else {
-        float depth = texture(tDepth, vertexIn.texCoords).r;
-        vec3 albedo = texture(mapAlbedo, vertexIn.texCoords).rgb;
-        albedo = pow(albedo, vec3(gamma)); // Apply if texture not in sRGB
-        //vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
-        vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
-        float metallic = texture(mapMetallic, vertexIn.texCoords).r;
-        float roughness = texture(mapRoughness, vertexIn.texCoords).r;
-        vec3 pos = vertexIn.pos;
+    float depth = texture(tDepth, vertexIn.texCoords).r;
+    vec3 albedo = texture(mapAlbedo, vertexIn.texCoords).rgb;
+    albedo = pow(albedo, vec3(gamma)); // Apply if texture not in sRGB
+    //vec3 normal = normalize(texture(mapNormal, vertexIn.texCoords).rgb);// no need to sample
+    vec3 normal = calculateNormal(vertexIn.normal, vertexIn.tangent, texture(mapNormal, vertexIn.texCoords).rgb);
+    float metallic = texture(mapMetallic, vertexIn.texCoords).r;
+    float roughness = texture(mapRoughness, vertexIn.texCoords).r;
+    vec3 pos = vertexIn.pos;
 
-        // Shade fragment.
-        vec3 color = ApplyLights(albedo, normal, metallic, roughness, pos);
+    // Shade fragment.
+    vec3 color = ApplyLights(albedo, normal, metallic, roughness, pos);
 
-        // Fog.
-        if (fogApply)
-            color = ApplyFog(pos, color);
-            
-        // Color Filter.
-        if (colorFilterApply)
-            color = color * colorFilterColor;
+    // Fog.
+    if (fogApply)
+        color = ApplyFog(pos, color);
         
-        // Reinhard tone mapping.
-        color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
-        
-        // Gamma correction.
-        color = pow(color, vec3(1.0f / gamma));
+    // Color Filter.
+    if (colorFilterApply)
+        color = color * colorFilterColor;
+    
+    // Reinhard tone mapping.
+    color = clamp(color / (color + vec3(1.0f)), 0.0f, 1.0f);
+    
+    // Gamma correction.
+    color = pow(color, vec3(1.0f / gamma));
 
-        // Dither.
-        if (ditherApply) {
-            float dither = rand(gl_FragCoord.xy / frameSize + vec2(time, 0.0f)) / 255.0f;
-            color = color + vec3(dither);
-        }
-        
-        // Final color.
-        finalColor = color;
+    // Dither.
+    if (ditherApply) {
+        float dither = rand(gl_FragCoord.xy / frameSize + vec2(time, 0.0f)) / 255.0f;
+        color = color + vec3(dither);
     }
+    
+    // Final color.
+    finalColor = color;
 
     fragmentColor = vec4(finalColor, 1.0f);
 }

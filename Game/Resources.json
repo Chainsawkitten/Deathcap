@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/elevatorScene/elevatorScene_01",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 156,
+	"modelNumber" : 157,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -841,22 +841,6 @@
 								"resources" : 
 								[
 									{
-										"texture" : "cave_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "cave_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "cave_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "cave_roughness",
-										"type" : 2
-									},
-									{
 										"texture" : "rock_albedo",
 										"type" : 2
 									},
@@ -1404,6 +1388,34 @@
 					{
 						"texture" : "fern_roughnes",
 						"type" : 2
+					},
+					{
+						"scene" : "FlareScene",
+						"type" : 0
+					},
+					{
+						"model" : "FlareModel",
+						"type" : 1
+					},
+					{
+						"script" : "FlareScript",
+						"type" : 4
+					},
+					{
+						"texture" : "FlareAlbedo",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareNormal",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareMetallic",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareRoughness",
+						"type" : 2
 					}
 				],
 				"subfolders" : null
@@ -1641,9 +1653,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 29,
+	"sceneNumber" : 30,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 123
+	"textureNumber" : 127
 }

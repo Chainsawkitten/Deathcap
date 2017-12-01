@@ -73,6 +73,7 @@ Renderer::Renderer() {
 Renderer::~Renderer() {
     delete rectangle;
     delete staticRenderProgram;
+    delete skinRenderProgram;
 
     delete postProcessing;
     delete fxaaFilter;
@@ -111,8 +112,8 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
     staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
 }
 
-void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {
-    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, isSelected);
+void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix) {
+    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix);
 }
 
 void Renderer::PrepareSkinShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
@@ -135,8 +136,8 @@ void Renderer::PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::
     skinRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
 }
 
-void Renderer::RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) {
-    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones, isSelected);
+void Renderer::RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones) {
+    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones);
 }
 
 void Renderer::SetLights(const std::vector<Video::Light>& lights) {

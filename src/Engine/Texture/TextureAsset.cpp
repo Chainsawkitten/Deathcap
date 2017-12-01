@@ -5,6 +5,8 @@
 #include <DefaultAlbedo.png.hpp>
 #include <Video/Texture/TexturePNG.hpp>
 #include <Video/Texture/TextureHCT.hpp>
+#include "../Manager/Managers.hpp"
+#include "../Manager/RenderManager.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -39,7 +41,7 @@ void TextureAsset::Load(const std::string& name) {
         delete texture;
     
     // Load texture from disk.
-    texture = new TextureHCT((filename + ".hct").c_str());
+    texture = new TextureHCT((filename + ".hct").c_str(), Managers().renderManager->GetTextureReduction());
 }
 
 Texture2D* TextureAsset::GetTexture() const {

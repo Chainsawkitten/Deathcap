@@ -9,6 +9,7 @@
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/SoundManager.hpp>
 #include <Engine/Manager/DebugDrawingManager.hpp>
+#include <Engine/Manager/RenderManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <Engine/MainWindow.hpp>
 #include <Engine/Component/DirectionalLight.hpp>
@@ -19,6 +20,7 @@
 #include <Engine/Component/SpotLight.hpp>
 #include <Engine/Component/PointLight.hpp>
 #include <Engine/Geometry/Model.hpp>
+#include <Engine/Geometry/MeshData.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
 #include <ImGuizmo.h>
@@ -228,7 +230,13 @@ void Editor::Show(float deltaTime) {
             if (currentEntity->loadPaintModeClicked && currentEntity->GetComponent<Component::Mesh>() != nullptr) 
                 PaintBrush(currentEntity);
 
+            // Widgets.
             WidgetGizmo(currentEntity);
+
+            // Highlight selected.
+            Component::Mesh* mesh = currentEntity->GetComponent<Component::Mesh>();
+            if (mesh && mesh->geometry)
+                Managers().debugDrawingManager->AddMesh(mesh->entity->GetUniqueIdentifier(), mesh, mesh->entity->GetModelMatrix(), glm::vec3(0.2f, 0.72f, 0.2f));
         }
     }
 }
@@ -243,12 +251,12 @@ void Editor::Save() const {
 bool Editor::HasMadeChanges() const {
 
     {
-        std::string* sceneFilename = new std::string();
-        Json::Value sceneJson = resourceView.GetSceneJson(sceneFilename);
+        std::string sceneFilename;
+        Json::Value sceneJson = resourceView.GetSceneJson(&sceneFilename);
 
         // Load Json document from file.
         Json::Value reference;
-        std::ifstream file(*sceneFilename);
+        std::ifstream file(sceneFilename);
 
         if (!file.good())
             return true;
@@ -509,7 +517,6 @@ void Editor::Picking() {
 
         // Deselect last entity.
         if (selectedEntity != nullptr && selectedEntity->GetComponent<Component::Mesh>() != nullptr) {
-            selectedEntity->GetComponent<Component::Mesh>()->SetSelected(false);
             resourceView.GetScene().entityEditor.SetVisible(false);
         }
         selectedEntity = nullptr;
@@ -538,8 +545,6 @@ void Editor::Picking() {
         if (selectedEntity != nullptr) {
             resourceView.GetScene().entityEditor.SetEntity(selectedEntity);
             resourceView.GetScene().entityEditor.SetVisible(true);
-            if (selectedEntity->GetComponent<Component::Mesh>() != nullptr)
-                selectedEntity->GetComponent<Component::Mesh>()->SetSelected(true);
         }
     }
 }
@@ -579,7 +584,7 @@ void Editor::PaintBrush(Entity* entity) {
         Geometry::AssetFileHandler handler;
         handler.Open(modelPath.c_str());
         handler.LoadMeshData(0);
-        Geometry::AssetFileHandler::MeshData* data = handler.GetStaticMeshData();
+        Geometry::MeshData* data = handler.GetStaticMeshData();
         nrOfIndices = data->numIndices;
         nrOfVertices = data->numVertices;
 
