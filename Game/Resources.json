@@ -1580,6 +1580,10 @@
 							{
 								"model" : "box",
 								"type" : 1
+							},
+							{
+								"model" : "Skull",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -1727,6 +1731,36 @@
 									},
 									{
 										"texture" : "propp_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "VoltageRoundAbout",
+								"resources" : 
+								[
+									{
+										"texture" : "VoltageRoundAbout_Abledo",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageRoundAbout_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageRoundAbout_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Skull",
+								"resources" : 
+								[
+									{
+										"texture" : "Skull_Albedo",
 										"type" : 2
 									}
 								],

@@ -55,7 +55,6 @@ class Mastermind {
 	int rightColors = 0;
     
 	void CheckSolution(){
-        print("WHOA\n");
 		correct = 0;
 		rightColors = 0;
 		puzzleSolved = false;

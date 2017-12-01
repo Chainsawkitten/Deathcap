@@ -31,7 +31,7 @@ class Propp {
     void PickupTrigger() {
         if (Input(Trigger, rightCtrl) && !isPressed) {
             isPressed = true;
-            self.position = (0.0f, 0.0f, 0.0f);
+            self.position = vec3(0.0f, 0.0f, 0.0f);
             self.SetParent(rightCtrl);
         }
     }
