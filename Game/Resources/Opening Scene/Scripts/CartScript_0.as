@@ -28,10 +28,10 @@ class CartScript_0 {
 
 
     
-    if(degrees(pitch(leverHandle.rotation))>120.0f){
+    //if(degrees(pitch(leverHandle.rotation))>120.0f){
         tempPos = self.GetWorldPosition();
         tempPos.x -= speed * deltaTime;
         self.SetWorldPosition(tempPos);
-     }   
+     //}   
     }
 }
