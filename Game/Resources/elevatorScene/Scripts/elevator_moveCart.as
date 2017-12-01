@@ -64,7 +64,8 @@ class elevator_moveCart {
 		    tempPos = self.GetWorldPosition();
 		    tempPos.y += speed * deltaTime;
 		    self.SetWorldPosition(tempPos);
-    break;  
+    break;    
+
     }
 }
 	
