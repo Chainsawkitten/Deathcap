@@ -53,7 +53,7 @@
 									{
 										"loop" : true,
 										"sound" : "Resources/Opening Scene/Audio/Ambient",
-										"volume" : 0.36700001358985901
+										"volume" : 1.0
 									},
 									"children" : null,
 									"name" : "AmbientAudio",
