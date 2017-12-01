@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
@@ -201,10 +201,6 @@
 							{
 								"model" : "stone-soundmesh",
 								"type" : 1
-							},
-							{
-								"sound" : "Testtone",
-								"type" : 3
 							}
 						],
 						"subfolders" : null

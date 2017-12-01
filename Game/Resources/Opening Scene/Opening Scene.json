@@ -875,42 +875,6 @@
 			"children" : 
 			[
 				{
-					"Script" : 
-					{
-						"scriptName" : "Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup"
-					},
-					"SoundSource" : 
-					{
-						"loop" : true,
-						"sound" : "Resources/Opening Scene/Audio/Testtone",
-						"volume" : 0.42900002002716064
-					},
-					"children" : null,
-					"name" : "Testaudio",
-					"position" : 
-					{
-						"x" : -4.0048284530639648,
-						"y" : 3.3787059783935547,
-						"z" : 2.2348666191101074
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511961365
-				},
-				{
 					"AudioMaterial" : 
 					{
 						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialRock"
