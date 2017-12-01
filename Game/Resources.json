@@ -536,6 +536,10 @@
 							{
 								"script" : "CartScript_0",
 								"type" : 4
+							},
+							{
+								"script" : "AnimScript",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

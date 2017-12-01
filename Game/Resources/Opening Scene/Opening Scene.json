@@ -1013,19 +1013,23 @@
 			{
 				"model" : "Resources/Opening Scene/Animation/monster1@model"
 			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/Opening Scene/Scripts/AnimScript"
+			},
 			"children" : null,
 			"name" : "monster",
 			"position" : 
 			{
 				"x" : -38.044746398925781,
-				"y" : 0.80961322784423828,
+				"y" : 0.78173893690109253,
 				"z" : 15.061928749084473
 			},
 			"rotation" : 
 			{
-				"w" : -0.83974367380142212,
+				"w" : -0.81503355503082275,
 				"x" : 0.0,
-				"y" : 0.54298150539398193,
+				"y" : 0.57941204309463501,
 				"z" : 0.0
 			},
 			"scale" : 
@@ -1037,6 +1041,61 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512047575
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 2.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 1,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 2,
+				"triggerFunction" : "void TriggerAnim()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512115063,
+				"triggerTargetEntity" : 1512047575,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "TriggerAnim",
+			"position" : 
+			{
+				"x" : -32.364395141601563,
+				"y" : 2.3931379318237305,
+				"z" : -1.3257229328155518
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512115063
 		}
 	],
 	"name" : "Root",
