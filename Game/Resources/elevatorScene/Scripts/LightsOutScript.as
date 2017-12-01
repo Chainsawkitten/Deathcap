@@ -4,7 +4,7 @@ class LightsOutScript {
     dictionary buttons;
     dictionary buttonStates;
     int numPressedButtons = 0;
-    bool gameWon = false;
+    bool gameInactive = true;
     bool isPressed = false;
 
     LightsOutScript(Entity @entity){
@@ -51,7 +51,7 @@ class LightsOutScript {
 
     // Index goes first row 0 -> 4, second row 5 -> 9 etc.
     void ButtonPress(int index) {
-        if (gameWon) {
+        if (gameInactive) {
             return;
         }
 
@@ -81,7 +81,7 @@ class LightsOutScript {
             Toggle(index);
 
             if (numPressedButtons == 25) {
-                gameWon = true;
+                gameInactive = true;
                 //SendMessage(somewhere);
                 print("Won the game of lights out.\n");
             }
