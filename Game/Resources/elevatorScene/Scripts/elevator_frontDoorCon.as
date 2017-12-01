@@ -2,9 +2,11 @@ class elevator_frontDoorCon {
     Hub @hub;
     Entity @doorWithX;
 	Entity @doorWithService;
+	Entity @puzzleBoard;
 	bool openDoor;
 	vec3 tempPosWithX;
 	vec3 tempPosWithService;
+	float boardPitch;
 	float speed;
 	
 
@@ -12,8 +14,10 @@ class elevator_frontDoorCon {
         @hub = Managers();
         @doorWithX = GetEntityByGUID(1511870049);
 		@doorWithService = GetEntityByGUID(1511870278);
+		@puzzleBoard = GetEntityByGUID(1512029307);
 		openDoor = false;
 		speed = 0.5f;
+
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -31,6 +35,9 @@ class elevator_frontDoorCon {
 				doorWithX.SetWorldPosition(tempPosWithX);
 				doorWithService.SetWorldPosition(tempPosWithService);
 			}
+
+			puzzleBoard.RotateAroundWorldAxis((radians(90.0f) / 3.5) * deltaTime , vec3(0, 0, 1));
+			
 		}
 		
 		if(openDoor == false) {
@@ -49,7 +56,6 @@ class elevator_frontDoorCon {
 	
 	void OpenDoor() {
 		openDoor = true;
-		print("Opened");
 	}
 	
 	void CloseDoor() {

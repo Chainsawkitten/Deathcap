@@ -2,6 +2,7 @@ class elevator_moveCart {
     Hub @hub;
     Entity @self;
 	Entity @elevator;
+	Entity @board;
     float speed;
     vec3 tempPos;
 	vec3 elevatorPos;
@@ -12,6 +13,7 @@ class elevator_moveCart {
         @hub = Managers();
         @self = GetEntityByGUID(1508919163);
 		@elevator = GetEntityByGUID(1511870044);
+		@board = GetEntityByGUID(1511530025);
         
 		moveForward = true;
 		moveUpward = false;
@@ -20,6 +22,12 @@ class elevator_moveCart {
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
+
+	void ReceiveMessage(Entity @sender, int message) {
+		if(message == 0) {
+			moveUpward = true;
+		}
+	}
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
@@ -41,11 +49,6 @@ class elevator_moveCart {
 		}
     }
 	
-	void MoveUpward() {
-		moveForward = false;
-		moveUpward = true;
-	}
-	
 	void MoveForward() {
 		moveForward = true;
 		moveUpward = false;
@@ -54,5 +57,6 @@ class elevator_moveCart {
 	void StopCart() {
 		moveForward = false;
 		moveUpward = false;
+		SendMessage(board, 0);
 	}
 }

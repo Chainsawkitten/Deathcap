@@ -1,6 +1,7 @@
 class LightsOutScript {
     Entity @board;
     Entity @rightController;
+	Entity @elevatorCartScript;
     dictionary buttons;
     dictionary buttonStates;
     int numPressedButtons = 0;
@@ -22,6 +23,13 @@ class LightsOutScript {
 
         RegisterUpdate();
     }
+
+	void ReceiveMessage(Entity @sender, int message) {
+		if(message == 0) {
+			gameInactive = false;
+			@elevatorCartScript = @sender;
+		}
+	}
 
     void Update(float deltaTime) {
         if (isPressed && !Input(Trigger, rightController)) {
@@ -82,8 +90,7 @@ class LightsOutScript {
 
             if (numPressedButtons == 25) {
                 gameInactive = true;
-                //SendMessage(somewhere);
-                print("Won the game of lights out.\n");
+                SendMessage(elevatorCartScript, 0);
             }
         }
     }
