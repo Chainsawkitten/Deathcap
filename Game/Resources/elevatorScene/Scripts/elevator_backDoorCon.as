@@ -30,7 +30,6 @@ class elevator_backDoorCon {
 				
 				doorWithX.SetWorldPosition(tempPosWithX);
 				doorWithService.SetWorldPosition(tempPosWithService);
-				print(tempPosWithX.z + "\n");
 			}
 		}
 		

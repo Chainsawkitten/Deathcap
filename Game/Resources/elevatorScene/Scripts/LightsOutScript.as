@@ -12,9 +12,9 @@ class LightsOutScript {
         @board = GetEntityByGUID(1511530025);
         @rightController = GetEntityByGUID(1508919758);
         
-        for (int row = 0; row < 5; ++row) {
-            for (int column = 0; column < 5; ++column) {
-                string key = row * 5 + column;
+        for (int row = 0; row < 4; ++row) {
+            for (int column = 0; column < 4; ++column) {
+                string key = row * 4 + column;
                 Entity @btn = board.GetChild("btn-" + row + "-" + column);
                 @buttons[key] = btn.GetChild("btn-" + row + "-" + column).GetChild("button");
                 buttonStates[key] = false;
@@ -54,10 +54,10 @@ class LightsOutScript {
     }
 
     bool IsValid(int index) {
-        return index >= 0 && index <= 24;
+        return index >= 0 && index <= 15;
     }
 
-    // Index goes first row 0 -> 4, second row 5 -> 9 etc.
+    // Index goes first row 0 -> 3, second row 4 -> 7 etc.
     void ButtonPress(int index) {
         if (gameInactive) {
             return;
@@ -67,28 +67,28 @@ class LightsOutScript {
             isPressed = true;
 
             int left = index - 1;
-            if (index % 5 != 0 && IsValid(left)) {
+            if (index % 4 != 0 && IsValid(left)) {
                 Toggle(left);
             }
 
             int right = index + 1;
-            if (index % 5 != 4 && IsValid(right)) {
+            if (index % 4 != 3 && IsValid(right)) {
                 Toggle(right);
             }
 
-            int up = index - 5;
-            if (index > 4 && IsValid(up)) {
+            int up = index - 4;
+            if (index > 3 && IsValid(up)) {
                 Toggle(up);
             }
 
-            int down = index + 5;
-            if (index < 20 && IsValid(down)) {
+            int down = index + 4;
+            if (index < 12 && IsValid(down)) {
                 Toggle(down);
             }
 
             Toggle(index);
 
-            if (numPressedButtons == 25) {
+            if (numPressedButtons == 16) {
                 gameInactive = true;
                 SendMessage(elevatorCartScript, 0);
             }
@@ -111,87 +111,51 @@ class LightsOutScript {
         ButtonPress(3);
     }
 
-    void b_0_4() {
+    void b_1_0() {
         ButtonPress(4);
     }
 
-    void b_1_0() {
+    void b_1_1() {
         ButtonPress(5);
     }
 
-    void b_1_1() {
+    void b_1_2() {
         ButtonPress(6);
     }
 
-    void b_1_2() {
+    void b_1_3() {
         ButtonPress(7);
     }
 
-    void b_1_3() {
+    void b_2_0() {
         ButtonPress(8);
     }
 
-    void b_1_4() {
+    void b_2_1() {
         ButtonPress(9);
     }
 
-    void b_2_0() {
+    void b_2_2() {
         ButtonPress(10);
     }
 
-    void b_2_1() {
+    void b_2_3() {
         ButtonPress(11);
     }
 
-    void b_2_2() {
+    void b_3_0() {
         ButtonPress(12);
     }
 
-    void b_2_3() {
+    void b_3_1() {
         ButtonPress(13);
     }
 
-    void b_2_4() {
+    void b_3_2() {
         ButtonPress(14);
     }
 
-    void b_3_0() {
-        ButtonPress(15);
-    }
-
-    void b_3_1() {
-        ButtonPress(16);
-    }
-
-    void b_3_2() {
-        ButtonPress(17);
-    }
-
     void b_3_3() {
-        ButtonPress(18);
-    }
-
-    void b_3_4() {
-        ButtonPress(19);
-    }
-
-    void b_4_0() {
-        ButtonPress(20);
-    }
-
-    void b_4_1() {
-        ButtonPress(21);
-    }
-
-    void b_4_2() {
-        ButtonPress(22);
-    }
-
-    void b_4_3() {
-        ButtonPress(23);
-    }
-
-    void b_4_4() {
-        ButtonPress(24);
+        ButtonPress(15);
     }
 }
