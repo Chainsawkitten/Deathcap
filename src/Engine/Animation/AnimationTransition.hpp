@@ -1,3 +1,5 @@
+#pragma once
+
 #include <glm/glm.hpp>
 #include <fstream>
 #include "../Util/Node.hpp"
