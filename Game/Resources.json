@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 159,
+	"modelNumber" : 170,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1574,6 +1574,14 @@
 								"type" : 1
 							},
 							{
+								"model" : "elpropp",
+								"type" : 1
+							},
+							{
+								"model" : "box",
+								"type" : 1
+							},
+							{
 								"model" : "Skull",
 								"type" : 1
 							}
@@ -1655,6 +1663,80 @@
 								"subfolders" : null
 							},
 							{
+								"name" : "VoltageBox",
+								"resources" : 
+								[
+									{
+										"texture" : "box_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "box_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "box_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "box_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "VoltagePropp",
+								"resources" : 
+								[
+									{
+										"texture" : "black_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "blue_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "brown_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "green_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "pink_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "red_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "white_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "yellow_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "propp_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "propp_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "propp_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
 								"name" : "VoltageRoundAbout",
 								"resources" : 
 								[
@@ -1711,6 +1793,10 @@
 								"type" : 4
 							},
 							{
+								"script" : "Propp",
+								"type" : 4
+							},
+							{
 								"script" : "FlickeringLights",
 								"type" : 4
 							}
@@ -1725,5 +1811,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 134
+	"textureNumber" : 142
 }

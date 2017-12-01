@@ -158,6 +158,7 @@ void ActiveHymn::FromJson(Json::Value root) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
     }
     scriptNumber = scripts.size();
+    std::string scriptNodeString = scriptNode.toStyledString();
 
     vrScale = root["vrScale"].asFloat();
     Managers().vrManager->SetScale(vrScale);
