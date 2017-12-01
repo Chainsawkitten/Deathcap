@@ -5,8 +5,8 @@
 #include <glm/glm.hpp>
 
 namespace Animation {
-    struct AnimationAction;
-    struct AnimationTransition;
+    class AnimationAction;
+    class AnimationTransition;
     class AnimationController;
     class Skeleton;
 }
