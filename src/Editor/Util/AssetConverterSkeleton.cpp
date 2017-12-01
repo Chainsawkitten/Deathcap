@@ -3,7 +3,6 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Engine/Geometry/MathFunctions.hpp>
-#include <Engine/Animation/Skeleton.hpp>
 #include <Utility/Log.hpp>
 
 #ifdef USINGMEMTRACK
@@ -16,7 +15,6 @@ AssetConverterSkeleton::AssetConverterSkeleton() {
 AssetConverterSkeleton::~AssetConverterSkeleton() {
 }
 
-#include <iostream>
 bool AssetConverterSkeleton::Convert(const char* filepath, const char* destination, bool isSkeleton) {
     success = true;
     errorString = "";
@@ -54,7 +52,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
                 }
 
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[boneIndex];
-            Animation::Skeleton::SkeletonBone* bone = new Animation::Skeleton::SkeletonBone;
+            Animation::SkeletonBone* bone = new Animation::SkeletonBone;
             bone->parentId = (uint32_t)parents[i];
 
             // Build bindpose.
@@ -86,17 +84,36 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         // Save to file.
         skeleton.Save((std::string(destination)).c_str());
     } else {
-        Animation::AnimationClip::Animation anim;
+        Animation::Animation anim;
         anim.numBones = bones.size();
-        anim.bones = new Animation::AnimationClip::Bone[aScene->mAnimations[0]->mNumChannels];
+        anim.bones = new Animation::Bone[aScene->mAnimations[0]->mNumChannels];
         anim.length = 0;
+
+        // Positions for root positions.
+        auto rootIndex = 0;
+        for (unsigned int index = 0; index < aScene->mAnimations[0]->mNumChannels; ++index)
+            if (aScene->mAnimations[0]->mChannels[index]->mNodeName.C_Str() == bones[0]) {
+                rootIndex = index;
+                break;
+            }
+
+        anim.numRootPositions = aScene->mAnimations[0]->mChannels[rootIndex]->mNumPositionKeys;
+        anim.rootPositionKeys = new int32_t[anim.numRootPositions];
+        anim.rootPositions = new glm::vec3[anim.numRootPositions];
+
+        for (unsigned int i = 0; i < anim.numRootPositions; ++i) {
+            anim.rootPositionKeys[i] = (int32_t)aScene->mAnimations[0]->mChannels[rootIndex]->mPositionKeys[i].mTime;
+            aiVector3D position = aScene->mAnimations[0]->mChannels[rootIndex]->mPositionKeys[i].mValue;
+            anim.rootPositions[i] = glm::vec3(position.x, position.y, position.z);
+        }
 
         for (unsigned int i = 0; i < bones.size(); ++i) {
             auto boneIndex = 0;
             for (unsigned int j = 0; j < aScene->mAnimations[0]->mNumChannels; ++j)
-                if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i])
+                if (aScene->mAnimations[0]->mChannels[j]->mNodeName.C_Str() == bones[i]) {
                     boneIndex = j;
-
+                    break;
+                }
 
             aiNodeAnim* channel = aScene->mAnimations[0]->mChannels[boneIndex];
             anim.bones[i].parent = (uint32_t)parents[i];
@@ -106,7 +123,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
 
             // Build keyframes for the bone.
             for (unsigned int j = 0; j < channel->mNumRotationKeys; ++j) {
-                anim.bones[i].rotationKeys[j] = channel->mRotationKeys[j].mTime;
+                anim.bones[i].rotationKeys[j] = (int32_t)channel->mRotationKeys[j].mTime;
 
                 if (anim.bones[i].rotationKeys[j] > anim.length)
                     anim.length = anim.bones[i].rotationKeys[j];

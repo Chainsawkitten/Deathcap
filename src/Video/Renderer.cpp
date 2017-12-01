@@ -73,6 +73,7 @@ Renderer::Renderer() {
 Renderer::~Renderer() {
     delete rectangle;
     delete staticRenderProgram;
+    delete skinRenderProgram;
 
     delete postProcessing;
     delete fxaaFilter;

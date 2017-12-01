@@ -2,6 +2,7 @@
 #include <Utility/Log.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
+#include <Engine/Geometry/MeshData.hpp>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -68,7 +69,7 @@ void AssetConverter::ConvertMeshes(const aiScene* aScene, Geometry::AssetFileHan
 }
 
 void AssetConverter::ConvertMesh(aiMesh* aMesh, Geometry::AssetFileHandler* file, const glm::vec3& scale, bool flipUVs, bool CPU, bool GPU) {
-    Geometry::AssetFileHandler::MeshData* meshData = new Geometry::AssetFileHandler::MeshData;
+    Geometry::MeshData* meshData = new Geometry::MeshData;
 
     meshData->CPU = CPU;
     meshData->GPU = GPU;
@@ -188,7 +189,7 @@ Video::Geometry::VertexType::SkinVertex* AssetConverter::ConvertSkinnedVertices(
         success = false;
         errorString.append("WARNING: The model has no positions yet the user is trying to import them.\n");
         for (unsigned int i = 0; i < numVertices; ++i)
-            vertices[i].position = glm::vec3(1.0f, 0.0f, 0.0f);
+            vertices[i].position = glm::vec3(1.f, 0.f, 0.f);
     }
 
     // Texture coordinates.
@@ -245,7 +246,7 @@ Video::Geometry::VertexType::SkinVertex* AssetConverter::ConvertSkinnedVertices(
     return vertices;
 }
 
-void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData* meshData, unsigned int numVertices) {
+void AssetConverter::CalculateAABB(Geometry::MeshData* meshData, unsigned int numVertices) {
     glm::vec3 minValues, maxValues, origin, dim;
     minValues = maxValues = origin = glm::vec3(0.f, 0.f, 0.f);
 
