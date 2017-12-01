@@ -8,6 +8,7 @@ class elevator_frontDoorCon {
 	vec3 tempPosWithService;
 	float boardPitch;
 	float speed;
+    float uniformScale;
 	
 
     elevator_frontDoorCon(Entity @entity){
@@ -17,6 +18,7 @@ class elevator_frontDoorCon {
 		@puzzleBoard = GetEntityByGUID(1512029307);
 		openDoor = false;
 		speed = 0.5f;
+        uniformScale = 0;
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -36,7 +38,12 @@ class elevator_frontDoorCon {
 				doorWithService.SetWorldPosition(tempPosWithService);
 			}
 
-			//puzzleBoard.RotateAroundWorldAxis((radians(90.0f) / 3.5) * deltaTime , vec3(0, 0, 1));
+            uniformScale += (1.0f / 3.5f) * deltaTime;
+            if (uniformScale > 1.0f) {
+                uniformScale = 1.0f;
+            }
+
+            puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
 			
 		}
 		
