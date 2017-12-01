@@ -1,9 +1,9 @@
 {
 	"activeScene" : "Resources/Opening Scene/Opening Scene",
-	"animationClipNumber" : 3,
+	"animationClipNumber" : 0,
 	"animationControllerNumber" : 2,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 144,
+	"modelNumber" : 143,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -553,10 +553,6 @@
 								"type" : 1
 							},
 							{
-								"animationController" : "Animation controller #1",
-								"type" : 7
-							},
-							{
 								"animationClip" : "monster@crouchscare",
 								"type" : 6
 							},
@@ -567,6 +563,10 @@
 							{
 								"animationClip" : "monster@attack",
 								"type" : 6
+							},
+							{
+								"animationController" : "Animation controller #1",
+								"type" : 7
 							}
 						],
 						"subfolders" : null
@@ -1442,6 +1442,34 @@
 					{
 						"texture" : "fern_roughnes",
 						"type" : 2
+					},
+					{
+						"scene" : "FlareScene",
+						"type" : 0
+					},
+					{
+						"model" : "FlareModel",
+						"type" : 1
+					},
+					{
+						"script" : "FlareScript",
+						"type" : 4
+					},
+					{
+						"texture" : "FlareAlbedo",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareNormal",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareMetallic",
+						"type" : 2
+					},
+					{
+						"texture" : "FlareRoughness",
+						"type" : 2
 					}
 				],
 				"subfolders" : null
@@ -1542,7 +1570,7 @@
 			}
 		]
 	},
-	"sceneNumber" : 24,
+	"sceneNumber" : 25,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
 	"soundNumber" : 5,

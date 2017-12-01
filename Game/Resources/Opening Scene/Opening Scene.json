@@ -882,119 +882,30 @@
 			"uid" : 1511787032
 		},
 		{
-			"SpotLight" : 
-			{
-				"ambientCoefficient" : 0.027000000700354576,
-				"attenuation" : 0.67600005865097046,
-				"color" : 
-				{
-					"x" : 0.56078433990478516,
-					"y" : 1.0,
-					"z" : 0.0
-				},
-				"coneAngle" : 25.271001815795898,
-				"intensity" : 17.057001113891602,
-				"shadow" : false
-			},
-			"children" : 
-			[
-				{
-					"PointLight" : 
-					{
-						"attenuation" : 0.1810000091791153,
-						"color" : 
-						{
-							"x" : 1.0,
-							"y" : 0.63921570777893066,
-							"z" : 1.0
-						},
-						"intensity" : 7.512000560760498
-					},
-					"children" : null,
-					"name" : "Entity #1",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : -0.37400001287460327,
-						"z" : -3.3370001316070557
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512050361
-				},
-				{
-					"DirectionalLight" : 
-					{
-						"ambientCoefficient" : 0.0,
-						"color" : 
-						{
-							"x" : 0.63529413938522339,
-							"y" : 1.0,
-							"z" : 1.0
-						}
-					},
-					"children" : null,
-					"name" : "Entity #2",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512050418
-				}
-			],
-			"name" : "monster_light",
+			"name" : "Flare1",
 			"position" : 
 			{
-				"x" : -38.13604736328125,
-				"y" : 3.1666734218597412,
-				"z" : 16.658468246459961
+				"x" : 1.7085421085357666,
+				"y" : 1.9019343852996826,
+				"z" : 0.51401627063751221
 			},
 			"rotation" : 
 			{
-				"w" : -0.71595591306686401,
-				"x" : 0.077175162732601166,
-				"y" : 0.25155475735664368,
-				"z" : -0.64666080474853516
+				"w" : 0.63862055540084839,
+				"x" : -0.29925289750099182,
+				"y" : -0.29683873057365417,
+				"z" : 0.64381438493728638
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
+				"x" : 0.125,
+				"y" : 0.75,
+				"z" : 0.125
 			},
-			"scene" : false,
+			"scene" : true,
+			"sceneName" : "Resources/Foliage/FlareScene",
 			"static" : false,
-			"uid" : 1512044224
+			"uid" : 1511784197
 		},
 		{
 			"AnimationController" : 
@@ -1021,33 +932,35 @@
 			"name" : "monster",
 			"position" : 
 			{
-				"x" : -38.044746398925781,
-				"y" : 0.78173893690109253,
-				"z" : 15.061928749084473
+				"x" : -37.513526916503906,
+				"y" : 0.841591477394104,
+				"z" : 13.384106636047363
 			},
 			"rotation" : 
 			{
-				"w" : -0.81503355503082275,
+				"w" : 0.78931200504302979,
 				"x" : 0.0,
-				"y" : 0.57941204309463501,
+				"y" : -0.61399209499359131,
 				"z" : 0.0
 			},
 			"scale" : 
 			{
-				"x" : 0.085333496332168579,
-				"y" : 0.085333496332168579,
-				"z" : 0.085333496332168579
+				"x" : 0.1600000262260437,
+				"y" : 0.1600000262260437,
+				"z" : 0.1600000262260437
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1512047575
+			"uid" : 1512122204
 		},
 		{
 			"Shape" : 
 			{
-				"sphere" : 
+				"box" : 
 				{
-					"radius" : 2.0
+					"depth" : 2.0,
+					"height" : 2.0,
+					"width" : 2.0
 				}
 			},
 			"Trigger" : 
@@ -1065,20 +978,20 @@
 				"triggerEventStruct_EventID" : 0,
 				"triggerEventStruct_ScriptID" : 1,
 				"triggerEventStruct_ShapeID" : 0,
-				"triggerEventStruct_TargetID" : 2,
+				"triggerEventStruct_TargetID" : 3,
 				"triggerFunction" : "void TriggerAnim()",
 				"triggerName" : "New Trigger",
-				"triggerOwner" : 1512115063,
-				"triggerTargetEntity" : 1512047575,
+				"triggerOwner" : 1512122749,
+				"triggerTargetEntity" : 1512122204,
 				"triggerTriggered" : false
 			},
 			"children" : null,
 			"name" : "TriggerAnim",
 			"position" : 
 			{
-				"x" : -32.364395141601563,
-				"y" : 2.3931379318237305,
-				"z" : -1.3257229328155518
+				"x" : -29.994138717651367,
+				"y" : 2.5806319713592529,
+				"z" : -1.4610238075256348
 			},
 			"rotation" : 
 			{
@@ -1095,7 +1008,58 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1512115063
+			"uid" : 1512122749
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.0860000848770142,
+				"color" : 
+				{
+					"x" : 0.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 1.4110000133514404
+			},
+			"SpotLight" : 
+			{
+				"ambientCoefficient" : 0.014000000432133675,
+				"attenuation" : 1.0610001087188721,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"coneAngle" : 26.471000671386719,
+				"intensity" : 9.2230005264282227,
+				"shadow" : false
+			},
+			"children" : null,
+			"name" : "monsterLights",
+			"position" : 
+			{
+				"x" : -36.534313201904297,
+				"y" : 2.9736552238464355,
+				"z" : 14.126466751098633
+			},
+			"rotation" : 
+			{
+				"w" : 0.88477665185928345,
+				"x" : -0.31316804885864258,
+				"y" : 0.34431034326553345,
+				"z" : -0.023271389305591583
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512123296
 		}
 	],
 	"name" : "Root",

@@ -3,6 +3,8 @@
 #include "AnimationClip.hpp"
 #include <Utility/Log.hpp>
 #include "../Hymn.hpp"
+#include "AnimationAction.hpp"
+#include "AnimationTransition.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
