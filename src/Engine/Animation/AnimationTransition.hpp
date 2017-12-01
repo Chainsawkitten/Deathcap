@@ -1,10 +1,19 @@
+#pragma once
+
 #include <glm/glm.hpp>
 #include <fstream>
 #include "../Util/Node.hpp"
 
 namespace Animation {
     /// Animation transition node.
-    struct AnimationTransition : public Node {
+    class AnimationTransition : public Node {
+        public:
+        /// Create new animation transition.
+        ENGINE_API AnimationTransition();
+        
+        /// Destructor.
+        ENGINE_API ~AnimationTransition() override;
+        
         /// Save the animation transition node.
         /**
          * @param file File to save to.
