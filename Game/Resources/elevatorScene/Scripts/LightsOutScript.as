@@ -1,8 +1,8 @@
 class LightsOutScript {
     Entity @board;
     Entity @rightController;
-    array<Entity@> buttons(25);
-    array<bool> buttonStates(25);
+    dictionary buttons;
+    dictionary buttonStates;
     int numPressedButtons = 0;
     bool gameWon = false;
     bool isPressed = false;
@@ -13,9 +13,10 @@ class LightsOutScript {
         
         for (int row = 0; row < 5; ++row) {
             for (int column = 0; column < 5; ++column) {
+                string key = row * 5 + column;
                 Entity @btn = board.GetChild("btn-" + row + "-" + column);
-                @buttons[row * 5 + column] = btn.GetChild("btn-" + row + "-" + column).GetChild("button");
-                buttonStates[row * 5 + column] = false;
+                @buttons[key] = btn.GetChild("btn-" + row + "-" + column).GetChild("button");
+                buttonStates[key] = false;
             }
         }
 
@@ -29,14 +30,17 @@ class LightsOutScript {
     }
 
     void Toggle(int index) {
-        bool pressed = !buttonStates[index];
-        buttonStates[index] = pressed;
+        bool pressed = !bool(buttonStates["" + index]);
+        buttonStates["" + index] = pressed;
 
+        Entity@ btn;
         if (pressed) {
-            buttons[index].position.x = -0.06f;
+            buttons.get("" + index, @btn);
+            btn.position.x = -0.06f;
             numPressedButtons += 1;
         } else {
-            buttons[index].position.x = 0.0f;
+            buttons.get("" + index, @btn);
+            btn.position.x = 0.0f;
             numPressedButtons -= 1;
         }
     }
