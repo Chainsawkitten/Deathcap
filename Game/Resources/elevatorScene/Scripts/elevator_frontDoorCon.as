@@ -36,7 +36,7 @@ class elevator_frontDoorCon {
 				doorWithService.SetWorldPosition(tempPosWithService);
 			}
 
-			puzzleBoard.RotateAroundWorldAxis((radians(90.0f) / 3.5) * deltaTime , vec3(0, 0, 1));
+			//puzzleBoard.RotateAroundWorldAxis((radians(90.0f) / 3.5) * deltaTime , vec3(0, 0, 1));
 			
 		}
 		
