@@ -43,14 +43,14 @@ class Propp {
 	}
 
 	void HoverSlot2() {
-	
+	    print("Fuse `" + self.name + "` hovering slot 2\n");
 	}
 
 	void HoverSlot3() {
-	
+	    print("Fuse `" + self.name + "` hovering slot 3\n");
 	}
 
 	void HoverSlot4() {
-	
+	    print("Fuse `" + self.name + "` hovering slot 4\n");
 	}
 }
