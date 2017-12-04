@@ -1,12 +1,14 @@
 class Bridge {
     Entity @self;
     Entity @cart;
+	Entity @monster;
     bool trigger;
     bool playingAudio;
 
     Bridge(Entity @entity){
         @self = @entity;
         @cart = GetEntityByGUID(1510920517);
+		@monster = GetEntityByGUID(1512394369);
         trigger = false;
         playingAudio = false;
         // Remove this if updates are not desired.
@@ -25,6 +27,7 @@ class Bridge {
         else if (roll(self.rotation) > 0.0f) {
             trigger = false;
             SendMessage(cart, 3);
+			SendMessage(monster, 0);
         }
     }
     

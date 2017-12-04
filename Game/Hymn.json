@@ -60,7 +60,8 @@
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
 		"Resources/MonsterTestScript",
-		"Resources/Opening Scene/Scripts/AnimationScript"
+		"Resources/Opening Scene/Scripts/AnimationScript",
+		"Resources/NewAssets/Scripts/MonsterRun"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5

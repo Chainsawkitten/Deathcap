@@ -1902,6 +1902,91 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510910799
+		},
+		{
+			"AnimationController" : 
+			{
+				"animationController" : "Resources/NewAssets/Animation controller #2",
+				"skeleton" : "Resources/Opening Scene/Animation/monster@skeleton"
+			},
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/monstermaps/albedo",
+				"metallic" : "Resources/Opening Scene/monstermaps/metallic",
+				"normal" : "Resources/Opening Scene/monstermaps/normalmap",
+				"roughness" : "Resources/Opening Scene/monstermaps/roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Animation/monster1@model"
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/NewAssets/Scripts/MonsterRun"
+			},
+			"children" : 
+			[
+				{
+					"PointLight" : 
+					{
+						"attenuation" : 1.3910000324249268,
+						"color" : 
+						{
+							"x" : 0.91764706373214722,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"intensity" : 0.11400000751018524
+					},
+					"children" : null,
+					"name" : "Entity #1",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 7.0,
+						"z" : 9.0530004501342773
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512395355
+				}
+			],
+			"name" : "Monster",
+			"position" : 
+			{
+				"x" : 42.568286895751953,
+				"y" : -0.99613672494888306,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.67595839500427246,
+				"x" : 0.0,
+				"y" : -0.73693966865539551,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.17616431415081024,
+				"y" : 0.17616461217403412,
+				"z" : 0.17616431415081024
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512394369
 		}
 	],
 	"name" : "Root",

@@ -1,7 +1,7 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
-	"animationClipNumber" : 0,
-	"animationControllerNumber" : 2,
+	"activeScene" : "Resources/NewAssetsScene",
+	"animationClipNumber" : 1,
+	"animationControllerNumber" : 3,
 	"audioMaterialNumber" : 0,
 	"modelNumber" : 143,
 	"resourceFolder" : 
@@ -1039,7 +1039,17 @@
 			},
 			{
 				"name" : "NewAssets",
-				"resources" : null,
+				"resources" : 
+				[
+					{
+						"animationController" : "Animation controller #2",
+						"type" : 7
+					},
+					{
+						"animationClip" : "monster@run2",
+						"type" : 6
+					}
+				],
 				"subfolders" : 
 				[
 					{
@@ -1329,6 +1339,10 @@
 							},
 							{
 								"script" : "Cart_debug_script",
+								"type" : 4
+							},
+							{
+								"script" : "MonsterRun",
 								"type" : 4
 							}
 						],
