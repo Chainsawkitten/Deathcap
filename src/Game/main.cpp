@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     
     Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr);
 
-    Log() << "qGame started - " << time(nullptr) << "\n";
+    Log() << "Game started - " << time(nullptr) << "\n";
 
     bool testing = false;
 
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     unsigned int maxRamUsed = 0;
     unsigned int maxVramUsed = 0;
 
-
+    Log() << "Initializing main window\n";
     MainWindow* window = new MainWindow(1920, 1080, true, false, "Hymn to Beauty", false);
     glewInit();
     window->Init(false);
@@ -54,6 +54,7 @@ int main(int argc, char* argv[]) {
     
     Managers().StartUp();
 
+    Log() << "Loading hymn\n";
     // Load hymn from json file.
     Hymn().Load(".");
     
@@ -61,9 +62,11 @@ int main(int argc, char* argv[]) {
     GameSettings::GetInstance().Load();
     Managers().renderManager->SetTextureReduction(GameSettings::GetInstance().GetLong("Texture Reduction"));
     
+    Log() << "Loading world\n";
     // Load world.
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");
 
+    Log() << "Compiling scripts\n";
     // Compile scripts.
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
@@ -73,6 +76,7 @@ int main(int argc, char* argv[]) {
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
     double lastTimeRender = glfwGetTime();
+    Log() << "Main loop starting\n";
     while (!window->ShouldClose() && numberOfFrames < 2400) {
         double deltaTime = glfwGetTime() - lastTime;
         lastTime = glfwGetTime();
