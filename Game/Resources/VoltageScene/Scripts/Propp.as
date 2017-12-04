@@ -39,7 +39,7 @@ class Propp {
     }
 
 	void HoverSlot1() {
-	
+	    print("Fuse `" + self.name + "` hovering slot 1\n");
 	}
 
 	void HoverSlot2() {
@@ -53,4 +53,8 @@ class Propp {
 	void HoverSlot4() {
 	
 	}
+
+    // REMOVE THIS
+    void CheckSolution() {
+    }
 }

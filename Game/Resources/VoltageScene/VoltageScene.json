@@ -986,7 +986,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1905122,
-										"triggerTargetEntity" : 1511964701,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1041,7 +1041,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1905123,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1096,7 +1096,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1905124,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1151,7 +1151,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1905125,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1206,7 +1206,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 19051236,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1261,7 +1261,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 19051237,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1316,7 +1316,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 19051238,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1453,7 +1453,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1909217,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1508,7 +1508,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1909218,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1563,7 +1563,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1909219,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1618,7 +1618,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1909220,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1673,7 +1673,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1909221,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1728,7 +1728,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1909222,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1783,7 +1783,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1909223,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1838,7 +1838,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1909224,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -1975,7 +1975,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1913313,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2030,7 +2030,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1913314,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2085,7 +2085,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1913315,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2140,7 +2140,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1913316,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2195,7 +2195,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1913317,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2250,7 +2250,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1913318,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2305,7 +2305,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1913319,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2360,7 +2360,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1913320,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2497,7 +2497,7 @@
 										"triggerFunction" : "void TurnOnLight(int, vec3)",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1917409,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2552,7 +2552,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1917410,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2607,7 +2607,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1917411,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2662,7 +2662,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1917412,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2717,7 +2717,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1917413,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2772,7 +2772,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1917414,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2827,7 +2827,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1917415,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -2882,7 +2882,7 @@
 										"triggerFunction" : "void CheckSolution()",
 										"triggerName" : "New Trigger",
 										"triggerOwner" : 1917416,
-										"triggerTargetEntity" : 1511791235,
+										"triggerTargetEntity" : 1511964566,
 										"triggerTriggered" : false
 									},
 									"children" : null,
@@ -3167,6 +3167,18 @@
 					"children" : 
 					[
 						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
 							"Shape" : 
 							{
 								"cylinder" : 
