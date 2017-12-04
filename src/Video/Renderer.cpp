@@ -29,12 +29,15 @@ Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
-
+    
+    Log() << "Post processing\n";
     postProcessing = new PostProcessing(rectangle);
 
+    Log() << "FXAA\n";
     fxaaFilter = new FXAAFilter();
 
     lightCount = 0;
+    Log() << "Lightbuffer\n";
     lightBuffer = new StorageBuffer(sizeof(Video::Light), GL_DYNAMIC_DRAW);
     
     Log() << "Icon rendering\n";
