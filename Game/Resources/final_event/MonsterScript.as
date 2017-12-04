@@ -6,8 +6,8 @@ class MonsterScript {
     float waitTimer;
     float eatingTimer;
     int phase;
-    
-	Component::SoundSource @snd_shriek;
+
+    Component::SoundSource @snd_shriek;
     Component::SoundSource @snd_death;
     Component::SoundSource @snd_landing;
     Component::SoundSource @snd_falling;
