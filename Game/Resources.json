@@ -1,6 +1,5 @@
 {
-
-	"activeScene" : "Resources/Foliage/FlareScene",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -1126,17 +1125,6 @@
 									}
 								],
 								"subfolders" : null
-							},
-							{
-								"name" : "Signs",
-								"resources" : 
-								[
-									{
-										"texture" : "sign_text",
-										"type" : 2
-									}
-								],
-								"subfolders" : null
 							}
 						]
 					},
@@ -1236,17 +1224,6 @@
 									},
 									{
 										"model" : "smallBalk_01",
-										"type" : 1
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "Signs",
-								"resources" : 
-								[
-									{
-										"model" : "start_end_sign_01",
 										"type" : 1
 									}
 								],
