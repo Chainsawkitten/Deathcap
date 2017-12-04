@@ -131,6 +131,7 @@ int main(int argc, char* argv[]) {
             myfile << "Percentage of bad frames: " << (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 << "%\n";
             myfile << "Average frame time: " << averageFrameTime << " ms\n";
             myfile << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
+            myfile << "Max ram used: " << maxRamUsed << "\n";
             myfile.close();
         }
         Log() << "Frame rundown:\n";
@@ -139,6 +140,7 @@ int main(int argc, char* argv[]) {
         Log() << "Percentage of bad frames: " << (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 << "%\n";
         Log() << "Average frame time: " << averageFrameTime << " ms\n";
         Log() << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
+        Log() << "Max ram used: " << maxRamUsed << "\n";
     }
 
     // Save game settings.
