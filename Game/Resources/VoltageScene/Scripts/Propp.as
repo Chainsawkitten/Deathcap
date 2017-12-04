@@ -37,4 +37,20 @@ class Propp {
             self.SetParent(rightCtrl);
         }
     }
+
+	void HoverSlot1() {
+	
+	}
+
+	void HoverSlot2() {
+	
+	}
+
+	void HoverSlot3() {
+	
+	}
+
+	void HoverSlot4() {
+	
+	}
 }
