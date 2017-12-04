@@ -132,6 +132,7 @@ int main(int argc, char* argv[]) {
             myfile << "Average frame time: " << averageFrameTime << " ms\n";
             myfile << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
             myfile << "Max ram used: " << maxRamUsed << "\n";
+            myfile << "Max vram used: " << maxVramUsed << "\n";
             myfile.close();
         }
         Log() << "Frame rundown:\n";
@@ -141,6 +142,7 @@ int main(int argc, char* argv[]) {
         Log() << "Average frame time: " << averageFrameTime << " ms\n";
         Log() << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
         Log() << "Max ram used: " << maxRamUsed << "\n";
+        Log() << "Max vram used: " << maxVramUsed << "\n";
     }
 
     // Save game settings.
