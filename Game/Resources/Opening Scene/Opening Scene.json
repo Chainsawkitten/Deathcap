@@ -924,10 +924,6 @@
 			{
 				"model" : "Resources/Opening Scene/Animation/monster1@model"
 			},
-			"Script" : 
-			{
-				"scriptName" : "Resources/Opening Scene/Scripts/AnimScript"
-			},
 			"children" : null,
 			"name" : "monster",
 			"position" : 
