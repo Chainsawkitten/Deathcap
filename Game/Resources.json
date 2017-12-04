@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/final_event/final_scene",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
@@ -1611,7 +1611,6 @@
 							{
 								"sound" : "snd_landing",
 								"type" : 3
-
 							}
 						],
 						"subfolders" : null

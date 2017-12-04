@@ -1,6 +1,7 @@
 class Cart_Puzzle_1{
     Entity @self;
     Entity @actualSelf;
+    Entity @rightHand;
     float speed;
     bool hasHitPlane;
     float planePos;
