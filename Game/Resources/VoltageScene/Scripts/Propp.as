@@ -6,7 +6,9 @@ class Propp {
     Entity @S1T1;
     Entity @mastermind;
     bool isPressed;
-    vec3 worldPos;
+    //vec3 worldPos;
+    int hoverSlot = -1;
+    vec3 startPosition;
 
     Propp(Entity @entity){
         @hub = Managers();
@@ -16,8 +18,28 @@ class Propp {
         @S1T1 = GetEntityByGUID(1905121);
         @mastermind = GetEntityByGUID(1511791235);
         
-        worldPos = S1T1.GetWorldPosition();
+        //worldPos = S1T1.GetWorldPosition();
+        startPosition = self.position;
         isPressed = false;
+
+        RegisterUpdate();
+    }
+
+    void Update(float deltaTime) {
+        if (!Input(Trigger, rightCtrl) && isPressed) {
+            isPressed = false;
+            if (hoverSlot > 0) {
+                vec3 tempPos = self.GetWorldPosition();
+                self.SetParent(originalParent);
+                self.SetWorldPosition(tempPos);
+                SendMessage(mastermind, hoverSlot - 1);
+            } else {
+                self.SetParent(originalParent);
+                self.position = startPosition;
+            }
+        }
+
+        hoverSlot = -1;
     }
 
     void PickupTrigger() {
@@ -30,13 +52,7 @@ class Propp {
 
     void HoverImpl(int slot) {
 	    print("Fuse `" + self.name + "` hovering slot " + slot + "\n");
-        if (!Input(Trigger, rightCtrl) && isPressed) {
-            isPressed = false;
-            vec3 tempPos = self.GetWorldPosition();
-            self.SetParent(originalParent);
-            self.SetWorldPosition(tempPos);
-            SendMessage(mastermind, slot - 1);
-        }
+        hoverSlot = slot;
     }
 
 	void HoverSlot1() {
