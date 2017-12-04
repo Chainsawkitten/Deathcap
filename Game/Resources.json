@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Opening Scene/Opening Scene",
-	"animationClipNumber" : 0,
-	"animationControllerNumber" : 2,
+	"activeScene" : "Resources/Constant Scene/Hands/RightHand",
+	"animationClipNumber" : 8,
+	"animationControllerNumber" : 3,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 143,
+	"modelNumber" : 145,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -536,60 +536,6 @@
 							{
 								"script" : "CartScript_0",
 								"type" : 4
-							},
-							{
-								"script" : "AnimationScript",
-								"type" : 4
-							}
-						],
-						"subfolders" : null
-					},
-					{
-						"name" : "Animation",
-						"resources" : 
-						[
-							{
-								"model" : "monster1@model",
-								"type" : 1
-							},
-							{
-								"animationClip" : "monster@crouchscare",
-								"type" : 6
-							},
-							{
-								"skeleton" : "monster@skeleton",
-								"type" : 8
-							},
-							{
-								"animationClip" : "monster@attack",
-								"type" : 6
-							},
-							{
-								"animationController" : "Animation controller #1",
-								"type" : 7
-							}
-						],
-						"subfolders" : null
-					},
-					{
-						"name" : "monstermaps",
-						"resources" : 
-						[
-							{
-								"texture" : "normalmap",
-								"type" : 2
-							},
-							{
-								"texture" : "albedo",
-								"type" : 2
-							},
-							{
-								"texture" : "metallic",
-								"type" : 2
-							},
-							{
-								"texture" : "roughness",
-								"type" : 2
 							}
 						],
 						"subfolders" : null
@@ -847,6 +793,120 @@
 									{
 										"texture" : "lantern_roughness",
 										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Hands",
+						"resources" : 
+						[
+							{
+								"scene" : "RightHand",
+								"type" : 0
+							},
+							{
+								"scene" : "LeftHand",
+								"type" : 0
+							},
+							{
+								"script" : "RightHandAnim",
+								"type" : 4
+							},
+							{
+								"script" : "LeftHandAnim",
+								"type" : 4
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Animations",
+								"resources" : 
+								[
+									{
+										"animationClip" : "LeftHand@Closed",
+										"type" : 6
+									},
+									{
+										"animationClip" : "LeftHand@Closing",
+										"type" : 6
+									},
+									{
+										"animationClip" : "LeftHand@Open",
+										"type" : 6
+									},
+									{
+										"animationClip" : "LeftHand@Opening",
+										"type" : 6
+									},
+									{
+										"animationClip" : "RightHand@Closed",
+										"type" : 6
+									},
+									{
+										"animationClip" : "RightHand@Closing",
+										"type" : 6
+									},
+									{
+										"animationClip" : "RightHand@Open",
+										"type" : 6
+									},
+									{
+										"animationClip" : "RightHand@Opening",
+										"type" : 6
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : null,
+								"subfolders" : null
+							},
+							{
+								"name" : "Skeletons",
+								"resources" : 
+								[
+									{
+										"skeleton" : "LeftHand@Skeleton",
+										"type" : 8
+									},
+									{
+										"skeleton" : "RightHand@Skeleton",
+										"type" : 8
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "AnimationControllers",
+								"resources" : 
+								[
+									{
+										"animationController" : "Animation controller #1",
+										"type" : 7
+									},
+									{
+										"animationController" : "Animation controller #2",
+										"type" : 7
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "LeftHand@Model",
+										"type" : 1
+									},
+									{
+										"model" : "RightHand@Model",
+										"type" : 1
 									}
 								],
 								"subfolders" : null
@@ -1570,9 +1630,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 25,
+	"sceneNumber" : 30,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 2,
+	"skeletonNumber" : 4,
 	"soundNumber" : 5,
 	"textureNumber" : 118
 }
