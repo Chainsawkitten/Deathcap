@@ -8,6 +8,7 @@ class Propp {
     bool isPressed;
     //vec3 worldPos;
     int hoverSlot = -1;
+    int slot = -1;
     vec3 startPosition;
 
     Propp(Entity @entity){
@@ -33,6 +34,7 @@ class Propp {
                 self.SetParent(originalParent);
                 self.SetWorldPosition(tempPos);
                 SendMessage(mastermind, hoverSlot - 1);
+                slot = hoverSlot - 1;
             } else {
                 self.SetParent(originalParent);
                 self.position = startPosition;
@@ -43,10 +45,17 @@ class Propp {
     }
 
     void PickupTrigger() {
-        if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) == null &&!isPressed) {
+        if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) == null && !isPressed) {
             isPressed = true;
             self.position = vec3(0.0f, 0.0f, 0.0f);
             self.SetParent(rightCtrl);
+
+            if (slot >= 0) {
+                // Inform mastermind that we removed from a slot
+                SendMessage(mastermind, slot + 4);
+            }
+
+            slot = -1;
         }
     }
 
