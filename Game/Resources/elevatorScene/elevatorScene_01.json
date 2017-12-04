@@ -1,0 +1,2903 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/elevatorScene/Models/elevatorCave_01"
+			},
+			"children" : null,
+			"name" : "Cave",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511864673
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/frontDoorWithX"
+					},
+					"children" : null,
+					"name" : "frontDoorWithX",
+					"position" : 
+					{
+						"x" : 0.023000000044703484,
+						"y" : 0.0,
+						"z" : -1.6240622997283936
+					},
+					"rotation" : 
+					{
+						"w" : 1.910685465164705e-15,
+						"x" : -4.3711388286737929e-08,
+						"y" : 1.0,
+						"z" : -4.3711388286737929e-08
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870049
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/elevatorCage"
+					},
+					"children" : null,
+					"name" : "cage",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : -0.065000005066394806,
+						"z" : -1.6319649219512939
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870172
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/frontDoorWithOutOfService"
+					},
+					"children" : null,
+					"name" : "frontDoorWithOutOfService",
+					"position" : 
+					{
+						"x" : -0.023000000044703484,
+						"y" : 0.0,
+						"z" : -1.6239999532699585
+					},
+					"rotation" : 
+					{
+						"w" : 1.910685465164705e-15,
+						"x" : 4.3711388286737929e-08,
+						"y" : 1.0,
+						"z" : 4.3711388286737929e-08
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870278
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/backDoorWithX"
+					},
+					"children" : null,
+					"name" : "backDoorWithX",
+					"position" : 
+					{
+						"x" : -0.023000000044703484,
+						"y" : 0.0,
+						"z" : 0.47699999809265137
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870598
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/backDoorOutOfService"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"sphere" : 
+								{
+									"radius" : 0.30000001192092896
+								}
+							},
+							"children" : null,
+							"name" : "backdoorServiceTrigger",
+							"position" : 
+							{
+								"x" : -0.071000002324581146,
+								"y" : 0.6940000057220459,
+								"z" : -1.0860000848770142
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511959499
+						}
+					],
+					"name" : "backkDoorOutOfService",
+					"position" : 
+					{
+						"x" : 0.023000000044703484,
+						"y" : 0.0,
+						"z" : 0.47699999809265137
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511870668
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/elevatorScene/Textures/elevator_albedo",
+						"metallic" : "Resources/elevatorScene/Textures/elevator_metallic",
+						"normal" : "Resources/elevatorScene/Textures/elevator_normal",
+						"roughness" : "Resources/elevatorScene/Textures/elevator_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Elevator Parts/mineElevator_wheel"
+					},
+					"children" : null,
+					"name" : "elevatorWheel",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : -0.061000004410743713,
+						"z" : -1.6273430585861206
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511871150
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 0.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 0.31764706969261169,
+							"z" : 0.18823529779911041
+						},
+						"coneAngle" : 9.2390003204345703,
+						"intensity" : 3.3540000915527344,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "elevator_light",
+					"position" : 
+					{
+						"x" : 0.34800001978874207,
+						"y" : 3.4520001411437988,
+						"z" : -5.4082303047180176
+					},
+					"rotation" : 
+					{
+						"w" : -0.041260551661252975,
+						"x" : 0.83782976865768433,
+						"y" : -0.45150873064994812,
+						"z" : -0.30409976840019226
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512380541
+				}
+			],
+			"name" : "Elevator",
+			"position" : 
+			{
+				"x" : 3.0337355136871338,
+				"y" : -10.62399959564209,
+				"z" : 0.15000000596046448
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.9528131484985352,
+				"y" : 1.3799999952316284,
+				"z" : 1.5794018507003784
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511870044
+		},
+		{
+			"children" : 
+			[
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 0.30000001192092896
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 3,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 0,
+						"triggerFunction" : "void StopCart()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511872744,
+						"triggerTargetEntity" : 1511874401,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "EnterElevatorTrigger",
+					"position" : 
+					{
+						"x" : 1.8858587741851807,
+						"y" : -9.754791259765625,
+						"z" : 0.20131103694438934
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511872744
+				},
+				{
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 4.0,
+							"height" : 1.0,
+							"width" : 1.0
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 3,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 6,
+						"triggerFunction" : "void StopCart()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511945035,
+						"triggerTargetEntity" : 1511874401,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "ExitElevatorTrigger",
+					"position" : 
+					{
+						"x" : 0.49100607633590698,
+						"y" : 13.987106323242188,
+						"z" : 0.16709530353546143
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511945035
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 1.4000000953674316
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 1,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 7,
+						"triggerFunction" : "void OpenDoor()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511946540,
+						"triggerTargetEntity" : 1511946590,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "OpenFrontDoorTrigger",
+					"position" : 
+					{
+						"x" : -10.439712524414063,
+						"y" : -9.9051427841186523,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511946540
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 0.30000001192092896
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 2,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 7,
+						"triggerFunction" : "void CloseDoor()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511948057,
+						"triggerTargetEntity" : 1511946590,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "CloseFrontDoorTrigger",
+					"position" : 
+					{
+						"x" : 1.8887865543365479,
+						"y" : -9.7238950729370117,
+						"z" : 0.20169427990913391
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511948057
+				},
+				{
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 4.0,
+							"height" : 1.0,
+							"width" : 1.0
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 1,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 8,
+						"triggerFunction" : "void OpenDoor()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511951155,
+						"triggerTargetEntity" : 1511958482,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "OpenBackDoorTrigger",
+					"position" : 
+					{
+						"x" : 0.4151991605758667,
+						"y" : 13.935922622680664,
+						"z" : 0.014921724796295166
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511951155
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 1.4000000953674316
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1511959499,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 2,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 6,
+						"triggerFunction" : "void MoveForward()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511958017,
+						"triggerTargetEntity" : 1511874401,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "CheckDoorStatusTrigger",
+					"position" : 
+					{
+						"x" : 1.9215497970581055,
+						"y" : 12.181638717651367,
+						"z" : 2.7772500514984131
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511958017
+				}
+			],
+			"name" : "Triggers",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511878089
+		},
+		{
+			"children" : 
+			[
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/elevatorScene/Scripts/elevator_moveCart"
+					},
+					"children" : null,
+					"name" : "elevatorCartScript",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511874401
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/elevatorScene/Scripts/elevator_frontDoorCon"
+					},
+					"children" : null,
+					"name" : "elevatorFrontDoorScript",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511946590
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/elevatorScene/Scripts/elevator_backDoorCon"
+					},
+					"children" : null,
+					"name" : "elevatorBackDoorScript",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511958482
+				}
+			],
+			"name" : "Scripts",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511878105
+		},
+		{
+			"children" : 
+			[
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/elevatorScene/Scripts/LightsOutScript"
+					},
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_board"
+							},
+							"children" : null,
+							"name" : "board",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.093000002205371857,
+								"z" : -0.13199999928474426
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 0.81700003147125244,
+								"z" : 0.65900003910064697
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511530403
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-0-0",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.80000001192092896,
+										"z" : 1.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_0_0()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511862451,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.3110003471374512,
+										"y" : 0.43200001120567322,
+										"z" : 0.010000000707805157
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511862451
+								}
+							],
+							"name" : "btn-0-0",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862423
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-0-1",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.80000001192092896,
+										"z" : 0.75
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_0_1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511862830,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.43200001120567322,
+										"z" : -0.23999999463558197
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511862830
+								}
+							],
+							"name" : "btn-0-1",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862798
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-0-2",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.80000001192092896,
+										"z" : 0.5
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 3,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_0_2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863525,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.43200001120567322,
+										"z" : -0.49000000953674316
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863525
+								}
+							],
+							"name" : "btn-0-2",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862843
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-0-3",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.80000001192092896,
+										"z" : 0.25
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 4,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_0_3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863536,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.43200001120567322,
+										"z" : -0.74000000953674316
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863536
+								}
+							],
+							"name" : "btn-0-3",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862845
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-1-0",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.60000002384185791,
+										"z" : 1.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 6,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_1_0()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863553,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.23200000822544098,
+										"z" : 0.0099999997764825821
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863553
+								}
+							],
+							"name" : "btn-1-0",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862848
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-1-1",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.60000002384185791,
+										"z" : 0.75
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 7,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_1_1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863562,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.23199999332427979,
+										"z" : -0.23999999463558197
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863562
+								}
+							],
+							"name" : "btn-1-1",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862849
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-1-2",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.60000002384185791,
+										"z" : 0.5
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 8,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_1_2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863569,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.23199999332427979,
+										"z" : -0.49000000953674316
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863569
+								}
+							],
+							"name" : "btn-1-2",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862850
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-1-3",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.60000002384185791,
+										"z" : 0.25
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 9,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_1_3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863578,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.23199999332427979,
+										"z" : -0.74000000953674316
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863578
+								}
+							],
+							"name" : "btn-1-3",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862852
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-2-0",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.40000000596046448,
+										"z" : 1.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 11,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_2_0()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863594,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.032000001519918442,
+										"z" : 0.0099999997764825821
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863594
+								}
+							],
+							"name" : "btn-2-0",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862854
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-2-1",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.40000000596046448,
+										"z" : 0.75
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 12,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_2_1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863600,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.032000001519918442,
+										"z" : -0.23999999463558197
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863600
+								}
+							],
+							"name" : "btn-2-1",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862903
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-2-2",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.40000000596046448,
+										"z" : 0.5
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 13,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_2_2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863609,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.032000001519918442,
+										"z" : -0.49000000953674316
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863609
+								}
+							],
+							"name" : "btn-2-2",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862905
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-2-3",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.40000000596046448,
+										"z" : 0.25
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 14,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_2_3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863616,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : 0.032000001519918442,
+										"z" : -0.74000000953674316
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863616
+								}
+							],
+							"name" : "btn-2-3",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862907
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-3-0",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.20000000298023224,
+										"z" : 1.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 16,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_3_0()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863629,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : -0.1679999977350235,
+										"z" : 0.0099999997764825821
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863629
+								}
+							],
+							"name" : "btn-3-0",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862909
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-3-1",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.20000000298023224,
+										"z" : 0.75
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 17,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_3_1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863636,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : -0.1679999977350235,
+										"z" : -0.23999999463558197
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863636
+								}
+							],
+							"name" : "btn-3-1",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862912
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-3-2",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.20000000298023224,
+										"z" : 0.5
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 18,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_3_2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863645,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : -0.1679999977350235,
+										"z" : -0.49000000953674316
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863645
+								}
+							],
+							"name" : "btn-3-2",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862988
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "btn-3-3",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.20000000298023224,
+										"z" : 0.25
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.11999999731779099,
+											"height" : 0.090000003576278687,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 19,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 0,
+										"triggerFunction" : "void b_3_3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1511863652,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "Trigger",
+									"position" : 
+									{
+										"x" : -4.310999870300293,
+										"y" : -0.1679999977350235,
+										"z" : -0.74000000953674316
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1511863652
+								}
+							],
+							"name" : "btn-3-3",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511862990
+						}
+					],
+					"name" : "puzzleBoard",
+					"position" : 
+					{
+						"x" : 4.4380002021789551,
+						"y" : -0.052000001072883606,
+						"z" : 0.36000001430511475
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511530025
+				}
+			],
+			"name" : "PuzzleBoardPivot",
+			"position" : 
+			{
+				"x" : 1.5328683853149414,
+				"y" : -9.0889110565185547,
+				"z" : 0.15000000596046448
+			},
+			"rotation" : 
+			{
+				"w" : -4.371138473402425e-08,
+				"x" : -4.3711391839451608e-08,
+				"y" : 1.0,
+				"z" : -4.3711391839451608e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512029307
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "wood_beams",
+			"position" : 
+			{
+				"x" : 5.8771414756774902,
+				"y" : 11.767192840576172,
+				"z" : -0.026653259992599487
+			},
+			"rotation" : 
+			{
+				"w" : 0.66117304563522339,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.75023305416107178
+			},
+			"scale" : 
+			{
+				"x" : 0.99999880790710449,
+				"y" : 4.0306458473205566,
+				"z" : 3.4742271900177002
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380350
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.24900001287460327,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.098039217293262482,
+					"z" : 0.0078431377187371254
+				},
+				"intensity" : 1.440000057220459
+			},
+			"children" : null,
+			"name" : "light",
+			"position" : 
+			{
+				"x" : 2.3835341930389404,
+				"y" : 8.8992271423339844,
+				"z" : 0.85008049011230469
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380719
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Tracks"
+			},
+			"children" : null,
+			"name" : "rails",
+			"position" : 
+			{
+				"x" : 33.810012817382813,
+				"y" : -10.330215454101563,
+				"z" : -0.11782956123352051
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 0.67706269025802612,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380795
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/final_plane"
+			},
+			"children" : null,
+			"name" : "plane",
+			"position" : 
+			{
+				"x" : 7.7089247703552246,
+				"y" : -10.590608596801758,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.34162777662277222,
+				"y" : 0.98000001907348633,
+				"z" : 1.3539962768554688
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380903
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1511530010
+}

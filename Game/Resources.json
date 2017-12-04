@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Foliage/FlareScene",
+	"activeScene" : "Resources/elevatorScene/elevatorScene_01",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
-	"audioMaterialNumber" : 0,
-	"modelNumber" : 143,
+	"audioMaterialNumber" : 4,
+	"modelNumber" : 161,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -195,8 +195,12 @@
 								"type" : 3
 							},
 							{
-								"script" : "scr_AudioManager",
-								"type" : 4
+								"model" : "metal-soundmesh",
+								"type" : 1
+							},
+							{
+								"model" : "stone-soundmesh",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -242,7 +246,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "StarterScene_Platform",
+								"model" : "platformForStarterScene_01",
 								"type" : 1
 							},
 							{
@@ -592,6 +596,10 @@
 									{
 										"script" : "Player",
 										"type" : 4
+									},
+									{
+										"script" : "RailAudioPlayer",
+										"type" : 4
 									}
 								],
 								"subfolders" : null
@@ -793,6 +801,43 @@
 									{
 										"texture" : "lantern_roughness",
 										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Audio",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Scripts",
+								"resources" : 
+								[
+									{
+										"script" : "PlayAudioOnStartup",
+										"type" : 4
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Materials",
+								"resources" : 
+								[
+									{
+										"audioMaterial" : "AudioMaterialRock",
+										"type" : 5
+									},
+									{
+										"audioMaterial" : "AudioMaterialWood",
+										"type" : 5
+									},
+									{
+										"audioMaterial" : "AudioMaterialMetal",
+										"type" : 5
 									}
 								],
 								"subfolders" : null
@@ -1297,7 +1342,24 @@
 								"type" : 3
 							}
 						],
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "Meshes",
+								"resources" : 
+								[
+									{
+										"model" : "StoneAudioMesh",
+										"type" : 1
+									},
+									{
+										"model" : "WoodAudioMesh",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			},
@@ -1416,6 +1478,10 @@
 					{
 						"texture" : "FlareRoughness",
 						"type" : 2
+					},
+					{
+						"model" : "single_sand",
+						"type" : 1
 					}
 				],
 				"subfolders" : null
@@ -1449,7 +1515,7 @@
 						"type" : 1
 					},
 					{
-						"model" : "sand_piles",
+						"model" : "single_sand",
 						"type" : 1
 					},
 					{
@@ -1473,7 +1539,15 @@
 						"type" : 4
 					},
 					{
-						"model" : "knife2",
+						"model" : "knife2asc",
+						"type" : 1
+					},
+					{
+						"model" : "ropepile",
+						"type" : 1
+					},
+					{
+						"model" : "wood_table",
 						"type" : 1
 					}
 				],
@@ -1481,7 +1555,64 @@
 				[
 					{
 						"name" : "textures",
-						"resources" : null,
+						"resources" : 
+						[
+							{
+								"texture" : "knife_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "sack_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "sack_normal",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "snd_monsterShriek",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_monsterDeath",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_monsterFalling",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_landing",
+								"type" : 3
+							}
+						],
 						"subfolders" : null
 					}
 				]
@@ -1508,6 +1639,143 @@
 							{
 								"script" : "SwitcherScript_Final",
 								"type" : 4
+							},
+							{
+								"script" : "SwitcherScript_2",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					}
+				]
+			},
+			{
+				"name" : "elevatorScene",
+				"resources" : 
+				[
+					{
+						"scene" : "elevatorScene_01",
+						"type" : 0
+					},
+					{
+						"scene" : "buttonScene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Models",
+						"resources" : 
+						[
+							{
+								"model" : "elevatorCave_01",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_board",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_button",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_button_frame",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Textures",
+						"resources" : 
+						[
+							{
+								"texture" : "lightsOut_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "lightsOut_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "lightsOut_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "lightsOut_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_roughness",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Elevator Parts",
+						"resources" : 
+						[
+							{
+								"model" : "frontDoorWithX",
+								"type" : 1
+							},
+							{
+								"model" : "elevatorCage",
+								"type" : 1
+							},
+							{
+								"model" : "frontDoorWithOutOfService",
+								"type" : 1
+							},
+							{
+								"model" : "backDoorWithX",
+								"type" : 1
+							},
+							{
+								"model" : "backDoorOutOfService",
+								"type" : 1
+							},
+							{
+								"model" : "mineElevator_wheel",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "elevator_moveCart",
+								"type" : 4
+							},
+							{
+								"script" : "elevator_frontDoorCon",
+								"type" : 4
+							},
+							{
+								"script" : "elevator_backDoorCon",
+								"type" : 4
+							},
+							{
+								"script" : "LightsOutScript",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
@@ -1516,9 +1784,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 25,
+	"sceneNumber" : 30,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 118
+	"textureNumber" : 134
 }

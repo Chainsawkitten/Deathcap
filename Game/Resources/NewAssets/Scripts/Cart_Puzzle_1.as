@@ -1,6 +1,7 @@
 class Cart_Puzzle_1{
     Entity @self;
     Entity @actualSelf;
+    Entity @rightHand;
     float speed;
     bool hasHitPlane;
     float planePos;
@@ -62,18 +63,6 @@ class Cart_Puzzle_1{
         // Stopping phase
         else
             speed = 0.0f;
-            
-        // Play rail audio
-        /*if(!audioPlaying && speed > 0.1f){
-            self.GetSoundSource().Play();
-            audioPlaying = true;
-        }
-        else if (speed < 0.1f){
-            self.GetSoundSource().Stop();
-            audioPlaying = false;
-        }*/
-        
-        
     }
     
     void OnTrigger(){

@@ -54,7 +54,7 @@
 			"name" : "plane",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : 17.808002471923828,
 				"y" : 0.0,
 				"z" : 0.0
 			},
@@ -69,7 +69,7 @@
 			{
 				"x" : 1.0,
 				"y" : 1.0,
-				"z" : 1.0
+				"z" : 2.3470001220703125
 			},
 			"scene" : false,
 			"static" : false,
@@ -115,7 +115,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/final_event/textures/burlap_albedo",
+				"albedo" : "Resources/final_event/textures/sack_albedo",
 				"metallic" : "Resources/final_event/textures/burlap_metallic",
 				"normal" : "Resources/final_event/textures/burlap_normal",
 				"roughness" : "Resources/final_event/textures/burlap_roughness"
@@ -152,9 +152,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/final_event/textures/burlap_albedo",
+				"albedo" : "Resources/final_event/textures/sand_albedo",
 				"metallic" : "",
-				"normal" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
 				"roughness" : ""
 			},
 			"Mesh" : 
@@ -165,16 +165,16 @@
 			"name" : "hills",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -2.4160001277923584,
+				"y" : -1.6680001020431519,
+				"z" : 0.056000001728534698
 			},
 			"rotation" : 
 			{
-				"w" : 1.0,
+				"w" : 0.99991434812545776,
 				"x" : 0.0,
 				"y" : 0.0,
-				"z" : 0.0
+				"z" : 0.013089596293866634
 			},
 			"scale" : 
 			{
@@ -189,10 +189,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
 			},
 			"Mesh" : 
 			{
@@ -263,9 +263,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/final_event/textures/sand_albedo",
 				"metallic" : "",
-				"normal" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
 				"roughness" : ""
 			},
 			"Mesh" : 
@@ -300,7 +300,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
 				"metallic" : "",
 				"normal" : "",
 				"roughness" : ""
@@ -512,6 +512,162 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511338734
+				},
+				{
+					"children" : 
+					[
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_monsterDeath",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "DeathSound",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512044219
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_monsterFalling",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "Falling",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512044955
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_landing",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "LandThud",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512045002
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_monsterShriek",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "Shriek",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046440
+						}
+					],
+					"name" : "Audio",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512044197
 				}
 			],
 			"name" : "Monster",
@@ -587,14 +743,14 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "",
-						"metallic" : "",
-						"normal" : "",
-						"roughness" : ""
+						"albedo" : "Resources/final_event/textures/knife_albedo",
+						"metallic" : "Resources/final_event/textures/knife_metallic",
+						"normal" : "Resources/final_event/textures/knife_normal",
+						"roughness" : "Resources/final_event/textures/knife_roughness"
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/final_event/knife2"
+						"model" : "Resources/final_event/knife2asc"
 					},
 					"children" : null,
 					"name" : "Mesh",
@@ -771,44 +927,96 @@
 			"uid" : 1511277360
 		},
 		{
-			"children" : null,
-			"name" : "Entity #1",
-			"position" : 
+			"PointLight" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512050851
-		},
-		{
-			"DirectionalLight" : 
-			{
-				"ambientCoefficient" : 150.0,
+				"attenuation" : 0.13900001347064972,
 				"color" : 
 				{
 					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
-				}
+					"y" : 0.08235294371843338,
+					"z" : 0.0
+				},
+				"intensity" : 1.7570000886917114
 			},
 			"children" : null,
-			"name" : "Entity #2",
+			"name" : "monster_light",
+			"position" : 
+			{
+				"x" : 0.062211528420448303,
+				"y" : 4.8719544410705566,
+				"z" : 0.357383131980896
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512372497
+		},
+		{
+			"SpotLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"attenuation" : 0.05000000074505806,
+				"color" : 
+				{
+					"x" : 0.20000000298023224,
+					"y" : 0.37647059559822083,
+					"z" : 1.0
+				},
+				"coneAngle" : 156.25700378417969,
+				"intensity" : 59.519001007080078,
+				"shadow" : false
+			},
+			"children" : null,
+			"name" : "moonlight",
+			"position" : 
+			{
+				"x" : 105.62100219726563,
+				"y" : 30.747001647949219,
+				"z" : 13.450000762939453
+			},
+			"rotation" : 
+			{
+				"w" : -0.49153140187263489,
+				"x" : 0.29403352737426758,
+				"y" : 0.68124300241470337,
+				"z" : 0.45590144395828247
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512372613
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand",
 			"position" : 
 			{
 				"x" : 0.0,
@@ -830,7 +1038,192 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1512050870
+			"uid" : 1512373452
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand2",
+			"position" : 
+			{
+				"x" : 59.998207092285156,
+				"y" : -0.39634609222412109,
+				"z" : -9.2392082214355469
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : -4.3711391839451608e-08,
+				"y" : -4.371138473402425e-08,
+				"z" : -4.3711391839451608e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512373565
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sack_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sack_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/ropepile"
+			},
+			"children" : null,
+			"name" : "rope",
+			"position" : 
+			{
+				"x" : -5.1676764488220215,
+				"y" : 0.056761324405670166,
+				"z" : 1.5020486116409302
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512373778
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "table",
+			"position" : 
+			{
+				"x" : -6.405545711517334,
+				"y" : -0.45075690746307373,
+				"z" : 1.714361310005188
+			},
+			"rotation" : 
+			{
+				"w" : 0.70660316944122314,
+				"x" : 0.0,
+				"y" : -0.70760959386825562,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.88829499483108521,
+				"y" : 1.5844134092330933,
+				"z" : 0.9199984073638916
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512374239
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.80100005865097046,
+				"color" : 
+				{
+					"x" : 0.5058823823928833,
+					"y" : 0.19215686619281769,
+					"z" : 0.0
+				},
+				"intensity" : 35.370002746582031
+			},
+			"children" : null,
+			"name" : "outside_light",
+			"position" : 
+			{
+				"x" : 59.945003509521484,
+				"y" : 5.5810003280639648,
+				"z" : -0.54400002956390381
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512375197
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.0080000003799796104,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.29411765933036804,
+					"z" : 0.0039215688593685627
+				},
+				"intensity" : 0.67500001192092896
+			},
+			"children" : null,
+			"name" : "outside_elevator_light",
+			"position" : 
+			{
+				"x" : -41.470890045166016,
+				"y" : 1.2080000638961792,
+				"z" : -0.12554091215133667
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512382169
 		}
 	],
 	"name" : "Root",
@@ -842,10 +1235,10 @@
 	},
 	"rotation" : 
 	{
-		"w" : -4.371138473402425e-08,
-		"x" : -4.3711391839451608e-08,
-		"y" : 1.0,
-		"z" : -4.3711391839451608e-08
+		"w" : 4.3711434472015753e-08,
+		"x" : -4.371138473402425e-08,
+		"y" : -1.0,
+		"z" : 4.371138473402425e-08
 	},
 	"scale" : 
 	{

@@ -23,7 +23,7 @@ class Camera{
     }
     
     void Update(float deltaTime) {
-        // Only co13:24 12/1/2017ntrol camera with mouse if we're not running in VR.
+        // Only control camera with mouse if we're not running in VR.
         if (!IsVRActive()){
             MouseUpdate();
            // self.RotateYaw(0.02f);
