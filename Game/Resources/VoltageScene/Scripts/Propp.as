@@ -16,20 +16,8 @@ class Propp {
         
         worldPos = S1T1.GetWorldPosition();
         isPressed = false;
-        // Remove this if updates are not desired.
-        RegisterUpdate();
     }
 
-    // Called by the engine for each frame.
-    void Update(float deltaTime) {
-        if (!Input(Trigger, rightCtrl) && isPressed) {
-            isPressed = false;
-            vec3 tempPos = self.GetWorldPosition();
-            self.SetParent(originalParent);
-            self.SetWorldPosition(tempPos);
-        }
-    }
-    
     void PickupTrigger() {
         if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) == null &&!isPressed) {
             isPressed = true;
@@ -38,19 +26,29 @@ class Propp {
         }
     }
 
+    void HoverImpl(int slot) {
+	    print("Fuse `" + self.name + "` hovering slot " + slot + "\n");
+        if (!Input(Trigger, rightCtrl) && isPressed) {
+            isPressed = false;
+            vec3 tempPos = self.GetWorldPosition();
+            self.SetParent(originalParent);
+            self.SetWorldPosition(tempPos);
+        }
+    }
+
 	void HoverSlot1() {
-	    print("Fuse `" + self.name + "` hovering slot 1\n");
+        HoverImpl(1);
 	}
 
 	void HoverSlot2() {
-	    print("Fuse `" + self.name + "` hovering slot 2\n");
+	    HoverImpl(2);
 	}
 
 	void HoverSlot3() {
-	    print("Fuse `" + self.name + "` hovering slot 3\n");
+	    HoverImpl(3);
 	}
 
 	void HoverSlot4() {
-	    print("Fuse `" + self.name + "` hovering slot 4\n");
+	    HoverImpl(4);
 	}
 }
