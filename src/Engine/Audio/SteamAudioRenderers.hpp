@@ -5,7 +5,10 @@
 
 namespace Audio {
 
+    /// Sample rate of sound files.
     const unsigned int SAMPLE_RATE = 44100U;
+
+    /// Number of samples stored in each memory chunk.
     const unsigned int CHUNK_SIZE = SAMPLE_RATE / 15;
 
     /// Class responsible for calculating direct audio.

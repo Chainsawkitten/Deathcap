@@ -7,7 +7,10 @@ namespace Utility {
             /// Constructor.
             Queue() = default;
 
-            /// Push value at front of queue.
+            /// Destrcutor.
+            ~Queue();
+
+            /// Push value at back of queue.
             /**
              * @param val Value to push.
              */
@@ -25,14 +28,14 @@ namespace Utility {
              */
             T* Back();
 
-            /// Remoce value at front of queue.
+            /// Remove value at front of queue.
             void Pop();
 
             /// Check if queue is empty.
             /**
-            * @return Wether queue is empty or not.
-            */
-            bool Empty();
+             * @return Wether queue is empty or not.
+             */
+            bool Empty() const;
 
             /// Iterate over all values in queue.
             /**
@@ -44,7 +47,7 @@ namespace Utility {
             /**
              * @return Number of elements in queue.
              */
-            unsigned int Count();
+            unsigned int Size() const;
 
         private:
             struct Node {
@@ -59,6 +62,14 @@ namespace Utility {
             Node* iterator = nullptr;
             unsigned int count = 0;
     };
+
+    template<typename T> Queue<T>::~Queue() {
+        while (front) {
+            Node* node = front;
+            front = node->backward;
+            delete node;
+        }
+    }
 
     template<typename T> void Queue<T>::Push(const T& val) {
         Node* node = new Node();
@@ -95,7 +106,7 @@ namespace Utility {
         }
     }
 
-    template<typename T> bool Queue<T>::Empty() {
+    template<typename T> bool Queue<T>::Empty() const {
         return front == nullptr;
     }
 
@@ -108,7 +119,7 @@ namespace Utility {
     }
 
 
-    template<typename T> unsigned int Queue<T>::Count() {
+    template<typename T> unsigned int Queue<T>::Size() const {
         return count;
     }
 }
