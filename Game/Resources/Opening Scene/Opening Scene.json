@@ -924,13 +924,17 @@
 			{
 				"model" : "Resources/Opening Scene/Animation/monster1@model"
 			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/Opening Scene/Scripts/AnimationScript"
+			},
 			"children" : null,
 			"name" : "monster",
 			"position" : 
 			{
-				"x" : -37.513526916503906,
-				"y" : 0.841591477394104,
-				"z" : 13.384106636047363
+				"x" : -36.262699127197266,
+				"y" : 0.93738043308258057,
+				"z" : 9.8411731719970703
 			},
 			"rotation" : 
 			{
@@ -971,7 +975,7 @@
 				"triggerEventStruct_Check_1" : true,
 				"triggerEventStruct_Check_2" : true,
 				"triggerEventStruct_Check_3" : true,
-				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_EventID" : 2,
 				"triggerEventStruct_ScriptID" : 1,
 				"triggerEventStruct_ShapeID" : 0,
 				"triggerEventStruct_TargetID" : 3,
@@ -985,7 +989,7 @@
 			"name" : "TriggerAnim",
 			"position" : 
 			{
-				"x" : -29.994138717651367,
+				"x" : -29.386850357055664,
 				"y" : 2.5806319713592529,
 				"z" : -1.4610238075256348
 			},
