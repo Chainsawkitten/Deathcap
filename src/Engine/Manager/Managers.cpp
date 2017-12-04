@@ -33,7 +33,7 @@ void Hub::StartUp() {
     Log() << "Resource manager\n";
     resourceManager = new ResourceManager();
     Log() << "VR manager\n";
-    //vrManager = new VRManager();
+    vrManager = new VRManager();
     Log() << "Render manager\n";
     renderManager = new RenderManager();
     Log() << "Particle manager\n";
