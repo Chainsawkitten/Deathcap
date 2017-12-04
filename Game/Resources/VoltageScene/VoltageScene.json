@@ -3500,7 +3500,7 @@
 								"triggerEventStruct_ScriptID" : 1,
 								"triggerEventStruct_ShapeID" : 0,
 								"triggerEventStruct_TargetID" : 11,
-								"triggerFunction" : "",
+								"triggerFunction" : "void PickupTrigger()",
 								"triggerName" : "New Trigger",
 								"triggerOwner" : 1512046533,
 								"triggerTargetEntity" : 1511964754,
