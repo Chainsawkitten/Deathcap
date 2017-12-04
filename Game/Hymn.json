@@ -9,7 +9,6 @@
 			"z" : 1.0
 		},
 		"dither" : true,
-		"fog" : false,
 		"fogColor" : 
 		{
 			"x" : 0.0,
@@ -60,6 +59,8 @@
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
 		"Resources/MonsterTestScript",
+		"Resources/Constant Scene/Hands/RightHandAnim",
+		"Resources/Constant Scene/Hands/LeftHandAnim"
 		"Resources/elevatorScene/Scripts/elevator_moveCart",
 		"Resources/elevatorScene/Scripts/elevator_frontDoorCon",
 		"Resources/elevatorScene/Scripts/elevator_backDoorCon",

@@ -71,7 +71,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
             Animation::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
             if (tmpTransition) {
-                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && tmpTransition->isStatic && !activeAction1->repeat) {
+                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && !activeAction1->repeat) {
                     Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
                     if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
                         activeTransition = tmpTransition;
@@ -80,9 +80,9 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
                         isBlending = true;
                         break;
                     }
-                } else if (!tmpTransition->isStatic && !controller->boolMap.empty() && controller->boolMap[tmpTransition->transitionBoolIndex]) {
+                } else if (!tmpTransition->isStatic && !controller->boolMap.empty() && controller->boolMap[tmpTransition->transitionBoolIndex]->value) {
                     Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
-                    if (controller->boolMap[tmpTransition->transitionBoolIndex] && tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
+                    if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
                         activeTransition = tmpTransition;
                         activeTransition->transitionProcess = 0.f;
                         activeAction2 = tmpAction;
@@ -115,6 +115,38 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
             Blend(deltaTime);
         }
     }
+}
+
+void AnimationController::SetBool(const std::string& name, bool value) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
+            controller->boolMap[i]->value = value;
+            return;
+        }
+}
+
+void AnimationController::SetFloat(const std::string& name, float value) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
+            controller->floatMap[i]->value = value;
+            return;
+        }
+}
+
+bool AnimationController::GetBool(const std::string& name) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0)
+            return controller->boolMap[i]->value;
+
+    return false;
+}
+
+float AnimationController::GetFloat(const std::string& name) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0)
+            return controller->floatMap[i]->value;
+
+    return -1.f;
 }
 
 void AnimationController::Animate(float deltaTime, Animation::AnimationAction* action, unsigned int skeletonId) {
@@ -257,36 +289,4 @@ void AnimationController::Blend(float deltaTime) {
         skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
         bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
-}
-
-void AnimationController::SetBool(const std::string& name, bool value) {
-    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
-        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
-            controller->boolMap[i]->value = value;
-            return;
-        }
-}
-
-void AnimationController::SetFloat(const std::string& name, float value) {
-    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
-        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
-            controller->floatMap[i]->value = value;
-            return;
-        }
-}
-
-bool AnimationController::GetBool(const std::string& name) {
-    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
-        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0)
-            return controller->boolMap[i]->value;
-
-    return false;
-}
-
-float AnimationController::GetFloat(const std::string& name) {
-    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
-        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0)
-            return controller->floatMap[i]->value;
-
-    return -1.f;
 }
