@@ -112,13 +112,13 @@ int main(int argc, char* argv[]) {
             ramUsed = Managers().profilingManager->MeasureRAM();
             vramUsed = Managers().profilingManager->MeasureVRAM();
 
-        if (ramUsed > maxRamLimit && ramUsed > maxRamUsed)
-                maxRamUsed = ramUsed;
+            if (ramUsed > maxRamUsed)
+                    maxRamUsed = ramUsed;
             
-        if (vramUsed > maxVramLimit && vramUsed > maxVramUsed)
-                maxVramUsed = vramUsed;
+            if (vramUsed > maxVramUsed)
+                    maxVramUsed = vramUsed;
 
-        numberOfFrames++;
+            numberOfFrames++;
         }
     }
     
