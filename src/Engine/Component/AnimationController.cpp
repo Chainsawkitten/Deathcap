@@ -71,7 +71,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
             Animation::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
             if (tmpTransition) {
-                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && tmpTransition->isStatic && !activeAction1->repeat) {
+                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && !activeAction1->repeat) {
                     Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
                     if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
                         activeTransition = tmpTransition;
@@ -82,7 +82,7 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
                     }
                 } else if (!tmpTransition->isStatic && !controller->boolMap.empty() && controller->boolMap[tmpTransition->transitionBoolIndex]) {
                     Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
-                    if (controller->boolMap[tmpTransition->transitionBoolIndex] && tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
+                    if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
                         activeTransition = tmpTransition;
                         activeTransition->transitionProcess = 0.f;
                         activeAction2 = tmpAction;
