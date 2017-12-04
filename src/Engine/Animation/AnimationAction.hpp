@@ -11,9 +11,13 @@ namespace Animation {
 
 namespace Animation {
     /// Animaiton action node.
-    struct AnimationAction : public Node {
+    class AnimationAction : public Node {
+        public:
+        /// Create new animation action.
+        ENGINE_API AnimationAction();
+        
         /// Destructor.
-        ENGINE_API virtual ~AnimationAction();
+        ENGINE_API ~AnimationAction() override;
 
         /// Save the animation action node.
         /**
