@@ -54,6 +54,8 @@ SoundManager::SoundManager() {
 
     err = Pa_StartStream(stream);
     CheckError(err);
+
+    memset(processedBuffer, 0, sizeof(float) * CHUNK_SIZE * 2);
 }
 
 
@@ -84,38 +86,19 @@ void SoundManager::Update() {
         const std::vector<Component::Listener*>& listeners = GetListeners();
         if (listeners.size() > 0) {
 
-            // Number of samples to process dependant on deltaTime
-            unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
-            if (frameSamples > CHUNK_SIZE) {
-                Log() << "SoundManager::Update: Frame drop!\n";
-
-                frameSamples = CHUNK_SIZE;
-            }
-            targetSample += frameSamples;
+            // Play samples.
+            Pa_WriteStream(stream, processedBuffer, CHUNK_SIZE);
 
             // Update sound.
-            while (currentSample < targetSample) {
-                // Process Samples.
-                if (processedSamples == 0) {
-                    ProcessSamples();
-                    processedSamples = CHUNK_SIZE;
-                }
-
-                // Play samples.
-                unsigned int sampleCount = std::min(targetSample - currentSample, processedSamples);
-                unsigned int index = (CHUNK_SIZE - processedSamples) * 2;
-                Pa_WriteStream(stream, &processedBuffer[index], sampleCount);
-                processedSamples -= sampleCount;
-                currentSample += sampleCount;
-            }
+            ProcessSamples();
         }
 
         updateLock.unlock();
         double delta = glfwGetTime() - start;
         double sleepTime = deltaTime - delta;
-        sleepTime *= 0.5f;
+        sleepTime *= 0.95f;
         if (sleepTime < 0)
-            Log() << "SoundManager::Update: Thread behind.\n";
+            Log() << "SoundManager::Update: Thread behind " << -sleepTime << " s.\n";
         else
             std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(sleepTime * 1000));
     }
@@ -123,8 +106,7 @@ void SoundManager::Update() {
 
 void SoundManager::ProcessSamples() {
     const std::vector<Component::Listener*>& listeners = GetListeners();
-    if (listeners.size() == 0)
-        return;
+    assert(listeners.size() > 0);
   
     Entity* player = listeners[0]->entity;
     glm::vec3 glmPos = player->GetWorldPosition();
@@ -377,14 +359,33 @@ void SoundManager::CreateAudioEnvironment() {
 }
 
 void SoundManager::ClearKilledComponents() {
-    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
-    updateLock.lock();
-
-    audioMaterials.ClearKilled();
-    soundSources.ClearKilled();
-    listeners.ClearKilled();
-
-    updateLock.unlock();
+    const std::vector<Component::AudioMaterial*> audioMaterialVector = audioMaterials.GetAll();
+    for (std::size_t i = 0; i < audioMaterialVector.size(); ++i)
+        if (audioMaterialVector[i]->IsKilled()) {
+            std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+            updateLock.lock();
+            audioMaterials.ClearKilled();
+            updateLock.unlock();
+            break;
+        }
+    const std::vector<Component::SoundSource*> soundSourceVector = soundSources.GetAll();
+    for (std::size_t i = 0; i < soundSourceVector.size(); ++i)
+        if (soundSourceVector[i]->IsKilled()) {
+            std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+            updateLock.lock();
+            soundSources.ClearKilled();
+            updateLock.unlock();
+            break;
+        }
+    const std::vector<Component::Listener*> listenerMaterialVector = listeners.GetAll();
+    for (std::size_t i = 0; i < listenerMaterialVector.size(); ++i)
+        if (listenerMaterialVector[i]->IsKilled()) {
+            std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+            updateLock.lock();
+            listeners.ClearKilled();
+            updateLock.unlock();
+            break;
+        }
 }
 
 void SoundManager::Load(SoundStreamer::DataHandle* handle) {

@@ -127,9 +127,6 @@ class SoundManager {
         bool join = true;
         bool threadActive = false;
 
-        unsigned int targetSample = 0;
-        unsigned int processedSamples = 0;
-        unsigned int currentSample = 0;
         float processedBuffer[Audio::CHUNK_SIZE * 2];
 
         float volume = 1.f;
