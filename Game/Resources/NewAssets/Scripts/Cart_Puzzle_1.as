@@ -1,6 +1,7 @@
 class Cart_Puzzle_1{
     Entity @self;
     Entity @actualSelf;
+    Entity @bridgeParent;
     float speed;
     bool hasHitPlane;
     float planePos;
@@ -19,6 +20,7 @@ class Cart_Puzzle_1{
     
     Cart_Puzzle_1(Entity @entity){
         @self = GetEntityByGUID(1508919384);
+        @bridgeParent = GetEntityByGUID(1510240835);
         @actualSelf = @entity;
         speed = 2.0f;
         stopTime = 0.0f;
@@ -61,17 +63,11 @@ class Cart_Puzzle_1{
         else
             speed = 0.0f;
             
-        // Play rail audio
-        /*if(!audioPlaying && speed > 0.1f){
-            self.GetSoundSource().Play();
-            audioPlaying = true;
+        
+        // Skip puzzle
+        if(speed < 0.001f && !IsVRActive() && Input(PuzzleSkip, @self)) {
+        	SendMessage(bridgeParent, 1);
         }
-        else if (speed < 0.1f){
-            self.GetSoundSource().Stop();
-            audioPlaying = false;
-        }*/
-        
-        
     }
     
     void OnTrigger(){
