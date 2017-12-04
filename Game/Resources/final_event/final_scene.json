@@ -512,6 +512,162 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511338734
+				},
+				{
+					"children" : 
+					[
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_monsterDeath",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "DeathSound",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512044219
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_monsterFalling",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "Falling",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512044955
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_landing",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "LandThud",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512045002
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_monsterShriek",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "Shriek",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046440
+						}
+					],
+					"name" : "Audio",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512044197
 				}
 			],
 			"name" : "Monster",

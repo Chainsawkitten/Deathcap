@@ -103,7 +103,6 @@ void SoundManager::Update(float deltaTime) {
 }
 
 void SoundManager::ProcessSamples() {
-
     const std::vector<Component::Listener*>& listeners = GetListeners();
     if (listeners.size() == 0)
         return;
@@ -133,35 +132,38 @@ void SoundManager::ProcessSamples() {
 
         // Check if sound should play and is a valid resource.
         if (sound->shouldPlay && soundFile && soundFile->IsLoaded()) {
-            soundBuffers.push_back(soundBuffer);
-
             // Get samples from streamed buffer.
             int samples;
             float* buffer = soundBuffer->GetChunkData(samples);
-            buffers.push_back(buffer);
+            if (buffer) {
+                buffers.push_back(buffer);
+                soundBuffers.push_back(soundBuffer);
 
-            // Volume.
-            for (int m = 0; m < samples; ++m)
-                buffer[m] *= sound->volume;
+                // Volume.
+                for (int m = 0; m < samples; ++m)
+                    buffer[m] *= sound->volume;
 
-            glm::vec3 position = sound->entity->GetWorldPosition();
-            positions.push_back(IPLVector3{ position.x, position.y, position.z });
-            radii.push_back(0.5f);
-            if (!sound->renderers)
-                sAudio.CreateRenderers(sound->renderers);
-            renderers.push_back(sound->renderers);
+                glm::vec3 position = sound->entity->GetWorldPosition();
+                positions.push_back(IPLVector3{ position.x, position.y, position.z });
+                radii.push_back(3.0f);
+                if (!sound->renderers)
+                    sAudio.CreateRenderers(sound->renderers);
+                renderers.push_back(sound->renderers);
+            }
 
             // If end of file, check if sound repeat.
-            if (samples == 0) {
+            if (samples < CHUNK_SIZE) {
                 soundBuffer->Restart();
                 sound->shouldStop = !sound->loop;
+                // Set silence (zero) at end of buffer.
+                if (buffer) 
+                    memset(&buffer[samples], 0, (CHUNK_SIZE - samples) * sizeof(float));
             }
         }
 
         // Pause it.
-        if (sound->shouldPause) {
+        if (sound->shouldPause)
             sound->shouldPlay = false;
-        }
 
         // Stop it.
         if (sound->shouldStop) {
@@ -298,8 +300,8 @@ void SoundManager::CreateAudioEnvironment() {
 
                 // Convert indices.
                 iplIndices.resize(meshIndices.size());
-                for (std::size_t i = 0; i < meshIndices.size(); ++i) {
-                    iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i] };
+                for (std::size_t i = 0; i < meshIndices.size(); i+=3) {
+                    iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i], (IPLint32)meshIndices[i+1], (IPLint32)meshIndices[i+2] };
                 }
 
                 // Find material index and create ipl mesh.
@@ -321,14 +323,23 @@ void SoundManager::CreateAudioEnvironment() {
 }
 
 void SoundManager::ClearKilledComponents() {
+    audioMaterials.ClearKilled();
     soundSources.ClearKilled();
     listeners.ClearKilled();
 }
 
-void SoundManager::Load(Audio::SoundStreamer::DataHandle& handle) {
-    soundStreamer.Load(handle);
+void SoundManager::Load(SoundStreamer::DataHandle* handle) {
+    if (handle->soundFile->GetCached()) {
+        handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
+        handle->done = true;
+    } else
+        soundStreamer.Load(handle);
 }
 
-void SoundManager::Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue) {
-    soundStreamer.Flush(queue);
+void SoundManager::Flush(Utility::Queue<SoundStreamer::DataHandle>& queue) {
+    while (SoundStreamer::DataHandle* handle = queue.Iterate()) {
+        handle->abort = true;
+        if (handle->soundFile->GetCached())
+            handle->done = true;
+    }
 }

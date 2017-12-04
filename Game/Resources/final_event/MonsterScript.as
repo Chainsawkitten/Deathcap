@@ -6,11 +6,21 @@ class MonsterScript {
     float waitTimer;
     float eatingTimer;
     int phase;
+    
+	Component::SoundSource @snd_shriek;
+    Component::SoundSource @snd_death;
+    Component::SoundSource @snd_landing;
+    Component::SoundSource @snd_falling;
 
     MonsterScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @cart = GetEntityByGUID(1511260476);
+        
+        @snd_shriek = GetEntityByGUID(1512046440).GetSoundSource();
+        @snd_landing = GetEntityByGUID(1512045002).GetSoundSource();
+        @snd_death = GetEntityByGUID(1512044219).GetSoundSource();
+        @snd_falling = GetEntityByGUID(1512044955).GetSoundSource();
         
         phase = 0;
         fallspeed = 0.0f;
@@ -31,6 +41,7 @@ class MonsterScript {
                 self.position.y -= fallspeed * deltaTime;
                 if (self.position.y <= 0.0f) {
                     self.position.y = 0.0f;
+                    snd_landing.Play();
                     phase = 2;
                 }
                 break;
@@ -70,6 +81,7 @@ class MonsterScript {
             }
             case 1: { // Die
                 phase = 6; // Collapse
+                snd_death.Play();
                 print("Monster: I'm dying now.\n");
                 break;
             }
@@ -79,10 +91,12 @@ class MonsterScript {
     void BecomeExposed() {
         print("I am becoming exposed now!\n");
         phase = 1;
+        snd_falling.Play();
     }
 
     void StopCharging() {
         print("Stopping my charge\n");
         phase = 4;
+        snd_shriek.Play();
     }
 }
