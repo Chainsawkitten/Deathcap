@@ -777,18 +777,18 @@
 				"color" : 
 				{
 					"x" : 1.0,
-					"y" : 0.36078432202339172,
+					"y" : 0.08235294371843338,
 					"z" : 0.0
 				},
-				"intensity" : 150.0
+				"intensity" : 1.7570000886917114
 			},
 			"children" : null,
 			"name" : "monster_light",
 			"position" : 
 			{
 				"x" : 0.062211528420448303,
-				"y" : 4.2634477615356445,
-				"z" : -0.89674609899520874
+				"y" : 4.8719544410705566,
+				"z" : 0.357383131980896
 			},
 			"rotation" : 
 			{
@@ -808,31 +808,34 @@
 			"uid" : 1512372497
 		},
 		{
-			"PointLight" : 
+			"SpotLight" : 
 			{
-				"attenuation" : 0.10000000149011612,
+				"ambientCoefficient" : 0.0,
+				"attenuation" : 0.05000000074505806,
 				"color" : 
 				{
-					"x" : 1.0,
-					"y" : 1.0,
+					"x" : 0.20000000298023224,
+					"y" : 0.37647059559822083,
 					"z" : 1.0
 				},
-				"intensity" : 500.0
+				"coneAngle" : 156.25700378417969,
+				"intensity" : 59.519001007080078,
+				"shadow" : false
 			},
 			"children" : null,
 			"name" : "moonlight",
 			"position" : 
 			{
-				"x" : -62.598361968994141,
-				"y" : 0.51728522777557373,
-				"z" : -0.20463484525680542
+				"x" : 105.62100219726563,
+				"y" : 30.747001647949219,
+				"z" : 13.450000762939453
 			},
 			"rotation" : 
 			{
-				"w" : -0.66814154386520386,
-				"x" : -0.30433729290962219,
-				"y" : 0.67670327425003052,
-				"z" : -0.0551014244556427
+				"w" : -0.49153140187263489,
+				"x" : 0.29403352737426758,
+				"y" : 0.68124300241470337,
+				"z" : 0.45590144395828247
 			},
 			"scale" : 
 			{
@@ -921,9 +924,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/NewAssets/Textures/CrateRoughness",
+				"albedo" : "Resources/final_event/textures/sack_albedo",
 				"metallic" : "",
-				"normal" : "",
+				"normal" : "Resources/final_event/textures/sack_normal",
 				"roughness" : ""
 			},
 			"Mesh" : 
@@ -934,9 +937,9 @@
 			"name" : "rope",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -5.1676764488220215,
+				"y" : 0.056761324405670166,
+				"z" : 1.5020486116409302
 			},
 			"rotation" : 
 			{
@@ -954,6 +957,80 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512373778
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "table",
+			"position" : 
+			{
+				"x" : -6.405545711517334,
+				"y" : -0.45075690746307373,
+				"z" : 1.714361310005188
+			},
+			"rotation" : 
+			{
+				"w" : 0.70660316944122314,
+				"x" : 0.0,
+				"y" : -0.70760959386825562,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.88829499483108521,
+				"y" : 1.5844134092330933,
+				"z" : 0.9199984073638916
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512374239
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.80100005865097046,
+				"color" : 
+				{
+					"x" : 0.5058823823928833,
+					"y" : 0.19215686619281769,
+					"z" : 0.0
+				},
+				"intensity" : 35.370002746582031
+			},
+			"children" : null,
+			"name" : "outside_light",
+			"position" : 
+			{
+				"x" : 59.945003509521484,
+				"y" : 5.5810003280639648,
+				"z" : -0.54400002956390381
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512375197
 		}
 	],
 	"name" : "Root",
@@ -965,10 +1042,10 @@
 	},
 	"rotation" : 
 	{
-		"w" : -4.371138473402425e-08,
-		"x" : -4.3711391839451608e-08,
-		"y" : 1.0,
-		"z" : -4.3711391839451608e-08
+		"w" : 4.3711434472015753e-08,
+		"x" : -4.371138473402425e-08,
+		"y" : -1.0,
+		"z" : 4.371138473402425e-08
 	},
 	"scale" : 
 	{

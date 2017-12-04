@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 145,
+	"modelNumber" : 147,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1482,6 +1482,10 @@
 					},
 					{
 						"model" : "ropepile",
+						"type" : 1
+					},
+					{
+						"model" : "wood_table",
 						"type" : 1
 					}
 				],
