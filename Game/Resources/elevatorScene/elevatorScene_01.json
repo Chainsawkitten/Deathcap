@@ -309,6 +309,46 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511871150
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 0.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 0.31764706969261169,
+							"z" : 0.18823529779911041
+						},
+						"coneAngle" : 9.2390003204345703,
+						"intensity" : 3.3540000915527344,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "elevator_light",
+					"position" : 
+					{
+						"x" : 0.34800001978874207,
+						"y" : 3.4520001411437988,
+						"z" : -5.4082303047180176
+					},
+					"rotation" : 
+					{
+						"w" : -0.041260551661252975,
+						"x" : 0.83782976865768433,
+						"y" : -0.45150873064994812,
+						"z" : -0.30409976840019226
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512380541
 				}
 			],
 			"name" : "Elevator",
@@ -2687,6 +2727,154 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512029307
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "wood_beams",
+			"position" : 
+			{
+				"x" : 5.8771414756774902,
+				"y" : 11.767192840576172,
+				"z" : -0.026653259992599487
+			},
+			"rotation" : 
+			{
+				"w" : 0.66117304563522339,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.75023305416107178
+			},
+			"scale" : 
+			{
+				"x" : 0.99999880790710449,
+				"y" : 4.0306458473205566,
+				"z" : 3.4742271900177002
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380350
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.24900001287460327,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.098039217293262482,
+					"z" : 0.0078431377187371254
+				},
+				"intensity" : 1.440000057220459
+			},
+			"children" : null,
+			"name" : "light",
+			"position" : 
+			{
+				"x" : 2.3835341930389404,
+				"y" : 8.8992271423339844,
+				"z" : 0.85008049011230469
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380719
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Tracks"
+			},
+			"children" : null,
+			"name" : "rails",
+			"position" : 
+			{
+				"x" : 33.810012817382813,
+				"y" : -10.330215454101563,
+				"z" : -0.11782956123352051
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 0.67706269025802612,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380795
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/final_plane"
+			},
+			"children" : null,
+			"name" : "plane",
+			"position" : 
+			{
+				"x" : 7.7089247703552246,
+				"y" : -10.590608596801758,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.34162777662277222,
+				"y" : 0.98000001907348633,
+				"z" : 1.3539962768554688
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380903
 		}
 	],
 	"name" : "Root",
