@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 143,
+	"modelNumber" : 145,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -242,7 +242,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "StarterScene_Platform",
+								"model" : "platformForStarterScene_01",
 								"type" : 1
 							},
 							{
@@ -1416,6 +1416,10 @@
 					{
 						"texture" : "FlareRoughness",
 						"type" : 2
+					},
+					{
+						"model" : "single_sand",
+						"type" : 1
 					}
 				],
 				"subfolders" : null
@@ -1449,7 +1453,7 @@
 						"type" : 1
 					},
 					{
-						"model" : "sand_piles",
+						"model" : "single_sand",
 						"type" : 1
 					},
 					{
@@ -1474,6 +1478,10 @@
 					},
 					{
 						"model" : "knife2asc",
+						"type" : 1
+					},
+					{
+						"model" : "ropepile",
 						"type" : 1
 					}
 				],
@@ -1505,6 +1513,14 @@
 							},
 							{
 								"texture" : "sand_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "sack_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "sack_normal",
 								"type" : 2
 							}
 						],
@@ -1546,5 +1562,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 126
+	"textureNumber" : 128
 }

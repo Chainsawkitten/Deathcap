@@ -115,7 +115,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/final_event/textures/burlap_albedo",
+				"albedo" : "Resources/final_event/textures/sack_albedo",
 				"metallic" : "Resources/final_event/textures/burlap_metallic",
 				"normal" : "Resources/final_event/textures/burlap_normal",
 				"roughness" : "Resources/final_event/textures/burlap_roughness"
@@ -843,6 +843,117 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512372613
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512373452
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand2",
+			"position" : 
+			{
+				"x" : 59.998207092285156,
+				"y" : -0.39634609222412109,
+				"z" : -9.2392082214355469
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : -4.3711391839451608e-08,
+				"y" : -4.371138473402425e-08,
+				"z" : -4.3711391839451608e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512373565
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/CrateRoughness",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/ropepile"
+			},
+			"children" : null,
+			"name" : "rope",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512373778
 		}
 	],
 	"name" : "Root",
