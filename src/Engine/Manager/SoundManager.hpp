@@ -5,6 +5,7 @@
 #include "../Audio/SteamAudioInterface.hpp"
 #include "../linking.hpp"
 #include "../Audio/SoundStreamer.hpp"
+#include <Utility/Queue.hpp>
 
 namespace Audio {
     class SoundStreamer;
@@ -103,13 +104,13 @@ class SoundManager {
         /**
          * @param dataHandle DataHandle to load.
          */
-        ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
+        ENGINE_API void Load(Audio::SoundStreamer::DataHandle* dataHandle);
 
         /// Abort loading from file.
         /**
          * @param queue Queue of DataHandle to flush from load queue.
          */
-        ENGINE_API void Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue);
+        ENGINE_API void Flush(Utility::Queue<Audio::SoundStreamer::DataHandle>& queue);
         
     private:
         SoundManager();

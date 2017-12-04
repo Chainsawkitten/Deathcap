@@ -36,6 +36,8 @@ Json::Value SoundSource::Save() const {
 
 void SoundSource::Play() {
     shouldPlay = true;
+    shouldPause = false;
+    shouldStop = false;
 }
 
 void SoundSource::Pause() {

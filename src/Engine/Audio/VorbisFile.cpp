@@ -26,6 +26,8 @@ int VorbisFile::GetData(uint32_t offset, uint32_t samples, float*& data) const {
     if (!IsLoaded())
         return 0;
 
+    assert(offset < sampleCount);
+
     if (buffer) {
         data = &buffer[offset];
         return std::min(std::max(sampleCount - (int)(offset + samples), 0), (int)samples);
