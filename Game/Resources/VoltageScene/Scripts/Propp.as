@@ -53,8 +53,4 @@ class Propp {
 	void HoverSlot4() {
 	
 	}
-
-    // REMOVE THIS
-    void CheckSolution() {
-    }
 }
