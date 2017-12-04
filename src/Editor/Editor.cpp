@@ -20,6 +20,7 @@
 #include <Engine/Component/SpotLight.hpp>
 #include <Engine/Component/PointLight.hpp>
 #include <Engine/Geometry/Model.hpp>
+#include <Engine/Geometry/MeshData.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
 #include <ImGuizmo.h>
@@ -250,12 +251,12 @@ void Editor::Save() const {
 bool Editor::HasMadeChanges() const {
 
     {
-        std::string* sceneFilename = new std::string();
-        Json::Value sceneJson = resourceView.GetSceneJson(sceneFilename);
+        std::string sceneFilename;
+        Json::Value sceneJson = resourceView.GetSceneJson(&sceneFilename);
 
         // Load Json document from file.
         Json::Value reference;
-        std::ifstream file(*sceneFilename);
+        std::ifstream file(sceneFilename);
 
         if (!file.good())
             return true;
@@ -583,7 +584,7 @@ void Editor::PaintBrush(Entity* entity) {
         Geometry::AssetFileHandler handler;
         handler.Open(modelPath.c_str());
         handler.LoadMeshData(0);
-        Geometry::AssetFileHandler::MeshData* data = handler.GetStaticMeshData();
+        Geometry::MeshData* data = handler.GetStaticMeshData();
         nrOfIndices = data->numIndices;
         nrOfVertices = data->numVertices;
 

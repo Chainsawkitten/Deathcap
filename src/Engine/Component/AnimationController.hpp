@@ -3,7 +3,13 @@
 #include "SuperComponent.hpp"
 #include <string>
 #include <glm/glm.hpp>
-#include "../Animation/AnimationController.hpp"
+
+namespace Animation {
+    class AnimationAction;
+    class AnimationTransition;
+    class AnimationController;
+    class Skeleton;
+}
 
 namespace Component {
     /// Animation controller.
@@ -62,14 +68,19 @@ namespace Component {
             Animation::Skeleton* skeleton = nullptr;
 
         private:
-            void Animate(float deltaTime, Animation::AnimationController::AnimationAction* action);
-            void Interpolate(float deltaTime);
+            void Animate(float deltaTime, Animation::AnimationAction* action, unsigned int skeletonId = 0);
+            void Blend(float deltaTime);
 
-            Animation::AnimationController::AnimationAction* activeAction1 = nullptr;
-            Animation::AnimationController::AnimationAction* activeAction2 = nullptr;
-            Animation::AnimationController::AnimationTransition* activeTransition = nullptr;
+            Animation::AnimationAction* activeAction1 = nullptr;
+            Animation::AnimationAction* activeAction2 = nullptr;
+            Animation::AnimationTransition* activeTransition = nullptr;
 
             std::vector<glm::mat4> bonesToInterpolate1;
             std::vector<glm::mat4> bonesToInterpolate2;
+
+            glm::vec3 position1 = glm::vec3(0.f);
+            glm::vec3 position2 = glm::vec3(0.f);
+
+            bool isBlending = false;
     };
 }

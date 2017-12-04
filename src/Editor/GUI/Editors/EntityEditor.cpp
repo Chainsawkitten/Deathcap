@@ -323,9 +323,61 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     if (material->albedo->GetTexture()->IsLoaded())
         ImGui::Image((void*)material->albedo->GetTexture()->GetTextureID(), ImVec2(128, 128));
 
-    if (ImGui::Button("Select albedo texture"))
+    if (ImGui::Button("Select albedo texture")) {
         albedoShow = true;
+        normalShow = false;
+        metallicShow = false;
+        roughnessShow = false;
+    }
+    
+    ImGui::Unindent();
 
+    // Normal
+    ImGui::Text("Normal");
+    ImGui::Indent();
+    if (material->normal->GetTexture()->IsLoaded())
+        ImGui::Image((void*)material->normal->GetTexture()->GetTextureID(), ImVec2(128, 128));
+
+    if (ImGui::Button("Select normal texture")) {
+        albedoShow = false;
+        normalShow = true;
+        metallicShow = false;
+        roughnessShow = false;
+    }
+
+    ImGui::Unindent();
+
+    // Metallic
+    ImGui::Text("Metallic");
+    ImGui::Indent();
+    if (material->metallic->GetTexture()->IsLoaded())
+        ImGui::Image((void*)material->metallic->GetTexture()->GetTextureID(), ImVec2(128, 128));
+
+    if (ImGui::Button("Select metallic texture")) {
+        albedoShow = false;
+        normalShow = false;
+        metallicShow = true;
+        roughnessShow = false;
+    }
+
+    ImGui::Unindent();
+
+    // Roughness
+    ImGui::Text("Roughness");
+    ImGui::Indent();
+    if (material->roughness->GetTexture()->IsLoaded())
+        ImGui::Image((void*)material->roughness->GetTexture()->GetTextureID(), ImVec2(128, 128));
+
+    if (ImGui::Button("Select roughness texture")) {
+        albedoShow = false;
+        normalShow = false;
+        metallicShow = false;
+        roughnessShow = true;
+    }
+
+    ImGui::Unindent();
+    
+    // Select albedo.
     if (albedoShow) {
         ImGui::Begin("Textures", &albedoShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
@@ -336,17 +388,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         }
         ImGui::End();
     }
-    ImGui::Unindent();
-
-    // Normal
-    ImGui::Text("Normal");
-    ImGui::Indent();
-    if (material->normal->GetTexture()->IsLoaded())
-        ImGui::Image((void*)material->normal->GetTexture()->GetTextureID(), ImVec2(128, 128));
-
-    if (ImGui::Button("Select normal texture"))
-        normalShow = true;
-
+    
+    // Select normal.
     if (normalShow) {
         ImGui::Begin("Textures", &normalShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
@@ -357,17 +400,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         }
         ImGui::End();
     }
-    ImGui::Unindent();
-
-    // Metallic
-    ImGui::Text("Metallic");
-    ImGui::Indent();
-    if (material->metallic->GetTexture()->IsLoaded())
-        ImGui::Image((void*)material->metallic->GetTexture()->GetTextureID(), ImVec2(128, 128));
-
-    if (ImGui::Button("Select metallic texture"))
-        metallicShow = true;
-
+    
+    // Select metallic.
     if (metallicShow) {
         ImGui::Begin("Textures", &metallicShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
@@ -378,17 +412,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         }
         ImGui::End();
     }
-    ImGui::Unindent();
-
-    // Roughness
-    ImGui::Text("Roughness");
-    ImGui::Indent();
-    if (material->roughness->GetTexture()->IsLoaded())
-        ImGui::Image((void*)material->roughness->GetTexture()->GetTextureID(), ImVec2(128, 128));
-
-    if (ImGui::Button("Select roughness texture"))
-        roughnessShow = true;
-
+    
+    // Select roughness.
     if (roughnessShow) {
         ImGui::Begin("Textures", &roughnessShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
@@ -399,7 +424,6 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         }
         ImGui::End();
     }
-    ImGui::Unindent();
 }
 
 void EntityEditor::DirectionalLightEditor(Component::DirectionalLight* directionalLight) {

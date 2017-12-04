@@ -521,8 +521,7 @@ bool ResourceView::ShowResource(ResourceList::ResourceFolder& folder, ResourceLi
                         textureEditor.SetVisible(false);
 
                     // Remove files.
-                    remove((Hymn().GetPath() + "/" + path + "/" + resource.texture->name + ".png").c_str());
-                    remove((Hymn().GetPath() + "/" + path + "/" + resource.texture->name + ".json").c_str());
+                    remove((Hymn().GetPath() + "/" + path + "/" + resource.texture->name + ".hct").c_str());
 
                     Managers().resourceManager->FreeTextureAsset(resource.texture);
                     ImGui::EndPopup();
