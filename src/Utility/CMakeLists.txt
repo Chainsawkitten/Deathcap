@@ -12,7 +12,7 @@ set(HEADERS
 create_directory_groups(${SRCS} ${HEADERS})
 
 # Logtesting define
-option(USELOGTESTING, "Log throws exceptions when logging to error channel." OFF)
+option(USELOGTESTING "Log throws exceptions when logging to error channel." OFF)
 
 if(USELOGTESTING)
     add_definitions(-DLOGTESTING)
