@@ -27,6 +27,7 @@ using namespace Video;
 Renderer::Renderer() {
     Log() << "Setting up render program\n";
     rectangle = new Geometry::Rectangle();
+    Log() << "After rectangle\n";
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
     
