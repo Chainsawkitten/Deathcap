@@ -16,6 +16,10 @@ Log::~Log() {
 }
 
 Log& Log::operator<<(const string& text) {
+#ifdef LOGTESTING
+    std::cout << "A";
+#endif
+    
     *streams[currentChannel] << text;
 
 #ifdef USINGDOUBLELOGGING
