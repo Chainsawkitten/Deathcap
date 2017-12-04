@@ -33,7 +33,7 @@ namespace Utility {
 
             /// Check if queue is empty.
             /**
-             * @return Wether queue is empty or not.
+             * @return Whether queue is empty or not.
              */
             bool Empty() const;
 
