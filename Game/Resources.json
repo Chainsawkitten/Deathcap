@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/final_event/final_scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -1473,7 +1473,7 @@
 						"type" : 4
 					},
 					{
-						"model" : "knife2",
+						"model" : "knife2asc",
 						"type" : 1
 					}
 				],
@@ -1481,7 +1481,33 @@
 				[
 					{
 						"name" : "textures",
-						"resources" : null,
+						"resources" : 
+						[
+							{
+								"texture" : "knife_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_normal",
+								"type" : 2
+							}
+						],
 						"subfolders" : null
 					}
 				]
@@ -1520,5 +1546,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,
-	"textureNumber" : 118
+	"textureNumber" : 126
 }

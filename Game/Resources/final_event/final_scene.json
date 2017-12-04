@@ -69,7 +69,7 @@
 			{
 				"x" : 1.0,
 				"y" : 1.0,
-				"z" : 1.0
+				"z" : 2.3470001220703125
 			},
 			"scene" : false,
 			"static" : false,
@@ -152,9 +152,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/final_event/textures/burlap_albedo",
+				"albedo" : "Resources/final_event/textures/sand_albedo",
 				"metallic" : "",
-				"normal" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
 				"roughness" : ""
 			},
 			"Mesh" : 
@@ -165,16 +165,16 @@
 			"name" : "hills",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -2.4160001277923584,
+				"y" : -1.6680001020431519,
+				"z" : 0.056000001728534698
 			},
 			"rotation" : 
 			{
-				"w" : 1.0,
+				"w" : 0.99991434812545776,
 				"x" : 0.0,
 				"y" : 0.0,
-				"z" : 0.0
+				"z" : 0.013089596293866634
 			},
 			"scale" : 
 			{
@@ -189,10 +189,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
 			},
 			"Mesh" : 
 			{
@@ -263,9 +263,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/final_event/textures/sand_albedo",
 				"metallic" : "",
-				"normal" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
 				"roughness" : ""
 			},
 			"Mesh" : 
@@ -300,7 +300,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
 				"metallic" : "",
 				"normal" : "",
 				"roughness" : ""
@@ -587,14 +587,14 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "",
-						"metallic" : "",
-						"normal" : "",
-						"roughness" : ""
+						"albedo" : "Resources/final_event/textures/knife_albedo",
+						"metallic" : "Resources/final_event/textures/knife_metallic",
+						"normal" : "Resources/final_event/textures/knife_normal",
+						"roughness" : "Resources/final_event/textures/knife_roughness"
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/final_event/knife2"
+						"model" : "Resources/final_event/knife2asc"
 					},
 					"children" : null,
 					"name" : "Mesh",
@@ -771,13 +771,24 @@
 			"uid" : 1511277360
 		},
 		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.13900001347064972,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.36078432202339172,
+					"z" : 0.0
+				},
+				"intensity" : 150.0
+			},
 			"children" : null,
-			"name" : "Entity #1",
+			"name" : "monster_light",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : 0.062211528420448303,
+				"y" : 4.2634477615356445,
+				"z" : -0.89674609899520874
 			},
 			"rotation" : 
 			{
@@ -794,33 +805,34 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1512050851
+			"uid" : 1512372497
 		},
 		{
-			"DirectionalLight" : 
+			"PointLight" : 
 			{
-				"ambientCoefficient" : 150.0,
+				"attenuation" : 0.10000000149011612,
 				"color" : 
 				{
 					"x" : 1.0,
 					"y" : 1.0,
 					"z" : 1.0
-				}
+				},
+				"intensity" : 500.0
 			},
 			"children" : null,
-			"name" : "Entity #2",
+			"name" : "moonlight",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -62.598361968994141,
+				"y" : 0.51728522777557373,
+				"z" : -0.20463484525680542
 			},
 			"rotation" : 
 			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"w" : -0.66814154386520386,
+				"x" : -0.30433729290962219,
+				"y" : 0.67670327425003052,
+				"z" : -0.0551014244556427
 			},
 			"scale" : 
 			{
@@ -830,7 +842,7 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1512050870
+			"uid" : 1512372613
 		}
 	],
 	"name" : "Root",
