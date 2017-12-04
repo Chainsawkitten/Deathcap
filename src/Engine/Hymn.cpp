@@ -190,9 +190,10 @@ void ActiveHymn::Update(float deltaTime) {
         Managers().particleManager->Update(world, deltaTime);
     }
     
-    { PROFILE("Update sounds");
-        Managers().soundManager->Update(deltaTime);
-    }
+    //TMPTODO
+    //{ PROFILE("Update sounds");
+    //    Managers().soundManager->Update(deltaTime);
+    //}
     
     { PROFILE("Update debug drawing");
         Managers().debugDrawingManager->Update(deltaTime);

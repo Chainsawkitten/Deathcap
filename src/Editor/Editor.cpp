@@ -141,7 +141,10 @@ void Editor::Show(float deltaTime) {
             }
         }
     } else {
-        bool play = false;
+        if (play) {
+            Managers().soundManager->Stop();
+            play = false;
+        }
 
         // Main menu bar.
         ShowMainMenuBar(play);
@@ -198,6 +201,7 @@ void Editor::Show(float deltaTime) {
 
         if (Input()->Triggered(InputHandler::PLAYTEST) && Hymn().GetPath() != "") {
             Managers().soundManager->CreateAudioEnvironment();
+            Managers().soundManager->Start();
             play = true;
         }
 

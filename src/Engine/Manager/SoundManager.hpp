@@ -6,6 +6,8 @@
 #include "../linking.hpp"
 #include "../Audio/SoundStreamer.hpp"
 #include <Utility/Queue.hpp>
+#include <thread>
+#include <mutex>
 
 namespace Audio {
     class SoundStreamer;
@@ -23,20 +25,14 @@ namespace Json {
 /// Handles OpenAL sound.
 class SoundManager {
     friend class Hub;
-    
-    public:     
-        /// Check for OpenAL errors.
-        /**
-         * @param err The PortAudio error number to check.
-         */
-        ENGINE_API static void CheckError(PaError err);
-        
-        /// Moves sound sources and plays sounds.
-        /**
-         * @param deltaTime Time since last frame.
-         */
-        ENGINE_API void Update(float deltaTime);
-        
+ 
+    public:
+        //TMPTODO
+        ENGINE_API void Start();
+
+        //TMPTODO
+        ENGINE_API void Stop();
+
         /// Create sound source component.
         /**
          * @return The created component.
@@ -117,12 +113,19 @@ class SoundManager {
         ~SoundManager();
         SoundManager(SoundManager const&) = delete;
         void operator=(SoundManager const&) = delete;
+        static void CheckError(PaError err);
 
         void ProcessSamples();
-        
+        void Update();
+
         Audio::SteamAudioInterface sAudio;
         PaStream* stream;
         Audio::SoundStreamer soundStreamer;
+
+        std::thread thread;
+        std::mutex updateMutex;
+        bool join = true;
+        bool threadActive = false;
 
         unsigned int targetSample = 0;
         unsigned int processedSamples = 0;

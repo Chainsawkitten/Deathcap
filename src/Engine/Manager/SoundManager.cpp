@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <cstring>
 #include <algorithm>
+#include <GLFW/glfw3.h>
 
 using namespace Audio;
 
@@ -57,6 +58,9 @@ SoundManager::SoundManager() {
 
 
 SoundManager::~SoundManager() {
+    Stop();
+    assert(!threadActive);
+
     Pa_CloseStream(stream);
     Pa_Terminate();
 }
@@ -70,35 +74,50 @@ void SoundManager::CheckError(PaError err) {
     }
 }
 
-void SoundManager::Update(float deltaTime) {
+void SoundManager::Update() {
+    while (!join) {
+        double start = glfwGetTime();
+        std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);    
+        updateLock.lock();
+        float deltaTime = (float)CHUNK_SIZE / SAMPLE_RATE;
 
-    const std::vector<Component::Listener*>& listeners = GetListeners();
-    if (listeners.size() == 0)
-        return;
+        const std::vector<Component::Listener*>& listeners = GetListeners();
+        if (listeners.size() > 0) {
 
-    // Number of samples to process dependant on deltaTime
-    unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
-    if (frameSamples > CHUNK_SIZE) {
-        Log() << "SoundManager::Update: Frame drop!\n";
-      
-        frameSamples = CHUNK_SIZE;
-    }
-    targetSample += frameSamples;
+            // Number of samples to process dependant on deltaTime
+            unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
+            if (frameSamples > CHUNK_SIZE) {
+                Log() << "SoundManager::Update: Frame drop!\n";
 
-    // Update sound.
-    while (currentSample < targetSample) {
-        // Process Samples.
-        if (processedSamples == 0) {
-            ProcessSamples();
-            processedSamples = CHUNK_SIZE;
+                frameSamples = CHUNK_SIZE;
+            }
+            targetSample += frameSamples;
+
+            // Update sound.
+            while (currentSample < targetSample) {
+                // Process Samples.
+                if (processedSamples == 0) {
+                    ProcessSamples();
+                    processedSamples = CHUNK_SIZE;
+                }
+
+                // Play samples.
+                unsigned int sampleCount = std::min(targetSample - currentSample, processedSamples);
+                unsigned int index = (CHUNK_SIZE - processedSamples) * 2;
+                Pa_WriteStream(stream, &processedBuffer[index], sampleCount);
+                processedSamples -= sampleCount;
+                currentSample += sampleCount;
+            }
         }
 
-        // Play samples.
-        unsigned int sampleCount = std::min(targetSample - currentSample, processedSamples);
-        unsigned int index = (CHUNK_SIZE - processedSamples) * 2;
-        Pa_WriteStream(stream, &processedBuffer[index], sampleCount);
-        processedSamples -= sampleCount;
-        currentSample += sampleCount;
+        updateLock.unlock();
+        double delta = glfwGetTime() - start;
+        double sleepTime = deltaTime - delta;
+        sleepTime *= 0.5f;
+        if (sleepTime < 0)
+            Log() << "SoundManager::Update: Thread behind.\n";
+        else
+            std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(sleepTime * 1000));
     }
 }
 
@@ -185,13 +204,35 @@ void SoundManager::ProcessSamples() {
     }
 }
 
+void SoundManager::Start() {
+    Stop();
+    join = false;
+    thread = std::thread(std::bind(&SoundManager::Update, this));
+    threadActive = true;
+}
+
+//TMPTODO
+void SoundManager::Stop() {
+    if (!threadActive)
+        return;
+
+    join = true;
+    thread.join();
+    threadActive = false;
+}
+
 
 Component::SoundSource* SoundManager::CreateSoundSource() {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::SoundSource* soundSource = soundSources.Create();
+    updateLock.unlock();
     return soundSource;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node) {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::SoundSource* soundSource = soundSources.Create();
 
     // Load values from Json node.
@@ -202,6 +243,7 @@ Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node)
     soundSource->volume = node.get("volume", 1.f).asFloat();
     soundSource->loop = node.get("loop", false).asBool();
 
+    updateLock.unlock();
     return soundSource;
 }
 
@@ -210,12 +252,18 @@ const std::vector<Component::SoundSource*>& SoundManager::GetSoundSources() cons
 }
 
 Component::Listener* SoundManager::CreateListener() {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::Listener* listener = listeners.Create();
+    updateLock.unlock();
     return listener;
 }
 
 Component::Listener* SoundManager::CreateListener(const Json::Value& node) {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::Listener* listener = listeners.Create();
+    updateLock.unlock();
     return listener;
 }
 
@@ -224,11 +272,16 @@ const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
 }
 
 Component::AudioMaterial* SoundManager::CreateAudioMaterial() {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::AudioMaterial* audioMaterial = audioMaterials.Create();
+    updateLock.unlock();
     return audioMaterial;
 }
 
 Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& node) {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::AudioMaterial* audioMaterial = audioMaterials.Create();
 
     // Load values from Json node.
@@ -236,6 +289,7 @@ Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& n
     if (!name.empty())
         audioMaterial->material = Managers().resourceManager->CreateAudioMaterial(name);
 
+    updateLock.unlock();
     return audioMaterial;
 }
 
@@ -244,6 +298,7 @@ const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterials() 
 }
 
 void SoundManager::CreateAudioEnvironment() {
+    assert(!threadActive);
 
     // Temporary list of all audio materials in use
     std::vector<Audio::AudioMaterial*> audioMatRes;
@@ -313,7 +368,6 @@ void SoundManager::CreateAudioEnvironment() {
                 }
             }
         }
-            
     }
 
     sAudio.FinalizeScene(NULL);
@@ -323,9 +377,14 @@ void SoundManager::CreateAudioEnvironment() {
 }
 
 void SoundManager::ClearKilledComponents() {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
+
     audioMaterials.ClearKilled();
     soundSources.ClearKilled();
     listeners.ClearKilled();
+
+    updateLock.unlock();
 }
 
 void SoundManager::Load(SoundStreamer::DataHandle* handle) {
