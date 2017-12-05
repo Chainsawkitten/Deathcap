@@ -1,6 +1,7 @@
 class RoundaboutScript {
     Hub @hub;
     Entity @self;
+    Entity @minecartController;
     float correctAngle = 54.9f;
     float rotateSpeed;
     float currentAngle = 0;
@@ -12,6 +13,7 @@ class RoundaboutScript {
     RoundaboutScript(Entity @entity) {
         @hub = Managers();
         @self = @entity;
+        @minecartController = GetEntityByGUID(1511528317);
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -26,6 +28,7 @@ class RoundaboutScript {
             if (worldYaw >= radians(correctAngle)) {
                 self.SetWorldOrientation(quat(sin(radians(-correctAngle / 2)), 0, 1.0f * cos(radians(-correctAngle / 2)), 0));
                 rotate = false;
+                SendMessage(minecartController, 0);
             }
         }
     }

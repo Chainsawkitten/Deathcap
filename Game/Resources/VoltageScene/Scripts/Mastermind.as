@@ -55,7 +55,7 @@ class Mastermind {
 
         // TODO: Remove this later
         time += deltaTime;
-        if (time > 2.0f) {
+        if (time > 15.0f) {
             puzzleSolved = true;
             SendMessage(roundabout, 2);
         }

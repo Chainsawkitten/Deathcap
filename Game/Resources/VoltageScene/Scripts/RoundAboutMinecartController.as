@@ -56,6 +56,13 @@ class RoundAboutMinecartController {
         }
     }
 
+    void ReceiveMessage(Entity @sender, int signal) {
+        // Continue rolling when roundabout is in place.
+        if (signal == 0) {
+            phase = 0;
+        }
+    }
+
     void CommenceBrakingPhase() {
         phase = 1;
         brakeStartLocation = minecart.GetWorldPosition().x;
