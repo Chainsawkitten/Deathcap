@@ -44,6 +44,9 @@ namespace Audio {
              */
             ENGINE_API IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius);
 
+            /// Flushes the convolution effect
+            ENGINE_API void Flush();
+
         private:
             IPLAudioFormat inputFormat;
             IPLAudioFormat outputFormat;
