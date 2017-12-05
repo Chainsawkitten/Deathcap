@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 143,
+	"modelNumber" : 145,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -61,7 +61,11 @@
 								"resources" : 
 								[
 									{
-										"model" : "cave",
+										"model" : "NewCave",
+										"type" : 1
+									},
+									{
+										"model" : "StraightCave",
 										"type" : 1
 									}
 								],
@@ -211,10 +215,6 @@
 							},
 							{
 								"model" : "Walls",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Cave",
 								"type" : 1
 							},
 							{

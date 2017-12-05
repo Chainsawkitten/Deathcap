@@ -115,10 +115,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
-				"metallic" : "Resources/Constant Scene/Minecart/Textures/cart_metallic",
-				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
-				"roughness" : "Resources/Constant Scene/Minecart/Textures/cart_roughness"
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
 			},
 			"Mesh" : 
 			{
