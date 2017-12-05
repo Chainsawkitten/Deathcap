@@ -51,7 +51,6 @@
 		"Resources/Constant Scene/Minecart/Script/Lantern",
 		"Resources/Constant Scene/Minecart/Script/Controller",
 		"Resources/Constant Scene/Minecart/Script/Player",
-		"Resources/Opening Scene/Audio/scr_AudioManager",
 		"Resources/Opening Scene/Scripts/CartScript_0",
 		"Resources/Opening Scene/Audio/scr_AudioManager",
 		"Resources/NewAssets/Scripts/Rock",
@@ -65,7 +64,9 @@
 		"Resources/Foliage/FlareScript",
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
-		"Resources/MonsterTestScript"
+		"Resources/MonsterTestScript",
+		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
+		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5
