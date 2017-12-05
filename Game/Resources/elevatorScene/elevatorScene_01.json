@@ -1395,7 +1395,7 @@
 					{
 						"sphere" : 
 						{
-							"radius" : 1.0
+							"radius" : 3.3000001907348633
 						}
 					},
 					"Trigger" : 
@@ -1406,7 +1406,7 @@
 						"triggerCollidedEntityUID" : 1509959164,
 						"triggerCooldown" : 0.0,
 						"triggerDelay" : 0.0,
-						"triggerEventStruct_Check_0" : false,
+						"triggerEventStruct_Check_0" : true,
 						"triggerEventStruct_Check_1" : true,
 						"triggerEventStruct_Check_2" : true,
 						"triggerEventStruct_Check_3" : true,
@@ -1414,7 +1414,7 @@
 						"triggerEventStruct_ScriptID" : 2,
 						"triggerEventStruct_ShapeID" : 0,
 						"triggerEventStruct_TargetID" : 0,
-						"triggerFunction" : "",
+						"triggerFunction" : "void SlowDown()",
 						"triggerName" : "New Trigger",
 						"triggerOwner" : 1512468859,
 						"triggerTargetEntity" : 1511874401,

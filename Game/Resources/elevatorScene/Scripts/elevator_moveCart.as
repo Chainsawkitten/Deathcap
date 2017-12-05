@@ -35,7 +35,7 @@ class elevator_moveCart {
 		moveUpward = false;
         speed = 2.0f;
 		stopTime = 0.0f;
-		endTime = 5.0f;
+		endTime = 1.0f;
         phase = 0;
 		s = 0.0f;
         uniformScale = 1.0f;
@@ -54,6 +54,7 @@ class elevator_moveCart {
     void Update(float deltaTime) {
         switch(phase) {
             case 0:
+                speed = 2.0f;
                 tempPos = self.GetWorldPosition();
                 tempPos.x -= speed * deltaTime;
                 self.SetWorldPosition(tempPos);
@@ -79,11 +80,9 @@ class elevator_moveCart {
                 self.SetWorldPosition(tempPos);
                 break;
 
-			case 3:
-				stopTime += deltaTime;
+			case 3:				
 				tempPos = self.GetWorldPosition();
-				s = a * stopTime * stopTime * stopTime / 3 + b * stopTime * stopTime / 2 + c * stopTime;
-                tempPos.x = self.GetWorldPosition().x - s;
+                tempPos.x -= speed * deltaTime; 
                 self.SetWorldPosition(tempPos);
 			break;
         }
@@ -91,11 +90,7 @@ class elevator_moveCart {
 
 	void SlowDown() {
         print("SLOW DOWN!");
-	    brakeDistance = 2.0f; // The distance during which we will brake
-        c = speed;
-        b = (6 * brakeDistance - 4 * c * endTime) / (endTime * endTime);
-        a = -(c + b * endTime) / (endTime * endTime);
-		phase = 3;
+		
 	}
 	
 	void MoveForward() {
