@@ -4,9 +4,9 @@
 #include <json/json.h>
 #include <cstdint>
 #include "../linking.hpp"
-#include <queue>
 #include "SoundStreamer.hpp"
 #include "../Manager/SoundManager.hpp"
+#include <Utility/Queue.hpp>
 
 namespace Audio {
     class SoundFile;
@@ -58,6 +58,6 @@ namespace Audio {
             unsigned int chunkCount = 0;
             unsigned int begin = 0;
 
-            std::queue<SoundStreamer::DataHandle> chunkQueue;
+            Utility::Queue<SoundStreamer::DataHandle> chunkQueue;
     };
 }

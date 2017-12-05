@@ -1,9 +1,10 @@
 {
-	"activeScene" : "Resources/NewAssetsScene",
+
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 2,
 	"animationControllerNumber" : 3,
-	"audioMaterialNumber" : 0,
-	"modelNumber" : 143,
+	"audioMaterialNumber" : 4,
+	"modelNumber" : 146,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -195,8 +196,12 @@
 								"type" : 3
 							},
 							{
-								"script" : "scr_AudioManager",
-								"type" : 4
+								"model" : "metal-soundmesh",
+								"type" : 1
+							},
+							{
+								"model" : "stone-soundmesh",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -646,6 +651,10 @@
 									{
 										"script" : "Player",
 										"type" : 4
+									},
+									{
+										"script" : "RailAudioPlayer",
+										"type" : 4
 									}
 								],
 								"subfolders" : null
@@ -847,6 +856,43 @@
 									{
 										"texture" : "lantern_roughness",
 										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Audio",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Scripts",
+								"resources" : 
+								[
+									{
+										"script" : "PlayAudioOnStartup",
+										"type" : 4
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Materials",
+								"resources" : 
+								[
+									{
+										"audioMaterial" : "AudioMaterialRock",
+										"type" : 5
+									},
+									{
+										"audioMaterial" : "AudioMaterialWood",
+										"type" : 5
+									},
+									{
+										"audioMaterial" : "AudioMaterialMetal",
+										"type" : 5
 									}
 								],
 								"subfolders" : null
@@ -1193,17 +1239,6 @@
 									}
 								],
 								"subfolders" : null
-							},
-							{
-								"name" : "Signs",
-								"resources" : 
-								[
-									{
-										"texture" : "sign_text",
-										"type" : 2
-									}
-								],
-								"subfolders" : null
 							}
 						]
 					},
@@ -1307,17 +1342,6 @@
 									}
 								],
 								"subfolders" : null
-							},
-							{
-								"name" : "Signs",
-								"resources" : 
-								[
-									{
-										"model" : "start_end_sign_01",
-										"type" : 1
-									}
-								],
-								"subfolders" : null
 							}
 						]
 					},
@@ -1369,7 +1393,24 @@
 								"type" : 3
 							}
 						],
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "Meshes",
+								"resources" : 
+								[
+									{
+										"model" : "StoneAudioMesh",
+										"type" : 1
+									},
+									{
+										"model" : "WoodAudioMesh",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			},
@@ -1555,6 +1596,29 @@
 						"name" : "textures",
 						"resources" : null,
 						"subfolders" : null
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "snd_monsterShriek",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_monsterDeath",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_monsterFalling",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_landing",
+								"type" : 3
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -1592,5 +1656,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
 	"soundNumber" : 5,
-	"textureNumber" : 118
+	"textureNumber" : 114
 }
