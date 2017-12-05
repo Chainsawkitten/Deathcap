@@ -141,8 +141,7 @@ void Editor::Show(float deltaTime) {
             }
         }
     } else {
-        if (play)
-            play = false;
+        bool play = false;
 
         // Main menu bar.
         ShowMainMenuBar(play);

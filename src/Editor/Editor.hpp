@@ -115,7 +115,6 @@ class Editor {
         GUI::FiltersWindow filtersWindow;
         GUI::SavePromptWindow savePromtWindow;
 
-        bool play = false;
         bool close;
         bool savePromptAnswered;
         bool showGridSettings;

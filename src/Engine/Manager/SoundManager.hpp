@@ -110,11 +110,7 @@ class SoundManager {
 
         void ProcessSamples();
 
-        static int PortAudioStreamCallback(const void *inputBuffer, void *outputBuffer,
-            unsigned long framesPerBuffer,
-            const PaStreamCallbackTimeInfo* timeInfo,
-            PaStreamCallbackFlags statusFlags,
-            void *userData);
+        static int PortAudioStreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData);
 
         Audio::SteamAudioInterface sAudio;
         PaStream* stream;

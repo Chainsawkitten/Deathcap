@@ -326,7 +326,7 @@ void SoundManager::CreateAudioEnvironment() {
 }
 
 void SoundManager::ClearKilledComponents() {
-    const std::vector<Component::AudioMaterial*> audioMaterialVector = audioMaterials.GetAll();
+    const std::vector<Component::AudioMaterial*>& audioMaterialVector = audioMaterials.GetAll();
     for (std::size_t i = 0; i < audioMaterialVector.size(); ++i)
         if (audioMaterialVector[i]->IsKilled()) {
             std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
@@ -335,7 +335,7 @@ void SoundManager::ClearKilledComponents() {
             updateLock.unlock();
             break;
         }
-    const std::vector<Component::SoundSource*> soundSourceVector = soundSources.GetAll();
+    const std::vector<Component::SoundSource*>& soundSourceVector = soundSources.GetAll();
     for (std::size_t i = 0; i < soundSourceVector.size(); ++i)
         if (soundSourceVector[i]->IsKilled()) {
             std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
@@ -344,7 +344,7 @@ void SoundManager::ClearKilledComponents() {
             updateLock.unlock();
             break;
         }
-    const std::vector<Component::Listener*> listenerMaterialVector = listeners.GetAll();
+    const std::vector<Component::Listener*>& listenerMaterialVector = listeners.GetAll();
     for (std::size_t i = 0; i < listenerMaterialVector.size(); ++i)
         if (listenerMaterialVector[i]->IsKilled()) {
             std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
