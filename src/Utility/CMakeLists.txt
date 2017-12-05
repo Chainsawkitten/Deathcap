@@ -3,6 +3,7 @@ set(SRCS
     )
 
 set(HEADERS
+        Queue.hpp
         linking.hpp
         LockBox.hpp
         Log.hpp

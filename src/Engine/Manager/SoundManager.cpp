@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <cstring>
 #include <algorithm>
+#include <GLFW/glfw3.h>
 
 using namespace Audio;
 
@@ -44,15 +45,17 @@ SoundManager::SoundManager() {
         NULL,
         &outputParams,
         SAMPLE_RATE,
-        paFramesPerBufferUnspecified,
+        CHUNK_SIZE,
         0,
-        NULL,
-        NULL
+        PortAudioStreamCallback,
+        this
     );
     CheckError(err);
 
     err = Pa_StartStream(stream);
     CheckError(err);
+
+    memset(processedBuffer, 0, sizeof(float) * CHUNK_SIZE * 2);
 }
 
 
@@ -70,43 +73,24 @@ void SoundManager::CheckError(PaError err) {
     }
 }
 
-void SoundManager::Update(float deltaTime) {
+int SoundManager::PortAudioStreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData) {
+    SoundManager* soundManager = (SoundManager*)userData;
 
-    const std::vector<Component::Listener*>& listeners = GetListeners();
-    if (listeners.size() == 0)
-        return;
-
-    // Number of samples to process dependant on deltaTime
-    unsigned int frameSamples = int(SAMPLE_RATE * deltaTime);
-    if (frameSamples > CHUNK_SIZE) {
-        Log() << "SoundManager::Update: Frame drop!\n";
-      
-        frameSamples = CHUNK_SIZE;
+    std::unique_lock<std::mutex> updateLock(soundManager->updateMutex, std::defer_lock);
+    updateLock.lock();
+    const std::vector<Component::Listener*>& listeners = soundManager->GetListeners();
+    if (listeners.size() > 0) {
+        memcpy(outputBuffer, soundManager->processedBuffer, sizeof(float) * framesPerBuffer * 2);
+        soundManager->ProcessSamples();
     }
-    targetSample += frameSamples;
+    updateLock.unlock();
 
-    // Update sound.
-    while (currentSample < targetSample) {
-        // Process Samples.
-        if (processedSamples == 0) {
-            ProcessSamples();
-            processedSamples = CHUNK_SIZE;
-        }
-
-        // Play samples.
-        unsigned int sampleCount = std::min(targetSample - currentSample, processedSamples);
-        unsigned int index = (CHUNK_SIZE - processedSamples) * 2;
-        Pa_WriteStream(stream, &processedBuffer[index], sampleCount);
-        processedSamples -= sampleCount;
-        currentSample += sampleCount;
-    }
+    return paContinue;
 }
 
 void SoundManager::ProcessSamples() {
-
     const std::vector<Component::Listener*>& listeners = GetListeners();
-    if (listeners.size() == 0)
-        return;
+    assert(listeners.size() > 0);
   
     Entity* player = listeners[0]->entity;
     glm::vec3 glmPos = player->GetWorldPosition();
@@ -133,35 +117,38 @@ void SoundManager::ProcessSamples() {
 
         // Check if sound should play and is a valid resource.
         if (sound->shouldPlay && soundFile && soundFile->IsLoaded()) {
-            soundBuffers.push_back(soundBuffer);
-
             // Get samples from streamed buffer.
             int samples;
             float* buffer = soundBuffer->GetChunkData(samples);
-            buffers.push_back(buffer);
+            if (buffer) {
+                buffers.push_back(buffer);
+                soundBuffers.push_back(soundBuffer);
 
-            // Volume.
-            for (int m = 0; m < samples; ++m)
-                buffer[m] *= sound->volume;
+                // Volume.
+                for (int m = 0; m < samples; ++m)
+                    buffer[m] *= sound->volume;
 
-            glm::vec3 position = sound->entity->GetWorldPosition();
-            positions.push_back(IPLVector3{ position.x, position.y, position.z });
-            radii.push_back(0.5f);
-            if (!sound->renderers)
-                sAudio.CreateRenderers(sound->renderers);
-            renderers.push_back(sound->renderers);
+                glm::vec3 position = sound->entity->GetWorldPosition();
+                positions.push_back(IPLVector3{ position.x, position.y, position.z });
+                radii.push_back(3.0f);
+                if (!sound->renderers)
+                    sAudio.CreateRenderers(sound->renderers);
+                renderers.push_back(sound->renderers);
+            }
 
             // If end of file, check if sound repeat.
-            if (samples == 0) {
+            if (samples < CHUNK_SIZE) {
                 soundBuffer->Restart();
                 sound->shouldStop = !sound->loop;
+                // Set silence (zero) at end of buffer.
+                if (buffer) 
+                    memset(&buffer[samples], 0, (CHUNK_SIZE - samples) * sizeof(float));
             }
         }
 
         // Pause it.
-        if (sound->shouldPause) {
+        if (sound->shouldPause)
             sound->shouldPlay = false;
-        }
 
         // Stop it.
         if (sound->shouldStop) {
@@ -183,13 +170,17 @@ void SoundManager::ProcessSamples() {
     }
 }
 
-
 Component::SoundSource* SoundManager::CreateSoundSource() {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::SoundSource* soundSource = soundSources.Create();
+    updateLock.unlock();
     return soundSource;
 }
 
 Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node) {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::SoundSource* soundSource = soundSources.Create();
 
     // Load values from Json node.
@@ -200,6 +191,7 @@ Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node)
     soundSource->volume = node.get("volume", 1.f).asFloat();
     soundSource->loop = node.get("loop", false).asBool();
 
+    updateLock.unlock();
     return soundSource;
 }
 
@@ -208,12 +200,18 @@ const std::vector<Component::SoundSource*>& SoundManager::GetSoundSources() cons
 }
 
 Component::Listener* SoundManager::CreateListener() {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::Listener* listener = listeners.Create();
+    updateLock.unlock();
     return listener;
 }
 
 Component::Listener* SoundManager::CreateListener(const Json::Value& node) {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::Listener* listener = listeners.Create();
+    updateLock.unlock();
     return listener;
 }
 
@@ -222,11 +220,16 @@ const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
 }
 
 Component::AudioMaterial* SoundManager::CreateAudioMaterial() {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::AudioMaterial* audioMaterial = audioMaterials.Create();
+    updateLock.unlock();
     return audioMaterial;
 }
 
 Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& node) {
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     Component::AudioMaterial* audioMaterial = audioMaterials.Create();
 
     // Load values from Json node.
@@ -234,6 +237,7 @@ Component::AudioMaterial* SoundManager::CreateAudioMaterial(const Json::Value& n
     if (!name.empty())
         audioMaterial->material = Managers().resourceManager->CreateAudioMaterial(name);
 
+    updateLock.unlock();
     return audioMaterial;
 }
 
@@ -242,7 +246,8 @@ const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterials() 
 }
 
 void SoundManager::CreateAudioEnvironment() {
-
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     // Temporary list of all audio materials in use
     std::vector<Audio::AudioMaterial*> audioMatRes;
 
@@ -298,8 +303,8 @@ void SoundManager::CreateAudioEnvironment() {
 
                 // Convert indices.
                 iplIndices.resize(meshIndices.size());
-                for (std::size_t i = 0; i < meshIndices.size(); ++i) {
-                    iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i] };
+                for (std::size_t i = 0; i < meshIndices.size(); i+=3) {
+                    iplIndices[i] = IPLTriangle{ (IPLint32)meshIndices[i], (IPLint32)meshIndices[i+1], (IPLint32)meshIndices[i+2] };
                 }
 
                 // Find material index and create ipl mesh.
@@ -311,24 +316,57 @@ void SoundManager::CreateAudioEnvironment() {
                 }
             }
         }
-            
     }
 
     sAudio.FinalizeScene(NULL);
 
     // Create Environment.
     sAudio.CreateEnvironment();
+    updateLock.unlock();
 }
 
 void SoundManager::ClearKilledComponents() {
-    soundSources.ClearKilled();
-    listeners.ClearKilled();
+    const std::vector<Component::AudioMaterial*>& audioMaterialVector = audioMaterials.GetAll();
+    for (std::size_t i = 0; i < audioMaterialVector.size(); ++i)
+        if (audioMaterialVector[i]->IsKilled()) {
+            std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+            updateLock.lock();
+            audioMaterials.ClearKilled();
+            updateLock.unlock();
+            break;
+        }
+    const std::vector<Component::SoundSource*>& soundSourceVector = soundSources.GetAll();
+    for (std::size_t i = 0; i < soundSourceVector.size(); ++i)
+        if (soundSourceVector[i]->IsKilled()) {
+            std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+            updateLock.lock();
+            soundSources.ClearKilled();
+            updateLock.unlock();
+            break;
+        }
+    const std::vector<Component::Listener*>& listenerMaterialVector = listeners.GetAll();
+    for (std::size_t i = 0; i < listenerMaterialVector.size(); ++i)
+        if (listenerMaterialVector[i]->IsKilled()) {
+            std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+            updateLock.lock();
+            listeners.ClearKilled();
+            updateLock.unlock();
+            break;
+        }
 }
 
-void SoundManager::Load(Audio::SoundStreamer::DataHandle& handle) {
-    soundStreamer.Load(handle);
+void SoundManager::Load(SoundStreamer::DataHandle* handle) {
+    if (handle->soundFile->GetCached()) {
+        handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
+        handle->done = true;
+    } else
+        soundStreamer.Load(handle);
 }
 
-void SoundManager::Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue) {
-    soundStreamer.Flush(queue);
+void SoundManager::Flush(Utility::Queue<SoundStreamer::DataHandle>& queue) {
+    while (SoundStreamer::DataHandle* handle = queue.Iterate()) {
+        handle->abort = true;
+        if (handle->soundFile->GetCached())
+            handle->done = true;
+    }
 }
