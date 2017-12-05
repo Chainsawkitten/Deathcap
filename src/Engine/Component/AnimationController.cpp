@@ -94,11 +94,11 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
         }
     }
 
-	float time = 0.1f;
-	if (!activeAction1->isPlaybackModifierStatic)
-		time = deltaTime * 24.f * controller->floatMap[activeAction1->playbackModifierFloatIndex]->value;
-	else
-		time = deltaTime * 24.f * activeAction1->playbackModifier;
+    float time = 0.1f;
+    if (!activeAction1->isPlaybackModifierStatic)
+        time = deltaTime * 24.f * controller->floatMap[activeAction1->playbackModifierFloatIndex]->value;
+    else
+        time = deltaTime * 24.f * activeAction1->playbackModifier;
 
     if (!isBlending)
         Animate(deltaTime, activeAction1);
