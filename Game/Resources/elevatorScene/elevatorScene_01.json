@@ -816,6 +816,12 @@
 			"uid" : 1511878105
 		},
 		{
+			"SoundSource" : 
+			{
+				"loop" : false,
+				"sound" : "Resources/elevatorScene/Sounds/sndButton",
+				"volume" : 0.96000003814697266
+			},
 			"children" : 
 			[
 				{

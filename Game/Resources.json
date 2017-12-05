@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/elevatorScene/elevatorScene_01",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
@@ -1711,6 +1711,17 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "Sounds",
+						"resources" : 
+						[
+							{
+								"sound" : "sndButton",
+								"type" : 3
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			}
@@ -1719,6 +1730,6 @@
 	"sceneNumber" : 30,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
-	"soundNumber" : 5,
+	"soundNumber" : 6,
 	"textureNumber" : 123
 }
