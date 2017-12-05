@@ -59,11 +59,12 @@ if(DOXYGEN_FOUND AND HymnToBeautyBuildDocs)
     )
 endif()
 
+set(CMAKE_MODULE_PATH "${HymnToBeauty_SOURCE_DIR}/CMake/Packages")
+
 # VRAM measurements
 if(WIN32)
     option(MeasureVRAM "Measure VRAM (Requires DirectX 11)" OFF)
     if(MeasureVRAM)
-        set(CMAKE_MODULE_PATH "${HymnToBeauty_SOURCE_DIR}/CMake/Packages")
         find_package(DirectX11)
     endif()
 endif()
