@@ -46,6 +46,13 @@ class MainScript {
                 minecart.SetWorldPosition(pos);
                 break;
             }
+            case 1: { // Waiting for monster to eat/die
+            	// Puzzle Skip
+                if(!IsVRActive() && Input(PuzzleSkip, @self)) {
+                	phase = 2;
+                	SendMessage(monster, 1); // Monster died
+                }
+            }
             case 2: { // Wait for monster to collapse
                 waitForMonsterTimer += deltaTime;
                 if (waitForMonsterTimer >= 3.0f) {
