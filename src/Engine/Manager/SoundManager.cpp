@@ -45,10 +45,10 @@ SoundManager::SoundManager() {
         NULL,
         &outputParams,
         SAMPLE_RATE,
-        paFramesPerBufferUnspecified,
+        CHUNK_SIZE,
         0,
-        NULL,
-        NULL
+        PortAudioStreamCallback,
+        this
     );
     CheckError(err);
 
@@ -60,9 +60,6 @@ SoundManager::SoundManager() {
 
 
 SoundManager::~SoundManager() {
-    Stop();
-    assert(!threadActive);
-
     Pa_CloseStream(stream);
     Pa_Terminate();
 }
@@ -76,32 +73,19 @@ void SoundManager::CheckError(PaError err) {
     }
 }
 
-void SoundManager::Update() {
-    while (!join) {
-        double start = glfwGetTime();
-        std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);    
-        updateLock.lock();
-        float deltaTime = (float)CHUNK_SIZE / SAMPLE_RATE;
+int SoundManager::PortAudioStreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData) {
+    SoundManager* soundManager = (SoundManager*)userData;
 
-        const std::vector<Component::Listener*>& listeners = GetListeners();
-        if (listeners.size() > 0) {
-
-            // Play samples.
-            Pa_WriteStream(stream, processedBuffer, CHUNK_SIZE);
-
-            // Update sound.
-            ProcessSamples();
-        }
-
-        updateLock.unlock();
-        double delta = glfwGetTime() - start;
-        double sleepTime = deltaTime - delta;
-        sleepTime *= 0.95f;
-        if (sleepTime < 0)
-            Log() << "SoundManager::Update: Thread behind " << -sleepTime << " s.\n";
-        else
-            std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(sleepTime * 1000));
+    std::unique_lock<std::mutex> updateLock(soundManager->updateMutex, std::defer_lock);
+    updateLock.lock();
+    const std::vector<Component::Listener*>& listeners = soundManager->GetListeners();
+    if (listeners.size() > 0) {
+        memcpy(outputBuffer, soundManager->processedBuffer, sizeof(float) * framesPerBuffer * 2);
+        soundManager->ProcessSamples();
     }
+    updateLock.unlock();
+
+    return paContinue;
 }
 
 void SoundManager::ProcessSamples() {
@@ -186,24 +170,6 @@ void SoundManager::ProcessSamples() {
     }
 }
 
-void SoundManager::Start() {
-    Stop();
-    join = false;
-    thread = std::thread(std::bind(&SoundManager::Update, this));
-    threadActive = true;
-}
-
-//TMPTODO
-void SoundManager::Stop() {
-    if (!threadActive)
-        return;
-
-    join = true;
-    thread.join();
-    threadActive = false;
-}
-
-
 Component::SoundSource* SoundManager::CreateSoundSource() {
     std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
     updateLock.lock();
@@ -280,8 +246,8 @@ const std::vector<Component::AudioMaterial*>& SoundManager::GetAudioMaterials() 
 }
 
 void SoundManager::CreateAudioEnvironment() {
-    assert(!threadActive);
-
+    std::unique_lock<std::mutex> updateLock(updateMutex, std::defer_lock);
+    updateLock.lock();
     // Temporary list of all audio materials in use
     std::vector<Audio::AudioMaterial*> audioMatRes;
 
@@ -356,6 +322,7 @@ void SoundManager::CreateAudioEnvironment() {
 
     // Create Environment.
     sAudio.CreateEnvironment();
+    updateLock.unlock();
 }
 
 void SoundManager::ClearKilledComponents() {

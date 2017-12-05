@@ -6,7 +6,6 @@
 #include "../linking.hpp"
 #include "../Audio/SoundStreamer.hpp"
 #include <Utility/Queue.hpp>
-#include <thread>
 #include <mutex>
 
 namespace Audio {
@@ -27,12 +26,6 @@ class SoundManager {
     friend class Hub;
  
     public:
-        //TMPTODO
-        ENGINE_API void Start();
-
-        //TMPTODO
-        ENGINE_API void Stop();
-
         /// Create sound source component.
         /**
          * @return The created component.
@@ -116,16 +109,18 @@ class SoundManager {
         static void CheckError(PaError err);
 
         void ProcessSamples();
-        void Update();
+
+        static int PortAudioStreamCallback(const void *inputBuffer, void *outputBuffer,
+            unsigned long framesPerBuffer,
+            const PaStreamCallbackTimeInfo* timeInfo,
+            PaStreamCallbackFlags statusFlags,
+            void *userData);
 
         Audio::SteamAudioInterface sAudio;
         PaStream* stream;
         Audio::SoundStreamer soundStreamer;
 
-        std::thread thread;
         std::mutex updateMutex;
-        bool join = true;
-        bool threadActive = false;
 
         float processedBuffer[Audio::CHUNK_SIZE * 2];
 
