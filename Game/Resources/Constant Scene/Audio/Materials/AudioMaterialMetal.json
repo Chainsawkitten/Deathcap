@@ -1,0 +1,10 @@
+{
+	"highFreqAbsorption" : 0.059999998658895493,
+	"highFreqTransmission" : 0.0099999997764825821,
+	"lowFreqAbsorption" : 0.20000000298023224,
+	"lowFreqTransmission" : 0.20000000298023224,
+	"midFreqAbsorption" : 0.070000000298023224,
+	"midFreqTransmission" : 0.02500000037252903,
+	"name" : "AudioMaterialMetal",
+	"scattering" : 0.05000000074505806
+}

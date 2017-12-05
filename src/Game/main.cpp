@@ -70,6 +70,8 @@ int main(int argc, char* argv[]) {
     // Compile scripts.
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
+
+    // Create audio environment.
     Managers().soundManager->CreateAudioEnvironment();
     
     // Main loop.
