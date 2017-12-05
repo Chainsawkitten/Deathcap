@@ -1,12 +1,12 @@
 class LightsOutScript {
-    Entity @board;
-    Entity @rightController;
+	Entity @board;
+	Entity @rightController;
 	Entity @elevatorCartScript;
-    dictionary buttons;
-    dictionary buttonStates;
-    int numPressedButtons = 0;
-    bool gameInactive = true;
-    bool isPressed = false;
+	dictionary buttons;
+	dictionary buttonStates;
+	int numPressedButtons = 0;
+	bool gameInactive = true;
+	bool isPressed = false;
 
     LightsOutScript(Entity @entity){
         @board = GetEntityByGUID(1511530025);

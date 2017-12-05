@@ -1,6 +1,6 @@
 class elevator_frontDoorCon {
-    Hub @hub;
-    Entity @doorWithX;
+	Hub @hub;
+	Entity @doorWithX;
 	Entity @doorWithService;
 	Entity @puzzleBoard;
 	bool openDoor;
@@ -8,7 +8,7 @@ class elevator_frontDoorCon {
 	vec3 tempPosWithService;
 	float boardPitch;
 	float speed;
-    float uniformScale;
+	float uniformScale;
 	
 
     elevator_frontDoorCon(Entity @entity){

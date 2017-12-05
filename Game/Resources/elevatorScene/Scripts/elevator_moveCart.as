@@ -1,17 +1,17 @@
 class elevator_moveCart {
-    Hub @hub;
-    Entity @self;
+	Hub @hub;
+	Entity @self;
 	Entity @elevator;
 	Entity @board;
-    Entity @puzzleBoard;
-    Entity @realSelf;
-    float speed;
-    vec3 tempPos;
+	Entity @puzzleBoard;
+	Entity @realSelf;
+	float speed;
+	vec3 tempPos;
 	vec3 elevatorPos;
 	bool moveForward;
 	bool moveUpward;
-    int phase;
-    float uniformScale;
+	int phase;
+	float uniformScale;
 
     elevator_moveCart(Entity @entity){
         @hub = Managers();

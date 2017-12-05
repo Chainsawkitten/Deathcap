@@ -1,6 +1,6 @@
 class elevator_backDoorCon {
-    Hub @hub;
-    Entity @doorWithX;
+	Hub @hub;
+	Entity @doorWithX;
 	Entity @doorWithService;
 	bool openDoor;
 	vec3 tempPosWithX;
