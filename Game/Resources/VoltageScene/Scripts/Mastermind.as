@@ -60,7 +60,7 @@ class Mastermind {
 		puzzleSolved = false;
         TurnOffLights();
 
-		if (slot1 != null && slot2 != null && slot3 != null && slot4 != null) {
+		if (@slot1 != null && @slot2 != null && @slot3 != null && @slot4 != null) {
 			
 			if (slot1.name == "Green")
 				correct = correct + 1;
@@ -128,7 +128,9 @@ class Mastermind {
     }
 
     void AddToSlot(int slot, Entity@ fuse) {
-    
+        // First remove any existing fuse in this slot.
+        RemoveFromSlot(slot);
+
         switch(slot){
         
             case 0: {
@@ -156,18 +158,30 @@ class Mastermind {
         switch(slot){
         
             case 0: {
+                if (@slot1 != null) {
+                    SendMessage(slot1, 0);
+                }
                 @slot1 = null;
                 break;
             }
             case 1: {
+                if (@slot2 != null) {
+                    SendMessage(slot2, 0);
+                }
                 @slot2 = null;
                 break;
             }
             case 2: {
+                if (@slot3 != null) {
+                    SendMessage(slot3, 0);
+                }
                 @slot3 = null;
                 break;
             }
             case 3: {
+                if (@slot4 != null) {
+                    SendMessage(slot4, 0);
+                }
                 @slot4 = null;
                 break;
             }

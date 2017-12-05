@@ -36,12 +36,22 @@ class Propp {
                 SendMessage(mastermind, hoverSlot - 1);
                 slot = hoverSlot - 1;
             } else {
-                self.SetParent(originalParent);
-                self.position = startPosition;
+                ReturnToStartPosition();
             }
         }
 
         hoverSlot = -1;
+    }
+
+    void ReceiveMessage(Entity @sender, int signal) {
+        if (signal == 0) {
+            ReturnToStartPosition();
+        }
+    }
+
+    void ReturnToStartPosition() {
+        self.SetParent(originalParent);
+        self.position = startPosition;
     }
 
     void PickupTrigger() {
@@ -60,7 +70,6 @@ class Propp {
     }
 
     void HoverImpl(int slot) {
-	    print("Fuse `" + self.name + "` hovering slot " + slot + "\n");
         hoverSlot = slot;
     }
 
