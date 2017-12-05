@@ -8,8 +8,15 @@ namespace Audio {
     /// Sample rate of sound files.
     const unsigned int SAMPLE_RATE = 44100U;
 
+    /// Number of updates made per second.
+    const unsigned int UPDATES_PER_SECOUND = 30U;
+
     /// Number of samples stored in each memory chunk.
-    const unsigned int CHUNK_SIZE = SAMPLE_RATE / 15;
+    const unsigned int CHUNK_SIZE = SAMPLE_RATE / UPDATES_PER_SECOUND;
+
+    /// Total time of one update in seconds.
+    const double FRAME_TIME = 1.f / UPDATES_PER_SECOUND;
+
 
     /// Class responsible for calculating direct audio.
     class SteamAudioRenderers {
