@@ -17,7 +17,7 @@ class MainScript {
     // Time after fog start that fade will begin. Things close to us will be
     // visible through fog even in high density, so we use a color filter to
     // fade the entire screen to black.
-    float fadeStartTime = 3.0f;
+    float fadeStartTime = 6.0f;
     float fadeTimer = 0.0f;
     float fadeApexDuration = 3.0f; // Time for fade to reach zero
 
@@ -64,7 +64,7 @@ class MainScript {
             }
             case 3: { // Continue after monster has been killed
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x -= speed * deltaTime;
+                pos.x += speed * deltaTime;
                 minecart.SetWorldPosition(pos);
 
                 // The idea of fading is that we start with fog to begin fading
