@@ -19,8 +19,8 @@ int main(int argc, char* argv[]) {
     if (!glfwInit())
         return 1;
 
-    const int maxRamLimit = 256;
-    const int maxVramLimit = 512;
+    const unsigned int maxRamLimit = 256;
+    const unsigned int maxVramLimit = 512;
     
     Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr);
 
@@ -40,8 +40,8 @@ int main(int argc, char* argv[]) {
     double maxFrameTime = 0.0;
     double totalFrameTime = 0.0;
     double averageFrameTime = 0.0;
-    int ramUsed = 0;
-    int vramUsed = 0;
+    unsigned int ramUsed = 0;
+    unsigned int vramUsed = 0;
     unsigned int maxRamUsed = 0;
     unsigned int maxVramUsed = 0;
 
