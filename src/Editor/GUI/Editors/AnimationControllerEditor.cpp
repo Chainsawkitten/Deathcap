@@ -113,7 +113,7 @@ void AnimationControllerEditor::ShowNode(Node* node) {
 
             if (ImGui::BeginPopup("Select float##Float")) {
                 ImGui::Text("Select float");
-				ImGui::Separator();
+                ImGui::Separator();
                 for (std::size_t i = 0; i < animationController->floatMap.size(); ++i)
                     if (ImGui::Selectable(animationController->floatMap[i]->name)) {
                         action->playbackModifierFloatIndex = i;
@@ -167,7 +167,7 @@ void AnimationControllerEditor::ShowNode(Node* node) {
 
             if (ImGui::BeginPopup("Select bool##Bool")) {
                 ImGui::Text("Select bool");
-				ImGui::Separator();
+                ImGui::Separator();
                 for (std::size_t i = 0; i < animationController->boolMap.size(); ++i) {
                     if (ImGui::Selectable(animationController->boolMap[i]->name)) {
                         transition->transitionBoolIndex = i;
