@@ -124,7 +124,7 @@ void DebugDrawingManager::AddMesh(unsigned int id, Component::Mesh* meshComponen
             debugDrawing->GenerateBuffers(meshComponent->geometry->GetVertexPositionData(), meshComponent->geometry->GetVertexIndexData(), mesh);
         else {
             mesh.vertexArray = meshComponent->geometry->GetVertexArray();
-            mesh.vertexCount = meshComponent->geometry->GetIndexCount();
+            mesh.indexCount = meshComponent->geometry->GetIndexCount();
         }  
         mesh.referenceCount = 0;
         meshMap[id] = mesh;

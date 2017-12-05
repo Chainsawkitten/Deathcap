@@ -67,6 +67,8 @@ int main(int argc, char* argv[]) {
     // Compile scripts.
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
+
+    // Create audio environment.
     Managers().soundManager->CreateAudioEnvironment();
     
     // Main loop.
@@ -112,13 +114,13 @@ int main(int argc, char* argv[]) {
             ramUsed = Managers().profilingManager->MeasureRAM();
             vramUsed = Managers().profilingManager->MeasureVRAM();
 
-        if (ramUsed > maxRamLimit && ramUsed > maxRamUsed)
-                maxRamUsed = ramUsed;
+            if (ramUsed > maxRamUsed)
+                    maxRamUsed = ramUsed;
             
-        if (vramUsed > maxVramLimit && vramUsed > maxVramUsed)
-                maxVramUsed = vramUsed;
+            if (vramUsed > maxVramUsed)
+                    maxVramUsed = vramUsed;
 
-        numberOfFrames++;
+            numberOfFrames++;
         }
     }
     
@@ -131,6 +133,8 @@ int main(int argc, char* argv[]) {
             myfile << "Percentage of bad frames: " << (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 << "%\n";
             myfile << "Average frame time: " << averageFrameTime << " ms\n";
             myfile << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
+            myfile << "Max ram used: " << maxRamUsed << "MiB\n";
+            myfile << "Max vram used: " << maxVramUsed << "MiB\n";
             myfile.close();
         }
         Log() << "Frame rundown:\n";
@@ -139,6 +143,8 @@ int main(int argc, char* argv[]) {
         Log() << "Percentage of bad frames: " << (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 << "%\n";
         Log() << "Average frame time: " << averageFrameTime << " ms\n";
         Log() << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
+        Log() << "Max ram used: " << maxRamUsed << "MiB\n";
+        Log() << "Max vram used: " << maxVramUsed << "MiB\n";
     }
 
     // Save game settings.
