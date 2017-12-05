@@ -90,7 +90,8 @@ class elevator_moveCart {
     }
 
 	void SlowDown() {
-	    brakeDistance = 10.0f; // The distance during which we will brake
+        print("SLOW DOWN!");
+	    brakeDistance = 2.0f; // The distance during which we will brake
         c = speed;
         b = (6 * brakeDistance - 4 * c * endTime) / (endTime * endTime);
         a = -(c + b * endTime) / (endTime * endTime);

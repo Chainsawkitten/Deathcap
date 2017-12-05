@@ -59,11 +59,13 @@ class LightsOutScript {
 
 	void ResetBoard() {
 		Entity @btn;
+        if(Input(Trigger, rightController)) {
 		 for (int x = 0; x < 16; ++x) {
 			buttonStates["" + x] = false;
 			buttons.get("" + x, @btn);
 			btn.position.x = 0.0f;
             numPressedButtons = 0;
+            }
 		 }
 	}
 
