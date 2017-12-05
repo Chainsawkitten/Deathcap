@@ -209,8 +209,8 @@ namespace Video {
                 /// Whether to enable depth testing.
                 bool depthTesting;
 
-                /// Vertex count.
-                unsigned int vertexCount = 0;
+                /// Index count.
+                unsigned int indexCount = 0;
 
                 /// Vertex buffer.
                 GLuint vertexBuffer = 0;
