@@ -159,7 +159,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Model/StarterScene_Cave"
+				"model" : "Resources/Opening Scene/Cave/Models/NewCave"
 			},
 			"children" : null,
 			"name" : "StarterCave",
@@ -307,15 +307,15 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Model/StarterScene_StraightCave"
+				"model" : "Resources/Opening Scene/Cave/Models/StraightCave"
 			},
 			"children" : null,
 			"name" : "StarterStrightCave",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -0.7420000433921814,
+				"y" : 0.060000002384185791,
+				"z" : -0.27000001072883606
 			},
 			"rotation" : 
 			{
@@ -326,9 +326,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
+				"x" : 1.0220000743865967,
+				"y" : 0.93800002336502075,
+				"z" : 0.93100005388259888
 			},
 			"scene" : false,
 			"static" : false,
@@ -492,7 +492,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/bridgeNewUV"
+				"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/FInalBridge"
 			},
 			"children" : null,
 			"name" : "StarterBridge",
