@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 161,
+	"modelNumber" : 162,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -36,6 +36,10 @@
 			{
 				"script" : "MonsterTestScript",
 				"type" : 4
+			},
+			{
+				"scene" : "foliage_rock_cluster",
+				"type" : 0
 			}
 		],
 		"subfolders" : 
@@ -1239,6 +1243,10 @@
 							{
 								"model" : "Track",
 								"type" : 1
+							},
+							{
+								"model" : "smallRoundRock_02",
+								"type" : 1
 							}
 						],
 						"subfolders" : 
@@ -1784,7 +1792,7 @@
 			}
 		]
 	},
-	"sceneNumber" : 30,
+	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 5,

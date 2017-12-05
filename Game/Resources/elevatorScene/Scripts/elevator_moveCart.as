@@ -6,12 +6,19 @@ class elevator_moveCart {
     Entity @puzzleBoard;
     Entity @realSelf;
     float speed;
+	float stopTime;
+	float endTime;
     vec3 tempPos;
 	vec3 elevatorPos;
 	bool moveForward;
 	bool moveUpward;
     int phase;
     float uniformScale;
+	float a;
+    float b;
+    float c;
+	float s;
+	float brakeDistance;
 
     elevator_moveCart(Entity @entity){
         @hub = Managers();
@@ -19,6 +26,7 @@ class elevator_moveCart {
 		@elevator = GetEntityByGUID(1511870044);
 		@board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
+
         
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
@@ -26,7 +34,10 @@ class elevator_moveCart {
 		moveForward = true;
 		moveUpward = false;
         speed = 2.0f;
+		stopTime = 0.0f;
+		endTime = 5.0f;
         phase = 0;
+		s = 0.0f;
         uniformScale = 1.0f;
 
         // Remove this if updates are not desired.
@@ -67,15 +78,31 @@ class elevator_moveCart {
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
                 break;
+
+			case 3:
+				stopTime += deltaTime;
+				tempPos = self.GetWorldPosition();
+				s = a * stopTime * stopTime * stopTime / 3 + b * stopTime * stopTime / 2 + c * stopTime;
+                tempPos.x = self.GetWorldPosition().x - s;
+                self.SetWorldPosition(tempPos);
+			break;
         }
     }
+
+	void SlowDown() {
+	    brakeDistance = 10.0f; // The distance during which we will brake
+        c = speed;
+        b = (6 * brakeDistance - 4 * c * endTime) / (endTime * endTime);
+        a = -(c + b * endTime) / (endTime * endTime);
+		phase = 3;
+	}
 	
 	void MoveForward() {
 		phase = 0;
 	}
 	
 	void StopCart() {
-        phase = 3;
+        phase = 4;
 		SendMessage(board, 0);
 	}
 }
