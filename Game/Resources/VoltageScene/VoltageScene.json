@@ -531,32 +531,6 @@
 			"uid" : 1511525516
 		},
 		{
-			"name" : "Cart",
-			"position" : 
-			{
-				"x" : -5.823000431060791,
-				"y" : -0.16200000047683716,
-				"z" : 2.5430002212524414
-			},
-			"rotation" : 
-			{
-				"w" : 0.70710676908493042,
-				"x" : 0.0,
-				"y" : -0.70710676908493042,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.20000000298023224,
-				"y" : 0.20000000298023224,
-				"z" : 0.20000000298023224
-			},
-			"scene" : true,
-			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
-			"static" : false,
-			"uid" : 1508919163
-		},
-		{
 			"Script" : 
 			{
 				"scriptName" : "Resources/VoltageScene/Scripts/RoundAboutMinecartController"
