@@ -39,8 +39,9 @@ void SoundStreamer::Worker::Start(SoundStreamer* soundStreamer) {
 
 void SoundStreamer::Worker::Execute(SoundStreamer* soundStreamer) {
     while (!soundStreamer->stopWorker) {
-        // Check queue.
-        if (!soundStreamer->loadQueue.Empty()) {
+        // Pop work from queue while work is available.
+        while (!soundStreamer->loadQueue.Empty()) {
+            // Get work from queue.
             std::unique_lock<std::mutex> queueLock(soundStreamer->queueMutex, std::defer_lock);
             queueLock.lock();
             DataHandle* handle = *soundStreamer->loadQueue.Front();
@@ -54,6 +55,7 @@ void SoundStreamer::Worker::Execute(SoundStreamer* soundStreamer) {
                 handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
             handle->done = true;
         }
+        // Sleep when thread is idle.
         std::this_thread::yield();
     }
 }

@@ -80,6 +80,7 @@ int SoundManager::PortAudioStreamCallback(const void* inputBuffer, void* outputB
     updateLock.lock();
     const std::vector<Component::Listener*>& listeners = soundManager->GetListeners();
     if (listeners.size() > 0) {
+        assert(framesPerBuffer == CHUNK_SIZE);
         memcpy(outputBuffer, soundManager->processedBuffer, sizeof(float) * framesPerBuffer * 2);
         soundManager->ProcessSamples();
     }
