@@ -24,7 +24,6 @@ SoundStreamer::DataHandle::DataHandle(SoundFile* soundFile, uint32_t offset, uin
     abort = false;
 }
 
-
 void SoundStreamer::Load(SoundStreamer::DataHandle* handle) {
     assert(!handle->soundFile->GetCached());
     std::unique_lock<std::mutex> lock(queueMutex, std::defer_lock);
@@ -48,11 +47,11 @@ void SoundStreamer::Worker::Execute(SoundStreamer* soundStreamer) {
             soundStreamer->loadQueue.Pop();
             queueLock.unlock();
 
-            assert(handle->offset < handle->soundFile->GetSampleCount());
-
             // Load data from file.
-            if (!handle->abort)
+            if (!handle->abort) {
+                assert(handle->offset < handle->soundFile->GetSampleCount());
                 handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
+            }
             handle->done = true;
         }
         // Sleep when thread is idle.
