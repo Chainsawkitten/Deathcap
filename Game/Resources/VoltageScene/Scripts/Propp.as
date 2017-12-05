@@ -3,7 +3,7 @@ class Propp {
     Entity @self;
     Entity @rightCtrl;
     Entity @originalParent;
-    Entity @S1T1;
+    //Entity @S1T1;
     Entity @mastermind;
     bool isPressed;
     //vec3 worldPos;
@@ -16,7 +16,7 @@ class Propp {
         @self = @entity;
         @rightCtrl = GetEntityByGUID(1508919758);
         @originalParent = self.GetParent();
-        @S1T1 = GetEntityByGUID(1905121);
+        //@S1T1 = GetEntityByGUID(1905121);
         @mastermind = GetEntityByGUID(1511791235);
         
         //worldPos = S1T1.GetWorldPosition();

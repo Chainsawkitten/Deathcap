@@ -3,10 +3,10 @@ class Mastermind {
     Hub @hub;
     Entity @self;
 
-	string slot1;
-	string slot2;
-	string slot3;
-	string slot4;
+	Entity@ slot1 = null;
+	Entity@ slot2 = null;
+	Entity@ slot3 = null;
+	Entity@ slot4 = null;
 	
 	Entity @light1;
 	Entity @light2;
@@ -60,26 +60,26 @@ class Mastermind {
 		puzzleSolved = false;
         TurnOffLights();
 
-		if(slot1 != "" && slot2 != "" && slot3 != "" && slot4 != ""){
+		if (slot1 != null && slot2 != null && slot3 != null && slot4 != null) {
 			
-			if(slot1 == "Green")
+			if (slot1.name == "Green")
 				correct = correct + 1;
-			else if(slot1 == "Red" || slot1 == "Yellow" || slot1 == "Purple")
+			else if(slot1.name == "Red" || slot1.name == "Yellow" || slot1.name == "Purple")
 				rightColors = rightColors + 1;
 				
-			if(slot2 == "Red")
+			if (slot2.name == "Red")
 				correct = correct + 1;
-			else if(slot2 == "Green" || slot2 == "Yellow" || slot2 == "Purple")
+			else if(slot2.name == "Green" || slot2.name == "Yellow" || slot2.name == "Purple")
 				rightColors = rightColors + 1;
 				
-			if(slot3 == "Yellow")
+			if (slot3.name == "Yellow")
 				correct = correct + 1;
-			else if(slot3 == "Red" || slot3 == "Green" || slot3 == "Purple")
+			else if(slot3.name == "Red" || slot3.name == "Green" || slot3.name == "Purple")
 				rightColors = rightColors + 1;
 				
-			if(slot4 == "Purple")
+			if (slot4.name == "Purple")
 				correct = correct + 1;
-			else if(slot4 == "Red" || slot4 == "Yellow" || slot4 == "Green")
+			else if(slot4.name == "Red" || slot4.name == "Yellow" || slot4.name == "Green")
 				rightColors = rightColors + 1;
 				
 			if(correct == 4)
@@ -121,30 +121,30 @@ class Mastermind {
     void ReceiveMessage(Entity @sender, int signal) {
         
         if(signal < 4)
-            AddToSlot(signal, sender.name);
+            AddToSlot(signal, sender);
         else
             RemoveFromSlot(signal - 4);
             
     }
 
-    void AddToSlot(int slot, string transistorColor){
+    void AddToSlot(int slot, Entity@ fuse) {
     
         switch(slot){
         
             case 0: {
-                slot1 = transistorColor;
+                @slot1 = @fuse;
                 break;
             }
             case 1: {
-                slot2 = transistorColor;
+                @slot2 = @fuse;
                 break;
             }
             case 2: {
-                slot3 = transistorColor;
+                @slot3 = @fuse;
                 break;
             }
             case 3: {
-                slot4 = transistorColor;
+                @slot4 = @fuse;
                 break;
             }
         
@@ -156,19 +156,19 @@ class Mastermind {
         switch(slot){
         
             case 0: {
-                slot1 = "";
+                @slot1 = null;
                 break;
             }
             case 1: {
-                slot2 = "";
+                @slot2 = null;
                 break;
             }
             case 2: {
-                slot3 = "";
+                @slot3 = null;
                 break;
             }
             case 3: {
-                slot4 = "";
+                @slot4 = null;
                 break;
             }
         
