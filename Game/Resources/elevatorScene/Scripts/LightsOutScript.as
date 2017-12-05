@@ -1,12 +1,12 @@
 class LightsOutScript {
-	Entity @board;
-	Entity @rightController;
-	Entity @elevatorCartScript;
-	dictionary buttons;
-	dictionary buttonStates;
-	int numPressedButtons = 0;
-	bool gameInactive = true;
-	bool isPressed = false;
+    Entity @board;
+    Entity @rightController;
+    Entity @elevatorCartScript;
+    dictionary buttons;
+    dictionary buttonStates;
+    int numPressedButtons = 0;
+    bool gameInactive = true;
+    bool isPressed = false;
 
     LightsOutScript(Entity @entity){
         @board = GetEntityByGUID(1511530025);
@@ -24,12 +24,12 @@ class LightsOutScript {
         RegisterUpdate();
     }
 
-	void ReceiveMessage(Entity @sender, int message) {
-		if(message == 0) {
-			gameInactive = false;
-			@elevatorCartScript = @sender;
-		}
-	}
+    void ReceiveMessage(Entity @sender, int message) {
+        if(message == 0) {
+            gameInactive = false;
+            @elevatorCartScript = @sender;
+        }
+    }
 
     void Update(float deltaTime) {
         if (isPressed && !Input(Trigger, rightController)) {

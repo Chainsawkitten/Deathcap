@@ -1,30 +1,30 @@
 class elevator_moveCart {
-	Hub @hub;
-	Entity @self;
-	Entity @elevator;
-	Entity @board;
-	Entity @puzzleBoard;
-	Entity @realSelf;
-	float speed;
-	vec3 tempPos;
-	vec3 elevatorPos;
-	bool moveForward;
-	bool moveUpward;
-	int phase;
-	float uniformScale;
+    Hub @hub;
+    Entity @self;
+    Entity @elevator;
+    Entity @board;
+    Entity @puzzleBoard;
+    Entity @realSelf;
+    float speed;
+    vec3 tempPos;
+    vec3 elevatorPos;
+    bool moveForward;
+    bool moveUpward;
+    int phase;
+    float uniformScale;
 
     elevator_moveCart(Entity @entity){
         @hub = Managers();
         @self = GetEntityByGUID(1508919163);
-		@elevator = GetEntityByGUID(1511870044);
-		@board = GetEntityByGUID(1511530025);
+        @elevator = GetEntityByGUID(1511870044);
+        @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
         
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
         
-		moveForward = true;
-		moveUpward = false;
+        moveForward = true;
+        moveUpward = false;
         speed = 2.0f;
         phase = 0;
         uniformScale = 1.0f;
@@ -33,11 +33,11 @@ class elevator_moveCart {
         RegisterUpdate();
     }
 
-	void ReceiveMessage(Entity @sender, int message) {
-		if(message == 0) {
+    void ReceiveMessage(Entity @sender, int message) {
+        if(message == 0) {
             phase = 1;
-		}
-	}
+        }
+    }
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
@@ -69,13 +69,13 @@ class elevator_moveCart {
                 break;
         }
     }
-	
-	void MoveForward() {
-		phase = 0;
-	}
-	
-	void StopCart() {
+    
+    void MoveForward() {
+        phase = 0;
+    }
+    
+    void StopCart() {
         phase = 3;
-		SendMessage(board, 0);
-	}
+        SendMessage(board, 0);
+    }
 }
