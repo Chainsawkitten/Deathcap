@@ -102,6 +102,7 @@ void SoundBuffer::Restart() {
     assert(soundFile);
     begin = 0;
     Managers().soundManager->Flush(chunkQueue);
-    for (int i = 0; i < chunkCount; ++i)
-        ProduceChunk();
+    if (!soundFile->GetCached())
+        for (int i = 0; i < chunkCount; ++i)
+            ProduceChunk();
 }

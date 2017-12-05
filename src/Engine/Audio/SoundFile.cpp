@@ -4,6 +4,7 @@
 #include "../Util/FileSystem.hpp"
 #include <fstream>
 #include <json/json.h>
+#include <Utility/Log.hpp>
 
 using namespace Audio;
 
@@ -46,4 +47,5 @@ void SoundFile::Load(const std::string& name) {
 
     bool cache = node.get("cache", false).asBool();
     Cache(cache);
+    Log() << "Name: " << name << "; Cache: " << (cache ? "True" : "False") << "\n";
 }

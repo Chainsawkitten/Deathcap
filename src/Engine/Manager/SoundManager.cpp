@@ -138,6 +138,10 @@ void SoundManager::ProcessSamples() {
 
         // Check if sound should play and is a valid resource.
         if (sound->shouldPlay && soundFile && soundFile->IsLoaded()) {
+
+            if (soundFile->name == "RailSound") //TMPTODO
+                bool pad = true;
+
             // Get samples from streamed buffer.
             int samples;
             float* buffer = soundBuffer->GetChunkData(samples);
