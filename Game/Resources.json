@@ -1,14 +1,7 @@
 {
-<<<<<<< HEAD
 	"activeScene" : "Resources/final_event/final_scene",
-	"animationClipNumber" : 3,
+	"animationClipNumber" : 4,
 	"animationControllerNumber" : 6,
-=======
-
-	"activeScene" : "Resources/Super Scene/Super Scene",
-	"animationClipNumber" : 0,
-	"animationControllerNumber" : 0,
->>>>>>> cf2932dea6d57d4959094dab7a9ef2f9f53b7c1d
 	"audioMaterialNumber" : 4,
 	"modelNumber" : 163,
 	"resourceFolder" : 
@@ -1558,6 +1551,10 @@
 					{
 						"animationController" : "Animation controller #5",
 						"type" : 7
+					},
+					{
+						"animationClip" : "monster@death",
+						"type" : 6
 					}
 				],
 				"subfolders" : 

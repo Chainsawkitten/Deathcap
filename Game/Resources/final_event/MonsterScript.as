@@ -27,6 +27,7 @@ class MonsterScript {
 		@animController=self.GetAnimationController();
 		animController.SetBool("B", false);
 		animController.SetBool("C", false);
+		animController.SetBool("D", false);
         
         phase = 0;
         fallspeed = 0.0f;
@@ -47,7 +48,7 @@ class MonsterScript {
                 fallspeed += 9.82f * deltaTime;
                 self.position.y -= fallspeed * deltaTime;
                 if (self.position.y <= 0.0f) {
-                    self.position.y = 0.0f;
+                    self.position.y = -0.4f;
                     snd_landing.Play();
                     phase = 2;
                 }
@@ -76,7 +77,7 @@ class MonsterScript {
                 break;
             }
             case 6: { // Dying
-                self.RotateYaw(3.141592f * deltaTime);
+				
                 break;
             }
         }
@@ -93,6 +94,7 @@ class MonsterScript {
                 phase = 6; // Collapse
                 snd_death.Play();
                 print("Monster: I'm dying now.\n");
+				TriggerDeath();
                 break;
             }
         }
@@ -101,8 +103,7 @@ class MonsterScript {
     void BecomeExposed() {
         print("I am becoming exposed now!\n");
         phase = 1;
-        //snd_falling.Play();
-		snd_hets.Play();
+        snd_falling.Play();
     }
 
     void StopCharging() {
@@ -117,5 +118,9 @@ class MonsterScript {
 	
 	void TriggerAttack(){
 		animController.SetBool("C", true);
+	}
+	
+	void TriggerDeath(){
+		animController.SetBool("D", true);
 	}
 }
