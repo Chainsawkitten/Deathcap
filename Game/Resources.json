@@ -61,7 +61,11 @@
 								"resources" : 
 								[
 									{
-										"model" : "cave",
+										"model" : "NewCave",
+										"type" : 1
+									},
+									{
+										"model" : "StraightCave",
 										"type" : 1
 									}
 								],
@@ -215,10 +219,6 @@
 							},
 							{
 								"model" : "Walls",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Cave",
 								"type" : 1
 							},
 							{
@@ -921,11 +921,7 @@
 								"resources" : 
 								[
 									{
-										"model" : "Bridge",
-										"type" : 1
-									},
-									{
-										"model" : "bridgeNewUV",
+										"model" : "FInalBridge",
 										"type" : 1
 									}
 								],
