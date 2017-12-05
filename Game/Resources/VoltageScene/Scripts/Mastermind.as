@@ -92,9 +92,10 @@ class Mastermind {
 			else if (slot4 is slot1Key || slot4 is slot2Key || slot4 is slot3Key)
 				rightColors = rightColors + 1;
 				
-			if(correct == 4)
+			if (correct == 4) {
 				puzzleSolved = true;
-		
+                SendMessage(roundabout, 2);
+		    }
 		}
 
 	}
