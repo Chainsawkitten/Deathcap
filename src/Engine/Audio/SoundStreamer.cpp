@@ -32,6 +32,17 @@ void SoundStreamer::Load(SoundStreamer::DataHandle* handle) {
     lock.unlock();
 }
 
+void SoundStreamer::BeginFlush() {
+    flushLock = std::unique_lock<std::mutex>(flushMutex, std::defer_lock);
+    flushLock.lock();
+}
+
+
+void SoundStreamer::EndFlush() {
+    flushLock.unlock();
+}
+
+
 void SoundStreamer::Worker::Start(SoundStreamer* soundStreamer) {
     workThread = std::thread(std::bind(&SoundStreamer::Worker::Execute, this, soundStreamer));
 }
@@ -49,8 +60,11 @@ void SoundStreamer::Worker::Execute(SoundStreamer* soundStreamer) {
 
             // Load data from file.
             if (!handle->abort) {
+                std::unique_lock<std::mutex> lock(soundStreamer->flushMutex, std::defer_lock);
+                lock.lock();
                 assert(handle->offset < handle->soundFile->GetSampleCount());
                 handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
+                lock.unlock();
             }
             handle->done = true;
         }

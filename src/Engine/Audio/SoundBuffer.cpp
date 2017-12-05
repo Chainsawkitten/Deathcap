@@ -79,7 +79,7 @@ void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
     // Remove old sound file.
     if (this->soundFile) {
         begin = 0;
-        Managers().soundManager->Flush(chunkQueue);
+        Managers().soundManager->Flush(chunkQueue, true);
         if (buffer) {
             delete[] buffer;
             buffer = nullptr;
