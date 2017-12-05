@@ -1,7 +1,7 @@
 class RoundaboutScript {
     Hub @hub;
     Entity @self;
-    float correctAngle;
+    float correctAngle = 54.9f;
     float rotateSpeed;
     
     RoundaboutScript(Entity @entity){
@@ -23,19 +23,13 @@ class RoundaboutScript {
 
         if(rotate){
         
-            //self.RotateAroundWorldAxis(direction * rotateSpeed * deltaTime, vec3(0,1,0));            
-            //if(amountRotated + rotateSpeed * deltaTime > rotateAngle){
-            //    self.RotateAroundWorldAxis(direction * (rotateAngle - amountRotated), vec3(0,1,0));    
-            //    amountRotated = 0;
-            //    rotate = false;
-            //    
-            //} else            
-            //    amountRotated += rotateSpeed * deltaTime;
-            //
-            //currentAngle += direction * rotateSpeed * deltaTime;
-
             float rotation = direction * 0.1f * 3.141592f * deltaTime;
             self.RotateAroundWorldAxis(rotation, vec3(0, 1, 0));
+            float worldYaw = abs(yaw(self.GetWorldOrientation()));
+            if (worldYaw >= radians(correctAngle)) {
+                self.SetWorldOrientation(quat(sin(radians(-correctAngle / 2)), 0, 1.0f * cos(radians(-correctAngle / 2)), 0));
+                rotate = false;
+            }
         }
     
     }
@@ -57,17 +51,9 @@ class RoundaboutScript {
                     rotate = true;
                     break;
                 }
-                case 2:{ //Rotate to correct angle
-                    
-                    rotateAngle = correctAngle - currentAngle;
+                case 2: { //Rotate to correct angle
                     direction = 1;
                     rotate = true;
-                    
-                    if(rotateAngle < 0){
-                        rotateAngle *= -1;
-                        direction = -1;
-                    }
-                    
                     break;
                 }
             
