@@ -70,9 +70,6 @@ int main(int argc, char* argv[]) {
 
     // Create audio environment.
     Managers().soundManager->CreateAudioEnvironment();
-
-    // Start sound manager.
-    Managers().soundManager->Start();
     
     // Main loop.
     double targetFPS = 60.0;
