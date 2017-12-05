@@ -7,6 +7,11 @@ class Mastermind {
 	Entity@ slot2 = null;
 	Entity@ slot3 = null;
 	Entity@ slot4 = null;
+
+    Entity@ slot1Key;
+    Entity@ slot2Key;
+    Entity@ slot3Key;
+    Entity@ slot4Key;
 	
 	Entity @light1;
 	Entity @light2;
@@ -19,7 +24,11 @@ class Mastermind {
     Mastermind(Entity @entity){
         @hub = Managers();
         @self = @entity;
-		
+        @slot1Key = GetEntityByGUID(1511964701); // GreenPropp
+        @slot2Key = GetEntityByGUID(1511964823); // RedPropp
+        @slot3Key = GetEntityByGUID(1511964915); // YellowPropp
+        @slot4Key = GetEntityByGUID(1511964754); // PinkPropp
+
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -63,24 +72,24 @@ class Mastermind {
 
 		if (@slot1 != null && @slot2 != null && @slot3 != null && @slot4 != null) {
 			
-			if (slot1.name == "Green")
+			if (slot1 is slot1Key)
 				correct = correct + 1;
-			else if(slot1.name == "Red" || slot1.name == "Yellow" || slot1.name == "Purple")
+			else if (slot1 is slot2Key || slot1 is slot3Key || slot1 is slot4Key)
 				rightColors = rightColors + 1;
 				
-			if (slot2.name == "Red")
+			if (slot2 is slot2Key)
 				correct = correct + 1;
-			else if(slot2.name == "Green" || slot2.name == "Yellow" || slot2.name == "Purple")
+			else if (slot2 is slot1Key || slot2 is slot3Key || slot2 is slot4Key)
 				rightColors = rightColors + 1;
 				
-			if (slot3.name == "Yellow")
+			if (slot3 is slot3Key)
 				correct = correct + 1;
-			else if(slot3.name == "Red" || slot3.name == "Green" || slot3.name == "Purple")
+			else if (slot3 is slot1Key || slot3 is slot2Key || slot3 is slot4Key)
 				rightColors = rightColors + 1;
 				
-			if (slot4.name == "Purple")
+			if (slot4 is slot4Key)
 				correct = correct + 1;
-			else if(slot4.name == "Red" || slot4.name == "Yellow" || slot4.name == "Green")
+			else if (slot4 is slot1Key || slot4 is slot2Key || slot4 is slot3Key)
 				rightColors = rightColors + 1;
 				
 			if(correct == 4)
