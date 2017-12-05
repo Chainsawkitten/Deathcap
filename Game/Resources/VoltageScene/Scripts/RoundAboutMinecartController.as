@@ -24,6 +24,8 @@ class RoundAboutMinecartController {
 
         // Remove this if updates are not desired.
         RegisterUpdate();
+        
+        self.SetEnabled(false, true);
     }
 
     // Called by the engine for each frame.

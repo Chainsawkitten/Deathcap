@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/VoltageScene/VoltageScene",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
@@ -1495,6 +1495,10 @@
 							},
 							{
 								"script" : "SwitcherScript_Final",
+								"type" : 4
+							},
+							{
+								"script" : "SwitcherScript_Voltage",
 								"type" : 4
 							}
 						],

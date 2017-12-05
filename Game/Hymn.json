@@ -65,7 +65,8 @@
 		"Resources/VoltageScene/Scripts/RoundaboutScript",
 		"Resources/VoltageScene/Scripts/ElevatorSoundScript",
 		"Resources/VoltageScene/Scripts/FlickeringLights",
-		"Resources/VoltageScene/Scripts/RoundAboutMinecartController"
+		"Resources/VoltageScene/Scripts/RoundAboutMinecartController",
+		"Resources/Super Scene/Scripts/SwitcherScript_Voltage"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5
