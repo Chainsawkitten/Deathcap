@@ -23,17 +23,19 @@ class RoundaboutScript {
 
         if(rotate){
         
-            self.RotateAroundWorldAxis(direction * rotateSpeed * deltaTime, vec3(0,1,0));            
-            if(amountRotated + rotateSpeed * deltaTime > rotateAngle){
-                self.RotateAroundWorldAxis(direction * (rotateAngle - amountRotated), vec3(0,1,0));    
-                amountRotated = 0;
-                rotate = false;
-                
-            } else            
-                amountRotated += rotateSpeed * deltaTime;
-            
-            currentAngle += direction * rotateSpeed * deltaTime;
-            
+            //self.RotateAroundWorldAxis(direction * rotateSpeed * deltaTime, vec3(0,1,0));            
+            //if(amountRotated + rotateSpeed * deltaTime > rotateAngle){
+            //    self.RotateAroundWorldAxis(direction * (rotateAngle - amountRotated), vec3(0,1,0));    
+            //    amountRotated = 0;
+            //    rotate = false;
+            //    
+            //} else            
+            //    amountRotated += rotateSpeed * deltaTime;
+            //
+            //currentAngle += direction * rotateSpeed * deltaTime;
+
+            float rotation = direction * 0.1f * 3.141592f * deltaTime;
+            self.RotateAroundWorldAxis(rotation, vec3(0, 1, 0));
         }
     
     }

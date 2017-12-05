@@ -150,17 +150,6 @@
 			"uid" : 1511524926
 		},
 		{
-			"Material" : 
-			{
-				"albedo" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Abledo",
-				"metallic" : "",
-				"normal" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Normal",
-				"roughness" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/VoltageScene/Models/VoltageRoundAbout"
-			},
 			"Script" : 
 			{
 				"propertyMap" : 
@@ -228,19 +217,132 @@
 				},
 				"scriptName" : "Resources/VoltageScene/Scripts/RoundaboutScript"
 			},
-			"children" : null,
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/VoltageRoundAboutStonePIle"
+					},
+					"children" : null,
+					"name" : "VoltageRoundAboutStonePile",
+					"position" : 
+					{
+						"x" : -30.882001876831055,
+						"y" : 0.0,
+						"z" : -2.1600000858306885
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511524985
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Abledo",
+						"metallic" : "",
+						"normal" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/VoltageRoundAbout"
+					},
+					"children" : null,
+					"name" : "RoundAboutGround",
+					"position" : 
+					{
+						"x" : -30.781002044677734,
+						"y" : 0.0,
+						"z" : -2.375
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512469179
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/VoltageRoundAboutTrack"
+					},
+					"children" : null,
+					"name" : "VoltageRoundAboutTrack",
+					"position" : 
+					{
+						"x" : -30.820001602172852,
+						"y" : 0.0,
+						"z" : -2.3950002193450928
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511525011
+				}
+			],
 			"name" : "VoltageRoundAbout",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : 30.884000778198242,
 				"y" : 0.0,
-				"z" : 0.0
+				"z" : 2.4650001525878906
 			},
 			"rotation" : 
 			{
-				"w" : 1.0,
+				"w" : 0.99516427516937256,
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -0.098225593566894531,
 				"z" : 0.0
 			},
 			"scale" : 
@@ -252,80 +354,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511524965
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/VoltageScene/Models/VoltageRoundAboutStonePIle"
-			},
-			"children" : null,
-			"name" : "VoltageRoundAboutStonePile",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1511524985
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/VoltageScene/Models/VoltageRoundAboutTrack"
-			},
-			"children" : null,
-			"name" : "VoltageRoundAboutTrack",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1511525011
 		},
 		{
 			"Material" : 
