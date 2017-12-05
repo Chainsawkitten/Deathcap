@@ -24,8 +24,6 @@ class Mastermind {
     int correct = 0;
     int rightColors = 0;
 
-    float time = 0.0f; // TODO: Remove
-
     Mastermind(Entity @entity) {
         @hub = Managers();
         @self = @entity;
@@ -51,13 +49,6 @@ class Mastermind {
 
         for (int i = 0; i < rightColors; i++) {
             TurnOnLight(100, vec3(255, 0, 0));
-        }
-
-        // TODO: Remove this later
-        time += deltaTime;
-        if (time > 15.0f) {
-            puzzleSolved = true;
-            SendMessage(roundabout, 2);
         }
     }
 
