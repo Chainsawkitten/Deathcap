@@ -528,7 +528,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/bridgeNewUV"
+				"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/FInalBridge"
 			},
 			"children" : null,
 			"name" : "StarterBridge",
