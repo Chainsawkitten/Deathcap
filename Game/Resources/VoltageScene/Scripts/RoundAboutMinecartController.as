@@ -33,4 +33,8 @@ class RoundAboutMinecartController {
 			}
 		}
     }
+
+	void CommenceBrakingPhase() {
+		phase = 1;
+	}
 }

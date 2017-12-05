@@ -534,7 +534,7 @@
 			"name" : "Cart",
 			"position" : 
 			{
-				"x" : 23.803001403808594,
+				"x" : -5.823000431060791,
 				"y" : -0.16200000047683716,
 				"z" : 2.5430002212524414
 			},
@@ -4141,6 +4141,61 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512052020
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 1,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 6,
+				"triggerFunction" : "void CommenceBrakingPhase()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512483174,
+				"triggerTargetEntity" : 1511528317,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "BrakeTrigger",
+			"position" : 
+			{
+				"x" : 13.5,
+				"y" : 0.0,
+				"z" : 2.5
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512483174
 		}
 	],
 	"name" : "Root",
