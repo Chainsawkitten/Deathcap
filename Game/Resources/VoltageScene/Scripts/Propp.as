@@ -3,25 +3,20 @@ class Propp {
     Entity @self;
     Entity @rightCtrl;
     Entity @originalParent;
-    //Entity @S1T1;
     Entity @mastermind;
-    bool isPressed;
-    //vec3 worldPos;
+    bool isPressed = false;
     int hoverSlot = -1;
     int slot = -1;
     vec3 startPosition;
 
-    Propp(Entity @entity){
+    Propp(Entity @entity) {
         @hub = Managers();
         @self = @entity;
         @rightCtrl = GetEntityByGUID(1508919758);
         @originalParent = self.GetParent();
-        //@S1T1 = GetEntityByGUID(1905121);
         @mastermind = GetEntityByGUID(1511791235);
-        
-        //worldPos = S1T1.GetWorldPosition();
+
         startPosition = self.position;
-        isPressed = false;
 
         RegisterUpdate();
     }
@@ -73,19 +68,19 @@ class Propp {
         hoverSlot = slot;
     }
 
-	void HoverSlot1() {
+    void HoverSlot1() {
         HoverImpl(1);
-	}
+    }
 
-	void HoverSlot2() {
-	    HoverImpl(2);
-	}
+    void HoverSlot2() {
+        HoverImpl(2);
+    }
 
-	void HoverSlot3() {
-	    HoverImpl(3);
-	}
+    void HoverSlot3() {
+        HoverImpl(3);
+    }
 
-	void HoverSlot4() {
-	    HoverImpl(4);
-	}
+    void HoverSlot4() {
+        HoverImpl(4);
+    }
 }
