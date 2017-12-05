@@ -5,6 +5,8 @@
 #include "../Audio/SteamAudioInterface.hpp"
 #include "../linking.hpp"
 #include "../Audio/SoundStreamer.hpp"
+#include <Utility/Queue.hpp>
+#include <mutex>
 
 namespace Audio {
     class SoundStreamer;
@@ -22,20 +24,8 @@ namespace Json {
 /// Handles OpenAL sound.
 class SoundManager {
     friend class Hub;
-    
-    public:     
-        /// Check for OpenAL errors.
-        /**
-         * @param err The PortAudio error number to check.
-         */
-        ENGINE_API static void CheckError(PaError err);
-        
-        /// Moves sound sources and plays sounds.
-        /**
-         * @param deltaTime Time since last frame.
-         */
-        ENGINE_API void Update(float deltaTime);
-        
+ 
+    public:
         /// Create sound source component.
         /**
          * @return The created component.
@@ -103,29 +93,31 @@ class SoundManager {
         /**
          * @param dataHandle DataHandle to load.
          */
-        ENGINE_API void Load(Audio::SoundStreamer::DataHandle& dataHandle);
+        ENGINE_API void Load(Audio::SoundStreamer::DataHandle* dataHandle);
 
         /// Abort loading from file.
         /**
          * @param queue Queue of DataHandle to flush from load queue.
          */
-        ENGINE_API void Flush(std::queue<Audio::SoundStreamer::DataHandle>& queue);
+        ENGINE_API void Flush(Utility::Queue<Audio::SoundStreamer::DataHandle>& queue);
         
     private:
         SoundManager();
         ~SoundManager();
         SoundManager(SoundManager const&) = delete;
         void operator=(SoundManager const&) = delete;
+        static void CheckError(PaError err);
 
         void ProcessSamples();
-        
+
+        static int PortAudioStreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData);
+
         Audio::SteamAudioInterface sAudio;
         PaStream* stream;
         Audio::SoundStreamer soundStreamer;
 
-        unsigned int targetSample = 0;
-        unsigned int processedSamples = 0;
-        unsigned int currentSample = 0;
+        std::mutex updateMutex;
+
         float processedBuffer[Audio::CHUNK_SIZE * 2];
 
         float volume = 1.f;
