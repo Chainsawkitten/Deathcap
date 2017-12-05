@@ -44,7 +44,7 @@ class Propp {
     }
 
     void ReceiveMessage(Entity @sender, int signal) {
-        if (signal == 0) {
+        if (signal == 0 && !isPressed) {
             ReturnToStartPosition();
         }
     }
