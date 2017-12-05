@@ -1939,7 +1939,7 @@
 						"intensity" : 0.11400000751018524
 					},
 					"children" : null,
-					"name" : "Entity #1",
+					"name" : "light",
 					"position" : 
 					{
 						"x" : 0.0,
@@ -1968,7 +1968,7 @@
 			"position" : 
 			{
 				"x" : 42.568286895751953,
-				"y" : -0.99613672494888306,
+				"y" : -0.88715571165084839,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -1987,6 +1987,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512394369
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.1529999971389771,
+				"color" : 
+				{
+					"x" : 0.20392157137393951,
+					"y" : 0.82352942228317261,
+					"z" : 1.0
+				},
+				"intensity" : 59.211002349853516
+			},
+			"children" : null,
+			"name" : "Blue Light",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : -6.5224928855895996,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512475495
 		}
 	],
 	"name" : "Root",

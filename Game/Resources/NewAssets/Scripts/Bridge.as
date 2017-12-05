@@ -27,8 +27,10 @@ class Bridge {
         else if (roll(self.rotation) > 0.0f) {
             trigger = false;
             SendMessage(cart, 3);
+			monster.SetEnabled(true, true);
 			SendMessage(monster, 0);
         }
+		SendMessage(monster, 0);
     }
     
     void ReceiveMessage(Entity @sender, int i){

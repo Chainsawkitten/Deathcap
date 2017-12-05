@@ -1,6 +1,6 @@
 {
 	"activeScene" : "Resources/NewAssetsScene",
-	"animationClipNumber" : 1,
+	"animationClipNumber" : 2,
 	"animationControllerNumber" : 3,
 	"audioMaterialNumber" : 0,
 	"modelNumber" : 143,
@@ -1047,6 +1047,10 @@
 					},
 					{
 						"animationClip" : "monster@run2",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@elevator",
 						"type" : 6
 					}
 				],
