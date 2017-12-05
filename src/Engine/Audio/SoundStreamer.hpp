@@ -7,6 +7,7 @@
 
 namespace Audio {
 
+    /// Number of sound chunks to store in memory.
     const unsigned int CHUNK_COUNT = 3U;
     class SoundFile;
 

@@ -7,6 +7,7 @@ class MainScript {
     Entity @knife;
     Entity @monster;
     Entity @rightHand;
+	Entity @camera;
     float waitForMonsterTimer;
     bool knifePickedUp;
     float fogTimer = 0.0f;
@@ -23,16 +24,20 @@ class MainScript {
     MainScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
+		@camera=GetEntityByGUID(1508919707);
         @minecart = GetEntityByGUID(1508919163);
         @knife = GetEntityByGUID(1511264657);
         @monster = GetEntityByGUID(1511261389);
         @rightHand = GetEntityByGUID(1508919758);
+		Component::Lens @lens;
+		
         phase = 0;
         speed = 4.0f;
         waitForMonsterTimer = 0.0f;
         knifePickedUp = false;
-
-        self.SetEnabled(false, true);
+		@lens=camera.GetLens();
+		lens.zFar=60.0f;
+        //self.SetEnabled(false, true);
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -42,7 +47,7 @@ class MainScript {
         switch (phase) {
             case 0: { // Entering final scene
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x -= speed * deltaTime;
+                pos.x += speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 break;
             }
