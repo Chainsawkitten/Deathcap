@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/elevatorScene/elevatorScene_01",
-	"animationClipNumber" : 0,
-	"animationControllerNumber" : 0,
+	"activeScene" : "Resources/final_event/final_scene",
+	"animationClipNumber" : 3,
+	"animationControllerNumber" : 6,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 161,
+	"modelNumber" : 163,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -808,118 +808,6 @@
 						]
 					},
 					{
-						"name" : "Hands",
-						"resources" : 
-						[
-							{
-								"scene" : "RightHand",
-								"type" : 0
-							},
-							{
-								"scene" : "LeftHand",
-								"type" : 0
-							},
-							{
-								"script" : "RightHandAnim",
-								"type" : 4
-							},
-							{
-								"script" : "LeftHandAnim",
-								"type" : 4
-							}
-						],
-						"subfolders" : 
-						[
-							{
-								"name" : "Animations",
-								"resources" : 
-								[
-									{
-										"animationClip" : "LeftHand@Closed",
-										"type" : 6
-									},
-									{
-										"animationClip" : "LeftHand@Closing",
-										"type" : 6
-									},
-									{
-										"animationClip" : "LeftHand@Open",
-										"type" : 6
-									},
-									{
-										"animationClip" : "LeftHand@Opening",
-										"type" : 6
-									},
-									{
-										"animationClip" : "RightHand@Closed",
-										"type" : 6
-									},
-									{
-										"animationClip" : "RightHand@Closing",
-										"type" : 6
-									},
-									{
-										"animationClip" : "RightHand@Open",
-										"type" : 6
-									},
-									{
-										"animationClip" : "RightHand@Opening",
-										"type" : 6
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "Textures",
-								"resources" : null,
-								"subfolders" : null
-							},
-							{
-								"name" : "Skeletons",
-								"resources" : 
-								[
-									{
-										"skeleton" : "LeftHand@Skeleton",
-										"type" : 8
-									},
-									{
-										"skeleton" : "RightHand@Skeleton",
-										"type" : 8
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "AnimationControllers",
-								"resources" : 
-								[
-									{
-										"animationController" : "Animation controller #1",
-										"type" : 7
-									},
-									{
-										"animationController" : "Animation controller #2",
-										"type" : 7
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "Models",
-								"resources" : 
-								[
-									{
-										"model" : "LeftHand@Model",
-										"type" : 1
-									},
-									{
-										"model" : "RightHand@Model",
-										"type" : 1
-									}
-								],
-								"subfolders" : null
-							}
-						]
 						"name" : "Audio",
 						"resources" : null,
 						"subfolders" : 
@@ -1661,6 +1549,30 @@
 					{
 						"model" : "wood_table",
 						"type" : 1
+					},
+					{
+						"model" : "monster1model",
+						"type" : 1
+					},
+					{
+						"skeleton" : "Lmonsterskeleton",
+						"type" : 8
+					},
+					{
+						"animationClip" : "Lmonsterrun2",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@fall",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@attack",
+						"type" : 6
+					},
+					{
+						"animationController" : "Animation controller #5",
+						"type" : 7
 					}
 				],
 				"subfolders" : 
@@ -1700,6 +1612,22 @@
 							{
 								"texture" : "sack_normal",
 								"type" : 2
+							},
+							{
+								"texture" : "monster_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "monster_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "monster_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "monster_roughness",
+								"type" : 2
 							}
 						],
 						"subfolders" : null
@@ -1722,6 +1650,10 @@
 							},
 							{
 								"sound" : "snd_landing",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_hets",
 								"type" : 3
 							}
 						],
@@ -1898,7 +1830,7 @@
 	},
 	"sceneNumber" : 30,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 4,
-	"soundNumber" : 5,
-	"textureNumber" : 134
+	"skeletonNumber" : 5,
+	"soundNumber" : 6,
+	"textureNumber" : 138
 }

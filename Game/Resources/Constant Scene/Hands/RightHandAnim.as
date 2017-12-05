@@ -1,11 +1,12 @@
 class RightHandAnim {
     Hub @hub;
     Entity @self;
+		Component::AnimationController @animationController;
 
     RightHandAnim(Entity @entity){
         @hub = Managers();
         @self = @entity;
-		animationControlller = self.GetAnimationController();
+		@animationController = self.GetAnimationController();
 
         RegisterUpdate();
     }

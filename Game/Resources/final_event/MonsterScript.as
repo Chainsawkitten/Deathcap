@@ -11,7 +11,8 @@ class MonsterScript {
     Component::SoundSource @snd_death;
     Component::SoundSource @snd_landing;
     Component::SoundSource @snd_falling;
-
+	Component::SoundSource @snd_hets;
+	Component::AnimationController @animController;
     MonsterScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
@@ -21,10 +22,15 @@ class MonsterScript {
         @snd_landing = GetEntityByGUID(1512045002).GetSoundSource();
         @snd_death = GetEntityByGUID(1512044219).GetSoundSource();
         @snd_falling = GetEntityByGUID(1512044955).GetSoundSource();
+		@snd_hets = GetEntityByGUID(1512476155).GetSoundSource();
+		
+		@animController=self.GetAnimationController();
+		animController.SetBool("B", false);
+		animController.SetBool("C", false);
         
         phase = 0;
         fallspeed = 0.0f;
-        waitTimer = 0.0f;
+        waitTimer = 00.0f;
         eatingTimer = 0.0f;
 
         // Remove this if updates are not desired.
@@ -33,6 +39,7 @@ class MonsterScript {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
+	
         switch (phase) {
             case 0: // Waiting
                 break;
@@ -48,17 +55,20 @@ class MonsterScript {
             }
             case 2: { // Landing
                 waitTimer += deltaTime;
+				TriggerRun();
+				
                 if (waitTimer >= 1.0f) {
                     phase = 3;
                 }
                 break;
             }
-            case 3: { // Approach player
-                self.position.x -= 6.0f * deltaTime;
+            case 3: { // Approach player		
+                self.position.x -= 10.0f * deltaTime;
                 break;
             }
             case 5: { // Eating
                 eatingTimer += deltaTime;
+				TriggerAttack();
                 if (eatingTimer >= 4.0f) {
                     SendMessage(cart, 0); // Player was eaten
                     phase = 7;
@@ -91,7 +101,8 @@ class MonsterScript {
     void BecomeExposed() {
         print("I am becoming exposed now!\n");
         phase = 1;
-        snd_falling.Play();
+        //snd_falling.Play();
+		snd_hets.Play();
     }
 
     void StopCharging() {
@@ -99,4 +110,12 @@ class MonsterScript {
         phase = 4;
         snd_shriek.Play();
     }
+	
+	void TriggerRun(){
+		animController.SetBool("B", true);
+	}
+	
+	void TriggerAttack(){
+		animController.SetBool("C", true);
+	}
 }
