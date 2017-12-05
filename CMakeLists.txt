@@ -78,8 +78,5 @@ if(UseDoubleLogging)
     add_definitions(-DUSINGDOUBLELOGGING)
 endif()
 
-option(TestMemory "Enables memory testing in the game project." OFF)
-option(TestFrames "Enables frame testing in the game project." OFF)
-
 # Source files
 add_subdirectory(src)
