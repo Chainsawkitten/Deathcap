@@ -557,6 +557,10 @@
 			"uid" : 1508919163
 		},
 		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/VoltageScene/Scripts/RoundAboutMinecartController"
+			},
 			"children" : null,
 			"name" : "MinecartScript",
 			"position" : 

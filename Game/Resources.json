@@ -1799,6 +1799,10 @@
 							{
 								"script" : "FlickeringLights",
 								"type" : 4
+							},
+							{
+								"script" : "RoundAboutMinecartController",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
