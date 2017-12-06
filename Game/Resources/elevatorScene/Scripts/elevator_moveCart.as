@@ -70,7 +70,7 @@ class elevator_moveCart {
                 self.SetWorldPosition(tempPos);
             break;
         }
-     }
+    }
 
     void MoveForward() {
         phase = 0;
