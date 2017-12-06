@@ -67,6 +67,13 @@ class elevator_moveCart {
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
                 break;
+                
+			case 3: // Cart is stopped
+				// Skip Puzzle
+                if(!IsVRActive() && Input(PuzzleSkip, @self)) {
+                	phase = 1;
+                	SendMessage(board, 1);
+                }
         }
     }
     
