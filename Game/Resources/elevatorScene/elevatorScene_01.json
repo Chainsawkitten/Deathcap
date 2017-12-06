@@ -96,6 +96,12 @@
 					{
 						"model" : "Resources/elevatorScene/Elevator Parts/elevatorCage"
 					},
+					"SoundSource" : 
+					{
+						"loop" : true,
+						"sound" : "Resources/elevatorScene/Sounds/sndElevatorEngine",
+						"volume" : 1.0
+					},
 					"children" : null,
 					"name" : "cage",
 					"position" : 
@@ -176,6 +182,12 @@
 					{
 						"model" : "Resources/elevatorScene/Elevator Parts/backDoorWithX"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
+						"volume" : 1.0
+					},
 					"children" : null,
 					"name" : "backDoorWithX",
 					"position" : 
@@ -212,6 +224,12 @@
 					"Mesh" : 
 					{
 						"model" : "Resources/elevatorScene/Elevator Parts/backDoorOutOfService"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
+						"volume" : 1.0
 					},
 					"children" : 
 					[
