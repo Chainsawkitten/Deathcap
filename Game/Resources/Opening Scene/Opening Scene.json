@@ -988,7 +988,45 @@
 			{
 				"scriptName" : "Resources/Opening Scene/Scripts/AnimationScript"
 			},
-			"children" : null,
+			"children" : 
+			[
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/NewAssets/Scripts/monsterSoundScript"
+					},
+					"SoundSource" : 
+					{
+						"loop" : true,
+						"sound" : "Resources/NewAssets/Audio/monsterSound",
+						"volume" : 1.0
+					},
+					"children" : null,
+					"name" : "Sound",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 6.1850004196166992,
+						"z" : 1.2610000371932983
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512561652
+				}
+			],
 			"name" : "monster",
 			"position" : 
 			{

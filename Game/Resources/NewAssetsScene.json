@@ -2058,6 +2058,42 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1512395355
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/NewAssets/Scripts/monsterSoundScript"
+					},
+					"SoundSource" : 
+					{
+						"loop" : true,
+						"sound" : "Resources/NewAssets/Audio/monsterSound",
+						"volume" : 1.0
+					},
+					"children" : null,
+					"name" : "MonsterSound",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 9.5780000686645508,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512560813
 				}
 			],
 			"name" : "Monster",

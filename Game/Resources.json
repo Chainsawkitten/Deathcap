@@ -1367,6 +1367,10 @@
 							{
 								"script" : "MonsterRun",
 								"type" : 4
+							},
+							{
+								"script" : "monsterSoundScript",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
@@ -1385,6 +1389,10 @@
 							},
 							{
 								"sound" : "RailSound",
+								"type" : 3
+							},
+							{
+								"sound" : "monsterSound",
 								"type" : 3
 							}
 						],
@@ -1787,6 +1795,6 @@
 	"sceneNumber" : 30,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
-	"soundNumber" : 5,
+	"soundNumber" : 6,
 	"textureNumber" : 123
 }
