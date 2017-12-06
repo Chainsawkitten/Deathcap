@@ -9,6 +9,9 @@ class elevator_frontDoorCon {
     float boardPitch;
     float speed;
     float uniformScale;
+    Entity @partical_1;
+    Entity @partical_2;
+    Entity @partical_3;
     
 
     elevator_frontDoorCon(Entity @entity){
@@ -19,6 +22,9 @@ class elevator_frontDoorCon {
         openDoor = false;
         speed = 0.5f;
         uniformScale = 0;
+        @partical_1 = GetEntityByGUID(1512564077);
+        @partical_2 = GetEntityByGUID(1512565858);
+        @partical_3 = GetEntityByGUID(1512566495);
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -38,11 +44,17 @@ class elevator_frontDoorCon {
                 doorWithService.SetWorldPosition(tempPosWithService);
             }
 
-            uniformScale += (1.0f / 3.5f) * deltaTime;
+            uniformScale += (1.0f / 6.5f) * deltaTime;
             if (uniformScale > 1.0f) {
                 uniformScale = 1.0f;
+                partical_1.position.x +=0.5f;
+                partical_2.position.x +=0.5f;
+                partical_3.position.x +=0.5f;
+                //partical_1.SetEnabled(false, true);
+                //partical_2.SetEnabled(false, true);
+                //partical_3.SetEnabled(false, true);
             }
-
+            
             puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
             
         }
