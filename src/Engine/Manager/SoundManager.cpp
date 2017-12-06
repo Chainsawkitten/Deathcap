@@ -73,6 +73,25 @@ void SoundManager::CheckError(PaError err) {
     }
 }
 
+void SoundManager::CheckStatusFlag(PaStreamCallbackFlags flags) {
+    if (flags == 0)
+        return;
+
+    std::string str = "";
+    if (flags & paInputUnderflow)
+        str += "InputUnderflow; ";
+    if (flags & paInputOverflow)
+        str += "InputOverflow; ";
+    if (flags & paOutputUnderflow)
+        str += "OutputUnderflow; ";
+    if (flags & paOutputOverflow)
+        str += "OutputOverflow; ";
+    if (flags & paPrimingOutput)
+        str += "PrimingOutput; ";
+
+    Log() << "PaStream Callback Status: " << str << "\n";
+}
+
 int SoundManager::PortAudioStreamCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData) {
     SoundManager* soundManager = (SoundManager*)userData;
 
@@ -80,7 +99,9 @@ int SoundManager::PortAudioStreamCallback(const void* inputBuffer, void* outputB
     updateLock.lock();
     const std::vector<Component::Listener*>& listeners = soundManager->GetListeners();
     if (listeners.size() > 0) {
-        memcpy(outputBuffer, soundManager->processedBuffer, sizeof(float) * framesPerBuffer * 2);
+        CheckStatusFlag(statusFlags);
+        assert(framesPerBuffer == CHUNK_SIZE);
+        memcpy(outputBuffer, soundManager->processedBuffer, sizeof(float) * CHUNK_SIZE * 2);
         soundManager->ProcessSamples();
     }
     updateLock.unlock();
@@ -117,6 +138,7 @@ void SoundManager::ProcessSamples() {
 
         // Check if sound should play and is a valid resource.
         if (sound->shouldPlay && soundFile && soundFile->IsLoaded()) {
+
             // Get samples from streamed buffer.
             int samples;
             float* buffer = soundBuffer->GetChunkData(samples);
@@ -366,10 +388,14 @@ void SoundManager::Load(SoundStreamer::DataHandle* handle) {
         soundStreamer.Load(handle);
 }
 
-void SoundManager::Flush(Utility::Queue<SoundStreamer::DataHandle>& queue) {
+void SoundManager::Flush(Utility::Queue<SoundStreamer::DataHandle>& queue, bool lock) {
+    if (lock)
+        soundStreamer.BeginFlush();
     while (SoundStreamer::DataHandle* handle = queue.Iterate()) {
         handle->abort = true;
         if (handle->soundFile->GetCached())
             handle->done = true;
     }
+    if (lock)
+        soundStreamer.EndFlush();
 }

@@ -98,8 +98,9 @@ class SoundManager {
         /// Abort loading from file.
         /**
          * @param queue Queue of DataHandle to flush from load queue.
+         * @param lock Whether to lock thread or not. Lock is needed when changing SoundFile.
          */
-        ENGINE_API void Flush(Utility::Queue<Audio::SoundStreamer::DataHandle>& queue);
+        ENGINE_API void Flush(Utility::Queue<Audio::SoundStreamer::DataHandle>& queue, bool lock = false);
         
     private:
         SoundManager();
@@ -107,6 +108,7 @@ class SoundManager {
         SoundManager(SoundManager const&) = delete;
         void operator=(SoundManager const&) = delete;
         static void CheckError(PaError err);
+        static void CheckStatusFlag(PaStreamCallbackFlags flags);
 
         void ProcessSamples();
 
