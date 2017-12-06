@@ -5,6 +5,8 @@ class elevator_moveCart {
     Entity @board;
     Entity @puzzleBoard;
     Entity @realSelf;
+    Entity @frontDoor;
+    
     float speed;
     vec3 tempPos;
     vec3 elevatorPos;
@@ -27,6 +29,7 @@ class elevator_moveCart {
         @elevator = GetEntityByGUID(1511870044);
         @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
+        @frontDoor = GetEntityByGUID(1511946590);
         
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
@@ -84,6 +87,12 @@ class elevator_moveCart {
                     float s = a * stopTime * stopTime * stopTime / 3 + b * stopTime * stopTime / 2 + c * stopTime;
                     tempPos.x = startStopPos - s;
                     self.SetWorldPosition(tempPos);
+                } else {
+                    
+                    //When we've stopped we close the door behind us.
+                    SendMessage(frontDoor, 0);
+                    phase = 4;
+                    
                 }
                 break;
 

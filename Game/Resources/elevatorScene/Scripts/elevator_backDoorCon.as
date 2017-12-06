@@ -47,6 +47,13 @@ class elevator_backDoorCon {
         }
     }
     
+    void ReceiveMessage(Entity @sender, int signal){
+        if (signal == 0)
+            CloseDoor();
+        else
+            OpenDoor();
+    }
+    
     void OpenDoor() {
         openDoor = true;
     }
