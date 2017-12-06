@@ -831,7 +831,6 @@ void Editor::OpenHymnClosed(const std::string& hymn) {
             resourceView.SetVisible(true);
         }
     }
-
     selectHymnWindow.SetVisible(false);
 }
 

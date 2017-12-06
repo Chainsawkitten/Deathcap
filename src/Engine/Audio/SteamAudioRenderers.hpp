@@ -17,7 +17,6 @@ namespace Audio {
     /// Total time of one update in seconds.
     const double FRAME_TIME = 1.f / UPDATES_PER_SECOUND;
 
-
     /// Class responsible for calculating direct audio.
     class SteamAudioRenderers {
         public:
@@ -43,6 +42,9 @@ namespace Audio {
              * @return The processed buffer.
              */
             ENGINE_API IPLAudioBuffer Process(IPLAudioBuffer input, IPLVector3 playerPos, IPLVector3 playerDir, IPLVector3 playerUp, IPLVector3 sourcePos, float sourceRadius);
+
+            /// Flushes the convolution effect
+            ENGINE_API void Flush();
 
         private:
             IPLAudioFormat inputFormat;
