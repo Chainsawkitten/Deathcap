@@ -9,7 +9,7 @@ class MonsterRun {
     MonsterRun(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        speed = 5.0f;
+        speed = 30.0f;
         run = false;
         @animCtrl = self.GetAnimationController();
         animCtrl.SetBool("E", false);
