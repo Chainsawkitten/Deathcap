@@ -36,6 +36,7 @@ float* SoundBuffer::GetChunkData(int& samples) {
         samples = 0;
         return nullptr;
     }
+
     SoundStreamer::DataHandle* handle = chunkQueue.Front();
     while (handle->abort) {
         while (!handle->done)
@@ -102,7 +103,6 @@ void SoundBuffer::Restart() {
     assert(soundFile);
     begin = 0;
     Managers().soundManager->Flush(chunkQueue);
-    if (!soundFile->GetCached())
-        for (int i = 0; i < chunkCount; ++i)
-            ProduceChunk();
+    for (int i = 0; i < chunkCount - 1; ++i)
+        ProduceChunk();
 }
