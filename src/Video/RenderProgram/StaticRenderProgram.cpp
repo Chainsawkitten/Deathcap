@@ -45,7 +45,6 @@ StaticRenderProgram::StaticRenderProgram() {
     zViewProjectionLocation = zShaderProgram->GetUniformLocation("viewProjection");
     zModelLocation = zShaderProgram->GetUniformLocation("model");
     viewProjectionLocation = shaderProgram->GetUniformLocation("viewProjection");
-    inverseProjectionLocation = shaderProgram->GetUniformLocation("inverseProjectionMatrix");
     lightSpaceLocation = shaderProgram->GetUniformLocation("lightSpaceMatrix");
     lightCountLocation = shaderProgram->GetUniformLocation("lightCount");
     gammaLocation = shaderProgram->GetUniformLocation("gamma");
