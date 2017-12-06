@@ -67,7 +67,10 @@
 		"Resources/elevatorScene/Scripts/elevator_moveCart",
 		"Resources/elevatorScene/Scripts/elevator_frontDoorCon",
 		"Resources/elevatorScene/Scripts/elevator_backDoorCon",
-		"Resources/Super Scene/Scripts/SwitcherScript_2"
+		"Resources/Super Scene/Scripts/SwitcherScript_2",
+		"Resources/elevatorScene/Scripts/Particals",
+		"Resources/elevatorScene/Scripts/Particals2",
+		"Resources/elevatorScene/Scripts/Particals3"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5

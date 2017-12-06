@@ -403,7 +403,6 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("AnimationController", "void SetFloat(const string& in, float)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimationController", "bool GetBool(const string& in)", asMETHOD(AnimationController, GetBool), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimationController", "float GetFloat(const string& in)", asMETHOD(AnimationController, GetFloat), asCALL_THISCALL);
-
     engine->RegisterObjectType("DirectionalLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("DirectionalLight", "vec3 color", asOFFSET(DirectionalLight, color));
     engine->RegisterObjectProperty("DirectionalLight", "float ambientCoefficient", asOFFSET(DirectionalLight, ambientCoefficient));
