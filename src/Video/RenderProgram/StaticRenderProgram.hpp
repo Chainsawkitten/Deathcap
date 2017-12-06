@@ -89,7 +89,6 @@ namespace Video {
             GLuint zViewProjectionLocation;
             GLuint zModelLocation;
             GLuint viewProjectionLocation;
-            GLuint inverseProjectionLocation;
             GLuint lightSpaceLocation;
             GLuint lightCountLocation;
             GLuint gammaLocation;
@@ -98,7 +97,7 @@ namespace Video {
             GLuint fogColorLocation;
             GLuint colorFilterApplyLocation;
             GLuint colorFilterColorLocation;
-            GLuint ditherLocation;
+            GLuint ditherApplyLocation;
             GLuint timeLocation;
             GLuint frameSizeLocation;
             GLuint mapAlbedoLocation;

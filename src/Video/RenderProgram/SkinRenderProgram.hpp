@@ -105,14 +105,15 @@ namespace Video {
             GLuint colorFilterColorLocation;
             GLuint ditherApplyLocation;
             GLuint timeLocation;
+            GLuint frameSizeLocation;
             GLuint mapAlbedoLocation;
             GLuint mapNormalLocation;
             GLuint mapMetallicLocation;
             GLuint mapRoughnessLocation;
             GLuint mapShadowLocation;
             GLuint modelLocation;
-            GLuint normalLocation;
             GLuint viewLocation;
+            GLuint normalLocation;
             GLuint bonesLocation;
 
             bool first = true;
