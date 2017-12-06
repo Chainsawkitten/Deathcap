@@ -6,6 +6,7 @@ class MonsterScript {
     float waitTimer;
     float eatingTimer;
     int phase;
+    bool disappearGround=false;
 
     Component::SoundSource @snd_shriek;
     Component::SoundSource @snd_death;
@@ -17,7 +18,7 @@ class MonsterScript {
         @hub = Managers();
         @self = @entity;
         @cart = GetEntityByGUID(1511260476);
-        
+        disappearGround=false;
         @snd_shriek = GetEntityByGUID(1512046440).GetSoundSource();
         @snd_landing = GetEntityByGUID(1512045002).GetSoundSource();
         @snd_death = GetEntityByGUID(1512044219).GetSoundSource();
@@ -41,6 +42,9 @@ class MonsterScript {
     // Called by the engine for each frame.
     void Update(float deltaTime) {
 	
+    if(disappearGround)
+        self.position.y-=0.01f;
+        
         switch (phase) {
             case 0: // Waiting
                 break;
@@ -70,7 +74,7 @@ class MonsterScript {
             case 5: { // Eating
                 eatingTimer += deltaTime;
 				TriggerAttack();
-                if (eatingTimer >= 4.0f) {
+                if (eatingTimer >= 10.0f) {
                     SendMessage(cart, 0); // Player was eaten
                     phase = 7;
                 }
@@ -92,9 +96,10 @@ class MonsterScript {
             }
             case 1: { // Die
                 phase = 6; // Collapse
-                snd_death.Play();
+                snd_death.Play();                
                 print("Monster: I'm dying now.\n");
 				TriggerDeath();
+                disappearGround=true;            
                 break;
             }
         }
