@@ -8,6 +8,11 @@ class Lantern {
         @originalParent = self.GetParent();
         
         pickup = false;
+        
+        if(!IsVRActive()){
+            self.SetParent(originalParent);
+            self.position = vec3(-0.105f, 0.937f, -0.547f);
+        }
     }
     
     void ReceiveMessage(Entity @sender, int i) {

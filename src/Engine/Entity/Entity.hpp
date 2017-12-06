@@ -88,7 +88,14 @@ class Entity {
          * @return The child or nullptr if none was found.
          */
         ENGINE_API Entity* GetChild(const std::string& name) const;
-        
+
+        /// Get child based on its name.
+        /**
+         * @param name The name of the child to get.
+         * @return The child or nullptr if none was found.
+         */
+        ENGINE_API Entity* GetChildFromIndex(int index) const;
+
         /// Get whether the entity is an instantiated scene.
         /**
          * @return Whether the entity is an instantiated scene.
