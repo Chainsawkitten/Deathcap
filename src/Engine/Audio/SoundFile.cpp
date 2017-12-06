@@ -47,5 +47,4 @@ void SoundFile::Load(const std::string& name) {
 
     bool cache = node.get("cache", false).asBool();
     Cache(cache);
-    Log() << "Name: " << name << "; Cache: " << (cache ? "True" : "False") << "\n";
 }
