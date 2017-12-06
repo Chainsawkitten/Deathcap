@@ -66,3 +66,12 @@ IPLAudioBuffer SteamAudioRenderers::Process(IPLAudioBuffer input, IPLVector3 pla
 
     return directBuffer;
 }
+
+void Audio::SteamAudioRenderers::Flush() {
+    if (binauralEffect)
+        iplFlushBinauralEffect(binauralEffect);
+    if (convEffect)
+        iplFlushConvolutionEffect(convEffect);
+    if (directEffect)
+        iplFlushDirectSoundEffect(directEffect);
+}

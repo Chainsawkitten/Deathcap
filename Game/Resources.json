@@ -1,7 +1,4 @@
 {
-	"activeScene" : "Resources/final_event/final_scene",
-	"animationClipNumber" : 8,
-	"animationControllerNumber" : 6,
 	"audioMaterialNumber" : 4,
 	"modelNumber" : 164,
 	"resourceFolder" : 
@@ -61,7 +58,11 @@
 								"resources" : 
 								[
 									{
-										"model" : "cave",
+										"model" : "NewCave",
+										"type" : 1
+									},
+									{
+										"model" : "StraightCave",
 										"type" : 1
 									}
 								],
@@ -215,10 +216,6 @@
 							},
 							{
 								"model" : "Walls",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Cave",
 								"type" : 1
 							},
 							{
@@ -921,11 +918,7 @@
 								"resources" : 
 								[
 									{
-										"model" : "Bridge",
-										"type" : 1
-									},
-									{
-										"model" : "bridgeNewUV",
+										"model" : "FInalBridge",
 										"type" : 1
 									}
 								],
@@ -1030,7 +1023,21 @@
 			},
 			{
 				"name" : "NewAssets",
-				"resources" : null,
+				"resources" : 
+				[
+					{
+						"animationController" : "Animation controller #2",
+						"type" : 7
+					},
+					{
+						"animationClip" : "monster@run2",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@elevator",
+						"type" : 6
+					}
+				],
 				"subfolders" : 
 				[
 					{
@@ -1298,6 +1305,10 @@
 							},
 							{
 								"script" : "Cart_debug_script",
+								"type" : 4
+							},
+							{
+								"script" : "MonsterRun",
 								"type" : 4
 							}
 						],
