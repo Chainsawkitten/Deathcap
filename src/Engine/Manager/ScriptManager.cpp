@@ -804,7 +804,7 @@ void ScriptManager::RegisterInput() {
         }
         
         if (!registered)
-            engine->RegisterEnumValue("input", std::string(button->action).c_str(), i);
+            engine->RegisterEnumValue("input", std::string(button->action).c_str(), static_cast<int>(i));
     }
 }
 

@@ -18,12 +18,12 @@ ParticleSystemRenderer::ParticleSystemRenderer() {
     srand(time(NULL));
 
     // Temporary rotation matrix for future rotation of particles.
-    rotMat[0][0] = cos(1);
-    rotMat[0][1] = -sin(1);
+    rotMat[0][0] = static_cast<float>(cos(1));
+    rotMat[0][1] = static_cast<float>(-sin(1));
     rotMat[0][2] = 0;
     rotMat[0][3] = 1;
-    rotMat[1][0] = sin(1);
-    rotMat[1][1] = cos(1);
+    rotMat[1][0] = static_cast<float>(sin(1));
+    rotMat[1][1] = static_cast<float>(cos(1));
     rotMat[1][2] = 0;
     rotMat[1][3] = 1;
     rotMat[2][0] = 0;
@@ -44,12 +44,12 @@ ParticleSystemRenderer::ParticleSystemRenderer(int count) {
     srand(time(NULL));
 
     // Temporary rotation matrix for future rotation of particles.
-    rotMat[0][0] = cos(10);
-    rotMat[0][1] = -sin(10);
+    rotMat[0][0] = static_cast<float>(cos(10));
+    rotMat[0][1] = static_cast<float>(-sin(10));
     rotMat[0][2] = 0;
     rotMat[0][3] = 1;
-    rotMat[1][0] = sin(10);
-    rotMat[1][1] = cos(10);
+    rotMat[1][0] = static_cast<float>(sin(10));
+    rotMat[1][1] = static_cast<float>(cos(10));
     rotMat[1][2] = 0;
     rotMat[1][3] = 1;
     rotMat[2][0] = 0;
@@ -183,7 +183,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     glUniform1i(computeShaderProgram->GetUniformLocation("nr_particles"), nr_particles);
 
     nr_new_particles = settings.nr_new_particles;
-    particleShootIndex.y = settings.nr_new_particles - 1;
+    particleShootIndex.y = settings.nr_new_particles - 1.f;
 
     glm::vec3 randomVec[32];
 
@@ -195,7 +195,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
     glUniform3fv(computeShaderProgram->GetUniformLocation("randomVec"), 32, &randomVec[0].x);
     glUniform1f(computeShaderProgram->GetUniformLocation("alphaControl"), settings.alpha_control);
 
-    glDispatchCompute(std::ceil((float)nr_particles / 128), 1, 1);
+    glDispatchCompute(static_cast<int>(std::ceil((float)nr_particles / 128)), 1, 1);
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
@@ -205,7 +205,7 @@ void ParticleSystemRenderer::Update(float dt, ParticleSystemRenderer::EmitterSet
         particleShootIndex.x += nr_new_particles;
         particleShootIndex.y = particleShootIndex.x + nr_new_particles;
         if (particleShootIndex.y > nr_particles) {
-            particleShootIndex.y = nr_new_particles;
+            particleShootIndex.y = static_cast<float>(nr_new_particles);
             particleShootIndex.x = 0;
         }
         timer = 0.0f;
@@ -235,7 +235,7 @@ void ParticleSystemRenderer::Draw(Texture2D* textureAtlas, unsigned int textureA
     glBindTexture(GL_TEXTURE_2D, textureAtlas->GetTextureID());
 
     // Send the texture to shader.
-    glUniform1f(shaderProgram->GetUniformLocation("textureAtlasRows"), textureAtlasRows);
+    glUniform1f(shaderProgram->GetUniformLocation("textureAtlasRows"), static_cast<GLfloat>(textureAtlasRows));
 
     glDrawArrays(GL_POINTS, 0, nr_particles);
 

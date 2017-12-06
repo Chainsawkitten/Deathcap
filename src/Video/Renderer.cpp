@@ -141,14 +141,14 @@ void Renderer::RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* a
 }
 
 void Renderer::SetLights(const std::vector<Video::Light>& lights) {
-    lightCount = lights.size();
+    lightCount = static_cast<unsigned int>(lights.size());
 
     // Skip if no lights.
     if (lightCount == 0)
         return;
 
     // Resize light buffer if necessary.
-    unsigned int byteSize = sizeof(Video::Light) * lights.size();
+    unsigned int byteSize = sizeof(Video::Light) * static_cast<unsigned int>(lights.size());
     if (lightBuffer->GetSize() < byteSize) {
         delete lightBuffer;
         lightBuffer = new StorageBuffer(byteSize, GL_DYNAMIC_DRAW);
@@ -171,7 +171,7 @@ void Renderer::Present(RenderSurface* renderSurface) {
     // Copy color buffer.
     renderSurface->GetColorFrameBuffer()->BindRead();
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-    glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    glBlitFramebuffer(static_cast<GLint>(0.f), static_cast<GLint>(0.f), static_cast<GLint>(size.x), static_cast<GLint>(size.y), static_cast<GLint>(0.f), static_cast<GLint>(0.f), static_cast<GLint>(size.x), static_cast<GLint>(size.y), GL_COLOR_BUFFER_BIT, GL_NEAREST);
     renderSurface->GetColorFrameBuffer()->Unbind();
 }
 

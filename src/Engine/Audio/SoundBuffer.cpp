@@ -96,7 +96,7 @@ void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
     if (soundFile) {
         chunkCount = soundFile->GetCached() ? 1 : CHUNK_COUNT;
         buffer = new float[CHUNK_SIZE * chunkCount];
-        for (int i = 0; i < chunkCount; ++i)
+        for (unsigned int i = 0; i < chunkCount; ++i)
             ProduceChunk();
     }
 }
@@ -105,6 +105,6 @@ void SoundBuffer::Restart() {
     assert(soundFile);
     begin = 0;
     Managers().soundManager->Flush(chunkQueue);
-    for (int i = 0; i < chunkCount; ++i)
+    for (unsigned int i = 0; i < chunkCount; ++i)
         ProduceChunk();
 }

@@ -65,7 +65,7 @@ void ProfilingWindow::ShowResult(ProfilingManager::Result* result) {
 
     ImGui::NextColumn();
     if (result->parent->parent != nullptr) {
-        ImGui::ProgressBar(result->value / result->parent->value, ImVec2(0.0f, 0.0f));
+        ImGui::ProgressBar(static_cast<float>(result->value / result->parent->value), ImVec2(0.0f, 0.0f));
         ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
     }
 

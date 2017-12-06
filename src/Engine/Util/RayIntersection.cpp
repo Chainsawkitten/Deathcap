@@ -72,7 +72,7 @@ bool RayIntersection::TriangleIntersect(glm::vec3 origin, glm::vec3 direction, g
     glm::vec3 q;
     glm::vec3 r;
     glm::vec3 s;
-    float epsilon = pow(10, -5);
+    float epsilon = static_cast<float>(pow(10, -5));
     float a;
     float f;
     float u;

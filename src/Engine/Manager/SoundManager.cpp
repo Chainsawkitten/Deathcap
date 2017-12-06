@@ -268,7 +268,7 @@ void SoundManager::CreateAudioEnvironment() {
     }
 
     // Create Scene
-    sAudio.CreateScene(audioMatRes.size());
+    sAudio.CreateScene(static_cast<uint32_t>(audioMatRes.size()));
 
     for (std::size_t i = 0; i < audioMatRes.size(); ++i) {
         IPLMaterial iplmat;
@@ -280,7 +280,7 @@ void SoundManager::CreateAudioEnvironment() {
         iplmat.lowFreqTransmission = audioMatRes[i]->lowFreqTransmission;
         iplmat.scattering = audioMatRes[i]->scattering;
 
-        sAudio.SetSceneMaterial(i, iplmat);
+        sAudio.SetSceneMaterial(static_cast<uint32_t>(i), iplmat);
     }
 
     // Create mesh.
@@ -313,7 +313,7 @@ void SoundManager::CreateAudioEnvironment() {
                 // Find material index and create ipl mesh.
                 for (std::size_t i = 0; i < audioMatRes.size(); ++i) {
                     if (audioMatRes[i] == audioMatComp->material) {
-                        sAudio.CreateStaticMesh(iplVertices, iplIndices, i);
+                        sAudio.CreateStaticMesh(iplVertices, iplIndices, static_cast<int>(i));
                         break;
                     }
                 }

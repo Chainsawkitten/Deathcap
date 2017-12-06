@@ -149,7 +149,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glUniform1iv(colorFilterApplyLocation, 1, &colorFilterApply);
     glUniform3fv(colorFilterColorLocation, 1, &colorFilterColor[0]);
 
-    float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0;
+    float time = static_cast<float>(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0);
     glUniform1iv(ditherLocation, 1, &ditherApply);
     glUniform1fv(timeLocation, 1, &time);
     glUniform2fv(frameSizeLocation, 1, &frameSize[0]);
