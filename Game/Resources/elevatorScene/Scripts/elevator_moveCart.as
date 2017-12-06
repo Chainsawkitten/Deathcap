@@ -86,9 +86,6 @@ class elevator_moveCart {
                     self.SetWorldPosition(tempPos);
                 }
                 break;
-            case 4:
-                print("4");
-                break;
 
             }
     }
