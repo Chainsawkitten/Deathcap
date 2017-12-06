@@ -1,10 +1,17 @@
 #include "AnimationControllerEditor.hpp"
+#include <Engine/Animation/Animation.hpp>
+#include <Engine/Animation/AnimationAction.hpp>
 #include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Animation/AnimationClip.hpp>
-#include <Utility/Log.hpp>
+#include <Engine/Animation/AnimationTransition.hpp>
+#include <Engine/Animation/Bone.hpp>
+#include <Engine/Animation/Skeleton.hpp>
+#include <Engine/Animation/SkeletonBone.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Hymn.hpp>
+#include <Engine/Util/Node.hpp>
+#include <Utility/Log.hpp>
 
 using namespace GUI;
 
@@ -41,7 +48,7 @@ void AnimationControllerEditor::ShowContextMenu() {
 
     // Create menu item for animation actions.
     if (ImGui::MenuItem("Add animation action")) {
-        Animation::AnimationController::AnimationAction* newAction = new Animation::AnimationController::AnimationAction;
+        Animation::AnimationAction* newAction = new Animation::AnimationAction;
         std::string name = "Action #" + std::to_string(animationController->animationNodes.size() + 1);
         unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
         memcpy(newAction->name, name.c_str(), size);
@@ -51,7 +58,7 @@ void AnimationControllerEditor::ShowContextMenu() {
 
     // Create menu item for animation transitions.
     if (ImGui::MenuItem("Add animation transition")) {
-        Animation::AnimationController::AnimationTransition* newTransition = new Animation::AnimationController::AnimationTransition;
+        Animation::AnimationTransition* newTransition = new Animation::AnimationTransition;
         std::string name = "Transition #" + std::to_string(animationController->animationNodes.size() + 1);
         unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
         memcpy(newTransition->name, name.c_str(), size);
@@ -78,7 +85,7 @@ void AnimationControllerEditor::ShowContextMenu() {
 
 void AnimationControllerEditor::ShowNode(Node* node) {
     // Dynamic cast to AnimationAction.
-    Animation::AnimationController::AnimationAction* action = dynamic_cast<Animation::AnimationController::AnimationAction*>(node);
+    Animation::AnimationAction* action = dynamic_cast<Animation::AnimationAction*>(node);
     if (action) {
         ImGui::Text("Action: %s", node->name);
         ImGui::InputText("Name", node->name, 128);
@@ -104,7 +111,7 @@ void AnimationControllerEditor::ShowNode(Node* node) {
             if (ImGui::Button("Select float##Float"))
                 ImGui::OpenPopup("Select float##Float");
 
-            if (ImGui::BeginPopup("Select float##float")) {
+            if (ImGui::BeginPopup("Select float##Float")) {
                 ImGui::Text("Select float");
 
                 for (std::size_t i = 0; i < animationController->boolMap.size(); ++i)
@@ -143,12 +150,12 @@ void AnimationControllerEditor::ShowNode(Node* node) {
 
             ImGui::EndPopup();
         }
-    } else if (dynamic_cast<Animation::AnimationController::AnimationTransition*>(node) != nullptr) {
+    } else if (dynamic_cast<Animation::AnimationTransition*>(node) != nullptr) {
         ImGui::Text("Transition: %s", node->name);
         ImGui::InputText("Name", node->name, 128);
 
         // Dynamic cast to AnimationAction.
-        Animation::AnimationController::AnimationTransition* transition = dynamic_cast<Animation::AnimationController::AnimationTransition*>(node);
+        Animation::AnimationTransition* transition = dynamic_cast<Animation::AnimationTransition*>(node);
 
         ImGui::DragFloat("Time", &transition->transitionTime, 0.001f, 0.f, 1.f);
         ImGui::Checkbox("Is static", &transition->isStatic);
@@ -283,13 +290,13 @@ unsigned int AnimationControllerEditor::GetNumNodes() {
 }
 
 bool AnimationControllerEditor::CanConnect(Node* output, Node* input) {
-    if (typeid(*output) == typeid(Animation::AnimationController::AnimationAction)) {
-        if (typeid(*input) == typeid(Animation::AnimationController::AnimationTransition))
+    if (typeid(*output) == typeid(Animation::AnimationAction)) {
+        if (typeid(*input) == typeid(Animation::AnimationTransition))
             return true;
 
         return false;
-    } else if (typeid(*output) == typeid(Animation::AnimationController::AnimationTransition)) {
-        if (typeid(*input) == typeid(Animation::AnimationController::AnimationAction))
+    } else if (typeid(*output) == typeid(Animation::AnimationTransition)) {
+        if (typeid(*input) == typeid(Animation::AnimationAction))
             return true;
 
         return false;

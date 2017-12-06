@@ -115,10 +115,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
-				"metallic" : "Resources/Constant Scene/Minecart/Textures/cart_metallic",
-				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
-				"roughness" : "Resources/Constant Scene/Minecart/Textures/cart_roughness"
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
 			},
 			"Mesh" : 
 			{
@@ -226,7 +226,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
 				"metallic" : "",
 				"normal" : "",
 				"roughness" : ""
@@ -350,7 +350,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/bridgeNewUV"
+						"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/FInalBridge"
 					},
 					"children" : 
 					[
@@ -1537,12 +1537,12 @@
 													{
 														"albedo" : "Resources/NewAssets/Textures/The Bucket/bucket_albedo",
 														"metallic" : "Resources/NewAssets/Textures/The Bucket/bucket_metallic",
-														"normal" : "",
-														"roughness" : ""
+														"normal" : "Resources/NewAssets/Textures/The Bucket/bucket_normal",
+														"roughness" : "Resources/NewAssets/Textures/The Bucket/bucket_roughness"
 													},
 													"Mesh" : 
 													{
-														"model" : "Resources/NewAssets/Models/Puzzle Scale/bucketFixedHandle_01"
+														"model" : "Resources/NewAssets/Models/The Bucket/TheBucket"
 													},
 													"children" : 
 													[
@@ -1606,22 +1606,22 @@
 													"name" : "Bucket",
 													"position" : 
 													{
-														"x" : -0.16500000655651093,
-														"y" : -0.078000001609325409,
-														"z" : -0.71700000762939453
+														"x" : -0.14610970020294189,
+														"y" : -1.5018868446350098,
+														"z" : -3.2162940502166748
 													},
 													"rotation" : 
 													{
-														"w" : 1.0,
+														"w" : 0.70710676908493042,
 														"x" : 0.0,
-														"y" : 0.0,
+														"y" : 0.70710676908493042,
 														"z" : 0.0
 													},
 													"scale" : 
 													{
-														"x" : 1.0,
-														"y" : 1.0,
-														"z" : 1.0
+														"x" : 0.20000000298023224,
+														"y" : 0.20000000298023224,
+														"z" : 0.20000000298023224
 													},
 													"scene" : false,
 													"static" : false,
@@ -1706,7 +1706,54 @@
 													{
 														"model" : "Resources/NewAssets/Models/Attraption/Models/rock_for_puzzleAttrap"
 													},
-													"children" : null,
+													"children" : 
+													[
+														{
+															"RigidBody" : 
+															{
+																"angularDamping" : 0.0,
+																"cor" : 0.0,
+																"friction" : 0.0,
+																"ghost" : false,
+																"kinematic" : true,
+																"linearDamping" : 0.0,
+																"mass" : 0.0,
+																"rollingFriction" : 0.0,
+																"spinningFriction" : 0.0
+															},
+															"Shape" : 
+															{
+																"sphere" : 
+																{
+																	"radius" : 0.5
+																}
+															},
+															"children" : null,
+															"name" : "CounterweightCollider",
+															"position" : 
+															{
+																"x" : -0.18200001120567322,
+																"y" : 0.1080000028014183,
+																"z" : 3.1780002117156982
+															},
+															"rotation" : 
+															{
+																"w" : 1.0,
+																"x" : 0.0,
+																"y" : 0.0,
+																"z" : 0.0
+															},
+															"scale" : 
+															{
+																"x" : 1.0,
+																"y" : 1.0,
+																"z" : 1.0
+															},
+															"scene" : false,
+															"static" : false,
+															"uid" : 1511956230
+														}
+													],
 													"name" : "Stone",
 													"position" : 
 													{
@@ -1855,6 +1902,102 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1510910799
+		},
+		{
+			"children" : 
+			[
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialWood"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Audio/Meshes/WoodAudioMesh"
+					},
+					"children" : null,
+					"name" : "Wood",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511960462
+				},
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialRock"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Audio/Meshes/StoneAudioMesh"
+					},
+					"children" : null,
+					"name" : "Rock",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511960471
+				}
+			],
+			"name" : "AudioMeshes",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511960453
 		}
 	],
 	"name" : "Root",

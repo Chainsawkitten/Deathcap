@@ -5,7 +5,7 @@
 			"name" : "Minecart",
 			"position" : 
 			{
-				"x" : 13.117710113525391,
+				"x" : 12.607121467590332,
 				"y" : 1.9472404718399048,
 				"z" : -1.1825543642044067
 			},
@@ -280,6 +280,117 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511788813
+		},
+		{
+			"name" : "elevatorScene",
+			"position" : 
+			{
+				"x" : -147.54244995117188,
+				"y" : 12.356910705566406,
+				"z" : -1.1720000505447388
+			},
+			"rotation" : 
+			{
+				"w" : 1.910685465164705e-15,
+				"x" : -4.3711388286737929e-08,
+				"y" : 1.0,
+				"z" : -4.3711388286737929e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/elevatorScene/elevatorScene_01",
+			"static" : false,
+			"uid" : 1511530010
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 0,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 19,
+				"triggerFunction" : "void SwitchPuzzleFinal()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512137120,
+				"triggerTargetEntity" : 1512137137,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "elevatorSwitchTrigger",
+			"position" : 
+			{
+				"x" : -109.41902160644531,
+				"y" : 2.0973498821258545,
+				"z" : -1.3458518981933594
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512137120
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Super Scene/Scripts/SwitcherScript_2"
+			},
+			"children" : null,
+			"name" : "elevatorSwitchScript",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512137137
 		},
 		{
 			"name" : "VoltageScene",

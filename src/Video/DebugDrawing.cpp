@@ -258,8 +258,8 @@ void DebugDrawing::DrawCone(const Cone& cone) {
 }
 
 void DebugDrawing::DrawMesh(const Mesh& mesh) {
-    VIDEO_ERROR_CHECK("DrawMesh");
-    assert(mesh.vertexArray);
+    VIDEO_ERROR_CHECK("DebugDrawing::DrawMesh");
+    assert(mesh.vertexArray != 0);
 
     glBindVertexArray(mesh.vertexArray);
 
@@ -268,7 +268,7 @@ void DebugDrawing::DrawMesh(const Mesh& mesh) {
     mesh.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
     glUniform3fv(colorLocation, 1, &mesh.color[0]);
     glUniform1f(sizeLocation, 10.f);
-    glDrawArrays(GL_TRIANGLES, 0, mesh.vertexCount);
+    glDrawElements(GL_TRIANGLES, mesh.indexCount, GL_UNSIGNED_INT, (void*)0);
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
@@ -388,6 +388,10 @@ void DebugDrawing::CreateCone(glm::vec3*& positions, unsigned int& vertexCount, 
 }
 
 void DebugDrawing::GenerateBuffers(const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices, Mesh& mesh) {
+    assert(mesh.vertexBuffer != 0);
+    assert(mesh.indexBuffer != 0);
+    assert(mesh.vertexArray == 0);
+
     glGenBuffers(1, &mesh.vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, mesh.vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), vertices.data(), GL_STATIC_DRAW);
@@ -395,7 +399,7 @@ void DebugDrawing::GenerateBuffers(const std::vector<glm::vec3>& vertices, const
     glGenBuffers(1, &mesh.indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
-    mesh.vertexCount = indices.size();
+    mesh.indexCount = indices.size();
 
     glGenVertexArrays(1, &mesh.vertexArray);
     glBindVertexArray(mesh.vertexArray);
@@ -409,14 +413,14 @@ void DebugDrawing::GenerateBuffers(const std::vector<glm::vec3>& vertices, const
 }
 
 void DebugDrawing::DeleteBuffers(Mesh& mesh) {
-    if (mesh.vertexArray != NULL)
+    if (mesh.vertexArray != 0)
         glDeleteVertexArrays(1, &mesh.vertexArray);
-    if(mesh.vertexBuffer != NULL)
+    if(mesh.vertexBuffer != 0)
         glDeleteBuffers(1, &mesh.vertexBuffer);
-    if(mesh.indexBuffer != NULL)
+    if(mesh.indexBuffer != 0)
         glDeleteBuffers(1, &mesh.indexBuffer);
 
-    mesh.vertexArray = NULL;
-    mesh.vertexBuffer = NULL;
-    mesh.indexBuffer = NULL;
+    mesh.vertexArray = 0;
+    mesh.vertexBuffer = 0;
+    mesh.indexBuffer = 0;
 }

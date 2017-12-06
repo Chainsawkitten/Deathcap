@@ -2,6 +2,8 @@
 
 #include <angelscript.h>
 #include <scriptbuilder/scriptbuilder.h>
+#include <scriptarray/scriptarray.h>
+#include <scriptdictionary/scriptdictionary.h>
 #include <scriptmath/scriptmath.h>
 #include <scriptstdstring/scriptstdstring.h>
 #include <Utility/Log.hpp>
@@ -105,16 +107,17 @@ void AngelScriptDebugLineCallback(asIScriptContext* ctx, const std::map<std::str
     const char* scriptSection;
     int line = ctx->GetLineNumber(0, 0, &scriptSection);
 
-    std::string fileName(scriptSection);
-    fileName = fileName.substr(fileName.find_last_of("/") + 1);
+    if (scriptSection) {
+        std::string fileName(scriptSection);
+        fileName = fileName.substr(fileName.find_last_of("/") + 1);
 
-    // Determine if we have reached a break point
-    if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end()) {
-        // A break point has been reached so the execution of the script should be suspended
-        // Show the call stack
-        std::string callstack = CallstackToString(ctx);
-        std::string variables = VariablesToString(ctx, 0);
-
+        // Determine if we have reached a break point
+        if (breakpoints->find(fileName) != breakpoints->end() && breakpoints->at(fileName).find(line) != breakpoints->at(fileName).end()) {
+            // A break point has been reached so the execution of the script should be suspended
+            // Show the call stack
+            std::string callstack = CallstackToString(ctx);
+            std::string variables = VariablesToString(ctx, 0);
+        }
     }
 }
 
@@ -238,6 +241,8 @@ ScriptManager::ScriptManager() {
   
     // Register add-ons.
     RegisterStdString(engine);
+    RegisterScriptArray(engine, true);
+    RegisterScriptDictionary(engine);
     RegisterScriptMath(engine);
 
     engine->RegisterEnum("input");

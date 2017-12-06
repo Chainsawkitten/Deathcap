@@ -67,7 +67,7 @@ vec3 calculateNormal(in vec3 normal, in vec3 tangent, in vec3 normalFromMap) {
     
     vec3 mn = 2.0 * normalFromMap - vec3(1.0, 1.0, 1.0);
     // Calculate Z component since we only store X and Y in the texture.
-    mn.b = sqrt(mn.r * mn.r + mn.g * mn.g);
+    mn.b = sqrt(1.0 - mn.r * mn.r - mn.g * mn.g);
     mat3 TBN = mat3(t, b, n);
     return TBN * mn;
 }
@@ -114,9 +114,10 @@ float ShadowCalculation(vec4 fragPosLightSpace){
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     // to range [0,1]
     projCoords = projCoords * 0.5 + vec3(0.5);
+    float bias = 0.005;
     float closestDepth = texture(mapShadow, projCoords.xy).r;
     float currentDepth = projCoords.z;
-    float shadow = currentDepth  > closestDepth ? 1.0 : 0.0;
+    float shadow = currentDepth - bias  > closestDepth ? 1.0 : 0.0;
 
     return shadow;
 }

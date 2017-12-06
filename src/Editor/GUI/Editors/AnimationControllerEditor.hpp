@@ -2,6 +2,7 @@
 
 #include "NodeEditor.hpp"
 #include "../ResourceSelector.hpp"
+#include <Engine/Util/Node.hpp>
 
 namespace Animation {
     class AnimationController;
