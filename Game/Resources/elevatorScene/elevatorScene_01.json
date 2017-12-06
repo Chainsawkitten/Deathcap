@@ -1389,61 +1389,6 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511958017
-				},
-				{
-					"Shape" : 
-					{
-						"sphere" : 
-						{
-							"radius" : 3.3000001907348633
-						}
-					},
-					"Trigger" : 
-					{
-						"trigger" : "A Trigger",
-						"triggerActive" : false,
-						"triggerCharges" : 0,
-						"triggerCollidedEntityUID" : 1509959164,
-						"triggerCooldown" : 0.0,
-						"triggerDelay" : 0.0,
-						"triggerEventStruct_Check_0" : true,
-						"triggerEventStruct_Check_1" : true,
-						"triggerEventStruct_Check_2" : true,
-						"triggerEventStruct_Check_3" : true,
-						"triggerEventStruct_EventID" : 0,
-						"triggerEventStruct_ScriptID" : 2,
-						"triggerEventStruct_ShapeID" : 0,
-						"triggerEventStruct_TargetID" : 0,
-						"triggerFunction" : "void SlowDown()",
-						"triggerName" : "New Trigger",
-						"triggerOwner" : 1512468859,
-						"triggerTargetEntity" : 1511874401,
-						"triggerTriggered" : false
-					},
-					"children" : null,
-					"name" : "SlowDownTrigger",
-					"position" : 
-					{
-						"x" : -2.8030602931976318,
-						"y" : -9.8748188018798828,
-						"z" : 0.12704938650131226
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512468859
 				}
 			],
 			"name" : "Triggers",
@@ -3777,7 +3722,7 @@
 			},
 			"scale" : 
 			{
-				"x" : 0.34162777662277222,
+				"x" : 0.33624628186225891,
 				"y" : 0.98000001907348633,
 				"z" : 1.3539962768554688
 			},
@@ -4020,7 +3965,7 @@
 			"name" : "manyRocks",
 			"position" : 
 			{
-				"x" : -5.4434661865234375,
+				"x" : -5.5527448654174805,
 				"y" : -11.411970138549805,
 				"z" : -0.52222925424575806
 			},
@@ -4040,6 +3985,145 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512467435
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "rock1",
+					"position" : 
+					{
+						"x" : -19.951396942138672,
+						"y" : -11.09792423248291,
+						"z" : -0.99432981014251709
+					},
+					"rotation" : 
+					{
+						"w" : 0.82585793733596802,
+						"x" : 0.15693472325801849,
+						"y" : -0.46402227878570557,
+						"z" : 0.27930936217308044
+					},
+					"scale" : 
+					{
+						"x" : 5.7799997329711914,
+						"y" : 5.7799997329711914,
+						"z" : 5.7799997329711914
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512553227
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "rock2",
+					"position" : 
+					{
+						"x" : -19.901321411132813,
+						"y" : -11.233322143554688,
+						"z" : 1.6011724472045898
+					},
+					"rotation" : 
+					{
+						"w" : 0.74622976779937744,
+						"x" : 0.12160566449165344,
+						"y" : -0.63888794183731079,
+						"z" : 0.14203710854053497
+					},
+					"scale" : 
+					{
+						"x" : 3.9399998188018799,
+						"y" : 3.9399998188018799,
+						"z" : 3.9399998188018799
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512553677
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"metallic" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_metallic",
+						"normal" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_normal",
+						"roughness" : "Resources/Bridge Puzzle Scene/Rock/Textures/Texture #38"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "rock3",
+					"position" : 
+					{
+						"x" : -20.12263298034668,
+						"y" : -10.978675842285156,
+						"z" : 0.81843972206115723
+					},
+					"rotation" : 
+					{
+						"w" : 0.94044727087020874,
+						"x" : -0.11806424707174301,
+						"y" : 0.28492128849029541,
+						"z" : 0.14296656847000122
+					},
+					"scale" : 
+					{
+						"x" : 1.5855844020843506,
+						"y" : 1.585584282875061,
+						"z" : 1.585584282875061
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512553859
+				}
+			],
+			"name" : "clippingRocks",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512553218
 		}
 	],
 	"name" : "Root",

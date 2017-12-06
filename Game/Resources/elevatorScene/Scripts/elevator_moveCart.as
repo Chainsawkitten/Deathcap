@@ -6,19 +6,12 @@ class elevator_moveCart {
     Entity @puzzleBoard;
     Entity @realSelf;
     float speed;
-	float stopTime;
-	float endTime;
     vec3 tempPos;
 	vec3 elevatorPos;
 	bool moveForward;
 	bool moveUpward;
     int phase;
     float uniformScale;
-	float a;
-    float b;
-    float c;
-	float s;
-	float brakeDistance;
 
     elevator_moveCart(Entity @entity){
         @hub = Managers();
@@ -34,10 +27,7 @@ class elevator_moveCart {
 		moveForward = true;
 		moveUpward = false;
         speed = 2.0f;
-		stopTime = 0.0f;
-		endTime = 1.0f;
         phase = 0;
-		s = 0.0f;
         uniformScale = 1.0f;
 
         // Remove this if updates are not desired.
@@ -79,19 +69,8 @@ class elevator_moveCart {
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
                 break;
-
-			case 3:				
-				tempPos = self.GetWorldPosition();
-                tempPos.x -= speed * deltaTime; 
-                self.SetWorldPosition(tempPos);
-			break;
         }
     }
-
-	void SlowDown() {
-        print("SLOW DOWN!");
-		
-	}
 	
 	void MoveForward() {
 		phase = 0;
