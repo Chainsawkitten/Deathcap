@@ -1,6 +1,8 @@
 ## Engine ##
 set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptbuilder/scriptbuilder.cpp
+        ../../externals/AngelScript/sdk/add_on/scriptarray/scriptarray.cpp
+        ../../externals/AngelScript/sdk/add_on/scriptdictionary/scriptdictionary.cpp
         ../../externals/AngelScript/sdk/add_on/scriptmath/scriptmath.cpp
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
