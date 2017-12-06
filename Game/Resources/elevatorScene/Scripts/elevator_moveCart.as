@@ -68,12 +68,13 @@ class elevator_moveCart {
                 self.SetWorldPosition(tempPos);
                 break;
                 
-			case 3: // Cart is stopped
+			case 4: // Cart is stopped
 				// Skip Puzzle
                 if(!IsVRActive() && Input(PuzzleSkip, @self)) {
                 	phase = 1;
                 	SendMessage(board, 1);
                 }
+                break;
         }
     }
     
@@ -82,7 +83,7 @@ class elevator_moveCart {
     }
     
     void StopCart() {
-        phase = 3;
+        phase = 4;
         SendMessage(board, 0);
     }
 }
