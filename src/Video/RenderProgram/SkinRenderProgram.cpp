@@ -58,6 +58,7 @@ SkinRenderProgram::SkinRenderProgram() {
     colorFilterColorLocation = shaderProgram->GetUniformLocation("colorFilterColor");
     ditherApplyLocation = shaderProgram->GetUniformLocation("ditherApply");
     timeLocation = shaderProgram->GetUniformLocation("time");
+    frameSizeLocation = shaderProgram->GetUniformLocation("frameSize");
     mapAlbedoLocation = shaderProgram->GetUniformLocation("mapAlbedo");
     mapNormalLocation = shaderProgram->GetUniformLocation("mapNormal");
     mapMetallicLocation = shaderProgram->GetUniformLocation("mapMetallic");
@@ -134,6 +135,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     this->projectionMatrix = projectionMatrix;
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
 
+    // Matrices.
     glUniformMatrix4fv(viewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniformMatrix4fv(lightSpaceLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 
@@ -141,34 +143,20 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     glUniform1i(lightCountLocation, lightCount);
     lightBuffer->BindBase(5);
 
-    // Post processing.
-    {
-        float gamma = 2.2f;
-        glUniform1fv(gammaLocation, 1, &gamma);
-    }
+    // Image processing.
+    glUniform1fv(gammaLocation, 1, &gamma);
 
-    {
-        int fogApply = false;
-        float fogDensity = 0.002f;
-        glm::vec3 fogColor = glm::vec3(1, 0, 0);
-        glUniform1iv(fogApplyLocation, 1, &fogApply);
-        glUniform1fv(fogDensityLocation, 1, &fogDensity);
-        glUniform3fv(fogColorLocation, 1, &fogColor[0]);
-    }
+    glUniform1iv(fogApplyLocation, 1, &fogApply);
+    glUniform1fv(fogDensityLocation, 1, &fogDensity);
+    glUniform3fv(fogColorLocation, 1, &fogColor[0]);
 
-    {
-        int colorFilterApply = false;
-        glm::vec3 colorFilterColor = glm::vec3(0, 1, 0);
-        glUniform1iv(colorFilterApplyLocation, 1, &colorFilterApply);
-        glUniform3fv(colorFilterColorLocation, 1, &colorFilterColor[0]);
-    }
+    glUniform1iv(colorFilterApplyLocation, 1, &colorFilterApply);
+    glUniform3fv(colorFilterColorLocation, 1, &colorFilterColor[0]);
 
-    {
-        int ditherApply = true;
-        float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() / 1000000000.0;
-        glUniform1iv(ditherApplyLocation, 1, &ditherApply);
-        glUniform1fv(timeLocation, 1, &time);
-    }
+    float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0;
+    glUniform1iv(ditherApplyLocation, 1, &ditherApply);
+    glUniform1fv(timeLocation, 1, &time);
+    glUniform2fv(frameSizeLocation, 1, &frameSize[0]);
 }
 
 void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const {
