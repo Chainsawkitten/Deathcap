@@ -1,15 +1,15 @@
 class elevator_moveCart {
     Hub @hub;
     Entity @self;
-	Entity @elevator;
-	Entity @board;
+    Entity @elevator;
+    Entity @board;
     Entity @puzzleBoard;
     Entity @realSelf;
     float speed;
     vec3 tempPos;
-	vec3 elevatorPos;
-	bool moveForward;
-	bool moveUpward;
+    vec3 elevatorPos;
+    bool moveForward;
+    bool moveUpward;
     int phase;
     float uniformScale;
 
