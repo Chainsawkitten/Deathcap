@@ -159,13 +159,13 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationAction* a
     Animation::Animation* anim = action->animationClip->animation;
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
-	float time = 0.1f;
-	if (!activeAction1->isPlaybackModifierStatic)
-		time = deltaTime * 24.f * controller->floatMap[activeAction1->playbackModifierFloatIndex]->value;
-	else
-		time = deltaTime * 24.f * activeAction1->playbackModifier;
+    float time = 0.1f;
+    if (!activeAction1->isPlaybackModifierStatic)
+        time = deltaTime * 24.f * controller->floatMap[activeAction1->playbackModifierFloatIndex]->value;
+    else
+        time = deltaTime * 24.f * activeAction1->playbackModifier;
 
-	anim->currentFrame += time;
+    anim->currentFrame += time;
     if (anim->currentFrame > anim->length) {
         anim->currentFrame = 0;
         anim->currentRootKeyIndex = 0;

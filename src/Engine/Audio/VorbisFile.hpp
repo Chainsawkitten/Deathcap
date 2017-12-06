@@ -25,7 +25,7 @@ namespace Audio {
              * @param data Address to store raw audio data.
              * @return Number of valid samples loaded from file.
              */
-            ENGINE_API int GetData(uint32_t offset, uint32_t samples, float*& data) const final;
+            ENGINE_API int GetData(uint32_t offset, uint32_t samples, float* data) const final;
             
             /// Get sample count.
             /**

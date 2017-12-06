@@ -33,23 +33,23 @@ class Entity {
         
         /// Add child entity.
         /**
-        * @param name The name of the child entity.
-        * @return The new entity.
-        */
+         * @param name The name of the child entity.
+         * @return The new entity.
+         */
         ENGINE_API Entity* AddChild(const std::string& name = "");
 
         /// Remove child entity.
         /**
-        * @param child The entity you want to remove.
-        * @return Did we manage to remove the child.
-        */
+         * @param child The entity you want to remove.
+         * @return Did we manage to remove the child.
+         */
         ENGINE_API bool RemoveChild(Entity* child);
         
         /// Set a new parent.
         /**
-        * @param newParent The entity you want to be the new parent.
-        * @return The old parent.
-        */
+         * @param newParent The entity you want to be the new parent.
+         * @return The old parent.
+         */
         ENGINE_API Entity* SetParent(Entity* newParent);
 
         /// Check if entity is a child.
@@ -69,11 +69,11 @@ class Entity {
         
         /// Check if scene already exists in any of json files.
         /**
-        * @param filename The name of the scene to check.
-        * @param error Set to true inside the function if it allready exists.
-        * @param originScene Name of scene you want to check.
-        * @param root The json value of root scene.
-        */
+         * @param filename The name of the scene to check.
+         * @param error Set to true inside the function if it allready exists.
+         * @param originScene Name of scene you want to check.
+         * @param root The json value of root scene.
+         */
         ENGINE_API void CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root);
 
         /// Get all of the entity's children.

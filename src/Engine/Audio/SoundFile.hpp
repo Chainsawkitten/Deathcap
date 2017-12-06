@@ -22,7 +22,7 @@ namespace Audio {
              * @param data Address to store raw audio data.
              * @return Number of valid samples loaded from file.
              */
-            virtual int GetData(uint32_t offset, uint32_t samples, float*& data) const = 0;
+            virtual int GetData(uint32_t offset, uint32_t samples, float* data) const = 0;
             
             /// Get sample count.
             /**
