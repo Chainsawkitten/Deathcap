@@ -2120,6 +2120,8 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512475495
+		},
+		{
 			"PointLight" : 
 			{
 				"attenuation" : 0.074000000953674316,

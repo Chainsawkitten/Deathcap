@@ -1073,32 +1073,6 @@
 			"uid" : 1512382169
 		},
 		{
-			"name" : "minecart",
-			"position" : 
-			{
-				"x" : -50.339229583740234,
-				"y" : -0.20856237411499023,
-				"z" : -0.42621234059333801
-			},
-			"rotation" : 
-			{
-				"w" : 0.70710676908493042,
-				"x" : 0.0,
-				"y" : -0.70710676908493042,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.20000000298023224,
-				"y" : 0.20000000298023224,
-				"z" : 0.20000000298023224
-			},
-			"scene" : true,
-			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
-			"static" : false,
-			"uid" : 1508919163
-		},
-		{
 			"Material" : 
 			{
 				"albedo" : "Resources/final_event/textures/sack_albedo",

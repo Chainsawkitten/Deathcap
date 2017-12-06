@@ -115,7 +115,10 @@
 		{
 			"Material" : 
 			{
-				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
 			},
 			"Mesh" : 
 			{
@@ -1038,7 +1041,6 @@
 				"triggerEventStruct_TargetID" : 3,
 				"triggerFunction" : "void TriggerAnim()",
 				"triggerName" : "New Trigger",
-				"triggerOwner" : 1512122749,
 				"triggerTargetEntity" : 1512122204,
 				"triggerTriggered" : false
 			},
@@ -1056,25 +1058,6 @@
 				"x" : 0.0,
 				"y" : 0.0,
 				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-				"x" : -34.795001983642578,
-				"y" : 2.8160853385925293,
-				"z" : 10.696269035339355
-			},
-			"rotation" : 
-			{
-				"w" : 0.87925451993942261,
-				"x" : -0.28150114417076111,
-				"y" : 0.37064903974533081,
-				"z" : -0.1014033630490303
 			},
 			"scale" : 
 			{
