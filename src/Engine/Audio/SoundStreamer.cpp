@@ -37,11 +37,9 @@ void SoundStreamer::BeginFlush() {
     flushLock.lock();
 }
 
-
 void SoundStreamer::EndFlush() {
     flushLock.unlock();
 }
-
 
 void SoundStreamer::Worker::Start(SoundStreamer* soundStreamer) {
     workThread = std::thread(std::bind(&SoundStreamer::Worker::Execute, this, soundStreamer));
