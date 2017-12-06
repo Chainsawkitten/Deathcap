@@ -159,7 +159,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Model/StarterScene_Cave"
+				"model" : "Resources/Opening Scene/Cave/Models/NewCave"
 			},
 			"children" : null,
 			"name" : "StarterCave",
@@ -307,15 +307,15 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Model/StarterScene_StraightCave"
+				"model" : "Resources/Opening Scene/Cave/Models/StraightCave"
 			},
 			"children" : null,
 			"name" : "StarterStrightCave",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -0.7420000433921814,
+				"y" : 0.060000002384185791,
+				"z" : -0.27000001072883606
 			},
 			"rotation" : 
 			{
@@ -326,9 +326,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
+				"x" : 1.0220000743865967,
+				"y" : 0.93800002336502075,
+				"z" : 0.93100005388259888
 			},
 			"scene" : false,
 			"static" : false,
@@ -492,7 +492,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/bridgeNewUV"
+				"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/FInalBridge"
 			},
 			"children" : null,
 			"name" : "StarterBridge",
@@ -849,7 +849,7 @@
 			"name" : "Flare1",
 			"position" : 
 			{
-				"x" : 1.6276733875274658,
+				"x" : 1.7085421085357666,
 				"y" : 1.9019343852996826,
 				"z" : 0.51401627063751221
 			},
@@ -966,6 +966,160 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511961315
+		},
+		{
+			"AnimationController" : 
+			{
+				"animationController" : "Resources/Opening Scene/Animation/Animation controller #1",
+				"skeleton" : "Resources/Opening Scene/Animation/monster@skeleton"
+			},
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/monstermaps/albedo",
+				"metallic" : "Resources/Opening Scene/monstermaps/metallic",
+				"normal" : "Resources/Opening Scene/monstermaps/normalmap",
+				"roughness" : "Resources/Opening Scene/monstermaps/roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Animation/monster1@model"
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/Opening Scene/Scripts/AnimationScript"
+			},
+			"children" : null,
+			"name" : "monster",
+			"position" : 
+			{
+				"x" : -36.262699127197266,
+				"y" : 0.93738043308258057,
+				"z" : 9.8411731719970703
+			},
+			"rotation" : 
+			{
+				"w" : 0.78931200504302979,
+				"x" : 0.0,
+				"y" : -0.61399209499359131,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.1600000262260437,
+				"y" : 0.1600000262260437,
+				"z" : 0.1600000262260437
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512122204
+		},
+		{
+			"Shape" : 
+			{
+				"box" : 
+				{
+					"depth" : 2.0,
+					"height" : 2.0,
+					"width" : 2.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 2,
+				"triggerEventStruct_ScriptID" : 1,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 3,
+				"triggerFunction" : "void TriggerAnim()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512122749,
+				"triggerTargetEntity" : 1512122204,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "TriggerAnim",
+			"position" : 
+			{
+				"x" : -29.386850357055664,
+				"y" : 2.5806319713592529,
+				"z" : -1.4610238075256348
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512122749
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.0860000848770142,
+				"color" : 
+				{
+					"x" : 0.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 1.4110000133514404
+			},
+			"SpotLight" : 
+			{
+				"ambientCoefficient" : 0.014000000432133675,
+				"attenuation" : 1.0610001087188721,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"coneAngle" : 26.471000671386719,
+				"intensity" : 9.2230005264282227,
+				"shadow" : false
+			},
+			"children" : null,
+			"name" : "monsterLights",
+			"position" : 
+			{
+				"x" : -34.795001983642578,
+				"y" : 2.8160853385925293,
+				"z" : 10.696269035339355
+			},
+			"rotation" : 
+			{
+				"w" : 0.87925451993942261,
+				"x" : -0.28150114417076111,
+				"y" : 0.37064903974533081,
+				"z" : -0.1014033630490303
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512123296
 		}
 	],
 	"name" : "Root",

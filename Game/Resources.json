@@ -1,10 +1,9 @@
 {
-
 	"activeScene" : "Resources/Super Scene/Super Scene",
-	"animationClipNumber" : 0,
-	"animationControllerNumber" : 0,
+	"animationClipNumber" : 2,
+	"animationControllerNumber" : 3,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 146,
+	"modelNumber" : 160,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -62,7 +61,11 @@
 								"resources" : 
 								[
 									{
-										"model" : "cave",
+										"model" : "NewCave",
+										"type" : 1
+									},
+									{
+										"model" : "StraightCave",
 										"type" : 1
 									}
 								],
@@ -216,10 +219,6 @@
 							},
 							{
 								"model" : "Walls",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Cave",
 								"type" : 1
 							},
 							{
@@ -541,6 +540,60 @@
 							{
 								"script" : "CartScript_0",
 								"type" : 4
+							},
+							{
+								"script" : "AnimationScript",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Animation",
+						"resources" : 
+						[
+							{
+								"model" : "monster1@model",
+								"type" : 1
+							},
+							{
+								"animationClip" : "monster@crouchscare",
+								"type" : 6
+							},
+							{
+								"skeleton" : "monster@skeleton",
+								"type" : 8
+							},
+							{
+								"animationClip" : "monster@attack",
+								"type" : 6
+							},
+							{
+								"animationController" : "Animation controller #1",
+								"type" : 7
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "monstermaps",
+						"resources" : 
+						[
+							{
+								"texture" : "normalmap",
+								"type" : 2
+							},
+							{
+								"texture" : "albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "roughness",
+								"type" : 2
 							}
 						],
 						"subfolders" : null
@@ -922,11 +975,7 @@
 								"resources" : 
 								[
 									{
-										"model" : "Bridge",
-										"type" : 1
-									},
-									{
-										"model" : "bridgeNewUV",
+										"model" : "FInalBridge",
 										"type" : 1
 									}
 								],
@@ -1031,7 +1080,21 @@
 			},
 			{
 				"name" : "NewAssets",
-				"resources" : null,
+				"resources" : 
+				[
+					{
+						"animationController" : "Animation controller #2",
+						"type" : 7
+					},
+					{
+						"animationClip" : "monster@run2",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@elevator",
+						"type" : 6
+					}
+				],
 				"subfolders" : 
 				[
 					{
@@ -1299,6 +1362,10 @@
 							},
 							{
 								"script" : "Cart_debug_script",
+								"type" : 4
+							},
+							{
+								"script" : "MonsterRun",
 								"type" : 4
 							}
 						],
@@ -1572,6 +1639,143 @@
 							{
 								"script" : "SwitcherScript_Final",
 								"type" : 4
+							},
+							{
+								"script" : "SwitcherScript_2",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					}
+				]
+			},
+			{
+				"name" : "elevatorScene",
+				"resources" : 
+				[
+					{
+						"scene" : "elevatorScene_01",
+						"type" : 0
+					},
+					{
+						"scene" : "buttonScene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Models",
+						"resources" : 
+						[
+							{
+								"model" : "elevatorCave_01",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_board",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_button",
+								"type" : 1
+							},
+							{
+								"model" : "lightsOut_button_frame",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Textures",
+						"resources" : 
+						[
+							{
+								"texture" : "lightsOut_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "lightsOut_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "lightsOut_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "lightsOut_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "elevator_roughness",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Elevator Parts",
+						"resources" : 
+						[
+							{
+								"model" : "frontDoorWithX",
+								"type" : 1
+							},
+							{
+								"model" : "elevatorCage",
+								"type" : 1
+							},
+							{
+								"model" : "frontDoorWithOutOfService",
+								"type" : 1
+							},
+							{
+								"model" : "backDoorWithX",
+								"type" : 1
+							},
+							{
+								"model" : "backDoorOutOfService",
+								"type" : 1
+							},
+							{
+								"model" : "mineElevator_wheel",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "elevator_moveCart",
+								"type" : 4
+							},
+							{
+								"script" : "elevator_frontDoorCon",
+								"type" : 4
+							},
+							{
+								"script" : "elevator_backDoorCon",
+								"type" : 4
+							},
+							{
+								"script" : "LightsOutScript",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
@@ -1580,9 +1784,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 25,
+	"sceneNumber" : 30,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 0,
+	"skeletonNumber" : 2,
 	"soundNumber" : 5,
-	"textureNumber" : 114
+	"textureNumber" : 123
 }
