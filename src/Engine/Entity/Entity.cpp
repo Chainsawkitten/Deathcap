@@ -319,7 +319,7 @@ void Entity::SetWorldOrientation(const glm::quat& worldRot) {
         rotation = worldRot;
     else {
         glm::quat quater = glm::quat_cast(parent->GetModelMatrix());
-        quater = glm::normalize(glm::inverse(quater) * worldRot);
+        quater = glm::inverse(quater) * worldRot;
         rotation = quater;
     }
 }
