@@ -54,41 +54,56 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     // This will work as the entry point for the animation.
     if (activeAction1 == nullptr) {
         if (controller->animationNodes.size() > 0) {
-            Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[0]);
-            if (tmpAction != nullptr)
-                activeAction1 = tmpAction;
-            else
-                return;
+            for (std::size_t i = 0; i < controller->animationNodes.size(); ++i) {
+                Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[i]);
+                if (tmpAction != nullptr) {
+                    activeAction1 = tmpAction;
+                    break;
+                }
+                else
+                    return;                
+            }
         } else
             return;
     }
 
-    if (!activeTransition && !activeAction1->repeat) {
+    if (!activeTransition) {
         for (uint32_t i = 0; i < activeAction1->numOutputSlots; ++i) {
             Animation::AnimationTransition* tmpTransition = dynamic_cast<Animation::AnimationTransition*>(controller->animationNodes[activeAction1->outputIndex[i]]);
             if (tmpTransition) {
-                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && tmpTransition->isStatic) {
+                if ((controller->boolMap.empty() || tmpTransition->isStatic) && tmpTransition->numOutputSlots > 0 && !activeAction1->repeat) {
                     Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
                     if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
                         activeTransition = tmpTransition;
                         activeTransition->transitionProcess = 0.f;
                         activeAction2 = tmpAction;
                         isBlending = true;
+                        break;
                     }
-                } else if (!tmpTransition->isStatic && !controller->boolMap.empty() && controller->boolMap[tmpTransition->transitionBoolIndex]) {
-                    // If the bool in the boolMap is true then set this to the activeTransition.
-                    activeTransition = tmpTransition;
-                    activeTransition->transitionProcess = 0.f;
-                    break;
+                } else if (!tmpTransition->isStatic && !controller->boolMap.empty() && controller->boolMap[tmpTransition->transitionBoolIndex]->value) {
+                    Animation::AnimationAction* tmpAction = dynamic_cast<Animation::AnimationAction*>(controller->animationNodes[tmpTransition->outputIndex[0]]);
+                    if (tmpAction && (activeAction1->animationClip->animation->currentFrame / activeAction1->animationClip->animation->length) > 1 - tmpTransition->transitionTime) {
+                        activeTransition = tmpTransition;
+                        activeTransition->transitionProcess = 0.f;
+                        activeAction2 = tmpAction;
+                        isBlending = true;
+                        break;
+                    }
                 }
             }
         }
     }
 
+    float time = 0.1f;
+    if (!activeAction1->isPlaybackModifierStatic)
+        time = deltaTime * 24.f * controller->floatMap[activeAction1->playbackModifierFloatIndex]->value;
+    else
+        time = deltaTime * 24.f * activeAction1->playbackModifier;
+
     if (!isBlending)
         Animate(deltaTime, activeAction1);
     else {
-        activeTransition->transitionProcess += (deltaTime * 24.f * activeAction1->playbackModifier) / activeAction1->animationClip->animation->length;
+        activeTransition->transitionProcess += time / activeAction1->animationClip->animation->length;
         if (activeTransition->transitionProcess > activeTransition->transitionTime) {
             activeTransition->transitionProcess = 0.f;
             activeTransition = nullptr;
@@ -108,11 +123,49 @@ void Component::AnimationController::UpdateAnimation(float deltaTime) {
     }
 }
 
+void AnimationController::SetBool(const std::string& name, bool value) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
+            controller->boolMap[i]->value = value;
+            return;
+        }
+}
+
+void AnimationController::SetFloat(const std::string& name, float value) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
+            controller->floatMap[i]->value = value;
+            return;
+        }
+}
+
+bool AnimationController::GetBool(const std::string& name) {
+    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0)
+            return controller->boolMap[i]->value;
+
+    return false;
+}
+
+float AnimationController::GetFloat(const std::string& name) {
+    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
+        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0)
+            return controller->floatMap[i]->value;
+
+    return -1.f;
+}
+
 void AnimationController::Animate(float deltaTime, Animation::AnimationAction* action, unsigned int skeletonId) {
     Animation::Animation* anim = action->animationClip->animation;
     std::size_t size = skeleton->skeletonBones.size() > anim->numBones ? anim->numBones : skeleton->skeletonBones.size();
 
-    anim->currentFrame += deltaTime * 24.0f * activeAction1->playbackModifier;
+	float time = 0.1f;
+	if (!activeAction1->isPlaybackModifierStatic)
+		time = deltaTime * 24.f * controller->floatMap[activeAction1->playbackModifierFloatIndex]->value;
+	else
+		time = deltaTime * 24.f * activeAction1->playbackModifier;
+
+	anim->currentFrame += time;
     if (anim->currentFrame > anim->length) {
         anim->currentFrame = 0;
         anim->currentRootKeyIndex = 0;
@@ -140,12 +193,8 @@ void AnimationController::Animate(float deltaTime, Animation::AnimationAction* a
 
     if (skeletonId == 1) {
         position1 = pos1 + pos2;
-        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
-        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
     } else if (skeletonId == 2) {
         position2 = pos1 + pos2;
-        skeleton->skeletonBones[0]->globalTx = skeleton->skeletonBones[0]->localTx;
-        bones[0] = skeleton->skeletonBones[0]->globalTx * skeleton->skeletonBones[0]->inversed;
     } else {
         glm::vec3 finalPos = pos1 + pos2;
         glm::mat4 matrixPos = glm::mat4(1.f);
@@ -252,36 +301,4 @@ void AnimationController::Blend(float deltaTime) {
         skeleton->skeletonBones[i]->globalTx = skeleton->skeletonBones[skeleton->skeletonBones[i]->parentId]->globalTx * skeleton->skeletonBones[i]->localTx * matrixRot;
         bones[i] = skeleton->skeletonBones[i]->globalTx * skeleton->skeletonBones[i]->inversed;
     }
-}
-
-void AnimationController::SetBool(const std::string& name, bool value) {
-    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
-        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0) {
-            controller->boolMap[i]->value = value;
-            return;
-        }
-}
-
-void AnimationController::SetFloat(const std::string& name, float value) {
-    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
-        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0) {
-            controller->floatMap[i]->value = value;
-            return;
-        }
-}
-
-bool AnimationController::GetBool(const std::string& name) {
-    for (std::size_t i = 0; i < controller->boolMap.size(); ++i)
-        if (strcmp(name.c_str(), controller->boolMap[i]->name) == 0)
-            return controller->boolMap[i]->value;
-
-    return false;
-}
-
-float AnimationController::GetFloat(const std::string& name) {
-    for (std::size_t i = 0; i < controller->floatMap.size(); ++i)
-        if (strcmp(name.c_str(), controller->floatMap[i]->name) == 0)
-            return controller->floatMap[i]->value;
-
-    return -1.f;
 }
