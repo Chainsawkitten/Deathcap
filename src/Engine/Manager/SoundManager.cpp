@@ -147,13 +147,16 @@ void SoundManager::ProcessSamples() {
         }
 
         // Pause it.
-        if (sound->shouldPause)
+        if (sound->shouldPause) {
             sound->shouldPlay = false;
+            sound->renderers->Flush();
+        }
 
         // Stop it.
         if (sound->shouldStop) {
             soundBuffer->Restart();
             sound->shouldPlay = false;
+            sound->renderers->Flush();
         }
     }
 
