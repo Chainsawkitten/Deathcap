@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/VoltageScene/VoltageScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
@@ -1986,14 +1986,6 @@
 						[
 							{
 								"script" : "Mastermind",
-								"type" : 4
-							},
-							{
-								"script" : "MastermindSlot",
-								"type" : 4
-							},
-							{
-								"script" : "MMTransistor",
 								"type" : 4
 							},
 							{
