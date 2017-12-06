@@ -433,6 +433,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectType("SoundSource", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("SoundSource", "float volume", asOFFSET(SoundSource, volume));
     engine->RegisterObjectProperty("SoundSource", "bool loop", asOFFSET(SoundSource, loop));
+    engine->RegisterObjectMethod("SoundSource", "bool IsPlaying()", asMETHOD(SoundSource, IsPlaying), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Play()", asMETHOD(SoundSource, Play), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Pause()", asMETHOD(SoundSource, Pause), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Stop()", asMETHOD(SoundSource, Stop), asCALL_THISCALL);

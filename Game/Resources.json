@@ -1589,7 +1589,17 @@
 				[
 					{
 						"name" : "textures",
-						"resources" : null,
+						"resources" : 
+						[
+							{
+								"texture" : "sack_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_normal",
+								"type" : 2
+							}
+						],
 						"subfolders" : null
 					},
 					{
@@ -2091,5 +2101,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
 	"soundNumber" : 5,
-	"textureNumber" : 151
+	"textureNumber" : 154
 }
