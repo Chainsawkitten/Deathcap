@@ -1,0 +1,4042 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageBeamsH"
+			},
+			"children" : null,
+			"name" : "VoltageBeamsH",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524822
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageBeamsV"
+			},
+			"children" : null,
+			"name" : "VoltageBeamsV",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524883
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/ElevatorFrame/Elevator_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageElevator"
+			},
+			"children" : null,
+			"name" : "VoltageElevator",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524903
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/VoltageScene/Textures/Floor/Sand_Albedo",
+				"metallic" : "Resources/VoltageScene/Textures/Floor/Sandy_Metall",
+				"normal" : "Resources/VoltageScene/Textures/Floor/Sand_Normal",
+				"roughness" : "Resources/VoltageScene/Textures/Floor/Sandy_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageFloor"
+			},
+			"children" : null,
+			"name" : "VoltageFloor",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524926
+		},
+		{
+			"Script" : 
+			{
+				"propertyMap" : 
+				{
+					"amountRotated" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"currentAngle" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"direction" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"rotateAngle" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					},
+					"rotateSpeed" : 
+					{
+						"10" : 
+						[
+							0,
+							0,
+							128,
+							63
+						]
+					}
+				},
+				"scriptName" : "Resources/VoltageScene/Scripts/RoundaboutScript"
+			},
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/VoltageRoundAboutStonePIle"
+					},
+					"children" : null,
+					"name" : "VoltageRoundAboutStonePile",
+					"position" : 
+					{
+						"x" : -30.882001876831055,
+						"y" : 0.0,
+						"z" : -2.1600000858306885
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511524985
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Abledo",
+						"metallic" : "",
+						"normal" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltageRoundAbout/VoltageRoundAbout_Roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/VoltageRoundAbout"
+					},
+					"children" : null,
+					"name" : "RoundAboutGround",
+					"position" : 
+					{
+						"x" : -30.781002044677734,
+						"y" : 0.0,
+						"z" : -2.375
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512469179
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/VoltageRoundAboutTrack"
+					},
+					"children" : null,
+					"name" : "VoltageRoundAboutTrack",
+					"position" : 
+					{
+						"x" : -30.820001602172852,
+						"y" : 0.0,
+						"z" : -2.3950002193450928
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511525011
+				}
+			],
+			"name" : "VoltageRoundAbout",
+			"position" : 
+			{
+				"x" : 30.884000778198242,
+				"y" : 0.0,
+				"z" : 2.44100022315979
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511524965
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageTrack"
+			},
+			"children" : null,
+			"name" : "VoltageTrack",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525032
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/VoltageScene/Textures/VoltageTube/VoltageTube_Albedo",
+				"metallic" : "Resources/VoltageScene/Textures/VoltageTube/VoltageTube_Metallic",
+				"normal" : "Resources/VoltageScene/Textures/VoltageTube/VoltageTube_Normal",
+				"roughness" : "Resources/VoltageScene/Textures/VoltageTube/VoltageTube_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageTube"
+			},
+			"children" : null,
+			"name" : "VoltageTube",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525085
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageWalls"
+			},
+			"children" : null,
+			"name" : "VoltageWalls",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : -0.55500000715255737,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525128
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageWallSupport"
+			},
+			"children" : null,
+			"name" : "VoltageWallSupport",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525211
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageCavein"
+			},
+			"children" : null,
+			"name" : "VoltageCaveIn",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511525516
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/VoltageScene/Scripts/RoundAboutMinecartController"
+			},
+			"children" : null,
+			"name" : "MinecartScript",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511528317
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.0099999997764825821,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 2.064000129699707
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/VoltageScene/Scripts/FlickeringLights"
+			},
+			"children" : null,
+			"name" : "JensLampa",
+			"position" : 
+			{
+				"x" : 30.733001708984375,
+				"y" : 4.1410002708435059,
+				"z" : -6.6590003967285156
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511528947
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltagePanelBeam"
+			},
+			"children" : null,
+			"name" : "VoltagePanelBeam",
+			"position" : 
+			{
+				"x" : 0.33800002932548523,
+				"y" : 0.0,
+				"z" : 0.52900004386901855
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511788523
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/VoltageScene/Textures/VoltagePanel/VoltagePanel_Albedo",
+				"metallic" : "Resources/VoltageScene/Textures/VoltagePanel/VoltagePanel_Metallic",
+				"normal" : "Resources/VoltageScene/Textures/VoltagePanel/VoltagePanel_Normal",
+				"roughness" : "Resources/VoltageScene/Textures/VoltagePanel/VoltagePanel_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltagePanel"
+			},
+			"children" : null,
+			"name" : "VoltagePanel",
+			"position" : 
+			{
+				"x" : 0.38200002908706665,
+				"y" : 0.0,
+				"z" : 0.50800001621246338
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511788524
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/VoltageScene/Scripts/Mastermind"
+			},
+			"children" : 
+			[
+				{
+					"children" : 
+					[
+						{
+							"children" : null,
+							"name" : "FuseParent",
+							"position" : 
+							{
+								"x" : 48.428001403808594,
+								"y" : 1.375,
+								"z" : 0.87400001287460327
+							},
+							"rotation" : 
+							{
+								"w" : 0.70710676908493042,
+								"x" : -0.70710676908493042,
+								"y" : -0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511860851
+						},
+						{
+							"children" : 
+							[
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046530,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 8,
+										"triggerFunction" : "void HoverSlot1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905121,
+										"triggerTargetEntity" : 1511964566,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S1T1",
+									"position" : 
+									{
+										"x" : 48.560001373291016,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1905121
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046531,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 9,
+										"triggerFunction" : "void HoverSlot1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905122,
+										"triggerTargetEntity" : 1511964615,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S1T2",
+									"position" : 
+									{
+										"x" : 48.560001373291016,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1905122
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046532,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 10,
+										"triggerFunction" : "void HoverSlot1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905123,
+										"triggerTargetEntity" : 1511964661,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S1T3",
+									"position" : 
+									{
+										"x" : 48.560001373291016,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1905123
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046533,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 0,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 11,
+										"triggerFunction" : "void HoverSlot1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905124,
+										"triggerTargetEntity" : 1511964754,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S1T4",
+									"position" : 
+									{
+										"x" : 48.560001373291016,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700006008148193
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1905124
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046534,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 12,
+										"triggerFunction" : "void HoverSlot1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1905125,
+										"triggerTargetEntity" : 1511964823,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S1T5",
+									"position" : 
+									{
+										"x" : 48.560001373291016,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1905125
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046535,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 13,
+										"triggerFunction" : "void HoverSlot1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 19051236,
+										"triggerTargetEntity" : 1511964862,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S1T6",
+									"position" : 
+									{
+										"x" : 48.560001373291016,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 19051236
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046536,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 14,
+										"triggerFunction" : "void HoverSlot1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 19051237,
+										"triggerTargetEntity" : 1511964915,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S1T7",
+									"position" : 
+									{
+										"x" : 48.560001373291016,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 19051237
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512044625,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 2,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 15,
+										"triggerFunction" : "void HoverSlot1()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 19051238,
+										"triggerTargetEntity" : 1511964701,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S1T8",
+									"position" : 
+									{
+										"x" : 48.560001373291016,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 19051238
+								}
+							],
+							"name" : "Slot1Triggers",
+							"position" : 
+							{
+								"x" : -0.13000001013278961,
+								"y" : 0.30600002408027649,
+								"z" : 0.12200000882148743
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511878219
+						}
+					],
+					"name" : "Slot1",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791705
+				},
+				{
+					"children" : 
+					[
+						{
+							"children" : null,
+							"name" : "FuseParent",
+							"position" : 
+							{
+								"x" : 48.675003051757813,
+								"y" : 1.375,
+								"z" : 0.87400001287460327
+							},
+							"rotation" : 
+							{
+								"w" : 0.70710676908493042,
+								"x" : -0.70710676908493042,
+								"y" : -0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511860862
+						},
+						{
+							"children" : 
+							[
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046530,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909217,
+										"triggerTargetEntity" : 1511964566,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S2T1",
+									"position" : 
+									{
+										"x" : 48.676002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1909217
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046531,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909218,
+										"triggerTargetEntity" : 1511964615,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S2T2",
+									"position" : 
+									{
+										"x" : 48.676002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1909218
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046532,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909219,
+										"triggerTargetEntity" : 1511964661,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S2T3",
+									"position" : 
+									{
+										"x" : 48.676002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1909219
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046533,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909220,
+										"triggerTargetEntity" : 1511964754,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S2T4",
+									"position" : 
+									{
+										"x" : 48.676002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1909220
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046534,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909221,
+										"triggerTargetEntity" : 1511964823,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S2T5",
+									"position" : 
+									{
+										"x" : 48.676002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1909221
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046535,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909222,
+										"triggerTargetEntity" : 1511964862,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S2T6",
+									"position" : 
+									{
+										"x" : 48.676002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1909222
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046536,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909223,
+										"triggerTargetEntity" : 1511964915,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S2T7",
+									"position" : 
+									{
+										"x" : 48.676002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1909223
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512044625,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot2()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1909224,
+										"triggerTargetEntity" : 1511964701,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S2T8",
+									"position" : 
+									{
+										"x" : 48.676002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1909224
+								}
+							],
+							"name" : "Slot2Triggers",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.30600002408027649,
+								"z" : 0.12200000137090683
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511878513
+						}
+					],
+					"name" : "Slot2",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791722
+				},
+				{
+					"children" : 
+					[
+						{
+							"children" : null,
+							"name" : "FuseParent",
+							"position" : 
+							{
+								"x" : 48.925003051757813,
+								"y" : 1.375,
+								"z" : 0.87400001287460327
+							},
+							"rotation" : 
+							{
+								"w" : 0.70710676908493042,
+								"x" : -0.70710676908493042,
+								"y" : -0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511860874
+						},
+						{
+							"children" : 
+							[
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046530,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913313,
+										"triggerTargetEntity" : 1511964566,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S3T1",
+									"position" : 
+									{
+										"x" : 48.926002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1913313
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046531,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913314,
+										"triggerTargetEntity" : 1511964615,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S3T2",
+									"position" : 
+									{
+										"x" : 48.926002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1913314
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046532,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913315,
+										"triggerTargetEntity" : 1511964661,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S3T3",
+									"position" : 
+									{
+										"x" : 48.926002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1913315
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046533,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913316,
+										"triggerTargetEntity" : 1511964754,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S3T4",
+									"position" : 
+									{
+										"x" : 48.926002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1913316
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046534,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913317,
+										"triggerTargetEntity" : 1511964823,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S3T5",
+									"position" : 
+									{
+										"x" : 48.926002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1913317
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046535,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913318,
+										"triggerTargetEntity" : 1511964862,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S3T6",
+									"position" : 
+									{
+										"x" : 48.926002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1913318
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046536,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913319,
+										"triggerTargetEntity" : 1511964915,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S3T7",
+									"position" : 
+									{
+										"x" : 48.926002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1913319
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512044625,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot3()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1913320,
+										"triggerTargetEntity" : 1511964701,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S3T8",
+									"position" : 
+									{
+										"x" : 48.926002502441406,
+										"y" : 1.0710000991821289,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1913320
+								}
+							],
+							"name" : "Slot3Triggers",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.3059999942779541,
+								"z" : 0.12200000137090683
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511878604
+						}
+					],
+					"name" : "Slot3",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791732
+				},
+				{
+					"children" : 
+					[
+						{
+							"children" : null,
+							"name" : "FuseParent",
+							"position" : 
+							{
+								"x" : 49.172000885009766,
+								"y" : 1.375,
+								"z" : 0.87400001287460327
+							},
+							"rotation" : 
+							{
+								"w" : 0.70710676908493042,
+								"x" : -0.70710676908493042,
+								"y" : -0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511860887
+						},
+						{
+							"children" : 
+							[
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046530,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot4()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917409,
+										"triggerTargetEntity" : 1511964566,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S4T1",
+									"position" : 
+									{
+										"x" : 49.024002075195313,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1917409
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046531,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot4()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917410,
+										"triggerTargetEntity" : 1511964615,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S4T2",
+									"position" : 
+									{
+										"x" : 49.024002075195313,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1917410
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046532,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot4()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917411,
+										"triggerTargetEntity" : 1511964661,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S4T3",
+									"position" : 
+									{
+										"x" : 49.024002075195313,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1917411
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046533,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot4()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917412,
+										"triggerTargetEntity" : 1511964754,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S4T4",
+									"position" : 
+									{
+										"x" : 49.024002075195313,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1917412
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046534,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot4()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917413,
+										"triggerTargetEntity" : 1511964823,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S4T5",
+									"position" : 
+									{
+										"x" : 49.024002075195313,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1917413
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046535,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot4()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917414,
+										"triggerTargetEntity" : 1511964862,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S4T6",
+									"position" : 
+									{
+										"x" : 49.024002075195313,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1917414
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512046536,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot4()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917415,
+										"triggerTargetEntity" : 1511964915,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S4T7",
+									"position" : 
+									{
+										"x" : 49.024002075195313,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1917415
+								},
+								{
+									"Shape" : 
+									{
+										"sphere" : 
+										{
+											"radius" : 0.05000000074505806
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1512044625,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 1,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 5,
+										"triggerFunction" : "void HoverSlot4()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1917416,
+										"triggerTargetEntity" : 1511964701,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "S4T8",
+									"position" : 
+									{
+										"x" : 49.024002075195313,
+										"y" : 1.0709999799728394,
+										"z" : 0.78700000047683716
+									},
+									"rotation" : 
+									{
+										"w" : 0.70710676908493042,
+										"x" : 0.70710676908493042,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1917416
+								}
+							],
+							"name" : "Slot4Triggers",
+							"position" : 
+							{
+								"x" : 0.14699999988079071,
+								"y" : 0.3059999942779541,
+								"z" : 0.12200000137090683
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511878868
+						}
+					],
+					"name" : "Slot4",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791744
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 0.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 15.0,
+						"intensity" : 487.6610107421875,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "Light1",
+					"position" : 
+					{
+						"x" : 48.548004150390625,
+						"y" : 1.0900000333786011,
+						"z" : 0.92000001668930054
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511791917
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 15.0,
+						"intensity" : 350.11203002929688,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "Light2",
+					"position" : 
+					{
+						"x" : 48.694004058837891,
+						"y" : 1.0900000333786011,
+						"z" : 0.92000001668930054
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511792154
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 15.0,
+						"intensity" : 435.39901733398438,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "Light3",
+					"position" : 
+					{
+						"x" : 48.913002014160156,
+						"y" : 1.0900000333786011,
+						"z" : 0.92000001668930054
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511792168
+				},
+				{
+					"SpotLight" : 
+					{
+						"ambientCoefficient" : 0.0,
+						"attenuation" : 1.0,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"coneAngle" : 15.0,
+						"intensity" : 344.05502319335938,
+						"shadow" : false
+					},
+					"children" : null,
+					"name" : "Light4",
+					"position" : 
+					{
+						"x" : 49.046001434326172,
+						"y" : 1.0900000333786011,
+						"z" : 0.92000001668930054
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511792181
+				}
+			],
+			"name" : "Mastermind",
+			"position" : 
+			{
+				"x" : -24.464786529541016,
+				"y" : 0.0,
+				"z" : 0.7599714994430542
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511791235
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/black_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.15000000596046448,
+									"radius" : 0.10000000149011612
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 8,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046530,
+								"triggerTargetEntity" : 1511964566,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "BlackShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.18200001120567322,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046530
+						}
+					],
+					"name" : "BlackPropp",
+					"position" : 
+					{
+						"x" : 0.40000000596046448,
+						"y" : 0.5,
+						"z" : 2.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964566
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/blue_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.15000000596046448,
+									"radius" : 0.10000000149011612
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 9,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046531,
+								"triggerTargetEntity" : 1511964615,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "BlueShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.14500001072883606,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046531
+						}
+					],
+					"name" : "BluePropp",
+					"position" : 
+					{
+						"x" : 0.69000005722045898,
+						"y" : 0.5,
+						"z" : 2.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964615
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/brown_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.15000000596046448,
+									"radius" : 0.10000000149011612
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 10,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046532,
+								"triggerTargetEntity" : 1511964661,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "BrownShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.13400000333786011,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046532
+						}
+					],
+					"name" : "BrownPropp",
+					"position" : 
+					{
+						"x" : 1.0300000905990601,
+						"y" : 0.5,
+						"z" : 2.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964661
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/pink_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.15000000596046448,
+									"radius" : 0.10000000149011612
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 11,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046533,
+								"triggerTargetEntity" : 1511964754,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "PinkShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.15400001406669617,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046533
+						}
+					],
+					"name" : "PinkPropp",
+					"position" : 
+					{
+						"x" : 1.408000111579895,
+						"y" : 0.5,
+						"z" : 2.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964754
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/red_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.15000000596046448,
+									"radius" : 0.10000000149011612
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 12,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046534,
+								"triggerTargetEntity" : 1511964823,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "RedShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.12800000607967377,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046534
+						}
+					],
+					"name" : "RedPropp",
+					"position" : 
+					{
+						"x" : 0.39000001549720764,
+						"y" : 0.5,
+						"z" : 2.4100000858306885
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964823
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/white_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.15000000596046448,
+									"radius" : 0.10000000149011612
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 13,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046535,
+								"triggerTargetEntity" : 1511964862,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "WhiteShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.13600000739097595,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046535
+						}
+					],
+					"name" : "WhitePropp",
+					"position" : 
+					{
+						"x" : 0.6950000524520874,
+						"y" : 0.5,
+						"z" : 2.4290001392364502
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964862
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/yellow_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.15000000596046448,
+									"radius" : 0.10000000149011612
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 14,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512046536,
+								"triggerTargetEntity" : 1511964915,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "YellowShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.15900000929832458,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512046536
+						}
+					],
+					"name" : "YellowPropp",
+					"position" : 
+					{
+						"x" : 1.0350000858306885,
+						"y" : 0.5,
+						"z" : 2.4290001392364502
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964915
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/VoltageScene/Textures/VoltagePropp/green_albedo",
+						"metallic" : "Resources/VoltageScene/Textures/VoltagePropp/propp_metallic",
+						"normal" : "Resources/VoltageScene/Textures/VoltagePropp/propp_normal",
+						"roughness" : "Resources/VoltageScene/Textures/VoltagePropp/propp_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Models/elpropp"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"cylinder" : 
+								{
+									"length" : 0.15000000596046448,
+									"radius" : 0.10000000149011612
+								}
+							},
+							"Trigger" : 
+							{
+								"trigger" : "A Trigger",
+								"triggerActive" : false,
+								"triggerCharges" : 0,
+								"triggerCollidedEntityUID" : 1508919758,
+								"triggerCooldown" : 0.0,
+								"triggerDelay" : 0.0,
+								"triggerEventStruct_Check_0" : true,
+								"triggerEventStruct_Check_1" : true,
+								"triggerEventStruct_Check_2" : true,
+								"triggerEventStruct_Check_3" : true,
+								"triggerEventStruct_EventID" : 1,
+								"triggerEventStruct_ScriptID" : 1,
+								"triggerEventStruct_ShapeID" : 0,
+								"triggerEventStruct_TargetID" : 15,
+								"triggerFunction" : "void PickupTrigger()",
+								"triggerName" : "New Trigger",
+								"triggerOwner" : 1512044625,
+								"triggerTargetEntity" : 1511964701,
+								"triggerTriggered" : false
+							},
+							"children" : null,
+							"name" : "GreenShape",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.17800000309944153,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512044625
+						}
+					],
+					"name" : "GreenPropp",
+					"position" : 
+					{
+						"x" : 1.4030001163482666,
+						"y" : 0.5,
+						"z" : 2.4120001792907715
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.10000000149011612,
+						"y" : 0.10000000149011612,
+						"z" : 0.10000000149011612
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511964701
+				}
+			],
+			"name" : "Propps",
+			"position" : 
+			{
+				"x" : 23.257001876831055,
+				"y" : 0.34700000286102295,
+				"z" : 1.5550000667572021
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511964555
+		},
+		{
+			"children" : null,
+			"name" : "Box",
+			"position" : 
+			{
+				"x" : 0.1510000079870224,
+				"y" : 3.8270001411437988,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512038087
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/VoltageScene/Textures/Skull/Skull_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/Skull"
+			},
+			"children" : null,
+			"name" : "Skull",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512052020
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 1,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 6,
+				"triggerFunction" : "void CommenceBrakingPhase()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512483174,
+				"triggerTargetEntity" : 1511528317,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "BrakeTrigger",
+			"position" : 
+			{
+				"x" : 19.604000091552734,
+				"y" : 0.0,
+				"z" : 2.5
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512483174
+		},
+		{
+			"children" : null,
+			"name" : "BrakeTarget",
+			"position" : 
+			{
+				"x" : 24.152999877929688,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512484898
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : -4.371138473402425e-08,
+		"x" : 4.3711391839451608e-08,
+		"y" : 1.0,
+		"z" : 4.3711391839451608e-08
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : true,
+	"uid" : 1511523963
+}
