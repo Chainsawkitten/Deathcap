@@ -16,16 +16,16 @@ class elevator_moveCart {
     elevator_moveCart(Entity @entity){
         @hub = Managers();
         @self = GetEntityByGUID(1508919163);
-		@elevator = GetEntityByGUID(1511870044);
-		@board = GetEntityByGUID(1511530025);
+        @elevator = GetEntityByGUID(1511870044);
+        @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
 
-        
+
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
-        
-		moveForward = true;
-		moveUpward = false;
+
+        moveForward = true;
+        moveUpward = false;
         speed = 2.0f;
         phase = 0;
         uniformScale = 1.0f;
@@ -34,11 +34,11 @@ class elevator_moveCart {
         RegisterUpdate();
     }
 
-	void ReceiveMessage(Entity @sender, int message) {
-		if(message == 0) {
+    void ReceiveMessage(Entity @sender, int message) {
+        if(message == 0) {
             phase = 1;
-		}
-	}
+        }
+    }
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
@@ -48,7 +48,7 @@ class elevator_moveCart {
                 tempPos = self.GetWorldPosition();
                 tempPos.x -= speed * deltaTime;
                 self.SetWorldPosition(tempPos);
-                break;
+            break;
 
             case 1: 
                 uniformScale -= (1.0f / 3.5f) * deltaTime;
@@ -58,26 +58,26 @@ class elevator_moveCart {
                 }
 
                 puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
-                break;
+            break;
 
             case 2:
                 elevatorPos = elevator.GetWorldPosition();
                 elevatorPos.y += speed * deltaTime;
                 elevator.SetWorldPosition(elevatorPos);
-                
+
                 tempPos = self.GetWorldPosition();
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
-                break;
+            break;
         }
+     }
+
+    void MoveForward() {
+        phase = 0;
     }
-	
-	void MoveForward() {
-		phase = 0;
-	}
-	
-	void StopCart() {
+
+    void StopCart() {
         phase = 4;
-		SendMessage(board, 0);
-	}
+        SendMessage(board, 0);
+    }
 }

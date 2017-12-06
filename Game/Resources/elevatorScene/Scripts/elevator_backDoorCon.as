@@ -31,7 +31,7 @@ class elevator_backDoorCon {
 				doorWithX.SetWorldPosition(tempPosWithX);
 				doorWithService.SetWorldPosition(tempPosWithService);
 			}
-		}
+        }
 		
 		if(openDoor == false) {
 			if(tempPosWithX.z > 0.0f) {
