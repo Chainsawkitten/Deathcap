@@ -61,13 +61,13 @@ class elevator_frontDoorCon {
         }
     }
 	
-	void OpenDoor() {
-		openDoor = true;
+    void OpenDoor() {
+        openDoor = true;
         doorWithX.GetSoundSource().Play();
         doorWithService.GetSoundSource().Play();
-	}
-	
-	void CloseDoor() {
-		openDoor = false;
-	}
+    }
+
+    void CloseDoor() {
+        openDoor = false;
+    }
 }
