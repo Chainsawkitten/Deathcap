@@ -28,12 +28,12 @@ class LightsOutScript {
         RegisterUpdate();
     }
 
-	void ReceiveMessage(Entity @sender, int message) {
-		if(message == 0) {
-			gameInactive = false;
-			@elevatorCartScript = @sender;
-		}
-	}
+    void ReceiveMessage(Entity @sender, int message) {
+        if(message == 0) {
+            gameInactive = false;
+            @elevatorCartScript = @sender;
+        }
+    }
 
     void Update(float deltaTime) {
         if (isPressed && !Input(Trigger, rightController)) {

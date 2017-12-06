@@ -1,8 +1,8 @@
 {
-	"activeScene" : "Resources/elevatorScene/elevatorScene_01",
-	"animationClipNumber" : 0,
-	"animationControllerNumber" : 0,
-	"audioMaterialNumber" : 5,
+	"activeScene" : "Resources/Super Scene/Super Scene",
+	"animationClipNumber" : 2,
+	"animationControllerNumber" : 3,
+	"audioMaterialNumber" : 4,
 	"modelNumber" : 160,
 	"resourceFolder" : 
 	{
@@ -61,7 +61,11 @@
 								"resources" : 
 								[
 									{
-										"model" : "cave",
+										"model" : "NewCave",
+										"type" : 1
+									},
+									{
+										"model" : "StraightCave",
 										"type" : 1
 									}
 								],
@@ -215,10 +219,6 @@
 							},
 							{
 								"model" : "Walls",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Cave",
 								"type" : 1
 							},
 							{
@@ -540,6 +540,60 @@
 							{
 								"script" : "CartScript_0",
 								"type" : 4
+							},
+							{
+								"script" : "AnimationScript",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Animation",
+						"resources" : 
+						[
+							{
+								"model" : "monster1@model",
+								"type" : 1
+							},
+							{
+								"animationClip" : "monster@crouchscare",
+								"type" : 6
+							},
+							{
+								"skeleton" : "monster@skeleton",
+								"type" : 8
+							},
+							{
+								"animationClip" : "monster@attack",
+								"type" : 6
+							},
+							{
+								"animationController" : "Animation controller #1",
+								"type" : 7
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "monstermaps",
+						"resources" : 
+						[
+							{
+								"texture" : "normalmap",
+								"type" : 2
+							},
+							{
+								"texture" : "albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "roughness",
+								"type" : 2
 							}
 						],
 						"subfolders" : null
@@ -921,11 +975,7 @@
 								"resources" : 
 								[
 									{
-										"model" : "Bridge",
-										"type" : 1
-									},
-									{
-										"model" : "bridgeNewUV",
+										"model" : "FInalBridge",
 										"type" : 1
 									}
 								],
@@ -1030,7 +1080,21 @@
 			},
 			{
 				"name" : "NewAssets",
-				"resources" : null,
+				"resources" : 
+				[
+					{
+						"animationController" : "Animation controller #2",
+						"type" : 7
+					},
+					{
+						"animationClip" : "monster@run2",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@elevator",
+						"type" : 6
+					}
+				],
 				"subfolders" : 
 				[
 					{
@@ -1298,6 +1362,10 @@
 							},
 							{
 								"script" : "Cart_debug_script",
+								"type" : 4
+							},
+							{
+								"script" : "MonsterRun",
 								"type" : 4
 							}
 						],
@@ -1733,7 +1801,7 @@
 	},
 	"sceneNumber" : 30,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 0,
+	"skeletonNumber" : 2,
 	"soundNumber" : 7,
 	"textureNumber" : 123
 }
