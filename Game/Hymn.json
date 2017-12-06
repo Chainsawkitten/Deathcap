@@ -68,6 +68,8 @@
 		"Resources/MonsterTestScript",
 		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
 		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer",
+		"Resources/Opening Scene/Scripts/AnimationScript",
+		"Resources/NewAssets/Scripts/MonsterRun",
 		"Resources/elevatorScene/Scripts/elevator_moveCart",
 		"Resources/elevatorScene/Scripts/elevator_frontDoorCon",
 		"Resources/elevatorScene/Scripts/elevator_backDoorCon",
