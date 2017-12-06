@@ -68,7 +68,7 @@ class MonsterScript {
                 break;
             }
             case 3: { // Approach player		
-                self.position.x -= 10.0f * deltaTime;
+                self.position.x += 10.0f * deltaTime;
                 break;
             }
             case 5: { // Eating
