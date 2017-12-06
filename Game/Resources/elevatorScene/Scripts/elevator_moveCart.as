@@ -13,6 +13,14 @@ class elevator_moveCart {
     int phase;
     float uniformScale;
 
+    float startStopPos;
+    float stopTime;
+    float endTime;
+    float a;
+    float b;
+    float c;
+    float brakeDistance;
+    
     elevator_moveCart(Entity @entity){
         @hub = Managers();
         @self = GetEntityByGUID(1508919163);
@@ -28,6 +36,7 @@ class elevator_moveCart {
         speed = 2.0f;
         phase = 0;
         uniformScale = 1.0f;
+        endTime = 6.5f;
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -69,13 +78,19 @@ class elevator_moveCart {
                 break;
                 
             case 3:
-                tempPos = self.GetWorldPosition();
-                tempPos.x -= speed * deltaTime;
-                self.SetWorldPosition(tempPos);
-                if(speed > 0.1f)
-                    speed -= speed * deltaTime * 0.12f;
+                if (stopTime < endTime){
+                    stopTime += deltaTime;
+                    tempPos = self.GetWorldPosition();
+                    float s = a * stopTime * stopTime * stopTime / 3 + b * stopTime * stopTime / 2 + c * stopTime;
+                    tempPos.x = startStopPos - s;
+                    self.SetWorldPosition(tempPos);
+                }
                 break;
-        }
+            case 4:
+                print("4");
+                break;
+
+            }
     }
     
     void MoveForward() {
@@ -83,6 +98,12 @@ class elevator_moveCart {
     }
     
     void SlowDown(){
+        startStopPos = self.GetWorldPosition().x;
+        brakeDistance = 13.37f; // The distance during which we will brake
+        c = speed;
+        b = (6 * brakeDistance - 4 * c * endTime) / (endTime * endTime);
+        a = -(c + b * endTime) / (endTime * endTime);
+        stopTime = 0;
         phase = 3;
     }
     
