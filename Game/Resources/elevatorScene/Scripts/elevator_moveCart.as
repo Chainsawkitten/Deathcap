@@ -21,10 +21,9 @@ class elevator_moveCart {
         @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
         @cage = GetEntityByGUID(1511870172);
-        
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
-        
+
         moveForward = true;
         moveUpward = false;
         speed = 2.0f;
@@ -45,10 +44,11 @@ class elevator_moveCart {
     void Update(float deltaTime) {
         switch(phase) {
             case 0:
+                speed = 2.0f;
                 tempPos = self.GetWorldPosition();
                 tempPos.x -= speed * deltaTime;
                 self.SetWorldPosition(tempPos);
-                break;
+            break;
 
             case 1: 
                 uniformScale -= (1.0f / 3.5f) * deltaTime;
@@ -59,27 +59,27 @@ class elevator_moveCart {
                 }
 
                 puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
-                break;
+            break;
 
             case 2:
                 elevatorPos = elevator.GetWorldPosition();
                 elevatorPos.y += speed * deltaTime;
                 elevator.SetWorldPosition(elevatorPos);
-                
+
                 tempPos = self.GetWorldPosition();
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
-                break;
+            break;
         }
     }
-    
+
     void MoveForward() {
         phase = 0;
     }
-    
+
     void StopCart() {
         cage.GetSoundSource().Stop();
-        phase = 3;
+        phase = 4;
         SendMessage(board, 0);
     }
 }

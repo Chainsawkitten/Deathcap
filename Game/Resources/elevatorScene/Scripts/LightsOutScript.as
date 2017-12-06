@@ -62,6 +62,18 @@ class LightsOutScript {
         return index >= 0 && index <= 15;
     }
 
+    void ResetBoard() {
+        Entity @btn;
+        if (Input(Trigger, rightController)) {
+            for (int x = 0; x < 16; ++x) {
+                buttonStates["" + x] = false;
+                buttons.get("" + x, @btn);
+                btn.position.x = 0.0f;
+                numPressedButtons = 0;
+            }
+        }
+    }
+
     // Index goes first row 0 -> 3, second row 4 -> 7 etc.
     void ButtonPress(int index) {
         if (gameInactive) {

@@ -6,7 +6,7 @@ class elevator_backDoorCon {
     vec3 tempPosWithX;
     vec3 tempPosWithService;
     float speed;
-    
+
 
     elevator_backDoorCon(Entity @entity){
         @hub = Managers();
@@ -24,35 +24,35 @@ class elevator_backDoorCon {
             if(tempPosWithX.z > -1.5f) {
                 tempPosWithX = doorWithX.GetWorldPosition();
                 tempPosWithService = doorWithService.GetWorldPosition();
-            
+
                 tempPosWithX.z += speed * deltaTime;
                 tempPosWithService.z -= speed * deltaTime;
-                
+
                 doorWithX.SetWorldPosition(tempPosWithX);
                 doorWithService.SetWorldPosition(tempPosWithService);
             }
         }
-        
+
         if(openDoor == false) {
             if(tempPosWithX.z > 0.0f) {
                 tempPosWithX = doorWithX.GetWorldPosition();
                 tempPosWithService = doorWithService.GetWorldPosition();
-            
+
                 tempPosWithX.z -= speed * deltaTime;
                 tempPosWithService.z += speed * deltaTime;
-                
+
                 doorWithX.SetWorldPosition(tempPosWithX);
                 doorWithService.SetWorldPosition(tempPosWithService);
             }
         }
     }
-    
+
     void OpenDoor() {
         doorWithX.GetSoundSource().Play();
         doorWithService.GetSoundSource().Play();
         openDoor = true;
     }
-    
+
     void CloseDoor() {
         openDoor = false;
     }
