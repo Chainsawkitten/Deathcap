@@ -9,7 +9,7 @@ class elevator_frontDoorCon {
     float boardPitch;
     float speed;
     float uniformScale;
-    
+
 
     elevator_frontDoorCon(Entity @entity){
         @hub = Managers();
@@ -30,10 +30,10 @@ class elevator_frontDoorCon {
             if(tempPosWithX.z < 2.0f) {
                 tempPosWithX = doorWithX.GetWorldPosition();
                 tempPosWithService = doorWithService.GetWorldPosition();
-            
+
                 tempPosWithX.z -= speed * deltaTime;
                 tempPosWithService.z += speed * deltaTime;
-                
+
                 doorWithX.SetWorldPosition(tempPosWithX);
                 doorWithService.SetWorldPosition(tempPosWithService);
             }
@@ -42,29 +42,27 @@ class elevator_frontDoorCon {
             if (uniformScale > 1.0f) {
                 uniformScale = 1.0f;
             }
-
             puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
-            
         }
-        
+
         if(openDoor == false) {
             if(tempPosWithX.z > 0.0f) {
                 tempPosWithX = doorWithX.GetWorldPosition();
                 tempPosWithService = doorWithService.GetWorldPosition();
-            
+
                 tempPosWithX.z += speed * deltaTime;
                 tempPosWithService.z -= speed * deltaTime;
-                
+
                 doorWithX.SetWorldPosition(tempPosWithX);
                 doorWithService.SetWorldPosition(tempPosWithService);
             }
         }
     }
-    
+
     void OpenDoor() {
         openDoor = true;
     }
-    
+
     void CloseDoor() {
         openDoor = false;
     }
