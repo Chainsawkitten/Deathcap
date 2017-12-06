@@ -29,8 +29,8 @@ int main(int argc, char* argv[]) {
     bool testing = false;
 
     // Quick fix in order to implement a testing parameter, 
-    for(int i = 1; i < argc; i++) {
-        if(std::string(argv[i]) == "t") {
+    for (int i = 1; i < argc; i++) {
+        if (std::string(argv[i]) == "t") {
             testing = true;
             Log() << "Frame and memory testing enabled\n";
         }
@@ -83,13 +83,13 @@ int main(int argc, char* argv[]) {
         Hymn().Update(static_cast<float>(deltaTime));
         Hymn().Render();
 
-    if(testing)
+    if ( testing )
         glFinish();
         
         // Swap buffers and wait until next frame.
         window->SwapBuffers();
         
-        if(testing) {
+        if ( testing ) {
             // Frame measurements.
             double frameTime = (glfwGetTime() - lastTimeRender);
             totalFrameTime += frameTime;
@@ -103,14 +103,14 @@ int main(int argc, char* argv[]) {
         }
 
         long wait = static_cast<long>((1.0 / targetFPS + lastTimeRender - glfwGetTime()) * 1000000.0);
-        if (wait > 0)
+        if ( wait > 0 )
             std::this_thread::sleep_for(std::chrono::microseconds(wait));
         lastTimeRender = glfwGetTime();
         
         // Get input.
         glfwPollEvents();
 
-        if(testing) {
+        if ( testing ) {
             ramUsed = Managers().profilingManager->MeasureRAM();
             vramUsed = Managers().profilingManager->MeasureVRAM();
 
@@ -124,7 +124,7 @@ int main(int argc, char* argv[]) {
         }
     }
     
-    if( testing ) {
+    if ( testing ) {
         std::fstream myfile("Log1080_FullGame.txt", std::ios::out);
         if (myfile) {
             myfile << "Frame rundown:\n";
