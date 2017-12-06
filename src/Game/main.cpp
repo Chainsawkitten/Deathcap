@@ -29,8 +29,8 @@ int main(int argc, char* argv[]) {
     bool testing = false;
 
     // Quick fix in order to implement a testing parameter, 
-    for(int i = 1; i < argc; i++) {
-        if(std::string(argv[i]) == "t") {
+    for (int i = 1; i < argc; i++) {
+        if (std::string(argv[i]) == "t") {
             testing = true;
             Log() << "Frame and memory testing enabled\n";
         }
@@ -83,13 +83,13 @@ int main(int argc, char* argv[]) {
         Hymn().Update(static_cast<float>(deltaTime));
         Hymn().Render();
 
-    if(testing)
-        glFinish();
+        if (testing)
+            glFinish();
         
         // Swap buffers and wait until next frame.
         window->SwapBuffers();
         
-        if(testing) {
+        if (testing) {
             // Frame measurements.
             double frameTime = (glfwGetTime() - lastTimeRender);
             totalFrameTime += frameTime;
@@ -114,17 +114,17 @@ int main(int argc, char* argv[]) {
             ramUsed = Managers().profilingManager->MeasureRAM();
             vramUsed = Managers().profilingManager->MeasureVRAM();
 
-        if (ramUsed > maxRamLimit && ramUsed > maxRamUsed)
-                maxRamUsed = ramUsed;
+            if (ramUsed > maxRamUsed)
+                    maxRamUsed = ramUsed;
             
-        if (vramUsed > maxVramLimit && vramUsed > maxVramUsed)
-                maxVramUsed = vramUsed;
+            if (vramUsed > maxVramUsed)
+                    maxVramUsed = vramUsed;
 
-        numberOfFrames++;
+            numberOfFrames++;
         }
     }
     
-    if( testing ) {
+    if (testing) {
         std::fstream myfile("Log1080_FullGame.txt", std::ios::out);
         if (myfile) {
             myfile << "Frame rundown:\n";
@@ -133,6 +133,8 @@ int main(int argc, char* argv[]) {
             myfile << "Percentage of bad frames: " << (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 << "%\n";
             myfile << "Average frame time: " << averageFrameTime << " ms\n";
             myfile << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
+            myfile << "Max ram used: " << maxRamUsed << "MiB\n";
+            myfile << "Max vram used: " << maxVramUsed << "MiB\n";
             myfile.close();
         }
         Log() << "Frame rundown:\n";
@@ -141,6 +143,8 @@ int main(int argc, char* argv[]) {
         Log() << "Percentage of bad frames: " << (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 << "%\n";
         Log() << "Average frame time: " << averageFrameTime << " ms\n";
         Log() << "Max frame time: " << maxFrameTime * 1000.0 << " ms\n";
+        Log() << "Max ram used: " << maxRamUsed << "MiB\n";
+        Log() << "Max vram used: " << maxVramUsed << "MiB\n";
     }
 
     // Save game settings.
@@ -155,17 +159,17 @@ int main(int argc, char* argv[]) {
 
     int returnValue = 0;
 
-    if ( maxRamUsed > maxRamLimit ) {
+    if (maxRamUsed > maxRamLimit) {
         Log() << "Ram limit exceeded.\n";
         returnValue = returnValue | 1;
     }
     
-    if ( maxVramUsed > maxVramLimit ) {
+    if (maxVramUsed > maxVramLimit) {
         Log() << "Vram limit exceeded.\n";
         returnValue = returnValue | 2;
     }
 
-    if ( (numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 > 5 ) {
+    if ((numberOfBadFrames / static_cast<double>(numberOfFrames))*100.0 > 5) {
         Log() << "Frame limit exceeded.\n";
         returnValue = returnValue | 4;
     }

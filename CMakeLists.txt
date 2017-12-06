@@ -59,11 +59,12 @@ if(DOXYGEN_FOUND AND HymnToBeautyBuildDocs)
     )
 endif()
 
+set(CMAKE_MODULE_PATH "${HymnToBeauty_SOURCE_DIR}/CMake/Packages")
+
 # VRAM measurements
 if(WIN32)
     option(MeasureVRAM "Measure VRAM (Requires DirectX 11)" OFF)
     if(MeasureVRAM)
-        set(CMAKE_MODULE_PATH "${HymnToBeauty_SOURCE_DIR}/CMake/Packages")
         find_package(DirectX11)
     endif()
 endif()
@@ -77,9 +78,6 @@ option(UseDoubleLogging "Log messages will be duplicated and sent to standard ou
 if(UseDoubleLogging)
     add_definitions(-DUSINGDOUBLELOGGING)
 endif()
-
-option(TestMemory "Enables memory testing in the game project." OFF)
-option(TestFrames "Enables frame testing in the game project." OFF)
 
 # Source files
 add_subdirectory(src)

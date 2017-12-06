@@ -1,6 +1,8 @@
 ## Engine ##
 set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptbuilder/scriptbuilder.cpp
+        ../../externals/AngelScript/sdk/add_on/scriptarray/scriptarray.cpp
+        ../../externals/AngelScript/sdk/add_on/scriptdictionary/scriptdictionary.cpp
         ../../externals/AngelScript/sdk/add_on/scriptmath/scriptmath.cpp
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
@@ -191,10 +193,12 @@ endif()
 
 # Measure RAM dependencies.
 if(WIN32)
-    find_library(PSAPI Psapi)
-    if(PSAPI)
+    find_package(PSAPI)
+    if(PSAPI_FOUND)
         target_compile_definitions(Engine PRIVATE MEASURE_RAM=1)
-        target_link_libraries(Engine ${PSAPI})
+        target_link_libraries(Engine ${PSAPI_LIBRARIES})
+    else()
+        message("PSAPI not found. Won't be able to measure RAM.")
     endif()
 endif()
 
