@@ -36,6 +36,9 @@ namespace Component {
             
             /// Stop the sound.
             ENGINE_API void Stop();
+
+            /// Get shouldPlay.
+            ENGINE_API bool IsPlaying();
             
             /// Sound buffer.
             Audio::SoundBuffer* soundBuffer = nullptr;
