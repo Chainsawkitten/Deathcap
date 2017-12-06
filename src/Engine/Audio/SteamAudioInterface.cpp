@@ -9,7 +9,7 @@ SteamAudioInterface::SteamAudioInterface() {
     simSettings.numDiffuseSamples = 1024;
     simSettings.numBounces = 3;
     simSettings.irDuration = 1.0;
-    simSettings.ambisonicsOrder = 1;
+    simSettings.ambisonicsOrder = 0;
     simSettings.maxConvolutionSources = 10;
     context = IPLContext{ nullptr, nullptr, nullptr };
 }
