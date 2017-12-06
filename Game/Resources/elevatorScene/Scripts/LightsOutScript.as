@@ -42,7 +42,6 @@ class LightsOutScript {
     }
 
     void Toggle(int index) {
-        buttonSound.Stop();
         buttonSound.Play();
         bool pressed = !bool(buttonStates["" + index]);
         buttonStates["" + index] = pressed;
