@@ -4,7 +4,6 @@
 #include "../Util/FileSystem.hpp"
 #include <fstream>
 #include <json/json.h>
-#include <Utility/Log.hpp>
 
 using namespace Audio;
 
