@@ -17,7 +17,6 @@ class Mastermind {
     Entity @light3;
     Entity @light4;
 
-    Entity @flickeringLights;
     Entity @roundabout;
 
     bool puzzleSolved = false;
@@ -31,6 +30,11 @@ class Mastermind {
         @slot2Key = GetEntityByGUID(1511964823); // RedPropp
         @slot3Key = GetEntityByGUID(1511964915); // YellowPropp
         @slot4Key = GetEntityByGUID(1511964754); // PinkPropp
+        @light1 = GetEntityByGUID(1511791917);
+        @light2 = GetEntityByGUID(1511792154);
+        @light3 = GetEntityByGUID(1511792168);
+        @light4 = GetEntityByGUID(1511792181);
+        @roundabout = GetEntityByGUID(1511524965);
 
         // Remove this if updates are not desired.
         RegisterUpdate();

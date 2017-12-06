@@ -1,10 +1,9 @@
 class FlickeringLights {
     Hub @hub;
     Entity @self;
-    Entity @light;
     
-    float flickTime;
-    float flickSpeed;
+    float flickTime = 1.0f;
+    float flickSpeed = 10.0f;
     
     FlickeringLights(Entity @entity){
         @hub = Managers();
@@ -15,15 +14,15 @@ class FlickeringLights {
     }
 
     bool flick = false;
-    float timer = 0;
+    float timer = 0.0f;
     
     bool first = true;
-    float originalIntensity;
+    float originalIntensity = 0.0f;
     // Called by the engine for each frame.
     void Update(float deltaTime) {
         if(first){
         
-            originalIntensity = light.GetPointLight().intensity;
+            originalIntensity = self.GetPointLight().intensity;
             first = false;
             
         }
@@ -32,12 +31,12 @@ class FlickeringLights {
             timer += deltaTime;
             if(timer > flickTime){
             
-                light.GetPointLight().intensity = originalIntensity;
+                self.GetPointLight().intensity = originalIntensity;
                 timer = 0;
                 flick = false;
             
             } else
-                FlickLight(light, timer);
+                FlickLight(self, timer);
         
         }
     

@@ -50,7 +50,7 @@ class Propp {
     }
 
     void PickupTrigger() {
-        if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) == null && !isPressed) {
+        if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) is null && !isPressed) {
             isPressed = true;
             self.position = vec3(0.0f, 0.0f, 0.0f);
             self.SetParent(rightCtrl);
