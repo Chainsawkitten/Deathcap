@@ -359,7 +359,7 @@
 						"triggerEventStruct_Check_2" : true,
 						"triggerEventStruct_Check_3" : true,
 						"triggerEventStruct_EventID" : 0,
-						"triggerEventStruct_ScriptID" : 3,
+						"triggerEventStruct_ScriptID" : 2,
 						"triggerEventStruct_ShapeID" : 0,
 						"triggerEventStruct_TargetID" : 0,
 						"triggerFunction" : "void StopCart()",
@@ -671,6 +671,61 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511958017
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 1.3000000715255737
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 3,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 0,
+						"triggerFunction" : "void SlowDown()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1512552496,
+						"triggerTargetEntity" : 1511874401,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "SlowDownTrigger",
+					"position" : 
+					{
+						"x" : -10.449895858764648,
+						"y" : -9.9646415710449219,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512552496
 				}
 			],
 			"name" : "Triggers",

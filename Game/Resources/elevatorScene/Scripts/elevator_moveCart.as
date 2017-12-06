@@ -67,6 +67,14 @@ class elevator_moveCart {
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
                 break;
+                
+            case 3:
+                tempPos = self.GetWorldPosition();
+                tempPos.x -= speed * deltaTime;
+                self.SetWorldPosition(tempPos);
+                if(speed > 0.1f)
+                    speed -= speed * deltaTime * 0.12f;
+                break;
         }
     }
     
@@ -74,8 +82,12 @@ class elevator_moveCart {
         phase = 0;
     }
     
-    void StopCart() {
+    void SlowDown(){
         phase = 3;
+    }
+    
+    void StopCart() {
+        phase = 4;
         SendMessage(board, 0);
     }
 }
