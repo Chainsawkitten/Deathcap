@@ -1,7 +1,7 @@
 class LightsOutScript {
     Entity @board;
     Entity @rightController;
-	Entity @elevatorCartScript;
+    Entity @elevatorCartScript;
     Entity @puzzleBoard;
     Component::SoundSource @buttonSound;
     dictionary buttons;
