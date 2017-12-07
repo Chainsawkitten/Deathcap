@@ -40,8 +40,11 @@ class MainScript {
         waitForMonsterTimer = 0.0f;
         knifePickedUp = false;
         particleActive=false;
-		//@lens=camera.GetLens();
-		//lens.zFar=60.0f;
+		
+		if(IsVRActive()){
+			@lens=camera.GetLens();
+			lens.zFar=60.0f;
+		}
         self.SetEnabled(false, true);
         // Remove this if updates are not desired.
         RegisterUpdate();
