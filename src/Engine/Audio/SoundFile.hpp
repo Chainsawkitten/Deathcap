@@ -58,7 +58,7 @@ namespace Audio {
             /**
              * @return Whether file is cached.
              */
-            ENGINE_API bool GetCached() const;
+            ENGINE_API bool IsCached() const;
 
             /// Save sound.
             ENGINE_API void Save() const;
@@ -74,6 +74,9 @@ namespace Audio {
 
             /// The folder containing the sound file.
             std::string path;
+
+            /// Whether SoundFile should be cached when loaded.
+            bool shouldCache = false;
 
         protected:
             /// Pointer to cached sound data.
