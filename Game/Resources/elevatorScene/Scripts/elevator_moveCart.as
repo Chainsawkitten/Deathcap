@@ -5,6 +5,7 @@ class elevator_moveCart {
     Entity @board;
     Entity @puzzleBoard;
     Entity @realSelf;
+    Entity @cage;
     float speed;
     vec3 tempPos;
     vec3 elevatorPos;
@@ -19,6 +20,7 @@ class elevator_moveCart {
         @elevator = GetEntityByGUID(1511870044);
         @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
+        @cage = GetEntityByGUID(1511870172);
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
 
@@ -53,6 +55,7 @@ class elevator_moveCart {
                 if (uniformScale < 0.0f) {
                     uniformScale = 0.0f;
                     phase = 2;
+                    cage.GetSoundSource().Play();
                 }
 
                 puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
@@ -75,6 +78,7 @@ class elevator_moveCart {
     }
 
     void StopCart() {
+        cage.GetSoundSource().Stop();
         phase = 4;
         SendMessage(board, 0);
     }

@@ -104,70 +104,11 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
         renderer->SetColorFilterColor(Hymn().filterSettings.colorFilterColor);
         renderer->SetDitherApply(Hymn().filterSettings.ditherApply);
         const bool fxaa = Hymn().filterSettings.fxaa;
-
-        // Render main window.
         const glm::vec2 windowSize = MainWindow::GetInstance()->GetSize();
-        if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
-            { PROFILE("Render main window");
-            { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-                const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
-                const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
-                const glm::vec3 position = camera->GetWorldPosition();
-                const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
 
-            { VIDEO_ERROR_CHECK("Render world entities");
-            { PROFILE("Render world entities");
-            { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
-            }
-            }
-            }
-
-            { PROFILE("Render debug entities");
-            { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-                Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
-            }
-            }
-
-            if (fxaa) {
-                { PROFILE("Anti-aliasing(FXAA)");
-                { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
-                { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
-                    renderer->AntiAlias(mainWindowRenderSurface);
-                }
-                }
-                }
-            }
-
-            { PROFILE("Render particles");
-            { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
-                mainWindowRenderSurface->GetShadingFrameBuffer()->BindWrite();
-                Managers().particleManager->RenderParticleSystem(viewMatrix, projectionMatrix);
-                mainWindowRenderSurface->GetShadingFrameBuffer()->Unbind();
-            }
-            }
-
-            if (soundSources || particleEmitters || lightSources || cameras || physics) {
-                { PROFILE("Render editor entities");
-                { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-                    RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
-                }
-                }
-            }
-
-            { PROFILE("Present to back buffer");
-            { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
-            { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
-                renderer->Present(mainWindowRenderSurface);
-            }
-            }
-            }
-            }
-            }
-        }
-
-        // Render hmd.
+        // Render to surfaces.
         if (hmdRenderSurface != nullptr) {
+            // Render vr headset.
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
 
@@ -235,6 +176,75 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
             { PROFILE("Sync hmd");
             { GPUPROFILE("Sync hmd", Video::Query::Type::TIME_ELAPSED);
                 Managers().vrManager->Sync();
+            }
+            }
+
+            // Present last rendered eye to window.
+            if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
+                { PROFILE("Present to back buffer");
+                { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
+                { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
+                    renderer->Present(hmdRenderSurface, windowSize);
+                }
+                }
+                }
+            }
+        } else if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
+            // Render main window.
+            { PROFILE("Render main window");
+            { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
+                const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
+                const glm::vec3 position = camera->GetWorldPosition();
+                const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+
+            { VIDEO_ERROR_CHECK("Render world entities");
+            { PROFILE("Render world entities");
+            { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
+                RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
+            }
+            }
+            }
+
+            { PROFILE("Render debug entities");
+            { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+                Managers().debugDrawingManager->Render(viewMatrix, projectionMatrix, mainWindowRenderSurface);
+            }
+            }
+
+            if (fxaa) {
+                { PROFILE("Anti-aliasing(FXAA)");
+                { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+                { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+                    renderer->AntiAlias(mainWindowRenderSurface);
+                }
+                }
+                }
+            }
+
+            { PROFILE("Render particles");
+            { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+                mainWindowRenderSurface->GetShadingFrameBuffer()->BindWrite();
+                Managers().particleManager->RenderParticleSystem(viewMatrix, projectionMatrix);
+                mainWindowRenderSurface->GetShadingFrameBuffer()->Unbind();
+            }
+            }
+
+            if (soundSources || particleEmitters || lightSources || cameras || physics) {
+                { PROFILE("Render editor entities");
+                { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                    RenderEditorEntities(world, soundSources, particleEmitters, lightSources, cameras, physics, position, up, viewMatrix, projectionMatrix, mainWindowRenderSurface);
+                }
+                }
+            }
+
+            { PROFILE("Present to back buffer");
+            { GPUPROFILE("Present to back buffer", Video::Query::Type::TIME_ELAPSED);
+            { GPUPROFILE("Present to back buffer", Video::Query::Type::SAMPLES_PASSED);
+                renderer->Present(mainWindowRenderSurface, windowSize);
+            }
+            }
+            }
             }
             }
         }

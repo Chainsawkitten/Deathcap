@@ -165,13 +165,16 @@ void Renderer::AntiAlias(RenderSurface* renderSurface) {
     postProcessing->ApplyFilter(renderSurface, fxaaFilter);
 }
 
-void Renderer::Present(RenderSurface* renderSurface) {
-    const glm::vec2 size = renderSurface->GetSize();
+void Renderer::Present(RenderSurface* renderSurface, const glm::vec2& targetSize) {
+    const glm::vec2 sourceSize = renderSurface->GetSize();
 
     // Copy color buffer.
     renderSurface->GetColorFrameBuffer()->BindRead();
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-    glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    if (sourceSize == targetSize)
+        glBlitFramebuffer(0, 0, sourceSize.x, sourceSize.y, 0, 0, targetSize.x, targetSize.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    else
+        glBlitFramebuffer(0, 0, sourceSize.x, sourceSize.y, 0, 0, targetSize.x, targetSize.y, GL_COLOR_BUFFER_BIT, GL_LINEAR);
     renderSurface->GetColorFrameBuffer()->Unbind();
 }
 
