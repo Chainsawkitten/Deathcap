@@ -4105,6 +4105,357 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512553218
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/elevatorScene/Scripts/Particals"
+			},
+			"children" : 
+			[
+				{
+					"ParticleSystem" : 
+					{
+						"NrOfParticles" : 311,
+						"alphaControl" : 10.0,
+						"emitAmount" : 1,
+						"lifetime" : 1000.0000610351563,
+						"mass" : 0.0010000000474974513,
+						"randomVelocity" : 
+						{
+							"x" : -10.0,
+							"y" : -10.0,
+							"z" : 10.0
+						},
+						"rate" : 0.30000001192092896,
+						"scale" : 0.10000000149011612,
+						"speed" : 0.010000000707805157,
+						"spread" : 100,
+						"textureIndex" : 39,
+						"velocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						}
+					},
+					"children" : null,
+					"name" : "Particals1",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : -0.42400002479553223,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512562692
+				},
+				{
+					"ParticleSystem" : 
+					{
+						"NrOfParticles" : 300,
+						"alphaControl" : 10.0,
+						"emitAmount" : 1,
+						"lifetime" : 644.00006103515625,
+						"mass" : 0.0040000001899898052,
+						"randomVelocity" : 
+						{
+							"x" : 2.0,
+							"y" : 10.0,
+							"z" : -10.0
+						},
+						"rate" : 1.0,
+						"scale" : 0.10000000149011612,
+						"speed" : 0.010000000707805157,
+						"spread" : 1,
+						"textureIndex" : 8,
+						"velocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						}
+					},
+					"children" : null,
+					"name" : "Particals4",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : -0.083000004291534424,
+						"z" : -0.33900001645088196
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512565200
+				}
+			],
+			"name" : "ParticalParent",
+			"position" : 
+			{
+				"x" : 1.0820000171661377,
+				"y" : -8.9860000610351563,
+				"z" : 0.13000001013278961
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512564077
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/elevatorScene/Scripts/Particals2"
+			},
+			"children" : 
+			[
+				{
+					"ParticleSystem" : 
+					{
+						"NrOfParticles" : 300,
+						"alphaControl" : 3.1000001430511475,
+						"emitAmount" : 31,
+						"lifetime" : 17.010000228881836,
+						"mass" : 0.017000000923871994,
+						"randomVelocity" : 
+						{
+							"x" : 10.0,
+							"y" : -9.0,
+							"z" : 10.0
+						},
+						"rate" : 0.0,
+						"scale" : 0.10000000149011612,
+						"speed" : 0.010000000707805157,
+						"spread" : 1,
+						"textureIndex" : 26,
+						"velocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						}
+					},
+					"children" : null,
+					"name" : "Particals3",
+					"position" : 
+					{
+						"x" : 0.24100001156330109,
+						"y" : 0.099000006914138794,
+						"z" : -0.024000000208616257
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512564991
+				},
+				{
+					"ParticleSystem" : 
+					{
+						"NrOfParticles" : 167,
+						"alphaControl" : 10.0,
+						"emitAmount" : 1,
+						"lifetime" : 1000.0000610351563,
+						"mass" : 0.0010000000474974513,
+						"randomVelocity" : 
+						{
+							"x" : 10.0,
+							"y" : 10.0,
+							"z" : 10.0
+						},
+						"rate" : 0.0,
+						"scale" : 0.10000000149011612,
+						"speed" : 0.010000000707805157,
+						"spread" : 100,
+						"textureIndex" : 4,
+						"velocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						}
+					},
+					"children" : null,
+					"name" : "Particals2",
+					"position" : 
+					{
+						"x" : -0.20100000500679016,
+						"y" : 0.39800003170967102,
+						"z" : 0.01100000087171793
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512564769
+				}
+			],
+			"name" : "ParticalParent2",
+			"position" : 
+			{
+				"x" : 1.0820000171661377,
+				"y" : -8.9860000610351563,
+				"z" : 0.13000001013278961
+			},
+			"rotation" : 
+			{
+				"w" : -4.3711391839451608e-08,
+				"x" : -4.371138473402425e-08,
+				"y" : -1.0,
+				"z" : -4.371138473402425e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512565858
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/elevatorScene/Scripts/Particals3"
+			},
+			"children" : 
+			[
+				{
+					"ParticleSystem" : 
+					{
+						"NrOfParticles" : 400,
+						"alphaControl" : 10.0,
+						"emitAmount" : 4,
+						"lifetime" : 1000.0000610351563,
+						"mass" : 0.89400005340576172,
+						"randomVelocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"rate" : 0.60000002384185791,
+						"scale" : 0.10000000149011612,
+						"speed" : 13.010000228881836,
+						"spread" : 100,
+						"textureIndex" : 24,
+						"velocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						}
+					},
+					"children" : null,
+					"name" : "Partical5",
+					"position" : 
+					{
+						"x" : -0.67900002002716064,
+						"y" : 0.52000004053115845,
+						"z" : 0.054000001400709152
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512566530
+				}
+			],
+			"name" : "ParticalParent3",
+			"position" : 
+			{
+				"x" : 1.0820000171661377,
+				"y" : -8.9860000610351563,
+				"z" : 0.12999999523162842
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512566495
 		}
 	],
 	"name" : "Root",

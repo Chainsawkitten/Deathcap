@@ -15,6 +15,7 @@ class elevator_moveCart {
     bool moveUpward;
     int phase;
     float uniformScale;
+    bool puzzleSkipped;
 
     float startStopPos;
     float stopTime;
@@ -31,11 +32,11 @@ class elevator_moveCart {
         @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
         @frontDoor = GetEntityByGUID(1511946590);
-        @cage = GetEntityByGUID(1511870172);
-        
+        @cage = GetEntityByGUID(1511870172);        
+
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
-
+        
         moveForward = true;
         moveUpward = false;
         speed = 2.0f;
@@ -43,6 +44,7 @@ class elevator_moveCart {
         uniformScale = 1.0f;
         endTime = 6.5f;
 
+        puzzleSkipped = false;
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -57,11 +59,10 @@ class elevator_moveCart {
     void Update(float deltaTime) {
         switch(phase) {
             case 0:
-                speed = 2.0f;
                 tempPos = self.GetWorldPosition();
                 tempPos.x -= speed * deltaTime;
                 self.SetWorldPosition(tempPos);
-            break;
+                break;
 
             case 1: 
                 uniformScale -= (1.0f / 3.5f) * deltaTime;
@@ -72,13 +73,13 @@ class elevator_moveCart {
                 }
 
                 puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
-            break;
+                break;
 
             case 2:
                 elevatorPos = elevator.GetWorldPosition();
                 elevatorPos.y += speed * deltaTime;
                 elevator.SetWorldPosition(elevatorPos);
-
+                
                 tempPos = self.GetWorldPosition();
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
@@ -101,7 +102,15 @@ class elevator_moveCart {
                 break;
 
             }
-
+            case 4: // Cart is stopped.
+                // Skip Puzzle.
+                if(!IsVRActive() && Input(PuzzleSkip, @self) && !puzzleSkipped) {
+                    puzzleSkipped = true;
+                    phase = 1;
+                    SendMessage(board, 1);
+                }
+                break;
+        }
     }
 
     void MoveForward() {

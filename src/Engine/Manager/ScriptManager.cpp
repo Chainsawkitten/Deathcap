@@ -392,8 +392,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "void RotateRoll(float angle)", asMETHOD(Entity, RotateRoll), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void RotateAroundWorldAxis(float, const vec3 &in)", asMETHOD(Entity, RotateAroundWorldAxis), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "quat GetWorldOrientation()", asMETHOD(Entity, GetWorldOrientation), asCALL_THISCALL);
-    engine->RegisterObjectMethod("Entity", "void SetWorldOrientation(quat)", asMETHOD(Entity, SetWorldOrientation), asCALL_THISCALL);
-    engine->RegisterObjectMethod("Entity", "void SetLocalOrientation(quat)", asMETHOD(Entity, SetLocalOrientation), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetWorldOrientation(const quat& in)", asMETHOD(Entity, SetWorldOrientation), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetLocalOrientation(const quat& in)", asMETHOD(Entity, SetLocalOrientation), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ SetParent(Entity@ parent) const", asMETHOD(Entity, SetParent), asCALL_THISCALL);
     
     // Register components.
@@ -404,7 +404,6 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("AnimationController", "void SetFloat(const string& in, float)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimationController", "bool GetBool(const string& in)", asMETHOD(AnimationController, GetBool), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimationController", "float GetFloat(const string& in)", asMETHOD(AnimationController, GetFloat), asCALL_THISCALL);
-
     engine->RegisterObjectType("DirectionalLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("DirectionalLight", "vec3 color", asOFFSET(DirectionalLight, color));
     engine->RegisterObjectProperty("DirectionalLight", "float ambientCoefficient", asOFFSET(DirectionalLight, ambientCoefficient));

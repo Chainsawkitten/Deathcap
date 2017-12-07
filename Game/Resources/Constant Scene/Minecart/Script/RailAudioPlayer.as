@@ -21,14 +21,12 @@ class RailAudioPlayer {
     	
     	if (v > 0.5f) {
     		if(!playingAudio) {
-    			print("Starting Audio\n");
     			playingAudio = true;
     			self.GetSoundSource().Play();
     		}
     	}
     	else {
     		if(playingAudio) {
-    			print("Stopping Audio\n");
     			playingAudio = false;
     			self.GetSoundSource().Pause();	
     		}
