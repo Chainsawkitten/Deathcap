@@ -23,8 +23,8 @@ FrameBuffer::FrameBuffer(const std::vector<ReadWriteTexture*>& textures) : textu
     // Create and intialize draw buffers 
     std::vector<GLenum> drawBuffers(textures.size());
     for (std::size_t i = 0; i < textures.size(); i++)
-        drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
-    glDrawBuffers(drawBuffers.size(), drawBuffers.data());
+        drawBuffers[i] = GL_COLOR_ATTACHMENT0 + static_cast<GLenum>(i);
+    glDrawBuffers(static_cast<GLsizei>(drawBuffers.size()), drawBuffers.data());
 
     // Check if framebuffer created correctly
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)

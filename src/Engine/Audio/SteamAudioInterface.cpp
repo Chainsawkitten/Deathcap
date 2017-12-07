@@ -63,7 +63,7 @@ IPLhandle* SteamAudioInterface::CreateStaticMesh(std::vector<IPLVector3> vertice
     IPLhandle mesh;
 
     // Create mesh
-    iplCreateStaticMesh(scene, vertices.size(), indices.size() / 3, &mesh);
+    iplCreateStaticMesh(scene, static_cast<IPLint32>(vertices.size()), static_cast<IPLint32>(indices.size() / 3), &mesh);
     iplSetStaticMeshVertices(scene, mesh, vertices.data());
     iplSetStaticMeshTriangles(scene, mesh, indices.data());
 

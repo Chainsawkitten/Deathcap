@@ -24,7 +24,7 @@ void Skeleton::Save(const std::string& path) {
     }
 
     // Save size.
-    uint32_t size = skeletonBones.size();
+    uint32_t size = static_cast<uint32_t>(skeletonBones.size());
     file.write(reinterpret_cast<char*>(&size), sizeof(uint32_t));
 
     // Save data.
