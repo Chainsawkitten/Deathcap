@@ -87,7 +87,7 @@ class elevator_moveCart {
         phase = 0;
     }
 
-    void StopCart() {        
+    void StopCart() {
         cage.GetSoundSource().Stop();
         phase = 4;
         SendMessage(board, 0);
