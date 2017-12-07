@@ -79,7 +79,7 @@ class MainScript {
                 }
                 break;
             }
-            case 1: { // Waiting for monster to eat/die.
+            case 4: { // Waiting for monster to eat/die.
                 // Puzzle Skip.
                 if(!IsVRActive() && Input(PuzzleSkip, @self)) {
                     phase = 2;
