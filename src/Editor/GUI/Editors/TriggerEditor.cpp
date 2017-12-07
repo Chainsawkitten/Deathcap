@@ -27,7 +27,7 @@ namespace ImGui {
     bool Combo(const char* label, int* currIndex, std::vector<std::string>& values) {
         if (values.empty()) { return false; }
         return Combo(label, currIndex, vector_getter,
-            static_cast<void*>(&values), values.size());
+            static_cast<void*>(&values), static_cast<int>(values.size()));
     }
 }
 
@@ -186,7 +186,7 @@ namespace GUI {
                         // Event type
                         int eventType = repeat->GetEventVector()->at(i).m_eventID;
 
-                        if (ImGui::Combo(labelEvent.c_str(), &eventType, events.data(), events.size())) {
+                        if (ImGui::Combo(labelEvent.c_str(), &eventType, events.data(), static_cast<int>(events.size()))) {
                             repeat->GetEventVector()->at(i).m_eventID = eventType;
                             repeat->GetEventVector()->at(i).check[0] = true;
                         }

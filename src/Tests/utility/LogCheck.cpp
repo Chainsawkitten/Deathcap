@@ -2,6 +2,10 @@
 #include <Utility/Log.hpp>
 #include <iostream>
 
+void testException() {
+    Log(Log::ERR) << "Test\n";
+}
+
 TEST_CASE("Log check", "[Log]") {
     SECTION("Log setup.") {
         REQUIRE(Log().SetupStream(Log::DEFAULT, &std::cout));
@@ -33,7 +37,7 @@ TEST_CASE("Log check", "[Log]") {
     }
 
     SECTION("Throwing exceptions with log") {
-        REQUIRE_THROWS( (Log(Log::ERR) << "Test\n") );
+        REQUIRE_THROWS( testException() );
     }
 
 }
