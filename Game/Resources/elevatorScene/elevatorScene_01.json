@@ -731,6 +731,12 @@
 					{
 						"model" : "Resources/elevatorScene/Elevator Parts/frontDoorWithX"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
+						"volume" : 1.0
+					},
 					"children" : null,
 					"name" : "frontDoorWithX",
 					"position" : 
@@ -767,6 +773,12 @@
 					"Mesh" : 
 					{
 						"model" : "Resources/elevatorScene/Elevator Parts/elevatorCage"
+					},
+					"SoundSource" : 
+					{
+						"loop" : true,
+						"sound" : "Resources/elevatorScene/Sounds/sndElevatorEngine",
+						"volume" : 1.0
 					},
 					"children" : null,
 					"name" : "cage",
@@ -805,6 +817,12 @@
 					{
 						"model" : "Resources/elevatorScene/Elevator Parts/frontDoorWithOutOfService"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
+						"volume" : 1.0
+					},
 					"children" : null,
 					"name" : "frontDoorWithOutOfService",
 					"position" : 
@@ -842,6 +860,12 @@
 					{
 						"model" : "Resources/elevatorScene/Elevator Parts/backDoorWithX"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
+						"volume" : 1.0
+					},
 					"children" : null,
 					"name" : "backDoorWithX",
 					"position" : 
@@ -878,6 +902,12 @@
 					"Mesh" : 
 					{
 						"model" : "Resources/elevatorScene/Elevator Parts/backDoorOutOfService"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
+						"volume" : 1.0
 					},
 					"children" : 
 					[
@@ -1479,6 +1509,12 @@
 			"uid" : 1511878105
 		},
 		{
+			"SoundSource" : 
+			{
+				"loop" : false,
+				"sound" : "Resources/elevatorScene/Sounds/sndButton",
+				"volume" : 0.96000003814697266
+			},
 			"children" : 
 			[
 				{
