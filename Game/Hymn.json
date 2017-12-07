@@ -67,7 +67,14 @@
 		"Resources/elevatorScene/Scripts/elevator_moveCart",
 		"Resources/elevatorScene/Scripts/elevator_frontDoorCon",
 		"Resources/elevatorScene/Scripts/elevator_backDoorCon",
-		"Resources/Super Scene/Scripts/SwitcherScript_2"
+		"Resources/Super Scene/Scripts/SwitcherScript_2",
+		"Resources/VoltageScene/Scripts/Propp",
+		"Resources/VoltageScene/Scripts/Mastermind",
+		"Resources/VoltageScene/Scripts/RoundaboutScript",
+		"Resources/VoltageScene/Scripts/ElevatorSoundScript",
+		"Resources/VoltageScene/Scripts/FlickeringLights",
+		"Resources/VoltageScene/Scripts/RoundAboutMinecartController",
+		"Resources/Super Scene/Scripts/SwitcherScript_Voltage"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5

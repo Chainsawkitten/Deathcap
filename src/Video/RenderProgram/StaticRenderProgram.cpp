@@ -45,7 +45,6 @@ StaticRenderProgram::StaticRenderProgram() {
     zViewProjectionLocation = zShaderProgram->GetUniformLocation("viewProjection");
     zModelLocation = zShaderProgram->GetUniformLocation("model");
     viewProjectionLocation = shaderProgram->GetUniformLocation("viewProjection");
-    inverseProjectionLocation = shaderProgram->GetUniformLocation("inverseProjectionMatrix");
     lightSpaceLocation = shaderProgram->GetUniformLocation("lightSpaceMatrix");
     lightCountLocation = shaderProgram->GetUniformLocation("lightCount");
     gammaLocation = shaderProgram->GetUniformLocation("gamma");
@@ -54,7 +53,7 @@ StaticRenderProgram::StaticRenderProgram() {
     fogColorLocation = shaderProgram->GetUniformLocation("fogColor");
     colorFilterApplyLocation = shaderProgram->GetUniformLocation("colorFilterApply");
     colorFilterColorLocation = shaderProgram->GetUniformLocation("colorFilterColor");
-    ditherLocation = shaderProgram->GetUniformLocation("ditherApply");
+    ditherApplyLocation = shaderProgram->GetUniformLocation("ditherApply");
     timeLocation = shaderProgram->GetUniformLocation("time");
     frameSizeLocation = shaderProgram->GetUniformLocation("frameSize");
     mapAlbedoLocation = shaderProgram->GetUniformLocation("mapAlbedo");
@@ -128,11 +127,9 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
     this->viewProjectionMatrix = projectionMatrix * viewMatrix;
-    glm::mat4 inverseProjectionMatrix = glm::inverse(projectionMatrix);
 
     // Matrices.
     glUniformMatrix4fv(viewProjectionLocation, 1, GL_FALSE, &viewProjectionMatrix[0][0]);
-    glUniformMatrix4fv(inverseProjectionLocation, 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
     glUniformMatrix4fv(lightSpaceLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 
     // Lights.
@@ -150,7 +147,8 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     glUniform3fv(colorFilterColorLocation, 1, &colorFilterColor[0]);
 
     float time = static_cast<float>(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0);
-    glUniform1iv(ditherLocation, 1, &ditherApply);
+    glUniform1iv(ditherApplyLocation, 1, &ditherApply);
+
     glUniform1fv(timeLocation, 1, &time);
     glUniform2fv(frameSizeLocation, 1, &frameSize[0]);
 }

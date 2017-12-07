@@ -489,6 +489,10 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
             for (int n = 0; n < propertyCount; n++) {
                 std::string propertyName = script->instance->GetPropertyName(n);
+                
+                std::string popupName = "Add entity reference##";
+                popupName += propertyName;
+
                 int typeId = script->instance->GetPropertyTypeId(n);
 
                 if (typeId == asTYPEID_INT32)
@@ -514,8 +518,9 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                             // Choosing other entity references
                             ImGui::Text(propertyText.c_str());
 
-                            if (ImGui::Button("Change entity reference"))
-                                ImGui::OpenPopup("Add entity reference");
+                            if (ImGui::Button(popupName.c_str()))
+                                ImGui::OpenPopup(popupName.c_str());
+
 
                         } else {
 
@@ -530,12 +535,12 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                             // Choosing other entity references
                             ImGui::Text(propertyText.c_str());
 
-                            if (ImGui::Button("Add entity reference"))
-                                ImGui::OpenPopup("Add entity reference");
+                            if (ImGui::Button(popupName.c_str()))
+                                ImGui::OpenPopup(popupName.c_str());
 
                         }
 
-                        if (ImGui::BeginPopup("Add entity reference")) {
+                        if (ImGui::BeginPopup(popupName.c_str())) {
                             ImGui::Text("Entities");
                             ImGui::Separator();
                             for (Entity* entity : Hymn().world.GetEntities()) /// @todo Change into a prettier tree structure or something, later.
