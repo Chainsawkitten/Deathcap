@@ -22,7 +22,7 @@ class elevator_moveCart {
         @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
         @cage = GetEntityByGUID(1511870172);
-      
+
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
         
@@ -72,21 +72,21 @@ class elevator_moveCart {
                 self.SetWorldPosition(tempPos);
                 break;
                 
-			case 4: // Cart is stopped
-				// Skip Puzzle
+            case 4: // Cart is stopped.
+                // Skip Puzzle.
                 if(!IsVRActive() && Input(PuzzleSkip, @self) && !puzzleSkipped) {
-                	puzzleSkipped = true;
-                	phase = 1;
-                	SendMessage(board, 1);
+                    puzzleSkipped = true;
+                    phase = 1;
+                    SendMessage(board, 1);
                 }
                 break;
         }
     }
-    
+
     void MoveForward() {
         phase = 0;
     }
-    
+
     void StopCart() {
         cage.GetSoundSource().Stop();
         phase = 4;

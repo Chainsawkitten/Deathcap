@@ -40,7 +40,7 @@ class RoundAboutMinecartController {
                 minecart.SetWorldPosition(position);
                 break;
             }
-            // Braking before the fuse box
+            // Braking before the fuse box.
             case 1: {
                 if (stopTime < endTime) {
                     stopTime += deltaTime;
@@ -55,8 +55,8 @@ class RoundAboutMinecartController {
             }
             // Waiting for permission to continue.
             case 2: {
-            	if (!IsVRActive() && Input(PuzzleSkip, @self))
-            		SendMessage(mastermind, 100);
+                if (!IsVRActive() && Input(PuzzleSkip, @self))
+                    SendMessage(mastermind, 100);
                 break;
             }
         }
@@ -72,7 +72,7 @@ class RoundAboutMinecartController {
     void CommenceBrakingPhase() {
         phase = 1;
         brakeStartLocation = minecart.GetWorldPosition().x;
-        float brakeDistance = abs(brakeTarget.GetWorldPosition().x - brakeStartLocation); // The distance during which we will brake
+        float brakeDistance = abs(brakeTarget.GetWorldPosition().x - brakeStartLocation); // The distance during which we will brake.
         c = speed;
         b = (6 * brakeDistance - 4 * c * endTime) / (endTime * endTime);
         a = -(c + b * endTime) / (endTime * endTime);
