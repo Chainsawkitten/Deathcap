@@ -25,7 +25,7 @@ SoundStreamer::DataHandle::DataHandle(SoundFile* soundFile, uint32_t offset, uin
 }
 
 void SoundStreamer::Load(SoundStreamer::DataHandle* handle) {
-    assert(!handle->soundFile->GetCached());
+    assert(!handle->soundFile->IsCached());
     std::unique_lock<std::mutex> lock(queueMutex, std::defer_lock);
     lock.lock();
     loadQueue.Push(handle);
