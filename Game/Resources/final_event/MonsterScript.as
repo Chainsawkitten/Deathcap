@@ -114,7 +114,7 @@ class MonsterScript {
     void StopCharging() {
         print("Stopping my charge\n");
         phase = 4;
-        snd_shriek.Play();
+        //snd_shriek.Play();
     }
 	
 	void TriggerRun(){
