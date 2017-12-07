@@ -2111,6 +2111,17 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "SnapClick",
+								"type" : 3
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			}
@@ -2119,6 +2130,6 @@
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
-	"soundNumber" : 11,
+	"soundNumber" : 12,
 	"textureNumber" : 154
 }

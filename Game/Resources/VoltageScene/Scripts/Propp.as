@@ -12,6 +12,7 @@ class Propp {
     int hoverSlot = -1;
     int slot = -1;
     vec3 startPosition;
+    Component::SoundSource @snapSound;
 
     Propp(Entity @entity) {
         @hub = Managers();
@@ -23,6 +24,7 @@ class Propp {
         @slot2Location = GetEntityByGUID(1511860862);
         @slot3Location = GetEntityByGUID(1511860874);
         @slot4Location = GetEntityByGUID(1511860887);
+        @snapSound = self.GetSoundSource();
 
         startPosition = self.position;
 
@@ -54,6 +56,7 @@ class Propp {
                 }
                 SendMessage(mastermind, hoverSlot - 1);
                 slot = hoverSlot - 1;
+                snapSound.Play();
             } else {
                 ReturnToStartPosition();
             }
