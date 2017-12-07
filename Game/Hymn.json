@@ -83,6 +83,9 @@
 		"Resources/VoltageScene/Scripts/FlickeringLights",
 		"Resources/VoltageScene/Scripts/RoundAboutMinecartController",
 		"Resources/Super Scene/Scripts/SwitcherScript_Voltage",
+		"Resources/elevatorScene/Scripts/Particals",
+		"Resources/elevatorScene/Scripts/Particals2",
+		"Resources/elevatorScene/Scripts/Particals3",
 		"Resources/Super Scene/Scripts/SwitcherScript_2",
 		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
 		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer"
