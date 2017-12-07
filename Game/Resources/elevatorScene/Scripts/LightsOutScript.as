@@ -34,7 +34,7 @@ class LightsOutScript {
             @elevatorCartScript = @sender;
         }
         if (message == 1) {
-        	gameInactive = true;
+            gameInactive = true;
         }
     }
 
