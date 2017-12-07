@@ -392,8 +392,8 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "void RotateRoll(float angle)", asMETHOD(Entity, RotateRoll), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "void RotateAroundWorldAxis(float, const vec3 &in)", asMETHOD(Entity, RotateAroundWorldAxis), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "quat GetWorldOrientation()", asMETHOD(Entity, GetWorldOrientation), asCALL_THISCALL);
-    engine->RegisterObjectMethod("Entity", "void SetWorldOrientation(quat)", asMETHOD(Entity, SetWorldOrientation), asCALL_THISCALL);
-    engine->RegisterObjectMethod("Entity", "void SetLocalOrientation(quat)", asMETHOD(Entity, SetLocalOrientation), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetWorldOrientation(const quat& in)", asMETHOD(Entity, SetWorldOrientation), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "void SetLocalOrientation(const quat& in)", asMETHOD(Entity, SetLocalOrientation), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ SetParent(Entity@ parent) const", asMETHOD(Entity, SetParent), asCALL_THISCALL);
     
     // Register components.

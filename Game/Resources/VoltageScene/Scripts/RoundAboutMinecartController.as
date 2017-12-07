@@ -3,6 +3,7 @@ class RoundAboutMinecartController {
     Entity @self;
     Entity @minecart;
     Entity @brakeTarget;
+    Entity @mastermind;
     int phase = 0;
     float speed = 2.0f;
     // v(t) = a*t*t + b*t + c
@@ -21,6 +22,7 @@ class RoundAboutMinecartController {
         @self = @entity;
         @minecart = GetEntityByGUID(1508919384);
         @brakeTarget = GetEntityByGUID(1512484898);
+        @mastermind = GetEntityByGUID(1511791235);
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -38,7 +40,7 @@ class RoundAboutMinecartController {
                 minecart.SetWorldPosition(position);
                 break;
             }
-            // Braking before the fuse box
+            // Braking before the fuse box.
             case 1: {
                 if (stopTime < endTime) {
                     stopTime += deltaTime;
@@ -53,6 +55,8 @@ class RoundAboutMinecartController {
             }
             // Waiting for permission to continue.
             case 2: {
+                if (!IsVRActive() && Input(PuzzleSkip, @self))
+                    SendMessage(mastermind, 100);
                 break;
             }
         }
@@ -68,7 +72,7 @@ class RoundAboutMinecartController {
     void CommenceBrakingPhase() {
         phase = 1;
         brakeStartLocation = minecart.GetWorldPosition().x;
-        float brakeDistance = abs(brakeTarget.GetWorldPosition().x - brakeStartLocation); // The distance during which we will brake
+        float brakeDistance = abs(brakeTarget.GetWorldPosition().x - brakeStartLocation); // The distance during which we will brake.
         c = speed;
         b = (6 * brakeDistance - 4 * c * endTime) / (endTime * endTime);
         a = -(c + b * endTime) / (endTime * endTime);

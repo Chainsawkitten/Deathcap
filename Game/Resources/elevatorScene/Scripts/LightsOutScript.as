@@ -29,9 +29,12 @@ class LightsOutScript {
     }
 
     void ReceiveMessage(Entity @sender, int message) {
-        if(message == 0) {
+        if (message == 0) {
             gameInactive = false;
             @elevatorCartScript = @sender;
+        }
+        if (message == 1) {
+            gameInactive = true;
         }
     }
 
