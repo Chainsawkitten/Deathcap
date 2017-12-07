@@ -75,6 +75,9 @@ namespace Audio {
             /// The folder containing the sound file.
             std::string path;
 
+            /// Whether SoundFile should be cached when loaded.
+            bool shouldCache = false;
+
         protected:
             /// Pointer to cached sound data.
             float* buffer = nullptr;
