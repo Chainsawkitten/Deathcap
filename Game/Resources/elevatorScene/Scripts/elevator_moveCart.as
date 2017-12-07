@@ -12,6 +12,7 @@ class elevator_moveCart {
     bool moveUpward;
     int phase;
     float uniformScale;
+    bool puzzleSkipped;
 
     elevator_moveCart(Entity @entity){
         @hub = Managers();
@@ -28,7 +29,7 @@ class elevator_moveCart {
         speed = 2.0f;
         phase = 0;
         uniformScale = 1.0f;
-
+        puzzleSkipped = false;
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -70,7 +71,8 @@ class elevator_moveCart {
                 
 			case 4: // Cart is stopped
 				// Skip Puzzle
-                if(!IsVRActive() && Input(PuzzleSkip, @self)) {
+                if(!IsVRActive() && Input(PuzzleSkip, @self) && !puzzleSkipped) {
+                	puzzleSkipped = true;
                 	phase = 1;
                 	SendMessage(board, 1);
                 }
