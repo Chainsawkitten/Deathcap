@@ -1820,6 +1820,18 @@
 							{
 								"script" : "LightsOutScript",
 								"type" : 4
+							},
+							{
+								"script" : "Particals",
+								"type" : 4
+							},
+							{
+								"script" : "Particals2",
+								"type" : 4
+							},
+							{
+								"script" : "Particals3",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
