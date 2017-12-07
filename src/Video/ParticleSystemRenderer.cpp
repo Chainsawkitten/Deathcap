@@ -18,12 +18,12 @@ ParticleSystemRenderer::ParticleSystemRenderer() {
     srand(time(NULL));
 
     // Temporary rotation matrix for future rotation of particles.
-    rotMat[0][0] = static_cast<float>(cos(1));
-    rotMat[0][1] = static_cast<float>(-sin(1));
+    rotMat[0][0] = cosf(1);
+    rotMat[0][1] = -sinf(1);
     rotMat[0][2] = 0;
     rotMat[0][3] = 1;
-    rotMat[1][0] = static_cast<float>(sin(1));
-    rotMat[1][1] = static_cast<float>(cos(1));
+    rotMat[1][0] = sinf(1);
+    rotMat[1][1] = cosf(1);
     rotMat[1][2] = 0;
     rotMat[1][3] = 1;
     rotMat[2][0] = 0;
@@ -44,12 +44,12 @@ ParticleSystemRenderer::ParticleSystemRenderer(int count) {
     srand(time(NULL));
 
     // Temporary rotation matrix for future rotation of particles.
-    rotMat[0][0] = static_cast<float>(cos(10));
-    rotMat[0][1] = static_cast<float>(-sin(10));
+    rotMat[0][0] = cosf(10);
+    rotMat[0][1] = -sinf(10);
     rotMat[0][2] = 0;
     rotMat[0][3] = 1;
-    rotMat[1][0] = static_cast<float>(sin(10));
-    rotMat[1][1] = static_cast<float>(cos(10));
+    rotMat[1][0] = sinf(10);
+    rotMat[1][1] = cosf(10);
     rotMat[1][2] = 0;
     rotMat[1][3] = 1;
     rotMat[2][0] = 0;

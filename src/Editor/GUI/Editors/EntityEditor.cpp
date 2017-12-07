@@ -118,7 +118,7 @@ void EntityEditor::Show() {
             if (rest > (toNearest / 2)) {
                 entity->position.y = static_cast<float>((value - rest) + toNearest);
             } else {
-                entity->position.y = static_cast<float>(static_cast<float>((value - rest)));
+                entity->position.y = static_cast<float>((value - rest));
             }
 
             value = static_cast<int>(entity->position.z);
