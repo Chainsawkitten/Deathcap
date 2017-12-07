@@ -41,10 +41,10 @@ class MainScript {
         knifePickedUp = false;
         particleActive=false;
 		
-		if(IsVRActive()){
-			@lens=camera.GetLens();
-			lens.zFar=60.0f;
-		}
+		//if(IsVRActive()){
+		//	@lens=camera.GetLens();
+		//	lens.zFar=60.0f;
+		//}
         self.SetEnabled(false, true);
         // Remove this if updates are not desired.
         RegisterUpdate();
