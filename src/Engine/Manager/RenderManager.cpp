@@ -697,7 +697,7 @@ bool RenderManager::GetDitherApply() const {
 }
 
 void RenderManager::SetTextureReduction(uint16_t textureReduction) {
-    this->textureReduction = textureReduction;
+    this->textureReduction = static_cast<uint8_t>(textureReduction);
 }
 
 uint16_t RenderManager::GetTextureReduction() const {
