@@ -183,9 +183,10 @@ namespace Video {
 
             /// Display the rendered results to back buffer.
             /**
-             * @param renderSurface %RenderSurface to present to back buffer.
+             * @param renderSurface RenderSurface to present to back buffer.
+             * @param targetSize Size of the back buffer in pixels.
              */
-            VIDEO_API void Present(RenderSurface* renderSurface);
+            VIDEO_API void Present(RenderSurface* renderSurface, const glm::vec2& targetSize);
 
             /// Begin rendering icons.
             /**

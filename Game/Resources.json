@@ -1823,6 +1823,25 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "Sounds",
+						"resources" : 
+						[
+							{
+								"sound" : "sndButton",
+								"type" : 3
+							},
+							{
+								"sound" : "sndElevatorOpen",
+								"type" : 3
+							},
+							{
+								"sound" : "sndElevatorEngine",
+								"type" : 3
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -2129,7 +2148,7 @@
 	},
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 6,
-	"soundNumber" : 6,
+	"skeletonNumber" : 2,
+	"soundNumber" : 11,
 	"textureNumber" : 154
 }
