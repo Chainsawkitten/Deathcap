@@ -39,7 +39,6 @@ uniform sampler2D mapMetallic;
 uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
 uniform sampler2D mapShadow;
-uniform mat4 inverseProjectionMatrix;
 // Image processing uniforms.
 uniform float gamma;
 uniform bool fogApply;

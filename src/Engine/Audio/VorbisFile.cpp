@@ -22,15 +22,16 @@ VorbisFile::~VorbisFile() {
         delete[] buffer;
 }
 
-int VorbisFile::GetData(uint32_t offset, uint32_t samples, float*& data) const {
+int VorbisFile::GetData(uint32_t offset, uint32_t samples, float* data) const {
     if (!IsLoaded())
         return 0;
 
     assert(offset < sampleCount);
 
     if (buffer) {
-        data = &buffer[offset];
-        return std::min(std::max(sampleCount - (int)(offset + samples), 0), (int)samples);
+        samples = std::min(std::max(sampleCount - (int)(offset + samples), 0), (int)samples);
+        memcpy(data, &buffer[offset], sizeof(float) * samples);
+        return samples;
     } else {
         stb_vorbis_seek(stbFile, offset);
         return stb_vorbis_get_samples_float_interleaved(stbFile, channelCount, data, samples);

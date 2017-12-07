@@ -17,7 +17,6 @@ namespace Audio {
     /// Total time of one update in seconds.
     const double FRAME_TIME = 1.f / UPDATES_PER_SECOUND;
 
-
     /// Class responsible for calculating direct audio.
     class SteamAudioRenderers {
         public:

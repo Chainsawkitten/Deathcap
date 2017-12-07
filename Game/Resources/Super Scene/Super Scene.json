@@ -5,7 +5,7 @@
 			"name" : "Minecart",
 			"position" : 
 			{
-				"x" : 12.607121467590332,
+				"x" : 13.145941734313965,
 				"y" : 1.9472404718399048,
 				"z" : -1.1825543642044067
 			},
@@ -174,8 +174,8 @@
 			"name" : "Final Scene",
 			"position" : 
 			{
-				"x" : -238.86521911621094,
-				"y" : 25.415607452392578,
+				"x" : -291.1190185546875,
+				"y" : 25.219001770019531,
 				"z" : -1.6230000257492065
 			},
 			"rotation" : 
@@ -230,9 +230,9 @@
 			"name" : "Switcher Final",
 			"position" : 
 			{
-				"x" : -173.81837463378906,
-				"y" : 26.1173095703125,
-				"z" : -1.6050000190734863
+				"x" : -210.5980224609375,
+				"y" : 25.496288299560547,
+				"z" : -1.6050001382827759
 			},
 			"rotation" : 
 			{
@@ -285,9 +285,9 @@
 			"name" : "elevatorScene",
 			"position" : 
 			{
-				"x" : -147.54244995117188,
-				"y" : 12.356910705566406,
-				"z" : -1.1720000505447388
+				"x" : -148.17601013183594,
+				"y" : 12.765000343322754,
+				"z" : -1.284000039100647
 			},
 			"rotation" : 
 			{
@@ -391,6 +391,117 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512137137
+		},
+		{
+			"name" : "VoltageScene",
+			"position" : 
+			{
+				"x" : -169.55555725097656,
+				"y" : 25.298423767089844,
+				"z" : 0.99307525157928467
+			},
+			"rotation" : 
+			{
+				"w" : -4.371138473402425e-08,
+				"x" : 4.3711391839451608e-08,
+				"y" : 1.0,
+				"z" : 4.3711391839451608e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/VoltageScene/VoltageScene",
+			"static" : true,
+			"uid" : 1511523963
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 0,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 27,
+				"triggerFunction" : "void SwitchPuzzleFinal()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512488782,
+				"triggerTargetEntity" : 1512488823,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "Switcher Voltage",
+			"position" : 
+			{
+				"x" : -163.90505981445313,
+				"y" : 25.530431747436523,
+				"z" : -1.3446121215820313
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512488782
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Super Scene/Scripts/SwitcherScript_Voltage"
+			},
+			"children" : null,
+			"name" : "SwitcherScript Voltage",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512488823
 		}
 	],
 	"name" : "Root",
