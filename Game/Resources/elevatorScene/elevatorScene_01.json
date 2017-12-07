@@ -13,7 +13,685 @@
 			{
 				"model" : "Resources/elevatorScene/Models/elevatorCave_01"
 			},
-			"children" : null,
+			"children" : 
+			[
+				{
+					"children" : 
+					[
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -16.766269683837891,
+								"y" : -11.37257194519043,
+								"z" : 1.629271388053894
+							},
+							"rotation" : 
+							{
+								"w" : -0.95893871784210205,
+								"x" : 0.27421543002128601,
+								"y" : -0.072269685566425323,
+								"z" : 0.0044232308864593506
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467883
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -17.588531494140625,
+								"y" : -10.999858856201172,
+								"z" : -2.2894382476806641
+							},
+							"rotation" : 
+							{
+								"w" : 0.5118100643157959,
+								"x" : 0.18968299031257629,
+								"y" : -0.73824375867843628,
+								"z" : -0.39631661772727966
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467884
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -12.820632934570313,
+								"y" : -10.942212104797363,
+								"z" : -3.0355634689331055
+							},
+							"rotation" : 
+							{
+								"w" : 0.90378743410110474,
+								"x" : 0.23014935851097107,
+								"y" : 0.34769868850708008,
+								"z" : 0.096462838351726532
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467888
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -10.011218070983887,
+								"y" : -10.992922782897949,
+								"z" : 2.1788654327392578
+							},
+							"rotation" : 
+							{
+								"w" : -0.78917831182479858,
+								"x" : 0.18783070147037506,
+								"y" : 0.56804871559143066,
+								"z" : -0.13870044052600861
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467894
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -16.104639053344727,
+								"y" : -9.27178955078125,
+								"z" : -3.5525274276733398
+							},
+							"rotation" : 
+							{
+								"w" : -0.59102284908294678,
+								"x" : -0.34829986095428467,
+								"y" : 0.59362643957138062,
+								"z" : 0.42069798707962036
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467899
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -16.085332870483398,
+								"y" : -9.2691259384155273,
+								"z" : -3.5549263954162598
+							},
+							"rotation" : 
+							{
+								"w" : 0.83334082365036011,
+								"x" : 0.54614019393920898,
+								"y" : 0.085108421742916107,
+								"z" : 0.0055187642574310303
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467900
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -15.695433616638184,
+								"y" : -8.5955162048339844,
+								"z" : -3.7487564086914063
+							},
+							"rotation" : 
+							{
+								"w" : 0.1145414263010025,
+								"x" : 0.12389633804559708,
+								"y" : 0.8298075795173645,
+								"z" : 0.53192979097366333
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467901
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -15.629535675048828,
+								"y" : -8.6618356704711914,
+								"z" : -3.7392592430114746
+							},
+							"rotation" : 
+							{
+								"w" : -0.67768782377243042,
+								"x" : -0.46938872337341309,
+								"y" : -0.49238154292106628,
+								"z" : -0.27923798561096191
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467902
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -17.923919677734375,
+								"y" : -11.178984642028809,
+								"z" : -2.0274181365966797
+							},
+							"rotation" : 
+							{
+								"w" : -0.77507710456848145,
+								"x" : -0.26593571901321411,
+								"y" : 0.49765479564666748,
+								"z" : 0.2843824028968811
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467907
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -15.790481567382813,
+								"y" : -9.4270267486572266,
+								"z" : -3.5449991226196289
+							},
+							"rotation" : 
+							{
+								"w" : -0.64354008436203003,
+								"x" : -0.44983565807342529,
+								"y" : -0.53624296188354492,
+								"z" : -0.30975395441055298
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467911
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -15.443763732910156,
+								"y" : -9.8772878646850586,
+								"z" : -3.5551571846008301
+							},
+							"rotation" : 
+							{
+								"w" : -0.36311805248260498,
+								"x" : -0.39468717575073242,
+								"y" : -0.67173206806182861,
+								"z" : -0.51102209091186523
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467915
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/foliage_rock_cluster",
+									"static" : false,
+									"uid" : 1512467165
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -15.171113014221191,
+								"y" : -9.0097951889038086,
+								"z" : -3.6997933387756348
+							},
+							"rotation" : 
+							{
+								"w" : -0.6266295313835144,
+								"x" : -0.44003003835678101,
+								"y" : -0.55590987205505371,
+								"z" : -0.3235323429107666
+							},
+							"scale" : 
+							{
+								"x" : 1.0160000324249268,
+								"y" : 1.0160000324249268,
+								"z" : 1.0160000324249268
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512467919
+						}
+					],
+					"name" : "foliage",
+					"position" : 
+					{
+						"x" : -24.924819946289063,
+						"y" : 0.0,
+						"z" : -1.4775302410125732
+					},
+					"rotation" : 
+					{
+						"w" : 0.046068888157606125,
+						"x" : 0.0,
+						"y" : 0.99893838167190552,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512467880
+				}
+			],
 			"name" : "Cave",
 			"position" : 
 			{
@@ -2702,6 +3380,182 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511530025
+				},
+				{
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "Resources/elevatorScene/Textures/lightsOut_albedo",
+								"metallic" : "Resources/elevatorScene/Textures/lightsOut_metallic",
+								"normal" : "Resources/elevatorScene/Textures/lightsOut_normal",
+								"roughness" : "Resources/elevatorScene/Textures/lightsOut_roughness"
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/elevatorScene/Models/lightsOut_board"
+							},
+							"children" : null,
+							"name" : "board",
+							"position" : 
+							{
+								"x" : 1.0530000925064087,
+								"y" : -0.30900001525878906,
+								"z" : 0.88100004196166992
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 0.18899999558925629,
+								"y" : 0.18860003352165222,
+								"z" : 0.18860003352165222
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512391632
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "buttonMesh",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/elevatorScene/buttonScene",
+									"static" : false,
+									"uid" : 1511860704
+								},
+								{
+									"Shape" : 
+									{
+										"box" : 
+										{
+											"depth" : 0.12999999523162842,
+											"height" : 0.12999999523162842,
+											"width" : 0.059999998658895493
+										}
+									},
+									"Trigger" : 
+									{
+										"trigger" : "A Trigger",
+										"triggerActive" : false,
+										"triggerCharges" : 0,
+										"triggerCollidedEntityUID" : 1508919758,
+										"triggerCooldown" : 0.0,
+										"triggerDelay" : 0.0,
+										"triggerEventStruct_Check_0" : true,
+										"triggerEventStruct_Check_1" : true,
+										"triggerEventStruct_Check_2" : true,
+										"triggerEventStruct_Check_3" : true,
+										"triggerEventStruct_EventID" : 1,
+										"triggerEventStruct_ScriptID" : 4,
+										"triggerEventStruct_ShapeID" : 0,
+										"triggerEventStruct_TargetID" : 3,
+										"triggerFunction" : "void ResetBoard()",
+										"triggerName" : "New Trigger",
+										"triggerOwner" : 1512392255,
+										"triggerTargetEntity" : 1511530025,
+										"triggerTriggered" : false
+									},
+									"children" : null,
+									"name" : "buttonTrigger",
+									"position" : 
+									{
+										"x" : -4.318000316619873,
+										"y" : -0.36900001764297485,
+										"z" : -0.99100005626678467
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1512392255
+								}
+							],
+							"name" : "buttonAmeno",
+							"position" : 
+							{
+								"x" : 4.5820002555847168,
+								"y" : 0.18600000441074371,
+								"z" : 2.2090001106262207
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.3020000457763672,
+								"z" : 1.3999999761581421
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512391999
+						}
+					],
+					"name" : "resetButton",
+					"position" : 
+					{
+						"x" : -0.13100001215934753,
+						"y" : 0.030000001192092896,
+						"z" : -0.026179075241088867
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512391611
 				}
 			],
 			"name" : "PuzzleBoardPivot",
@@ -2741,7 +3595,7 @@
 				"model" : "Resources/final_event/wood_table"
 			},
 			"children" : null,
-			"name" : "wood_beams",
+			"name" : "wood_beams_1",
 			"position" : 
 			{
 				"x" : 5.8771414756774902,
@@ -2818,9 +3672,9 @@
 			"name" : "rails",
 			"position" : 
 			{
-				"x" : 33.810012817382813,
+				"x" : 33.787002563476563,
 				"y" : -10.330215454101563,
-				"z" : -0.11782956123352051
+				"z" : 0.016000000759959221
 			},
 			"rotation" : 
 			{
@@ -2868,13 +3722,408 @@
 			},
 			"scale" : 
 			{
-				"x" : 0.34162777662277222,
+				"x" : 0.33624628186225891,
 				"y" : 0.98000001907348633,
 				"z" : 1.3539962768554688
 			},
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512380903
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+						"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+						"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+						"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Opening Scene/Model/Starter_WoodenBeams"
+					},
+					"children" : null,
+					"name" : "beams",
+					"position" : 
+					{
+						"x" : 37.624702453613281,
+						"y" : 0.0,
+						"z" : -18.890741348266602
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512396831
+				}
+			],
+			"name" : "beamsPivot",
+			"position" : 
+			{
+				"x" : -8.8506879806518555,
+				"y" : -13.965444564819336,
+				"z" : 1.8104074001312256
+			},
+			"rotation" : 
+			{
+				"w" : 0.83288812637329102,
+				"x" : 0.0,
+				"y" : -0.5534403920173645,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0899946689605713,
+				"y" : 2.2764909267425537,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512396616
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Constant Scene/Ore/goldalbedo",
+						"metallic" : "Resources/Constant Scene/Ore/goldmetal",
+						"normal" : "Resources/Constant Scene/Ore/goldnormal",
+						"roughness" : "Resources/Constant Scene/Ore/goldroughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Constant Scene/Ore/goldores"
+					},
+					"children" : null,
+					"name" : "rock-1",
+					"position" : 
+					{
+						"x" : -12.25847339630127,
+						"y" : -10.785732269287109,
+						"z" : -0.079305857419967651
+					},
+					"rotation" : 
+					{
+						"w" : 0.59301930665969849,
+						"x" : 0.0,
+						"y" : -0.80518805980682373,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.28204786777496338,
+						"y" : 0.28204798698425293,
+						"z" : 0.28204786777496338
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512398008
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Constant Scene/Ore/goldalbedo",
+						"metallic" : "Resources/Constant Scene/Ore/goldmetal",
+						"normal" : "Resources/Constant Scene/Ore/goldnormal",
+						"roughness" : "Resources/Constant Scene/Ore/goldroughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Constant Scene/Ore/goldores"
+					},
+					"children" : null,
+					"name" : "rock-2",
+					"position" : 
+					{
+						"x" : -10.720610618591309,
+						"y" : -10.202810287475586,
+						"z" : -0.36063143610954285
+					},
+					"rotation" : 
+					{
+						"w" : 0.99838143587112427,
+						"x" : 0.045525025576353073,
+						"y" : -0.034044135361909866,
+						"z" : 0.001552372588776052
+					},
+					"scale" : 
+					{
+						"x" : 0.62999999523162842,
+						"y" : 0.86667615175247192,
+						"z" : 0.88591068983078003
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512398143
+				},
+				{
+					"children" : null,
+					"name" : "rock-3",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512464897
+				}
+			],
+			"name" : "Rocks",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512398001
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sack_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "wood_beams_2",
+			"position" : 
+			{
+				"x" : 7.1487646102905273,
+				"y" : 11.772815704345703,
+				"z" : 0.34221076965332031
+			},
+			"rotation" : 
+			{
+				"w" : 0.69989049434661865,
+				"x" : -0.023516494780778885,
+				"y" : -0.71349024772644043,
+				"z" : -0.023068254813551903
+			},
+			"scale" : 
+			{
+				"x" : 3.1596994400024414,
+				"y" : 1.0,
+				"z" : 1.4680881500244141
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512399207
+		},
+		{
+			"children" : null,
+			"name" : "manyRocks",
+			"position" : 
+			{
+				"x" : -5.5527448654174805,
+				"y" : -11.411970138549805,
+				"z" : -0.52222925424575806
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512467435
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "rock1",
+					"position" : 
+					{
+						"x" : -19.951396942138672,
+						"y" : -11.09792423248291,
+						"z" : -0.99432981014251709
+					},
+					"rotation" : 
+					{
+						"w" : 0.82585793733596802,
+						"x" : 0.15693472325801849,
+						"y" : -0.46402227878570557,
+						"z" : 0.27930936217308044
+					},
+					"scale" : 
+					{
+						"x" : 5.7799997329711914,
+						"y" : 5.7799997329711914,
+						"z" : 5.7799997329711914
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512553227
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "rock2",
+					"position" : 
+					{
+						"x" : -19.901321411132813,
+						"y" : -11.233322143554688,
+						"z" : 1.6011724472045898
+					},
+					"rotation" : 
+					{
+						"w" : 0.74622976779937744,
+						"x" : 0.12160566449165344,
+						"y" : -0.63888794183731079,
+						"z" : 0.14203710854053497
+					},
+					"scale" : 
+					{
+						"x" : 3.9399998188018799,
+						"y" : 3.9399998188018799,
+						"z" : 3.9399998188018799
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512553677
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"metallic" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_metallic",
+						"normal" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_normal",
+						"roughness" : "Resources/Bridge Puzzle Scene/Rock/Textures/Texture #38"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "rock3",
+					"position" : 
+					{
+						"x" : -20.12263298034668,
+						"y" : -10.978675842285156,
+						"z" : 0.81843972206115723
+					},
+					"rotation" : 
+					{
+						"w" : 0.94044727087020874,
+						"x" : -0.11806424707174301,
+						"y" : 0.28492128849029541,
+						"z" : 0.14296656847000122
+					},
+					"scale" : 
+					{
+						"x" : 1.5855844020843506,
+						"y" : 1.585584282875061,
+						"z" : 1.585584282875061
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512553859
+				}
+			],
+			"name" : "clippingRocks",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512553218
 		}
 	],
 	"name" : "Root",
