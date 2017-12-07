@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/VoltageScene/VoltageScene",
 	"animationClipNumber" : 2,
 	"animationControllerNumber" : 3,
 	"audioMaterialNumber" : 4,
@@ -2123,6 +2123,10 @@
 							{
 								"sound" : "SnapClick",
 								"type" : 3
+							},
+							{
+								"sound" : "Rotation",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -2134,6 +2138,6 @@
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
-	"soundNumber" : 13,
+	"soundNumber" : 14,
 	"textureNumber" : 154
 }

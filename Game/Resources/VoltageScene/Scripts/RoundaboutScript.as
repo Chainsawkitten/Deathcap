@@ -29,6 +29,7 @@ class RoundaboutScript {
                 self.SetWorldOrientation(quat(sin(radians(-correctAngle / 2)), 0, 1.0f * cos(radians(-correctAngle / 2)), 0));
                 rotate = false;
                 SendMessage(minecartController, 0);
+                self.GetSoundSource().Stop();
             }
         }
     }
@@ -38,6 +39,7 @@ class RoundaboutScript {
             if (signal == 2) { //Rotate to correct angle
                 direction = 1;
                 rotate = true;
+                self.GetSoundSource().Play();
             }
         }
     }

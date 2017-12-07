@@ -207,6 +207,12 @@
 				},
 				"scriptName" : "Resources/VoltageScene/Scripts/RoundaboutScript"
 			},
+			"SoundSource" : 
+			{
+				"loop" : true,
+				"sound" : "Resources/VoltageScene/Audio/Rotation",
+				"volume" : 1.0
+			},
 			"children" : 
 			[
 				{
