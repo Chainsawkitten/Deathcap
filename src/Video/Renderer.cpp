@@ -141,14 +141,14 @@ void Renderer::RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* a
 }
 
 void Renderer::SetLights(const std::vector<Video::Light>& lights) {
-    lightCount = lights.size();
+    lightCount = static_cast<unsigned int>(lights.size());
 
     // Skip if no lights.
     if (lightCount == 0)
         return;
 
     // Resize light buffer if necessary.
-    unsigned int byteSize = sizeof(Video::Light) * lights.size();
+    unsigned int byteSize = sizeof(Video::Light) * static_cast<unsigned int>(lights.size());
     if (lightBuffer->GetSize() < byteSize) {
         delete lightBuffer;
         lightBuffer = new StorageBuffer(byteSize, GL_DYNAMIC_DRAW);
