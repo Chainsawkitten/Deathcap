@@ -144,6 +144,13 @@ Entity* Entity::GetChild(const std::string& name) const {
     return nullptr;
 }
 
+Entity* Entity::GetChildFromIndex(int index) const {
+        if (children.size() > index)
+            return children[index];
+
+    return nullptr;
+}
+
 bool Entity::RemoveChild(Entity* child) {
     for (auto it = children.begin(); it != children.end(); ++it) {
         if (*it == child) {
