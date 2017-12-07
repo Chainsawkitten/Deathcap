@@ -25,7 +25,7 @@ void SoundEditor::Show() {
             sound->name = name;
         }
 
-        bool cache = sound->GetCached();
+        bool cache = sound->IsCached();
         if (ImGui::Checkbox("Cache", &cache))
             sound->Cache(cache);
         

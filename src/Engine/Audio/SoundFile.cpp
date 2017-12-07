@@ -11,14 +11,14 @@ SoundFile::~SoundFile() {
 
 }
 
-bool SoundFile::GetCached() const {
+bool SoundFile::IsCached() const {
     return (buffer != nullptr);
 }
 
 void SoundFile::Save() const {
     Json::Value node;
     node["name"] = name;
-    node["cache"] = (buffer != nullptr);
+    node["cache"] = IsCached();
 
     // Save properties to meta file.
     std::string filename = Hymn().GetPath() + "/" + path + name + ".json";

@@ -58,7 +58,7 @@ namespace Audio {
             /**
              * @return Whether file is cached.
              */
-            ENGINE_API bool GetCached() const;
+            ENGINE_API bool IsCached() const;
 
             /// Save sound.
             ENGINE_API void Save() const;
