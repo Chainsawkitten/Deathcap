@@ -2,6 +2,7 @@ class Cart_Puzzle_1{
     Entity @self;
     Entity @actualSelf;
     Entity @rightHand;
+    Entity @bridgeParent;
     float speed;
     bool hasHitPlane;
     float planePos;
@@ -20,6 +21,7 @@ class Cart_Puzzle_1{
     
     Cart_Puzzle_1(Entity @entity){
         @self = GetEntityByGUID(1508919384);
+        @bridgeParent = GetEntityByGUID(1510240835);
         @actualSelf = @entity;
         @rightHand = GetEntityByGUID(1508919758);
         speed = 2.0f;
@@ -41,7 +43,7 @@ class Cart_Puzzle_1{
             tempPos.x -= speed * deltaTime;
             self.SetWorldPosition(tempPos);
         }
-        // Braking phase
+        // Braking phase.
         else if (hasHitPlane && stopTime < endTime){
             stopTime += deltaTime;
             tempPos = self.GetWorldPosition();
@@ -49,7 +51,7 @@ class Cart_Puzzle_1{
             tempPos.x = planePos - s;
             self.SetWorldPosition(tempPos);
         }
-        // Start again after puzzle has been solved
+        // Start again after puzzle has been solved.
         else if (puzzleSolved){
             if (speed < 2.0f)
                 speed += 0.5f * deltaTime;
@@ -60,15 +62,20 @@ class Cart_Puzzle_1{
             tempPos.x -= speed * deltaTime;
             self.SetWorldPosition(tempPos);
         }
-        // Stopping phase
+        // Stopping phase.
         else
             speed = 0.0f;
+            
+        // Skip puzzle.
+        if(speed < 0.001f && !IsVRActive() && Input(PuzzleSkip, @self)) {
+            SendMessage(bridgeParent, 1);
+        }
     }
     
     void OnTrigger(){
         hasHitPlane = true;
         planePos = self.GetWorldPosition().x;
-        brakeDistance = 10.0f; // The distance during which we will brake
+        brakeDistance = 10.0f; // The distance during which we will brake.
         c = speed;
         b = (6 * brakeDistance - 4 * c * endTime) / (endTime * endTime);
         a = -(c + b * endTime) / (endTime * endTime);

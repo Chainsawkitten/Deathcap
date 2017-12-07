@@ -21,9 +21,11 @@ class MainScript {
     // fade the entire screen to black.
     float fadeStartTime = 1.0f;
     float fadeTimer = 0.0f;
+
     float fadeApexDuration = 3.0f; // Time for fade to reach zero
     float particleTimer=0.0f;
     bool particleActive=false;
+  
     MainScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
@@ -62,7 +64,7 @@ class MainScript {
         }
     
         switch (phase) {
-            case 0: { // Entering final scene
+            case 0: { // Entering final scene.
                 vec3 pos = minecart.GetWorldPosition();
                 pos.x += speed * deltaTime;
                 minecart.SetWorldPosition(pos);
@@ -77,7 +79,14 @@ class MainScript {
                 }
                 break;
             }
-            case 2: { // Wait for monster to collapse
+            case 1: { // Waiting for monster to eat/die.
+                // Puzzle Skip.
+                if(!IsVRActive() && Input(PuzzleSkip, @self)) {
+                    phase = 2;
+                    SendMessage(monster, 1); // Monster died.
+                }
+            }
+            case 2: { // Wait for monster to collapse.
                 waitForMonsterTimer += deltaTime;
                 if (waitForMonsterTimer >= 3.0f) {
                     phase = 3;
@@ -88,7 +97,7 @@ class MainScript {
                 }
                 break;
             }
-            case 3: { // Continue after monster has been killed
+            case 3: { // Continue after monster has been killed.
                 vec3 pos = minecart.GetWorldPosition();
                 pos.x += speed * deltaTime;
                 minecart.SetWorldPosition(pos);
@@ -112,7 +121,7 @@ class MainScript {
                     float fadeRatio = fadeTimer / fadeApexDuration;
                     if (fadeRatio >= 1.0f) {
                         fadeRatio = 1.0f;
-                        // Game is over
+                        // Game is over.
                     }
                     hub.renderManager.SetColorFilterColor(vec3(1.0f - fadeRatio, 1.0f - fadeRatio, 1.0f - fadeRatio));
                 }
@@ -126,8 +135,8 @@ class MainScript {
 
     void ReceiveMessage(Entity @sender, int signal) {
         switch (signal) {
-            case 0: { // When monster has successfully eaten the player
-                phase = 4; // Lost phase
+            case 0: { // When monster has successfully eaten the player.
+                phase = 4; // Lost phase.
                 print("Player: I'm losing.\n");
                 
                 
@@ -138,7 +147,7 @@ class MainScript {
 
     void StopBeforeMonster() {
         phase = 1;
-        SendMessage(monster, 0); // Player was stopped
+        SendMessage(monster, 0); // Player was stopped.
     }
 
     void HoveringKnife() {
