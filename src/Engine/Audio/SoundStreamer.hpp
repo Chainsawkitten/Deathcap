@@ -80,6 +80,12 @@ namespace Audio {
              * @param handle DataHandle containing information about the work that should be done.
              */
             ENGINE_API void Load(SoundStreamer::DataHandle* handle);
+
+            /// Lock thread from reading sound files while flushing.
+            ENGINE_API void BeginFlush();
+
+            /// Unlock thread from reading sound files while flushing.
+            ENGINE_API void EndFlush();
            
         private:
             Worker worker;
@@ -87,6 +93,8 @@ namespace Audio {
             Utility::Queue<DataHandle*> loadQueue;
 
             std::mutex queueMutex;
+            std::mutex flushMutex;
+            std::unique_lock<std::mutex> flushLock;
 
             bool stopWorker = false;
     };

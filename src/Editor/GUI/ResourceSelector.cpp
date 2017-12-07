@@ -28,7 +28,7 @@ bool ResourceSelector::ShowHelper(ResourceList::Resource::Type type, const Resou
                 return true;
         }
     }
-    
+
     // Show resources.
     for (const ResourceList::Resource& resource : folder.resources) {
         if (resource.type == type) {
@@ -47,6 +47,6 @@ bool ResourceSelector::ShowHelper(ResourceList::Resource::Type type, const Resou
             }
         }
     }
-    
+
     return false;
 }

@@ -68,6 +68,13 @@
 		"Resources/elevatorScene/Scripts/elevator_frontDoorCon",
 		"Resources/elevatorScene/Scripts/elevator_backDoorCon",
 		"Resources/Super Scene/Scripts/SwitcherScript_2",
+		"Resources/VoltageScene/Scripts/Propp",
+		"Resources/VoltageScene/Scripts/Mastermind",
+		"Resources/VoltageScene/Scripts/RoundaboutScript",
+		"Resources/VoltageScene/Scripts/ElevatorSoundScript",
+		"Resources/VoltageScene/Scripts/FlickeringLights",
+		"Resources/VoltageScene/Scripts/RoundAboutMinecartController",
+		"Resources/Super Scene/Scripts/SwitcherScript_Voltage",
 		"Resources/elevatorScene/Scripts/Particals",
 		"Resources/elevatorScene/Scripts/Particals2",
 		"Resources/elevatorScene/Scripts/Particals3"

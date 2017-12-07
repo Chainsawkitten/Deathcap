@@ -3,7 +3,7 @@
 	"animationClipNumber" : 2,
 	"animationControllerNumber" : 3,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 160,
+	"modelNumber" : 188,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1589,7 +1589,17 @@
 				[
 					{
 						"name" : "textures",
-						"resources" : null,
+						"resources" : 
+						[
+							{
+								"texture" : "sack_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_normal",
+								"type" : 2
+							}
+						],
 						"subfolders" : null
 					},
 					{
@@ -1642,6 +1652,10 @@
 							},
 							{
 								"script" : "SwitcherScript_2",
+								"type" : 4
+							},
+							{
+								"script" : "SwitcherScript_Voltage",
 								"type" : 4
 							}
 						],
@@ -1793,12 +1807,311 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "VoltageScene",
+				"resources" : 
+				[
+					{
+						"scene" : "VoltageScene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Models",
+						"resources" : 
+						[
+							{
+								"model" : "VoltageBeamsH",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageBeamsV",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageCavein",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageElevator",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageFloor",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageRoundAbout",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageRoundAboutStonePIle",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageRoundAboutTrack",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageTrack",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageTubes",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageWalls",
+								"type" : 1
+							},
+							{
+								"model" : "VoltageWallSupport",
+								"type" : 1
+							},
+							{
+								"model" : "VoltagePanelBeam",
+								"type" : 1
+							},
+							{
+								"model" : "VoltagePanel",
+								"type" : 1
+							},
+							{
+								"model" : "elpropp",
+								"type" : 1
+							},
+							{
+								"model" : "box",
+								"type" : 1
+							},
+							{
+								"model" : "Skull",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Textures",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Floor",
+								"resources" : 
+								[
+									{
+										"texture" : "Sand_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Sand_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Sandy_Metall",
+										"type" : 2
+									},
+									{
+										"texture" : "Sandy_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "VoltagePanel",
+								"resources" : 
+								[
+									{
+										"texture" : "VoltagePanel_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltagePanel_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltagePanel_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltagePanel_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "VoltageTube",
+								"resources" : 
+								[
+									{
+										"texture" : "VoltageTube_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageTube_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageTube_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageTube_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "VoltageBox",
+								"resources" : 
+								[
+									{
+										"texture" : "box_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "box_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "box_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "box_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "VoltagePropp",
+								"resources" : 
+								[
+									{
+										"texture" : "black_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "blue_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "brown_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "green_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "pink_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "red_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "white_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "yellow_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "propp_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "propp_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "propp_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "VoltageRoundAbout",
+								"resources" : 
+								[
+									{
+										"texture" : "VoltageRoundAbout_Abledo",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageRoundAbout_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "VoltageRoundAbout_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Skull",
+								"resources" : 
+								[
+									{
+										"texture" : "Skull_Albedo",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "Mastermind",
+								"type" : 4
+							},
+							{
+								"script" : "RoundaboutScript",
+								"type" : 4
+							},
+							{
+								"script" : "ElevatorSoundScript",
+								"type" : 4
+							},
+							{
+								"script" : "Propp",
+								"type" : 4
+							},
+							{
+								"script" : "FlickeringLights",
+								"type" : 4
+							},
+							{
+								"script" : "RoundAboutMinecartController",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					}
+				]
 			}
 		]
 	},
-	"sceneNumber" : 30,
+	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
 	"soundNumber" : 5,
-	"textureNumber" : 123
+	"textureNumber" : 154
 }

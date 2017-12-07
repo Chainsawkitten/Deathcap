@@ -47,3 +47,7 @@ void SoundSource::Pause() {
 void SoundSource::Stop() {
     shouldStop = true;
 }
+
+bool SoundSource::IsPlaying() {
+    return shouldPlay;
+}

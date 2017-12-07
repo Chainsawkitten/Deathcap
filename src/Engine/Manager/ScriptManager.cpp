@@ -382,6 +382,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "Entity@ GetChildFromIndex(int) const", asMETHOD(Entity, GetChildFromIndex), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "uint GetUniqueIdentifier() const", asMETHOD(Entity, GetUniqueIdentifier), asCALL_THISCALL);
 
     engine->RegisterGlobalFunction("Entity@ GetEntityByGUID(uint GUID)", asFUNCTIONPR(ActiveHymn::GetEntityByGUID, (unsigned int), Entity*), asCALL_CDECL);
@@ -431,6 +432,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectType("SoundSource", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("SoundSource", "float volume", asOFFSET(SoundSource, volume));
     engine->RegisterObjectProperty("SoundSource", "bool loop", asOFFSET(SoundSource, loop));
+    engine->RegisterObjectMethod("SoundSource", "bool IsPlaying()", asMETHOD(SoundSource, IsPlaying), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Play()", asMETHOD(SoundSource, Play), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Pause()", asMETHOD(SoundSource, Pause), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Stop()", asMETHOD(SoundSource, Stop), asCALL_THISCALL);
