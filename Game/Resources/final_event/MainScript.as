@@ -68,7 +68,7 @@ class MainScript {
             case 1: { //Stopping smoothly
                 vec3 pos = minecart.GetWorldPosition();
                 if(pos.x>0.0f){
-                pos.x -= 0.05 * deltaTime;
+                pos.x += 0.05 * deltaTime;
                 minecart.SetWorldPosition(pos);
                 }
                 break;

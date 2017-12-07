@@ -42,8 +42,8 @@ class MonsterScript {
     // Called by the engine for each frame.
     void Update(float deltaTime) {
 	
-    if(disappearGround)
-        self.position.y-=0.01f;
+        if(disappearGround)
+            self.position.y-=0.01f;
         
         switch (phase) {
             case 0: // Waiting
