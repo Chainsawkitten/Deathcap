@@ -50,9 +50,6 @@ class elevator_frontDoorCon {
                 partical_1.position.x +=0.5f;
                 partical_2.position.x +=0.5f;
                 partical_3.position.x +=0.5f;
-                //partical_1.SetEnabled(false, true);
-                //partical_2.SetEnabled(false, true);
-                //partical_3.SetEnabled(false, true);
             }
             puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
         }
