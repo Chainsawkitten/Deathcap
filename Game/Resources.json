@@ -1621,6 +1621,10 @@
 							{
 								"sound" : "snd_landing",
 								"type" : 3
+							},
+							{
+								"sound" : "snd_stab",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -2130,6 +2134,6 @@
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
-	"soundNumber" : 12,
+	"soundNumber" : 13,
 	"textureNumber" : 154
 }

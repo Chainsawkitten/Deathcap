@@ -716,6 +716,12 @@
 					"width" : 0.52999997138977051
 				}
 			},
+			"SoundSource" : 
+			{
+				"loop" : false,
+				"sound" : "Resources/final_event/Audio/snd_stab",
+				"volume" : 1.0
+			},
 			"Trigger" : 
 			{
 				"trigger" : "A Trigger",

@@ -127,6 +127,7 @@ class MainScript {
 
     void KnifeHitMonster() {
         if (phase != 4 && knifePickedUp) {
+            knife.GetSoundSource().Play();
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
             print("Player: I'm going to wait for the monster to collapse now.\n");
