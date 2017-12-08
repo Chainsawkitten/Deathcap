@@ -88,7 +88,8 @@
 		"Resources/elevatorScene/Scripts/Particals3",
 		"Resources/Super Scene/Scripts/SwitcherScript_2",
 		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
-		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer"
+		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer",
+		"Resources/VoltageScene/Scripts/VoltageRandomEvents"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5
