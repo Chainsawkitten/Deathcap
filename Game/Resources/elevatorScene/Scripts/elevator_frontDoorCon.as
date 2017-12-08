@@ -4,6 +4,7 @@ class elevator_frontDoorCon {
     Entity @doorWithService;
     Entity @puzzleBoard;
     bool openDoor;
+    bool doorOpen;
     vec3 tempPosWithX;
     vec3 tempPosWithService;
     float boardPitch;
@@ -12,16 +13,21 @@ class elevator_frontDoorCon {
     Entity @partical_1;
     Entity @partical_2;
     Entity @partical_3;
-
-
+    
+    float doorTime;
+    float timer;
+    
     elevator_frontDoorCon(Entity @entity){
         @hub = Managers();
         @doorWithX = GetEntityByGUID(1511870049);
         @doorWithService = GetEntityByGUID(1511870278);
         @puzzleBoard = GetEntityByGUID(1512029307);
         openDoor = false;
+        doorOpen = false;
         speed = 0.5f;
         uniformScale = 0;
+        timer = 0.0f;
+        doorTime = 2.5f;
         @partical_1 = GetEntityByGUID(1512564077);
         @partical_2 = GetEntityByGUID(1512565858);
         @partical_3 = GetEntityByGUID(1512566495);
@@ -33,7 +39,7 @@ class elevator_frontDoorCon {
     // Called by the engine for each frame.
     void Update(float deltaTime) {
         if(openDoor == true) {
-            if(tempPosWithX.z < 2.0f) {
+            if(!doorOpen && timer < doorTime) {
                 tempPosWithX = doorWithX.GetWorldPosition();
                 tempPosWithService = doorWithService.GetWorldPosition();
 
@@ -42,6 +48,8 @@ class elevator_frontDoorCon {
 
                 doorWithX.SetWorldPosition(tempPosWithX);
                 doorWithService.SetWorldPosition(tempPosWithService);
+                timer += deltaTime;
+                doorOpen = timer >= doorTime;
             }
 
             uniformScale += (1.0f / 6.5f) * deltaTime;
@@ -55,7 +63,7 @@ class elevator_frontDoorCon {
         }
 
         if(openDoor == false) {
-            if(tempPosWithX.z > 0.0f) {
+            if(doorOpen && timer < doorTime) {
                 tempPosWithX = doorWithX.GetWorldPosition();
                 tempPosWithService = doorWithService.GetWorldPosition();
 
@@ -64,17 +72,21 @@ class elevator_frontDoorCon {
 
                 doorWithX.SetWorldPosition(tempPosWithX);
                 doorWithService.SetWorldPosition(tempPosWithService);
+                timer += deltaTime;
+                doorOpen = !(timer >= doorTime);
             }
         }
     }
 
     void OpenDoor() {
         openDoor = true;
+        timer = 0.0f;
         doorWithX.GetSoundSource().Play();
         doorWithService.GetSoundSource().Play();
     }
 
     void CloseDoor() {
+        timer = 0.0f;
         openDoor = false;
     }
 }
