@@ -215,7 +215,6 @@ class RenderManager {
          */
         ENGINE_API bool GetFogApply() const;
 
-
         /// Set fog density.
         /**
          * @param fogDensity Density of the fog.
@@ -290,6 +289,12 @@ class RenderManager {
          * @return Which mip-level to start loading.
          */
         ENGINE_API uint16_t GetTextureReduction() const;
+
+        /// Set whether dithering is applied.
+        /**
+        * @param ditherApply Whether to apply dithering.
+        */
+        ENGINE_API void SetBloodApply(bool SetBloodApply);
 
     private:
         RenderManager();

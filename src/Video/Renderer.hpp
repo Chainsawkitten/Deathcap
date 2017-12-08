@@ -316,6 +316,13 @@ namespace Video {
              * @return Size of the frame in pixels.
              */
             VIDEO_API glm::vec2 GetFrameSize() const;
+            
+            /// Get whether blood is applied.
+            /**
+            * @return Whether blood is applied.
+            */
+            VIDEO_API void SetBloodApply(bool bloodApply);
+
 
         private:
             Renderer(const Renderer& other) = delete;

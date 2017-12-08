@@ -68,6 +68,7 @@ SkinRenderProgram::SkinRenderProgram() {
     viewLocation = shaderProgram->GetUniformLocation("viewMatrix");
     normalLocation = shaderProgram->GetUniformLocation("normalMatrix");
     bonesLocation = shaderProgram->GetUniformLocation("bones");
+
 }
 
 SkinRenderProgram::~SkinRenderProgram() {
