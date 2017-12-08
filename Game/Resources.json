@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
@@ -2155,12 +2155,51 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "Music",
+				"resources" : 
+				[
+					{
+						"sound" : "snd_horn",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_win",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_charged",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_gameover",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_waterphone",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_mystic",
+						"type" : 3
+					},
+					{
+						"script" : "global_music_script",
+						"type" : 4
+					},
+					{
+						"sound" : "snd_hunted",
+						"type" : 3
+					}
+				],
+				"subfolders" : null
 			}
 		]
 	},
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
-	"soundNumber" : 11,
+	"soundNumber" : 19,
 	"textureNumber" : 154
 }
