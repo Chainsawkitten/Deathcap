@@ -737,7 +737,41 @@
 						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
 						"volume" : 1.0
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "sndStopDoor",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512740447
+						}
+					],
 					"name" : "frontDoorWithX",
 					"position" : 
 					{
