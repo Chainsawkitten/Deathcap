@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 4,
 	"audioMaterialNumber" : 4,
@@ -544,33 +544,6 @@
 							{
 								"script" : "AnimationScript",
 								"type" : 4
-							}
-						],
-						"subfolders" : null
-					},
-					{
-						"name" : "Animation",
-						"resources" : 
-						[
-							{
-								"model" : "monster1@model",
-								"type" : 1
-							},
-							{
-								"animationClip" : "monster@crouchscare",
-								"type" : 6
-							},
-							{
-								"skeleton" : "monster@skeleton",
-								"type" : 8
-							},
-							{
-								"animationClip" : "monster@attack",
-								"type" : 6
-							},
-							{
-								"animationController" : "Animation controller #1",
-								"type" : 7
 							}
 						],
 						"subfolders" : null
