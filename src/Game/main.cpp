@@ -114,6 +114,9 @@ int main(int argc, char* argv[]) {
         if ( testing ) {
             ramUsed = Managers().profilingManager->MeasureRAM();
             vramUsed = Managers().profilingManager->MeasureVRAM();
+            
+            // Correct for driver keeping a copy of video stuff in RAM.
+            ramUsed -= vramUsed;
 
             if (ramUsed > maxRamUsed)
                     maxRamUsed = ramUsed;
