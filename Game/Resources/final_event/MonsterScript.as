@@ -67,7 +67,7 @@ class MonsterScript {
                 }
                 break;
             }
-            case 3: { // Approach player		
+            case 3: { // Approach player
                 self.position.x -= 10.0f * deltaTime;
                 break;
             }
@@ -95,10 +95,10 @@ class MonsterScript {
             }
             case 1: { // Die
                 phase = 6; // Collapse
-                snd_death.Play();                
+                snd_death.Play();
                 print("Monster: I'm dying now.\n");
                 TriggerDeath();
-                disappearGround=true;            
+                disappearGround=true;
                 break;
             }
         }
