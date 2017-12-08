@@ -98,8 +98,8 @@ class elevator_moveCart {
                     
                     //When we've stopped we close the door behind us.
                     SendMessage(frontDoor, 0);
-                    phase = 4;           
-                    cage.GetSoundSource().Stop(); 
+                    phase = 4;
+                    cage.GetSoundSource().Stop();
                     sndDoorStop.GetSoundSource().Play();
                     SendMessage(board, 0);
 
