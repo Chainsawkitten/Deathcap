@@ -31,5 +31,10 @@ class CartScript_0 {
             tempPos.x -= speed * deltaTime;
             self.SetWorldPosition(tempPos);
         }
+
+        if (!IsVRActive() && Input(PuzzleSkip, @self)) {
+            float remaining = radians(120.0f) - pitch(leverHandle.rotation);
+            leverHandle.RotatePitch(remaining + radians(5.0f));
+        }
     }
 }
