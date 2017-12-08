@@ -101,7 +101,6 @@ class elevator_moveCart {
                 }
                 break;
 
-            }
             case 4: // Cart is stopped.
                 // Skip Puzzle.
                 if(!IsVRActive() && Input(PuzzleSkip, @self) && !puzzleSkipped) {
