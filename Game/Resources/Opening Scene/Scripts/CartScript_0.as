@@ -18,20 +18,18 @@ class CartScript_0 {
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
-	void PullLever(){
-		if(Input(Trigger, rightHand))
-			leverHandle.RotatePitch(0.01f);
-	}
+
+    void PullLever() {
+        if (Input(Trigger, rightHand))
+            leverHandle.RotatePitch(0.01f);
+    }
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-
-
-    
-    if(degrees(pitch(leverHandle.rotation))>120.0f){
-        tempPos = self.GetWorldPosition();
-        tempPos.x -= speed * deltaTime;
-        self.SetWorldPosition(tempPos);
-     }   
+        if (degrees(pitch(leverHandle.rotation)) > 120.0f) {
+            tempPos = self.GetWorldPosition();
+            tempPos.x -= speed * deltaTime;
+            self.SetWorldPosition(tempPos);
+        }
     }
 }
