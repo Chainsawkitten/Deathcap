@@ -6,6 +6,7 @@ class elevator_moveCart {
     Entity @puzzleBoard;
     Entity @realSelf;
     Entity @frontDoor;
+    Entity @sndDoorStop;
     
     Entity @cage;
     float speed;
@@ -33,6 +34,7 @@ class elevator_moveCart {
         @puzzleBoard = GetEntityByGUID(1512029307);
         @frontDoor = GetEntityByGUID(1511946590);
         @cage = GetEntityByGUID(1511870172);
+        @sndDoorStop = GetEntityByGUID(1512740447);
 
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
@@ -96,8 +98,9 @@ class elevator_moveCart {
                     
                     //When we've stopped we close the door behind us.
                     SendMessage(frontDoor, 0);
-                    phase = 4;
-                    cage.GetSoundSource().Stop();
+                    phase = 4;           
+                    cage.GetSoundSource().Stop(); 
+                    sndDoorStop.GetSoundSource().Play();
                     SendMessage(board, 0);
 
                 }
