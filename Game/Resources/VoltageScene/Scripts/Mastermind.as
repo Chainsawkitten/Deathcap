@@ -45,8 +45,6 @@ class Mastermind {
         if (puzzleSolved)
             return;
 
-        CheckSolution();
-
         for (int i = 0; i < correct; i++) {
             TurnOnLight(100, vec3(0, 255, 0));
         }
@@ -126,6 +124,8 @@ class Mastermind {
         }
         else
             RemoveFromSlot(signal - 4);
+
+        CheckSolution();
     }
 
     void AddToSlot(int slot, Entity@ fuse) {
