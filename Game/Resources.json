@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
-	"animationClipNumber" : 0,
-	"animationControllerNumber" : 0,
+	"activeScene" : "",
+	"animationClipNumber" : 8,
+	"animationControllerNumber" : 2,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 188,
+	"modelNumber" : 190,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -662,20 +662,81 @@
 								"resources" : 
 								[
 									{
-										"model" : "HandClosed",
+										"model" : "LeftHand@Model",
 										"type" : 1
 									},
 									{
-										"model" : "HandClosedRight",
+										"model" : "RightHand@Model",
 										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "AnimationControllers",
+								"resources" : 
+								[
+									{
+										"animationController" : "Animation controller #0",
+										"type" : 7
 									},
 									{
-										"model" : "HandOpen",
-										"type" : 1
+										"animationController" : "Animation controller #1",
+										"type" : 7
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Animations",
+								"resources" : 
+								[
+									{
+										"animationClip" : "LeftHand@Closed",
+										"type" : 6
 									},
 									{
-										"model" : "HandOpenRight",
-										"type" : 1
+										"animationClip" : "LeftHand@Closing",
+										"type" : 6
+									},
+									{
+										"animationClip" : "LeftHand@Open",
+										"type" : 6
+									},
+									{
+										"animationClip" : "LeftHand@Opening",
+										"type" : 6
+									},
+									{
+										"animationClip" : "RightHand@Closed",
+										"type" : 6
+									},
+									{
+										"animationClip" : "RightHand@Closing",
+										"type" : 6
+									},
+									{
+										"animationClip" : "RightHand@Open",
+										"type" : 6
+									},
+									{
+										"animationClip" : "RightHand@Opening",
+										"type" : 6
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Skeletons",
+								"resources" : 
+								[
+									{
+										"skeleton" : "LeftHand@Skeleton",
+										"type" : 8
+									},
+									{
+										"skeleton" : "RightHand@Skeleton",
+										"type" : 8
 									}
 								],
 								"subfolders" : null
@@ -2158,9 +2219,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 31,
+	"sceneNumber" : 33,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 2,
+	"skeletonNumber" : 5,
 	"soundNumber" : 11,
 	"textureNumber" : 154
 }
