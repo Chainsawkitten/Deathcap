@@ -1,0 +1,83 @@
+{
+	"children" : 
+	[
+		{
+			"ParticleSystem" : 
+			{
+				"NrOfParticles" : 367,
+				"alphaControl" : 3.1000001430511475,
+				"emitAmount" : 9,
+				"lifetime" : 2.0,
+				"mass" : 0.14500001072883606,
+				"randomVelocity" : 
+				{
+					"x" : 0.5,
+					"y" : 0.5,
+					"z" : 0.5
+				},
+				"rate" : 2.5,
+				"scale" : 0.10000000149011612,
+				"speed" : 1.0,
+				"spread" : 92,
+				"textureIndex" : 6,
+				"velocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				}
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/Constant Scene/BrightSparks/BrightSparksScript"
+			},
+			"children" : null,
+			"name" : "ParticleEmitter",
+			"position" : 
+			{
+				"x" : -1.4010756015777588,
+				"y" : -0.024437427520751953,
+				"z" : 1.4901161193847656e-08
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512722516
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1512722502
+}

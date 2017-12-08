@@ -12,7 +12,8 @@ class Propp {
     int hoverSlot = -1;
     int slot = -1;
     vec3 startPosition;
-
+    Entity @ParticleSystemLocation = null;
+    
     Propp(Entity @entity) {
         @hub = Managers();
         @self = @entity;
@@ -23,7 +24,31 @@ class Propp {
         @slot2Location = GetEntityByGUID(1511860862);
         @slot3Location = GetEntityByGUID(1511860874);
         @slot4Location = GetEntityByGUID(1511860887);
-
+        if (self.name == "BlackPropp") {
+            @ParticleSystemLocation = self.GetChild("BlackSparks");
+            ParticleSystemLocation.SetEnabled(false, true);
+        } else if (self.name == "BluePropp") {
+            @ParticleSystemLocation = self.GetChild("BlueSparks");
+            ParticleSystemLocation.SetEnabled(false, true);
+        } else if (self.name == "BrownPropp") {
+            @ParticleSystemLocation = self.GetChild("BrownSparks");
+            ParticleSystemLocation.SetEnabled(false, true);
+        } else if (self.name == "PinkPropp") {
+            @ParticleSystemLocation = self.GetChild("PinkSparks");
+            ParticleSystemLocation.SetEnabled(false, true);
+        } else if (self.name == "RedPropp") {
+            @ParticleSystemLocation = self.GetChild("RedSparks");
+            ParticleSystemLocation.SetEnabled(false, true);
+        } else if (self.name == "WhitePropp") {
+            @ParticleSystemLocation = self.GetChild("WhiteSparks");
+            ParticleSystemLocation.SetEnabled(false, true);
+        } else if (self.name == "YellowPropp") {
+            @ParticleSystemLocation = self.GetChild("YellowSparks");
+            ParticleSystemLocation.SetEnabled(false, true);
+        } else if (self.name == "GreenPropp") {
+            @ParticleSystemLocation = self.GetChild("GreenSparks");
+            ParticleSystemLocation.SetEnabled(false, true);
+        }
         startPosition = self.position;
 
         RegisterUpdate();
@@ -36,18 +61,22 @@ class Propp {
                 vec3 tempPos = self.GetWorldPosition();
                 switch (hoverSlot) {
                     case 1: {
+                        ParticleSystemLocation.SetEnabled(true, true);
                         self.SetParent(slot1Location);
                         break;
                     }
                     case 2: {
+                        ParticleSystemLocation.SetEnabled(true, true);
                         self.SetParent(slot2Location);
                         break;
                     }
                     case 3: {
+                        ParticleSystemLocation.SetEnabled(true, true);
                         self.SetParent(slot3Location);
                         break;
                     }
                     case 4: {
+                        ParticleSystemLocation.SetEnabled(true, true);
                         self.SetParent(slot4Location);
                         break;
                     }
@@ -58,7 +87,7 @@ class Propp {
                 ReturnToStartPosition();
             }
         }
-
+        
         hoverSlot = -1;
     }
 

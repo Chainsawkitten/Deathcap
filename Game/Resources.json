@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Constant Scene/BrightSparks/BrightSparks",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
@@ -843,6 +843,21 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "BrightSparks",
+						"resources" : 
+						[
+							{
+								"scene" : "BrightSparks",
+								"type" : 0
+							},
+							{
+								"script" : "BrightSparksScript",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -2158,7 +2173,7 @@
 			}
 		]
 	},
-	"sceneNumber" : 31,
+	"sceneNumber" : 32,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
 	"soundNumber" : 11,
