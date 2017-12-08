@@ -2154,6 +2154,10 @@
 							{
 								"script" : "RoundAboutMinecartController",
 								"type" : 4
+							},
+							{
+								"script" : "VoltageRandomEvents",
+								"type" : 4
 							}
 						],
 						"subfolders" : null

@@ -383,6 +383,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetChildFromIndex(int) const", asMETHOD(Entity, GetChildFromIndex), asCALL_THISCALL);
+    engine->RegisterObjectMethod("Entity", "uint GetNumChildren() const", asMETHOD(Entity, GetNumChildren), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "uint GetUniqueIdentifier() const", asMETHOD(Entity, GetUniqueIdentifier), asCALL_THISCALL);
 
     engine->RegisterGlobalFunction("Entity@ GetEntityByGUID(uint GUID)", asFUNCTIONPR(ActiveHymn::GetEntityByGUID, (unsigned int), Entity*), asCALL_CDECL);
