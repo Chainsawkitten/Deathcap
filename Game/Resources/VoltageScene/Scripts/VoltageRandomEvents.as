@@ -10,8 +10,7 @@ class VoltageRandomEvents {
     }
 
     void ReceiveMessage(Entity @sender, int signal) {
-        if (signal == 0) {
+        if (signal == 0)
             SendMessage(jensLampa, 0);
-        }
     }
 }

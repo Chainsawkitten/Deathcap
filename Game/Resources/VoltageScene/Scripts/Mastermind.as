@@ -49,13 +49,11 @@ class Mastermind {
         if (puzzleSolved)
             return;
 
-        for (int i = 0; i < correct; i++) {
+        for (int i = 0; i < correct; i++)
             TurnOnLight(100, vec3(0, 255, 0));
-        }
 
-        for (int i = 0; i < rightColors; i++) {
+        for (int i = 0; i < rightColors; i++)
             TurnOnLight(100, vec3(255, 0, 0));
-        }
     }
 
     void CheckSolution() {
@@ -88,9 +86,8 @@ class Mastermind {
             if (correct == 4) {
                 puzzleSolved = true;
                 SendMessage(roundabout, 2);
-            } else {
+            } else
                 SendMessage(randomEventController, 0);
-            }
         }
     }
 
@@ -161,30 +158,26 @@ class Mastermind {
     void RemoveFromSlot(int slot) {
         switch(slot) {
             case 0: {
-                if (@slot1 != null) {
+                if (@slot1 != null)
                     SendMessage(slot1, 0);
-                }
                 @slot1 = null;
                 break;
             }
             case 1: {
-                if (@slot2 != null) {
+                if (@slot2 != null)
                     SendMessage(slot2, 0);
-                }
                 @slot2 = null;
                 break;
             }
             case 2: {
-                if (@slot3 != null) {
+                if (@slot3 != null)
                     SendMessage(slot3, 0);
-                }
                 @slot3 = null;
                 break;
             }
             case 3: {
-                if (@slot4 != null) {
+                if (@slot4 != null)
                     SendMessage(slot4, 0);
-                }
                 @slot4 = null;
                 break;
             }
