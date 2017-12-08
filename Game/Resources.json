@@ -1912,6 +1912,10 @@
 							{
 								"sound" : "sndElevatorEngine",
 								"type" : 3
+							},
+							{
+								"sound" : "sndElevatorStop",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -2211,6 +2215,10 @@
 							{
 								"script" : "RoundAboutMinecartController",
 								"type" : 4
+							},
+							{
+								"script" : "VoltageRandomEvents",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
@@ -2222,6 +2230,6 @@
 	"sceneNumber" : 33,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 5,
-	"soundNumber" : 11,
+	"soundNumber" : 12,
 	"textureNumber" : 154
 }
