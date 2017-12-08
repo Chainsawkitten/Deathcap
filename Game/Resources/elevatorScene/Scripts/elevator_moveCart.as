@@ -32,7 +32,7 @@ class elevator_moveCart {
         @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
         @frontDoor = GetEntityByGUID(1511946590);
-        @cage = GetEntityByGUID(1511870172);        
+        @cage = GetEntityByGUID(1511870172);
 
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
