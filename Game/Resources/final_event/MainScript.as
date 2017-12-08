@@ -66,20 +66,20 @@ class MainScript {
         switch (phase) {
             case 0: { // Entering final scene.
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 break;
             }
             
             case 1: { //Stopping smoothly
                 vec3 pos = minecart.GetWorldPosition();
-                if(pos.x>0.0f){
-                pos.x += 0.05 * deltaTime;
-                minecart.SetWorldPosition(pos);
-                }
+               // if(pos.x>0.0f){
+               // pos.x += 0.05 * deltaTime;
+                //minecart.SetWorldPosition(pos);
+                //}
                 break;
             }
-            case 4: { // Waiting for monster to eat/die.
+            case 5: { // Waiting for monster to eat/die.
                 // Puzzle Skip.
                 if(!IsVRActive() && Input(PuzzleSkip, @self)) {
                     phase = 2;
@@ -99,7 +99,7 @@ class MainScript {
             }
             case 3: { // Continue after monster has been killed.
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
 
                 // The idea of fading is that we start with fog to begin fading
