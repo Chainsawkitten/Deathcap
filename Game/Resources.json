@@ -1917,6 +1917,10 @@
 							{
 								"sound" : "sndElevatorEngine",
 								"type" : 3
+							},
+							{
+								"sound" : "sndElevatorStop",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -2231,6 +2235,6 @@
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 3,
-	"soundNumber" : 14,
+	"soundNumber" : 15,
 	"textureNumber" : 154
 }
