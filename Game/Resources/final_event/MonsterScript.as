@@ -79,15 +79,15 @@ class MonsterScript {
                     phase = 7;
                 }
                 if(eatingTimer%2.5f <= 0.1f) {
-                    hub.renderManager.SetFogColor(vec3(0.3f,0.f,0.f));
+                    //hub.renderManager.SetFogColor(vec3(0.3f,0.f,0.f));
                 }
                 else if(eatingTimer%2.5f > 0.1f && eatingTimer%2.5f <= 0.9f) {
-                    vec3 colour = hub.renderManager.GetFogColor();
-                    float less = 0.8f * deltaTime;
-                    hub.renderManager.SetFogColor(vec3(colour.x - less, 0.0f, 0.0f));
+                    //vec3 colour = hub.renderManager.GetFogColor();
+                    //float less = 0.8f * deltaTime;
+                    //hub.renderManager.SetFogColor(vec3(colour.x - less, 0.0f, 0.0f));
                 }
                 else
-                    hub.renderManager.SetFogColor(vec3(0.f,0.f,0.f));
+                    //hub.renderManager.SetFogColor(vec3(0.f,0.f,0.f));
                 
                 break;
             }

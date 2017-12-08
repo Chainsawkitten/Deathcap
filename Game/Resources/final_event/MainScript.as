@@ -138,7 +138,7 @@ class MainScript {
             case 0: { // When monster has successfully eaten the player.
                 phase = 4; // Lost phase.
                 print("Player: I'm losing.\n");
-                
+                hub.renderManager.SetFogColor(vec3(0.f,0.f,0.f));
                 
                 break;
             }

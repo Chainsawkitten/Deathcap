@@ -108,6 +108,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
 
         // Render to surfaces.
         if (hmdRenderSurface != nullptr) {
+            renderer->SetFrameSize(hmdRenderSurface->GetSize());
             // Render vr headset.
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
@@ -190,6 +191,7 @@ void RenderManager::Render(World& world, bool soundSources, bool particleEmitter
                 }
             }
         } else if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
+            renderer->SetFrameSize(mainWindowRenderSurface->GetSize());
             // Render main window.
             { PROFILE("Render main window");
             { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
