@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/VoltageScene/VoltageScene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
@@ -2149,6 +2149,10 @@
 							},
 							{
 								"script" : "RoundAboutMinecartController",
+								"type" : 4
+							},
+							{
+								"script" : "VoltageRandomEvents",
 								"type" : 4
 							}
 						],

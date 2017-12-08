@@ -4014,6 +4014,36 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512484898
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/VoltageScene/Scripts/VoltageRandomEvents"
+			},
+			"children" : null,
+			"name" : "RandomEventController",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512719575
 		}
 	],
 	"name" : "Root",
