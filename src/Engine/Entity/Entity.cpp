@@ -151,6 +151,10 @@ Entity* Entity::GetChildFromIndex(int index) const {
     return nullptr;
 }
 
+ENGINE_API unsigned int Entity::GetNumChildren() const {
+    return (unsigned int)children.size();
+}
+
 bool Entity::RemoveChild(Entity* child) {
     for (auto it = children.begin(); it != children.end(); ++it) {
         if (*it == child) {
