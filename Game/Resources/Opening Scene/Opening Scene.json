@@ -970,8 +970,8 @@
 		{
 			"AnimationController" : 
 			{
-				"animationController" : "Resources/Opening Scene/Animation/Animation controller #1",
-				"skeleton" : "Resources/Opening Scene/Animation/monster@skeleton"
+				"animationController" : "Resources/Opening Scene/Animations2/Animation controller #3",
+				"skeleton" : "Resources/Opening Scene/Animations2/monster@skeleton"
 			},
 			"Material" : 
 			{
@@ -982,7 +982,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Animation/monster1@model"
+				"model" : "Resources/Opening Scene/Animations2/monster1@model"
 			},
 			"Script" : 
 			{
@@ -1076,7 +1076,7 @@
 				"triggerEventStruct_EventID" : 2,
 				"triggerEventStruct_ScriptID" : 1,
 				"triggerEventStruct_ShapeID" : 0,
-				"triggerEventStruct_TargetID" : 3,
+				"triggerEventStruct_TargetID" : 2,
 				"triggerFunction" : "void TriggerAnim()",
 				"triggerName" : "New Trigger",
 				"triggerOwner" : 1512122749,

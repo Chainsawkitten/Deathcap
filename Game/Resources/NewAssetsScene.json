@@ -2003,7 +2003,7 @@
 			"AnimationController" : 
 			{
 				"animationController" : "Resources/NewAssets/Animation controller #2",
-				"skeleton" : "Resources/Opening Scene/Animation/monster@skeleton"
+				"skeleton" : "Resources/Opening Scene/Animations2/monster@skeleton"
 			},
 			"Material" : 
 			{
@@ -2014,7 +2014,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Animation/monster1@model"
+				"model" : "Resources/Opening Scene/Animations2/monster1@model"
 			},
 			"Script" : 
 			{
