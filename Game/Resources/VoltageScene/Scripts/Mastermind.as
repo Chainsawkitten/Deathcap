@@ -40,6 +40,8 @@ class Mastermind {
 
         // Remove this if updates are not desired.
         RegisterUpdate();
+
+        TurnOffLights();
     }
 
     // Called by the engine for each frame.
