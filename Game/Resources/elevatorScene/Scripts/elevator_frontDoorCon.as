@@ -26,7 +26,7 @@ class elevator_frontDoorCon {
         doorOpen = false;
         speed = 0.5f;
         uniformScale = 0;
-        timer = 0;
+        timer = 0.0f;
         doorTime = 2.5f;
         @partical_1 = GetEntityByGUID(1512564077);
         @partical_2 = GetEntityByGUID(1512565858);
@@ -80,13 +80,13 @@ class elevator_frontDoorCon {
 
     void OpenDoor() {
         openDoor = true;
-        timer = 0;
+        timer = 0.0f;
         doorWithX.GetSoundSource().Play();
         doorWithService.GetSoundSource().Play();
     }
 
     void CloseDoor() {
-        timer = 0;
+        timer = 0.0f;
         openDoor = false;
     }
 }
