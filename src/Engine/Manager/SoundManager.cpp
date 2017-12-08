@@ -171,14 +171,16 @@ void SoundManager::ProcessSamples() {
         // Pause it.
         if (sound->shouldPause) {
             sound->shouldPlay = false;
-            sound->renderers->Flush();
+            if (sound->renderers)
+                sound->renderers->Flush();
         }
 
         // Stop it.
         if (sound->shouldStop) {
             soundBuffer->Restart();
             sound->shouldPlay = false;
-            sound->renderers->Flush();
+            if (sound->renderers)
+                sound->renderers->Flush();
         }
     }
 
@@ -381,7 +383,7 @@ void SoundManager::ClearKilledComponents() {
 }
 
 void SoundManager::Load(SoundStreamer::DataHandle* handle) {
-    if (handle->soundFile->GetCached()) {
+    if (handle->soundFile->IsCached()) {
         handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
         handle->done = true;
     } else
@@ -393,7 +395,7 @@ void SoundManager::Flush(Utility::Queue<SoundStreamer::DataHandle>& queue, bool 
         soundStreamer.BeginFlush();
     while (SoundStreamer::DataHandle* handle = queue.Iterate()) {
         handle->abort = true;
-        if (handle->soundFile->GetCached())
+        if (handle->soundFile->IsCached())
             handle->done = true;
     }
     if (lock)

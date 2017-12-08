@@ -92,7 +92,7 @@ void SoundBuffer::SetSoundFile(SoundFile* soundFile) {
 
     // Set new sound file.
     if (soundFile) {
-        chunkCount = soundFile->GetCached() ? 1 : CHUNK_COUNT;
+        chunkCount = soundFile->IsCached() ? 1 : CHUNK_COUNT;
         buffer = new float[CHUNK_SIZE * chunkCount];
         for (unsigned int i = 0; i < chunkCount; ++i)
             ProduceChunk();

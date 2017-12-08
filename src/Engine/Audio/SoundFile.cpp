@@ -11,14 +11,14 @@ SoundFile::~SoundFile() {
 
 }
 
-bool SoundFile::GetCached() const {
+bool SoundFile::IsCached() const {
     return (buffer != nullptr);
 }
 
 void SoundFile::Save() const {
     Json::Value node;
     node["name"] = name;
-    node["cache"] = (buffer != nullptr);
+    node["cache"] = IsCached();
 
     // Save properties to meta file.
     std::string filename = Hymn().GetPath() + "/" + path + name + ".json";
@@ -37,12 +37,20 @@ void SoundFile::Load(const std::string& name) {
 
     // Get properties from meta file.
     Json::Value node;
-    if (!FileSystem::FileExists(std::string(filename + ".json").c_str()))
-        Save();
+    if (!FileSystem::FileExists(std::string(filename + ".json").c_str())) {
+        node["name"] = name;
+        node["cache"] = shouldCache;
 
-    std::ifstream file(filename + ".json");
-    file >> node;
-    file.close();
+        // Save properties to meta file.
+        std::string filename = Hymn().GetPath() + "/" + path + name + ".json";
+        std::ofstream file(filename);
+        file << node;
+        file.close();
+    } else {
+        std::ifstream file(filename + ".json");
+        file >> node;
+        file.close();
+    }
 
     bool cache = node.get("cache", false).asBool();
     Cache(cache);
