@@ -79,14 +79,14 @@ class MainScript {
                 }
                 break;
             }
-            case 1: { // Waiting for monster to eat/die.
+            case 2: { // Waiting for monster to eat/die.
                 // Puzzle Skip.
                 if(!IsVRActive() && Input(PuzzleSkip, @self)) {
                     phase = 2;
                     SendMessage(monster, 1); // Monster died.
                 }
             }
-            case 2: { // Wait for monster to collapse.
+            case 3: { // Wait for monster to collapse.
                 waitForMonsterTimer += deltaTime;
                 if (waitForMonsterTimer >= 3.0f) {
                     phase = 3;
@@ -97,7 +97,7 @@ class MainScript {
                 }
                 break;
             }
-            case 3: { // Continue after monster has been killed.
+            case 4: { // Continue after monster has been killed.
                 vec3 pos = minecart.GetWorldPosition();
                 pos.x += speed * deltaTime;
                 minecart.SetWorldPosition(pos);
