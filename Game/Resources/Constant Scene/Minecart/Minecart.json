@@ -139,6 +139,10 @@
 							"children" : 
 							[
 								{
+									"AnimationController" : 
+									{
+										"animationController" : "Resources/Constant Scene/Controller/AnimationControllers/Animation controller #0"
+									},
 									"Material" : 
 									{
 										"albedo" : "Resources/Constant Scene/Controller/Textures/hand_albedo",
@@ -148,7 +152,7 @@
 									},
 									"Mesh" : 
 									{
-										"model" : "Resources/Constant Scene/Controller/Models/HandClosed"
+										"model" : "Resources/Constant Scene/Controller/Models/LeftHand@Model"
 									},
 									"children" : null,
 									"name" : "LeftCtrlModel",
@@ -234,6 +238,10 @@
 							"children" : 
 							[
 								{
+									"AnimationController" : 
+									{
+										"animationController" : "Resources/Constant Scene/Controller/AnimationControllers/Animation controller #1"
+									},
 									"Material" : 
 									{
 										"albedo" : "Resources/Constant Scene/Controller/Textures/hand_albedo",
@@ -243,7 +251,7 @@
 									},
 									"Mesh" : 
 									{
-										"model" : "Resources/Constant Scene/Controller/Models/HandOpenRight"
+										"model" : "Resources/Constant Scene/Controller/Models/RightHand@Model"
 									},
 									"children" : null,
 									"name" : "RightCtrlModel",
