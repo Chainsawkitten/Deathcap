@@ -73,7 +73,7 @@ Component::ParticleSystemComponent* ParticleManager::CreateParticleSystem(const 
     particleSystem->particleType.velocity = Json::LoadVec3(node["velocity"]);
     particleSystem->particleType.alpha_control = node.get("alphaControl", 10.0).asFloat();
     particleSystem->particleType.mass = node.get("mass", 1.0).asFloat();
-    particleSystem->particleType.spread = node.get("spread", 1.0).asFloat();
+    particleSystem->particleType.spread = node.get("spread", 1.0).asInt();
     particleSystem->particleType.randomVec = Json::LoadVec3(node["randomVelocity"]);
     particleSystem->particleType.velocityMultiplier = node.get("speed", 10.0).asFloat();
     particleSystem->particleType.nr_particles = node.get("NrOfParticles", 1024).asInt();

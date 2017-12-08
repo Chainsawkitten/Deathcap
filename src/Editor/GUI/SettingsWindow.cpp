@@ -22,7 +22,7 @@ SettingsWindow::SettingsWindow() {
             std::string name = themeFiles[i].substr(0, themeFiles[i].find_last_of("."));
             themes.push_back(name);
             if (name == EditorSettings::GetInstance().GetString("Theme"))
-                theme = i + 1;
+                theme = static_cast<int>(i) + 1;
         }
     }
 }
@@ -38,7 +38,7 @@ void SettingsWindow::Show() {
         }
         
         int previousTheme = theme;
-        ImGui::Combo("Theme", &theme, dropDownItems, themes.size());
+        ImGui::Combo("Theme", &theme, dropDownItems, static_cast<int>(themes.size()));
         
         // If a different theme was selected, load it.
         if (theme != previousTheme) {

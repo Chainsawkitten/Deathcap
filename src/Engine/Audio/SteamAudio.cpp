@@ -47,10 +47,10 @@ void SteamAudio::Process(std::vector<SteamAudio::SoundSourceInfo>& inputs, IPLAu
 
     assert(!audioBuffers.empty());
     output.format = audioBuffers[0].format;
-    iplMixAudioBuffers(audioBuffers.size(), audioBuffers.data(), directBuffer);
+    iplMixAudioBuffers(static_cast<IPLint32>(audioBuffers.size()), audioBuffers.data(), directBuffer);
     iplGetMixedEnvironmentalAudio(envRenderer, playerPos, playerDir, playerUp, indirectBuffer);
     std::vector<IPLAudioBuffer> mixBuffers{ directBuffer, indirectBuffer };
-    iplMixAudioBuffers(mixBuffers.size(), mixBuffers.data(), output);
+    iplMixAudioBuffers(static_cast<IPLint32>(mixBuffers.size()), mixBuffers.data(), output);
 }
 
 void SteamAudio::SetPlayer(IPLVector3 pos, IPLVector3 dir, IPLVector3 up) {

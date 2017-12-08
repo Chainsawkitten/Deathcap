@@ -99,7 +99,7 @@ void SkinRenderProgram::ShadowRender(Geometry::Geometry3D* geometry, const glm::
 
         glUniformMatrix4fv(shadowModelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         assert(bones.size() <= 100);
-        glUniformMatrix4fv(shadowBonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
+        glUniformMatrix4fv(shadowBonesLocation, static_cast<GLsizei>(bones.size()), GL_FALSE, &bones[0][0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
@@ -123,7 +123,7 @@ void SkinRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::m
 
         glUniformMatrix4fv(zModelLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         assert(bones.size() <= 100);
-        glUniformMatrix4fv(zBonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
+        glUniformMatrix4fv(zBonesLocation, static_cast<GLsizei>(bones.size()), GL_FALSE, &bones[0][0][0]);
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
     }
@@ -153,7 +153,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     glUniform1iv(colorFilterApplyLocation, 1, &colorFilterApply);
     glUniform3fv(colorFilterColorLocation, 1, &colorFilterColor[0]);
 
-    float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0;
+    float time = static_cast<float>(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0);
     glUniform1iv(ditherApplyLocation, 1, &ditherApply);
     glUniform1fv(timeLocation, 1, &time);
     glUniform2fv(frameSizeLocation, 1, &frameSize[0]);
@@ -194,7 +194,7 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
 
         glUniformMatrix3fv(normalLocation, 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
         assert(bones.size() <= 100);
-        glUniformMatrix4fv(bonesLocation, bones.size(), GL_FALSE, &bones[0][0][0]);
+        glUniformMatrix4fv(bonesLocation, static_cast<GLsizei>(bones.size()), GL_FALSE, &bones[0][0][0]);
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
 

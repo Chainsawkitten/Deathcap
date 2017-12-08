@@ -439,7 +439,7 @@ void Editor::ShowMainMenuBar(bool& play) {
 void Editor::ShowGridSettings() {
     if (showGridSettings) {
         glm::vec2 size(MainWindow::GetInstance()->GetSize());
-        ImGui::SetNextWindowPos(ImVec2((int)size.x - 255 - resourceView.GetEditorWidth(), 20));
+        ImGui::SetNextWindowPos(ImVec2((int)size.x - 255 - static_cast<float>(resourceView.GetEditorWidth()), 20));
         ImGui::SetNextWindowSizeConstraints(ImVec2(255, 105), ImVec2(255, 105));
         ImGui::Begin("Grid Settings", &showGridSettings, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
         ImGui::DragInt("Grid Size", &gridSettings.gridSize, 1.0f, 0, 100);
@@ -671,8 +671,8 @@ void Editor::PaintBrush(Entity* entity) {
                 float randDistance = 0.0;
 
                 if (spreadRand) {
-                    randAngle = rand() % 360;
-                    randDistance = rand() % 10;
+                    randAngle = static_cast<float>(rand() % 360);
+                    randDistance = static_cast<float>(rand() % 10);
                 }
                 Entity* entity = parentEntity->AddChild("foliage_");
                 entity->InstantiateScene("Resources/" + paintScene, "Resources/" + Hymn().world.GetRoot()->name);
@@ -683,12 +683,12 @@ void Editor::PaintBrush(Entity* entity) {
                 // Rotate the entity after the normal of the currentEntity.
                 glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
                 glm::vec3 axis = glm::cross(up, normal);
-                float angle = std::atan2(axis.length(), glm::dot(up, normal));
+                float angle = static_cast<float>(std::atan2(axis.length(), glm::dot(up, normal)));
                 glm::normalize(axis);
                 entity->RotateAroundWorldAxis(angle, axis);
 
                 // Rotates the entity randomly around its yaw to create variation when painting.
-                entity->RotateYaw(rand() % 360);
+                entity->RotateYaw(static_cast<float>(rand() % 360));
 
                 paintTimer = 0.0f;
             }

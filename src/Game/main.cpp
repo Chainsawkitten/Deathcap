@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
     
     // Load game settings from ini file.
     GameSettings::GetInstance().Load();
-    Managers().renderManager->SetTextureReduction(GameSettings::GetInstance().GetLong("Texture Reduction"));
+    Managers().renderManager->SetTextureReduction(static_cast<uint16_t>(GameSettings::GetInstance().GetLong("Texture Reduction")));
     
     // Load world.
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");

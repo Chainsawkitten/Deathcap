@@ -48,6 +48,8 @@ class elevator_backDoorCon {
     }
 
     void OpenDoor() {
+        doorWithX.GetSoundSource().Play();
+        doorWithService.GetSoundSource().Play();
         openDoor = true;
     }
 

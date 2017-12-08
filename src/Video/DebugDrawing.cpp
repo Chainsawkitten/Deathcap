@@ -399,7 +399,7 @@ void DebugDrawing::GenerateBuffers(const std::vector<glm::vec3>& vertices, const
     glGenBuffers(1, &mesh.indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
-    mesh.indexCount = indices.size();
+    mesh.indexCount = static_cast<unsigned int>(indices.size());
 
     glGenVertexArrays(1, &mesh.vertexArray);
     glBindVertexArray(mesh.vertexArray);

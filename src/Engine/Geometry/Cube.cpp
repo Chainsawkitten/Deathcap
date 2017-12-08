@@ -225,7 +225,7 @@ Cube::Cube() {
     
     // Generate buffers.
     GenerateVertexBuffer(vertexBuffer);
-    GenerateIndexBuffer(indices.data(), indices.size(), indexBuffer);
+    GenerateIndexBuffer(indices.data(), static_cast<unsigned int>(indices.size()), indexBuffer);
     GenerateVertexArray(vertexBuffer, indexBuffer, vertexArray);
 
     // Generate AABB
@@ -249,7 +249,7 @@ Video::Geometry::Geometry3D::Type Cube::GetType() const {
 }
 
 void Cube::GenerateVertexBuffer(GLuint& vertexBuffer) {
-    vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(vertices.data(), vertices.size());
+    vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(vertices.data(), static_cast<unsigned int>(vertices.size()));
 }
 
 void Cube::GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) {

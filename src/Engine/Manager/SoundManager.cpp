@@ -171,14 +171,16 @@ void SoundManager::ProcessSamples() {
         // Pause it.
         if (sound->shouldPause) {
             sound->shouldPlay = false;
-            sound->renderers->Flush();
+            if (sound->renderers)
+                sound->renderers->Flush();
         }
 
         // Stop it.
         if (sound->shouldStop) {
             soundBuffer->Restart();
             sound->shouldPlay = false;
-            sound->renderers->Flush();
+            if (sound->renderers)
+                sound->renderers->Flush();
         }
     }
 
@@ -290,7 +292,7 @@ void SoundManager::CreateAudioEnvironment() {
     }
 
     // Create Scene
-    sAudio.CreateScene(audioMatRes.size());
+    sAudio.CreateScene(static_cast<uint32_t>(audioMatRes.size()));
 
     for (std::size_t i = 0; i < audioMatRes.size(); ++i) {
         IPLMaterial iplmat;
@@ -302,7 +304,7 @@ void SoundManager::CreateAudioEnvironment() {
         iplmat.lowFreqTransmission = audioMatRes[i]->lowFreqTransmission;
         iplmat.scattering = audioMatRes[i]->scattering;
 
-        sAudio.SetSceneMaterial(i, iplmat);
+        sAudio.SetSceneMaterial(static_cast<uint32_t>(i), iplmat);
     }
 
     // Create mesh.
@@ -335,7 +337,7 @@ void SoundManager::CreateAudioEnvironment() {
                 // Find material index and create ipl mesh.
                 for (std::size_t i = 0; i < audioMatRes.size(); ++i) {
                     if (audioMatRes[i] == audioMatComp->material) {
-                        sAudio.CreateStaticMesh(iplVertices, iplIndices, i);
+                        sAudio.CreateStaticMesh(iplVertices, iplIndices, static_cast<int>(i));
                         break;
                     }
                 }
@@ -381,7 +383,7 @@ void SoundManager::ClearKilledComponents() {
 }
 
 void SoundManager::Load(SoundStreamer::DataHandle* handle) {
-    if (handle->soundFile->GetCached()) {
+    if (handle->soundFile->IsCached()) {
         handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
         handle->done = true;
     } else
@@ -393,7 +395,7 @@ void SoundManager::Flush(Utility::Queue<SoundStreamer::DataHandle>& queue, bool 
         soundStreamer.BeginFlush();
     while (SoundStreamer::DataHandle* handle = queue.Iterate()) {
         handle->abort = true;
-        if (handle->soundFile->GetCached())
+        if (handle->soundFile->IsCached())
             handle->done = true;
     }
     if (lock)

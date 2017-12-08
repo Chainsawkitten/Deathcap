@@ -78,7 +78,7 @@ void ProfilingManager::EndFrame() {
             it.first->value = it.second->Resolve() / 1000000.0;
             break;
         case Video::Query::Type::SAMPLES_PASSED:
-            it.first->value = it.second->Resolve();
+            it.first->value = static_cast<double>(it.second->Resolve());
             break;
         default:
             assert(false);
@@ -144,7 +144,7 @@ unsigned int ProfilingManager::MeasureVRAM() {
 #ifdef MEASURE_VRAM
     DXGI_QUERY_VIDEO_MEMORY_INFO info;
     dxgiAdapter3->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &info);
-    unsigned int memoryUsage = info.CurrentUsage;
+    unsigned int memoryUsage = static_cast<unsigned int>(info.CurrentUsage);
     return (memoryUsage / 1024 / 1024);
 #endif
     return 0;

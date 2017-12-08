@@ -5,6 +5,7 @@ class elevator_moveCart {
     Entity @board;
     Entity @puzzleBoard;
     Entity @realSelf;
+    Entity @cage;
     float speed;
     vec3 tempPos;
     vec3 elevatorPos;
@@ -12,6 +13,7 @@ class elevator_moveCart {
     bool moveUpward;
     int phase;
     float uniformScale;
+    bool puzzleSkipped;
 
     elevator_moveCart(Entity @entity){
         @hub = Managers();
@@ -19,17 +21,17 @@ class elevator_moveCart {
         @elevator = GetEntityByGUID(1511870044);
         @board = GetEntityByGUID(1511530025);
         @puzzleBoard = GetEntityByGUID(1512029307);
-
+        @cage = GetEntityByGUID(1511870172);
 
         @realSelf = @entity;
         realSelf.SetEnabled(false, true);
-
+        
         moveForward = true;
         moveUpward = false;
         speed = 2.0f;
         phase = 0;
         uniformScale = 1.0f;
-
+        puzzleSkipped = false;
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -44,31 +46,40 @@ class elevator_moveCart {
     void Update(float deltaTime) {
         switch(phase) {
             case 0:
-                speed = 2.0f;
                 tempPos = self.GetWorldPosition();
                 tempPos.x -= speed * deltaTime;
                 self.SetWorldPosition(tempPos);
-            break;
+                break;
 
             case 1: 
                 uniformScale -= (1.0f / 3.5f) * deltaTime;
                 if (uniformScale < 0.0f) {
                     uniformScale = 0.0f;
                     phase = 2;
+                    cage.GetSoundSource().Play();
                 }
 
                 puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
-            break;
+                break;
 
             case 2:
                 elevatorPos = elevator.GetWorldPosition();
                 elevatorPos.y += speed * deltaTime;
                 elevator.SetWorldPosition(elevatorPos);
-
+                
                 tempPos = self.GetWorldPosition();
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
-            break;
+                break;
+                
+            case 4: // Cart is stopped.
+                // Skip Puzzle.
+                if(!IsVRActive() && Input(PuzzleSkip, @self) && !puzzleSkipped) {
+                    puzzleSkipped = true;
+                    phase = 1;
+                    SendMessage(board, 1);
+                }
+                break;
         }
     }
 
@@ -77,6 +88,7 @@ class elevator_moveCart {
     }
 
     void StopCart() {
+        cage.GetSoundSource().Stop();
         phase = 4;
         SendMessage(board, 0);
     }

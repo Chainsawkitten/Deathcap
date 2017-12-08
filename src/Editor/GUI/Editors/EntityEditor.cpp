@@ -103,31 +103,31 @@ void EntityEditor::Show() {
         if (EditorSettings::GetInstance().GetBool("Grid Snap")) {
             int toNearest = EditorSettings::GetInstance().GetLong("Grid Snap Size");
 
-            int value = entity->position.x;
+            int value = static_cast<unsigned int>(entity->position.x);
             int rest = value % toNearest;
 
             if (rest > (toNearest / 2)) {
-                entity->position.x = (value - rest) + toNearest;
+                entity->position.x = static_cast<float>((value - rest) + toNearest);
             } else {
-                entity->position.x = (value - rest);
+                entity->position.x = static_cast<float>(value - rest);
             }
 
-            value = entity->position.y;
+            value = static_cast<int>(entity->position.y);
             rest = value % toNearest;
 
             if (rest > (toNearest / 2)) {
-                entity->position.y = (value - rest) + toNearest;
+                entity->position.y = static_cast<float>((value - rest) + toNearest);
             } else {
-                entity->position.y = (value - rest);
+                entity->position.y = static_cast<float>((value - rest));
             }
 
-            value = entity->position.z;
+            value = static_cast<int>(entity->position.z);
             rest = value % toNearest;
 
             if (rest > (toNearest / 2)) {
-                entity->position.z = (value - rest) + toNearest;
+                entity->position.z = static_cast<float>((value - rest) + toNearest);
             } else {
-                entity->position.z = (value - rest);
+                entity->position.z = static_cast<float>(value - rest);
             }
         }
 
@@ -496,7 +496,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
                 int typeId = script->instance->GetPropertyTypeId(n);
 
                 if (typeId == asTYPEID_INT32)
-                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->GetDataFromPropertyMap(propertyName), 0.0f);
+                    ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->GetDataFromPropertyMap(propertyName), 0);
                 else if (typeId == asTYPEID_FLOAT)
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->GetDataFromPropertyMap(propertyName), 0.0f);
                 else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("Entity@")) {
@@ -578,7 +578,7 @@ void EntityEditor::ShapeEditor(Component::Shape* shape) {
         *outText = editor->Label();
         return true;
     },
-        shapeEditors.data(), shapeEditors.size())) {
+        shapeEditors.data(), static_cast<int>(shapeEditors.size()))) {
         shapeEditors[selectedShape]->Apply(shape);
     }
 

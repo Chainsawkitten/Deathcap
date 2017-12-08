@@ -119,6 +119,11 @@ class Mastermind {
     void ReceiveMessage(Entity @sender, int signal) {
         if (signal < 4)
             AddToSlot(signal, sender);
+        else if (signal == 100) {	// Puzzle skipped, from minecart.
+        	correct = 4;
+        	puzzleSolved = true;
+        	SendMessage(roundabout, 2);
+        }
         else
             RemoveFromSlot(signal - 4);
     }

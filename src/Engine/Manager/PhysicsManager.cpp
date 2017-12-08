@@ -36,7 +36,7 @@ PhysicsManager::PhysicsManager() {
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 
     // Y axis up
-    dynamicsWorld->setGravity(btVector3(0, -9.82, 0));
+    dynamicsWorld->setGravity(btVector3(0.f, -9.82f, 0.f));
 
     // Set the lockbox key we will use for lockboxes created in here.
     triggerLockBoxKey.reset(new Utility::LockBox<Physics::Trigger>::Key());

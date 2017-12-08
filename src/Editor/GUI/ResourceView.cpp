@@ -38,12 +38,12 @@ void ResourceView::Show() {
     ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
 
     // Splitter.
-    ImGui::VerticalSplitter(ImVec2(sceneWidth, size.y - resourceHeight), size.x - sceneWidth - editorWidth, splitterSize, resourceHeight, resourceResize, 20, size.y - 20);
+    ImGui::VerticalSplitter(ImVec2(static_cast<float>(sceneWidth), static_cast<float>(size.y - resourceHeight)), static_cast<int>(size.x - sceneWidth - editorWidth), splitterSize, resourceHeight, resourceResize, 20, static_cast<int>(size.y - 20));
     if (resourceResize)
-        resourceHeight = size.y - resourceHeight;
+        resourceHeight = static_cast<int>(size.y - resourceHeight);
 
-    ImGui::SetNextWindowPos(ImVec2(sceneWidth, size.y - resourceHeight));
-    ImGui::SetNextWindowSize(ImVec2(size.x - sceneWidth - editorWidth, resourceHeight));
+    ImGui::SetNextWindowPos(ImVec2(static_cast<float>(sceneWidth), static_cast<float>(size.y - resourceHeight)));
+    ImGui::SetNextWindowSize(ImVec2(static_cast<float>(size.x - sceneWidth - editorWidth), static_cast<float>(resourceHeight)));
 
     ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
 
@@ -120,19 +120,19 @@ void ResourceView::Show() {
     }
 
     if (sceneEditor.IsVisible()) {
-        ImGui::HorizontalSplitter(ImVec2(sceneWidth, 20), size.y - 20, splitterSize, sceneWidth, sceneResize, 20, size.x - editorWidth - 20);
+        ImGui::HorizontalSplitter(ImVec2(static_cast<float>(sceneWidth), static_cast<float>(20)), static_cast<int>(size.y - 20), splitterSize, sceneWidth, sceneResize, 20, static_cast<int>(size.x - editorWidth - 20));
         ImGui::SetNextWindowPos(ImVec2(0, 20));
-        ImGui::SetNextWindowSize(ImVec2(sceneWidth, size.y - 20));
+        ImGui::SetNextWindowSize(ImVec2(static_cast<float>(sceneWidth), static_cast<float>(size.y - 20)));
         sceneEditor.Show();
     }
 
     if (sceneEditor.entityEditor.IsVisible() || animationClipEditor.IsVisible() || skeletonEditor.IsVisible() || scriptEditor.IsVisible() || textureEditor.IsVisible() || modelEditor.IsVisible() || soundEditor.IsVisible() || audioMaterialEditor.IsVisible()) {
-        editorWidth = size.x - editorWidth;
-        ImGui::HorizontalSplitter(ImVec2(editorWidth, 20), size.y - 20, splitterSize, editorWidth, editorResize, sceneWidth + 20, size.x - 20);
-        editorWidth = size.x - editorWidth;
+        editorWidth = static_cast<int>(size.x - editorWidth);
+        ImGui::HorizontalSplitter(ImVec2(static_cast<float>(editorWidth), 20.f), static_cast<int>(size.y - 20), splitterSize, editorWidth, editorResize, static_cast<int>(sceneWidth + 20), static_cast<int>(size.x - 20));
+        editorWidth = static_cast<int>(size.x - editorWidth);
 
         ImGui::SetNextWindowPos(ImVec2(size.x - editorWidth, 20));
-        ImGui::SetNextWindowSize(ImVec2(editorWidth, size.y - 20));
+        ImGui::SetNextWindowSize(ImVec2(static_cast<float>(editorWidth), static_cast<float>(size.y - 20)));
     }
 
     if (animationClipEditor.IsVisible())

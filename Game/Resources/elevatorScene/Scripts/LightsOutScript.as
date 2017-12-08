@@ -2,6 +2,8 @@ class LightsOutScript {
     Entity @board;
     Entity @rightController;
     Entity @elevatorCartScript;
+    Entity @puzzleBoard;
+    Component::SoundSource @buttonSound;
     dictionary buttons;
     dictionary buttonStates;
     int numPressedButtons = 0;
@@ -11,6 +13,8 @@ class LightsOutScript {
     LightsOutScript(Entity @entity){
         @board = GetEntityByGUID(1511530025);
         @rightController = GetEntityByGUID(1508919758);
+        @puzzleBoard = GetEntityByGUID(1512029307);
+        @buttonSound = puzzleBoard.GetSoundSource();
         
         for (int row = 0; row < 4; ++row) {
             for (int column = 0; column < 4; ++column) {
@@ -25,9 +29,12 @@ class LightsOutScript {
     }
 
     void ReceiveMessage(Entity @sender, int message) {
-        if(message == 0) {
+        if (message == 0) {
             gameInactive = false;
             @elevatorCartScript = @sender;
+        }
+        if (message == 1) {
+            gameInactive = true;
         }
     }
 
@@ -38,6 +45,7 @@ class LightsOutScript {
     }
 
     void Toggle(int index) {
+        buttonSound.Play();
         bool pressed = !bool(buttonStates["" + index]);
         buttonStates["" + index] = pressed;
 

@@ -85,7 +85,7 @@ bool AssetConverterSkeleton::Convert(const char* filepath, const char* destinati
         skeleton.Save((std::string(destination)).c_str());
     } else {
         Animation::Animation anim;
-        anim.numBones = bones.size();
+        anim.numBones = static_cast<uint32_t>(bones.size());
         anim.bones = new Animation::Bone[aScene->mAnimations[0]->mNumChannels];
         anim.length = 0;
 
@@ -197,7 +197,7 @@ void AssetConverterSkeleton::BoneRecursive(aiNode* node, int parent) {
 
                 for (std::size_t k = 0; k < bones.size(); ++k)
                     if (bones[k] == child->mParent->mName.C_Str()) {
-                        parents.push_back(k);
+                        parents.push_back(static_cast<int>(k));
                         break;
                     }
 

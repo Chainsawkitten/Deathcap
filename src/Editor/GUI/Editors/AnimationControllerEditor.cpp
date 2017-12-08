@@ -50,9 +50,9 @@ void AnimationControllerEditor::ShowContextMenu() {
     if (ImGui::MenuItem("Add animation action")) {
         Animation::AnimationAction* newAction = new Animation::AnimationAction;
         std::string name = "Action #" + std::to_string(animationController->animationNodes.size() + 1);
-        unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
+        unsigned int size = static_cast<unsigned int>(name.size()) < 127 ? static_cast<unsigned int>(name.size()) + 1 : 128;
         memcpy(newAction->name, name.c_str(), size);
-        newAction->index = animationController->animationNodes.size();
+        newAction->index = static_cast<uint32_t>(animationController->animationNodes.size());
         animationController->animationNodes.push_back(newAction);
     }
 
@@ -60,9 +60,9 @@ void AnimationControllerEditor::ShowContextMenu() {
     if (ImGui::MenuItem("Add animation transition")) {
         Animation::AnimationTransition* newTransition = new Animation::AnimationTransition;
         std::string name = "Transition #" + std::to_string(animationController->animationNodes.size() + 1);
-        unsigned int size = name.size() < 127 ? name.size() + 1 : 128;
+        unsigned int size = static_cast<unsigned int>(name.size()) < 127 ? static_cast<unsigned>(name.size()) + 1 : 128;
         memcpy(newTransition->name, name.c_str(), size);
-        newTransition->index = animationController->animationNodes.size();
+        newTransition->index = static_cast<uint32_t>(animationController->animationNodes.size());
         animationController->animationNodes.push_back(newTransition);
     }
 
@@ -116,7 +116,7 @@ void AnimationControllerEditor::ShowNode(Node* node) {
                 ImGui::Separator();
                 for (std::size_t i = 0; i < animationController->floatMap.size(); ++i)
                     if (ImGui::Selectable(animationController->floatMap[i]->name)) {
-                        action->playbackModifierFloatIndex = i;
+                        action->playbackModifierFloatIndex = static_cast<uint32_t>(i);
                         break;
                     }
 
@@ -170,7 +170,7 @@ void AnimationControllerEditor::ShowNode(Node* node) {
                 ImGui::Separator();
                 for (std::size_t i = 0; i < animationController->boolMap.size(); ++i) {
                     if (ImGui::Selectable(animationController->boolMap[i]->name)) {
-                        transition->transitionBoolIndex = i;
+                        transition->transitionBoolIndex = static_cast<uint32_t>(i);
                         break;
                     }
                 }
@@ -286,7 +286,7 @@ unsigned int AnimationControllerEditor::GetNumNodes() {
         return 0;
     }
 
-    return animationController->animationNodes.size();
+    return static_cast<unsigned int>(animationController->animationNodes.size());
 }
 
 bool AnimationControllerEditor::CanConnect(Node* output, Node* input) {

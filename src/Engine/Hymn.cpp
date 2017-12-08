@@ -157,7 +157,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     for (unsigned int i = 0; i < scriptNode.size(); ++i) {
         scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
     }
-    scriptNumber = scripts.size();
+    scriptNumber = static_cast<unsigned int>(scripts.size());
 
     vrScale = root["vrScale"].asFloat();
     Managers().vrManager->SetScale(vrScale);
