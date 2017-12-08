@@ -18,6 +18,7 @@ class Mastermind {
     Entity @light4;
 
     Entity @roundabout;
+    Entity @randomEventController;
 
     bool puzzleSolved = false;
     int correct = 0;
@@ -35,6 +36,7 @@ class Mastermind {
         @light3 = GetEntityByGUID(1511792168);
         @light4 = GetEntityByGUID(1511792181);
         @roundabout = GetEntityByGUID(1511524965);
+        @randomEventController = GetEntityByGUID(1512719575);
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -84,6 +86,8 @@ class Mastermind {
             if (correct == 4) {
                 puzzleSolved = true;
                 SendMessage(roundabout, 2);
+            } else {
+                SendMessage(randomEventController, 0);
             }
         }
     }
