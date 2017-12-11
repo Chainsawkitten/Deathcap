@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 188,
+	"modelNumber" : 189,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -36,6 +36,18 @@
 			{
 				"script" : "MonsterTestScript",
 				"type" : 4
+			},
+			{
+				"texture" : "Texture #154",
+				"type" : 2
+			},
+			{
+				"model" : "lowpoly_bush",
+				"type" : 1
+			},
+			{
+				"scene" : "lowpoly_bush",
+				"type" : 0
 			}
 		],
 		"subfolders" : 
@@ -2162,9 +2174,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 31,
+	"sceneNumber" : 32,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 2,
 	"soundNumber" : 11,
-	"textureNumber" : 154
+	"textureNumber" : 155
 }
