@@ -4,6 +4,7 @@ class Bridge {
     Entity @monster;
     bool trigger;
     bool playingAudio;
+    bool done;
 
     Bridge(Entity @entity){
         @self = @entity;
@@ -11,6 +12,7 @@ class Bridge {
         @monster = GetEntityByGUID(1512394369);
         trigger = false;
         playingAudio = false;
+        done = false;
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -24,11 +26,12 @@ class Bridge {
             }
             self.RotateRoll(radians(0.12f));
         }
-        else if (roll(self.rotation) > 0.0f) {
+        else if (!done && roll(self.rotation) > 0.0f) {
             trigger = false;
             SendMessage(cart, 3);
             monster.SetEnabled(true, true);
             SendMessage(monster, 0);
+            done = true;
         }
     }
     

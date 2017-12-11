@@ -1398,6 +1398,10 @@
 							{
 								"sound" : "monsterfootstep",
 								"type" : 3
+							},
+							{
+								"sound" : "monsterdoorbang",
+								"type" : 3
 							}
 						],
 						"subfolders" : 
@@ -2270,6 +2274,6 @@
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 3,
-	"soundNumber" : 15,
+	"soundNumber" : 16,
 	"textureNumber" : 154
 }
