@@ -1259,6 +1259,43 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511169296
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/PileOfRocks"
+					},
+					"children" : null,
+					"name" : "Rock4",
+					"position" : 
+					{
+						"x" : 6.7814931869506836,
+						"y" : 8.8747358322143555,
+						"z" : 5.464838981628418
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 5.3260798454284668,
+						"y" : 5.3260798454284668,
+						"z" : 5.3260798454284668
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512996037
 				}
 			],
 			"name" : "PrettyRocks",
@@ -2025,14 +2062,14 @@
 				{
 					"PointLight" : 
 					{
-						"attenuation" : 1.3910000324249268,
+						"attenuation" : 0.20600001513957977,
 						"color" : 
 						{
 							"x" : 0.91764706373214722,
 							"y" : 1.0,
 							"z" : 1.0
 						},
-						"intensity" : 0.11400000751018524
+						"intensity" : 0.14200000464916229
 					},
 					"children" : null,
 					"name" : "light",
