@@ -22,7 +22,8 @@ class Bridge {
                 playingAudio = true;
                 self.GetSoundSource().Play();
             }
-            self.RotateRoll(radians(0.12f));
+            // Speed: 90 degrees over 8 seconds
+            self.RotateRoll(radians(90.0f) / 8.0f * deltaTime);
         }
         else if (roll(self.rotation) > 0.0f) {
             trigger = false;
@@ -30,7 +31,6 @@ class Bridge {
             monster.SetEnabled(true, true);
             SendMessage(monster, 0);
         }
-        SendMessage(monster, 0);
     }
     
     void ReceiveMessage(Entity @sender, int i){

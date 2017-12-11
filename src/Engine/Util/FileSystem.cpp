@@ -118,7 +118,7 @@ namespace FileSystem {
 #elif __linux__
         // Linux
         path = getenv("HOME");
-        path += "/.local/share/";
+        path += "/";
 #endif
         
         path += appName;

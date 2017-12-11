@@ -6,6 +6,7 @@
 #include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Manager/RenderManager.hpp>
 #include <Engine/Manager/SoundManager.hpp>
+#include <Engine/Manager/VRManager.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Input/Input.hpp>
 #include <Utility/Log.hpp>
@@ -81,7 +82,10 @@ int main(int argc, char* argv[]) {
 
         window->Update();
         Hymn().Update(static_cast<float>(deltaTime));
-        Hymn().Render();
+        if (Managers().vrManager->Active())
+            Hymn().Render(RenderManager::HMD);
+        else
+            Hymn().Render(RenderManager::MONITOR);
 
 
         if ( testing )
@@ -114,6 +118,9 @@ int main(int argc, char* argv[]) {
         if ( testing ) {
             ramUsed = Managers().profilingManager->MeasureRAM();
             vramUsed = Managers().profilingManager->MeasureVRAM();
+            
+            // Correct for driver keeping a copy of video stuff in RAM.
+            ramUsed -= vramUsed;
 
             if (ramUsed > maxRamUsed)
                     maxRamUsed = ramUsed;
