@@ -317,10 +317,10 @@ namespace Video {
              */
             VIDEO_API glm::vec2 GetFrameSize() const;
             
-            /// set whether blood is applied.
+            /// Set whether blood is applied.
             /**
-            * @param bloodApply Whether blood is applied.
-            */
+             * @param bloodApply Whether blood is applied.
+             */
             VIDEO_API void SetBloodApply(bool bloodApply);
 
 
