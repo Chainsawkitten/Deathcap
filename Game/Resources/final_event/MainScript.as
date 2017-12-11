@@ -61,8 +61,9 @@ class MainScript {
         switch (phase) {
             case 0: { // Entering final scene.
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
+                print("Case 0");
                 break;
             }
             
@@ -71,6 +72,7 @@ class MainScript {
                 if(pos.x>0.0f){
                 pos.x += 0.05 * deltaTime;
                 minecart.SetWorldPosition(pos);
+                print("Case 1");
                 }
                 break;
             }
@@ -79,6 +81,7 @@ class MainScript {
                 if(!IsVRActive() && Input(PuzzleSkip, @self)) {
                     phase = 2;
                     SendMessage(monster, 1); // Monster died.
+                    print("Case 4");
                 }
             }
             case 2: { // Wait for monster to collapse.
@@ -89,13 +92,15 @@ class MainScript {
                     hub.renderManager.SetFogApply(true);
                     hub.renderManager.SetColorFilterApply(true);
                     hub.renderManager.SetFogColor(vec3(0, 0, 0));
+                    print("Case 2");
                 }
                 break;
             }
             case 3: { // Continue after monster has been killed.
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
+                print("Case 3");
 
                 // The idea of fading is that we start with fog to begin fading
                 // with distance. However, with fog we can generally see things
