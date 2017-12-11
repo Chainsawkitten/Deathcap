@@ -970,8 +970,8 @@
 		{
 			"AnimationController" : 
 			{
-				"animationController" : "Resources/Opening Scene/Animation/Animation controller #1",
-				"skeleton" : "Resources/Opening Scene/Animation/monster@skeleton"
+				"animationController" : "Resources/Opening Scene/Animations2/Animation controller #3",
+				"skeleton" : "Resources/Opening Scene/Animations2/monster@skeleton"
 			},
 			"Material" : 
 			{
@@ -982,19 +982,57 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Animation/monster1@model"
+				"model" : "Resources/Opening Scene/Animations2/monster1@model"
 			},
 			"Script" : 
 			{
 				"scriptName" : "Resources/Opening Scene/Scripts/AnimationScript"
 			},
-			"children" : null,
+			"children" : 
+			[
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/NewAssets/Scripts/monsterSoundScript"
+					},
+					"SoundSource" : 
+					{
+						"loop" : true,
+						"sound" : "Resources/NewAssets/Audio/monsterSound",
+						"volume" : 0.57300001382827759
+					},
+					"children" : null,
+					"name" : "Sound",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 6.1850004196166992,
+						"z" : 1.2610000371932983
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512561652
+				}
+			],
 			"name" : "monster",
 			"position" : 
 			{
 				"x" : -36.262699127197266,
 				"y" : 0.93738043308258057,
-				"z" : 9.8411731719970703
+				"z" : 9.8700370788574219
 			},
 			"rotation" : 
 			{
@@ -1005,9 +1043,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 0.1600000262260437,
-				"y" : 0.1600000262260437,
-				"z" : 0.1600000262260437
+				"x" : 0.13599999248981476,
+				"y" : 0.13600002229213715,
+				"z" : 0.13599999248981476
 			},
 			"scene" : false,
 			"static" : false,
@@ -1038,9 +1076,10 @@
 				"triggerEventStruct_EventID" : 2,
 				"triggerEventStruct_ScriptID" : 1,
 				"triggerEventStruct_ShapeID" : 0,
-				"triggerEventStruct_TargetID" : 3,
+				"triggerEventStruct_TargetID" : 2,
 				"triggerFunction" : "void TriggerAnim()",
 				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512122749,
 				"triggerTargetEntity" : 1512122204,
 				"triggerTriggered" : false
 			},
@@ -1067,7 +1106,210 @@
 			},
 			"scene" : false,
 			"static" : false,
+			"uid" : 1512122749
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.0860000848770142,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.80392158031463623,
+					"z" : 0.45882353186607361
+				},
+				"intensity" : 0.74600005149841309
+			},
+			"children" : null,
+			"name" : "monsterLights",
+			"position" : 
+			{
+				"x" : -36.609466552734375,
+				"y" : 2.3262419700622559,
+				"z" : 9.9789276123046875
+			},
+			"rotation" : 
+			{
+				"w" : -0.0047701653093099594,
+				"x" : -0.20168587565422058,
+				"y" : 0.95417314767837524,
+				"z" : 0.22101661562919617
+			},
+			"scale" : 
+			{
+				"x" : 0.99999696016311646,
+				"y" : 0.99999821186065674,
+				"z" : 0.00014760944759473205
+			},
+			"scene" : false,
+			"static" : false,
 			"uid" : 1512123296
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Lever/Textures/lever_albedo",
+				"metallic" : "Resources/Opening Scene/Lever/Textures/lever_metallic",
+				"normal" : "Resources/Opening Scene/Lever/Textures/lever_normal",
+				"roughness" : "Resources/Opening Scene/Lever/Textures/lever_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Lever/Models/leverhandle"
+			},
+			"children" : null,
+			"name" : "Lever_handle",
+			"position" : 
+			{
+				"x" : 11.871750831604004,
+				"y" : 3.1268694400787354,
+				"z" : -2.3801541328430176
+			},
+			"rotation" : 
+			{
+				"w" : 0.94476860761642456,
+				"x" : 0.32773828506469727,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.21930000185966492,
+				"y" : 0.21929994225502014,
+				"z" : 0.21929994225502014
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512740944
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Rock/Textures/Texture #38"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Lever/Models/leverbox"
+			},
+			"children" : null,
+			"name" : "leverbox",
+			"position" : 
+			{
+				"x" : 11.901957511901855,
+				"y" : 3.1564738750457764,
+				"z" : -2.4277489185333252
+			},
+			"rotation" : 
+			{
+				"w" : 0.74026310443878174,
+				"x" : 0.67231714725494385,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512740951
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.12200000882148743,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.59215688705444336,
+					"z" : 0.29411765933036804
+				},
+				"intensity" : 7.7890005111694336
+			},
+			"children" : null,
+			"name" : "leverlLight",
+			"position" : 
+			{
+				"x" : 12.109193801879883,
+				"y" : 3.746859073638916,
+				"z" : -1.9591633081436157
+			},
+			"rotation" : 
+			{
+				"w" : 0.39583763480186462,
+				"x" : -0.91832035779953003,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512741207
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 0.70000004768371582
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1512740944,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 1,
+				"triggerEventStruct_ScriptID" : 0,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 0,
+				"triggerFunction" : "void PullLever()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512741289,
+				"triggerTargetEntity" : 1511787032,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "lever_trigger",
+			"position" : 
+			{
+				"x" : 11.610886573791504,
+				"y" : 3.306180477142334,
+				"z" : -2.0821077823638916
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512741289
 		}
 	],
 	"name" : "Root",

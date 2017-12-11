@@ -30,7 +30,6 @@ class Bridge {
             monster.SetEnabled(true, true);
             SendMessage(monster, 0);
         }
-        SendMessage(monster, 0);
     }
     
     void ReceiveMessage(Entity @sender, int i){
