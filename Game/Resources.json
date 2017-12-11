@@ -731,11 +731,11 @@
 								"resources" : 
 								[
 									{
-										"animationController" : "Animation controller #0",
+										"animationController" : "LeftHandCtrl",
 										"type" : 7
 									},
 									{
-										"animationController" : "Animation controller #7",
+										"animationController" : "RightHandCtrl",
 										"type" : 7
 									}
 								],
