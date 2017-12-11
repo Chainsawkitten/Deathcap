@@ -12,6 +12,8 @@
 #include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
 #include <Engine/Manager/DebugDrawingManager.hpp>
+#include <Engine/Manager/RenderManager.hpp>
+#include <Engine/Manager/VRManager.hpp>
 #include <Engine/Util/Profiling.hpp>
 #include <Engine/Util/GPUProfiling.hpp>
 #include <Engine/Hymn.hpp>
@@ -94,7 +96,7 @@ int main() {
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
 
                 Managers().debugDrawingManager->Update(deltaTime);
-                Hymn().Render(editor->GetCamera(),
+                Hymn().Render(RenderManager::MONITOR, editor->GetCamera(),
                               EditorSettings::GetInstance().GetBool("Sound Source Icons"),
                               EditorSettings::GetInstance().GetBool("Particle Emitter Icons"),
                               EditorSettings::GetInstance().GetBool("Light Source Icons"),
@@ -119,7 +121,10 @@ int main() {
 
                 { PROFILE("Render");
                 { GPUPROFILE("Render", Video::Query::Type::TIME_ELAPSED);
-                    Hymn().Render();
+                    if (Managers().vrManager->Active())
+                        Hymn().Render(RenderManager::HMD);
+                    else
+                        Hymn().Render(RenderManager::MONITOR);
                 }
                 }
                 

@@ -89,7 +89,9 @@
 		"Resources/Super Scene/Scripts/SwitcherScript_2",
 		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
 		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer",
-		"Resources/Constant Scene/BrightSparks/BrightSparksScript"
+		"Resources/Constant Scene/BrightSparks/BrightSparksScript",
+		"Resources/NewAssets/Scripts/monsterSoundScript",
+		"Resources/VoltageScene/Scripts/VoltageRandomEvents"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5

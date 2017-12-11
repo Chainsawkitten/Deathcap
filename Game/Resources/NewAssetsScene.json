@@ -2003,7 +2003,7 @@
 			"AnimationController" : 
 			{
 				"animationController" : "Resources/NewAssets/Animation controller #2",
-				"skeleton" : "Resources/Opening Scene/Animation/monster@skeleton"
+				"skeleton" : "Resources/Opening Scene/Animations2/monster@skeleton"
 			},
 			"Material" : 
 			{
@@ -2014,7 +2014,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Animation/monster1@model"
+				"model" : "Resources/Opening Scene/Animations2/monster1@model"
 			},
 			"Script" : 
 			{
@@ -2058,12 +2058,84 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1512395355
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/NewAssets/Scripts/monsterSoundScript"
+					},
+					"SoundSource" : 
+					{
+						"loop" : true,
+						"sound" : "Resources/NewAssets/Audio/monsterSound",
+						"volume" : 1.0
+					},
+					"children" : null,
+					"name" : "MonsterSound",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 9.5780000686645508,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512560813
+				},
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/NewAssets/Scripts/monsterSoundScript"
+					},
+					"SoundSource" : 
+					{
+						"loop" : true,
+						"sound" : "Resources/NewAssets/Audio/monsterfootstep",
+						"volume" : 1.0
+					},
+					"children" : null,
+					"name" : "footstepSound",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512650688
 				}
 			],
 			"name" : "Monster",
 			"position" : 
 			{
-				"x" : 42.568286895751953,
+				"x" : 28.267326354980469,
 				"y" : -0.88715571165084839,
 				"z" : 0.0
 			},
