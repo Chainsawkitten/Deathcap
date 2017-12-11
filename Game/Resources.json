@@ -119,6 +119,29 @@
 									}
 								],
 								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "lever_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
 							}
 						]
 					},
@@ -2108,5 +2131,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
 	"soundNumber" : 16,
-	"textureNumber" : 154
+	"textureNumber" : 155
 }
