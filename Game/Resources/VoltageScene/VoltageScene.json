@@ -3905,7 +3905,7 @@
 			"position" : 
 			{
 				"x" : 23.257001876831055,
-				"y" : 0.34700000286102295,
+				"y" : 0.14100000262260437,
 				"z" : 1.5550000667572021
 			},
 			"rotation" : 
@@ -4098,6 +4098,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512719575
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "Table",
+			"position" : 
+			{
+				"x" : 24.194000244140625,
+				"y" : 0.25073772668838501,
+				"z" : 4.0900001525878906
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0170000791549683,
+				"y" : 1.0,
+				"z" : 0.61400002241134644
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512994196
 		},
 		{
 			"children" : 
