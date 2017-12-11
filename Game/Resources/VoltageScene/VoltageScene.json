@@ -2968,7 +2968,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
+						"model" : "Resources/VoltageScene/Models/elproppFinal"
 					},
 					"Script" : 
 					{
@@ -3105,7 +3105,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
+						"model" : "Resources/VoltageScene/Models/elproppFinal"
 					},
 					"Script" : 
 					{
@@ -3242,7 +3242,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
+						"model" : "Resources/VoltageScene/Models/elproppFinal"
 					},
 					"Script" : 
 					{
@@ -3379,7 +3379,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
+						"model" : "Resources/VoltageScene/Models/elproppFinal"
 					},
 					"Script" : 
 					{
@@ -3516,7 +3516,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
+						"model" : "Resources/VoltageScene/Models/elproppFinal"
 					},
 					"Script" : 
 					{
@@ -3653,7 +3653,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
+						"model" : "Resources/VoltageScene/Models/elproppFinal"
 					},
 					"Script" : 
 					{
@@ -3790,7 +3790,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
+						"model" : "Resources/VoltageScene/Models/elproppFinal"
 					},
 					"Script" : 
 					{
@@ -3927,7 +3927,7 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/VoltageScene/Models/elpropp"
+						"model" : "Resources/VoltageScene/Models/elproppFinal"
 					},
 					"Script" : 
 					{
