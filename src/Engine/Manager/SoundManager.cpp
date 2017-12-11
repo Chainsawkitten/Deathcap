@@ -163,22 +163,9 @@ void SoundManager::ProcessSamples() {
                 soundBuffer->Restart();
                 sound->shouldStop = !sound->loop;
                 // Set silence (zero) at end of buffer.
-                if (buffer) 
+                if (buffer)
                     memset(&buffer[samples], 0, (CHUNK_SIZE - samples) * sizeof(float));
             }
-        }
-
-        // Pause it.
-        if (sound->shouldPause) {
-            sound->shouldPlay = false;
-            sound->renderers->Flush();
-        }
-
-        // Stop it.
-        if (sound->shouldStop) {
-            soundBuffer->Restart();
-            sound->shouldPlay = false;
-            sound->renderers->Flush();
         }
     }
 
@@ -192,6 +179,29 @@ void SoundManager::ProcessSamples() {
     for (Audio::SoundBuffer* soundBuffer : soundBuffers) {
         soundBuffer->ConsumeChunk();
         soundBuffer->ProduceChunk();
+    }
+
+    for (Component::SoundSource* sound : soundSources.GetAll()) {
+        // Pause it.
+        if (sound->shouldPause) {
+            sound->shouldPlay = false;
+            if (sound->renderers) {
+                sound->renderers->Flush();
+                delete sound->renderers;
+                sound->renderers = nullptr;
+            }
+        }
+
+        // Stop it.
+        if (sound->shouldStop) {
+            sound->soundBuffer->Restart();
+            sound->shouldPlay = false;
+            if (sound->renderers) {
+                sound->renderers->Flush();
+                delete sound->renderers;
+                sound->renderers = nullptr;
+            }
+        }
     }
 }
 
@@ -381,7 +391,7 @@ void SoundManager::ClearKilledComponents() {
 }
 
 void SoundManager::Load(SoundStreamer::DataHandle* handle) {
-    if (handle->soundFile->GetCached()) {
+    if (handle->soundFile->IsCached()) {
         handle->samples = handle->soundFile->GetData(handle->offset, handle->samples, handle->data);
         handle->done = true;
     } else
@@ -393,7 +403,7 @@ void SoundManager::Flush(Utility::Queue<SoundStreamer::DataHandle>& queue, bool 
         soundStreamer.BeginFlush();
     while (SoundStreamer::DataHandle* handle = queue.Iterate()) {
         handle->abort = true;
-        if (handle->soundFile->GetCached())
+        if (handle->soundFile->IsCached())
             handle->done = true;
     }
     if (lock)

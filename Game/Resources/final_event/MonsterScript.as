@@ -23,12 +23,12 @@ class MonsterScript {
         @snd_landing = GetEntityByGUID(1512045002).GetSoundSource();
         @snd_death = GetEntityByGUID(1512044219).GetSoundSource();
         @snd_falling = GetEntityByGUID(1512044955).GetSoundSource();
-		@snd_hets = GetEntityByGUID(1512476155).GetSoundSource();
-		
-		@animController=self.GetAnimationController();
-		animController.SetBool("B", false);
-		animController.SetBool("C", false);
-		animController.SetBool("D", false);
+        @snd_hets = GetEntityByGUID(1512476155).GetSoundSource();
+
+        @animController=self.GetAnimationController();
+        animController.SetBool("B", false);
+        animController.SetBool("C", false);
+        animController.SetBool("D", false);
         
         phase = 0;
         fallspeed = 0.0f;
@@ -41,7 +41,7 @@ class MonsterScript {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-	
+
         if(disappearGround)
             self.position.y-=0.01f;
         
@@ -60,14 +60,14 @@ class MonsterScript {
             }
             case 2: { // Landing
                 waitTimer += deltaTime;
-				TriggerRun();
-				
+                TriggerRun();
+
                 if (waitTimer >= 1.0f) {
                     phase = 3;
                 }
                 break;
             }
-            case 3: { // Approach player		
+            case 3: { // Approach player
                 self.position.x -= 10.0f * deltaTime;
                 break;
             }
@@ -100,10 +100,10 @@ class MonsterScript {
             }
             case 1: { // Die
                 phase = 6; // Collapse
-                snd_death.Play();                
+                snd_death.Play();
                 print("Monster: I'm dying now.\n");
-				TriggerDeath();
-                disappearGround=true;            
+                TriggerDeath();
+                disappearGround=true;
                 break;
             }
         }
@@ -120,16 +120,16 @@ class MonsterScript {
         phase = 4;
         //snd_shriek.Play();
     }
-	
-	void TriggerRun(){
-		animController.SetBool("B", true);
-	}
-	
-	void TriggerAttack(){
-		animController.SetBool("C", true);
-	}
-	
-	void TriggerDeath(){
-		animController.SetBool("D", true);
-	}
+
+    void TriggerRun(){
+        animController.SetBool("B", true);
+    }
+
+    void TriggerAttack(){
+        animController.SetBool("C", true);
+    }
+
+    void TriggerDeath(){
+        animController.SetBool("D", true);
+    }
 }

@@ -207,6 +207,12 @@
 				},
 				"scriptName" : "Resources/VoltageScene/Scripts/RoundaboutScript"
 			},
+			"SoundSource" : 
+			{
+				"loop" : true,
+				"sound" : "Resources/VoltageScene/Audio/Rotation",
+				"volume" : 1.0
+			},
 			"children" : 
 			[
 				{
@@ -2774,24 +2780,24 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 1.0,
+						"attenuation" : 200.0,
 						"color" : 
 						{
-							"x" : 0.0,
+							"x" : 1.0,
 							"y" : 1.0,
 							"z" : 1.0
 						},
 						"coneAngle" : 15.0,
-						"intensity" : 487.6610107421875,
+						"intensity" : 200.0,
 						"shadow" : false
 					},
 					"children" : null,
 					"name" : "Light1",
 					"position" : 
 					{
-						"x" : 48.548004150390625,
-						"y" : 1.0900000333786011,
-						"z" : 0.92000001668930054
+						"x" : 48.562004089355469,
+						"y" : 1.0690000057220459,
+						"z" : 0.95500004291534424
 					},
 					"rotation" : 
 					{
@@ -2814,7 +2820,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 1.0,
+						"attenuation" : 200.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -2822,16 +2828,16 @@
 							"z" : 1.0
 						},
 						"coneAngle" : 15.0,
-						"intensity" : 350.11203002929688,
+						"intensity" : 200.0,
 						"shadow" : false
 					},
 					"children" : null,
 					"name" : "Light2",
 					"position" : 
 					{
-						"x" : 48.694004058837891,
-						"y" : 1.0900000333786011,
-						"z" : 0.92000001668930054
+						"x" : 48.680004119873047,
+						"y" : 1.0690000057220459,
+						"z" : 0.95499998331069946
 					},
 					"rotation" : 
 					{
@@ -2854,7 +2860,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 1.0,
+						"attenuation" : 200.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -2862,16 +2868,16 @@
 							"z" : 1.0
 						},
 						"coneAngle" : 15.0,
-						"intensity" : 435.39901733398438,
+						"intensity" : 200.0,
 						"shadow" : false
 					},
 					"children" : null,
 					"name" : "Light3",
 					"position" : 
 					{
-						"x" : 48.913002014160156,
-						"y" : 1.0900000333786011,
-						"z" : 0.92000001668930054
+						"x" : 48.927001953125,
+						"y" : 1.0690000057220459,
+						"z" : 0.95499998331069946
 					},
 					"rotation" : 
 					{
@@ -2894,7 +2900,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 1.0,
+						"attenuation" : 200.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -2902,16 +2908,16 @@
 							"z" : 1.0
 						},
 						"coneAngle" : 15.0,
-						"intensity" : 344.05502319335938,
+						"intensity" : 200.0,
 						"shadow" : false
 					},
 					"children" : null,
 					"name" : "Light4",
 					"position" : 
 					{
-						"x" : 49.046001434326172,
-						"y" : 1.0900000333786011,
-						"z" : 0.92000001668930054
+						"x" : 49.024002075195313,
+						"y" : 1.0690000057220459,
+						"z" : 0.95499998331069946
 					},
 					"rotation" : 
 					{
@@ -2973,6 +2979,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3085,6 +3097,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3195,6 +3213,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3307,6 +3331,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3417,6 +3447,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3529,6 +3565,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3640,6 +3682,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3750,6 +3798,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -4014,6 +4068,36 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512484898
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/VoltageScene/Scripts/VoltageRandomEvents"
+			},
+			"children" : null,
+			"name" : "RandomEventController",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512719575
 		}
 	],
 	"name" : "Root",

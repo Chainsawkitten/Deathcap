@@ -96,6 +96,12 @@ class Entity {
          */
         ENGINE_API Entity* GetChildFromIndex(int index) const;
 
+        /// Get the number of children.
+        /**
+         * @return Number of children the entity has.
+         */
+        ENGINE_API unsigned int GetNumChildren() const;
+
         /// Get whether the entity is an instantiated scene.
         /**
          * @return Whether the entity is an instantiated scene.

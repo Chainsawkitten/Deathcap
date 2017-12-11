@@ -55,13 +55,18 @@ void VorbisFile::Cache(bool cache) {
         Log() << "No OGG Vorbis file loaded to cache.\n";
         return;
     }
+    
+    if (cache == IsCached())
+        return;
 
-    if (cache && !buffer) {
-        buffer = new float[sampleCount];
-        stb_vorbis_get_samples_float_interleaved(stbFile, channelCount, buffer, sampleCount);
-    } else if (!cache && buffer) {
+    if (buffer) {
         delete[] buffer;
         buffer = nullptr;
+    }
+
+    if (cache) {
+        buffer = new float[sampleCount];
+        stb_vorbis_get_samples_float_interleaved(stbFile, channelCount, buffer, sampleCount);
     }
 }
 

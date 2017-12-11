@@ -9,7 +9,7 @@ class MonsterRun {
     MonsterRun(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        speed = 5.0f;
+        speed = 2.3f;
         run = false;
         @animCtrl = self.GetAnimationController();
         animCtrl.SetBool("E", false);
@@ -23,15 +23,14 @@ class MonsterRun {
         
         if(run){
         
-            if(monsterPos.x > -50.0f){
+            if(monsterPos.x > -145.7f){
                 monsterPos = self.GetWorldPosition();
-                speed += deltaTime * 1.1f;
             
                 monsterPos.x -= speed * deltaTime;
         
                 self.SetWorldPosition(monsterPos); 
             }
-            if(monsterPos.x < -47.0f){
+            if(monsterPos.x < -144.7f){
                 animCtrl.SetBool("E", true);
             }
 
