@@ -3,6 +3,7 @@
 #include <fstream>
 #include <Utility/Log.hpp>
 #include <cstring>
+#include <miniz.h>
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -40,10 +41,10 @@ TextureHCT::TextureHCT(const char* filename, uint16_t textureReduction) {
     // Read file contents.
     std::streampos currentPos = file.tellg();
     file.seekg(0, std::ios_base::end);
-    unsigned int bufferSize = file.tellg() - currentPos;
+    unsigned int fileSize = file.tellg() - currentPos;
     file.seekg(currentPos);
-    unsigned char* fileContents = new unsigned char[bufferSize];
-    if (!file.read(reinterpret_cast<char*>(fileContents), bufferSize)) {
+    unsigned char* fileContents = new unsigned char[fileSize];
+    if (!file.read(reinterpret_cast<char*>(fileContents), fileSize)) {
         Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";
         file.close();
         delete[] fileContents;
@@ -69,6 +70,25 @@ TextureHCT::TextureHCT(const char* filename, uint16_t textureReduction) {
         break;
     }
     
+    // Allocate data buffer.
+    unsigned int bufferSize = 0;
+    uint16_t mWidth = width;
+    uint16_t mHeight = height;
+    for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
+        bufferSize += static_cast<uint32_t>(mWidth) * mHeight / 16 * blockSize;
+        
+        mWidth /= 2;
+        mHeight /= 2;
+    }
+    unsigned char* buffer = new unsigned char[bufferSize];
+    
+    // Inflate decompression.
+    mz_ulong destinationLength = bufferSize;
+    int errCode = uncompress(buffer, &destinationLength, fileContents, fileSize);
+    if (errCode != MZ_OK)
+        Log(Log::ERR) << "Couldn't decompress: " << errCode << "\n";
+    delete[] fileContents;
+    
     // We can't load a smaller mip level if there are none.
     if (textureReduction >= mipLevels)
         textureReduction = mipLevels - 1;
@@ -84,7 +104,7 @@ TextureHCT::TextureHCT(const char* filename, uint16_t textureReduction) {
     unsigned int bufferLocation = 0;
     for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
         size = static_cast<uint32_t>(width) * height / 16 * blockSize;
-        memcpy(data, &fileContents[bufferLocation], size);
+        memcpy(data, &buffer[bufferLocation], size);
         bufferLocation += size;
         
         if (mipLevel >= textureReduction)
@@ -93,6 +113,7 @@ TextureHCT::TextureHCT(const char* filename, uint16_t textureReduction) {
         height /= 2;
     }
     
+    delete[] buffer;
     delete[] data;
     
     // When MAGnifying the image (no bigger mipmap available), use LINEAR filtering.
