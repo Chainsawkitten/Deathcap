@@ -2,7 +2,6 @@
 
 #include "Util/FileSystem.hpp"
 #include "Manager/Managers.hpp"
-#include "Manager/RenderManager.hpp"
 #include "Manager/PhysicsManager.hpp"
 #include "Manager/ParticleManager.hpp"
 #include "Manager/ScriptManager.hpp"
@@ -215,10 +214,10 @@ void ActiveHymn::Update(float deltaTime) {
     }
 }
 
-void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, bool lighting) {
+void ActiveHymn::Render(RenderManager::DISPLAY targetDisplay, Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, bool lighting) {
     { PROFILE("Render world");
     { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
-        Managers().renderManager->Render(world, soundSources, particleEmitters, lightSources, cameras, physics, camera, lighting);
+        Managers().renderManager->Render(world, targetDisplay, soundSources, particleEmitters, lightSources, cameras, physics, camera, lighting);
     }
     }
 }
