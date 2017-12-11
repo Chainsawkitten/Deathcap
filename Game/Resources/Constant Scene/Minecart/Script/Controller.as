@@ -28,7 +28,6 @@ class Controller {
         if (!Input(Trigger, self)) {
             animCtrl.SetBool("Open", true);
             animCtrl.SetBool("Closed", false);
-                        print("Closed");
         
             if (isPressed) {
                 isPressed = false;
@@ -44,7 +43,6 @@ class Controller {
         if (Input(Trigger, self)) {
             animCtrl.SetBool("Open", false);
             animCtrl.SetBool("Closed", true);
-            print("Open");
         }
     }
     
