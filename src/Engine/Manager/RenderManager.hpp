@@ -297,10 +297,10 @@ class RenderManager {
          */
         ENGINE_API uint16_t GetTextureReduction() const;
 
-        /// set whether blood is applied.
+        /// set whether blood iS applied.
         /**
-        * @param SetBloodApply Whether to apply blood.
-        */
+         * @param SetBloodApply Whether to apply blood.
+         */
         ENGINE_API void SetBloodApply(bool SetBloodApply);
 
     private:

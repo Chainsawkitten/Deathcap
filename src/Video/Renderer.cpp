@@ -275,9 +275,6 @@ glm::vec2 Renderer::GetFrameSize() const {
     return staticRenderProgram->GetFrameSize();
 }
 
-VIDEO_API void Video::Renderer::SetBloodApply(bool bloodApply)
-{
+VIDEO_API void Video::Renderer::SetBloodApply(bool bloodApply) {
     staticRenderProgram->SetBloodApply(bloodApply);
 }
-
-

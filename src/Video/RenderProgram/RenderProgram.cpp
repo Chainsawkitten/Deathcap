@@ -74,8 +74,6 @@ glm::vec2 RenderProgram::GetFrameSize() const {
     return frameSize;
 }
 
-void Video::RenderProgram::SetBloodApply(bool bloodApply)
-{
+void Video::RenderProgram::SetBloodApply(bool bloodApply) {
     this->bloodApply = bloodApply;
 }
-

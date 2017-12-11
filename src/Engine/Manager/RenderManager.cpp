@@ -110,6 +110,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
         switch (targetDisplay) {
             case RenderManager::MONITOR:
                 if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
+                    renderer->SetFrameSize(windowSize);
                     // Render main window.
                     { PROFILE("Render main window");
                     { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
@@ -172,6 +173,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
             case RenderManager::HMD:
                 if (hmdRenderSurface != nullptr) {
                     // Render vr headset.
+                    renderer->SetFrameSize(windowSize);
                     { PROFILE("Render main hmd");
                     { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
                     for (int i = 0; i < 2; ++i) {
