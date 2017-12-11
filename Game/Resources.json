@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/elevatorScene/elevatorScene_01",
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 4,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 189,
+	"modelNumber" : 190,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1921,6 +1921,10 @@
 							{
 								"sound" : "sndElevatorStop",
 								"type" : 3
+							},
+							{
+								"model" : "elevatorcave_soundmesh",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
