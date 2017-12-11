@@ -7,7 +7,7 @@ class MainScript {
     Entity @knife;
     Entity @monster;
     Entity @rightHand;
-	Entity @camera;
+    Entity @camera;
     Entity @particles;
     float waitForMonsterTimer;
     bool knifePickedUp;
@@ -29,24 +29,20 @@ class MainScript {
     MainScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
-		@camera=GetEntityByGUID(1508919707);
+        @camera=GetEntityByGUID(1508919707);
         @minecart = GetEntityByGUID(1508919163);
         @knife = GetEntityByGUID(1511264657);
         @monster = GetEntityByGUID(1511261389);
         @rightHand = GetEntityByGUID(1508919758);
-		Component::Lens @lens;
-		@particles=GetEntityByGUID(1512553749);
+        Component::Lens @lens;
+        @particles=GetEntityByGUID(1512553749);
         particles.SetEnabled(false, false);
         phase = 0;
         speed = 4.0f;
         waitForMonsterTimer = 0.0f;
         knifePickedUp = false;
         particleActive=false;
-		
-		//if(IsVRActive()){
-		//	@lens=camera.GetLens();
-		//	lens.zFar=60.0f;
-		//}
+
         self.SetEnabled(false, true);
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -56,8 +52,7 @@ class MainScript {
     void Update(float deltaTime) {
     
     if(particleActive)
-   	  particleTimer+=deltaTime;
-	  
+        particleTimer+=deltaTime;
     if(particleTimer>1.0f){
         particles.SetEnabled(false, false);
         particleTimer=0.0f;
@@ -165,8 +160,9 @@ class MainScript {
         particleActive=true;
         MonsterHealth-=20.0f;
         if (phase != 4 && knifePickedUp && MonsterHealth<=0.0f) {
-            SendMessage(monster, 1); // Die
-            phase = 2; // Wait for collapse
+            knife.GetSoundSource().Play();
+            SendMessage(monster, 1); // Die.
+            phase = 2; // Wait for collapse.
             print("Player: I'm going to wait for the monster to collapse now.\n");
         }
         

@@ -207,6 +207,12 @@
 				},
 				"scriptName" : "Resources/VoltageScene/Scripts/RoundaboutScript"
 			},
+			"SoundSource" : 
+			{
+				"loop" : true,
+				"sound" : "Resources/VoltageScene/Audio/Rotation",
+				"volume" : 1.0
+			},
 			"children" : 
 			[
 				{
@@ -2974,6 +2980,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3084,6 +3096,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3196,6 +3214,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3306,6 +3330,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3418,6 +3448,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3528,6 +3564,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3640,6 +3682,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3750,6 +3798,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
