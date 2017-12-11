@@ -290,9 +290,9 @@ class RenderManager {
          */
         ENGINE_API uint16_t GetTextureReduction() const;
 
-        /// Set whether dithering is applied.
+        /// set whether blood is applied.
         /**
-        * @param ditherApply Whether to apply dithering.
+        * @param SetBloodApply Whether to apply blood.
         */
         ENGINE_API void SetBloodApply(bool SetBloodApply);
 

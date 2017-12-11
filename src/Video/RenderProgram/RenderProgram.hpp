@@ -124,7 +124,7 @@ namespace Video {
 
             /// set whether blood is applied.
             /**
-            * @return Whether blood is applied.
+            * @param bloodApply Whether blood is applied.
             */
             void SetBloodApply(bool bloodApply);
 
