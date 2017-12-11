@@ -32,7 +32,8 @@ class CartScript_0 {
             self.SetWorldPosition(tempPos);
         }
 
-        if (!IsVRActive() && Input(PuzzleSkip, @self)) {
+        //if (!IsVRActive() && Input(PuzzleSkip, @self)) {
+        if (Input(PuzzleSkip, @self)) {
             float remaining = radians(120.0f) - pitch(leverHandle.rotation);
             leverHandle.RotatePitch(remaining + radians(5.0f));
         }

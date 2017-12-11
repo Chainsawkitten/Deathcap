@@ -130,8 +130,9 @@ void RegisterUpdate() {
 }
 
 bool ButtonInput(int buttonIndex, Entity* controllerEntity) {
-    if (Managers().vrManager->Active())
-        return Input::GetInstance().CheckVRButton(buttonIndex, controllerEntity->GetComponent<VRDevice>());
+    //if (Managers().vrManager->Active())
+    if (Input::GetInstance().CheckVRButton(buttonIndex, controllerEntity->GetComponent<VRDevice>()))
+        return true;
     else
         return Input::GetInstance().CheckButton(buttonIndex);
 }
