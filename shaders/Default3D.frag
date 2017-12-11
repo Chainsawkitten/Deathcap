@@ -221,11 +221,6 @@ void main() {
     float roughness = texture(mapRoughness, vertexIn.texCoords).r;
     vec3 pos = vertexIn.pos;
 
-    
-    
-   
-
-
     // Shade fragment.
     vec3 color = ApplyLights(albedo, normal, metallic, roughness, pos);
 
@@ -251,7 +246,7 @@ void main() {
 	}
    
    if(bloodApply){
-        float aspect = 1920.0 / 1080.0;
+        float aspect = frameSize.x / frameSize.y;
         vec2 uv = vec2(0.5, 0.5);
         vec2 dist = (gl_FragCoord.xy / frameSize) - uv;
         dist.x *= aspect;

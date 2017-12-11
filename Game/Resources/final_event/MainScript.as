@@ -81,7 +81,7 @@ class MainScript {
                     SendMessage(monster, 1); // Monster died.
                 }
             }
-            case 3: { // Wait for monster to collapse.
+            case 2: { // Wait for monster to collapse.
                 waitForMonsterTimer += deltaTime;
                 if (waitForMonsterTimer >= 3.0f) {
                     phase = 3;
@@ -92,7 +92,7 @@ class MainScript {
                 }
                 break;
             }
-            case 4: { // Continue after monster has been killed.
+            case 3: { // Continue after monster has been killed.
                 vec3 pos = minecart.GetWorldPosition();
                 pos.x += speed * deltaTime;
                 minecart.SetWorldPosition(pos);
@@ -133,7 +133,6 @@ class MainScript {
             case 0: { // When monster has successfully eaten the player.
                 phase = 4; // Lost phase.
                 print("Player: I'm losing.\n");
-                hub.renderManager.SetFogColor(vec3(0.f,0.f,0.f));
                 
                 break;
             }
