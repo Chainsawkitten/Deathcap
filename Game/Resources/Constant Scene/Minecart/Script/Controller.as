@@ -11,8 +11,7 @@ class Controller {
         @rock = GetEntityByGUID(1510240479);
         isPressed = false;
         @lantern = GetEntityByGUID(1509711303);
-        @child = self.GetEntityFromIndex(0);
-        @animCtrl = self.GetEntityFromIndex(0).GetAnimationController();
+        @animCtrl = self.GetChildFromIndex(0).GetAnimationController();
         pickUp = false;
 
         // Remove this if updates are not desired.
@@ -26,9 +25,10 @@ class Controller {
             self.position.x = -1;
         }
         
-        if (!Input(Trigger, self) && isPressed) {
+        if (!Input(Trigger, self)) {
             animCtrl.SetBool("Open", true);
             animCtrl.SetBool("Closed", false);
+                        print("Closed");
         
             if (isPressed) {
                 isPressed = false;
@@ -44,6 +44,7 @@ class Controller {
         if (Input(Trigger, self)) {
             animCtrl.SetBool("Open", false);
             animCtrl.SetBool("Closed", true);
+            print("Open");
         }
     }
     
