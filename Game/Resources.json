@@ -196,15 +196,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "StarterScene_StraightCave",
-								"type" : 1
-							},
-							{
 								"model" : "platformForStarterScene_01",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_CavePlatform",
 								"type" : 1
 							},
 							{
@@ -213,10 +205,6 @@
 							},
 							{
 								"model" : "warningSign_02_fixed_position",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Bridge",
 								"type" : 1
 							},
 							{
@@ -1223,66 +1211,6 @@
 				]
 			},
 			{
-				"name" : "Pussel-2",
-				"resources" : 
-				[
-					{
-						"scene" : "Pussel-2 scene",
-						"type" : 0
-					}
-				],
-				"subfolders" : 
-				[
-					{
-						"name" : "Models",
-						"resources" : 
-						[
-							{
-								"model" : "Cave-2",
-								"type" : 1
-							},
-							{
-								"model" : "cave-2-",
-								"type" : 1
-							},
-							{
-								"model" : "barrels-2",
-								"type" : 1
-							},
-							{
-								"model" : "Crate-2",
-								"type" : 1
-							},
-							{
-								"model" : "lanterns-2",
-								"type" : 1
-							},
-							{
-								"model" : "Picks-2",
-								"type" : 1
-							},
-							{
-								"model" : "Platform-2",
-								"type" : 1
-							},
-							{
-								"model" : "table2",
-								"type" : 1
-							},
-							{
-								"model" : "Track-2",
-								"type" : 1
-							},
-							{
-								"model" : "TrackPlatform-2",
-								"type" : 1
-							}
-						],
-						"subfolders" : null
-					}
-				]
-			},
-			{
 				"name" : "Foliage",
 				"resources" : 
 				[
@@ -1879,29 +1807,6 @@
 									},
 									{
 										"texture" : "VoltageTube_Roughness",
-										"type" : 2
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "VoltageBox",
-								"resources" : 
-								[
-									{
-										"texture" : "box_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "box_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "box_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "box_roughness",
 										"type" : 2
 									}
 								],
