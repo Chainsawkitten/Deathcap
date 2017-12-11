@@ -250,7 +250,7 @@ void main() {
         vec2 dist = (gl_FragCoord.xy / frameSize) - uv;
         dist.x *= aspect;
         float l = length(dist);
-        float rad = 0.3f;
+        float rad = 0.1f;
         if (l > rad){
             l -= rad;
             float red = color.x;
