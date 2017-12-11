@@ -1,9 +1,9 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Constant Scene/Minecart/Minecart",
 	"animationClipNumber" : 4,
-	"animationControllerNumber" : 6,
+	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 189, 
+	"modelNumber" : 189,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -735,7 +735,7 @@
 										"type" : 7
 									},
 									{
-										"animationController" : "Animation controller #1",
+										"animationController" : "Animation controller #7",
 										"type" : 7
 									}
 								],

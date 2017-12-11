@@ -4,12 +4,15 @@ class Controller {
     bool isPressed;
     Entity @lantern;
     bool pickUp;
+    Component::AnimationController @animCtrl;
 
     Controller(Entity @entity){
         @self = @entity;
         @rock = GetEntityByGUID(1510240479);
         isPressed = false;
         @lantern = GetEntityByGUID(1509711303);
+        @child = self.GetEntityFromIndex(0);
+        @animCtrl = self.GetEntityFromIndex(0).GetAnimationController();
         pickUp = false;
 
         // Remove this if updates are not desired.
@@ -22,14 +25,25 @@ class Controller {
             self.position.y = -3;
             self.position.x = -1;
         }
+        
         if (!Input(Trigger, self) && isPressed) {
-            isPressed = false;
-            SendMessage(rock, 2);
+            animCtrl.SetBool("Open", true);
+            animCtrl.SetBool("Closed", false);
+        
+            if (isPressed) {
+                isPressed = false;
+                SendMessage(rock, 2);
+            }
+            
+            if (pickUp) {
+                pickUp = false;
+                SendMessage(lantern, 2);
+            } 
         }
         
-        if (!Input(Trigger, self) && pickUp) {
-            pickUp = false;
-            SendMessage(lantern, 2);
+        if (Input(Trigger, self)) {
+            animCtrl.SetBool("Open", false);
+            animCtrl.SetBool("Closed", true);
         }
     }
     

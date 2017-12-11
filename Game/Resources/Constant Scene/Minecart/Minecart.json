@@ -141,7 +141,8 @@
 								{
 									"AnimationController" : 
 									{
-										"animationController" : "Resources/Constant Scene/Controller/AnimationControllers/Animation controller #0"
+										"animationController" : "Resources/Constant Scene/Controller/AnimationControllers/Animation controller #0",
+										"skeleton" : "Resources/Constant Scene/Controller/Skeletons/LeftHand@Skeleton"
 									},
 									"Material" : 
 									{
@@ -240,7 +241,8 @@
 								{
 									"AnimationController" : 
 									{
-										"animationController" : "Resources/Constant Scene/Controller/AnimationControllers/Animation controller #1"
+										"animationController" : "Resources/Constant Scene/Controller/AnimationControllers/Animation controller #1",
+										"skeleton" : "Resources/Constant Scene/Controller/Skeletons/RightHand@Skeleton"
 									},
 									"Material" : 
 									{
