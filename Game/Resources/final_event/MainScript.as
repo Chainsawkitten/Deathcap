@@ -63,7 +63,6 @@ class MainScript {
                 vec3 pos = minecart.GetWorldPosition();
                 pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
-                print("Case 0");
                 break;
             }
             
@@ -72,7 +71,6 @@ class MainScript {
                 if(pos.x>0.0f){
                 pos.x += 0.05 * deltaTime;
                 minecart.SetWorldPosition(pos);
-                print("Case 1");
                 }
                 break;
             }
@@ -81,7 +79,6 @@ class MainScript {
                 if(!IsVRActive() && Input(PuzzleSkip, @self)) {
                     phase = 2;
                     SendMessage(monster, 1); // Monster died.
-                    print("Case 4");
                 }
             }
             case 2: { // Wait for monster to collapse.
@@ -92,7 +89,6 @@ class MainScript {
                     hub.renderManager.SetFogApply(true);
                     hub.renderManager.SetColorFilterApply(true);
                     hub.renderManager.SetFogColor(vec3(0, 0, 0));
-                    print("Case 2");
                 }
                 break;
             }
@@ -100,7 +96,6 @@ class MainScript {
                 vec3 pos = minecart.GetWorldPosition();
                 pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
-                print("Case 3");
 
                 // The idea of fading is that we start with fog to begin fading
                 // with distance. However, with fog we can generally see things
@@ -112,6 +107,25 @@ class MainScript {
 
                 // Cube curve to get a density function that grows slowly at
                 // first and faster later to darken things close to us as well.
+                fogTimer += deltaTime;
+                float fogRatio = fogTimer / fogApexDuration;
+                fogRatio = fogRatio * fogRatio * fogRatio;
+
+                if (fogTimer >= fadeStartTime) {
+                    fadeTimer += deltaTime;
+                    float fadeRatio = fadeTimer / 1.0f;
+                    if (fadeRatio >= 1.0f) {
+                        fadeRatio = 1.0f;
+                        // Game is over.
+                    }
+                    hub.renderManager.SetColorFilterColor(vec3(1.0f - fadeRatio, 1.0f - fadeRatio, 1.0f - fadeRatio));
+                }
+
+                hub.renderManager.SetFogDensity(fogRatio);
+
+                break;
+            }
+            case 5: { // U dead!
                 fogTimer += deltaTime;
                 float fogRatio = fogTimer / fogApexDuration;
                 fogRatio = fogRatio * fogRatio * fogRatio;
@@ -136,8 +150,8 @@ class MainScript {
     void ReceiveMessage(Entity @sender, int signal) {
         switch (signal) {
             case 0: { // When monster has successfully eaten the player.
-                phase = 4; // Lost phase.
-                print("Player: I'm losing.\n");
+                phase = 5; // Lost phase.
+                //print("Player: I'm losing.\n");
                 
                 
                 break;
@@ -163,9 +177,10 @@ class MainScript {
     void KnifeHitMonster() {
         particles.SetEnabled(true, false);
         particleActive=true;
-        MonsterHealth-=20.0f;
-        if (phase != 4 && knifePickedUp && MonsterHealth<=0.0f) {
-            knife.GetSoundSource().Play();
+        print("Phase = " + phase + ", knifePickedUp: " + knifePickedUp + ", MonsterHealth: " + MonsterHealth + "\n");
+        MonsterHealth -= 20.0f;
+        knife.GetSoundSource().Play();
+        if (phase != 4 && knifePickedUp && MonsterHealth <= 0.0f) {
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
             print("Player: I'm going to wait for the monster to collapse now.\n");

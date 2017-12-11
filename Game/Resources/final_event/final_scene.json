@@ -807,8 +807,8 @@
 					"name" : "CartStopTrigger",
 					"position" : 
 					{
-						"x" : 2.0320322513580322,
-						"y" : -0.033799551427364349,
+						"x" : 1.7440000772476196,
+						"y" : -0.018000001087784767,
 						"z" : 0.039142608642578125
 					},
 					"rotation" : 
@@ -832,7 +832,7 @@
 			"name" : "MonsterStopChargeTrigger",
 			"position" : 
 			{
-				"x" : -15.714401245117188,
+				"x" : -15.379047393798828,
 				"y" : 0.0,
 				"z" : 0.0
 			},
@@ -1136,6 +1136,12 @@
 					"height" : 0.30000001192092896,
 					"width" : 1.0
 				}
+			},
+			"SoundSource" : 
+			{
+				"loop" : false,
+				"sound" : "Resources/final_event/Audio/snd_stab",
+				"volume" : 1.0
 			},
 			"Trigger" : 
 			{
