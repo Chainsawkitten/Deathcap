@@ -539,7 +539,7 @@ Component::Lens* RenderManager::CreateLens(const Json::Value& node) {
 
     // Load values from Json node.
     lens->fieldOfView = node.get("fieldOfView", 45.f).asFloat();
-    lens->zNear = node.get("zNear", 0.5f).asFloat();
+    lens->zNear = node.get("zNear", 0.1f).asFloat();
     lens->zFar = node.get("zFar", 100.f).asFloat();
 
     return lens;

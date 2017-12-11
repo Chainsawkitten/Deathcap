@@ -32,9 +32,9 @@ namespace Component {
             
             /// Near plane.
             /**
-             * Default: 0.5
+             * Default: 0.1
              */
-            float zNear = 0.5f;
+            float zNear = 0.1f;
             
             /// Far plane.
             /**
