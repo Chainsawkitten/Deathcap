@@ -37,6 +37,21 @@ TextureHCT::TextureHCT(const char* filename, uint16_t textureReduction) {
     file.read(reinterpret_cast<char*>(&mipLevels), sizeof(uint16_t));
     file.read(reinterpret_cast<char*>(&compressionType), sizeof(uint16_t));
     
+    // Read file contents.
+    std::streampos currentPos = file.tellg();
+    file.seekg(0, std::ios_base::end);
+    unsigned int bufferSize = file.tellg() - currentPos;
+    file.seekg(currentPos);
+    unsigned char* fileContents = new unsigned char[bufferSize];
+    if (!file.read(reinterpret_cast<char*>(fileContents), bufferSize)) {
+        Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";
+        file.close();
+        delete[] fileContents;
+        return;
+    }
+    file.close();
+    
+    // Determine block size.
     GLenum format = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
     uint32_t blockSize = 8;
     switch (compressionType) {
@@ -63,26 +78,20 @@ TextureHCT::TextureHCT(const char* filename, uint16_t textureReduction) {
     glBindTexture(GL_TEXTURE_2D, texID);
     glTexStorage2D(GL_TEXTURE_2D, mipLevels - textureReduction, format, width >> textureReduction, height >> textureReduction);
     
-    // Read texture data.
+    // Transfer texture data.
     uint32_t size = static_cast<uint32_t>(width) * height / 16 * blockSize;
     unsigned char* data = new unsigned char[size];
+    unsigned int bufferLocation = 0;
     for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
         size = static_cast<uint32_t>(width) * height / 16 * blockSize;
-        if (!file.read(reinterpret_cast<char*>(data), size)) {
-            Log(Log::ERR) << "Couldn't read data from texture file: " << filename << "\n";
-            file.close();
-            delete[] data;
-            return;
-        }
+        memcpy(data, &fileContents[bufferLocation], size);
+        bufferLocation += size;
         
         if (mipLevel >= textureReduction)
             glCompressedTexSubImage2D(GL_TEXTURE_2D, mipLevel - textureReduction, 0, 0, width, height, format, size, data);
         width /= 2;
         height /= 2;
     }
-    
-    // Close file when finished reading.
-    file.close();
     
     delete[] data;
     
