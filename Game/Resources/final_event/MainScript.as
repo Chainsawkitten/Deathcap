@@ -153,7 +153,6 @@ class MainScript {
                 phase = 5; // Lost phase.
                 //print("Player: I'm losing.\n");
                 
-                
                 break;
             }
         }

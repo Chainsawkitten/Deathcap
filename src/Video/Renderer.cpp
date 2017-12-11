@@ -288,3 +288,7 @@ glm::vec2 Renderer::GetFrameSize() const {
     assert(staticRenderProgram->GetFrameSize() == skinRenderProgram->GetFrameSize());
     return staticRenderProgram->GetFrameSize();
 }
+
+VIDEO_API void Video::Renderer::SetBloodApply(bool bloodApply) {
+    staticRenderProgram->SetBloodApply(bloodApply);
+}
