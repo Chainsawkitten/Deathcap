@@ -224,7 +224,6 @@ void main() {
     // Shade fragment.
     vec3 color = ApplyLights(albedo, normal, metallic, roughness, pos);
 
-
     // Fog.
     if (fogApply)
         color = ApplyFog(pos, color);

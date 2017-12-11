@@ -654,8 +654,6 @@ bool RenderManager::GetFogApply() const {
     return Hymn().filterSettings.fogApply;
 }
 
-
-
 void RenderManager::SetFogDensity(float fogDensity) {
     Hymn().filterSettings.fogDensity = fogDensity;
 }
@@ -699,8 +697,6 @@ bool RenderManager::GetDitherApply() const {
 void RenderManager::SetBloodApply(bool SetBloodApply) {
    renderer->SetBloodApply(SetBloodApply);
 }
-
-
 
 void RenderManager::SetTextureReduction(uint16_t textureReduction) {
     this->textureReduction = static_cast<uint8_t>(textureReduction);

@@ -115,7 +115,6 @@ namespace Video {
             GLuint viewLocation;
             GLuint normalLocation;
             GLuint bonesLocation;
-            
 
             bool first = true;
 

@@ -78,3 +78,4 @@ void Video::RenderProgram::SetBloodApply(bool bloodApply)
 {
     this->bloodApply = bloodApply;
 }
+
