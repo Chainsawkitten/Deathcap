@@ -114,6 +114,10 @@ class elevator_moveCart {
                     SendMessage(board, 1);
                 }
                 break;
+
+            case 5: { // Waiting for doors to open
+                break;
+            }
         }
     }
 
@@ -131,4 +135,7 @@ class elevator_moveCart {
         phase = 3;
     }
 
+    void StopCart() {
+        phase = 5;
+    }
 }
