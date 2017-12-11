@@ -1715,6 +1715,10 @@
 								"type" : 3
 							},
 							{
+								"sound" : "snd_stab",
+								"type" : 3
+							},
+							{
 								"sound" : "snd_hets",
 								"type" : 3
 							}
@@ -2228,6 +2232,21 @@
 							{
 								"script" : "VoltageRandomEvents",
 								"type" : 4
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "SnapClick",
+								"type" : 3
+							},
+							{
+								"sound" : "Rotation",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
