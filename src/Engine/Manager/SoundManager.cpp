@@ -163,24 +163,9 @@ void SoundManager::ProcessSamples() {
                 soundBuffer->Restart();
                 sound->shouldStop = !sound->loop;
                 // Set silence (zero) at end of buffer.
-                if (buffer) 
+                if (buffer)
                     memset(&buffer[samples], 0, (CHUNK_SIZE - samples) * sizeof(float));
             }
-        }
-
-        // Pause it.
-        if (sound->shouldPause) {
-            sound->shouldPlay = false;
-            if (sound->renderers)
-                sound->renderers->Flush();
-        }
-
-        // Stop it.
-        if (sound->shouldStop) {
-            soundBuffer->Restart();
-            sound->shouldPlay = false;
-            if (sound->renderers)
-                sound->renderers->Flush();
         }
     }
 
@@ -194,6 +179,29 @@ void SoundManager::ProcessSamples() {
     for (Audio::SoundBuffer* soundBuffer : soundBuffers) {
         soundBuffer->ConsumeChunk();
         soundBuffer->ProduceChunk();
+    }
+
+    for (Component::SoundSource* sound : soundSources.GetAll()) {
+        // Pause it.
+        if (sound->shouldPause) {
+            sound->shouldPlay = false;
+            if (sound->renderers) {
+                sound->renderers->Flush();
+                delete sound->renderers;
+                sound->renderers = nullptr;
+            }
+        }
+
+        // Stop it.
+        if (sound->shouldStop) {
+            sound->soundBuffer->Restart();
+            sound->shouldPlay = false;
+            if (sound->renderers) {
+                sound->renderers->Flush();
+                delete sound->renderers;
+                sound->renderers = nullptr;
+            }
+        }
     }
 }
 

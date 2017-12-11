@@ -1,4 +1,5 @@
 #include "SteamAudioRenderers.hpp"
+#include <assert.h>
 
 using namespace Audio;
 
@@ -18,14 +19,17 @@ SteamAudioRenderers::SteamAudioRenderers(IPLhandle environment, IPLhandle envRen
     outputFormat.channelOrder = IPL_CHANNELORDER_INTERLEAVED;
 
     // Direct Sound Effect.
-    iplCreateDirectSoundEffect(envRenderer, inputFormat, inputFormat, &directEffect);
+    IPLerror err = iplCreateDirectSoundEffect(envRenderer, inputFormat, inputFormat, &directEffect);
+    assert(err == IPL_STATUS_SUCCESS);
 
     // Binaural Renderer and Effect.
-    iplCreateBinauralEffect(binauralRenderer, inputFormat, outputFormat, &binauralEffect);
+    err = iplCreateBinauralEffect(binauralRenderer, inputFormat, outputFormat, &binauralEffect);
+    assert(err == IPL_STATUS_SUCCESS);
 
     // Convolution Effect
-    iplCreateConvolutionEffect(envRenderer, "", IPL_SIMTYPE_REALTIME, inputFormat, outputFormat, &convEffect);
-
+    err = iplCreateConvolutionEffect(envRenderer, "", IPL_SIMTYPE_REALTIME, inputFormat, outputFormat, &convEffect);
+    assert(err == IPL_STATUS_SUCCESS);
+    
     effectBuffer.format = inputFormat;
     effectBuffer.numSamples = CHUNK_SIZE;
     effectBuffer.interleavedBuffer = new float[CHUNK_SIZE];
