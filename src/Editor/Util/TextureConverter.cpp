@@ -80,13 +80,12 @@ namespace TextureConverter {
         width = uWidth;
         height = uHeight;
         for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
-            if (compressionType == Video::TextureHCT::BC1) {
+            if (compressionType == Video::TextureHCT::BC1)
                 bufferSize += width * height / 2;
-            } else if (compressionType == Video::TextureHCT::BC4) {
+            else if (compressionType == Video::TextureHCT::BC4)
                 bufferSize += width * height / 2;
-            } else if (compressionType == Video::TextureHCT::BC5) {
+            else if (compressionType == Video::TextureHCT::BC5)
                 bufferSize += width * height;
-            }
             
             width /= 2;
             height /= 2;
