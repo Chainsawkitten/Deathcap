@@ -54,4 +54,4 @@ class global_music_script {
     void FadeHunted(){
         snd_hunted.Stop();
     }
-
+}
