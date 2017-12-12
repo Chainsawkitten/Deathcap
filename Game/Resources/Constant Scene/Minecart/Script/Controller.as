@@ -3,6 +3,7 @@ class Controller {
     Entity @rock;
     bool isPressed;
     Entity @lantern;
+    Entity @childModel;
     bool pickUp;
     Component::AnimationController @animCtrl;
 
@@ -11,7 +12,8 @@ class Controller {
         @rock = GetEntityByGUID(1510240479);
         isPressed = false;
         @lantern = GetEntityByGUID(1509711303);
-        @animCtrl = self.GetChildFromIndex(0).GetAnimationController();
+        @childModel = self.GetChildFromIndex(0);
+        @animCtrl = childModel.GetAnimationController();
         pickUp = false;
 
         // Remove this if updates are not desired.
@@ -28,7 +30,8 @@ class Controller {
         if (!Input(Trigger, self)) {
             animCtrl.SetBool("Open", true);
             animCtrl.SetBool("Closed", false);
-        
+            childModel.SetEnabled(true, false);     
+            
             if (isPressed) {
                 isPressed = false;
                 SendMessage(rock, 2);
@@ -50,6 +53,14 @@ class Controller {
         if(Input(Trigger, self) && pickUp == false){
             pickUp = true;
             SendMessage(lantern, 1);
+        }
+    }
+    
+    void ReceiveMessage(Entity @sender, int i) {
+        if (i == 1) {
+            childModel.SetEnabled(true, false);
+        } else if (i == 2) {
+            childModel.SetEnabled(false, false);
         }
     }
 }
