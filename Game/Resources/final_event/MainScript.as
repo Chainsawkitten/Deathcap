@@ -137,6 +137,7 @@ class MainScript {
                     if (fadeRatio >= 1.0f) {
                         fadeRatio = 1.0f;
                         // Game is over.
+                        knife.position = vec3(30, 30, 30);
                     }
                     hub.renderManager.SetColorFilterColor(vec3(1.0f - fadeRatio, 1.0f - fadeRatio, 1.0f - fadeRatio));
                 }
