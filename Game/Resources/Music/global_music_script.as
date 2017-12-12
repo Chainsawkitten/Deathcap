@@ -55,3 +55,4 @@ class global_music_script {
         snd_hunted.Stop();
     }
 
+}
