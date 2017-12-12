@@ -12,8 +12,7 @@ class global_music_script {
     Component::SoundSource @snd_horn;
     Component::SoundSource @snd_gameover;
     Component::SoundSource @snd_win;
-    
-    float deltaT;
+   
     global_music_script(Entity @entity){
         @hub = Managers();
         @self = @entity;
