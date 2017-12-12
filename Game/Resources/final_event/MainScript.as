@@ -170,6 +170,7 @@ class MainScript {
             knife.SetLocalOrientation(quat(1.0f, 0.0f, 0.0f, 0.0f));
             knife.RotateYaw(radians(90.0f));
             knifePickedUp = true;
+            SendMessage(rightHand, 2);
         }
     }
 
