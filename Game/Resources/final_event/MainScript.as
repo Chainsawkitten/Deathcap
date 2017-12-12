@@ -85,7 +85,6 @@ class MainScript {
                 waitForMonsterTimer += deltaTime;
                 if (waitForMonsterTimer >= 3.0f) {
                     phase = 3;
-                    print("Player: Honk honk, motherfucker! I'm free!\n");
                     hub.renderManager.SetFogApply(true);
                     hub.renderManager.SetColorFilterApply(true);
                     hub.renderManager.SetFogColor(vec3(0, 0, 0));
@@ -113,7 +112,7 @@ class MainScript {
 
                 if (fogTimer >= fadeStartTime) {
                     fadeTimer += deltaTime;
-                    float fadeRatio = fadeTimer / 3.0f;
+                    float fadeRatio = fadeTimer / fogApexDuration;
                     if (fadeRatio >= 1.0f) {
                         fadeRatio = 1.0f;
                         // Game is over.
@@ -153,7 +152,6 @@ class MainScript {
         switch (signal) {
             case 0: { // When monster has successfully eaten the player.
                 phase = 5; // Lost phase.
-                //print("Player: I'm losing.\n");
                 
                 break;
             }
@@ -178,13 +176,11 @@ class MainScript {
     void KnifeHitMonster() {
         particles.SetEnabled(true, false);
         particleActive=true;
-        print("Phase = " + phase + ", knifePickedUp: " + knifePickedUp + ", MonsterHealth: " + MonsterHealth + "\n");
         MonsterHealth -= 20.0f;
         knife.GetSoundSource().Play();
         if (phase != 4 && knifePickedUp && MonsterHealth <= 0.0f) {
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
-            print("Player: I'm going to wait for the monster to collapse now.\n");
         }
         
         //Particle Effect
