@@ -49,10 +49,10 @@ class Mastermind {
         TurnOffLights();
         
         for (int i = 0; i < correct; i++)
-            TurnOnLight(100, vec3(0, 255, 0));
+            TurnOnLight(20, vec3(0, 255, 0));
 
         for (int i = 0; i < rightColors; i++)
-            TurnOnLight(100, vec3(255, 0, 0));
+            TurnOnLight(20, vec3(232, 215, 27));
     }
 
     void CheckSolution() {

@@ -2780,7 +2780,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 200.0,
+						"attenuation" : 20000.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -2820,7 +2820,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 200.0,
+						"attenuation" : 20000.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -2860,7 +2860,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 200.0,
+						"attenuation" : 20000.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -2900,7 +2900,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 200.0,
+						"attenuation" : 20000.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -4103,7 +4103,7 @@
 			"SpotLight" : 
 			{
 				"ambientCoefficient" : 0.0,
-				"attenuation" : 6.1880002021789551,
+				"attenuation" : 300.0,
 				"color" : 
 				{
 					"x" : 1.0,
@@ -4111,7 +4111,7 @@
 					"z" : 1.0
 				},
 				"coneAngle" : 34.047000885009766,
-				"intensity" : 18.590000152587891,
+				"intensity" : 60.0,
 				"shadow" : false
 			},
 			"children" : null,
