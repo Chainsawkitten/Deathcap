@@ -45,14 +45,14 @@ class Controller {
         
         if (Input(Trigger, self)) {
             animCtrl.SetBool("Open", false);
-            animCtrl.SetBool("Closed", true);   
+            animCtrl.SetBool("Closed", true);
         }
     }
     
     void OnLanternTrigger() {
         if(Input(Trigger, self) && pickUp == false){
             pickUp = true;
-            SendMessage(lantern, 1);           
+            SendMessage(lantern, 1);
         }
     }
     

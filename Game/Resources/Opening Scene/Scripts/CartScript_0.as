@@ -26,11 +26,11 @@ class CartScript_0 {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-    //    if (degrees(pitch(leverHandle.rotation)) > 120.0f) {
+        if (degrees(pitch(leverHandle.rotation)) > 120.0f) {
             tempPos = self.GetWorldPosition();
             tempPos.x -= speed * deltaTime;
             self.SetWorldPosition(tempPos);
-    //    }
+        }
 
         if (!IsVRActive() && Input(PuzzleSkip, @self)) {
             float remaining = radians(120.0f) - pitch(leverHandle.rotation);
