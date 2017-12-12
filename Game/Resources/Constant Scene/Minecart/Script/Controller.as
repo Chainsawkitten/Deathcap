@@ -30,7 +30,8 @@ class Controller {
         if (!Input(Trigger, self)) {
             animCtrl.SetBool("Open", true);
             animCtrl.SetBool("Closed", false);
-        
+            childModel.SetEnabled(true, false);     
+            
             if (isPressed) {
                 isPressed = false;
                 SendMessage(rock, 2);
@@ -38,13 +39,13 @@ class Controller {
             
             if (pickUp) {
                 pickUp = false;
-                SendMessage(lantern, 2);             
+                SendMessage(lantern, 2);                 
             } 
         }
         
         if (Input(Trigger, self)) {
             animCtrl.SetBool("Open", false);
-            animCtrl.SetBool("Closed", true);
+            animCtrl.SetBool("Closed", true);   
         }
     }
     
