@@ -243,6 +243,7 @@ glm::vec3 Renderer::GetFogColor() const {
 
 void Renderer::SetColorFilterApply(bool colorFilterApply) {
     staticRenderProgram->SetColorFilterApply(colorFilterApply);
+    skinRenderProgram->SetColorFilterApply(colorFilterApply);
 }
 
 bool Renderer::GetColorFilterApply() const {
@@ -251,6 +252,7 @@ bool Renderer::GetColorFilterApply() const {
 
 void Renderer::SetColorFilterColor(const glm::vec3& colorFilterColor) {
     staticRenderProgram->SetColorFilterColor(colorFilterColor);
+    skinRenderProgram->SetColorFilterColor(colorFilterColor);
 }
 
 glm::vec3 Renderer::GetColorFilterColor() const {
