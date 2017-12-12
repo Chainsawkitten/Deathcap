@@ -3,7 +3,7 @@
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 193,
+	"modelNumber" : 195,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -264,6 +264,14 @@
 							},
 							{
 								"model" : "platformForStarterScene_01",
+								"type" : 1
+							},
+							{
+								"model" : "platform",
+								"type" : 1
+							},
+							{
+								"model" : "railplatform",
 								"type" : 1
 							}
 						],
