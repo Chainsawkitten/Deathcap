@@ -862,8 +862,8 @@
 			},
 			"scale" : 
 			{
-				"x" : 0.047999873757362366,
-				"y" : 0.28799933195114136,
+				"x" : 0.048000000417232513,
+				"y" : 0.28800001740455627,
 				"z" : 0.04799995943903923
 			},
 			"scene" : true,
@@ -1109,43 +1109,6 @@
 			"uid" : 1512122749
 		},
 		{
-			"PointLight" : 
-			{
-				"attenuation" : 1.0860000848770142,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 0.80392158031463623,
-					"z" : 0.45882353186607361
-				},
-				"intensity" : 0.74600005149841309
-			},
-			"children" : null,
-			"name" : "monsterLights",
-			"position" : 
-			{
-				"x" : -36.609466552734375,
-				"y" : 2.3262419700622559,
-				"z" : 9.9789276123046875
-			},
-			"rotation" : 
-			{
-				"w" : -0.0047701653093099594,
-				"x" : -0.20168587565422058,
-				"y" : 0.95417314767837524,
-				"z" : 0.22101661562919617
-			},
-			"scale" : 
-			{
-				"x" : 0.99999696016311646,
-				"y" : 0.99999821186065674,
-				"z" : 0.00014760944759473205
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512123296
-		},
-		{
 			"Material" : 
 			{
 				"albedo" : "Resources/Opening Scene/Lever/Textures/lever_albedo",
@@ -1314,10 +1277,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
 			},
 			"Mesh" : 
 			{
@@ -1354,10 +1317,10 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "",
-						"metallic" : "",
-						"normal" : "",
-						"roughness" : ""
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
 					},
 					"Mesh" : 
 					{
@@ -1412,6 +1375,32 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1513070497
+		},
+		{
+			"name" : "Flare2",
+			"position" : 
+			{
+				"x" : -37.899295806884766,
+				"y" : 0.79632002115249634,
+				"z" : 11.161109924316406
+			},
+			"rotation" : 
+			{
+				"w" : 0.66388928890228271,
+				"x" : 0.60104626417160034,
+				"y" : 0.37381377816200256,
+				"z" : -0.24136509001255035
+			},
+			"scale" : 
+			{
+				"x" : 0.048000000417232513,
+				"y" : 0.28799998760223389,
+				"z" : 0.048000000417232513
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Foliage/FlareScene",
+			"static" : false,
+			"uid" : 1511784197
 		}
 	],
 	"name" : "Root",
