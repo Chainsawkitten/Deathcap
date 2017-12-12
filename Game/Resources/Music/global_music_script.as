@@ -17,7 +17,7 @@ class global_music_script {
     global_music_script(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        //cart 1509959164
+        
         //Retrieve all music files.
         @snd_mystic=GetEntityByGUID(1512735147).GetSoundSource();
         @snd_hunted=GetEntityByGUID(1512735129).GetSoundSource();
@@ -30,16 +30,8 @@ class global_music_script {
         @snd_win=GetEntityByGUID(1512735032).GetSoundSource();
 
         // Remove this if updates are not desired.
-        RegisterUpdate();
-    }
-
-    // Called by the engine for each frame.
-    void Update(float deltaTime) {
-        //deltaT=deltaTime;
-    }
-    
+   
     void PlayMysticString(){
-        print("playing mystic");
         snd_mystic.Play();
     }
     void PlayHunted(){
