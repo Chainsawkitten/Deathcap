@@ -93,7 +93,7 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Video SHARED ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Video Utility glew glm assimp jsoncpp_lib stb ${OpenVR_LIBRARY})
+target_link_libraries(Video Utility glew glm assimp jsoncpp_lib miniz stb ${OpenVR_LIBRARY})
 
 if(UseMemTrack)
     target_link_libraries(Video memtrack memtracknew)

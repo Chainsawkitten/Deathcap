@@ -166,3 +166,7 @@ add_subdirectory(portaudio)
 # Compressonator
 add_subdirectory(Compressonator)
 target_include_directories(Compressonator INTERFACE Compressonator)
+
+# miniz
+add_library(miniz SHARED miniz/miniz.c)
+target_include_directories(miniz INTERFACE miniz)
