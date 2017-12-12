@@ -3,7 +3,7 @@
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 197,
+	"modelNumber" : 195,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1612,6 +1612,10 @@
 							{
 								"model" : "final_cave_soundmesh",
 								"type" : 1
+							},
+							{
+								"sound" : "snd_monsterNoise",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -2173,6 +2177,6 @@
 	"sceneNumber" : 35,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
-	"soundNumber" : 19,
+	"soundNumber" : 27,
 	"textureNumber" : 155
 }

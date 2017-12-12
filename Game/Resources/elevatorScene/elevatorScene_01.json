@@ -5010,6 +5010,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512566495
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Tracks"
+			},
+			"children" : null,
+			"name" : "rails-2",
+			"position" : 
+			{
+				"x" : 19.406633377075195,
+				"y" : 12.880250930786133,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.99996364116668701,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : -0.0085235480219125748
+			},
+			"scale" : 
+			{
+				"x" : 0.27205479145050049,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513069608
 		}
 	],
 	"name" : "Root",

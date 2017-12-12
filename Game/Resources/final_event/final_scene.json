@@ -798,6 +798,38 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512476155
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : true,
+								"sound" : "Resources/final_event/Audio/snd_monsterNoise",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "Noises",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513072136
 						}
 					],
 					"name" : "Audio",
