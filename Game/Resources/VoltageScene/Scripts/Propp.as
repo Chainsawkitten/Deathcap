@@ -13,7 +13,8 @@ class Propp {
     int slot = -1;
     vec3 startPosition;
     Entity @ParticleSystemLocation = null;
-    
+    Component::SoundSource @snapSound;
+
     Propp(Entity @entity) {
         @hub = Managers();
         @self = @entity;
@@ -24,6 +25,8 @@ class Propp {
         @slot2Location = GetEntityByGUID(1511860862);
         @slot3Location = GetEntityByGUID(1511860874);
         @slot4Location = GetEntityByGUID(1511860887);
+        @snapSound = self.GetSoundSource();
+        
         if (self.name == "BlackPropp") {
             @ParticleSystemLocation = self.GetChild("BlackSparks");
             ParticleSystemLocation.SetEnabled(false, true);
@@ -49,6 +52,7 @@ class Propp {
             @ParticleSystemLocation = self.GetChild("GreenSparks");
             ParticleSystemLocation.SetEnabled(false, true);
         }
+
         startPosition = self.position;
 
         RegisterUpdate();
@@ -83,6 +87,7 @@ class Propp {
                 }
                 SendMessage(mastermind, hoverSlot - 1);
                 slot = hoverSlot - 1;
+                snapSound.Play();
             } else {
                 ReturnToStartPosition();
             }
