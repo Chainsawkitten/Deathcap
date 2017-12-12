@@ -93,15 +93,13 @@ class MainScript {
                 vec3 pos = minecart.GetWorldPosition();
                 pos.x += speed * deltaTime;
                 minecart.SetWorldPosition(pos);
-                if (DoFade(deltaTime)) {
+                if (DoFade(deltaTime))
                     GameOver(true);
-                }
                 break;
             }
             case 4: { // Lost phase
-                if (DoFade(deltaTime)) {
+                if (DoFade(deltaTime))
                     GameOver(false);
-                }
                 break;
             }
         }
@@ -157,11 +155,10 @@ class MainScript {
 
     void GameOver(bool won) {
         phase = 1337;
-        if (won) {
+        if (won)
             print("Player won the game.\n");
-        } else {
+        else
             print("Player was eaten alive.\n");
-        }
     }
 
     void StopBeforeMonster() {
