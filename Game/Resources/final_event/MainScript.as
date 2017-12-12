@@ -61,7 +61,7 @@ class MainScript {
         switch (phase) {
             case 0: { // Entering final scene.
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 break;
             }
@@ -85,7 +85,6 @@ class MainScript {
                 waitForMonsterTimer += deltaTime;
                 if (waitForMonsterTimer >= 3.0f) {
                     phase = 3;
-                    print("Player: Honk honk, motherfucker! I'm free!\n");
                     hub.renderManager.SetFogApply(true);
                     hub.renderManager.SetColorFilterApply(true);
                     hub.renderManager.SetFogColor(vec3(0, 0, 0));
@@ -94,7 +93,7 @@ class MainScript {
             }
             case 3: { // Continue after monster has been killed.
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
 
                 // The idea of fading is that we start with fog to begin fading
@@ -113,7 +112,7 @@ class MainScript {
 
                 if (fogTimer >= fadeStartTime) {
                     fadeTimer += deltaTime;
-                    float fadeRatio = fadeTimer / fadeApexDuration;
+                    float fadeRatio = fadeTimer / fogApexDuration;
                     if (fadeRatio >= 1.0f) {
                         fadeRatio = 1.0f;
                         // Game is over.
@@ -125,14 +124,34 @@ class MainScript {
 
                 break;
             }
+            case 5: { // U dead!
+                MonsterHealth = 10000.0f;
+                fogTimer += deltaTime;
+                float fogRatio = (fogTimer / fadeApexDuration) + 0.3f;
+                fogRatio = fogRatio * fogRatio * fogRatio;
+
+                if (fogTimer >= fadeStartTime) {
+                    fadeTimer += deltaTime;
+                    float fadeRatio = fadeTimer / fadeApexDuration;
+                    if (fadeRatio >= 1.0f) {
+                        fadeRatio = 1.0f;
+                        // Game is over.
+                        knife.position = vec3(30, 30, 30);
+                    }
+                    hub.renderManager.SetColorFilterColor(vec3(1.0f - fadeRatio, 1.0f - fadeRatio, 1.0f - fadeRatio));
+                }
+
+                hub.renderManager.SetFogDensity(fogRatio);
+                
+                break;
+            }
         }
     }
 
     void ReceiveMessage(Entity @sender, int signal) {
         switch (signal) {
             case 0: { // When monster has successfully eaten the player.
-                phase = 4; // Lost phase.
-                print("Player: I'm losing.\n");
+                phase = 5; // Lost phase.
                 
                 break;
             }
@@ -151,18 +170,18 @@ class MainScript {
             knife.SetLocalOrientation(quat(1.0f, 0.0f, 0.0f, 0.0f));
             knife.RotateYaw(radians(90.0f));
             knifePickedUp = true;
+            SendMessage(rightHand, 2);
         }
     }
 
     void KnifeHitMonster() {
         particles.SetEnabled(true, false);
         particleActive=true;
-        MonsterHealth-=20.0f;
-        if (phase != 4 && knifePickedUp && MonsterHealth<=0.0f) {
-            knife.GetSoundSource().Play();
+        MonsterHealth -= 20.0f;
+        knife.GetSoundSource().Play();
+        if (phase != 4 && knifePickedUp && MonsterHealth <= 0.0f) {
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
-            print("Player: I'm going to wait for the monster to collapse now.\n");
         }
         
         //Particle Effect
