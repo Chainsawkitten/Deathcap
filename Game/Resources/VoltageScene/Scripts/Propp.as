@@ -8,11 +8,14 @@ class Propp {
     Entity @slot2Location = null;
     Entity @slot3Location = null;
     Entity @slot4Location = null;
+    Entity @slot1Particles = null;
+    Entity @slot2Particles = null;
+    Entity @slot3Particles = null;
+    Entity @slot4Particles = null;
     bool isPressed = false;
     int hoverSlot = -1;
     int slot = -1;
     vec3 startPosition;
-    Entity @ParticleSystemLocation = null;
     Component::SoundSource @snapSound;
 
     Propp(Entity @entity) {
@@ -25,33 +28,11 @@ class Propp {
         @slot2Location = GetEntityByGUID(1511860862);
         @slot3Location = GetEntityByGUID(1511860874);
         @slot4Location = GetEntityByGUID(1511860887);
+        @slot1Particles = slot1Location.GetChildFromIndex(0);
+        @slot2Particles = slot2Location.GetChildFromIndex(0);
+        @slot3Particles = slot3Location.GetChildFromIndex(0);
+        @slot4Particles = slot4Location.GetChildFromIndex(0);
         @snapSound = self.GetSoundSource();
-        
-        if (self.name == "BlackPropp") {
-            @ParticleSystemLocation = self.GetChild("BlackSparks");
-            ParticleSystemLocation.SetEnabled(false, true);
-        } else if (self.name == "BluePropp") {
-            @ParticleSystemLocation = self.GetChild("BlueSparks");
-            ParticleSystemLocation.SetEnabled(false, true);
-        } else if (self.name == "BrownPropp") {
-            @ParticleSystemLocation = self.GetChild("BrownSparks");
-            ParticleSystemLocation.SetEnabled(false, true);
-        } else if (self.name == "PinkPropp") {
-            @ParticleSystemLocation = self.GetChild("PinkSparks");
-            ParticleSystemLocation.SetEnabled(false, true);
-        } else if (self.name == "RedPropp") {
-            @ParticleSystemLocation = self.GetChild("RedSparks");
-            ParticleSystemLocation.SetEnabled(false, true);
-        } else if (self.name == "WhitePropp") {
-            @ParticleSystemLocation = self.GetChild("WhiteSparks");
-            ParticleSystemLocation.SetEnabled(false, true);
-        } else if (self.name == "YellowPropp") {
-            @ParticleSystemLocation = self.GetChild("YellowSparks");
-            ParticleSystemLocation.SetEnabled(false, true);
-        } else if (self.name == "GreenPropp") {
-            @ParticleSystemLocation = self.GetChild("GreenSparks");
-            ParticleSystemLocation.SetEnabled(false, true);
-        }
 
         startPosition = self.position;
 
@@ -65,22 +46,22 @@ class Propp {
                 vec3 tempPos = self.GetWorldPosition();
                 switch (hoverSlot) {
                     case 1: {
-                        ParticleSystemLocation.SetEnabled(true, true);
+                        slot1Particles.SetEnabled(true, true);
                         self.SetParent(slot1Location);
                         break;
                     }
                     case 2: {
-                        ParticleSystemLocation.SetEnabled(true, true);
+                        slot2Particles.SetEnabled(true, true);
                         self.SetParent(slot2Location);
                         break;
                     }
                     case 3: {
-                        ParticleSystemLocation.SetEnabled(true, true);
+                        slot3Particles.SetEnabled(true, true);
                         self.SetParent(slot3Location);
                         break;
                     }
                     case 4: {
-                        ParticleSystemLocation.SetEnabled(true, true);
+                        slot4Particles.SetEnabled(true, true);
                         self.SetParent(slot4Location);
                         break;
                     }

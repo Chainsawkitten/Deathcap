@@ -692,7 +692,39 @@
 					"children" : 
 					[
 						{
-							"children" : null,
+							"Script" : 
+							{
+								"scriptName" : "Resources/VoltageScene/Scripts/FuseSlotScript"
+							},
+							"children" : 
+							[
+								{
+									"name" : "Slot1Sparks",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
+									"static" : false,
+									"uid" : 1512722502
+								}
+							],
 							"name" : "FuseParent",
 							"position" : 
 							{
@@ -1214,7 +1246,39 @@
 					"children" : 
 					[
 						{
-							"children" : null,
+							"Script" : 
+							{
+								"scriptName" : "Resources/VoltageScene/Scripts/FuseSlotScript"
+							},
+							"children" : 
+							[
+								{
+									"name" : "Slot2Sparks",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
+									"static" : false,
+									"uid" : 1512722502
+								}
+							],
 							"name" : "FuseParent",
 							"position" : 
 							{
@@ -1736,7 +1800,39 @@
 					"children" : 
 					[
 						{
-							"children" : null,
+							"Script" : 
+							{
+								"scriptName" : "Resources/VoltageScene/Scripts/FuseSlotScript"
+							},
+							"children" : 
+							[
+								{
+									"name" : "Slot3Sparks",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
+									"static" : false,
+									"uid" : 1512722502
+								}
+							],
 							"name" : "FuseParent",
 							"position" : 
 							{
@@ -2258,7 +2354,39 @@
 					"children" : 
 					[
 						{
-							"children" : null,
+							"Script" : 
+							{
+								"scriptName" : "Resources/VoltageScene/Scripts/FuseSlotScript"
+							},
+							"children" : 
+							[
+								{
+									"name" : "Slot4Sparks",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
+									"static" : false,
+									"uid" : 1512722502
+								}
+							],
 							"name" : "FuseParent",
 							"position" : 
 							{
@@ -3055,32 +3183,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512046530
-						},
-						{
-							"name" : "BlackSparks",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : true,
-							"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
-							"static" : false,
-							"uid" : 1512722502
 						}
 					],
 					"name" : "BlackPropp",
@@ -3198,32 +3300,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512046531
-						},
-						{
-							"name" : "BlueSparks",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : true,
-							"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
-							"static" : false,
-							"uid" : 1512722502
 						}
 					],
 					"name" : "BluePropp",
@@ -3341,32 +3417,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512046532
-						},
-						{
-							"name" : "BrownSparks",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : true,
-							"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
-							"static" : false,
-							"uid" : 1512722502
 						}
 					],
 					"name" : "BrownPropp",
@@ -3484,32 +3534,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512046533
-						},
-						{
-							"name" : "PinkSparks",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : true,
-							"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
-							"static" : false,
-							"uid" : 1512722502
 						}
 					],
 					"name" : "PinkPropp",
@@ -3627,32 +3651,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512046534
-						},
-						{
-							"name" : "RedSparks",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : true,
-							"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
-							"static" : false,
-							"uid" : 1512722502
 						}
 					],
 					"name" : "RedPropp",
@@ -3770,32 +3768,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512046535
-						},
-						{
-							"name" : "WhiteSparks",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : true,
-							"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
-							"static" : false,
-							"uid" : 1512722502
 						}
 					],
 					"name" : "WhitePropp",
@@ -3913,32 +3885,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512046536
-						},
-						{
-							"name" : "YellowSparks",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : true,
-							"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
-							"static" : false,
-							"uid" : 1512722502
 						}
 					],
 					"name" : "YellowPropp",
@@ -4056,32 +4002,6 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512044625
-						},
-						{
-							"name" : "GreenSparks",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : true,
-							"sceneName" : "Resources/Constant Scene/BrightSparks/BrightSparks",
-							"static" : false,
-							"uid" : 1512722502
 						}
 					],
 					"name" : "GreenPropp",

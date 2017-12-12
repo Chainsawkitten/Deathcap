@@ -2111,6 +2111,10 @@
 							{
 								"script" : "VoltageRandomEvents",
 								"type" : 4
+							},
+							{
+								"script" : "FuseSlotScript",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
