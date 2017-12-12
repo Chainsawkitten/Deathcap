@@ -455,7 +455,7 @@
 			"scale" : 
 			{
 				"x" : 1.0,
-				"y" : 1.0,
+				"y" : 1.9698472023010254,
 				"z" : 1.0
 			},
 			"scene" : false,
@@ -4271,6 +4271,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512985777
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageFloor"
+			},
+			"children" : null,
+			"name" : "VoltageRoof",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 14.614619255065918,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : -4.3711388286737929e-08,
+				"x" : 1.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513067981
 		}
 	],
 	"name" : "Root",
