@@ -49,6 +49,8 @@ class Mastermind {
         if (puzzleSolved)
             return;
 
+        TurnOffLights();
+        
         for (int i = 0; i < correct; i++)
             TurnOnLight(100, vec3(0, 255, 0));
 
