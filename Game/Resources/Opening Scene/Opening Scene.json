@@ -1310,6 +1310,80 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512741289
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Pillars/Pillars_Albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Textures/Pillars/Pillars_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Pillars/Pillars_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/platform"
+			},
+			"children" : null,
+			"name" : "platform",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513071256
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/railplatform"
+			},
+			"children" : null,
+			"name" : "railplatform",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513071370
 		}
 	],
 	"name" : "Root",
