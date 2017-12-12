@@ -39,7 +39,7 @@ class Controller {
             
             if (pickUp) {
                 pickUp = false;
-                SendMessage(lantern, 2);                 
+                SendMessage(lantern, 2);
             } 
         }
         
