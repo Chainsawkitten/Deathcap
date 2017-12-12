@@ -47,6 +47,7 @@ class Rock {
             self.position = vec3(0.0f,0.0f,0.0f);
             self.SetParent(rightCtrl);
             isPickedUp = true;
+            SendMessage(rightCtrl, 2);
         }
     }
 }
