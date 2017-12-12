@@ -1269,7 +1269,7 @@
 				"trigger" : "A Trigger",
 				"triggerActive" : false,
 				"triggerCharges" : 0,
-				"triggerCollidedEntityUID" : 1512740944,
+				"triggerCollidedEntityUID" : 1508919758,
 				"triggerCooldown" : 0.0,
 				"triggerDelay" : 0.0,
 				"triggerEventStruct_Check_0" : true,
