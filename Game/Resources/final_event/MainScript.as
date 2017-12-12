@@ -113,7 +113,7 @@ class MainScript {
 
                 if (fogTimer >= fadeStartTime) {
                     fadeTimer += deltaTime;
-                    float fadeRatio = fadeTimer / 1.0f;
+                    float fadeRatio = fadeTimer / 3.0f;
                     if (fadeRatio >= 1.0f) {
                         fadeRatio = 1.0f;
                         // Game is over.
@@ -127,7 +127,7 @@ class MainScript {
             }
             case 5: { // U dead!
                 fogTimer += deltaTime;
-                float fogRatio = fogTimer / fogApexDuration;
+                float fogRatio = (fogTimer / fogApexDuration) + 0.3f;
                 fogRatio = fogRatio * fogRatio * fogRatio;
 
                 if (fogTimer >= fadeStartTime) {
