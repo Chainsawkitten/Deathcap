@@ -2132,12 +2132,51 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "Music",
+				"resources" : 
+				[
+					{
+						"sound" : "snd_horn",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_win",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_charged",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_gameover",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_waterphone",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_mystic",
+						"type" : 3
+					},
+					{
+						"script" : "global_music_script",
+						"type" : 4
+					},
+					{
+						"sound" : "snd_hunted",
+						"type" : 3
+					}
+				],
+				"subfolders" : null
 			}
 		]
 	},
 	"sceneNumber" : 33,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
-	"soundNumber" : 16,
-	"textureNumber" : 155
+	"soundNumber" : 19,
+	"textureNumber" : 154
 }
