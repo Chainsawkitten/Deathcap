@@ -8,6 +8,7 @@
 #include <Utility/Log.hpp>
 #include <Codec_DXTC.h>
 #include <GLFW/glfw3.h>
+#include <miniz.h>
 
 namespace TextureConverter {
     static void CompressBlockBC1(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]);
@@ -74,7 +75,25 @@ namespace TextureConverter {
         
         double time = glfwGetTime();
         
+        // Allocate data buffer.
+        unsigned int bufferSize = 0;
+        width = uWidth;
+        height = uHeight;
+        for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
+            if (compressionType == Video::TextureHCT::BC1)
+                bufferSize += width * height / 2;
+            else if (compressionType == Video::TextureHCT::BC4)
+                bufferSize += width * height / 2;
+            else if (compressionType == Video::TextureHCT::BC5)
+                bufferSize += width * height;
+            
+            width /= 2;
+            height /= 2;
+        }
+        unsigned char* buffer = new unsigned char[bufferSize];
+        
         // Write data.
+        unsigned int bufferLocation = 0;
         width = uWidth;
         height = uHeight;
         for (uint16_t mipLevel = 0; mipLevel < mipLevels; ++mipLevel) {
@@ -83,19 +102,22 @@ namespace TextureConverter {
             uint16_t blocksY = height / 4;
             for (uint16_t blockY = 0; blockY < blocksY; ++blockY) {
                 for (uint16_t blockX = 0; blockX < blocksX; ++blockX) {
-                    // Convert block and write it to file.
+                    // Convert block and write it to the buffer.
                     if (compressionType == Video::TextureHCT::BC1) {
                         uint32_t block[2];
                         CompressBlockBC1(rgbData, blockX, blockY, width, block);
-                        file.write(reinterpret_cast<char*>(block), 8);
+                        memcpy(&buffer[bufferLocation], block, 8);
+                        bufferLocation += 8;
                     } else if (compressionType == Video::TextureHCT::BC4) {
                         uint32_t block[2];
                         CompressBlockBC4(rgbData, blockX, blockY, width, block);
-                        file.write(reinterpret_cast<char*>(block), 8);
+                        memcpy(&buffer[bufferLocation], block, 8);
+                        bufferLocation += 8;
                     } else if (compressionType == Video::TextureHCT::BC5) {
                         uint32_t block[4];
                         CompressBlockBC5(rgbData, blockX, blockY, width, block);
-                        file.write(reinterpret_cast<char*>(block), 16);
+                        memcpy(&buffer[bufferLocation], block, 16);
+                        bufferLocation += 16;
                     }
                 }
             }
@@ -120,12 +142,24 @@ namespace TextureConverter {
             }
         }
         
+        // Deflate compression.
+        mz_ulong compressedLength = compressBound(bufferSize);
+        unsigned char* compressedData = new unsigned char[compressedLength];
+        int errCode = compress(compressedData, &compressedLength, buffer, bufferSize);
+        if (errCode!= MZ_OK)
+            Log(Log::ERR) << "Failed to compress using miniz: " << errCode << ".\n";
+        
+        // Write buffer to file.
+        file.write(reinterpret_cast<char*>(compressedData), compressedLength);
+        
         time = glfwGetTime() - time;
         Log(Log::INFO) << "Time to convert: " << time << "s\n";
         
         file.close();
         
         delete[] rgbData;
+        delete[] buffer;
+        delete[] compressedData;
     }
     
     static void CompressBlockBC1(unsigned char* rgbData, uint32_t blockX, uint32_t blockY, uint32_t width, uint32_t block[2]) {
