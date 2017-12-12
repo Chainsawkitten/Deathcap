@@ -53,6 +53,9 @@ class Mastermind {
 
         for (int i = 0; i < rightColors; i++)
             TurnOnLight(20, vec3(232, 215, 27));
+            
+        for (int i = 0; i < 4 - (correct + rightColors); ++i)
+            TurnOnLight(20, vec3(255, 0, 0));
     }
 
     void CheckSolution() {
