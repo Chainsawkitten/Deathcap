@@ -207,12 +207,18 @@
 				},
 				"scriptName" : "Resources/VoltageScene/Scripts/RoundaboutScript"
 			},
+			"SoundSource" : 
+			{
+				"loop" : true,
+				"sound" : "Resources/VoltageScene/Audio/Rotation",
+				"volume" : 1.0
+			},
 			"children" : 
 			[
 				{
 					"Material" : 
 					{
-						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
 						"metallic" : "",
 						"normal" : "",
 						"roughness" : ""
@@ -496,7 +502,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
 				"metallic" : "",
 				"normal" : "",
 				"roughness" : ""
@@ -563,14 +569,14 @@
 		{
 			"PointLight" : 
 			{
-				"attenuation" : 0.0099999997764825821,
+				"attenuation" : 14.645000457763672,
 				"color" : 
 				{
 					"x" : 1.0,
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"intensity" : 2.064000129699707
+				"intensity" : 159.5570068359375
 			},
 			"Script" : 
 			{
@@ -2974,6 +2980,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3084,6 +3096,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3196,6 +3214,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3306,6 +3330,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3418,6 +3448,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3528,6 +3564,12 @@
 					"Script" : 
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
+					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
 					},
 					"children" : 
 					[
@@ -3640,6 +3682,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3751,6 +3799,12 @@
 					{
 						"scriptName" : "Resources/VoltageScene/Scripts/Propp"
 					},
+					"SoundSource" : 
+					{
+						"loop" : false,
+						"sound" : "Resources/VoltageScene/Audio/SnapClick",
+						"volume" : 0.5
+					},
 					"children" : 
 					[
 						{
@@ -3851,7 +3905,7 @@
 			"position" : 
 			{
 				"x" : 23.257001876831055,
-				"y" : 0.34700000286102295,
+				"y" : 0.14100000262260437,
 				"z" : 1.5550000667572021
 			},
 			"rotation" : 
@@ -4044,6 +4098,179 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512719575
+		},
+		{
+			"SpotLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"attenuation" : 6.1880002021789551,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"coneAngle" : 34.047000885009766,
+				"intensity" : 18.590000152587891,
+				"shadow" : false
+			},
+			"children" : null,
+			"name" : "SwitchBoardLight",
+			"position" : 
+			{
+				"x" : 24.339000701904297,
+				"y" : 2.0160000324249268,
+				"z" : 2.3429999351501465
+			},
+			"rotation" : 
+			{
+				"w" : 0.9537169337272644,
+				"x" : -0.30070579051971436,
+				"y" : -0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512996604
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "Table",
+			"position" : 
+			{
+				"x" : 24.194000244140625,
+				"y" : 0.25073772668838501,
+				"z" : 4.0900001525878906
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0170000791549683,
+				"y" : 1.0,
+				"z" : 0.61400002241134644
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512994196
+		},
+		{
+			"children" : 
+			[
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialRock"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Audio/voltage_cave_soundmesh"
+					},
+					"children" : null,
+					"name" : "Cave",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512985785
+				},
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialMetal"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Audio/elevator_voltage_soundmesh"
+					},
+					"children" : null,
+					"name" : "Elevator",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512985865
+				}
+			],
+			"name" : "SoundMeshes",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512985777
 		}
 	],
 	"name" : "Root",

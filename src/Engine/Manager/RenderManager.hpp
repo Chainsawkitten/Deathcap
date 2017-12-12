@@ -32,9 +32,16 @@ class RenderManager {
     friend class Hub;
 
     public:
+        /// Types of displays to render.
+        enum DISPLAY {
+            MONITOR,
+            HMD
+        };
+
         /// Render world containing entities.
         /**
          * @param world Contains a bunch of entities.
+         * @param targetDisplay Display type to render.
          * @param soundSources Whether to show sound sources.
          * @param particleEmitters Whether to show particle emitters.
          * @param lightSources Whether to show light sources.
@@ -43,7 +50,7 @@ class RenderManager {
          * @param camera Camera through which to render (or first camera in the world if nullptr).
          * @param lighting Whether to light the scene (otherwise full ambient is used).
          */
-        ENGINE_API void Render(World& world, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr, bool lighting = true);
+        ENGINE_API void Render(World& world, DISPLAY targetDisplay, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr, bool lighting = true);
         
         /// Update all the animations in the scene.
         /**
@@ -215,7 +222,6 @@ class RenderManager {
          */
         ENGINE_API bool GetFogApply() const;
 
-
         /// Set fog density.
         /**
          * @param fogDensity Density of the fog.
@@ -290,6 +296,12 @@ class RenderManager {
          * @return Which mip-level to start loading.
          */
         ENGINE_API uint16_t GetTextureReduction() const;
+
+        /// set whether blood iS applied.
+        /**
+         * @param SetBloodApply Whether to apply blood.
+         */
+        ENGINE_API void SetBloodApply(bool SetBloodApply);
 
     private:
         RenderManager();

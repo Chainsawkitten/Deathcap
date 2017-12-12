@@ -690,6 +690,40 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1512467880
+				},
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialRock"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/elevatorScene/Sounds/elevatorcave_soundmesh"
+					},
+					"children" : null,
+					"name" : "SoundMesh",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512984562
 				}
 			],
 			"name" : "Cave",
@@ -737,7 +771,41 @@
 						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
 						"volume" : 1.0
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "sndStopDoor",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512740447
+						}
+					],
 					"name" : "frontDoorWithX",
 					"position" : 
 					{
@@ -1089,61 +1157,6 @@
 				{
 					"Shape" : 
 					{
-						"sphere" : 
-						{
-							"radius" : 0.30000001192092896
-						}
-					},
-					"Trigger" : 
-					{
-						"trigger" : "A Trigger",
-						"triggerActive" : false,
-						"triggerCharges" : 0,
-						"triggerCollidedEntityUID" : 1509959164,
-						"triggerCooldown" : 0.0,
-						"triggerDelay" : 0.0,
-						"triggerEventStruct_Check_0" : true,
-						"triggerEventStruct_Check_1" : true,
-						"triggerEventStruct_Check_2" : true,
-						"triggerEventStruct_Check_3" : true,
-						"triggerEventStruct_EventID" : 0,
-						"triggerEventStruct_ScriptID" : 3,
-						"triggerEventStruct_ShapeID" : 0,
-						"triggerEventStruct_TargetID" : 0,
-						"triggerFunction" : "void StopCart()",
-						"triggerName" : "New Trigger",
-						"triggerOwner" : 1511872744,
-						"triggerTargetEntity" : 1511874401,
-						"triggerTriggered" : false
-					},
-					"children" : null,
-					"name" : "EnterElevatorTrigger",
-					"position" : 
-					{
-						"x" : 1.8858587741851807,
-						"y" : -9.754791259765625,
-						"z" : 0.20131103694438934
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511872744
-				},
-				{
-					"Shape" : 
-					{
 						"box" : 
 						{
 							"depth" : 4.0,
@@ -1256,61 +1269,6 @@
 				{
 					"Shape" : 
 					{
-						"sphere" : 
-						{
-							"radius" : 0.30000001192092896
-						}
-					},
-					"Trigger" : 
-					{
-						"trigger" : "A Trigger",
-						"triggerActive" : false,
-						"triggerCharges" : 0,
-						"triggerCollidedEntityUID" : 1509959164,
-						"triggerCooldown" : 0.0,
-						"triggerDelay" : 0.0,
-						"triggerEventStruct_Check_0" : true,
-						"triggerEventStruct_Check_1" : true,
-						"triggerEventStruct_Check_2" : true,
-						"triggerEventStruct_Check_3" : true,
-						"triggerEventStruct_EventID" : 0,
-						"triggerEventStruct_ScriptID" : 2,
-						"triggerEventStruct_ShapeID" : 0,
-						"triggerEventStruct_TargetID" : 7,
-						"triggerFunction" : "void CloseDoor()",
-						"triggerName" : "New Trigger",
-						"triggerOwner" : 1511948057,
-						"triggerTargetEntity" : 1511946590,
-						"triggerTriggered" : false
-					},
-					"children" : null,
-					"name" : "CloseFrontDoorTrigger",
-					"position" : 
-					{
-						"x" : 1.8887865543365479,
-						"y" : -9.7238950729370117,
-						"z" : 0.20169427990913391
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511948057
-				},
-				{
-					"Shape" : 
-					{
 						"box" : 
 						{
 							"depth" : 4.0,
@@ -1419,6 +1377,61 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511958017
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 1.3000000715255737
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 3,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 0,
+						"triggerFunction" : "void SlowDown()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1512552496,
+						"triggerTargetEntity" : 1511874401,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "SlowDownTrigger",
+					"position" : 
+					{
+						"x" : -10.449895858764648,
+						"y" : -9.9646415710449219,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512552496
 				}
 			],
 			"name" : "Triggers",
@@ -4102,10 +4115,10 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
-						"metallic" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_metallic",
-						"normal" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_normal",
-						"roughness" : "Resources/Bridge Puzzle Scene/Rock/Textures/Texture #38"
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
 					},
 					"Mesh" : 
 					{
