@@ -78,10 +78,12 @@ class elevator_moveCart {
                 break;
 
             case 2:
+                GetEntityByGUID(1512996068).GetSoundSource().Stop(); //Stop door banging sound
+
                 elevatorPos = elevator.GetWorldPosition();
                 elevatorPos.y += speed * deltaTime;
                 elevator.SetWorldPosition(elevatorPos);
-                
+
                 tempPos = self.GetWorldPosition();
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
@@ -114,6 +116,10 @@ class elevator_moveCart {
                     SendMessage(board, 1);
                 }
                 break;
+
+            case 5: { // Waiting for doors to open
+                break;
+            }
         }
     }
 
@@ -131,4 +137,8 @@ class elevator_moveCart {
         phase = 3;
     }
 
+    void StopCart() {
+        phase = 5;
+        GetEntityByGUID(1512560813).GetSoundSource().Stop();
+    }
 }
