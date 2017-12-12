@@ -905,7 +905,7 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
 						"metallic" : "",
 						"normal" : "",
 						"roughness" : ""
@@ -1606,9 +1606,9 @@
 													"name" : "Bucket",
 													"position" : 
 													{
-														"x" : -0.28170663118362427,
-														"y" : 0.16956812143325806,
-														"z" : -0.96456813812255859
+														"x" : -0.14916867017745972,
+														"y" : -0.07067599892616272,
+														"z" : -0.73952019214630127
 													},
 													"rotation" : 
 													{
