@@ -183,7 +183,8 @@ class MainScript {
         particles.SetEnabled(true, false);
         particleActive=true;
         MonsterHealth-=20.0f;
-        if (phase != 4 && knifePickedUp && MonsterHealth<=0.0f) {
+        // Only allow killing the monster in the early phases.
+        if ((phase == 0 || phase == 1) && knifePickedUp && MonsterHealth <= 0.0f) {
             knife.GetSoundSource().Play();
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
