@@ -127,7 +127,7 @@ class MainScript {
             case 5: { // U dead!
                 MonsterHealth = 10000.0f;
                 fogTimer += deltaTime;
-                float fogRatio = (fogTimer / fogApexDuration) + 0.3f;
+                float fogRatio = (fogTimer / fadeApexDuration) + 0.3f;
                 fogRatio = fogRatio * fogRatio * fogRatio;
 
                 if (fogTimer >= fadeStartTime) {
