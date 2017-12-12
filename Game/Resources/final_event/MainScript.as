@@ -72,9 +72,7 @@ class MainScript {
                 pos.x += 0.05 * deltaTime;
                 minecart.SetWorldPosition(pos);
                 }
-                break;
-            }
-            case 4: { // Waiting for monster to eat/die.
+
                 // Puzzle Skip.
                 if(!IsVRActive() && Input(PuzzleSkip, @self)) {
                     phase = 2;
