@@ -110,6 +110,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
         switch (targetDisplay) {
             case RenderManager::MONITOR:
                 if (mainWindowRenderSurface != nullptr && windowSize.x > 0 && windowSize.y > 0) {
+                    renderer->SetFrameSize(mainWindowRenderSurface->GetSize());
                     // Render main window.
                     { PROFILE("Render main window");
                     { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
@@ -172,6 +173,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
             case RenderManager::HMD:
                 if (hmdRenderSurface != nullptr) {
                     // Render vr headset.
+                    renderer->SetFrameSize(hmdRenderSurface->GetSize());
                     { PROFILE("Render main hmd");
                     { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
                     for (int i = 0; i < 2; ++i) {
@@ -267,8 +269,8 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         if (spotLight->shadow) {
             Entity* lightEntity = spotLight->entity;
             lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
-            ///Will use range 50.f on the projection, no support for spotlight lenght. 
-            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.5f, 50.0f);
+            // Will use range 50.f on the projection, no support for spotlight length. 
+            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.01f, 50.0f);
         }
     }
 
@@ -692,6 +694,10 @@ void RenderManager::SetDitherApply(bool ditherApply) {
 
 bool RenderManager::GetDitherApply() const {
     return Hymn().filterSettings.ditherApply;
+}
+
+void RenderManager::SetBloodApply(bool SetBloodApply) {
+   renderer->SetBloodApply(SetBloodApply);
 }
 
 void RenderManager::SetTextureReduction(uint16_t textureReduction) {
