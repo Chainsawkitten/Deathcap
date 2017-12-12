@@ -46,9 +46,6 @@ class Mastermind {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-        if (puzzleSolved)
-            return;
-
         TurnOffLights();
         
         for (int i = 0; i < correct; i++)
