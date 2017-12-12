@@ -1310,6 +1310,108 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512741289
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "StoneByStart",
+			"position" : 
+			{
+				"x" : -13.947389602661133,
+				"y" : 2.2750978469848633,
+				"z" : -4.5876283645629883
+			},
+			"rotation" : 
+			{
+				"w" : 0.71586114168167114,
+				"x" : -0.68569463491439819,
+				"y" : 0.11625675857067108,
+				"z" : 0.062044650316238403
+			},
+			"scale" : 
+			{
+				"x" : 10.0,
+				"y" : 40.689037322998047,
+				"z" : 78.325416564941406
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513070222
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/PileOfRocks"
+					},
+					"children" : null,
+					"name" : "StonesByMonster",
+					"position" : 
+					{
+						"x" : -5.0,
+						"y" : 1.1331833600997925,
+						"z" : 1.0475846529006958
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1513070426
+				}
+			],
+			"name" : "StonesRoot",
+			"position" : 
+			{
+				"x" : -33.749168395996094,
+				"y" : 3.1381111145019531,
+				"z" : 7.4397616386413574
+			},
+			"rotation" : 
+			{
+				"w" : 0.16384240984916687,
+				"x" : -0.22380439937114716,
+				"y" : -0.92101079225540161,
+				"z" : 0.27350506186485291
+			},
+			"scale" : 
+			{
+				"x" : 8.0,
+				"y" : 8.0,
+				"z" : 8.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513070497
 		}
 	],
 	"name" : "Root",
