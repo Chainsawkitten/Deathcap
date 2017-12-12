@@ -117,7 +117,6 @@ class MainScript {
                     if (fadeRatio >= 1.0f) {
                         fadeRatio = 1.0f;
                         // Game is over.
-                        rightHand.SetWorldPosition(rightHand.GetWorldPosition());
                     }
                     hub.renderManager.SetColorFilterColor(vec3(1.0f - fadeRatio, 1.0f - fadeRatio, 1.0f - fadeRatio));
                 }
