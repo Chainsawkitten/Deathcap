@@ -24,7 +24,7 @@
 				"model" : "Resources/lowpoly_bush"
 			},
 			"children" : null,
-			"name" : "Entity #1",
+			"name" : "bush",
 			"position" : 
 			{
 				"x" : 0.0,
