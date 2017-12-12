@@ -98,15 +98,21 @@ class MainScript {
                 }
                 break;
             }
+            case 4: { // Lost phase
+                if (DoFade(deltaTime)) {
+
+                }
+                break;
+            }
         }
     }
 
     void ReceiveMessage(Entity @sender, int signal) {
         switch (signal) {
             case 0: { // When monster has successfully eaten the player.
+                PrepareForFade();
                 phase = 4; // Lost phase.
                 print("Player: I'm losing.\n");
-                
                 break;
             }
         }
