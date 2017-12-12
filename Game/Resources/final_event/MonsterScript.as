@@ -82,7 +82,7 @@ class MonsterScript {
                 TriggerAttack();
                 if (eatingTimer >= 10.0f) {
                     SendMessage(cart, 0); // Player was eaten
-                    music.PlayGameOver();
+                    SendMessage(music, 1);
                     hub.renderManager.SetBloodApply(false);
                     phase = 7;
                 }
@@ -107,7 +107,7 @@ class MonsterScript {
                 phase = 6; // Collapse
                 snd_noises.Stop();
                 snd_death.Play();
-                music.PlayWin();
+                SendMessage(music, 0);
                 print("Monster: I'm dying now.\n");
                 TriggerDeath();
                 disappearGround=true;
