@@ -905,7 +905,7 @@
 										"triggerEventStruct_Check_1" : true,
 										"triggerEventStruct_Check_2" : true,
 										"triggerEventStruct_Check_3" : true,
-										"triggerEventStruct_EventID" : 0,
+										"triggerEventStruct_EventID" : 1,
 										"triggerEventStruct_ScriptID" : 2,
 										"triggerEventStruct_ShapeID" : 0,
 										"triggerEventStruct_TargetID" : 11,
