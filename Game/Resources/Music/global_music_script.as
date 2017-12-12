@@ -27,9 +27,8 @@ class global_music_script {
         
         @snd_horn=GetEntityByGUID(1512735015).GetSoundSource();
         @snd_win=GetEntityByGUID(1512735032).GetSoundSource();
+}
 
-        // Remove this if updates are not desired.
-   
     void PlayMysticString(){
         snd_mystic.Play();
     }
@@ -55,4 +54,4 @@ class global_music_script {
     void FadeHunted(){
         snd_hunted.Stop();
     }
-}
+
