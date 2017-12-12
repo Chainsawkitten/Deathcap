@@ -80,6 +80,7 @@ class MainScript {
                     phase = 2;
                     SendMessage(monster, 1); // Monster died.
                 }
+                break;
             }
             case 2: { // Wait for monster to collapse.
                 waitForMonsterTimer += deltaTime;
