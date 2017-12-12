@@ -68,18 +68,17 @@ class MainScript {
             
             case 1: { //Stopping smoothly
                 vec3 pos = minecart.GetWorldPosition();
-                if(pos.x>0.0f){
-                pos.x += 0.05 * deltaTime;
-                minecart.SetWorldPosition(pos);
+                if(pos.x > 0.0f){
+                    pos.x += 0.05 * deltaTime;
+                    minecart.SetWorldPosition(pos);
                 }
-                break;
-            }
-            case 4: { // Waiting for monster to eat/die.
+                
                 // Puzzle Skip.
                 if(!IsVRActive() && Input(PuzzleSkip, @self)) {
                     phase = 2;
                     SendMessage(monster, 1); // Monster died.
                 }
+                break;
             }
             case 2: { // Wait for monster to collapse.
                 waitForMonsterTimer += deltaTime;
@@ -179,7 +178,7 @@ class MainScript {
         particleActive=true;
         MonsterHealth -= 20.0f;
         knife.GetSoundSource().Play();
-        if (phase != 4 && knifePickedUp && MonsterHealth <= 0.0f) {
+        if (phase != 5 && knifePickedUp && MonsterHealth <= 0.0f) {
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
         }
