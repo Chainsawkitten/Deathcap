@@ -27,11 +27,10 @@ namespace Video {
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
              * @param shadowId The id for the shadowtexture.
-             * @param shadowWidth The width of the shadowmap,
-             * @param shadowHeight The height of the shadowmap.
+             * @param shadowMapSize The size of the shadowmap,
              * @param depthFbo The framebufferobject containing the shadowmap.
              */
-            void PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, int shadowWidth, int shadowHeight, int depthFbo);
+            void PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, unsigned int shadowMapSize, int depthFbo);
 
             /// Render shadow pass.
             /**
