@@ -13,7 +13,415 @@
 			{
 				"model" : "Resources/NewAssets/Models/Cave"
 			},
-			"children" : null,
+			"children" : 
+			[
+				{
+					"children" : 
+					[
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1513077896
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -4.4783940315246582,
+								"y" : 0.084589049220085144,
+								"z" : -5.4407768249511719
+							},
+							"rotation" : 
+							{
+								"w" : 0.62565672397613525,
+								"x" : 0.15682476758956909,
+								"y" : -0.3526509702205658,
+								"z" : -0.67793583869934082
+							},
+							"scale" : 
+							{
+								"x" : 2.5,
+								"y" : 2.5,
+								"z" : 2.5
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513078938
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1513077896
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -4.4860334396362305,
+								"y" : 0.012398163788020611,
+								"z" : -5.3785915374755859
+							},
+							"rotation" : 
+							{
+								"w" : -0.7170107364654541,
+								"x" : -0.43919789791107178,
+								"y" : 0.041287418454885483,
+								"z" : 0.5397186279296875
+							},
+							"scale" : 
+							{
+								"x" : 2.5,
+								"y" : 2.5,
+								"z" : 2.5
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513078939
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1513077896
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -4.6961545944213867,
+								"y" : 0.015614192001521587,
+								"z" : -5.1669950485229492
+							},
+							"rotation" : 
+							{
+								"w" : -0.019100671634078026,
+								"x" : -0.41583892703056335,
+								"y" : -0.71954637765884399,
+								"z" : -0.55584722757339478
+							},
+							"scale" : 
+							{
+								"x" : 2.5,
+								"y" : 2.5,
+								"z" : 2.5
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513078941
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1513077896
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -0.68159699440002441,
+								"y" : -1.5309925079345703,
+								"z" : 7.8426823616027832
+							},
+							"rotation" : 
+							{
+								"w" : -0.71036791801452637,
+								"x" : 0.60737878084182739,
+								"y" : -0.17637751996517181,
+								"z" : -0.30880311131477356
+							},
+							"scale" : 
+							{
+								"x" : 2.5,
+								"y" : 2.5,
+								"z" : 2.5
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513078961
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1513077896
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -0.30406635999679565,
+								"y" : -1.5282979011535645,
+								"z" : 7.6294279098510742
+							},
+							"rotation" : 
+							{
+								"w" : -0.28545862436294556,
+								"x" : -0.15011635422706604,
+								"y" : 0.67850238084793091,
+								"z" : -0.66000986099243164
+							},
+							"scale" : 
+							{
+								"x" : 2.5,
+								"y" : 2.5,
+								"z" : 2.5
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513078962
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1513077896
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -9.9575338363647461,
+								"y" : 0.40162062644958496,
+								"z" : -2.5474035739898682
+							},
+							"rotation" : 
+							{
+								"w" : -0.6449471116065979,
+								"x" : -0.62528032064437866,
+								"y" : 0.2780742347240448,
+								"z" : 0.34020951390266418
+							},
+							"scale" : 
+							{
+								"x" : 2.5,
+								"y" : 2.5,
+								"z" : 2.5
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513078977
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1513077896
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -9.843536376953125,
+								"y" : 0.39762458205223083,
+								"z" : -2.5525052547454834
+							},
+							"rotation" : 
+							{
+								"w" : -0.59094119071960449,
+								"x" : -0.59419029951095581,
+								"y" : 0.37942641973495483,
+								"z" : 0.39212489128112793
+							},
+							"scale" : 
+							{
+								"x" : 2.5,
+								"y" : 2.5,
+								"z" : 2.5
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513078979
+						}
+					],
+					"name" : "foliage",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1513078938
+				}
+			],
 			"name" : "Cave",
 			"position" : 
 			{
