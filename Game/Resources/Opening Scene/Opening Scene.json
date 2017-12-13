@@ -2045,6 +2045,117 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1513071370
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "Rock1",
+			"position" : 
+			{
+				"x" : -34.736839294433594,
+				"y" : 2.4130139350891113,
+				"z" : 12.116667747497559
+			},
+			"rotation" : 
+			{
+				"w" : 0.82214617729187012,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.56927585601806641
+			},
+			"scale" : 
+			{
+				"x" : 10.0,
+				"y" : 10.0,
+				"z" : 10.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513078541
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "Rock2",
+			"position" : 
+			{
+				"x" : -34.45330810546875,
+				"y" : 2.2799990177154541,
+				"z" : 10.545784950256348
+			},
+			"rotation" : 
+			{
+				"w" : 0.68291789293289185,
+				"x" : 0.30530714988708496,
+				"y" : -0.46708154678344727,
+				"z" : 0.47142794728279114
+			},
+			"scale" : 
+			{
+				"x" : 8.0,
+				"y" : 8.0,
+				"z" : 8.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513078543
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "Rock3",
+			"position" : 
+			{
+				"x" : -34.019535064697266,
+				"y" : 1.9134271144866943,
+				"z" : 8.5995550155639648
+			},
+			"rotation" : 
+			{
+				"w" : 0.92866277694702148,
+				"x" : -0.30147868394851685,
+				"y" : -0.18360376358032227,
+				"z" : -0.11395254731178284
+			},
+			"scale" : 
+			{
+				"x" : 4.2170000076293945,
+				"y" : 12.244000434875488,
+				"z" : 7.5340003967285156
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513079130
 		}
 	],
 	"name" : "Root",
