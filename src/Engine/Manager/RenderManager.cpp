@@ -700,6 +700,10 @@ void RenderManager::SetBloodApply(bool SetBloodApply) {
    renderer->SetBloodApply(SetBloodApply);
 }
 
+unsigned int RenderManager::GetLightCount() const {
+    return lightCount;
+}
+
 void RenderManager::SetTextureReduction(uint16_t textureReduction) {
     this->textureReduction = static_cast<uint8_t>(textureReduction);
 }
@@ -777,7 +781,9 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             lights.push_back(light);
         }
     }
-
+    
+    lightCount = lights.size();
+    
     // Update light buffer.
     renderer->SetLights(lights);
 }
