@@ -2,6 +2,7 @@ class MonsterScript {
     Hub @hub;
     Entity @self;
     Entity @cart;
+    Entity @music;
     float fallspeed;
     float waitTimer;
     float eatingTimer;
@@ -20,6 +21,7 @@ class MonsterScript {
         @hub = Managers();
         @self = @entity;
         @cart = GetEntityByGUID(1511260476);
+        @music = GetEntityByGUID(1512735609);
         disappearGround=false;
         @snd_shriek = GetEntityByGUID(1512046440).GetSoundSource();
         @snd_landing = GetEntityByGUID(1512045002).GetSoundSource();
@@ -80,6 +82,7 @@ class MonsterScript {
                 TriggerAttack();
                 if (eatingTimer >= 10.0f) {
                     SendMessage(cart, 0); // Player was eaten
+                    SendMessage(music, 1);
                     hub.renderManager.SetBloodApply(false);
                     phase = 7;
                 }
@@ -104,6 +107,7 @@ class MonsterScript {
                 phase = 6; // Collapse
                 snd_noises.Stop();
                 snd_death.Play();
+                SendMessage(music, 0);
                 print("Monster: I'm dying now.\n");
                 TriggerDeath();
                 disappearGround=true;
