@@ -735,6 +735,9 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.shadow = 0.f;
         lights.push_back(light);
     }
+    
+    // At which lights should be cut off (no longer contribute).
+    cutOff = 0.01f;
 
     // Add all spot lights.
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
@@ -742,21 +745,24 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             continue;
 
         Entity* lightEntity = spotLight->entity;
-        glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
-        glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
-        Video::Light light;
-        light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
-        light.intensities = spotLight->color * spotLight->intensity;
-        light.attenuation = spotLight->attenuation;
-        light.ambientCoefficient = spotLight->ambientCoefficient;
-        light.coneAngle = spotLight->coneAngle;
-        light.direction = glm::vec3(direction);
-        light.shadow = spotLight->shadow ? 1.f : 0.f;
-        lights.push_back(light);
-    }
+        float scale = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
+        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
 
-    // At which point lights should be cut off (no longer contribute).
-    cutOff = 0.0001f;
+        Video::Frustum frustum(viewProjectionMatrix * modelMat);
+        if (frustum.Collide(aabb)) {
+            glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
+            glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
+            Video::Light light;
+            light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
+            light.intensities = spotLight->color * spotLight->intensity;
+            light.attenuation = spotLight->attenuation;
+            light.ambientCoefficient = spotLight->ambientCoefficient;
+            light.coneAngle = spotLight->coneAngle;
+            light.direction = glm::vec3(direction);
+            light.shadow = spotLight->shadow ? 1.f : 0.f;
+            lights.push_back(light);
+        }
+    }
 
     // Add all point lights.
     for (Component::PointLight* pointLight : pointLights.GetAll()) {
@@ -764,7 +770,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             continue;
 
         Entity* lightEntity = pointLight->entity;
-        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
+        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation * pointLight->intensity);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
 
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
