@@ -756,7 +756,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
     }
 
     // At which point lights should be cut off (no longer contribute).
-    cutOff = 0.0001f;
+    cutOff = 0.01f;
 
     // Add all point lights.
     for (Component::PointLight* pointLight : pointLights.GetAll()) {
