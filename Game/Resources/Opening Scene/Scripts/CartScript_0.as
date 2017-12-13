@@ -5,7 +5,6 @@ class CartScript_0 {
     Entity @rightHand;
     float speed;
     vec3 tempPos;
-    
 
     CartScript_0(Entity @entity){
         @hub = Managers();
