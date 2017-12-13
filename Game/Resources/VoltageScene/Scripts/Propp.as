@@ -66,7 +66,7 @@ class Propp {
                 ReturnToStartPosition();
             }
         }
-        
+
         hoverSlot = -1;
     }
 
