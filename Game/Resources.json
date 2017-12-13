@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/final_event/final_scene",
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
@@ -14,18 +14,6 @@
 				"type" : 0
 			},
 			{
-				"model" : "grass_fbx",
-				"type" : 1
-			},
-			{
-				"scene" : "grass_scene",
-				"type" : 0
-			},
-			{
-				"scene" : "mushroom_cluster_scene",
-				"type" : 0
-			},
-			{
 				"scene" : "stone_scene",
 				"type" : 0
 			},
@@ -36,6 +24,14 @@
 			{
 				"script" : "MonsterTestScript",
 				"type" : 4
+			},
+			{
+				"scene" : "lowpoly_bush_scene",
+				"type" : 0
+			},
+			{
+				"scene" : "stalctite_scene",
+				"type" : 0
 			}
 		],
 		"subfolders" : 
@@ -1377,14 +1373,6 @@
 				"resources" : 
 				[
 					{
-						"model" : "fernscale",
-						"type" : 1
-					},
-					{
-						"scene" : "Fern_scene",
-						"type" : 0
-					},
-					{
 						"texture" : "fern_albedo",
 						"type" : 2
 					},
@@ -1430,6 +1418,14 @@
 					},
 					{
 						"model" : "single_sand",
+						"type" : 1
+					},
+					{
+						"model" : "lowpoly_bush",
+						"type" : 1
+					},
+					{
+						"model" : "stalactites",
 						"type" : 1
 					}
 				],
@@ -2178,9 +2174,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 33,
+	"sceneNumber" : 35,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
 	"soundNumber" : 27,
-	"textureNumber" : 154
+	"textureNumber" : 155
 }
