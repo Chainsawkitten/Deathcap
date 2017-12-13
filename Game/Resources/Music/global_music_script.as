@@ -60,10 +60,12 @@ class global_music_script {
             case 0: {
                 snd_charged.Stop();
                 PlayWin();
+                break;
             }
             case 1: {
                 snd_charged.Stop();
                 PlayGameOver();
+                break;
             }
         }
     }
