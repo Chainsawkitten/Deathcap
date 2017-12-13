@@ -3,7 +3,7 @@ class BrightSparksScript {
     Entity @self;
     float age = 0;
     
-    BrightSparksScript(Entity @entity){
+    BrightSparksScript(Entity @entity) {
         @hub = Managers();
         @self = @entity;
 
