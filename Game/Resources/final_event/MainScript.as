@@ -181,7 +181,7 @@ class MainScript {
         particles.SetEnabled(true, false);
         particleActive = true;
         MonsterHealth -= 20.0f;
-        knife.GetSoundSource().Play();
+
         // Only allow killing the monster in the early phases.
         if ((phase == 0 || phase == 1) && knifePickedUp && MonsterHealth <= 0.0f) {
             SendMessage(monster, 1); // Die.
