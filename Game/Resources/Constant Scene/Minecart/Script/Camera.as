@@ -1,11 +1,16 @@
 class Camera{
     Entity @self;
+    Component::Lens @lens;
     vec2 Cursor;
     
     Camera(Entity @entity){
         @self = @entity;
+        @lens=GetEntityByGUID(1508919707).GetLens();
         Cursor = vec2(0,0);
         
+        if(IsVRActive())
+            lens.zFar=50.0f;
+            
         RegisterUpdate();
     }
     
