@@ -4941,17 +4941,17 @@
 						"NrOfParticles" : 400,
 						"alphaControl" : 10.0,
 						"emitAmount" : 4,
-						"lifetime" : 1000.0000610351563,
-						"mass" : 0.89400005340576172,
+						"lifetime" : 764.00006103515625,
+						"mass" : 0.0010000000474974513,
 						"randomVelocity" : 
 						{
 							"x" : 0.0,
 							"y" : 0.0,
 							"z" : 0.0
 						},
-						"rate" : 0.60000002384185791,
+						"rate" : 0.30000001192092896,
 						"scale" : 0.10000000149011612,
-						"speed" : 13.010000228881836,
+						"speed" : 1.0,
 						"spread" : 100,
 						"textureIndex" : 24,
 						"velocity" : 
@@ -4987,11 +4987,11 @@
 					"uid" : 1512566530
 				}
 			],
-			"name" : "ParticalParent3",
+			"name" : "ParticalParent5",
 			"position" : 
 			{
-				"x" : 1.0820000171661377,
-				"y" : -8.9860000610351563,
+				"x" : 1.8690073490142822,
+				"y" : -9.4693670272827148,
 				"z" : 0.12999999523162842
 			},
 			"rotation" : 
@@ -5010,6 +5010,145 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512566495
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/CrateRoughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "RockOne",
+					"position" : 
+					{
+						"x" : -3.4058270454406738,
+						"y" : 1.9381797313690186,
+						"z" : 2.3518393039703369
+					},
+					"rotation" : 
+					{
+						"w" : -0.71713459491729736,
+						"x" : -0.6969335675239563,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 20.0,
+						"y" : 20.0,
+						"z" : 20.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1513074233
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "RockTwoElectricBoogaloo",
+					"position" : 
+					{
+						"x" : -3.142167329788208,
+						"y" : 2.4634833335876465,
+						"z" : -1.71736741065979
+					},
+					"rotation" : 
+					{
+						"w" : 0.72122150659561157,
+						"x" : -0.67220026254653931,
+						"y" : -0.084848478436470032,
+						"z" : 0.14417195320129395
+					},
+					"scale" : 
+					{
+						"x" : 20.0,
+						"y" : 20.0,
+						"z" : 20.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1513074255
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/rockscaled"
+					},
+					"children" : null,
+					"name" : "RockThreeTheRevengening",
+					"position" : 
+					{
+						"x" : -3.6808557510375977,
+						"y" : 4.5259952545166016,
+						"z" : 0.19306647777557373
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 20.0,
+						"y" : 20.0,
+						"z" : 20.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1513074257
+				}
+			],
+			"name" : "TransitionRocks",
+			"position" : 
+			{
+				"x" : -15.502678871154785,
+				"y" : -11.173307418823242,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513074160
 		},
 		{
 			"Material" : 

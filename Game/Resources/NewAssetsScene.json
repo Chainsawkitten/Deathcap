@@ -499,9 +499,9 @@
 			"name" : "Crates",
 			"position" : 
 			{
-				"x" : -5.9604644775390625e-08,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : 0.23211246728897095,
+				"y" : -0.87452208995819092,
+				"z" : 1.1868194341659546
 			},
 			"rotation" : 
 			{
@@ -611,15 +611,15 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.14000000059604645,
+				"y" : -2.1214680671691895,
 				"z" : 0.0
 			},
 			"rotation" : 
 			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"w" : 0.99432235956192017,
+				"x" : 0.07723613828420639,
+				"y" : 0.017742639407515526,
+				"z" : -0.070995651185512543
 			},
 			"scale" : 
 			{
@@ -1623,7 +1623,7 @@
 							"position" : 
 							{
 								"x" : 0.0,
-								"y" : 0.0,
+								"y" : -0.28359165787696838,
 								"z" : 0.0
 							},
 							"rotation" : 
@@ -1841,9 +1841,9 @@
 			"name" : "Bodyless rigidbodies",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : 0.22973364591598511,
+				"y" : -0.88264942169189453,
+				"z" : 1.2128580808639526
 			},
 			"rotation" : 
 			{
@@ -2669,6 +2669,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512381323
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "RockHard",
+			"position" : 
+			{
+				"x" : 31.741994857788086,
+				"y" : -3.4043087959289551,
+				"z" : 1.8637291193008423
+			},
+			"rotation" : 
+			{
+				"w" : 0.064654715359210968,
+				"x" : -0.0059377150610089302,
+				"y" : -0.091259323060512543,
+				"z" : -0.99370598793029785
+			},
+			"scale" : 
+			{
+				"x" : 25.0,
+				"y" : 25.0,
+				"z" : 25.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513073450
 		}
 	],
 	"name" : "Root",
