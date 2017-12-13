@@ -8,10 +8,6 @@ class Propp {
     Entity @slot2Location = null;
     Entity @slot3Location = null;
     Entity @slot4Location = null;
-    Entity @slot1Particles = null;
-    Entity @slot2Particles = null;
-    Entity @slot3Particles = null;
-    Entity @slot4Particles = null;
     bool isPressed = false;
     int hoverSlot = -1;
     int slot = -1;
@@ -28,10 +24,7 @@ class Propp {
         @slot2Location = GetEntityByGUID(1511860862);
         @slot3Location = GetEntityByGUID(1511860874);
         @slot4Location = GetEntityByGUID(1511860887);
-        @slot1Particles = slot1Location.GetChildFromIndex(0);
-        @slot2Particles = slot2Location.GetChildFromIndex(0);
-        @slot3Particles = slot3Location.GetChildFromIndex(0);
-        @slot4Particles = slot4Location.GetChildFromIndex(0);
+        
         @snapSound = self.GetSoundSource();
 
         startPosition = self.position;
@@ -46,23 +39,23 @@ class Propp {
                 vec3 tempPos = self.GetWorldPosition();
                 switch (hoverSlot) {
                     case 1: {
-                        slot1Particles.SetEnabled(true, true);
                         self.SetParent(slot1Location);
+                        slot1Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 2: {
-                        slot2Particles.SetEnabled(true, true);
                         self.SetParent(slot2Location);
+                        slot2Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 3: {
-                        slot3Particles.SetEnabled(true, true);
                         self.SetParent(slot3Location);
+                        slot3Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 4: {
-                        slot4Particles.SetEnabled(true, true);
                         self.SetParent(slot4Location);
+                        slot4Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                 }

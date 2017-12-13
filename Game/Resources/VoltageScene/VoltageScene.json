@@ -692,10 +692,6 @@
 					"children" : 
 					[
 						{
-							"Script" : 
-							{
-								"scriptName" : "Resources/VoltageScene/Scripts/FuseSlotScript"
-							},
 							"children" : 
 							[
 								{
@@ -725,7 +721,7 @@
 									"uid" : 1512722502
 								}
 							],
-							"name" : "FuseParent",
+							"name" : "Slot1FuseParent",
 							"position" : 
 							{
 								"x" : 48.428001403808594,
@@ -1246,10 +1242,6 @@
 					"children" : 
 					[
 						{
-							"Script" : 
-							{
-								"scriptName" : "Resources/VoltageScene/Scripts/FuseSlotScript"
-							},
 							"children" : 
 							[
 								{
@@ -1279,7 +1271,7 @@
 									"uid" : 1512722502
 								}
 							],
-							"name" : "FuseParent",
+							"name" : "Slot2FuseParent",
 							"position" : 
 							{
 								"x" : 48.675003051757813,
@@ -1800,10 +1792,6 @@
 					"children" : 
 					[
 						{
-							"Script" : 
-							{
-								"scriptName" : "Resources/VoltageScene/Scripts/FuseSlotScript"
-							},
 							"children" : 
 							[
 								{
@@ -1833,7 +1821,7 @@
 									"uid" : 1512722502
 								}
 							],
-							"name" : "FuseParent",
+							"name" : "Slot3FuseParent",
 							"position" : 
 							{
 								"x" : 48.925003051757813,
@@ -2354,10 +2342,6 @@
 					"children" : 
 					[
 						{
-							"Script" : 
-							{
-								"scriptName" : "Resources/VoltageScene/Scripts/FuseSlotScript"
-							},
 							"children" : 
 							[
 								{
@@ -2387,7 +2371,7 @@
 									"uid" : 1512722502
 								}
 							],
-							"name" : "FuseParent",
+							"name" : "Slot4FuseParent",
 							"position" : 
 							{
 								"x" : 49.172000885009766,
