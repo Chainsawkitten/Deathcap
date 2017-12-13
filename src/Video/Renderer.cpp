@@ -92,8 +92,8 @@ void Renderer::StartRendering(RenderSurface* renderSurface) {
     glViewport(0, 0, static_cast<GLsizei>(renderSurface->GetSize().x), static_cast<GLsizei>(renderSurface->GetSize().y));
 }
 
-void Renderer::PrepareStaticShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
-    staticRenderProgram->PreShadowRender(lightView, lightProjection, shadowId, shadowWidth, shadowHeight, depthFbo);
+void Renderer::PrepareStaticShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, unsigned int shadowMapSize, int depthFbo) {
+    staticRenderProgram->PreShadowRender(lightView, lightProjection, shadowId, shadowMapSize, depthFbo);
 }
 
 void Renderer::ShadowRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix) {
@@ -116,8 +116,8 @@ void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D*
     staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix);
 }
 
-void Renderer::PrepareSkinShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
-    skinRenderProgram->PreShadowRender(lightView, lightProjection, shadowId, shadowWidth, shadowHeight, depthFbo);
+void Renderer::PrepareSkinShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, unsigned int shadowMapSize, int depthFbo) {
+    skinRenderProgram->PreShadowRender(lightView, lightProjection, shadowId, shadowMapSize, depthFbo);
 }
 
 void Renderer::ShadowRenderSkinMesh(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) {
