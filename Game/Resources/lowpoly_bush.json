@@ -5,28 +5,28 @@
 			"Material" : 
 			{
 				"albedo" : "Resources/Foliage/fern_albedo",
-				"metallic" : "Resources/Foliage/fern_roughnes",
+				"metallic" : "",
 				"normal" : "Resources/Foliage/fern_normal",
-				"roughness" : "Resources/Foliage/fern_roughnes"
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Foliage/fernscale"
+				"model" : "Resources/lowpoly_bush"
 			},
 			"children" : null,
-			"name" : "Entity #1",
+			"name" : "bush",
 			"position" : 
 			{
-				"x" : -0.030737876892089844,
-				"y" : -0.039000000804662704,
-				"z" : -0.55200004577636719
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
 				"x" : 0.0,
 				"y" : 0.0,
 				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.075889348983764648,
+				"x" : 0.076562397181987762,
+				"y" : -0.70608276128768921,
+				"z" : -0.69987577199935913
 			},
 			"scale" : 
 			{
@@ -36,7 +36,7 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1510820193
+			"uid" : 1512742535
 		}
 	],
 	"name" : "Root",
@@ -61,5 +61,5 @@
 	},
 	"scene" : false,
 	"static" : false,
-	"uid" : 1510820046
+	"uid" : 1512742511
 }
