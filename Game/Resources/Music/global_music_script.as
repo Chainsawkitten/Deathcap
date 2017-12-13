@@ -55,4 +55,18 @@ class global_music_script {
         snd_hunted.Stop();
     }
 
+    void ReceiveMessage(Entity @sender, int signal) {
+        switch (signal) {
+            case 0: {
+                snd_charged.Stop();
+                PlayWin();
+                break;
+            }
+            case 1: {
+                snd_charged.Stop();
+                PlayGameOver();
+                break;
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 #include "ProfilingWindow.hpp"
 
 #include <Engine/Manager/Managers.hpp>
+#include <Engine/Manager/RenderManager.hpp>
 #include <imgui.h>
 #include <Utility/Log.hpp>
 
@@ -42,6 +43,8 @@ void ProfilingWindow::Show() {
                 ImGui::TreePop();
             }
         }
+        
+       ImGui::Text("Light count: %u", Managers().renderManager->GetLightCount());
     }
     
     if (ImGui::CollapsingHeader("Memory")) {
