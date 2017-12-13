@@ -24,6 +24,7 @@ class Propp {
         @slot2Location = GetEntityByGUID(1511860862);
         @slot3Location = GetEntityByGUID(1511860874);
         @slot4Location = GetEntityByGUID(1511860887);
+        
         @snapSound = self.GetSoundSource();
 
         startPosition = self.position;
@@ -39,18 +40,22 @@ class Propp {
                 switch (hoverSlot) {
                     case 1: {
                         self.SetParent(slot1Location);
+                        slot1Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 2: {
                         self.SetParent(slot2Location);
+                        slot2Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 3: {
                         self.SetParent(slot3Location);
+                        slot3Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 4: {
                         self.SetParent(slot4Location);
+                        slot4Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                 }
