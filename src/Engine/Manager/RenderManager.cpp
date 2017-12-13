@@ -764,7 +764,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             continue;
 
         Entity* lightEntity = pointLight->entity;
-        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
+        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation * pointLight->intensity);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
 
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
