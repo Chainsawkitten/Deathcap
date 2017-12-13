@@ -455,7 +455,7 @@
 			"scale" : 
 			{
 				"x" : 1.0,
-				"y" : 1.0,
+				"y" : 1.9698472023010254,
 				"z" : 1.0
 			},
 			"scene" : false,
@@ -937,7 +937,7 @@
 										"triggerEventStruct_Check_1" : true,
 										"triggerEventStruct_Check_2" : true,
 										"triggerEventStruct_Check_3" : true,
-										"triggerEventStruct_EventID" : 0,
+										"triggerEventStruct_EventID" : 1,
 										"triggerEventStruct_ScriptID" : 2,
 										"triggerEventStruct_ShapeID" : 0,
 										"triggerEventStruct_TargetID" : 11,
@@ -2908,7 +2908,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 200.0,
+						"attenuation" : 20000.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -2948,7 +2948,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 200.0,
+						"attenuation" : 20000.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -2988,7 +2988,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 200.0,
+						"attenuation" : 20000.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -3028,7 +3028,7 @@
 					"SpotLight" : 
 					{
 						"ambientCoefficient" : 0.0,
-						"attenuation" : 200.0,
+						"attenuation" : 20000.0,
 						"color" : 
 						{
 							"x" : 1.0,
@@ -4231,7 +4231,7 @@
 			"SpotLight" : 
 			{
 				"ambientCoefficient" : 0.0,
-				"attenuation" : 6.1880002021789551,
+				"attenuation" : 300.0,
 				"color" : 
 				{
 					"x" : 1.0,
@@ -4239,7 +4239,7 @@
 					"z" : 1.0
 				},
 				"coneAngle" : 34.047000885009766,
-				"intensity" : 18.590000152587891,
+				"intensity" : 60.0,
 				"shadow" : false
 			},
 			"children" : null,
@@ -4399,6 +4399,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512985777
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageFloor"
+			},
+			"children" : null,
+			"name" : "VoltageRoof",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 14.614619255065918,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : -4.3711388286737929e-08,
+				"x" : 1.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513067981
 		}
 	],
 	"name" : "Root",

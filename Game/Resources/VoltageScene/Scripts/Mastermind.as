@@ -46,14 +46,16 @@ class Mastermind {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-        if (puzzleSolved)
-            return;
-
+        TurnOffLights();
+        
         for (int i = 0; i < correct; i++)
-            TurnOnLight(100, vec3(0, 255, 0));
+            TurnOnLight(20, vec3(0, 255, 0));
 
         for (int i = 0; i < rightColors; i++)
-            TurnOnLight(100, vec3(255, 0, 0));
+            TurnOnLight(20, vec3(232, 215, 27));
+            
+        for (int i = 0; i < 4 - (correct + rightColors); ++i)
+            TurnOnLight(20, vec3(255, 0, 0));
     }
 
     void CheckSolution() {
