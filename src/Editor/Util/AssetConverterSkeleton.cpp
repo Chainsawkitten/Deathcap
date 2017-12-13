@@ -174,6 +174,7 @@ void AssetConverterSkeleton::SceneRecursive(aiNode* node, int parent) {
                 ++currentId;
                 parents.push_back(-1);
                 BoneRecursive(child, 0);
+                foundBone = true;
             }
 
         if (!foundBone)
