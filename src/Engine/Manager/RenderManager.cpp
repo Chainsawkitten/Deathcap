@@ -703,6 +703,10 @@ unsigned int RenderManager::GetLightCount() const {
     return lightCount;
 }
 
+void RenderManager::SetShadowMapSize(unsigned int shadowMapSize) {
+    shadowPass->SetShadowMapSize(shadowMapSize);
+}
+
 void RenderManager::SetTextureReduction(uint16_t textureReduction) {
     this->textureReduction = static_cast<uint8_t>(textureReduction);
 }

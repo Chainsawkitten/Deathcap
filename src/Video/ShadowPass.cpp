@@ -34,6 +34,16 @@ namespace Video {
         glReadBuffer(GL_NONE);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
+    
+    void ShadowPass::SetShadowMapSize(unsigned int shadowMapSize) {
+        shadowSize = shadowMapSize;
+        
+        // Recreate GL buffers.
+        glDeleteFramebuffers(1, &depthMapFbo);
+        glDeleteTextures(1, &depthMap);
+        InitDepthMap();
+        BindBuffer();
+    }
 
     unsigned int ShadowPass::GetShadowMapSize() const {
         return shadowSize;
