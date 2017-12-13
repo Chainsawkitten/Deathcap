@@ -74,6 +74,7 @@ class Propp {
     void ReturnToStartPosition() {
         self.SetParent(originalParent);
         self.position = startPosition;
+        slot = -1;
     }
 
     void PickupTrigger() {
