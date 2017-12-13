@@ -211,33 +211,41 @@ void Renderer::StopRenderingIcons() {
 
 void Renderer::SetGamma(float gamma) {
     staticRenderProgram->SetGamma(gamma);
+    skinRenderProgram->SetGamma(gamma);
 }
 
 float Renderer::GetGamma() const {
+    assert(staticRenderProgram->GetGamma() == skinRenderProgram->GetGamma());
     return staticRenderProgram->GetGamma();
 }
 
 void Renderer::SetFogApply(bool fogApply) {
     staticRenderProgram->SetFogApply(fogApply);
+    skinRenderProgram->SetFogApply(fogApply);
 }
 
 bool Renderer::GetFogApply() const {
+    assert(staticRenderProgram->GetFogApply() == skinRenderProgram->GetFogApply());
     return staticRenderProgram->GetFogApply();
 }
 
 void Renderer::SetFogDensity(float fogDensity) {
-    staticRenderProgram->SetFogDensity(fogDensity);;
+    staticRenderProgram->SetFogDensity(fogDensity);
+    skinRenderProgram->SetFogDensity(fogDensity);
 }
 
 float Renderer::GetFogDensity() const {
+    assert(staticRenderProgram->GetFogDensity() == skinRenderProgram->GetFogDensity());
     return staticRenderProgram->GetFogDensity();
 }
 
 void Renderer::SetFogColor(const glm::vec3& fogColor) {
     staticRenderProgram->SetFogColor(fogColor);
+    skinRenderProgram->SetFogColor(fogColor);
 }
 
 glm::vec3 Renderer::GetFogColor() const {
+    assert(staticRenderProgram->GetFogColor() == skinRenderProgram->GetFogColor());
     return staticRenderProgram->GetFogColor();
 }
 
@@ -247,6 +255,7 @@ void Renderer::SetColorFilterApply(bool colorFilterApply) {
 }
 
 bool Renderer::GetColorFilterApply() const {
+    assert(staticRenderProgram->GetColorFilterApply() == skinRenderProgram->GetColorFilterApply());
     return staticRenderProgram->GetColorFilterApply();
 }
 
@@ -256,14 +265,17 @@ void Renderer::SetColorFilterColor(const glm::vec3& colorFilterColor) {
 }
 
 glm::vec3 Renderer::GetColorFilterColor() const {
+    assert(staticRenderProgram->GetColorFilterColor() == skinRenderProgram->GetColorFilterColor());
     return staticRenderProgram->GetColorFilterColor();
 }
 
 void Renderer::SetDitherApply(bool ditherApply) {
     staticRenderProgram->SetDitherApply(ditherApply);
+    skinRenderProgram->SetDitherApply(ditherApply);
 }
 
 bool Renderer::GetDitherApply() const {
+    assert(staticRenderProgram->GetDitherApply() == skinRenderProgram->GetDitherApply());
     return staticRenderProgram->GetDitherApply();
 }
 

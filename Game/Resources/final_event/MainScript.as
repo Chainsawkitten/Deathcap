@@ -56,13 +56,13 @@ class MainScript {
 
         if (particleTimer > 1.0f) {
             particles.SetEnabled(false, false);
-            particleTimer=0.0f;
+            particleTimer = 0.0f;
         }
 
         switch (phase) {
             case 0: { // Entering final scene.
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 break;
             }
@@ -84,14 +84,13 @@ class MainScript {
                 waitForMonsterTimer += deltaTime;
                 if (waitForMonsterTimer >= 3.0f) {
                     phase = 3;
-                    print("Player: Honk honk, motherfucker! I'm free!\n");
                     PrepareForFade();
                 }
                 break;
             }
             case 3: { // Continue after monster has been killed.
                 vec3 pos = minecart.GetWorldPosition();
-                pos.x += speed * deltaTime;
+                pos.x -= speed * deltaTime;
                 minecart.SetWorldPosition(pos);
                 if (DoFade(deltaTime))
                     GameOver(true);
@@ -110,7 +109,6 @@ class MainScript {
             case 0: { // When monster has successfully eaten the player.
                 PrepareForFade();
                 phase = 4; // Lost phase.
-                print("Player: I'm losing.\n");
                 break;
             }
         }
@@ -159,6 +157,8 @@ class MainScript {
             print("Player won the game.\n");
         else
             print("Player was eaten alive.\n");
+
+        knife.position = vec3(30, 30, 30);
     }
 
     void StopBeforeMonster() {
@@ -181,12 +181,11 @@ class MainScript {
         particles.SetEnabled(true, false);
         particleActive = true;
         MonsterHealth -= 20.0f;
+        knife.GetSoundSource().Play();
         // Only allow killing the monster in the early phases.
         if ((phase == 0 || phase == 1) && knifePickedUp && MonsterHealth <= 0.0f) {
-            knife.GetSoundSource().Play();
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
-            print("Player: I'm going to wait for the monster to collapse now.\n");
         }
 
         //Particle Effect
