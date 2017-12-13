@@ -7,7 +7,6 @@ class CartScript_0 {
     vec3 tempPos;
     
 
-
     CartScript_0(Entity @entity){
         @hub = Managers();
         @self = GetEntityByGUID(1508919384);
