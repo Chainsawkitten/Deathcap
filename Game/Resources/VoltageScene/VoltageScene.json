@@ -367,7 +367,7 @@
 			"name" : "VoltageTrack",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : -1.415891170501709,
 				"y" : 0.0,
 				"z" : 0.0
 			},
@@ -380,7 +380,7 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
+				"x" : 1.0576890707015991,
 				"y" : 1.0,
 				"z" : 1.0
 			},
@@ -4420,6 +4420,191 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1513067981
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/Platform"
+			},
+			"children" : null,
+			"name" : "Voltageplatform",
+			"position" : 
+			{
+				"x" : 12.44420051574707,
+				"y" : 0.58096742630004883,
+				"z" : 6.9568748474121094
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.99999994039535522,
+				"y" : 1.0,
+				"z" : 2.0053975582122803
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513157699
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "transitionRock1",
+			"position" : 
+			{
+				"x" : 38.827003479003906,
+				"y" : 0.40000000596046448,
+				"z" : 5.4920001029968262
+			},
+			"rotation" : 
+			{
+				"w" : 0.77718150615692139,
+				"x" : 0.62927627563476563,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 15.665936470031738,
+				"y" : 15.665936470031738,
+				"z" : 15.665936470031738
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513160246
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "transitionRock2",
+			"position" : 
+			{
+				"x" : 40.403003692626953,
+				"y" : -1.0300000905990601,
+				"z" : -3.2480001449584961
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 18.050395965576172,
+				"y" : 18.050395965576172,
+				"z" : 18.050395965576172
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513160577
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "transitionRock3",
+			"position" : 
+			{
+				"x" : 38.227001190185547,
+				"y" : 3.1190001964569092,
+				"z" : 5.8000001907348633
+			},
+			"rotation" : 
+			{
+				"w" : 0.62374794483184814,
+				"x" : 0.78162574768066406,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 11.451499938964844,
+				"y" : 11.451499938964844,
+				"z" : 11.451499938964844
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513161386
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "transitionRock4",
+			"position" : 
+			{
+				"x" : 39.449001312255859,
+				"y" : 1.128000020980835,
+				"z" : -2.8570001125335693
+			},
+			"rotation" : 
+			{
+				"w" : 0.66212183237075806,
+				"x" : 0.68580281734466553,
+				"y" : -0.20983700454235077,
+				"z" : 0.21734187006950378
+			},
+			"scale" : 
+			{
+				"x" : 11.984800338745117,
+				"y" : 11.984800338745117,
+				"z" : 11.984800338745117
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513161494
 		}
 	],
 	"name" : "Root",
