@@ -158,6 +158,8 @@ class MainScript {
         else
             print("Player was eaten alive.\n");
 
+        if(!IsVRActive())
+            exit(0);
         knife.position = vec3(30, 30, 30);
     }
 
@@ -187,7 +189,5 @@ class MainScript {
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
         }
-
-        //Particle Effect
     }
 }
