@@ -737,8 +737,10 @@
 									"z" : 1.0
 								},
 								"coneAngle" : 30.0,
+								"distance" : 20.0,
 								"intensity" : 5.0,
-								"shadow" : true
+								"shadow" : true,
+								"useNewModel" : true
 							},
 							"children" : null,
 							"name" : "Light",
