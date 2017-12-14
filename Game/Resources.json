@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/final_event/final_scene",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
@@ -907,6 +907,21 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "BrightSparks",
+						"resources" : 
+						[
+							{
+								"scene" : "BrightSparks",
+								"type" : 0
+							},
+							{
+								"script" : "BrightSparksScript",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
@@ -1902,7 +1917,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "elpropp",
+								"model" : "elproppFinal",
 								"type" : 1
 							},
 							{

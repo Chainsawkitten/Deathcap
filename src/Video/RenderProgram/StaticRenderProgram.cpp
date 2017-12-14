@@ -73,10 +73,10 @@ StaticRenderProgram::~StaticRenderProgram() {
     delete shadowProgram;
 }
 
-void StaticRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, int shadowWidth, int shadowHeight, int depthFbo) {
+void StaticRenderProgram::PreShadowRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, int shadowId, unsigned int shadowMapSize, int depthFbo) {
     // Cull front faces to avoid peter panning.
     glCullFace(GL_FRONT);
-    glViewport(0, 0, shadowWidth, shadowHeight);
+    glViewport(0, 0, shadowMapSize, shadowMapSize);
     glBindFramebuffer(GL_FRAMEBUFFER, depthFbo);
     glClear(GL_DEPTH_BUFFER_BIT);
     this->shadowProgram->Use();

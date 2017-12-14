@@ -3,5 +3,5 @@
 	"GPU" : true,
 	"importNormals" : true,
 	"importTangents" : true,
-	"triangulate" : true
+	"triangulate" : false
 }

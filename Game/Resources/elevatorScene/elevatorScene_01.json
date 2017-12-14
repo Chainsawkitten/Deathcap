@@ -1230,7 +1230,7 @@
 			{
 				"x" : 1.0,
 				"y" : 1.0,
-				"z" : 1.0
+				"z" : 1.1071333885192871
 			},
 			"scene" : false,
 			"static" : false,
@@ -1571,53 +1571,13 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511871150
-				},
-				{
-					"SpotLight" : 
-					{
-						"ambientCoefficient" : 0.0,
-						"attenuation" : 0.0,
-						"color" : 
-						{
-							"x" : 1.0,
-							"y" : 0.31764706969261169,
-							"z" : 0.18823529779911041
-						},
-						"coneAngle" : 9.2390003204345703,
-						"intensity" : 3.3540000915527344,
-						"shadow" : false
-					},
-					"children" : null,
-					"name" : "elevator_light",
-					"position" : 
-					{
-						"x" : 0.34800001978874207,
-						"y" : 3.4520001411437988,
-						"z" : -5.4082303047180176
-					},
-					"rotation" : 
-					{
-						"w" : -0.041260551661252975,
-						"x" : 0.83782976865768433,
-						"y" : -0.45150873064994812,
-						"z" : -0.30409976840019226
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512380541
 				}
 			],
 			"name" : "Elevator",
 			"position" : 
 			{
 				"x" : 3.0337355136871338,
-				"y" : -10.62399959564209,
+				"y" : -10.876891136169434,
 				"z" : 0.15000000596046448
 			},
 			"rotation" : 
@@ -1629,9 +1589,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.9528131484985352,
-				"y" : 1.3799999952316284,
-				"z" : 1.5794018507003784
+				"x" : 1.952812671661377,
+				"y" : 1.0854045152664185,
+				"z" : 1.5794016122817993
 			},
 			"scene" : false,
 			"static" : false,
@@ -4096,8 +4056,8 @@
 			"name" : "PuzzleBoardPivot",
 			"position" : 
 			{
-				"x" : 1.5328683853149414,
-				"y" : -9.0889110565185547,
+				"x" : 1.348452091217041,
+				"y" : -9.6754302978515625,
 				"z" : 0.15000000596046448
 			},
 			"rotation" : 
@@ -5166,26 +5126,103 @@
 			"name" : "rails-2",
 			"position" : 
 			{
-				"x" : 19.406633377075195,
-				"y" : 12.880250930786133,
+				"x" : 47.752399444580078,
+				"y" : 12.11290168762207,
 				"z" : 0.0
 			},
 			"rotation" : 
 			{
-				"w" : 0.99996364116668701,
+				"w" : 0.99991178512573242,
 				"x" : 0.0,
 				"y" : 0.0,
-				"z" : -0.0085235480219125748
+				"z" : -0.013235411606729031
 			},
 			"scale" : 
 			{
-				"x" : 0.27205479145050049,
+				"x" : 0.84375005960464478,
 				"y" : 1.0,
 				"z" : 1.0
 			},
 			"scene" : false,
 			"static" : false,
 			"uid" : 1513069608
+		},
+		{
+			"SpotLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"attenuation" : 0.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.31764706969261169,
+					"z" : 0.18823529779911041
+				},
+				"coneAngle" : 23.604001998901367,
+				"intensity" : 3.1540000438690186,
+				"shadow" : false
+			},
+			"children" : null,
+			"name" : "elevator_light",
+			"position" : 
+			{
+				"x" : -0.44806817173957825,
+				"y" : -8.1950654983520508,
+				"z" : 0.17422088980674744
+			},
+			"rotation" : 
+			{
+				"w" : 0.21020497381687164,
+				"x" : 0.53898561000823975,
+				"y" : -0.40171641111373901,
+				"z" : -0.70987868309020996
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512380541
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageCavein"
+			},
+			"children" : null,
+			"name" : "RocksInRoof",
+			"position" : 
+			{
+				"x" : -52.782367706298828,
+				"y" : 0.82577824592590332,
+				"z" : -12.297144889831543
+			},
+			"rotation" : 
+			{
+				"w" : 0.96072179079055786,
+				"x" : 0.27751368284225464,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512999060
 		}
 	],
 	"name" : "Root",

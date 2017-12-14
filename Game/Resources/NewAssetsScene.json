@@ -610,16 +610,16 @@
 			"name" : "Pick",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : -2.1214680671691895,
-				"z" : 0.0
+				"x" : -4.3390002250671387,
+				"y" : 0.0010000000474974513,
+				"z" : 5.5870003700256348
 			},
 			"rotation" : 
 			{
-				"w" : 0.99432235956192017,
-				"x" : 0.07723613828420639,
-				"y" : 0.017742639407515526,
-				"z" : -0.070995651185512543
+				"w" : -0.61800658702850342,
+				"x" : -0.61663693189620972,
+				"y" : 0.22651189565658569,
+				"z" : -0.43186911940574646
 			},
 			"scale" : 
 			{
@@ -1276,7 +1276,7 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -0.25,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -1289,7 +1289,7 @@
 			"scale" : 
 			{
 				"x" : 1.0,
-				"y" : 1.0,
+				"y" : 1.2285631895065308,
 				"z" : 1.0
 			},
 			"scene" : false,
@@ -1667,6 +1667,43 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511169296
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/PileOfRocks"
+					},
+					"children" : null,
+					"name" : "Rock4",
+					"position" : 
+					{
+						"x" : 6.7814931869506836,
+						"y" : 8.8747358322143555,
+						"z" : 5.464838981628418
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 5.3260798454284668,
+						"y" : 5.3260798454284668,
+						"z" : 5.3260798454284668
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512996037
 				}
 			],
 			"name" : "PrettyRocks",
@@ -2433,14 +2470,14 @@
 				{
 					"PointLight" : 
 					{
-						"attenuation" : 1.3910000324249268,
+						"attenuation" : 0.20600001513957977,
 						"color" : 
 						{
 							"x" : 0.91764706373214722,
 							"y" : 1.0,
 							"z" : 1.0
 						},
-						"intensity" : 0.11400000751018524
+						"intensity" : 0.14200000464916229
 					},
 					"children" : null,
 					"name" : "light",
@@ -2588,9 +2625,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 0.17616431415081024,
-				"y" : 0.17616461217403412,
-				"z" : 0.17616431415081024
+				"x" : 0.14499999582767487,
+				"y" : 0.14499999582767487,
+				"z" : 0.14499999582767487
 			},
 			"scene" : false,
 			"static" : false,
