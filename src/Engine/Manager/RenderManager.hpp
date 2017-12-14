@@ -308,6 +308,12 @@ class RenderManager {
          * @return Then number of lights being rendered.
          */
         ENGINE_API unsigned int GetLightCount() const;
+        
+        /// Set the size of the shadow map.
+        /**
+         * @param shadowMapSize The size of the shadow map.
+         */
+        ENGINE_API void SetShadowMapSize(unsigned int shadowMapSize);
 
     private:
         RenderManager();
