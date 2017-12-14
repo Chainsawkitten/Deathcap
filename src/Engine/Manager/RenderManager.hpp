@@ -302,6 +302,18 @@ class RenderManager {
          * @param SetBloodApply Whether to apply blood.
          */
         ENGINE_API void SetBloodApply(bool SetBloodApply);
+        
+        /// Get the number of lights currently being rendered.
+        /**
+         * @return Then number of lights being rendered.
+         */
+        ENGINE_API unsigned int GetLightCount() const;
+        
+        /// Set the size of the shadow map.
+        /**
+         * @param shadowMapSize The size of the shadow map.
+         */
+        ENGINE_API void SetShadowMapSize(unsigned int shadowMapSize);
 
     private:
         RenderManager();
@@ -341,4 +353,5 @@ class RenderManager {
         ComponentContainer<Component::SpotLight> spotLights;
         
         uint8_t textureReduction = 0;
+        unsigned int lightCount = 0;
 };

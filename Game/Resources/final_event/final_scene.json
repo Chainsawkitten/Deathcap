@@ -48,6 +48,88 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1512986196
+				},
+				{
+					"children" : 
+					[
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/stalctite_scene",
+									"static" : false,
+									"uid" : 1513081458
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : 44.937301635742188,
+								"y" : 0.76052141189575195,
+								"z" : 4.2476682662963867
+							},
+							"rotation" : 
+							{
+								"w" : -0.051303215324878693,
+								"x" : 0.35839000344276428,
+								"y" : 0.64276373386383057,
+								"z" : -0.67511433362960815
+							},
+							"scale" : 
+							{
+								"x" : 1.6040000915527344,
+								"y" : 1.6040000915527344,
+								"z" : 1.6040000915527344
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513081588
+						}
+					],
+					"name" : "foliage",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1513081588
 				}
 			],
 			"name" : "cave",
@@ -716,6 +798,38 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512476155
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : true,
+								"sound" : "Resources/final_event/Audio/snd_monsterNoise",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "Noises",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513072136
 						}
 					],
 					"name" : "Audio",
@@ -843,8 +957,8 @@
 					"name" : "CartStopTrigger",
 					"position" : 
 					{
-						"x" : 2.0320322513580322,
-						"y" : -0.033799551427364349,
+						"x" : 1.7440000772476196,
+						"y" : -0.018000001087784767,
 						"z" : 0.039142608642578125
 					},
 					"rotation" : 
@@ -868,7 +982,7 @@
 			"name" : "MonsterStopChargeTrigger",
 			"position" : 
 			{
-				"x" : -15.714401245117188,
+				"x" : -15.379047393798828,
 				"y" : 0.0,
 				"z" : 0.0
 			},
@@ -1173,6 +1287,12 @@
 					"width" : 1.0
 				}
 			},
+			"SoundSource" : 
+			{
+				"loop" : false,
+				"sound" : "Resources/final_event/Audio/snd_stab",
+				"volume" : 1.0
+			},
 			"Trigger" : 
 			{
 				"trigger" : "A Trigger",
@@ -1309,6 +1429,86 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512553749
+		},
+		{
+			"children" : 
+			[
+				{
+					"name" : "stalac2",
+					"position" : 
+					{
+						"x" : -30.599132537841797,
+						"y" : -3.5818023681640625,
+						"z" : -2.2131655216217041
+					},
+					"rotation" : 
+					{
+						"w" : -2.5255419089376119e-08,
+						"x" : -0.3565136194229126,
+						"y" : 5.6422830851943218e-08,
+						"z" : 0.93429005146026611
+					},
+					"scale" : 
+					{
+						"x" : 1.2200002670288086,
+						"y" : 1.2250909805297852,
+						"z" : 1.2200002670288086
+					},
+					"scene" : true,
+					"sceneName" : "Resources/stalctite_scene",
+					"static" : false,
+					"uid" : 1513081458
+				},
+				{
+					"name" : "stalac3",
+					"position" : 
+					{
+						"x" : -26.397296905517578,
+						"y" : 0.29424214363098145,
+						"z" : -0.66964292526245117
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.9012147188186646,
+						"z" : 2.1434149742126465
+					},
+					"scene" : true,
+					"sceneName" : "Resources/stalctite_scene",
+					"static" : false,
+					"uid" : 1513081458
+				}
+			],
+			"name" : "stalactite",
+			"position" : 
+			{
+				"x" : 11.18437385559082,
+				"y" : 4.6653532981872559,
+				"z" : -0.80179184675216675
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.3700000047683716,
+				"y" : 1.3700000047683716,
+				"z" : 1.3700000047683716
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513081591
 		}
 	],
 	"name" : "Root",

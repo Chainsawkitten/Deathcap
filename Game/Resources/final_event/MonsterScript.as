@@ -2,6 +2,7 @@ class MonsterScript {
     Hub @hub;
     Entity @self;
     Entity @cart;
+    Entity @music;
     float fallspeed;
     float waitTimer;
     float eatingTimer;
@@ -12,18 +13,22 @@ class MonsterScript {
     Component::SoundSource @snd_death;
     Component::SoundSource @snd_landing;
     Component::SoundSource @snd_falling;
-	Component::SoundSource @snd_hets;
-	Component::AnimationController @animController;
+    Component::SoundSource @snd_hets;
+    Component::SoundSource @snd_noises;
+    Component::AnimationController @animController;
+
     MonsterScript(Entity @entity){
         @hub = Managers();
         @self = @entity;
         @cart = GetEntityByGUID(1511260476);
+        @music = GetEntityByGUID(1512735609);
         disappearGround=false;
         @snd_shriek = GetEntityByGUID(1512046440).GetSoundSource();
         @snd_landing = GetEntityByGUID(1512045002).GetSoundSource();
         @snd_death = GetEntityByGUID(1512044219).GetSoundSource();
         @snd_falling = GetEntityByGUID(1512044955).GetSoundSource();
         @snd_hets = GetEntityByGUID(1512476155).GetSoundSource();
+        @snd_noises = GetEntityByGUID(1513072136).GetSoundSource();
 
         @animController=self.GetAnimationController();
         animController.SetBool("B", false);
@@ -77,6 +82,7 @@ class MonsterScript {
                 TriggerAttack();
                 if (eatingTimer >= 10.0f) {
                     SendMessage(cart, 0); // Player was eaten
+                    SendMessage(music, 1);
                     hub.renderManager.SetBloodApply(false);
                     phase = 7;
                 }
@@ -94,11 +100,14 @@ class MonsterScript {
             case 0: { // Player was stopped by monster
                 phase = 5; // Start eating
                 print("Monster: I'm going to eat you now.\n");
+                snd_noises.Play();
                 break;
             }
             case 1: { // Die
                 phase = 6; // Collapse
+                snd_noises.Stop();
                 snd_death.Play();
+                SendMessage(music, 0);
                 print("Monster: I'm dying now.\n");
                 TriggerDeath();
                 disappearGround=true;
@@ -116,7 +125,7 @@ class MonsterScript {
     void StopCharging() {
         print("Stopping my charge\n");
         phase = 4;
-        //snd_shriek.Play();
+        snd_shriek.Play();
     }
 
     void TriggerRun(){

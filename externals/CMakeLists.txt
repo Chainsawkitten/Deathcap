@@ -78,11 +78,13 @@ set(UNUSED_MODEL_FORMATS
         ASSIMP_BUILD_LWS_IMPORTER
         ASSIMP_BUILD_MD2_IMPORTER
         ASSIMP_BUILD_MD3_IMPORTER
+        ASSIMP_BUILD_MD5_IMPORTER
         ASSIMP_BUILD_MDC_IMPORTER
         ASSIMP_BUILD_MDL_IMPORTER
         ASSIMP_BUILD_MS3D_IMPORTER
         ASSIMP_BUILD_NDO_IMPORTER
         ASSIMP_BUILD_NFF_IMPORTER
+        ASSIMP_BUILD_OBJ_IMPORTER
         ASSIMP_BUILD_OFF_IMPORTER
         ASSIMP_BUILD_OGRE_IMPORTER
         ASSIMP_BUILD_OPENGEX_IMPORTER
@@ -166,3 +168,7 @@ add_subdirectory(portaudio)
 # Compressonator
 add_subdirectory(Compressonator)
 target_include_directories(Compressonator INTERFACE Compressonator)
+
+# miniz
+add_library(miniz SHARED miniz/miniz.c)
+target_include_directories(miniz INTERFACE miniz)

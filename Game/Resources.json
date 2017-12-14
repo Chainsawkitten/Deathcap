@@ -3,7 +3,7 @@
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 193,
+	"modelNumber" : 195,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -11,18 +11,6 @@
 		[
 			{
 				"scene" : "NewAssetsScene",
-				"type" : 0
-			},
-			{
-				"model" : "grass_fbx",
-				"type" : 1
-			},
-			{
-				"scene" : "grass_scene",
-				"type" : 0
-			},
-			{
-				"scene" : "mushroom_cluster_scene",
 				"type" : 0
 			},
 			{
@@ -36,6 +24,14 @@
 			{
 				"script" : "MonsterTestScript",
 				"type" : 4
+			},
+			{
+				"scene" : "lowpoly_bush_scene",
+				"type" : 0
+			},
+			{
+				"scene" : "stalctite_scene",
+				"type" : 0
 			}
 		],
 		"subfolders" : 
@@ -164,29 +160,6 @@
 									}
 								],
 								"subfolders" : null
-							},
-							{
-								"name" : "Textures",
-								"resources" : 
-								[
-									{
-										"texture" : "gate_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "gate_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "gate_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "gate_roughness",
-										"type" : 2
-									}
-								],
-								"subfolders" : null
 							}
 						]
 					},
@@ -242,15 +215,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "StarterScene_StraightCave",
-								"type" : 1
-							},
-							{
 								"model" : "platformForStarterScene_01",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_CavePlatform",
 								"type" : 1
 							},
 							{
@@ -259,10 +224,6 @@
 							},
 							{
 								"model" : "warningSign_02_fixed_position",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Bridge",
 								"type" : 1
 							},
 							{
@@ -299,6 +260,14 @@
 							},
 							{
 								"model" : "platformForStarterScene_01",
+								"type" : 1
+							},
+							{
+								"model" : "platform",
+								"type" : 1
+							},
+							{
+								"model" : "railplatform",
 								"type" : 1
 							}
 						],
@@ -817,26 +786,6 @@
 						"resources" : 
 						[
 							{
-								"model" : "horizontal_pillars",
-								"type" : 1
-							},
-							{
-								"texture" : "horizontal_albedo",
-								"type" : 2
-							},
-							{
-								"texture" : "horizontal_normal",
-								"type" : 2
-							},
-							{
-								"texture" : "horizontal_roughness",
-								"type" : 2
-							},
-							{
-								"texture" : "horizontal_metall",
-								"type" : 2
-							},
-							{
 								"texture" : "wood_vertical_albedo",
 								"type" : 2
 							},
@@ -958,18 +907,27 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "BrightSparks",
+						"resources" : 
+						[
+							{
+								"scene" : "BrightSparks",
+								"type" : 0
+							},
+							{
+								"script" : "BrightSparksScript",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
 					}
 				]
 			},
 			{
 				"name" : "Bridge Puzzle Scene",
-				"resources" : 
-				[
-					{
-						"scene" : "Bridge Puzzle Scene",
-						"type" : 0
-					}
-				],
+				"resources" : null,
 				"subfolders" : 
 				[
 					{
@@ -998,33 +956,10 @@
 							},
 							{
 								"name" : "Textures",
-								"resources" : 
-								[
-									{
-										"texture" : "rock_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_roughness",
-										"type" : 2
-									}
-								],
+								"resources" : null,
 								"subfolders" : null
 							}
 						]
-					},
-					{
-						"name" : "Bucket",
-						"resources" : null,
-						"subfolders" : null
 					},
 					{
 						"name" : "Bridge",
@@ -1079,29 +1014,6 @@
 									{
 										"model" : "rockscaled",
 										"type" : 1
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "Textures",
-								"resources" : 
-								[
-									{
-										"texture" : "rock_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "Texture #38",
-										"type" : 2
 									}
 								],
 								"subfolders" : null
@@ -1358,17 +1270,6 @@
 						"subfolders" : 
 						[
 							{
-								"name" : "The Bucket",
-								"resources" : 
-								[
-									{
-										"model" : "TheBucket",
-										"type" : 1
-									}
-								],
-								"subfolders" : null
-							},
-							{
 								"name" : "Puzzle Scale",
 								"resources" : 
 								[
@@ -1419,10 +1320,6 @@
 							},
 							{
 								"script" : "BigBalk",
-								"type" : 4
-							},
-							{
-								"script" : "Cart_debug_script",
 								"type" : 4
 							},
 							{
@@ -1487,77 +1384,9 @@
 				]
 			},
 			{
-				"name" : "Pussel-2",
-				"resources" : 
-				[
-					{
-						"scene" : "Pussel-2 scene",
-						"type" : 0
-					}
-				],
-				"subfolders" : 
-				[
-					{
-						"name" : "Models",
-						"resources" : 
-						[
-							{
-								"model" : "Cave-2",
-								"type" : 1
-							},
-							{
-								"model" : "cave-2-",
-								"type" : 1
-							},
-							{
-								"model" : "barrels-2",
-								"type" : 1
-							},
-							{
-								"model" : "Crate-2",
-								"type" : 1
-							},
-							{
-								"model" : "lanterns-2",
-								"type" : 1
-							},
-							{
-								"model" : "Picks-2",
-								"type" : 1
-							},
-							{
-								"model" : "Platform-2",
-								"type" : 1
-							},
-							{
-								"model" : "table2",
-								"type" : 1
-							},
-							{
-								"model" : "Track-2",
-								"type" : 1
-							},
-							{
-								"model" : "TrackPlatform-2",
-								"type" : 1
-							}
-						],
-						"subfolders" : null
-					}
-				]
-			},
-			{
 				"name" : "Foliage",
 				"resources" : 
 				[
-					{
-						"model" : "fernscale",
-						"type" : 1
-					},
-					{
-						"scene" : "Fern_scene",
-						"type" : 0
-					},
 					{
 						"texture" : "fern_albedo",
 						"type" : 2
@@ -1604,6 +1433,14 @@
 					},
 					{
 						"model" : "single_sand",
+						"type" : 1
+					},
+					{
+						"model" : "lowpoly_bush",
+						"type" : 1
+					},
+					{
+						"model" : "stalactites",
 						"type" : 1
 					}
 				],
@@ -1790,6 +1627,10 @@
 							{
 								"model" : "final_cave_soundmesh",
 								"type" : 1
+							},
+							{
+								"sound" : "snd_monsterNoise",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -2076,7 +1917,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "elpropp",
+								"model" : "elproppFinal",
 								"type" : 1
 							},
 							{
@@ -2159,29 +2000,6 @@
 									},
 									{
 										"texture" : "VoltageTube_Roughness",
-										"type" : 2
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "VoltageBox",
-								"resources" : 
-								[
-									{
-										"texture" : "box_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "box_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "box_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "box_roughness",
 										"type" : 2
 									}
 								],
@@ -2329,12 +2147,51 @@
 						"subfolders" : null
 					}
 				]
+			},
+			{
+				"name" : "Music",
+				"resources" : 
+				[
+					{
+						"sound" : "snd_horn",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_win",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_charged",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_gameover",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_waterphone",
+						"type" : 3
+					},
+					{
+						"sound" : "snd_mystic",
+						"type" : 3
+					},
+					{
+						"script" : "global_music_script",
+						"type" : 4
+					},
+					{
+						"sound" : "snd_hunted",
+						"type" : 3
+					}
+				],
+				"subfolders" : null
 			}
 		]
 	},
-	"sceneNumber" : 33,
+	"sceneNumber" : 35,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
-	"soundNumber" : 16,
-	"textureNumber" : 154
+	"soundNumber" : 27,
+	"textureNumber" : 155
 }
