@@ -26,5 +26,11 @@ namespace Component {
             /// Intensity.
             float intensity = 1.f;
 
+            /// Distance.
+            float distance = 1.f;
+
+            //TMPTODO
+            /// useNewModel.
+            bool useNewModel = false;
     };
 }

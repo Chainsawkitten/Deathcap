@@ -15,5 +15,7 @@ Json::Value SpotLight::Save() const {
     component["intensity"] = intensity;
     component["coneAngle"] = coneAngle;
     component["shadow"] = shadow;
+    component["distance"] = distance;
+    component["useNewModel"] = useNewModel; //TMPTODO
     return component;
 }

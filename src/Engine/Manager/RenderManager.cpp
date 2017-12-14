@@ -599,6 +599,8 @@ Component::PointLight* RenderManager::CreatePointLight(const Json::Value& node) 
     pointLight->color = Json::LoadVec3(node["color"]);
     pointLight->attenuation = node.get("attenuation", 1.f).asFloat();
     pointLight->intensity = node.get("intensity", 1.f).asFloat();
+    pointLight->distance = node.get("distance", 1.f).asFloat();
+    pointLight->useNewModel = node.get("useNewModel", false).asBool(); //TMPTODO
 
     return pointLight;
 }
@@ -621,6 +623,8 @@ Component::SpotLight* RenderManager::CreateSpotLight(const Json::Value& node) {
     spotLight->intensity = node.get("intensity", 1.f).asFloat();
     spotLight->coneAngle = node.get("coneAngle", 15.f).asFloat();
     spotLight->shadow = node.get("shadow", false).asBool();
+    spotLight->distance = node.get("distance", 1.f).asFloat();
+    spotLight->useNewModel = node.get("useNewModel", false).asBool(); //TMPTODO
 
     return spotLight;
 }
@@ -736,6 +740,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.coneAngle = 0.f;
         light.direction = glm::vec3(0.f, 0.f, 0.f);
         light.shadow = 0.f;
+        light.distance = 0.f;
         lights.push_back(light);
     }
     
@@ -751,10 +756,11 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         float scale = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
 
+        //TMPTODO
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
             if (lightVolumes)
-                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), scale, glm::vec3(1.0f, 1.0f, 1.0f));
+                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), spotLight->useNewModel ? spotLight->distance : scale, glm::vec3(1.0f, 1.0f, 1.0f));
 
             glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
@@ -766,6 +772,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             light.coneAngle = spotLight->coneAngle;
             light.direction = glm::vec3(direction);
             light.shadow = spotLight->shadow ? 1.f : 0.f;
+            light.distance = spotLight->useNewModel ? spotLight->distance : -1.f;
             lights.push_back(light);
         }
     }
@@ -779,10 +786,11 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation * pointLight->intensity);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
 
+        //TMPTODO
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
             if (lightVolumes)
-                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), scale, glm::vec3(1.0f, 1.0f, 1.0f));
+                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), pointLight->useNewModel ? pointLight->distance : scale, glm::vec3(1.0f, 1.0f, 1.0f));
 
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             Video::Light light;
@@ -793,6 +801,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             light.coneAngle = 180.f;
             light.direction = glm::vec3(1.f, 0.f, 0.f);
             light.shadow = 0.f;
+            light.distance = pointLight->useNewModel ? pointLight->distance : -1.f;
             lights.push_back(light);
         }
     }
@@ -814,6 +823,7 @@ void RenderManager::LightAmbient() {
     light.coneAngle = 0.f;
     light.direction = glm::vec3(0.f, 0.f, 0.f);
     light.shadow = 0.f;
+    light.distance = 0.f;
     lights.push_back(light);
 
     // Update light buffer.
