@@ -158,6 +158,11 @@ class MainScript {
             print("Player won the game.\n");
         else
             print("Player was eaten alive.\n");
+      
+        if(!IsVRActive())
+            exit(0);
+        knife.position = vec3(30, 30, 30);
+
     }
 
     void StopBeforeMonster() {
@@ -187,8 +192,6 @@ class MainScript {
             phase = 2; // Wait for collapse.
             DropKnife();
         }
-
-        //Particle Effect
     }
 
     void DropKnife() {
