@@ -129,7 +129,7 @@ void SkinRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::m
     }
 }
 
-void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount) {
+void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount, float cameraNear, float cameraFar) {
     shaderProgram->Use();
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;

@@ -65,8 +65,10 @@ namespace Video {
              * @param projectionMatrix The camera's projection matrix.
              * @param lightBuffer %StorageBuffer containing light data.
              * @param lightCount Number of lights in the light buffer.
+             * @param cameraNear Camera near plane distance.
+             * @param cameraFar Camera far plane distance.
              */
-            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount);
+            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount, float cameraNear, float cameraFar);
     
             /// Render skinned geometry.
             /**

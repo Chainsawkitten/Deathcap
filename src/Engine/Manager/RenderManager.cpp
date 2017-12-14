@@ -374,7 +374,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         { PROFILE("Static meshes");
         { GPUPROFILE("Static meshes", Video::Query::Type::TIME_ELAPSED);
         { GPUPROFILE("Static meshes", Video::Query::Type::SAMPLES_PASSED);
-            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix, cameraNear, cameraFar);
             for (Mesh* mesh : meshComponents) {
                 Entity* entity = mesh->entity;
                 if (entity->IsKilled() || !entity->IsEnabled())
@@ -396,7 +396,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         { PROFILE("Skin meshes");
         { GPUPROFILE("Skin meshes", Video::Query::Type::TIME_ELAPSED);
         { GPUPROFILE("Skin meshes", Video::Query::Type::SAMPLES_PASSED);
-            renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix);
+            renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix, cameraNear, cameraFar);
             for (AnimationController* controller : controllerComponents) {
                 Entity* entity = controller->entity;
                 if (entity->IsKilled() || !entity->IsEnabled())
