@@ -74,8 +74,9 @@ class ActiveHymn {
          * @param cameras Whether to show cameras.
          * @param physics Whether to show physics volumes.
          * @param lighting Whether to light the world (otherwise full ambient is used).
+         * @param lightVolumes Whether to show light culling volumes.
          */
-        ENGINE_API void Render(RenderManager::DISPLAY targetDisplay, Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false, bool lighting = true);
+        ENGINE_API void Render(RenderManager::DISPLAY targetDisplay, Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false, bool lighting = true, bool lightVolumes = false);
         
         /// Find entity via GUID.
         /**

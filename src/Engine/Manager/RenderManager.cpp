@@ -87,7 +87,7 @@ RenderManager::~RenderManager() {
     delete renderer;
 }
 
-void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, Entity* camera, bool lighting) {
+void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, Entity* camera, bool lighting, bool lightVolumes) {
     // Find camera entity.
     if (camera == nullptr) {
         for (Lens* lens : lenses.GetAll())
@@ -122,7 +122,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
                         { VIDEO_ERROR_CHECK("Render world entities");
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
+                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting, lightVolumes);
                         }
                         }
                         }
@@ -192,7 +192,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
 
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting);
+                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting, lightVolumes);
                         }
                         }
 
@@ -256,7 +256,7 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting) {
+void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, bool lightVolumes) {
     // Render from camera.
     glm::mat4 lightViewMatrix;
     glm::mat4 lightProjection;
@@ -352,7 +352,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { GPUPROFILE("Update lights", Video::Query::Type::TIME_ELAPSED);
         if (lighting)
             // Cull lights and update light list.
-            LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+            LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, lightVolumes);
         else
             // Use full ambient light and ignore lights in the scene.
             LightAmbient();
@@ -715,11 +715,11 @@ uint16_t RenderManager::GetTextureReduction() const {
     return textureReduction;
 }
 
-void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
+void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, bool lightVolumes) {
     std::vector<Video::Light> lights;
 
     float cutOff;
-    Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
+    Video::AxisAlignedBoundingBox aabb(glm::vec3(2.f, 2.f, 2.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
     // Add all directional lights.
     for (Component::DirectionalLight* directionalLight : directionalLights.GetAll()) {
@@ -753,6 +753,9 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
 
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
+            if (lightVolumes)
+                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), scale, glm::vec3(1.0f, 1.0f, 1.0f));
+
             glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             Video::Light light;
@@ -778,6 +781,9 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
 
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
+            if (lightVolumes)
+                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), scale, glm::vec3(1.0f, 1.0f, 1.0f));
+
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             Video::Light light;
             light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
