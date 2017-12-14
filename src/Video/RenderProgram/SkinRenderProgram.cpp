@@ -50,6 +50,8 @@ SkinRenderProgram::SkinRenderProgram() {
     viewProjectionLocation = shaderProgram->GetUniformLocation("viewProjection");
     lightSpaceLocation = shaderProgram->GetUniformLocation("lightSpaceMatrix");
     lightCountLocation = shaderProgram->GetUniformLocation("lightCount");
+    cameraNearPlaneLocation = shaderProgram->GetUniformLocation("cameraNear");
+    cameraFarPlaneLocation = shaderProgram->GetUniformLocation("cameraFar");
     gammaLocation = shaderProgram->GetUniformLocation("gamma");
     fogApplyLocation = shaderProgram->GetUniformLocation("fogApply");
     fogDensityLocation = shaderProgram->GetUniformLocation("fogDensity");
@@ -144,6 +146,8 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     lightBuffer->BindBase(5);
 
     // Image processing.
+    glUniform1fv(cameraNearPlaneLocation, 1, &cameraNear);
+    glUniform1fv(cameraFarPlaneLocation, 1, &cameraFar);
     glUniform1fv(gammaLocation, 1, &gamma);
 
     glUniform1iv(fogApplyLocation, 1, &fogApply);

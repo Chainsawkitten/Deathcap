@@ -98,6 +98,8 @@ namespace Video {
             GLuint viewProjectionLocation;
             GLuint lightSpaceLocation;
             GLuint lightCountLocation;
+            GLuint cameraNearPlaneLocation;
+            GLuint cameraFarPlaneLocation;
             GLuint gammaLocation;
             GLuint fogApplyLocation;
             GLuint fogDensityLocation;

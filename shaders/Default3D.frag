@@ -40,6 +40,8 @@ uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
 uniform sampler2D mapShadow;
 // Image processing uniforms.
+uniform float cameraNear;
+uniform float cameraFar;
 uniform float gamma;
 uniform bool fogApply;
 uniform float fogDensity;
