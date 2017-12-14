@@ -1762,7 +1762,9 @@
 					"y" : 0.59215688705444336,
 					"z" : 0.29411765933036804
 				},
-				"intensity" : 7.7890005111694336
+				"distance" : 35.0,
+				"intensity" : 7.7890005111694336,
+				"useNewModel" : true
 			},
 			"children" : null,
 			"name" : "leverlLight",
@@ -1971,7 +1973,7 @@
 			"sceneName" : "Resources/Foliage/FlareScene",
 			"static" : false,
 			"uid" : 1511784197
-        },
+		},
 		{
 			"Material" : 
 			{
