@@ -268,8 +268,11 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         if (spotLight->shadow) {
             Entity* lightEntity = spotLight->entity;
             lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
-            // Will use range 50.f on the projection, no support for spotlight length. 
-            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), 1.0f, 0.01f, 50.0f);
+            
+            // Calculate how long the light reaches (given a certain cutoff value).
+            float cutOff = 0.01f;
+            float zFar = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
+            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), 1.0f, 0.01f, zFar);
         }
     }
 
@@ -718,7 +721,6 @@ uint16_t RenderManager::GetTextureReduction() const {
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
     std::vector<Video::Light> lights;
 
-    float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
 
     // Add all directional lights.
@@ -740,7 +742,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
     }
     
     // At which lights should be cut off (no longer contribute).
-    cutOff = 0.01f;
+    float cutOff = 0.01f;
 
     // Add all spot lights.
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
