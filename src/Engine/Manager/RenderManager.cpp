@@ -114,7 +114,8 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
                     // Render main window.
                     { PROFILE("Render main window");
                     { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-                        const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                        Lens* lens = camera->GetComponent<Lens>();
+                        const glm::mat4 projectionMatrix = lens->GetProjection(mainWindowRenderSurface->GetSize());
                         const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
                         const glm::vec3 position = camera->GetWorldPosition();
                         const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
@@ -122,7 +123,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
                         { VIDEO_ERROR_CHECK("Render world entities");
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
+                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting, lens->zNear, lens->zFar);
                         }
                         }
                         }
@@ -192,7 +193,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
 
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting);
+                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting, lens->zNear, lens->zFar);
                         }
                         }
 
@@ -256,7 +257,7 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting) {
+void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, float cameraNear, float cameraFar) {
     // Render from camera.
     glm::mat4 lightViewMatrix;
     glm::mat4 lightProjection;
