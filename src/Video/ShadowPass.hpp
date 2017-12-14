@@ -16,18 +16,18 @@ namespace Video {
 
             ///Bind Texture to depth buffer.
             VIDEO_API void BindBuffer();
-
-            ///return shadowmaps width
+            
+            /// Set the size of the shadow map.
             /**
-             * @return shadowmaps width
+             * @param shadowMapSize The size of the shadow map.
              */
-            VIDEO_API int GetShadowWidth();
+            VIDEO_API void SetShadowMapSize(unsigned int shadowMapSize);
 
-            ///return shadowmaps height
+            /// Get the size of the shadow map.
             /**
-             * @return shadowmaps height
+             * @return The size of the shadow map.
              */
-            VIDEO_API int GetShadowHeight();
+            VIDEO_API unsigned int GetShadowMapSize() const;
 
             ///return shadowmap framebuffer object
             /**
@@ -48,10 +48,7 @@ namespace Video {
             ///Depthmap framebuffer object.
             unsigned int depthMapFbo;
 
-            ///Width of the shadowmap.
-            const unsigned int SHADOW_WIDTH = 1024;
-
-            ///Height of the shadowmap.
-            const unsigned int SHADOW_HEIGHT = 1024;
+            /// Size of the shadowmap.
+            unsigned int shadowSize = 1024;
     };
 } // namespace Video
