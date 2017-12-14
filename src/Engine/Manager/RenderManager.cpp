@@ -260,7 +260,6 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     // Render from camera.
     glm::mat4 lightViewMatrix;
     glm::mat4 lightProjection;
-    float aspectRatio = static_cast<float>(shadowPass->GetShadowWidth()) / shadowPass->GetShadowHeight();
 
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
         if (spotLight->IsKilled() || !spotLight->entity->IsEnabled())
@@ -269,10 +268,11 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         if (spotLight->shadow) {
             Entity* lightEntity = spotLight->entity;
             lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
+            
             // Calculate how long the light reaches (given a certain cutoff value).
             float cutOff = 0.01f;
             float zFar = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
-            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.01f, zFar);
+            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), 1.0f, 0.01f, zFar);
         }
     }
 
@@ -287,7 +287,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { GPUPROFILE("Render shadow meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render shadow meshes", Video::Query::Type::SAMPLES_PASSED);
         // Static meshes.
-        renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowMapSize(), shadowPass->GetDepthMapFbo());
         for (Mesh* mesh : meshComponents) {
             Entity* entity = mesh->entity;
             if (entity->IsKilled() || !entity->IsEnabled())
@@ -297,7 +297,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
         }
         // Skin meshes.
-        renderer->PrepareSkinShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        renderer->PrepareSkinShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowMapSize(), shadowPass->GetDepthMapFbo());
         for (AnimationController* controller : controllerComponents) {
             Entity* entity = controller->entity;
             if (entity->IsKilled() || !entity->IsEnabled())
@@ -704,6 +704,10 @@ void RenderManager::SetBloodApply(bool SetBloodApply) {
 
 unsigned int RenderManager::GetLightCount() const {
     return lightCount;
+}
+
+void RenderManager::SetShadowMapSize(unsigned int shadowMapSize) {
+    shadowPass->SetShadowMapSize(shadowMapSize);
 }
 
 void RenderManager::SetTextureReduction(uint16_t textureReduction) {
