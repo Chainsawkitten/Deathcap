@@ -53,6 +53,7 @@ int main(int argc, char* argv[]) {
     window->Init(false);
     unsigned int numberOfFrames = 1;
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
+    glfwSetInputMode(window->GetGLFWWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     Input()->AssignButton(InputHandler::WINDOWMODE, InputHandler::KEYBOARD, GLFW_KEY_F4);
     
     Managers().StartUp();
