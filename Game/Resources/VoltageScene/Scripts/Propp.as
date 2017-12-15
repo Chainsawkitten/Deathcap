@@ -13,6 +13,7 @@ class Propp {
     int slot = -1;
     vec3 startPosition;
     Component::SoundSource @snapSound;
+    quat defaultOrientation;
 
     Propp(Entity @entity) {
         @hub = Managers();
@@ -26,6 +27,8 @@ class Propp {
         @slot4Location = GetEntityByGUID(1511860887);
         
         @snapSound = self.GetSoundSource();
+
+        defaultOrientation = self.rotation;
 
         startPosition = self.position;
 
@@ -79,14 +82,18 @@ class Propp {
     void ReturnToStartPosition() {
         self.SetParent(originalParent);
         self.position = startPosition;
+        self.SetLocalOrientation(defaultOrientation);
         slot = -1;
+        rightCtrl.GetChild("RightCtrlModel").SetEnabled(true, true);
     }
 
     void PickupTrigger() {
         if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) is null && !isPressed) {
             isPressed = true;
             self.position = vec3(0.0f, 0.0f, 0.0f);
+            self.RotateRoll(radians(90.0f));
             self.SetParent(rightCtrl);
+            rightCtrl.GetChild("RightCtrlModel").SetEnabled(false, true);
 
             if (slot >= 0) {
                 // Inform mastermind that we removed from a slot
