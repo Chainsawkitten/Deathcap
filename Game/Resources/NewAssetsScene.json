@@ -2581,7 +2581,7 @@
 				{
 					"SoundSource" : 
 					{
-						"loop" : false,
+						"loop" : true,
 						"sound" : "Resources/NewAssets/Audio/monsterdoorbang",
 						"volume" : 1.0
 					},

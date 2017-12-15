@@ -25,14 +25,13 @@ class MonsterRun {
         
         if(run){
         
-            if(monsterPos.x > -145.7f){
+            if(monsterPos.x > -146.2f){
                 monsterPos = self.GetWorldPosition();
             
                 monsterPos.x -= speed * deltaTime;
         
                 self.SetWorldPosition(monsterPos);
-            }
-            if(monsterPos.x < -144.7f){
+            } else {
                 animCtrl.SetBool("E", true);
                 doorbang.Play();
                 run = false;
