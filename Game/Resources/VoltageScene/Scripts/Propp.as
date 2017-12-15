@@ -14,6 +14,7 @@ class Propp {
     vec3 startPosition;
     Component::SoundSource @snapSound;
     quat defaultOrientation;
+    quat holdingOrientation;
 
     Propp(Entity @entity) {
         @hub = Managers();
@@ -29,6 +30,9 @@ class Propp {
         @snapSound = self.GetSoundSource();
 
         defaultOrientation = self.rotation;
+        self.RotatePitch(radians(-90.0f));
+        holdingOrientation = self.rotation;
+        self.SetLocalOrientation(defaultOrientation);
 
         startPosition = self.position;
 
@@ -61,6 +65,7 @@ class Propp {
                         break;
                     }
                 }
+                self.SetLocalOrientation(defaultOrientation);
                 SendMessage(mastermind, hoverSlot - 1);
                 slot = hoverSlot - 1;
                 snapSound.Play();
@@ -90,7 +95,7 @@ class Propp {
         if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) is null && !isPressed) {
             isPressed = true;
             self.position = vec3(0.0f, 0.0f, 0.0f);
-            self.RotateRoll(radians(90.0f));
+            self.SetLocalOrientation(holdingOrientation);
             self.SetParent(rightCtrl);
             rightCtrl.GetChild("RightCtrlModel").SetEnabled(false, true);
 
