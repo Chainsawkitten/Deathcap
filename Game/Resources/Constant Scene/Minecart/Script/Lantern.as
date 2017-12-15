@@ -1,19 +1,21 @@
 class Lantern {
     Entity @self;
     Entity @originalParent;
+    Entity @camera;
     bool pickup;
     
     Lantern(Entity @entity){
         @self = entity;
         @originalParent = self.GetParent();
+        @camera = GetEntityByGUID(1508919707);
         
         pickup = false;
-        
         if(!IsVRActive()){
-            self.SetParent(originalParent);
-            self.position = vec3(-0.105f, 0.937f, -0.547f);
+            self.SetParent(camera);
+            self.position = vec3(-0.0f, 0.0f, -0.0f);
         }
     }
+    
     
     void ReceiveMessage(Entity @sender, int i) {
         if (i == 1) {
