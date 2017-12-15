@@ -3,6 +3,7 @@ class elevator_backDoorCon {
     Entity @doorWithX;
     Entity @doorWithService;
     bool openDoor;
+	bool openingDoor;
     vec3 tempPosWithX;
     vec3 tempPosWithService;
     float speed;
@@ -13,6 +14,7 @@ class elevator_backDoorCon {
         @doorWithX = GetEntityByGUID(1511870598);
         @doorWithService = GetEntityByGUID(1511870668);
         openDoor = false;
+		openingDoor = false;
         speed = 0.5f;
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -33,17 +35,16 @@ class elevator_backDoorCon {
             }
         }
 
-        if(openDoor == false) {
-            if(tempPosWithX.z > 0.0f) {
-                tempPosWithX = doorWithX.GetWorldPosition();
-                tempPosWithService = doorWithService.GetWorldPosition();
+        if(openDoor == false && openingDoor == true) {
+            
+            tempPosWithX = doorWithX.GetWorldPosition();
+            tempPosWithService = doorWithService.GetWorldPosition();
 
-                tempPosWithX.z -= speed * deltaTime;
-                tempPosWithService.z += speed * deltaTime;
+            tempPosWithX.z -= speed * deltaTime;
+            tempPosWithService.z += speed * deltaTime;
 
-                doorWithX.SetWorldPosition(tempPosWithX);
-                doorWithService.SetWorldPosition(tempPosWithService);
-            }
+            doorWithX.SetWorldPosition(tempPosWithX);
+            doorWithService.SetWorldPosition(tempPosWithService);	
         }
     }
     
