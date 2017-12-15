@@ -55,9 +55,9 @@ class elevator_frontDoorCon {
             uniformScale += (1.0f / 6.5f) * deltaTime;
             if (uniformScale > 1.0f) {
                 uniformScale = 1.0f;
-                partical_1.position.x +=0.5f;
-                partical_2.position.x +=0.5f;
-                partical_3.position.x +=0.5f;
+                partical_1.position.x +=50.0f;
+                partical_2.position.x +=50.0f;
+                partical_3.position.x +=50.0f;
             }
             puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
         }
