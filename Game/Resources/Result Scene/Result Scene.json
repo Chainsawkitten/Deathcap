@@ -1,0 +1,103 @@
+{
+	"children" : 
+	[
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.10000000149011612,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"distance" : 30.0,
+				"intensity" : 51.814002990722656
+			},
+			"children" : null,
+			"name" : "ResultLight",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513352321
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Result Scene/YouWinYouLoseTexture",
+				"metallic" : "Resources/Result Scene/YouWinYouLoseTexture",
+				"normal" : "",
+				"roughness" : "Resources/Result Scene/YouWinYouLoseTexture"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Result Scene/YOUWINYOULOSE_FBX"
+			},
+			"children" : null,
+			"name" : "ResultText",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : -5.3440003395080566
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513352348
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1513352309
+}

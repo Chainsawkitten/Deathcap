@@ -2202,6 +2202,25 @@
 					}
 				],
 				"subfolders" : null
+			},
+			{
+				"name" : "Result Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Result Scene",
+						"type" : 0
+					},
+					{
+						"model" : "YOUWINYOULOSE_FBX",
+						"type" : 1
+					},
+					{
+						"texture" : "YouWinYouLoseTexture",
+						"type" : 2
+					}
+				],
+				"subfolders" : null
 			}
 		]
 	},
@@ -2209,5 +2228,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
 	"soundNumber" : 27,
-	"textureNumber" : 155
+	"textureNumber" : 157
 }

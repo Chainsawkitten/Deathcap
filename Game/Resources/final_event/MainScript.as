@@ -25,6 +25,8 @@ class MainScript {
     float fadeApexDuration = 3.0f; // Time for fade to reach zero
     float particleTimer = 0.0f;
     bool particleActive = false;
+    
+    Entity @resultScene;
   
     MainScript(Entity @entity) {
         @hub = Managers();
@@ -47,6 +49,8 @@ class MainScript {
 
         // Remove this if updates are not desired.
         RegisterUpdate();
+        
+        @resultScene = GetEntityByGUID(1513352309);
     }
 
     // Called by the engine for each frame.
@@ -158,9 +162,16 @@ class MainScript {
             print("Player won the game.\n");
         else
             print("Player was eaten alive.\n");
+        
+        camera.SetWorldPosition(resultScene.GetWorldPosition());
+        hub.renderManager.SetColorFilterColor(vec3(1.0f, 1.0f, 1.0f));
+        hub.renderManager.SetFogDensity(0.0f);
+        
+        if (!won)
+            GetEntityByGUID(1513352348).RotateYaw(3.141592f);
       
-        if(!IsVRActive())
-            exit(0);
+        //if(!IsVRActive())
+        //    exit(0);
         knife.position = vec3(30, 30, 30);
 
     }

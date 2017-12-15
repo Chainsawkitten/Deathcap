@@ -862,6 +862,32 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512737322
+		},
+		{
+			"name" : "Result Scene",
+			"position" : 
+			{
+				"x" : -168.64801025390625,
+				"y" : 0.0,
+				"z" : -209.94000244140625
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Result Scene/Result Scene",
+			"static" : false,
+			"uid" : 1513352309
 		}
 	],
 	"name" : "Root",
