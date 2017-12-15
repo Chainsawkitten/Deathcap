@@ -16,8 +16,11 @@ class Controller {
         @animCtrl = childModel.GetAnimationController();
         pickUp = false;
 
-        if(IsVRActive() && self.GetUniqueIdentifier() == 1508919751)
+        if(IsVRActive() && self.GetUniqueIdentifier() == 1508919751) {
             SendMessage(lantern, 1);
+            animCtrl.SetBool("Closed", true);
+            animCtrl.SetBool("Open", false);
+        }
 
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -30,7 +33,7 @@ class Controller {
             self.position.x = -1;
         }
 
-        if (!Input(Trigger, self)) {
+        if (!Input(Trigger, self) && self.GetUniqueIdentifier() != 1508919751) {
             animCtrl.SetBool("Open", true);
             animCtrl.SetBool("Closed", false);
             childModel.SetEnabled(true, false);
@@ -41,7 +44,7 @@ class Controller {
             }
         }
         
-        if (Input(Trigger, self)) {
+        if (Input(Trigger, self) && self.GetUniqueIdentifier() != 1508919751) {
             animCtrl.SetBool("Open", false);
             animCtrl.SetBool("Closed", true);
         }
