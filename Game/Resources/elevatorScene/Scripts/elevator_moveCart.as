@@ -67,14 +67,7 @@ class elevator_moveCart {
                 break;
 
             case 1: 
-                uniformScale -= (1.0f / 3.5f) * deltaTime;
-                if (uniformScale < 0.0f) {
-                    uniformScale = 0.0f;
-                    phase = 2;
-                    cage.GetSoundSource().Play();
-                }
-
-                puzzleBoard.scale = vec3(uniformScale, uniformScale, uniformScale);
+                phase = 2;
                 break;
 
             case 2:

@@ -32,6 +32,14 @@
 			{
 				"scene" : "stalctite_scene",
 				"type" : 0
+			},
+			{
+				"scene" : "balk_scene",
+				"type" : 0
+			},
+			{
+				"model" : "pillars_fixed",
+				"type" : 1
 			}
 		],
 		"subfolders" : 
@@ -1905,7 +1913,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "VoltageTubes",
+								"model" : "voltagetube",
 								"type" : 1
 							},
 							{
@@ -2220,5 +2228,5 @@
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
 	"soundNumber" : 27,
-	"textureNumber" : 156
+	"textureNumber" : 157
 }
