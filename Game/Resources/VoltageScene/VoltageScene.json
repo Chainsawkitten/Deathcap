@@ -567,48 +567,6 @@
 			"uid" : 1511528317
 		},
 		{
-			"PointLight" : 
-			{
-				"attenuation" : 14.645000457763672,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
-				},
-				"distance" : 15.0,
-				"intensity" : 159.5570068359375
-			},
-			"Script" : 
-			{
-				"scriptName" : "Resources/VoltageScene/Scripts/FlickeringLights"
-			},
-			"children" : null,
-			"name" : "JensLampa",
-			"position" : 
-			{
-				"x" : 30.733001708984375,
-				"y" : 4.1410002708435059,
-				"z" : -6.6590003967285156
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1511528947
-		},
-		{
 			"Material" : 
 			{
 				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
@@ -4215,47 +4173,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512719575
-		},
-		{
-			"SpotLight" : 
-			{
-				"ambientCoefficient" : 0.0,
-				"attenuation" : 300.0,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
-				},
-				"coneAngle" : 34.047000885009766,
-				"distance" : 3.5,
-				"intensity" : 60.0,
-				"shadow" : false
-			},
-			"children" : null,
-			"name" : "SwitchBoardLight",
-			"position" : 
-			{
-				"x" : 24.339000701904297,
-				"y" : 2.0160000324249268,
-				"z" : 2.3429999351501465
-			},
-			"rotation" : 
-			{
-				"w" : 0.9537169337272644,
-				"x" : -0.30070579051971436,
-				"y" : -0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512996604
 		},
 		{
 			"Material" : 
