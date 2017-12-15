@@ -3,7 +3,7 @@
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 195,
+	"modelNumber" : 196,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -32,6 +32,14 @@
 			{
 				"scene" : "stalctite_scene",
 				"type" : 0
+			},
+			{
+				"scene" : "balk_scene",
+				"type" : 0
+			},
+			{
+				"model" : "pillars_fixed",
+				"type" : 1
 			}
 		],
 		"subfolders" : 
@@ -1905,7 +1913,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "VoltageTubes",
+								"model" : "voltagetube",
 								"type" : 1
 							},
 							{
@@ -2197,7 +2205,7 @@
 			}
 		]
 	},
-	"sceneNumber" : 35,
+	"sceneNumber" : 36,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
 	"soundNumber" : 27,

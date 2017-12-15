@@ -11,43 +11,6 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/VoltageScene/Models/VoltageBeamsH"
-			},
-			"children" : null,
-			"name" : "VoltageBeamsH",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1511524822
-		},
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Albedo",
-				"metallic" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Metallic",
-				"normal" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Normal",
-				"roughness" : "Resources/Opening Scene/Textures/WoodenBeam/WoodenBeamH_Roughness"
-			},
-			"Mesh" : 
-			{
 				"model" : "Resources/VoltageScene/Models/VoltageBeamsV"
 			},
 			"children" : null,
@@ -398,7 +361,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/VoltageScene/Models/VoltageTube"
+				"model" : "Resources/VoltageScene/Models/voltagetube"
 			},
 			"children" : null,
 			"name" : "VoltageTube",
@@ -4347,43 +4310,6 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Albedo",
-				"metallic" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Metallic",
-				"normal" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Normal",
-				"roughness" : "Resources/Opening Scene/Textures/Floor/StarterFloor_Roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/NewAssets/Models/Platform"
-			},
-			"children" : null,
-			"name" : "Voltageplatform",
-			"position" : 
-			{
-				"x" : 12.44420051574707,
-				"y" : 0.58096742630004883,
-				"z" : 6.9568748474121094
-			},
-			"rotation" : 
-			{
-				"w" : 0.70710676908493042,
-				"x" : 0.0,
-				"y" : 0.70710676908493042,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.99999994039535522,
-				"y" : 1.0,
-				"z" : 2.0053975582122803
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1513157699
-		},
-		{
-			"Material" : 
-			{
 				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
 				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
 				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
@@ -4639,6 +4565,216 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1513337429
+			},
+			{
+			"children" : 
+			[
+				{
+					"name" : "balk7",
+					"position" : 
+					{
+						"x" : 23.653141021728516,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : true,
+					"sceneName" : "Resources/balk_scene",
+					"static" : false,
+					"uid" : 1513335248
+				},
+				{
+					"name" : "balk6",
+					"position" : 
+					{
+						"x" : 16.624935150146484,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : true,
+					"sceneName" : "Resources/balk_scene",
+					"static" : false,
+					"uid" : 1513335248
+				},
+				{
+					"name" : "balk5",
+					"position" : 
+					{
+						"x" : 12.582318305969238,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : true,
+					"sceneName" : "Resources/balk_scene",
+					"static" : false,
+					"uid" : 1513335248
+				},
+				{
+					"name" : "balk4",
+					"position" : 
+					{
+						"x" : 8.4108333587646484,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : true,
+					"sceneName" : "Resources/balk_scene",
+					"static" : false,
+					"uid" : 1513335248
+				},
+				{
+					"name" : "balk3",
+					"position" : 
+					{
+						"x" : 4.0910944938659668,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : true,
+					"sceneName" : "Resources/balk_scene",
+					"static" : false,
+					"uid" : 1513335248
+				},
+				{
+					"name" : "balk2",
+					"position" : 
+					{
+						"x" : 20.337001800537109,
+						"y" : -0.13100001215934753,
+						"z" : 11.892000198364258
+					},
+					"rotation" : 
+					{
+						"w" : 0.71446245908737183,
+						"x" : 0.0,
+						"y" : -0.69967305660247803,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 0.65600001811981201
+					},
+					"scene" : true,
+					"sceneName" : "Resources/balk_scene",
+					"static" : false,
+					"uid" : 1513335248
+				},
+				{
+					"name" : "balk1",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : true,
+					"sceneName" : "Resources/balk_scene",
+					"static" : false,
+					"uid" : 1513335248
+				}
+			],
+			"name" : "horizontal_balks",
+			"position" : 
+			{
+				"x" : -3.3857617378234863,
+				"y" : 5.5279231071472168,
+				"z" : 2.3501207828521729
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.7202699184417725,
+				"y" : 1.0,
+				"z" : 1.1047235727310181
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513335699
 		}
 	],
 	"name" : "Root",
