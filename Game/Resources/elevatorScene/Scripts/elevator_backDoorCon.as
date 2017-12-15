@@ -3,7 +3,7 @@ class elevator_backDoorCon {
     Entity @doorWithX;
     Entity @doorWithService;
     bool openDoor;
-    bool openingDoor;
+    bool fixDoor;
     vec3 tempPosWithX;
     vec3 tempPosWithService;
     float speed;
@@ -13,7 +13,7 @@ class elevator_backDoorCon {
         @doorWithX = GetEntityByGUID(1511870598);
         @doorWithService = GetEntityByGUID(1511870668);
         openDoor = false;
-        openingDoor = false;
+        fixDoor = false;
         speed = 0.5f;
         // Remove this if updates are not desired.
         RegisterUpdate();
@@ -34,7 +34,7 @@ class elevator_backDoorCon {
             }
         }
 
-        if (openDoor == false && openingDoor == true) {
+        if (openDoor == false && fixDoor == true) {
             tempPosWithX = doorWithX.GetWorldPosition();
             tempPosWithService = doorWithService.GetWorldPosition();
 
@@ -60,7 +60,7 @@ class elevator_backDoorCon {
     }
 
     void CloseDoor() {
-        openingDoor = true;
+        fixDoor = true;
         openDoor = false;
     }
 }
