@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/NewAssetsScene",
+	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
@@ -1317,6 +1317,10 @@
 							},
 							{
 								"script" : "monsterSoundScript",
+								"type" : 4
+							},
+							{
+								"script" : "StopMonstSound",
 								"type" : 4
 							}
 						],
