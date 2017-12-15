@@ -6,8 +6,8 @@ class MonsterRun {
     bool run;
     Component::AnimationController @animCtrl;
     Component::SoundSource @doorbang;
-    
-    MonsterRun(Entity @entity){
+
+    MonsterRun(Entity @entity) {
         @hub = Managers();
         @self = @entity;
         @doorbang = GetEntityByGUID(1512996068).GetSoundSource();
@@ -22,33 +22,26 @@ class MonsterRun {
 
     // Called by the engine for each frame.
     void Update(float deltaTime) {
-        
-        if(run){
-        
-            if(monsterPos.x > -146.2f){
+        if (run) {
+            if (monsterPos.x > -146.2f) {
                 monsterPos = self.GetWorldPosition();
-            
                 monsterPos.x -= speed * deltaTime;
-        
                 self.SetWorldPosition(monsterPos);
             } else {
                 animCtrl.SetBool("E", true);
                 doorbang.Play();
                 run = false;
             }
-
         }
-
     }
-    
-    void MonsterRunning(){
+
+    void MonsterRunning() {
         run = true;
     }
-    
-    void ReceiveMessage(Entity @sender, int signal){
-        if(signal == 0){
+
+    void ReceiveMessage(Entity @sender, int signal) {
+        if (signal == 0) {
             MonsterRunning();
         }
     }
-    
 }
