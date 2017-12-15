@@ -8,8 +8,6 @@ class StopMonstSound {
         @self = @entity;
         @monsterSound = GetEntityByGUID(1512561652);
 
-        // Remove this if updates are not desired.
-        RegisterUpdate();
     }
 
     // Called by the engine for each frame.
