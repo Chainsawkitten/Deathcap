@@ -13,5 +13,6 @@ Json::Value PointLight::Save() const {
     component["color"] = Json::SaveVec3(color);
     component["attenuation"] = attenuation;
     component["intensity"] = intensity;
+    component["distance"] = distance;
     return component;
 }
