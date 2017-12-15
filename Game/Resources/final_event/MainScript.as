@@ -192,6 +192,8 @@ class MainScript {
             phase = 2; // Wait for collapse.
             DropKnife();
         }
+
+        //Particle Effect
     }
 
     void DropKnife() {
