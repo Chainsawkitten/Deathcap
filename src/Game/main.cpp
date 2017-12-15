@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
     double lastTimeRender = glfwGetTime();
-    while (!window->ShouldClose() && numberOfFrames < 600) {
+    while ((!window->ShouldClose() && !testing) || (testing && (numberOfFrames < 600)) ) {
         double deltaTime = glfwGetTime() - lastTime;
         lastTime = glfwGetTime();
 

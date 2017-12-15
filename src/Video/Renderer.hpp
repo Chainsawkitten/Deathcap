@@ -74,8 +74,10 @@ namespace Video {
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
+             * @param cameraNear Camera near plane distance.
+             * @param cameraFar Camera far plane distance.
              */
-            VIDEO_API void PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            VIDEO_API void PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, float cameraNear, float cameraFar);
 
             /// Render a static mesh.
             /**
@@ -119,8 +121,10 @@ namespace Video {
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
+             * @param cameraNear Camera near plane distance.
+             * @param cameraFar Camera far plane distance.
              */
-            VIDEO_API void PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            VIDEO_API void PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, float cameraNear, float cameraFar);
 
             /// Render a skin shadow mesh.
             /**
