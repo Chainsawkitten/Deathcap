@@ -38,7 +38,7 @@ class MainScript {
         @particles = GetEntityByGUID(1512553749);
         particles.SetEnabled(false, false);
         phase = 0;
-        speed = 4.0f;
+        speed = 2.0f;
         waitForMonsterTimer = 0.0f;
         knifePickedUp = false;
         particleActive = false;
