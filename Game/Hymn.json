@@ -90,7 +90,8 @@
 		"Resources/NewAssets/Scripts/monsterSoundScript",
 		"Resources/VoltageScene/Scripts/VoltageRandomEvents",
 		"Resources/Music/global_music_script",
-		"Resources/NewAssets/Scripts/StopMonstSound"
+		"Resources/NewAssets/Scripts/StopMonstSound",
+		"Resources/Constant Scene/Minecart/Script/MinecartLightScript"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5

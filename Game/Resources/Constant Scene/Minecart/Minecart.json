@@ -826,6 +826,48 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511874076
+				},
+				{
+					"PointLight" : 
+					{
+						"attenuation" : 0.5,
+						"color" : 
+						{
+							"x" : 0.90196079015731812,
+							"y" : 0.7450980544090271,
+							"z" : 0.50980395078659058
+						},
+						"distance" : 15.0,
+						"intensity" : 0.10000000149011612
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/Constant Scene/Minecart/Script/MinecartLightScript"
+					},
+					"children" : null,
+					"name" : "MinecartLight",
+					"position" : 
+					{
+						"x" : 0.18199999630451202,
+						"y" : 0.5,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1513346396
 				}
 			],
 			"name" : "Minecart",
