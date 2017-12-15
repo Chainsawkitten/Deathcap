@@ -1017,8 +1017,7 @@
 				"coneAngle" : 156.25700378417969,
 				"distance" : 140.0,
 				"intensity" : 59.519001007080078,
-				"shadow" : false,
-				"useNewModel" : true
+				"shadow" : false
 			},
 			"children" : null,
 			"name" : "moonlight",

@@ -1346,8 +1346,7 @@
 									"z" : 0.15686275064945221
 								},
 								"distance" : 15.0,
-								"intensity" : 4.9470000267028809,
-								"useNewModel" : true
+								"intensity" : 4.9470000267028809
 							},
 							"children" : null,
 							"name" : "CableLight",
@@ -2480,8 +2479,7 @@
 							"z" : 1.0
 						},
 						"distance" : 2.7999999523162842,
-						"intensity" : 0.11400000751018524,
-						"useNewModel" : true
+						"intensity" : 0.11400000751018524
 					},
 					"children" : null,
 					"name" : "light",
@@ -2648,8 +2646,7 @@
 					"z" : 1.0
 				},
 				"distance" : 20.0,
-				"intensity" : 59.211002349853516,
-				"useNewModel" : true
+				"intensity" : 59.211002349853516
 			},
 			"children" : null,
 			"name" : "Blue Light",
@@ -2687,8 +2684,7 @@
 					"z" : 0.0
 				},
 				"distance" : 30.0,
-				"intensity" : 5.5670003890991211,
-				"useNewModel" : true
+				"intensity" : 5.5670003890991211
 			},
 			"children" : null,
 			"name" : "cave_light",

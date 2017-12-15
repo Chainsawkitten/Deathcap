@@ -1800,8 +1800,7 @@
 					"z" : 0.29411765933036804
 				},
 				"distance" : 35.0,
-				"intensity" : 7.7890005111694336,
-				"useNewModel" : true
+				"intensity" : 7.7890005111694336
 			},
 			"children" : null,
 			"name" : "leverlLight",

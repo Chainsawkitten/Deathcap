@@ -4125,8 +4125,7 @@
 					"z" : 0.0078431377187371254
 				},
 				"distance" : 15.0,
-				"intensity" : 1.440000057220459,
-				"useNewModel" : true
+				"intensity" : 1.440000057220459
 			},
 			"children" : null,
 			"name" : "light",
@@ -5163,8 +5162,7 @@
 				"coneAngle" : 23.604001998901367,
 				"distance" : 4.0,
 				"intensity" : 3.1540000438690186,
-				"shadow" : false,
-				"useNewModel" : true
+				"shadow" : false
 			},
 			"children" : null,
 			"name" : "elevator_light",
