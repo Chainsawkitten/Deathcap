@@ -985,7 +985,7 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
     if (method == nullptr)
         Log() << "Can't find method void Update(float)\n";
     
-    // Create context, prepare it and execute.git 
+    // Create context, prepare it and execute. 
     asIScriptContext* context = CreateContext();
     context->Prepare(method);
     context->SetObject(script->instance);

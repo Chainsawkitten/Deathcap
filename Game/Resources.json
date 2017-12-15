@@ -631,6 +631,10 @@
 									{
 										"script" : "RailAudioPlayer",
 										"type" : 4
+									},
+									{
+										"script" : "MinecartLightScript",
+										"type" : 4
 									}
 								],
 								"subfolders" : null
@@ -1336,6 +1340,10 @@
 							},
 							{
 								"script" : "monsterSoundScript",
+								"type" : 4
+							},
+							{
+								"script" : "StopMonstSound",
 								"type" : 4
 							}
 						],

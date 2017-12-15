@@ -192,6 +192,5 @@ int main(int argc, char* argv[]) {
     }
 
     Log() << "Game ended - " << time(nullptr) << "\n";
-    
     return returnValue;
 }
