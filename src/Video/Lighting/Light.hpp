@@ -26,7 +26,10 @@ namespace Video {
         /// Whether the light should cast shadows.
         float shadow;
 
+        /// Distance.
+        float distance;
+
         /// Padding.
-        float padding[2];
+        float padding;
     };
 } // namespace Video

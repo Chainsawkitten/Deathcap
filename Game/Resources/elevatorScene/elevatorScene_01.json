@@ -4124,6 +4124,7 @@
 					"y" : 0.098039217293262482,
 					"z" : 0.0078431377187371254
 				},
+				"distance" : 15.0,
 				"intensity" : 1.440000057220459
 			},
 			"children" : null,
@@ -5151,15 +5152,16 @@
 			"SpotLight" : 
 			{
 				"ambientCoefficient" : 0.0,
-				"attenuation" : 0.017000000923871994,
+				"attenuation" : 2.7940001487731934,
 				"color" : 
 				{
 					"x" : 1.0,
 					"y" : 0.31764706969261169,
 					"z" : 0.18823529779911041
 				},
-				"coneAngle" : 29.806001663208008,
-				"intensity" : 7.4600005149841309,
+				"coneAngle" : 23.604001998901367,
+				"distance" : 4.0,
+				"intensity" : 3.1540000438690186,
 				"shadow" : false
 			},
 			"children" : null,
