@@ -37,9 +37,5 @@ namespace Component {
 
         /// Distance.
         float distance = 1.f;
-
-        //TMPTODO
-        /// useNewModel.
-        bool useNewModel = false;
     };
 } // namespace Component

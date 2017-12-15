@@ -145,12 +145,12 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
             surfaceToLight = normalize(toLight);
             float lightDist = toLight.x * toLight.x + toLight.y * toLight.y + toLight.z * toLight.z;
             attenuation = 1.0 / (1.0 + lights[i].attenuation * lightDist);
-            if (lights[i].distance >= 0.0) {
-                lightDist = sqrt(lightDist) / lights[i].distance;
-                const float curveTransition = 0.7;
-                const float k = 1.0 / (1.0 - curveTransition);
-                attenuation *= clamp(k - k * lightDist, 0.0, 1.0);
-            }
+            
+            // Fade-out close to cutoff distance.
+            lightDist = sqrt(lightDist) / lights[i].distance;
+            const float curveTransition = 0.7;
+            const float k = 1.0 / (1.0 - curveTransition);
+            attenuation *= clamp(k - k * lightDist, 0.0, 1.0);
             
             // Spot light.
             if (lights[i].coneAngle < 179.0) {

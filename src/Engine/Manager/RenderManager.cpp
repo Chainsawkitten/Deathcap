@@ -268,8 +268,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         if (spotLight->shadow) {
             Entity* lightEntity = spotLight->entity;
             lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
-            // Will use range 50.f on the projection, no support for spotlight length. 
-            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), 1.0f, 0.01f, 50.0f);
+            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), 1.0f, 0.01f, spotLight->distance);
         }
     }
 
@@ -600,7 +599,6 @@ Component::PointLight* RenderManager::CreatePointLight(const Json::Value& node) 
     pointLight->attenuation = node.get("attenuation", 1.f).asFloat();
     pointLight->intensity = node.get("intensity", 1.f).asFloat();
     pointLight->distance = node.get("distance", 1.f).asFloat();
-    pointLight->useNewModel = node.get("useNewModel", false).asBool(); //TMPTODO
 
     return pointLight;
 }
@@ -624,7 +622,6 @@ Component::SpotLight* RenderManager::CreateSpotLight(const Json::Value& node) {
     spotLight->coneAngle = node.get("coneAngle", 15.f).asFloat();
     spotLight->shadow = node.get("shadow", false).asBool();
     spotLight->distance = node.get("distance", 1.f).asFloat();
-    spotLight->useNewModel = node.get("useNewModel", false).asBool(); //TMPTODO
 
     return spotLight;
 }
@@ -753,14 +750,13 @@ void RenderManager::LightWorld(const glm::mat4& viewMatrix, const glm::mat4& vie
             continue;
 
         Entity* lightEntity = spotLight->entity;
-        float scale = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
-        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
+        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * spotLight->distance);
 
         //TMPTODO
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
             if (lightVolumes)
-                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), spotLight->useNewModel ? spotLight->distance : scale, glm::vec3(1.0f, 1.0f, 1.0f));
+                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), spotLight->distance, glm::vec3(1.0f, 1.0f, 1.0f));
 
             glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
@@ -772,7 +768,7 @@ void RenderManager::LightWorld(const glm::mat4& viewMatrix, const glm::mat4& vie
             light.coneAngle = spotLight->coneAngle;
             light.direction = glm::vec3(direction);
             light.shadow = spotLight->shadow ? 1.f : 0.f;
-            light.distance = spotLight->useNewModel ? spotLight->distance : -1.f;
+            light.distance = spotLight->distance;
             lights.push_back(light);
         }
     }
@@ -783,14 +779,12 @@ void RenderManager::LightWorld(const glm::mat4& viewMatrix, const glm::mat4& vie
             continue;
 
         Entity* lightEntity = pointLight->entity;
-        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation * pointLight->intensity);
-        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
+        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * pointLight->distance);
 
-        //TMPTODO
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
             if (lightVolumes)
-                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), pointLight->useNewModel ? pointLight->distance : scale, glm::vec3(1.0f, 1.0f, 1.0f));
+                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), pointLight->distance, glm::vec3(1.0f, 1.0f, 1.0f));
 
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             Video::Light light;
@@ -801,7 +795,7 @@ void RenderManager::LightWorld(const glm::mat4& viewMatrix, const glm::mat4& vie
             light.coneAngle = 180.f;
             light.direction = glm::vec3(1.f, 0.f, 0.f);
             light.shadow = 0.f;
-            light.distance = pointLight->useNewModel ? pointLight->distance : -1.f;
+            light.distance = pointLight->distance;
             lights.push_back(light);
         }
     }

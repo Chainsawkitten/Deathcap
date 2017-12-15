@@ -14,6 +14,5 @@ Json::Value PointLight::Save() const {
     component["attenuation"] = attenuation;
     component["intensity"] = intensity;
     component["distance"] = distance;
-    component["useNewModel"] = useNewModel; //TMPTODO
     return component;
 }
