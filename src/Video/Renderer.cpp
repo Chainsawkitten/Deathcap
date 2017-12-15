@@ -108,8 +108,8 @@ void Renderer::DepthRenderStaticMesh(Geometry::Geometry3D* geometry, const glm::
     staticRenderProgram->DepthRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
 }
 
-void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
+void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, float cameraNear, float cameraFar) {
+    staticRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount, cameraNear, cameraFar);
 }
 
 void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix) {
@@ -132,8 +132,8 @@ void Renderer::DepthRenderSkinMesh(Geometry::Geometry3D* geometry, const glm::ma
     skinRenderProgram->DepthRender(geometry, viewMatrix, projectionMatrix, modelMatrix, bones);
 }
 
-void Renderer::PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    skinRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
+void Renderer::PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, float cameraNear, float cameraFar) {
+    skinRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount, cameraNear, cameraFar);
 }
 
 void Renderer::RenderSkinMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones) {
