@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     Managers().StartUp();
 
     // Load hymn from json file.
-    Hymn().Load(".");
+    Hymn().Load("./Game");
     
     // Load game settings from ini file.
     GameSettings::GetInstance().Load();
