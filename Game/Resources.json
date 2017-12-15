@@ -1329,6 +1329,10 @@
 							{
 								"script" : "monsterSoundScript",
 								"type" : 4
+							},
+							{
+								"script" : "StopMonstSound",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
