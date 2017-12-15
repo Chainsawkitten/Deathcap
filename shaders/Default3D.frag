@@ -24,7 +24,8 @@ struct Light {
     float ambientCoefficient;
     float coneAngle;
     float shadow;
-    float padding[2];
+    float distance;
+    float padding;
 };
 
 // --- BINDINGS ---
@@ -144,14 +145,21 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
             // Point light
             vec3 toLight = lights[i].position.xyz - pos;
             surfaceToLight = normalize(toLight);
-            attenuation = 1.0f / (1.0f + lights[i].attenuation * (toLight.x * toLight.x + toLight.y * toLight.y + toLight.z * toLight.z));
-
+            float lightDist = toLight.x * toLight.x + toLight.y * toLight.y + toLight.z * toLight.z;
+            attenuation = 1.0 / (1.0 + lights[i].attenuation * lightDist);
+            
+            // Fade-out close to cutoff distance.
+            lightDist = sqrt(lightDist) / lights[i].distance;
+            const float curveTransition = 0.7;
+            const float k = 1.0 / (1.0 - curveTransition);
+            attenuation *= clamp(k - k * lightDist, 0.0, 1.0);
+            
             // Spot light.
             if (lights[i].coneAngle < 179.0) {
                 if(lights[i].shadow > 0.1)
                     shadow = ShadowCalculation(vertexIn.fragPosLightSpace);
                 
-                float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(lights[i].direction)), -1.0f, 1.0f)));
+                float lightToSurfaceAngle = degrees(acos(clamp(dot(-surfaceToLight, normalize(lights[i].direction)), -1.0, 1.0)));
                 float fadeLength = 10.0;
                 if (lightToSurfaceAngle > lights[i].coneAngle - fadeLength) {
                     attenuation *= 1.0 - clamp(lightToSurfaceAngle - (lights[i].coneAngle - fadeLength), 0.0, fadeLength) / fadeLength;
@@ -167,18 +175,18 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
         // Cook-torrance brdf.
         float NDF = DistributionGGX(N, H, roughness);
         float G = GeometrySmith(N, V, surfaceToLight, roughness);
-        vec3 F = FresnelSchlick(max(dot(H, V), 0.0f), F0);
+        vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
         
         // Calculate specular.
         vec3 nominator = NDF * G * F;
-        float denominator = 4.0f * max(dot(N, V), 0.0f) * max(dot(N, surfaceToLight), 0.0f) + 0.001f;
+        float denominator = 4.0 * max(dot(N, V), 0.0) * max(dot(N, surfaceToLight), 0.0) + 0.001;
         vec3 specular = (nominator / denominator);
         
         // Energy of light that gets reflected.
         vec3 kS = F;
         
         // Energy of light that gets refracted (no refraction occurs when metallic).
-        vec3 kD = (vec3(1.0f) - kS) * (1.0f - metallic);
+        vec3 kD = (vec3(1.0) - kS) * (1.0 - metallic);
         
         // Calculate light contribution.
         float NdotL = max(dot(N, surfaceToLight), 0.0f);
@@ -197,7 +205,7 @@ vec3 ApplyLights(vec3 albedo, vec3 normal, float metallic, float roughness, vec3
 vec3 ApplyFog(vec3 pos, vec3 color) {
     float z = length(pos);
     float f = pow(M_E, -fogDensity * z);
-    return f * color + (1.0f - f) * fogColor;
+    return f * color + (1.0 - f) * fogColor;
 }
 
 highp float rand(vec2 co) {

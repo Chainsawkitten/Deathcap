@@ -87,7 +87,7 @@ RenderManager::~RenderManager() {
     delete renderer;
 }
 
-void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, Entity* camera, bool lighting) {
+void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, Entity* camera, bool lighting, bool lightVolumes) {
     // Find camera entity.
     if (camera == nullptr) {
         for (Lens* lens : lenses.GetAll())
@@ -123,7 +123,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
                         { VIDEO_ERROR_CHECK("Render world entities");
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting, lens->zNear, lens->zFar);
+                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting, lens->zNear, lens->zFar, lightVolumes);
                         }
                         }
                         }
@@ -193,7 +193,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
 
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting, lens->zNear, lens->zFar);
+                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting, lens->zNear, lens->zFar, lightVolumes);
                         }
                         }
 
@@ -257,7 +257,7 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, float cameraNear, float cameraFar) {
+void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, float cameraNear, float cameraFar, bool lightVolumes) {
     // Render from camera.
     glm::mat4 lightViewMatrix;
     glm::mat4 lightProjection;
@@ -269,11 +269,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         if (spotLight->shadow) {
             Entity* lightEntity = spotLight->entity;
             lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
-            
-            // Calculate how long the light reaches (given a certain cutoff value).
-            float cutOff = 0.01f;
-            float zFar = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
-            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), 1.0f, 0.01f, zFar);
+            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), 1.0f, 0.01f, spotLight->distance);
         }
     }
 
@@ -356,7 +352,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { GPUPROFILE("Update lights", Video::Query::Type::TIME_ELAPSED);
         if (lighting)
             // Cull lights and update light list.
-            LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix);
+            LightWorld(viewMatrix, viewProjectionMatrix, lightVolumes);
         else
             // Use full ambient light and ignore lights in the scene.
             LightAmbient();
@@ -603,6 +599,7 @@ Component::PointLight* RenderManager::CreatePointLight(const Json::Value& node) 
     pointLight->color = Json::LoadVec3(node["color"]);
     pointLight->attenuation = node.get("attenuation", 1.f).asFloat();
     pointLight->intensity = node.get("intensity", 1.f).asFloat();
+    pointLight->distance = node.get("distance", 1.f).asFloat();
 
     return pointLight;
 }
@@ -625,6 +622,7 @@ Component::SpotLight* RenderManager::CreateSpotLight(const Json::Value& node) {
     spotLight->intensity = node.get("intensity", 1.f).asFloat();
     spotLight->coneAngle = node.get("coneAngle", 15.f).asFloat();
     spotLight->shadow = node.get("shadow", false).asBool();
+    spotLight->distance = node.get("distance", 1.f).asFloat();
 
     return spotLight;
 }
@@ -719,10 +717,10 @@ uint16_t RenderManager::GetTextureReduction() const {
     return textureReduction;
 }
 
-void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
+void RenderManager::LightWorld(const glm::mat4& viewMatrix, const glm::mat4& viewProjectionMatrix, bool lightVolumes) {
     std::vector<Video::Light> lights;
 
-    Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
+    Video::AxisAlignedBoundingBox aabb(glm::vec3(2.f, 2.f, 2.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
     // Add all directional lights.
     for (Component::DirectionalLight* directionalLight : directionalLights.GetAll()) {
@@ -739,11 +737,9 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.coneAngle = 0.f;
         light.direction = glm::vec3(0.f, 0.f, 0.f);
         light.shadow = 0.f;
+        light.distance = 0.f;
         lights.push_back(light);
     }
-    
-    // At which lights should be cut off (no longer contribute).
-    float cutOff = 0.01f;
 
     // Add all spot lights.
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
@@ -751,11 +747,14 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             continue;
 
         Entity* lightEntity = spotLight->entity;
-        float scale = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
-        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
+        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * spotLight->distance);
 
+        //TMPTODO
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
+            if (lightVolumes)
+                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), spotLight->distance, glm::vec3(1.0f, 1.0f, 1.0f));
+
             glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             Video::Light light;
@@ -766,6 +765,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             light.coneAngle = spotLight->coneAngle;
             light.direction = glm::vec3(direction);
             light.shadow = spotLight->shadow ? 1.f : 0.f;
+            light.distance = spotLight->distance;
             lights.push_back(light);
         }
     }
@@ -776,11 +776,13 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             continue;
 
         Entity* lightEntity = pointLight->entity;
-        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation * pointLight->intensity);
-        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
+        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * pointLight->distance);
 
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
         if (frustum.Collide(aabb)) {
+            if (lightVolumes)
+                Managers().debugDrawingManager->AddSphere(lightEntity->GetWorldPosition(), pointLight->distance, glm::vec3(1.0f, 1.0f, 1.0f));
+
             glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
             Video::Light light;
             light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
@@ -790,6 +792,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             light.coneAngle = 180.f;
             light.direction = glm::vec3(1.f, 0.f, 0.f);
             light.shadow = 0.f;
+            light.distance = pointLight->distance;
             lights.push_back(light);
         }
     }
@@ -811,6 +814,7 @@ void RenderManager::LightAmbient() {
     light.coneAngle = 0.f;
     light.direction = glm::vec3(0.f, 0.f, 0.f);
     light.shadow = 0.f;
+    light.distance = 0.f;
     lights.push_back(light);
 
     // Update light buffer.
