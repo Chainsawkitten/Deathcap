@@ -2442,9 +2442,9 @@
 							"y" : 1.0,
 							"z" : 1.0
 						},
-						"distance" : 1.0,
+						"distance" : 2.7999999523162842,
 						"intensity" : 0.11400000751018524,
-						"useNewModel" : false
+						"useNewModel" : true
 					},
 					"children" : null,
 					"name" : "light",
