@@ -42,6 +42,15 @@ class Mastermind {
         RegisterUpdate();
 
         TurnOffLights();
+        
+        // Disable lights when not in VR.
+        // The player can't interact with the puzzle anyhow.
+        if (!IsVRActive()) {
+            light1.SetEnabled(false, false);
+            light2.SetEnabled(false, false);
+            light3.SetEnabled(false, false);
+            light4.SetEnabled(false, false);
+        }
     }
 
     // Called by the engine for each frame.
