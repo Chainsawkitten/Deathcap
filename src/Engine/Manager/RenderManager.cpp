@@ -352,7 +352,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { GPUPROFILE("Update lights", Video::Query::Type::TIME_ELAPSED);
         if (lighting)
             // Cull lights and update light list.
-            LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, lightVolumes);
+            LightWorld(viewMatrix, viewProjectionMatrix, lightVolumes);
         else
             // Use full ambient light and ignore lights in the scene.
             LightAmbient();
@@ -719,7 +719,7 @@ uint16_t RenderManager::GetTextureReduction() const {
     return textureReduction;
 }
 
-void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix, bool lightVolumes) {
+void RenderManager::LightWorld(const glm::mat4& viewMatrix, const glm::mat4& viewProjectionMatrix, bool lightVolumes) {
     std::vector<Video::Light> lights;
 
     float cutOff;
