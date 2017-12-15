@@ -29,12 +29,19 @@ int main(int argc, char* argv[]) {
     Log() << "Game started - " << time(nullptr) << "\n";
 
     bool testing = false;
+    bool frameLimit = false;
 
     // Quick fix in order to implement a testing parameter, 
     for (int i = 1; i < argc; i++) {
         if (std::string(argv[i]) == "t") {
             testing = true;
+            frameLimit = true;
             Log() << "Frame and memory testing enabled\n";
+        }
+        
+        if (std::string(argv[i]) == "dq") {
+            testing = true;
+            Log() << "Testing enabled. You'll have to quit manually.\n";
         }
     }
     
@@ -79,7 +86,7 @@ int main(int argc, char* argv[]) {
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
     double lastTimeRender = glfwGetTime();
-    while ((!window->ShouldClose() && !testing) || (testing && (numberOfFrames < 600)) ) {
+    while ((!window->ShouldClose() && !frameLimit) || (frameLimit && (numberOfFrames < 600)) ) {
         double deltaTime = glfwGetTime() - lastTime;
         lastTime = glfwGetTime();
 

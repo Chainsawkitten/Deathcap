@@ -21,6 +21,6 @@ void GameSettings::Load() {
     ini.SetUnicode(true);
     ini.LoadFile(FileSystem::DataPath(Hymn().name.c_str(), "Settings.ini").c_str());
     
-    AddLongSetting("Texture Reduction", "Graphics", "Texture Reduction", 0);
+    AddLongSetting("Texture Reduction", "Graphics", "Texture Reduction", 1);
     AddLongSetting("Shadow Map Size", "Graphics", "Shadow Map Size", 1024);
 }
