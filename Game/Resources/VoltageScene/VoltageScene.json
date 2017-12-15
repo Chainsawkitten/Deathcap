@@ -539,6 +539,7 @@
 					"y" : 1.0,
 					"z" : 1.0
 				},
+				"distance" : 15.0,
 				"intensity" : 159.5570068359375
 			},
 			"Script" : 
@@ -2863,6 +2864,7 @@
 							"z" : 1.0
 						},
 						"coneAngle" : 15.0,
+						"distance" : 0.89999997615814209,
 						"intensity" : 200.0,
 						"shadow" : false
 					},
@@ -2903,6 +2905,7 @@
 							"z" : 1.0
 						},
 						"coneAngle" : 15.0,
+						"distance" : 0.89999997615814209,
 						"intensity" : 200.0,
 						"shadow" : false
 					},
@@ -2943,6 +2946,7 @@
 							"z" : 1.0
 						},
 						"coneAngle" : 15.0,
+						"distance" : 0.89999997615814209,
 						"intensity" : 200.0,
 						"shadow" : false
 					},
@@ -2983,6 +2987,7 @@
 							"z" : 1.0
 						},
 						"coneAngle" : 15.0,
+						"distance" : 0.89999997615814209,
 						"intensity" : 200.0,
 						"shadow" : false
 					},
@@ -4186,6 +4191,7 @@
 					"z" : 1.0
 				},
 				"coneAngle" : 34.047000885009766,
+				"distance" : 3.5,
 				"intensity" : 60.0,
 				"shadow" : false
 			},

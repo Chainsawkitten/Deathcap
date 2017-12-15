@@ -12,6 +12,7 @@
 #include <typeindex>
 #include <sstream>
 #include <cstring>
+#include <cstdlib>
 #include <iostream>
 
 #include "../Util/FileSystem.hpp"
@@ -498,6 +499,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsVRActive()", asFUNCTION(IsVRActive), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void exit(int)", asFUNCTION(exit), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {

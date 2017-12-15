@@ -49,8 +49,9 @@ class RenderManager {
          * @param physics Whether to show physics volumes.
          * @param camera Camera through which to render (or first camera in the world if nullptr).
          * @param lighting Whether to light the scene (otherwise full ambient is used).
+         * @param lightVolumes Whether to show light culling volumes.
          */
-        ENGINE_API void Render(World& world, DISPLAY targetDisplay, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr, bool lighting = true);
+        ENGINE_API void Render(World& world, DISPLAY targetDisplay, bool soundSources = true, bool particleEmitters = true, bool lightSources = true, bool cameras = true, bool physics = true, Entity* camera = nullptr, bool lighting = true, bool lightVolumes = false);
         
         /// Update all the animations in the scene.
         /**
@@ -321,11 +322,11 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
 
-        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting);
+        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, float cameraNear, float cameraFar, bool lightVolumes);
 
         void RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
 
-        void LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix);
+        void LightWorld(const glm::mat4& viewMatrix, const glm::mat4& viewProjectionMatrix, bool lightVolumes);
         void LightAmbient();
 
         void LoadTexture(TextureAsset*& texture, const std::string& name);
