@@ -13,7 +13,6 @@ class elevator_backDoorCon {
         @doorWithX = GetEntityByGUID(1511870598);
         @doorWithService = GetEntityByGUID(1511870668);
         openDoor = false;
-		openingDoor = false;
         speed = 0.5f;
         // Remove this if updates are not desired.
         RegisterUpdate();
