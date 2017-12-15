@@ -4124,7 +4124,9 @@
 					"y" : 0.098039217293262482,
 					"z" : 0.0078431377187371254
 				},
-				"intensity" : 1.440000057220459
+				"distance" : 15.0,
+				"intensity" : 1.440000057220459,
+				"useNewModel" : true
 			},
 			"children" : null,
 			"name" : "light",
@@ -5151,7 +5153,7 @@
 			"SpotLight" : 
 			{
 				"ambientCoefficient" : 0.0,
-				"attenuation" : 0.0,
+				"attenuation" : 2.7940001487731934,
 				"color" : 
 				{
 					"x" : 1.0,
@@ -5159,8 +5161,10 @@
 					"z" : 0.18823529779911041
 				},
 				"coneAngle" : 23.604001998901367,
+				"distance" : 4.0,
 				"intensity" : 3.1540000438690186,
-				"shadow" : false
+				"shadow" : false,
+				"useNewModel" : true
 			},
 			"children" : null,
 			"name" : "elevator_light",
