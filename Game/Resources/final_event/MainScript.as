@@ -163,7 +163,7 @@ class MainScript {
         else
             print("Player was eaten alive.\n");
         
-        camera.SetWorldPosition(resultScene.GetWorldPosition());
+        camera.GetParent().SetWorldPosition(resultScene.GetWorldPosition());
         hub.renderManager.SetColorFilterColor(vec3(1.0f, 1.0f, 1.0f));
         hub.renderManager.SetFogDensity(0.0f);
         
