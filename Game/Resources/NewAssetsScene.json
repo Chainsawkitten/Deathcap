@@ -2620,6 +2620,106 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1513073450
+		},
+		{
+			"Script" : 
+			{
+				"propertyMap" : 
+				{
+					"monsterSound" : 
+					{
+						"1140850709" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"scriptName" : "Resources/NewAssets/Scripts/StopMonstSound"
+			},
+			"children" : null,
+			"name" : "StopMonsterSound",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513087419
+		},
+		{
+			"Shape" : 
+			{
+				"box" : 
+				{
+					"depth" : 2.0,
+					"height" : 2.0,
+					"width" : 2.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 1,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 7,
+				"triggerFunction" : "void StopMonsterSound()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1513324914,
+				"triggerTargetEntity" : 1513087419,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "StopMonsterSoundTrigger",
+			"position" : 
+			{
+				"x" : 10.681496620178223,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513324914
 		}
 	],
 	"name" : "Root",
