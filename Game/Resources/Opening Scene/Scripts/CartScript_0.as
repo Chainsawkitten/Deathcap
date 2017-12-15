@@ -3,6 +3,7 @@ class CartScript_0 {
     Entity @self;
     Entity @leverHandle;
     Entity @rightHand;
+	Entity @leverBox;
     float speed;
     vec3 tempPos;
 
@@ -11,6 +12,7 @@ class CartScript_0 {
         @self = GetEntityByGUID(1508919384);
         @rightHand = GetEntityByGUID(1508919758);
         @leverHandle=GetEntityByGUID(1512740944);
+		@leverBox = GetEntityByGUID(1512740951);
         
         speed = 2.0f;
      
@@ -19,8 +21,10 @@ class CartScript_0 {
     }
 
     void PullLever() {
-        if (Input(Trigger, rightHand))
+        if (Input(Trigger, rightHand)) {
             leverHandle.RotatePitch(0.01f);
+			leverBox.GetSoundSource().Play();
+		}
     }
 
     // Called by the engine for each frame.

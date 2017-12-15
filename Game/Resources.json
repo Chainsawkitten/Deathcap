@@ -1,5 +1,5 @@
 {
-	"activeScene" : "Resources/Super Scene/Super Scene",
+	"activeScene" : "Resources/Opening Scene/Opening Scene",
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
@@ -178,6 +178,10 @@
 							{
 								"model" : "stone-soundmesh",
 								"type" : 1
+							},
+							{
+								"sound" : "lever-pull-sound",
+								"type" : 3
 							}
 						],
 						"subfolders" : null
@@ -2196,6 +2200,6 @@
 	"sceneNumber" : 35,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
-	"soundNumber" : 27,
+	"soundNumber" : 28,
 	"textureNumber" : 155
 }

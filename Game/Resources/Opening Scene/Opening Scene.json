@@ -1688,6 +1688,7 @@
 					"y" : 0.80392158031463623,
 					"z" : 0.45882353186607361
 				},
+				"distance" : 1.0,
 				"intensity" : 0.16100001335144043
 			},
 			"children" : null,
@@ -1763,6 +1764,12 @@
 			"Mesh" : 
 			{
 				"model" : "Resources/Opening Scene/Lever/Models/leverbox"
+			},
+			"SoundSource" : 
+			{
+				"loop" : false,
+				"sound" : "Resources/Opening Scene/Audio/lever-pull-sound",
+				"volume" : 1.0
 			},
 			"children" : null,
 			"name" : "leverbox",
