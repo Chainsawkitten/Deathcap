@@ -3,7 +3,7 @@
 	"animationClipNumber" : 4,
 	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 195,
+	"modelNumber" : 196,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -32,6 +32,14 @@
 			{
 				"scene" : "stalctite_scene",
 				"type" : 0
+			},
+			{
+				"scene" : "balk_scene",
+				"type" : 0
+			},
+			{
+				"model" : "pillars_fixed",
+				"type" : 1
 			}
 		],
 		"subfolders" : 
@@ -622,6 +630,10 @@
 									},
 									{
 										"script" : "RailAudioPlayer",
+										"type" : 4
+									},
+									{
+										"script" : "MinecartLightScript",
 										"type" : 4
 									}
 								],
@@ -1329,6 +1341,10 @@
 							{
 								"script" : "monsterSoundScript",
 								"type" : 4
+							},
+							{
+								"script" : "StopMonstSound",
+								"type" : 4
 							}
 						],
 						"subfolders" : null
@@ -1897,7 +1913,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "VoltageTubes",
+								"model" : "voltagetube",
 								"type" : 1
 							},
 							{
@@ -2189,7 +2205,7 @@
 			}
 		]
 	},
-	"sceneNumber" : 35,
+	"sceneNumber" : 36,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
 	"soundNumber" : 27,

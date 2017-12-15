@@ -1420,7 +1420,54 @@
 						"sound" : "Resources/elevatorScene/Sounds/sndElevatorOpen",
 						"volume" : 1.0
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Shape" : 
+							{
+								"sphere" : 
+								{
+									"radius" : 0.30000001192092896
+								}
+							},
+							"children" : null,
+							"name" : "backdoorWithXTrigger",
+							"position" : 
+							{
+								"x" : 0.11700000613927841,
+								"y" : 0.68600004911422729,
+								"z" : -1.0542447566986084
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1513329576
+						}
+					],
 					"name" : "backDoorWithX",
 					"position" : 
 					{
@@ -1878,6 +1925,61 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1512552496
+				},
+				{
+					"Shape" : 
+					{
+						"sphere" : 
+						{
+							"radius" : 1.5000001192092896
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1513329576,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 3,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 2,
+						"triggerFunction" : "void CloseDoor()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1513330639,
+						"triggerTargetEntity" : 1511958482,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "StopDoorTrigger",
+					"position" : 
+					{
+						"x" : 2.0448732376098633,
+						"y" : 12.433205604553223,
+						"z" : -3.4681401252746582
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1513330639
 				}
 			],
 			"name" : "Triggers",
@@ -4056,16 +4158,16 @@
 			"name" : "PuzzleBoardPivot",
 			"position" : 
 			{
-				"x" : 1.348452091217041,
+				"x" : 0.59799051284790039,
 				"y" : -9.6754302978515625,
-				"z" : 0.15000000596046448
+				"z" : -1.5074682235717773
 			},
 			"rotation" : 
 			{
-				"w" : -4.371138473402425e-08,
-				"x" : -4.3711391839451608e-08,
-				"y" : 1.0,
-				"z" : -4.3711391839451608e-08
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : -0.70710676908493042,
+				"z" : 0.0
 			},
 			"scale" : 
 			{
@@ -4113,44 +4215,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512380350
-		},
-		{
-			"PointLight" : 
-			{
-				"attenuation" : 0.24900001287460327,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 0.098039217293262482,
-					"z" : 0.0078431377187371254
-				},
-				"distance" : 15.0,
-				"intensity" : 1.440000057220459
-			},
-			"children" : null,
-			"name" : "light",
-			"position" : 
-			{
-				"x" : 2.3835341930389404,
-				"y" : 8.8992271423339844,
-				"z" : 0.85008049011230469
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512380719
 		},
 		{
 			"Material" : 
@@ -4622,357 +4686,6 @@
 			"uid" : 1512553218
 		},
 		{
-			"Script" : 
-			{
-				"scriptName" : "Resources/elevatorScene/Scripts/Particals"
-			},
-			"children" : 
-			[
-				{
-					"ParticleSystem" : 
-					{
-						"NrOfParticles" : 311,
-						"alphaControl" : 10.0,
-						"emitAmount" : 1,
-						"lifetime" : 1000.0000610351563,
-						"mass" : 0.0010000000474974513,
-						"randomVelocity" : 
-						{
-							"x" : -10.0,
-							"y" : -10.0,
-							"z" : 10.0
-						},
-						"rate" : 0.30000001192092896,
-						"scale" : 0.10000000149011612,
-						"speed" : 0.010000000707805157,
-						"spread" : 100,
-						"textureIndex" : 39,
-						"velocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						}
-					},
-					"children" : null,
-					"name" : "Particals1",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : -0.42400002479553223,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512562692
-				},
-				{
-					"ParticleSystem" : 
-					{
-						"NrOfParticles" : 300,
-						"alphaControl" : 10.0,
-						"emitAmount" : 1,
-						"lifetime" : 644.00006103515625,
-						"mass" : 0.0040000001899898052,
-						"randomVelocity" : 
-						{
-							"x" : 2.0,
-							"y" : 10.0,
-							"z" : -10.0
-						},
-						"rate" : 1.0,
-						"scale" : 0.10000000149011612,
-						"speed" : 0.010000000707805157,
-						"spread" : 1,
-						"textureIndex" : 8,
-						"velocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						}
-					},
-					"children" : null,
-					"name" : "Particals4",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : -0.083000004291534424,
-						"z" : -0.33900001645088196
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512565200
-				}
-			],
-			"name" : "ParticalParent",
-			"position" : 
-			{
-				"x" : 1.0820000171661377,
-				"y" : -8.9860000610351563,
-				"z" : 0.13000001013278961
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512564077
-		},
-		{
-			"Script" : 
-			{
-				"scriptName" : "Resources/elevatorScene/Scripts/Particals2"
-			},
-			"children" : 
-			[
-				{
-					"ParticleSystem" : 
-					{
-						"NrOfParticles" : 300,
-						"alphaControl" : 3.1000001430511475,
-						"emitAmount" : 31,
-						"lifetime" : 17.010000228881836,
-						"mass" : 0.017000000923871994,
-						"randomVelocity" : 
-						{
-							"x" : 10.0,
-							"y" : -9.0,
-							"z" : 10.0
-						},
-						"rate" : 0.0,
-						"scale" : 0.10000000149011612,
-						"speed" : 0.010000000707805157,
-						"spread" : 1,
-						"textureIndex" : 26,
-						"velocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						}
-					},
-					"children" : null,
-					"name" : "Particals3",
-					"position" : 
-					{
-						"x" : 0.24100001156330109,
-						"y" : 0.099000006914138794,
-						"z" : -0.024000000208616257
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512564991
-				},
-				{
-					"ParticleSystem" : 
-					{
-						"NrOfParticles" : 167,
-						"alphaControl" : 10.0,
-						"emitAmount" : 1,
-						"lifetime" : 1000.0000610351563,
-						"mass" : 0.0010000000474974513,
-						"randomVelocity" : 
-						{
-							"x" : 10.0,
-							"y" : 10.0,
-							"z" : 10.0
-						},
-						"rate" : 0.0,
-						"scale" : 0.10000000149011612,
-						"speed" : 0.010000000707805157,
-						"spread" : 100,
-						"textureIndex" : 4,
-						"velocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						}
-					},
-					"children" : null,
-					"name" : "Particals2",
-					"position" : 
-					{
-						"x" : -0.20100000500679016,
-						"y" : 0.39800003170967102,
-						"z" : 0.01100000087171793
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512564769
-				}
-			],
-			"name" : "ParticalParent2",
-			"position" : 
-			{
-				"x" : 1.0820000171661377,
-				"y" : -8.9860000610351563,
-				"z" : 0.13000001013278961
-			},
-			"rotation" : 
-			{
-				"w" : -4.3711391839451608e-08,
-				"x" : -4.371138473402425e-08,
-				"y" : -1.0,
-				"z" : -4.371138473402425e-08
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512565858
-		},
-		{
-			"Script" : 
-			{
-				"scriptName" : "Resources/elevatorScene/Scripts/Particals3"
-			},
-			"children" : 
-			[
-				{
-					"ParticleSystem" : 
-					{
-						"NrOfParticles" : 400,
-						"alphaControl" : 10.0,
-						"emitAmount" : 4,
-						"lifetime" : 764.00006103515625,
-						"mass" : 0.0010000000474974513,
-						"randomVelocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"rate" : 0.30000001192092896,
-						"scale" : 0.10000000149011612,
-						"speed" : 1.0,
-						"spread" : 100,
-						"textureIndex" : 24,
-						"velocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						}
-					},
-					"children" : null,
-					"name" : "Partical5",
-					"position" : 
-					{
-						"x" : -0.67900002002716064,
-						"y" : 0.52000004053115845,
-						"z" : 0.054000001400709152
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512566530
-				}
-			],
-			"name" : "ParticalParent5",
-			"position" : 
-			{
-				"x" : 1.8690073490142822,
-				"y" : -9.4693670272827148,
-				"z" : 0.12999999523162842
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512566495
-		},
-		{
 			"children" : 
 			[
 				{
@@ -5149,21 +4862,6 @@
 			"uid" : 1513069608
 		},
 		{
-			"SpotLight" : 
-			{
-				"ambientCoefficient" : 0.0,
-				"attenuation" : 2.7940001487731934,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 0.31764706969261169,
-					"z" : 0.18823529779911041
-				},
-				"coneAngle" : 23.604001998901367,
-				"distance" : 4.0,
-				"intensity" : 3.1540000438690186,
-				"shadow" : false
-			},
 			"children" : null,
 			"name" : "elevator_light",
 			"position" : 
@@ -5225,6 +4923,228 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512999060
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "ExitRocks1",
+			"position" : 
+			{
+				"x" : 18.702365875244141,
+				"y" : 11.631180763244629,
+				"z" : 4.0132780075073242
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 23.486249923706055,
+				"y" : 27.296962738037109,
+				"z" : 18.455219268798828
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513337797
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "ExitRocks2",
+			"position" : 
+			{
+				"x" : 18.142078399658203,
+				"y" : 16.908073425292969,
+				"z" : 3.0236396789550781
+			},
+			"rotation" : 
+			{
+				"w" : -0.45003253221511841,
+				"x" : 0.89301127195358276,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 20.0,
+				"y" : 20.0,
+				"z" : 20.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513338090
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "ExitRocks3",
+			"position" : 
+			{
+				"x" : 17.585454940795898,
+				"y" : 14.324833869934082,
+				"z" : -2.9834916591644287
+			},
+			"rotation" : 
+			{
+				"w" : 0.025025429204106331,
+				"x" : 0.014253680594265461,
+				"y" : -0.86857819557189941,
+				"z" : -0.49471458792686462
+			},
+			"scale" : 
+			{
+				"x" : 20.0,
+				"y" : 20.0,
+				"z" : 20.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513338190
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "ExitRocks4",
+			"position" : 
+			{
+				"x" : 18.568618774414063,
+				"y" : 17.563934326171875,
+				"z" : -1.3867509365081787
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 20.0,
+				"y" : 20.0,
+				"z" : 20.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513338316
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "ExitRocks5",
+			"position" : 
+			{
+				"x" : 11.451681137084961,
+				"y" : 25.503068923950195,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 100.0,
+				"y" : 127.73129272460938,
+				"z" : 100.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513338708
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "ExitRocks6",
+			"position" : 
+			{
+				"x" : 15.829602241516113,
+				"y" : 13.964229583740234,
+				"z" : -10.968006134033203
+			},
+			"rotation" : 
+			{
+				"w" : 0.60396885871887207,
+				"x" : 0.10754108428955078,
+				"y" : 0.77749025821685791,
+				"z" : 0.13843785226345062
+			},
+			"scale" : 
+			{
+				"x" : 49.999977111816406,
+				"y" : 75.181373596191406,
+				"z" : 49.999977111816406
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513338846
 		}
 	],
 	"name" : "Root",

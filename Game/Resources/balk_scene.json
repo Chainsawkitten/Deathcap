@@ -1,0 +1,65 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/pillars_fixed"
+			},
+			"children" : null,
+			"name" : "balk_mesh",
+			"position" : 
+			{
+				"x" : 3.7252902984619141e-09,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : -0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.2000000476837158,
+				"y" : 1.2000000476837158,
+				"z" : 3.2000000476837158
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513335279
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1513335248
+}

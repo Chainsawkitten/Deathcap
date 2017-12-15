@@ -16,6 +16,12 @@ class Controller {
         @animCtrl = childModel.GetAnimationController();
         pickUp = false;
 
+        if(IsVRActive() && self.GetUniqueIdentifier() == 1508919751) {
+            SendMessage(lantern, 1);
+            animCtrl.SetBool("Closed", true);
+            animCtrl.SetBool("Open", false);
+        }
+
         // Remove this if updates are not desired.
         RegisterUpdate();
     }
@@ -26,36 +32,31 @@ class Controller {
             self.position.y = -3;
             self.position.x = -1;
         }
-        
-        if (!Input(Trigger, self)) {
+
+        if (!Input(Trigger, self) && self.GetUniqueIdentifier() != 1508919751) {
             animCtrl.SetBool("Open", true);
             animCtrl.SetBool("Closed", false);
-            childModel.SetEnabled(true, false);     
-            
+            childModel.SetEnabled(true, false);
+
             if (isPressed) {
                 isPressed = false;
                 SendMessage(rock, 2);
             }
-            
-            if (pickUp) {
-                pickUp = false;
-                SendMessage(lantern, 2);
-            } 
         }
         
-        if (Input(Trigger, self)) {
+        if (Input(Trigger, self) && self.GetUniqueIdentifier() != 1508919751) {
             animCtrl.SetBool("Open", false);
             animCtrl.SetBool("Closed", true);
         }
     }
-    
+
     void OnLanternTrigger() {
         if(Input(Trigger, self) && pickUp == false){
             pickUp = true;
             SendMessage(lantern, 1);
         }
     }
-    
+
     void ReceiveMessage(Entity @sender, int i) {
         if (i == 1) {
             childModel.SetEnabled(true, false);
