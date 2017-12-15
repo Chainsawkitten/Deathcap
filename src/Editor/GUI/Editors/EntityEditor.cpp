@@ -438,6 +438,7 @@ void EntityEditor::PointLightEditor(Component::PointLight* pointLight) {
     ImGui::ColorEdit3("Color", &pointLight->color[0]);
     ImGui::DraggableFloat("Attenuation", pointLight->attenuation, 0.0f);
     ImGui::DraggableFloat("Intensity", pointLight->intensity, 0.0f);
+    ImGui::DraggableFloat("Distance", pointLight->distance, 0.0f);
     ImGui::Unindent();
 }
 
@@ -449,6 +450,7 @@ void EntityEditor::SpotLightEditor(Component::SpotLight* spotLight) {
     ImGui::DraggableFloat("Intensity", spotLight->intensity, 0.0f);
     ImGui::DraggableFloat("Cone angle", spotLight->coneAngle, 0.0f, 180.f);
     ImGui::Checkbox("Gives shadows", &spotLight->shadow);
+    ImGui::DraggableFloat("Distance", spotLight->distance, 0.0f);
     ImGui::Unindent();
 }
 
