@@ -102,7 +102,8 @@ int main() {
                               EditorSettings::GetInstance().GetBool("Light Source Icons"),
                               EditorSettings::GetInstance().GetBool("Camera Icons"),
                               EditorSettings::GetInstance().GetBool("Physics Volumes"),
-                              EditorSettings::GetInstance().GetBool("Lighting"));
+                              EditorSettings::GetInstance().GetBool("Lighting"),
+                              EditorSettings::GetInstance().GetBool("Light Volumes"));
 
                 if (window->ShouldClose())
                     editor->Close();

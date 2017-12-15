@@ -32,7 +32,10 @@ namespace Component {
         /// Angle of the cone (in degrees).
         float coneAngle = 15.f;
 
-        ///Whether the light should create shadows.
+        /// Whether the light should create shadows.
         bool shadow = false;
+
+        /// Distance.
+        float distance = 1.f;
     };
 } // namespace Component
