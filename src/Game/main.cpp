@@ -61,6 +61,7 @@ int main(int argc, char* argv[]) {
     // Load game settings from ini file.
     GameSettings::GetInstance().Load();
     Managers().renderManager->SetTextureReduction(static_cast<uint16_t>(GameSettings::GetInstance().GetLong("Texture Reduction")));
+    Managers().renderManager->SetShadowMapSize(GameSettings::GetInstance().GetLong("Shadow Map Size"));
     
     // Load world.
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");
@@ -76,7 +77,7 @@ int main(int argc, char* argv[]) {
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
     double lastTimeRender = glfwGetTime();
-    while (!window->ShouldClose() && numberOfFrames < 600) {
+    while ((!window->ShouldClose() && !testing) || (testing && (numberOfFrames < 600)) ) {
         double deltaTime = glfwGetTime() - lastTime;
         lastTime = glfwGetTime();
 

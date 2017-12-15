@@ -302,6 +302,18 @@ class RenderManager {
          * @param SetBloodApply Whether to apply blood.
          */
         ENGINE_API void SetBloodApply(bool SetBloodApply);
+        
+        /// Get the number of lights currently being rendered.
+        /**
+         * @return Then number of lights being rendered.
+         */
+        ENGINE_API unsigned int GetLightCount() const;
+        
+        /// Set the size of the shadow map.
+        /**
+         * @param shadowMapSize The size of the shadow map.
+         */
+        ENGINE_API void SetShadowMapSize(unsigned int shadowMapSize);
 
     private:
         RenderManager();
@@ -309,7 +321,7 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
 
-        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting);
+        void RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, float cameraNear, float cameraFar);
 
         void RenderEditorEntities(World& world, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface);
 
@@ -341,4 +353,5 @@ class RenderManager {
         ComponentContainer<Component::SpotLight> spotLights;
         
         uint8_t textureReduction = 0;
+        unsigned int lightCount = 0;
 };

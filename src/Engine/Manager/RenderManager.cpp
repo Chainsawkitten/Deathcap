@@ -114,7 +114,8 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
                     // Render main window.
                     { PROFILE("Render main window");
                     { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-                        const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                        Lens* lens = camera->GetComponent<Lens>();
+                        const glm::mat4 projectionMatrix = lens->GetProjection(mainWindowRenderSurface->GetSize());
                         const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
                         const glm::vec3 position = camera->GetWorldPosition();
                         const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
@@ -122,7 +123,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
                         { VIDEO_ERROR_CHECK("Render world entities");
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting);
+                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting, lens->zNear, lens->zFar);
                         }
                         }
                         }
@@ -192,7 +193,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
 
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting);
+                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting, lens->zNear, lens->zFar);
                         }
                         }
 
@@ -256,11 +257,10 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting) {
+void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, float cameraNear, float cameraFar) {
     // Render from camera.
     glm::mat4 lightViewMatrix;
     glm::mat4 lightProjection;
-    float aspectRatio = static_cast<float>(shadowPass->GetShadowWidth()) / shadowPass->GetShadowHeight();
 
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
         if (spotLight->IsKilled() || !spotLight->entity->IsEnabled())
@@ -269,8 +269,11 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         if (spotLight->shadow) {
             Entity* lightEntity = spotLight->entity;
             lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
-            // Will use range 50.f on the projection, no support for spotlight length. 
-            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.01f, 50.0f);
+            
+            // Calculate how long the light reaches (given a certain cutoff value).
+            float cutOff = 0.01f;
+            float zFar = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
+            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), 1.0f, 0.01f, zFar);
         }
     }
 
@@ -285,7 +288,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
     { GPUPROFILE("Render shadow meshes", Video::Query::Type::TIME_ELAPSED);
     { GPUPROFILE("Render shadow meshes", Video::Query::Type::SAMPLES_PASSED);
         // Static meshes.
-        renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        renderer->PrepareStaticShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowMapSize(), shadowPass->GetDepthMapFbo());
         for (Mesh* mesh : meshComponents) {
             Entity* entity = mesh->entity;
             if (entity->IsKilled() || !entity->IsEnabled())
@@ -295,7 +298,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
                 renderer->ShadowRenderStaticMesh(mesh->geometry, lightViewMatrix, lightProjection, entity->GetModelMatrix());
         }
         // Skin meshes.
-        renderer->PrepareSkinShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowWidth(), shadowPass->GetShadowHeight(), shadowPass->GetDepthMapFbo());
+        renderer->PrepareSkinShadowRendering(lightViewMatrix, lightProjection, shadowPass->GetShadowID(), shadowPass->GetShadowMapSize(), shadowPass->GetDepthMapFbo());
         for (AnimationController* controller : controllerComponents) {
             Entity* entity = controller->entity;
             if (entity->IsKilled() || !entity->IsEnabled())
@@ -371,7 +374,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         { PROFILE("Static meshes");
         { GPUPROFILE("Static meshes", Video::Query::Type::TIME_ELAPSED);
         { GPUPROFILE("Static meshes", Video::Query::Type::SAMPLES_PASSED);
-            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix, cameraNear, cameraFar);
             for (Mesh* mesh : meshComponents) {
                 Entity* entity = mesh->entity;
                 if (entity->IsKilled() || !entity->IsEnabled())
@@ -393,7 +396,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         { PROFILE("Skin meshes");
         { GPUPROFILE("Skin meshes", Video::Query::Type::TIME_ELAPSED);
         { GPUPROFILE("Skin meshes", Video::Query::Type::SAMPLES_PASSED);
-            renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix);
+            renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix, cameraNear, cameraFar);
             for (AnimationController* controller : controllerComponents) {
                 Entity* entity = controller->entity;
                 if (entity->IsKilled() || !entity->IsEnabled())
@@ -700,6 +703,14 @@ void RenderManager::SetBloodApply(bool SetBloodApply) {
    renderer->SetBloodApply(SetBloodApply);
 }
 
+unsigned int RenderManager::GetLightCount() const {
+    return lightCount;
+}
+
+void RenderManager::SetShadowMapSize(unsigned int shadowMapSize) {
+    shadowPass->SetShadowMapSize(shadowMapSize);
+}
+
 void RenderManager::SetTextureReduction(uint16_t textureReduction) {
     this->textureReduction = static_cast<uint8_t>(textureReduction);
 }
@@ -711,7 +722,6 @@ uint16_t RenderManager::GetTextureReduction() const {
 void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4& viewProjectionMatrix) {
     std::vector<Video::Light> lights;
 
-    float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f));
 
     // Add all directional lights.
@@ -731,6 +741,9 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
         light.shadow = 0.f;
         lights.push_back(light);
     }
+    
+    // At which lights should be cut off (no longer contribute).
+    float cutOff = 0.01f;
 
     // Add all spot lights.
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {
@@ -738,21 +751,24 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             continue;
 
         Entity* lightEntity = spotLight->entity;
-        glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
-        glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
-        Video::Light light;
-        light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
-        light.intensities = spotLight->color * spotLight->intensity;
-        light.attenuation = spotLight->attenuation;
-        light.ambientCoefficient = spotLight->ambientCoefficient;
-        light.coneAngle = spotLight->coneAngle;
-        light.direction = glm::vec3(direction);
-        light.shadow = spotLight->shadow ? 1.f : 0.f;
-        lights.push_back(light);
-    }
+        float scale = sqrt((1.f / cutOff - 1.f) / spotLight->attenuation * spotLight->intensity);
+        glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
 
-    // At which point lights should be cut off (no longer contribute).
-    cutOff = 0.0001f;
+        Video::Frustum frustum(viewProjectionMatrix * modelMat);
+        if (frustum.Collide(aabb)) {
+            glm::vec4 direction(viewMatrix * glm::vec4(lightEntity->GetDirection(), 0.f));
+            glm::mat4 modelMatrix(lightEntity->GetModelMatrix());
+            Video::Light light;
+            light.position = viewMatrix * (glm::vec4(glm::vec3(modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]), 1.0));
+            light.intensities = spotLight->color * spotLight->intensity;
+            light.attenuation = spotLight->attenuation;
+            light.ambientCoefficient = spotLight->ambientCoefficient;
+            light.coneAngle = spotLight->coneAngle;
+            light.direction = glm::vec3(direction);
+            light.shadow = spotLight->shadow ? 1.f : 0.f;
+            lights.push_back(light);
+        }
+    }
 
     // Add all point lights.
     for (Component::PointLight* pointLight : pointLights.GetAll()) {
@@ -760,7 +776,7 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             continue;
 
         Entity* lightEntity = pointLight->entity;
-        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation);
+        float scale = sqrt((1.f / cutOff - 1.f) / pointLight->attenuation * pointLight->intensity);
         glm::mat4 modelMat = glm::translate(glm::mat4(), lightEntity->GetWorldPosition()) * glm::scale(glm::mat4(), glm::vec3(1.f, 1.f, 1.f) * scale);
 
         Video::Frustum frustum(viewProjectionMatrix * modelMat);
@@ -777,7 +793,9 @@ void RenderManager::LightWorld(World& world, const glm::mat4& viewMatrix, const 
             lights.push_back(light);
         }
     }
-
+    
+    lightCount = lights.size();
+    
     // Update light buffer.
     renderer->SetLights(lights);
 }

@@ -40,11 +40,10 @@ namespace Video {
              * @param lightView The lights view matrix
              * @param lightProjection the Lights projection matrix
              * @param shadowId the texture ID for the shadowMap
-             * @param shadowWidth size x of shadowMap
-             * @param shadowHeight size y of shadowMap
+             * @param shadowMapSize The size of the shadow map.
              * @param depthFbo framebuffer object for shadowMap
              */
-            VIDEO_API void PrepareStaticShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int dephtFbo);
+            VIDEO_API void PrepareStaticShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, unsigned int shadowMapSize, int dephtFbo);
 
             /// Render a static shadow mesh.
             /**
@@ -75,8 +74,10 @@ namespace Video {
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
+             * @param cameraNear Camera near plane distance.
+             * @param cameraFar Camera far plane distance.
              */
-            VIDEO_API void PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            VIDEO_API void PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, float cameraNear, float cameraFar);
 
             /// Render a static mesh.
             /**
@@ -94,11 +95,10 @@ namespace Video {
              * @param lightView The lights view matrix
              * @param lightProjection the Lights projection matrix
              * @param shadowId the texture ID for the shadowMap
-             * @param shadowWidth size x of shadowMap
-             * @param shadowHeight size y of shadowMap
+             * @param shadowMapSize The size of the shadow map.
              * @param depthFbo framebuffer object for shadowMap
             */
-            VIDEO_API void PrepareSkinShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, int shadowWidth, int shadowHeight, int dephtFbo);
+            VIDEO_API void PrepareSkinShadowRendering(const glm::mat4 lightView, glm::mat4 lightProjection, int shadowId, unsigned int shadowMapSize, int dephtFbo);
 
             /// Prepare for depth rendering skin meshes.
             /**
@@ -121,8 +121,10 @@ namespace Video {
             /**
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
+             * @param cameraNear Camera near plane distance.
+             * @param cameraFar Camera far plane distance.
              */
-            VIDEO_API void PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            VIDEO_API void PrepareSkinMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, float cameraNear, float cameraFar);
 
             /// Render a skin shadow mesh.
             /**

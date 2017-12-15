@@ -12,6 +12,7 @@
 #include <typeindex>
 #include <sstream>
 #include <cstring>
+#include <cstdlib>
 #include <iostream>
 
 #include "../Util/FileSystem.hpp"
@@ -423,7 +424,7 @@ ScriptManager::ScriptManager() {
 
     engine->RegisterObjectType("RigidBody", 0, asOBJ_REF | asOBJ_NOCOUNT);
 
-    engine->RegisterObjectType("SpotLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
+    engine->RegisterObjectType("SpotLight", 0, asOBJ_REF | asOBJ_NOCOUNT); 
     engine->RegisterObjectProperty("SpotLight", "vec3 color", asOFFSET(SpotLight, color));
     engine->RegisterObjectProperty("SpotLight", "float ambientCoefficient", asOFFSET(SpotLight, ambientCoefficient));
     engine->RegisterObjectProperty("SpotLight", "float attenuation", asOFFSET(SpotLight, attenuation));
@@ -498,6 +499,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("vec2 GetCursorXY()", asFUNCTION(GetCursorXY), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsIntersect(Entity@, Entity@)", asFUNCTION(IsIntersect), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool IsVRActive()", asFUNCTION(IsVRActive), asCALL_CDECL);
+    engine->RegisterGlobalFunction("void exit(int)", asFUNCTION(exit), asCALL_CDECL);
 }
 
 ScriptManager::~ScriptManager() {
