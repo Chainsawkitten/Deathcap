@@ -3,7 +3,6 @@ class elevator_backDoorCon {
     Entity @doorWithX;
     Entity @doorWithService;
     bool openDoor;
-	bool openingDoor;
     vec3 tempPosWithX;
     vec3 tempPosWithService;
     float speed;
@@ -35,7 +34,7 @@ class elevator_backDoorCon {
             }
         }
 
-        if(openDoor == false && openingDoor == true) {
+        if(openDoor == false) {
             
             tempPosWithX = doorWithX.GetWorldPosition();
             tempPosWithService = doorWithService.GetWorldPosition();
