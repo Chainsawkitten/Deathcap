@@ -13,6 +13,8 @@ class Propp {
     int slot = -1;
     vec3 startPosition;
     Component::SoundSource @snapSound;
+    quat defaultOrientation;
+    quat holdingOrientation;
 
     Propp(Entity @entity) {
         @hub = Managers();
@@ -24,7 +26,13 @@ class Propp {
         @slot2Location = GetEntityByGUID(1511860862);
         @slot3Location = GetEntityByGUID(1511860874);
         @slot4Location = GetEntityByGUID(1511860887);
+        
         @snapSound = self.GetSoundSource();
+
+        defaultOrientation = self.rotation;
+        self.RotatePitch(radians(-90.0f));
+        holdingOrientation = self.rotation;
+        self.SetLocalOrientation(defaultOrientation);
 
         startPosition = self.position;
 
@@ -35,25 +43,29 @@ class Propp {
         if (!Input(Trigger, rightCtrl) && isPressed) {
             isPressed = false;
             if (hoverSlot > 0) {
-                vec3 tempPos = self.GetWorldPosition();
                 switch (hoverSlot) {
                     case 1: {
                         self.SetParent(slot1Location);
+                        slot1Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 2: {
                         self.SetParent(slot2Location);
+                        slot2Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 3: {
                         self.SetParent(slot3Location);
+                        slot3Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                     case 4: {
                         self.SetParent(slot4Location);
+                        slot4Location.GetChildFromIndex(0).SetEnabled(true, true);
                         break;
                     }
                 }
+                self.SetLocalOrientation(defaultOrientation);
                 SendMessage(mastermind, hoverSlot - 1);
                 slot = hoverSlot - 1;
                 snapSound.Play();
@@ -74,14 +86,18 @@ class Propp {
     void ReturnToStartPosition() {
         self.SetParent(originalParent);
         self.position = startPosition;
+        self.SetLocalOrientation(defaultOrientation);
         slot = -1;
+        rightCtrl.GetChild("RightCtrlModel").SetEnabled(true, true);
     }
 
     void PickupTrigger() {
         if (Input(Trigger, rightCtrl) && rightCtrl.GetChildFromIndex(1) is null && !isPressed) {
             isPressed = true;
             self.position = vec3(0.0f, 0.0f, 0.0f);
+            self.SetLocalOrientation(holdingOrientation);
             self.SetParent(rightCtrl);
+            rightCtrl.GetChild("RightCtrlModel").SetEnabled(false, true);
 
             if (slot >= 0) {
                 // Inform mastermind that we removed from a slot

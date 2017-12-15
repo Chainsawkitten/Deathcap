@@ -610,16 +610,16 @@
 			"name" : "Pick",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : -2.1214680671691895,
-				"z" : 0.0
+				"x" : -4.3390002250671387,
+				"y" : 0.0010000000474974513,
+				"z" : 5.5870003700256348
 			},
 			"rotation" : 
 			{
-				"w" : 0.99432235956192017,
-				"x" : 0.07723613828420639,
-				"y" : 0.017742639407515526,
-				"z" : -0.070995651185512543
+				"w" : -0.61800658702850342,
+				"x" : -0.61663693189620972,
+				"y" : 0.22651189565658569,
+				"z" : -0.43186911940574646
 			},
 			"scale" : 
 			{
@@ -1276,7 +1276,7 @@
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -0.25,
 				"z" : 0.0
 			},
 			"rotation" : 
@@ -1289,7 +1289,7 @@
 			"scale" : 
 			{
 				"x" : 1.0,
-				"y" : 1.0,
+				"y" : 1.2285631895065308,
 				"z" : 1.0
 			},
 			"scene" : false,
@@ -1345,6 +1345,7 @@
 									"y" : 0.45882353186607361,
 									"z" : 0.15686275064945221
 								},
+								"distance" : 15.0,
 								"intensity" : 4.9470000267028809
 							},
 							"children" : null,
@@ -1667,6 +1668,43 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511169296
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/NewAssets/Models/PileOfRocks"
+					},
+					"children" : null,
+					"name" : "Rock4",
+					"position" : 
+					{
+						"x" : 6.7814931869506836,
+						"y" : 8.8747358322143555,
+						"z" : 5.464838981628418
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 5.3260798454284668,
+						"y" : 5.3260798454284668,
+						"z" : 5.3260798454284668
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512996037
 				}
 			],
 			"name" : "PrettyRocks",
@@ -2433,13 +2471,14 @@
 				{
 					"PointLight" : 
 					{
-						"attenuation" : 1.3910000324249268,
+						"attenuation" : 0.20600001513957977,
 						"color" : 
 						{
 							"x" : 0.91764706373214722,
 							"y" : 1.0,
 							"z" : 1.0
 						},
+						"distance" : 2.7999999523162842,
 						"intensity" : 0.11400000751018524
 					},
 					"children" : null,
@@ -2588,9 +2627,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 0.17616431415081024,
-				"y" : 0.17616461217403412,
-				"z" : 0.17616431415081024
+				"x" : 0.14499999582767487,
+				"y" : 0.14499999582767487,
+				"z" : 0.14499999582767487
 			},
 			"scene" : false,
 			"static" : false,
@@ -2606,6 +2645,7 @@
 					"y" : 0.82352942228317261,
 					"z" : 1.0
 				},
+				"distance" : 20.0,
 				"intensity" : 59.211002349853516
 			},
 			"children" : null,
@@ -2643,6 +2683,7 @@
 					"y" : 0.19215686619281769,
 					"z" : 0.0
 				},
+				"distance" : 30.0,
 				"intensity" : 5.5670003890991211
 			},
 			"children" : null,
@@ -2706,6 +2747,106 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1513073450
+		},
+		{
+			"Script" : 
+			{
+				"propertyMap" : 
+				{
+					"monsterSound" : 
+					{
+						"1140850709" : 
+						[
+							0,
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"scriptName" : "Resources/NewAssets/Scripts/StopMonstSound"
+			},
+			"children" : null,
+			"name" : "StopMonsterSound",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513087419
+		},
+		{
+			"Shape" : 
+			{
+				"box" : 
+				{
+					"depth" : 2.0,
+					"height" : 2.0,
+					"width" : 2.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 1,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 7,
+				"triggerFunction" : "void StopMonsterSound()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1513324914,
+				"triggerTargetEntity" : 1513087419,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "StopMonsterSoundTrigger",
+			"position" : 
+			{
+				"x" : 10.681496620178223,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513324914
 		}
 	],
 	"name" : "Root",

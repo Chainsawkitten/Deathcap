@@ -397,6 +397,10 @@ void Editor::ShowMainMenuBar(bool& play) {
             ImGui::MenuItem("Lighting", "", &lighting);
             EditorSettings::GetInstance().SetBool("Lighting", lighting);
 
+            static bool lightVolumes = EditorSettings::GetInstance().GetBool("Light Volumes");
+            ImGui::MenuItem("Light Volumes", "", &lightVolumes);
+            EditorSettings::GetInstance().SetBool("Light Volumes", lightVolumes);
+
             ImGui::EndMenu();
         }
 

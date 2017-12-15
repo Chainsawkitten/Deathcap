@@ -9,6 +9,7 @@
 #include <Engine/Manager/VRManager.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Input/Input.hpp>
+#include <Engine/Util/Input.hpp>
 #include <Utility/Log.hpp>
 #include <thread>
 #include <iostream>
@@ -52,6 +53,7 @@ int main(int argc, char* argv[]) {
     window->Init(false);
     unsigned int numberOfFrames = 1;
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
+    Input()->AssignButton(InputHandler::WINDOWMODE, InputHandler::KEYBOARD, GLFW_KEY_F4);
     
     Managers().StartUp();
 
@@ -61,6 +63,7 @@ int main(int argc, char* argv[]) {
     // Load game settings from ini file.
     GameSettings::GetInstance().Load();
     Managers().renderManager->SetTextureReduction(static_cast<uint16_t>(GameSettings::GetInstance().GetLong("Texture Reduction")));
+    Managers().renderManager->SetShadowMapSize(GameSettings::GetInstance().GetLong("Shadow Map Size"));
     
     // Load world.
     Hymn().world.Load(Hymn().GetPath() + "/" + Hymn().startupScene + ".json");
@@ -76,9 +79,15 @@ int main(int argc, char* argv[]) {
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
     double lastTimeRender = glfwGetTime();
-    while (!window->ShouldClose() && numberOfFrames < 600) {
+    while ((!window->ShouldClose() && !testing) || (testing && (numberOfFrames < 600)) ) {
         double deltaTime = glfwGetTime() - lastTime;
         lastTime = glfwGetTime();
+
+        if (Input()->Triggered(InputHandler::WINDOWMODE)) {
+            bool fullscreen, borderless;
+            window->GetWindowMode(fullscreen, borderless);
+            window->SetWindowMode(!fullscreen, borderless);
+        }
 
         window->Update();
         Hymn().Update(static_cast<float>(deltaTime));

@@ -109,6 +109,7 @@ class MainScript {
             case 0: { // When monster has successfully eaten the player.
                 PrepareForFade();
                 phase = 4; // Lost phase.
+                DropKnife();
                 break;
             }
         }
@@ -157,8 +158,11 @@ class MainScript {
             print("Player won the game.\n");
         else
             print("Player was eaten alive.\n");
-
+      
+        if(!IsVRActive())
+            exit(0);
         knife.position = vec3(30, 30, 30);
+
     }
 
     void StopBeforeMonster() {
@@ -181,13 +185,17 @@ class MainScript {
         particles.SetEnabled(true, false);
         particleActive = true;
         MonsterHealth -= 20.0f;
-        knife.GetSoundSource().Play();
+
         // Only allow killing the monster in the early phases.
         if ((phase == 0 || phase == 1) && knifePickedUp && MonsterHealth <= 0.0f) {
             SendMessage(monster, 1); // Die.
             phase = 2; // Wait for collapse.
+            DropKnife();
         }
+    }
 
-        //Particle Effect
+    void DropKnife() {
+        if (knifePickedUp)
+            knife.position = vec3(30, 30, 30);
     }
 }

@@ -12,7 +12,7 @@ class Player {
     // Called by the engine for each frame.
     void Update(float deltaTime) {
         if (first && IsVRActive() == false)
-            self.position.y = 4.0f;
+            self.position.y = 2.7f;
         first = false;
     }
 }

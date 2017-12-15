@@ -79,6 +79,268 @@
 									"scene" : false,
 									"static" : false,
 									"uid" : 1511871322
+								},
+								{
+									"Script" : 
+									{
+										"scriptName" : "Resources/Music/global_music_script"
+									},
+									"SoundSource" : 
+									{
+										"loop" : false,
+										"sound" : "Resources/Music/snd_horn",
+										"volume" : 1.0
+									},
+									"children" : 
+									[
+										{
+											"SoundSource" : 
+											{
+												"loop" : false,
+												"sound" : "Resources/Music/snd_horn",
+												"volume" : 1.0
+											},
+											"children" : null,
+											"name" : "snd_horn",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"rotation" : 
+											{
+												"w" : 1.0,
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1512735015
+										},
+										{
+											"SoundSource" : 
+											{
+												"loop" : false,
+												"sound" : "Resources/Music/snd_win",
+												"volume" : 1.0
+											},
+											"children" : null,
+											"name" : "snd_win",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"rotation" : 
+											{
+												"w" : 1.0,
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1512735032
+										},
+										{
+											"SoundSource" : 
+											{
+												"loop" : false,
+												"sound" : "Resources/Music/snd_charged",
+												"volume" : 1.0
+											},
+											"children" : null,
+											"name" : "snd_charged",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"rotation" : 
+											{
+												"w" : 1.0,
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1512735049
+										},
+										{
+											"SoundSource" : 
+											{
+												"loop" : false,
+												"sound" : "Resources/Music/snd_gameover",
+												"volume" : 1.0
+											},
+											"children" : null,
+											"name" : "snd_gameover",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"rotation" : 
+											{
+												"w" : 1.0,
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1512735079
+										},
+										{
+											"SoundSource" : 
+											{
+												"loop" : false,
+												"sound" : "Resources/Music/snd_waterphone",
+												"volume" : 1.0
+											},
+											"children" : null,
+											"name" : "snd_waterphone",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"rotation" : 
+											{
+												"w" : 1.0,
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1512735100
+										},
+										{
+											"SoundSource" : 
+											{
+												"loop" : false,
+												"sound" : "Resources/Music/snd_hunted",
+												"volume" : 1.0
+											},
+											"children" : null,
+											"name" : "snd_hunted",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"rotation" : 
+											{
+												"w" : 1.0,
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1512735129
+										},
+										{
+											"SoundSource" : 
+											{
+												"loop" : false,
+												"sound" : "Resources/Music/snd_mystic",
+												"volume" : 1.0
+											},
+											"children" : null,
+											"name" : "snd_mystic",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"rotation" : 
+											{
+												"w" : 1.0,
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"scale" : 
+											{
+												"x" : 1.0,
+												"y" : 1.0,
+												"z" : 1.0
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1512735147
+										}
+									],
+									"name" : "Music",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1512734628
 								}
 							],
 							"name" : "Camera",
@@ -475,6 +737,7 @@
 									"z" : 1.0
 								},
 								"coneAngle" : 30.0,
+								"distance" : 20.0,
 								"intensity" : 5.0,
 								"shadow" : true
 							},
@@ -563,268 +826,6 @@
 					"scene" : false,
 					"static" : false,
 					"uid" : 1511874076
-				},
-				{
-					"Script" : 
-					{
-						"scriptName" : "Resources/Music/global_music_script"
-					},
-					"SoundSource" : 
-					{
-						"loop" : false,
-						"sound" : "Resources/Music/snd_horn",
-						"volume" : 1.0
-					},
-					"children" : 
-					[
-						{
-							"SoundSource" : 
-							{
-								"loop" : false,
-								"sound" : "Resources/Music/snd_horn",
-								"volume" : 1.0
-							},
-							"children" : null,
-							"name" : "snd_horn",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1512735015
-						},
-						{
-							"SoundSource" : 
-							{
-								"loop" : false,
-								"sound" : "Resources/Music/snd_win",
-								"volume" : 1.0
-							},
-							"children" : null,
-							"name" : "snd_win",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1512735032
-						},
-						{
-							"SoundSource" : 
-							{
-								"loop" : false,
-								"sound" : "Resources/Music/snd_charged",
-								"volume" : 1.0
-							},
-							"children" : null,
-							"name" : "snd_charged",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1512735049
-						},
-						{
-							"SoundSource" : 
-							{
-								"loop" : false,
-								"sound" : "Resources/Music/snd_gameover",
-								"volume" : 1.0
-							},
-							"children" : null,
-							"name" : "snd_gameover",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1512735079
-						},
-						{
-							"SoundSource" : 
-							{
-								"loop" : false,
-								"sound" : "Resources/Music/snd_waterphone",
-								"volume" : 1.0
-							},
-							"children" : null,
-							"name" : "snd_waterphone",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1512735100
-						},
-						{
-							"SoundSource" : 
-							{
-								"loop" : false,
-								"sound" : "Resources/Music/snd_hunted",
-								"volume" : 1.0
-							},
-							"children" : null,
-							"name" : "snd_hunted",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1512735129
-						},
-						{
-							"SoundSource" : 
-							{
-								"loop" : false,
-								"sound" : "Resources/Music/snd_mystic",
-								"volume" : 1.0
-							},
-							"children" : null,
-							"name" : "snd_mystic",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"w" : 1.0,
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1512735147
-						}
-					],
-					"name" : "Music",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512734628
 				}
 			],
 			"name" : "Minecart",
