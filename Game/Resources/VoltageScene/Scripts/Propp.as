@@ -39,7 +39,6 @@ class Propp {
         if (!Input(Trigger, rightCtrl) && isPressed) {
             isPressed = false;
             if (hoverSlot > 0) {
-                vec3 tempPos = self.GetWorldPosition();
                 switch (hoverSlot) {
                     case 1: {
                         self.SetParent(slot1Location);
