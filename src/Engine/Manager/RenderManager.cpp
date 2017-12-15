@@ -114,7 +114,8 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
                     // Render main window.
                     { PROFILE("Render main window");
                     { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
-                        const glm::mat4 projectionMatrix = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+                        Lens* lens = camera->GetComponent<Lens>();
+                        const glm::mat4 projectionMatrix = lens->GetProjection(mainWindowRenderSurface->GetSize());
                         const glm::mat4 viewMatrix = glm::inverse(camera->GetModelMatrix());
                         const glm::vec3 position = camera->GetWorldPosition();
                         const glm::vec3 up(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
@@ -122,7 +123,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
                         { VIDEO_ERROR_CHECK("Render world entities");
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting, lightVolumes);
+                            RenderWorldEntities(world, viewMatrix, projectionMatrix, mainWindowRenderSurface, lighting, lens->zNear, lens->zFar, lightVolumes);
                         }
                         }
                         }
@@ -192,7 +193,7 @@ void RenderManager::Render(World& world, DISPLAY targetDisplay, bool soundSource
 
                         { PROFILE("Render world entities");
                         { GPUPROFILE("Render world entities", Video::Query::Type::TIME_ELAPSED);
-                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting, lightVolumes);
+                            RenderWorldEntities(world, eyeViewMatrix, projectionMatrix, hmdRenderSurface, lighting, lens->zNear, lens->zFar, lightVolumes);
                         }
                         }
 
@@ -256,7 +257,7 @@ void RenderManager::UpdateBufferSize() {
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 }
 
-void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, bool lightVolumes) {
+void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, Video::RenderSurface* renderSurface, bool lighting, float cameraNear, float cameraFar, bool lightVolumes) {
     // Render from camera.
     glm::mat4 lightViewMatrix;
     glm::mat4 lightProjection;
@@ -369,7 +370,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         { PROFILE("Static meshes");
         { GPUPROFILE("Static meshes", Video::Query::Type::TIME_ELAPSED);
         { GPUPROFILE("Static meshes", Video::Query::Type::SAMPLES_PASSED);
-            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
+            renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix, cameraNear, cameraFar);
             for (Mesh* mesh : meshComponents) {
                 Entity* entity = mesh->entity;
                 if (entity->IsKilled() || !entity->IsEnabled())
@@ -391,7 +392,7 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         { PROFILE("Skin meshes");
         { GPUPROFILE("Skin meshes", Video::Query::Type::TIME_ELAPSED);
         { GPUPROFILE("Skin meshes", Video::Query::Type::SAMPLES_PASSED);
-            renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix);
+            renderer->PrepareSkinMeshRendering(viewMatrix, projectionMatrix, cameraNear, cameraFar);
             for (AnimationController* controller : controllerComponents) {
                 Entity* entity = controller->entity;
                 if (entity->IsKilled() || !entity->IsEnabled())
@@ -719,7 +720,6 @@ uint16_t RenderManager::GetTextureReduction() const {
 void RenderManager::LightWorld(const glm::mat4& viewMatrix, const glm::mat4& viewProjectionMatrix, bool lightVolumes) {
     std::vector<Video::Light> lights;
 
-    float cutOff;
     Video::AxisAlignedBoundingBox aabb(glm::vec3(2.f, 2.f, 2.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
     // Add all directional lights.
@@ -740,9 +740,6 @@ void RenderManager::LightWorld(const glm::mat4& viewMatrix, const glm::mat4& vie
         light.distance = 0.f;
         lights.push_back(light);
     }
-    
-    // At which lights should be cut off (no longer contribute).
-    cutOff = 0.01f;
 
     // Add all spot lights.
     for (Component::SpotLight* spotLight : spotLights.GetAll()) {

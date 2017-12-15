@@ -1230,7 +1230,7 @@
 			{
 				"x" : 1.0,
 				"y" : 1.0,
-				"z" : 1.0
+				"z" : 1.1071333885192871
 			},
 			"scene" : false,
 			"static" : false,
@@ -1577,7 +1577,7 @@
 			"position" : 
 			{
 				"x" : 3.0337355136871338,
-				"y" : -10.62399959564209,
+				"y" : -10.876891136169434,
 				"z" : 0.15000000596046448
 			},
 			"rotation" : 
@@ -4056,8 +4056,8 @@
 			"name" : "PuzzleBoardPivot",
 			"position" : 
 			{
-				"x" : 1.5328683853149414,
-				"y" : -9.0889110565185547,
+				"x" : 1.348452091217041,
+				"y" : -9.6754302978515625,
 				"z" : 0.15000000596046448
 			},
 			"rotation" : 
@@ -5170,16 +5170,16 @@
 			"name" : "elevator_light",
 			"position" : 
 			{
-				"x" : -0.44806817173957825,
-				"y" : -8.1950654983520508,
+				"x" : -0.11027657985687256,
+				"y" : -8.2445974349975586,
 				"z" : 0.17422088980674744
 			},
 			"rotation" : 
 			{
-				"w" : 0.21020497381687164,
-				"x" : 0.53898561000823975,
-				"y" : -0.40171641111373901,
-				"z" : -0.70987868309020996
+				"w" : 0.70399713516235352,
+				"x" : -0.14644117653369904,
+				"y" : -0.68037635087966919,
+				"z" : -0.14152778685092926
 			},
 			"scale" : 
 			{
@@ -5190,6 +5190,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512380541
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageCavein"
+			},
+			"children" : null,
+			"name" : "RocksInRoof",
+			"position" : 
+			{
+				"x" : -52.782367706298828,
+				"y" : 0.82577824592590332,
+				"z" : -12.297144889831543
+			},
+			"rotation" : 
+			{
+				"w" : 0.96072179079055786,
+				"x" : 0.27751368284225464,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512999060
 		}
 	],
 	"name" : "Root",

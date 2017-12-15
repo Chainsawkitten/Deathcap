@@ -1679,6 +1679,43 @@
 			"uid" : 1512122749
 		},
 		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.25800001621246338,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.80392158031463623,
+					"z" : 0.45882353186607361
+				},
+				"intensity" : 0.16100001335144043
+			},
+			"children" : null,
+			"name" : "monsterLights",
+			"position" : 
+			{
+				"x" : -36.609466552734375,
+				"y" : 2.3262419700622559,
+				"z" : 9.9789276123046875
+			},
+			"rotation" : 
+			{
+				"w" : -0.0047701653093099594,
+				"x" : -0.20168587565422058,
+				"y" : 0.95417314767837524,
+				"z" : 0.22101661562919617
+			},
+			"scale" : 
+			{
+				"x" : 0.99999696016311646,
+				"y" : 0.99999821186065674,
+				"z" : 0.00014760944759473205
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512123296
+		},
+		{
 			"Material" : 
 			{
 				"albedo" : "Resources/Opening Scene/Lever/Textures/lever_albedo",
@@ -1845,6 +1882,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512741289
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/VoltageScene/Models/VoltageCavein"
+			},
+			"children" : null,
+			"name" : "CaveIn",
+			"position" : 
+			{
+				"x" : -57.539497375488281,
+				"y" : 0.62732791900634766,
+				"z" : -4.7222623825073242
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.57646775245666504,
+				"y" : 1.1764230728149414,
+				"z" : 0.68999999761581421
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512995055
 		},
 		{
 			"Material" : 
@@ -2158,6 +2232,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1513079130
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+				"metallic" : "",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/NewAssets/Models/rockscaled"
+			},
+			"children" : null,
+			"name" : "RockByMonster",
+			"position" : 
+			{
+				"x" : -38.894355773925781,
+				"y" : 2.8040130138397217,
+				"z" : 6.5124273300170898
+			},
+			"rotation" : 
+			{
+				"w" : 0.58788591623306274,
+				"x" : -0.67013192176818848,
+				"y" : 0.30350169539451599,
+				"z" : 0.33645191788673401
+			},
+			"scale" : 
+			{
+				"x" : 15.0,
+				"y" : 15.0,
+				"z" : 15.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1513245692
 		}
 	],
 	"name" : "Root",

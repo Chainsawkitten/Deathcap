@@ -41,6 +41,8 @@ uniform sampler2D mapRoughness;
 uniform sampler2D tDepth;
 uniform sampler2D mapShadow;
 // Image processing uniforms.
+uniform float cameraNear;
+uniform float cameraFar;
 uniform float gamma;
 uniform bool fogApply;
 uniform float fogDensity;
@@ -266,6 +268,13 @@ void main() {
             color.x = clamp(color.x, red, 1.0);
         }
     }
+
+    float linDepth = (2 * cameraNear) / (cameraFar + cameraNear - gl_FragCoord.z * (cameraFar - cameraNear));
+    float depthTwo = linDepth * linDepth;
+    float depthFour = depthTwo * depthTwo;
+    float depthSixteen = depthFour * depthFour;
+    color *= (1.0f - depthSixteen);
+
     // Final color.
     finalColor = color;
 
