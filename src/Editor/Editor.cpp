@@ -37,11 +37,11 @@
 ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
 Editor::Editor() {
     // Create Hymns directory.
-    FileSystem::CreateDirectory((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns").c_str());
+    FileSystem::CreateDirectory((FileSystem::DataPath("Deathcap Engine") + FileSystem::DELIMITER + "Hymns").c_str());
 
     // Load theme.
     std::string theme = EditorSettings::GetInstance().GetString("Theme");
-    if (FileSystem::FileExists((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + theme + ".json").c_str()))
+    if (FileSystem::FileExists((FileSystem::DataPath("Deathcap Engine") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + theme + ".json").c_str()))
         ImGui::LoadTheme(theme.c_str());
     else
         ImGui::LoadDefaultTheme();
@@ -793,7 +793,7 @@ void Editor::NewHymnClosed(const std::string& hymn) {
         Hymn().Clear();
         Resources().Clear();
         Hymn().world.CreateRoot();
-        Hymn().SetPath(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
+        Hymn().SetPath(FileSystem::DataPath("Deathcap Engine") + FileSystem::DELIMITER + "Hymns" + FileSystem::DELIMITER + hymn);
         resourceView.SetVisible(true);
 
         // Default scene.
@@ -823,7 +823,7 @@ void Editor::OpenHymn() {
 void Editor::OpenHymnClosed(const std::string& hymn) {
     // Open hymn.
     if (!hymn.empty()) {
-        std::string path = FileSystem::DataPath("Hymn to Beauty") + "/Hymns/" + hymn;
+        std::string path = FileSystem::DataPath("Deathcap Engine") + "/Hymns/" + hymn;
         if (!FileSystem::FileExists((path + "/Hymn.json").c_str()))
             Log() << "Hymn does not exist: " << path << "\n";
         else {

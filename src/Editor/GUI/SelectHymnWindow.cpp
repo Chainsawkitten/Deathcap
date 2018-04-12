@@ -11,7 +11,7 @@ SelectHymnWindow::SelectHymnWindow(): title(nullptr), openButtonName(nullptr) {
 }
 
 void SelectHymnWindow::Scan() {
-    files = FileSystem::DirectoryContents(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns", FileSystem::DIRECTORY);
+    files = FileSystem::DirectoryContents(FileSystem::DataPath("Deathcap Engine") + FileSystem::DELIMITER + "Hymns", FileSystem::DIRECTORY);
 }
 
 void SelectHymnWindow::Show() {

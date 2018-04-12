@@ -7,7 +7,7 @@
 using namespace GUI;
 using namespace std;
 
-FileSelector::FileSelector() : path("Hymn to Beauty") {
+FileSelector::FileSelector() : path("Deathcap Engine") {
 
 }
 

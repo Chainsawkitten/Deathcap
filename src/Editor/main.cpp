@@ -32,7 +32,7 @@ int main() {
 
     // Enable logging if requested.
     if (EditorSettings::GetInstance().GetBool("Logging")){
-        FILE* file = freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
+        FILE* file = freopen(FileSystem::DataPath("Deathcap Engine", "log.txt").c_str(), "a", stderr);
         if (file == nullptr)
             Log() << "Could not open logging file!\n";
     }
@@ -42,7 +42,7 @@ int main() {
     if (!glfwInit())
         return 1;
     
-    MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Hymn to Beauty", EditorSettings::GetInstance().GetBool("Debug Context"));
+    MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Deathcap Engine", EditorSettings::GetInstance().GetBool("Debug Context"));
 
     glewInit();
     window->Init(false);

@@ -16,7 +16,7 @@ SettingsWindow::SettingsWindow() {
     themes.push_back("Default");
     
     // Fetch a list of all themes (JSON files in Themes directory).
-    std::vector<std::string> themeFiles = FileSystem::DirectoryContents(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Themes", FileSystem::FILE);
+    std::vector<std::string> themeFiles = FileSystem::DirectoryContents(FileSystem::DataPath("Deathcap Engine") + FileSystem::DELIMITER + "Themes", FileSystem::FILE);
     for (std::size_t i=0; i < themeFiles.size(); ++i) {
         if (FileSystem::GetExtension(themeFiles[i]) == "json") {
             std::string name = themeFiles[i].substr(0, themeFiles[i].find_last_of("."));
