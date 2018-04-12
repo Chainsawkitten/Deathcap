@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-project(HymnToBeauty)
+project(Deathcap)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 if(UNIX OR MINGW)
-    option(HTB_DEBUG_INFO "Build Hymn to Beauty with DWARF debug data." OFF)
-    if(HTB_DEBUG_INFO)
+    option(DEATHCAP_DEBUG_INFO "Build Deathcap with DWARF debug data." OFF)
+    if(DEATHCAP_DEBUG_INFO)
         set(DEBUG_DATA "-gdwarf-2")
     else()
         set(DEBUG_DATA "-s")
@@ -39,9 +39,9 @@ function(create_directory_groups)
 endfunction()
 
 # Doxygen documentation
-option(HymnToBeautyBuildDocs "Build the doxygen documentation" OFF)
+option(DeathcapBuildDocs "Build the doxygen documentation" OFF)
 find_package(Doxygen)
-if(DOXYGEN_FOUND AND HymnToBeautyBuildDocs)
+if(DOXYGEN_FOUND AND DeathcapBuildDocs)
     add_custom_target(EngineDoc ALL
         ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/EngineDoxyfile
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -59,7 +59,7 @@ if(DOXYGEN_FOUND AND HymnToBeautyBuildDocs)
     )
 endif()
 
-set(CMAKE_MODULE_PATH "${HymnToBeauty_SOURCE_DIR}/CMake/Packages")
+set(CMAKE_MODULE_PATH "${Deathcap_SOURCE_DIR}/CMake/Packages")
 
 # VRAM measurements
 if(WIN32)

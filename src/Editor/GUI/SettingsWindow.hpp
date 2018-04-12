@@ -4,7 +4,7 @@
 #include <string>
 
 namespace GUI {
-    /// Used to edit Hymn to Beauty settings.
+    /// Used to edit editor settings.
     class SettingsWindow {
         public:
             /// Create new settings window.

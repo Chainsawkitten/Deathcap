@@ -4,7 +4,7 @@
 
 EditorSettings::EditorSettings() {
     ini.SetUnicode(true);
-    ini.LoadFile(FileSystem::DataPath("Hymn to Beauty", "Settings.ini").c_str());
+    ini.LoadFile(FileSystem::DataPath("Deathcap Engine", "Settings.ini").c_str());
     
     AddBoolSetting("Logging", "Debug", "Logging", false);
     AddBoolSetting("Debug Context", "Debug", "Debug Context", false);
@@ -37,5 +37,5 @@ EditorSettings& EditorSettings::GetInstance() {
 }
 
 void EditorSettings::Save() {
-    ini.SaveFile(FileSystem::DataPath("Hymn to Beauty", "Settings.ini").c_str());
+    ini.SaveFile(FileSystem::DataPath("Deathcap Engine", "Settings.ini").c_str());
 }

@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
     unsigned int maxVramUsed = 0;
 
 
-    MainWindow* window = new MainWindow(1920, 1080, true, false, "Hymn to Beauty", false);
+    MainWindow* window = new MainWindow(1920, 1080, true, false, "Deathcap", false);
     glewInit();
     window->Init(false);
     unsigned int numberOfFrames = 1;

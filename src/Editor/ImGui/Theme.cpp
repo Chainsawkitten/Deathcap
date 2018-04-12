@@ -9,7 +9,7 @@
 namespace ImGui {
     void SaveTheme(const char* name) {
         // Make sure Themes directory exists.
-        FileSystem::CreateDirectory((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Themes").c_str());
+        FileSystem::CreateDirectory((FileSystem::DataPath("Deathcap Engine") + FileSystem::DELIMITER + "Themes").c_str());
         
         // Create JSON representation of theme.
         Json::Value root;
@@ -73,7 +73,7 @@ namespace ImGui {
         root["Color: ModalWindowDarkening"] = Json::SaveImVec4(style.Colors[ImGuiCol_ModalWindowDarkening]);
         
         // Save to file.
-        std::ofstream file(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + name + ".json");
+        std::ofstream file(FileSystem::DataPath("Deathcap Engine") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + name + ".json");
         file << root;
         file.close();
     }
@@ -81,7 +81,7 @@ namespace ImGui {
     void LoadTheme(const char* name) {
         // Load Json document from file.
         Json::Value root;
-        std::ifstream file(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + name + ".json");
+        std::ifstream file(FileSystem::DataPath("Deathcap Engine") + FileSystem::DELIMITER + "Themes" + FileSystem::DELIMITER + name + ".json");
         file >> root;
         file.close();
         
