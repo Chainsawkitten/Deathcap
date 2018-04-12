@@ -1,19 +1,21 @@
-# Large Game Project
-[![Travis CI Build Status](https://travis-ci.org/Chainsawkitten/LargeGameProjectEngine.svg?branch=master)](https://travis-ci.org/Chainsawkitten/LargeGameProjectEngine)
-[![AppVeyor CI Build Status](https://ci.appveyor.com/api/projects/status/bmewjuam0j9h7qq9?svg=true)](https://ci.appveyor.com/project/Chainsawkitten/largegameprojectengine)
+# Deathcap
+[![Travis CI Build Status](https://travis-ci.org/Chainsawkitten/Deathcap.svg?branch=master)](https://travis-ci.org/Chainsawkitten/Deathcap)
+[![AppVeyor CI Build Status](https://ci.appveyor.com/api/projects/status/92lhke7fq1u5h58k?svg=true)](https://ci.appveyor.com/project/Chainsawkitten/deathcap)
 
-C++/OpenGL 3D Engine. See the [wiki](https://github.com/Chainsawkitten/LargeGameProjectEngine/wiki) for usage.
+Deathcap is a VR horror experience made for the Large Game Project course at BTH 2017. Ride through the abandoned mine and solve the puzzles before it gets to you.
+
+Developed in C++/OpenGL. See the [wiki](https://github.com/Chainsawkitten/Deathcap/wiki) for information about the engine.
 
 ## Building
 1. Clone the GitHub repository.
 2. Run `git submodule update --init`
-3. Use CMake to generate make/project files for Hymn to Beauty.
-4. Build Hymn to Beauty.
+3. Use CMake to generate make/project files for Deathcap.
+4. Build Deathcap.
 
 ## Setting up game project
 On Windows:
 1. Open command line.
-2. Go to `%appdata%/Hymn to Beauty/Hymns`
+2. Go to `%appdata%/Deathcap Engine/Hymns`
 3. Type `mklink /J Game <Path to repository folder>/Game`
 
 ## Measuring VRAM
@@ -22,7 +24,7 @@ Measuring VRAM requires building with Visual Studio and having the Windows SDK i
 ## License
 Released under the [MIT license](LICENSE).
 
-Hymn to Beauty uses several third party libraries with their own licenses:
+Deathcap uses several third party libraries with their own licenses:
 
 | Library  | License |
 | --- | --- |
